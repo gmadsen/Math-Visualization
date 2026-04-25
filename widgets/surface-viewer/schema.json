@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/surface-viewer/schema.json",
+  "title": "surface-viewer widget params",
+  "description": "Shared widget module for the 3d-viewer family (6+ widgets): parametric surfaces, polyhedra, and trajectories rendered as rotatable SVG via the page-global `make3DDraggable` + `proj3` helpers. Markup is a header + single `.row` of controls + SVG host + readout; the draw logic (integrating ODEs, computing curvature, wireframing surfaces) is widget-specific and carried verbatim as the `bodyScript` ARTIFACT. A portable React/Three.js consumer would discard `bodyScript` and re-implement each widget's math in its own renderer (e.g. via react-three-fiber), reading structural params (`controls`, `svgId`, `initialYaw`, `initialPitch`) plus eventually per-widget `draw` descriptors once they are lifted out of the artifact string. The `oneOf` dispatches between `standard` (the 5 differential-geometry widgets all share the same markup shape: hd / row of controls / svg / readout) and `bare` (idiosyncratic markup such as `w-su2path`'s nested SVG + matrix readout layout — carried as a `bodyMarkup` artifact).",
+  "meta": {
+    "family": "surface-viewer",
+    "dimension": "3d",
+    "gesture": "drag",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/standard" },
+    { "$ref": "#/$defs/bare" }
+  ],
+  "$defs": {
+    "slider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "label", "min", "max", "step", "init"],
+      "properties": {
+        "kind":  { "const": "slider" },
+        "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label": { "type": "string", "description": "Inner HTML of the <label>. When `labelFor` is true (default) the label is rendered with for=<id>; when false the label has no for attribute (select-style pattern)." },
+        "labelFor": { "type": "boolean", "default": true },
+        "min":   { "type": "number" },
+        "max":   { "type": "number" },
+        "step":  { "type": "number" },
+        "init":  { "type": "number" }
+      }
+    },
+    "select": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "label", "options"],
+      "properties": {
+        "kind":    { "const": "select" },
+        "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label":   { "type": "string", "description": "Inner HTML of the <label>. By convention no `for=` is emitted for selects in this family (matches on-disk bytes)." },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "label"],
+            "properties": {
+              "value":    { "type": "string" },
+              "label":    { "type": "string" },
+              "selected": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "standard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interaction", "widgetId", "svgId",
+        "title", "viewBox", "svgWidth", "svgStyle",
+        "outputId", "controls", "bodyScript"
+      ],
+      "properties": {
+        "interaction": { "const": "standard" },
+        "widgetId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "svgId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title":       { "type": "string" },
+        "hint":        { "type": "string", "description": "Optional .hint inner-HTML emitted in the header next to the title." },
+        "viewBox":     { "type": "string", "description": "SVG viewBox attribute value, e.g. '-240 -180 480 360'." },
+        "svgWidth":    { "type": ["string", "number"], "description": "SVG `width` attribute. Typically '100%' for 3d viewers." },
+        "svgStyle":    { "type": "string", "description": "SVG inline `style` attribute, e.g. 'max-width:640px;height:auto'." },
+        "svgTitle":    { "type": "string", "description": "<title> child of <svg>. Defaults to `title` when omitted." },
+        "outputId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "readoutInitial": { "type": "string", "description": "Initial inner HTML of the readout <div>. Defaults to '' (empty, matching the 3d-viewer convention — the draw() fills it on mount)." },
+        "controls": {
+          "type": "array",
+          "description": "Controls rendered inside a single `.row` div above the SVG. Order is significant. Mix of sliders and selects.",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/$defs/slider" },
+              { "$ref": "#/$defs/select" }
+            ]
+          }
+        },
+        "initialYaw":    { "type": "number", "description": "Portable param consumed by make3DDraggable's opts.yaw. The bodyScript artifact still encodes this numerically; portable consumers read it from here." },
+        "initialPitch":  { "type": "number", "description": "Portable param consumed by make3DDraggable's opts.pitch." },
+        "meshDensity": {
+          "type": "object",
+          "description": "Portable param: surface-wireframe densities. `dragging` is used while the user is rotating (decimated for FPS); `static` is used otherwise.",
+          "additionalProperties": false,
+          "properties": {
+            "dragging": { "type": "integer", "minimum": 4 },
+            "static":   { "type": "integer", "minimum": 4 }
+          }
+        },
+        "sectionComment": {
+          "type": "string",
+          "description": "ARTIFACT. Raw text between the leading <script> tag and the IIFE opener, emitted as `/* <sectionComment> */`. Preserves the source's /* ============ §N … ============ */ banners."
+        },
+        "bodyScript": {
+          "type": "string",
+          "x-artifact": "per-widget 3D draw logic (integrators, ODE solvers, wireframe formulas) is bespoke; portable consumers implement their own in react-three-fiber or equivalent.",
+          "description": "ARTIFACT. Verbatim JS statements inside `(function(){\\n…\\n})();`. Reads controls, calls `make3DDraggable(svg, draw, { yaw, pitch })`, projects via page-global `proj3`, builds SVG paths/polygons/text, and writes the readout."
+        }
+      }
+    },
+    "bare": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interaction", "widgetId", "bodyMarkup", "bodyScript"],
+      "properties": {
+        "interaction": { "const": "bare" },
+        "widgetId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "bodyMarkup": {
+          "type": "string",
+          "x-artifact": "widget body markup is too idiosyncratic to generalize (e.g. w-su2path's nested SVG + matrix readout layout); a portable consumer rebuilds its own layout.",
+          "description": "ARTIFACT. Full inner HTML of the `<div class=\"widget\" id=\"...\">` wrapper (everything between the opening and closing tags, verbatim)."
+        },
+        "sectionComment": { "type": "string" },
+        "bodyScript": {
+          "type": "string",
+          "x-artifact": "per-widget 3D draw logic",
+          "description": "ARTIFACT. Verbatim IIFE body. Same rationale as standard.bodyScript."
+        }
+      }
+    }
+  }
+}

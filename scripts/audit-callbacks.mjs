@@ -22,53 +22,39 @@
 // Re-runnable: safe to run repeatedly. Treats the union of existing
 // <a href="other.html#anchor"> inside the section as covered.
 //
-// Zero dependencies.
+// Consumes the shared content model (scripts/lib/content-model.mjs) to avoid
+// re-parsing concept JSON and HTML pages. Section-element lookup uses the
+// pre-parsed DOM (sections map / getElementById); host-range offsets are
+// derived from element `.range` metadata so the --fix writer can still do
+// byte-identical raw-HTML string splicing.
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
+import { readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { parse as parseHtml } from 'node-html-parser';
+import { escapeRe } from './lib/audit-utils.mjs';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
 
-// ----- Load concept graph -----
-const indexPath = join(conceptsDir, 'index.json');
-const topics = JSON.parse(readFileSync(indexPath, 'utf8')).topics;
-
-// conceptId -> { topic, title, anchor }
-const ownerOf = new Map();
-// topic -> { page, concepts: [full entry] }
-const topicData = new Map();
-
-for (const topic of topics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p)) continue;
-  const d = JSON.parse(readFileSync(p, 'utf8'));
-  topicData.set(topic, d);
-  for (const c of d.concepts || []) {
-    if (ownerOf.has(c.id)) continue; // duplicates flagged elsewhere
-    ownerOf.set(c.id, { topic, title: c.title, anchor: c.anchor, page: d.page || `${topic}.html` });
-  }
-}
+const model = await loadContentModel();
+const { repoRoot, topics, concepts, ownerOf } = model;
 
 // ----- Collect cross-topic edges per (host topic, host section anchor) -----
 // key = `${hostTopic}::${hostAnchor}` -> Array<{ page, anchor, title, id }>
 const needed = new Map();
 let totalEdges = 0;
-for (const [hostTopic, d] of topicData) {
-  for (const c of d.concepts || []) {
-    if (!c.anchor) continue;
-    const key = `${hostTopic}::${c.anchor}`;
-    for (const p of c.prereqs || []) {
+for (const topic of topics.values()) {
+  for (const conceptId of topic.conceptIds) {
+    const c = concepts.get(conceptId);
+    if (!c || !c.anchor) continue;
+    if (c.topic !== topic.id) continue; // first-writer-wins — skip overrides
+    const key = `${topic.id}::${c.anchor}`;
+    for (const p of c.prereqs) {
       const owner = ownerOf.get(p);
       if (!owner) continue; // broken prereqs are validator's job
-      if (owner.topic === hostTopic) continue; // same-page, skip
+      if (owner.topic === topic.id) continue; // same-page, skip
       if (!needed.has(key)) needed.set(key, []);
-      // dedupe by anchor+page
       const arr = needed.get(key);
       if (!arr.some((e) => e.page === owner.page && e.anchor === owner.anchor)) {
         arr.push({
@@ -93,54 +79,115 @@ const missingReport = [];
 let insertedCount = 0;
 let existingCount = 0;
 
-function escapeRe(s) {
-  return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-}
-
 // Find the "block" owned by a concept anchor. The anchor can be either a top-level
 // <section id="anchor"> or a sub-heading like <h3 id="anchor"> inside a section.
 //
-// Returns { innerStart, innerEnd, body }:
+// Returns { innerStart, innerEnd, body }, shape-compatible with the prior
+// regex-based implementation:
 //   innerStart = offset just after the element carrying id="anchor"
-//   innerEnd   = offset of the next id="..." attribute *after* this anchor,
-//                or the enclosing </section>, whichever comes first.
-//   body       = slice between the two.
+//   innerEnd   = offset of the next heading-with-id (<h2|h3|h4 id=...>) or
+//                nested <section id=...> after this anchor, or the enclosing
+//                </section>, whichever comes first.
+//   body       = raw-HTML slice between the two.
 //
-// This gives us a stable "section" even when a topic page splits a <section>
-// into multiple sub-concepts via <h3 id="...">.
-function findSection(html, anchor) {
-  const idRe = new RegExp(`<([a-zA-Z][a-zA-Z0-9]*)([^>]*\\sid=["']${escapeRe(anchor)}["'][^>]*)>`, 'i');
-  const m = idRe.exec(html);
-  if (!m) return null;
-  const innerStart = m.index + m[0].length;
+// Uses the pre-parsed DOM from loadContentModel() to locate the anchor
+// element and the next boundary element, then derives byte offsets from
+// element `.range` metadata so downstream --fix splicing stays byte-exact.
+function findSection(topic, rawHtml, anchor) {
+  // 1. Resolve the element that carries id="anchor".
+  let anchorEl = topic.sections.get(anchor) || null;
+  if (!anchorEl && topic.html && typeof topic.html.getElementById === 'function') {
+    anchorEl = topic.html.getElementById(anchor);
+  }
+  if (!anchorEl || !anchorEl.range) return null;
 
-  // Find the next concept-boundary element. We only treat <section id=> and
-  // heading-level id's (<h2 id=>, <h3 id=>, <h4 id=>) as boundaries — widget
-  // IDs on <div id="w-..."> or form <input id=> etc. must not truncate us.
-  const nextBoundaryRe = /<(?:section|h2|h3|h4)\b[^>]*\sid=["'][^"']+["']/gi;
-  nextBoundaryRe.lastIndex = innerStart;
-  const nextBoundaryM = nextBoundaryRe.exec(html);
+  // 2. innerStart = position just after the element's opening tag.
+  const [elStart] = anchorEl.range;
+  const gt = rawHtml.indexOf('>', elStart);
+  if (gt < 0) return null;
+  const innerStart = gt + 1;
 
-  // Find the next </section> after this one.
-  const nextCloseRe = /<\/section>/gi;
-  nextCloseRe.lastIndex = innerStart;
-  const nextCloseM = nextCloseRe.exec(html);
+  // 3. Find the next boundary element.
+  //    - If anchorEl is <section>: the next concept-boundary is a nested
+  //      <h2|h3|h4 id=...> or <section id=...> inside it (walk descendants).
+  //    - If anchorEl is <h2|h3|h4>: walk its *following siblings* inside the
+  //      same parent <section>, looking for the next heading-with-id or
+  //      nested section-with-id.
+  //    Fallback for both: end of enclosing <section> (just before </section>).
+  const tag = (anchorEl.rawTagName || '').toLowerCase();
+  let boundaryStart = -1;
+
+  if (tag === 'section') {
+    // First descendant heading-with-id or nested section-with-id.
+    const cand = anchorEl.querySelector('h2[id],h3[id],h4[id],section[id]');
+    if (cand && cand !== anchorEl && cand.range) {
+      boundaryStart = cand.range[0];
+    }
+  } else {
+    // Heading anchor: scan following siblings for a concept-boundary.
+    const parent = anchorEl.parentNode;
+    if (parent && Array.isArray(parent.childNodes)) {
+      const kids = parent.childNodes;
+      const idx = kids.indexOf(anchorEl);
+      for (let i = idx + 1; i < kids.length; i++) {
+        const n = kids[i];
+        if (!n || n.nodeType !== 1) continue;
+        const t = (n.rawTagName || '').toLowerCase();
+        if ((t === 'h2' || t === 'h3' || t === 'h4' || t === 'section') && n.id && n.range) {
+          boundaryStart = n.range[0];
+          break;
+        }
+      }
+    }
+  }
+
+  // 4. Close fallback: end of enclosing <section> (minus </section>).
+  let sectionEnd = -1;
+  const enclosing = tag === 'section' ? anchorEl : findEnclosingSection(anchorEl);
+  if (enclosing && enclosing.range) {
+    const [, rEnd] = enclosing.range;
+    const closeTag = `</${(enclosing.rawTagName || 'section').toLowerCase()}>`;
+    const closeStart = rawHtml.lastIndexOf(closeTag, rEnd);
+    if (closeStart >= 0 && closeStart >= innerStart) sectionEnd = closeStart;
+  }
 
   let innerEnd;
-  if (nextBoundaryM && (!nextCloseM || nextBoundaryM.index < nextCloseM.index)) {
-    innerEnd = nextBoundaryM.index;
-  } else if (nextCloseM) {
-    innerEnd = nextCloseM.index;
+  if (boundaryStart >= 0 && (sectionEnd < 0 || boundaryStart < sectionEnd)) {
+    innerEnd = boundaryStart;
+  } else if (sectionEnd >= 0) {
+    innerEnd = sectionEnd;
   } else {
-    // Fallback: end of document.
-    innerEnd = html.length;
+    innerEnd = rawHtml.length;
   }
 
   return {
     innerStart,
     innerEnd,
-    body: html.slice(innerStart, innerEnd),
+    body: rawHtml.slice(innerStart, innerEnd),
   };
+}
+
+function findEnclosingSection(el) {
+  let cur = el && el.parentNode;
+  while (cur) {
+    if ((cur.rawTagName || '').toLowerCase() === 'section') return cur;
+    cur = cur.parentNode;
+  }
+  return null;
+}
+
+// Build an ad-hoc topic-like view ({ html, sections }) from a raw HTML string.
+// Used after --fix mutates a page so findSection() gets fresh element offsets
+// aligned with the new rawHtml.
+function reparseTopicView(rawHtml) {
+  const root = parseHtml(rawHtml, {
+    blockTextElements: { script: true, noscript: true, style: true, pre: true },
+  });
+  const sections = new Map();
+  for (const sec of root.querySelectorAll('section[id]')) {
+    if (sec.id) sections.set(sec.id, sec);
+  }
+  return { html: root, sections };
 }
 
 function buildCallbackHtml(links) {
@@ -183,8 +230,8 @@ function ensureCallbackCss(html) {
 // Insert callback block inside a section's body at the best spot:
 //   - if a <div class="quiz" data-concept="..."> is present, insert BEFORE it
 //   - else, insert right before </section>
-function insertCallback(html, anchor, links) {
-  const sec = findSection(html, anchor);
+function insertCallback(topic, html, anchor, links) {
+  const sec = findSection(topic, html, anchor);
   if (!sec) return { html, note: `section #${anchor} not found` };
   const body = sec.body;
 
@@ -236,109 +283,109 @@ function insertCallback(html, anchor, links) {
   return { html: newHtml, note: `inserted ${missingLinks.length} link(s)` };
 }
 
+// Compute missing links for each anchor. Returns:
+//   { anchor, id, missing: string[] | null }
+//   `missing` = null when the section element itself can't be found.
+function computeMissing(view, html, hostKeys) {
+  const results = [];
+  for (const { anchor, id, links } of hostKeys) {
+    const sec = findSection(view, html, anchor);
+    if (!sec) { results.push({ anchor, id, missing: null, links }); continue; }
+    const presentHrefs = new Set();
+    for (const hm of sec.body.matchAll(/<a[^>]+href=["']([^"']+)["']/g)) {
+      presentHrefs.add(hm[1]);
+    }
+    const missing = links.filter((l) => {
+      const t1 = `./${l.page}#${l.anchor}`;
+      const t2 = `${l.page}#${l.anchor}`;
+      return !presentHrefs.has(t1) && !presentHrefs.has(t2);
+    });
+    results.push({ anchor, id, missing, links });
+  }
+  return results;
+}
+
 // ----- Main -----
 let pagesTouched = 0;
 let hadMissing = false;
 const pagesWithMissing = new Set();
 
-for (const [hostTopic, d] of topicData) {
-  const page = d.page || `${hostTopic}.html`;
+for (const topic of topics.values()) {
+  const page = topic.page;
   const pagePath = join(repoRoot, page);
-  if (!existsSync(pagePath)) {
+  let html;
+  try {
+    html = readFileSync(pagePath, 'utf8');
+  } catch {
     missingReport.push(`${page}: file missing`);
     continue;
   }
-  let html = readFileSync(pagePath, 'utf8');
   const origHtml = html;
 
-  // CSS injection is idempotent; do it preemptively if we will insert at least one block.
-  const hostKeys = (d.concepts || [])
-    .filter((c) => c.anchor && needed.has(`${hostTopic}::${c.anchor}`))
-    .map((c) => ({ anchor: c.anchor, id: c.id, links: needed.get(`${hostTopic}::${c.anchor}`) }));
+  // Collect host keys with cross-topic edges for this topic.
+  const hostKeys = [];
+  for (const conceptId of topic.conceptIds) {
+    const c = concepts.get(conceptId);
+    if (!c || !c.anchor || c.topic !== topic.id) continue;
+    const key = `${topic.id}::${c.anchor}`;
+    if (needed.has(key)) {
+      hostKeys.push({ anchor: c.anchor, id: c.id, links: needed.get(key) });
+    }
+  }
 
+  // Initial scan against the un-mutated page.
+  const scan = computeMissing(topic, html, hostKeys);
   const localMissing = [];
-  for (const { anchor, id, links } of hostKeys) {
-    const sec = findSection(html, anchor);
-    if (!sec) {
+  for (const { anchor, id, missing, links } of scan) {
+    if (missing === null) {
       localMissing.push(`  section #${anchor} (concept "${id}") not found`);
-      continue;
-    }
-    // What is currently missing from this section?
-    const presentHrefs = new Set();
-    for (const hm of sec.body.matchAll(/<a[^>]+href=["']([^"']+)["']/g)) {
-      presentHrefs.add(hm[1]);
-    }
-    // Also inspect any existing <aside class="callback"> links
-    const missingLinks = links.filter((l) => {
-      const t1 = `./${l.page}#${l.anchor}`;
-      const t2 = `${l.page}#${l.anchor}`;
-      return !presentHrefs.has(t1) && !presentHrefs.has(t2);
-    });
-    if (missingLinks.length > 0) {
-      // count as covered if they are in an aside.callback (same test; covered above).
-      localMissing.push(`  section #${anchor} (concept "${id}") missing ${missingLinks.length} callback link(s): ${missingLinks.map((l) => `${l.page}#${l.anchor}`).join(', ')}`);
+    } else if (missing.length > 0) {
+      localMissing.push(`  section #${anchor} (concept "${id}") missing ${missing.length} callback link(s): ${missing.map((l) => `${l.page}#${l.anchor}`).join(', ')}`);
     } else {
       existingCount += links.length;
     }
   }
 
   if (FIX) {
-    // Ensure CSS is present if we'll insert anything.
     if (hostKeys.length > 0) html = ensureCallbackCss(html);
-    // Iterate in reverse anchor order to avoid shifting earlier offsets.
-    // (We recompute offsets per insert anyway, but reverse keeps it simple.)
-    const hostAnchors = hostKeys.slice().reverse();
-    for (const { anchor, links } of hostAnchors) {
-      const r = insertCallback(html, anchor, links);
+    // Iterate in reverse anchor order so later-doc inserts don't shift
+    // earlier-doc anchors. Re-parse the DOM whenever `html` has been mutated
+    // so element ranges stay aligned with the current `html` string.
+    let view = html === origHtml ? topic : reparseTopicView(html);
+    let viewHtml = html;
+    for (const { anchor, links } of hostKeys.slice().reverse()) {
+      if (viewHtml !== html) { view = reparseTopicView(html); viewHtml = html; }
+      const r = insertCallback(view, html, anchor, links);
       html = r.html;
-      if (r.note && r.note.startsWith('inserted')) {
-        const n = parseInt(r.note.match(/\d+/)[0], 10);
-        insertedCount += n;
-      } else if (r.note && r.note.startsWith('merged')) {
-        const n = parseInt(r.note.match(/\d+/)[0], 10);
-        insertedCount += n;
-      }
+      const m = r.note && r.note.match(/^(inserted|merged) (\d+)/);
+      if (m) insertedCount += parseInt(m[2], 10);
     }
     if (html !== origHtml) {
       writeFileSync(pagePath, html);
       pagesTouched++;
     }
-    // After fix, re-audit for reporting: anything still missing?
-    const afterHtml = html;
-    for (const { anchor, id, links } of hostKeys) {
-      const sec = findSection(afterHtml, anchor);
-      if (!sec) {
+    // Re-audit after fix.
+    const afterView = html === origHtml ? topic : reparseTopicView(html);
+    for (const { anchor, id, missing } of computeMissing(afterView, html, hostKeys)) {
+      if (missing === null) {
         missingReport.push(`${page}: section #${anchor} (concept "${id}") not found`);
         hadMissing = true;
         pagesWithMissing.add(page);
-        continue;
-      }
-      const presentHrefs = new Set();
-      for (const hm of sec.body.matchAll(/<a[^>]+href=["']([^"']+)["']/g)) {
-        presentHrefs.add(hm[1]);
-      }
-      const stillMissing = links.filter((l) => {
-        const t1 = `./${l.page}#${l.anchor}`;
-        const t2 = `${l.page}#${l.anchor}`;
-        return !presentHrefs.has(t1) && !presentHrefs.has(t2);
-      });
-      if (stillMissing.length > 0) {
+      } else if (missing.length > 0) {
         hadMissing = true;
         pagesWithMissing.add(page);
-        missingReport.push(`${page}: section #${anchor} (concept "${id}") still missing ${stillMissing.length} link(s) after --fix`);
+        missingReport.push(`${page}: section #${anchor} (concept "${id}") still missing ${missing.length} link(s) after --fix`);
       }
     }
-  } else {
-    if (localMissing.length > 0) {
-      hadMissing = true;
-      pagesWithMissing.add(page);
-      missingReport.push(`${page}:\n${localMissing.join('\n')}`);
-    }
+  } else if (localMissing.length > 0) {
+    hadMissing = true;
+    pagesWithMissing.add(page);
+    missingReport.push(`${page}:\n${localMissing.join('\n')}`);
   }
 }
 
 // ----- Report -----
-console.log(`audit-callbacks: ${topicData.size} topic(s), ${totalEdges} cross-topic edge(s)`);
+console.log(`audit-callbacks: ${topics.size} topic(s), ${totalEdges} cross-topic edge(s)`);
 if (FIX) {
   console.log(`  pages touched: ${pagesTouched}`);
   console.log(`  links inserted: ${insertedCount}`);

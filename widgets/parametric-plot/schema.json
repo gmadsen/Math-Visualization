@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/parametric-plot/schema.json",
+  "title": "parametric-plot widget params",
+  "description": "Shared widget module for the slider-plot / slider-plot-actions / select-slider-plot families (combined ~159 widgets, the largest cluster in the corpus per audits/widget-families.md). A parametric-plot widget renders a header, an SVG host, one or more <input type='range'> sliders (each paired with a <label> and a live-updating <span class='small'>), optional action buttons, and a readout div. The per-widget draw logic varies too much to generalize without loss, so the IIFE body is carried as a `bodyScript` artifact string — a portable consumer should ignore `bodyScript` and drive its own renderer from the structural params. The `oneOf` dispatches between `single-mode` (bare slider-plot: sliders + optional buttons) and `multi-mode` (select-slider-plot: a <select> picks a mode, each mode supplies its own sliderDefaults + draw).",
+  "meta": {
+    "family": "parametric-plot",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/singleMode" },
+    { "$ref": "#/$defs/multiMode" }
+  ],
+  "$defs": {
+    "slider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "min", "max", "step", "init"],
+      "properties": {
+        "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "outId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "Optional DOM id for the adjacent <span class='small'> that echoes the current value. Omit for sliders with no live echo." },
+        "label": { "type": "string", "description": "Inner HTML of the <label for=...>: may contain $…$ LaTeX." },
+        "min":   { "type": "number" },
+        "max":   { "type": "number" },
+        "step":  { "type": "number" },
+        "init":  { "type": "number" },
+        "initReadout": { "type": "string", "description": "Initial text for the <span class='small' id=outId> (e.g. 't = 0.50')." },
+        "labelWraps": { "type": "boolean", "description": "When true, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>`; the `for=` attribute is omitted. When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`." }
+      }
+    },
+    "button": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label"],
+      "properties": {
+        "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label": { "type": "string" }
+      }
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "label"],
+      "properties": {
+        "value":    { "type": "string" },
+        "label":    { "type": "string" },
+        "selected": { "type": "boolean" }
+      }
+    },
+    "singleMode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interaction", "widgetId", "svgId", "outputId",
+        "title", "viewBox", "svgWidth", "svgHeight",
+        "sliders", "bodyScript"
+      ],
+      "properties": {
+        "interaction": { "const": "single-mode" },
+        "widgetId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "svgId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "outputId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title":       { "type": "string" },
+        "titleTag":    { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .ttl header element inside .hd. Default 'div'; 'span' for the span-title layout sub-variant." },
+        "hintTag":     { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant." },
+        "hint":        { "type": "string" },
+        "viewBox":     { "type": "string", "description": "SVG viewBox attribute value, e.g. '0 0 620 360'." },
+        "svgWidth":    { "type": ["string", "number"] },
+        "svgHeight":   { "type": ["string", "number"] },
+        "svgTitle":    { "type": "string", "description": "<title> child of the <svg>. Defaults to the widget's title if omitted." },
+        "outputInitial": { "type": "string", "description": "Initial inner HTML of the readout <div>. Defaults to '&nbsp;' to match the slider-plot convention." },
+        "sliders": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/slider" }
+        },
+        "buttons": {
+          "type": "array",
+          "description": "Optional action buttons rendered after the slider rows (slider-plot-actions family).",
+          "items": { "$ref": "#/$defs/button" }
+        },
+        "sectionComment": {
+          "type": "string",
+          "description": "ARTIFACT. Raw text between the leading <script> tag and the IIFE opener, emitted as `/* <sectionComment> */`. Preserves the legacy source's /* ========== Section N: … ========== */ banners."
+        },
+        "bodyScript": {
+          "type": "string",
+          "x-artifact": "script body is widget-specific; portable consumers should implement their own draw logic",
+          "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — reads sliders, renders SVG, writes readout. Kept opaque because the 81+ widgets in this family each compute bespoke geometry; a React/Three.js consumer should ignore this field and drive its own renderer from sliders + any future structured `draw` params."
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
+        },
+        "hdHtml": {
+          "type": "string",
+          "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+        }
+      }
+    },
+    "multiMode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interaction", "widgetId", "svgId", "outputId",
+        "title", "viewBox", "svgWidth", "svgHeight",
+        "pick", "modes", "initialMode", "bodyScript"
+      ],
+      "properties": {
+        "interaction": { "const": "multi-mode" },
+        "widgetId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "svgId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "outputId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title":       { "type": "string" },
+        "titleTag":    { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .ttl header element inside .hd. Default 'div'; 'span' for the span-title layout sub-variant." },
+        "hintTag":     { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant." },
+        "hint":        { "type": "string" },
+        "viewBox":     { "type": "string" },
+        "svgWidth":    { "type": ["string", "number"] },
+        "svgHeight":   { "type": ["string", "number"] },
+        "svgTitle":    { "type": "string" },
+        "outputInitial": { "type": "string" },
+        "pick": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "label", "options"],
+          "properties": {
+            "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "label":   { "type": "string" },
+            "options": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/option" }
+            }
+          }
+        },
+        "sliders": {
+          "type": "array",
+          "description": "Sliders shared across modes; each mode can override min/max/step/init via modes[value].sliderDefaults.",
+          "items": { "$ref": "#/$defs/slider" }
+        },
+        "buttons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/button" }
+        },
+        "modes": {
+          "type": "object",
+          "description": "Portable per-mode data, keyed by option value. Portable consumers read sliderDefaults and draw; artifact consumers fall through to bodyScript.",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "sliderDefaults": {
+                "type": "object",
+                "description": "Per-slider overrides of { min, max, step, init } applied when this mode is selected.",
+                "additionalProperties": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "draw": {
+                "type": "object",
+                "description": "Optional structured draw descriptor (kind + data) for portable renderers. Artifact consumers ignore this and rely on bodyScript.",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "initialMode": { "type": "string", "description": "Option value the IIFE starts on." },
+        "sectionComment": { "type": "string" },
+        "bodyScript": {
+          "type": "string",
+          "x-artifact": "script body is widget-specific; portable consumers should implement their own",
+          "description": "ARTIFACT. Verbatim IIFE body. Same rationale as singleMode.bodyScript."
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
+        },
+        "hdHtml": {
+          "type": "string",
+          "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+        }
+      }
+    }
+  }
+}

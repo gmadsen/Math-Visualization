@@ -164,7 +164,19 @@
   aside.related > div{margin:.15rem 0}
   aside.related .more{color:var(--mute);font-style:italic}
   aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
 </style>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
 </head>
 <body data-section="geometry-and-topology" data-level="intermediate">
 <script>
@@ -226,7 +238,7 @@ function fmt(x, p=3){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;Manifolds</a>
   <a href="#examples">2&nbsp;Examples</a>
   <a href="#maps">3&nbsp;Smooth&nbsp;maps</a>
@@ -239,6 +251,7 @@ function fmt(x, p=3){
   <a href="#orientation">10&nbsp;Orientation</a>
   <a href="#outro">11&nbsp;Connections</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -266,8 +279,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 <p class="note">Transition maps live in Euclidean space, so "smooth" has its familiar meaning. The manifold $M$ itself may be curved, disconnected, or non-orientable — the atlas lets us do calculus anyway, as long as what we compute does not depend on which chart we chose.</p>
 
 <div class="widget" id="w-charts">
-  <div class="hd"><span class="ttl">Widget · chart transition on $S^2$</span>
-    <span class="hint">drag the point; watch both stereographic images</span></div>
+  <div class="hd"><span class="ttl">Widget · chart transition on $S^2$</span><span class="hint">drag the point; watch both stereographic images</span></div>
   <div class="row">
     <label for="ch-lam">longitude $\lambda$</label>
     <input type="range" id="ch-lam" min="-180" max="180" value="40" step="1">
@@ -472,8 +484,7 @@ $$df_p\colon T_pM\longrightarrow T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed th
 <p>In coordinates, $df_p$ is the Jacobian matrix of $\hat f$ at $\varphi(p)$. Section 4 makes the tangent space precise; here just note that smooth manifolds are wired so that the chain rule holds, so the differential is a functor from manifolds to vector spaces.</p>
 
 <div class="widget" id="w-rank">
-  <div class="hd"><span class="ttl">Widget · rank of the differential</span>
-    <span class="hint">points coloured by rank of $df$</span></div>
+  <div class="hd"><span class="ttl">Widget · rank of the differential</span><span class="hint">points coloured by rank of $df$</span></div>
   <div class="row">
     <label>$f\colon \mathbb{R}^2\to\mathbb{R}^2$</label>
     <select id="rk-pick">
@@ -610,8 +621,7 @@ $$X(fg) = X(f)\,g(p) + f(p)\,X(g).$$
 $$T_pM \;\cong\; \{[\gamma]\} \;\cong\; \{(v^1,\ldots,v^n)\} \;\cong\; \left\{\,v^i\,\tfrac{\partial}{\partial x^i}\Big|_p\,\right\}.$$
 
 <div class="widget" id="w-tangent">
-  <div class="hd"><span class="ttl">Widget · three curves, one tangent vector</span>
-    <span class="hint">toggle curves through $p = (0,0,0)$ on $z = x^2+y^2$</span></div>
+  <div class="hd"><span class="ttl">Widget · three curves, one tangent vector</span><span class="hint">toggle curves through $p = (0,0,0)$ on $z = x^2+y^2$</span></div>
   <div class="row">
     <button class="active" data-c="0">γ₁(t) = (t, 0, t²)</button>
     <button class="active" data-c="1">γ₂(t) = (sin t, 0, sin²t)</button>
@@ -804,8 +814,7 @@ $$X = X^i(x)\,\frac{\partial}{\partial x^i},$$
 <p>A vector field acts on smooth functions by $(Xf)(p) = X_p(f)$, giving a derivation $X\colon C^\infty(M)\to C^\infty(M)$ — the directional derivative along $X$. Integral curves of $X$ are solutions of the ODE $\dot\gamma(t) = X_{\gamma(t)}$; on a compact manifold they exist for all time and assemble into the <em>flow</em> $\Phi^X_t\colon M\to M$.</p>
 
 <div class="widget" id="w-vf">
-  <div class="hd"><span class="ttl">Widget · vector fields on $S^2$</span>
-    <span class="hint">every field has at least one zero (hairy ball)</span></div>
+  <div class="hd"><span class="ttl">Widget · vector fields on $S^2$</span><span class="hint">every field has at least one zero (hairy ball)</span></div>
   <div class="row">
     <button class="active" data-vf="lat">latitude field ∂_φ</button>
     <button data-vf="rot">rotation about z-axis</button>
@@ -987,8 +996,7 @@ $$\Phi^X_{s+t} = \Phi^X_s \circ \Phi^X_t$$
 <p>A vector field is <strong>complete</strong> if every integral curve extends to all of $\mathbb{R}$, i.e. $\mathcal{D} = \mathbb{R}\times M$. Then $\{\Phi^X_t\}_{t\in\mathbb{R}}$ is a one-parameter group of diffeomorphisms of $M$.</p>
 
 <div class="widget" id="w-flow">
-  <div class="hd"><span class="ttl">Widget · integral curves of three fields</span>
-    <span class="hint">click the plane to reset the starting point; drag the $t$ slider</span></div>
+  <div class="hd"><span class="ttl">Widget · integral curves of three fields</span><span class="hint">click the plane to reset the starting point; drag the $t$ slider</span></div>
   <div class="row">
     <button class="active" data-fl="rot">X = −y∂ₓ + x∂_y (rotation — complete)</button>
     <button data-fl="blow">X = x²∂ₓ (blows up — incomplete)</button>
@@ -1176,8 +1184,7 @@ $$[X,Y]^k = X^i\,\partial_i Y^k - Y^i\,\partial_i X^k.$$
 $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_p + O(t^3).$$
 
 <div class="widget" id="w-bracket">
-  <div class="hd"><span class="ttl">Widget · Lie bracket via flows</span>
-    <span class="hint">$X = \partial_x$, $Y = x\,\partial_y$ — so $[X,Y] = \partial_y$</span></div>
+  <div class="hd"><span class="ttl">Widget · Lie bracket via flows</span><span class="hint">$X = \partial_x$, $Y = x\,\partial_y$ — so $[X,Y] = \partial_y$</span></div>
   <div class="row">
     <label for="br-t">$t$</label>
     <input type="range" id="br-t" min="5" max="95" value="50" step="1">
@@ -1316,8 +1323,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 <p>Every injective immersion is <em>locally</em> an embedding (image near $p$ looks like a coordinate subspace). The extra condition in "embedding" is <em>global</em>: no self-limits, no infinitesimal returns. The figure-eight widget below exhibits the distinction sharply.</p>
 
 <div class="widget" id="w-imm">
-  <div class="hd"><span class="ttl">Widget · immersion vs embedding</span>
-    <span class="hint">three curves, three verdicts</span></div>
+  <div class="hd"><span class="ttl">Widget · immersion vs embedding</span><span class="hint">three curves, three verdicts</span></div>
   <div class="panels3">
     <div>
       <div class="small" style="text-align:center;color:var(--yellow)">figure-eight</div>
@@ -1435,8 +1441,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 <p class="ok"><strong>Theorem.</strong> Every smooth manifold (being paracompact) admits a smooth partition of unity subordinate to any given open cover.</p>
 
 <div class="widget" id="w-pou">
-  <div class="hd"><span class="ttl">Widget · three bumps summing to 1</span>
-    <span class="hint">drag the peak sliders; the green line is Σρᵢ</span></div>
+  <div class="hd"><span class="ttl">Widget · three bumps summing to 1</span><span class="hint">drag the peak sliders; the green line is Σρᵢ</span></div>
   <div class="row">
     <label for="pu-c1">$c_1$</label>
     <input type="range" id="pu-c1" min="-180" max="-20" value="-90" step="1">
@@ -1558,8 +1563,7 @@ $$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases
 <p>A connected manifold admits either $0$ or $2$ orientations. When it admits any, we say $M$ is <strong>orientable</strong>; the two orientations are related by an overall sign flip.</p>
 
 <div class="widget" id="w-or">
-  <div class="hd"><span class="ttl">Widget · cylinder vs Möbius band</span>
-    <span class="hint">transport a frame around the core circle</span></div>
+  <div class="hd"><span class="ttl">Widget · cylinder vs Möbius band</span><span class="hint">transport a frame around the core circle</span></div>
   <div class="row">
     <label for="or-th">angle $\theta$</label>
     <input type="range" id="or-th" min="0" max="360" value="0" step="2">
@@ -1770,6 +1774,18 @@ $$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>
+      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>
+      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>
+      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>
+      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>
+      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>
+      <tr><td>2026-04-20</td><td>add two deferred cross-topic prereqs</td></tr>
+      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>
+      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>
+      <tr><td>2026-04-20</td><td>progress chips, quiz feedback, authoring scripts, thin-topic backfill</td></tr>
+      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>
+      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>
       <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>

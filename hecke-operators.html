@@ -156,7 +156,19 @@
   aside.related > div{margin:.15rem 0}
   aside.related .more{color:var(--mute);font-style:italic}
   aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
 </style>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
 </head>
 <body data-section="modular-forms-and-l-functions" data-level="advanced">
 <script>
@@ -210,7 +222,7 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#why">1&nbsp;Which&nbsp;forms&nbsp;are&nbsp;canonical?</a>
   <a href="#tp">2&nbsp;$T_p$&nbsp;on&nbsp;lattices</a>
   <a href="#qexp">3&nbsp;Action&nbsp;on&nbsp;$q$-expansions</a>
@@ -219,6 +231,7 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#petersson">6&nbsp;Petersson&nbsp;pairing</a>
   <a href="#forward">7&nbsp;Forward&nbsp;pointers</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -246,11 +259,9 @@ These <strong>Hecke operators</strong> preserve $M_k$. They commute with each ot
 
 <div class="widget" id="w-motive">
   <div class="hd"><div class="ttl">The spectral decomposition of $M_k$</div><div class="hint">dimensions of $M_k$ for $k = 4,6,8,\ldots,26$</div></div>
-  <svg id="motive-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="dimensions of weight-k forms"></svg>
+  <svg id="motive-svg" viewBox="0 0 720 220" width="720" height="220"><title>The spectral decomposition of $M_k$</title></svg>
   <div class="readout small" id="motive-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('motive-svg');
   const out = document.getElementById('motive-out');
@@ -331,11 +342,9 @@ $$(T_p f)(\tau) \;=\; p^{\,k-1}\, f(p\tau) \;+\; \frac{1}{p} \sum_{b=0}^{p-1} f\
     <input type="range" id="sub-im" min="0.6" max="2.0" step="0.02" value="1.0">
     <span id="sub-tau" class="pill">τ</span>
   </div>
-  <svg id="sub-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="sublattices of index p"></svg>
+  <svg id="sub-svg" viewBox="0 0 720 320" width="720" height="320"><title>Sublattices of index $p$</title></svg>
   <div class="readout small" id="sub-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('sub-svg');
   const out = document.getElementById('sub-out');
@@ -526,11 +535,9 @@ $$T_p f \;=\; \sum_{n \ge 0} c_n q^n, \qquad c_n \;=\; a_{pn} + p^{k-1} a_{n/p},
     <label style="margin-left:.8rem">form</label>
     <select id="qact-f"><option value="delta">Δ (cusp, weight 12)</option><option value="E4">E_4 (Eisenstein, weight 4)</option></select>
   </div>
-  <svg id="qact-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="q-expansion action"></svg>
+  <svg id="qact-svg" viewBox="0 0 720 260" width="720" height="260"><title>$T_p$ on the Fourier coefficients</title></svg>
   <div class="readout small" id="qact-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('qact-svg');
   const out = document.getElementById('qact-out');
@@ -663,11 +670,9 @@ For $n = p$ prime this specializes to the formula above. The crucial structural 
 
 <div class="widget" id="w-commute">
   <div class="hd"><div class="ttl">Hecke algebra commutativity</div><div class="hint">$T_m T_n = T_n T_m$</div></div>
-  <svg id="cm-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="commutativity diagram"></svg>
+  <svg id="cm-svg" viewBox="0 0 720 260" width="720" height="260"><title>Hecke algebra commutativity</title></svg>
   <div class="readout small" id="cm-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('cm-svg');
   const out = document.getElementById('cm-out');
@@ -756,11 +761,9 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
 
 <div class="widget" id="w-eig">
   <div class="hd"><div class="ttl">Ramanujan $\tau$: eigenvalues of $\Delta$</div><div class="hint">$a_p = \tau(p)$ for $\Delta$, weight 12</div></div>
-  <svg id="eig-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="tau eigenvalues"></svg>
+  <svg id="eig-svg" viewBox="0 0 720 240" width="720" height="240"><title>Ramanujan $\tau$: eigenvalues of $\Delta$</title></svg>
   <div class="readout small" id="eig-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('eig-svg');
   const out = document.getElementById('eig-out');
@@ -824,9 +827,7 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
     <button id="mult-go">check</button>
   </div>
   <div class="readout" id="mult-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const out = document.getElementById('mult-out');
   if(!out) return;
@@ -922,11 +923,9 @@ where $\tau = x + iy$, $y = \mathrm{Im}(\tau) > 0$, and $\mathcal{F}$ is the sta
 
 <div class="widget" id="w-pet">
   <div class="hd"><div class="ttl">Petersson integral on the fundamental domain</div><div class="hint">$\mathcal{F}$ with hyperbolic measure $y^{-2}\,dx\,dy$</div></div>
-  <svg id="pet-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="fundamental domain"></svg>
+  <svg id="pet-svg" viewBox="0 0 720 300" width="720" height="300"><title>Petersson integral on the fundamental domain</title></svg>
   <div class="readout small" id="pet-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('pet-svg');
   const out = document.getElementById('pet-out');
@@ -1070,11 +1069,9 @@ $$L(f, s) \;=\; \prod_{p} \frac{1}{1 \,-\, a_p\, p^{-s} \,+\, p^{\,k-1}\, p^{-2s
       <option value="7" selected>7</option><option value="11">11</option><option value="13">13</option>
     </select>
   </div>
-  <svg id="eu-svg" viewBox="0 0 720 200" width="720" height="200" aria-label="Euler factor"></svg>
+  <svg id="eu-svg" viewBox="0 0 720 200" width="720" height="200"><title>Euler factor of $\Delta$ at $p$</title></svg>
   <div class="readout small" id="eu-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('eu-svg');
   const out = document.getElementById('eu-out');
@@ -1222,6 +1219,16 @@ $$L(f, s) \;=\; \prod_{p} \frac{1}{1 \,-\, a_p\, p^{-s} \,+\, p^{\,k-1}\, p^{-2s
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>
+      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>
+      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>
+      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>
+      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>
+      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>
+      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>
+      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>
+      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>
+      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>
       <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>more pages</td></tr>

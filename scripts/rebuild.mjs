@@ -3,14 +3,20 @@
 //
 //   node scripts/build-concepts-bundle.mjs
 //   node scripts/build-quizzes-bundle.mjs
+//   node scripts/build-widgets-bundle.mjs
 //   node scripts/build-search-index.mjs
+//   node scripts/validate-schema.mjs
+//   node scripts/validate-widget-params.mjs
 //   node scripts/validate-concepts.mjs
 //   node scripts/validate-katex.mjs
 //   node scripts/audit-callbacks.mjs --fix
-//   node scripts/insert-used-in-backlinks.mjs --fix
+//   node scripts/inject-used-in-backlinks.mjs --fix
 //   node scripts/inject-breadcrumb.mjs --fix
+//   node scripts/inject-display-prefs.mjs --fix
 //   node scripts/fix-a11y.mjs --fix
 //   node scripts/smoke-test.mjs
+//   node scripts/test-roundtrip.mjs
+//   node scripts/stats-coverage.mjs
 //
 // Streams each child's stdout/stderr through, prints a banner per step, and
 // bails on the first non-zero exit.
@@ -19,7 +25,7 @@
 //   --no-fix          Run the two audits in audit-only mode (drop --fix).
 //                     Useful for CI-style local checks.
 //   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, search, validate, katex, callbacks, backlinks, breadcrumb, a11y, smoke
+//                       concepts, quizzes, widgets-bundle, search, schema, widget-params, validate, katex, callbacks, backlinks, breadcrumb, display-prefs, a11y, smoke, roundtrip, stats
 //
 // Zero dependencies.
 
@@ -49,14 +55,28 @@ if (onlyIdx !== -1) {
 const STEPS = [
   { name: 'concepts',   script: 'build-concepts-bundle.mjs',    fix: false },
   { name: 'quizzes',    script: 'build-quizzes-bundle.mjs',     fix: false },
+  { name: 'widgets-bundle', script: 'build-widgets-bundle.mjs', fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
+  { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
+  { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },
-  { name: 'backlinks',  script: 'insert-used-in-backlinks.mjs', fix: true  },
+  { name: 'backlinks',  script: 'inject-used-in-backlinks.mjs', fix: true  },
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
+  { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
+  { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
+  // Note: inject-changelog-footer.mjs is deliberately NOT in the chain —
+  // its output references "most recent commit", but the commit that *adds*
+  // the refreshed changelog can't reference itself, so every post-commit
+  // audit would report one-commit-behind drift forever. Run manually:
+  //   node scripts/inject-changelog-footer.mjs
+  // before publishing, or wire into a pre-release hook.
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
+  { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
+  { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
+  { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 
 if (only) {
@@ -79,6 +99,7 @@ function runStep(n, total, step) {
   banner(n, total, step);
   const args = [join(scriptsDir, step.script)];
   if (step.fix && !NO_FIX) args.push('--fix');
+  else if (step.fix && NO_FIX && step.auditArg) args.push(step.auditArg);
   const r = spawnSync(process.execPath, args, {
     cwd: repoRoot,
     stdio: 'inherit',

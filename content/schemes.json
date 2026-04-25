@@ -1,0 +1,992 @@
+{
+  "topic": "schemes",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Schemes — an interactive tour</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"\n  onload=\"renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\\\\\\\(',right:'\\\\\\\\)',display:false},{left:'\\\\\\\\[',right:'\\\\\\\\]',display:true}]});\"></script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n    --accent:#ffd866;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .caution{border-left-color:var(--pink);background:#2a1a18;color:#f4d2c7}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  .hero{padding:3rem 0 1rem}\n  .k{color:var(--yellow)}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"algebraic-geometry\" data-level=\"intermediate\">\n<script>\n/* Global helpers — defined first so all section scripts can use them */\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\nconst PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97];\nfunction factorize(n){\n  n = Math.abs(n);\n  if(n===0) return [[0,1]];\n  if(n===1) return [];\n  const out = [];\n  for(const p of PRIMES){\n    if(p*p>n){break}\n    let e=0;\n    while(n%p===0){n=n/p;e++}\n    if(e>0) out.push([p,e]);\n  }\n  if(n>1) out.push([n,1]);\n  return out;\n}\nfunction gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}\nfunction mod(a,n){return ((a%n)+n)%n}\n</script>\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#intro\">1&nbsp;Motivation</a>\n  <a href=\"#specz\">2&nbsp;Spec&nbsp;Z</a>\n  <a href=\"#speckx\">3&nbsp;Spec&nbsp;k[x]</a>\n  <a href=\"#speckxy\">4&nbsp;Spec&nbsp;k[x,y]</a>\n  <a href=\"#specialization\">5&nbsp;Specialization</a>\n  <a href=\"#fat\">6&nbsp;Fat&nbsp;points</a>\n  <a href=\"#gluing\">7&nbsp;Gluing&nbsp;→&nbsp;P¹</a>\n  <a href=\"#generic-point\">8&nbsp;Generic&nbsp;points</a>\n  <a href=\"#residue-field\">9&nbsp;Residue&nbsp;fields</a>\n  <a href=\"#locally-ringed-space\">10&nbsp;Locally&nbsp;ringed&nbsp;spaces</a>\n  <a href=\"#projective-scheme\">11&nbsp;Proj</a>\n  <a href=\"#closed-subscheme\">12&nbsp;Closed&nbsp;subschemes</a>\n  <a href=\"#dimension\">13&nbsp;Dimension</a>\n  <a href=\"#fiber-over-point\">14&nbsp;Fibers</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Schemes, visually</h1>\n  <p class=\"sub\">An interactive tour of Grothendieck's geometry: every commutative ring is a space, and every space is made of rings glued together.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "intro",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"intro\">\n<h2>1. Why schemes?</h2>\n<p>Classical algebraic geometry studies the zero sets of polynomials. The circle is $V(x^2+y^2-1)\\subset \\mathbb{R}^2$. A variety over $\\mathbb{C}$ is a subset of $\\mathbb{C}^n$ cut out by polynomial equations.</p>\n<p>This is great but throws away too much. Three problems nag at you:</p>\n<p><span class=\"pill\">problem 1</span> The rings $\\mathbb{R}[x]/(x)$ and $\\mathbb{R}[x]/(x^2)$ have the same \"zero set\" — a single point — yet they are different rings. The second one <em>remembers a tangent direction</em>. Classical geometry can't see it.</p>\n<p><span class=\"pill\">problem 2</span> Over $\\mathbb{R}$, the polynomial $x^2+1$ has no zeros at all, so its zero set is empty. But the ring $\\mathbb{R}[x]/(x^2+1)\\cong\\mathbb{C}$ is interesting; it <em>should</em> correspond to a geometric object.</p>\n<p><span class=\"pill\">problem 3</span> The integers $\\mathbb{Z}$ feel a lot like a ring of functions on <em>something</em>. On what?</p>\n<p>Grothendieck's answer reverses the usual arrow:</p>\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Ring ⟶ Space.</strong> Every commutative ring $R$ becomes a topological space $\\operatorname{Spec}(R)$, whose <em>points are the prime ideals of $R$</em>. Elements of $R$ become \"functions\" on this space. A <strong>scheme</strong> is a space built by gluing spaces of the form $\\operatorname{Spec}(R)$.</p>\n</div>\n<p>Why prime ideals? Three clean reasons:</p>\n<p>(i) If $\\phi\\colon R\\to k$ is a homomorphism to a field, $\\ker\\phi$ is prime. So \"$R$-valued points in fields\" correspond to prime ideals — maximal ideals give closed points, smaller primes give \"generic\" points.</p>\n<p>(ii) The set $V(I)=\\{\\mathfrak p : I\\subseteq \\mathfrak p\\}$ behaves like a Zariski-closed set, so primes carry a natural topology.</p>\n<p>(iii) For an element $f\\in R$, evaluating $f$ at a prime $\\mathfrak p$ means reducing: look at the image of $f$ in the residue field $\\kappa(\\mathfrak p) = \\operatorname{Frac}(R/\\mathfrak p)$. The \"value\" of $f$ at different points may live in different fields — that's fine.</p>\n<p>The rest of this page turns that paragraph into pictures.</p>\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#ideals\">Ideals and quotient rings</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./schemes.html#dimension\">Schemes</a> · Dimension of a scheme</div>\n    <div><a href=\"./schemes.html#generic-point\">Schemes</a> · Generic points and specialization</div>\n    <div><a href=\"./schemes.html#residue-field\">Schemes</a> · Residue fields and evaluation at points</div>\n    <div><a href=\"./schemes.html#speckxy\">Schemes</a> · Structure sheaf and affine schemes</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "spectrum-primes",
+          "html": "<div class=\"quiz\" data-concept=\"spectrum-primes\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "specz",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"specz\">\n<h2>2. The simplest scheme: Spec ℤ</h2>\n<p>Take $R=\\mathbb{Z}$. Its prime ideals are $(0)$ and $(p)$ for each prime $p$. So $\\operatorname{Spec}\\mathbb{Z}$ is a countable set of \"closed\" points $2,3,5,7,11,\\ldots$ together with <em>one</em> extra point, $(0)$, the <strong>generic point</strong>.</p>\n<p>An integer $n\\in\\mathbb{Z}$ is a \"function\" on this space. Its value at the prime $p$ is $n \\bmod p$, an element of the residue field $\\mathbb{F}_p$. Its value at the generic point $(0)$ is $n$ itself inside $\\mathbb{Q}$.</p>\n<p>So $n$ \"vanishes\" at exactly the primes dividing $n$, with multiplicity equal to the exponent — we see factorization as the zero locus of a function.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-specz",
+            "title": "Spec ℤ — evaluate an integer at every prime",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"specz-n\">n =</label>\n    <input type=\"number\" id=\"specz-n\" value=\"60\" step=\"1\" style=\"width:110px\">\n    <span class=\"small\" id=\"specz-fact\"></span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "specz-svg",
+                "viewBox": "0 0 820 210",
+                "width": 820,
+                "height": 210
+              },
+              {
+                "kind": "readout",
+                "id": "specz-readout",
+                "content": "Hover a dot to see $n \\bmod p$; the orange glow encodes multiplicity of $p$ in $n$."
+              }
+            ],
+            "bodyScript": "  const svg = $('#specz-svg');\n  const W=820,H=210;\n  const xs = p => 40 + (PRIMES.indexOf(p))*30.5;\n  // axis\n  const axis = SVG('line',{x1:20,y1:150,x2:800,y2:150,stroke:'#3a4558','stroke-width':1});\n  svg.appendChild(axis);\n  // generic point: dashed horizontal band\n  const generic = SVG('line',{x1:20,y1:60,x2:800,y2:60,stroke:'#b39ddb','stroke-width':1.2,'stroke-dasharray':'5 5'});\n  svg.appendChild(generic);\n  const genLabel = SVG('text',{x:20,y:48,'font-size':13,fill:'#b39ddb'});\n  genLabel.textContent='generic point (0)  — value of n in ℚ';\n  svg.appendChild(genLabel);\n\n  // for each prime, a dot + label\n  const dots=[], glows=[], labels=[];\n  PRIMES.forEach((p,i)=>{\n    const x = xs(p);\n    const g = SVG('g',{});\n    const glow = SVG('circle',{cx:x,cy:150,r:3,fill:'#ffd866','fill-opacity':0,stroke:'#ffd866','stroke-opacity':0});\n    const dot = SVG('circle',{cx:x,cy:150,r:3.5,fill:'#58c4dd',stroke:'#e8ecf1','stroke-width':1,'data-p':p,style:'cursor:pointer'});\n    const lbl = SVG('text',{x:x,y:172,'font-size':11,'text-anchor':'middle',fill:'#9aa4b2'});\n    lbl.textContent = p;\n    g.appendChild(glow); g.appendChild(dot); g.appendChild(lbl);\n    svg.appendChild(g);\n    glows.push(glow); dots.push(dot); labels.push(lbl);\n\n    dot.addEventListener('mouseenter',()=>showValueAt(p));\n    dot.addEventListener('mouseleave',()=>hideValue());\n  });\n\n  // generic point value readout (when hovering generic line)\n  generic.style.cursor='pointer';\n  genLabel.style.cursor='pointer';\n  [generic,genLabel].forEach(el=>{\n    el.addEventListener('mouseenter',()=>showGenericValue());\n    el.addEventListener('mouseleave',()=>hideValue());\n  });\n\n  // ghost \"vertical connection\" drawn for primes dividing n\n  const connGroup = SVG('g',{});\n  svg.appendChild(connGroup);\n\n  const input = $('#specz-n');\n  const factSpan = $('#specz-fact');\n  const readout = $('#specz-readout');\n\n  function update(){\n    const n = parseInt(input.value,10);\n    if(!Number.isFinite(n)){return}\n    const factors = factorize(n);\n    if(n===0){\n      factSpan.innerHTML = '<span style=\"color:var(--pink)\">0 vanishes at every prime</span>';\n    } else if(Math.abs(n)===1){\n      factSpan.innerHTML = '<span style=\"color:var(--green)\">±1 is a unit — never vanishes</span>';\n    } else {\n      factSpan.innerHTML = 'factorization: '+factors.map(([p,e])=>e===1?p:`${p}<sup>${e}</sup>`).join(' · ');\n    }\n    // clear connections\n    while(connGroup.firstChild) connGroup.removeChild(connGroup.firstChild);\n    // style each prime dot\n    PRIMES.forEach((p,i)=>{\n      const dot=dots[i], glow=glows[i], lbl=labels[i];\n      const entry = factors.find(([q,e])=>q===p);\n      if(n===0){\n        dot.setAttribute('fill','#e07a5f'); dot.setAttribute('r',6);\n        glow.setAttribute('fill-opacity',0.2); glow.setAttribute('r',12);\n        glow.setAttribute('stroke-opacity',0.4);\n        lbl.setAttribute('fill','#f4d2c7');\n      } else if(entry){\n        const e=entry[1];\n        const r = 4 + 3*Math.min(e,5);\n        dot.setAttribute('fill','#ffd866'); dot.setAttribute('r',r);\n        glow.setAttribute('fill','#ffd866'); glow.setAttribute('fill-opacity',0.18);\n        glow.setAttribute('r',r+6+2*e);\n        glow.setAttribute('stroke-opacity',0.5);\n        lbl.setAttribute('fill','#ffd866');\n        // draw connection line from generic to this prime\n        const x = xs(p);\n        const line = SVG('line',{x1:x,y1:61,x2:x,y2:150,stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.5,'stroke-dasharray':'2 3'});\n        connGroup.appendChild(line);\n        const tag = SVG('text',{x:x,y:105,'font-size':10,'text-anchor':'middle',fill:'#ffd866'});\n        tag.textContent = e>1? `ord=${e}` : '';\n        connGroup.appendChild(tag);\n      } else {\n        dot.setAttribute('fill','#58c4dd'); dot.setAttribute('r',3.5);\n        glow.setAttribute('fill-opacity',0);\n        glow.setAttribute('stroke-opacity',0);\n        lbl.setAttribute('fill','#9aa4b2');\n      }\n    });\n  }\n  function showValueAt(p){\n    const n = parseInt(input.value,10);\n    const v = mod(n,p);\n    readout.innerHTML = `value of n=${n} at prime (${p}): &nbsp; ${n} mod ${p} = <span style=\"color:var(--yellow)\">${v}</span>` +\n      (v===0?`<span style=\"color:var(--green)\"> — vanishes here</span>`:'') +\n      `<br><span class=\"small\">residue field κ((${p})) = 𝔽<sub>${p}</sub></span>`;\n  }\n  function showGenericValue(){\n    const n = parseInt(input.value,10);\n    readout.innerHTML = `value of n=${n} at the generic point (0): &nbsp; <span style=\"color:var(--violet)\">${n} ∈ ℚ</span>` +\n      `<br><span class=\"small\">residue field κ((0)) = ℚ. The generic point \"sees\" n itself.</span>`;\n  }\n  function hideValue(){\n    readout.innerHTML = `Hover a dot to see $n \\\\bmod p$; the orange glow encodes multiplicity of $p$ in $n$.`;\n    if(window.renderMathInElement) renderMathInElement(readout,{delimiters:[{left:'$',right:'$',display:false}]});\n  }\n  input.addEventListener('input',update);\n  update();",
+            "hint": "type an integer · hover a prime",
+            "sectionComment": "=============================== SECTION 2: Spec Z ===============================",
+            "svgId": "specz-svg",
+            "viewBox": "0 0 820 210",
+            "readoutId": "specz-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p class=\"small\">Notice the dashed line above the primes. That's the generic point $(0)$; its closure is all of $\\operatorname{Spec}\\mathbb{Z}$. Every closed point \"specializes from\" it.</p>\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Reading a scheme.</strong> A scheme has more information than a topological space. At each point $\\mathfrak p$ there's a residue field $\\kappa(\\mathfrak p)$ and functions take values in different fields at different points. For $\\operatorname{Spec}\\mathbb{Z}$: $\\kappa((p))=\\mathbb{F}_p$ and $\\kappa((0))=\\mathbb{Q}$.</p>\n</div>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-specz",
+            "title": "Spec ℤ — evaluate an integer at every prime",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"specz-n\">n =</label>\n    <input type=\"number\" id=\"specz-n\" value=\"60\" step=\"1\" style=\"width:110px\">\n    <span class=\"small\" id=\"specz-fact\"></span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "specz-svg",
+                "viewBox": "0 0 820 210",
+                "width": 820,
+                "height": 210
+              },
+              {
+                "kind": "readout",
+                "id": "specz-readout",
+                "content": "Hover a dot to see $n \\bmod p$; the orange glow encodes multiplicity of $p$ in $n$."
+              }
+            ],
+            "bodyScript": "  const svg = $('#specz-svg');\n  const W=820,H=210;\n  const xs = p => 40 + (PRIMES.indexOf(p))*30.5;\n  // axis\n  const axis = SVG('line',{x1:20,y1:150,x2:800,y2:150,stroke:'#3a4558','stroke-width':1});\n  svg.appendChild(axis);\n  // generic point: dashed horizontal band\n  const generic = SVG('line',{x1:20,y1:60,x2:800,y2:60,stroke:'#b39ddb','stroke-width':1.2,'stroke-dasharray':'5 5'});\n  svg.appendChild(generic);\n  const genLabel = SVG('text',{x:20,y:48,'font-size':13,fill:'#b39ddb'});\n  genLabel.textContent='generic point (0)  — value of n in ℚ';\n  svg.appendChild(genLabel);\n\n  // for each prime, a dot + label\n  const dots=[], glows=[], labels=[];\n  PRIMES.forEach((p,i)=>{\n    const x = xs(p);\n    const g = SVG('g',{});\n    const glow = SVG('circle',{cx:x,cy:150,r:3,fill:'#ffd866','fill-opacity':0,stroke:'#ffd866','stroke-opacity':0});\n    const dot = SVG('circle',{cx:x,cy:150,r:3.5,fill:'#58c4dd',stroke:'#e8ecf1','stroke-width':1,'data-p':p,style:'cursor:pointer'});\n    const lbl = SVG('text',{x:x,y:172,'font-size':11,'text-anchor':'middle',fill:'#9aa4b2'});\n    lbl.textContent = p;\n    g.appendChild(glow); g.appendChild(dot); g.appendChild(lbl);\n    svg.appendChild(g);\n    glows.push(glow); dots.push(dot); labels.push(lbl);\n\n    dot.addEventListener('mouseenter',()=>showValueAt(p));\n    dot.addEventListener('mouseleave',()=>hideValue());\n  });\n\n  // generic point value readout (when hovering generic line)\n  generic.style.cursor='pointer';\n  genLabel.style.cursor='pointer';\n  [generic,genLabel].forEach(el=>{\n    el.addEventListener('mouseenter',()=>showGenericValue());\n    el.addEventListener('mouseleave',()=>hideValue());\n  });\n\n  // ghost \"vertical connection\" drawn for primes dividing n\n  const connGroup = SVG('g',{});\n  svg.appendChild(connGroup);\n\n  const input = $('#specz-n');\n  const factSpan = $('#specz-fact');\n  const readout = $('#specz-readout');\n\n  function update(){\n    const n = parseInt(input.value,10);\n    if(!Number.isFinite(n)){return}\n    const factors = factorize(n);\n    if(n===0){\n      factSpan.innerHTML = '<span style=\"color:var(--pink)\">0 vanishes at every prime</span>';\n    } else if(Math.abs(n)===1){\n      factSpan.innerHTML = '<span style=\"color:var(--green)\">±1 is a unit — never vanishes</span>';\n    } else {\n      factSpan.innerHTML = 'factorization: '+factors.map(([p,e])=>e===1?p:`${p}<sup>${e}</sup>`).join(' · ');\n    }\n    // clear connections\n    while(connGroup.firstChild) connGroup.removeChild(connGroup.firstChild);\n    // style each prime dot\n    PRIMES.forEach((p,i)=>{\n      const dot=dots[i], glow=glows[i], lbl=labels[i];\n      const entry = factors.find(([q,e])=>q===p);\n      if(n===0){\n        dot.setAttribute('fill','#e07a5f'); dot.setAttribute('r',6);\n        glow.setAttribute('fill-opacity',0.2); glow.setAttribute('r',12);\n        glow.setAttribute('stroke-opacity',0.4);\n        lbl.setAttribute('fill','#f4d2c7');\n      } else if(entry){\n        const e=entry[1];\n        const r = 4 + 3*Math.min(e,5);\n        dot.setAttribute('fill','#ffd866'); dot.setAttribute('r',r);\n        glow.setAttribute('fill','#ffd866'); glow.setAttribute('fill-opacity',0.18);\n        glow.setAttribute('r',r+6+2*e);\n        glow.setAttribute('stroke-opacity',0.5);\n        lbl.setAttribute('fill','#ffd866');\n        // draw connection line from generic to this prime\n        const x = xs(p);\n        const line = SVG('line',{x1:x,y1:61,x2:x,y2:150,stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.5,'stroke-dasharray':'2 3'});\n        connGroup.appendChild(line);\n        const tag = SVG('text',{x:x,y:105,'font-size':10,'text-anchor':'middle',fill:'#ffd866'});\n        tag.textContent = e>1? `ord=${e}` : '';\n        connGroup.appendChild(tag);\n      } else {\n        dot.setAttribute('fill','#58c4dd'); dot.setAttribute('r',3.5);\n        glow.setAttribute('fill-opacity',0);\n        glow.setAttribute('stroke-opacity',0);\n        lbl.setAttribute('fill','#9aa4b2');\n      }\n    });\n  }\n  function showValueAt(p){\n    const n = parseInt(input.value,10);\n    const v = mod(n,p);\n    readout.innerHTML = `value of n=${n} at prime (${p}): &nbsp; ${n} mod ${p} = <span style=\"color:var(--yellow)\">${v}</span>` +\n      (v===0?`<span style=\"color:var(--green)\"> — vanishes here</span>`:'') +\n      `<br><span class=\"small\">residue field κ((${p})) = 𝔽<sub>${p}</sub></span>`;\n  }\n  function showGenericValue(){\n    const n = parseInt(input.value,10);\n    readout.innerHTML = `value of n=${n} at the generic point (0): &nbsp; <span style=\"color:var(--violet)\">${n} ∈ ℚ</span>` +\n      `<br><span class=\"small\">residue field κ((0)) = ℚ. The generic point \"sees\" n itself.</span>`;\n  }\n  function hideValue(){\n    readout.innerHTML = `Hover a dot to see $n \\\\bmod p$; the orange glow encodes multiplicity of $p$ in $n$.`;\n    if(window.renderMathInElement) renderMathInElement(readout,{delimiters:[{left:'$',right:'$',display:false}]});\n  }\n  input.addEventListener('input',update);\n  update();",
+            "hint": "type an integer · hover a prime",
+            "sectionComment": "=============================== SECTION 2: Spec Z ===============================",
+            "svgId": "specz-svg",
+            "viewBox": "0 0 820 210",
+            "readoutId": "specz-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "speckx",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"speckx\">\n<h2>3. The affine line Spec k[x]</h2>\n<p>Let $k$ be a field. The primes of $k[x]$ are $(0)$ and $(f)$ where $f$ is irreducible over $k$. So $\\operatorname{Spec}k[x]$ has one generic point, plus one closed point for each monic irreducible polynomial.</p>\n\n<p>When $k=\\mathbb{C}$ every irreducible is linear $x-\\alpha$, and the closed points are exactly the complex numbers — this is the \"usual\" affine line. When $k=\\mathbb{R}$ irreducibles are either linear $x-a$ or quadratic $x^2+bx+c$ with negative discriminant; a single closed point of $\\operatorname{Spec}\\mathbb{R}[x]$ can gather <em>a conjugate pair</em> of complex numbers. When $k=\\mathbb{F}_p$ there are finitely many irreducibles of each degree, and a closed point may have residue field $\\mathbb{F}_{p^d}$.</p>\n\n<p>This widget lets you build an integer-coefficient polynomial and watch its <em>zero scheme</em> $\\operatorname{Spec}k[x]/(p(x))$ reorganize itself as you change the field.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-speckx",
+            "title": "Spec k[x] — roots of p(x) as closed points",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>k =</label>\n    <button class=\"fbtn active\" data-f=\"C\">ℂ</button>\n    <button class=\"fbtn\" data-f=\"R\">ℝ</button>\n    <button class=\"fbtn\" data-f=\"F5\">𝔽₅</button>\n    <button class=\"fbtn\" data-f=\"F7\">𝔽₇</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"c3\">p(x) =</label>\n    <input type=\"number\" id=\"c3\" value=\"1\" style=\"width:60px\">·x³ +\n    <input type=\"number\" id=\"c2\" value=\"0\" style=\"width:60px\">·x² +\n    <input type=\"number\" id=\"c1\" value=\"-1\" style=\"width:60px\">·x +\n    <input type=\"number\" id=\"c0\" value=\"0\" style=\"width:60px\">\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <span class=\"small\">presets:</span>\n    <button class=\"pbtn\" data-c=\"0,0,0,1\">x³</button>\n    <button class=\"pbtn\" data-c=\"0,-1,0,1\">x³−x</button>\n    <button class=\"pbtn\" data-c=\"1,0,1,0\">x²+1</button>\n    <button class=\"pbtn\" data-c=\"1,1,1,0\">x²+x+1</button>\n    <button class=\"pbtn\" data-c=\"2,-3,1,0\">x²−3x+2</button>\n    <button class=\"pbtn\" data-c=\"-6,11,-6,1\">(x-1)(x-2)(x-3)</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "speckx-svg",
+                "viewBox": "0 0 820 320",
+                "width": 820,
+                "height": 320
+              },
+              {
+                "kind": "readout",
+                "id": "speckx-readout",
+                "content": "Pick a field and polynomial. Hover a dot for its prime ideal."
+              }
+            ],
+            "bodyScript": "  const svg = $('#speckx-svg');\n  const W=820,H=320;\n  const ro = $('#speckx-readout');\n  // complex roots via Durand-Kerner\n  function roots(coeffs){\n    // coeffs = [a0,a1,...,an], highest nonzero at end\n    // normalize and trim trailing zeros\n    let c = coeffs.slice();\n    while(c.length>1 && c[c.length-1]===0) c.pop();\n    const n = c.length-1;\n    if(n<=0) return []; // constant\n    const an = c[n];\n    const p = c.map(x=>x/an); // monic\n    // initial guesses on a circle\n    const zs = [];\n    for(let k=0;k<n;k++){\n      const th = 2*Math.PI*k/n + 0.4;\n      zs.push([Math.cos(th)*1.3,Math.sin(th)*1.3]);\n    }\n    const cmul=([a,b],[c,d])=>[a*c-b*d,a*d+b*c];\n    const cadd=([a,b],[c,d])=>[a+c,b+d];\n    const csub=([a,b],[c,d])=>[a-c,b-d];\n    const cdiv=([a,b],[c,d])=>{const r=c*c+d*d;return [(a*c+b*d)/r,(b*c-a*d)/r]};\n    function eval_(p,z){let y=[0,0];for(let i=p.length-1;i>=0;i--){y=cadd(cmul(y,z),[p[i],0])}return y;}\n    for(let iter=0; iter<200; iter++){\n      let moved=0;\n      for(let k=0;k<n;k++){\n        const fz = eval_(p,zs[k]);\n        let denom=[1,0];\n        for(let j=0;j<n;j++) if(j!==k) denom = cmul(denom, csub(zs[k],zs[j]));\n        const step = cdiv(fz,denom);\n        zs[k] = csub(zs[k],step);\n        moved += Math.abs(step[0])+Math.abs(step[1]);\n      }\n      if(moved<1e-12) break;\n    }\n    return zs;\n  }\n  // cluster roots within tol\n  function cluster(zs,tol=1e-4){\n    const out=[];\n    for(const z of zs){\n      const hit = out.find(o=>Math.hypot(o.z[0]-z[0],o.z[1]-z[1])<tol);\n      if(hit){hit.m++}\n      else out.push({z,m:1});\n    }\n    return out;\n  }\n\n  // UI state\n  let field='C';\n  $$('.fbtn',$('#w-speckx')).forEach(b=>b.addEventListener('click',()=>{\n    $$('.fbtn',$('#w-speckx')).forEach(x=>x.classList.remove('active'));\n    b.classList.add('active'); field=b.dataset.f; draw();\n  }));\n  $$('.pbtn',$('#w-speckx')).forEach(b=>b.addEventListener('click',()=>{\n    const [c0,c1,c2,c3] = b.dataset.c.split(',').map(Number);\n    $('#c0').value=c0; $('#c1').value=c1; $('#c2').value=c2; $('#c3').value=c3; draw();\n  }));\n  ['c0','c1','c2','c3'].forEach(id=>$('#'+id).addEventListener('input',draw));\n\n  function coeffArr(){\n    return [+$('#c0').value,+$('#c1').value,+$('#c2').value,+$('#c3').value];\n  }\n  function polyStr(c){\n    const terms=[];\n    for(let i=c.length-1;i>=0;i--){\n      if(c[i]===0) continue;\n      let s = Math.abs(c[i])===1 && i>0 ? '' : `${Math.abs(c[i])}`;\n      const xp = i===0?'':(i===1?'x':`x${sup(i)}`);\n      terms.push((c[i]<0? (terms.length?' − ':'−') : (terms.length?' + ':'')) + s + xp);\n    }\n    return terms.join('')||'0';\n  }\n  function sup(n){return ''+[...String(n)].map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('')}\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const c = coeffArr();\n    // always draw in a plane\n    const cx=W/2, cy=H/2+10, sx=100, sy=100;\n    const tx = a => cx + a*sx;\n    const ty = b => cy - b*sy;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-20,y2:cy,stroke:'#3a4558'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:H-30,stroke:'#3a4558'}));\n    for(let a=-3;a<=3;a++){\n      svg.appendChild(SVG('line',{x1:tx(a),y1:cy-4,x2:tx(a),y2:cy+4,stroke:'#3a4558'}));\n      if(a!==0){const t=SVG('text',{x:tx(a),y:cy+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});t.textContent=a;svg.appendChild(t)}\n    }\n    if(field!=='F5' && field!=='F7'){\n      for(let b=-1;b<=1;b++){if(b===0)continue;\n        svg.appendChild(SVG('line',{x1:cx-4,y1:ty(b),x2:cx+4,y2:ty(b),stroke:'#3a4558'}));\n        const t=SVG('text',{x:cx+8,y:ty(b)+4,'font-size':11,fill:'#6c7787'});t.textContent=b+'i';svg.appendChild(t);\n      }\n    }\n    // axis labels\n    const lbl = SVG('text',{x:W-30,y:cy-8,'font-size':12,fill:'#9aa4b2','text-anchor':'end'});\n    lbl.textContent= (field==='F5'||field==='F7')?'residue':'Re';\n    svg.appendChild(lbl);\n    if(field!=='F5' && field!=='F7'){\n      const lbl2 = SVG('text',{x:cx+8,y:40,'font-size':12,fill:'#9aa4b2'});\n      lbl2.textContent='Im'; svg.appendChild(lbl2);\n    }\n\n    // generic point marker\n    const gp = SVG('text',{x:50,y:50,'font-size':12,fill:'#b39ddb'});\n    gp.textContent='· generic point (0), residue field = '+(field==='C'?'ℂ(x)':field==='R'?'ℝ(x)':field==='F5'?'𝔽₅(x)':'𝔽₇(x)');\n    svg.appendChild(gp);\n\n    if(field==='F5' || field==='F7'){\n      const q = field==='F5'?5:7;\n      // evaluate p(x) mod q at each residue\n      const dots=[];\n      for(let a=0;a<q;a++){\n        let v=0;\n        for(let i=c.length-1;i>=0;i--){v=mod(v*a+c[i],q)}\n        const x = 120 + a*100;\n        const dot = SVG('circle',{cx:x,cy:cy,r: v===0?10:5,fill: v===0?'#ffd866':'#58c4dd','data-a':a,'data-v':v,style:'cursor:pointer'});\n        const lbl = SVG('text',{x,y:cy+26,'font-size':12,'text-anchor':'middle',fill: v===0?'#ffd866':'#9aa4b2'});\n        lbl.textContent = `x=${a}`;\n        dot.addEventListener('mouseenter',()=>{\n          ro.innerHTML = `at closed point $(x-${a})$:&nbsp; p(${a}) mod ${q} = <span style=\"color:var(--yellow)\">${v}</span>`+\n            (v===0?` <span style=\"color:var(--green)\">— root!</span>`:``) +\n            `<br><span class=\"small\">residue field = 𝔽<sub>${q}</sub></span>`;\n          if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n        });\n        svg.appendChild(dot); svg.appendChild(lbl);\n      }\n      // summary: note about higher-degree primes\n      const note = SVG('text',{x:W/2,y:H-15,'font-size':11,'text-anchor':'middle',fill:'#9aa4b2'});\n      note.textContent='closed points shown: degree-1 primes (x−a). Higher-degree irreducibles exist but aren\\u2019t drawn.';\n      svg.appendChild(note);\n      return;\n    }\n\n    // find complex roots (mass ~ multiplicity via clustering)\n    const rawRoots = roots(c);\n    const clusters = cluster(rawRoots, 0.02);\n    // organize for R: pair conjugates\n    if(field==='R'){\n      const used = new Array(clusters.length).fill(false);\n      const real = [], pairs = [];\n      for(let i=0;i<clusters.length;i++){\n        if(used[i]) continue;\n        const {z,m} = clusters[i];\n        if(Math.abs(z[1])<0.01){ real.push({a:z[0],m}); used[i]=true; }\n        else {\n          // find conjugate\n          let j=-1,best=Infinity;\n          for(let k=i+1;k<clusters.length;k++){\n            if(used[k]) continue;\n            const w=clusters[k].z;\n            const d=Math.hypot(w[0]-z[0],w[1]+z[1]);\n            if(d<best){best=d;j=k}\n          }\n          if(j>=0 && best<0.05){\n            pairs.push({a:z[0],b:Math.abs(z[1]),m}); used[i]=used[j]=true;\n          } else {\n            pairs.push({a:z[0],b:Math.abs(z[1]),m}); used[i]=true;\n          }\n        }\n      }\n      // draw real roots on axis\n      for(const {a,m} of real){\n        const x=tx(a);\n        const d = SVG('circle',{cx:x,cy:cy,r:5+2*m,fill:'#ffd866',style:'cursor:pointer'});\n        d.addEventListener('mouseenter',()=>{\n          ro.innerHTML = `closed point <span style=\"color:var(--yellow)\">$(x - ${a.toFixed(3)})$</span> · multiplicity ${m} · residue field ℝ`;\n          if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n        });\n        svg.appendChild(d);\n      }\n      // draw conjugate pairs: one \"point\" bracketing two dots above/below\n      for(const {a,b,m} of pairs){\n        const x=tx(a), yp=ty(b), yn=ty(-b);\n        // bracket\n        svg.appendChild(SVG('path',{d:`M ${x-12} ${yp} L ${x-18} ${yp} L ${x-18} ${yn} L ${x-12} ${yn}`,fill:'none',stroke:'#e07a5f','stroke-width':1.5}));\n        const top = SVG('circle',{cx:x,cy:yp,r:4+2*m,fill:'#e07a5f',opacity:0.8});\n        const bot = SVG('circle',{cx:x,cy:yn,r:4+2*m,fill:'#e07a5f',opacity:0.8});\n        svg.appendChild(top); svg.appendChild(bot);\n        // label: one point of Spec R[x]\n        const tag = SVG('text',{x:x-22,y:(yp+yn)/2+4,'font-size':11,'text-anchor':'end',fill:'#e07a5f'});\n        tag.textContent='1 point';\n        svg.appendChild(tag);\n        [top,bot].forEach(el=>{\n          el.style.cursor='pointer';\n          el.addEventListener('mouseenter',()=>{\n            const B=b.toFixed(3), A=a.toFixed(3);\n            ro.innerHTML = `closed point <span style=\"color:var(--pink)\">$(x^2 - 2·${A}·x + (${A}^2 + ${B}^2))$</span> — irreducible over ℝ<br>` +\n              `<span class=\"small\">residue field ℂ · the two complex conjugates ${A} ± ${B}i are \"one\" prime over ℝ</span>`;\n            if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n          });\n        });\n      }\n      return;\n    }\n    // field === 'C': draw every root in plane\n    for(const {z,m} of clusters){\n      const x=tx(z[0]), y=ty(z[1]);\n      const d = SVG('circle',{cx:x,cy:y,r:5+2*m,fill:'#ffd866',stroke:'#fff','stroke-width':0.5,style:'cursor:pointer'});\n      d.addEventListener('mouseenter',()=>{\n        const im = z[1]>=0? `+ ${z[1].toFixed(3)}i` : `− ${(-z[1]).toFixed(3)}i`;\n        ro.innerHTML = `closed point <span style=\"color:var(--yellow)\">$(x - (${z[0].toFixed(3)} ${im}))$</span> · multiplicity ${m} · residue field ℂ`;\n        if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n      });\n      svg.appendChild(d);\n    }\n  }\n  draw();",
+            "hint": "change k to see primes merge and split",
+            "sectionComment": "=============================== SECTION 3: Spec k[x] ===============================",
+            "svgId": "speckx-svg",
+            "viewBox": "0 0 820 320",
+            "readoutId": "speckx-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p class=\"small\">Watch the point $(x^2+1)$ of $\\operatorname{Spec}\\mathbb{R}[x]$ split into two points $(x-i),(x+i)$ of $\\operatorname{Spec}\\mathbb{C}[x]$ when you switch $\\mathbb{R}\\to\\mathbb{C}$. That's the first taste of <em>base change</em>: geometry changes with the field.</p>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-speckx",
+            "title": "Spec k[x] — roots of p(x) as closed points",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>k =</label>\n    <button class=\"fbtn active\" data-f=\"C\">ℂ</button>\n    <button class=\"fbtn\" data-f=\"R\">ℝ</button>\n    <button class=\"fbtn\" data-f=\"F5\">𝔽₅</button>\n    <button class=\"fbtn\" data-f=\"F7\">𝔽₇</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"c3\">p(x) =</label>\n    <input type=\"number\" id=\"c3\" value=\"1\" style=\"width:60px\">·x³ +\n    <input type=\"number\" id=\"c2\" value=\"0\" style=\"width:60px\">·x² +\n    <input type=\"number\" id=\"c1\" value=\"-1\" style=\"width:60px\">·x +\n    <input type=\"number\" id=\"c0\" value=\"0\" style=\"width:60px\">\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <span class=\"small\">presets:</span>\n    <button class=\"pbtn\" data-c=\"0,0,0,1\">x³</button>\n    <button class=\"pbtn\" data-c=\"0,-1,0,1\">x³−x</button>\n    <button class=\"pbtn\" data-c=\"1,0,1,0\">x²+1</button>\n    <button class=\"pbtn\" data-c=\"1,1,1,0\">x²+x+1</button>\n    <button class=\"pbtn\" data-c=\"2,-3,1,0\">x²−3x+2</button>\n    <button class=\"pbtn\" data-c=\"-6,11,-6,1\">(x-1)(x-2)(x-3)</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "speckx-svg",
+                "viewBox": "0 0 820 320",
+                "width": 820,
+                "height": 320
+              },
+              {
+                "kind": "readout",
+                "id": "speckx-readout",
+                "content": "Pick a field and polynomial. Hover a dot for its prime ideal."
+              }
+            ],
+            "bodyScript": "  const svg = $('#speckx-svg');\n  const W=820,H=320;\n  const ro = $('#speckx-readout');\n  // complex roots via Durand-Kerner\n  function roots(coeffs){\n    // coeffs = [a0,a1,...,an], highest nonzero at end\n    // normalize and trim trailing zeros\n    let c = coeffs.slice();\n    while(c.length>1 && c[c.length-1]===0) c.pop();\n    const n = c.length-1;\n    if(n<=0) return []; // constant\n    const an = c[n];\n    const p = c.map(x=>x/an); // monic\n    // initial guesses on a circle\n    const zs = [];\n    for(let k=0;k<n;k++){\n      const th = 2*Math.PI*k/n + 0.4;\n      zs.push([Math.cos(th)*1.3,Math.sin(th)*1.3]);\n    }\n    const cmul=([a,b],[c,d])=>[a*c-b*d,a*d+b*c];\n    const cadd=([a,b],[c,d])=>[a+c,b+d];\n    const csub=([a,b],[c,d])=>[a-c,b-d];\n    const cdiv=([a,b],[c,d])=>{const r=c*c+d*d;return [(a*c+b*d)/r,(b*c-a*d)/r]};\n    function eval_(p,z){let y=[0,0];for(let i=p.length-1;i>=0;i--){y=cadd(cmul(y,z),[p[i],0])}return y;}\n    for(let iter=0; iter<200; iter++){\n      let moved=0;\n      for(let k=0;k<n;k++){\n        const fz = eval_(p,zs[k]);\n        let denom=[1,0];\n        for(let j=0;j<n;j++) if(j!==k) denom = cmul(denom, csub(zs[k],zs[j]));\n        const step = cdiv(fz,denom);\n        zs[k] = csub(zs[k],step);\n        moved += Math.abs(step[0])+Math.abs(step[1]);\n      }\n      if(moved<1e-12) break;\n    }\n    return zs;\n  }\n  // cluster roots within tol\n  function cluster(zs,tol=1e-4){\n    const out=[];\n    for(const z of zs){\n      const hit = out.find(o=>Math.hypot(o.z[0]-z[0],o.z[1]-z[1])<tol);\n      if(hit){hit.m++}\n      else out.push({z,m:1});\n    }\n    return out;\n  }\n\n  // UI state\n  let field='C';\n  $$('.fbtn',$('#w-speckx')).forEach(b=>b.addEventListener('click',()=>{\n    $$('.fbtn',$('#w-speckx')).forEach(x=>x.classList.remove('active'));\n    b.classList.add('active'); field=b.dataset.f; draw();\n  }));\n  $$('.pbtn',$('#w-speckx')).forEach(b=>b.addEventListener('click',()=>{\n    const [c0,c1,c2,c3] = b.dataset.c.split(',').map(Number);\n    $('#c0').value=c0; $('#c1').value=c1; $('#c2').value=c2; $('#c3').value=c3; draw();\n  }));\n  ['c0','c1','c2','c3'].forEach(id=>$('#'+id).addEventListener('input',draw));\n\n  function coeffArr(){\n    return [+$('#c0').value,+$('#c1').value,+$('#c2').value,+$('#c3').value];\n  }\n  function polyStr(c){\n    const terms=[];\n    for(let i=c.length-1;i>=0;i--){\n      if(c[i]===0) continue;\n      let s = Math.abs(c[i])===1 && i>0 ? '' : `${Math.abs(c[i])}`;\n      const xp = i===0?'':(i===1?'x':`x${sup(i)}`);\n      terms.push((c[i]<0? (terms.length?' − ':'−') : (terms.length?' + ':'')) + s + xp);\n    }\n    return terms.join('')||'0';\n  }\n  function sup(n){return ''+[...String(n)].map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('')}\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const c = coeffArr();\n    // always draw in a plane\n    const cx=W/2, cy=H/2+10, sx=100, sy=100;\n    const tx = a => cx + a*sx;\n    const ty = b => cy - b*sy;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-20,y2:cy,stroke:'#3a4558'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:H-30,stroke:'#3a4558'}));\n    for(let a=-3;a<=3;a++){\n      svg.appendChild(SVG('line',{x1:tx(a),y1:cy-4,x2:tx(a),y2:cy+4,stroke:'#3a4558'}));\n      if(a!==0){const t=SVG('text',{x:tx(a),y:cy+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});t.textContent=a;svg.appendChild(t)}\n    }\n    if(field!=='F5' && field!=='F7'){\n      for(let b=-1;b<=1;b++){if(b===0)continue;\n        svg.appendChild(SVG('line',{x1:cx-4,y1:ty(b),x2:cx+4,y2:ty(b),stroke:'#3a4558'}));\n        const t=SVG('text',{x:cx+8,y:ty(b)+4,'font-size':11,fill:'#6c7787'});t.textContent=b+'i';svg.appendChild(t);\n      }\n    }\n    // axis labels\n    const lbl = SVG('text',{x:W-30,y:cy-8,'font-size':12,fill:'#9aa4b2','text-anchor':'end'});\n    lbl.textContent= (field==='F5'||field==='F7')?'residue':'Re';\n    svg.appendChild(lbl);\n    if(field!=='F5' && field!=='F7'){\n      const lbl2 = SVG('text',{x:cx+8,y:40,'font-size':12,fill:'#9aa4b2'});\n      lbl2.textContent='Im'; svg.appendChild(lbl2);\n    }\n\n    // generic point marker\n    const gp = SVG('text',{x:50,y:50,'font-size':12,fill:'#b39ddb'});\n    gp.textContent='· generic point (0), residue field = '+(field==='C'?'ℂ(x)':field==='R'?'ℝ(x)':field==='F5'?'𝔽₅(x)':'𝔽₇(x)');\n    svg.appendChild(gp);\n\n    if(field==='F5' || field==='F7'){\n      const q = field==='F5'?5:7;\n      // evaluate p(x) mod q at each residue\n      const dots=[];\n      for(let a=0;a<q;a++){\n        let v=0;\n        for(let i=c.length-1;i>=0;i--){v=mod(v*a+c[i],q)}\n        const x = 120 + a*100;\n        const dot = SVG('circle',{cx:x,cy:cy,r: v===0?10:5,fill: v===0?'#ffd866':'#58c4dd','data-a':a,'data-v':v,style:'cursor:pointer'});\n        const lbl = SVG('text',{x,y:cy+26,'font-size':12,'text-anchor':'middle',fill: v===0?'#ffd866':'#9aa4b2'});\n        lbl.textContent = `x=${a}`;\n        dot.addEventListener('mouseenter',()=>{\n          ro.innerHTML = `at closed point $(x-${a})$:&nbsp; p(${a}) mod ${q} = <span style=\"color:var(--yellow)\">${v}</span>`+\n            (v===0?` <span style=\"color:var(--green)\">— root!</span>`:``) +\n            `<br><span class=\"small\">residue field = 𝔽<sub>${q}</sub></span>`;\n          if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n        });\n        svg.appendChild(dot); svg.appendChild(lbl);\n      }\n      // summary: note about higher-degree primes\n      const note = SVG('text',{x:W/2,y:H-15,'font-size':11,'text-anchor':'middle',fill:'#9aa4b2'});\n      note.textContent='closed points shown: degree-1 primes (x−a). Higher-degree irreducibles exist but aren\\u2019t drawn.';\n      svg.appendChild(note);\n      return;\n    }\n\n    // find complex roots (mass ~ multiplicity via clustering)\n    const rawRoots = roots(c);\n    const clusters = cluster(rawRoots, 0.02);\n    // organize for R: pair conjugates\n    if(field==='R'){\n      const used = new Array(clusters.length).fill(false);\n      const real = [], pairs = [];\n      for(let i=0;i<clusters.length;i++){\n        if(used[i]) continue;\n        const {z,m} = clusters[i];\n        if(Math.abs(z[1])<0.01){ real.push({a:z[0],m}); used[i]=true; }\n        else {\n          // find conjugate\n          let j=-1,best=Infinity;\n          for(let k=i+1;k<clusters.length;k++){\n            if(used[k]) continue;\n            const w=clusters[k].z;\n            const d=Math.hypot(w[0]-z[0],w[1]+z[1]);\n            if(d<best){best=d;j=k}\n          }\n          if(j>=0 && best<0.05){\n            pairs.push({a:z[0],b:Math.abs(z[1]),m}); used[i]=used[j]=true;\n          } else {\n            pairs.push({a:z[0],b:Math.abs(z[1]),m}); used[i]=true;\n          }\n        }\n      }\n      // draw real roots on axis\n      for(const {a,m} of real){\n        const x=tx(a);\n        const d = SVG('circle',{cx:x,cy:cy,r:5+2*m,fill:'#ffd866',style:'cursor:pointer'});\n        d.addEventListener('mouseenter',()=>{\n          ro.innerHTML = `closed point <span style=\"color:var(--yellow)\">$(x - ${a.toFixed(3)})$</span> · multiplicity ${m} · residue field ℝ`;\n          if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n        });\n        svg.appendChild(d);\n      }\n      // draw conjugate pairs: one \"point\" bracketing two dots above/below\n      for(const {a,b,m} of pairs){\n        const x=tx(a), yp=ty(b), yn=ty(-b);\n        // bracket\n        svg.appendChild(SVG('path',{d:`M ${x-12} ${yp} L ${x-18} ${yp} L ${x-18} ${yn} L ${x-12} ${yn}`,fill:'none',stroke:'#e07a5f','stroke-width':1.5}));\n        const top = SVG('circle',{cx:x,cy:yp,r:4+2*m,fill:'#e07a5f',opacity:0.8});\n        const bot = SVG('circle',{cx:x,cy:yn,r:4+2*m,fill:'#e07a5f',opacity:0.8});\n        svg.appendChild(top); svg.appendChild(bot);\n        // label: one point of Spec R[x]\n        const tag = SVG('text',{x:x-22,y:(yp+yn)/2+4,'font-size':11,'text-anchor':'end',fill:'#e07a5f'});\n        tag.textContent='1 point';\n        svg.appendChild(tag);\n        [top,bot].forEach(el=>{\n          el.style.cursor='pointer';\n          el.addEventListener('mouseenter',()=>{\n            const B=b.toFixed(3), A=a.toFixed(3);\n            ro.innerHTML = `closed point <span style=\"color:var(--pink)\">$(x^2 - 2·${A}·x + (${A}^2 + ${B}^2))$</span> — irreducible over ℝ<br>` +\n              `<span class=\"small\">residue field ℂ · the two complex conjugates ${A} ± ${B}i are \"one\" prime over ℝ</span>`;\n            if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n          });\n        });\n      }\n      return;\n    }\n    // field === 'C': draw every root in plane\n    for(const {z,m} of clusters){\n      const x=tx(z[0]), y=ty(z[1]);\n      const d = SVG('circle',{cx:x,cy:y,r:5+2*m,fill:'#ffd866',stroke:'#fff','stroke-width':0.5,style:'cursor:pointer'});\n      d.addEventListener('mouseenter',()=>{\n        const im = z[1]>=0? `+ ${z[1].toFixed(3)}i` : `− ${(-z[1]).toFixed(3)}i`;\n        ro.innerHTML = `closed point <span style=\"color:var(--yellow)\">$(x - (${z[0].toFixed(3)} ${im}))$</span> · multiplicity ${m} · residue field ℂ`;\n        if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n      });\n      svg.appendChild(d);\n    }\n  }\n  draw();",
+            "hint": "change k to see primes merge and split",
+            "sectionComment": "=============================== SECTION 3: Spec k[x] ===============================",
+            "svgId": "speckx-svg",
+            "viewBox": "0 0 820 320",
+            "readoutId": "speckx-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "speckxy",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"speckxy\">\n<h2>4. Dimension two: Spec k[x,y]</h2>\n<p>One more dimension up. For $R=k[x,y]$ the primes come in three flavors:</p>\n<p class=\"pill\">dim 0</p> <strong>maximal ideals</strong> $(x-a,y-b)$ — the <em>closed points</em>, one for each $(a,b)$.</p>\n<p class=\"pill\">dim 1</p> <strong>height-one primes</strong> $(f)$ with $f$ irreducible — <em>irreducible curves</em>. Each curve is itself a \"point\" of $\\operatorname{Spec}k[x,y]$ whose closure is the curve and its closed points.</p>\n<p class=\"pill\">dim 2</p> the <strong>zero ideal</strong> $(0)$ — the single <em>generic point</em> of the plane. Its closure is everything.</p>\n<p>So $\\operatorname{Spec}k[x,y]$ has <em>three tiers</em>: 2-dimensional generic point at the top, 1-dimensional generic points of curves in the middle, 0-dimensional closed points at the bottom. Specializations go downward.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-speckxy",
+            "title": "Spec k[x,y] — closed points & curves",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <span class=\"small\">curves:</span>\n    <button class=\"cbtn\" data-c=\"y\">y</button>\n    <button class=\"cbtn active\" data-c=\"y-x2\">y−x²</button>\n    <button class=\"cbtn\" data-c=\"x2+y2-1\">x²+y²−1</button>\n    <button class=\"cbtn\" data-c=\"y2-x3+x\">y²−x³+x</button>\n    <button class=\"cbtn\" data-c=\"y2-x3\">y²−x³</button>\n    <button class=\"cbtn\" data-c=\"xy\">xy</button>\n    <button class=\"cbtn\" data-c=\"y-x\">y−x</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"speckxy-svg\" viewBox=\"0 0 820 520\" width=\"820\" height=\"520\" style=\"cursor:crosshair\"><title>Spec k[x,y] — closed points &amp; curves</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "speckxy-readout",
+                "content": "Move the mouse over the plane. Curves glow when the crosshair is on (or near) them."
+              }
+            ],
+            "bodyScript": "  const svg = $('#speckxy-svg');\n  const W=820,H=520;\n  const ro = $('#speckxy-readout');\n  const curves = [\n    {id:'y',       label:'(y)',         f:(x,y)=>y,          fStr:'y'},\n    {id:'y-x2',    label:'(y − x²)',    f:(x,y)=>y-x*x,      fStr:'y − x²'},\n    {id:'x2+y2-1', label:'(x² + y² − 1)',f:(x,y)=>x*x+y*y-1, fStr:'x² + y² − 1'},\n    {id:'y2-x3+x', label:'(y² − x³ + x)',f:(x,y)=>y*y-x*x*x+x,fStr:'y² − x³ + x (nodal elliptic)'},\n    {id:'y2-x3',   label:'(y² − x³)',   f:(x,y)=>y*y-x*x*x,  fStr:'y² − x³ (cuspidal cubic)'},\n    {id:'xy',      label:'(xy)',        f:(x,y)=>x*y,        fStr:'xy (reducible: x·y)'},\n    {id:'y-x',     label:'(y − x)',     f:(x,y)=>y-x,        fStr:'y − x'},\n  ];\n  const active = new Set(['y-x2']);\n\n  const cx=W/2, cy=H/2, sc=70; // scale: 1 math unit = 70px\n  const tx = a => cx + a*sc;\n  const ty = b => cy - b*sc;\n  const xfromPx = px => (px-cx)/sc;\n  const yfromPx = py => (cy-py)/sc;\n\n  function drawAxes(){\n    // grid\n    for(let i=-5;i<=5;i++){\n      if(i===0) continue;\n      svg.appendChild(SVG('line',{x1:tx(i),y1:0,x2:tx(i),y2:H,stroke:'#1c2230'}));\n      svg.appendChild(SVG('line',{x1:0,y1:ty(i),x2:W,y2:ty(i),stroke:'#1c2230'}));\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'#3a4558'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'#3a4558'}));\n    for(let i=-5;i<=5;i++){if(i===0) continue;\n      const t=SVG('text',{x:tx(i),y:cy+14,'font-size':10,'text-anchor':'middle',fill:'#6c7787'});t.textContent=i;svg.appendChild(t);\n      const t2=SVG('text',{x:cx+6,y:ty(i)+4,'font-size':10,fill:'#6c7787'});t2.textContent=i;svg.appendChild(t2);\n    }\n  }\n\n  // render implicit curve f(x,y)=0 as pixel-level zero crossings → path segments\n  function drawCurve(cdef,color,width=1.6,dim=false){\n    // sample on a grid, use marching squares-ish: draw a line where sign changes on a cell edge\n    const N=220;\n    const step = W/N;\n    const vals = new Float32Array((N+1)*(N+1));\n    for(let j=0;j<=N;j++){\n      for(let i=0;i<=N;i++){\n        const x = xfromPx(i*step);\n        const y = yfromPx(j*step);\n        vals[j*(N+1)+i] = cdef.f(x,y);\n      }\n    }\n    const path = [];\n    for(let j=0;j<N;j++){\n      for(let i=0;i<N;i++){\n        const a = vals[j*(N+1)+i];\n        const b = vals[j*(N+1)+i+1];\n        const c = vals[(j+1)*(N+1)+i];\n        const d = vals[(j+1)*(N+1)+i+1];\n        // connect zero crossings on the 4 edges of this cell, pair them\n        const pts = [];\n        if((a<=0)!==(b<=0)){const t=a/(a-b);pts.push([(i+t)*step, j*step])}\n        if((b<=0)!==(d<=0)){const t=b/(b-d);pts.push([(i+1)*step, (j+t)*step])}\n        if((c<=0)!==(d<=0)){const t=c/(c-d);pts.push([(i+t)*step, (j+1)*step])}\n        if((a<=0)!==(c<=0)){const t=a/(a-c);pts.push([i*step, (j+t)*step])}\n        if(pts.length>=2){\n          // connect first two (fine for smooth curves)\n          path.push([pts[0],pts[1]]);\n          if(pts.length===4) path.push([pts[2],pts[3]]);\n        }\n      }\n    }\n    const g = SVG('g',{});\n    for(const [p,q] of path){\n      g.appendChild(SVG('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:color,'stroke-width':width,'stroke-opacity':dim?0.35:0.95,'stroke-linecap':'round'}));\n    }\n    svg.appendChild(g);\n    return g;\n  }\n\n  // crosshair\n  const crosshair = SVG('g',{});\n  const chV = SVG('line',{x1:0,y1:0,x2:0,y2:H,stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const chH = SVG('line',{x1:0,y1:0,x2:W,y2:0,stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const chD = SVG('circle',{r:5,fill:'#e07a5f',stroke:'#fff','stroke-width':1});\n  crosshair.appendChild(chV); crosshair.appendChild(chH); crosshair.appendChild(chD);\n  let mouseMath = {x:0.7,y:0.49}; // start on parabola\n\n  const colorMap = ['#58c4dd','#ffd866','var(--green)','#e07a5f','#b39ddb','#7de0d6','#f78fb3'];\n\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    drawAxes();\n    // generic-point veil — very faint purple noise-free glow over plane\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'url(#noop)','opacity':0}));\n    // active curves\n    const drawn = [];\n    let idx=0;\n    for(const c of curves){\n      if(!active.has(c.id)) continue;\n      const col = colorMap[idx%colorMap.length]; idx++;\n      // test if crosshair is near curve\n      const val = c.f(mouseMath.x, mouseMath.y);\n      const near = Math.abs(val) < 0.08;\n      drawCurve(c,col,near?2.8:1.8, !near && active.size>1 && false);\n      drawn.push({c,col,near});\n    }\n    // legend\n    const lg = SVG('g',{});\n    let ly=22;\n    for(const {c,col,near} of drawn){\n      const r = SVG('rect',{x:20,y:ly-10,width:10,height:10,fill:col,opacity:near?1:0.85});\n      const t = SVG('text',{x:36,y:ly-1,'font-size':12,fill:near?'#fff':'#cbd5e1'});\n      t.textContent = c.label + (near?'  ← near crosshair':'');\n      lg.appendChild(r); lg.appendChild(t); ly+=18;\n    }\n    svg.appendChild(lg);\n    // crosshair\n    chV.setAttribute('x1', tx(mouseMath.x)); chV.setAttribute('x2', tx(mouseMath.x));\n    chH.setAttribute('y1', ty(mouseMath.y)); chH.setAttribute('y2', ty(mouseMath.y));\n    chD.setAttribute('cx', tx(mouseMath.x)); chD.setAttribute('cy', ty(mouseMath.y));\n    svg.appendChild(crosshair);\n\n    // readout: what's at (a,b)\n    const a = mouseMath.x.toFixed(3), b = mouseMath.y.toFixed(3);\n    const hits = drawn.filter(d=>d.near).map(d=>d.c.label);\n    const genericCurves = drawn.filter(d=>d.near).map(d=>\n      `<div>· generic point of curve: <span style=\"color:${d.col}\">$(${d.c.fStr.replace(/−/g,'-')})$</span> — residue field = Frac(k[x,y]/(${d.c.fStr}))</div>`\n    ).join('');\n    ro.innerHTML = `<div>closed point $\\\\mathfrak{m}=(x-${a},\\\\,y-${b})$ · residue field = k</div>` +\n      (hits.length?`<div class=\"small\" style=\"color:var(--green)\">this point lies on ${hits.length} selected curve(s)</div>${genericCurves}`:`<div class=\"small\">no active curve passes through this point</div>`) +\n      `<div class=\"small\" style=\"margin-top:.4rem;color:var(--violet)\">above all of these: the 2-dim generic point (0) — residue field k(x,y)</div>`;\n    if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n  }\n\n  svg.addEventListener('mousemove',e=>{\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    mouseMath = {x:xfromPx(px), y:yfromPx(py)};\n    redraw();\n  });\n\n  $$('.cbtn',$('#w-speckxy')).forEach(b=>b.addEventListener('click',()=>{\n    const id = b.dataset.c;\n    if(active.has(id)){active.delete(id); b.classList.remove('active')}\n    else {active.add(id); b.classList.add('active')}\n    redraw();\n  }));\n  // init activity highlights\n  $$('.cbtn',$('#w-speckxy')).forEach(b=>{ if(active.has(b.dataset.c)) b.classList.add('active') });\n  redraw();",
+            "hint": "toggle curves, move the crosshair",
+            "sectionComment": "=============================== SECTION 4: Spec k[x,y] ===============================",
+            "readoutId": "speckxy-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>The generic point is not a dot.</strong> Every nonempty open set of $\\operatorname{Spec}k[x,y]$ contains the generic point $(0)$. It \"lives everywhere\" — it isn't drawable as a location. Instead think of it as a perspective: statements true at the generic point hold on a dense open set.</p>\n</div>\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#open\">Topological spaces</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./schemes.html#closed-subscheme\">Schemes</a> · Closed subschemes, reducedness, and irreducibility</div>\n    <div><a href=\"./schemes.html#gluing\">Schemes</a> · Gluing affine schemes</div>\n    <div><a href=\"./schemes.html#locally-ringed-space\">Schemes</a> · Locally ringed spaces</div>\n    <div><a href=\"./sheaves.html#omod\">Sheaves</a> · Ringed spaces and $\\mathcal{O}_X$-modules</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "structure-sheaf-schemes",
+          "html": "<div class=\"quiz\" data-concept=\"structure-sheaf-schemes\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-speckxy",
+            "title": "Spec k[x,y] — closed points & curves",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <span class=\"small\">curves:</span>\n    <button class=\"cbtn\" data-c=\"y\">y</button>\n    <button class=\"cbtn active\" data-c=\"y-x2\">y−x²</button>\n    <button class=\"cbtn\" data-c=\"x2+y2-1\">x²+y²−1</button>\n    <button class=\"cbtn\" data-c=\"y2-x3+x\">y²−x³+x</button>\n    <button class=\"cbtn\" data-c=\"y2-x3\">y²−x³</button>\n    <button class=\"cbtn\" data-c=\"xy\">xy</button>\n    <button class=\"cbtn\" data-c=\"y-x\">y−x</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"speckxy-svg\" viewBox=\"0 0 820 520\" width=\"820\" height=\"520\" style=\"cursor:crosshair\"><title>Spec k[x,y] — closed points &amp; curves</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "speckxy-readout",
+                "content": "Move the mouse over the plane. Curves glow when the crosshair is on (or near) them."
+              }
+            ],
+            "bodyScript": "  const svg = $('#speckxy-svg');\n  const W=820,H=520;\n  const ro = $('#speckxy-readout');\n  const curves = [\n    {id:'y',       label:'(y)',         f:(x,y)=>y,          fStr:'y'},\n    {id:'y-x2',    label:'(y − x²)',    f:(x,y)=>y-x*x,      fStr:'y − x²'},\n    {id:'x2+y2-1', label:'(x² + y² − 1)',f:(x,y)=>x*x+y*y-1, fStr:'x² + y² − 1'},\n    {id:'y2-x3+x', label:'(y² − x³ + x)',f:(x,y)=>y*y-x*x*x+x,fStr:'y² − x³ + x (nodal elliptic)'},\n    {id:'y2-x3',   label:'(y² − x³)',   f:(x,y)=>y*y-x*x*x,  fStr:'y² − x³ (cuspidal cubic)'},\n    {id:'xy',      label:'(xy)',        f:(x,y)=>x*y,        fStr:'xy (reducible: x·y)'},\n    {id:'y-x',     label:'(y − x)',     f:(x,y)=>y-x,        fStr:'y − x'},\n  ];\n  const active = new Set(['y-x2']);\n\n  const cx=W/2, cy=H/2, sc=70; // scale: 1 math unit = 70px\n  const tx = a => cx + a*sc;\n  const ty = b => cy - b*sc;\n  const xfromPx = px => (px-cx)/sc;\n  const yfromPx = py => (cy-py)/sc;\n\n  function drawAxes(){\n    // grid\n    for(let i=-5;i<=5;i++){\n      if(i===0) continue;\n      svg.appendChild(SVG('line',{x1:tx(i),y1:0,x2:tx(i),y2:H,stroke:'#1c2230'}));\n      svg.appendChild(SVG('line',{x1:0,y1:ty(i),x2:W,y2:ty(i),stroke:'#1c2230'}));\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'#3a4558'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'#3a4558'}));\n    for(let i=-5;i<=5;i++){if(i===0) continue;\n      const t=SVG('text',{x:tx(i),y:cy+14,'font-size':10,'text-anchor':'middle',fill:'#6c7787'});t.textContent=i;svg.appendChild(t);\n      const t2=SVG('text',{x:cx+6,y:ty(i)+4,'font-size':10,fill:'#6c7787'});t2.textContent=i;svg.appendChild(t2);\n    }\n  }\n\n  // render implicit curve f(x,y)=0 as pixel-level zero crossings → path segments\n  function drawCurve(cdef,color,width=1.6,dim=false){\n    // sample on a grid, use marching squares-ish: draw a line where sign changes on a cell edge\n    const N=220;\n    const step = W/N;\n    const vals = new Float32Array((N+1)*(N+1));\n    for(let j=0;j<=N;j++){\n      for(let i=0;i<=N;i++){\n        const x = xfromPx(i*step);\n        const y = yfromPx(j*step);\n        vals[j*(N+1)+i] = cdef.f(x,y);\n      }\n    }\n    const path = [];\n    for(let j=0;j<N;j++){\n      for(let i=0;i<N;i++){\n        const a = vals[j*(N+1)+i];\n        const b = vals[j*(N+1)+i+1];\n        const c = vals[(j+1)*(N+1)+i];\n        const d = vals[(j+1)*(N+1)+i+1];\n        // connect zero crossings on the 4 edges of this cell, pair them\n        const pts = [];\n        if((a<=0)!==(b<=0)){const t=a/(a-b);pts.push([(i+t)*step, j*step])}\n        if((b<=0)!==(d<=0)){const t=b/(b-d);pts.push([(i+1)*step, (j+t)*step])}\n        if((c<=0)!==(d<=0)){const t=c/(c-d);pts.push([(i+t)*step, (j+1)*step])}\n        if((a<=0)!==(c<=0)){const t=a/(a-c);pts.push([i*step, (j+t)*step])}\n        if(pts.length>=2){\n          // connect first two (fine for smooth curves)\n          path.push([pts[0],pts[1]]);\n          if(pts.length===4) path.push([pts[2],pts[3]]);\n        }\n      }\n    }\n    const g = SVG('g',{});\n    for(const [p,q] of path){\n      g.appendChild(SVG('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:color,'stroke-width':width,'stroke-opacity':dim?0.35:0.95,'stroke-linecap':'round'}));\n    }\n    svg.appendChild(g);\n    return g;\n  }\n\n  // crosshair\n  const crosshair = SVG('g',{});\n  const chV = SVG('line',{x1:0,y1:0,x2:0,y2:H,stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const chH = SVG('line',{x1:0,y1:0,x2:W,y2:0,stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const chD = SVG('circle',{r:5,fill:'#e07a5f',stroke:'#fff','stroke-width':1});\n  crosshair.appendChild(chV); crosshair.appendChild(chH); crosshair.appendChild(chD);\n  let mouseMath = {x:0.7,y:0.49}; // start on parabola\n\n  const colorMap = ['#58c4dd','#ffd866','var(--green)','#e07a5f','#b39ddb','#7de0d6','#f78fb3'];\n\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    drawAxes();\n    // generic-point veil — very faint purple noise-free glow over plane\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'url(#noop)','opacity':0}));\n    // active curves\n    const drawn = [];\n    let idx=0;\n    for(const c of curves){\n      if(!active.has(c.id)) continue;\n      const col = colorMap[idx%colorMap.length]; idx++;\n      // test if crosshair is near curve\n      const val = c.f(mouseMath.x, mouseMath.y);\n      const near = Math.abs(val) < 0.08;\n      drawCurve(c,col,near?2.8:1.8, !near && active.size>1 && false);\n      drawn.push({c,col,near});\n    }\n    // legend\n    const lg = SVG('g',{});\n    let ly=22;\n    for(const {c,col,near} of drawn){\n      const r = SVG('rect',{x:20,y:ly-10,width:10,height:10,fill:col,opacity:near?1:0.85});\n      const t = SVG('text',{x:36,y:ly-1,'font-size':12,fill:near?'#fff':'#cbd5e1'});\n      t.textContent = c.label + (near?'  ← near crosshair':'');\n      lg.appendChild(r); lg.appendChild(t); ly+=18;\n    }\n    svg.appendChild(lg);\n    // crosshair\n    chV.setAttribute('x1', tx(mouseMath.x)); chV.setAttribute('x2', tx(mouseMath.x));\n    chH.setAttribute('y1', ty(mouseMath.y)); chH.setAttribute('y2', ty(mouseMath.y));\n    chD.setAttribute('cx', tx(mouseMath.x)); chD.setAttribute('cy', ty(mouseMath.y));\n    svg.appendChild(crosshair);\n\n    // readout: what's at (a,b)\n    const a = mouseMath.x.toFixed(3), b = mouseMath.y.toFixed(3);\n    const hits = drawn.filter(d=>d.near).map(d=>d.c.label);\n    const genericCurves = drawn.filter(d=>d.near).map(d=>\n      `<div>· generic point of curve: <span style=\"color:${d.col}\">$(${d.c.fStr.replace(/−/g,'-')})$</span> — residue field = Frac(k[x,y]/(${d.c.fStr}))</div>`\n    ).join('');\n    ro.innerHTML = `<div>closed point $\\\\mathfrak{m}=(x-${a},\\\\,y-${b})$ · residue field = k</div>` +\n      (hits.length?`<div class=\"small\" style=\"color:var(--green)\">this point lies on ${hits.length} selected curve(s)</div>${genericCurves}`:`<div class=\"small\">no active curve passes through this point</div>`) +\n      `<div class=\"small\" style=\"margin-top:.4rem;color:var(--violet)\">above all of these: the 2-dim generic point (0) — residue field k(x,y)</div>`;\n    if(window.renderMathInElement) renderMathInElement(ro,{delimiters:[{left:'$',right:'$',display:false}]});\n  }\n\n  svg.addEventListener('mousemove',e=>{\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    mouseMath = {x:xfromPx(px), y:yfromPx(py)};\n    redraw();\n  });\n\n  $$('.cbtn',$('#w-speckxy')).forEach(b=>b.addEventListener('click',()=>{\n    const id = b.dataset.c;\n    if(active.has(id)){active.delete(id); b.classList.remove('active')}\n    else {active.add(id); b.classList.add('active')}\n    redraw();\n  }));\n  // init activity highlights\n  $$('.cbtn',$('#w-speckxy')).forEach(b=>{ if(active.has(b.dataset.c)) b.classList.add('active') });\n  redraw();",
+            "hint": "toggle curves, move the crosshair",
+            "sectionComment": "=============================== SECTION 4: Spec k[x,y] ===============================",
+            "readoutId": "speckxy-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "specialization",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"specialization\">\n<h2>5. Zariski topology &amp; specialization</h2>\n<p>The closed sets of $\\operatorname{Spec}R$ are the vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$. The closure of a single point $\\mathfrak p$ is $V(\\mathfrak p)$ — the set of primes containing it. We say $\\mathfrak p$ <strong>specializes</strong> to $\\mathfrak q$, written $\\mathfrak p \\leadsto \\mathfrak q$, if $\\mathfrak p\\subseteq \\mathfrak q$, i.e. $\\mathfrak q$ is in the closure of $\\{\\mathfrak p\\}$.</p>\n<p>The resulting poset is a clean way to see dimension. Below: three curves in $\\operatorname{Spec}\\mathbb{C}[x,y]$ and their closed intersection points. Click any node to see everything that specializes <em>from</em> it (i.e., what it \"contains\" in closure).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-spec",
+            "svgId": "spec-svg",
+            "viewBox": "0 0 820 400",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "400",
+            "title": "Specialization poset",
+            "hint": "click a node to highlight its closure",
+            "readoutId": "spec-readout",
+            "initialReadoutHtml": "Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.",
+            "clickAction": "highlight",
+            "nodes": [
+              {
+                "id": "0",
+                "label": "(0)",
+                "x": 90,
+                "y": 60,
+                "kind": "generic"
+              },
+              {
+                "id": "y",
+                "label": "(y)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "yx2",
+                "label": "(y − x²)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "circ",
+                "label": "(x² + y² − 1)",
+                "x": 730,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "o",
+                "label": "(x, y)",
+                "x": 90,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "p1",
+                "label": "(x − 1, y)",
+                "x": 250,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pm1",
+                "label": "(x + 1, y)",
+                "x": 410,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc1",
+                "label": "(x − α, y − α²)",
+                "x": 570,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc2",
+                "label": "(x + α, y − α²)",
+                "x": 730,
+                "y": 360,
+                "kind": "closed"
+              }
+            ],
+            "edges": [
+              {
+                "src": "0",
+                "tgt": "y"
+              },
+              {
+                "src": "0",
+                "tgt": "yx2"
+              },
+              {
+                "src": "0",
+                "tgt": "circ"
+              },
+              {
+                "src": "y",
+                "tgt": "o"
+              },
+              {
+                "src": "yx2",
+                "tgt": "o"
+              },
+              {
+                "src": "y",
+                "tgt": "p1"
+              },
+              {
+                "src": "circ",
+                "tgt": "p1"
+              },
+              {
+                "src": "y",
+                "tgt": "pm1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pm1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc2"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc2"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 5: Specialization poset =============================== */",
+            "bodyScript": "\n  const svg = $('#spec-svg');\n  const W=820,H=400;\n  const ro = $('#spec-readout');\n  // nodes: {id,label,x,y,kind,containedIn:[]}  — \"containedIn\" = primes this one specializes TO\n  // edges go from smaller ideal (top) to bigger ideal (bottom).\n  // Spec C[x,y]. Take primes: (0), (y), (y-x^2), (x^2+y^2-1), and closed intersections\n  //  (y) ∩ (y-x^2) ⊃ origin = (x,y)\n  //  (y) ∩ (x^2+y^2-1) ⊃ (x-1,y) and (x+1,y)\n  //  (y-x^2) ∩ (x^2+y^2-1) ⊃ two real closed points at x satisfying x^4+x^2-1=0 (call them α,β) and two complex. I'll just mark two of them.\n  // For clarity, draw only a tractable subset.\n  const N = [\n    {id:'0',     label:'(0)',         tier:0, color:'#b39ddb', desc:'2-dim generic point of the whole plane — residue field ℂ(x,y)'},\n    {id:'y',     label:'(y)',         tier:1, color:'#58c4dd', desc:'generic point of the x-axis y=0'},\n    {id:'yx2',   label:'(y − x²)',    tier:1, color:'#ffd866', desc:'generic point of the parabola y=x²'},\n    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'var(--green)', desc:'generic point of the unit circle'},\n    // closed points\n    {id:'o',     label:'(x, y)',              tier:2, color:'#e07a5f', desc:'origin — lies on both y=0 and y=x²'},\n    {id:'p1',    label:'(x − 1, y)',          tier:2, color:'#e07a5f', desc:'point (1,0) — on y=0 and on circle'},\n    {id:'pm1',   label:'(x + 1, y)',          tier:2, color:'#e07a5f', desc:'point (−1,0) — on y=0 and on circle'},\n    {id:'pc1',   label:'(x − α, y − α²)',     tier:2, color:'#e07a5f', desc:'intersection of parabola with circle (one real point, α²+α⁴=1)'},\n    {id:'pc2',   label:'(x + α, y − α²)',     tier:2, color:'#e07a5f', desc:'the other real parabola∩circle point'},\n  ];\n  const E = [\n    ['0','y'],['0','yx2'],['0','circ'],\n    ['y','o'],['yx2','o'],\n    ['y','p1'],['circ','p1'],\n    ['y','pm1'],['circ','pm1'],\n    ['yx2','pc1'],['circ','pc1'],\n    ['yx2','pc2'],['circ','pc2'],\n  ];\n\n  // layout: three tiers\n  const yOf = t => 60 + t*150;\n  function layoutTier(ids,y){\n    const n = ids.length;\n    const pad = 80;\n    ids.forEach((id,i)=>{\n      const nd = N.find(x=>x.id===id);\n      nd.x = pad + (W-2*pad)*(n===1?0.5:(i/(n-1)));\n      nd.y = y;\n    });\n  }\n  layoutTier(['0'], yOf(0));\n  layoutTier(['y','yx2','circ'], yOf(1));\n  layoutTier(['o','p1','pm1','pc1','pc2'], yOf(2));\n\n  let selected = null;\n\n  function downstream(id){\n    // nodes that specialize from id (id ⊆ x): i.e., in closure\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(a) && !out.has(b)){out.add(b);changed=true}\n      }\n    }\n    return out;\n  }\n  function upstream(id){\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(b) && !out.has(a)){out.add(a);changed=true}\n      }\n    }\n    return out;\n  }\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // tier labels\n    const tiers = [\n      {t:0,label:'generic of plane'},\n      {t:1,label:'curves (dim-1 primes)'},\n      {t:2,label:'closed points (max ideals)'},\n    ];\n    for(const {t,label} of tiers){\n      const txt = SVG('text',{x:20,y:yOf(t)+4,'font-size':12,fill:'#6c7787'});\n      txt.textContent=label;\n      svg.appendChild(txt);\n    }\n    // edges\n    const down = selected? downstream(selected):new Set();\n    const up = selected? upstream(selected):new Set();\n    for(const [a,b] of E){\n      const na = N.find(x=>x.id===a), nb = N.find(x=>x.id===b);\n      let color='#2a3242', w=1;\n      if(selected){\n        if(down.has(a) && down.has(b)){color='#ffd866';w=1.6}\n        else if(up.has(a) && up.has(b)){color='#58c4dd';w=1.4}\n      }\n      svg.appendChild(SVG('line',{x1:na.x,y1:na.y+12,x2:nb.x,y2:nb.y-12,stroke:color,'stroke-width':w,'stroke-opacity':0.85}));\n    }\n    // nodes\n    for(const nd of N){\n      const inDown = down.has(nd.id), inUp = up.has(nd.id);\n      const isSel = nd.id===selected;\n      const rad = nd.tier===0? 12 : (nd.tier===1?9:7);\n      const fill = isSel?'#fff':nd.color;\n      const stroke = isSel?'#fff': (selected? (inDown?'#ffd866':(inUp?'#58c4dd':'#2a3242')) : '#2a3242');\n      const g = SVG('g',{style:'cursor:pointer'});\n      g.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:rad,fill,stroke,'stroke-width':2}));\n      const t = SVG('text',{x:nd.x,y:nd.y+rad+16,'font-size':12,'text-anchor':'middle',fill:(isSel||inDown||inUp)?'#fff':'#9aa4b2'});\n      t.textContent = nd.label;\n      g.appendChild(t);\n      g.addEventListener('click',()=>{selected = (selected===nd.id?null:nd.id); draw();});\n      svg.appendChild(g);\n    }\n    // readout\n    if(selected){\n      const nd = N.find(x=>x.id===selected);\n      const dn = [...downstream(selected)].filter(x=>x!==selected);\n      const up2 = [...upstream(selected)].filter(x=>x!==selected);\n      ro.innerHTML = `<div><b style=\"color:#fff\">${nd.label}</b> — ${nd.desc}</div>\n        <div class=\"small\" style=\"color:var(--yellow);margin-top:.4rem\">closure (specializes to): ${dn.map(i=>N.find(x=>x.id===i).label).join(', ')||'— only itself'}</div>\n        <div class=\"small\" style=\"color:var(--blue)\">generization (specializes from): ${up2.map(i=>N.find(x=>x.id===i).label).join(', ')||'— none (this is a generic point)'}</div>`;\n    } else {\n      ro.innerHTML = `Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.`;\n    }\n  }\n  draw();\n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p class=\"small\">Heuristic: smaller ideal ⇒ bigger point. The empty ideal $(0)$ is the \"biggest\" (most generic) point; maximal ideals are the \"smallest\" (most specialized). Dimension of a scheme = length of the longest specialization chain.</p>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-spec",
+            "svgId": "spec-svg",
+            "viewBox": "0 0 820 400",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "400",
+            "title": "Specialization poset",
+            "hint": "click a node to highlight its closure",
+            "readoutId": "spec-readout",
+            "initialReadoutHtml": "Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.",
+            "clickAction": "highlight",
+            "nodes": [
+              {
+                "id": "0",
+                "label": "(0)",
+                "x": 90,
+                "y": 60,
+                "kind": "generic"
+              },
+              {
+                "id": "y",
+                "label": "(y)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "yx2",
+                "label": "(y − x²)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "circ",
+                "label": "(x² + y² − 1)",
+                "x": 730,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "o",
+                "label": "(x, y)",
+                "x": 90,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "p1",
+                "label": "(x − 1, y)",
+                "x": 250,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pm1",
+                "label": "(x + 1, y)",
+                "x": 410,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc1",
+                "label": "(x − α, y − α²)",
+                "x": 570,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc2",
+                "label": "(x + α, y − α²)",
+                "x": 730,
+                "y": 360,
+                "kind": "closed"
+              }
+            ],
+            "edges": [
+              {
+                "src": "0",
+                "tgt": "y"
+              },
+              {
+                "src": "0",
+                "tgt": "yx2"
+              },
+              {
+                "src": "0",
+                "tgt": "circ"
+              },
+              {
+                "src": "y",
+                "tgt": "o"
+              },
+              {
+                "src": "yx2",
+                "tgt": "o"
+              },
+              {
+                "src": "y",
+                "tgt": "p1"
+              },
+              {
+                "src": "circ",
+                "tgt": "p1"
+              },
+              {
+                "src": "y",
+                "tgt": "pm1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pm1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc2"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc2"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 5: Specialization poset =============================== */",
+            "bodyScript": "\n  const svg = $('#spec-svg');\n  const W=820,H=400;\n  const ro = $('#spec-readout');\n  // nodes: {id,label,x,y,kind,containedIn:[]}  — \"containedIn\" = primes this one specializes TO\n  // edges go from smaller ideal (top) to bigger ideal (bottom).\n  // Spec C[x,y]. Take primes: (0), (y), (y-x^2), (x^2+y^2-1), and closed intersections\n  //  (y) ∩ (y-x^2) ⊃ origin = (x,y)\n  //  (y) ∩ (x^2+y^2-1) ⊃ (x-1,y) and (x+1,y)\n  //  (y-x^2) ∩ (x^2+y^2-1) ⊃ two real closed points at x satisfying x^4+x^2-1=0 (call them α,β) and two complex. I'll just mark two of them.\n  // For clarity, draw only a tractable subset.\n  const N = [\n    {id:'0',     label:'(0)',         tier:0, color:'#b39ddb', desc:'2-dim generic point of the whole plane — residue field ℂ(x,y)'},\n    {id:'y',     label:'(y)',         tier:1, color:'#58c4dd', desc:'generic point of the x-axis y=0'},\n    {id:'yx2',   label:'(y − x²)',    tier:1, color:'#ffd866', desc:'generic point of the parabola y=x²'},\n    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'var(--green)', desc:'generic point of the unit circle'},\n    // closed points\n    {id:'o',     label:'(x, y)',              tier:2, color:'#e07a5f', desc:'origin — lies on both y=0 and y=x²'},\n    {id:'p1',    label:'(x − 1, y)',          tier:2, color:'#e07a5f', desc:'point (1,0) — on y=0 and on circle'},\n    {id:'pm1',   label:'(x + 1, y)',          tier:2, color:'#e07a5f', desc:'point (−1,0) — on y=0 and on circle'},\n    {id:'pc1',   label:'(x − α, y − α²)',     tier:2, color:'#e07a5f', desc:'intersection of parabola with circle (one real point, α²+α⁴=1)'},\n    {id:'pc2',   label:'(x + α, y − α²)',     tier:2, color:'#e07a5f', desc:'the other real parabola∩circle point'},\n  ];\n  const E = [\n    ['0','y'],['0','yx2'],['0','circ'],\n    ['y','o'],['yx2','o'],\n    ['y','p1'],['circ','p1'],\n    ['y','pm1'],['circ','pm1'],\n    ['yx2','pc1'],['circ','pc1'],\n    ['yx2','pc2'],['circ','pc2'],\n  ];\n\n  // layout: three tiers\n  const yOf = t => 60 + t*150;\n  function layoutTier(ids,y){\n    const n = ids.length;\n    const pad = 80;\n    ids.forEach((id,i)=>{\n      const nd = N.find(x=>x.id===id);\n      nd.x = pad + (W-2*pad)*(n===1?0.5:(i/(n-1)));\n      nd.y = y;\n    });\n  }\n  layoutTier(['0'], yOf(0));\n  layoutTier(['y','yx2','circ'], yOf(1));\n  layoutTier(['o','p1','pm1','pc1','pc2'], yOf(2));\n\n  let selected = null;\n\n  function downstream(id){\n    // nodes that specialize from id (id ⊆ x): i.e., in closure\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(a) && !out.has(b)){out.add(b);changed=true}\n      }\n    }\n    return out;\n  }\n  function upstream(id){\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(b) && !out.has(a)){out.add(a);changed=true}\n      }\n    }\n    return out;\n  }\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // tier labels\n    const tiers = [\n      {t:0,label:'generic of plane'},\n      {t:1,label:'curves (dim-1 primes)'},\n      {t:2,label:'closed points (max ideals)'},\n    ];\n    for(const {t,label} of tiers){\n      const txt = SVG('text',{x:20,y:yOf(t)+4,'font-size':12,fill:'#6c7787'});\n      txt.textContent=label;\n      svg.appendChild(txt);\n    }\n    // edges\n    const down = selected? downstream(selected):new Set();\n    const up = selected? upstream(selected):new Set();\n    for(const [a,b] of E){\n      const na = N.find(x=>x.id===a), nb = N.find(x=>x.id===b);\n      let color='#2a3242', w=1;\n      if(selected){\n        if(down.has(a) && down.has(b)){color='#ffd866';w=1.6}\n        else if(up.has(a) && up.has(b)){color='#58c4dd';w=1.4}\n      }\n      svg.appendChild(SVG('line',{x1:na.x,y1:na.y+12,x2:nb.x,y2:nb.y-12,stroke:color,'stroke-width':w,'stroke-opacity':0.85}));\n    }\n    // nodes\n    for(const nd of N){\n      const inDown = down.has(nd.id), inUp = up.has(nd.id);\n      const isSel = nd.id===selected;\n      const rad = nd.tier===0? 12 : (nd.tier===1?9:7);\n      const fill = isSel?'#fff':nd.color;\n      const stroke = isSel?'#fff': (selected? (inDown?'#ffd866':(inUp?'#58c4dd':'#2a3242')) : '#2a3242');\n      const g = SVG('g',{style:'cursor:pointer'});\n      g.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:rad,fill,stroke,'stroke-width':2}));\n      const t = SVG('text',{x:nd.x,y:nd.y+rad+16,'font-size':12,'text-anchor':'middle',fill:(isSel||inDown||inUp)?'#fff':'#9aa4b2'});\n      t.textContent = nd.label;\n      g.appendChild(t);\n      g.addEventListener('click',()=>{selected = (selected===nd.id?null:nd.id); draw();});\n      svg.appendChild(g);\n    }\n    // readout\n    if(selected){\n      const nd = N.find(x=>x.id===selected);\n      const dn = [...downstream(selected)].filter(x=>x!==selected);\n      const up2 = [...upstream(selected)].filter(x=>x!==selected);\n      ro.innerHTML = `<div><b style=\"color:#fff\">${nd.label}</b> — ${nd.desc}</div>\n        <div class=\"small\" style=\"color:var(--yellow);margin-top:.4rem\">closure (specializes to): ${dn.map(i=>N.find(x=>x.id===i).label).join(', ')||'— only itself'}</div>\n        <div class=\"small\" style=\"color:var(--blue)\">generization (specializes from): ${up2.map(i=>N.find(x=>x.id===i).label).join(', ')||'— none (this is a generic point)'}</div>`;\n    } else {\n      ro.innerHTML = `Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.`;\n    }\n  }\n  draw();\n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "fat",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"fat\">\n<h2>6. Nilpotents: fat points</h2>\n<p>Here's the payoff for the problem 1 we raised at the start. Consider the rings $\\mathbb{C}[x]/(x)$ and $\\mathbb{C}[x]/(x^n)$ for $n\\geq 2$. Their sets of primes are both $\\{(x)\\}$ — a single point. But as <em>schemes</em> they differ: the structure ring remembers up to $(n-1)$-th order derivatives.</p>\n<p>Call $D_n := \\operatorname{Spec}\\mathbb{C}[x]/(x^n)$ the <strong>$n$-th order infinitesimal neighborhood of the origin</strong> or the <em>$n$-th jet</em>. A morphism $D_n \\to X$ into a scheme $X$ is the same as a point of $X$ together with an $(n-1)$-jet of a curve through it.</p>\n<p>Nilpotents are the <em>glue</em> that makes schemes more expressive than classical varieties. Tangent vectors, higher jets, divisors with multiplicity, and the whole theory of deformation live here.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-fat",
+            "title": "Spec k[x]/(xⁿ) — the fat origin",
+            "hint": "drag the slider, change p(x)",
+            "svgId": "fat-svg",
+            "svgViewBox": "0 0 820 300",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "300",
+            "svgTitle": "Spec k[x]/(xⁿ) — the fat origin",
+            "outputId": "fat-readout",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"fat-n\">n =</label>\n    <input type=\"range\" id=\"fat-n\" min=\"1\" max=\"8\" value=\"3\">\n    <span id=\"fat-nval\" style=\"color:var(--yellow);min-width:2ch\"></span>\n    <label style=\"margin-left:1.5rem\" for=\"fat-p\">p(x) =</label>\n    <input type=\"text\" id=\"fat-p\" value=\"1 + 2x + 3x^2 + x^3 + 0.5x^4\" style=\"width:260px\">",
+            "scriptBodyLiteral": "/* =============================== SECTION 6: Fat points =============================== */\n(function(){\n  const svg = $('#fat-svg');\n  const W=820,H=300;\n  const ro = $('#fat-readout');\n  const nInp = $('#fat-n'), nVal = $('#fat-nval'), pInp = $('#fat-p');\n\n  // parse a polynomial like \"1 + 2x + 3x^2 + 0.5x^4\" into coefficient array\n  function parseP(s){\n    s = s.replace(/\\s+/g,'').replace(/−/g,'-');\n    // split on +/- keeping sign\n    const terms = s.split(/(?=[+-])/).filter(Boolean);\n    const coeffs = [];\n    for(const t of terms){\n      const m = t.match(/^([+-]?)(\\d*\\.?\\d*)(\\*?)(x(\\^(\\d+))?)?$/);\n      if(!m) return null;\n      const sign = m[1]==='-'?-1:1;\n      let c = m[2]===''||m[2]==='+'||m[2]==='-' ? 1 : parseFloat(m[2]);\n      if(isNaN(c)) c=1;\n      let deg = 0;\n      if(m[4]){ deg = m[6]? parseInt(m[6]):1; }\n      while(coeffs.length<=deg) coeffs.push(0);\n      coeffs[deg] += sign*c;\n    }\n    return coeffs;\n  }\n\n  function draw(){\n    const n = parseInt(nInp.value);\n    nVal.textContent = n;\n    const coeffs = parseP(pInp.value) || [0];\n    // truncate to degree < n\n    const trunc = coeffs.slice(0,n);\n    while(trunc.length<n) trunc.push(0);\n\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n\n    // LEFT: the \"fat point\" itself, as a dot with rings\n    const leftCx = 180, leftCy = 150;\n    const title1 = SVG('text',{x:leftCx,y:40,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n    title1.textContent = `Spec ℂ[x]/(x${n===1?'':'ⁿ'.replace('ⁿ',sup(n))})`;\n    svg.appendChild(title1);\n    // rings: one per jet level\n    for(let k=n;k>=1;k--){\n      const r = 18 + (k-1)*11;\n      svg.appendChild(SVG('circle',{cx:leftCx,cy:leftCy,r,fill:'#ffd866','fill-opacity':0.06 + 0.06*(n-k)/Math.max(n-1,1),stroke:'#ffd866','stroke-opacity':0.35,'stroke-width':1}));\n    }\n    svg.appendChild(SVG('circle',{cx:leftCx,cy:leftCy,r:5,fill:'#ffd866'}));\n    const tag = SVG('text',{x:leftCx,y:leftCy+90,'font-size':12,'text-anchor':'middle',fill:'#9aa4b2'});\n    tag.textContent = `length = ${n}`;\n    svg.appendChild(tag);\n    const tag2 = SVG('text',{x:leftCx,y:leftCy+110,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n    tag2.textContent = n===1?'just a point':(n===2?'point + tangent direction':`point + ${n-1} derivatives`);\n    svg.appendChild(tag2);\n\n    // MIDDLE/RIGHT: graph of p(x), with zoomed-in \"lens\" at origin showing n-th Taylor approx\n    const gx0 = 400, gx1 = 800;\n    const gy0 = 60, gy1 = 260;\n    const xs = x => gx0 + ((x+1.5)/3)*(gx1-gx0);\n    const ys = y => gy1 - ((y+4)/12)*(gy1-gy0);  // y range roughly -4..8\n    // plot axes\n    svg.appendChild(SVG('line',{x1:gx0,y1:ys(0),x2:gx1,y2:ys(0),stroke:'#3a4558'}));\n    svg.appendChild(SVG('line',{x1:xs(0),y1:gy0,x2:xs(0),y2:gy1,stroke:'#3a4558'}));\n    const xl=SVG('text',{x:gx1-6,y:ys(0)-6,'font-size':11,'text-anchor':'end',fill:'#6c7787'});xl.textContent='x';svg.appendChild(xl);\n\n    // full poly p(x)\n    const pvals = [];\n    const evalP = (x,c)=>{let y=0;for(let i=c.length-1;i>=0;i--)y=y*x+c[i];return y;};\n    for(let i=0;i<=120;i++){\n      const t = -1.5 + 3*i/120;\n      pvals.push([xs(t), ys(evalP(t,coeffs))]);\n    }\n    svg.appendChild(SVG('polyline',{points:pvals.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#58c4dd','stroke-width':2}));\n    const plab = SVG('text',{x:gx1-6,y:gy0+14,'font-size':12,'text-anchor':'end',fill:'#58c4dd'});\n    plab.textContent='p(x)';\n    svg.appendChild(plab);\n\n    // truncated p mod x^n\n    const tvals=[];\n    for(let i=0;i<=120;i++){\n      const t = -1.5 + 3*i/120;\n      tvals.push([xs(t), ys(evalP(t,trunc))]);\n    }\n    svg.appendChild(SVG('polyline',{points:tvals.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#ffd866','stroke-width':2,'stroke-dasharray':'5 4'}));\n    const tlab = SVG('text',{x:gx1-6,y:gy0+30,'font-size':12,'text-anchor':'end',fill:'#ffd866'});\n    tlab.textContent='p(x) mod xⁿ';\n    svg.appendChild(tlab);\n\n    // infinitesimal zone: a tiny band around x=0 indicating what the fat point \"sees\"\n    const band = SVG('rect',{x:xs(-0.02),y:gy0,width:xs(0.02)-xs(-0.02),height:gy1-gy0,fill:'#ffd866','fill-opacity':0.12});\n    svg.appendChild(band);\n\n    // readout: show the truncated polynomial\n    const polyFmt = c=>{\n      const parts=[];\n      for(let i=0;i<c.length;i++){\n        if(Math.abs(c[i])<1e-9) continue;\n        const coef = c[i];\n        let s = (i===0)? coef.toString() : (Math.abs(coef)===1? (coef<0?'−':'') : `${coef<0?'−':''}${Math.abs(coef)}`);\n        const xp = i===0?'':(i===1?'x':`x${sup(i)}`);\n        parts.push((parts.length?(coef<0?' − ':' + '):s.startsWith('−')?'':'')+ (s==='1'&&i>0?'':s.replace('−',''))+xp);\n      }\n      return parts.join('')||'0';\n    };\n    // simpler formatter\n    const fmt = (c)=>{\n      const parts=[];\n      for(let i=0;i<c.length;i++){\n        const v = c[i];\n        if(Math.abs(v)<1e-10) continue;\n        const sign = v<0?'−':(parts.length?'+':'');\n        const absV = Math.abs(v);\n        const co = (i>0 && Math.abs(absV-1)<1e-10)? '' : (Number.isInteger(absV)?absV:absV.toFixed(3).replace(/\\.?0+$/,''));\n        const xp = i===0?'':(i===1?'x':`x${sup(i)}`);\n        parts.push(`${parts.length?' ':''}${sign}${parts.length||v<0?' ':''}${co}${xp}`);\n      }\n      return parts.join('').trim()||'0';\n    };\n    function sup(n){return ''+[...String(n)].map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('')}\n    ro.innerHTML =\n      `<div>p(x) = <span style=\"color:var(--blue)\">${fmt(coeffs)}</span></div>`+\n      `<div>image in ℂ[x]/(x${sup(n)}) = <span style=\"color:var(--yellow)\">${fmt(trunc)}</span></div>`+\n      `<div class=\"small\">this is the \"value\" of p at the fat point: p(0)=${(trunc[0]||0)} , p'(0)=${(trunc[1]||0)} , p''(0)/2! = ${(trunc[2]||0)} , …  ← the ring remembers the first ${n} Taylor coefficients</div>`;\n  }\n  nInp.addEventListener('input',draw);\n  pInp.addEventListener('input',draw);\n  draw();\n})();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>Two variables: $\\operatorname{Spec}\\mathbb{C}[x,y]/(x^2,xy,y^2)$ is a \"fat point\" with the full 2-dim tangent space. $\\operatorname{Spec}\\mathbb{C}[x,y]/(x^2,y)$ is a length-2 scheme pointing in the $x$-direction — an infinitesimal arrow.</p>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-fat",
+            "title": "Spec k[x]/(xⁿ) — the fat origin",
+            "hint": "drag the slider, change p(x)",
+            "svgId": "fat-svg",
+            "svgViewBox": "0 0 820 300",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "300",
+            "svgTitle": "Spec k[x]/(xⁿ) — the fat origin",
+            "outputId": "fat-readout",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"fat-n\">n =</label>\n    <input type=\"range\" id=\"fat-n\" min=\"1\" max=\"8\" value=\"3\">\n    <span id=\"fat-nval\" style=\"color:var(--yellow);min-width:2ch\"></span>\n    <label style=\"margin-left:1.5rem\" for=\"fat-p\">p(x) =</label>\n    <input type=\"text\" id=\"fat-p\" value=\"1 + 2x + 3x^2 + x^3 + 0.5x^4\" style=\"width:260px\">",
+            "scriptBodyLiteral": "/* =============================== SECTION 6: Fat points =============================== */\n(function(){\n  const svg = $('#fat-svg');\n  const W=820,H=300;\n  const ro = $('#fat-readout');\n  const nInp = $('#fat-n'), nVal = $('#fat-nval'), pInp = $('#fat-p');\n\n  // parse a polynomial like \"1 + 2x + 3x^2 + 0.5x^4\" into coefficient array\n  function parseP(s){\n    s = s.replace(/\\s+/g,'').replace(/−/g,'-');\n    // split on +/- keeping sign\n    const terms = s.split(/(?=[+-])/).filter(Boolean);\n    const coeffs = [];\n    for(const t of terms){\n      const m = t.match(/^([+-]?)(\\d*\\.?\\d*)(\\*?)(x(\\^(\\d+))?)?$/);\n      if(!m) return null;\n      const sign = m[1]==='-'?-1:1;\n      let c = m[2]===''||m[2]==='+'||m[2]==='-' ? 1 : parseFloat(m[2]);\n      if(isNaN(c)) c=1;\n      let deg = 0;\n      if(m[4]){ deg = m[6]? parseInt(m[6]):1; }\n      while(coeffs.length<=deg) coeffs.push(0);\n      coeffs[deg] += sign*c;\n    }\n    return coeffs;\n  }\n\n  function draw(){\n    const n = parseInt(nInp.value);\n    nVal.textContent = n;\n    const coeffs = parseP(pInp.value) || [0];\n    // truncate to degree < n\n    const trunc = coeffs.slice(0,n);\n    while(trunc.length<n) trunc.push(0);\n\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n\n    // LEFT: the \"fat point\" itself, as a dot with rings\n    const leftCx = 180, leftCy = 150;\n    const title1 = SVG('text',{x:leftCx,y:40,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n    title1.textContent = `Spec ℂ[x]/(x${n===1?'':'ⁿ'.replace('ⁿ',sup(n))})`;\n    svg.appendChild(title1);\n    // rings: one per jet level\n    for(let k=n;k>=1;k--){\n      const r = 18 + (k-1)*11;\n      svg.appendChild(SVG('circle',{cx:leftCx,cy:leftCy,r,fill:'#ffd866','fill-opacity':0.06 + 0.06*(n-k)/Math.max(n-1,1),stroke:'#ffd866','stroke-opacity':0.35,'stroke-width':1}));\n    }\n    svg.appendChild(SVG('circle',{cx:leftCx,cy:leftCy,r:5,fill:'#ffd866'}));\n    const tag = SVG('text',{x:leftCx,y:leftCy+90,'font-size':12,'text-anchor':'middle',fill:'#9aa4b2'});\n    tag.textContent = `length = ${n}`;\n    svg.appendChild(tag);\n    const tag2 = SVG('text',{x:leftCx,y:leftCy+110,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n    tag2.textContent = n===1?'just a point':(n===2?'point + tangent direction':`point + ${n-1} derivatives`);\n    svg.appendChild(tag2);\n\n    // MIDDLE/RIGHT: graph of p(x), with zoomed-in \"lens\" at origin showing n-th Taylor approx\n    const gx0 = 400, gx1 = 800;\n    const gy0 = 60, gy1 = 260;\n    const xs = x => gx0 + ((x+1.5)/3)*(gx1-gx0);\n    const ys = y => gy1 - ((y+4)/12)*(gy1-gy0);  // y range roughly -4..8\n    // plot axes\n    svg.appendChild(SVG('line',{x1:gx0,y1:ys(0),x2:gx1,y2:ys(0),stroke:'#3a4558'}));\n    svg.appendChild(SVG('line',{x1:xs(0),y1:gy0,x2:xs(0),y2:gy1,stroke:'#3a4558'}));\n    const xl=SVG('text',{x:gx1-6,y:ys(0)-6,'font-size':11,'text-anchor':'end',fill:'#6c7787'});xl.textContent='x';svg.appendChild(xl);\n\n    // full poly p(x)\n    const pvals = [];\n    const evalP = (x,c)=>{let y=0;for(let i=c.length-1;i>=0;i--)y=y*x+c[i];return y;};\n    for(let i=0;i<=120;i++){\n      const t = -1.5 + 3*i/120;\n      pvals.push([xs(t), ys(evalP(t,coeffs))]);\n    }\n    svg.appendChild(SVG('polyline',{points:pvals.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#58c4dd','stroke-width':2}));\n    const plab = SVG('text',{x:gx1-6,y:gy0+14,'font-size':12,'text-anchor':'end',fill:'#58c4dd'});\n    plab.textContent='p(x)';\n    svg.appendChild(plab);\n\n    // truncated p mod x^n\n    const tvals=[];\n    for(let i=0;i<=120;i++){\n      const t = -1.5 + 3*i/120;\n      tvals.push([xs(t), ys(evalP(t,trunc))]);\n    }\n    svg.appendChild(SVG('polyline',{points:tvals.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#ffd866','stroke-width':2,'stroke-dasharray':'5 4'}));\n    const tlab = SVG('text',{x:gx1-6,y:gy0+30,'font-size':12,'text-anchor':'end',fill:'#ffd866'});\n    tlab.textContent='p(x) mod xⁿ';\n    svg.appendChild(tlab);\n\n    // infinitesimal zone: a tiny band around x=0 indicating what the fat point \"sees\"\n    const band = SVG('rect',{x:xs(-0.02),y:gy0,width:xs(0.02)-xs(-0.02),height:gy1-gy0,fill:'#ffd866','fill-opacity':0.12});\n    svg.appendChild(band);\n\n    // readout: show the truncated polynomial\n    const polyFmt = c=>{\n      const parts=[];\n      for(let i=0;i<c.length;i++){\n        if(Math.abs(c[i])<1e-9) continue;\n        const coef = c[i];\n        let s = (i===0)? coef.toString() : (Math.abs(coef)===1? (coef<0?'−':'') : `${coef<0?'−':''}${Math.abs(coef)}`);\n        const xp = i===0?'':(i===1?'x':`x${sup(i)}`);\n        parts.push((parts.length?(coef<0?' − ':' + '):s.startsWith('−')?'':'')+ (s==='1'&&i>0?'':s.replace('−',''))+xp);\n      }\n      return parts.join('')||'0';\n    };\n    // simpler formatter\n    const fmt = (c)=>{\n      const parts=[];\n      for(let i=0;i<c.length;i++){\n        const v = c[i];\n        if(Math.abs(v)<1e-10) continue;\n        const sign = v<0?'−':(parts.length?'+':'');\n        const absV = Math.abs(v);\n        const co = (i>0 && Math.abs(absV-1)<1e-10)? '' : (Number.isInteger(absV)?absV:absV.toFixed(3).replace(/\\.?0+$/,''));\n        const xp = i===0?'':(i===1?'x':`x${sup(i)}`);\n        parts.push(`${parts.length?' ':''}${sign}${parts.length||v<0?' ':''}${co}${xp}`);\n      }\n      return parts.join('').trim()||'0';\n    };\n    function sup(n){return ''+[...String(n)].map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('')}\n    ro.innerHTML =\n      `<div>p(x) = <span style=\"color:var(--blue)\">${fmt(coeffs)}</span></div>`+\n      `<div>image in ℂ[x]/(x${sup(n)}) = <span style=\"color:var(--yellow)\">${fmt(trunc)}</span></div>`+\n      `<div class=\"small\">this is the \"value\" of p at the fat point: p(0)=${(trunc[0]||0)} , p'(0)=${(trunc[1]||0)} , p''(0)/2! = ${(trunc[2]||0)} , …  ← the ring remembers the first ${n} Taylor coefficients</div>`;\n  }\n  nInp.addEventListener('input',draw);\n  pInp.addEventListener('input',draw);\n  draw();\n})();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "gluing",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"gluing\">\n<h2>7. Gluing: building ℙ¹</h2>\n<p>A general scheme is not of the form $\\operatorname{Spec}R$. It's built by <em>gluing</em> affines along open subsets. The simplest nontrivial example is the projective line $\\mathbb{P}^1$.</p>\n<p>Take two copies of the affine line: $U = \\operatorname{Spec}k[x]$ and $V = \\operatorname{Spec}k[y]$. On each, remove the origin: the open set $x\\ne 0$ of $U$ is $\\operatorname{Spec}k[x,x^{-1}]$, and $y\\ne 0$ of $V$ is $\\operatorname{Spec}k[y,y^{-1}]$. These two are canonically isomorphic via $y=1/x$. Glue along this isomorphism.</p>\n<p>The result covers every point of $\\mathbb{P}^1$: a point in $U$ has a well-defined $x$, a point in $V$ has a well-defined $y$, and points in the overlap have both with $y=1/x$. The extreme points are <em>the origin of $U$</em> (has $x=0$, $y$ undefined — would be \"$\\infty$\") and <em>the origin of $V$</em> (has $y=0$, $x$ undefined).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-glue",
+            "svgId": "glue-svg",
+            "viewBox": "0 0 820 440",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "440",
+            "title": "ℙ¹ from two affine charts",
+            "hint": "drag the point",
+            "readoutId": "glue-readout",
+            "initialReadoutHtml": "",
+            "clickAction": "reveal",
+            "nodes": [
+              {
+                "id": "N",
+                "label": "∞ (origin of V)",
+                "x": 410,
+                "y": 40,
+                "kind": "closed"
+              },
+              {
+                "id": "S",
+                "label": "0 (origin of U)",
+                "x": 410,
+                "y": 200,
+                "kind": "closed"
+              },
+              {
+                "id": "P",
+                "label": "point",
+                "x": 410,
+                "y": 120,
+                "kind": "draggable"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 7: Gluing → P^1 =============================== */",
+            "bodyScript": "\n  const svg = $('#glue-svg');\n  const W=820, H=440;\n  const ro = $('#glue-readout');\n\n  // Top: circle representing P^1(R). Angle θ ∈ [0, 2π). x = tan(θ/2) via stereographic from north pole.\n  // Two charts U, V below.\n  const cx = W/2, cy = 120, rad = 80;\n  // Draw circle\n  svg.appendChild(SVG('circle',{cx,cy,r:rad,fill:'none',stroke:'#3a4558','stroke-width':1.5}));\n  const tN = SVG('text',{x:cx,y:cy-rad-8,'font-size':12,'text-anchor':'middle',fill:'#e07a5f'});\n  tN.textContent='∞ (origin of V)';\n  svg.appendChild(tN);\n  const tS = SVG('text',{x:cx,y:cy+rad+18,'font-size':12,'text-anchor':'middle',fill:'#ffd866'});\n  tS.textContent='0 (origin of U)';\n  svg.appendChild(tS);\n  svg.appendChild(SVG('circle',{cx,cy:cy-rad,r:4,fill:'#e07a5f'})); // N\n  svg.appendChild(SVG('circle',{cx,cy:cy+rad,r:4,fill:'#ffd866'})); // S (x=0)\n  // title\n  const tP = SVG('text',{x:cx,y:30,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n  tP.textContent = 'ℙ¹ (real picture)';\n  svg.appendChild(tP);\n\n  // Two affine charts as horizontal number lines\n  const uY = 290, vY = 380;\n  const axL = 60, axR = W-60, axMid = (axL+axR)/2;\n  svg.appendChild(SVG('line',{x1:axL,y1:uY,x2:axR,y2:uY,stroke:'#3a4558'}));\n  svg.appendChild(SVG('line',{x1:axL,y1:vY,x2:axR,y2:vY,stroke:'#3a4558'}));\n  const uLbl = SVG('text',{x:axL,y:uY-14,'font-size':13,fill:'#ffd866'});\n  uLbl.textContent='U = Spec k[x]   — the x-chart';\n  svg.appendChild(uLbl);\n  const vLbl = SVG('text',{x:axL,y:vY-14,'font-size':13,fill:'#e07a5f'});\n  vLbl.textContent='V = Spec k[y]   — the y-chart   (y = 1/x on overlap)';\n  svg.appendChild(vLbl);\n\n  // tick marks\n  function ticks(y,col){\n    for(let k=-4;k<=4;k++){\n      if(k===0){\n        svg.appendChild(SVG('circle',{cx:axMid,cy:y,r:4,fill:col}));\n        const t = SVG('text',{x:axMid,y:y+18,'font-size':11,'text-anchor':'middle',fill:col});\n        t.textContent='0';\n        svg.appendChild(t);\n      } else {\n        const px = axMid + k*((axR-axL)/2)/4;\n        svg.appendChild(SVG('line',{x1:px,y1:y-4,x2:px,y2:y+4,stroke:'#3a4558'}));\n        const t = SVG('text',{x:px,y:y+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n        t.textContent=k;\n        svg.appendChild(t);\n      }\n    }\n  }\n  ticks(uY,'#ffd866');\n  ticks(vY,'#e07a5f');\n\n  // Point dots and connecting lines\n  const dotP = SVG('circle',{r:7,fill:'#58c4dd',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'});\n  const dotU = SVG('circle',{r:7,fill:'#ffd866',stroke:'#fff','stroke-width':1.5});\n  const dotV = SVG('circle',{r:7,fill:'#e07a5f',stroke:'#fff','stroke-width':1.5});\n  const lineUV = SVG('line',{stroke:'#58c4dd','stroke-width':1,'stroke-opacity':0.3,'stroke-dasharray':'3 4'});\n  const linePU = SVG('line',{stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const linePV = SVG('line',{stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  svg.appendChild(lineUV); svg.appendChild(linePU); svg.appendChild(linePV);\n  svg.appendChild(dotU); svg.appendChild(dotV); svg.appendChild(dotP);\n\n  // state\n  let theta = Math.PI/3; // starting angle, on the right side\n\n  function pxForX(x){\n    // squash R -> axis length using x ↦ x/(1+|x|)*half, but we also cap to axis range\n    const half = (axR-axL)/2;\n    const comp = Math.atan(x/3)/(Math.PI/2); // ∈ (-1,1)\n    return axMid + comp*half;\n  }\n  function update(){\n    // Position on circle: N at top (0,−r). Use standard angle: θ=0 at east, CCW.\n    const Px = cx + rad*Math.cos(theta);\n    const Py = cy - rad*Math.sin(theta);\n    dotP.setAttribute('cx',Px); dotP.setAttribute('cy',Py);\n\n    // Stereographic: project from N=(0,−r) (TOP of circle; \"north pole\" in our SVG is up = y small)\n    // In our coords, (cx, cy-rad) is the north pole. Use stereographic:\n    //   x = (point_x - cx) / (1 - (point_y_above_center)/(-r))  … let's just derive:\n    // Map point on unit circle to x via (sinθ)/(1 - cosθ)?  We want:\n    //   south pole (θ = -π/2 in our convention, bottom) ↦ x = 0\n    //   north pole (θ = +π/2, top) ↦ x = ∞\n    //   east (θ=0) ↦ x = 1\n    //   west (θ=π) ↦ x = -1\n    // Using tan((θ/2 + π/4))? Let's construct: with angle φ measured from south pole.\n    // Let φ = θ + π/2 (so φ=0 at south). Then x = tan(φ/2) gives:\n    //   φ=0 → x=0 ✓\n    //   φ=π → x=∞ ✓\n    //   φ=π/2 (east) → x=1 ✓\n    //   φ=-π/2 (west) → x=-1 ✓\n    const phi = theta + Math.PI/2;\n    let x, y, xInf=false, yInf=false;\n    // normalize phi to (-π, π]\n    let phiN = ((phi+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;\n    if(Math.abs(Math.abs(phiN)-Math.PI)<1e-6){ xInf=true; }\n    else { x = Math.tan(phiN/2); }\n    if(Math.abs(phiN)<1e-6){ yInf=true; }\n    else { y = 1/Math.tan(phiN/2); }\n\n    // U dot\n    if(xInf){\n      dotU.setAttribute('opacity','0.2');\n      dotU.setAttribute('cx',axR); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotU.setAttribute('opacity','1');\n      const ux = pxForX(x);\n      dotU.setAttribute('cx',ux); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('x1',Px); linePU.setAttribute('y1',Py);\n      linePU.setAttribute('x2',ux); linePU.setAttribute('y2',uY);\n      linePU.setAttribute('stroke-opacity',0.4);\n    }\n    // V dot\n    if(yInf){\n      dotV.setAttribute('opacity','0.2');\n      dotV.setAttribute('cx',axR); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotV.setAttribute('opacity','1');\n      const vx = pxForX(y);\n      dotV.setAttribute('cx',vx); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('x1',Px); linePV.setAttribute('y1',Py);\n      linePV.setAttribute('x2',vx); linePV.setAttribute('y2',vY);\n      linePV.setAttribute('stroke-opacity',0.4);\n    }\n    // connect U and V dots\n    if(!xInf && !yInf){\n      lineUV.setAttribute('x1',dotU.getAttribute('cx')); lineUV.setAttribute('y1',uY);\n      lineUV.setAttribute('x2',dotV.getAttribute('cx')); lineUV.setAttribute('y2',vY);\n      lineUV.setAttribute('stroke-opacity',0.3);\n    } else {\n      lineUV.setAttribute('stroke-opacity',0);\n    }\n    // Readout\n    const xStr = xInf?'<span style=\"color:var(--pink)\">undefined (this point ∉ U)</span>':x.toFixed(3);\n    const yStr = yInf?'<span style=\"color:var(--yellow)\">undefined (this point ∉ V)</span>':y.toFixed(3);\n    const whichCharts = (xInf?'V only':(yInf?'U only':'both charts (U ∩ V)'));\n    ro.innerHTML =\n      `<div>point's coordinates:   x = <span style=\"color:var(--yellow)\">${xStr}</span>  ·  y = <span style=\"color:var(--pink)\">${yStr}</span></div>`+\n      `<div class=\"small\">this point is covered by: ${whichCharts}` +\n      ((!xInf && !yInf)?` · check: x·y = ${(x*y).toFixed(3)} (should be 1)`:'') +\n      `</div>`;\n  }\n  update();\n\n  // drag\n  let dragging=false;\n  function setFromPx(e){\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    // compute theta\n    theta = Math.atan2(cy-py, px-cx);\n    update();\n  }\n  dotP.addEventListener('mousedown',e=>{dragging=true; e.preventDefault();});\n  window.addEventListener('mousemove',e=>{if(dragging) setFromPx(e);});\n  window.addEventListener('mouseup',()=>{dragging=false;});\n  svg.addEventListener('click',setFromPx);\n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>ℙ¹ is a scheme that locally looks like affine space but globally isn't affine. Every projective variety, scheme of curves, moduli space of configurations, etc., is built this way: a patchwork of affines with compatible transition maps. <em>That</em> is the main reason Grothendieck's definition is so powerful — it gives a single language for all of algebraic geometry, equally comfortable with $\\operatorname{Spec}\\mathbb{Z}$, the complex projective plane, or moduli of elliptic curves.</p>\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Where next?</strong> Sheaves (local-to-global functions), morphisms of schemes, base change, fiber products, projective schemes, coherent sheaves, and cohomology. From the scheme foundation, category theory (the language of functors, adjunctions, Yoneda) takes over, and stacks extend schemes to handle moduli problems where \"points have automorphisms\" — another page for another day.</p>\n</div>\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "gluing-affines",
+          "html": "<div class=\"quiz\" data-concept=\"gluing-affines\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./morphisms-fiber-products.html#morphism\">Morphisms and fiber products</a> · Morphisms of schemes</div>\n    <div><a href=\"./schemes.html#fiber-over-point\">Schemes</a> · Fibers of a morphism over a point</div>\n    <div><a href=\"./schemes.html#projective-scheme\">Schemes</a> · Projective schemes and Proj</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-glue",
+            "svgId": "glue-svg",
+            "viewBox": "0 0 820 440",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "440",
+            "title": "ℙ¹ from two affine charts",
+            "hint": "drag the point",
+            "readoutId": "glue-readout",
+            "initialReadoutHtml": "",
+            "clickAction": "reveal",
+            "nodes": [
+              {
+                "id": "N",
+                "label": "∞ (origin of V)",
+                "x": 410,
+                "y": 40,
+                "kind": "closed"
+              },
+              {
+                "id": "S",
+                "label": "0 (origin of U)",
+                "x": 410,
+                "y": 200,
+                "kind": "closed"
+              },
+              {
+                "id": "P",
+                "label": "point",
+                "x": 410,
+                "y": 120,
+                "kind": "draggable"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 7: Gluing → P^1 =============================== */",
+            "bodyScript": "\n  const svg = $('#glue-svg');\n  const W=820, H=440;\n  const ro = $('#glue-readout');\n\n  // Top: circle representing P^1(R). Angle θ ∈ [0, 2π). x = tan(θ/2) via stereographic from north pole.\n  // Two charts U, V below.\n  const cx = W/2, cy = 120, rad = 80;\n  // Draw circle\n  svg.appendChild(SVG('circle',{cx,cy,r:rad,fill:'none',stroke:'#3a4558','stroke-width':1.5}));\n  const tN = SVG('text',{x:cx,y:cy-rad-8,'font-size':12,'text-anchor':'middle',fill:'#e07a5f'});\n  tN.textContent='∞ (origin of V)';\n  svg.appendChild(tN);\n  const tS = SVG('text',{x:cx,y:cy+rad+18,'font-size':12,'text-anchor':'middle',fill:'#ffd866'});\n  tS.textContent='0 (origin of U)';\n  svg.appendChild(tS);\n  svg.appendChild(SVG('circle',{cx,cy:cy-rad,r:4,fill:'#e07a5f'})); // N\n  svg.appendChild(SVG('circle',{cx,cy:cy+rad,r:4,fill:'#ffd866'})); // S (x=0)\n  // title\n  const tP = SVG('text',{x:cx,y:30,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n  tP.textContent = 'ℙ¹ (real picture)';\n  svg.appendChild(tP);\n\n  // Two affine charts as horizontal number lines\n  const uY = 290, vY = 380;\n  const axL = 60, axR = W-60, axMid = (axL+axR)/2;\n  svg.appendChild(SVG('line',{x1:axL,y1:uY,x2:axR,y2:uY,stroke:'#3a4558'}));\n  svg.appendChild(SVG('line',{x1:axL,y1:vY,x2:axR,y2:vY,stroke:'#3a4558'}));\n  const uLbl = SVG('text',{x:axL,y:uY-14,'font-size':13,fill:'#ffd866'});\n  uLbl.textContent='U = Spec k[x]   — the x-chart';\n  svg.appendChild(uLbl);\n  const vLbl = SVG('text',{x:axL,y:vY-14,'font-size':13,fill:'#e07a5f'});\n  vLbl.textContent='V = Spec k[y]   — the y-chart   (y = 1/x on overlap)';\n  svg.appendChild(vLbl);\n\n  // tick marks\n  function ticks(y,col){\n    for(let k=-4;k<=4;k++){\n      if(k===0){\n        svg.appendChild(SVG('circle',{cx:axMid,cy:y,r:4,fill:col}));\n        const t = SVG('text',{x:axMid,y:y+18,'font-size':11,'text-anchor':'middle',fill:col});\n        t.textContent='0';\n        svg.appendChild(t);\n      } else {\n        const px = axMid + k*((axR-axL)/2)/4;\n        svg.appendChild(SVG('line',{x1:px,y1:y-4,x2:px,y2:y+4,stroke:'#3a4558'}));\n        const t = SVG('text',{x:px,y:y+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n        t.textContent=k;\n        svg.appendChild(t);\n      }\n    }\n  }\n  ticks(uY,'#ffd866');\n  ticks(vY,'#e07a5f');\n\n  // Point dots and connecting lines\n  const dotP = SVG('circle',{r:7,fill:'#58c4dd',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'});\n  const dotU = SVG('circle',{r:7,fill:'#ffd866',stroke:'#fff','stroke-width':1.5});\n  const dotV = SVG('circle',{r:7,fill:'#e07a5f',stroke:'#fff','stroke-width':1.5});\n  const lineUV = SVG('line',{stroke:'#58c4dd','stroke-width':1,'stroke-opacity':0.3,'stroke-dasharray':'3 4'});\n  const linePU = SVG('line',{stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const linePV = SVG('line',{stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  svg.appendChild(lineUV); svg.appendChild(linePU); svg.appendChild(linePV);\n  svg.appendChild(dotU); svg.appendChild(dotV); svg.appendChild(dotP);\n\n  // state\n  let theta = Math.PI/3; // starting angle, on the right side\n\n  function pxForX(x){\n    // squash R -> axis length using x ↦ x/(1+|x|)*half, but we also cap to axis range\n    const half = (axR-axL)/2;\n    const comp = Math.atan(x/3)/(Math.PI/2); // ∈ (-1,1)\n    return axMid + comp*half;\n  }\n  function update(){\n    // Position on circle: N at top (0,−r). Use standard angle: θ=0 at east, CCW.\n    const Px = cx + rad*Math.cos(theta);\n    const Py = cy - rad*Math.sin(theta);\n    dotP.setAttribute('cx',Px); dotP.setAttribute('cy',Py);\n\n    // Stereographic: project from N=(0,−r) (TOP of circle; \"north pole\" in our SVG is up = y small)\n    // In our coords, (cx, cy-rad) is the north pole. Use stereographic:\n    //   x = (point_x - cx) / (1 - (point_y_above_center)/(-r))  … let's just derive:\n    // Map point on unit circle to x via (sinθ)/(1 - cosθ)?  We want:\n    //   south pole (θ = -π/2 in our convention, bottom) ↦ x = 0\n    //   north pole (θ = +π/2, top) ↦ x = ∞\n    //   east (θ=0) ↦ x = 1\n    //   west (θ=π) ↦ x = -1\n    // Using tan((θ/2 + π/4))? Let's construct: with angle φ measured from south pole.\n    // Let φ = θ + π/2 (so φ=0 at south). Then x = tan(φ/2) gives:\n    //   φ=0 → x=0 ✓\n    //   φ=π → x=∞ ✓\n    //   φ=π/2 (east) → x=1 ✓\n    //   φ=-π/2 (west) → x=-1 ✓\n    const phi = theta + Math.PI/2;\n    let x, y, xInf=false, yInf=false;\n    // normalize phi to (-π, π]\n    let phiN = ((phi+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;\n    if(Math.abs(Math.abs(phiN)-Math.PI)<1e-6){ xInf=true; }\n    else { x = Math.tan(phiN/2); }\n    if(Math.abs(phiN)<1e-6){ yInf=true; }\n    else { y = 1/Math.tan(phiN/2); }\n\n    // U dot\n    if(xInf){\n      dotU.setAttribute('opacity','0.2');\n      dotU.setAttribute('cx',axR); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotU.setAttribute('opacity','1');\n      const ux = pxForX(x);\n      dotU.setAttribute('cx',ux); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('x1',Px); linePU.setAttribute('y1',Py);\n      linePU.setAttribute('x2',ux); linePU.setAttribute('y2',uY);\n      linePU.setAttribute('stroke-opacity',0.4);\n    }\n    // V dot\n    if(yInf){\n      dotV.setAttribute('opacity','0.2');\n      dotV.setAttribute('cx',axR); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotV.setAttribute('opacity','1');\n      const vx = pxForX(y);\n      dotV.setAttribute('cx',vx); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('x1',Px); linePV.setAttribute('y1',Py);\n      linePV.setAttribute('x2',vx); linePV.setAttribute('y2',vY);\n      linePV.setAttribute('stroke-opacity',0.4);\n    }\n    // connect U and V dots\n    if(!xInf && !yInf){\n      lineUV.setAttribute('x1',dotU.getAttribute('cx')); lineUV.setAttribute('y1',uY);\n      lineUV.setAttribute('x2',dotV.getAttribute('cx')); lineUV.setAttribute('y2',vY);\n      lineUV.setAttribute('stroke-opacity',0.3);\n    } else {\n      lineUV.setAttribute('stroke-opacity',0);\n    }\n    // Readout\n    const xStr = xInf?'<span style=\"color:var(--pink)\">undefined (this point ∉ U)</span>':x.toFixed(3);\n    const yStr = yInf?'<span style=\"color:var(--yellow)\">undefined (this point ∉ V)</span>':y.toFixed(3);\n    const whichCharts = (xInf?'V only':(yInf?'U only':'both charts (U ∩ V)'));\n    ro.innerHTML =\n      `<div>point's coordinates:   x = <span style=\"color:var(--yellow)\">${xStr}</span>  ·  y = <span style=\"color:var(--pink)\">${yStr}</span></div>`+\n      `<div class=\"small\">this point is covered by: ${whichCharts}` +\n      ((!xInf && !yInf)?` · check: x·y = ${(x*y).toFixed(3)} (should be 1)`:'') +\n      `</div>`;\n  }\n  update();\n\n  // drag\n  let dragging=false;\n  function setFromPx(e){\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    // compute theta\n    theta = Math.atan2(cy-py, px-cx);\n    update();\n  }\n  dotP.addEventListener('mousedown',e=>{dragging=true; e.preventDefault();});\n  window.addEventListener('mousemove',e=>{if(dragging) setFromPx(e);});\n  window.addEventListener('mouseup',()=>{dragging=false;});\n  svg.addEventListener('click',setFromPx);\n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<!-- SECTIONS TO BE APPENDED BELOW -->\n\n"
+        }
+      ]
+    },
+    {
+      "id": "generic-point",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"generic-point\">\n<h2>8. Generic points and specialization</h2>\n<p>Classical geometry only sees <em>closed</em> points — maximal ideals. Scheme theory adds one extra point for every non-maximal prime, and those extra points are surprisingly useful. A prime $\\mathfrak p\\subsetneq R$ that is not maximal is called a <strong>generic point</strong>. Its closure in $\\operatorname{Spec}R$ is exactly $V(\\mathfrak p) = \\{\\mathfrak q : \\mathfrak p\\subseteq \\mathfrak q\\}$, an <em>entire irreducible subvariety</em> — not just a point.</p>\n<p>So in $\\operatorname{Spec}\\mathbb{Z}[x]$ the prime $(x)$ is <em>one point</em> that, when you take its closure, spreads out to cover the whole \"$x=0$\" axis. The zero ideal $(0)$ is an even more generic point: its closure is <em>all of</em> $\\operatorname{Spec}\\mathbb{Z}[x]$.</p>\n<p>The partial order \"$\\mathfrak p\\leadsto \\mathfrak q$ iff $\\mathfrak p\\subseteq \\mathfrak q$\" is <strong>specialization</strong>: the smaller (more generic) prime <em>specializes to</em> the larger (more special) one. Think of it as taking a limit — a generic point \"flows into\" every closed point of its closure. Properties that hold at a generic point (being smooth, being reduced, being irreducible) typically hold on an open dense neighborhood; properties at closed points are local tests of what happens \"at one spot\".</p>\n<p>This is what lets algebraic geometers say things like \"the generic fiber of a family is smooth, and only finitely many special fibers degenerate\" — the generic fiber is <em>literally</em> the fiber over the generic point of the base.</p>\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "generic-point",
+          "html": "<div class=\"quiz\" data-concept=\"generic-point\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "residue-field",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"residue-field\">\n<h2>9. Residue fields: evaluating at a point</h2>\n<p>A function on a classical variety over $k$ takes values in $k$. On $\\operatorname{Spec}R$ the ring $R$ is not a priori an algebra over any one field, so \"evaluating $f\\in R$ at a point $\\mathfrak p$\" needs care. The answer is the <strong>residue field</strong> $$\\kappa(\\mathfrak p) \\;=\\; \\operatorname{Frac}(R/\\mathfrak p) \\;=\\; R_{\\mathfrak p}/\\mathfrak p R_{\\mathfrak p},$$ the fraction field of the integral domain $R/\\mathfrak p$, equivalently the residue of the local ring $R_{\\mathfrak p}$.</p>\n<p>An element $f\\in R$ has a well-defined image $f(\\mathfrak p)\\in \\kappa(\\mathfrak p)$ — but the target field depends on the point. A single $f\\in\\mathbb{Z}[x]$ takes values in $\\mathbb{F}_p$ at the maximal ideal $(p,x-a)$, in $\\mathbb{Q}(x)$ at the generic point $(0)$, and in $\\mathbb{F}_p(x)$ at the height-one prime $(p)$. \"Vanishing at $\\mathfrak p$\" just means $f\\in \\mathfrak p$, i.e. $f(\\mathfrak p)=0$ in $\\kappa(\\mathfrak p)$.</p>\n<p>The residue field is exactly what makes the slogan \"elements of $R$ are functions on $\\operatorname{Spec}R$\" honest. A $k$-point of an $R$-scheme — a homomorphism $R\\to k$ — factors uniquely through the residue field of its kernel, so geometric points over an algebraically closed field correspond to maximal ideals with residue field $k$.</p>\n<div class=\"note\">\n<p style=\"margin:.2rem 0\">Concretely, at the closed point $\\mathfrak m=(x-a)\\subset \\mathbb{C}[x]$ we get $\\kappa(\\mathfrak m)=\\mathbb{C}$ and $f\\mapsto f(a)$ — the classical evaluation. Everything schemes do to enrich this picture is built on top.</p>\n</div>\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#localize\">Localization and local algebra</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./schemes.html#fiber-over-point\">Schemes</a> · Fibers of a morphism over a point</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "residue-field-at-prime",
+          "html": "<div class=\"quiz\" data-concept=\"residue-field-at-prime\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "locally-ringed-space",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"locally-ringed-space\">\n<h2>10. Locally ringed spaces</h2>\n<p>A <strong>ringed space</strong> is a topological space $X$ together with a sheaf of rings $\\mathcal O_X$. A ringed space is <strong>locally ringed</strong> if for every point $x\\in X$ the stalk $\\mathcal O_{X,x}$ is a local ring — a ring with exactly one maximal ideal $\\mathfrak m_x$. Its residue field is $\\kappa(x) = \\mathcal O_{X,x}/\\mathfrak m_x$.</p>\n<p>Every scheme is a locally ringed space: on $\\operatorname{Spec}R$ the stalk at the prime $\\mathfrak p$ is the localization $R_{\\mathfrak p}$, which is local by construction, with maximal ideal $\\mathfrak p R_{\\mathfrak p}$. Conversely, a <strong>scheme</strong> is defined as a locally ringed space that is locally isomorphic to $\\operatorname{Spec}$ of a ring — this is the invariant definition that doesn't depend on a choice of open cover.</p>\n<p>The \"locally ringed\" part is doing real work. A morphism of ringed spaces $f\\colon (X,\\mathcal O_X)\\to (Y,\\mathcal O_Y)$ is a continuous map plus a pullback $f^\\sharp\\colon \\mathcal O_Y \\to f_*\\mathcal O_X$. A morphism of <em>locally ringed</em> spaces also requires that the induced map on stalks $\\mathcal O_{Y,f(x)}\\to \\mathcal O_{X,x}$ is <em>local</em>: it sends the maximal ideal into the maximal ideal. Without that condition, maps between schemes would not correspond to ring homomorphisms; with it, $\\operatorname{Spec}$ becomes a fully faithful contravariant functor from commutative rings to locally ringed spaces.</p>\n<p>In short: \"sheaf of rings whose stalks detect a unique point of vanishing\" is precisely the structure needed to glue $\\operatorname{Spec}$'s into a category of honest geometric objects.</p>\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "locally-ringed-space",
+          "html": "<div class=\"quiz\" data-concept=\"locally-ringed-space\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "projective-scheme",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"projective-scheme\">\n<h2>11. Projective schemes and Proj</h2>\n<p>The gluing of $\\mathbb{P}^1$ in §7 was ad hoc — two copies of $\\mathbb A^1$ along the overlap $y=1/x$. For higher-dimensional and more intricate projective geometry the <strong>Proj</strong> construction gives the uniform recipe. Start with a graded ring $S = \\bigoplus_{d\\geq 0} S_d$ — for example $S = k[x_0,\\dots,x_n]$ with the usual grading by total degree.</p>\n<p>Define $\\operatorname{Proj}S$ as the set of <em>homogeneous</em> prime ideals $\\mathfrak p\\subset S$ not containing the <strong>irrelevant ideal</strong> $S_+ = \\bigoplus_{d>0} S_d$. The topology is the Zariski topology inherited from homogeneous ideals, and the structure sheaf is built from localizations at homogeneous elements: for each homogeneous $f\\in S_d$ with $d>0$, the basic open $D_+(f)$ is canonically identified with $\\operatorname{Spec}(S_f)_0$, the degree-zero part of the localization.</p>\n<p>For $S=k[x_0,\\dots,x_n]$ this reproduces classical $\\mathbb P^n_k$: the opens $D_+(x_i)\\cong \\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]\\cong \\mathbb A^n_k$ patch together exactly by \"divide by $x_i$\" transitions. For $S=k[x_0,\\dots,x_n]/I$ with $I$ a homogeneous ideal, $\\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>\n<p>The payoff: every projective scheme is of the form $\\operatorname{Proj}S$ for some graded ring, and conversely any finitely generated graded algebra over a field produces a projective scheme. This converts projective geometry into the algebra of graded rings, the same way $\\operatorname{Spec}$ converted affine geometry into the algebra of commutative rings.</p>\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "projective-scheme",
+          "html": "<div class=\"quiz\" data-concept=\"projective-scheme\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "closed-subscheme",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"closed-subscheme\">\n<h2>12. Closed subschemes, reducedness, and irreducibility</h2>\n<p>A Zariski-closed subset of $\\operatorname{Spec}R$ is $V(I)$ for some ideal $I$. But as a <em>scheme</em>, \"the closed set $V(I)$\" has extra structure: it is $\\operatorname{Spec}(R/I)$, and different ideals with the same radical give different subschemes. So a <strong>closed subscheme</strong> of $\\operatorname{Spec}R$ is a choice of ideal $I\\subseteq R$; the underlying space is $V(I)=V(\\sqrt I)$ but the ring of functions remembers $I$ exactly.</p>\n<p>Two complementary simplifications are often useful:</p>\n<p><span class=\"pill\">reduced</span> Replace $I$ by its radical $\\sqrt I=\\{f\\in R : f^n\\in I\\text{ some }n\\}$. The subscheme $\\operatorname{Spec}(R/\\sqrt I)$ is called the <strong>reduced subscheme</strong> underlying $V(I)$: it has no nilpotents, matching the classical vanishing locus on the nose.</p>\n<p><span class=\"pill\">irreducible</span> $\\operatorname{Spec}R$ is <strong>irreducible</strong> iff its nilradical $\\operatorname{nil}(R)$ is prime, equivalently iff $R$ has a unique minimal prime. In general, the minimal primes $\\mathfrak p_1,\\dots,\\mathfrak p_r$ of $R$ are in bijection with the <strong>irreducible components</strong>: each $V(\\mathfrak p_i)$ is a maximal irreducible closed subset, and $\\operatorname{Spec}R = \\bigcup_i V(\\mathfrak p_i)$.</p>\n<p>For $R=k[x,y]/(xy)$ the minimal primes are $(x)$ and $(y)$, so the two coordinate axes are the two irreducible components, meeting at the closed point $(x,y)$. For $R=k[x,y]/(x^2,y)$ the radical is $(x,y)$: a <em>single</em> reduced point, but $R$ itself is a length-2 non-reduced ring — the \"length-2 fat point in the $x$-direction\" seen in §6.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-closed-sub",
+            "title": "Ideal → closed subscheme of Spec k[x,y]",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "closed-sub-svg",
+                "viewBox": "0 0 820 300",
+                "width": 820,
+                "height": 300
+              },
+              {
+                "kind": "readout",
+                "id": "closed-sub-readout",
+                "content": "Four ideals of $k[x,y]$ cutting out increasingly refined structure on the same underlying set $\\{(0,0)\\}$ or pair of axes."
+              }
+            ],
+            "bodyScript": "  const svg = $('#closed-sub-svg');\n  if(!svg) return;\n  const W=820, H=300;\n  // Four panels, showing the same underlying set with different scheme structure.\n  const panels = [\n    {x:20,  ttl:'I = (x,y)',        sub:'reduced origin',        draw:p=>{\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));\n      const t = SVG('text',{x:0,y:26,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='length 1 · reduced'; p.appendChild(t);\n    }},\n    {x:220, ttl:'I = (x²,y)',       sub:'arrow in x-direction', draw:p=>{\n      p.appendChild(SVG('line',{x1:-14,y1:0,x2:14,y2:0,stroke:'var(--yellow)','stroke-width':3,'stroke-linecap':'round'}));\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));\n      const t = SVG('text',{x:0,y:26,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='length 2 · non-reduced'; p.appendChild(t);\n    }},\n    {x:420, ttl:'I = (x²,xy,y²)',   sub:'full 2-jet at origin', draw:p=>{\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:14,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'2 3'}));\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));\n      const t = SVG('text',{x:0,y:30,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='length 3 · non-reduced'; p.appendChild(t);\n    }},\n    {x:620, ttl:'I = (xy)',         sub:'two axes, reduced',    draw:p=>{\n      p.appendChild(SVG('line',{x1:-40,y1:0,x2:40,y2:0,stroke:'var(--cyan)','stroke-width':2.5}));\n      p.appendChild(SVG('line',{x1:0,y1:-40,x2:0,y2:40,stroke:'var(--pink)','stroke-width':2.5}));\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:4,fill:'var(--violet)'}));\n      const t = SVG('text',{x:0,y:62,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='2 components · reduced'; p.appendChild(t);\n    }},\n  ];\n  // header row\n  for(const pl of panels){\n    const g = SVG('g',{transform:`translate(${pl.x+90},30)`});\n    const th = SVG('text',{x:0,y:0,'font-size':13,'text-anchor':'middle',fill:'var(--ink)','font-weight':600});\n    th.textContent = pl.ttl;\n    g.appendChild(th);\n    const ts = SVG('text',{x:0,y:16,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n    ts.textContent = pl.sub;\n    g.appendChild(ts);\n    svg.appendChild(g);\n    const gp = SVG('g',{transform:`translate(${pl.x+90},160)`});\n    // small axes\n    gp.appendChild(SVG('line',{x1:-60,y1:0,x2:60,y2:0,stroke:'var(--line)','stroke-width':1}));\n    gp.appendChild(SVG('line',{x1:0,y1:-60,x2:0,y2:60,stroke:'var(--line)','stroke-width':1}));\n    pl.draw(gp);\n    svg.appendChild(gp);\n  }\n  // bracket legend\n  const leg = SVG('text',{x:W/2,y:H-20,'font-size':12,'text-anchor':'middle',fill:'var(--mute)'});\n  leg.textContent = 'all four share the same classical vanishing set, but differ as schemes';\n  svg.appendChild(leg);",
+            "hint": "static example",
+            "sectionComment": "=============================== SECTION 12: Closed subschemes (static) ===============================",
+            "svgId": "closed-sub-svg",
+            "viewBox": "0 0 820 300",
+            "readoutId": "closed-sub-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<p>The scheme-theoretic distinction is what lets you write \"the tangent space of $X$ at $p$ is $\\operatorname{Hom}_k(\\mathfrak m/\\mathfrak m^2, k)$\" or \"this curve meets this line with multiplicity 3\": both record information invisible to the underlying set.</p>\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#ideals\">Ideals and quotient rings</a></li>\n  </ul>\n</aside>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "closed-subscheme",
+          "html": "<div class=\"quiz\" data-concept=\"closed-subscheme\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-closed-sub",
+            "title": "Ideal → closed subscheme of Spec k[x,y]",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "closed-sub-svg",
+                "viewBox": "0 0 820 300",
+                "width": 820,
+                "height": 300
+              },
+              {
+                "kind": "readout",
+                "id": "closed-sub-readout",
+                "content": "Four ideals of $k[x,y]$ cutting out increasingly refined structure on the same underlying set $\\{(0,0)\\}$ or pair of axes."
+              }
+            ],
+            "bodyScript": "  const svg = $('#closed-sub-svg');\n  if(!svg) return;\n  const W=820, H=300;\n  // Four panels, showing the same underlying set with different scheme structure.\n  const panels = [\n    {x:20,  ttl:'I = (x,y)',        sub:'reduced origin',        draw:p=>{\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));\n      const t = SVG('text',{x:0,y:26,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='length 1 · reduced'; p.appendChild(t);\n    }},\n    {x:220, ttl:'I = (x²,y)',       sub:'arrow in x-direction', draw:p=>{\n      p.appendChild(SVG('line',{x1:-14,y1:0,x2:14,y2:0,stroke:'var(--yellow)','stroke-width':3,'stroke-linecap':'round'}));\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));\n      const t = SVG('text',{x:0,y:26,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='length 2 · non-reduced'; p.appendChild(t);\n    }},\n    {x:420, ttl:'I = (x²,xy,y²)',   sub:'full 2-jet at origin', draw:p=>{\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:14,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'2 3'}));\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));\n      const t = SVG('text',{x:0,y:30,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='length 3 · non-reduced'; p.appendChild(t);\n    }},\n    {x:620, ttl:'I = (xy)',         sub:'two axes, reduced',    draw:p=>{\n      p.appendChild(SVG('line',{x1:-40,y1:0,x2:40,y2:0,stroke:'var(--cyan)','stroke-width':2.5}));\n      p.appendChild(SVG('line',{x1:0,y1:-40,x2:0,y2:40,stroke:'var(--pink)','stroke-width':2.5}));\n      p.appendChild(SVG('circle',{cx:0,cy:0,r:4,fill:'var(--violet)'}));\n      const t = SVG('text',{x:0,y:62,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n      t.textContent='2 components · reduced'; p.appendChild(t);\n    }},\n  ];\n  // header row\n  for(const pl of panels){\n    const g = SVG('g',{transform:`translate(${pl.x+90},30)`});\n    const th = SVG('text',{x:0,y:0,'font-size':13,'text-anchor':'middle',fill:'var(--ink)','font-weight':600});\n    th.textContent = pl.ttl;\n    g.appendChild(th);\n    const ts = SVG('text',{x:0,y:16,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});\n    ts.textContent = pl.sub;\n    g.appendChild(ts);\n    svg.appendChild(g);\n    const gp = SVG('g',{transform:`translate(${pl.x+90},160)`});\n    // small axes\n    gp.appendChild(SVG('line',{x1:-60,y1:0,x2:60,y2:0,stroke:'var(--line)','stroke-width':1}));\n    gp.appendChild(SVG('line',{x1:0,y1:-60,x2:0,y2:60,stroke:'var(--line)','stroke-width':1}));\n    pl.draw(gp);\n    svg.appendChild(gp);\n  }\n  // bracket legend\n  const leg = SVG('text',{x:W/2,y:H-20,'font-size':12,'text-anchor':'middle',fill:'var(--mute)'});\n  leg.textContent = 'all four share the same classical vanishing set, but differ as schemes';\n  svg.appendChild(leg);",
+            "hint": "static example",
+            "sectionComment": "=============================== SECTION 12: Closed subschemes (static) ===============================",
+            "svgId": "closed-sub-svg",
+            "viewBox": "0 0 820 300",
+            "readoutId": "closed-sub-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "dimension",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"dimension\">\n<h2>13. Dimension of a scheme</h2>\n<p>The specialization picture from §5 already hints at a natural notion of dimension: chains of primes $\\mathfrak p_0\\subsetneq \\mathfrak p_1\\subsetneq\\cdots\\subsetneq \\mathfrak p_d$ in $R$ correspond to chains of specializations $\\mathfrak p_0\\leadsto \\mathfrak p_1\\leadsto\\cdots\\leadsto \\mathfrak p_d$ in $\\operatorname{Spec}R$. The <strong>dimension</strong> of $\\operatorname{Spec}R$ is the length of the longest such chain — by definition the <strong>Krull dimension</strong> of $R$.</p>\n<p>For a general scheme $X$, $\\dim X$ is the supremum of chain lengths of irreducible closed subsets, and it is a local property: $\\dim X = \\sup_{x\\in X}\\dim \\mathcal O_{X,x}$ when $X$ is finite-dimensional. On each affine chart $\\operatorname{Spec}R\\subseteq X$, this recovers the Krull dimension of $R$.</p>\n<p>Some examples that are good to keep in your head:</p>\n<ul>\n  <li>$\\dim \\operatorname{Spec} k = 0$ (only the zero ideal).</li>\n  <li>$\\dim \\operatorname{Spec}\\mathbb Z = 1$: chain $(0)\\subsetneq (p)$.</li>\n  <li>$\\dim \\operatorname{Spec} k[x_1,\\dots,x_n] = n$: chain $(0)\\subsetneq (x_1)\\subsetneq (x_1,x_2)\\subsetneq\\cdots\\subsetneq (x_1,\\dots,x_n)$.</li>\n  <li>$\\dim \\operatorname{Spec}\\mathbb Z[x_1,\\dots,x_n] = n+1$: one extra step for the $\\mathbb Z$ direction.</li>\n  <li>$\\dim \\mathbb P^n_k = n$ — gluing together $n+1$ copies of $\\mathbb A^n$ preserves dimension.</li>\n</ul>\n<p>Dimension is the scheme-theoretic version of \"how many independent coordinates do I need\". Height-one primes cut out codimension-one subschemes (divisors); height-$n$ primes in a regular local ring of dimension $n$ are closed points. The Krull dimension of the local ring $\\mathcal O_{X,x}$ — an <strong>invariant of the point</strong> — is the <em>local</em> dimension of $X$ at $x$.</p>\n<div class=\"note\">\n<p style=\"margin:.2rem 0\">Dimension can behave badly for pathological rings, but for finite-type schemes over a field (or $\\mathbb Z$) it is well-behaved and matches the geometric intuition. A variety is <em>equidimensional</em> if all irreducible components have the same dimension.</p>\n</div>\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#dim\">Krull dimension and depth heuristics</a></li>\n  </ul>\n</aside>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dimension-scheme",
+          "html": "<div class=\"quiz\" data-concept=\"dimension-scheme\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "fiber-over-point",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"fiber-over-point\">\n<h2>14. Fibers of a morphism over a point</h2>\n<p>A morphism of schemes $f\\colon X\\to Y$ breaks $X$ into <em>fibers</em>, one over each point $y\\in Y$. Just as a morphism of varieties over $\\mathbb{C}$ has fibers $f^{-1}(y)$, a scheme morphism has a scheme-theoretic fiber.</p>\n<p>The <strong>fiber over $y\\in Y$</strong> is the scheme $$X_y \\;=\\; X\\times_Y \\operatorname{Spec}\\kappa(y),$$ the fiber product with the residue field at $y$. Concretely, if $X=\\operatorname{Spec}B$ and $Y=\\operatorname{Spec}A$ with $f$ induced by $A\\to B$, then $X_y = \\operatorname{Spec}(B\\otimes_A \\kappa(y))$. The underlying set of $X_y$ is exactly the preimage $f^{-1}(y)\\subseteq X$, with scheme structure that records multiplicities and residue-field extensions.</p>\n<p>The most arresting example is the structural morphism $f\\colon \\operatorname{Spec}\\mathbb Z[x]\\to \\operatorname{Spec}\\mathbb Z$. Its fibers depend on which point of the base we sit over:</p>\n<p><span class=\"pill\">over $(p)$</span> the fiber is $\\operatorname{Spec}(\\mathbb Z[x]\\otimes_{\\mathbb Z}\\mathbb F_p)=\\operatorname{Spec}\\mathbb F_p[x]$ — the affine line over $\\mathbb F_p$. One for each prime $p$.</p>\n<p><span class=\"pill\">over $(0)$</span> the <em>generic fiber</em> is $\\operatorname{Spec}(\\mathbb Z[x]\\otimes_{\\mathbb Z}\\mathbb Q)=\\operatorname{Spec}\\mathbb Q[x]$ — the affine line over $\\mathbb Q$.</p>\n<p>So $\\operatorname{Spec}\\mathbb Z[x]$ is a \"family of affine lines parametrized by primes\". This is the single picture that explains why number theorists and geometers can share a vocabulary: a Diophantine equation is a scheme over $\\mathbb Z$, and reducing mod $p$ is just \"looking at the fiber over $p$\".</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-fiber",
+            "title": "Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fiber-svg",
+                "viewBox": "0 0 820 300",
+                "width": 820,
+                "height": 300
+              },
+              {
+                "kind": "readout",
+                "id": "fiber-readout",
+                "content": "Each column is one fiber of $\\operatorname{Spec}\\mathbb Z[x]\\to\\operatorname{Spec}\\mathbb Z$. The rightmost column is the generic fiber over $(0)$, of characteristic $0$."
+              }
+            ],
+            "bodyScript": "  const svg = $('#fiber-svg');\n  if(!svg) return;\n  const W=820, H=300;\n  // Base line at the bottom, labelled by primes and the generic point.\n  const baseY = H-44;\n  svg.appendChild(SVG('line',{x1:40,y1:baseY,x2:W-40,y2:baseY,stroke:'var(--line)','stroke-width':1.5}));\n  const baseLabel = SVG('text',{x:W-40,y:baseY+22,'font-size':12,'text-anchor':'end',fill:'var(--mute)'});\n  baseLabel.textContent = 'Spec ℤ  (base)';\n  svg.appendChild(baseLabel);\n  // columns: primes 2,3,5,7,11, and a rightmost generic column\n  const cols = [\n    {x:120, label:'(2)',  col:'var(--cyan)',   fiber:'𝔸¹_{𝔽₂}'},\n    {x:220, label:'(3)',  col:'var(--green)',  fiber:'𝔸¹_{𝔽₃}'},\n    {x:320, label:'(5)',  col:'var(--yellow)', fiber:'𝔸¹_{𝔽₅}'},\n    {x:420, label:'(7)',  col:'var(--pink)',   fiber:'𝔸¹_{𝔽₇}'},\n    {x:520, label:'(11)', col:'var(--violet)', fiber:'𝔸¹_{𝔽₁₁}'},\n    {x:700, label:'(0)',  col:'var(--blue)',   fiber:'𝔸¹_{ℚ}  (generic fiber)'},\n  ];\n  for(const c of cols){\n    // vertical fiber line\n    svg.appendChild(SVG('line',{x1:c.x,y1:40,x2:c.x,y2:baseY-4,stroke:c.col,'stroke-width':1.5,'stroke-opacity':0.8}));\n    // base point\n    svg.appendChild(SVG('circle',{cx:c.x,cy:baseY,r:4,fill:c.col,stroke:'#fff','stroke-width':1}));\n    // base label\n    const lb = SVG('text',{x:c.x,y:baseY+22,'font-size':12,'text-anchor':'middle',fill:c.col});\n    lb.textContent = c.label;\n    svg.appendChild(lb);\n    // fiber label (top)\n    const lf = SVG('text',{x:c.x,y:32,'font-size':12,'text-anchor':'middle',fill:c.col});\n    lf.textContent = c.fiber;\n    svg.appendChild(lf);\n    // a few closed points along the fiber\n    for(let k=0;k<5;k++){\n      const y = 60 + k*32;\n      if(y > baseY-16) break;\n      svg.appendChild(SVG('circle',{cx:c.x,cy:y,r:3,fill:c.col,opacity:0.85}));\n    }\n  }\n  // total-space label\n  const ts = SVG('text',{x:40,y:24,'font-size':13,fill:'var(--ink)','font-weight':600});\n  ts.textContent = 'Spec ℤ[x]  (total space)';\n  svg.appendChild(ts);\n  const ar = SVG('text',{x:40,y:baseY-8,'font-size':11,fill:'var(--mute)'});\n  ar.textContent = '↓  f : fiber over each point of the base';\n  svg.appendChild(ar);",
+            "hint": "static schematic",
+            "sectionComment": "=============================== SECTION 14: Arithmetic surface fibers (static) ===============================",
+            "svgId": "fiber-svg",
+            "viewBox": "0 0 820 300",
+            "readoutId": "fiber-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>The fiber $X_y$ can collapse, extend, or gain nilpotents depending on $y$ — that's precisely what \"the family degenerates\" means geometrically. Studying a morphism <em>is</em> studying how its fibers vary, and the dedicated page on <a href=\"./morphisms-fiber-products.html#fiber\">morphisms and fiber products</a> develops this into the general theory of base change.</p>\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./morphisms-fiber-products.html#fiber\">Fiber products and base change</a></li>\n  </ul>\n</aside>\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "fiber-over-point",
+          "html": "<div class=\"quiz\" data-concept=\"fiber-over-point\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-fiber",
+            "title": "Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fiber-svg",
+                "viewBox": "0 0 820 300",
+                "width": 820,
+                "height": 300
+              },
+              {
+                "kind": "readout",
+                "id": "fiber-readout",
+                "content": "Each column is one fiber of $\\operatorname{Spec}\\mathbb Z[x]\\to\\operatorname{Spec}\\mathbb Z$. The rightmost column is the generic fiber over $(0)$, of characteristic $0$."
+              }
+            ],
+            "bodyScript": "  const svg = $('#fiber-svg');\n  if(!svg) return;\n  const W=820, H=300;\n  // Base line at the bottom, labelled by primes and the generic point.\n  const baseY = H-44;\n  svg.appendChild(SVG('line',{x1:40,y1:baseY,x2:W-40,y2:baseY,stroke:'var(--line)','stroke-width':1.5}));\n  const baseLabel = SVG('text',{x:W-40,y:baseY+22,'font-size':12,'text-anchor':'end',fill:'var(--mute)'});\n  baseLabel.textContent = 'Spec ℤ  (base)';\n  svg.appendChild(baseLabel);\n  // columns: primes 2,3,5,7,11, and a rightmost generic column\n  const cols = [\n    {x:120, label:'(2)',  col:'var(--cyan)',   fiber:'𝔸¹_{𝔽₂}'},\n    {x:220, label:'(3)',  col:'var(--green)',  fiber:'𝔸¹_{𝔽₃}'},\n    {x:320, label:'(5)',  col:'var(--yellow)', fiber:'𝔸¹_{𝔽₅}'},\n    {x:420, label:'(7)',  col:'var(--pink)',   fiber:'𝔸¹_{𝔽₇}'},\n    {x:520, label:'(11)', col:'var(--violet)', fiber:'𝔸¹_{𝔽₁₁}'},\n    {x:700, label:'(0)',  col:'var(--blue)',   fiber:'𝔸¹_{ℚ}  (generic fiber)'},\n  ];\n  for(const c of cols){\n    // vertical fiber line\n    svg.appendChild(SVG('line',{x1:c.x,y1:40,x2:c.x,y2:baseY-4,stroke:c.col,'stroke-width':1.5,'stroke-opacity':0.8}));\n    // base point\n    svg.appendChild(SVG('circle',{cx:c.x,cy:baseY,r:4,fill:c.col,stroke:'#fff','stroke-width':1}));\n    // base label\n    const lb = SVG('text',{x:c.x,y:baseY+22,'font-size':12,'text-anchor':'middle',fill:c.col});\n    lb.textContent = c.label;\n    svg.appendChild(lb);\n    // fiber label (top)\n    const lf = SVG('text',{x:c.x,y:32,'font-size':12,'text-anchor':'middle',fill:c.col});\n    lf.textContent = c.fiber;\n    svg.appendChild(lf);\n    // a few closed points along the fiber\n    for(let k=0;k<5;k++){\n      const y = 60 + k*32;\n      if(y > baseY-16) break;\n      svg.appendChild(SVG('circle',{cx:c.x,cy:y,r:3,fill:c.col,opacity:0.85}));\n    }\n  }\n  // total-space label\n  const ts = SVG('text',{x:40,y:24,'font-size':13,fill:'var(--ink)','font-weight':600});\n  ts.textContent = 'Spec ℤ[x]  (total space)';\n  svg.appendChild(ts);\n  const ar = SVG('text',{x:40,y:baseY-8,'font-size':11,fill:'var(--mute)'});\n  ar.textContent = '↓  f : fiber over each point of the base';\n  svg.appendChild(ar);",
+            "hint": "static schematic",
+            "sectionComment": "=============================== SECTION 14: Arithmetic surface fibers (static) ===============================",
+            "svgId": "fiber-svg",
+            "viewBox": "0 0 820 300",
+            "readoutId": "fiber-readout"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<div id=\"sections-end\"></div>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n/* sidebar TOC builder + active-section highlighting */\n(function(){\n  function build(){\n    const aside = document.querySelector('aside.sidetoc');\n    const topnav = document.querySelector('nav.toc');\n    if(!aside || !topnav) return;\n    const srcs = [...topnav.querySelectorAll('a[href^=\"#\"]')];\n    if(!srcs.length) return;\n    const title = document.createElement('div');\n    title.className = 'sidetoc-title';\n    title.textContent = 'On this page';\n    aside.appendChild(title);\n    const ol = document.createElement('ol');\n    srcs.forEach(src => {\n      const li = document.createElement('li');\n      const a = document.createElement('a');\n      a.href = src.getAttribute('href');\n      a.textContent = src.textContent.replace(/\\u00a0/g,' ').trim();\n      li.appendChild(a); ol.appendChild(li);\n    });\n    aside.appendChild(ol);\n    const links = [...aside.querySelectorAll('a')];\n    const sections = [];\n    links.forEach(a => {\n      const id = a.getAttribute('href').slice(1);\n      const s = document.getElementById(id);\n      if(s) sections.push({a, s});\n    });\n    if(!sections.length) return;\n    function update(){\n      const threshold = 140;\n      let activeLink = sections[0].a;\n      for(const {a,s} of sections){\n        if(s.getBoundingClientRect().top <= threshold) activeLink = a;\n      }\n      links.forEach(x => x.classList.remove('active'));\n      activeLink.classList.add('active');\n    }\n    update();\n    window.addEventListener('scroll', update, {passive:true});\n    window.addEventListener('resize', update);\n  }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);\n  else build();\n})();\n</script>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('schemes'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>\n      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>\n      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>\n      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>\n      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>\n      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>\n      <tr><td>2026-04-20</td><td>progress chips, quiz feedback, authoring scripts, thin-topic backfill</td></tr>\n      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>\n      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>\n      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>\n      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>\n      <tr><td>2026-04-18</td><td>interactive pages</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

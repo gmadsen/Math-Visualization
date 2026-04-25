@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/input-form/schema.json",
+  "title": "input-form widget params",
+  "description": "A shared widget module for the input-calculator and input-plot families: typed-entry fields (number or text) drive a bespoke per-widget computation whose output lands in a .readout div (input-calculator) or in a .readout div plus an SVG canvas (input-plot). The schema is single-mode with optional plot fields; the svg* block activates the input-plot branch. The computation logic is passed through as a `bodyScript` artifact string that renderScript drops into the IIFE — portable consumers (React, etc.) may re-implement the compute from scratch or evaluate the script in a sandbox.",
+  "meta": {
+    "family": "input-form",
+    "dimension": "2d",
+    "gesture": "input",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "inputs",
+    "button",
+    "readoutId",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title inside .hd > .ttl."
+    },
+    "titleTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .ttl header element inside .hd. Default 'div' emits <div class=\"ttl\">; 'span' emits <span class=\"ttl\"> (a layout sub-variant in some legacy topics)."
+    },
+    "hintTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint inside .hd > .hint."
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of input fields inside the single .row. Each entry may carry a leading <label> (rendered before the input) and/or a trailing <label> (rendered after the input).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+          "type": { "enum": ["number", "text"] },
+          "label": { "type": "string", "description": "Optional leading <label for=id>…</label>. Omit to suppress." },
+          "labelWraps": { "type": "boolean", "description": "When true and `label` is present, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>` (the `for=` attr is omitted). When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`." },
+          "value": { "type": "string", "description": "Raw value= attribute (string; numeric widgets still use string to preserve bytes like \"2\" vs \"2.0\")." },
+          "min": { "type": "string", "description": "Raw min= attribute (optional)." },
+          "max": { "type": "string", "description": "Raw max= attribute (optional)." },
+          "step": { "type": "string", "description": "Raw step= attribute (optional)." },
+          "placeholder": { "type": "string", "description": "Raw placeholder= attribute (optional)." },
+          "style": { "type": "string", "description": "Raw inline style attr (e.g. \"width:4em\")." },
+          "trailingLabel": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["for", "text"],
+            "properties": {
+              "for": { "type": "string", "description": "`for=` target id (may point at this input or an adjacent one)." },
+              "text": { "type": "string", "description": "Label text content (may include KaTeX-wrapped math)." }
+            },
+            "description": "Optional <label for=…>…</label> rendered immediately AFTER this input, inside the same .row."
+          }
+        }
+      }
+    },
+    "button": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "text": { "type": "string" }
+      },
+      "description": "The action button that triggers the computation."
+    },
+    "readoutId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <div class=\"readout\"> where the computation's textual output is written."
+    },
+    "readoutPrefix": {
+      "type": "string",
+      "description": "Optional prefix HTML rendered inside the readout div at markup time. Most widgets leave it empty and let the IIFE populate the readout."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "Optional: DOM id for an <svg> canvas rendered BEFORE the .row. Presence switches the widget into the input-plot branch."
+    },
+    "viewBox": {
+      "type": "string",
+      "description": "Required iff svgId is set. Raw viewBox attr value (e.g. \"0 0 620 160\")."
+    },
+    "svgWidthAttr": {
+      "type": "string",
+      "description": "Optional raw width= attr for the <svg> (e.g. \"620\" or \"100%\")."
+    },
+    "svgHeightAttr": {
+      "type": "string",
+      "description": "Optional raw height= attr for the <svg>."
+    },
+    "svgStyleAttr": {
+      "type": "string",
+      "description": "Optional raw style attr for the <svg>."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. The verbatim IIFE body (everything between `(function(){` and `})();`) that wires up the button, reads inputs, and writes the readout / SVG. Byte-preserved so renderScript can round-trip the original inline source exactly. A portable frontend (React, etc.) ignores this field and implements compute(inputs) → readout on its own."
+    },
+    "trailingExplainer": {
+      "type": "string",
+      "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
+    },
+    "hdHtml": {
+      "type": "string",
+      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+    }
+  },
+  "dependentRequired": {
+    "svgId": ["viewBox"]
+  }
+}

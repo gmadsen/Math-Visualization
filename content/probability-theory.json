@@ -1,0 +1,1002 @@
+{
+  "topic": "probability-theory",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Probability theory — from sample spaces to Brownian motion</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"analysis\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n// standard-normal helpers (used in several widgets)\nfunction randn(){\n  // Box-Muller\n  let u=0,v=0;\n  while(u===0) u=Math.random();\n  while(v===0) v=Math.random();\n  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);\n}\nfunction phi(x){ return Math.exp(-x*x/2)/Math.sqrt(2*Math.PI); }\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#sample\">1&nbsp;Sample&nbsp;spaces</a>\n  <a href=\"#bayes\">2&nbsp;Conditional&nbsp;&amp;&nbsp;Bayes</a>\n  <a href=\"#rv\">3&nbsp;Random&nbsp;variables</a>\n  <a href=\"#supports\">4&nbsp;Distributions</a>\n  <a href=\"#expectation\">5&nbsp;Expectation</a>\n  <a href=\"#gen-fun\">6&nbsp;Generating&nbsp;functions</a>\n  <a href=\"#conv\">7&nbsp;Convergence</a>\n  <a href=\"#lln\">8&nbsp;LLN</a>\n  <a href=\"#clt\">9&nbsp;CLT</a>\n  <a href=\"#markov\">10&nbsp;Markov&nbsp;chains</a>\n  <a href=\"#martingales\">11&nbsp;Martingales</a>\n  <a href=\"#brownian\">12&nbsp;Brownian&nbsp;motion</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Probability theory</h1>\n  <p class=\"sub\">Measure-theoretic probability from sample spaces to Brownian motion: random variables as push-forwards, expectation as a Lebesgue integral, the law of large numbers and central limit theorem as convergence theorems, and Markov chains, martingales, and Brownian motion as the principal stochastic processes. Every concept comes with a toy to poke.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "sample",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"sample\">\n<h2>1. Sample spaces, events, and probability measures</h2>\n\n<p>A <strong>probability space</strong> is a measure space $(\\Omega,\\mathcal{F},\\mathbb{P})$ where $\\mathbb{P}(\\Omega)=1$. Points $\\omega\\in\\Omega$ are <em>outcomes</em>; measurable subsets $A\\in\\mathcal{F}$ are <em>events</em>; and the <em>probability measure</em> $\\mathbb{P}\\colon\\mathcal{F}\\to[0,1]$ is countably additive with $\\mathbb{P}(\\varnothing)=0$ and $\\mathbb{P}(\\Omega)=1$.</p>\n\n<p>Everything in probability lives on top of this single triple. The $\\sigma$-algebra $\\mathcal{F}$ encodes what is \"observable\"; events are the questions we can legitimately ask; and $\\mathbb{P}$ assigns numerical weights to those questions.</p>\n\n<div class=\"note\"><strong>Why $\\sigma$-algebras?</strong> Finite additivity — $\\mathbb{P}(A\\sqcup B)=\\mathbb{P}(A)+\\mathbb{P}(B)$ — is trivial. The leap from finite to countable is exactly what makes probability agree with limits: if $A_n\\uparrow A$, then $\\mathbb{P}(A_n)\\uparrow\\mathbb{P}(A)$. This continuity of measure is the engine behind every convergence theorem below.</div>\n\n<p><strong>Worked example: rolling two dice.</strong> Take $\\Omega=\\{1,\\ldots,6\\}^2$, $\\mathcal{F}=\\mathcal{P}(\\Omega)$ (finite sample space — every subset is measurable), and $\\mathbb{P}=\\tfrac{1}{36}\\#$. Then the event \"sum $\\ge 10$\" is $\\{(4,6),(5,5),(5,6),(6,4),(6,5),(6,6)\\}$ with probability $6/36=1/6$. Countable additivity degenerates to finite, and the entire apparatus is elementary — but the structure generalises to uncountable $\\Omega$ without change.</p>\n\n<p><strong>Continuity of measure.</strong> For increasing $A_n\\uparrow A$, countable additivity gives $\\mathbb{P}(A)=\\lim_n\\mathbb{P}(A_n)$. Dually, for $A_n\\downarrow A$ with $\\mathbb{P}(A_1)<\\infty$, $\\mathbb{P}(A)=\\lim\\mathbb{P}(A_n)$. These are the set-theoretic twin of MCT/DCT.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-events",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-events",
+            "title": "Events on a finite sample space",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "events-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Probability of events on rolling two dice"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "sum $\\ge 10$",
+                    "id": "ev-sum10"
+                  },
+                  {
+                    "label": "doubles",
+                    "id": "ev-double"
+                  },
+                  {
+                    "label": "sum even",
+                    "id": "ev-even"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ AND doubles",
+                    "id": "ev-both"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ OR doubles",
+                    "id": "ev-either"
+                  },
+                  {
+                    "label": "clear",
+                    "id": "ev-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "events-out",
+                "content": "Pick an event to highlight its outcomes in the 6×6 grid."
+              }
+            ],
+            "hint": "two dice, click events",
+            "bodyScript": "  const svg = $('#events-svg'), out = $('#events-out');\n  const W=760, H=260, pad=40;\n  const cell = 28;\n  const ox = (W - 6*cell)/2;\n  const oy = 40;\n  function drawGrid(highlight){\n    svg.innerHTML = '';\n    const hl = new Set((highlight||[]).map(([a,b])=>a+','+b));\n    // axis labels\n    for(let i=1;i<=6;i++){\n      const tx = SVG('text',{x:ox+(i-0.5)*cell,y:oy-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      tx.textContent=i; svg.appendChild(tx);\n      const ty = SVG('text',{x:ox-10,y:oy+(i-0.5)*cell+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      ty.textContent=i; svg.appendChild(ty);\n    }\n    // cells\n    for(let a=1;a<=6;a++){\n      for(let b=1;b<=6;b++){\n        const x = ox+(a-1)*cell, y = oy+(b-1)*cell;\n        const on = hl.has(a+','+b);\n        svg.appendChild(SVG('rect',{x,y,width:cell-1,height:cell-1,\n          fill: on ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)'}));\n        const t = SVG('text',{x:x+cell/2,y:y+cell/2+4,'text-anchor':'middle','font-size':10,\n          fill: on ? '#111' : 'var(--mute)'});\n        t.textContent=a+b;\n        svg.appendChild(t);\n      }\n    }\n    // axis titles\n    const xt = SVG('text',{x:ox+3*cell,y:oy+6*cell+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xt.textContent='die 1'; svg.appendChild(xt);\n    const yt = SVG('text',{x:ox-30,y:oy+3*cell,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ox-30} ${oy+3*cell})`});\n    yt.textContent='die 2'; svg.appendChild(yt);\n  }\n  function outcomes(pred){\n    const res=[];\n    for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) if(pred(a,b)) res.push([a,b]);\n    return res;\n  }\n  function show(label, pred){\n    const es = outcomes(pred);\n    drawGrid(es);\n    out.textContent = `${label}\\n|A| = ${es.length}, |Ω| = 36, P(A) = ${es.length}/36 ≈ ${(es.length/36).toFixed(4)}`;\n  }\n  $('#ev-sum10').addEventListener('click',()=>show('sum ≥ 10', (a,b)=>a+b>=10));\n  $('#ev-double').addEventListener('click',()=>show('doubles (a=b)', (a,b)=>a===b));\n  $('#ev-even').addEventListener('click',()=>show('sum even', (a,b)=>(a+b)%2===0));\n  $('#ev-both').addEventListener('click',()=>show('(sum ≥ 10) ∩ (doubles)', (a,b)=>a+b>=10 && a===b));\n  $('#ev-either').addEventListener('click',()=>show('(sum ≥ 10) ∪ (doubles)', (a,b)=>a+b>=10 || a===b));\n  $('#ev-reset').addEventListener('click',()=>{ drawGrid([]); out.textContent='Pick an event.'; });\n  drawGrid([]);",
+            "sectionComment": "=============================== §1 Events on two dice ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "sample-spaces-events",
+          "html": "<div class=\"quiz\" data-concept=\"sample-spaces-events\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#sigma\">σ-algebras and measures</a></li>\n    <li><a href=\"./measure-theory.html#lebesgue\">Lebesgue measure</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#bayes\">Probability theory</a> · Conditional probability and Bayes' rule</div>\n    <div><a href=\"./probability-theory.html#rv\">Probability theory</a> · Random variables</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-events",
+            "title": "Events on a finite sample space",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "events-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Probability of events on rolling two dice"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "sum $\\ge 10$",
+                    "id": "ev-sum10"
+                  },
+                  {
+                    "label": "doubles",
+                    "id": "ev-double"
+                  },
+                  {
+                    "label": "sum even",
+                    "id": "ev-even"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ AND doubles",
+                    "id": "ev-both"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ OR doubles",
+                    "id": "ev-either"
+                  },
+                  {
+                    "label": "clear",
+                    "id": "ev-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "events-out",
+                "content": "Pick an event to highlight its outcomes in the 6×6 grid."
+              }
+            ],
+            "hint": "two dice, click events",
+            "bodyScript": "  const svg = $('#events-svg'), out = $('#events-out');\n  const W=760, H=260, pad=40;\n  const cell = 28;\n  const ox = (W - 6*cell)/2;\n  const oy = 40;\n  function drawGrid(highlight){\n    svg.innerHTML = '';\n    const hl = new Set((highlight||[]).map(([a,b])=>a+','+b));\n    // axis labels\n    for(let i=1;i<=6;i++){\n      const tx = SVG('text',{x:ox+(i-0.5)*cell,y:oy-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      tx.textContent=i; svg.appendChild(tx);\n      const ty = SVG('text',{x:ox-10,y:oy+(i-0.5)*cell+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      ty.textContent=i; svg.appendChild(ty);\n    }\n    // cells\n    for(let a=1;a<=6;a++){\n      for(let b=1;b<=6;b++){\n        const x = ox+(a-1)*cell, y = oy+(b-1)*cell;\n        const on = hl.has(a+','+b);\n        svg.appendChild(SVG('rect',{x,y,width:cell-1,height:cell-1,\n          fill: on ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)'}));\n        const t = SVG('text',{x:x+cell/2,y:y+cell/2+4,'text-anchor':'middle','font-size':10,\n          fill: on ? '#111' : 'var(--mute)'});\n        t.textContent=a+b;\n        svg.appendChild(t);\n      }\n    }\n    // axis titles\n    const xt = SVG('text',{x:ox+3*cell,y:oy+6*cell+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xt.textContent='die 1'; svg.appendChild(xt);\n    const yt = SVG('text',{x:ox-30,y:oy+3*cell,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ox-30} ${oy+3*cell})`});\n    yt.textContent='die 2'; svg.appendChild(yt);\n  }\n  function outcomes(pred){\n    const res=[];\n    for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) if(pred(a,b)) res.push([a,b]);\n    return res;\n  }\n  function show(label, pred){\n    const es = outcomes(pred);\n    drawGrid(es);\n    out.textContent = `${label}\\n|A| = ${es.length}, |Ω| = 36, P(A) = ${es.length}/36 ≈ ${(es.length/36).toFixed(4)}`;\n  }\n  $('#ev-sum10').addEventListener('click',()=>show('sum ≥ 10', (a,b)=>a+b>=10));\n  $('#ev-double').addEventListener('click',()=>show('doubles (a=b)', (a,b)=>a===b));\n  $('#ev-even').addEventListener('click',()=>show('sum even', (a,b)=>(a+b)%2===0));\n  $('#ev-both').addEventListener('click',()=>show('(sum ≥ 10) ∩ (doubles)', (a,b)=>a+b>=10 && a===b));\n  $('#ev-either').addEventListener('click',()=>show('(sum ≥ 10) ∪ (doubles)', (a,b)=>a+b>=10 || a===b));\n  $('#ev-reset').addEventListener('click',()=>{ drawGrid([]); out.textContent='Pick an event.'; });\n  drawGrid([]);",
+            "sectionComment": "=============================== §1 Events on two dice ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "bayes",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"bayes\">\n<h2>2. Conditional probability and Bayes' rule</h2>\n\n<p>Given $\\mathbb{P}(B)>0$, the <strong>conditional probability</strong> of $A$ given $B$ is\n$$\\mathbb{P}(A\\mid B)=\\frac{\\mathbb{P}(A\\cap B)}{\\mathbb{P}(B)}.$$\nTwo events are <strong>independent</strong> when $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$; equivalently $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A)$.</p>\n\n<p>Combining the product rule with itself flipped gives <strong>Bayes' rule</strong>:\n$$\\mathbb{P}(A\\mid B)=\\frac{\\mathbb{P}(B\\mid A)\\,\\mathbb{P}(A)}{\\mathbb{P}(B)}.$$\nHere $\\mathbb{P}(A)$ is the <em>prior</em>, $\\mathbb{P}(B\\mid A)$ the <em>likelihood</em>, and $\\mathbb{P}(A\\mid B)$ the <em>posterior</em>.</p>\n\n<p>The <strong>law of total probability</strong>, for a partition $\\{B_i\\}$ of $\\Omega$ with $\\mathbb{P}(B_i)>0$:\n$$\\mathbb{P}(A)=\\sum_i\\mathbb{P}(A\\mid B_i)\\,\\mathbb{P}(B_i),$$\ngives the denominator $\\mathbb{P}(B)$ in Bayes' rule a computable form.</p>\n\n<p><strong>Worked example: medical test.</strong> A disease has prevalence $1\\%$. A test has sensitivity (true-positive rate) $99\\%$ and specificity (true-negative rate) $95\\%$ (so false-positive rate $5\\%$). Given a positive test, what is the probability of disease?\n$$\\mathbb{P}(D\\mid +)=\\frac{\\mathbb{P}(+\\mid D)\\mathbb{P}(D)}{\\mathbb{P}(+\\mid D)\\mathbb{P}(D)+\\mathbb{P}(+\\mid\\neg D)\\mathbb{P}(\\neg D)}=\\frac{0.99\\cdot 0.01}{0.99\\cdot 0.01+0.05\\cdot 0.99}\\approx 16.7\\%.$$\nPosteriors on rare conditions are dominated by the false-positive rate — a $99\\%$-accurate test produces mostly false positives when the disease is rare.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-bayes",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bayes",
+            "title": "Bayes flipper",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bayes-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Bayes flipper: prior, likelihood, posterior"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-prior\">prior $\\mathbb{P}(D)$</label>\n    <input id=\"b-prior\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.01\">\n    <span id=\"b-prior-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-sens\">sensitivity $\\mathbb{P}(+\\mid D)$</label>\n    <input id=\"b-sens\" type=\"range\" min=\"0.5\" max=\"0.999\" step=\"0.001\" value=\"0.99\">\n    <span id=\"b-sens-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-fpr\">false-pos rate $\\mathbb{P}(+\\mid\\neg D)$</label>\n    <input id=\"b-fpr\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.05\">\n    <span id=\"b-fpr-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "b-out"
+              }
+            ],
+            "hint": "posterior updates as you slide",
+            "bodyScript": "  const svg = $('#bayes-svg'), out = $('#b-out');\n  const prior=$('#b-prior'), sens=$('#b-sens'), fpr=$('#b-fpr');\n  const pv=$('#b-prior-v'), sv=$('#b-sens-v'), fv=$('#b-fpr-v');\n  const W=760, H=260;\n  function draw(){\n    const p = +prior.value, s = +sens.value, f = +fpr.value;\n    pv.textContent = p.toFixed(3);\n    sv.textContent = s.toFixed(3);\n    fv.textContent = f.toFixed(3);\n    // posterior\n    const num = s*p;\n    const den = s*p + f*(1-p);\n    const post = den>0 ? num/den : 0;\n    svg.innerHTML = '';\n    // 3 bars: prior, likelihood ratio, posterior\n    const barW = 180, barH = 160;\n    const y0 = 50, y1 = y0+barH;\n    const labels = ['prior P(D)', 'P(+) = sens·p + fpr·(1-p)', 'posterior P(D|+)'];\n    const vals = [p, den, post];\n    const colors = ['var(--violet)','var(--cyan)','var(--yellow)'];\n    for(let i=0;i<3;i++){\n      const cx = 80 + i*240;\n      // frame\n      svg.appendChild(SVG('rect',{x:cx,y:y0,width:barW,height:barH,\n        fill:'none',stroke:'var(--line)','stroke-width':1}));\n      // filled bar\n      const fh = Math.min(1,vals[i])*barH;\n      svg.appendChild(SVG('rect',{x:cx,y:y1-fh,width:barW,height:fh,\n        fill:colors[i],opacity:0.85}));\n      // value\n      const t=SVG('text',{x:cx+barW/2,y:y0-8,'text-anchor':'middle','font-size':13,fill:colors[i],'font-weight':600});\n      t.textContent=vals[i].toFixed(4);\n      svg.appendChild(t);\n      // label\n      const lbl=SVG('text',{x:cx+barW/2,y:y1+24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=labels[i];\n      svg.appendChild(lbl);\n    }\n    // arrow from prior to posterior\n    drawArrow(svg,[80+180,y0+barH/2],[80+480,y0+barH/2],{color:'var(--mute)',label:'Bayes',curve:-30,labelSide:0});\n    out.textContent =\n      `P(D) = ${p.toFixed(4)} · P(+|D) = ${s.toFixed(4)} · P(+|¬D) = ${f.toFixed(4)}\\n`+\n      `P(+)  = ${s.toFixed(3)}·${p.toFixed(3)} + ${f.toFixed(3)}·${(1-p).toFixed(3)} = ${den.toFixed(5)}\\n`+\n      `P(D|+) = (P(+|D)·P(D)) / P(+) = ${num.toFixed(5)} / ${den.toFixed(5)} ≈ ${post.toFixed(4)}\\n`+\n      `posterior / prior ratio = ${(post/p).toFixed(2)}×`;\n  }\n  prior.addEventListener('input',draw);\n  sens.addEventListener('input',draw);\n  fpr.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §2 Bayes flipper ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "conditional-bayes",
+          "html": "<div class=\"quiz\" data-concept=\"conditional-bayes\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#markov\">Probability theory</a> · Markov chains</div>\n    <div><a href=\"./probability-theory.html#martingales\">Probability theory</a> · Martingales</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bayes",
+            "title": "Bayes flipper",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bayes-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Bayes flipper: prior, likelihood, posterior"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-prior\">prior $\\mathbb{P}(D)$</label>\n    <input id=\"b-prior\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.01\">\n    <span id=\"b-prior-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-sens\">sensitivity $\\mathbb{P}(+\\mid D)$</label>\n    <input id=\"b-sens\" type=\"range\" min=\"0.5\" max=\"0.999\" step=\"0.001\" value=\"0.99\">\n    <span id=\"b-sens-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-fpr\">false-pos rate $\\mathbb{P}(+\\mid\\neg D)$</label>\n    <input id=\"b-fpr\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.05\">\n    <span id=\"b-fpr-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "b-out"
+              }
+            ],
+            "hint": "posterior updates as you slide",
+            "bodyScript": "  const svg = $('#bayes-svg'), out = $('#b-out');\n  const prior=$('#b-prior'), sens=$('#b-sens'), fpr=$('#b-fpr');\n  const pv=$('#b-prior-v'), sv=$('#b-sens-v'), fv=$('#b-fpr-v');\n  const W=760, H=260;\n  function draw(){\n    const p = +prior.value, s = +sens.value, f = +fpr.value;\n    pv.textContent = p.toFixed(3);\n    sv.textContent = s.toFixed(3);\n    fv.textContent = f.toFixed(3);\n    // posterior\n    const num = s*p;\n    const den = s*p + f*(1-p);\n    const post = den>0 ? num/den : 0;\n    svg.innerHTML = '';\n    // 3 bars: prior, likelihood ratio, posterior\n    const barW = 180, barH = 160;\n    const y0 = 50, y1 = y0+barH;\n    const labels = ['prior P(D)', 'P(+) = sens·p + fpr·(1-p)', 'posterior P(D|+)'];\n    const vals = [p, den, post];\n    const colors = ['var(--violet)','var(--cyan)','var(--yellow)'];\n    for(let i=0;i<3;i++){\n      const cx = 80 + i*240;\n      // frame\n      svg.appendChild(SVG('rect',{x:cx,y:y0,width:barW,height:barH,\n        fill:'none',stroke:'var(--line)','stroke-width':1}));\n      // filled bar\n      const fh = Math.min(1,vals[i])*barH;\n      svg.appendChild(SVG('rect',{x:cx,y:y1-fh,width:barW,height:fh,\n        fill:colors[i],opacity:0.85}));\n      // value\n      const t=SVG('text',{x:cx+barW/2,y:y0-8,'text-anchor':'middle','font-size':13,fill:colors[i],'font-weight':600});\n      t.textContent=vals[i].toFixed(4);\n      svg.appendChild(t);\n      // label\n      const lbl=SVG('text',{x:cx+barW/2,y:y1+24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=labels[i];\n      svg.appendChild(lbl);\n    }\n    // arrow from prior to posterior\n    drawArrow(svg,[80+180,y0+barH/2],[80+480,y0+barH/2],{color:'var(--mute)',label:'Bayes',curve:-30,labelSide:0});\n    out.textContent =\n      `P(D) = ${p.toFixed(4)} · P(+|D) = ${s.toFixed(4)} · P(+|¬D) = ${f.toFixed(4)}\\n`+\n      `P(+)  = ${s.toFixed(3)}·${p.toFixed(3)} + ${f.toFixed(3)}·${(1-p).toFixed(3)} = ${den.toFixed(5)}\\n`+\n      `P(D|+) = (P(+|D)·P(D)) / P(+) = ${num.toFixed(5)} / ${den.toFixed(5)} ≈ ${post.toFixed(4)}\\n`+\n      `posterior / prior ratio = ${(post/p).toFixed(2)}×`;\n  }\n  prior.addEventListener('input',draw);\n  sens.addEventListener('input',draw);\n  fpr.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §2 Bayes flipper ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "rv",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"rv\">\n<h2>3. Random variables</h2>\n\n<p>A <strong>random variable</strong> on $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measurable function $X\\colon\\Omega\\to\\mathbb{R}$. Measurable means: for every Borel $B\\in\\mathcal{B}(\\mathbb{R})$, the preimage $X^{-1}(B)=\\{\\omega:X(\\omega)\\in B\\}$ lies in $\\mathcal{F}$ — i.e., \"$X\\in B$\" is an event.</p>\n\n<p>The <strong>law</strong> (or <em>distribution</em>) of $X$ is the push-forward measure $\\mathbb{P}_X$ on $(\\mathbb{R},\\mathcal{B}(\\mathbb{R}))$:\n$$\\mathbb{P}_X(B)=\\mathbb{P}(X^{-1}(B))=\\mathbb{P}(X\\in B).$$\nOnce we have $\\mathbb{P}_X$, the original $(\\Omega,\\mathcal{F},\\mathbb{P})$ recedes: everything we can say about $X$ alone lives on $(\\mathbb{R},\\mathcal{B})$.</p>\n\n<p>The <strong>cumulative distribution function</strong> is $F_X(x)=\\mathbb{P}(X\\le x)=\\mathbb{P}_X((-\\infty,x])$. It is non-decreasing, right-continuous, and determines $\\mathbb{P}_X$ uniquely (by the $\\pi$-$\\lambda$ theorem applied to half-lines, which generate $\\mathcal{B}$).</p>\n\n<div class=\"note\"><strong>Independence of random variables.</strong> $X$ and $Y$ are independent iff $\\mathbb{P}_{(X,Y)}=\\mathbb{P}_X\\otimes\\mathbb{P}_Y$, i.e. the joint law factorises. Equivalently $\\mathbb{P}(X\\in A, Y\\in B)=\\mathbb{P}(X\\in A)\\mathbb{P}(Y\\in B)$ for all Borel $A,B$.</div>\n\n<p><strong>Worked example: inverse CDF transform.</strong> Let $U\\sim\\text{Uniform}[0,1]$ and $F$ be a CDF with inverse $F^{-1}(u)=\\inf\\{x:F(x)\\ge u\\}$. Then $X=F^{-1}(U)$ has CDF $F$: indeed $\\mathbb{P}(X\\le x)=\\mathbb{P}(F^{-1}(U)\\le x)=\\mathbb{P}(U\\le F(x))=F(x)$. This is how every simulator generates non-uniform random variables from a uniform random source.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-rv",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rv",
+            "title": "Push-forward: $\\Omega\\to\\mathbb{R}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "rv-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Random variable as a push-forward measure"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"rv-resample\">new sample (n=40)</button>\n    <label for=\"rv-pick\">distribution</label>\n    <select id=\"rv-pick\">\n      <option value=\"unif\">X = 2U (uniform on [0,2])</option>\n      <option value=\"sq\">X = U² (skewed)</option>\n      <option value=\"exp\">X = -ln(U) (exponential)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "rv-out"
+              }
+            ],
+            "hint": "hover samples to see the mapping",
+            "bodyScript": "  const svg = $('#rv-svg'), out = $('#rv-out');\n  const pick = $('#rv-pick');\n  const W=760, H=260;\n  let samples = [];\n  function resample(){ samples = Array.from({length:40},()=>Math.random()); draw(); }\n  function apply(u){\n    const m = pick.value;\n    if(m==='unif') return 2*u;\n    if(m==='sq') return u*u;\n    if(m==='exp') return -Math.log(Math.max(u,1e-9));\n    return u;\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // top row: Omega = [0,1]\n    const y0 = 50, y1 = 170;\n    const x0 = 80, x1 = W-80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--mute)','stroke-width':1.2}));\n    // labels\n    const lt1=SVG('text',{x:x0-12,y:y0+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt1.textContent='Ω = [0,1]'; svg.appendChild(lt1);\n    // R range varies\n    const xs = samples.map(apply);\n    const xmax = Math.max(...xs.concat([1]));\n    const lt2=SVG('text',{x:x0-12,y:y1+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt2.textContent=`ℝ [0,${xmax.toFixed(2)}]`; svg.appendChild(lt2);\n    // tick labels\n    for(const v of [0,0.5,1]){\n      const xp = x0 + v*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y0-4,x2:xp,y2:y0+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y0-8,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    for(const v of [0, xmax/2, xmax]){\n      const xp = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1-4,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    // draw samples: dot on top, dot on bottom, segment between\n    samples.forEach((u,i)=>{\n      const xu = x0 + u*(x1-x0);\n      const v = apply(u);\n      const xv = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xu,y1:y0,x2:xv,y2:y1,\n        stroke:'var(--violet)','stroke-width':0.8,opacity:0.55}));\n      svg.appendChild(SVG('circle',{cx:xu,cy:y0,r:3,fill:'var(--cyan)'}));\n      svg.appendChild(SVG('circle',{cx:xv,cy:y1,r:3,fill:'var(--yellow)'}));\n    });\n    // title\n    const t1 = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t1.textContent = `X pushes ω from Ω to X(ω) in ℝ — the law is the resulting measure on ℝ.`;\n    svg.appendChild(t1);\n    out.textContent =\n      `n = ${samples.length} samples\\n` +\n      `sample mean of X ≈ ${(xs.reduce((a,b)=>a+b,0)/xs.length).toFixed(4)}\\n` +\n      `min(X) = ${Math.min(...xs).toFixed(4)}, max(X) = ${Math.max(...xs).toFixed(4)}`;\n  }\n  $('#rv-resample').addEventListener('click',resample);\n  pick.addEventListener('change',draw);\n  resample();",
+            "sectionComment": "=============================== §3 Push-forward visualization ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "random-variables",
+          "html": "<div class=\"quiz\" data-concept=\"random-variables\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#measurable\">Measurable functions</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n    <div><a href=\"./probability-theory.html#supports\">Probability theory</a> · Supports, distributions, and densities</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rv",
+            "title": "Push-forward: $\\Omega\\to\\mathbb{R}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "rv-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Random variable as a push-forward measure"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"rv-resample\">new sample (n=40)</button>\n    <label for=\"rv-pick\">distribution</label>\n    <select id=\"rv-pick\">\n      <option value=\"unif\">X = 2U (uniform on [0,2])</option>\n      <option value=\"sq\">X = U² (skewed)</option>\n      <option value=\"exp\">X = -ln(U) (exponential)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "rv-out"
+              }
+            ],
+            "hint": "hover samples to see the mapping",
+            "bodyScript": "  const svg = $('#rv-svg'), out = $('#rv-out');\n  const pick = $('#rv-pick');\n  const W=760, H=260;\n  let samples = [];\n  function resample(){ samples = Array.from({length:40},()=>Math.random()); draw(); }\n  function apply(u){\n    const m = pick.value;\n    if(m==='unif') return 2*u;\n    if(m==='sq') return u*u;\n    if(m==='exp') return -Math.log(Math.max(u,1e-9));\n    return u;\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // top row: Omega = [0,1]\n    const y0 = 50, y1 = 170;\n    const x0 = 80, x1 = W-80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--mute)','stroke-width':1.2}));\n    // labels\n    const lt1=SVG('text',{x:x0-12,y:y0+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt1.textContent='Ω = [0,1]'; svg.appendChild(lt1);\n    // R range varies\n    const xs = samples.map(apply);\n    const xmax = Math.max(...xs.concat([1]));\n    const lt2=SVG('text',{x:x0-12,y:y1+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt2.textContent=`ℝ [0,${xmax.toFixed(2)}]`; svg.appendChild(lt2);\n    // tick labels\n    for(const v of [0,0.5,1]){\n      const xp = x0 + v*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y0-4,x2:xp,y2:y0+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y0-8,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    for(const v of [0, xmax/2, xmax]){\n      const xp = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1-4,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    // draw samples: dot on top, dot on bottom, segment between\n    samples.forEach((u,i)=>{\n      const xu = x0 + u*(x1-x0);\n      const v = apply(u);\n      const xv = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xu,y1:y0,x2:xv,y2:y1,\n        stroke:'var(--violet)','stroke-width':0.8,opacity:0.55}));\n      svg.appendChild(SVG('circle',{cx:xu,cy:y0,r:3,fill:'var(--cyan)'}));\n      svg.appendChild(SVG('circle',{cx:xv,cy:y1,r:3,fill:'var(--yellow)'}));\n    });\n    // title\n    const t1 = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t1.textContent = `X pushes ω from Ω to X(ω) in ℝ — the law is the resulting measure on ℝ.`;\n    svg.appendChild(t1);\n    out.textContent =\n      `n = ${samples.length} samples\\n` +\n      `sample mean of X ≈ ${(xs.reduce((a,b)=>a+b,0)/xs.length).toFixed(4)}\\n` +\n      `min(X) = ${Math.min(...xs).toFixed(4)}, max(X) = ${Math.max(...xs).toFixed(4)}`;\n  }\n  $('#rv-resample').addEventListener('click',resample);\n  pick.addEventListener('change',draw);\n  resample();",
+            "sectionComment": "=============================== §3 Push-forward visualization ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "supports",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"supports\">\n<h2>4. Supports, distributions, and densities</h2>\n\n<p>Named distributions come in two flavours:</p>\n<ul>\n  <li><strong>Discrete:</strong> supported on a countable set; described by a PMF $p_X(k)=\\mathbb{P}(X=k)$ with $\\sum_k p_X(k)=1$.</li>\n  <li><strong>Absolutely continuous:</strong> supported on an interval; described by a PDF $f_X\\ge 0$ with $\\int f_X\\,dx=1$, and $\\mathbb{P}(X\\in B)=\\int_B f_X\\,dx$.</li>\n</ul>\n\n<p>A distribution need be neither, but these two cover most applications. Mixtures and pathologies (e.g.\\ the Cantor distribution) arise in theory and show that a general $\\mathbb{P}_X$ decomposes into absolutely-continuous + singular-continuous + discrete parts (Lebesgue decomposition).</p>\n\n<p><strong>Six distributions to know by heart.</strong></p>\n\n<table class=\"plain\">\n  <thead><tr><th>name</th><th>PMF/PDF</th><th>support</th><th>mean</th><th>variance</th></tr></thead>\n  <tbody>\n    <tr><td>Bernoulli$(p)$</td><td>$p^k(1-p)^{1-k}$</td><td>$\\{0,1\\}$</td><td>$p$</td><td>$p(1-p)$</td></tr>\n    <tr><td>Binomial$(n,p)$</td><td>$\\binom{n}{k}p^k(1-p)^{n-k}$</td><td>$\\{0,\\ldots,n\\}$</td><td>$np$</td><td>$np(1-p)$</td></tr>\n    <tr><td>Poisson$(\\lambda)$</td><td>$e^{-\\lambda}\\lambda^k/k!$</td><td>$\\{0,1,\\ldots\\}$</td><td>$\\lambda$</td><td>$\\lambda$</td></tr>\n    <tr><td>Uniform$[a,b]$</td><td>$\\frac{1}{b-a}\\mathbf{1}_{[a,b]}$</td><td>$[a,b]$</td><td>$\\tfrac{a+b}{2}$</td><td>$\\tfrac{(b-a)^2}{12}$</td></tr>\n    <tr><td>Exponential$(\\lambda)$</td><td>$\\lambda e^{-\\lambda x}\\mathbf{1}_{x\\ge 0}$</td><td>$[0,\\infty)$</td><td>$1/\\lambda$</td><td>$1/\\lambda^2$</td></tr>\n    <tr><td>Gaussian$(\\mu,\\sigma^2)$</td><td>$\\tfrac{1}{\\sigma\\sqrt{2\\pi}}e^{-(x-\\mu)^2/(2\\sigma^2)}$</td><td>$\\mathbb{R}$</td><td>$\\mu$</td><td>$\\sigma^2$</td></tr>\n  </tbody>\n</table>\n\n<p><strong>Worked example: $\\text{Uniform}[0,1]\\to\\text{Exp}(1)$.</strong> If $U\\sim\\text{Uniform}[0,1]$ then $X=-\\ln U\\sim\\text{Exp}(1)$. CDF calculation: $\\mathbb{P}(X\\le x)=\\mathbb{P}(-\\ln U\\le x)=\\mathbb{P}(U\\ge e^{-x})=1-e^{-x}$, which is the Exp$(1)$ CDF. This is the inverse-CDF transform specialised to the exponential.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-dist",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dist",
+            "title": "Distribution explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "dist-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Named distributions — PMF/PDF and CDF"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"d-pick\">family</label>\n    <select id=\"d-pick\">\n      <option value=\"bern\">$\\text{Bernoulli}(p)$</option>\n      <option value=\"bin\">$\\text{Binomial}(n,p)$</option>\n      <option value=\"pois\">$\\text{Poisson}(\\lambda)$</option>\n      <option value=\"unif\">$\\text{Uniform}[0,1]$</option>\n      <option value=\"exp\">$\\text{Exponential}(\\lambda)$</option>\n      <option value=\"norm\">$\\mathcal{N}(\\mu,\\sigma^2)$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "row",
+                "id": "d-params"
+              },
+              {
+                "kind": "readout",
+                "id": "d-out"
+              }
+            ],
+            "hint": "PMF/PDF + CDF + moments",
+            "bodyScript": "  const svg = $('#dist-svg'), out = $('#d-out');\n  const pick = $('#d-pick'), params = $('#d-params');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function factorial(n){ let r=1; for(let k=2;k<=n;k++) r*=k; return r; }\n  function binomPMF(n,p,k){\n    if(k<0||k>n) return 0;\n    // compute C(n,k)\n    let c=1; for(let i=0;i<k;i++) c = c*(n-i)/(i+1);\n    return c*Math.pow(p,k)*Math.pow(1-p,n-k);\n  }\n  function poissonPMF(lam,k){ return Math.exp(-lam)*Math.pow(lam,k)/factorial(k); }\n  function setParams(conf){\n    params.innerHTML = '';\n    conf.forEach(c=>{\n      const lbl = document.createElement('label');\n      lbl.setAttribute('for','dp-'+c.name);\n      lbl.textContent = c.label + ' ';\n      params.appendChild(lbl);\n      const inp = document.createElement('input');\n      inp.type='range'; inp.id='dp-'+c.name; inp.min=c.min; inp.max=c.max; inp.step=c.step; inp.value=c.value;\n      params.appendChild(inp);\n      const sp = document.createElement('span');\n      sp.className='small'; sp.id='dp-'+c.name+'-v';\n      params.appendChild(sp);\n      inp.addEventListener('input',draw);\n    });\n  }\n  function val(name){ return +document.getElementById('dp-'+name).value; }\n  function axes(xmin,xmax,ymax,discrete){\n    svg.innerHTML = '';\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // ticks\n    const xticks = discrete ? [] : [xmin, (xmin+xmax)/2, xmax];\n    for(const v of (discrete ? [xmin, Math.round((xmin+xmax)/2), xmax] : xticks)){\n      const xp = x0 + (v-xmin)/(xmax-xmin)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(typeof v==='number' && Math.abs(v-Math.round(v))<1e-9) ? v : v.toFixed(2);\n      svg.appendChild(t);\n    }\n    const yticks = [0, ymax/2, ymax];\n    for(const v of yticks){\n      const yp = y1 - (v/ymax)*(y1-y0);\n      svg.appendChild(SVG('line',{x1:x0-4,y1:yp,x2:x0,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:x0-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n  }\n  function plotDiscrete(support, pmf){\n    let ymax = Math.max(...support.map(pmf));\n    if(ymax<=0) ymax = 1;\n    const xmin = support[0], xmax = support[support.length-1] + 1;\n    axes(xmin, xmax, ymax*1.1, true);\n    // PMF bars\n    for(const k of support){\n      const xp = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const h = (pmf(k)/ymax)*(y1-y0) / 1.1;\n      svg.appendChild(SVG('rect',{x:xp-8, y:y1-h, width:16, height:h,\n        fill:'var(--cyan)', opacity:0.85}));\n    }\n    // CDF (step) overlaid, normalized to ymax*1.1\n    let cum = 0;\n    let prev = y1;\n    for(const k of support){\n      cum += pmf(k);\n      const xA = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const yA = y1 - cum*(y1-y0)/1.1; // CDF on [0,1], rescaled like the bars\n      svg.appendChild(SVG('line',{x1:xA-12, y1:prev, x2:xA-12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      svg.appendChild(SVG('line',{x1:xA-12, y1:yA, x2:xA+12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      prev = yA;\n    }\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PMF'; svg.appendChild(lbl2);\n  }\n  function plotContinuous(xmin,xmax, pdf, N=200){\n    // ymax\n    let ymax = 0;\n    const xs = [];\n    for(let i=0;i<=N;i++){\n      const x = xmin + i*(xmax-xmin)/N;\n      xs.push([x,pdf(x)]);\n      if(pdf(x)>ymax) ymax = pdf(x);\n    }\n    if(ymax<=0) ymax=1;\n    axes(xmin,xmax,ymax*1.1,false);\n    // PDF curve\n    let d = '';\n    xs.forEach(([x,y],i)=>{\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (y/(ymax*1.1))*(y1-y0);\n      d += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));\n    // CDF via cumulative trapezoid\n    let c = 0;\n    let d2 = '';\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n    });\n    const total = c;\n    c = 0;\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (c/Math.max(total,1e-9))*(y1-y0)/1.1;\n      d2 += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--yellow)','stroke-width':1.4, 'stroke-dasharray':'4 3'}));\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PDF'; svg.appendChild(lbl2);\n  }\n  function spanTxt(name,v){\n    const el = document.getElementById('dp-'+name+'-v');\n    if(el) el.textContent = v;\n  }\n  function draw(){\n    const kind = pick.value;\n    if(kind==='bern'){\n      if(!document.getElementById('dp-p')) setParams([{name:'p',label:'p',min:0,max:1,step:0.01,value:0.3}]);\n      const p = val('p'); spanTxt('p',p.toFixed(2));\n      plotDiscrete([0,1], k => k===0?1-p : p);\n      out.textContent = `Bernoulli(p=${p.toFixed(2)})\\nmean = p = ${p.toFixed(3)}, var = p(1-p) = ${(p*(1-p)).toFixed(4)}, support = {0,1}`;\n    } else if(kind==='bin'){\n      if(!document.getElementById('dp-n')) setParams([\n        {name:'n',label:'n',min:1,max:30,step:1,value:10},\n        {name:'p',label:'p',min:0,max:1,step:0.01,value:0.4}\n      ]);\n      const n = Math.round(val('n')), p = val('p');\n      spanTxt('n',n); spanTxt('p',p.toFixed(2));\n      const support = Array.from({length:n+1},(_,k)=>k);\n      plotDiscrete(support, k=>binomPMF(n,p,k));\n      out.textContent = `Binomial(n=${n}, p=${p.toFixed(2)})\\nmean = np = ${(n*p).toFixed(3)}, var = np(1-p) = ${(n*p*(1-p)).toFixed(3)}, support = {0,...,${n}}`;\n    } else if(kind==='pois'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:15,step:0.1,value:3}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const kmax = Math.max(20, Math.round(lam+5*Math.sqrt(lam)+3));\n      const support = Array.from({length:kmax+1},(_,k)=>k);\n      plotDiscrete(support, k=>poissonPMF(lam,k));\n      out.textContent = `Poisson(λ=${lam.toFixed(2)})\\nmean = λ = ${lam.toFixed(3)}, var = λ = ${lam.toFixed(3)}, support = {0,1,2,...}`;\n    } else if(kind==='unif'){\n      if(!document.getElementById('dp-a')) setParams([\n        {name:'a',label:'a',min:-3,max:3,step:0.1,value:0},\n        {name:'b',label:'b',min:-3,max:3,step:0.1,value:1}\n      ]);\n      let a = val('a'), b = val('b');\n      if(b<=a) b = a+0.01;\n      spanTxt('a',a.toFixed(2)); spanTxt('b',b.toFixed(2));\n      const pdf = x => (x>=a && x<=b) ? 1/(b-a) : 0;\n      plotContinuous(a-0.2*(b-a), b+0.2*(b-a), pdf);\n      out.textContent = `Uniform[${a.toFixed(2)}, ${b.toFixed(2)}]\\nmean = (a+b)/2 = ${((a+b)/2).toFixed(3)}, var = (b-a)²/12 = ${(((b-a)**2)/12).toFixed(4)}`;\n    } else if(kind==='exp'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:5,step:0.05,value:1}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const pdf = x => x>=0 ? lam*Math.exp(-lam*x) : 0;\n      plotContinuous(0, 6/lam, pdf);\n      out.textContent = `Exponential(λ=${lam.toFixed(2)})\\nmean = 1/λ = ${(1/lam).toFixed(3)}, var = 1/λ² = ${(1/(lam*lam)).toFixed(4)}, support = [0,∞)`;\n    } else if(kind==='norm'){\n      if(!document.getElementById('dp-mu')) setParams([\n        {name:'mu',label:'μ',min:-3,max:3,step:0.1,value:0},\n        {name:'sigma',label:'σ',min:0.1,max:3,step:0.05,value:1}\n      ]);\n      const mu=val('mu'), sigma=val('sigma');\n      spanTxt('mu',mu.toFixed(2)); spanTxt('sigma',sigma.toFixed(2));\n      const pdf = x => Math.exp(-((x-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));\n      plotContinuous(mu-4*sigma, mu+4*sigma, pdf);\n      out.textContent = `𝒩(μ=${mu.toFixed(2)}, σ²=${(sigma*sigma).toFixed(3)})\\nmean = μ, var = σ², support = ℝ`;\n    }\n  }\n  pick.addEventListener('change',draw);\n  draw();",
+            "sectionComment": "=============================== §4 Distribution explorer ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "supports-distributions",
+          "html": "<div class=\"quiz\" data-concept=\"supports-distributions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dist",
+            "title": "Distribution explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "dist-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Named distributions — PMF/PDF and CDF"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"d-pick\">family</label>\n    <select id=\"d-pick\">\n      <option value=\"bern\">$\\text{Bernoulli}(p)$</option>\n      <option value=\"bin\">$\\text{Binomial}(n,p)$</option>\n      <option value=\"pois\">$\\text{Poisson}(\\lambda)$</option>\n      <option value=\"unif\">$\\text{Uniform}[0,1]$</option>\n      <option value=\"exp\">$\\text{Exponential}(\\lambda)$</option>\n      <option value=\"norm\">$\\mathcal{N}(\\mu,\\sigma^2)$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "row",
+                "id": "d-params"
+              },
+              {
+                "kind": "readout",
+                "id": "d-out"
+              }
+            ],
+            "hint": "PMF/PDF + CDF + moments",
+            "bodyScript": "  const svg = $('#dist-svg'), out = $('#d-out');\n  const pick = $('#d-pick'), params = $('#d-params');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function factorial(n){ let r=1; for(let k=2;k<=n;k++) r*=k; return r; }\n  function binomPMF(n,p,k){\n    if(k<0||k>n) return 0;\n    // compute C(n,k)\n    let c=1; for(let i=0;i<k;i++) c = c*(n-i)/(i+1);\n    return c*Math.pow(p,k)*Math.pow(1-p,n-k);\n  }\n  function poissonPMF(lam,k){ return Math.exp(-lam)*Math.pow(lam,k)/factorial(k); }\n  function setParams(conf){\n    params.innerHTML = '';\n    conf.forEach(c=>{\n      const lbl = document.createElement('label');\n      lbl.setAttribute('for','dp-'+c.name);\n      lbl.textContent = c.label + ' ';\n      params.appendChild(lbl);\n      const inp = document.createElement('input');\n      inp.type='range'; inp.id='dp-'+c.name; inp.min=c.min; inp.max=c.max; inp.step=c.step; inp.value=c.value;\n      params.appendChild(inp);\n      const sp = document.createElement('span');\n      sp.className='small'; sp.id='dp-'+c.name+'-v';\n      params.appendChild(sp);\n      inp.addEventListener('input',draw);\n    });\n  }\n  function val(name){ return +document.getElementById('dp-'+name).value; }\n  function axes(xmin,xmax,ymax,discrete){\n    svg.innerHTML = '';\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // ticks\n    const xticks = discrete ? [] : [xmin, (xmin+xmax)/2, xmax];\n    for(const v of (discrete ? [xmin, Math.round((xmin+xmax)/2), xmax] : xticks)){\n      const xp = x0 + (v-xmin)/(xmax-xmin)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(typeof v==='number' && Math.abs(v-Math.round(v))<1e-9) ? v : v.toFixed(2);\n      svg.appendChild(t);\n    }\n    const yticks = [0, ymax/2, ymax];\n    for(const v of yticks){\n      const yp = y1 - (v/ymax)*(y1-y0);\n      svg.appendChild(SVG('line',{x1:x0-4,y1:yp,x2:x0,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:x0-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n  }\n  function plotDiscrete(support, pmf){\n    let ymax = Math.max(...support.map(pmf));\n    if(ymax<=0) ymax = 1;\n    const xmin = support[0], xmax = support[support.length-1] + 1;\n    axes(xmin, xmax, ymax*1.1, true);\n    // PMF bars\n    for(const k of support){\n      const xp = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const h = (pmf(k)/ymax)*(y1-y0) / 1.1;\n      svg.appendChild(SVG('rect',{x:xp-8, y:y1-h, width:16, height:h,\n        fill:'var(--cyan)', opacity:0.85}));\n    }\n    // CDF (step) overlaid, normalized to ymax*1.1\n    let cum = 0;\n    let prev = y1;\n    for(const k of support){\n      cum += pmf(k);\n      const xA = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const yA = y1 - cum*(y1-y0)/1.1; // CDF on [0,1], rescaled like the bars\n      svg.appendChild(SVG('line',{x1:xA-12, y1:prev, x2:xA-12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      svg.appendChild(SVG('line',{x1:xA-12, y1:yA, x2:xA+12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      prev = yA;\n    }\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PMF'; svg.appendChild(lbl2);\n  }\n  function plotContinuous(xmin,xmax, pdf, N=200){\n    // ymax\n    let ymax = 0;\n    const xs = [];\n    for(let i=0;i<=N;i++){\n      const x = xmin + i*(xmax-xmin)/N;\n      xs.push([x,pdf(x)]);\n      if(pdf(x)>ymax) ymax = pdf(x);\n    }\n    if(ymax<=0) ymax=1;\n    axes(xmin,xmax,ymax*1.1,false);\n    // PDF curve\n    let d = '';\n    xs.forEach(([x,y],i)=>{\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (y/(ymax*1.1))*(y1-y0);\n      d += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));\n    // CDF via cumulative trapezoid\n    let c = 0;\n    let d2 = '';\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n    });\n    const total = c;\n    c = 0;\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (c/Math.max(total,1e-9))*(y1-y0)/1.1;\n      d2 += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--yellow)','stroke-width':1.4, 'stroke-dasharray':'4 3'}));\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PDF'; svg.appendChild(lbl2);\n  }\n  function spanTxt(name,v){\n    const el = document.getElementById('dp-'+name+'-v');\n    if(el) el.textContent = v;\n  }\n  function draw(){\n    const kind = pick.value;\n    if(kind==='bern'){\n      if(!document.getElementById('dp-p')) setParams([{name:'p',label:'p',min:0,max:1,step:0.01,value:0.3}]);\n      const p = val('p'); spanTxt('p',p.toFixed(2));\n      plotDiscrete([0,1], k => k===0?1-p : p);\n      out.textContent = `Bernoulli(p=${p.toFixed(2)})\\nmean = p = ${p.toFixed(3)}, var = p(1-p) = ${(p*(1-p)).toFixed(4)}, support = {0,1}`;\n    } else if(kind==='bin'){\n      if(!document.getElementById('dp-n')) setParams([\n        {name:'n',label:'n',min:1,max:30,step:1,value:10},\n        {name:'p',label:'p',min:0,max:1,step:0.01,value:0.4}\n      ]);\n      const n = Math.round(val('n')), p = val('p');\n      spanTxt('n',n); spanTxt('p',p.toFixed(2));\n      const support = Array.from({length:n+1},(_,k)=>k);\n      plotDiscrete(support, k=>binomPMF(n,p,k));\n      out.textContent = `Binomial(n=${n}, p=${p.toFixed(2)})\\nmean = np = ${(n*p).toFixed(3)}, var = np(1-p) = ${(n*p*(1-p)).toFixed(3)}, support = {0,...,${n}}`;\n    } else if(kind==='pois'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:15,step:0.1,value:3}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const kmax = Math.max(20, Math.round(lam+5*Math.sqrt(lam)+3));\n      const support = Array.from({length:kmax+1},(_,k)=>k);\n      plotDiscrete(support, k=>poissonPMF(lam,k));\n      out.textContent = `Poisson(λ=${lam.toFixed(2)})\\nmean = λ = ${lam.toFixed(3)}, var = λ = ${lam.toFixed(3)}, support = {0,1,2,...}`;\n    } else if(kind==='unif'){\n      if(!document.getElementById('dp-a')) setParams([\n        {name:'a',label:'a',min:-3,max:3,step:0.1,value:0},\n        {name:'b',label:'b',min:-3,max:3,step:0.1,value:1}\n      ]);\n      let a = val('a'), b = val('b');\n      if(b<=a) b = a+0.01;\n      spanTxt('a',a.toFixed(2)); spanTxt('b',b.toFixed(2));\n      const pdf = x => (x>=a && x<=b) ? 1/(b-a) : 0;\n      plotContinuous(a-0.2*(b-a), b+0.2*(b-a), pdf);\n      out.textContent = `Uniform[${a.toFixed(2)}, ${b.toFixed(2)}]\\nmean = (a+b)/2 = ${((a+b)/2).toFixed(3)}, var = (b-a)²/12 = ${(((b-a)**2)/12).toFixed(4)}`;\n    } else if(kind==='exp'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:5,step:0.05,value:1}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const pdf = x => x>=0 ? lam*Math.exp(-lam*x) : 0;\n      plotContinuous(0, 6/lam, pdf);\n      out.textContent = `Exponential(λ=${lam.toFixed(2)})\\nmean = 1/λ = ${(1/lam).toFixed(3)}, var = 1/λ² = ${(1/(lam*lam)).toFixed(4)}, support = [0,∞)`;\n    } else if(kind==='norm'){\n      if(!document.getElementById('dp-mu')) setParams([\n        {name:'mu',label:'μ',min:-3,max:3,step:0.1,value:0},\n        {name:'sigma',label:'σ',min:0.1,max:3,step:0.05,value:1}\n      ]);\n      const mu=val('mu'), sigma=val('sigma');\n      spanTxt('mu',mu.toFixed(2)); spanTxt('sigma',sigma.toFixed(2));\n      const pdf = x => Math.exp(-((x-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));\n      plotContinuous(mu-4*sigma, mu+4*sigma, pdf);\n      out.textContent = `𝒩(μ=${mu.toFixed(2)}, σ²=${(sigma*sigma).toFixed(3)})\\nmean = μ, var = σ², support = ℝ`;\n    }\n  }\n  pick.addEventListener('change',draw);\n  draw();",
+            "sectionComment": "=============================== §4 Distribution explorer ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "expectation",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"expectation\">\n<h2>5. Expectation, variance, and moments</h2>\n\n<p>The <strong>expectation</strong> (or <em>expected value</em>) of a random variable $X\\in L^1(\\Omega,\\mathcal{F},\\mathbb{P})$ is the Lebesgue integral\n$$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}.$$\nEquivalently, via the push-forward, $\\mathbb{E}[X]=\\int_\\mathbb{R} x\\,d\\mathbb{P}_X(x)$. For a discrete variable with PMF $p_X$, this is $\\sum_k k\\,p_X(k)$; for an absolutely continuous one with PDF $f_X$, it is $\\int_\\mathbb{R} x\\,f_X(x)\\,dx$.</p>\n\n<p><strong>Linearity</strong>: $\\mathbb{E}[aX+bY]=a\\mathbb{E}[X]+b\\mathbb{E}[Y]$, always (no independence needed). This is just linearity of the integral.</p>\n\n<p><strong>Variance</strong>: $\\text{Var}(X)=\\mathbb{E}[(X-\\mathbb{E}[X])^2]=\\mathbb{E}[X^2]-\\mathbb{E}[X]^2$, defined when $X\\in L^2$. Variance measures spread around the mean; $\\sqrt{\\text{Var}}$ is the <em>standard deviation</em>.</p>\n\n<p><strong>Covariance</strong>: $\\text{Cov}(X,Y)=\\mathbb{E}[(X-\\mathbb{E}X)(Y-\\mathbb{E}Y)]=\\mathbb{E}[XY]-\\mathbb{E}[X]\\mathbb{E}[Y]$. For independent $X,Y$, $\\text{Cov}(X,Y)=0$ (so $\\text{Var}(X+Y)=\\text{Var}(X)+\\text{Var}(Y)$); the converse fails.</p>\n\n<p><strong>Markov inequality</strong>: for $X\\ge 0$ and $a>0$,\n$$\\mathbb{P}(X\\ge a)\\le\\frac{\\mathbb{E}[X]}{a}.$$\nApplied to $|X-\\mu|^2$: <strong>Chebyshev</strong>: $\\mathbb{P}(|X-\\mu|\\ge\\varepsilon)\\le\\text{Var}(X)/\\varepsilon^2$. These two inequalities do most of probability's quantitative work.</p>\n\n<p><strong>Worked example: expectation as centre of mass.</strong> Place a unit mass at $+1$ and a unit mass at $-1$ on the real line, each with weight $1/2$. The centre of mass is at $0$, which is exactly $\\mathbb{E}[X]=\\tfrac{1}{2}\\cdot 1+\\tfrac{1}{2}\\cdot(-1)=0$. Now shift the masses and vary the weights: the balance point tracks the expectation. This geometric picture is exactly what the widget animates.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-scale",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-scale",
+            "title": "Expectation weighing scale",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "scale-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Expectation as center of mass"
+              },
+              {
+                "kind": "readout",
+                "id": "scale-out"
+              }
+            ],
+            "hint": "drag masses, watch $\\mathbb{E}[X]$",
+            "bodyScript": "  const svg = $('#scale-svg'), out = $('#scale-out');\n  const W=760, H=260;\n  const cy = 160, padx = 70;\n  // point masses [x in [-5,5], weight >=0]\n  let masses = [\n    {x:-3, w:1},\n    {x: 0, w:1},\n    {x: 2, w:1.5},\n  ];\n  const xmin = -5, xmax = 5;\n  function X(v){ return padx + (v-xmin)/(xmax-xmin)*(W-2*padx); }\n  function norm(){ const s = masses.reduce((a,m)=>a+m.w,0); return s>0?s:1; }\n  function ex(){ return masses.reduce((a,m)=>a+m.x*m.w,0)/norm(); }\n  function vr(){\n    const mu = ex();\n    return masses.reduce((a,m)=>a+m.w*(m.x-mu)**2,0)/norm();\n  }\n  let dragIdx = -1;\n  function draw(){\n    svg.innerHTML = '';\n    const mu = ex(), sigma = Math.sqrt(vr());\n    // pivot\n    const pivotX = X(mu);\n    // beam tilted slightly to show balance visually\n    // beam always drawn horizontal for clarity; we show a \"fulcrum\" at mu.\n    svg.appendChild(SVG('line',{x1:X(xmin),y1:cy,x2:X(xmax),y2:cy,\n      stroke:'var(--line)','stroke-width':2}));\n    // axis ticks\n    for(let v=xmin; v<=xmax; v++){\n      const xp = X(v);\n      svg.appendChild(SVG('line',{x1:xp,y1:cy-4,x2:xp,y2:cy+4,stroke:'var(--mute)'}));\n      if(v%1===0){\n        const t = SVG('text',{x:xp,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=v; svg.appendChild(t);\n      }\n    }\n    // fulcrum triangle under mu\n    const fTri = SVG('polygon',{points:`${pivotX-10},${cy+26} ${pivotX+10},${cy+26} ${pivotX},${cy+6}`,\n      fill:'var(--yellow)','stroke':'var(--yellow)'});\n    svg.appendChild(fTri);\n    const muT = SVG('text',{x:pivotX,y:cy+48,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    muT.textContent = 'E[X] = '+mu.toFixed(3);\n    svg.appendChild(muT);\n    // sigma bracket\n    const sx1 = X(mu-sigma), sx2 = X(mu+sigma);\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-70,x2:sx2,y2:cy-70,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-66,x2:sx1,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx2,y1:cy-66,x2:sx2,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    const stxt = SVG('text',{x:(sx1+sx2)/2,y:cy-78,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    stxt.textContent='±σ = '+sigma.toFixed(3);\n    svg.appendChild(stxt);\n    // mass circles\n    masses.forEach((m,i)=>{\n      const r = 8 + 6*Math.min(m.w,3);\n      const xp = X(m.x);\n      svg.appendChild(SVG('circle',{cx:xp,cy:cy-r, r, fill:'var(--cyan)',stroke:'var(--cyan)',\n        'data-idx':i, class:'mass'}));\n      const lbl = SVG('text',{x:xp,y:cy-r-r-4,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'});\n      lbl.textContent = `w=${m.w.toFixed(1)} @ ${m.x.toFixed(2)}`;\n      svg.appendChild(lbl);\n    });\n    // instructions\n    const inst = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    inst.textContent = 'click a mass and drag left/right — fulcrum rebalances at E[X]';\n    svg.appendChild(inst);\n    out.textContent =\n      `masses: ${masses.map(m=>`${m.w.toFixed(2)}@${m.x.toFixed(2)}`).join(', ')}\\n`+\n      `total weight = ${norm().toFixed(3)}\\n`+\n      `E[X]  = ${mu.toFixed(4)}\\n`+\n      `Var(X) = ${vr().toFixed(4)}\\n`+\n      `σ = ${sigma.toFixed(4)}`;\n  }\n  svg.addEventListener('pointerdown',(ev)=>{\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // find nearest mass\n    let best = -1, bd = 1e9;\n    masses.forEach((m,i)=>{\n      const d = Math.hypot(X(m.x)-loc.x, (cy-(8+6*Math.min(m.w,3)))-loc.y);\n      if(d<bd){ bd = d; best = i; }\n    });\n    if(bd<30) dragIdx = best;\n  });\n  svg.addEventListener('pointermove',(ev)=>{\n    if(dragIdx<0) return;\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // invert X\n    const v = xmin + (loc.x-padx)/(W-2*padx)*(xmax-xmin);\n    masses[dragIdx].x = Math.max(xmin, Math.min(xmax, v));\n    draw();\n  });\n  svg.addEventListener('pointerup',()=>{ dragIdx = -1; });\n  svg.addEventListener('pointercancel',()=>{ dragIdx = -1; });\n  draw();",
+            "sectionComment": "=============================== §5 Expectation weighing scale ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "expectation-moments",
+          "html": "<div class=\"quiz\" data-concept=\"expectation-moments\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#integral\">Lebesgue integral</a></li>\n    <li><a href=\"./measure-theory.html#lp\">$L^p$ spaces</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div><a href=\"./probability-theory.html#gen-fun\">Probability theory</a> · Moment and characteristic functions</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-scale",
+            "title": "Expectation weighing scale",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "scale-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Expectation as center of mass"
+              },
+              {
+                "kind": "readout",
+                "id": "scale-out"
+              }
+            ],
+            "hint": "drag masses, watch $\\mathbb{E}[X]$",
+            "bodyScript": "  const svg = $('#scale-svg'), out = $('#scale-out');\n  const W=760, H=260;\n  const cy = 160, padx = 70;\n  // point masses [x in [-5,5], weight >=0]\n  let masses = [\n    {x:-3, w:1},\n    {x: 0, w:1},\n    {x: 2, w:1.5},\n  ];\n  const xmin = -5, xmax = 5;\n  function X(v){ return padx + (v-xmin)/(xmax-xmin)*(W-2*padx); }\n  function norm(){ const s = masses.reduce((a,m)=>a+m.w,0); return s>0?s:1; }\n  function ex(){ return masses.reduce((a,m)=>a+m.x*m.w,0)/norm(); }\n  function vr(){\n    const mu = ex();\n    return masses.reduce((a,m)=>a+m.w*(m.x-mu)**2,0)/norm();\n  }\n  let dragIdx = -1;\n  function draw(){\n    svg.innerHTML = '';\n    const mu = ex(), sigma = Math.sqrt(vr());\n    // pivot\n    const pivotX = X(mu);\n    // beam tilted slightly to show balance visually\n    // beam always drawn horizontal for clarity; we show a \"fulcrum\" at mu.\n    svg.appendChild(SVG('line',{x1:X(xmin),y1:cy,x2:X(xmax),y2:cy,\n      stroke:'var(--line)','stroke-width':2}));\n    // axis ticks\n    for(let v=xmin; v<=xmax; v++){\n      const xp = X(v);\n      svg.appendChild(SVG('line',{x1:xp,y1:cy-4,x2:xp,y2:cy+4,stroke:'var(--mute)'}));\n      if(v%1===0){\n        const t = SVG('text',{x:xp,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=v; svg.appendChild(t);\n      }\n    }\n    // fulcrum triangle under mu\n    const fTri = SVG('polygon',{points:`${pivotX-10},${cy+26} ${pivotX+10},${cy+26} ${pivotX},${cy+6}`,\n      fill:'var(--yellow)','stroke':'var(--yellow)'});\n    svg.appendChild(fTri);\n    const muT = SVG('text',{x:pivotX,y:cy+48,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    muT.textContent = 'E[X] = '+mu.toFixed(3);\n    svg.appendChild(muT);\n    // sigma bracket\n    const sx1 = X(mu-sigma), sx2 = X(mu+sigma);\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-70,x2:sx2,y2:cy-70,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-66,x2:sx1,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx2,y1:cy-66,x2:sx2,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    const stxt = SVG('text',{x:(sx1+sx2)/2,y:cy-78,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    stxt.textContent='±σ = '+sigma.toFixed(3);\n    svg.appendChild(stxt);\n    // mass circles\n    masses.forEach((m,i)=>{\n      const r = 8 + 6*Math.min(m.w,3);\n      const xp = X(m.x);\n      svg.appendChild(SVG('circle',{cx:xp,cy:cy-r, r, fill:'var(--cyan)',stroke:'var(--cyan)',\n        'data-idx':i, class:'mass'}));\n      const lbl = SVG('text',{x:xp,y:cy-r-r-4,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'});\n      lbl.textContent = `w=${m.w.toFixed(1)} @ ${m.x.toFixed(2)}`;\n      svg.appendChild(lbl);\n    });\n    // instructions\n    const inst = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    inst.textContent = 'click a mass and drag left/right — fulcrum rebalances at E[X]';\n    svg.appendChild(inst);\n    out.textContent =\n      `masses: ${masses.map(m=>`${m.w.toFixed(2)}@${m.x.toFixed(2)}`).join(', ')}\\n`+\n      `total weight = ${norm().toFixed(3)}\\n`+\n      `E[X]  = ${mu.toFixed(4)}\\n`+\n      `Var(X) = ${vr().toFixed(4)}\\n`+\n      `σ = ${sigma.toFixed(4)}`;\n  }\n  svg.addEventListener('pointerdown',(ev)=>{\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // find nearest mass\n    let best = -1, bd = 1e9;\n    masses.forEach((m,i)=>{\n      const d = Math.hypot(X(m.x)-loc.x, (cy-(8+6*Math.min(m.w,3)))-loc.y);\n      if(d<bd){ bd = d; best = i; }\n    });\n    if(bd<30) dragIdx = best;\n  });\n  svg.addEventListener('pointermove',(ev)=>{\n    if(dragIdx<0) return;\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // invert X\n    const v = xmin + (loc.x-padx)/(W-2*padx)*(xmax-xmin);\n    masses[dragIdx].x = Math.max(xmin, Math.min(xmax, v));\n    draw();\n  });\n  svg.addEventListener('pointerup',()=>{ dragIdx = -1; });\n  svg.addEventListener('pointercancel',()=>{ dragIdx = -1; });\n  draw();",
+            "sectionComment": "=============================== §5 Expectation weighing scale ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "gen-fun",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"gen-fun\">\n<h2>6. Moment and characteristic functions</h2>\n\n<p>Transforms of probability distributions are to probability what Fourier and Laplace are to analysis: they turn convolutions (sums of independents) into products, and they encode the entire distribution in one function of a real (or complex) parameter.</p>\n\n<p><strong>Moment-generating function</strong> (MGF): $M_X(t)=\\mathbb{E}[e^{tX}]$, defined where the integral converges. If $M_X$ is finite on an open interval around $0$, then\n$$M_X(t)=\\sum_{k=0}^\\infty\\mathbb{E}[X^k]\\,t^k/k!,$$\nso the $k$-th derivative at $0$ is the $k$-th moment: $M_X^{(k)}(0)=\\mathbb{E}[X^k]$. Hence \"moment-generating\".</p>\n\n<p><strong>Characteristic function</strong> (CF): $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$, <em>always</em> defined on $\\mathbb{R}$ because $|e^{itX}|=1$. The CF is the Fourier transform of the distribution. Two distributions are equal iff their CFs are equal (Lévy's uniqueness), and <em>pointwise convergence of CFs with continuity at $0$</em> is equivalent to convergence in distribution (Lévy's continuity theorem).</p>\n\n<p><strong>Transforms of independent sums.</strong> If $X,Y$ are independent,\n$$M_{X+Y}(t)=M_X(t)\\,M_Y(t),\\qquad\\varphi_{X+Y}(t)=\\varphi_X(t)\\,\\varphi_Y(t).$$\nThis turns the CLT proof into a line of calculus and a Taylor expansion.</p>\n\n<p><strong>Worked example: Gaussian transforms.</strong> For $X\\sim\\mathcal{N}(\\mu,\\sigma^2)$:\n$$M_X(t)=\\exp(\\mu t+\\sigma^2t^2/2),\\qquad\\varphi_X(t)=\\exp(i\\mu t-\\sigma^2t^2/2).$$\nCheck: $M_X'(0)=\\mu=\\mathbb{E}[X]$; $M_X''(0)=\\mu^2+\\sigma^2=\\mathbb{E}[X^2]$; variance $\\sigma^2$. The Gaussian is the unique distribution whose CF has compact-support-like decay $e^{-ct^2}$.</p>\n\n<p>Named distributions and their MGFs:</p>\n<ul>\n  <li>Bernoulli$(p)$: $M(t)=1-p+pe^t$.</li>\n  <li>Poisson$(\\lambda)$: $M(t)=\\exp(\\lambda(e^t-1))$.</li>\n  <li>Exponential$(\\lambda)$: $M(t)=\\lambda/(\\lambda-t)$ for $t<\\lambda$.</li>\n  <li>Gaussian$(\\mu,\\sigma^2)$: $M(t)=\\exp(\\mu t+\\sigma^2t^2/2)$.</li>\n</ul>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-mgf",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mgf",
+            "title": "MGF / CF explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mgf-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "MGF and characteristic function"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"m-pick\">$X$ is</label>\n    <select id=\"m-pick\">\n      <option value=\"bern\">Bernoulli(0.5)</option>\n      <option value=\"norm\">𝒩(0,1)</option>\n      <option value=\"pois\">Poisson(1)</option>\n    </select>\n    <label for=\"m-n\">$n$ (sum of IID copies)</label>\n    <input id=\"m-n\" type=\"range\" min=\"1\" max=\"30\" step=\"1\" value=\"1\">\n    <span id=\"m-n-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "m-out"
+              }
+            ],
+            "hint": "sum of IID ↦ $M(t)^n$",
+            "bodyScript": "  const svg = $('#mgf-svg'), out = $('#m-out');\n  const pick = $('#m-pick'), sl = $('#m-n'), slv = $('#m-n-v');\n  const W=760, H=260;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function base(kind,t){\n    if(kind==='bern') return 0.5 + 0.5*Math.exp(t); // p=0.5\n    if(kind==='norm') return Math.exp(t*t/2);\n    if(kind==='pois') return Math.exp(Math.exp(t)-1); // lambda=1\n    return 1;\n  }\n  function draw(){\n    const kind = pick.value;\n    const n = +sl.value;\n    slv.textContent = 'n = '+n;\n    svg.innerHTML = '';\n    // plot M_X(t)^n on [-2,2]\n    const tmin=-2, tmax=2;\n    const ts = [];\n    for(let i=0;i<=200;i++){\n      const t = tmin + i*(tmax-tmin)/200;\n      ts.push([t, Math.pow(base(kind,t), n)]);\n    }\n    const ymax = Math.max(...ts.map(([,v])=>v), 5);\n    // axes\n    const X = t => x0 + (t-tmin)/(tmax-tmin)*(x1-x0);\n    const Y = v => y1 - (Math.min(v,ymax)/ymax)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:X(0),y1:y0,x2:X(0),y2:y1,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    for(const tv of [-2,-1,0,1,2]){\n      const xp = X(tv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    ts.forEach(([t,v],i)=>{\n      d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n    });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // 1 line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(1),x2:x1,y2:Y(1),stroke:'var(--mute)','stroke-dasharray':'2 2'}));\n    const t1 = SVG('text',{x:x0-6,y:Y(1)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t1.textContent='1'; svg.appendChild(t1);\n    // title\n    const lbl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    const fname = kind==='bern' ? 'Bernoulli(0.5)' : kind==='norm' ? '𝒩(0,1)' : 'Poisson(1)';\n    lbl.textContent = `M_{S_n}(t) = M_X(t)^n with X ~ ${fname}, n = ${n}`;\n    svg.appendChild(lbl);\n    out.textContent =\n      `M_X(0)   = 1 always (normalization)\\n`+\n      `M_X'(0)  = E[X]\\n`+\n      `M_X''(0) = E[X²]\\n`+\n      `M_{S_n}(t) = M_X(t)^n  (by independence)\\n`+\n      `at t=1: M_{S_n}(1) = ${Math.pow(base(kind,1),n).toFixed(4)}`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §6 MGF/CF plot ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "generating-functions",
+          "html": "<div class=\"quiz\" data-concept=\"generating-functions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#clt\">Probability theory</a> · Central limit theorem</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mgf",
+            "title": "MGF / CF explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mgf-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "MGF and characteristic function"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"m-pick\">$X$ is</label>\n    <select id=\"m-pick\">\n      <option value=\"bern\">Bernoulli(0.5)</option>\n      <option value=\"norm\">𝒩(0,1)</option>\n      <option value=\"pois\">Poisson(1)</option>\n    </select>\n    <label for=\"m-n\">$n$ (sum of IID copies)</label>\n    <input id=\"m-n\" type=\"range\" min=\"1\" max=\"30\" step=\"1\" value=\"1\">\n    <span id=\"m-n-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "m-out"
+              }
+            ],
+            "hint": "sum of IID ↦ $M(t)^n$",
+            "bodyScript": "  const svg = $('#mgf-svg'), out = $('#m-out');\n  const pick = $('#m-pick'), sl = $('#m-n'), slv = $('#m-n-v');\n  const W=760, H=260;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function base(kind,t){\n    if(kind==='bern') return 0.5 + 0.5*Math.exp(t); // p=0.5\n    if(kind==='norm') return Math.exp(t*t/2);\n    if(kind==='pois') return Math.exp(Math.exp(t)-1); // lambda=1\n    return 1;\n  }\n  function draw(){\n    const kind = pick.value;\n    const n = +sl.value;\n    slv.textContent = 'n = '+n;\n    svg.innerHTML = '';\n    // plot M_X(t)^n on [-2,2]\n    const tmin=-2, tmax=2;\n    const ts = [];\n    for(let i=0;i<=200;i++){\n      const t = tmin + i*(tmax-tmin)/200;\n      ts.push([t, Math.pow(base(kind,t), n)]);\n    }\n    const ymax = Math.max(...ts.map(([,v])=>v), 5);\n    // axes\n    const X = t => x0 + (t-tmin)/(tmax-tmin)*(x1-x0);\n    const Y = v => y1 - (Math.min(v,ymax)/ymax)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:X(0),y1:y0,x2:X(0),y2:y1,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    for(const tv of [-2,-1,0,1,2]){\n      const xp = X(tv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    ts.forEach(([t,v],i)=>{\n      d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n    });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // 1 line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(1),x2:x1,y2:Y(1),stroke:'var(--mute)','stroke-dasharray':'2 2'}));\n    const t1 = SVG('text',{x:x0-6,y:Y(1)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t1.textContent='1'; svg.appendChild(t1);\n    // title\n    const lbl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    const fname = kind==='bern' ? 'Bernoulli(0.5)' : kind==='norm' ? '𝒩(0,1)' : 'Poisson(1)';\n    lbl.textContent = `M_{S_n}(t) = M_X(t)^n with X ~ ${fname}, n = ${n}`;\n    svg.appendChild(lbl);\n    out.textContent =\n      `M_X(0)   = 1 always (normalization)\\n`+\n      `M_X'(0)  = E[X]\\n`+\n      `M_X''(0) = E[X²]\\n`+\n      `M_{S_n}(t) = M_X(t)^n  (by independence)\\n`+\n      `at t=1: M_{S_n}(1) = ${Math.pow(base(kind,1),n).toFixed(4)}`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §6 MGF/CF plot ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "conv",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"conv\">\n<h2>7. Modes of convergence</h2>\n\n<p>A sequence of random variables $X_n$ can converge to a limit $X$ in several non-equivalent senses. From strongest to weakest (in the chain of implications):</p>\n\n<ul>\n  <li><strong>Almost surely</strong> ($X_n\\xrightarrow{a.s.}X$): $\\mathbb{P}(\\{\\omega:X_n(\\omega)\\to X(\\omega)\\})=1$. Pointwise convergence everywhere except on a null set.</li>\n  <li><strong>In $L^p$</strong>: $\\mathbb{E}|X_n-X|^p\\to 0$. Requires $X_n,X\\in L^p$.</li>\n  <li><strong>In probability</strong>: $\\mathbb{P}(|X_n-X|\\ge\\varepsilon)\\to 0$ for every $\\varepsilon>0$.</li>\n  <li><strong>In distribution</strong> ($X_n\\xrightarrow{d}X$): $\\mathbb{E}[f(X_n)]\\to\\mathbb{E}[f(X)]$ for every bounded continuous $f$; equivalently $F_{X_n}(x)\\to F_X(x)$ at continuity points of $F_X$.</li>\n</ul>\n\n<div class=\"note\"><strong>Implication diagram.</strong>\n$$X_n\\xrightarrow{a.s.}X \\implies X_n\\xrightarrow{\\mathbb{P}}X \\implies X_n\\xrightarrow{d}X$$\n$$X_n\\xrightarrow{L^p}X \\implies X_n\\xrightarrow{\\mathbb{P}}X$$\nAll reverse implications fail without extra hypotheses.</div>\n\n<p><strong>Counterexamples.</strong> (i) The \"typewriter sequence\" $X_n=\\mathbf{1}_{I_n}$ with $I_n$ cycling through dyadic intervals of shrinking length converges to $0$ in probability but NOT a.s. (ii) $X_n=n\\cdot\\mathbf{1}_{(0,1/n)}$ converges to $0$ a.s.\\ but $\\mathbb{E}[X_n]=1$, so NOT in $L^1$. (iii) The CLT gives convergence in distribution but NOT in probability — the sample mean itself does not converge (strongly).</p>\n\n<p><strong>Borel–Cantelli lemmata.</strong> For events $(A_n)$:\n<ul>\n  <li>If $\\sum\\mathbb{P}(A_n)<\\infty$, then $\\mathbb{P}(A_n\\text{ i.o.})=0$.</li>\n  <li>If $(A_n)$ are independent and $\\sum\\mathbb{P}(A_n)=\\infty$, then $\\mathbb{P}(A_n\\text{ i.o.})=1$.</li>\n</ul>\nThese are the canonical tools for proving a.s.\\ statements.</p>\n\n<p><strong>Worked example: $X_n\\to 0$ a.s.\\ via Borel–Cantelli.</strong> Let $X_n=n\\cdot\\mathbf{1}_{A_n}$ with $\\mathbb{P}(A_n)=1/n^2$. Then $\\sum\\mathbb{P}(A_n)=\\pi^2/6<\\infty$, so by the first Borel-Cantelli lemma, $\\mathbb{P}(A_n\\text{ i.o.})=0$: a.s., $A_n$ occurs only finitely often. Hence $X_n=0$ eventually a.s., so $X_n\\to 0$ a.s.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#convergence\">Monotone and dominated convergence</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#clt\">Probability theory</a> · Central limit theorem</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div><a href=\"./probability-theory.html#martingales\">Probability theory</a> · Martingales</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "convergence-rv",
+          "html": "<div class=\"quiz\" data-concept=\"convergence-rv\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "lln",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"lln\">\n<h2>8. Law of large numbers</h2>\n\n<p>Let $X_1,X_2,\\ldots$ be i.i.d.\\ with $\\mathbb{E}|X_1|<\\infty$ and $\\mathbb{E}[X_1]=\\mu$. The <strong>sample mean</strong> $\\bar X_N=\\tfrac{1}{N}\\sum_{i=1}^N X_i$ concentrates at $\\mu$ as $N\\to\\infty$.</p>\n\n<p><strong>Weak law (WLLN).</strong> Under finite variance $\\sigma^2$: $\\bar X_N\\xrightarrow{\\mathbb{P}}\\mu$. Proof is a line of Chebyshev: $\\text{Var}(\\bar X_N)=\\sigma^2/N$, so\n$$\\mathbb{P}(|\\bar X_N-\\mu|\\ge\\varepsilon)\\le\\sigma^2/(N\\varepsilon^2)\\to 0.$$</p>\n\n<p><strong>Strong law (SLLN — Kolmogorov).</strong> Under only $\\mathbb{E}|X_1|<\\infty$: $\\bar X_N\\xrightarrow{a.s.}\\mu$. This is stronger: the set of $\\omega$ for which $\\bar X_N(\\omega)\\to\\mu$ has probability $1$.</p>\n\n<p>The hypothesis $\\mathbb{E}|X_1|<\\infty$ is sharp. For the Cauchy distribution, $\\mathbb{E}|X_1|=\\infty$ and $\\bar X_N$ does not converge — in fact, the sample mean of i.i.d.\\ Cauchy is again Cauchy, so spread does not shrink with $N$.</p>\n\n<div class=\"note\"><strong>Proof sketch (SLLN via Etemadi/truncation).</strong> Truncate: $Y_n=X_n\\mathbf{1}_{|X_n|\\le n}$. Show $\\sum\\text{Var}(Y_n)/n^2<\\infty$ under $\\mathbb{E}|X_1|<\\infty$. Apply Chebyshev plus Borel-Cantelli on a subsequence, then fill in gaps by monotonicity. The elegance of the argument is due to Etemadi (1981) — pairwise independence suffices.</div>\n\n<p><strong>Worked example: Monte Carlo integration.</strong> To compute $\\int_0^1 g(x)\\,dx$ numerically, sample $U_1,\\ldots,U_N$ i.i.d.\\ $\\text{Uniform}[0,1]$. By SLLN, $\\tfrac{1}{N}\\sum_i g(U_i)\\to\\int_0^1 g\\,dx$ a.s. The error is $O(1/\\sqrt{N})$ (CLT — next section), independent of dimension. This is why Monte Carlo beats deterministic quadrature in high dimensions.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-lln",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lln",
+            "title": "LLN simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lln-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Law of large numbers simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"lln-run\">draw 500 more samples</button>\n    <button id=\"lln-reset\">reset</button>\n    <label for=\"lln-pick\">base dist.</label>\n    <select id=\"lln-pick\">\n      <option value=\"bern\">Bernoulli(0.5) — μ=0.5</option>\n      <option value=\"unif\">Uniform[0,1] — μ=0.5</option>\n      <option value=\"exp\">Exp(1) — μ=1</option>\n      <option value=\"cauchy\">Cauchy(0,1) — μ undefined!</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lln-out"
+              }
+            ],
+            "hint": "running mean converges to $\\mu$",
+            "bodyScript": "  const svg = $('#lln-svg'), out = $('#lln-out');\n  const pick = $('#lln-pick');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let samples = [];\n  let mu0 = 0.5;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.5?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    if(kind==='cauchy') return ()=>Math.tan(Math.PI*(Math.random()-0.5));\n    return ()=>Math.random();\n  }\n  function targetMu(kind){\n    if(kind==='bern') return 0.5;\n    if(kind==='unif') return 0.5;\n    if(kind==='exp')  return 1;\n    return NaN;\n  }\n  function reset(){ samples = []; mu0 = targetMu(pick.value); draw(); }\n  function run(){\n    const f = sampler(pick.value);\n    for(let i=0;i<500;i++) samples.push(f());\n    draw();\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // running mean\n    const runs = [];\n    let s=0;\n    for(let i=0;i<samples.length;i++){\n      s += samples[i];\n      runs.push(s/(i+1));\n    }\n    const N = samples.length;\n    if(N===0){\n      const t = SVG('text',{x:W/2,y:H/2,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n      t.textContent = 'Hit \"draw 500 more samples\" to begin.';\n      svg.appendChild(t);\n      out.textContent = 'no samples yet';\n      return;\n    }\n    // y range\n    const ymin = Math.min(...runs, isFinite(mu0)?mu0:0) - 0.3;\n    const ymax = Math.max(...runs, isFinite(mu0)?mu0:1) + 0.3;\n    const X = i => x0 + (i/Math.max(N-1,1))*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // mu line\n    if(isFinite(mu0)){\n      svg.appendChild(SVG('line',{x1:x0,y1:Y(mu0),x2:x1,y2:Y(mu0),\n        stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n      const lbl=SVG('text',{x:x1-5,y:Y(mu0)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n      lbl.textContent = `μ = ${mu0}`;\n      svg.appendChild(lbl);\n    }\n    // running mean polyline\n    let d='';\n    runs.forEach((v,i)=>{ d += (i===0?'M':'L')+X(i)+','+Math.max(y0,Math.min(y1,Y(v)))+' '; });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    // ticks\n    for(const v of [0, Math.round(N/2), N]){\n      const xp = X(v-1<0?0:v-1);\n      const t = SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    // title\n    const tl = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = 'running sample mean X̄_n vs n';\n    svg.appendChild(tl);\n    const tail = runs.slice(-1)[0];\n    out.textContent =\n      `samples so far: ${N}\\n`+\n      `running mean X̄_N = ${tail.toFixed(5)}\\n`+\n      (isFinite(mu0) ?\n        `target μ = ${mu0} — gap |X̄_N − μ| = ${Math.abs(tail-mu0).toFixed(5)}\\n`\n      : `target μ undefined (Cauchy has no mean; sample mean does NOT concentrate)\\n`) +\n      `sample variance proxy: ${(runs.reduce((a,b)=>a+(b-tail)**2,0)/N).toExponential(2)}`;\n  }\n  $('#lln-run').addEventListener('click',run);\n  $('#lln-reset').addEventListener('click',reset);\n  pick.addEventListener('change',()=>{ reset(); });\n  reset();",
+            "sectionComment": "=============================== §8 LLN simulator ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "law-of-large-numbers",
+          "html": "<div class=\"quiz\" data-concept=\"law-of-large-numbers\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lln",
+            "title": "LLN simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lln-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Law of large numbers simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"lln-run\">draw 500 more samples</button>\n    <button id=\"lln-reset\">reset</button>\n    <label for=\"lln-pick\">base dist.</label>\n    <select id=\"lln-pick\">\n      <option value=\"bern\">Bernoulli(0.5) — μ=0.5</option>\n      <option value=\"unif\">Uniform[0,1] — μ=0.5</option>\n      <option value=\"exp\">Exp(1) — μ=1</option>\n      <option value=\"cauchy\">Cauchy(0,1) — μ undefined!</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lln-out"
+              }
+            ],
+            "hint": "running mean converges to $\\mu$",
+            "bodyScript": "  const svg = $('#lln-svg'), out = $('#lln-out');\n  const pick = $('#lln-pick');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let samples = [];\n  let mu0 = 0.5;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.5?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    if(kind==='cauchy') return ()=>Math.tan(Math.PI*(Math.random()-0.5));\n    return ()=>Math.random();\n  }\n  function targetMu(kind){\n    if(kind==='bern') return 0.5;\n    if(kind==='unif') return 0.5;\n    if(kind==='exp')  return 1;\n    return NaN;\n  }\n  function reset(){ samples = []; mu0 = targetMu(pick.value); draw(); }\n  function run(){\n    const f = sampler(pick.value);\n    for(let i=0;i<500;i++) samples.push(f());\n    draw();\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // running mean\n    const runs = [];\n    let s=0;\n    for(let i=0;i<samples.length;i++){\n      s += samples[i];\n      runs.push(s/(i+1));\n    }\n    const N = samples.length;\n    if(N===0){\n      const t = SVG('text',{x:W/2,y:H/2,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n      t.textContent = 'Hit \"draw 500 more samples\" to begin.';\n      svg.appendChild(t);\n      out.textContent = 'no samples yet';\n      return;\n    }\n    // y range\n    const ymin = Math.min(...runs, isFinite(mu0)?mu0:0) - 0.3;\n    const ymax = Math.max(...runs, isFinite(mu0)?mu0:1) + 0.3;\n    const X = i => x0 + (i/Math.max(N-1,1))*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // mu line\n    if(isFinite(mu0)){\n      svg.appendChild(SVG('line',{x1:x0,y1:Y(mu0),x2:x1,y2:Y(mu0),\n        stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n      const lbl=SVG('text',{x:x1-5,y:Y(mu0)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n      lbl.textContent = `μ = ${mu0}`;\n      svg.appendChild(lbl);\n    }\n    // running mean polyline\n    let d='';\n    runs.forEach((v,i)=>{ d += (i===0?'M':'L')+X(i)+','+Math.max(y0,Math.min(y1,Y(v)))+' '; });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    // ticks\n    for(const v of [0, Math.round(N/2), N]){\n      const xp = X(v-1<0?0:v-1);\n      const t = SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    // title\n    const tl = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = 'running sample mean X̄_n vs n';\n    svg.appendChild(tl);\n    const tail = runs.slice(-1)[0];\n    out.textContent =\n      `samples so far: ${N}\\n`+\n      `running mean X̄_N = ${tail.toFixed(5)}\\n`+\n      (isFinite(mu0) ?\n        `target μ = ${mu0} — gap |X̄_N − μ| = ${Math.abs(tail-mu0).toFixed(5)}\\n`\n      : `target μ undefined (Cauchy has no mean; sample mean does NOT concentrate)\\n`) +\n      `sample variance proxy: ${(runs.reduce((a,b)=>a+(b-tail)**2,0)/N).toExponential(2)}`;\n  }\n  $('#lln-run').addEventListener('click',run);\n  $('#lln-reset').addEventListener('click',reset);\n  pick.addEventListener('change',()=>{ reset(); });\n  reset();",
+            "sectionComment": "=============================== §8 LLN simulator ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "clt",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"clt\">\n<h2>9. Central limit theorem</h2>\n\n<p>Let $X_1,X_2,\\ldots$ be i.i.d.\\ with mean $\\mu$ and finite variance $\\sigma^2>0$. The <strong>classical CLT</strong> says:\n$$\\frac{\\sqrt{N}\\,(\\bar X_N-\\mu)}{\\sigma}\\xrightarrow{d}\\mathcal{N}(0,1).$$\nEquivalently, $\\bar X_N\\approx\\mathcal{N}(\\mu,\\sigma^2/N)$ for large $N$, with error $O(1/\\sqrt{N})$ in Kolmogorov distance (Berry-Esseen).</p>\n\n<p><strong>Proof sketch (via characteristic functions).</strong> Let $Y_i=(X_i-\\mu)/\\sigma$, so $\\mathbb{E}[Y_i]=0$, $\\text{Var}(Y_i)=1$. Expand $\\varphi_Y(t)=1-t^2/2+o(t^2)$ as $t\\to 0$. Then\n$$\\varphi_{(\\sum Y_i)/\\sqrt{N}}(t)=\\varphi_Y(t/\\sqrt{N})^N=\\left(1-\\tfrac{t^2}{2N}+o(1/N)\\right)^N\\to e^{-t^2/2},$$\nthe characteristic function of $\\mathcal{N}(0,1)$. Apply Lévy's continuity theorem (pointwise convergence of CFs + continuity of the limit at $0$) to conclude convergence in distribution.</p>\n\n<p><strong>What goes wrong without finite variance?</strong> The $\\alpha$-stable distributions ($0<\\alpha\\le 2$) form the universal scaling-limit family. $\\alpha=2$ is the Gaussian (CLT); $\\alpha=1$ is the Cauchy; intermediate $\\alpha$ give the heavy-tailed stable laws appearing in anomalous diffusion and Lévy flights.</p>\n\n<div class=\"note\"><strong>Lindeberg's condition.</strong> For triangular arrays $X_{n,k}$ with $s_n^2=\\sum_k\\text{Var}(X_{n,k})$, the CLT holds iff for every $\\varepsilon>0$, $\\frac{1}{s_n^2}\\sum_k\\mathbb{E}[X_{n,k}^2\\mathbf{1}_{|X_{n,k}|>\\varepsilon s_n}]\\to 0$. This \"no single summand dominates\" condition is necessary and sufficient under uniform asymptotic negligibility.</div>\n\n<p><strong>Worked example: sum of Bernoulli.</strong> $S_N=\\sum_{i=1}^N X_i$ with $X_i$ i.i.d.\\ Bernoulli$(1/2)$. Then $\\mathbb{E}[S_N]=N/2$, $\\text{Var}(S_N)=N/4$. The CLT says $(S_N-N/2)/\\sqrt{N/4}\\xrightarrow{d}\\mathcal{N}(0,1)$. For $N=100$ and $S_{100}\\ge 60$: the $Z$-score is $(60-50)/5=2$, so $\\mathbb{P}(S_{100}\\ge 60)\\approx\\mathbb{P}(Z\\ge 2)\\approx 0.0228$. Exact binomial: $0.0284$ — good agreement at $N=100$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-clt",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-clt",
+            "title": "CLT simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "clt-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Central limit theorem simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-N\">sample size $N$</label>\n    <input id=\"clt-N\" type=\"range\" min=\"1\" max=\"200\" step=\"1\" value=\"30\">\n    <span id=\"clt-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-pick\">base distribution</label>\n    <select id=\"clt-pick\">\n      <option value=\"bern\">Bernoulli(0.3) [skewed]</option>\n      <option value=\"unif\">Uniform[0,1]</option>\n      <option value=\"bim\">bimodal (mixture of ±1)</option>\n      <option value=\"exp\">Exponential(1) [skew]</option>\n    </select>\n    <button id=\"clt-resample\">resample 2000 trials</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "clt-out"
+              }
+            ],
+            "hint": "$\\bar X_N$ rescaled vs.\\ $\\mathcal{N}(0,1)$",
+            "bodyScript": "  const svg = $('#clt-svg'), out = $('#clt-out');\n  const pick = $('#clt-pick'), sl = $('#clt-N'), slv = $('#clt-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.3?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='bim')  return ()=>Math.random()<0.5? 1+0.2*randn() : -1+0.2*randn();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    return ()=>Math.random();\n  }\n  function stats(kind){\n    if(kind==='bern') return {mu:0.3, sd:Math.sqrt(0.3*0.7)};\n    if(kind==='unif') return {mu:0.5, sd:Math.sqrt(1/12)};\n    if(kind==='bim')  return {mu:0,   sd:Math.sqrt(1+0.04)};\n    if(kind==='exp')  return {mu:1,   sd:1};\n    return {mu:0, sd:1};\n  }\n  function draw(){\n    svg.innerHTML = '';\n    const kind = pick.value, N = +sl.value;\n    slv.textContent = 'N = '+N;\n    const {mu,sd} = stats(kind);\n    const f = sampler(kind);\n    // 2000 trials\n    const M = 2000;\n    const zs = [];\n    for(let t=0;t<M;t++){\n      let s=0;\n      for(let i=0;i<N;i++) s+=f();\n      const m = s/N;\n      const z = Math.sqrt(N)*(m - mu)/sd;\n      zs.push(z);\n    }\n    // histogram\n    const zmin=-4, zmax=4, bins=40;\n    const binW=(zmax-zmin)/bins;\n    const counts = new Array(bins).fill(0);\n    for(const z of zs){\n      if(z<zmin||z>=zmax) continue;\n      counts[Math.floor((z-zmin)/binW)]++;\n    }\n    const density = counts.map(c=>c/(M*binW));\n    const ymax = Math.max(...density, 0.5);\n    // axes\n    const X = z => x0 + (z-zmin)/(zmax-zmin)*(x1-x0);\n    const Y = v => y1 - (v/(ymax*1.1))*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(const zv of [-4,-2,0,2,4]){\n      const xp = X(zv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=zv; svg.appendChild(t);\n    }\n    // histogram bars\n    for(let k=0;k<bins;k++){\n      const xa = X(zmin + k*binW);\n      const xb = X(zmin + (k+1)*binW);\n      const ya = Y(density[k]);\n      svg.appendChild(SVG('rect',{x:xa, y:ya, width:xb-xa-1, height:y1-ya,\n        fill:'var(--cyan)',opacity:0.55}));\n    }\n    // standard normal overlay\n    let d='';\n    for(let i=0;i<=200;i++){\n      const z = zmin + i*(zmax-zmin)/200;\n      const xp=X(z), yp=Y(phi(z));\n      d += (i===0?'M':'L')+xp+','+yp+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg=SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});\n    lg.textContent='𝒩(0,1) PDF';\n    svg.appendChild(lg);\n    const lg2=SVG('text',{x:x1-10,y:y0+30,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});\n    lg2.textContent='histogram of √N(X̄ − μ)/σ';\n    svg.appendChild(lg2);\n    // stats\n    const emp_mean = zs.reduce((a,b)=>a+b,0)/M;\n    const emp_var = zs.reduce((a,b)=>a+(b-emp_mean)**2,0)/M;\n    out.textContent =\n      `base dist: ${kind} (μ=${mu.toFixed(3)}, σ=${sd.toFixed(3)})\\n`+\n      `N = ${N}, trials = ${M}\\n`+\n      `empirical mean of Z ≈ ${emp_mean.toFixed(3)} (target 0)\\n`+\n      `empirical var  of Z ≈ ${emp_var.toFixed(3)} (target 1)\\n`+\n      `CLT gets sharper as N → ∞; skewed bases need larger N`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  $('#clt-resample').addEventListener('click',draw);\n  draw();",
+            "sectionComment": "=============================== §9 CLT simulator ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "central-limit-theorem",
+          "html": "<div class=\"quiz\" data-concept=\"central-limit-theorem\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#brownian\">Probability theory</a> · Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-clt",
+            "title": "CLT simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "clt-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Central limit theorem simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-N\">sample size $N$</label>\n    <input id=\"clt-N\" type=\"range\" min=\"1\" max=\"200\" step=\"1\" value=\"30\">\n    <span id=\"clt-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-pick\">base distribution</label>\n    <select id=\"clt-pick\">\n      <option value=\"bern\">Bernoulli(0.3) [skewed]</option>\n      <option value=\"unif\">Uniform[0,1]</option>\n      <option value=\"bim\">bimodal (mixture of ±1)</option>\n      <option value=\"exp\">Exponential(1) [skew]</option>\n    </select>\n    <button id=\"clt-resample\">resample 2000 trials</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "clt-out"
+              }
+            ],
+            "hint": "$\\bar X_N$ rescaled vs.\\ $\\mathcal{N}(0,1)$",
+            "bodyScript": "  const svg = $('#clt-svg'), out = $('#clt-out');\n  const pick = $('#clt-pick'), sl = $('#clt-N'), slv = $('#clt-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.3?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='bim')  return ()=>Math.random()<0.5? 1+0.2*randn() : -1+0.2*randn();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    return ()=>Math.random();\n  }\n  function stats(kind){\n    if(kind==='bern') return {mu:0.3, sd:Math.sqrt(0.3*0.7)};\n    if(kind==='unif') return {mu:0.5, sd:Math.sqrt(1/12)};\n    if(kind==='bim')  return {mu:0,   sd:Math.sqrt(1+0.04)};\n    if(kind==='exp')  return {mu:1,   sd:1};\n    return {mu:0, sd:1};\n  }\n  function draw(){\n    svg.innerHTML = '';\n    const kind = pick.value, N = +sl.value;\n    slv.textContent = 'N = '+N;\n    const {mu,sd} = stats(kind);\n    const f = sampler(kind);\n    // 2000 trials\n    const M = 2000;\n    const zs = [];\n    for(let t=0;t<M;t++){\n      let s=0;\n      for(let i=0;i<N;i++) s+=f();\n      const m = s/N;\n      const z = Math.sqrt(N)*(m - mu)/sd;\n      zs.push(z);\n    }\n    // histogram\n    const zmin=-4, zmax=4, bins=40;\n    const binW=(zmax-zmin)/bins;\n    const counts = new Array(bins).fill(0);\n    for(const z of zs){\n      if(z<zmin||z>=zmax) continue;\n      counts[Math.floor((z-zmin)/binW)]++;\n    }\n    const density = counts.map(c=>c/(M*binW));\n    const ymax = Math.max(...density, 0.5);\n    // axes\n    const X = z => x0 + (z-zmin)/(zmax-zmin)*(x1-x0);\n    const Y = v => y1 - (v/(ymax*1.1))*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(const zv of [-4,-2,0,2,4]){\n      const xp = X(zv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=zv; svg.appendChild(t);\n    }\n    // histogram bars\n    for(let k=0;k<bins;k++){\n      const xa = X(zmin + k*binW);\n      const xb = X(zmin + (k+1)*binW);\n      const ya = Y(density[k]);\n      svg.appendChild(SVG('rect',{x:xa, y:ya, width:xb-xa-1, height:y1-ya,\n        fill:'var(--cyan)',opacity:0.55}));\n    }\n    // standard normal overlay\n    let d='';\n    for(let i=0;i<=200;i++){\n      const z = zmin + i*(zmax-zmin)/200;\n      const xp=X(z), yp=Y(phi(z));\n      d += (i===0?'M':'L')+xp+','+yp+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg=SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});\n    lg.textContent='𝒩(0,1) PDF';\n    svg.appendChild(lg);\n    const lg2=SVG('text',{x:x1-10,y:y0+30,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});\n    lg2.textContent='histogram of √N(X̄ − μ)/σ';\n    svg.appendChild(lg2);\n    // stats\n    const emp_mean = zs.reduce((a,b)=>a+b,0)/M;\n    const emp_var = zs.reduce((a,b)=>a+(b-emp_mean)**2,0)/M;\n    out.textContent =\n      `base dist: ${kind} (μ=${mu.toFixed(3)}, σ=${sd.toFixed(3)})\\n`+\n      `N = ${N}, trials = ${M}\\n`+\n      `empirical mean of Z ≈ ${emp_mean.toFixed(3)} (target 0)\\n`+\n      `empirical var  of Z ≈ ${emp_var.toFixed(3)} (target 1)\\n`+\n      `CLT gets sharper as N → ∞; skewed bases need larger N`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  $('#clt-resample').addEventListener('click',draw);\n  draw();",
+            "sectionComment": "=============================== §9 CLT simulator ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "markov",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"markov\">\n<h2>10. Markov chains</h2>\n\n<p>A <strong>(homogeneous) Markov chain</strong> on a finite state space $S$ is a stochastic process $(X_n)_{n\\ge 0}$ with the <em>memoryless</em> property:\n$$\\mathbb{P}(X_{n+1}=y\\mid X_0,\\ldots,X_n)=\\mathbb{P}(X_{n+1}=y\\mid X_n)=P_{X_n,y},$$\nencoded by a <strong>transition matrix</strong> $P\\in[0,1]^{S\\times S}$ with row sums $1$. The $n$-step transitions are the entries of $P^n$.</p>\n\n<p>The space of transition matrices on $S$ is a semigroup under matrix multiplication, with identity $I$ (the trivial chain): semigroup composition $P^n=P\\cdot P\\cdots P$ encodes repeated application of the chain.</p>\n\n<p><strong>Stationary distributions.</strong> A row vector $\\pi$ is <em>stationary</em> for $P$ if $\\pi P=\\pi$ and $\\sum_i\\pi_i=1$. Every finite-state chain has at least one stationary distribution (fixed-point theorem).</p>\n\n<p><strong>Fundamental ergodic theorem.</strong> If a finite-state chain is <em>irreducible</em> (every state is accessible from every other) and <em>aperiodic</em> (gcd of return times to each state is $1$), then:\n<ul>\n  <li>the stationary distribution $\\pi$ is unique;</li>\n  <li>$P^n\\to\\Pi$ where every row of $\\Pi$ is $\\pi$ — the chain forgets its starting state.</li>\n</ul></p>\n\n<div class=\"note\"><strong>Reversibility and detailed balance.</strong> A chain is <em>reversible</em> w.r.t.\\ $\\pi$ if $\\pi_i P_{ij}=\\pi_j P_{ji}$ for all $i,j$. Summing over $i$ gives stationarity, so reversibility implies $\\pi$ is stationary (but not conversely). Reversible chains are important because they can be analysed spectrally — $P$ is self-adjoint w.r.t.\\ the weighted inner product $\\langle f,g\\rangle_\\pi=\\sum\\pi_i f_i g_i$.</div>\n\n<p><strong>Worked example: 3-state weather chain.</strong> States: $S,C,R$ (sunny/cloudy/rainy). Transition:\n$$P=\\begin{pmatrix}0.7&0.2&0.1\\\\0.3&0.4&0.3\\\\0.2&0.3&0.5\\end{pmatrix}.$$\nSolve $\\pi P=\\pi$ with $\\sum\\pi=1$: $\\pi\\approx(0.47,0.28,0.25)$. The widget below animates this chain; starting anywhere, the running frequency bars converge to $\\pi$.</p>\n\n<p><strong>Counterexample: reducible chain, non-unique stationary.</strong> On $\\{1,2,3,4\\}$ with two disjoint 2-cycles, each component has its own stationary distribution, and any convex combination is stationary — the simplex of stationary distributions is one-dimensional.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-markov",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-markov",
+            "title": "Markov chain animator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mk-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"mk-matrix\">\n    <label for=\"mk-p11\">$P_{11}$</label>\n    <input id=\"mk-p11\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.7\" style=\"width:5em\">\n    <label for=\"mk-p12\">$P_{12}$</label>\n    <input id=\"mk-p12\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.2\" style=\"width:5em\">\n    <label for=\"mk-p22\">$P_{22}$</label>\n    <input id=\"mk-p22\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" style=\"width:5em\">\n    <label for=\"mk-p23\">$P_{23}$</label>\n    <input id=\"mk-p23\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.3\" style=\"width:5em\">\n    <label for=\"mk-p33\">$P_{33}$</label>\n    <input id=\"mk-p33\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.5\" style=\"width:5em\">\n  </div>"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "step",
+                    "id": "mk-step"
+                  },
+                  {
+                    "label": "+100 steps",
+                    "id": "mk-run10"
+                  },
+                  {
+                    "label": "reset",
+                    "id": "mk-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "mk-out"
+              }
+            ],
+            "hint": "edit $P$, run, watch frequencies",
+            "bodyScript": "  const svg = $('#mk-svg'), out = $('#mk-out');\n  const W=760, H=260;\n  let state = 0; // 0,1,2\n  let counts = [0,0,0];\n  function P(){\n    // build from 5 entries with row-sum constraint\n    const p11 = Math.max(0,Math.min(1,+$('#mk-p11').value));\n    const p12 = Math.max(0,Math.min(1,+$('#mk-p12').value));\n    const p22 = Math.max(0,Math.min(1,+$('#mk-p22').value));\n    const p23 = Math.max(0,Math.min(1,+$('#mk-p23').value));\n    const p33 = Math.max(0,Math.min(1,+$('#mk-p33').value));\n    const p13 = Math.max(0, 1 - p11 - p12);\n    const p21 = Math.max(0, 1 - p22 - p23);\n    const p31 = Math.max(0, (1 - p33)*0.5);\n    const p32 = Math.max(0, 1 - p33 - p31);\n    return [[p11,p12,p13],[p21,p22,p23],[p31,p32,p33]];\n  }\n  function stationary(M){\n    // solve πM = π, πᵀ1=1. Power method on Mᵀ.\n    let p = [1/3,1/3,1/3];\n    for(let k=0;k<2000;k++){\n      const np = [0,0,0];\n      for(let j=0;j<3;j++) for(let i=0;i<3;i++) np[j] += p[i]*M[i][j];\n      p = np;\n    }\n    const s = p.reduce((a,b)=>a+b,0);\n    return p.map(v=>v/s);\n  }\n  function step(){\n    const M = P();\n    const r = Math.random();\n    let c = 0;\n    for(let j=0;j<3;j++){\n      c += M[state][j];\n      if(r<c){ state = j; break; }\n    }\n    counts[state]++;\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    const M = P();\n    const pi = stationary(M);\n    const total = counts.reduce((a,b)=>a+b,0);\n    const emp = total>0 ? counts.map(c=>c/total) : [0,0,0];\n    // 3 state nodes arranged in a triangle\n    const pts = [[200,180],[400,100],[600,180]];\n    const labels = ['S','C','R'];\n    const colors = ['var(--yellow)','var(--cyan)','var(--pink)'];\n    // arrows\n    for(let i=0;i<3;i++){\n      for(let j=0;j<3;j++){\n        if(i===j) continue;\n        const pr = M[i][j];\n        if(pr<0.01) continue;\n        drawArrow(svg, pts[i], pts[j], {\n          color:'var(--mute)',\n          curve: (j-i>0 ? 25 : -25),\n          label: pr.toFixed(2),\n          labelSide: (j-i>0 ? 1 : 0),\n          width: 0.8 + pr*2,\n          markerId:'mk-'+i+j\n        });\n      }\n    }\n    // self-loops indicated by readout only\n    // nodes\n    for(let i=0;i<3;i++){\n      const cur = state===i;\n      drawNode(svg, pts[i][0], pts[i][1], labels[i], {\n        r: cur? 24 : 18, fill: cur?'var(--yellow)':'var(--panel2)',\n        stroke: colors[i], textColor: cur? '#111':'#fff', fontSize: 14\n      });\n    }\n    // bars below: empirical frequencies vs stationary\n    const bx = 120, by = 230, bw = 520, bh = 12;\n    for(let i=0;i<3;i++){\n      const x0 = bx + i*180;\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120,height:bh,fill:'var(--panel2)',stroke:'var(--line)'}));\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120*emp[i],height:bh,fill:colors[i],opacity:0.85}));\n      // stationary marker\n      svg.appendChild(SVG('line',{x1:x0+120*pi[i],y1:by-3,x2:x0+120*pi[i],y2:by+bh+3,\n        stroke:'var(--ink)','stroke-width':1.8}));\n      const t = SVG('text',{x:x0+60,y:by-4,'text-anchor':'middle','font-size':11,fill:colors[i]});\n      t.textContent = `${labels[i]}: emp ${(emp[i]*100).toFixed(1)}% / π ${(pi[i]*100).toFixed(1)}%`;\n      svg.appendChild(t);\n    }\n    const cap = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    cap.textContent = '3-state chain: edit P entries, step, watch empirical freq → π';\n    svg.appendChild(cap);\n    out.textContent =\n      `steps taken: ${total}, current state: ${labels[state]}\\n`+\n      `stationary π ≈ [${pi.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `empirical  ≈ [${emp.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `row sums (should be 1): [${M.map(r=>r.reduce((a,b)=>a+b,0).toFixed(3)).join(', ')}]`;\n  }\n  $('#mk-step').addEventListener('click',step);\n  $('#mk-run10').addEventListener('click',()=>{ for(let k=0;k<100;k++) step(); });\n  $('#mk-reset').addEventListener('click',()=>{ state=0; counts=[0,0,0]; draw(); });\n  for(const id of ['mk-p11','mk-p12','mk-p22','mk-p23','mk-p33']){\n    $('#'+id).addEventListener('input',draw);\n  }\n  draw();",
+            "sectionComment": "=============================== §10 Markov chain animator ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "markov-chains",
+          "html": "<div class=\"quiz\" data-concept=\"markov-chains\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a> — transition matrices form a semigroup</li>\n  </ul>\n</aside>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-markov",
+            "title": "Markov chain animator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mk-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"mk-matrix\">\n    <label for=\"mk-p11\">$P_{11}$</label>\n    <input id=\"mk-p11\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.7\" style=\"width:5em\">\n    <label for=\"mk-p12\">$P_{12}$</label>\n    <input id=\"mk-p12\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.2\" style=\"width:5em\">\n    <label for=\"mk-p22\">$P_{22}$</label>\n    <input id=\"mk-p22\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" style=\"width:5em\">\n    <label for=\"mk-p23\">$P_{23}$</label>\n    <input id=\"mk-p23\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.3\" style=\"width:5em\">\n    <label for=\"mk-p33\">$P_{33}$</label>\n    <input id=\"mk-p33\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.5\" style=\"width:5em\">\n  </div>"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "step",
+                    "id": "mk-step"
+                  },
+                  {
+                    "label": "+100 steps",
+                    "id": "mk-run10"
+                  },
+                  {
+                    "label": "reset",
+                    "id": "mk-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "mk-out"
+              }
+            ],
+            "hint": "edit $P$, run, watch frequencies",
+            "bodyScript": "  const svg = $('#mk-svg'), out = $('#mk-out');\n  const W=760, H=260;\n  let state = 0; // 0,1,2\n  let counts = [0,0,0];\n  function P(){\n    // build from 5 entries with row-sum constraint\n    const p11 = Math.max(0,Math.min(1,+$('#mk-p11').value));\n    const p12 = Math.max(0,Math.min(1,+$('#mk-p12').value));\n    const p22 = Math.max(0,Math.min(1,+$('#mk-p22').value));\n    const p23 = Math.max(0,Math.min(1,+$('#mk-p23').value));\n    const p33 = Math.max(0,Math.min(1,+$('#mk-p33').value));\n    const p13 = Math.max(0, 1 - p11 - p12);\n    const p21 = Math.max(0, 1 - p22 - p23);\n    const p31 = Math.max(0, (1 - p33)*0.5);\n    const p32 = Math.max(0, 1 - p33 - p31);\n    return [[p11,p12,p13],[p21,p22,p23],[p31,p32,p33]];\n  }\n  function stationary(M){\n    // solve πM = π, πᵀ1=1. Power method on Mᵀ.\n    let p = [1/3,1/3,1/3];\n    for(let k=0;k<2000;k++){\n      const np = [0,0,0];\n      for(let j=0;j<3;j++) for(let i=0;i<3;i++) np[j] += p[i]*M[i][j];\n      p = np;\n    }\n    const s = p.reduce((a,b)=>a+b,0);\n    return p.map(v=>v/s);\n  }\n  function step(){\n    const M = P();\n    const r = Math.random();\n    let c = 0;\n    for(let j=0;j<3;j++){\n      c += M[state][j];\n      if(r<c){ state = j; break; }\n    }\n    counts[state]++;\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    const M = P();\n    const pi = stationary(M);\n    const total = counts.reduce((a,b)=>a+b,0);\n    const emp = total>0 ? counts.map(c=>c/total) : [0,0,0];\n    // 3 state nodes arranged in a triangle\n    const pts = [[200,180],[400,100],[600,180]];\n    const labels = ['S','C','R'];\n    const colors = ['var(--yellow)','var(--cyan)','var(--pink)'];\n    // arrows\n    for(let i=0;i<3;i++){\n      for(let j=0;j<3;j++){\n        if(i===j) continue;\n        const pr = M[i][j];\n        if(pr<0.01) continue;\n        drawArrow(svg, pts[i], pts[j], {\n          color:'var(--mute)',\n          curve: (j-i>0 ? 25 : -25),\n          label: pr.toFixed(2),\n          labelSide: (j-i>0 ? 1 : 0),\n          width: 0.8 + pr*2,\n          markerId:'mk-'+i+j\n        });\n      }\n    }\n    // self-loops indicated by readout only\n    // nodes\n    for(let i=0;i<3;i++){\n      const cur = state===i;\n      drawNode(svg, pts[i][0], pts[i][1], labels[i], {\n        r: cur? 24 : 18, fill: cur?'var(--yellow)':'var(--panel2)',\n        stroke: colors[i], textColor: cur? '#111':'#fff', fontSize: 14\n      });\n    }\n    // bars below: empirical frequencies vs stationary\n    const bx = 120, by = 230, bw = 520, bh = 12;\n    for(let i=0;i<3;i++){\n      const x0 = bx + i*180;\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120,height:bh,fill:'var(--panel2)',stroke:'var(--line)'}));\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120*emp[i],height:bh,fill:colors[i],opacity:0.85}));\n      // stationary marker\n      svg.appendChild(SVG('line',{x1:x0+120*pi[i],y1:by-3,x2:x0+120*pi[i],y2:by+bh+3,\n        stroke:'var(--ink)','stroke-width':1.8}));\n      const t = SVG('text',{x:x0+60,y:by-4,'text-anchor':'middle','font-size':11,fill:colors[i]});\n      t.textContent = `${labels[i]}: emp ${(emp[i]*100).toFixed(1)}% / π ${(pi[i]*100).toFixed(1)}%`;\n      svg.appendChild(t);\n    }\n    const cap = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    cap.textContent = '3-state chain: edit P entries, step, watch empirical freq → π';\n    svg.appendChild(cap);\n    out.textContent =\n      `steps taken: ${total}, current state: ${labels[state]}\\n`+\n      `stationary π ≈ [${pi.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `empirical  ≈ [${emp.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `row sums (should be 1): [${M.map(r=>r.reduce((a,b)=>a+b,0).toFixed(3)).join(', ')}]`;\n  }\n  $('#mk-step').addEventListener('click',step);\n  $('#mk-run10').addEventListener('click',()=>{ for(let k=0;k<100;k++) step(); });\n  $('#mk-reset').addEventListener('click',()=>{ state=0; counts=[0,0,0]; draw(); });\n  for(const id of ['mk-p11','mk-p12','mk-p22','mk-p23','mk-p33']){\n    $('#'+id).addEventListener('input',draw);\n  }\n  draw();",
+            "sectionComment": "=============================== §10 Markov chain animator ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "martingales",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"martingales\">\n<h2>11. Martingales</h2>\n\n<p>A <strong>filtration</strong> $(\\mathcal{F}_n)_{n\\ge 0}$ is an increasing sequence of sub-$\\sigma$-algebras of $\\mathcal{F}$: $\\mathcal{F}_0\\subseteq\\mathcal{F}_1\\subseteq\\cdots\\subseteq\\mathcal{F}$. Intuitively, $\\mathcal{F}_n$ is the information available at time $n$.</p>\n\n<p>A stochastic process $(M_n)_{n\\ge 0}$ is <strong>adapted</strong> to $(\\mathcal{F}_n)$ if $M_n$ is $\\mathcal{F}_n$-measurable for each $n$.</p>\n\n<p>An adapted, $L^1$ process $(M_n)$ is a <strong>martingale</strong> if\n$$\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n\\quad\\forall n.$$\nReplace $=$ with $\\ge$ for a <em>submartingale</em>, with $\\le$ for a <em>supermartingale</em>. The defining identity is the formal expression of \"fair game\": the best predictor of the next value, given all past information, is the current value.</p>\n\n<p><strong>Stopping times.</strong> A random time $\\tau\\colon\\Omega\\to\\{0,1,\\ldots,\\infty\\}$ is a <em>stopping time</em> w.r.t.\\ $(\\mathcal{F}_n)$ if $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$ for each $n$: at time $n$, we can decide from the data so far whether to stop.</p>\n\n<p><strong>Doob's optional-stopping theorem.</strong> If $M$ is a martingale and $\\tau$ a stopping time, then $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$ provided <em>at least one</em> of the following holds:\n<ol>\n  <li>$\\tau$ is bounded;</li>\n  <li>$M$ is uniformly integrable (UI); or</li>\n  <li>$\\tau<\\infty$ a.s.\\ and $(M_{n\\wedge\\tau})$ is uniformly bounded.</li>\n</ol>\nWithout such a hypothesis optional-stopping fails: simple symmetric random walk stopped at $\\tau=\\inf\\{n:S_n=1\\}$ satisfies $\\tau<\\infty$ a.s.\\ but $\\mathbb{E}[S_\\tau]=1\\ne 0=\\mathbb{E}[S_0]$.</p>\n\n<p><strong>Doob's martingale convergence theorem.</strong> If $\\sup_n\\mathbb{E}|M_n|<\\infty$, then $M_n\\to M_\\infty$ a.s.\\ for some $M_\\infty\\in L^1$. If additionally $M$ is UI, then $M_n\\to M_\\infty$ in $L^1$ as well. <em>$L^1$-bounded without UI</em> is a genuinely weaker condition — e.g.\\ the product martingale $M_n=\\prod_{i=1}^n X_i$ with $\\mathbb{P}(X_i=2)=\\mathbb{P}(X_i=0)=1/2$ has $\\mathbb{E}[M_n]=1$ for all $n$ but $M_n\\to 0$ a.s.</p>\n\n<div class=\"note\"><strong>Doob's maximal inequality.</strong> For a non-negative submartingale, $\\mathbb{P}(\\max_{k\\le n}M_k\\ge\\lambda)\\le\\mathbb{E}[M_n]/\\lambda$. The $L^p$ version: $\\|\\max_{k\\le n}M_k\\|_p\\le(p/(p-1))\\|M_n\\|_p$ for $p>1$. These are the two most-used inequalities in the whole subject.</div>\n\n<p><strong>Worked example: random walk is a martingale.</strong> $S_n=\\sum_{i=1}^n X_i$ with $X_i$ i.i.d., $\\mathbb{E}[X_i]=0$, and $\\mathcal{F}_n=\\sigma(X_1,\\ldots,X_n)$. Then\n$$\\mathbb{E}[S_{n+1}\\mid\\mathcal{F}_n]=\\mathbb{E}[S_n+X_{n+1}\\mid\\mathcal{F}_n]=S_n+\\mathbb{E}[X_{n+1}]=S_n,$$\nusing that $S_n$ is $\\mathcal{F}_n$-measurable and $X_{n+1}$ is independent of $\\mathcal{F}_n$. So $(S_n)$ is a martingale. Consequently, $\\mathbb{E}[S_n]=\\mathbb{E}[S_0]=0$ for all $n$ (a fact obvious by linearity, but here illustrating the machinery).</p>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "martingales",
+          "html": "<div class=\"quiz\" data-concept=\"martingales\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#brownian\">Probability theory</a> · Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "brownian",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"brownian\">\n<h2>12. Brownian motion</h2>\n\n<p><strong>Standard Brownian motion</strong> (Wiener process) is the continuous-time stochastic process $(W_t)_{t\\ge 0}$ characterised by:\n<ul>\n  <li>$W_0=0$ a.s.;</li>\n  <li>$(W_t)$ has independent increments: $W_{t_1}-W_{t_0},\\ldots,W_{t_n}-W_{t_{n-1}}$ are independent for $0\\le t_0<t_1<\\cdots<t_n$;</li>\n  <li>$W_t-W_s\\sim\\mathcal{N}(0,t-s)$ for $0\\le s<t$ (stationary Gaussian increments);</li>\n  <li>paths $t\\mapsto W_t$ are continuous a.s.</li>\n</ul>\nExistence is non-trivial — constructed e.g.\\ via Kolmogorov's extension + continuity criterion, or Lévy's construction (dyadic interpolation), or as the scaling limit of random walks (Donsker's invariance principle).</p>\n\n<p><strong>Key properties.</strong></p>\n<ul>\n  <li><strong>Martingale</strong>: $W_t$ is a (continuous-time) martingale w.r.t.\\ its natural filtration. So is $W_t^2-t$ (variance correction). The \"exponential martingale\" $e^{\\theta W_t-\\theta^2 t/2}$ is also a martingale — the engine of Girsanov's theorem.</li>\n  <li><strong>Quadratic variation</strong>: $\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability as the mesh shrinks, even though the total variation is $+\\infty$. Unbounded variation + finite quadratic variation is the signature of Brownian paths.</li>\n  <li><strong>Scaling</strong>: $(W_{ct})_{t\\ge 0}\\overset{d}{=}(\\sqrt{c}\\,W_t)_{t\\ge 0}$ for $c>0$. The process is self-similar with Hurst index $H=1/2$.</li>\n  <li><strong>Nowhere differentiable</strong>: a.s., the sample path $t\\mapsto W_t$ fails to be differentiable at every $t$.</li>\n</ul>\n\n<p><strong>Donsker's invariance principle</strong> says that rescaled random walks converge to Brownian motion in $C([0,1])$: for i.i.d.\\ $(X_i)$ with $\\mathbb{E}[X_i]=0$ and $\\text{Var}(X_i)=1$, the linearly-interpolated process\n$$W^{(N)}_t=\\frac{1}{\\sqrt{N}}S_{\\lfloor Nt\\rfloor}+\\frac{Nt-\\lfloor Nt\\rfloor}{\\sqrt{N}}X_{\\lfloor Nt\\rfloor+1}\\xrightarrow{d}(W_t)_{t\\in[0,1]}.$$\nThis is the functional CLT: the CLT is the finite-dimensional projection at a single $t$.</p>\n\n<div class=\"note\"><strong>Stays-a-preview.</strong> Brownian motion here is a first-glance tour, not a full theory. Kolmogorov's consistency, Lévy's construction, the Markov and strong Markov properties, Itô calculus, and the connection to PDEs (heat equation, harmonic measure) are full courses on their own.</div>\n\n<p><strong>Worked example: Black–Scholes option pricing.</strong> Model stock price $S_t=S_0\\exp((\\mu-\\sigma^2/2)t+\\sigma W_t)$ — geometric Brownian motion. Under the risk-neutral measure, the Black–Scholes formula expresses a European call price as\n$$C(S_0,T)=S_0\\Phi(d_1)-Ke^{-rT}\\Phi(d_2),$$\nwith $d_1=(\\ln(S_0/K)+(r+\\sigma^2/2)T)/(\\sigma\\sqrt{T})$, $d_2=d_1-\\sigma\\sqrt{T}$. Itô's formula applied to $e^{-rt}\\ln S_t$ gives the computation; Brownian motion is the fundamental source of randomness in mathematical finance.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-bm",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bm",
+            "title": "Brownian motion simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bm-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Brownian motion path and √N scaling"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"bm-new\">new path</button>\n    <button id=\"bm-many\">overlay 20 paths</button>\n    <button id=\"bm-reset\">reset</button>\n    <label for=\"bm-N\">steps $N$</label>\n    <input id=\"bm-N\" type=\"range\" min=\"50\" max=\"2000\" step=\"50\" value=\"500\">\n    <span id=\"bm-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "bm-out"
+              }
+            ],
+            "hint": "path $W_t$ on $[0,1]$, $\\sqrt{N}$ scaling",
+            "bodyScript": "  const svg = $('#bm-svg'), out = $('#bm-out');\n  const sl = $('#bm-N'), slv = $('#bm-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let paths = [];\n  function onePath(N){\n    const dt = 1/N;\n    const p = [0];\n    for(let i=1;i<=N;i++){\n      p.push(p[i-1] + Math.sqrt(dt)*randn());\n    }\n    return p;\n  }\n  function reset(){ paths = []; draw(); }\n  function newPath(){ paths = [onePath(+sl.value)]; draw(); }\n  function many(){\n    paths = [];\n    for(let k=0;k<20;k++) paths.push(onePath(+sl.value));\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    slv.textContent = 'N = '+sl.value;\n    const N = +sl.value;\n    // y range: -4..+4 (Brownian on [0,1] has σ=1, so ±3σ typical)\n    const ymin=-3.5, ymax=3.5;\n    const X = t => x0 + t*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x1,y2:Y(0),stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    // ±sqrt(t) envelopes (95% band ~ ±2√t)\n    let de='', du='';\n    for(let i=0;i<=100;i++){\n      const t = i/100;\n      const e = 2*Math.sqrt(t);\n      de += (i===0?'M':'L')+X(t)+','+Y(-e)+' ';\n      du += (i===0?'M':'L')+X(t)+','+Y(e)+' ';\n    }\n    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    svg.appendChild(SVG('path',{d:du,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    // ticks\n    for(const tv of [0,0.5,1]){\n      const xp=X(tv); const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    for(const vv of [-3,-2,-1,0,1,2,3]){\n      const yp=Y(vv); const t=SVG('text',{x:x0-6,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=vv; svg.appendChild(t);\n    }\n    // draw paths\n    paths.forEach((p,k)=>{\n      let d='';\n      p.forEach((v,i)=>{\n        const t = i/(p.length-1);\n        d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n      });\n      svg.appendChild(SVG('path',{d,fill:'none',\n        stroke: paths.length>1?'var(--cyan)':'var(--yellow)',\n        'stroke-width': paths.length>1?0.8:1.6,\n        opacity: paths.length>1?0.55:1\n      }));\n    });\n    // legend\n    const lg = SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n    lg.textContent='±2√t (≈ 95% band)';\n    svg.appendChild(lg);\n    // title\n    const tl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = `Brownian motion on [0,1], N=${N} steps; step var ∝ 1/N confirms √N scaling`;\n    svg.appendChild(tl);\n    // out\n    if(paths.length===1){\n      const p = paths[0];\n      const qv = p.slice(1).reduce((acc,v,i)=>acc+(v-p[i])**2,0);\n      out.textContent =\n        `single path with N=${N} steps\\n`+\n        `W_1 sample  = ${p[p.length-1].toFixed(4)}\\n`+\n        `quadratic variation Σ(ΔW)² = ${qv.toFixed(4)}  (converges to t=1 as N→∞)\\n`+\n        `total variation Σ|ΔW| = ${p.slice(1).reduce((a,v,i)=>a+Math.abs(v-p[i]),0).toFixed(2)} (→ ∞)`;\n    } else if(paths.length>1){\n      const w1s = paths.map(p=>p[p.length-1]);\n      const m = w1s.reduce((a,b)=>a+b,0)/w1s.length;\n      const s = w1s.reduce((a,b)=>a+(b-m)**2,0)/w1s.length;\n      out.textContent =\n        `${paths.length} overlaid paths, N=${N} steps each\\n`+\n        `empirical mean of W_1 ≈ ${m.toFixed(3)}  (target 0)\\n`+\n        `empirical var  of W_1 ≈ ${s.toFixed(3)}  (target 1)`;\n    } else {\n      out.textContent = 'Click \"new path\" to simulate.';\n    }\n  }\n  $('#bm-new').addEventListener('click',newPath);\n  $('#bm-many').addEventListener('click',many);\n  $('#bm-reset').addEventListener('click',reset);\n  sl.addEventListener('input',()=>{ slv.textContent = 'N = '+sl.value; });\n  newPath();",
+            "sectionComment": "=============================== §12 Brownian motion ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "brownian-motion",
+          "html": "<div class=\"quiz\" data-concept=\"brownian-motion\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#convergence\">Convergence theorems</a></li>\n  </ul>\n</aside>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bm",
+            "title": "Brownian motion simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bm-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Brownian motion path and √N scaling"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"bm-new\">new path</button>\n    <button id=\"bm-many\">overlay 20 paths</button>\n    <button id=\"bm-reset\">reset</button>\n    <label for=\"bm-N\">steps $N$</label>\n    <input id=\"bm-N\" type=\"range\" min=\"50\" max=\"2000\" step=\"50\" value=\"500\">\n    <span id=\"bm-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "bm-out"
+              }
+            ],
+            "hint": "path $W_t$ on $[0,1]$, $\\sqrt{N}$ scaling",
+            "bodyScript": "  const svg = $('#bm-svg'), out = $('#bm-out');\n  const sl = $('#bm-N'), slv = $('#bm-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let paths = [];\n  function onePath(N){\n    const dt = 1/N;\n    const p = [0];\n    for(let i=1;i<=N;i++){\n      p.push(p[i-1] + Math.sqrt(dt)*randn());\n    }\n    return p;\n  }\n  function reset(){ paths = []; draw(); }\n  function newPath(){ paths = [onePath(+sl.value)]; draw(); }\n  function many(){\n    paths = [];\n    for(let k=0;k<20;k++) paths.push(onePath(+sl.value));\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    slv.textContent = 'N = '+sl.value;\n    const N = +sl.value;\n    // y range: -4..+4 (Brownian on [0,1] has σ=1, so ±3σ typical)\n    const ymin=-3.5, ymax=3.5;\n    const X = t => x0 + t*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x1,y2:Y(0),stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    // ±sqrt(t) envelopes (95% band ~ ±2√t)\n    let de='', du='';\n    for(let i=0;i<=100;i++){\n      const t = i/100;\n      const e = 2*Math.sqrt(t);\n      de += (i===0?'M':'L')+X(t)+','+Y(-e)+' ';\n      du += (i===0?'M':'L')+X(t)+','+Y(e)+' ';\n    }\n    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    svg.appendChild(SVG('path',{d:du,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    // ticks\n    for(const tv of [0,0.5,1]){\n      const xp=X(tv); const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    for(const vv of [-3,-2,-1,0,1,2,3]){\n      const yp=Y(vv); const t=SVG('text',{x:x0-6,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=vv; svg.appendChild(t);\n    }\n    // draw paths\n    paths.forEach((p,k)=>{\n      let d='';\n      p.forEach((v,i)=>{\n        const t = i/(p.length-1);\n        d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n      });\n      svg.appendChild(SVG('path',{d,fill:'none',\n        stroke: paths.length>1?'var(--cyan)':'var(--yellow)',\n        'stroke-width': paths.length>1?0.8:1.6,\n        opacity: paths.length>1?0.55:1\n      }));\n    });\n    // legend\n    const lg = SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n    lg.textContent='±2√t (≈ 95% band)';\n    svg.appendChild(lg);\n    // title\n    const tl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = `Brownian motion on [0,1], N=${N} steps; step var ∝ 1/N confirms √N scaling`;\n    svg.appendChild(tl);\n    // out\n    if(paths.length===1){\n      const p = paths[0];\n      const qv = p.slice(1).reduce((acc,v,i)=>acc+(v-p[i])**2,0);\n      out.textContent =\n        `single path with N=${N} steps\\n`+\n        `W_1 sample  = ${p[p.length-1].toFixed(4)}\\n`+\n        `quadratic variation Σ(ΔW)² = ${qv.toFixed(4)}  (converges to t=1 as N→∞)\\n`+\n        `total variation Σ|ΔW| = ${p.slice(1).reduce((a,v,i)=>a+Math.abs(v-p[i]),0).toFixed(2)} (→ ∞)`;\n    } else if(paths.length>1){\n      const w1s = paths.map(p=>p[p.length-1]);\n      const m = w1s.reduce((a,b)=>a+b,0)/w1s.length;\n      const s = w1s.reduce((a,b)=>a+(b-m)**2,0)/w1s.length;\n      out.textContent =\n        `${paths.length} overlaid paths, N=${N} steps each\\n`+\n        `empirical mean of W_1 ≈ ${m.toFixed(3)}  (target 0)\\n`+\n        `empirical var  of W_1 ≈ ${s.toFixed(3)}  (target 1)`;\n    } else {\n      out.textContent = 'Click \"new path\" to simulate.';\n    }\n  }\n  $('#bm-new').addEventListener('click',newPath);\n  $('#bm-many').addEventListener('click',many);\n  $('#bm-reset').addEventListener('click',reset);\n  sl.addEventListener('input',()=>{ slv.textContent = 'N = '+sl.value; });\n  newPath();",
+            "sectionComment": "=============================== §12 Brownian motion ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n/* sidebar TOC builder + active-section highlighting */\n(function(){\n  function build(){\n    const aside = document.querySelector('aside.sidetoc');\n    const topnav = document.querySelector('nav.toc');\n    if(!aside || !topnav) return;\n    const srcs = [...topnav.querySelectorAll('a[href^=\"#\"]')];\n    if(!srcs.length) return;\n    const title = document.createElement('div');\n    title.className = 'sidetoc-title';\n    title.textContent = 'On this page';\n    aside.appendChild(title);\n    const ol = document.createElement('ol');\n    srcs.forEach(src => {\n      const li = document.createElement('li');\n      const a = document.createElement('a');\n      a.href = src.getAttribute('href');\n      a.textContent = src.textContent.replace(/ /g,' ').trim();\n      li.appendChild(a); ol.appendChild(li);\n    });\n    aside.appendChild(ol);\n    const links = [...aside.querySelectorAll('a')];\n    const sections = [];\n    links.forEach(a => {\n      const id = a.getAttribute('href').slice(1);\n      const s = document.getElementById(id);\n      if(s) sections.push({a, s});\n    });\n    if(!sections.length) return;\n    function update(){\n      const threshold = 140;\n      let activeLink = sections[0].a;\n      for(const {a,s} of sections){\n        if(s.getBoundingClientRect().top <= threshold) activeLink = a;\n      }\n      links.forEach(x => x.classList.remove('active'));\n      activeLink.classList.add('active');\n    }\n    update();\n    window.addEventListener('scroll', update, {passive:true});\n    window.addEventListener('resize', update);\n  }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);\n  else build();\n})();\n</script>\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('probability-theory'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

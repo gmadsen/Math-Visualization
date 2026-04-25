@@ -15,6 +15,12 @@ python3 -m http.server 8000      # Python 3
 npx serve .                      # Node
 ```
 
+## How the notebook is organized
+
+Each topic is one `<topic>.html` file, plus a concept-graph entry under `concepts/<topic>.json` and a quiz bank under `quizzes/<topic>.json`. The concept graph (`concepts/index.json` + per-topic files + `concepts/capstones.json`) drives [`pathway.html`](./pathway.html); the quiz banks drive the in-page quizzes.
+
+Alongside each handwritten `<topic>.html`, the repo also carries a structured `content/<topic>.json` — a block-level decomposition of the page (prose, widgets, widget scripts, quizzes) that round-trips byte-identically to the HTML via `scripts/render-topic.mjs`. Widgets are described by JSON Schemas under `widgets/<slug>/`, so alternate frontends can consume the same content without touching the HTML. See `examples/react-consumer/` for a proof-of-concept React renderer and [`widgets/README.md`](./widgets/README.md) for the registry.
+
 ## Learning pathways
 
 Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals. Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v1). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
@@ -112,4 +118,4 @@ The arithmetic / automorphic arc of the notebook draws primarily on:
 
 ---
 
-Contributing, or directing an agent on this repo? See [`AGENTS.md`](./AGENTS.md) for authoring conventions, helper scripts, and the quiz/progression wiring. Forward priorities live in [`PLAN.md`](./PLAN.md).
+Contributing, or directing an agent on this repo? See [`AGENTS.md`](./AGENTS.md) for authoring conventions, helper scripts, and the quiz/progression wiring. Forward priorities live in [`PLAN.md`](./PLAN.md), and [`widgets/README.md`](./widgets/README.md) documents the widget registry pattern used by the structured content pipeline.

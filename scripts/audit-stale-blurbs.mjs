@@ -33,15 +33,16 @@
 //
 // Always exits 0 (this is an advisory audit, not a CI gate).
 //
-// Zero external dependencies.
+// Consumes the shared content model (scripts/lib/content-model.mjs): concept
+// loading, HTML parsing, and section-element resolution are done once by the
+// loader. Section prose is extracted via `forEachSectionProse`, which yields
+// only prose TextNodes (widgets/scripts/styles/code/pre/aside/headings/<a>
+// subtrees and `.katex`/`.widget` elements are skipped) and exposes each
+// fragment's `masked` text — same bytes as the source, but KaTeX math spans
+// ($…$, $$…$$, \(…\), \[…\]) are replaced with spaces so math tokens don't
+// leak into the bag-of-words.
 
-import { readFileSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
+import { loadContentModel, forEachSectionProse } from './lib/content-model.mjs';
 
 const argv = process.argv.slice(2);
 const VERBOSE = argv.includes('--verbose');
@@ -128,68 +129,48 @@ const BLAND = new Set([
 ]);
 
 // ─────────────────────────────────────────────────────────────────────────
-// Load concept graph.
+// Load the shared content model.
 
-const indexPath = join(conceptsDir, 'index.json');
-const topics = JSON.parse(readFileSync(indexPath, 'utf8')).topics;
+const model = await loadContentModel();
+const { topicIds, topics, concepts } = model;
 
-const topicData = new Map(); // topic -> parsed JSON
-
-for (const topic of topics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p)) continue;
-  const d = JSON.parse(readFileSync(p, 'utf8'));
-  topicData.set(topic, d);
-}
+// Registered-topic iteration order: whatever index.json listed, filtered
+// to topics we actually have a content record for.
+const registeredTopics = topicIds.filter((t) => topics.has(t));
 
 // ─────────────────────────────────────────────────────────────────────────
-// Section extraction. Same anchor-boundary trick as audit-callbacks.mjs,
-// with a conservative prose extractor: drop <script>, <style>, <svg>,
-// <aside>, <pre>, <code>, all widget <div>s, KaTeX math spans, and then
-// strip remaining tags to leave plaintext.
+// Section prose extraction.
 
-function escapeRe(s) {
-  return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+/**
+ * Concatenate every prose TextNode under `sectionEl`, using each node's
+ * `masked` view so $…$ / $$…$$ / \(…\) / \[…\] regions are blanked out.
+ *
+ * `forEachSectionProse` already skips <script>/<style>/<svg>/<code>/<pre>/
+ * <aside>/<h1>-<h6>/<a> subtrees and elements with class `widget` or `katex`.
+ * Joining with a single space keeps adjacent fragments from fusing into a
+ * single token when the walker returns them separately.
+ */
+function collectSectionProse(sectionEl) {
+  if (!sectionEl) return '';
+  const parts = [];
+  forEachSectionProse(sectionEl, (_n, { masked }) => {
+    parts.push(masked);
+  });
+  return parts.join(' ');
 }
 
-function findSectionBody(html, anchor) {
-  const idRe = new RegExp(
-    `<([a-zA-Z][a-zA-Z0-9]*)([^>]*\\sid=["']${escapeRe(anchor)}["'][^>]*)>`,
-    'i',
-  );
-  const m = idRe.exec(html);
-  if (!m) return null;
-  const innerStart = m.index + m[0].length;
-
-  const nextBoundaryRe = /<(?:section|h2|h3|h4)\b[^>]*\sid=["'][^"']+["']/gi;
-  nextBoundaryRe.lastIndex = innerStart;
-  const nb = nextBoundaryRe.exec(html);
-
-  const nextCloseRe = /<\/section>/gi;
-  nextCloseRe.lastIndex = innerStart;
-  const nc = nextCloseRe.exec(html);
-
-  let innerEnd;
-  if (nb && (!nc || nb.index < nc.index)) innerEnd = nb.index;
-  else if (nc) innerEnd = nc.index;
-  else innerEnd = html.length;
-
-  return html.slice(innerStart, innerEnd);
-}
-
-function stripTag(body, tag) {
-  const re = new RegExp(`<${tag}\\b[^>]*>[\\s\\S]*?</${tag}\\s*>`, 'gi');
-  return body.replace(re, ' ');
-}
-
-function extractTerms(sectionBody) {
-  // Terms that carry extra weight: inside <em>, <strong>, inline <code>,
-  // and multi-word Capitalized phrases in plain prose.
-  const weighted = []; // lowercased strings
+/**
+ * Harvest text inside <em>, <strong>, and <code> within the raw section
+ * HTML. These phrases contribute weighted counts to the section bag (and
+ * <code> text would otherwise be skipped entirely, since the prose walker
+ * excludes <code> subtrees). Returns lowercased strings.
+ */
+function extractTerms(sectionHtml) {
+  const weighted = [];
 
   const grab = (re) => {
     let m;
-    while ((m = re.exec(sectionBody))) {
+    while ((m = re.exec(sectionHtml))) {
       const txt = m[1].replace(/<[^>]+>/g, ' ').trim();
       if (txt) weighted.push(txt.toLowerCase());
     }
@@ -200,65 +181,6 @@ function extractTerms(sectionBody) {
   grab(/<code\b[^>]*>([\s\S]*?)<\/code>/gi);
 
   return weighted;
-}
-
-function extractProseTokens(sectionBody) {
-  // Strip fully-skipped containers.
-  let b = sectionBody;
-  for (const t of ['script', 'style', 'svg', 'aside', 'pre', 'code']) {
-    b = stripTag(b, t);
-  }
-  // Widget divs. Cheap skip: any <div class="widget" …>…</div> — since
-  // <div> nests we use a simple balanced pass.
-  {
-    const openRe = /<div\b[^>]*\bclass=["'][^"']*\bwidget\b[^"']*["'][^>]*>/gi;
-    let out = '';
-    let cursor = 0;
-    let m;
-    while ((m = openRe.exec(b))) {
-      out += b.slice(cursor, m.index);
-      // balance-scan from m.index
-      let depth = 1;
-      let i = m.index + m[0].length;
-      const divO = /<div\b[^>]*>/gi;
-      const divC = /<\/div\s*>/gi;
-      divO.lastIndex = i;
-      divC.lastIndex = i;
-      let end = b.length;
-      while (depth > 0) {
-        divO.lastIndex = Math.max(divO.lastIndex, divC.lastIndex - 1);
-        const o = divO.exec(b);
-        const c = divC.exec(b);
-        if (!c) break;
-        if (o && o.index < c.index) {
-          depth++;
-          divC.lastIndex = o.index + o[0].length;
-        } else {
-          depth--;
-          if (depth === 0) {
-            end = c.index + c[0].length;
-            break;
-          }
-          divO.lastIndex = c.index + c[0].length;
-        }
-      }
-      cursor = end;
-      openRe.lastIndex = end;
-    }
-    out += b.slice(cursor);
-    b = out;
-  }
-
-  // KaTeX math spans: $$…$$, $…$, \(…\), \[…\].
-  b = b.replace(/\$\$[\s\S]*?\$\$/g, ' ');
-  b = b.replace(/(^|[^\\])\$[^$\n]*?\$/g, '$1 ');
-  b = b.replace(/\\\([\s\S]*?\\\)/g, ' ');
-  b = b.replace(/\\\[[\s\S]*?\\\]/g, ' ');
-
-  // Strip remaining tags.
-  const text = b.replace(/<[^>]+>/g, ' ');
-
-  return text;
 }
 
 // Tokenize: lowercase alphanumeric runs; hyphen-glued words split (treat
@@ -330,20 +252,20 @@ function normalizeBlurb(blurb) {
 // term of art in this corpus.)
 
 const globalVocab = new Set();
-for (const [, d] of topicData) {
-  for (const c of d.concepts || []) {
+for (const topic of registeredTopics) {
+  for (const cid of topics.get(topic).conceptIds) {
+    const c = concepts.get(cid);
+    if (!c) continue;
     for (const t of tokenize(c.title || '')) {
       const s = stem(t);
       if (!BLAND.has(s)) globalVocab.add(s);
     }
-    // Also pull tokens from OTHER concepts' blurbs that appear repeatedly —
-    // but titles are the cleanest canonical source, so keep it simple.
   }
 }
 
 // Also seed from topic slugs themselves (e.g. "adeles-and-ideles" contributes
 // "adele" / "idele").
-for (const topic of topicData.keys()) {
+for (const topic of registeredTopics) {
   for (const tok of topic.split(/[^a-z0-9]+/i)) {
     if (tok.length >= MIN_TOKEN_LEN) {
       const s = stem(tok.toLowerCase());
@@ -356,8 +278,10 @@ for (const topic of topicData.keys()) {
 // Build duplicate-blurb map up front.
 
 const blurbSeen = new Map(); // normalized blurb -> [{topic,id}]
-for (const [topic, d] of topicData) {
-  for (const c of d.concepts || []) {
+for (const topic of registeredTopics) {
+  for (const cid of topics.get(topic).conceptIds) {
+    const c = concepts.get(cid);
+    if (!c) continue;
     const key = (c.blurb || '').trim().toLowerCase().replace(/\s+/g, ' ');
     if (!key) continue;
     if (!blurbSeen.has(key)) blurbSeen.set(key, []);
@@ -379,26 +303,17 @@ const counters = {
 };
 
 let totalConcepts = 0;
-const pageCache = new Map();
 
-function loadPage(page) {
-  if (pageCache.has(page)) return pageCache.get(page);
-  const p = join(repoRoot, page);
-  if (!existsSync(p)) {
-    pageCache.set(page, null);
-    return null;
-  }
-  const html = readFileSync(p, 'utf8');
-  pageCache.set(page, html);
-  return html;
-}
+for (const topic of registeredTopics) {
+  const topicEntry = topics.get(topic);
+  const page = topicEntry.page;
+  // Null `html` means the topic's HTML page couldn't be loaded. Mirror the
+  // original "loadPage returned null" branch: skip the whole topic.
+  if (!topicEntry.html) continue;
 
-for (const [topic, d] of topicData) {
-  const page = d.page || `${topic}.html`;
-  const html = loadPage(page);
-  if (!html) continue;
-
-  for (const c of d.concepts || []) {
+  for (const cid of topicEntry.conceptIds) {
+    const c = concepts.get(cid);
+    if (!c) continue;
     totalConcepts++;
     const codes = [];
     const notes = [];
@@ -428,9 +343,9 @@ for (const [topic, d] of topicData) {
       notes.push(`duplicate blurb shared with ${others.join(', ')}`);
     }
 
-    // Locate section.
-    const sectionBody = c.anchor ? findSectionBody(html, c.anchor) : null;
-    if (!sectionBody) {
+    // Locate section (pre-parsed via loadContentModel).
+    const sectionEl = c.anchor ? c.section : null;
+    if (!sectionEl) {
       // Still record size/dup flags but skip term-based ones.
       if (c.anchor) {
         counters.SECTION_NOT_FOUND++;
@@ -446,8 +361,9 @@ for (const [topic, d] of topicData) {
       continue;
     }
 
-    const weighted = extractTerms(sectionBody);
-    const proseText = extractProseTokens(sectionBody);
+    const sectionHtml = sectionEl.innerHTML || '';
+    const weighted = extractTerms(sectionHtml);
+    const proseText = collectSectionProse(sectionEl);
     const proseBag = toBag(proseText);
 
     // Add weighted mentions (em/strong/code) with extra weight.
@@ -534,7 +450,7 @@ for (const [topic, d] of topicData) {
 const pagesFlagged = new Set(flags.map((f) => f.topic));
 
 console.log(
-  `audit-stale-blurbs: ${totalConcepts} concept(s) across ${topicData.size} topic(s)`,
+  `audit-stale-blurbs: ${totalConcepts} concept(s) across ${registeredTopics.length} topic(s)`,
 );
 console.log(`  flagged concepts: ${flags.length}`);
 console.log(`  affected topics:  ${pagesFlagged.size}`);

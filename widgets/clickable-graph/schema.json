@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/clickable-graph/schema.json",
+  "title": "clickable-graph widget params",
+  "description": "Shared widget module for the `clickable-graph` family: a host <svg> whose elements (nodes, regions, edges) are themselves the interactive controls. No sliders, buttons, or selects — the user clicks / drags a hotspot on the SVG and the readout updates. Data model: an ordered `nodes` array, an optional `edges` array, optional `readoutMap` keyed by node id, and `clickAction ∈ {highlight,toggle,reveal}` describing the UX contract. Because these widgets' JS bodies are highly idiosyncratic (custom painters, transitive-closure highlighting, stereographic projection, drag handling), the driving IIFE is carried as an artifact string in `bodyScript` so `renderScript` can byte-match the legacy inline source. A portable consumer (React, SSR, etc.) can ignore `bodyScript` entirely and render from the structured `nodes` / `edges` / `readoutMap` data.",
+  "meta": {
+    "family": "clickable-graph",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "viewBox",
+    "title",
+    "clickAction",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the host <svg> element."
+    },
+    "viewBox": {
+      "type": "string",
+      "description": "The SVG's viewBox attribute (e.g. \"0 0 820 400\")."
+    },
+    "svgWidthAttr": {
+      "type": "string",
+      "description": "ARTIFACT. Optional raw width attribute value on the <svg>. When present the <svg> is rendered with width=\"...\"; when absent no width attribute is emitted. Some source widgets include `width=\"820\"` and some omit it — this field preserves each original."
+    },
+    "svgHeightAttr": {
+      "type": "string",
+      "description": "ARTIFACT. Optional raw height attribute value on the <svg>. Paired with svgWidthAttr above."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl and inside the <svg>'s <title> element."
+    },
+    "titleTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .ttl header element inside .hd. Default 'div' emits <div class=\"ttl\">; 'span' emits <span class=\"ttl\"> (a layout sub-variant in some legacy topics)."
+    },
+    "hintTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint. If absent, the hint <div> is omitted."
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Portable data: the clickable vertices of the graph. Each node is a spot on the SVG the user can click; `kind` is an advisory role tag a portable consumer can use to style (e.g. 'generic', 'closed', 'sink').",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id"],
+        "properties": {
+          "id":    { "type": "string" },
+          "label": { "type": "string" },
+          "x":     { "type": "number" },
+          "y":     { "type": "number" },
+          "kind":  { "type": "string" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "description": "Portable data: directed edges between nodes. `curve` is the arrow-bow offset (same convention as drawArrow), `kind` is an advisory role tag (e.g. 'given', 'derived').",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["src", "tgt"],
+        "properties": {
+          "id":    { "type": "string" },
+          "src":   { "type": "string" },
+          "tgt":   { "type": "string" },
+          "label": { "type": "string" },
+          "curve": { "type": "number" },
+          "kind":  { "type": "string" }
+        }
+      }
+    },
+    "initialSelection": {
+      "type": "string",
+      "description": "Optional node id that is pre-selected on mount. Advisory for portable consumers — the artifact bodyScript is responsible for the inline-JS representation of initial state."
+    },
+    "clickAction": {
+      "type": "string",
+      "enum": ["highlight", "toggle", "reveal"],
+      "description": "UX contract on node click: 'highlight' permanently highlights the clicked node + its dependency set; 'toggle' flips selection on/off; 'reveal' exposes extra data about the clicked node (e.g. reasoning text)."
+    },
+    "readoutId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "Optional DOM id for the <div class=\"readout\"> companion element. If absent, no readout div is rendered."
+    },
+    "initialReadoutHtml": {
+      "type": "string",
+      "description": "ARTIFACT. Raw HTML placed inside the readout div on initial render. Preserves inline spans / colors from the legacy source."
+    },
+    "readoutMap": {
+      "type": "object",
+      "description": "Portable data: keys are node ids from `nodes[].id` (or synthetic selection keys); values are the readout strings / HTML to display when that node is selected. A portable consumer drives its own renderer from this; the artifact bodyScript may or may not consult it.",
+      "additionalProperties": { "type": "string" }
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. The full body of the driving IIFE — everything between `(function(){` and `})();`. Preserves original comments, whitespace, and inline logic so renderScript can byte-match the legacy inline source. A portable consumer ignores this and reconstructs behavior from nodes/edges/readoutMap/clickAction."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional JS block comment placed at the top of the IIFE (e.g. '=== SECTION 5: Specialization poset ==='). Lets the script byte-match its original source when one is present."
+    },
+    "trailingExplainer": {
+      "type": "string",
+      "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
+    },
+    "hdHtml": {
+      "type": "string",
+      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+    }
+  }
+}

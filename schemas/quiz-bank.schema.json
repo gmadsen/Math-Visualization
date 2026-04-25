@@ -1,0 +1,338 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-visualization.local/schemas/quiz-bank.schema.json",
+  "title": "Quiz bank (per-topic)",
+  "description": "Shape of quizzes/<topic>.json. Each key under `quizzes` is a concept id (matching concepts/<topic>.json). Each entry carries a v1 tier (`questions`, required), and may carry `hard` and/or `expert` tiers. MVProgress tracks v1/hard/expert mastery independently; quiz.js unlocks hard after v1 and expert after hard.",
+  "type": "object",
+  "required": ["topic", "quizzes"],
+  "additionalProperties": false,
+  "properties": {
+    "topic": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Topic slug matching the JSON filename stem."
+    },
+    "quizzes": {
+      "type": "object",
+      "description": "Map from concept id to that concept's quiz bank.",
+      "additionalProperties": { "$ref": "#/$defs/conceptQuiz" }
+    }
+  },
+  "$defs": {
+    "conceptQuiz": {
+      "type": "object",
+      "required": ["title", "questions"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Readable quiz title shown in the quiz widget header."
+        },
+        "questions": {
+          "type": "array",
+          "minItems": 1,
+          "description": "v1 tier. Required. Passing all questions here marks the concept v1-mastered and gates downstream concepts.",
+          "items": { "$ref": "#/$defs/question" }
+        },
+        "hard": {
+          "type": "array",
+          "description": "Optional hard tier. Unlocked in quiz.js after v1 mastery.",
+          "items": { "$ref": "#/$defs/question" }
+        },
+        "expert": {
+          "type": "array",
+          "description": "Optional expert tier. Unlocked in quiz.js after hard mastery.",
+          "items": { "$ref": "#/$defs/question" }
+        }
+      }
+    },
+    "question": {
+      "oneOf": [
+        { "$ref": "#/$defs/q_mcq" },
+        { "$ref": "#/$defs/q_numeric" },
+        { "$ref": "#/$defs/q_complex" },
+        { "$ref": "#/$defs/q_multiSelect" },
+        { "$ref": "#/$defs/q_ordering" },
+        { "$ref": "#/$defs/q_proofCompletion" },
+        { "$ref": "#/$defs/q_matching" },
+        { "$ref": "#/$defs/q_spotTheError" },
+        { "$ref": "#/$defs/q_construction" },
+        { "$ref": "#/$defs/q_guessMyRule" }
+      ]
+    },
+    "hintField": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional short nudge. When absent, quiz.js falls back to the first sentence of `explain`."
+    },
+    "explainField": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Full solution / explanation shown after answering. KaTeX allowed."
+    },
+    "promptField": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Question prompt. KaTeX allowed; HTML markup allowed."
+    },
+    "q_mcq": {
+      "type": "object",
+      "required": ["type", "q", "choices", "answer", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "mcq" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "answer": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into `choices` of the single correct option."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_numeric": {
+      "type": "object",
+      "required": ["type", "q", "answer", "tol", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "numeric" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "answer": { "type": "number" },
+        "tol": { "type": "number", "minimum": 0 },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" },
+        "tol_note": {
+          "type": "string",
+          "description": "Optional author-facing note about the tolerance choice. Not consumed by quiz.js."
+        }
+      }
+    },
+    "q_complex": {
+      "type": "object",
+      "required": ["type", "q", "answer", "tol", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "complex" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "answer": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "[re, im] pair."
+        },
+        "tol": { "type": "number", "minimum": 0 },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_multiSelect": {
+      "type": "object",
+      "required": ["type", "q", "choices", "answer", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "multi-select" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "answer": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "uniqueItems": true,
+          "description": "Correct indices (order-insensitive set)."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_ordering": {
+      "type": "object",
+      "required": ["type", "q", "items", "answer", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "ordering" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "answer": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "description": "Correct permutation of indices into `items`."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_proofCompletion": {
+      "type": "object",
+      "required": ["type", "q", "steps", "choices", "answer", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "proof-completion" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Given proof prefix shown read-only."
+        },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Candidate next steps."
+        },
+        "answer": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into `choices` of the correct continuation."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_matching": {
+      "type": "object",
+      "required": ["type", "q", "left", "right", "answer", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "matching" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "left": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "right": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "answer": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "description": "answer[i] is the index into `left` pairing with right[i]. Must have length == len(right)."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_spotTheError": {
+      "type": "object",
+      "required": ["type", "q", "steps", "answer", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "spot-the-error" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "steps": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "answer": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "0-based index of the flawed step."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_construction": {
+      "type": "object",
+      "required": ["type", "q", "target", "viewBox", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "construction" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "viewBox": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SVG viewBox string, e.g. \"-1.2 -1.2 2.4 2.4\"."
+        },
+        "start": {
+          "type": "object",
+          "description": "Optional marker starting position, in viewBox coordinates.",
+          "required": ["x", "y"],
+          "additionalProperties": false,
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          }
+        },
+        "target": {
+          "type": "object",
+          "required": ["kind", "x", "y", "tolerance"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "const": "point" },
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "tolerance": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    },
+    "q_guessMyRule": {
+      "type": "object",
+      "required": ["type", "q", "examples", "testCases", "explain"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "guess-my-rule" },
+        "q": { "$ref": "#/$defs/promptField" },
+        "examples": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "number" }
+          },
+          "description": "[input, output] pairs shown to the learner."
+        },
+        "testCases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "number" }
+          },
+          "description": "[input, expected] pairs the learner fills in."
+        },
+        "inputKind": {
+          "type": "string",
+          "description": "Advisory label for the input type, e.g. \"integer\"."
+        },
+        "outputKind": {
+          "type": "string",
+          "description": "Advisory label for the output type."
+        },
+        "tol": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Per-case absolute tolerance. Defaults to 1e-6 in quiz.js when absent."
+        },
+        "explain": { "$ref": "#/$defs/explainField" },
+        "hint": { "$ref": "#/$defs/hintField" }
+      }
+    }
+  }
+}

@@ -1,0 +1,830 @@
+{
+  "topic": "dirichlet-series-euler-products",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Dirichlet series &amp; Euler products — analytic form of unique factorization</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"modular-forms-and-l-functions\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#series\">1&nbsp;Dirichlet&nbsp;series</a>\n  <a href=\"#zeta\">2&nbsp;The&nbsp;zeta&nbsp;prototype</a>\n  <a href=\"#euler\">3&nbsp;Euler&nbsp;products</a>\n  <a href=\"#chars\">4&nbsp;Characters&nbsp;&amp;&nbsp;L</a>\n  <a href=\"#cont\">5&nbsp;Continuation</a>\n  <a href=\"#mellin\">6&nbsp;Mellin&nbsp;transform</a>\n  <a href=\"#perron\">7&nbsp;Perron's&nbsp;formula</a>\n  <a href=\"#dir\">8&nbsp;Primes&nbsp;in&nbsp;APs</a>\n  <a href=\"#forward\">9&nbsp;What&nbsp;comes&nbsp;next</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Dirichlet series and Euler products</h1>\n  <p class=\"sub\">From $\\sum a_n/n^s$ to the analytic form of unique factorization. The Riemann zeta function, Dirichlet $L$-functions, the functional equation, and the theorem that every arithmetic progression $a \\bmod N$ with $\\gcd(a,N)=1$ contains infinitely many primes.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "series",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"series\">\n<h2>1. Dirichlet series and the half-plane of convergence</h2>\n<p>A <strong>Dirichlet series</strong> is a formal expression\n$$D(s) \\;=\\; \\sum_{n=1}^{\\infty} \\frac{a_n}{n^s}, \\qquad s \\in \\mathbb{C},$$\nwhere the coefficients $a_n$ are complex numbers. Power series live on discs; Dirichlet series live on right half-planes. Write $s = \\sigma + it$. If the series converges absolutely at some $s_0 = \\sigma_0 + it_0$, then\n$$\\sum_n \\frac{|a_n|}{n^{\\sigma_0}} < \\infty \\;\\Longrightarrow\\; \\sum_n \\frac{|a_n|}{n^{\\sigma}} \\le \\sum_n \\frac{|a_n|}{n^{\\sigma_0}} < \\infty$$\nfor every $\\sigma \\ge \\sigma_0$, because $n^{-\\sigma} \\le n^{-\\sigma_0}$ when $n \\ge 1$. So the set of $s$ at which $D(s)$ converges absolutely is a right half-plane\n$$\\{\\,s : \\mathrm{Re}\\,s > \\sigma_a\\,\\}$$\nfor some <strong>abscissa of absolute convergence</strong> $\\sigma_a \\in [-\\infty, +\\infty]$. Conditional convergence has its own abscissa $\\sigma_c \\le \\sigma_a$, and $\\sigma_a - \\sigma_c \\le 1$ — we stay in the absolute regime here for simplicity.</p>\n\n<h3>Uniqueness of coefficients</h3>\n<p>On its half-plane of absolute convergence, the coefficients are uniquely recoverable:\n$$a_n \\;=\\; \\lim_{\\sigma \\to \\infty} n^\\sigma \\Bigl( D(\\sigma) - \\sum_{k<n} \\frac{a_k}{k^\\sigma} \\Bigr).$$\nAs $\\sigma \\to \\infty$, every term $a_k/k^\\sigma$ with $k < n$ is killed by multiplication by $n^\\sigma$ (because $(n/k)^\\sigma \\to \\infty$ eats the tail), while the $n$-th term becomes $a_n$, and tails beyond $n$ vanish. So if $D_1 = D_2$ as functions on a half-plane, their coefficient sequences are identical — a first hint that these objects are rigid.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-halfplane",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-halfplane",
+            "title": "Half-plane of convergence",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hp-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"hp-sig\">abscissa $\\sigma_a$</label>\n    <input type=\"range\" id=\"hp-sig\" min=\"-2\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"hp-sigv\" class=\"readout\" style=\"min-width:120px;flex:0 0 auto\">$\\sigma_a = 1.00$</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Green = absolute convergence. Red = divergence. The boundary line $\\mathrm{Re}\\,s = \\sigma_a$ is where $\\sum |a_n|/n^\\sigma$ first goes finite.</div>"
+              }
+            ],
+            "hint": "drag the abscissa $\\sigma_a$",
+            "bodyScript": "  const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');\n  const W = 620, H = 260, pad = 40;\n  const xmin = -2.5, xmax = 3.5, ymin = -2.5, ymax = 2.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function draw(){\n    svg.innerHTML = '';\n    const sv = parseFloat(sig.value);\n    // green half-plane (right of sv)\n    const xL = toX(sv), xR = toX(xmax);\n    svg.appendChild(SVG('rect',{x:xL,y:toY(ymax),width:xR-xL,height:toY(ymin)-toY(ymax),\n      fill:'rgba(131,193,103,0.18)'}));\n    // red half-plane (left of sv)\n    svg.appendChild(SVG('rect',{x:toX(xmin),y:toY(ymax),width:xL-toX(xmin),height:toY(ymin)-toY(ymax),\n      fill:'rgba(224,122,95,0.15)'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:toX(0),y1:toY(ymin),x2:toX(0),y2:toY(ymax),stroke:'var(--mute)','stroke-width':1}));\n    // grid ticks\n    for(let k=-2;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:toY(0)-4,x2:toX(k),y2:toY(0)+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // boundary\n    svg.appendChild(SVG('line',{x1:toX(sv),y1:toY(ymin),x2:toX(sv),y2:toY(ymax),\n      stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));\n    // labels\n    const lbl1 = SVG('text',{x:toX(sv)+6,y:toY(ymax)+14,'font-size':12,fill:'var(--yellow)'});\n    lbl1.textContent = 'Re s = σₐ';\n    svg.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:toX(2.6),y:toY(ymax)+14,'font-size':12,fill:'var(--green)'});\n    lbl2.textContent = 'absolute convergence';\n    svg.appendChild(lbl2);\n    const lbl3 = SVG('text',{x:toX(-2.3),y:toY(ymax)+14,'font-size':12,fill:'var(--pink)'});\n    lbl3.textContent = 'divergence';\n    svg.appendChild(lbl3);\n    const lbl4 = SVG('text',{x:toX(xmax)-6,y:toY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    lbl4.textContent = 'Re s'; svg.appendChild(lbl4);\n    const lbl5 = SVG('text',{x:toX(0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--mute)'});\n    lbl5.textContent = 'Im s'; svg.appendChild(lbl5);\n    sigv.textContent = `σₐ = ${sv.toFixed(2)}`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 1 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./real-analysis.html#riemann-integral\">Riemann integral</a></li>\n      <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#tate\">Adèles and idèles</a> · Tate's thesis sketch</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#euler\">Dirichlet series and Euler products</a> · Euler products and multiplicativity</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#mellin\">Dirichlet series and Euler products</a> · Mellin transform and the gamma integral</div>\n    <div><a href=\"./L-functions.html#continuation\">L-functions</a> · Analytic continuation of $L$-functions</div>\n    <div><a href=\"./power-sums-bernoulli.html#zeta\">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Euler's formula for $\\zeta(2n)$</div>\n    <div><a href=\"./waring.html#circle\">Waring's problem and the circle method</a> · Circle method setup</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-halfplane",
+            "title": "Half-plane of convergence",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hp-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"hp-sig\">abscissa $\\sigma_a$</label>\n    <input type=\"range\" id=\"hp-sig\" min=\"-2\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"hp-sigv\" class=\"readout\" style=\"min-width:120px;flex:0 0 auto\">$\\sigma_a = 1.00$</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Green = absolute convergence. Red = divergence. The boundary line $\\mathrm{Re}\\,s = \\sigma_a$ is where $\\sum |a_n|/n^\\sigma$ first goes finite.</div>"
+              }
+            ],
+            "hint": "drag the abscissa $\\sigma_a$",
+            "bodyScript": "  const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');\n  const W = 620, H = 260, pad = 40;\n  const xmin = -2.5, xmax = 3.5, ymin = -2.5, ymax = 2.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function draw(){\n    svg.innerHTML = '';\n    const sv = parseFloat(sig.value);\n    // green half-plane (right of sv)\n    const xL = toX(sv), xR = toX(xmax);\n    svg.appendChild(SVG('rect',{x:xL,y:toY(ymax),width:xR-xL,height:toY(ymin)-toY(ymax),\n      fill:'rgba(131,193,103,0.18)'}));\n    // red half-plane (left of sv)\n    svg.appendChild(SVG('rect',{x:toX(xmin),y:toY(ymax),width:xL-toX(xmin),height:toY(ymin)-toY(ymax),\n      fill:'rgba(224,122,95,0.15)'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:toX(0),y1:toY(ymin),x2:toX(0),y2:toY(ymax),stroke:'var(--mute)','stroke-width':1}));\n    // grid ticks\n    for(let k=-2;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:toY(0)-4,x2:toX(k),y2:toY(0)+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // boundary\n    svg.appendChild(SVG('line',{x1:toX(sv),y1:toY(ymin),x2:toX(sv),y2:toY(ymax),\n      stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));\n    // labels\n    const lbl1 = SVG('text',{x:toX(sv)+6,y:toY(ymax)+14,'font-size':12,fill:'var(--yellow)'});\n    lbl1.textContent = 'Re s = σₐ';\n    svg.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:toX(2.6),y:toY(ymax)+14,'font-size':12,fill:'var(--green)'});\n    lbl2.textContent = 'absolute convergence';\n    svg.appendChild(lbl2);\n    const lbl3 = SVG('text',{x:toX(-2.3),y:toY(ymax)+14,'font-size':12,fill:'var(--pink)'});\n    lbl3.textContent = 'divergence';\n    svg.appendChild(lbl3);\n    const lbl4 = SVG('text',{x:toX(xmax)-6,y:toY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    lbl4.textContent = 'Re s'; svg.appendChild(lbl4);\n    const lbl5 = SVG('text',{x:toX(0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--mute)'});\n    lbl5.textContent = 'Im s'; svg.appendChild(lbl5);\n    sigv.textContent = `σₐ = ${sv.toFixed(2)}`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 1 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dirichlet-series-basics",
+          "html": "<div class=\"quiz\" data-concept=\"dirichlet-series-basics\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "zeta",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"zeta\">\n<h2>2. The prototype: Riemann's $\\zeta(s)$</h2>\n<p>Take every $a_n = 1$. You get the Riemann zeta function:\n$$\\zeta(s) \\;=\\; \\sum_{n=1}^{\\infty} \\frac{1}{n^s}.$$\nCompare with $\\int_1^\\infty x^{-\\sigma}\\,dx = 1/(\\sigma-1)$ for $\\sigma > 1$. The integral test gives absolute convergence for $\\mathrm{Re}\\,s > 1$ and divergence at $s = 1$ (where the series is the harmonic series). The abscissa of absolute convergence is $\\sigma_a = 1$.</p>\n\n<p>Near $s=1$ the function has a <strong>simple pole with residue $1$</strong>:\n$$\\zeta(s) \\;=\\; \\frac{1}{s-1} \\;+\\; \\gamma \\;+\\; O(s-1),$$\nwhere $\\gamma = \\lim_{N\\to\\infty}\\!\\bigl(\\sum_{n\\le N} 1/n - \\log N\\bigr) \\approx 0.5772$ is Euler's constant. One way to see the pole: $\\sum_{n=1}^N n^{-s} \\approx \\int_1^N x^{-s}\\,dx = (N^{1-s}-1)/(1-s)$, whose limit as $N\\to\\infty$ has a $1/(s-1)$ singularity. Read more on the <a href=\"./complex-analysis.html\">complex-analysis</a> page for what \"simple pole with residue\" means.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-zeta",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-zeta",
+            "title": "$\\zeta(\\sigma)$ on the real axis",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "z-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"z-sig\">$\\sigma$</label>\n    <input type=\"range\" id=\"z-sig\" min=\"1.01\" max=\"5\" step=\"0.01\" value=\"2\">\n    <span id=\"z-val\" class=\"readout\" style=\"min-width:240px;flex:0 0 auto\">ζ(2.00) ≈ 1.6449</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Partial sum to $N=200$ shown. As $\\sigma \\downarrow 1$ the value blows up like $1/(\\sigma-1)$.</div>"
+              }
+            ],
+            "hint": "drag $\\sigma$ on $(1,\\infty)$",
+            "bodyScript": "  const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 1.0, xmax = 5.0, ymin = 0, ymax = 6;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function zeta(s){\n    let S = 0; const N = 400;\n    for(let n=1;n<=N;n++) S += 1/Math.pow(n,s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // ticks\n    for(let k=1;k<=5;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=6;k++){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // vertical asymptote at s=1\n    svg.appendChild(SVG('line',{x1:toX(1.0),y1:toY(0),x2:toX(1.0),y2:toY(ymax),\n      stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'3 4'}));\n    const a = SVG('text',{x:toX(1.0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--pink)'});\n    a.textContent = 'pole at s=1'; svg.appendChild(a);\n\n    // curve\n    let dStr = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + 0.02 + (xmax - xmin - 0.02) * i/steps;\n      const y = zeta(s);\n      const X = toX(s), Y = toY(Math.min(y,ymax));\n      dStr += (i===0?'M':'L') + X + ' ' + Y + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dStr,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // marker\n    const s0 = parseFloat(sig.value);\n    const z = zeta(s0);\n    const X = toX(s0), Y = toY(Math.min(z,ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    const lblY = Y - 12;\n    const t = SVG('text',{x:X,y:lblY,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    t.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}`;\n    svg.appendChild(t);\n\n    val.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}    [1/(σ-1) ≈ ${(1/(s0-1)).toFixed(4)}]`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 2 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-zeta",
+            "title": "$\\zeta(\\sigma)$ on the real axis",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "z-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"z-sig\">$\\sigma$</label>\n    <input type=\"range\" id=\"z-sig\" min=\"1.01\" max=\"5\" step=\"0.01\" value=\"2\">\n    <span id=\"z-val\" class=\"readout\" style=\"min-width:240px;flex:0 0 auto\">ζ(2.00) ≈ 1.6449</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Partial sum to $N=200$ shown. As $\\sigma \\downarrow 1$ the value blows up like $1/(\\sigma-1)$.</div>"
+              }
+            ],
+            "hint": "drag $\\sigma$ on $(1,\\infty)$",
+            "bodyScript": "  const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 1.0, xmax = 5.0, ymin = 0, ymax = 6;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function zeta(s){\n    let S = 0; const N = 400;\n    for(let n=1;n<=N;n++) S += 1/Math.pow(n,s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // ticks\n    for(let k=1;k<=5;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=6;k++){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // vertical asymptote at s=1\n    svg.appendChild(SVG('line',{x1:toX(1.0),y1:toY(0),x2:toX(1.0),y2:toY(ymax),\n      stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'3 4'}));\n    const a = SVG('text',{x:toX(1.0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--pink)'});\n    a.textContent = 'pole at s=1'; svg.appendChild(a);\n\n    // curve\n    let dStr = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + 0.02 + (xmax - xmin - 0.02) * i/steps;\n      const y = zeta(s);\n      const X = toX(s), Y = toY(Math.min(y,ymax));\n      dStr += (i===0?'M':'L') + X + ' ' + Y + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dStr,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // marker\n    const s0 = parseFloat(sig.value);\n    const z = zeta(s0);\n    const X = toX(s0), Y = toY(Math.min(z,ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    const lblY = Y - 12;\n    const t = SVG('text',{x:X,y:lblY,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    t.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}`;\n    svg.appendChild(t);\n\n    val.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}    [1/(σ-1) ≈ ${(1/(s0-1)).toFixed(4)}]`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 2 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "euler",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"euler\">\n<h2>3. Euler products: the analytic form of unique factorization</h2>\n<p>Here is the miracle. A Dirichlet series whose coefficients $a_n$ are <strong>multiplicative</strong> — meaning $a_{mn} = a_m a_n$ whenever $\\gcd(m,n)=1$, and $a_1 = 1$ — splits as a product indexed by primes:\n$$\\sum_{n\\ge 1} \\frac{a_n}{n^s} \\;=\\; \\prod_{p\\text{ prime}} \\Bigl(\\sum_{k\\ge 0} \\frac{a_{p^k}}{p^{ks}}\\Bigr).$$\nWhy? Expand the right side. Unique factorization says every $n \\ge 1$ is a finite product $n = p_1^{k_1}\\cdots p_r^{k_r}$ in <em>exactly one way</em>, so every term $a_n/n^s$ appears <em>exactly once</em> in the product. That is the entire proof. The <strong>Euler product</strong> is, in Riemann's words, \"the analytic form of unique factorization.\"</p>\n\n<p>If $a_n$ is <strong>completely multiplicative</strong> — $a_{mn} = a_m a_n$ for <em>all</em> $m,n$ — the local factor at $p$ collapses to a geometric series:\n$$\\sum_{k\\ge 0} \\frac{a_p^k}{p^{ks}} \\;=\\; \\frac{1}{1 - a_p/p^s}.$$\nSo $\\zeta(s)$, with $a_n \\equiv 1$ (the identity is completely multiplicative), becomes\n$$\\zeta(s) \\;=\\; \\prod_{p}\\frac{1}{1-p^{-s}} \\qquad (\\mathrm{Re}\\,s>1).$$\nA statement about factoring integers has become a statement about an analytic function. See <a href=\"./algebraic-number-theory.html\">algebraic-number-theory</a> for why \"unique factorization\" is the right primitive, and what goes wrong (ideals) when it fails in number rings.</p>\n\n<h3>Sieving the primes out</h3>\n<p>Multiply $\\zeta(s)$ by $(1-2^{-s})$: every term whose index is divisible by $2$ cancels, leaving the sum of $1/n^s$ over <em>odd</em> $n$. Multiply by $(1-3^{-s})$: the remaining multiples of $3$ cancel too. Continue over all primes and you are left with $1/1^s = 1$. That is the Euler product rearranged as a sieve:\n$$\\zeta(s) \\cdot \\prod_{p}(1-p^{-s}) \\;=\\; 1.$$\nWatch the partial sieve converge to $1$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sieve",
+            "title": "Sieve: $\\zeta(s)\\cdot(1-2^{-s})\\cdot(1-3^{-s})\\cdots \\to 1$",
+            "hint": "toggle primes, pick $s$",
+            "svgId": "sv-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "sv-out",
+            "sectionComment": "=============================== SECTION 3a: sieve ===============================",
+            "bodyScript": "  const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29];\n  const active = new Set();\n  const W = 620, H = 240, pad = 40;\n  // init buttons\n  PRIMES.forEach(p => {\n    const b = document.createElement('button');\n    b.textContent = 'p=' + p;\n    b.addEventListener('click', () => {\n      if(active.has(p)) active.delete(p); else active.add(p);\n      b.classList.toggle('active');\n      draw();\n    });\n    btnRow.appendChild(b);\n  });\n\n  function zeta(s){\n    let S = 0; for(let n=1;n<=1000;n++) S += 1/Math.pow(n,s); return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sRange.value);\n    sVal.textContent = 's = ' + s.toFixed(2);\n    // compute sequence of partial products\n    const Z = zeta(s);\n    const sortedPs = [...active].sort((a,b)=>a-b);\n    const ys = [Z];\n    let cur = Z;\n    for(const p of sortedPs){ cur = cur * (1 - Math.pow(p,-s)); ys.push(cur); }\n    // draw bars horizontally\n    const maxBars = 11;\n    const n = ys.length;\n    const barW = (W - 2*pad) / maxBars - 6;\n    const y0 = H - pad - 20;\n    const maxY = Math.max(Z, 2);\n    for(let i=0;i<n;i++){\n      const x = pad + i*((W-2*pad)/maxBars);\n      const h = (ys[i]/maxY) * (H - 2*pad - 30);\n      const col = Math.abs(ys[i]-1) < 0.01 ? 'var(--green)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x, y: y0 - h, width: barW, height: h, fill: col, opacity: 0.85}));\n      const t = SVG('text',{x: x + barW/2, y: y0 + 14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = i === 0 ? 'ζ(s)' : '×(1−'+sortedPs[i-1]+'⁻ˢ)';\n      svg.appendChild(t);\n      const v = SVG('text',{x: x + barW/2, y: y0 - h - 4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      v.textContent = ys[i].toFixed(4);\n      svg.appendChild(v);\n    }\n    // 1-line\n    const yOne = y0 - (1/maxY)*(H - 2*pad - 30);\n    svg.appendChild(SVG('line',{x1:pad,y1:yOne,x2:W-pad,y2:yOne,stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const t = SVG('text',{x:W-pad-4,y:yOne-4,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    t.textContent = 'target = 1'; svg.appendChild(t);\n\n    const last = ys[ys.length-1];\n    out.textContent = `ζ(${s.toFixed(2)}) = ${Z.toFixed(5)}    after sieving through {${sortedPs.join(', ') || '—'}}: ${last.toFixed(5)}`;\n  }\n  sRange.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "sv-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sv-s\">$s$</label>\n    <input type=\"range\" id=\"sv-s\" min=\"1.1\" max=\"3\" step=\"0.05\" value=\"2\">\n    <span id=\"sv-s-val\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"sv-btns\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sv-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<h3>Euler product vs. partial sum</h3>\n<p>Two different approximations to $\\zeta(s)$: the partial sum $\\sum_{n\\le N} 1/n^s$ and the partial Euler product over primes $\\le P$. Both converge to the same limit, but as $s \\to 1^+$ the partial product is much slower (it must sieve through increasingly dense multiples).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler product vs. partial sum for $\\zeta(s)$",
+            "hint": "drag $N$ or $s$",
+            "svgId": "ep-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "ep-out",
+            "sectionComment": "=============================== SECTION 3b: Euler product vs partial sum ===============================",
+            "bodyScript": "  const svg = $('#ep-svg'), N = $('#ep-N'), Nv = $('#ep-Nv'), sR = $('#ep-s'), sVal = $('#ep-sv'), out = $('#ep-out');\n  const W = 620, H = 260, pad = 40;\n\n  function isPrime(n){\n    if(n<2) return false;\n    for(let k=2;k*k<=n;k++) if(n%k===0) return false;\n    return true;\n  }\n  function partialSum(s, M){\n    let S = 0; for(let n=1;n<=M;n++) S += 1/Math.pow(n,s); return S;\n  }\n  function partialEuler(s, M){\n    let P = 1; for(let p=2;p<=M;p++) if(isPrime(p)) P *= 1/(1 - Math.pow(p,-s)); return P;\n  }\n  function trueZeta(s){ return partialSum(s, 4000); }\n\n  function draw(){\n    svg.innerHTML = '';\n    const Nm = parseInt(N.value,10), s = parseFloat(sR.value);\n    Nv.textContent = 'N = ' + Nm;\n    sVal.textContent = 's = ' + s.toFixed(2);\n\n    const xmin = 2, xmax = Math.max(Nm, 10);\n    const target = trueZeta(s);\n    const ymin = Math.max(0, target*0.5), ymax = target*1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmax),y2:toY(ymin),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // target line\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(target),x2:toX(xmax),y2:toY(target),stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const tl = SVG('text',{x:toX(xmax)-5,y:toY(target)-5,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    tl.textContent = `ζ(${s.toFixed(2)}) ≈ ${target.toFixed(4)}`;\n    svg.appendChild(tl);\n\n    // plot partial sum curve and partial euler curve\n    let dS = '', dE = '';\n    for(let M = 2; M <= xmax; M++){\n      const PS = partialSum(s, M), PE = partialEuler(s, M);\n      const X = toX(M);\n      dS += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PS,ymin),ymax)) + ' ';\n      dE += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PE,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dS,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:dE,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n\n    // marker at N\n    const Xn = toX(Nm);\n    const psN = partialSum(s, Nm), peN = partialEuler(s, Nm);\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(psN,ymin),ymax)),r:4,fill:'var(--yellow)'}));\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(peN,ymin),ymax)),r:4,fill:'var(--blue)'}));\n    // legend\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--yellow)'});\n    L1.textContent = '— partial sum Σ_{n≤M} 1/nˢ'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--blue)'});\n    L2.textContent = '— partial Euler Π_{p≤M} (1-p⁻ˢ)⁻¹'; svg.appendChild(L2);\n\n    out.textContent = `at N=${Nm}: partial sum = ${psN.toFixed(5)}, partial Euler = ${peN.toFixed(5)}, target ζ(s) = ${target.toFixed(5)}`;\n  }\n  N.addEventListener('input', draw);\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ep-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-N\">cutoff $N$</label>\n    <input type=\"range\" id=\"ep-N\" min=\"2\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"ep-Nv\" class=\"small\">N = 20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-s\">$s$</label>\n    <input type=\"range\" id=\"ep-s\" min=\"1.2\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"ep-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ep-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n\n\n\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#bsd-rank-equality\">Birch and Swinnerton-Dyer</a> · BSD rank equality</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#dir\">Dirichlet series and Euler products</a> · Dirichlet characters and L-series</div>\n    <div><a href=\"./sato-tate.html#symn\">Sato–Tate</a> · Symmetric-power L-functions</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sieve",
+            "title": "Sieve: $\\zeta(s)\\cdot(1-2^{-s})\\cdot(1-3^{-s})\\cdots \\to 1$",
+            "hint": "toggle primes, pick $s$",
+            "svgId": "sv-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "sv-out",
+            "sectionComment": "=============================== SECTION 3a: sieve ===============================",
+            "bodyScript": "  const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29];\n  const active = new Set();\n  const W = 620, H = 240, pad = 40;\n  // init buttons\n  PRIMES.forEach(p => {\n    const b = document.createElement('button');\n    b.textContent = 'p=' + p;\n    b.addEventListener('click', () => {\n      if(active.has(p)) active.delete(p); else active.add(p);\n      b.classList.toggle('active');\n      draw();\n    });\n    btnRow.appendChild(b);\n  });\n\n  function zeta(s){\n    let S = 0; for(let n=1;n<=1000;n++) S += 1/Math.pow(n,s); return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sRange.value);\n    sVal.textContent = 's = ' + s.toFixed(2);\n    // compute sequence of partial products\n    const Z = zeta(s);\n    const sortedPs = [...active].sort((a,b)=>a-b);\n    const ys = [Z];\n    let cur = Z;\n    for(const p of sortedPs){ cur = cur * (1 - Math.pow(p,-s)); ys.push(cur); }\n    // draw bars horizontally\n    const maxBars = 11;\n    const n = ys.length;\n    const barW = (W - 2*pad) / maxBars - 6;\n    const y0 = H - pad - 20;\n    const maxY = Math.max(Z, 2);\n    for(let i=0;i<n;i++){\n      const x = pad + i*((W-2*pad)/maxBars);\n      const h = (ys[i]/maxY) * (H - 2*pad - 30);\n      const col = Math.abs(ys[i]-1) < 0.01 ? 'var(--green)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x, y: y0 - h, width: barW, height: h, fill: col, opacity: 0.85}));\n      const t = SVG('text',{x: x + barW/2, y: y0 + 14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = i === 0 ? 'ζ(s)' : '×(1−'+sortedPs[i-1]+'⁻ˢ)';\n      svg.appendChild(t);\n      const v = SVG('text',{x: x + barW/2, y: y0 - h - 4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      v.textContent = ys[i].toFixed(4);\n      svg.appendChild(v);\n    }\n    // 1-line\n    const yOne = y0 - (1/maxY)*(H - 2*pad - 30);\n    svg.appendChild(SVG('line',{x1:pad,y1:yOne,x2:W-pad,y2:yOne,stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const t = SVG('text',{x:W-pad-4,y:yOne-4,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    t.textContent = 'target = 1'; svg.appendChild(t);\n\n    const last = ys[ys.length-1];\n    out.textContent = `ζ(${s.toFixed(2)}) = ${Z.toFixed(5)}    after sieving through {${sortedPs.join(', ') || '—'}}: ${last.toFixed(5)}`;\n  }\n  sRange.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "sv-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sv-s\">$s$</label>\n    <input type=\"range\" id=\"sv-s\" min=\"1.1\" max=\"3\" step=\"0.05\" value=\"2\">\n    <span id=\"sv-s-val\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"sv-btns\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sv-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler product vs. partial sum for $\\zeta(s)$",
+            "hint": "drag $N$ or $s$",
+            "svgId": "ep-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "ep-out",
+            "sectionComment": "=============================== SECTION 3b: Euler product vs partial sum ===============================",
+            "bodyScript": "  const svg = $('#ep-svg'), N = $('#ep-N'), Nv = $('#ep-Nv'), sR = $('#ep-s'), sVal = $('#ep-sv'), out = $('#ep-out');\n  const W = 620, H = 260, pad = 40;\n\n  function isPrime(n){\n    if(n<2) return false;\n    for(let k=2;k*k<=n;k++) if(n%k===0) return false;\n    return true;\n  }\n  function partialSum(s, M){\n    let S = 0; for(let n=1;n<=M;n++) S += 1/Math.pow(n,s); return S;\n  }\n  function partialEuler(s, M){\n    let P = 1; for(let p=2;p<=M;p++) if(isPrime(p)) P *= 1/(1 - Math.pow(p,-s)); return P;\n  }\n  function trueZeta(s){ return partialSum(s, 4000); }\n\n  function draw(){\n    svg.innerHTML = '';\n    const Nm = parseInt(N.value,10), s = parseFloat(sR.value);\n    Nv.textContent = 'N = ' + Nm;\n    sVal.textContent = 's = ' + s.toFixed(2);\n\n    const xmin = 2, xmax = Math.max(Nm, 10);\n    const target = trueZeta(s);\n    const ymin = Math.max(0, target*0.5), ymax = target*1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmax),y2:toY(ymin),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // target line\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(target),x2:toX(xmax),y2:toY(target),stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const tl = SVG('text',{x:toX(xmax)-5,y:toY(target)-5,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    tl.textContent = `ζ(${s.toFixed(2)}) ≈ ${target.toFixed(4)}`;\n    svg.appendChild(tl);\n\n    // plot partial sum curve and partial euler curve\n    let dS = '', dE = '';\n    for(let M = 2; M <= xmax; M++){\n      const PS = partialSum(s, M), PE = partialEuler(s, M);\n      const X = toX(M);\n      dS += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PS,ymin),ymax)) + ' ';\n      dE += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PE,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dS,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:dE,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n\n    // marker at N\n    const Xn = toX(Nm);\n    const psN = partialSum(s, Nm), peN = partialEuler(s, Nm);\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(psN,ymin),ymax)),r:4,fill:'var(--yellow)'}));\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(peN,ymin),ymax)),r:4,fill:'var(--blue)'}));\n    // legend\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--yellow)'});\n    L1.textContent = '— partial sum Σ_{n≤M} 1/nˢ'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--blue)'});\n    L2.textContent = '— partial Euler Π_{p≤M} (1-p⁻ˢ)⁻¹'; svg.appendChild(L2);\n\n    out.textContent = `at N=${Nm}: partial sum = ${psN.toFixed(5)}, partial Euler = ${peN.toFixed(5)}, target ζ(s) = ${target.toFixed(5)}`;\n  }\n  N.addEventListener('input', draw);\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ep-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-N\">cutoff $N$</label>\n    <input type=\"range\" id=\"ep-N\" min=\"2\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"ep-Nv\" class=\"small\">N = 20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-s\">$s$</label>\n    <input type=\"range\" id=\"ep-s\" min=\"1.2\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"ep-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ep-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "euler-product-structure",
+          "html": "<div class=\"quiz\" data-concept=\"euler-product-structure\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "chars",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"chars\">\n<h2>4. Dirichlet characters and $L$-functions</h2>\n<p>A <strong>Dirichlet character modulo $N$</strong> is a homomorphism\n$$\\chi\\colon (\\mathbb{Z}/N)^\\times \\;\\longrightarrow\\; \\mathbb{C}^\\times,$$\nextended to all of $\\mathbb{Z}$ by declaring $\\chi(n) = \\chi(n \\bmod N)$ if $\\gcd(n,N)=1$ and $\\chi(n)=0$ otherwise. Because the image lands in roots of unity (the group $(\\mathbb{Z}/N)^\\times$ is finite, so every element has finite order), $|\\chi(n)| \\le 1$. The <strong>trivial character</strong> $\\chi_0$ is $1$ on units and $0$ on non-units; it is not quite the constant $1$ (it picks up the non-units).</p>\n\n<p>Characters are <em>completely multiplicative</em>: $\\chi(mn)=\\chi(m)\\chi(n)$ for all $m,n$. So the associated <strong>Dirichlet $L$-function</strong>\n$$L(s,\\chi) \\;=\\; \\sum_{n=1}^\\infty \\frac{\\chi(n)}{n^s}$$\nhas an Euler product:\n$$L(s,\\chi) \\;=\\; \\prod_p \\frac{1}{1-\\chi(p)\\,p^{-s}} \\qquad (\\mathrm{Re}\\,s > 1).$$\nFor $\\chi = \\chi_0$ mod $N$: the local factor at $p\\mid N$ is $1$ (since $\\chi_0(p)=0$), everywhere else it is $(1-p^{-s})^{-1}$. So\n$$L(s,\\chi_0) \\;=\\; \\zeta(s) \\prod_{p\\mid N}(1-p^{-s}).$$\nFor $\\chi \\ne \\chi_0$, the sum is <em>conditionally</em> convergent for $\\mathrm{Re}\\,s > 0$ too (the character values are bounded and roughly cancel), so $L(s,\\chi)$ extends to the half-plane $\\mathrm{Re}\\,s > 0$ directly — a smaller miracle than $\\zeta$'s full continuation.</p>\n\n<h3>Example: the non-trivial character mod 4</h3>\n<p>Here $(\\mathbb{Z}/4)^\\times = \\{1,3\\}$ is cyclic of order $2$. The non-trivial character $\\chi_3$ sends $1\\mapsto 1$, $3\\mapsto -1$:\n$$\\chi_3(n) = \\begin{cases} +1 & n\\equiv 1\\pmod 4\\\\ -1 & n\\equiv 3\\pmod 4\\\\ 0 & n\\text{ even}\\end{cases}$$\ngiving the famous Leibniz series:\n$$L(s,\\chi_3) \\;=\\; 1 - \\frac{1}{3^s} + \\frac{1}{5^s} - \\frac{1}{7^s} + \\cdots, \\qquad L(1,\\chi_3) = \\frac{\\pi}{4}.$$\nThat specific identity — evaluating the series at $s=1$ — is a prototype of what class-number formulas compute. See <a href=\"./quadratic-reciprocity.html\">quadratic-reciprocity</a> for how quadratic characters $\\left(\\tfrac{\\cdot}{p}\\right)$ fit this framework.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-chartab",
+            "title": "Character table $(\\mathbb{Z}/N)^\\times$",
+            "hint": "pick $N$",
+            "sectionComment": "=============================== SECTION 4a: character table ===============================",
+            "bodyScript": "  const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');\n\n  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }\n  function units(N){\n    const U = []; for(let k=1;k<N;k++) if(gcd(k,N)===1) U.push(k); return U;\n  }\n  function orderOf(g, N){\n    let k = 1, x = g % N; while(x !== 1){ x = (x*g) % N; k++; if(k > N+2) return -1; }\n    return k;\n  }\n  function primitiveRoot(N){\n    const U = units(N), phi = U.length;\n    for(const g of U){ if(orderOf(g,N) === phi) return g; }\n    return null; // group is not cyclic (e.g. N=8)\n  }\n  function characters(N){\n    const U = units(N), phi = U.length;\n    const g = primitiveRoot(N);\n    if(g !== null){\n      // cyclic: χ_k sends g -> ω^k, ω = e^{2πi/phi}\n      const chis = [];\n      for(let k=0;k<phi;k++){\n        const chi = {};\n        // precompute powers of g\n        let x = 1;\n        for(let j=0;j<phi;j++){\n          const val = {re: Math.cos(2*Math.PI*k*j/phi), im: Math.sin(2*Math.PI*k*j/phi)};\n          chi[x] = val;\n          x = (x*g) % N;\n        }\n        chis.push(chi);\n      }\n      return {U, chis};\n    } else {\n      // non-cyclic: only N=8 in our list: (Z/8)* = {1,3,5,7} = Z/2 x Z/2\n      // generators 3 and 5, relations 3^2 = 1, 5^2 = 1, (3·5) mod 8 = 7\n      if(N === 8){\n        const chis = [];\n        // chi_{a,b}(3^i · 5^j) = (-1)^{ai} · (-1)^{bj}\n        const table = {1:[0,0], 3:[1,0], 5:[0,1], 7:[1,1]};\n        for(let a=0;a<2;a++) for(let b=0;b<2;b++){\n          const chi = {};\n          for(const [u,[i,j]] of Object.entries(table)){\n            const sgn = Math.pow(-1, a*i + b*j);\n            chi[+u] = {re: sgn, im: 0};\n          }\n          chis.push(chi);\n        }\n        return {U, chis};\n      }\n      // fallback: only trivial\n      const chi = {}; for(const u of U) chi[u] = {re:1,im:0};\n      return {U, chis: [chi]};\n    }\n  }\n\n  function fmt(z){\n    const eps = 1e-9;\n    if(Math.abs(z.im) < eps){\n      if(Math.abs(z.re-1) < eps) return '1';\n      if(Math.abs(z.re+1) < eps) return '−1';\n      return z.re.toFixed(3);\n    }\n    if(Math.abs(z.re) < eps){\n      if(Math.abs(z.im-1) < eps) return 'i';\n      if(Math.abs(z.im+1) < eps) return '−i';\n      return z.im.toFixed(3)+'i';\n    }\n    return `${z.re.toFixed(2)}${z.im>=0?'+':''}${z.im.toFixed(2)}i`;\n  }\n\n  function render(){\n    const N = parseInt(NSel.value,10);\n    const {U, chis} = characters(N);\n    info.textContent = `|(Z/${N})×| = φ(${N}) = ${U.length},  characters: ${chis.length}`;\n    let html = '<table class=\"plain\"><thead><tr><th>n</th>';\n    for(let i=0;i<chis.length;i++) html += `<th>χ<sub>${i}</sub></th>`;\n    html += '</tr></thead><tbody>';\n    for(const u of U){\n      html += `<tr><td>${u}</td>`;\n      for(const chi of chis){\n        html += `<td>${fmt(chi[u])}</td>`;\n      }\n      html += '</tr>';\n    }\n    html += '</tbody></table>';\n    out.innerHTML = html;\n  }\n  NSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>modulus $N$</label>\n    <select id=\"ct-N\">\n      <option>3</option><option>4</option><option selected>5</option><option>7</option><option>8</option><option>12</option>\n    </select>\n    <span id=\"ct-info\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"ct-table\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lchi",
+            "title": "$L(s,\\chi_3)$ — non-trivial character mod 4",
+            "hint": "drag $s$",
+            "svgId": "lc-svg",
+            "viewBox": "0 0 620 260",
+            "sectionComment": "=============================== SECTION 4b: L(s, chi_3 mod 4) ===============================",
+            "bodyScript": "  const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');\n  const W = 620, H = 260, pad = 40;\n  const xmin = 0.1, xmax = 4.2, ymin = 0, ymax = 1.2;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function Lchi(s){\n    // L(s, chi mod 4) = sum_{k=0..} (-1)^k / (2k+1)^s\n    let S = 0; for(let k=0;k<2000;k++) S += Math.pow(-1,k) / Math.pow(2*k+1, s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    for(let k=0;k<=4;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=1.2;k+=0.2){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k.toFixed(1); svg.appendChild(t);\n    }\n    // curve\n    let d = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + (xmax - xmin) * i/steps;\n      const y = Lchi(s);\n      d += (i===0?'M':'L') + toX(s) + ' ' + toY(Math.min(Math.max(y,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // highlight L(1, chi_3) = π/4\n    const X1 = toX(1), Y1 = toY(Math.PI/4);\n    svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));\n    const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});\n    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);\n\n    // marker\n    const s0 = parseFloat(sR.value);\n    const y0 = Lchi(s0);\n    const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lc-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-s\">$s$</label>\n    <input type=\"range\" id=\"lc-s\" min=\"0.2\" max=\"4\" step=\"0.02\" value=\"1\">\n    <span id=\"lc-val\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">At $s=1$: $L(1,\\chi_3) = \\pi/4 \\approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-chartab",
+            "title": "Character table $(\\mathbb{Z}/N)^\\times$",
+            "hint": "pick $N$",
+            "sectionComment": "=============================== SECTION 4a: character table ===============================",
+            "bodyScript": "  const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');\n\n  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }\n  function units(N){\n    const U = []; for(let k=1;k<N;k++) if(gcd(k,N)===1) U.push(k); return U;\n  }\n  function orderOf(g, N){\n    let k = 1, x = g % N; while(x !== 1){ x = (x*g) % N; k++; if(k > N+2) return -1; }\n    return k;\n  }\n  function primitiveRoot(N){\n    const U = units(N), phi = U.length;\n    for(const g of U){ if(orderOf(g,N) === phi) return g; }\n    return null; // group is not cyclic (e.g. N=8)\n  }\n  function characters(N){\n    const U = units(N), phi = U.length;\n    const g = primitiveRoot(N);\n    if(g !== null){\n      // cyclic: χ_k sends g -> ω^k, ω = e^{2πi/phi}\n      const chis = [];\n      for(let k=0;k<phi;k++){\n        const chi = {};\n        // precompute powers of g\n        let x = 1;\n        for(let j=0;j<phi;j++){\n          const val = {re: Math.cos(2*Math.PI*k*j/phi), im: Math.sin(2*Math.PI*k*j/phi)};\n          chi[x] = val;\n          x = (x*g) % N;\n        }\n        chis.push(chi);\n      }\n      return {U, chis};\n    } else {\n      // non-cyclic: only N=8 in our list: (Z/8)* = {1,3,5,7} = Z/2 x Z/2\n      // generators 3 and 5, relations 3^2 = 1, 5^2 = 1, (3·5) mod 8 = 7\n      if(N === 8){\n        const chis = [];\n        // chi_{a,b}(3^i · 5^j) = (-1)^{ai} · (-1)^{bj}\n        const table = {1:[0,0], 3:[1,0], 5:[0,1], 7:[1,1]};\n        for(let a=0;a<2;a++) for(let b=0;b<2;b++){\n          const chi = {};\n          for(const [u,[i,j]] of Object.entries(table)){\n            const sgn = Math.pow(-1, a*i + b*j);\n            chi[+u] = {re: sgn, im: 0};\n          }\n          chis.push(chi);\n        }\n        return {U, chis};\n      }\n      // fallback: only trivial\n      const chi = {}; for(const u of U) chi[u] = {re:1,im:0};\n      return {U, chis: [chi]};\n    }\n  }\n\n  function fmt(z){\n    const eps = 1e-9;\n    if(Math.abs(z.im) < eps){\n      if(Math.abs(z.re-1) < eps) return '1';\n      if(Math.abs(z.re+1) < eps) return '−1';\n      return z.re.toFixed(3);\n    }\n    if(Math.abs(z.re) < eps){\n      if(Math.abs(z.im-1) < eps) return 'i';\n      if(Math.abs(z.im+1) < eps) return '−i';\n      return z.im.toFixed(3)+'i';\n    }\n    return `${z.re.toFixed(2)}${z.im>=0?'+':''}${z.im.toFixed(2)}i`;\n  }\n\n  function render(){\n    const N = parseInt(NSel.value,10);\n    const {U, chis} = characters(N);\n    info.textContent = `|(Z/${N})×| = φ(${N}) = ${U.length},  characters: ${chis.length}`;\n    let html = '<table class=\"plain\"><thead><tr><th>n</th>';\n    for(let i=0;i<chis.length;i++) html += `<th>χ<sub>${i}</sub></th>`;\n    html += '</tr></thead><tbody>';\n    for(const u of U){\n      html += `<tr><td>${u}</td>`;\n      for(const chi of chis){\n        html += `<td>${fmt(chi[u])}</td>`;\n      }\n      html += '</tr>';\n    }\n    html += '</tbody></table>';\n    out.innerHTML = html;\n  }\n  NSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>modulus $N$</label>\n    <select id=\"ct-N\">\n      <option>3</option><option>4</option><option selected>5</option><option>7</option><option>8</option><option>12</option>\n    </select>\n    <span id=\"ct-info\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"ct-table\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lchi",
+            "title": "$L(s,\\chi_3)$ — non-trivial character mod 4",
+            "hint": "drag $s$",
+            "svgId": "lc-svg",
+            "viewBox": "0 0 620 260",
+            "sectionComment": "=============================== SECTION 4b: L(s, chi_3 mod 4) ===============================",
+            "bodyScript": "  const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');\n  const W = 620, H = 260, pad = 40;\n  const xmin = 0.1, xmax = 4.2, ymin = 0, ymax = 1.2;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function Lchi(s){\n    // L(s, chi mod 4) = sum_{k=0..} (-1)^k / (2k+1)^s\n    let S = 0; for(let k=0;k<2000;k++) S += Math.pow(-1,k) / Math.pow(2*k+1, s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    for(let k=0;k<=4;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=1.2;k+=0.2){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k.toFixed(1); svg.appendChild(t);\n    }\n    // curve\n    let d = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + (xmax - xmin) * i/steps;\n      const y = Lchi(s);\n      d += (i===0?'M':'L') + toX(s) + ' ' + toY(Math.min(Math.max(y,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // highlight L(1, chi_3) = π/4\n    const X1 = toX(1), Y1 = toY(Math.PI/4);\n    svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));\n    const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});\n    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);\n\n    // marker\n    const s0 = parseFloat(sR.value);\n    const y0 = Lchi(s0);\n    const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lc-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-s\">$s$</label>\n    <input type=\"range\" id=\"lc-s\" min=\"0.2\" max=\"4\" step=\"0.02\" value=\"1\">\n    <span id=\"lc-val\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">At $s=1$: $L(1,\\chi_3) = \\pi/4 \\approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "cont",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"cont\">\n<h2>5. Analytic continuation and the functional equation</h2>\n<p>The series $\\sum 1/n^s$ only makes sense for $\\mathrm{Re}\\,s > 1$. But $\\zeta$ extends to a meromorphic function on <em>all</em> of $\\mathbb{C}$, with a single simple pole at $s=1$. The extension is not merely a technicality — it connects the primes at $\\mathrm{Re}\\,s > 1$ to the \"mirror world\" at $\\mathrm{Re}\\,s < 0$ via a <strong>functional equation</strong>.</p>\n\n<p>Define the <strong>completed zeta</strong>\n$$\\Lambda(s) \\;=\\; \\pi^{-s/2}\\,\\Gamma(s/2)\\,\\zeta(s).$$\nThe factor $\\pi^{-s/2}\\Gamma(s/2)$ is the \"archimedean Euler factor\" at the prime at infinity — each prime, including the archimedean one, contributes. The functional equation reads:\n$$\\boxed{\\;\\Lambda(s) \\;=\\; \\Lambda(1-s).\\;}$$</p>\n\n<h3>Sketch of Riemann's contour argument</h3>\n<p>Riemann starts from $\\Gamma(s/2)\\pi^{-s/2} n^{-s} = \\int_0^\\infty x^{s/2-1} e^{-\\pi n^2 x}\\,dx$ (a scaled gamma integral). Summing over $n$ and interchanging:\n$$\\Lambda(s) \\;=\\; \\int_0^\\infty x^{s/2-1} \\Bigl(\\sum_{n\\ge 1} e^{-\\pi n^2 x}\\Bigr) dx \\;=\\; \\int_0^\\infty x^{s/2-1}\\, \\tfrac{\\theta(x) - 1}{2}\\, dx,$$\nwhere $\\theta(x) = \\sum_{n\\in\\mathbb{Z}} e^{-\\pi n^2 x}$ is the Jacobi theta function. The <strong>key fact</strong> is the modular transformation\n$$\\theta(1/x) \\;=\\; \\sqrt{x}\\,\\theta(x)$$\n(a consequence of Poisson summation). Split the integral at $x=1$, apply $\\theta(1/x) = \\sqrt x\\, \\theta(x)$ to the $[0,1]$ half, and the symmetry $s \\leftrightarrow 1-s$ drops out after an elementary substitution. The formula also exhibits $\\Lambda$ as meromorphic on $\\mathbb{C}$ with simple poles only at $s=0$ and $s=1$ (so $\\zeta$ has only the pole at $s=1$; the one at $0$ is eaten by $\\Gamma(s/2)$).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-funceq",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-funceq",
+            "title": "Reflection $s \\leftrightarrow 1-s$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fe-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fe-s\">$s$ (real part)</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2.5\">\n    <span id=\"fe-sv\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue = $s$; yellow = $1-s$. The critical line $\\mathrm{Re}\\,s = 1/2$ is fixed by $s\\mapsto 1-s$.</div>"
+              }
+            ],
+            "hint": "drag $s$ on the critical line's axis",
+            "bodyScript": "  const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');\n  const W = 620, H = 240, pad = 40;\n  const xmin = -3.5, xmax = 4.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const yMid = H/2;\n\n  function draw(){\n    svg.innerHTML = '';\n    // axis\n    svg.appendChild(SVG('line',{x1:pad,y1:yMid,x2:W-pad,y2:yMid,stroke:'var(--mute)'}));\n    for(let k=-3;k<=4;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:yMid-4,x2:toX(k),y2:yMid+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:yMid+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // strip 0..1\n    svg.appendChild(SVG('rect',{x:toX(0),y:yMid-60,width:toX(1)-toX(0),height:120,fill:'rgba(131,193,103,0.08)'}));\n    // critical line x=1/2\n    svg.appendChild(SVG('line',{x1:toX(0.5),y1:yMid-80,x2:toX(0.5),y2:yMid+80,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const cl = SVG('text',{x:toX(0.5),y:yMid-88,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});\n    cl.textContent = 'Re s = 1/2'; svg.appendChild(cl);\n    // pole at s=1\n    svg.appendChild(SVG('circle',{cx:toX(1),cy:yMid,r:4,fill:'var(--pink)'}));\n    const pt = SVG('text',{x:toX(1),y:yMid+40,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n    pt.textContent = 'pole'; svg.appendChild(pt);\n\n    const s = parseFloat(sR.value);\n    const ref = 1 - s;\n    // s\n    svg.appendChild(SVG('circle',{cx:toX(s),cy:yMid,r:7,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:toX(s),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    ts.textContent = 's'; svg.appendChild(ts);\n    // 1-s\n    svg.appendChild(SVG('circle',{cx:toX(ref),cy:yMid,r:7,fill:'var(--yellow)'}));\n    const tr = SVG('text',{x:toX(ref),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});\n    tr.textContent = '1−s'; svg.appendChild(tr);\n    // reflection arrow\n    drawArrow(svg, [toX(s), yMid+22], [toX(ref), yMid+22], {\n      color:'var(--violet)', markerId:'fe-arr', curve:20, pad1:8, pad2:8\n    });\n\n    sv.textContent = `Λ(${s.toFixed(2)}) = Λ(${ref.toFixed(2)})`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 5 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<div class=\"ok\"><strong>Why this matters.</strong> The functional equation trades knowledge of $\\zeta$ on $\\mathrm{Re}\\,s > 1$ (where we have convergence) for knowledge on $\\mathrm{Re}\\,s < 0$. The \"critical strip\" $0 \\le \\mathrm{Re}\\,s \\le 1$ is where the interesting zeros live. The <em>Riemann Hypothesis</em> conjectures all non-trivial zeros lie on $\\mathrm{Re}\\,s = 1/2$.</div>\n\n<p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a \"root number\" $W(\\chi)$ (a complex number of absolute value $1$) appearing:\n$$\\Lambda(s,\\chi) \\;=\\; W(\\chi)\\,\\Lambda(1-s,\\overline{\\chi}).$$</p>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-funceq",
+            "title": "Reflection $s \\leftrightarrow 1-s$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fe-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fe-s\">$s$ (real part)</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2.5\">\n    <span id=\"fe-sv\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue = $s$; yellow = $1-s$. The critical line $\\mathrm{Re}\\,s = 1/2$ is fixed by $s\\mapsto 1-s$.</div>"
+              }
+            ],
+            "hint": "drag $s$ on the critical line's axis",
+            "bodyScript": "  const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');\n  const W = 620, H = 240, pad = 40;\n  const xmin = -3.5, xmax = 4.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const yMid = H/2;\n\n  function draw(){\n    svg.innerHTML = '';\n    // axis\n    svg.appendChild(SVG('line',{x1:pad,y1:yMid,x2:W-pad,y2:yMid,stroke:'var(--mute)'}));\n    for(let k=-3;k<=4;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:yMid-4,x2:toX(k),y2:yMid+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:yMid+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // strip 0..1\n    svg.appendChild(SVG('rect',{x:toX(0),y:yMid-60,width:toX(1)-toX(0),height:120,fill:'rgba(131,193,103,0.08)'}));\n    // critical line x=1/2\n    svg.appendChild(SVG('line',{x1:toX(0.5),y1:yMid-80,x2:toX(0.5),y2:yMid+80,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const cl = SVG('text',{x:toX(0.5),y:yMid-88,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});\n    cl.textContent = 'Re s = 1/2'; svg.appendChild(cl);\n    // pole at s=1\n    svg.appendChild(SVG('circle',{cx:toX(1),cy:yMid,r:4,fill:'var(--pink)'}));\n    const pt = SVG('text',{x:toX(1),y:yMid+40,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n    pt.textContent = 'pole'; svg.appendChild(pt);\n\n    const s = parseFloat(sR.value);\n    const ref = 1 - s;\n    // s\n    svg.appendChild(SVG('circle',{cx:toX(s),cy:yMid,r:7,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:toX(s),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    ts.textContent = 's'; svg.appendChild(ts);\n    // 1-s\n    svg.appendChild(SVG('circle',{cx:toX(ref),cy:yMid,r:7,fill:'var(--yellow)'}));\n    const tr = SVG('text',{x:toX(ref),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});\n    tr.textContent = '1−s'; svg.appendChild(tr);\n    // reflection arrow\n    drawArrow(svg, [toX(s), yMid+22], [toX(ref), yMid+22], {\n      color:'var(--violet)', markerId:'fe-arr', curve:20, pad1:8, pad2:8\n    });\n\n    sv.textContent = `Λ(${s.toFixed(2)}) = Λ(${ref.toFixed(2)})`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 5 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "mellin",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"mellin\">\n<h2>6. The Mellin transform: turning series into integrals</h2>\n<p>Every identity of the form \"a Dirichlet series equals an integral against a theta-like kernel\" is an instance of the <strong>Mellin transform</strong>. For a function $f\\colon (0,\\infty)\\to\\mathbb{C}$ decaying fast enough at both ends, define\n$$\\mathcal{M}[f](s) \\;=\\; \\int_0^\\infty f(x)\\,x^{s-1}\\,dx.$$\nThis is the multiplicative analogue of the Fourier transform: substituting $x=e^u$ converts it into $\\int_{-\\infty}^\\infty f(e^u) e^{us}\\,du$, a Laplace/Fourier transform on the line. Its inverse is a vertical contour integral,\n$$f(x) \\;=\\; \\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty} \\mathcal{M}[f](s)\\,x^{-s}\\,ds,$$\ntaken along any line $\\mathrm{Re}\\,s = c$ inside the strip of absolute convergence.</p>\n\n<p>The key computation that links Mellin to Dirichlet series is the gamma integral $\\int_0^\\infty e^{-nx} x^{s-1}\\,dx = \\Gamma(s)\\,n^{-s}$. Summing over $n$ and interchanging,\n$$\\Gamma(s)\\,\\sum_{n\\ge 1}\\frac{a_n}{n^s} \\;=\\; \\int_0^\\infty \\Bigl(\\sum_{n\\ge 1} a_n e^{-nx}\\Bigr) x^{s-1}\\,dx \\;=\\; \\mathcal{M}\\!\\bigl[\\textstyle\\sum_n a_n e^{-nx}\\bigr](s).$$\nA Dirichlet series has become the Mellin transform of a generating function on the positive real axis. For $a_n=1$ the generating function is $1/(e^x-1)$, giving $\\Gamma(s)\\zeta(s) = \\int_0^\\infty x^{s-1}/(e^x-1)\\,dx$. For $a_n=1$ on squares (via $\\theta(x)$), the same recipe produces Riemann's integral representation of $\\Lambda(s)$ from <a href=\"#cont\">section 5</a>. <a href=\"./complex-analysis.html\">Complex analysis</a> takes over from here: the integral is an <em>analytic</em> object, so continuation is automatic once you control the kernel.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-mellin",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mellin",
+            "title": "Gamma integral $\\int_0^\\infty x^{s-1} e^{-nx}\\,dx = \\Gamma(s)\\,n^{-s}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ml-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-s\">$s$</label>\n    <input type=\"range\" id=\"ml-s\" min=\"0.3\" max=\"4\" step=\"0.02\" value=\"2\">\n    <span id=\"ml-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-n\">$n$</label>\n    <input type=\"range\" id=\"ml-n\" min=\"1\" max=\"6\" step=\"1\" value=\"2\">\n    <span id=\"ml-nv\" class=\"small\">n = 2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ml-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Numerical quadrature of the integrand $x^{s-1}e^{-nx}$ compared to $\\Gamma(s)\\,n^{-s}$ — exact equality up to sampling error.</div>"
+              }
+            ],
+            "hint": "drag $s$ and $n$",
+            "bodyScript": "  const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');\n  const W = 620, H = 260, pad = 40;\n\n  // Lanczos approximation for Gamma\n  function gamma(z){\n    const g = 7;\n    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,\n               771.32342877765313, -176.61502916214059, 12.507343278686905,\n               -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];\n    if(z < 0.5) return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z));\n    z -= 1;\n    let x = c[0];\n    for(let i=1;i<g+2;i++) x += c[i]/(z+i);\n    const t = z + g + 0.5;\n    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;\n  }\n\n  function integrand(x, s, n){\n    // x^{s-1} * e^{-n x}\n    return Math.pow(x, s-1) * Math.exp(-n*x);\n  }\n\n  function integrate(s, n){\n    // trapezoidal rule on [eps, X] with adaptive upper bound\n    const eps = 1e-4;\n    const X = 60 / n;           // e^{-nx} is negligible past ~60/n\n    const N = 4000;\n    const dx = (X - eps) / N;\n    let S = 0.5 * (integrand(eps, s, n) + integrand(X, s, n));\n    for(let i=1;i<N;i++) S += integrand(eps + i*dx, s, n);\n    return S * dx;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sR.value), n = parseInt(nR.value,10);\n    sv.textContent = 's = ' + s.toFixed(2);\n    nv.textContent = 'n = ' + n;\n\n    // plot integrand on x ∈ [0, 10/n]\n    const xmin = 0, xmax = 10/n;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    // find ymax from sampling\n    let ymax = 0;\n    const samples = [];\n    const steps = 300;\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = x === 0 ? (s >= 1 ? 0 : Infinity) : integrand(x, s, n);\n      samples.push({x, y});\n      if(isFinite(y) && y > ymax) ymax = y;\n    }\n    ymax *= 1.1;\n    if(!isFinite(ymax) || ymax <= 0) ymax = 1;\n    const toY = y => H - pad - (y/ymax)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // shaded area under curve (the integral)\n    let area = `M${toX(xmin)} ${toY(0)} `;\n    for(const {x,y} of samples){\n      const yy = isFinite(y) ? Math.min(y, ymax) : ymax;\n      area += `L${toX(x)} ${toY(yy)} `;\n    }\n    area += `L${toX(xmax)} ${toY(0)} Z`;\n    svg.appendChild(SVG('path',{d:area, fill:'rgba(88,196,221,0.22)', stroke:'none'}));\n\n    // curve\n    let d = '';\n    let first = true;\n    for(const {x,y} of samples){\n      if(!isFinite(y)) continue;\n      const yy = Math.min(y, ymax);\n      d += (first?'M':'L') + toX(x) + ' ' + toY(yy) + ' ';\n      first = false;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)', 'stroke-width':2}));\n\n    // x ticks\n    for(let k=0;k<=5;k++){\n      const xv = xmin + (xmax-xmin)*k/5;\n      const t = SVG('text',{x:toX(xv), y:toY(0)+16, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t.textContent = xv.toFixed(2); svg.appendChild(t);\n    }\n\n    // numeric check\n    const numerical = integrate(s, n);\n    const theoretical = gamma(s) * Math.pow(n, -s);\n    out.textContent =\n      `∫₀^∞ x^(s−1) e^(−nx) dx  ≈  ${numerical.toFixed(6)}\\n` +\n      `Γ(s)·n^(−s)              =  ${theoretical.toFixed(6)}\\n` +\n      `rel. error                ≈  ${Math.abs((numerical-theoretical)/theoretical).toExponential(2)}`;\n  }\n  sR.addEventListener('input', draw);\n  nR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget: gamma/Mellin integral ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#contour\">Contour integrals</a></li>\n      <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-continuation.html#zeta\">Analytic continuation</a> · Riemann’s functional equation for $\\zeta$</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#perron\">Dirichlet series and Euler products</a> · Perron's formula</div>\n    <div><a href=\"./power-sums-bernoulli.html#func-eq\">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Functional equation preview via Mellin</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mellin",
+            "title": "Gamma integral $\\int_0^\\infty x^{s-1} e^{-nx}\\,dx = \\Gamma(s)\\,n^{-s}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ml-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-s\">$s$</label>\n    <input type=\"range\" id=\"ml-s\" min=\"0.3\" max=\"4\" step=\"0.02\" value=\"2\">\n    <span id=\"ml-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-n\">$n$</label>\n    <input type=\"range\" id=\"ml-n\" min=\"1\" max=\"6\" step=\"1\" value=\"2\">\n    <span id=\"ml-nv\" class=\"small\">n = 2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ml-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Numerical quadrature of the integrand $x^{s-1}e^{-nx}$ compared to $\\Gamma(s)\\,n^{-s}$ — exact equality up to sampling error.</div>"
+              }
+            ],
+            "hint": "drag $s$ and $n$",
+            "bodyScript": "  const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');\n  const W = 620, H = 260, pad = 40;\n\n  // Lanczos approximation for Gamma\n  function gamma(z){\n    const g = 7;\n    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,\n               771.32342877765313, -176.61502916214059, 12.507343278686905,\n               -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];\n    if(z < 0.5) return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z));\n    z -= 1;\n    let x = c[0];\n    for(let i=1;i<g+2;i++) x += c[i]/(z+i);\n    const t = z + g + 0.5;\n    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;\n  }\n\n  function integrand(x, s, n){\n    // x^{s-1} * e^{-n x}\n    return Math.pow(x, s-1) * Math.exp(-n*x);\n  }\n\n  function integrate(s, n){\n    // trapezoidal rule on [eps, X] with adaptive upper bound\n    const eps = 1e-4;\n    const X = 60 / n;           // e^{-nx} is negligible past ~60/n\n    const N = 4000;\n    const dx = (X - eps) / N;\n    let S = 0.5 * (integrand(eps, s, n) + integrand(X, s, n));\n    for(let i=1;i<N;i++) S += integrand(eps + i*dx, s, n);\n    return S * dx;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sR.value), n = parseInt(nR.value,10);\n    sv.textContent = 's = ' + s.toFixed(2);\n    nv.textContent = 'n = ' + n;\n\n    // plot integrand on x ∈ [0, 10/n]\n    const xmin = 0, xmax = 10/n;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    // find ymax from sampling\n    let ymax = 0;\n    const samples = [];\n    const steps = 300;\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = x === 0 ? (s >= 1 ? 0 : Infinity) : integrand(x, s, n);\n      samples.push({x, y});\n      if(isFinite(y) && y > ymax) ymax = y;\n    }\n    ymax *= 1.1;\n    if(!isFinite(ymax) || ymax <= 0) ymax = 1;\n    const toY = y => H - pad - (y/ymax)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // shaded area under curve (the integral)\n    let area = `M${toX(xmin)} ${toY(0)} `;\n    for(const {x,y} of samples){\n      const yy = isFinite(y) ? Math.min(y, ymax) : ymax;\n      area += `L${toX(x)} ${toY(yy)} `;\n    }\n    area += `L${toX(xmax)} ${toY(0)} Z`;\n    svg.appendChild(SVG('path',{d:area, fill:'rgba(88,196,221,0.22)', stroke:'none'}));\n\n    // curve\n    let d = '';\n    let first = true;\n    for(const {x,y} of samples){\n      if(!isFinite(y)) continue;\n      const yy = Math.min(y, ymax);\n      d += (first?'M':'L') + toX(x) + ' ' + toY(yy) + ' ';\n      first = false;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)', 'stroke-width':2}));\n\n    // x ticks\n    for(let k=0;k<=5;k++){\n      const xv = xmin + (xmax-xmin)*k/5;\n      const t = SVG('text',{x:toX(xv), y:toY(0)+16, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t.textContent = xv.toFixed(2); svg.appendChild(t);\n    }\n\n    // numeric check\n    const numerical = integrate(s, n);\n    const theoretical = gamma(s) * Math.pow(n, -s);\n    out.textContent =\n      `∫₀^∞ x^(s−1) e^(−nx) dx  ≈  ${numerical.toFixed(6)}\\n` +\n      `Γ(s)·n^(−s)              =  ${theoretical.toFixed(6)}\\n` +\n      `rel. error                ≈  ${Math.abs((numerical-theoretical)/theoretical).toExponential(2)}`;\n  }\n  sR.addEventListener('input', draw);\n  nR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget: gamma/Mellin integral ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "mellin-transform-dirichlet",
+          "html": "<div class=\"quiz\" data-concept=\"mellin-transform-dirichlet\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "perron",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"perron\">\n<h2>7. Perron's formula: recovering coefficients from the series</h2>\n<p>A Dirichlet series $D(s) = \\sum_{n\\ge 1} a_n/n^s$ encodes the sequence $(a_n)$ as an analytic function. How do we run the encoding backwards? The answer is <strong>Perron's formula</strong>: for any $c > \\sigma_a$ and $x > 0$ not an integer,\n$$A(x) \\;=\\; \\sum_{n < x} a_n \\;=\\; \\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty} D(s)\\,\\frac{x^s}{s}\\,ds.$$\nIt is a Mellin-inversion identity dressed up with the kernel $x^s/s$, whose discontinuous step function $\\mathbf{1}[n<x]$ at every integer is precisely what picks out the summatory function on the left. Proof in one line: plug in $D(s)=\\sum a_n n^{-s}$, interchange, and use the standard contour integral $\\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty}(x/n)^s\\,ds/s = \\mathbf{1}[n<x]$ (shift the line left when $n<x$, right when $n>x$, picking up the residue at $s=0$ in the first case).</p>\n\n<p>The payoff is asymptotic analysis by <em>residue bookkeeping</em>. Shift the contour $\\mathrm{Re}\\,s=c$ to the left past the poles of $D(s)x^s/s$; each pole contributes a residue that becomes a main term in $A(x)$. For $D = \\zeta$, the pole of $\\zeta(s)$ at $s=1$ contributes residue $x$, and the simple pole of $1/s$ at $s=0$ contributes $\\zeta(0) = -1/2$:\n$$\\sum_{n<x} 1 \\;=\\; x - \\tfrac12 + \\frac{1}{2\\pi i}\\!\\int_{(c')} \\zeta(s)\\frac{x^s}{s}\\,ds,\\qquad c' < 0.$$\nThe remaining integral is $O(1)$ — i.e. the floor function is $x-1/2+O(1)$, which we could have seen directly. The real power of Perron is with $D(s) = \\zeta'(s)/\\zeta(s) = -\\sum \\Lambda(n) n^{-s}$, where the pole at $s=1$ yields the prime number theorem $\\sum_{n<x}\\Lambda(n)\\sim x$ and the zeros of $\\zeta$ become oscillatory error terms — each non-trivial zero $\\rho=\\beta+i\\gamma$ contributes $-x^\\rho/\\rho$. The <a href=\"./complex-analysis.html\">residue theorem</a> does the accounting.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-perron",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-perron",
+            "title": "Perron inversion for $\\zeta(s)$: step function $\\lfloor x\\rfloor$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "pr-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pr-T\">cutoff $T$</label>\n    <input type=\"range\" id=\"pr-T\" min=\"5\" max=\"80\" step=\"1\" value=\"25\">\n    <span id=\"pr-Tv\" class=\"small\">T = 25</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pr-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Truncated Perron approximation to $\\sum_{n<x} 1 = \\lfloor x\\rfloor$ from $\\frac{1}{2\\pi i}\\int_{c-iT}^{c+iT}\\zeta(s)x^s/s\\,ds$, $c=2$. Main term $x$ from the pole at $s=1$ plus the truncated integral; as $T\\to\\infty$ the step function fills in. Gibbs-style wiggles appear at integers.</div>"
+              }
+            ],
+            "hint": "truncate integral at height $T$",
+            "bodyScript": "  const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 0.2, xmax = 8;\n\n  // partial zeta on vertical line\n  function zetaComplex(sigma, t, N){\n    // sum_{n=1}^N n^{-sigma-it} = sum n^{-sigma} * (cos(t log n) - i sin(t log n))\n    let re=0, im=0;\n    for(let n=1;n<=N;n++){\n      const nps = Math.pow(n, -sigma);\n      const arg = t * Math.log(n);\n      re += nps * Math.cos(arg);\n      im -= nps * Math.sin(arg);\n    }\n    return {re, im};\n  }\n\n  // truncated Perron: (1/2π) * ∫_{-T}^{T} ζ(c+it) * x^{c+it} / (c+it) dt\n  // (the i's combine: ds = i dt, so 1/(2πi) ∫ = 1/(2π) ∫ after substitution)\n  function truncatedPerron(x, T, c, M){\n    const N = 30;        // truncate ζ series\n    const Ntheta = 2*M;  // number of sample points in t\n    let Sre=0, Sim=0;\n    const dt = (2*T)/Ntheta;\n    for(let k=0;k<=Ntheta;k++){\n      const t = -T + k*dt;\n      // ζ(c+it) approx\n      const z = zetaComplex(c, t, N);\n      // x^{c+it} = x^c * (cos(t ln x) + i sin(t ln x))\n      const xc = Math.pow(x, c);\n      const lnx = Math.log(x);\n      const xre = xc * Math.cos(t*lnx);\n      const xim = xc * Math.sin(t*lnx);\n      // product z * x^s\n      const pre = z.re*xre - z.im*xim;\n      const pim = z.re*xim + z.im*xre;\n      // divide by (c+it):  1/(c+it) = (c - it)/(c^2+t^2)\n      const denom = c*c + t*t;\n      const dre = c/denom, dim = -t/denom;\n      const qre = pre*dre - pim*dim;\n      const qim = pre*dim + pim*dre;\n      const w = (k===0 || k===Ntheta) ? 0.5 : 1;\n      Sre += w*qre;\n      Sim += w*qim;\n    }\n    Sre *= dt / (2*Math.PI);\n    Sim *= dt / (2*Math.PI);\n    return Sre;  // real part is the answer\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const T = parseInt(TR.value,10);\n    Tv.textContent = 'T = ' + T;\n    const c = 2;\n    const M = Math.max(60, Math.ceil(T*8));   // samples scale with T\n\n    const ymax = Math.floor(xmax) + 1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // exact floor function\n    let fd = '';\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const x1 = Math.max(xmin, k), x2 = Math.min(xmax, k+1);\n      if(x2 <= x1) continue;\n      fd += `M${toX(x1)} ${toY(k)} L${toX(x2)} ${toY(k)} `;\n    }\n    svg.appendChild(SVG('path',{d:fd,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n\n    // truncated Perron curve\n    const steps = 60;\n    let d = '';\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = truncatedPerron(x, T, c, M);\n      const yc = Math.min(Math.max(y, -0.5), ymax);\n      d += (i===0?'M':'L') + toX(x) + ' ' + toY(yc) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // ticks\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n\n    // legend\n    const L1 = SVG('text',{x:pad+8,y:pad+12,'font-size':12,fill:'var(--green)'});\n    L1.textContent = '- - ⌊x⌋ (exact)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+8,y:pad+28,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— truncated Perron'; svg.appendChild(L2);\n\n    const xTest = 3.5;\n    const yTest = truncatedPerron(xTest, T, c, M);\n    out.textContent = `at x = ${xTest}:  truncated Perron ≈ ${yTest.toFixed(3)},  ⌊x⌋ = ${Math.floor(xTest)}.   Larger T sharpens the staircase (and the wiggles at integers).`;\n  }\n  TR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 7 widget: truncated Perron ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#laurent\">Residue theorem</a></li>\n  </ul>\n</aside>\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-perron",
+            "title": "Perron inversion for $\\zeta(s)$: step function $\\lfloor x\\rfloor$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "pr-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pr-T\">cutoff $T$</label>\n    <input type=\"range\" id=\"pr-T\" min=\"5\" max=\"80\" step=\"1\" value=\"25\">\n    <span id=\"pr-Tv\" class=\"small\">T = 25</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pr-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Truncated Perron approximation to $\\sum_{n<x} 1 = \\lfloor x\\rfloor$ from $\\frac{1}{2\\pi i}\\int_{c-iT}^{c+iT}\\zeta(s)x^s/s\\,ds$, $c=2$. Main term $x$ from the pole at $s=1$ plus the truncated integral; as $T\\to\\infty$ the step function fills in. Gibbs-style wiggles appear at integers.</div>"
+              }
+            ],
+            "hint": "truncate integral at height $T$",
+            "bodyScript": "  const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 0.2, xmax = 8;\n\n  // partial zeta on vertical line\n  function zetaComplex(sigma, t, N){\n    // sum_{n=1}^N n^{-sigma-it} = sum n^{-sigma} * (cos(t log n) - i sin(t log n))\n    let re=0, im=0;\n    for(let n=1;n<=N;n++){\n      const nps = Math.pow(n, -sigma);\n      const arg = t * Math.log(n);\n      re += nps * Math.cos(arg);\n      im -= nps * Math.sin(arg);\n    }\n    return {re, im};\n  }\n\n  // truncated Perron: (1/2π) * ∫_{-T}^{T} ζ(c+it) * x^{c+it} / (c+it) dt\n  // (the i's combine: ds = i dt, so 1/(2πi) ∫ = 1/(2π) ∫ after substitution)\n  function truncatedPerron(x, T, c, M){\n    const N = 30;        // truncate ζ series\n    const Ntheta = 2*M;  // number of sample points in t\n    let Sre=0, Sim=0;\n    const dt = (2*T)/Ntheta;\n    for(let k=0;k<=Ntheta;k++){\n      const t = -T + k*dt;\n      // ζ(c+it) approx\n      const z = zetaComplex(c, t, N);\n      // x^{c+it} = x^c * (cos(t ln x) + i sin(t ln x))\n      const xc = Math.pow(x, c);\n      const lnx = Math.log(x);\n      const xre = xc * Math.cos(t*lnx);\n      const xim = xc * Math.sin(t*lnx);\n      // product z * x^s\n      const pre = z.re*xre - z.im*xim;\n      const pim = z.re*xim + z.im*xre;\n      // divide by (c+it):  1/(c+it) = (c - it)/(c^2+t^2)\n      const denom = c*c + t*t;\n      const dre = c/denom, dim = -t/denom;\n      const qre = pre*dre - pim*dim;\n      const qim = pre*dim + pim*dre;\n      const w = (k===0 || k===Ntheta) ? 0.5 : 1;\n      Sre += w*qre;\n      Sim += w*qim;\n    }\n    Sre *= dt / (2*Math.PI);\n    Sim *= dt / (2*Math.PI);\n    return Sre;  // real part is the answer\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const T = parseInt(TR.value,10);\n    Tv.textContent = 'T = ' + T;\n    const c = 2;\n    const M = Math.max(60, Math.ceil(T*8));   // samples scale with T\n\n    const ymax = Math.floor(xmax) + 1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // exact floor function\n    let fd = '';\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const x1 = Math.max(xmin, k), x2 = Math.min(xmax, k+1);\n      if(x2 <= x1) continue;\n      fd += `M${toX(x1)} ${toY(k)} L${toX(x2)} ${toY(k)} `;\n    }\n    svg.appendChild(SVG('path',{d:fd,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n\n    // truncated Perron curve\n    const steps = 60;\n    let d = '';\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = truncatedPerron(x, T, c, M);\n      const yc = Math.min(Math.max(y, -0.5), ymax);\n      d += (i===0?'M':'L') + toX(x) + ' ' + toY(yc) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // ticks\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n\n    // legend\n    const L1 = SVG('text',{x:pad+8,y:pad+12,'font-size':12,fill:'var(--green)'});\n    L1.textContent = '- - ⌊x⌋ (exact)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+8,y:pad+28,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— truncated Perron'; svg.appendChild(L2);\n\n    const xTest = 3.5;\n    const yTest = truncatedPerron(xTest, T, c, M);\n    out.textContent = `at x = ${xTest}:  truncated Perron ≈ ${yTest.toFixed(3)},  ⌊x⌋ = ${Math.floor(xTest)}.   Larger T sharpens the staircase (and the wiggles at integers).`;\n  }\n  TR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 7 widget: truncated Perron ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "perron-formula",
+          "html": "<div class=\"quiz\" data-concept=\"perron-formula\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "dir",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"dir\">\n<h2>8. Dirichlet's theorem: primes in arithmetic progressions</h2>\n<p><strong>Theorem (Dirichlet, 1837).</strong> <em>If $\\gcd(a,N) = 1$, then there are infinitely many primes $p$ with $p \\equiv a \\pmod N$.</em></p>\n\n<p>Euclid showed infinitely many primes by evaluating $\\zeta(s)$ at $s=1$ and watching it blow up. Dirichlet's theorem refines this: not just \"infinitely many primes\" but \"infinitely many primes in <em>each</em> residue class coprime to $N$.\" The proof runs on $L$-functions.</p>\n\n<p>Recall the Euler product\n$$L(s,\\chi) \\;=\\; \\prod_p \\bigl(1-\\chi(p)p^{-s}\\bigr)^{-1} \\quad\\Longrightarrow\\quad \\log L(s,\\chi) \\;=\\; \\sum_p \\frac{\\chi(p)}{p^s} + O(1)$$\nas $s \\to 1^+$ (the $O(1)$ absorbs the convergent higher-power terms). Using orthogonality of characters — $\\frac{1}{\\varphi(N)}\\sum_\\chi \\overline{\\chi(a)}\\chi(p) = \\mathbf{1}[p \\equiv a]$ — we pick out residues:\n$$\\sum_{p \\equiv a\\,(N)} \\frac{1}{p^s} \\;=\\; \\frac{1}{\\varphi(N)} \\sum_\\chi \\overline{\\chi(a)}\\,\\log L(s,\\chi) + O(1).$$\nThe trivial character contributes $\\log L(s,\\chi_0) = \\log \\zeta(s) + O(1) \\to +\\infty$ as $s \\to 1^+$ (that is Euclid's divergence). If we can show each <strong>non-trivial</strong> $\\log L(s,\\chi)$ stays <em>bounded</em> as $s\\to 1^+$, then the main term diverges at the rate $\\frac{1}{\\varphi(N)}\\log\\zeta(s)$, forcing the residue-class sum $\\sum_{p\\equiv a} 1/p^s$ to diverge — hence infinitely many such primes.</p>\n\n<h3>The crucial non-vanishing</h3>\n<p>\"$\\log L(s,\\chi)$ stays bounded as $s\\to 1^+$\" is equivalent to\n$$\\boxed{\\;L(1,\\chi) \\ne 0 \\text{ and } L(1,\\chi) \\text{ is finite for every } \\chi \\ne \\chi_0.\\;}$$\nFiniteness is easy (the conditionally convergent series $\\sum \\chi(n)/n$ converges). Non-vanishing is the hard part. For complex characters it follows from comparing to $\\zeta$; for real non-trivial characters it requires genuinely new ideas — one slick route uses the fact that the class number of a related quadratic field is positive.</p>\n\n<p>The theorem has a quantitative refinement: <strong>primes are equidistributed</strong> among the $\\varphi(N)$ allowed residue classes. The counting function $\\pi(x; N, a) = \\#\\{p \\le x : p \\equiv a \\pmod N\\}$ satisfies\n$$\\pi(x; N, a) \\;\\sim\\; \\frac{1}{\\varphi(N)}\\,\\frac{x}{\\log x} \\qquad (\\gcd(a,N)=1).$$</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-apprimes",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apprimes",
+            "title": "$\\pi(x;4,1)$ vs. $\\pi(x;4,3)$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ap-svg",
+                "viewBox": "0 0 620 300",
+                "width": 620,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ap-x\">$x$</label>\n    <input type=\"range\" id=\"ap-x\" min=\"20\" max=\"2000\" step=\"20\" value=\"500\">\n    <span id=\"ap-xv\" class=\"small\">x = 500</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Chebyshev's bias: $\\pi(x;4,3)$ tends to <em>slightly</em> lead $\\pi(x;4,1)$ for small $x$, but Dirichlet guarantees both $\\to \\infty$ at the same rate $x/(2\\log x)$.</div>"
+              }
+            ],
+            "hint": "primes $\\equiv 1$ vs. $\\equiv 3 \\pmod 4$",
+            "bodyScript": "  const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');\n  const W = 620, H = 300, pad = 40;\n\n  function sieve(N){\n    const comp = new Uint8Array(N+1);\n    for(let p=2;p*p<=N;p++) if(!comp[p]) for(let k=p*p;k<=N;k+=p) comp[k] = 1;\n    const primes = [];\n    for(let p=2;p<=N;p++) if(!comp[p]) primes.push(p);\n    return primes;\n  }\n  const PRIMES = sieve(2000);\n\n  function draw(){\n    svg.innerHTML = '';\n    const X = parseInt(xR.value, 10);\n    xv.textContent = 'x = ' + X;\n    // counts up through X\n    const xs = [], c1 = [], c3 = [];\n    const step = Math.max(1, Math.floor(X/80));\n    let n1 = 0, n3 = 0;\n    for(let p=2;p<=X;p++){\n      if(PRIMES.indexOf(p) !== -1){\n        if(p%4===1) n1++;\n        else if(p%4===3) n3++;\n      }\n      if(p%step===0 || p===X){\n        xs.push(p); c1.push(n1); c3.push(n3);\n      }\n    }\n    const ymax = Math.max(n1, n3, 5) * 1.15;\n    const toX = x => pad + x/X*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:'var(--mute)'}));\n    // curves\n    let d1 = '', d3 = '';\n    for(let i=0;i<xs.length;i++){\n      d1 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c1[i]) + ' ';\n      d3 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c3[i]) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // asymptote x/(2 log x)\n    let dA = '';\n    for(let i=1;i<xs.length;i++){\n      const y = xs[i] / (2*Math.log(xs[i]));\n      dA += (i===1?'M':'L') + toX(xs[i]) + ' ' + toY(y) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dA,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'5 5'}));\n\n    // legends\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--blue)'});\n    L1.textContent = '— π(x; 4, 1)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— π(x; 4, 3)'; svg.appendChild(L2);\n    const L3 = SVG('text',{x:pad+10,y:pad+42,'font-size':12,fill:'var(--green)'});\n    L3.textContent = '- - x/(2 log x)'; svg.appendChild(L3);\n\n    // ticks\n    for(let k=0;k<=5;k++){\n      const v = Math.round(X*k/5);\n      const t = SVG('text',{x:toX(v),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = v; svg.appendChild(t);\n    }\n\n    out.textContent = `at x=${X}:  π(x;4,1) = ${n1},  π(x;4,3) = ${n3},  asymptote x/(2 log x) ≈ ${(X/(2*Math.log(X))).toFixed(1)}`;\n  }\n  xR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./quadratic-reciprocity.html#legendre\">The Legendre symbol</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./L-functions.html#unified\">L-functions</a> · Prototype L-functions</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apprimes",
+            "title": "$\\pi(x;4,1)$ vs. $\\pi(x;4,3)$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ap-svg",
+                "viewBox": "0 0 620 300",
+                "width": 620,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ap-x\">$x$</label>\n    <input type=\"range\" id=\"ap-x\" min=\"20\" max=\"2000\" step=\"20\" value=\"500\">\n    <span id=\"ap-xv\" class=\"small\">x = 500</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Chebyshev's bias: $\\pi(x;4,3)$ tends to <em>slightly</em> lead $\\pi(x;4,1)$ for small $x$, but Dirichlet guarantees both $\\to \\infty$ at the same rate $x/(2\\log x)$.</div>"
+              }
+            ],
+            "hint": "primes $\\equiv 1$ vs. $\\equiv 3 \\pmod 4$",
+            "bodyScript": "  const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');\n  const W = 620, H = 300, pad = 40;\n\n  function sieve(N){\n    const comp = new Uint8Array(N+1);\n    for(let p=2;p*p<=N;p++) if(!comp[p]) for(let k=p*p;k<=N;k+=p) comp[k] = 1;\n    const primes = [];\n    for(let p=2;p<=N;p++) if(!comp[p]) primes.push(p);\n    return primes;\n  }\n  const PRIMES = sieve(2000);\n\n  function draw(){\n    svg.innerHTML = '';\n    const X = parseInt(xR.value, 10);\n    xv.textContent = 'x = ' + X;\n    // counts up through X\n    const xs = [], c1 = [], c3 = [];\n    const step = Math.max(1, Math.floor(X/80));\n    let n1 = 0, n3 = 0;\n    for(let p=2;p<=X;p++){\n      if(PRIMES.indexOf(p) !== -1){\n        if(p%4===1) n1++;\n        else if(p%4===3) n3++;\n      }\n      if(p%step===0 || p===X){\n        xs.push(p); c1.push(n1); c3.push(n3);\n      }\n    }\n    const ymax = Math.max(n1, n3, 5) * 1.15;\n    const toX = x => pad + x/X*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:'var(--mute)'}));\n    // curves\n    let d1 = '', d3 = '';\n    for(let i=0;i<xs.length;i++){\n      d1 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c1[i]) + ' ';\n      d3 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c3[i]) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // asymptote x/(2 log x)\n    let dA = '';\n    for(let i=1;i<xs.length;i++){\n      const y = xs[i] / (2*Math.log(xs[i]));\n      dA += (i===1?'M':'L') + toX(xs[i]) + ' ' + toY(y) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dA,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'5 5'}));\n\n    // legends\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--blue)'});\n    L1.textContent = '— π(x; 4, 1)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— π(x; 4, 3)'; svg.appendChild(L2);\n    const L3 = SVG('text',{x:pad+10,y:pad+42,'font-size':12,fill:'var(--green)'});\n    L3.textContent = '- - x/(2 log x)'; svg.appendChild(L3);\n\n    // ticks\n    for(let k=0;k<=5;k++){\n      const v = Math.round(X*k/5);\n      const t = SVG('text',{x:toX(v),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = v; svg.appendChild(t);\n    }\n\n    out.textContent = `at x=${X}:  π(x;4,1) = ${n1},  π(x;4,3) = ${n3},  asymptote x/(2 log x) ≈ ${(X/(2*Math.log(X))).toFixed(1)}`;\n  }\n  xR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget ==============================="
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dirichlet-characters-lseries",
+          "html": "<div class=\"quiz\" data-concept=\"dirichlet-characters-lseries\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        }
+      ]
+    },
+    {
+      "id": "forward",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"forward\">\n<h2>7. What comes next</h2>\n<p>Once you believe a Dirichlet series encodes arithmetic into analysis, and an Euler product encodes unique factorization into geometry, you can ask the same questions of other arithmetic objects.</p>\n\n<ul>\n  <li><strong>$L$-functions of modular forms.</strong> A modular form $f = \\sum a_n q^n$ produces a Dirichlet series $L(f,s) = \\sum a_n / n^s$. When $f$ is a Hecke eigenform, $L(f,s)$ has an Euler product — the Hecke eigenvalues at primes $p$ become the local factor.</li>\n  <li><strong>$L$-functions of elliptic curves.</strong> An elliptic curve $E/\\mathbb{Q}$ gives $L(E,s) = \\prod_p L_p(E,s)^{-1}$, where $L_p(E,s) = 1 - a_p p^{-s} + p^{1-2s}$ and $a_p = p+1 - \\#E(\\mathbb{F}_p)$ is the error in counting points mod $p$. See the <a href=\"./elliptic-curves.html\">elliptic-curves</a> page.</li>\n  <li><strong>Modularity.</strong> The deep theorem at the heart of this circle (Wiles, Breuil–Conrad–Diamond–Taylor): every $L(E,s)$ is also the $L$-function of a weight-$2$ modular form. Analytic continuation for $L(E,s)$ is then automatic.</li>\n  <li><strong>BSD.</strong> The Birch–Swinnerton-Dyer conjecture predicts that the rank of $E(\\mathbb{Q})$ equals the order of vanishing of $L(E,s)$ at $s=1$. It is the modern analogue of Dirichlet's $L(1,\\chi) \\ne 0$.</li>\n</ul>\n\n<p>Each of these moves promotes a finite-dimensional arithmetic quantity (a class number, a rank, a point count) into a question about zeros and residues of a generating Dirichlet series.</p>\n\n<div class=\"note\">Adjacent reading in this notebook:\n<a href=\"./complex-analysis.html\">complex-analysis</a> (poles, residues, meromorphic continuation) ·\n<a href=\"./algebraic-number-theory.html\">algebraic-number-theory</a> (unique factorization into ideals, class numbers) ·\n<a href=\"./quadratic-reciprocity.html\">quadratic-reciprocity</a> (quadratic characters as Dirichlet characters) ·\n<a href=\"./elliptic-curves.html\">elliptic-curves</a> (where the whole story lands) ·\n<a href=\"./p-adic-numbers.html\">p-adic-numbers</a> (why Euler factors are \"local at $p$\").</div>\n</section>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n/* sidebar TOC builder + active-section highlighting */\n(function(){\n  function build(){\n    const aside = document.querySelector('aside.sidetoc');\n    const topnav = document.querySelector('nav.toc');\n    if(!aside || !topnav) return;\n    const srcs = [...topnav.querySelectorAll('a[href^=\"#\"]')];\n    if(!srcs.length) return;\n    const title = document.createElement('div');\n    title.className = 'sidetoc-title';\n    title.textContent = 'On this page';\n    aside.appendChild(title);\n    const ol = document.createElement('ol');\n    srcs.forEach(src => {\n      const li = document.createElement('li');\n      const a = document.createElement('a');\n      a.href = src.getAttribute('href');\n      a.textContent = src.textContent.replace(/\\u00a0/g,' ').trim();\n      li.appendChild(a); ol.appendChild(li);\n    });\n    aside.appendChild(ol);\n    const links = [...aside.querySelectorAll('a')];\n    const sections = [];\n    links.forEach(a => {\n      const id = a.getAttribute('href').slice(1);\n      const s = document.getElementById(id);\n      if(s) sections.push({a, s});\n    });\n    if(!sections.length) return;\n    function update(){\n      const threshold = 140;\n      let activeLink = sections[0].a;\n      for(const {a,s} of sections){\n        if(s.getBoundingClientRect().top <= threshold) activeLink = a;\n      }\n      links.forEach(x => x.classList.remove('active'));\n      activeLink.classList.add('active');\n    }\n    update();\n    window.addEventListener('scroll', update, {passive:true});\n    window.addEventListener('resize', update);\n  }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);\n  else build();\n})();\n</script>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('dirichlet-series-euler-products'); }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>\n      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>\n      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>\n      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>\n      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>\n      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>\n      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>\n      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>\n      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>\n      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>\n      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>\n      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>\n      <tr><td>2026-04-19</td><td>more pages</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

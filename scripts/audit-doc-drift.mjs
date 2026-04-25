@@ -125,12 +125,19 @@ function checkPlanVsGit() {
   }
   const body = near[1];
 
-  // Parse checklist lines: `- [ ] **Title.** body...` or `- [x] **Title.** body`.
-  const lineRe = /^-\s+\[([ xX])\]\s+\*\*([^*]+?)\*\*\s*([^\n]*)$/gm;
+  // Parse checklist lines — historically `- [ ] **Title.** body...`. In 2026
+  // PLAN.md moved to bullet form without checkboxes (per its own "no
+  // checkboxes — delete when shipped" convention), so accept both:
+  //   - [ ] **Title.** body
+  //   - [x] **Title.** body
+  //   - **Title.** body
+  // Items matched by the bullet-only form are treated as unchecked (not yet
+  // shipped) for the commit-keyword heuristic.
+  const lineRe = /^-\s+(?:\[([ xX])\]\s+)?\*\*([^*]+?)\*\*\s*([^\n]*)$/gm;
   const items = [];
   let m;
   while ((m = lineRe.exec(body))) {
-    const checked = m[1].toLowerCase() === 'x';
+    const checked = m[1] && m[1].toLowerCase() === 'x';
     const title = m[2].replace(/\.$/, '').trim();
     const rest = m[3].trim();
     items.push({ checked, title, rest });
@@ -213,9 +220,29 @@ function checkAgentsVsScripts() {
   const bareRe = /`([a-z0-9\-]+)\.mjs`/gi;
   while ((m = bareRe.exec(agents))) mentioned.add(`${m[1]}.mjs`);
 
+  // Some bare `.mjs` names in AGENTS.md aren't scripts — e.g. `index.mjs`
+  // refers to the widgets/<slug>/index.mjs registry file. Skip anything
+  // whose filename is present under widgets/ so we don't flag widget
+  // module references as missing scripts.
+  const widgetModuleFiles = new Set();
+  const widgetsDir = join(repoRoot, 'widgets');
+  if (existsSync(widgetsDir)) {
+    for (const d of readdirSync(widgetsDir, { withFileTypes: true })) {
+      if (!d.isDirectory()) continue;
+      const sub = join(widgetsDir, d.name);
+      try {
+        for (const f of readdirSync(sub)) {
+          if (f.endsWith('.mjs')) widgetModuleFiles.add(f);
+        }
+      } catch {
+        /* skip unreadable dirs */
+      }
+    }
+  }
+
   const onDisk = new Set(mjsFiles);
   for (const name of mentioned) {
-    if (!onDisk.has(name)) {
+    if (!onDisk.has(name) && !widgetModuleFiles.has(name)) {
       push('AGENTS.md', 'fail', `references missing script: scripts/${name}`);
     }
   }
@@ -237,11 +264,18 @@ function extractStepsArray(src) {
   }
   if (end === -1) return null;
   const body = src.slice(start, end + 1);
-  // Parse `name: 'foo'` entries (preserving order).
+  // Parse each `{ name: '…', script: '…' }` entry (preserving order).
   const names = [];
-  const re = /name:\s*['"]([a-z0-9\-]+)['"]/g;
+  const nameToScript = new Map();
+  const re = /name:\s*['"]([a-z0-9\-]+)['"][^{}]*?script:\s*['"]([^'"]+)['"]/g;
   let m;
-  while ((m = re.exec(body))) names.push(m[1]);
+  while ((m = re.exec(body))) {
+    names.push(m[1]);
+    nameToScript.set(m[1], m[2]);
+  }
+  // Decorate the array with the map so callers can look up script filenames
+  // without maintaining a parallel hard-coded table.
+  names.scriptByName = nameToScript;
   return names;
 }
 
@@ -265,21 +299,23 @@ function extractAgentsRebuildProseList(agents) {
 }
 
 function extractAgentsOnlyList(agents) {
-  // The `--only` enumeration is inline after a mention of `--only <step>` — the
-  // list appears as backtick-quoted single words separated by commas inside
-  // parentheses, possibly crossing a paren boundary.
-  //
-  // Find the first `--only` mention and scan forward for the first parenthetical
-  // group that looks like `\`a\`, \`b\`, ...`.
+  // The `--only` enumeration is inline after a mention of `--only <step>`. The
+  // list is a comma-separated sequence of backtick-quoted step names. It may
+  // appear inside parentheses, after a colon, or inline in prose — we accept
+  // any of those as long as we can find the first long run of backticked
+  // comma-separated names within ~800 chars of the `--only` mention.
   const idx = agents.indexOf('--only');
   if (idx === -1) return null;
   const region = agents.slice(idx, idx + 800);
-  const paren = region.match(/\(([^)]*`[a-z0-9\-]+`[^)]*)\)/);
-  if (!paren) return null;
+  // Match a sequence of at least 3 backticked names joined by commas.
+  const run = region.match(
+    /(?:`[a-z0-9\-]+`(?:\s*,\s*|\s+))+`[a-z0-9\-]+`/
+  );
+  if (!run) return null;
   const names = [];
   const re = /`([a-z0-9\-]+)`/g;
   let m;
-  while ((m = re.exec(paren[1]))) names.push(m[1]);
+  while ((m = re.exec(run[0]))) names.push(m[1]);
   return names.length ? names : null;
 }
 
@@ -308,7 +344,12 @@ function checkRebuildStepList() {
     push('AGENTS.md', 'warn', 'could not parse STEPS array in scripts/rebuild.mjs');
     return;
   }
-  const expectedScripts = steps.map((n) => stepNameToScript(n));
+  // Prefer the script-field mapping parsed out of STEPS itself; fall back to
+  // the hard-coded table if the new parse returned no entries (shouldn't
+  // happen, but keeps the old invariant if someone rewrites the STEPS shape).
+  const expectedScripts = steps.map((n) =>
+    (steps.scriptByName && steps.scriptByName.get(n)) || stepNameToScript(n)
+  );
 
   const agents = readOrNull(join(repoRoot, 'AGENTS.md'));
   if (!agents) return;
@@ -379,7 +420,7 @@ function stepNameToScript(name) {
     validate:   'validate-concepts.mjs',
     katex:      'validate-katex.mjs',
     callbacks:  'audit-callbacks.mjs',
-    backlinks:  'insert-used-in-backlinks.mjs',
+    backlinks:  'inject-used-in-backlinks.mjs',
     breadcrumb: 'inject-breadcrumb.mjs',
     a11y:       'fix-a11y.mjs',
     smoke:      'smoke-test.mjs',

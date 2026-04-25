@@ -14,9 +14,10 @@
 //
 // Exit 0 if clean, 1 if any error. Warnings never flip the exit code.
 
-import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -40,34 +41,68 @@ function readJson(absPath) {
   }
 }
 
-// 1. Load index.json
-const indexPath = join(conceptsDir, 'index.json');
-let registeredTopics = [];
-{
-  const r = readJson(indexPath);
-  if (!r.ok) {
-    err(`concepts/index.json: ${r.error}`);
-  } else if (!r.data || !Array.isArray(r.data.topics)) {
-    err(`concepts/index.json: expected { "topics": [...] }`);
-  } else {
-    registeredTopics = r.data.topics.slice();
-  }
-}
+const model = await loadContentModel();
+const registeredTopics = model.topicIds.slice();
 
-// 2. Find on-disk topic files (excluding index.json and capstones.json)
+// On-disk-but-unregistered scan (model doesn't expose this).
 let onDiskTopicFiles = [];
 try {
   onDiskTopicFiles = readdirSync(conceptsDir)
-    .filter((f) => f.endsWith('.json') && f !== 'index.json' && f !== 'capstones.json')
+    .filter(
+      (f) =>
+        f.endsWith('.json') &&
+        f !== 'index.json' &&
+        f !== 'sections.json' &&
+        f !== 'capstones.json'
+    )
     .map((f) => f.replace(/\.json$/, ''));
 } catch (e) {
   err(`concepts/: cannot list directory: ${e.message}`);
 }
 
-// Report registered-but-missing (error) and on-disk-but-unregistered (warning).
+// Sections coverage: re-read concepts/sections.json for raw field validation
+// (model only surfaces the normalized topic→section map, so missing fields
+// on a raw section entry wouldn't be flagged by it).
+const sectionsPath = join(conceptsDir, 'sections.json');
+if (!existsSync(sectionsPath)) {
+  err(`concepts/sections.json is missing — every registered topic must be assigned to a subject`);
+} else {
+  const r = readJson(sectionsPath);
+  if (!r.ok) {
+    err(`concepts/sections.json: ${r.error}`);
+  } else if (!r.data || !Array.isArray(r.data.sections)) {
+    err(`concepts/sections.json: expected { "sections": [...] }`);
+  } else {
+    const seenTopics = new Set();
+    const dups = [];
+    for (const s of r.data.sections) {
+      if (!s || typeof s !== 'object') continue;
+      if (!s.id || typeof s.id !== 'string')
+        err(`concepts/sections.json: section missing string "id"`);
+      if (!s.title || typeof s.title !== 'string')
+        err(`concepts/sections.json: section "${s.id}" missing string "title"`);
+      if (!Array.isArray(s.topics))
+        err(`concepts/sections.json: section "${s.id}" missing "topics" array`);
+      for (const t of s.topics || []) {
+        if (seenTopics.has(t)) dups.push(t);
+        seenTopics.add(t);
+      }
+    }
+    for (const t of dups) err(`concepts/sections.json: topic "${t}" appears in more than one section`);
+    for (const t of registeredTopics) {
+      if (!seenTopics.has(t))
+        err(`concepts/sections.json: registered topic "${t}" is not assigned to any section`);
+    }
+    for (const t of seenTopics) {
+      if (!registeredTopics.includes(t))
+        warn(`concepts/sections.json: "${t}" is listed but is not registered in concepts/index.json`);
+    }
+  }
+}
+
+// Missing (registered) and unregistered (on-disk) topic files.
 for (const topic of registeredTopics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p) || !statSync(p).isFile()) {
+  if (!existsSync(join(conceptsDir, `${topic}.json`))) {
     err(`concepts/index.json lists "${topic}" but concepts/${topic}.json is missing`);
   }
 }
@@ -77,9 +112,10 @@ for (const topic of onDiskTopicFiles) {
   }
 }
 
-// 3. Load every registered topic file, build concept map
-const conceptsById = new Map(); // bare id -> [{ topic, entry }]
-const topicConcepts = new Map(); // topic -> [concept ids]
+// Build duplicate-aware conceptsById by walking each topic's raw JSON — the
+// model's first-writer-wins `concepts` map hides duplicates and the model
+// doesn't surface per-entry required-field gaps.
+const conceptsById = new Map(); // id -> [{ topic, entry }]
 
 for (const topic of registeredTopics) {
   const p = join(conceptsDir, `${topic}.json`);
@@ -94,7 +130,6 @@ for (const topic of registeredTopics) {
     err(`concepts/${topic}.json: expected { "concepts": [...] }`);
     continue;
   }
-  const ids = [];
   for (let i = 0; i < data.concepts.length; i++) {
     const c = data.concepts[i];
     if (!c || typeof c !== 'object') {
@@ -105,22 +140,19 @@ for (const topic of registeredTopics) {
       err(`concepts/${topic}.json: concept #${i} missing string "id"`);
       continue;
     }
-    ids.push(c.id);
     if (!conceptsById.has(c.id)) conceptsById.set(c.id, []);
     conceptsById.get(c.id).push({ topic, entry: c });
   }
-  topicConcepts.set(topic, ids);
 }
 
-// 4. Duplicates across topics
+// Duplicates across topics (or within a single file).
 for (const [id, entries] of conceptsById) {
   if (entries.length > 1) {
-    const where = entries.map((e) => e.topic).join(', ');
-    err(`duplicate concept id "${id}" declared in: ${where}`);
+    err(`duplicate concept id "${id}" declared in: ${entries.map((e) => e.topic).join(', ')}`);
   }
 }
 
-// 5. Required fields on concept entries
+// Required fields.
 for (const [id, entries] of conceptsById) {
   for (const { topic, entry } of entries) {
     for (const field of ['title', 'anchor', 'blurb']) {
@@ -131,8 +163,8 @@ for (const [id, entries] of conceptsById) {
   }
 }
 
-// 6. Prereq resolution. Support bare id and "topic:id".
-function resolvePrereq(p, fromTopic) {
+// Prereq resolution. Support bare id and "topic:id".
+function resolvePrereq(p) {
   if (typeof p !== 'string' || !p) return { kind: 'bad', reason: 'non-string prereq' };
   if (p.includes(':')) {
     const [t, rawId] = p.split(':', 2);
@@ -150,14 +182,14 @@ function resolvePrereq(p, fromTopic) {
   return { kind: 'ok', id: p, topic: entries[0].topic };
 }
 
-// adjacency for cycle detection: node id -> list of prereq ids (resolved, bare)
+// adjacency for cycle detection: id -> list of prereq ids (resolved, bare)
 const adj = new Map();
 for (const [id, entries] of conceptsById) {
   adj.set(id, []);
-  const { topic, entry } = entries[0]; // if duplicate, pick first; duplicates already errored
+  const { topic, entry } = entries[0]; // duplicate? take first; already errored.
   const prereqs = Array.isArray(entry.prereqs) ? entry.prereqs : [];
   for (const p of prereqs) {
-    const r = resolvePrereq(p, topic);
+    const r = resolvePrereq(p);
     if (r.kind === 'bad') {
       err(`concepts/${topic}.json: concept "${id}" has invalid prereq entry ${JSON.stringify(p)}`);
     } else if (r.kind === 'missing') {
@@ -171,7 +203,7 @@ for (const [id, entries] of conceptsById) {
   }
 }
 
-// 7. Cycle detection: Kahn's identifies the cyclic residue; DFS with back-edge
+// Cycle detection: Kahn's identifies the cyclic residue; DFS with back-edge
 // tracking enumerates every distinct cycle (canonicalized to dedup rotations).
 function findCycles() {
   const indeg = new Map();
@@ -232,18 +264,17 @@ function findCycles() {
     path.pop();
   }
 
-  for (const n of leftover) {
-    if (color.get(n) === WHITE) dfs(n);
-  }
+  for (const n of leftover) if (color.get(n) === WHITE) dfs(n);
   return cycles;
 }
 
-const cycles = findCycles();
-for (const cyc of cycles) {
+for (const cyc of findCycles()) {
   err(`prereq cycle detected: ${cyc.join(' -> ')}`);
 }
 
-// 8. Capstones
+// Capstones. Model preloads `capstones` as the raw array; re-read the JSON
+// only if we need to distinguish "file missing" from "empty list" (we don't —
+// validation runs only when the array is non-empty or the file is on disk).
 const capstonesPath = join(conceptsDir, 'capstones.json');
 if (existsSync(capstonesPath)) {
   const r = readJson(capstonesPath);
@@ -274,7 +305,7 @@ if (existsSync(capstonesPath)) {
       if (typeof c.goal !== 'string' || !c.goal) {
         err(`concepts/capstones.json: capstone "${c.id ?? `#${i}`}" missing "goal"`);
       } else {
-        const resolved = resolvePrereq(c.goal, null);
+        const resolved = resolvePrereq(c.goal);
         if (resolved.kind === 'missing') {
           err(`concepts/capstones.json: capstone "${c.id}" goal "${c.goal}" does not resolve to any concept`);
         } else if (resolved.kind === 'ambiguous') {
@@ -285,7 +316,7 @@ if (existsSync(capstonesPath)) {
   }
 }
 
-// 9. Report
+// Report
 function section(title, items) {
   if (items.length === 0) return;
   console.log(`${title} (${items.length}):`);

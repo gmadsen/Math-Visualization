@@ -1,0 +1,544 @@
+{
+  "topic": "p-adic-numbers",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>p-adic numbers — trees, ultrametrics, and Hensel's lemma</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      macros:{\n        '\\Sha':'\\text{Ш}'\n      },\n      throwOnError:false\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"number-theory\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n// small number-theory helpers\nfunction isPrime(n){ n=Math.abs(n|0); if(n<2) return false; if(n<4) return true; if(n%2===0) return false;\n  for(let k=3;k*k<=n;k+=2) if(n%k===0) return false; return true; }\nfunction vpInt(n,p){ n=Math.abs(n|0); if(n===0) return Infinity; let v=0; while(n%p===0){ n=n/p; v++; } return v; }\nfunction vpRat(a,b,p){ return vpInt(a,p)-vpInt(b,p); }\nfunction gcd(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }\nfunction modpow(base, exp, mod){\n  base = ((base%mod)+mod)%mod;\n  let r = 1 % mod;\n  while(exp>0){\n    if(exp & 1) r = (r*base) % mod;\n    base = (base*base) % mod;\n    exp = Math.floor(exp/2);\n  }\n  return r;\n}\n// p-adic digits of a non-negative integer n < p^depth\nfunction digitsOfInt(n, p, depth){\n  const out = [];\n  let x = n;\n  for(let i=0;i<depth;i++){ out.push(x%p); x = Math.floor(x/p); }\n  return out; // little-endian: a_0, a_1, ...\n}\n// p-adic digits of a rational a/b with gcd(b,p)=1, up to given depth (in Z_p)\nfunction digitsOfRatInZp(a, b, p, depth){\n  // find inverse of b mod p^depth then multiply by a, reduce\n  let mod = 1; for(let i=0;i<depth;i++) mod *= p;\n  // guard against overflow for large depths\n  const A = ((a % mod)+mod)%mod;\n  const B = ((b % mod)+mod)%mod;\n  // extended Euclid mod\n  function eea(x,y){ // returns [g,s,t] with s*x+t*y=g\n    if(y===0) return [x,1,0];\n    const [g,s1,t1] = eea(y, x%y);\n    return [g, t1, s1 - Math.floor(x/y)*t1];\n  }\n  const [g,s,] = eea(B, mod);\n  if(g!==1) return null;\n  const Binv = ((s%mod)+mod)%mod;\n  let N = (A*Binv) % mod;\n  return digitsOfInt(N, p, depth);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#abs\">1&nbsp;Other&nbsp;absolute&nbsp;value</a>\n  <a href=\"#ultra\">2&nbsp;Ultrametric</a>\n  <a href=\"#expand\">3&nbsp;p-adic&nbsp;expansions</a>\n  <a href=\"#inv\">4&nbsp;Inverse&nbsp;limit</a>\n  <a href=\"#tree\">5&nbsp;The&nbsp;p-adic&nbsp;tree</a>\n  <a href=\"#qp\">6&nbsp;$\\mathbb{Q}_p$&nbsp;and&nbsp;completion</a>\n  <a href=\"#hensel\">7&nbsp;Hensel's&nbsp;lemma</a>\n  <a href=\"#localglobal\">8&nbsp;Local&ndash;global</a>\n  <a href=\"#why\">9&nbsp;Why&nbsp;care</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>p-adic numbers: trees, ultrametrics, and Hensel</h1>\n  <p class=\"sub\">A parallel universe of \"size\" on the rationals, built from divisibility by a prime. The number line is replaced by a rooted tree, triangles become isoceles, and power series converge when their coefficients grow. This page keeps one image at the center: $\\mathbb{Z}_p$ as a Cantor-set-like tree.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "abs",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"abs\">\n<h2>1. The other absolute value</h2>\n<p>On the rationals $\\mathbb{Q}$ we are used to one measure of size, the usual absolute value $|x|_\\infty$. But a prime $p$ secretly supplies another one. For a nonzero integer $n$, let the <strong>$p$-adic valuation</strong> be\n$$v_p(n) = \\max\\{k\\ge 0 : p^k \\mid n\\},$$\nextended to $\\mathbb{Q}^\\times$ by $v_p(a/b) = v_p(a)-v_p(b)$, and set $v_p(0)=\\infty$. The <strong>$p$-adic absolute value</strong> is\n$$|x|_p = p^{-v_p(x)}, \\qquad |0|_p=0.$$\nSo $|p|_p = 1/p$ is <em>small</em>, while $1/p$ is large: divisibility by $p$ makes a number tiny.</p>\n\n<div class=\"note\"><strong>Ostrowski's theorem.</strong> Every nontrivial absolute value on $\\mathbb{Q}$ is equivalent either to $|\\cdot|_\\infty$ or to $|\\cdot|_p$ for a unique prime $p$. So the list is complete: one Archimedean place, one place for each prime, and nothing else.</div>\n\n<p>The product formula neatly ties them together: for every nonzero rational $x$,\n$$\\prod_{v} |x|_v = 1,$$\nwhere $v$ ranges over $\\infty$ and all primes. Decrease somewhere, increase somewhere else.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w1",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W1 · $v_p$ and $|\\cdot|_p$ calculator",
+            "hint": "enter $p$ prime and $a/b$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w1-p\">$p=$</label><input type=\"number\" id=\"w1-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w1-a\">$a=$</label><input type=\"number\" id=\"w1-a\" value=\"98\" step=\"1\" style=\"width:110px\">\n    <label for=\"w1-b\">$b=$</label><input type=\"number\" id=\"w1-b\" value=\"3\" step=\"1\" style=\"width:110px\">\n    <button id=\"w1-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w1-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w1-svg\" viewBox=\"0 0 720 160\" width=\"720\" height=\"160\" aria-label=\"bar chart\"></svg>"
+              }
+            ],
+            "bodyScript": "  const out = $('#w1-out'), svg = $('#w1-svg');\n  function go(){\n    const p = parseInt($('#w1-p').value,10);\n    const a = parseInt($('#w1-a').value,10);\n    const b = parseInt($('#w1-b').value,10);\n    svg.innerHTML = '';\n    if(!isPrime(p) || !Number.isFinite(a) || !Number.isFinite(b) || b===0){\n      out.textContent = 'need a prime p and integers a,b with b\\u22600';\n      return;\n    }\n    const va = (a===0) ? '\\u221E' : vpInt(a,p);\n    const vb = vpInt(b,p);\n    const v  = (a===0) ? '\\u221E' : (vpInt(a,p) - vb);\n    const absVal = (a===0) ? 0 : Math.pow(p, -v);\n    out.textContent =\n      `x = ${a}/${b}\\n` +\n      `v_${p}(${a}) = ${va}    v_${p}(${b}) = ${vb}    v_${p}(x) = ${v}\\n` +\n      `|x|_${p} = ${p}^(-${v}) = ${absVal.toPrecision(6)}\\n` +\n      `|x|_\\u221E = ${Math.abs(a/b).toPrecision(6)}`;\n    // bar chart: plot |x|_q for q in [2,3,5,7,11,13] (primes) plus infinity\n    const primes = [2,3,5,7,11,13].filter(q=>q!==null);\n    const W = 720, H = 160, pad = 30;\n    const n = primes.length + 1;\n    const bw = (W - 2*pad)/n * 0.6;\n    const step = (W - 2*pad)/n;\n    // each |x|_q\n    const vals = primes.map(q=>{\n      if(a===0) return 0;\n      const vq = vpInt(a,q) - vpInt(b,q);\n      return Math.pow(q, -vq);\n    });\n    const infVal = Math.abs(a/b);\n    const all = [...vals, infVal];\n    const maxV = Math.max(1e-6, ...all);\n    primes.concat(['\\u221E']).forEach((q, i) => {\n      const x = pad + step*i + step*0.2;\n      const val = (q==='\\u221E') ? infVal : vals[i];\n      const h = (H-pad-20) * (val / maxV);\n      const color = (q===p) ? 'var(--yellow)' : (q==='\\u221E' ? 'var(--pink)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x,y:H-pad-h,width:bw,height:h,fill:color,opacity:0.85}));\n      const t1 = SVG('text',{x:x+bw/2,y:H-pad+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t1.textContent = (q==='\\u221E') ? '|x|\\u221E' : `|x|_${q}`;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+bw/2,y:H-pad-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      t2.textContent = val.toPrecision(3);\n      svg.appendChild(t2);\n    });\n  }\n  $('#w1-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w1",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W1 · $v_p$ and $|\\cdot|_p$ calculator",
+            "hint": "enter $p$ prime and $a/b$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w1-p\">$p=$</label><input type=\"number\" id=\"w1-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w1-a\">$a=$</label><input type=\"number\" id=\"w1-a\" value=\"98\" step=\"1\" style=\"width:110px\">\n    <label for=\"w1-b\">$b=$</label><input type=\"number\" id=\"w1-b\" value=\"3\" step=\"1\" style=\"width:110px\">\n    <button id=\"w1-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w1-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w1-svg\" viewBox=\"0 0 720 160\" width=\"720\" height=\"160\" aria-label=\"bar chart\"></svg>"
+              }
+            ],
+            "bodyScript": "  const out = $('#w1-out'), svg = $('#w1-svg');\n  function go(){\n    const p = parseInt($('#w1-p').value,10);\n    const a = parseInt($('#w1-a').value,10);\n    const b = parseInt($('#w1-b').value,10);\n    svg.innerHTML = '';\n    if(!isPrime(p) || !Number.isFinite(a) || !Number.isFinite(b) || b===0){\n      out.textContent = 'need a prime p and integers a,b with b\\u22600';\n      return;\n    }\n    const va = (a===0) ? '\\u221E' : vpInt(a,p);\n    const vb = vpInt(b,p);\n    const v  = (a===0) ? '\\u221E' : (vpInt(a,p) - vb);\n    const absVal = (a===0) ? 0 : Math.pow(p, -v);\n    out.textContent =\n      `x = ${a}/${b}\\n` +\n      `v_${p}(${a}) = ${va}    v_${p}(${b}) = ${vb}    v_${p}(x) = ${v}\\n` +\n      `|x|_${p} = ${p}^(-${v}) = ${absVal.toPrecision(6)}\\n` +\n      `|x|_\\u221E = ${Math.abs(a/b).toPrecision(6)}`;\n    // bar chart: plot |x|_q for q in [2,3,5,7,11,13] (primes) plus infinity\n    const primes = [2,3,5,7,11,13].filter(q=>q!==null);\n    const W = 720, H = 160, pad = 30;\n    const n = primes.length + 1;\n    const bw = (W - 2*pad)/n * 0.6;\n    const step = (W - 2*pad)/n;\n    // each |x|_q\n    const vals = primes.map(q=>{\n      if(a===0) return 0;\n      const vq = vpInt(a,q) - vpInt(b,q);\n      return Math.pow(q, -vq);\n    });\n    const infVal = Math.abs(a/b);\n    const all = [...vals, infVal];\n    const maxV = Math.max(1e-6, ...all);\n    primes.concat(['\\u221E']).forEach((q, i) => {\n      const x = pad + step*i + step*0.2;\n      const val = (q==='\\u221E') ? infVal : vals[i];\n      const h = (H-pad-20) * (val / maxV);\n      const color = (q===p) ? 'var(--yellow)' : (q==='\\u221E' ? 'var(--pink)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x,y:H-pad-h,width:bw,height:h,fill:color,opacity:0.85}));\n      const t1 = SVG('text',{x:x+bw/2,y:H-pad+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t1.textContent = (q==='\\u221E') ? '|x|\\u221E' : `|x|_${q}`;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+bw/2,y:H-pad-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      t2.textContent = val.toPrecision(3);\n      svg.appendChild(t2);\n    });\n  }\n  $('#w1-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#metric\">Metric spaces</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#places\">Adèles and idèles</a> · Places and local fields</div>\n    <div><a href=\"./galois-representations.html#ram\">Galois representations</a> · Inertia, ramification, and the conductor</div>\n    <div><a href=\"./p-adic-numbers.html#expand\">p-adic numbers</a> · p-adic expansions and topology</div>\n    <div><a href=\"./p-adic-numbers.html#ultra\">p-adic numbers</a> · Ultrametric topology</div>\n    <div><a href=\"./singular-cubics-reduction.html#minimal-model\">Singular cubics and reduction</a> · Minimal Weierstrass model and conductor</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "padic-norm-completion",
+          "html": "<div class=\"quiz\" data-concept=\"padic-norm-completion\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "ultra",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"ultra\">\n<h2>2. The ultrametric inequality</h2>\n<p>The $p$-adic absolute value satisfies more than the triangle inequality. For all $x,y\\in\\mathbb{Q}$,\n$$|x+y|_p \\le \\max(|x|_p,|y|_p).$$\nCall an absolute value with this property <strong>non-Archimedean</strong>, or an <strong>ultrametric</strong>. Three small but dramatic consequences:</p>\n<ul>\n  <li><strong>Every triangle is isoceles.</strong> If $|x|_p \\ne |y|_p$, then $|x+y|_p = \\max(|x|_p,|y|_p)$. So among three pairwise distances, the two largest must be equal.</li>\n  <li><strong>Every point inside a ball is its center.</strong> If $y$ lies in $\\overline{B}(x,r) = \\{z : |z-x|_p \\le r\\}$, then $\\overline{B}(y,r) = \\overline{B}(x,r)$.</li>\n  <li><strong>Balls are clopen.</strong> A $p$-adic ball is both open and closed. The topology is totally disconnected — no nontrivial connected sets.</li>\n</ul>\n\n<p>A short reason for ultrametricity: $v_p(x+y) \\ge \\min(v_p(x),v_p(y))$ (factors of $p$ survive addition), and exponentiating by $-\\log p$ flips the inequality.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w4",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W4 · Ultrametric triangle",
+            "hint": "three integers in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w4-p\">$p=$</label><input type=\"number\" id=\"w4-p\" value=\"2\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w4-a\">$a=$</label><input type=\"number\" id=\"w4-a\" value=\"17\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-b\">$b=$</label><input type=\"number\" id=\"w4-b\" value=\"5\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-c\">$c=$</label><input type=\"number\" id=\"w4-c\" value=\"6\" step=\"1\" style=\"width:90px\">\n    <button id=\"w4-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w4-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w4-out');\n  function go(){\n    const p = parseInt($('#w4-p').value,10);\n    const a = parseInt($('#w4-a').value,10);\n    const b = parseInt($('#w4-b').value,10);\n    const c = parseInt($('#w4-c').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    function d(x,y){ if(x===y) return 0; return Math.pow(p, -vpInt(x-y,p)); }\n    const dab = d(a,b), dbc = d(b,c), dac = d(a,c);\n    const arr = [dab,dbc,dac].slice().sort((u,v)=>v-u);\n    const isIsoc = Math.abs(arr[0]-arr[1]) < 1e-12;\n    out.textContent =\n      `|a-b|_${p} = ${dab.toPrecision(4)}\\n` +\n      `|b-c|_${p} = ${dbc.toPrecision(4)}\\n` +\n      `|a-c|_${p} = ${dac.toPrecision(4)}\\n` +\n      `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \\u2265 ')}\\n` +\n      (isIsoc ? 'two largest agree \\u2014 isoceles, as forced by the ultrametric.' :\n                'distances strict \\u2014 this would violate the ultrametric if inputs were valid!');\n  }\n  $('#w4-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w4",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W4 · Ultrametric triangle",
+            "hint": "three integers in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w4-p\">$p=$</label><input type=\"number\" id=\"w4-p\" value=\"2\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w4-a\">$a=$</label><input type=\"number\" id=\"w4-a\" value=\"17\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-b\">$b=$</label><input type=\"number\" id=\"w4-b\" value=\"5\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-c\">$c=$</label><input type=\"number\" id=\"w4-c\" value=\"6\" step=\"1\" style=\"width:90px\">\n    <button id=\"w4-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w4-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w4-out');\n  function go(){\n    const p = parseInt($('#w4-p').value,10);\n    const a = parseInt($('#w4-a').value,10);\n    const b = parseInt($('#w4-b').value,10);\n    const c = parseInt($('#w4-c').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    function d(x,y){ if(x===y) return 0; return Math.pow(p, -vpInt(x-y,p)); }\n    const dab = d(a,b), dbc = d(b,c), dac = d(a,c);\n    const arr = [dab,dbc,dac].slice().sort((u,v)=>v-u);\n    const isIsoc = Math.abs(arr[0]-arr[1]) < 1e-12;\n    out.textContent =\n      `|a-b|_${p} = ${dab.toPrecision(4)}\\n` +\n      `|b-c|_${p} = ${dbc.toPrecision(4)}\\n` +\n      `|a-c|_${p} = ${dac.toPrecision(4)}\\n` +\n      `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \\u2265 ')}\\n` +\n      (isIsoc ? 'two largest agree \\u2014 isoceles, as forced by the ultrametric.' :\n                'distances strict \\u2014 this would violate the ultrametric if inputs were valid!');\n  }\n  $('#w4-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>Totally disconnected topology is the structural punchline. In $\\mathbb{R}$, connected intervals are the building blocks of analysis; in $\\mathbb{Q}_p$, the only connected subsets are single points. Instead the building blocks are <em>balls</em>, and the collection of balls forms a basis of clopens that is nested rather than overlapping: any two balls are either disjoint or one contains the other.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#metric\">Metric spaces</a></li>\n  </ul>\n</aside>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ultrametric-topology",
+          "html": "<div class=\"quiz\" data-concept=\"ultrametric-topology\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "expand",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"expand\">\n<h2>3. p-adic expansions</h2>\n<p>Every $x\\in \\mathbb{Z}_p$ (the $p$-adic integers, to be defined precisely in a moment) has a unique expansion\n$$x = a_0 + a_1 p + a_2 p^2 + a_3 p^3 + \\cdots, \\qquad a_i \\in \\{0,1,\\ldots,p-1\\}.$$\nFor a non-negative integer $n$, the expansion terminates: it is exactly the base-$p$ representation. For a rational $a/b$ with $\\gcd(b,p)=1$, the expansion is eventually periodic. Rationals with $p\\mid b$ need a finite <em>negative</em> tail and live in $\\mathbb{Q}_p\\setminus\\mathbb{Z}_p$.</p>\n<p>The ring structure on these expansions is usual base-$p$ arithmetic with carries propagating to the <em>right</em> — toward higher powers of $p$. Addition and multiplication do not depend on \"where the expansion ends\" because $p^n\\to 0$ in $|\\cdot|_p$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W2 · p-adic expansion",
+            "hint": "integer or rational $a/b$ with $\\gcd(b,p)=1$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w2-p\">$p=$</label><input type=\"number\" id=\"w2-p\" value=\"5\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w2-a\">$a=$</label><input type=\"number\" id=\"w2-a\" value=\"-1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-b\">$b=$</label><input type=\"number\" id=\"w2-b\" value=\"1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-d\">digits</label><input type=\"number\" id=\"w2-d\" value=\"10\" min=\"1\" max=\"14\" step=\"1\" style=\"width:70px\">\n    <button id=\"w2-go\">expand</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w2-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w2-out');\n  function go(){\n    const p = parseInt($('#w2-p').value,10);\n    const a = parseInt($('#w2-a').value,10);\n    const b = parseInt($('#w2-b').value,10);\n    const D = Math.max(1, Math.min(14, parseInt($('#w2-d').value,10)||10));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(b===0){ out.textContent='b cannot be zero'; return; }\n    if(vpInt(b,p)>0){ out.textContent=`gcd(b,p) must be 1; your b has v_${p}(b)=${vpInt(b,p)}.\\nfor such x the expansion begins at p^{-k}; try b coprime to p.`; return; }\n    const digs = digitsOfRatInZp(a, b, p, D);\n    if(!digs){ out.textContent='inversion failed'; return; }\n    // check periodicity on the first half\n    let period = null;\n    for(let L=1; L<=Math.floor(D/2); L++){\n      let ok = true;\n      for(let i=0;i+L<D;i++){\n        if(digs[i]!==digs[i+L]){ ok=false; break; }\n      }\n      if(ok){ period=L; break; }\n    }\n    const line = digs.map((d,i)=> (i===0?'':' + ') + (d===0 && i>0 ? '0' : d) + (i===0?'':'\\u00b7'+p+(i===1?'':'^'+i))).join('');\n    const vec = digs.join(' ');\n    out.textContent =\n      `x = ${a}/${b}  in base ${p}\\n` +\n      `digits a_0 a_1 a_2 ... : ${vec}  + O(${p}^${D})\\n` +\n      `x \\u2248 ${line} + \\u2026\\n` +\n      (period ? `eventually periodic, period \\u2264 ${period}` : 'no short period detected in window');\n  }\n  $('#w2-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W2 · p-adic expansion",
+            "hint": "integer or rational $a/b$ with $\\gcd(b,p)=1$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w2-p\">$p=$</label><input type=\"number\" id=\"w2-p\" value=\"5\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w2-a\">$a=$</label><input type=\"number\" id=\"w2-a\" value=\"-1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-b\">$b=$</label><input type=\"number\" id=\"w2-b\" value=\"1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-d\">digits</label><input type=\"number\" id=\"w2-d\" value=\"10\" min=\"1\" max=\"14\" step=\"1\" style=\"width:70px\">\n    <button id=\"w2-go\">expand</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w2-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w2-out');\n  function go(){\n    const p = parseInt($('#w2-p').value,10);\n    const a = parseInt($('#w2-a').value,10);\n    const b = parseInt($('#w2-b').value,10);\n    const D = Math.max(1, Math.min(14, parseInt($('#w2-d').value,10)||10));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(b===0){ out.textContent='b cannot be zero'; return; }\n    if(vpInt(b,p)>0){ out.textContent=`gcd(b,p) must be 1; your b has v_${p}(b)=${vpInt(b,p)}.\\nfor such x the expansion begins at p^{-k}; try b coprime to p.`; return; }\n    const digs = digitsOfRatInZp(a, b, p, D);\n    if(!digs){ out.textContent='inversion failed'; return; }\n    // check periodicity on the first half\n    let period = null;\n    for(let L=1; L<=Math.floor(D/2); L++){\n      let ok = true;\n      for(let i=0;i+L<D;i++){\n        if(digs[i]!==digs[i+L]){ ok=false; break; }\n      }\n      if(ok){ period=L; break; }\n    }\n    const line = digs.map((d,i)=> (i===0?'':' + ') + (d===0 && i>0 ? '0' : d) + (i===0?'':'\\u00b7'+p+(i===1?'':'^'+i))).join('');\n    const vec = digs.join(' ');\n    out.textContent =\n      `x = ${a}/${b}  in base ${p}\\n` +\n      `digits a_0 a_1 a_2 ... : ${vec}  + O(${p}^${D})\\n` +\n      `x \\u2248 ${line} + \\u2026\\n` +\n      (period ? `eventually periodic, period \\u2264 ${period}` : 'no short period detected in window');\n  }\n  $('#w2-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p class=\"small\">Example: in $\\mathbb{Z}_5$, $-1 = 4 + 4\\cdot 5 + 4\\cdot 5^2 + \\cdots$ because $(p-1)\\sum_{i\\ge 0} p^i = -1$ under $|\\cdot|_p$. Every negative integer has an infinite expansion.</p>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "padic-expansions",
+          "html": "<div class=\"quiz\" data-concept=\"padic-expansions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./p-adic-numbers.html#hensel\">p-adic numbers</a> · Hensel lifting</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "inv",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"inv\">\n<h2>4. $\\mathbb{Z}_p$ as an inverse limit</h2>\n<p>The cleanest definition: set\n$$\\mathbb{Z}_p = \\varprojlim_{n} \\mathbb{Z}/p^n\\mathbb{Z}.$$\nAn element is a compatible tower $(x_1,x_2,x_3,\\ldots)$ with $x_n\\in \\mathbb{Z}/p^n$ and $x_{n+1}\\equiv x_n\\pmod{p^n}$. Compatibility is exactly the statement that the digits $a_0,a_1,\\ldots$ are consistent across precisions.</p>\n<p>Concretely,</p>\n<table class=\"plain\">\n<thead><tr><th>$n$</th><th>$x_n \\in \\mathbb{Z}/p^n$</th><th>meaning</th></tr></thead>\n<tbody>\n<tr><td>1</td><td>$a_0$</td><td>residue mod $p$</td></tr>\n<tr><td>2</td><td>$a_0 + a_1 p$</td><td>residue mod $p^2$</td></tr>\n<tr><td>3</td><td>$a_0 + a_1 p + a_2 p^2$</td><td>residue mod $p^3$</td></tr>\n<tr><td>$\\vdots$</td><td>$\\vdots$</td><td>$\\vdots$</td></tr>\n</tbody>\n</table>\n<p>The topology is the projective-limit topology from the discrete $\\mathbb{Z}/p^n$, making $\\mathbb{Z}_p$ compact, Hausdorff, and totally disconnected — homeomorphic to a Cantor set. It is also a commutative ring, integral domain, and in fact a complete DVR with residue field $\\mathbb{F}_p$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2b",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "Inverse system view",
+            "hint": "a compatible tower",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "w2b-svg",
+                "viewBox": "0 0 720 160",
+                "width": 720,
+                "height": 160
+              }
+            ],
+            "bodyScript": "  const svg = $('#w2b-svg');\n  const labels = ['\\u2124/p','\\u2124/p\\u00b2','\\u2124/p\\u00b3','\\u2124/p\\u2074','\\u2124/p\\u2075'];\n  const y = 70;\n  const xs = [80, 200, 330, 460, 590];\n  labels.forEach((L,i)=>drawNode(svg, xs[i], y, L, {r:28,fontSize:13, stroke:'var(--cyan)'}));\n  for(let i=labels.length-1;i>0;i--){\n    drawArrow(svg, [xs[i], y], [xs[i-1], y], {color:'var(--mute)', curve:0, markerId:'w2b-arr'});\n  }\n  const zp = SVG('text',{x:700, y:y+5, 'text-anchor':'end', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n  zp.textContent = '\\u2190 \\u2124_p';\n  svg.appendChild(zp);\n  const cap = SVG('text',{x:360, y:130, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n  cap.textContent = 'reduction maps \\u2124/p^{n+1} \\u2192 \\u2124/p^n';\n  svg.appendChild(cap);"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2b",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "Inverse system view",
+            "hint": "a compatible tower",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "w2b-svg",
+                "viewBox": "0 0 720 160",
+                "width": 720,
+                "height": 160
+              }
+            ],
+            "bodyScript": "  const svg = $('#w2b-svg');\n  const labels = ['\\u2124/p','\\u2124/p\\u00b2','\\u2124/p\\u00b3','\\u2124/p\\u2074','\\u2124/p\\u2075'];\n  const y = 70;\n  const xs = [80, 200, 330, 460, 590];\n  labels.forEach((L,i)=>drawNode(svg, xs[i], y, L, {r:28,fontSize:13, stroke:'var(--cyan)'}));\n  for(let i=labels.length-1;i>0;i--){\n    drawArrow(svg, [xs[i], y], [xs[i-1], y], {color:'var(--mute)', curve:0, markerId:'w2b-arr'});\n  }\n  const zp = SVG('text',{x:700, y:y+5, 'text-anchor':'end', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n  zp.textContent = '\\u2190 \\u2124_p';\n  svg.appendChild(zp);\n  const cap = SVG('text',{x:360, y:130, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n  cap.textContent = 'reduction maps \\u2124/p^{n+1} \\u2192 \\u2124/p^n';\n  svg.appendChild(cap);"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "tree",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"tree\">\n<h2>5. The p-adic tree</h2>\n<p>Here is the picture to imprint. Represent $\\mathbb{Z}_p$ as a rooted tree: the root is the full ring; at level 1 the root has $p$ children, one for each residue class mod $p$; each of those has $p$ children, one for each residue mod $p^2$ refining the parent; and so on. Each infinite downward path corresponds to a unique element of $\\mathbb{Z}_p$, namely the compatible tower of its residues.</p>\n\n<p><strong>Distance is shared depth.</strong> Two elements $x,y\\in\\mathbb{Z}_p$ are close iff they agree modulo a high power of $p$, iff their paths in the tree share a long initial segment. Explicitly,\n$$|x-y|_p = p^{-n} \\iff x\\equiv y\\pmod{p^n},\\ x\\not\\equiv y\\pmod{p^{n+1}}.$$\nThat is why $\\mathbb{Z}_p$ is homeomorphic to a Cantor set: its leaves at infinity are exactly the branches of a complete infinite tree.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w3",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W3 · The p-adic tree",
+            "hint": "click a node to expand, hover to see its coset",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p=$</label>\n    <select id=\"w3-p\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>max depth</label>\n    <select id=\"w3-d\"><option>3</option><option selected>4</option><option>5</option></select>\n    <button id=\"w3-reset\">reset</button>\n    <span class=\"pill\" id=\"w3-info\">hover a node</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w3-svg",
+                "viewBox": "0 0 760 420",
+                "width": 760,
+                "height": 420
+              }
+            ],
+            "bodyScript": "  const svg = $('#w3-svg'), info = $('#w3-info');\n  let p = 3, maxDepth = 4;\n  // state: each node keyed by its digit tuple string, { expanded: bool }\n  let state = new Map();\n\n  function keyFor(digits){ return digits.join(','); }\n  function valueOf(digits){ // lift residue in Z/p^n given digits\n    let s = 0, pw = 1;\n    for(const d of digits){ s += d*pw; pw*=p; }\n    return s;\n  }\n  function powP(n){ let r=1; for(let i=0;i<n;i++) r*=p; return r; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 760, H = 420;\n    // compute positions: at depth d, node gets an x-slot proportional to its cumulative digits\n    // We'll walk and place visible nodes in rows.\n    const rowY = d => 40 + d*(H-80)/Math.max(1,maxDepth);\n\n    // root\n    const rootX = W/2;\n    const rootY = rowY(0);\n    const nodes = []; // {x,y,digits,depth}\n    const edges = []; // {x1,y1,x2,y2}\n\n    function visit(digits, xMin, xMax){\n      const depth = digits.length;\n      const x = (xMin+xMax)/2;\n      const y = rowY(depth);\n      nodes.push({x,y,digits:digits.slice(),depth});\n      const st = state.get(keyFor(digits));\n      if(st && st.expanded && depth < maxDepth){\n        const w = (xMax - xMin);\n        for(let d=0; d<p; d++){\n          const cxMin = xMin + w*d/p;\n          const cxMax = xMin + w*(d+1)/p;\n          const childDigits = digits.concat([d]);\n          const cx = (cxMin+cxMax)/2;\n          const cy = rowY(depth+1);\n          edges.push({x1:x,y1:y,x2:cx,y2:cy, lbl:String(d)});\n          visit(childDigits, cxMin, cxMax);\n        }\n      }\n    }\n    visit([], 40, W-40);\n\n    // draw edges first\n    edges.forEach(e=>{\n      const ln = SVG('line',{x1:e.x1,y1:e.y1,x2:e.x2,y2:e.y2,stroke:'var(--line)','stroke-width':1.2});\n      svg.appendChild(ln);\n      const tx = (e.x1+e.x2)/2 + 6;\n      const ty = (e.y1+e.y2)/2;\n      const t = SVG('text',{x:tx,y:ty,'font-size':10,fill:'var(--mute)'});\n      t.textContent = e.lbl;\n      svg.appendChild(t);\n    });\n    // draw nodes\n    nodes.forEach(n=>{\n      const isRoot = n.depth===0;\n      const st = state.get(keyFor(n.digits)) || {};\n      const leafAtMax = n.depth === maxDepth;\n      const expanded = !!st.expanded;\n      const color = isRoot ? 'var(--yellow)' : (leafAtMax ? 'var(--violet)' : (expanded ? 'var(--cyan)' : 'var(--blue)'));\n      const r = isRoot ? 22 : 14;\n      const circ = SVG('circle',{cx:n.x,cy:n.y,r, fill:'var(--panel2)', stroke:color,'stroke-width':1.8, style:'cursor:pointer'});\n      svg.appendChild(circ);\n      const label = isRoot ? '\\u2124_p' : String(valueOf(n.digits));\n      const t = SVG('text',{x:n.x,y:n.y+4,'text-anchor':'middle','font-size':isRoot?13:11, fill:'#fff','font-weight':600, style:'cursor:pointer;pointer-events:none'});\n      t.textContent = label;\n      svg.appendChild(t);\n      // interactions\n      circ.addEventListener('click', ()=>{\n        if(n.depth === maxDepth) return;\n        const k = keyFor(n.digits);\n        const s = state.get(k) || {expanded:false};\n        s.expanded = !s.expanded;\n        state.set(k, s);\n        render();\n      });\n      circ.addEventListener('mouseenter', ()=>{\n        if(isRoot){ info.textContent = '\\u2124_p (whole ring)'; return; }\n        const val = valueOf(n.digits);\n        const mod = powP(n.depth);\n        info.textContent = `${val} + ${p}^${n.depth}\\u2124_p  (coset in \\u2124/${p}^${n.depth} = ${val})`;\n      });\n    });\n  }\n\n  function reset(){\n    state = new Map();\n    state.set('', {expanded:true}); // root expanded by default\n    render();\n  }\n  $('#w3-p').addEventListener('change', ()=>{ p = parseInt($('#w3-p').value,10); reset(); });\n  $('#w3-d').addEventListener('change', ()=>{ maxDepth = parseInt($('#w3-d').value,10); reset(); });\n  $('#w3-reset').addEventListener('click', reset);\n  p = parseInt($('#w3-p').value,10);\n  maxDepth = parseInt($('#w3-d').value,10);\n  reset();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w3",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W3 · The p-adic tree",
+            "hint": "click a node to expand, hover to see its coset",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p=$</label>\n    <select id=\"w3-p\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>max depth</label>\n    <select id=\"w3-d\"><option>3</option><option selected>4</option><option>5</option></select>\n    <button id=\"w3-reset\">reset</button>\n    <span class=\"pill\" id=\"w3-info\">hover a node</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w3-svg",
+                "viewBox": "0 0 760 420",
+                "width": 760,
+                "height": 420
+              }
+            ],
+            "bodyScript": "  const svg = $('#w3-svg'), info = $('#w3-info');\n  let p = 3, maxDepth = 4;\n  // state: each node keyed by its digit tuple string, { expanded: bool }\n  let state = new Map();\n\n  function keyFor(digits){ return digits.join(','); }\n  function valueOf(digits){ // lift residue in Z/p^n given digits\n    let s = 0, pw = 1;\n    for(const d of digits){ s += d*pw; pw*=p; }\n    return s;\n  }\n  function powP(n){ let r=1; for(let i=0;i<n;i++) r*=p; return r; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 760, H = 420;\n    // compute positions: at depth d, node gets an x-slot proportional to its cumulative digits\n    // We'll walk and place visible nodes in rows.\n    const rowY = d => 40 + d*(H-80)/Math.max(1,maxDepth);\n\n    // root\n    const rootX = W/2;\n    const rootY = rowY(0);\n    const nodes = []; // {x,y,digits,depth}\n    const edges = []; // {x1,y1,x2,y2}\n\n    function visit(digits, xMin, xMax){\n      const depth = digits.length;\n      const x = (xMin+xMax)/2;\n      const y = rowY(depth);\n      nodes.push({x,y,digits:digits.slice(),depth});\n      const st = state.get(keyFor(digits));\n      if(st && st.expanded && depth < maxDepth){\n        const w = (xMax - xMin);\n        for(let d=0; d<p; d++){\n          const cxMin = xMin + w*d/p;\n          const cxMax = xMin + w*(d+1)/p;\n          const childDigits = digits.concat([d]);\n          const cx = (cxMin+cxMax)/2;\n          const cy = rowY(depth+1);\n          edges.push({x1:x,y1:y,x2:cx,y2:cy, lbl:String(d)});\n          visit(childDigits, cxMin, cxMax);\n        }\n      }\n    }\n    visit([], 40, W-40);\n\n    // draw edges first\n    edges.forEach(e=>{\n      const ln = SVG('line',{x1:e.x1,y1:e.y1,x2:e.x2,y2:e.y2,stroke:'var(--line)','stroke-width':1.2});\n      svg.appendChild(ln);\n      const tx = (e.x1+e.x2)/2 + 6;\n      const ty = (e.y1+e.y2)/2;\n      const t = SVG('text',{x:tx,y:ty,'font-size':10,fill:'var(--mute)'});\n      t.textContent = e.lbl;\n      svg.appendChild(t);\n    });\n    // draw nodes\n    nodes.forEach(n=>{\n      const isRoot = n.depth===0;\n      const st = state.get(keyFor(n.digits)) || {};\n      const leafAtMax = n.depth === maxDepth;\n      const expanded = !!st.expanded;\n      const color = isRoot ? 'var(--yellow)' : (leafAtMax ? 'var(--violet)' : (expanded ? 'var(--cyan)' : 'var(--blue)'));\n      const r = isRoot ? 22 : 14;\n      const circ = SVG('circle',{cx:n.x,cy:n.y,r, fill:'var(--panel2)', stroke:color,'stroke-width':1.8, style:'cursor:pointer'});\n      svg.appendChild(circ);\n      const label = isRoot ? '\\u2124_p' : String(valueOf(n.digits));\n      const t = SVG('text',{x:n.x,y:n.y+4,'text-anchor':'middle','font-size':isRoot?13:11, fill:'#fff','font-weight':600, style:'cursor:pointer;pointer-events:none'});\n      t.textContent = label;\n      svg.appendChild(t);\n      // interactions\n      circ.addEventListener('click', ()=>{\n        if(n.depth === maxDepth) return;\n        const k = keyFor(n.digits);\n        const s = state.get(k) || {expanded:false};\n        s.expanded = !s.expanded;\n        state.set(k, s);\n        render();\n      });\n      circ.addEventListener('mouseenter', ()=>{\n        if(isRoot){ info.textContent = '\\u2124_p (whole ring)'; return; }\n        const val = valueOf(n.digits);\n        const mod = powP(n.depth);\n        info.textContent = `${val} + ${p}^${n.depth}\\u2124_p  (coset in \\u2124/${p}^${n.depth} = ${val})`;\n      });\n    });\n  }\n\n  function reset(){\n    state = new Map();\n    state.set('', {expanded:true}); // root expanded by default\n    render();\n  }\n  $('#w3-p').addEventListener('change', ()=>{ p = parseInt($('#w3-p').value,10); reset(); });\n  $('#w3-d').addEventListener('change', ()=>{ maxDepth = parseInt($('#w3-d').value,10); reset(); });\n  $('#w3-reset').addEventListener('click', reset);\n  p = parseInt($('#w3-p').value,10);\n  maxDepth = parseInt($('#w3-d').value,10);\n  reset();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>Convergence becomes visual: a sequence $x_n\\to x$ iff, for every $k$, eventually all $x_n$ lie in the same subtree of depth $k$ as $x$.</p>\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "qp",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"qp\">\n<h2>6. $\\mathbb{Q}_p$ and completion</h2>\n<p>Define $\\mathbb{Q}_p$ as the completion of $\\mathbb{Q}$ with respect to $|\\cdot|_p$ — the same Cauchy-sequence construction that produces $\\mathbb{R}$ from $|\\cdot|_\\infty$. It is a field, and $\\mathbb{Z}_p$ sits inside as the closed unit ball $\\{x : |x|_p \\le 1\\}$.</p>\n\n<p>Elements of $\\mathbb{Q}_p$ have expansions</p>\n$$x = \\sum_{i=N}^{\\infty} a_i p^i, \\qquad a_i \\in \\{0,\\ldots,p-1\\},\\ N\\in\\mathbb{Z},$$\n<p>where $N = v_p(x)$ is the location of the first nonzero digit. The left-infinite part is unavailable; all the action is to the <em>right</em>, toward higher powers of $p$.</p>\n\n<div class=\"note\"><strong>Structure summary.</strong> $\\mathbb{Q}_p$ is a complete non-Archimedean local field with residue field $\\mathbb{F}_p$, uniformizer $p$, and ring of integers $\\mathbb{Z}_p = \\{|x|_p\\le 1\\}$. Its unit group is $\\mathbb{Z}_p^\\times = \\{|x|_p=1\\}$, and $\\mathbb{Q}_p^\\times \\cong p^{\\mathbb{Z}}\\times \\mathbb{Z}_p^\\times$.</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w6",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W6 · Convergence comparison",
+            "hint": "same series, two absolute values",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>series</label>\n    <select id=\"w6-series\">\n      <option value=\"pn\">$\\sum p^n$</option>\n      <option value=\"factp\">$\\sum n! \\cdot p^n$</option>\n      <option value=\"fact\">$\\sum n!$</option>\n      <option value=\"invn\">$\\sum 1/n$</option>\n    </select>\n    <label for=\"w6-p\">$p=$</label><input type=\"number\" id=\"w6-p\" value=\"3\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w6-N\">terms</label><input type=\"number\" id=\"w6-N\" value=\"12\" min=\"2\" max=\"24\" step=\"1\" style=\"width:80px\">\n    <button id=\"w6-go\">plot</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w6-svg",
+                "viewBox": "0 0 720 240",
+                "width": 720,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "w6-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#w6-svg'), out = $('#w6-out');\n  function term(n, series, p){\n    if(series==='pn') return 1;      // multiplied by p^n below\n    if(series==='factp'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='fact'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='invn') return n===0 ? 0 : 1/n;\n    return 0;\n  }\n  function power(n, series, p){ // multiplier by power of p\n    if(series==='pn') return Math.pow(p,n);\n    if(series==='factp') return Math.pow(p,n);\n    return 1;\n  }\n  function termValue(n, series, p){ return term(n,series,p) * power(n,series,p); }\n\n  // For |.|_p we track v_p of the *partial sum*, not just the term.\n  // Over Z, vp(sum) can be computed incrementally but we just use BigInt-like accumulation.\n  function run(){\n    const series = $('#w6-series').value;\n    const p = parseInt($('#w6-p').value,10);\n    const N = Math.max(2, Math.min(24, parseInt($('#w6-N').value,10)||12));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    svg.innerHTML = '';\n    const W = 720, H = 240, padL=40, padR=20, padT=20, padB=30;\n    const innerW = W-padL-padR, innerH = H-padT-padB;\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n\n    // accumulate\n    let sumReal = 0;\n    const absInf = [], absP = [];\n    // for vp we need integer arithmetic when possible\n    let intNum = 0, intDen = 1; // track rational sum for exact v_p when terms are rational/integer\n    const trackRat = (series==='pn' || series==='factp' || series==='fact' || series==='invn');\n\n    for(let n=0;n<=N;n++){\n      const tv = termValue(n, series, p);\n      sumReal += tv;\n      absInf.push(Math.abs(sumReal));\n      // v_p of partial sum\n      let vp = 0;\n      if(series==='invn'){\n        // sum_{k=1..n} 1/k has denominator = lcm; v_p computed via rational\n        if(n>=1){\n          // increment: intNum/intDen += 1/n\n          // new = (intNum*n + intDen)/(intDen*n)\n          const newNum = intNum*n + intDen;\n          const newDen = intDen*n;\n          const g = gcd(newNum, newDen);\n          intNum = newNum/g; intDen = newDen/g;\n        }\n        if(intNum===0) vp = Infinity;\n        else vp = vpInt(intNum, p) - vpInt(intDen, p);\n      } else {\n        // integer series: track integer sum\n        if(n===0){\n          intNum = tv; intDen = 1;\n        } else {\n          intNum = intNum + tv; intDen = 1;\n        }\n        vp = (intNum===0) ? Infinity : vpInt(intNum, p);\n      }\n      const absv = (vp===Infinity) ? 0 : Math.pow(p, -vp);\n      absP.push(absv);\n    }\n    // plot two lines: blue = log(|S_n|_\\infty + 1), yellow = |S_n|_p (scaled)\n    // Use log scale for inf, linear for p\n    const infMax = Math.max(1, ...absInf);\n    const pMax = Math.max(1e-6, ...absP);\n    // draw infinity curve (log scale)\n    function logScale(v){ return Math.log(1+v) / Math.log(1+infMax); }\n    // plot\n    const step = innerW / N;\n    // |.|_\\infty curve\n    let d1 = '';\n    absInf.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*logScale(v);\n      d1 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // |.|_p curve\n    let d2 = '';\n    absP.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*(v/pMax);\n      d2 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg1 = SVG('text',{x:padL+10,y:padT+14,'font-size':12,fill:'var(--pink)'});\n    lg1.textContent = '|S_n|_\\u221E  (log scale)';\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:padL+10,y:padT+30,'font-size':12,fill:'var(--yellow)'});\n    lg2.textContent = `|S_n|_${p}`;\n    svg.appendChild(lg2);\n    // final diagnosis\n    const finInf = absInf[absInf.length-1];\n    const finP   = absP[absP.length-1];\n    const trendP = (absP.length>2 && absP[absP.length-1] < absP[1]);\n    out.textContent =\n      `N=${N}  p=${p}  series=${series}\\n` +\n      `|S_N|_\\u221E = ${finInf.toExponential(3)}   |S_N|_${p} = ${finP.toExponential(3)}\\n` +\n      (trendP ? `p-adically the partial sums are shrinking \\u2192 convergent in \\u211A_${p}.` :\n                `p-adically no shrinkage detected in this window.`);\n  }\n  $('#w6-go').addEventListener('click', run);\n  run();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w6",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W6 · Convergence comparison",
+            "hint": "same series, two absolute values",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>series</label>\n    <select id=\"w6-series\">\n      <option value=\"pn\">$\\sum p^n$</option>\n      <option value=\"factp\">$\\sum n! \\cdot p^n$</option>\n      <option value=\"fact\">$\\sum n!$</option>\n      <option value=\"invn\">$\\sum 1/n$</option>\n    </select>\n    <label for=\"w6-p\">$p=$</label><input type=\"number\" id=\"w6-p\" value=\"3\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w6-N\">terms</label><input type=\"number\" id=\"w6-N\" value=\"12\" min=\"2\" max=\"24\" step=\"1\" style=\"width:80px\">\n    <button id=\"w6-go\">plot</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w6-svg",
+                "viewBox": "0 0 720 240",
+                "width": 720,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "w6-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#w6-svg'), out = $('#w6-out');\n  function term(n, series, p){\n    if(series==='pn') return 1;      // multiplied by p^n below\n    if(series==='factp'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='fact'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='invn') return n===0 ? 0 : 1/n;\n    return 0;\n  }\n  function power(n, series, p){ // multiplier by power of p\n    if(series==='pn') return Math.pow(p,n);\n    if(series==='factp') return Math.pow(p,n);\n    return 1;\n  }\n  function termValue(n, series, p){ return term(n,series,p) * power(n,series,p); }\n\n  // For |.|_p we track v_p of the *partial sum*, not just the term.\n  // Over Z, vp(sum) can be computed incrementally but we just use BigInt-like accumulation.\n  function run(){\n    const series = $('#w6-series').value;\n    const p = parseInt($('#w6-p').value,10);\n    const N = Math.max(2, Math.min(24, parseInt($('#w6-N').value,10)||12));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    svg.innerHTML = '';\n    const W = 720, H = 240, padL=40, padR=20, padT=20, padB=30;\n    const innerW = W-padL-padR, innerH = H-padT-padB;\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n\n    // accumulate\n    let sumReal = 0;\n    const absInf = [], absP = [];\n    // for vp we need integer arithmetic when possible\n    let intNum = 0, intDen = 1; // track rational sum for exact v_p when terms are rational/integer\n    const trackRat = (series==='pn' || series==='factp' || series==='fact' || series==='invn');\n\n    for(let n=0;n<=N;n++){\n      const tv = termValue(n, series, p);\n      sumReal += tv;\n      absInf.push(Math.abs(sumReal));\n      // v_p of partial sum\n      let vp = 0;\n      if(series==='invn'){\n        // sum_{k=1..n} 1/k has denominator = lcm; v_p computed via rational\n        if(n>=1){\n          // increment: intNum/intDen += 1/n\n          // new = (intNum*n + intDen)/(intDen*n)\n          const newNum = intNum*n + intDen;\n          const newDen = intDen*n;\n          const g = gcd(newNum, newDen);\n          intNum = newNum/g; intDen = newDen/g;\n        }\n        if(intNum===0) vp = Infinity;\n        else vp = vpInt(intNum, p) - vpInt(intDen, p);\n      } else {\n        // integer series: track integer sum\n        if(n===0){\n          intNum = tv; intDen = 1;\n        } else {\n          intNum = intNum + tv; intDen = 1;\n        }\n        vp = (intNum===0) ? Infinity : vpInt(intNum, p);\n      }\n      const absv = (vp===Infinity) ? 0 : Math.pow(p, -vp);\n      absP.push(absv);\n    }\n    // plot two lines: blue = log(|S_n|_\\infty + 1), yellow = |S_n|_p (scaled)\n    // Use log scale for inf, linear for p\n    const infMax = Math.max(1, ...absInf);\n    const pMax = Math.max(1e-6, ...absP);\n    // draw infinity curve (log scale)\n    function logScale(v){ return Math.log(1+v) / Math.log(1+infMax); }\n    // plot\n    const step = innerW / N;\n    // |.|_\\infty curve\n    let d1 = '';\n    absInf.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*logScale(v);\n      d1 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // |.|_p curve\n    let d2 = '';\n    absP.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*(v/pMax);\n      d2 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg1 = SVG('text',{x:padL+10,y:padT+14,'font-size':12,fill:'var(--pink)'});\n    lg1.textContent = '|S_n|_\\u221E  (log scale)';\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:padL+10,y:padT+30,'font-size':12,fill:'var(--yellow)'});\n    lg2.textContent = `|S_n|_${p}`;\n    svg.appendChild(lg2);\n    // final diagnosis\n    const finInf = absInf[absInf.length-1];\n    const finP   = absP[absP.length-1];\n    const trendP = (absP.length>2 && absP[absP.length-1] < absP[1]);\n    out.textContent =\n      `N=${N}  p=${p}  series=${series}\\n` +\n      `|S_N|_\\u221E = ${finInf.toExponential(3)}   |S_N|_${p} = ${finP.toExponential(3)}\\n` +\n      (trendP ? `p-adically the partial sums are shrinking \\u2192 convergent in \\u211A_${p}.` :\n                `p-adically no shrinkage detected in this window.`);\n  }\n  $('#w6-go').addEventListener('click', run);\n  run();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p class=\"small\">Striking cases: $\\sum p^n$ diverges in $\\mathbb{R}$ but converges to $1/(1-p)$ in $\\mathbb{Q}_p$; $\\sum n!$ diverges in $\\mathbb{R}$ but <em>converges</em> in every $\\mathbb{Q}_p$ because $v_p(n!)\\to\\infty$.</p>\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "hensel",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"hensel\">\n<h2>7. Hensel's lemma</h2>\n<p><strong>Hensel's lemma (first form).</strong> Let $f(x)\\in\\mathbb{Z}_p[x]$ and $x_0\\in\\mathbb{Z}_p$ with $f(x_0)\\equiv 0\\pmod p$ and $f'(x_0)\\not\\equiv 0\\pmod p$. Then there is a unique $x\\in\\mathbb{Z}_p$ with $f(x)=0$ and $x\\equiv x_0\\pmod p$.</p>\n\n<p>Think of this as Newton's method with automatic quadratic convergence. Given $x_n$ with $f(x_n)\\equiv 0\\pmod{p^{n+1}}$, set\n$$x_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}.$$\nSince $f'(x_n)$ is a unit mod $p$, this is well-defined in $\\mathbb{Z}_p$; a Taylor-expansion argument shows $f(x_{n+1})\\equiv 0\\pmod{p^{2n+2}}$.</p>\n\n<p><strong>Example.</strong> In $\\mathbb{Z}_7$, does $\\sqrt{2}$ exist? Try $f(x)=x^2-2$. We need $x_0^2\\equiv 2\\pmod 7$. Since $3^2=9\\equiv 2\\pmod 7$, take $x_0=3$. Then $f'(3)=6\\not\\equiv 0\\pmod 7$. Hensel says a unique lift exists, and the Newton iteration gives it digit by digit.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w5",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W5 · Hensel lift step-by-step",
+            "hint": "$f(x)=x^2-k$, solve $x^2=k$ in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w5-p\">$p=$</label><input type=\"number\" id=\"w5-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w5-k\">$k=$</label><input type=\"number\" id=\"w5-k\" value=\"2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-x0\">$x_0=$</label><input type=\"number\" id=\"w5-x0\" value=\"3\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-n\">steps</label><input type=\"number\" id=\"w5-n\" value=\"6\" min=\"1\" max=\"12\" step=\"1\" style=\"width:70px\">\n    <button id=\"w5-go\">lift</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w5-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w5-out');\n  function go(){\n    const p = parseInt($('#w5-p').value,10);\n    const k = parseInt($('#w5-k').value,10);\n    const x0 = parseInt($('#w5-x0').value,10);\n    const N = Math.max(1, Math.min(12, parseInt($('#w5-n').value,10)||6));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    // Check hypotheses\n    const f0 = ((x0*x0 - k) % p + p) % p;\n    if(f0 !== 0){ out.textContent=`Hensel needs f(x_0) \\u2261 0 (mod p).  Here ${x0}\\u00b2-${k} \\u2261 ${f0} (mod ${p}).`; return; }\n    const df0 = ((2*x0) % p + p) % p;\n    if(df0 === 0){ out.textContent=`Hensel needs f'(x_0) \\u2262 0 (mod p).  Here 2\\u00b7${x0} \\u2261 0 (mod ${p}).`; return; }\n    // Iterate Newton-in-Z/p^n form: lift modulo p^{n} increasing.\n    // We compute x_n \\in Z/p^{n+1} such that x_n^2 \\equiv k (mod p^{n+1}).\n    const lines = [`f(x)=x\\u00b2-${k},  p=${p},  x_0=${x0}  (seed mod ${p})`];\n    let pn = p; // modulus starts at p (we have x_0 mod p)\n    let x  = ((x0 % pn) + pn) % pn;\n    lines.push(`n=0   x_0 \\u2261 ${x} (mod ${pn})   f(x_0) \\u2261 ${(x*x - k) % pn} (mod ${pn})`);\n    for(let n=1; n<=N; n++){\n      const newPn = pn * p;\n      // lift: find a in {0,..,p-1} with (x + a*pn)^2 \\u2261 k (mod newPn)\n      // (x^2 - k) + 2*x*a*pn \\u2261 0 (mod p^{n+1})\n      // a \\u2261 -((x^2 - k)/pn) * (2x)^{-1}  (mod p)\n      const delta = (x*x - k);\n      // make sure delta is divisible by pn\n      const deltaOverPn = Math.round(delta / pn);\n      // inverse of 2x mod p\n      const inv2x = modpow(((2*x)%p+p)%p, p-2, p);\n      let a = ((-deltaOverPn * inv2x) % p + p) % p;\n      const xNew = x + a*pn;\n      const fv = (xNew*xNew - k);\n      lines.push(`n=${n}   digit a_${n} = ${a}   x_${n} \\u2261 ${xNew} (mod ${newPn})   f(x_${n}) \\u2261 ${((fv % newPn)+newPn)%newPn} (mod ${newPn})`);\n      x = xNew; pn = newPn;\n    }\n    lines.push(`\\nLift converges: sqrt(${k}) \\u2208 \\u2124_${p} with digits a_0 a_1 ... giving x = ${x} (mod ${pn}).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w5-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w5",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W5 · Hensel lift step-by-step",
+            "hint": "$f(x)=x^2-k$, solve $x^2=k$ in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w5-p\">$p=$</label><input type=\"number\" id=\"w5-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w5-k\">$k=$</label><input type=\"number\" id=\"w5-k\" value=\"2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-x0\">$x_0=$</label><input type=\"number\" id=\"w5-x0\" value=\"3\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-n\">steps</label><input type=\"number\" id=\"w5-n\" value=\"6\" min=\"1\" max=\"12\" step=\"1\" style=\"width:70px\">\n    <button id=\"w5-go\">lift</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w5-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w5-out');\n  function go(){\n    const p = parseInt($('#w5-p').value,10);\n    const k = parseInt($('#w5-k').value,10);\n    const x0 = parseInt($('#w5-x0').value,10);\n    const N = Math.max(1, Math.min(12, parseInt($('#w5-n').value,10)||6));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    // Check hypotheses\n    const f0 = ((x0*x0 - k) % p + p) % p;\n    if(f0 !== 0){ out.textContent=`Hensel needs f(x_0) \\u2261 0 (mod p).  Here ${x0}\\u00b2-${k} \\u2261 ${f0} (mod ${p}).`; return; }\n    const df0 = ((2*x0) % p + p) % p;\n    if(df0 === 0){ out.textContent=`Hensel needs f'(x_0) \\u2262 0 (mod p).  Here 2\\u00b7${x0} \\u2261 0 (mod ${p}).`; return; }\n    // Iterate Newton-in-Z/p^n form: lift modulo p^{n} increasing.\n    // We compute x_n \\in Z/p^{n+1} such that x_n^2 \\equiv k (mod p^{n+1}).\n    const lines = [`f(x)=x\\u00b2-${k},  p=${p},  x_0=${x0}  (seed mod ${p})`];\n    let pn = p; // modulus starts at p (we have x_0 mod p)\n    let x  = ((x0 % pn) + pn) % pn;\n    lines.push(`n=0   x_0 \\u2261 ${x} (mod ${pn})   f(x_0) \\u2261 ${(x*x - k) % pn} (mod ${pn})`);\n    for(let n=1; n<=N; n++){\n      const newPn = pn * p;\n      // lift: find a in {0,..,p-1} with (x + a*pn)^2 \\u2261 k (mod newPn)\n      // (x^2 - k) + 2*x*a*pn \\u2261 0 (mod p^{n+1})\n      // a \\u2261 -((x^2 - k)/pn) * (2x)^{-1}  (mod p)\n      const delta = (x*x - k);\n      // make sure delta is divisible by pn\n      const deltaOverPn = Math.round(delta / pn);\n      // inverse of 2x mod p\n      const inv2x = modpow(((2*x)%p+p)%p, p-2, p);\n      let a = ((-deltaOverPn * inv2x) % p + p) % p;\n      const xNew = x + a*pn;\n      const fv = (xNew*xNew - k);\n      lines.push(`n=${n}   digit a_${n} = ${a}   x_${n} \\u2261 ${xNew} (mod ${newPn})   f(x_${n}) \\u2261 ${((fv % newPn)+newPn)%newPn} (mod ${newPn})`);\n      x = xNew; pn = newPn;\n    }\n    lines.push(`\\nLift converges: sqrt(${k}) \\u2208 \\u2124_${p} with digits a_0 a_1 ... giving x = ${x} (mod ${pn}).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w5-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>The take-away: in $\\mathbb{Z}_p$, \"approximate solution mod $p$\" plus \"derivative is a unit\" always promotes to an exact root. This is why $p$-adic fields behave so well for deformation arguments.</p>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "hensel-lemma",
+          "html": "<div class=\"quiz\" data-concept=\"hensel-lemma\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./p-adic-numbers.html#localglobal\">p-adic numbers</a> · Local-global (Hasse) principle</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "localglobal",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"localglobal\">\n<h2>8. The local&ndash;global (Hasse) principle</h2>\n<p>Having built one completion per prime plus the Archimedean place $\\mathbb{R}$, a natural question is how much a global problem over $\\mathbb{Q}$ is controlled by its behavior at each completion. For an equation $f(x_1,\\ldots,x_n)=0$ with rational coefficients, say it satisfies the <strong>local&ndash;global principle</strong> if\n$$f=0\\ \\text{has a nonzero rational solution}\\iff f=0\\ \\text{has a nonzero solution in }\\mathbb{R}\\ \\text{and in every }\\mathbb{Q}_p.$$\nThe left-to-right direction is automatic; the deep content is the reverse direction, which says local solvability at every place is <em>sufficient</em> for global solvability.</p>\n\n<p><strong>Hasse&ndash;Minkowski.</strong> For a quadratic form $Q(x_1,\\ldots,x_n)$ over $\\mathbb{Q}$, $Q$ represents zero nontrivially over $\\mathbb{Q}$ iff it does so over $\\mathbb{R}$ and over every $\\mathbb{Q}_p$. Checking $\\mathbb{R}$ is a signature condition; checking $\\mathbb{Q}_p$ reduces to finitely many Hilbert symbols, via Hensel's lemma on the non-zero-discriminant primes. So an infinite question becomes a finite calculation.</p>\n\n<p><strong>Failure for higher degree.</strong> The principle fails for cubics: Selmer's famous $3x^3+4y^3+5z^3=0$ has solutions in $\\mathbb{R}$ and every $\\mathbb{Q}_p$ but none in $\\mathbb{Q}$. The gap between \"locally solvable\" and \"globally solvable\" is organized: for Brauer&ndash;Severi varieties it is controlled by the Brauer group of $\\mathbb{Q}$, and for elliptic curves by the Tate&ndash;Shafarevich group $\\Sha(E/\\mathbb{Q})$. Obstruction theory turns the failure itself into arithmetic.</p>\n\n<div class=\"note\"><strong>Heuristic.</strong> Think of solving $f=0$ at each place as asking local witnesses. For quadratic forms over $\\mathbb{Q}$ the witnesses always assemble into a global solution. For higher degree they might not, and the difference lives in cohomology groups attached to $G_\\mathbb{Q}$.</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w7",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W7 &middot; Local solvability check",
+            "hint": "$ax^2+by^2=c$ over $\\mathbb{R}$ and $\\mathbb{Q}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w7-a\">$a=$</label><input type=\"number\" id=\"w7-a\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-b\">$b=$</label><input type=\"number\" id=\"w7-b\" value=\"-2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-c\">$c=$</label><input type=\"number\" id=\"w7-c\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-p\">$p=$</label><input type=\"number\" id=\"w7-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <button id=\"w7-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w7-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w7-out');\n  function go(){\n    const a = parseInt($('#w7-a').value,10);\n    const b = parseInt($('#w7-b').value,10);\n    const c = parseInt($('#w7-c').value,10);\n    const p = parseInt($('#w7-p').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(a===0 || b===0){ out.textContent='need a,b nonzero'; return; }\n    const lines = [];\n    // Real solvability: ax^2+by^2=c has real solutions iff c,a,b not forced to wrong signs.\n    // Over R, ax^2 takes all values of sign(a)*[0,\\u221E) and similarly for b, so ax^2+by^2 takes:\n    //   if a>0,b>0: [0,\\u221E); if a<0,b<0: (-\\u221E,0]; otherwise all of R.\n    let realOK;\n    if(a>0 && b>0) realOK = (c>=0);\n    else if(a<0 && b<0) realOK = (c<=0);\n    else realOK = true;\n    lines.push(`over \\u211d: ax\\u00b2+by\\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \\u2713':'c='+c+' \\u2717 (sign obstruction)'}`);\n    // p-adic solvability heuristic: search modulo p^k for small k.\n    // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.\n    // We do a brute search mod p^3.\n    let pk = p*p*p; // p^3\n    let found = null;\n    outer:\n    for(let x=0;x<pk;x++){\n      for(let y=0;y<pk;y++){\n        if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){\n          // also require (x,y) not both \\u2261 0 mod p, to rule out trivial scaling\n          if(!(x%p===0 && y%p===0)){\n            found = [x,y]; break outer;\n          }\n        }\n        if(y>200) break; // safety\n      }\n      if(x>200) break;\n    }\n    if(found){\n      lines.push(`over \\u211a_${p}: primitive solution mod ${p}\\u00b3 at (x,y)\\u2261(${found[0]},${found[1]}), Hensel lifts \\u2713`);\n    } else {\n      lines.push(`over \\u211a_${p}: no primitive solution found mod ${p}\\u00b3 in search window (likely obstruction)`);\n    }\n    const globalLikely = realOK && !!found;\n    lines.push('');\n    lines.push(globalLikely ?\n      `local data consistent \\u2014 by Hasse\\u2013Minkowski a global \\u211a-solution exists.` :\n      `local obstruction detected \\u2014 no global \\u211a-solution (Hasse\\u2013Minkowski).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w7-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w7",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W7 &middot; Local solvability check",
+            "hint": "$ax^2+by^2=c$ over $\\mathbb{R}$ and $\\mathbb{Q}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w7-a\">$a=$</label><input type=\"number\" id=\"w7-a\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-b\">$b=$</label><input type=\"number\" id=\"w7-b\" value=\"-2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-c\">$c=$</label><input type=\"number\" id=\"w7-c\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-p\">$p=$</label><input type=\"number\" id=\"w7-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <button id=\"w7-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w7-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w7-out');\n  function go(){\n    const a = parseInt($('#w7-a').value,10);\n    const b = parseInt($('#w7-b').value,10);\n    const c = parseInt($('#w7-c').value,10);\n    const p = parseInt($('#w7-p').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(a===0 || b===0){ out.textContent='need a,b nonzero'; return; }\n    const lines = [];\n    // Real solvability: ax^2+by^2=c has real solutions iff c,a,b not forced to wrong signs.\n    // Over R, ax^2 takes all values of sign(a)*[0,\\u221E) and similarly for b, so ax^2+by^2 takes:\n    //   if a>0,b>0: [0,\\u221E); if a<0,b<0: (-\\u221E,0]; otherwise all of R.\n    let realOK;\n    if(a>0 && b>0) realOK = (c>=0);\n    else if(a<0 && b<0) realOK = (c<=0);\n    else realOK = true;\n    lines.push(`over \\u211d: ax\\u00b2+by\\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \\u2713':'c='+c+' \\u2717 (sign obstruction)'}`);\n    // p-adic solvability heuristic: search modulo p^k for small k.\n    // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.\n    // We do a brute search mod p^3.\n    let pk = p*p*p; // p^3\n    let found = null;\n    outer:\n    for(let x=0;x<pk;x++){\n      for(let y=0;y<pk;y++){\n        if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){\n          // also require (x,y) not both \\u2261 0 mod p, to rule out trivial scaling\n          if(!(x%p===0 && y%p===0)){\n            found = [x,y]; break outer;\n          }\n        }\n        if(y>200) break; // safety\n      }\n      if(x>200) break;\n    }\n    if(found){\n      lines.push(`over \\u211a_${p}: primitive solution mod ${p}\\u00b3 at (x,y)\\u2261(${found[0]},${found[1]}), Hensel lifts \\u2713`);\n    } else {\n      lines.push(`over \\u211a_${p}: no primitive solution found mod ${p}\\u00b3 in search window (likely obstruction)`);\n    }\n    const globalLikely = realOK && !!found;\n    lines.push('');\n    lines.push(globalLikely ?\n      `local data consistent \\u2014 by Hasse\\u2013Minkowski a global \\u211a-solution exists.` :\n      `local obstruction detected \\u2014 no global \\u211a-solution (Hasse\\u2013Minkowski).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w7-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p class=\"small\">Ostrowski told us there are no other places to check: $\\mathbb{R}$ plus one $\\mathbb{Q}_p$ per prime is the complete list. \"Solving at every place\" is therefore a finite, mechanisable check for quadratic forms.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-number-theory.html#ramification\">Ideal factorization and ramification</a></li>\n  </ul>\n</aside>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "local-global-principle",
+          "html": "<div class=\"quiz\" data-concept=\"local-global-principle\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"why\">\n<h2>9. Why care</h2>\n<p>$p$-adic numbers are not exotic formalism; they reorganize number theory, algebraic geometry, and representation theory.</p>\n<ul>\n  <li><strong>Local-global (Hasse) principle.</strong> For quadratic forms over $\\mathbb{Q}$, a form represents zero globally iff it does so over $\\mathbb{R}$ and every $\\mathbb{Q}_p$. \"Check the problem at every place.\" It fails for higher-degree forms, but the failure itself is organized (Brauer groups, Tate–Shafarevich). See the sibling page on <a href=\"./quadratic-reciprocity.html\">quadratic reciprocity</a>.</li>\n  <li><strong>Reduction of elliptic curves.</strong> An elliptic curve $E/\\mathbb{Q}$ reduces mod $p$ for each prime, and whether the reduction is good, multiplicative, or additive is controlled by $p$-adic geometry. Forward to <a href=\"./elliptic-curves.html\">elliptic curves</a>.</li>\n  <li><strong>$\\ell$-adic Galois representations.</strong> The étale cohomology of a variety over $\\mathbb{Q}$ produces continuous representations $\\rho\\colon G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{Q}_\\ell)$ carrying deep arithmetic information (Frobenius traces $=$ point counts). Forward-linked in the <a href=\"./galois.html\">Galois</a> and <a href=\"./algebraic-number-theory.html\">ANT</a> pages.</li>\n  <li><strong>Completion = localization + analysis.</strong> Doing analysis at a prime ideal lets you use calculus (Newton's method, Taylor series, $p$-adic $L$-functions) exactly where the combinatorics of primes lives.</li>\n</ul>\n\n<div class=\"ok\"><strong>Mental picture to leave with.</strong> The rationals have one \"place at infinity\" (Euclidean distance) and one place per prime. Each place has a completion; together they form the <em>adèles</em>. Every global arithmetic phenomenon factors through its behavior at each place, and the $p$-adic places are rooted trees, not lines.</div>\n\n<p class=\"small\">Siblings in Wave 1: <a href=\"./quadratic-reciprocity.html\">quadratic reciprocity</a>, <a href=\"./sums-of-squares.html\">sums of squares</a>, <a href=\"./projective-plane.html\">projective plane</a>, <a href=\"./upper-half-plane-hyperbolic.html\">upper half-plane and hyperbolic geometry</a>.</p>\n</section>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n/* sidebar TOC builder + active-section highlighting */\n(function(){\n  function build(){\n    const aside = document.querySelector('aside.sidetoc');\n    const topnav = document.querySelector('nav.toc');\n    if(!aside || !topnav) return;\n    const srcs = [...topnav.querySelectorAll('a[href^=\"#\"]')];\n    if(!srcs.length) return;\n    const title = document.createElement('div');\n    title.className = 'sidetoc-title';\n    title.textContent = 'On this page';\n    aside.appendChild(title);\n    const ol = document.createElement('ol');\n    srcs.forEach(src => {\n      const li = document.createElement('li');\n      const a = document.createElement('a');\n      a.href = src.getAttribute('href');\n      a.textContent = src.textContent.replace(/\\u00a0/g,' ').trim();\n      li.appendChild(a); ol.appendChild(li);\n    });\n    aside.appendChild(ol);\n    const links = [...aside.querySelectorAll('a')];\n    const sections = [];\n    links.forEach(a => {\n      const id = a.getAttribute('href').slice(1);\n      const s = document.getElementById(id);\n      if(s) sections.push({a, s});\n    });\n    if(!sections.length) return;\n    function update(){\n      const threshold = 140;\n      let activeLink = sections[0].a;\n      for(const {a,s} of sections){\n        if(s.getBoundingClientRect().top <= threshold) activeLink = a;\n      }\n      links.forEach(x => x.classList.remove('active'));\n      activeLink.classList.add('active');\n    }\n    update();\n    window.addEventListener('scroll', update, {passive:true});\n    window.addEventListener('resize', update);\n  }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);\n  else build();\n})();\n</script>\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('p-adic-numbers'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>\n      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>\n      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>\n      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>\n      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>\n      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>\n      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>\n      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>\n      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>\n      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>\n      <tr><td>2026-04-19</td><td>more pages</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

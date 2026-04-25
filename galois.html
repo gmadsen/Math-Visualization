@@ -139,7 +139,19 @@
   aside.related > div{margin:.15rem 0}
   aside.related .more{color:var(--mute);font-style:italic}
   aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
 </style>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
 </head>
 <body data-section="number-theory" data-level="intermediate">
 <script>
@@ -166,7 +178,7 @@ function factorizeInt(n){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;Symmetry&nbsp;of&nbsp;roots</a>
   <a href="#compass">2&nbsp;Compass&nbsp;&amp;&nbsp;straightedge</a>
   <a href="#construct">3&nbsp;Constructibility</a>
@@ -176,6 +188,7 @@ function factorizeInt(n){
   <a href="#normal-separable">7&nbsp;Normal&nbsp;&amp;&nbsp;separable</a>
   <a href="#primitive">8&nbsp;Primitive&nbsp;element</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
 <main>
@@ -1665,6 +1678,18 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>
+      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>
+      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>
+      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>
+      <tr><td>2026-04-21</td><td>round 2: 5 new quiz types + 6 novel widget categories</td></tr>
+      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>
+      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>
+      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>
+      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>
+      <tr><td>2026-04-20</td><td>progress chips, quiz feedback, authoring scripts, thin-topic backfill</td></tr>
+      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>
+      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>
       <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>

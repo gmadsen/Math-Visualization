@@ -1,0 +1,430 @@
+{
+  "topic": "adeles-and-ideles",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Adèles and idèles — the restricted product of local fields</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}\n  @media(max-width:640px){.twocol{grid-template-columns:1fr}}\n\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"number-theory\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  const pad1 = opts.pad1 ?? 0, pad2 = opts.pad2 ?? 4;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  if(label!=null){\n    const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n}\n</script>\n\n<nav class=\"toc\">\n  <a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#places\">1&nbsp;Places</a>\n  <a href=\"#adeles\">2&nbsp;Adèles</a>\n  <a href=\"#ideles\">3&nbsp;Idèles</a>\n  <a href=\"#strong-approx\">4&nbsp;Strong&nbsp;approx.</a>\n  <a href=\"#tate\">5&nbsp;Tate's&nbsp;thesis</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Adèles and idèles</h1>\n  <p class=\"sub\">Number theory has a fundamental tension: a rational number lives simultaneously at every prime and at the real place. The adèle ring $\\mathbb{A}_\\mathbb{Q}$ resolves this tension by packaging all completions of $\\mathbb{Q}$ into a single locally compact ring — a stage on which the diagonal copy of $\\mathbb{Q}$ sits discretely, and harmonic analysis (Fourier theory, Poisson summation) can be applied to prove deep arithmetic theorems.</p>\n</section>\n\n<!-- ======================================================= -->\n",
+  "sections": [
+    {
+      "id": "places",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"places\">\n<h2>1. Places and local fields</h2>\n\n<p>By <strong>Ostrowski's theorem</strong>, every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to one of:</p>\n<ul>\n  <li>The <em>archimedean place</em> $v_\\infty$: the usual real absolute value $|x|_\\infty = |x|$, whose completion is $\\mathbb{R}$.</li>\n  <li>A <em>$p$-adic place</em> $v_p$ for a prime $p$: the $p$-adic absolute value $|x|_p = p^{-v_p(x)}$, where $v_p(x)$ is the exponent of $p$ in $x$. Its completion is $\\mathbb{Q}_p$.</li>\n</ul>\n\n<p>We write $v$ for a place (archimedean or non-archimedean) and $\\mathbb{Q}_v$ for the corresponding completion. Each $\\mathbb{Q}_v$ is a <strong>local field</strong>: locally compact, non-discrete, and complete with respect to $|\\cdot|_v$.</p>\n\n<div class=\"note\">\n  <strong>$p$-adic absolute value.</strong> For $x = p^k \\cdot (a/b)$ with $p \\nmid a, p \\nmid b$, we set $|x|_p = p^{-k}$. Large powers of $p$ are <em>small</em> $p$-adically; the ring $\\mathbb{Z}_p = \\{x : |x|_p \\le 1\\}$ is the closed unit ball, a compact open subring of $\\mathbb{Q}_p$.\n</div>\n\n<h3>The product formula</h3>\n<p>These absolute values are not independent. For any $q \\in \\mathbb{Q}^\\times$, the <strong>product formula</strong> holds:\n$$\\prod_{v} |q|_v \\;=\\; 1,$$\nwhere the product runs over all places $v$ (the archimedean place and all $v_p$). For example, $|12|_\\infty \\cdot |12|_2 \\cdot |12|_3 = 12 \\cdot \\tfrac14 \\cdot \\tfrac13 = 1.$ This is the global constraint that ties all local fields together.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-places",
+            "title": "$p$-adic absolute value explorer",
+            "hint": "enter an integer; see its valuation and absolute value at each small prime",
+            "svgId": "padic-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "padic-out",
+            "hdHtml": "\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  ",
+            "sectionComment": "===== Section 1: p-adic absolute value widget =====",
+            "bodyScript": "  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "padic-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "padic-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./p-adic-numbers.html#p-adic-integers\">$p$-adic integers and $\\mathbb{Z}_p$</a></li>\n      <li><a href=\"./algebraic-number-theory.html#examples\">Number fields and rings of integers</a></li>\n    <li><a href=\"./p-adic-numbers.html#abs\">p-adic norm and completion</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#adeles\">Adèles and idèles</a> · The adèle ring</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "places-and-local-fields",
+          "html": "<div class=\"quiz\" data-concept=\"places-and-local-fields\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-places",
+            "title": "$p$-adic absolute value explorer",
+            "hint": "enter an integer; see its valuation and absolute value at each small prime",
+            "svgId": "padic-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "padic-out",
+            "hdHtml": "\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  ",
+            "sectionComment": "===== Section 1: p-adic absolute value widget =====",
+            "bodyScript": "  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "padic-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "padic-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<!-- ======================================================= -->\n"
+        }
+      ]
+    },
+    {
+      "id": "adeles",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"adeles\">\n<h2>2. The adèle ring</h2>\n\n<p>The naïve product $\\mathbb{R} \\times \\prod_p \\mathbb{Q}_p$ is too large: it is not locally compact. The fix is the <strong>restricted direct product</strong>.</p>\n\n<p>For each prime $p$ we have the compact open subring $\\mathbb{Z}_p \\subset \\mathbb{Q}_p$. The <strong>adèle ring</strong> is\n$$\\mathbb{A}_\\mathbb{Q} \\;=\\; \\mathbb{R} \\times {\\prod_p}' \\mathbb{Q}_p \\;:=\\; \\left\\{ (x_\\infty, x_2, x_3, x_5, \\ldots) \\;\\Big|\\; x_p \\in \\mathbb{Z}_p \\text{ for all but finitely many } p \\right\\}.$$\nTopologically, a basic open set looks like $U_\\infty \\times \\prod_{p \\in S} U_p \\times \\prod_{p \\notin S} \\mathbb{Z}_p$ for a finite set $S$ of primes and open sets $U_v \\subset \\mathbb{Q}_v$. With this topology, $\\mathbb{A}_\\mathbb{Q}$ is <strong>locally compact</strong>.</p>\n\n<div class=\"note\">\n  <strong>Key structural facts.</strong>\n  (1) The diagonal embedding $\\iota\\colon \\mathbb{Q} \\hookrightarrow \\mathbb{A}_\\mathbb{Q}$, $q \\mapsto (q, q, q, \\ldots)$, is well-defined because any $q \\in \\mathbb{Q}$ satisfies $|q|_p \\le 1$ (i.e. $q \\in \\mathbb{Z}_p$) for all but finitely many $p$.\n  (2) The image $\\iota(\\mathbb{Q})$ is <em>discrete</em> in $\\mathbb{A}_\\mathbb{Q}$.\n  (3) The quotient $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is <em>compact</em> — analogous to $\\mathbb{R}/\\mathbb{Z}$.\n</div>\n\n<h3>The finite adèles and $\\hat{\\mathbb{Z}}$</h3>\n<p>The <strong>finite adèles</strong> (omitting the archimedean place) are $\\mathbb{A}_\\mathbb{Q}^\\infty = {\\prod_p}' \\mathbb{Q}_p$. The compact open subring $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ (full product) sits inside as the \"integral finite adèles\" and equals the profinite completion $\\varprojlim \\mathbb{Z}/n\\mathbb{Z}$. We have\n$$\\mathbb{A}_\\mathbb{Q}^\\infty \\;\\cong\\; \\hat{\\mathbb{Z}} \\otimes_\\mathbb{Z} \\mathbb{Q},$$\nthe localisation of $\\hat{\\mathbb{Z}}$ at all primes simultaneously.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-adele",
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-adele",
+            "svgId": "adele-svg",
+            "viewBox": "0 0 620 320",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "320",
+            "title": "Adèle lattice diagram",
+            "clickAction": "highlight",
+            "readoutId": "adele-out",
+            "initialReadoutHtml": "Click a prime node to see its local component.",
+            "hdHtml": "\n    <div class=\"ttl\">Adèle lattice diagram</div>\n    <div class=\"hint\">click a prime node to highlight the local factor</div>\n  ",
+            "sectionComment": "/* ===== Section 2: adele lattice widget ===== */",
+            "bodyScript": "\n  const svg = $('#adele-svg'), out = $('#adele-out');\n  const primes = [2,3,5,7,11,13];\n  const W=620, H=320;\n  const centerX=310, centerY=160;\n  const ringR=120;\n  let selected = null;\n\n  const descriptions = {\n    'inf': 'Archimedean place v_∞: completion is ℝ. Open sets are the usual open intervals.',\n    2:   'p=2 (dyadic): ℚ₂ with 2-adic metric. The compact open subring ℤ₂ = {..., -2,-1,0,1,2,...} (2-adically). A number like 1/3 is in ℤ₂ since |1/3|₂ = 1.',\n    3:   'p=3: ℚ₃ with 3-adic metric. ℤ₃ = {x : |x|₃ ≤ 1}. The series 1+3+9+27+⋯ = -1/2 converges 3-adically!',\n    5:   'p=5: ℚ₅. Note that √(-1) exists in ℚ₅ (since -1 ≡ 4 = 2² mod 5, and Hensel lifting works).',\n    7:   'p=7: ℚ₇. ℤ₇ is open and compact; every element has a unique 7-adic expansion Σaₙ·7ⁿ, aₙ ∈ {0,...,6}.',\n    11:  'p=11: ℚ₁₁. The residue field is ℤ/11ℤ = 𝔽₁₁.',\n    13:  'p=13: ℚ₁₃. For all p shown, the adèle ring stipulates: the component at p must lie in ℤₚ for all but finitely many p.',\n  };\n\n  function draw(sel){\n    svg.innerHTML = '';\n\n    // central node: A_Q\n    svg.appendChild(SVG('circle',{cx:centerX,cy:centerY,r:38,fill:'var(--panel2)',stroke:'var(--yellow)','stroke-width':2}));\n    const ct = SVG('text',{x:centerX,y:centerY-6,'text-anchor':'middle','font-size':14,fill:'var(--yellow)','font-weight':'bold'});\n    ct.textContent = 'A_Q'; svg.appendChild(ct);\n    const ct2 = SVG('text',{x:centerX,y:centerY+12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    ct2.textContent = 'adèle ring'; svg.appendChild(ct2);\n\n    // archimedean node\n    const ax = centerX, ay = centerY - ringR - 20;\n    const archimedeanSel = sel === 'inf';\n    const acol = archimedeanSel ? 'var(--cyan)' : 'var(--blue)';\n    svg.appendChild(SVG('line',{x1:centerX,y1:centerY-38,x2:ax,y2:ay+22,stroke:'var(--line)','stroke-width':1.5}));\n    svg.appendChild(SVG('ellipse',{cx:ax,cy:ay,rx:42,ry:22,fill:archimedeanSel?'rgba(125,224,214,0.15)':'var(--panel2)',stroke:acol,'stroke-width':1.8}));\n    const at = SVG('text',{x:ax,y:ay-4,'text-anchor':'middle','font-size':13,fill:acol,'font-weight':'bold'});\n    at.textContent = 'ℝ'; svg.appendChild(at);\n    const at2 = SVG('text',{x:ax,y:ay+11,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    at2.textContent = 'v_∞'; svg.appendChild(at2);\n\n    // clickable overlay for archimedean\n    const aHit = SVG('ellipse',{cx:ax,cy:ay,rx:42,ry:22,fill:'transparent',style:'cursor:pointer'});\n    aHit.addEventListener('click',()=>{ selected = selected==='inf'?null:'inf'; draw(selected); out.textContent = selected ? descriptions['inf'] : 'Click a node to see details.'; });\n    svg.appendChild(aHit);\n\n    // prime nodes arranged in a semicircle at bottom\n    primes.forEach((p,i)=>{\n      const angle = Math.PI * (0.1 + 0.8*i/(primes.length-1));\n      const px = centerX + (ringR+10)*Math.cos(Math.PI + angle);\n      const py = centerY + (ringR-10)*Math.sin(angle);\n      const isSel = sel===p;\n      const col = isSel ? 'var(--pink)' : 'var(--violet)';\n\n      svg.appendChild(SVG('line',{x1:centerX,y1:centerY+38,x2:px,y2:py-18,stroke:'var(--line)','stroke-width':1}));\n\n      svg.appendChild(SVG('ellipse',{cx:px,cy:py,rx:34,ry:19,fill:isSel?'rgba(224,122,95,0.15)':'var(--panel2)',stroke:col,'stroke-width':1.8}));\n      const pt = SVG('text',{x:px,y:py-3,'text-anchor':'middle','font-size':13,fill:col,'font-weight':'bold'});\n      pt.textContent = `ℚ${p}`; svg.appendChild(pt);\n      const pt2 = SVG('text',{x:px,y:py+11,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});\n      pt2.textContent = `v_${p}`; svg.appendChild(pt2);\n\n      // ℤ_p compact subring indicator\n      if(!isSel){\n        const zi = SVG('text',{x:px,y:py+22,'text-anchor':'middle','font-size':8,fill:'rgba(179,157,219,0.5)'});\n        zi.textContent = `⊃ℤ${p}`; svg.appendChild(zi);\n      }\n\n      const hit = SVG('ellipse',{cx:px,cy:py,rx:34,ry:19,fill:'transparent',style:'cursor:pointer'});\n      hit.addEventListener('click',()=>{\n        selected = selected===p?null:p;\n        draw(selected);\n        out.textContent = selected ? descriptions[selected] : 'Click a node to see details.';\n      });\n      svg.appendChild(hit);\n    });\n\n    // label: restricted product condition\n    const lbl = SVG('text',{x:centerX,y:H-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    lbl.textContent = 'Admissibility: x_p ∈ ℤ_p for all but finitely many p';\n    svg.appendChild(lbl);\n  }\n\n  draw(null);\n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./p-adic-numbers.html#p-adic-integers\">$p$-adic integers $\\mathbb{Z}_p$</a></li>\n    <li><a href=\"./algebraic-number-theory.html#completions\">Completions of number fields</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#strong-approx\">Adèles and idèles</a> · Strong approximation</div>\n    <div><a href=\"./adeles-and-ideles.html#ideles\">Adèles and idèles</a> · The idèle class group</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "adele-ring",
+          "html": "<div class=\"quiz\" data-concept=\"adele-ring\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-adele",
+            "svgId": "adele-svg",
+            "viewBox": "0 0 620 320",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "320",
+            "title": "Adèle lattice diagram",
+            "clickAction": "highlight",
+            "readoutId": "adele-out",
+            "initialReadoutHtml": "Click a prime node to see its local component.",
+            "hdHtml": "\n    <div class=\"ttl\">Adèle lattice diagram</div>\n    <div class=\"hint\">click a prime node to highlight the local factor</div>\n  ",
+            "sectionComment": "/* ===== Section 2: adele lattice widget ===== */",
+            "bodyScript": "\n  const svg = $('#adele-svg'), out = $('#adele-out');\n  const primes = [2,3,5,7,11,13];\n  const W=620, H=320;\n  const centerX=310, centerY=160;\n  const ringR=120;\n  let selected = null;\n\n  const descriptions = {\n    'inf': 'Archimedean place v_∞: completion is ℝ. Open sets are the usual open intervals.',\n    2:   'p=2 (dyadic): ℚ₂ with 2-adic metric. The compact open subring ℤ₂ = {..., -2,-1,0,1,2,...} (2-adically). A number like 1/3 is in ℤ₂ since |1/3|₂ = 1.',\n    3:   'p=3: ℚ₃ with 3-adic metric. ℤ₃ = {x : |x|₃ ≤ 1}. The series 1+3+9+27+⋯ = -1/2 converges 3-adically!',\n    5:   'p=5: ℚ₅. Note that √(-1) exists in ℚ₅ (since -1 ≡ 4 = 2² mod 5, and Hensel lifting works).',\n    7:   'p=7: ℚ₇. ℤ₇ is open and compact; every element has a unique 7-adic expansion Σaₙ·7ⁿ, aₙ ∈ {0,...,6}.',\n    11:  'p=11: ℚ₁₁. The residue field is ℤ/11ℤ = 𝔽₁₁.',\n    13:  'p=13: ℚ₁₃. For all p shown, the adèle ring stipulates: the component at p must lie in ℤₚ for all but finitely many p.',\n  };\n\n  function draw(sel){\n    svg.innerHTML = '';\n\n    // central node: A_Q\n    svg.appendChild(SVG('circle',{cx:centerX,cy:centerY,r:38,fill:'var(--panel2)',stroke:'var(--yellow)','stroke-width':2}));\n    const ct = SVG('text',{x:centerX,y:centerY-6,'text-anchor':'middle','font-size':14,fill:'var(--yellow)','font-weight':'bold'});\n    ct.textContent = 'A_Q'; svg.appendChild(ct);\n    const ct2 = SVG('text',{x:centerX,y:centerY+12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    ct2.textContent = 'adèle ring'; svg.appendChild(ct2);\n\n    // archimedean node\n    const ax = centerX, ay = centerY - ringR - 20;\n    const archimedeanSel = sel === 'inf';\n    const acol = archimedeanSel ? 'var(--cyan)' : 'var(--blue)';\n    svg.appendChild(SVG('line',{x1:centerX,y1:centerY-38,x2:ax,y2:ay+22,stroke:'var(--line)','stroke-width':1.5}));\n    svg.appendChild(SVG('ellipse',{cx:ax,cy:ay,rx:42,ry:22,fill:archimedeanSel?'rgba(125,224,214,0.15)':'var(--panel2)',stroke:acol,'stroke-width':1.8}));\n    const at = SVG('text',{x:ax,y:ay-4,'text-anchor':'middle','font-size':13,fill:acol,'font-weight':'bold'});\n    at.textContent = 'ℝ'; svg.appendChild(at);\n    const at2 = SVG('text',{x:ax,y:ay+11,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    at2.textContent = 'v_∞'; svg.appendChild(at2);\n\n    // clickable overlay for archimedean\n    const aHit = SVG('ellipse',{cx:ax,cy:ay,rx:42,ry:22,fill:'transparent',style:'cursor:pointer'});\n    aHit.addEventListener('click',()=>{ selected = selected==='inf'?null:'inf'; draw(selected); out.textContent = selected ? descriptions['inf'] : 'Click a node to see details.'; });\n    svg.appendChild(aHit);\n\n    // prime nodes arranged in a semicircle at bottom\n    primes.forEach((p,i)=>{\n      const angle = Math.PI * (0.1 + 0.8*i/(primes.length-1));\n      const px = centerX + (ringR+10)*Math.cos(Math.PI + angle);\n      const py = centerY + (ringR-10)*Math.sin(angle);\n      const isSel = sel===p;\n      const col = isSel ? 'var(--pink)' : 'var(--violet)';\n\n      svg.appendChild(SVG('line',{x1:centerX,y1:centerY+38,x2:px,y2:py-18,stroke:'var(--line)','stroke-width':1}));\n\n      svg.appendChild(SVG('ellipse',{cx:px,cy:py,rx:34,ry:19,fill:isSel?'rgba(224,122,95,0.15)':'var(--panel2)',stroke:col,'stroke-width':1.8}));\n      const pt = SVG('text',{x:px,y:py-3,'text-anchor':'middle','font-size':13,fill:col,'font-weight':'bold'});\n      pt.textContent = `ℚ${p}`; svg.appendChild(pt);\n      const pt2 = SVG('text',{x:px,y:py+11,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});\n      pt2.textContent = `v_${p}`; svg.appendChild(pt2);\n\n      // ℤ_p compact subring indicator\n      if(!isSel){\n        const zi = SVG('text',{x:px,y:py+22,'text-anchor':'middle','font-size':8,fill:'rgba(179,157,219,0.5)'});\n        zi.textContent = `⊃ℤ${p}`; svg.appendChild(zi);\n      }\n\n      const hit = SVG('ellipse',{cx:px,cy:py,rx:34,ry:19,fill:'transparent',style:'cursor:pointer'});\n      hit.addEventListener('click',()=>{\n        selected = selected===p?null:p;\n        draw(selected);\n        out.textContent = selected ? descriptions[selected] : 'Click a node to see details.';\n      });\n      svg.appendChild(hit);\n    });\n\n    // label: restricted product condition\n    const lbl = SVG('text',{x:centerX,y:H-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    lbl.textContent = 'Admissibility: x_p ∈ ℤ_p for all but finitely many p';\n    svg.appendChild(lbl);\n  }\n\n  draw(null);\n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<!-- ======================================================= -->\n"
+        }
+      ]
+    },
+    {
+      "id": "ideles",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"ideles\">\n<h2>3. The idèle class group</h2>\n\n<p>The multiplicative group $\\mathbb{A}_\\mathbb{Q}^\\times$ of invertible adèles is the <strong>idèle group</strong>. An adèle $(x_v)$ is an idèle iff each $x_v \\ne 0$ and $x_p \\in \\mathbb{Z}_p^\\times$ for all but finitely many $p$. The idèle group carries a topology <em>strictly finer</em> than the subspace topology from $\\mathbb{A}_\\mathbb{Q}$: a basic open set at the $p$-th factor requires $x_p \\in \\mathbb{Z}_p^\\times$ (units), not just $\\mathbb{Z}_p$.</p>\n\n<h3>The idèlic norm and the product formula</h3>\n<p>The <strong>idèlic norm</strong> (or content) is\n$$\\|\\mathbf{x}\\| \\;=\\; \\prod_v |x_v|_v \\;\\in\\; \\mathbb{R}_{>0}.$$\nThis is a continuous homomorphism $\\mathbb{A}_\\mathbb{Q}^\\times \\to \\mathbb{R}_{>0}$. By the product formula, $\\|q\\| = 1$ for every $q \\in \\mathbb{Q}^\\times$.</p>\n\n<h3>The idèle class group</h3>\n<p>The <strong>idèle class group</strong> is the quotient\n$$C_\\mathbb{Q} \\;=\\; \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times.$$\nIt is a locally compact abelian group. Its connected component $C_\\mathbb{Q}^0$ is isomorphic to $\\mathbb{R}_{>0}$; the quotient $C_\\mathbb{Q}/C_\\mathbb{Q}^0 \\cong \\hat{\\mathbb{Z}}^\\times$ captures the totally-disconnected (non-archimedean) part.</p>\n\n<p>The <strong>norm-1 subgroup</strong> $C_\\mathbb{Q}^1 = \\ker(\\|\\cdot\\|) / \\mathbb{Q}^\\times$ is <strong>compact</strong>. For $\\mathbb{Q}$ this follows from $\\mathbb{A}_\\mathbb{Q}^1 / \\mathbb{Q}$ being compact (analogous to $\\mathbb{R}/\\mathbb{Z}$).</p>\n\n<div class=\"note\">\n  <strong>Connection to class field theory.</strong> Global class field theory provides the <em>Artin map</em>: a canonical surjective homomorphism\n  $$C_\\mathbb{Q} \\;\\twoheadrightarrow\\; \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q}),$$\n  whose kernel is the connected component $C_\\mathbb{Q}^0 \\cong \\mathbb{R}_{>0}$. For $\\mathbb{Q}$, the Artin map identifies $\\hat{\\mathbb{Z}}^\\times \\cong \\prod_p \\mathbb{Z}_p^\\times$ with $\\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$, recovering the Kronecker–Weber theorem: every abelian extension of $\\mathbb{Q}$ is contained in a cyclotomic field.\n</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-idele",
+            "title": "Idèlic norm calculator",
+            "hint": "enter a rational number; verify the product formula",
+            "readoutId": "idele-out",
+            "hdHtml": "\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  ",
+            "sectionComment": "===== Section 3: idèlic norm calculator =====",
+            "bodyScript": "  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "idele-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./class-field-theory.html#artin-map\">The Artin reciprocity map</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#tate\">Adèles and idèles</a> · Tate's thesis sketch</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "idele-class-group",
+          "html": "<div class=\"quiz\" data-concept=\"idele-class-group\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-idele",
+            "title": "Idèlic norm calculator",
+            "hint": "enter a rational number; verify the product formula",
+            "readoutId": "idele-out",
+            "hdHtml": "\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  ",
+            "sectionComment": "===== Section 3: idèlic norm calculator =====",
+            "bodyScript": "  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "idele-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<!-- ======================================================= -->\n"
+        }
+      ]
+    },
+    {
+      "id": "strong-approx",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"strong-approx\">\n<h2>4. Strong approximation</h2>\n\n<p>The diagonal $\\mathbb{Q} \\hookrightarrow \\mathbb{A}_\\mathbb{Q}$ is discrete and cocompact. What about the finite adèles alone?</p>\n\n<p><strong>Strong approximation theorem.</strong> The diagonal image of $\\mathbb{Q}$ is <em>dense</em> in the finite adèles $\\mathbb{A}_\\mathbb{Q}^\\infty = {\\prod_p}' \\mathbb{Q}_p$. Equivalently, $\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$.</p>\n\n<p>This is a profound generalization of the <strong>Chinese Remainder Theorem</strong>. CRT says: given pairwise coprime moduli $m_1, \\ldots, m_k$ and arbitrary residues, there is a simultaneous solution. Strong approximation says: given <em>any finite collection</em> of $p$-adic neighborhoods (one at each prime in a finite set $S$), there is a rational number hitting all of them simultaneously — with the archimedean coordinate unconstrained.</p>\n\n<div class=\"ok\">\n  <strong>CRT inside strong approximation.</strong> To find $n \\in \\mathbb{Z}$ with $n \\equiv a_i \\pmod{p_i^{k_i}}$ for $i = 1, \\ldots, r$, we are asking for $n$ to lie in $a_i + p_i^{k_i} \\mathbb{Z}_{p_i}$ (a $p_i$-adic open ball) for each $i$. By strong approximation, $\\mathbb{Z}$ (or $\\mathbb{Q}$) hits every such finite intersection, so a solution always exists. The classical CRT is exactly the non-emptiness statement.\n</div>\n\n<h3>Geometric picture: $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is compact</h3>\n<p>Because $\\mathbb{Q}$ is discrete and $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is compact, $\\mathbb{Q}$ is a <em>lattice</em> in $\\mathbb{A}_\\mathbb{Q}$ — precisely as $\\mathbb{Z}$ is a lattice in $\\mathbb{R}$. Summing over the lattice and Fourier-expanding on the compact quotient is the engine behind Tate's thesis.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-crt",
+            "title": "CRT / strong approximation toy",
+            "hint": "choose residues mod 2, 3, 5; find the smallest positive solution",
+            "svgId": "crt-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "crt-out",
+            "hdHtml": "\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  ",
+            "sectionComment": "===== Section 4: CRT widget =====",
+            "bodyScript": "  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "crt-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "crt-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "strong-approximation",
+          "html": "<div class=\"quiz\" data-concept=\"strong-approximation\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-crt",
+            "title": "CRT / strong approximation toy",
+            "hint": "choose residues mod 2, 3, 5; find the smallest positive solution",
+            "svgId": "crt-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "crt-out",
+            "hdHtml": "\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  ",
+            "sectionComment": "===== Section 4: CRT widget =====",
+            "bodyScript": "  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "crt-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "crt-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<!-- ======================================================= -->\n"
+        }
+      ]
+    },
+    {
+      "id": "tate",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"tate\">\n<h2>5. Tate's thesis — a sketch</h2>\n\n<p>John Tate's 1950 Princeton thesis reproves the analytic continuation and functional equation of all Hecke $L$-functions using harmonic analysis on $\\mathbb{A}_\\mathbb{Q}$. We sketch the argument for $\\zeta(s)$.</p>\n\n<h3>Local and global zeta integrals</h3>\n<p>Choose a <strong>Schwartz–Bruhat function</strong> $f = f_\\infty \\otimes \\bigotimes_p f_p$ on $\\mathbb{A}_\\mathbb{Q}$, where $f_\\infty(x) = e^{-\\pi x^2}$ and $f_p = \\mathbf{1}_{\\mathbb{Z}_p}$ (the indicator of $\\mathbb{Z}_p$) for every prime $p$. Define the <strong>global zeta integral</strong>:\n$$Z(f, s) \\;=\\; \\int_{\\mathbb{A}_\\mathbb{Q}^\\times} f(x)\\, |x|^s \\, d^\\times x,$$\nwhere $d^\\times x = \\prod_v d^\\times x_v$ is the Haar measure on $\\mathbb{A}_\\mathbb{Q}^\\times$ (product of local Haar measures). This integral factors over places:\n$$Z(f, s) \\;=\\; Z_\\infty(f_\\infty, s) \\cdot \\prod_p Z_p(f_p, s).$$</p>\n\n<h3>Local computations</h3>\n<p>Each local integral is easy to compute:\n$$Z_\\infty(f_\\infty, s) = \\int_{\\mathbb{R}^\\times} e^{-\\pi x^2} |x|^s \\frac{dx}{|x|} = \\pi^{-s/2}\\Gamma(s/2),$$\n$$Z_p(f_p, s) = \\int_{\\mathbb{Z}_p^\\times \\cup p\\mathbb{Z}_p \\cup \\cdots} \\mathbf{1}_{\\mathbb{Z}_p}(x)\\, |x|_p^s\\, d^\\times x = \\frac{1}{1 - p^{-s}}.$$\nTherefore\n$$Z(f, s) \\;=\\; \\pi^{-s/2}\\Gamma(s/2) \\cdot \\prod_p \\frac{1}{1-p^{-s}} \\;=\\; \\pi^{-s/2}\\Gamma(s/2)\\,\\zeta(s).$$\nThis is the completed zeta function $\\xi(s)$ (up to the factors $\\tfrac12 s(s-1)$ that come from boundary terms at $x=0$ and $x=\\infty$).</p>\n\n<h3>The functional equation from Poisson summation</h3>\n<p>The key move is Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$: for $f \\in \\mathcal{S}(\\mathbb{A}_\\mathbb{Q})$,\n$$\\sum_{q \\in \\mathbb{Q}} f(q) \\;=\\; \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q),$$\nwhere $\\hat{f}$ is the Fourier transform on $\\mathbb{A}_\\mathbb{Q}$ (product of local Fourier transforms). Inserting this into the global zeta integral and splitting at $\\|x\\|=1$ yields:\n$$Z(f,s) + \\text{(boundary)} \\;=\\; Z(\\hat{f}, 1-s) + \\text{(boundary)},$$\nwhich is exactly the functional equation $\\xi(s) = \\xi(1-s)$. The same argument works for any Hecke $L$-function $L(s, \\chi)$ by inserting a Hecke character $\\chi$ of $C_\\mathbb{Q}$.</p>\n\n<div class=\"note\">\n  <strong>Why is this better than Riemann's original proof?</strong> Riemann's proof uses the Mellin transform and the theta transformation $\\theta(1/x) = \\sqrt{x}\\,\\theta(x)$ — a non-trivial identity. Tate's proof uses Poisson summation on a locally compact group, which is a general theorem whose proof is automatic once we set up the right measure theory. The adèlic language also generalizes cleanly to arbitrary number fields $K/\\mathbb{Q}$ and Hecke Grössencharacters, unifying infinitely many functional equations into a single framework.\n</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tate",
+            "title": "Local Euler factor visualizer",
+            "hint": "slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$",
+            "svgId": "tate-svg",
+            "viewBox": "0 0 620 280",
+            "readoutId": "tate-out",
+            "hdHtml": "\n    <div class=\"ttl\">Local Euler factor visualizer</div>\n    <div class=\"hint\">slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$</div>\n  ",
+            "sectionComment": "===== Section 5: Euler factor visualizer =====",
+            "bodyScript": "  const sld=$('#tate-sigma'), sldo=$('#tate-sigma-out');\n  const svg=$('#tate-svg'), out=$('#tate-out');\n  const PRIMES=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function drawBars(sigma){\n    svg.innerHTML='';\n    const W=620, H=280, pad=50, barW=28, gap=8;\n    const maxLog = Math.log(1/(1-Math.pow(2,-sigma)));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-50,x2:W-10,y2:H-50,stroke:'var(--line)','stroke-width':1}));\n\n    let partialProduct=1;\n    const lines=[];\n\n    PRIMES.forEach((p,i)=>{\n      const factor = 1/(1-Math.pow(p,-sigma));\n      partialProduct *= factor;\n      const logFactor = Math.log(factor);\n      const barH = Math.min(180, (logFactor/maxLog)*160+2);\n      const x=pad+i*(barW+gap);\n      const y=H-50-barH;\n      const col = i<5?'var(--yellow)':i<10?'var(--cyan)':'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.8}));\n      const lbl=SVG('text',{x:x+barW/2,y:H-35,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      lbl.textContent=String(p); svg.appendChild(lbl);\n      lines.push(`p=${p}: (1-p^{-σ})^{-1} = ${factor.toFixed(5)}`);\n    });\n\n    // partial product line\n    const ppY = H-50 - Math.min(180,(Math.log(partialProduct)/maxLog)*160);\n    svg.appendChild(SVG('line',{x1:pad,y1:ppY,x2:W-10,y2:ppY,stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'5,4',opacity:0.6}));\n    const plbl=SVG('text',{x:W-12,y:ppY-4,'text-anchor':'end','font-size':11,fill:'var(--pink)'});\n    plbl.textContent='log ζ_partial'; svg.appendChild(plbl);\n\n    // gamma factor\n    // Stirling approx for Γ(σ/2): just show the value\n    const halfS=sigma/2;\n    // Use actual calculation via Lanczos approximation won't parse well; use simple recursion\n    function lgamma(z){\n      // simple Lanczos\n      const g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n      if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);\n      z-=1;let x=c[0];for(let i=1;i<g+2;i++)x+=c[i]/(z+i);\n      const t=z+g+0.5;\n      return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);\n    }\n    const gammaVal = Math.exp(lgamma(halfS));\n    const piS2 = Math.pow(Math.PI,-sigma/2);\n    const xiLocal = piS2*gammaVal*partialProduct;\n\n    sldo.textContent=`σ = ${sigma.toFixed(2)}`;\n    out.textContent =\n      `σ = ${sigma.toFixed(2)}\\n` +\n      `π^{-σ/2} = ${piS2.toFixed(6)}   (archimedean gamma factor)\\n` +\n      `Γ(σ/2) ≈ ${gammaVal.toFixed(6)}\\n` +\n      `∏_{p≤47}(1-p^{-σ})^{-1} ≈ ${partialProduct.toFixed(6)}   (partial Euler product)\\n` +\n      `π^{-σ/2}·Γ(σ/2)·∏_p(1-p^{-σ})^{-1} ≈ ${xiLocal.toFixed(6)}\\n\\n` +\n      `(For reference: ζ(2) = π²/6 ≈ 1.6449, so π^{-1}·Γ(1)·ζ(2) = π^{-1}·1·1.6449 ≈ 0.5236 = ξ̃(2))`;\n  }\n\n  sld.addEventListener('input',()=>drawBars(parseFloat(sld.value)));\n  drawBars(2);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tate-sigma\">$\\sigma = \\mathrm{Re}(s)$:</label>\n    <input type=\"range\" id=\"tate-sigma\" min=\"1.05\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span class=\"small\" id=\"tate-sigma-out\">σ = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "tate-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "readout",
+                "id": "tate-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./dirichlet-series-and-euler-products.html#euler-product\">Euler products and $L$-functions</a></li>\n    <li><a href=\"./analytic-continuation.html#zeta\">Riemann's functional equation for $\\zeta$</a></li>\n      <li><a href=\"./dirichlet-series-euler-products.html#series\">Dirichlet series basics</a></li>\n      <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n  </ul>\n</aside>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "tate-thesis-sketch",
+          "html": "<div class=\"quiz\" data-concept=\"tate-thesis-sketch\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tate",
+            "title": "Local Euler factor visualizer",
+            "hint": "slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$",
+            "svgId": "tate-svg",
+            "viewBox": "0 0 620 280",
+            "readoutId": "tate-out",
+            "hdHtml": "\n    <div class=\"ttl\">Local Euler factor visualizer</div>\n    <div class=\"hint\">slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$</div>\n  ",
+            "sectionComment": "===== Section 5: Euler factor visualizer =====",
+            "bodyScript": "  const sld=$('#tate-sigma'), sldo=$('#tate-sigma-out');\n  const svg=$('#tate-svg'), out=$('#tate-out');\n  const PRIMES=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function drawBars(sigma){\n    svg.innerHTML='';\n    const W=620, H=280, pad=50, barW=28, gap=8;\n    const maxLog = Math.log(1/(1-Math.pow(2,-sigma)));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-50,x2:W-10,y2:H-50,stroke:'var(--line)','stroke-width':1}));\n\n    let partialProduct=1;\n    const lines=[];\n\n    PRIMES.forEach((p,i)=>{\n      const factor = 1/(1-Math.pow(p,-sigma));\n      partialProduct *= factor;\n      const logFactor = Math.log(factor);\n      const barH = Math.min(180, (logFactor/maxLog)*160+2);\n      const x=pad+i*(barW+gap);\n      const y=H-50-barH;\n      const col = i<5?'var(--yellow)':i<10?'var(--cyan)':'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.8}));\n      const lbl=SVG('text',{x:x+barW/2,y:H-35,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      lbl.textContent=String(p); svg.appendChild(lbl);\n      lines.push(`p=${p}: (1-p^{-σ})^{-1} = ${factor.toFixed(5)}`);\n    });\n\n    // partial product line\n    const ppY = H-50 - Math.min(180,(Math.log(partialProduct)/maxLog)*160);\n    svg.appendChild(SVG('line',{x1:pad,y1:ppY,x2:W-10,y2:ppY,stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'5,4',opacity:0.6}));\n    const plbl=SVG('text',{x:W-12,y:ppY-4,'text-anchor':'end','font-size':11,fill:'var(--pink)'});\n    plbl.textContent='log ζ_partial'; svg.appendChild(plbl);\n\n    // gamma factor\n    // Stirling approx for Γ(σ/2): just show the value\n    const halfS=sigma/2;\n    // Use actual calculation via Lanczos approximation won't parse well; use simple recursion\n    function lgamma(z){\n      // simple Lanczos\n      const g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n      if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);\n      z-=1;let x=c[0];for(let i=1;i<g+2;i++)x+=c[i]/(z+i);\n      const t=z+g+0.5;\n      return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);\n    }\n    const gammaVal = Math.exp(lgamma(halfS));\n    const piS2 = Math.pow(Math.PI,-sigma/2);\n    const xiLocal = piS2*gammaVal*partialProduct;\n\n    sldo.textContent=`σ = ${sigma.toFixed(2)}`;\n    out.textContent =\n      `σ = ${sigma.toFixed(2)}\\n` +\n      `π^{-σ/2} = ${piS2.toFixed(6)}   (archimedean gamma factor)\\n` +\n      `Γ(σ/2) ≈ ${gammaVal.toFixed(6)}\\n` +\n      `∏_{p≤47}(1-p^{-σ})^{-1} ≈ ${partialProduct.toFixed(6)}   (partial Euler product)\\n` +\n      `π^{-σ/2}·Γ(σ/2)·∏_p(1-p^{-σ})^{-1} ≈ ${xiLocal.toFixed(6)}\\n\\n` +\n      `(For reference: ζ(2) = π²/6 ≈ 1.6449, so π^{-1}·Γ(1)·ζ(2) = π^{-1}·1·1.6449 ≈ 0.5236 = ξ̃(2))`;\n  }\n\n  sld.addEventListener('input',()=>drawBars(parseFloat(sld.value)));\n  drawBars(2);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tate-sigma\">$\\sigma = \\mathrm{Re}(s)$:</label>\n    <input type=\"range\" id=\"tate-sigma\" min=\"1.05\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span class=\"small\" id=\"tate-sigma-out\">σ = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "tate-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "readout",
+                "id": "tate-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<!-- ======================================================= -->\n"
+        }
+      ]
+    },
+    {
+      "id": "coda",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"coda\">\n<h3>Coda: adèles for general number fields</h3>\n<p>Everything above generalizes to an arbitrary number field $K/\\mathbb{Q}$. A place $v$ of $K$ is an equivalence class of absolute values; there are finitely many archimedean places (corresponding to real and complex embeddings $K \\hookrightarrow \\mathbb{R}$ or $\\mathbb{C}$) and one non-archimedean place $v_\\mathfrak{p}$ for each prime ideal $\\mathfrak{p}$ of $\\mathcal{O}_K$. The adèle ring $\\mathbb{A}_K$ is again a restricted direct product over all places; the idèle class group $C_K = \\mathbb{A}_K^\\times / K^\\times$ classifies abelian extensions of $K$ via the global Artin map. Tate's thesis extends verbatim, replacing $\\mathbb{Q}$ by $K$ and summing over the lattice $K \\subset \\mathbb{A}_K$.</p>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<footer>\n  <p>Part of the <a href=\"./index.html\">Interactive Math Notebook</a> · Number theory section</p>\n</footer>\n\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>\n      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>\n      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>\n      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>\n      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>\n      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>\n      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>\n      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>\n    </tbody>\n  </table>\n</details>\n\n<script>\n/* Sidetoc population */\n(function(){\n  const aside = document.querySelector('aside.sidetoc');\n  if(!aside) return;\n  const secs = [...document.querySelectorAll('main section[id]')];\n  if(!secs.length) return;\n  const title = document.createElement('div');\n  title.className='sidetoc-title'; title.textContent='Contents';\n  aside.appendChild(title);\n  const ol = document.createElement('ol');\n  aside.appendChild(ol);\n  secs.forEach(sec=>{\n    const h2 = sec.querySelector('h2,h3');\n    if(!h2) return;\n    const li = document.createElement('li');\n    const a = document.createElement('a');\n    a.href='#'+sec.id;\n    a.textContent=h2.textContent.replace(/^\\d+\\.\\s*/,'');\n    li.appendChild(a); ol.appendChild(li);\n  });\n  // active tracking\n  const io = new IntersectionObserver(entries=>{\n    entries.forEach(e=>{\n      const a=aside.querySelector(`a[href=\"#${e.target.id}\"]`);\n      if(a) a.classList.toggle('active',e.isIntersecting);\n    });\n  },{rootMargin:'-20% 0px -70% 0px'});\n  secs.forEach(s=>io.observe(s));\n})();\n</script>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('adeles-and-ideles'); }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start);\n  else start();\n})();\n</script>\n</body>\n</html>\n"
+}

@@ -20,7 +20,7 @@ Invoke when the author wants a fast "what's actually broken in CI right now?" re
    ```
 
    This mirrors CI (`.github/workflows/verify.yml`) and bails on the first non-zero exit.
-2. If `--no-fix` fails early on a fix-required step, continue by running the remaining individual validators the pipeline would have hit (in `AGENTS.md` order): `validate-concepts.mjs`, `validate-katex.mjs`, `audit-callbacks.mjs` (no flag), `insert-used-in-backlinks.mjs` (no flag), `smoke-test.mjs`. Collect stderr + non-zero-exit output from each.
+2. If `--no-fix` fails early on a fix-required step, continue by running the remaining individual validators the pipeline would have hit (in `AGENTS.md` order): `validate-concepts.mjs`, `validate-katex.mjs`, `audit-callbacks.mjs` (no flag), `inject-used-in-backlinks.mjs` (no flag), `smoke-test.mjs`. Collect stderr + non-zero-exit output from each.
 3. Extract ONLY blocking errors — the things that make `rebuild.mjs` exit non-zero. Ignore advisory audits (color-vars, accessibility warnings, backlink-strength, etc.) unless the user asked.
 4. If a `[topic]` arg was passed, down-rank or drop items that don't mention the slug, `<topic>.html`, `concepts/<topic>.json`, or `quizzes/<topic>.json`.
 

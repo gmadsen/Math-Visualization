@@ -1,0 +1,583 @@
+{
+  "topic": "modular-forms",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Modular forms — SL₂(ℤ), Eisenstein series, and the j-invariant</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"modular-forms-and-l-functions\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#sl2z\">1&nbsp;SL₂(ℤ)</a>\n  <a href=\"#fund\">2&nbsp;Fundamental&nbsp;domain</a>\n  <a href=\"#forms\">3&nbsp;Modular&nbsp;forms</a>\n  <a href=\"#eisen\">4&nbsp;Eisenstein&nbsp;series</a>\n  <a href=\"#jinv\">5&nbsp;Δ&nbsp;and&nbsp;j</a>\n  <a href=\"#cusps\">6&nbsp;Cusp&nbsp;forms</a>\n  <a href=\"#qexp\">7&nbsp;q-expansions&nbsp;&&nbsp;Hecke</a>\n  <a href=\"#petersson\">8&nbsp;Petersson&nbsp;product</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Modular forms on the upper half-plane</h1>\n  <p class=\"sub\">Functions on $\\mathcal{H}$ that transform in a specific, rigid way under $\\mathrm{SL}_2(\\mathbb{Z})$. Their spaces are finite-dimensional, their Fourier coefficients encode arithmetic, and a single one — the $j$-invariant — parametrizes elliptic curves over $\\mathbb{C}$.</p>\n  <div class=\"note\"><strong>Prerequisites.</strong> The geometric setup lives in <a href=\"./upper-half-plane-hyperbolic.html\">the upper half-plane</a>. Holomorphy in the sense needed here is <a href=\"./complex-analysis.html\">complex analysis</a>. The global viewpoint — a modular form is a section of a line bundle on a <a href=\"./riemann-surfaces.html\">Riemann surface</a> — is sketched in passing, and the arithmetic payoff (Eichler–Shimura, Taniyama) links back to <a href=\"./elliptic-curves.html\">elliptic curves</a>.</div>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "sl2z",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"sl2z\">\n<h2>1. The group $\\mathrm{SL}_2(\\mathbb{Z})$ and its action on $\\mathcal{H}$</h2>\n<p>The <strong>modular group</strong> is\n$$\\mathrm{SL}_2(\\mathbb{Z}) \\;=\\; \\Bigl\\{ \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} : a,b,c,d \\in \\mathbb{Z},\\; ad-bc = 1 \\Bigr\\}.$$\nIt acts on the upper half-plane $\\mathcal{H} = \\{\\tau \\in \\mathbb{C} : \\mathrm{Im}\\,\\tau > 0\\}$ by Möbius transformations,\n$$\\gamma \\cdot \\tau \\;=\\; \\frac{a\\tau + b}{c\\tau + d}.$$\nThe identity matrix and $-I$ act trivially, so the effective action is by $\\mathrm{PSL}_2(\\mathbb{Z}) = \\mathrm{SL}_2(\\mathbb{Z})/\\{\\pm I\\}$.</p>\n\n<h3>Two generators do all the work</h3>\n<p>A remarkable classical fact: every element of $\\mathrm{SL}_2(\\mathbb{Z})$ is a word in\n$$S \\;=\\; \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}, \\qquad T \\;=\\; \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}.$$\nOn the upper half-plane $S$ is the inversion $\\tau \\mapsto -1/\\tau$, and $T$ is the unit translation $\\tau \\mapsto \\tau + 1$. They satisfy $S^2 = -I$ and $(ST)^3 = -I$; in $\\mathrm{PSL}_2(\\mathbb{Z})$ these become $S^2 = 1$ and $(ST)^3 = 1$, and there are no further relations — we will say more about this presentation when it matters.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gen",
+            "title": "Widget 1 · Generator word → matrix",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "click $S$ and $T$ to build a word; see the matrix and its action on $\\tau$",
+            "svgId": "w-gen-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-gen-out",
+            "bodyScript": "  const buttons = $('#w-gen-buttons');\n  const re = $('#w-gen-re'), im = $('#w-gen-im');\n  const out = $('#w-gen-out'), lenEl = $('#w-gen-len');\n  const svg = $('#w-gen-svg');\n  const W = 720, H = 300;\n  // map tau -> pixel\n  const xmin = -2.5, xmax = 2.5, ymax = 3;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const word = []; // list of 'S' | 'T' | 'Ti'\n  function matmul(A,B){\n    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];\n  }\n  const MS = [[0,-1],[1,0]];\n  const MT = [[1,1],[0,1]];\n  const MTi = [[1,-1],[0,1]];\n  const MI = [[1,0],[0,1]];\n  function gmat(g){ return g==='S'?MS:(g==='T'?MT:MTi); }\n\n  function apply(M, t){\n    const re = M[0][0]*t.re + M[0][1];\n    const reDen = M[1][0]*t.re + M[1][1];\n    const imNum = M[0][0]*t.im;\n    const imDen = M[1][0]*t.im;\n    // (a*tau+b)/(c*tau+d) with tau = re+i*im\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // grid\n    for(let x=Math.ceil(xmin); x<=Math.floor(xmax); x++){\n      const [px1] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:px1,y1:0,x2:px1,y2:H,stroke:'var(--line)','stroke-width':1}));\n    }\n    for(let y=1;y<=3;y++){\n      const [,py1] = px({re:0,im:y});\n      svg.appendChild(SVG('line',{x1:0,y1:py1,x2:W,y2:py1,stroke:'var(--line)','stroke-width':1}));\n    }\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // unit semicircle |tau|=1\n    const path = SVG('path',{d:'',stroke:'var(--violet)','stroke-width':1.2,fill:'none','stroke-dasharray':'4 4'});\n    let d='';\n    for(let k=0;k<=60;k++){\n      const theta = Math.PI*k/60;\n      const t = {re:Math.cos(theta), im:Math.sin(theta)};\n      const [X,Y] = px(t);\n      d += (k===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    path.setAttribute('d', d);\n    svg.appendChild(path);\n    // fundamental-domain vertical edges at x=±1/2\n    for(const x of [-0.5,0.5]){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 4'}));\n    }\n\n    // orbit: start with (re,im), apply word\n    let t = {re: parseFloat(re.value), im: parseFloat(im.value)};\n    if(!(t.im > 0)){ t.im = 0.1; }\n    const pts = [t];\n    let M = MI;\n    for(const g of word){\n      M = matmul(gmat(g), M);\n      pts.push(apply(gmat(g), pts[pts.length-1]));\n    }\n    // draw trail\n    for(let i=1;i<pts.length;i++){\n      const [x0,y0] = px(pts[i-1]);\n      const [x1,y1] = px(pts[i]);\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:'var(--cyan)','stroke-width':1.2,'stroke-opacity':0.5}));\n    }\n    // points\n    pts.forEach((p,i) => {\n      const [X,Y] = px(p);\n      if(X<0||X>W||Y<0||Y>H) return;\n      const last = i === pts.length-1;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:last?5:3,\n        fill:last?'var(--yellow)':'var(--cyan)','fill-opacity':last?1:0.7}));\n      if(i===0){\n        const tx = SVG('text',{x:X+6,y:Y-6,'font-size':11,fill:'var(--mute)'});\n        tx.textContent = 'τ₀'; svg.appendChild(tx);\n      }\n    });\n    // readout\n    const tau = pts[pts.length-1];\n    out.textContent = `matrix: [[${M[0][0]}, ${M[0][1]}], [${M[1][0]}, ${M[1][1]}]]\nword:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identity)'}\nτ  →  ${tau.re.toFixed(4)} + ${tau.im.toFixed(4)} i`;\n    lenEl.textContent = word.length;\n  }\n\n  buttons.addEventListener('click', (e)=>{\n    const g = e.target.dataset && e.target.dataset.g;\n    if(!g) return;\n    if(g==='clear'){ word.length = 0; }\n    else word.push(g);\n    render();\n  });\n  re.addEventListener('input', render);\n  im.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-gen-buttons\">\n    <button data-g=\"S\">apply $S$</button>\n    <button data-g=\"T\">apply $T$</button>\n    <button data-g=\"Ti\">apply $T^{-1}$</button>\n    <button data-g=\"clear\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"w-gen-re\">starting $\\tau$:</label>\n    <input id=\"w-gen-re\" type=\"number\" value=\"0.3\" step=\"0.05\" style=\"width:6em\">\n    <input id=\"w-gen-im\" type=\"number\" value=\"1.1\" step=\"0.05\" style=\"width:6em\">\n    <label class=\"small\" style=\"margin-left:1rem\" for=\"w-gen-im\">word length</label>\n    <span id=\"w-gen-len\" class=\"pill\">0</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-gen-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-gen-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"upper half-plane with orbit points\"></svg>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gen",
+            "title": "Widget 1 · Generator word → matrix",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "click $S$ and $T$ to build a word; see the matrix and its action on $\\tau$",
+            "svgId": "w-gen-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-gen-out",
+            "bodyScript": "  const buttons = $('#w-gen-buttons');\n  const re = $('#w-gen-re'), im = $('#w-gen-im');\n  const out = $('#w-gen-out'), lenEl = $('#w-gen-len');\n  const svg = $('#w-gen-svg');\n  const W = 720, H = 300;\n  // map tau -> pixel\n  const xmin = -2.5, xmax = 2.5, ymax = 3;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const word = []; // list of 'S' | 'T' | 'Ti'\n  function matmul(A,B){\n    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];\n  }\n  const MS = [[0,-1],[1,0]];\n  const MT = [[1,1],[0,1]];\n  const MTi = [[1,-1],[0,1]];\n  const MI = [[1,0],[0,1]];\n  function gmat(g){ return g==='S'?MS:(g==='T'?MT:MTi); }\n\n  function apply(M, t){\n    const re = M[0][0]*t.re + M[0][1];\n    const reDen = M[1][0]*t.re + M[1][1];\n    const imNum = M[0][0]*t.im;\n    const imDen = M[1][0]*t.im;\n    // (a*tau+b)/(c*tau+d) with tau = re+i*im\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // grid\n    for(let x=Math.ceil(xmin); x<=Math.floor(xmax); x++){\n      const [px1] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:px1,y1:0,x2:px1,y2:H,stroke:'var(--line)','stroke-width':1}));\n    }\n    for(let y=1;y<=3;y++){\n      const [,py1] = px({re:0,im:y});\n      svg.appendChild(SVG('line',{x1:0,y1:py1,x2:W,y2:py1,stroke:'var(--line)','stroke-width':1}));\n    }\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // unit semicircle |tau|=1\n    const path = SVG('path',{d:'',stroke:'var(--violet)','stroke-width':1.2,fill:'none','stroke-dasharray':'4 4'});\n    let d='';\n    for(let k=0;k<=60;k++){\n      const theta = Math.PI*k/60;\n      const t = {re:Math.cos(theta), im:Math.sin(theta)};\n      const [X,Y] = px(t);\n      d += (k===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    path.setAttribute('d', d);\n    svg.appendChild(path);\n    // fundamental-domain vertical edges at x=±1/2\n    for(const x of [-0.5,0.5]){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 4'}));\n    }\n\n    // orbit: start with (re,im), apply word\n    let t = {re: parseFloat(re.value), im: parseFloat(im.value)};\n    if(!(t.im > 0)){ t.im = 0.1; }\n    const pts = [t];\n    let M = MI;\n    for(const g of word){\n      M = matmul(gmat(g), M);\n      pts.push(apply(gmat(g), pts[pts.length-1]));\n    }\n    // draw trail\n    for(let i=1;i<pts.length;i++){\n      const [x0,y0] = px(pts[i-1]);\n      const [x1,y1] = px(pts[i]);\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:'var(--cyan)','stroke-width':1.2,'stroke-opacity':0.5}));\n    }\n    // points\n    pts.forEach((p,i) => {\n      const [X,Y] = px(p);\n      if(X<0||X>W||Y<0||Y>H) return;\n      const last = i === pts.length-1;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:last?5:3,\n        fill:last?'var(--yellow)':'var(--cyan)','fill-opacity':last?1:0.7}));\n      if(i===0){\n        const tx = SVG('text',{x:X+6,y:Y-6,'font-size':11,fill:'var(--mute)'});\n        tx.textContent = 'τ₀'; svg.appendChild(tx);\n      }\n    });\n    // readout\n    const tau = pts[pts.length-1];\n    out.textContent = `matrix: [[${M[0][0]}, ${M[0][1]}], [${M[1][0]}, ${M[1][1]}]]\nword:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identity)'}\nτ  →  ${tau.re.toFixed(4)} + ${tau.im.toFixed(4)} i`;\n    lenEl.textContent = word.length;\n  }\n\n  buttons.addEventListener('click', (e)=>{\n    const g = e.target.dataset && e.target.dataset.g;\n    if(!g) return;\n    if(g==='clear'){ word.length = 0; }\n    else word.push(g);\n    render();\n  });\n  re.addEventListener('input', render);\n  im.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-gen-buttons\">\n    <button data-g=\"S\">apply $S$</button>\n    <button data-g=\"T\">apply $T$</button>\n    <button data-g=\"Ti\">apply $T^{-1}$</button>\n    <button data-g=\"clear\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"w-gen-re\">starting $\\tau$:</label>\n    <input id=\"w-gen-re\" type=\"number\" value=\"0.3\" step=\"0.05\" style=\"width:6em\">\n    <input id=\"w-gen-im\" type=\"number\" value=\"1.1\" step=\"0.05\" style=\"width:6em\">\n    <label class=\"small\" style=\"margin-left:1rem\" for=\"w-gen-im\">word length</label>\n    <span id=\"w-gen-len\" class=\"pill\">0</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-gen-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-gen-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"upper half-plane with orbit points\"></svg>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>The action is geometric: $T$ slides the whole half-plane horizontally, and $S$ is the \"conformal flip\" that interchanges the inside and outside of the unit circle, upper half preserved. Compose them and you can carry any point anywhere — but in an extremely constrained way, because determinant one and integer entries together force a Euclidean-algorithm rigidity.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./upper-half-plane-hyperbolic.html#sl2z\">SL2(R) action and modular preview</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-forms.html#forms\">Modular forms</a> · Definition of modular forms</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "sl2z-on-H",
+          "html": "<div class=\"quiz\" data-concept=\"sl2z-on-H\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "fund",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"fund\">\n<h2>2. The fundamental domain $\\mathcal{F}$</h2>\n<p>If a group acts, it is natural to ask for a set of representatives for the orbits. For $\\mathrm{SL}_2(\\mathbb{Z})$ on $\\mathcal{H}$ the answer is beautiful and explicit:\n$$\\mathcal{F} \\;=\\; \\Bigl\\{\\, \\tau \\in \\mathcal{H} \\,:\\, |\\mathrm{Re}\\,\\tau| \\le \\tfrac{1}{2} \\text{ and } |\\tau| \\ge 1 \\,\\Bigr\\}.$$\nEvery orbit hits $\\mathcal{F}$ at least once; two points of $\\mathcal{F}$ lie in the same orbit only through the boundary identifications $\\tau \\sim \\tau+1$ on the vertical sides and $\\tau \\sim -1/\\tau$ on the bottom arc.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tile",
+            "title": "Widget 2 · The $\\mathrm{SL}_2(\\mathbb{Z})$-tiling of $\\mathcal{H}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "toggle tiles copied under $S$, $T$, $T^{-1}$; each is a fundamental domain",
+            "svgId": "w-tile-svg",
+            "viewBox": "0 0 720 340",
+            "readoutId": "w-tile-out",
+            "bodyScript": "  const svg = $('#w-tile-svg');\n  const W = 720, H = 340;\n  const xmin = -2.5, xmax = 2.5, ymax = 2.5;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const state = { T:true, S:true, TST:true };\n  const bT = $('#w-tile-sT'), bS = $('#w-tile-sS'), bTST = $('#w-tile-sTST'), bR = $('#w-tile-reset');\n\n  function applyMobius(M, t){\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  // polygon for F: sample many points along its boundary, then push through M\n  const Fbdry = (function(){\n    const pts = [];\n    // top-left vertical: from x=-0.5, y=ymax down to y=sqrt(3)/2\n    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.05) pts.push({re:-0.5, im:y});\n    // arc from angle 2π/3 to π/3 on unit circle\n    for(let k=0;k<=30;k++){\n      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;\n      pts.push({re:Math.cos(th), im:Math.sin(th)});\n    }\n    // right vertical up\n    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.05) pts.push({re:0.5, im:y});\n    return pts;\n  })();\n\n  function polyPath(pts){\n    let d = '';\n    pts.forEach((p,i)=>{\n      const [X,Y] = px(p);\n      d += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    });\n    return d + 'Z';\n  }\n\n  function drawTile(M, color, opacity, label){\n    const pts = Fbdry.map(p => applyMobius(M, p));\n    const path = SVG('path',{d:polyPath(pts), fill:color,'fill-opacity':opacity,\n      stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(path);\n    if(label){\n      // centroid\n      let cx=0, cy=0;\n      pts.forEach(p=>{ const [X,Y]=px(p); cx+=X; cy+=Y; });\n      cx/=pts.length; cy/=pts.length;\n      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = label; svg.appendChild(t);\n    }\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // vertical grid\n    for(let x=-2;x<=2;x++){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--line)','stroke-width':0.8}));\n    }\n\n    // T-translates first (lighter)\n    if(state.T){\n      for(const n of [-2,-1,1,2]){\n        drawTile([[1,n],[0,1]], 'var(--blue)', 0.08, n===-2?'T⁻²':n===-1?'T⁻¹':n===1?'T':'T²');\n      }\n    }\n    // S-image: -1/tau sends F to the \"tongue\" below\n    if(state.S){\n      drawTile([[0,-1],[1,0]], 'var(--green)', 0.10, 'S');\n    }\n    // TS and T^{-1}S\n    if(state.TST){\n      drawTile([[1,0],[1,1]], 'var(--pink)', 0.10, 'TS');        // product T·S = [[1,-1],[1,0]]? compute\n      // actually T*S = [[0,-1],[1,0]] left-multiplied by T: [[1,1],[0,1]]*[[0,-1],[1,0]] = [[1,-1],[1,0]]\n      drawTile([[1,-1],[1,0]], 'var(--pink)', 0.10, null);\n      // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n      drawTile([[-1,-1],[1,0]], 'var(--pink)', 0.10, 'T⁻¹S');\n    }\n\n    // canonical F on top, darker\n    drawTile([[1,0],[0,1]], 'var(--yellow)', 0.22, '𝓕');\n  }\n\n  bT.addEventListener('click', ()=>{ state.T = !state.T; bT.classList.toggle('active', state.T); render(); });\n  bS.addEventListener('click', ()=>{ state.S = !state.S; bS.classList.toggle('active', state.S); render(); });\n  bTST.addEventListener('click', ()=>{ state.TST = !state.TST; bTST.classList.toggle('active', state.TST); render(); });\n  bR.addEventListener('click', ()=>{ state.T=state.S=state.TST=true;\n    bT.classList.add('active'); bS.classList.add('active'); bTST.classList.add('active'); render(); });\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"w-tile-sT\" class=\"active\">show $T$-translates</button>\n    <button id=\"w-tile-sS\" class=\"active\">show $S$-image</button>\n    <button id=\"w-tile-sTST\" class=\"active\">show $TS$, $T^{-1}S$</button>\n    <button id=\"w-tile-reset\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-tile-svg\" viewBox=\"0 0 720 340\" width=\"720\" height=\"340\" aria-label=\"SL2Z tiling\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-tile-out\">The darker tile is the canonical $\\mathcal{F}$. Every other tile is $\\gamma \\mathcal{F}$ for some $\\gamma \\in \\mathrm{SL}_2(\\mathbb{Z})$.</div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tile",
+            "title": "Widget 2 · The $\\mathrm{SL}_2(\\mathbb{Z})$-tiling of $\\mathcal{H}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "toggle tiles copied under $S$, $T$, $T^{-1}$; each is a fundamental domain",
+            "svgId": "w-tile-svg",
+            "viewBox": "0 0 720 340",
+            "readoutId": "w-tile-out",
+            "bodyScript": "  const svg = $('#w-tile-svg');\n  const W = 720, H = 340;\n  const xmin = -2.5, xmax = 2.5, ymax = 2.5;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const state = { T:true, S:true, TST:true };\n  const bT = $('#w-tile-sT'), bS = $('#w-tile-sS'), bTST = $('#w-tile-sTST'), bR = $('#w-tile-reset');\n\n  function applyMobius(M, t){\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  // polygon for F: sample many points along its boundary, then push through M\n  const Fbdry = (function(){\n    const pts = [];\n    // top-left vertical: from x=-0.5, y=ymax down to y=sqrt(3)/2\n    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.05) pts.push({re:-0.5, im:y});\n    // arc from angle 2π/3 to π/3 on unit circle\n    for(let k=0;k<=30;k++){\n      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;\n      pts.push({re:Math.cos(th), im:Math.sin(th)});\n    }\n    // right vertical up\n    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.05) pts.push({re:0.5, im:y});\n    return pts;\n  })();\n\n  function polyPath(pts){\n    let d = '';\n    pts.forEach((p,i)=>{\n      const [X,Y] = px(p);\n      d += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    });\n    return d + 'Z';\n  }\n\n  function drawTile(M, color, opacity, label){\n    const pts = Fbdry.map(p => applyMobius(M, p));\n    const path = SVG('path',{d:polyPath(pts), fill:color,'fill-opacity':opacity,\n      stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(path);\n    if(label){\n      // centroid\n      let cx=0, cy=0;\n      pts.forEach(p=>{ const [X,Y]=px(p); cx+=X; cy+=Y; });\n      cx/=pts.length; cy/=pts.length;\n      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = label; svg.appendChild(t);\n    }\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // vertical grid\n    for(let x=-2;x<=2;x++){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--line)','stroke-width':0.8}));\n    }\n\n    // T-translates first (lighter)\n    if(state.T){\n      for(const n of [-2,-1,1,2]){\n        drawTile([[1,n],[0,1]], 'var(--blue)', 0.08, n===-2?'T⁻²':n===-1?'T⁻¹':n===1?'T':'T²');\n      }\n    }\n    // S-image: -1/tau sends F to the \"tongue\" below\n    if(state.S){\n      drawTile([[0,-1],[1,0]], 'var(--green)', 0.10, 'S');\n    }\n    // TS and T^{-1}S\n    if(state.TST){\n      drawTile([[1,0],[1,1]], 'var(--pink)', 0.10, 'TS');        // product T·S = [[1,-1],[1,0]]? compute\n      // actually T*S = [[0,-1],[1,0]] left-multiplied by T: [[1,1],[0,1]]*[[0,-1],[1,0]] = [[1,-1],[1,0]]\n      drawTile([[1,-1],[1,0]], 'var(--pink)', 0.10, null);\n      // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n      drawTile([[-1,-1],[1,0]], 'var(--pink)', 0.10, 'T⁻¹S');\n    }\n\n    // canonical F on top, darker\n    drawTile([[1,0],[0,1]], 'var(--yellow)', 0.22, '𝓕');\n  }\n\n  bT.addEventListener('click', ()=>{ state.T = !state.T; bT.classList.toggle('active', state.T); render(); });\n  bS.addEventListener('click', ()=>{ state.S = !state.S; bS.classList.toggle('active', state.S); render(); });\n  bTST.addEventListener('click', ()=>{ state.TST = !state.TST; bTST.classList.toggle('active', state.TST); render(); });\n  bR.addEventListener('click', ()=>{ state.T=state.S=state.TST=true;\n    bT.classList.add('active'); bS.classList.add('active'); bTST.classList.add('active'); render(); });\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"w-tile-sT\" class=\"active\">show $T$-translates</button>\n    <button id=\"w-tile-sS\" class=\"active\">show $S$-image</button>\n    <button id=\"w-tile-sTST\" class=\"active\">show $TS$, $T^{-1}S$</button>\n    <button id=\"w-tile-reset\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-tile-svg\" viewBox=\"0 0 720 340\" width=\"720\" height=\"340\" aria-label=\"SL2Z tiling\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-tile-out\">The darker tile is the canonical $\\mathcal{F}$. Every other tile is $\\gamma \\mathcal{F}$ for some $\\gamma \\in \\mathrm{SL}_2(\\mathbb{Z})$.</div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<h3>Area, cusp, and elliptic points</h3>\n<p>The hyperbolic area of $\\mathcal{F}$ is $\\pi/3$ — a famous finite answer that seeds every volume computation for arithmetic quotients. Three kinds of points in $\\mathcal{F}$ play a special structural role:</p>\n<ul>\n  <li>$i$ is fixed by $S$ — stabilizer of order $2$;</li>\n  <li>$\\rho = e^{2\\pi i/3}$ is fixed by $ST$ — stabilizer of order $3$;</li>\n  <li>the <em>cusp</em> $i\\infty$ (a single boundary point after the identification) — stabilizer $\\langle T \\rangle$.</li>\n</ul>\n<p>These are exactly the points where the quotient $\\mathcal{H}/\\mathrm{SL}_2(\\mathbb{Z})$ fails to be a smooth manifold in the naive sense; adding the cusp compactifies the quotient to a <a href=\"./riemann-surfaces.html\">Riemann surface</a> of genus $0$, the <em>modular curve</em> $X(1)$.</p>\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "forms",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"forms\">\n<h2>3. What is a modular form?</h2>\n<p>Fix an integer $k \\ge 0$. A <strong>modular form of weight $k$</strong> for $\\mathrm{SL}_2(\\mathbb{Z})$ is a holomorphic function $f \\colon \\mathcal{H} \\to \\mathbb{C}$ satisfying the transformation law\n$$f\\!\\left(\\frac{a\\tau + b}{c\\tau + d}\\right) \\;=\\; (c\\tau + d)^k \\, f(\\tau) \\qquad \\text{for all }\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix} \\in \\mathrm{SL}_2(\\mathbb{Z}),$$\ntogether with a holomorphicity condition at the cusp $i\\infty$: the function\n$$\\tilde f(q) \\;=\\; f(\\tau), \\qquad q = e^{2\\pi i \\tau}$$\nextends to a holomorphic function on a neighborhood of $q=0$. Applying the law to $T$ gives $f(\\tau+1) = f(\\tau)$, which is exactly the periodicity that lets us Fourier-expand in $q$.</p>\n\n<p>If $k$ is <em>odd</em> the transformation law applied to $-I \\in \\mathrm{SL}_2(\\mathbb{Z})$ forces $f = (-1)^k f$, so $f \\equiv 0$. Hence only even weights give anything interesting.</p>\n\n<h3>The two minimal identities</h3>\n<p>Because $S$ and $T$ generate, $f$ is modular of weight $k$ if and only if it is holomorphic, holomorphic at $\\infty$, and satisfies both\n$$f(\\tau + 1) = f(\\tau), \\qquad f(-1/\\tau) = \\tau^k f(\\tau).$$\nAlmost every proof about modular forms is, at heart, a clever use of these two identities at once.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-wk",
+            "title": "Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "watch the automorphy factor blow up or collapse as $k$ changes",
+            "svgId": "w-wk-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-wk-out",
+            "bodyScript": "  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-wk-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-wk",
+            "title": "Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "watch the automorphy factor blow up or collapse as $k$ changes",
+            "svgId": "w-wk-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-wk-out",
+            "bodyScript": "  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-wk-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<div class=\"note\"><strong>Geometric reading.</strong> The symbol $d\\tau$ transforms by $d(\\gamma\\tau) = (c\\tau+d)^{-2}\\,d\\tau$. A modular form of weight $k$ is therefore — morally — a section of $(T^*\\mathcal{H})^{\\otimes k/2}$ that descends to the quotient. That is why only <em>even</em> $k$ can have nonzero invariants: odd powers of the cotangent bundle pick up a sign under $-I$.</div>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "modular-form-definition",
+          "html": "<div class=\"quiz\" data-concept=\"modular-form-definition\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-forms.html#eisen\">Modular forms</a> · Eisenstein series</div>\n    <div><a href=\"./modular-forms.html#qexp\">Modular forms</a> · q-expansions and arithmetic data</div>\n    <div><a href=\"./modularity-and-flt.html#modularity\">Modularity and FLT</a> · Modularity theorem</div>\n    <div><a href=\"./moduli-spaces.html#level\">Moduli spaces</a> · Level structure and compactification ideas</div>\n    <div><a href=\"./moonshine.html#j\">Monstrous moonshine</a> · The j-invariant's q-expansion</div>\n    <div><a href=\"./partitions-generating-functions.html#eta\">Partitions and generating functions</a> · Dedekind eta as a modular form</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "eisen",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"eisen\">\n<h2>4. Eisenstein series: the first examples</h2>\n<p>The cleanest way to produce a modular form is to average. For even $k \\ge 4$, define the <strong>Eisenstein series</strong>\n$$E_k(\\tau) \\;=\\; \\tfrac{1}{2} \\sum_{\\substack{(m,n) \\in \\mathbb{Z}^2 \\\\ (m,n)\\ne(0,0)}} \\frac{1}{(m\\tau + n)^k}.$$\nThe half is for normalization ($(m,n)$ and $(-m,-n)$ give the same term when $k$ is even). The series converges absolutely for $k \\ge 4$ and defines a holomorphic function on $\\mathcal{H}$.</p>\n\n<h3>Why it transforms correctly</h3>\n<p>For $\\gamma = \\begin{pmatrix}a&b\\\\c&d\\end{pmatrix} \\in \\mathrm{SL}_2(\\mathbb{Z})$ apply the change of variable $(m,n) \\mapsto (m,n)\\gamma^{-1}$ in the sum: the lattice $\\mathbb{Z}^2 \\setminus \\{0\\}$ is stable under $\\mathrm{GL}_2(\\mathbb{Z})$, and a direct computation gives $m(\\gamma\\tau) + n = (c\\tau + d)^{-1} \\cdot (m'\\tau + n')$ for the relabeled indices. Summing over the permuted lattice yields $E_k(\\gamma\\tau) = (c\\tau+d)^k E_k(\\tau)$.</p>\n\n<h3>The $q$-expansion and divisor sums</h3>\n<p>Every modular form for $\\mathrm{SL}_2(\\mathbb{Z})$ is, by $T$-periodicity, a power series in $q = e^{2\\pi i \\tau}$. The $q$-expansion of $E_k$ (with a standard normalization where the constant term is $1$) is\n$$E_k(\\tau) \\;=\\; 1 - \\frac{2k}{B_k} \\sum_{n\\ge 1} \\sigma_{k-1}(n)\\, q^n,$$\nwhere $B_k$ is the $k$-th Bernoulli number and $\\sigma_{s}(n) = \\sum_{d \\mid n} d^s$. The constants for the first few:</p>\n<table class=\"plain\">\n<thead><tr><th>$k$</th><th>$-2k/B_k$</th><th>first Fourier terms of $E_k$</th></tr></thead>\n<tbody>\n<tr><td>$4$</td><td>$240$</td><td>$1 + 240\\,q + 2160\\,q^2 + 6720\\,q^3 + 17520\\,q^4 + \\cdots$</td></tr>\n<tr><td>$6$</td><td>$-504$</td><td>$1 - 504\\,q - 16632\\,q^2 - 122976\\,q^3 + \\cdots$</td></tr>\n<tr><td>$8$</td><td>$480$</td><td>$1 + 480\\,q + 61920\\,q^2 + \\cdots$</td></tr>\n<tr><td>$10$</td><td>$-264$</td><td>$1 - 264\\,q - 135432\\,q^2 + \\cdots$</td></tr>\n<tr><td>$12$</td><td>$\\tfrac{65520}{691}$</td><td>the $691$ in the denominator is the reason for Ramanujan's congruence</td></tr>\n</tbody>\n</table>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-qbar",
+            "title": "Widget 4 · $q$-expansion bar chart",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "compare the Fourier coefficients of $E_4$, $E_6$, $\\Delta$ — note the signs and magnitudes",
+            "svgId": "w-qbar-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-qbar-out",
+            "bodyScript": "  // precomputed q-expansions (standard normalization)\n  const data = {\n    E4:    [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720, 1123440, 1179360],\n    E6:    [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864, -614457576],\n    E8:    [1, 480, 61920, 1050240, 7926240, 37500480, 135480960, 395301120, 1042629600, 2468583360, 5457183264, 11323252800, 22464478080, 42564482880, 77978415360],\n    // Ramanujan tau (coefficients of Delta, normalized so that q coefficient = 1)\n    Delta: [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160, 987136]\n  };\n  const titles = { E4:'E₄', E6:'E₆', E8:'E₈', Delta:'Δ' };\n\n  const btns = $('#w-qbar-btns');\n  const svg = $('#w-qbar-svg');\n  const out = $('#w-qbar-out');\n  const logCb = $('#w-qbar-log');\n  let cur = 'E4';\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 300, pad = 40;\n    const arr = data[cur];\n    const N = arr.length;\n    const bw = (W - 2*pad) / N;\n    const log = logCb.checked;\n    const vals = arr.map(v => v);\n    const absMax = Math.max(...vals.map(v=>Math.abs(v)), 1);\n    function yscale(v){\n      const signed = v;\n      const absV = Math.abs(signed);\n      if(log){\n        const lv = Math.log10(1 + absV);\n        const lm = Math.log10(1 + absMax);\n        return (H/2 - pad/2) * (lv/lm) * Math.sign(signed);\n      }\n      return (H/2 - pad/2) * (signed/absMax);\n    }\n    // axis\n    const zeroY = H/2;\n    svg.appendChild(SVG('line',{x1:pad,y1:zeroY,x2:W-pad,y2:zeroY,stroke:'var(--line)'}));\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    tt.textContent = titles[cur] + '  —  bars = a_n  (n = 0, 1, 2, …, ' + (N-1) + ')';\n    svg.appendChild(tt);\n\n    for(let i=0;i<N;i++){\n      const x = pad + i*bw;\n      const h = yscale(arr[i]);\n      const color = arr[i] === 0 ? 'var(--line)' : (arr[i] > 0 ? 'var(--green)' : 'var(--pink)');\n      svg.appendChild(SVG('rect',{\n        x: x+1, y: h>=0 ? zeroY - h : zeroY,\n        width: Math.max(bw-2, 1), height: Math.abs(h) || 1,\n        fill: color, 'fill-opacity':0.85\n      }));\n      // index labels every few\n      if(i % Math.max(1, Math.floor(N/10)) === 0){\n        const ix = SVG('text',{x:x+bw/2, y:H-12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        ix.textContent = i;\n        svg.appendChild(ix);\n      }\n    }\n\n    out.textContent = `${titles[cur]}  —  first ${N} Fourier coefficients shown${log ? '  (log-compressed)':''}\na_0 = ${arr[0]}\na_1 = ${arr[1]}\na_2 = ${arr[2]}\na_3 = ${arr[3]}`;\n  }\n\n  btns.addEventListener('click', (e)=>{\n    const f = e.target.dataset && e.target.dataset.f;\n    if(!f) return;\n    cur = f;\n    [...btns.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.f === cur));\n    render();\n  });\n  logCb.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-qbar-btns\">\n    <button data-f=\"E4\" class=\"active\">$E_4$</button>\n    <button data-f=\"E6\">$E_6$</button>\n    <button data-f=\"Delta\">$\\Delta$</button>\n    <button data-f=\"E8\">$E_8$</button>\n    <label style=\"margin-left:auto\" for=\"w-qbar-log\">log scale</label>\n    <input id=\"w-qbar-log\" type=\"checkbox\" checked>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-qbar-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"q-expansion bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-qbar-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-qbar",
+            "title": "Widget 4 · $q$-expansion bar chart",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "compare the Fourier coefficients of $E_4$, $E_6$, $\\Delta$ — note the signs and magnitudes",
+            "svgId": "w-qbar-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-qbar-out",
+            "bodyScript": "  // precomputed q-expansions (standard normalization)\n  const data = {\n    E4:    [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720, 1123440, 1179360],\n    E6:    [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864, -614457576],\n    E8:    [1, 480, 61920, 1050240, 7926240, 37500480, 135480960, 395301120, 1042629600, 2468583360, 5457183264, 11323252800, 22464478080, 42564482880, 77978415360],\n    // Ramanujan tau (coefficients of Delta, normalized so that q coefficient = 1)\n    Delta: [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160, 987136]\n  };\n  const titles = { E4:'E₄', E6:'E₆', E8:'E₈', Delta:'Δ' };\n\n  const btns = $('#w-qbar-btns');\n  const svg = $('#w-qbar-svg');\n  const out = $('#w-qbar-out');\n  const logCb = $('#w-qbar-log');\n  let cur = 'E4';\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 300, pad = 40;\n    const arr = data[cur];\n    const N = arr.length;\n    const bw = (W - 2*pad) / N;\n    const log = logCb.checked;\n    const vals = arr.map(v => v);\n    const absMax = Math.max(...vals.map(v=>Math.abs(v)), 1);\n    function yscale(v){\n      const signed = v;\n      const absV = Math.abs(signed);\n      if(log){\n        const lv = Math.log10(1 + absV);\n        const lm = Math.log10(1 + absMax);\n        return (H/2 - pad/2) * (lv/lm) * Math.sign(signed);\n      }\n      return (H/2 - pad/2) * (signed/absMax);\n    }\n    // axis\n    const zeroY = H/2;\n    svg.appendChild(SVG('line',{x1:pad,y1:zeroY,x2:W-pad,y2:zeroY,stroke:'var(--line)'}));\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    tt.textContent = titles[cur] + '  —  bars = a_n  (n = 0, 1, 2, …, ' + (N-1) + ')';\n    svg.appendChild(tt);\n\n    for(let i=0;i<N;i++){\n      const x = pad + i*bw;\n      const h = yscale(arr[i]);\n      const color = arr[i] === 0 ? 'var(--line)' : (arr[i] > 0 ? 'var(--green)' : 'var(--pink)');\n      svg.appendChild(SVG('rect',{\n        x: x+1, y: h>=0 ? zeroY - h : zeroY,\n        width: Math.max(bw-2, 1), height: Math.abs(h) || 1,\n        fill: color, 'fill-opacity':0.85\n      }));\n      // index labels every few\n      if(i % Math.max(1, Math.floor(N/10)) === 0){\n        const ix = SVG('text',{x:x+bw/2, y:H-12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        ix.textContent = i;\n        svg.appendChild(ix);\n      }\n    }\n\n    out.textContent = `${titles[cur]}  —  first ${N} Fourier coefficients shown${log ? '  (log-compressed)':''}\na_0 = ${arr[0]}\na_1 = ${arr[1]}\na_2 = ${arr[2]}\na_3 = ${arr[3]}`;\n  }\n\n  btns.addEventListener('click', (e)=>{\n    const f = e.target.dataset && e.target.dataset.f;\n    if(!f) return;\n    cur = f;\n    [...btns.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.f === cur));\n    render();\n  });\n  logCb.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-qbar-btns\">\n    <button data-f=\"E4\" class=\"active\">$E_4$</button>\n    <button data-f=\"E6\">$E_6$</button>\n    <button data-f=\"Delta\">$\\Delta$</button>\n    <button data-f=\"E8\">$E_8$</button>\n    <label style=\"margin-left:auto\" for=\"w-qbar-log\">log scale</label>\n    <input id=\"w-qbar-log\" type=\"checkbox\" checked>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-qbar-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"q-expansion bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-qbar-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>Two features of this picture are hard to overstate. First: a single transcendentally-defined function on a complex domain is really a sequence of integers — in the $E_4$ case, the integers $240\\,\\sigma_3(n)$ counting divisor sums. Second: the same integers arise from counting lattice points on spheres (the theta functions used in <a href=\"./sums-of-squares.html\">sums of squares</a>), which is why modular forms encode arithmetic.</p>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "eisenstein-series-mf",
+          "html": "<div class=\"quiz\" data-concept=\"eisenstein-series-mf\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-forms.html#qexp\">Modular forms</a> · q-expansions and arithmetic data</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "jinv",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"jinv\">\n<h2>5. The discriminant $\\Delta$ and the $j$-invariant</h2>\n<p>Define\n$$\\Delta(\\tau) \\;=\\; \\frac{E_4(\\tau)^3 - E_6(\\tau)^2}{1728}.$$\nThis is a modular form of weight $12$: subtract the right multiple of $E_4^3$ from $E_6^2$ and the constant term cancels, leaving a $q$-series that starts with $q$. Its $q$-expansion is the famous Ramanujan tau function:\n$$\\Delta(\\tau) \\;=\\; q \\prod_{n=1}^{\\infty}(1-q^n)^{24} \\;=\\; \\sum_{n\\ge 1} \\tau(n)\\, q^n, \\qquad \\tau(1)=1,\\,\\tau(2)=-24,\\,\\tau(3)=252,\\,\\ldots$$\n$\\Delta$ has no zeros on $\\mathcal{H}$ — it vanishes only to first order at the cusp. This makes the quotient\n$$j(\\tau) \\;=\\; \\frac{E_4(\\tau)^3}{\\Delta(\\tau)} \\;=\\; \\frac{1}{q} + 744 + 196884\\, q + 21493760\\, q^2 + \\cdots$$\nwell-defined and holomorphic on all of $\\mathcal{H}$, with a simple pole at the cusp. It has weight $4 \\cdot 3 - 12 = 0$ — it is <em>modular-invariant</em>, a genuine function on $\\mathcal{H}/\\mathrm{SL}_2(\\mathbb{Z})$.</p>\n\n<h3>The one-line theorem</h3>\n<div class=\"ok\"><strong>Theorem.</strong> $j \\colon \\mathcal{H}/\\mathrm{SL}_2(\\mathbb{Z}) \\to \\mathbb{C}$ is a bijection, and the map extends to an isomorphism of Riemann surfaces $X(1) \\xrightarrow{\\sim} \\mathbb{P}^1_\\mathbb{C}$.</div>\n<p>In particular, two points $\\tau_1, \\tau_2 \\in \\mathcal{H}$ give isomorphic complex <a href=\"./elliptic-curves.html\">elliptic curves</a> $\\mathbb{C}/(\\mathbb{Z} + \\tau_i \\mathbb{Z})$ iff $j(\\tau_1) = j(\\tau_2)$. The $j$-invariant is the moduli-space coordinate — see <a href=\"./moduli-spaces.html\">moduli spaces</a> for the general story.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-j",
+            "title": "Widget 5 · The $j$-function on a vertical strip",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$j(\\tau)$ along $\\mathrm{Re}\\,\\tau=x_0$, as $\\mathrm{Im}\\,\\tau$ varies: a pole at $i\\infty$, regular on $\\mathcal{H}$",
+            "svgId": "w-j-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-j-out",
+            "bodyScript": "  const svg = $('#w-j-svg');\n  const xS = $('#w-j-x'), xL = $('#w-j-xv');\n  const yS = $('#w-j-y'), yL = $('#w-j-yv');\n  const out = $('#w-j-out');\n\n  // small finite Fourier approximation of j(tau) = 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...\n  const jcoef = [ 744, 196884, 21493760, 864299970, 20245856256, 333202640600, 4252023300096 ];\n  function jApprox(tau){\n    // q = e^{2pi i tau}\n    const qre = Math.exp(-2*Math.PI*tau.im) * Math.cos(2*Math.PI*tau.re);\n    const qim = Math.exp(-2*Math.PI*tau.im) * Math.sin(2*Math.PI*tau.re);\n    // 1/q = e^{-2pi i tau}\n    const iqre = Math.exp( 2*Math.PI*tau.im) * Math.cos(-2*Math.PI*tau.re);\n    const iqim = Math.exp( 2*Math.PI*tau.im) * Math.sin(-2*Math.PI*tau.re);\n    let re = iqre + 744, im = iqim;\n    let pre = 1, pim = 0;\n    for(let k=0;k<jcoef.length;k++){\n      // multiply p *= q\n      const npre = pre*qre - pim*qim, npim = pre*qim + pim*qre;\n      pre = npre; pim = npim;\n      re += jcoef[k]*pre; im += jcoef[k]*pim;\n    }\n    return { re, im, abs: Math.hypot(re,im) };\n  }\n  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }\n\n  // HSV to hex\n  function hsl(h,s,l){ return `hsl(${h} ${Math.round(s*100)}% ${Math.round(l*100)}%)`; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 260, pad = 40;\n    const x0 = parseFloat(xS.value);\n    xL.textContent = 'x=' + x0.toFixed(2);\n    const ytop = parseFloat(yS.value);\n    yL.textContent = 'y=' + ytop.toFixed(2);\n    const ymin = 0.1, ymax = Math.max(ytop, 0.4);\n\n    // heat strip (color by log|j|) from bottom (Im small, far from cusp) to top (Im large, cusp)\n    const strips = 120;\n    const sh = (H - 2*pad) / strips;\n    const cellX = pad+20, cellW = W - 2*pad - 40;\n\n    // first pass, collect values\n    const rows = [];\n    for(let i=0;i<strips;i++){\n      const y = ymin + (ymax - ymin) * i/(strips-1);\n      const j = jApprox({re:x0, im:y});\n      rows.push({y, j});\n    }\n    const logs = rows.map(r => Math.log10(1 + r.j.abs));\n    const lmax = Math.max(...logs), lmin = Math.min(...logs);\n\n    for(let i=0;i<strips;i++){\n      const r = rows[i];\n      const t = (logs[i]-lmin)/(lmax-lmin || 1);\n      const arg = Math.atan2(r.j.im, r.j.re);\n      const hue = ((arg + Math.PI) / (2*Math.PI)) * 360;\n      const light = 0.22 + 0.55 * t;\n      const Y = pad + (H - 2*pad) * (1 - i/(strips-1));\n      svg.appendChild(SVG('rect',{x:cellX, y:Y - sh/2, width:cellW, height:sh+1, fill: hsl(hue, 0.7, light)}));\n    }\n    // frame\n    svg.appendChild(SVG('rect',{x:cellX, y:pad, width:cellW, height:H-2*pad,\n      fill:'none', stroke:'var(--line)','stroke-width':1}));\n    // y labels\n    for(const yval of [0.1, 0.5, 1.0, 2.0, 3.0]){\n      if(yval<ymin || yval>ymax) continue;\n      const Y = pad + (H - 2*pad) * (1 - (yval-ymin)/(ymax-ymin));\n      svg.appendChild(SVG('line',{x1:cellX-4, y1:Y, x2:cellX, y2:Y, stroke:'var(--mute)'}));\n      const t = SVG('text',{x:cellX-6, y:Y+3, 'text-anchor':'end','font-size':10, fill:'var(--mute)'});\n      t.textContent = 'Im=' + yval.toFixed(1);\n      svg.appendChild(t);\n    }\n    // caption\n    const cap = SVG('text',{x:W/2, y:H-12, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n    cap.textContent = 'brightness = log|j(x₀+iy)|    hue = arg j(x₀+iy)    (cusp at top, real axis at bottom)';\n    svg.appendChild(cap);\n    // title\n    const ttl = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    ttl.textContent = `j(τ) along Re(τ) = ${x0.toFixed(2)}`;\n    svg.appendChild(ttl);\n\n    // sample readouts\n    const ys = [0.3, 0.5, 1.0, 2.0];\n    let ln = '';\n    for(const yv of ys){\n      const jj = jApprox({re:x0, im:yv});\n      ln += `τ = ${x0.toFixed(2)} + ${yv.toFixed(2)}i   →   j(τ) ≈ ${jj.re.toExponential(3)}\\n`;\n    }\n    out.textContent = ln.trim();\n  }\n  xS.addEventListener('input', render);\n  yS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-j-x\">$\\mathrm{Re}\\,\\tau$:</label>\n    <input id=\"w-j-x\" type=\"range\" min=\"-0.5\" max=\"0.5\" step=\"0.01\" value=\"0\">\n    <span id=\"w-j-xv\" class=\"pill\">x=0</span>\n    <label style=\"margin-left:1rem\" for=\"w-j-y\">Im range:</label>\n    <input id=\"w-j-y\" type=\"range\" min=\"0.3\" max=\"3\" step=\"0.02\" value=\"1.3\">\n    <span id=\"w-j-yv\" class=\"pill\">y=1.30</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-j-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"j-function heat strip\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-j-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-j",
+            "title": "Widget 5 · The $j$-function on a vertical strip",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$j(\\tau)$ along $\\mathrm{Re}\\,\\tau=x_0$, as $\\mathrm{Im}\\,\\tau$ varies: a pole at $i\\infty$, regular on $\\mathcal{H}$",
+            "svgId": "w-j-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-j-out",
+            "bodyScript": "  const svg = $('#w-j-svg');\n  const xS = $('#w-j-x'), xL = $('#w-j-xv');\n  const yS = $('#w-j-y'), yL = $('#w-j-yv');\n  const out = $('#w-j-out');\n\n  // small finite Fourier approximation of j(tau) = 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...\n  const jcoef = [ 744, 196884, 21493760, 864299970, 20245856256, 333202640600, 4252023300096 ];\n  function jApprox(tau){\n    // q = e^{2pi i tau}\n    const qre = Math.exp(-2*Math.PI*tau.im) * Math.cos(2*Math.PI*tau.re);\n    const qim = Math.exp(-2*Math.PI*tau.im) * Math.sin(2*Math.PI*tau.re);\n    // 1/q = e^{-2pi i tau}\n    const iqre = Math.exp( 2*Math.PI*tau.im) * Math.cos(-2*Math.PI*tau.re);\n    const iqim = Math.exp( 2*Math.PI*tau.im) * Math.sin(-2*Math.PI*tau.re);\n    let re = iqre + 744, im = iqim;\n    let pre = 1, pim = 0;\n    for(let k=0;k<jcoef.length;k++){\n      // multiply p *= q\n      const npre = pre*qre - pim*qim, npim = pre*qim + pim*qre;\n      pre = npre; pim = npim;\n      re += jcoef[k]*pre; im += jcoef[k]*pim;\n    }\n    return { re, im, abs: Math.hypot(re,im) };\n  }\n  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }\n\n  // HSV to hex\n  function hsl(h,s,l){ return `hsl(${h} ${Math.round(s*100)}% ${Math.round(l*100)}%)`; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 260, pad = 40;\n    const x0 = parseFloat(xS.value);\n    xL.textContent = 'x=' + x0.toFixed(2);\n    const ytop = parseFloat(yS.value);\n    yL.textContent = 'y=' + ytop.toFixed(2);\n    const ymin = 0.1, ymax = Math.max(ytop, 0.4);\n\n    // heat strip (color by log|j|) from bottom (Im small, far from cusp) to top (Im large, cusp)\n    const strips = 120;\n    const sh = (H - 2*pad) / strips;\n    const cellX = pad+20, cellW = W - 2*pad - 40;\n\n    // first pass, collect values\n    const rows = [];\n    for(let i=0;i<strips;i++){\n      const y = ymin + (ymax - ymin) * i/(strips-1);\n      const j = jApprox({re:x0, im:y});\n      rows.push({y, j});\n    }\n    const logs = rows.map(r => Math.log10(1 + r.j.abs));\n    const lmax = Math.max(...logs), lmin = Math.min(...logs);\n\n    for(let i=0;i<strips;i++){\n      const r = rows[i];\n      const t = (logs[i]-lmin)/(lmax-lmin || 1);\n      const arg = Math.atan2(r.j.im, r.j.re);\n      const hue = ((arg + Math.PI) / (2*Math.PI)) * 360;\n      const light = 0.22 + 0.55 * t;\n      const Y = pad + (H - 2*pad) * (1 - i/(strips-1));\n      svg.appendChild(SVG('rect',{x:cellX, y:Y - sh/2, width:cellW, height:sh+1, fill: hsl(hue, 0.7, light)}));\n    }\n    // frame\n    svg.appendChild(SVG('rect',{x:cellX, y:pad, width:cellW, height:H-2*pad,\n      fill:'none', stroke:'var(--line)','stroke-width':1}));\n    // y labels\n    for(const yval of [0.1, 0.5, 1.0, 2.0, 3.0]){\n      if(yval<ymin || yval>ymax) continue;\n      const Y = pad + (H - 2*pad) * (1 - (yval-ymin)/(ymax-ymin));\n      svg.appendChild(SVG('line',{x1:cellX-4, y1:Y, x2:cellX, y2:Y, stroke:'var(--mute)'}));\n      const t = SVG('text',{x:cellX-6, y:Y+3, 'text-anchor':'end','font-size':10, fill:'var(--mute)'});\n      t.textContent = 'Im=' + yval.toFixed(1);\n      svg.appendChild(t);\n    }\n    // caption\n    const cap = SVG('text',{x:W/2, y:H-12, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n    cap.textContent = 'brightness = log|j(x₀+iy)|    hue = arg j(x₀+iy)    (cusp at top, real axis at bottom)';\n    svg.appendChild(cap);\n    // title\n    const ttl = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    ttl.textContent = `j(τ) along Re(τ) = ${x0.toFixed(2)}`;\n    svg.appendChild(ttl);\n\n    // sample readouts\n    const ys = [0.3, 0.5, 1.0, 2.0];\n    let ln = '';\n    for(const yv of ys){\n      const jj = jApprox({re:x0, im:yv});\n      ln += `τ = ${x0.toFixed(2)} + ${yv.toFixed(2)}i   →   j(τ) ≈ ${jj.re.toExponential(3)}\\n`;\n    }\n    out.textContent = ln.trim();\n  }\n  xS.addEventListener('input', render);\n  yS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-j-x\">$\\mathrm{Re}\\,\\tau$:</label>\n    <input id=\"w-j-x\" type=\"range\" min=\"-0.5\" max=\"0.5\" step=\"0.01\" value=\"0\">\n    <span id=\"w-j-xv\" class=\"pill\">x=0</span>\n    <label style=\"margin-left:1rem\" for=\"w-j-y\">Im range:</label>\n    <input id=\"w-j-y\" type=\"range\" min=\"0.3\" max=\"3\" step=\"0.02\" value=\"1.3\">\n    <span id=\"w-j-yv\" class=\"pill\">y=1.30</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-j-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"j-function heat strip\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-j-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<div class=\"note\"><strong>The Monster.</strong> The Fourier coefficient $196884$ in $j$'s expansion equals $196883 + 1$, where $196883$ is the dimension of the smallest nontrivial irreducible representation of the Monster group. This \"monstrous moonshine\" connection — now a theorem of Borcherds — is one of the strangest bridges in mathematics.</div>\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "cusps",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"cusps\">\n<h2>6. Spaces of modular forms and cusp forms</h2>\n<p>Fix even $k \\ge 0$. Let $M_k$ denote the $\\mathbb{C}$-vector space of weight-$k$ modular forms for $\\mathrm{SL}_2(\\mathbb{Z})$, and $S_k \\subset M_k$ the subspace of <strong>cusp forms</strong> — those vanishing at $i\\infty$, i.e.\\ with $q$-expansion starting at $q^1$.</p>\n\n<h3>The dimension formula</h3>\n<p>A contour-integral / valence argument (Serre's valence formula) gives the clean dimension count:</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dim",
+            "title": "Widget 6 · Dimensions of $M_k$ and $S_k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$",
+            "svgId": "w-dim-svg",
+            "viewBox": "0 0 720 280",
+            "readoutId": "w-dim-out",
+            "bodyScript": "  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-dim-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dim",
+            "title": "Widget 6 · Dimensions of $M_k$ and $S_k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$",
+            "svgId": "w-dim-svg",
+            "viewBox": "0 0 720 280",
+            "readoutId": "w-dim-out",
+            "bodyScript": "  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-dim-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>The key structural facts one reads off:</p>\n<ul>\n  <li>$\\dim M_k = 0$ for $k < 0$ or $k$ odd;</li>\n  <li>$\\dim M_k = 1$ for $k \\in \\{0,4,6,8,10,14\\}$ — these are spanned by $1, E_4, E_6, E_8 = E_4^2, E_{10} = E_4 E_6, E_{14} = E_4^2 E_6$;</li>\n  <li>$\\dim M_{12} = 2$, spanned by $E_{12}$ and $\\Delta$;</li>\n  <li>$\\dim S_k = \\dim M_k - 1$ for $k \\ge 12$: one constraint to kill the value at the cusp.</li>\n</ul>\n\n<h3>The ring structure</h3>\n<p>Collecting all weights, $M_* = \\bigoplus_k M_k$ is a graded $\\mathbb{C}$-algebra. The finite-dimensional data above is, miraculously, one fact:</p>\n<div class=\"ok\"><strong>Structure theorem.</strong> $M_*(\\mathrm{SL}_2(\\mathbb{Z})) \\;=\\; \\mathbb{C}[E_4, E_6]$, a polynomial ring in two algebraically independent generators, with $\\deg E_4 = 4$ and $\\deg E_6 = 6$.</div>\n<p>A one-variable polynomial ring has a predictable dimension growth; the <em>two</em>-variable graded piece gives exactly the \"floor of $k/12$\" shape. From this one gets $\\dim S_k = \\dim M_{k-12}$ and the multiplication-by-$\\Delta$ isomorphism $M_{k-12} \\xrightarrow{\\sim} S_k$.</p>\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "qexp",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"qexp\">\n<h2>7. $q$-expansions and the shadow of Hecke theory</h2>\n<p>The structure so far is elegant but static. The arithmetic really begins when we ask: what operators act on the finite-dimensional spaces $M_k$ and $S_k$?</p>\n\n<h3>The $q$-expansion principle</h3>\n<p>Two modular forms of the same weight with the same $q$-expansion are equal — holomorphy at the cusp plus the identity theorem force it. This is why a finite initial segment of Fourier coefficients <em>is</em> the form.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-id",
+            "title": "Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\\,\\Delta$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "truncate $q$-expansions; check the identity coefficient-by-coefficient",
+            "readoutId": "w-id-out",
+            "bodyScript": "  const E4 = [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720];\n  const E6 = [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864];\n  const Delta = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160];\n\n  function polyMul(a,b, maxLen){\n    const out = new Array(maxLen).fill(0);\n    for(let i=0;i<a.length && i<maxLen;i++)\n      for(let j=0;j<b.length && i+j<maxLen;j++)\n        out[i+j] += a[i]*b[j];\n    return out;\n  }\n  function polySub(a,b){\n    const L = Math.max(a.length,b.length);\n    const out = new Array(L).fill(0);\n    for(let i=0;i<L;i++) out[i] = (a[i]||0) - (b[i]||0);\n    return out;\n  }\n  function scale(a,s){ return a.map(v=>v*s); }\n\n  const nS = $('#w-id-N'), nL = $('#w-id-Nv'), out = $('#w-id-out');\n  function render(){\n    const N = +nS.value;\n    nL.textContent = 'N='+N;\n    const E4_3 = polyMul(polyMul(E4,E4,N+1), E4, N+1);\n    const E6_2 = polyMul(E6,E6,N+1);\n    const lhs = polySub(E4_3, E6_2);\n    const rhs = scale(Delta.slice(0,N+1), 1728);\n    let lines = 'n       (E4^3 - E6^2)_n         1728·Δ_n         match?\\n';\n    let ok = true;\n    for(let n=0;n<=N;n++){\n      const L = lhs[n]||0, R = rhs[n]||0;\n      const m = L===R ? 'yes' : 'NO';\n      if(L!==R) ok = false;\n      lines += `${String(n).padStart(2,' ')}     ${String(L).padStart(20,' ')}   ${String(R).padStart(14,' ')}      ${m}\\n`;\n    }\n    lines += '\\n' + (ok ? 'verified:  Δ = (E4^3 - E6^2)/1728 on all coefficients shown.' : 'mismatch — truncation too short');\n    out.textContent = lines;\n  }\n  nS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-id-N\">compare up to $q^N$ with $N$ =</label>\n    <input id=\"w-id-N\" type=\"range\" min=\"2\" max=\"15\" step=\"1\" value=\"6\">\n    <span id=\"w-id-Nv\" class=\"pill\">N=6</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"w-id-out\" style=\"min-height:10em\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-id",
+            "title": "Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\\,\\Delta$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "truncate $q$-expansions; check the identity coefficient-by-coefficient",
+            "readoutId": "w-id-out",
+            "bodyScript": "  const E4 = [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720];\n  const E6 = [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864];\n  const Delta = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160];\n\n  function polyMul(a,b, maxLen){\n    const out = new Array(maxLen).fill(0);\n    for(let i=0;i<a.length && i<maxLen;i++)\n      for(let j=0;j<b.length && i+j<maxLen;j++)\n        out[i+j] += a[i]*b[j];\n    return out;\n  }\n  function polySub(a,b){\n    const L = Math.max(a.length,b.length);\n    const out = new Array(L).fill(0);\n    for(let i=0;i<L;i++) out[i] = (a[i]||0) - (b[i]||0);\n    return out;\n  }\n  function scale(a,s){ return a.map(v=>v*s); }\n\n  const nS = $('#w-id-N'), nL = $('#w-id-Nv'), out = $('#w-id-out');\n  function render(){\n    const N = +nS.value;\n    nL.textContent = 'N='+N;\n    const E4_3 = polyMul(polyMul(E4,E4,N+1), E4, N+1);\n    const E6_2 = polyMul(E6,E6,N+1);\n    const lhs = polySub(E4_3, E6_2);\n    const rhs = scale(Delta.slice(0,N+1), 1728);\n    let lines = 'n       (E4^3 - E6^2)_n         1728·Δ_n         match?\\n';\n    let ok = true;\n    for(let n=0;n<=N;n++){\n      const L = lhs[n]||0, R = rhs[n]||0;\n      const m = L===R ? 'yes' : 'NO';\n      if(L!==R) ok = false;\n      lines += `${String(n).padStart(2,' ')}     ${String(L).padStart(20,' ')}   ${String(R).padStart(14,' ')}      ${m}\\n`;\n    }\n    lines += '\\n' + (ok ? 'verified:  Δ = (E4^3 - E6^2)/1728 on all coefficients shown.' : 'mismatch — truncation too short');\n    out.textContent = lines;\n  }\n  nS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-id-N\">compare up to $q^N$ with $N$ =</label>\n    <input id=\"w-id-N\" type=\"range\" min=\"2\" max=\"15\" step=\"1\" value=\"6\">\n    <span id=\"w-id-Nv\" class=\"pill\">N=6</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"w-id-out\" style=\"min-height:10em\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<h3>Hecke operators — a first look</h3>\n<p>For each prime $p$ there is a linear operator $T_p$ on $M_k$ defined on $q$-expansions by the curious-looking formula\n$$(T_p f)(\\tau) \\;=\\; \\sum_{n\\ge 0} \\left( a_{pn} + p^{k-1} a_{n/p} \\right) q^n,$$\nwhere $a_{n/p} = 0$ if $p \\nmid n$. The $T_p$ commute, are self-adjoint for the Petersson inner product, and preserve $S_k$. This forces $S_k$ to decompose into <em>simultaneous eigenspaces</em> — the <strong>Hecke eigenforms</strong> — and each eigenform has Fourier coefficients that form a multiplicative sequence. In the one-dimensional case $S_{12} = \\mathbb{C}\\cdot \\Delta$, the eigenvalue of $T_p$ on $\\Delta$ is precisely Ramanujan's $\\tau(p)$, and the multiplicativity says\n$$\\tau(mn) = \\tau(m)\\tau(n) \\text{ when } (m,n)=1, \\qquad \\tau(p^{r+1}) = \\tau(p)\\tau(p^r) - p^{11}\\tau(p^{r-1}).$$\nThese relations encode the arithmetic content of $\\Delta$.</p>\n\n<div class=\"note\"><strong>Looking forward.</strong> The Hecke algebra $\\mathbb{T}_k \\subset \\mathrm{End}(S_k)$ and its eigenforms are the link to Galois representations: to each eigenform one attaches a $2$-dimensional $\\ell$-adic representation of $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ whose trace on Frobenius at $p$ equals $a_p$. That correspondence, in the weight-$2$ case, is the modularity theorem for <a href=\"./elliptic-curves.html\">elliptic curves</a>. The full action of $\\mathbb{T}$, its structure as a commutative ring, and the Petersson product live in a next chapter of their own.</div>\n\n<h3>Where this page ends</h3>\n<p>Everything here has been at level $1$ — full $\\mathrm{SL}_2(\\mathbb{Z})$ invariance. The next moves are:</p>\n<ul>\n  <li>replace $\\mathrm{SL}_2(\\mathbb{Z})$ by a congruence subgroup $\\Gamma_0(N)$, producing modular forms of level $N$ and a richer compactified modular curve $X_0(N)$;</li>\n  <li>add characters (nebentype) to get a Dirichlet-twisted version of the theory;</li>\n  <li>attach an $L$-function $L(f,s) = \\sum a_n n^{-s}$ to each eigenform, a Dirichlet series with Euler product expressing the Hecke relations analytically;</li>\n  <li>tie these $L$-functions to Galois representations and to the $L$-functions of elliptic curves.</li>\n</ul>\n<p>But the engine is already in place: a finite-dimensional space, a canonical basis of Hecke eigenforms, and a $q$-expansion that turns a transcendental function into an arithmetic sequence.</p>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "q-expansions-mf",
+          "html": "<div class=\"quiz\" data-concept=\"q-expansions-mf\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hecke-operators.html#tp\">Hecke operators</a> · The operator T_p</div>\n    <div><a href=\"./modular-forms.html#petersson\">Modular forms</a> · Petersson inner product</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "petersson",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"petersson\">\n<h2>8. The Petersson inner product</h2>\n<p>The spaces $S_k$ of cusp forms are finite-dimensional, but so far we have no geometry on them — no notion of angle, length, or orthogonality. Petersson's observation is that the hyperbolic measure $d\\mu = y^{-2}\\,dx\\,dy$ on the upper half-plane, combined with the weight-$k$ factor, produces a genuinely $\\mathrm{SL}_2(\\mathbb{Z})$-invariant pairing. For $f, g \\in S_k$ define</p>\n$$\\langle f, g\\rangle \\;=\\; \\int_{\\Gamma\\backslash \\mathbb{H}} f(\\tau)\\,\\overline{g(\\tau)}\\; y^{k-2}\\,dx\\,dy, \\qquad \\tau = x + iy.$$\n<p>The integrand is well-defined on the fundamental domain because under $\\gamma = \\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in\\mathrm{SL}_2(\\mathbb{Z})$ the ratio $|c\\tau+d|^{-2k}$ in $|f|^2$ is exactly compensated by the transformation $y \\mapsto y / |c\\tau+d|^2$ of the imaginary part, leaving $|f|^2 y^{k}$ invariant and the measure $y^{-2}dx\\,dy$ invariant on its own.</p>\n\n<h3>Why the product converges on $S_k$</h3>\n<p>Near the cusp $i\\infty$, a cusp form $f$ decays like $|f(\\tau)| \\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable even though $y^{k-2}$ blows up; the exponential wins. At the elliptic points $\\rho, i$ of the fundamental domain the integrand is smooth. For non-cuspidal forms the integral diverges at $i\\infty$ — orthogonality is a phenomenon of $S_k$, and this is exactly why the Eisenstein subspace $E_k$ appears as its orthogonal complement in</p>\n$$M_k \\;=\\; S_k \\oplus E_k.$$\n\n<h3>Hecke eigenforms are orthogonal</h3>\n<p>Hecke operators $T_n$ with $(n, N)=1$ are <em>self-adjoint</em> for the Petersson product: $\\langle T_n f, g\\rangle = \\langle f, T_n g\\rangle$. Because the $T_n$ commute and are simultaneously diagonalizable, the spectral theorem gives an orthogonal basis of $S_k$ consisting of simultaneous Hecke eigenforms. If $f, g$ are two normalized eigenforms with distinct eigenvalue systems $\\{a_p\\}\\ne\\{b_p\\}$, then</p>\n$$\\langle f, g\\rangle \\;=\\; 0.$$\n<p>This is the input that makes the Euler-product decomposition of $L(f,s)$ a <em>canonical</em> factorization: eigenforms are not just convenient, they are the orthonormal frame picked out by the geometry.</p>\n\n<div class=\"note\"><strong>Looking forward.</strong> The Petersson norm $\\langle f, f\\rangle$ of a normalized eigenform appears in the completed $L$-function's functional equation constant and in period formulas; for a weight-$2$ newform attached to an elliptic curve $E/\\mathbb{Q}$, it is a modular analogue of the real period. These \"Petersson periods\" are the bridge from the Hilbert-space picture to the arithmetic of $L$-values.</div>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "petersson-inner-product",
+          "html": "<div class=\"quiz\" data-concept=\"petersson-inner-product\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hecke-operators.html#petersson\">Hecke operators</a> · Self-adjointness of $T_p$</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n/* sidebar TOC builder + active-section highlighting */\n(function(){\n  function build(){\n    const aside = document.querySelector('aside.sidetoc');\n    const topnav = document.querySelector('nav.toc');\n    if(!aside || !topnav) return;\n    const srcs = [...topnav.querySelectorAll('a[href^=\"#\"]')];\n    if(!srcs.length) return;\n    const title = document.createElement('div');\n    title.className = 'sidetoc-title';\n    title.textContent = 'On this page';\n    aside.appendChild(title);\n    const ol = document.createElement('ol');\n    srcs.forEach(src => {\n      const li = document.createElement('li');\n      const a = document.createElement('a');\n      a.href = src.getAttribute('href');\n      a.textContent = src.textContent.replace(/\\u00a0/g,' ').trim();\n      li.appendChild(a); ol.appendChild(li);\n    });\n    aside.appendChild(ol);\n    const links = [...aside.querySelectorAll('a')];\n    const sections = [];\n    links.forEach(a => {\n      const id = a.getAttribute('href').slice(1);\n      const s = document.getElementById(id);\n      if(s) sections.push({a, s});\n    });\n    if(!sections.length) return;\n    function update(){\n      const threshold = 140;\n      let activeLink = sections[0].a;\n      for(const {a,s} of sections){\n        if(s.getBoundingClientRect().top <= threshold) activeLink = a;\n      }\n      links.forEach(x => x.classList.remove('active'));\n      activeLink.classList.add('active');\n    }\n    update();\n    window.addEventListener('scroll', update, {passive:true});\n    window.addEventListener('resize', update);\n  }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);\n  else build();\n})();\n</script>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('modular-forms'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>\n      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>\n      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>\n      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>\n      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>\n      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>\n      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>\n      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>\n      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>\n      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>\n      <tr><td>2026-04-19</td><td>more pages</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

@@ -1,0 +1,440 @@
+{
+  "topic": "quadratic-reciprocity",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Quadratic reciprocity — the first deep symmetry of the primes</title>\n<!-- breadcrumb-head-auto-begin -->\n<script>window.__MV_SECTION_MAP = {\"<topic>\":{\"next\":null,\"prev\":null,\"section\":\"Sections\",\"title\":\"<topic>\"},\"L-functions\":{\"next\":\"galois-representations\",\"prev\":\"zeta-values\",\"section\":\"Modular forms & L-functions\",\"title\":\"L-functions\"},\"adeles-and-ideles\":{\"next\":\"frobenius-and-reciprocity\",\"prev\":\"p-adic-numbers\",\"section\":\"Number theory\",\"title\":\"Adèles &amp; idèles\"},\"algebra\":{\"next\":\"category-theory\",\"prev\":null,\"section\":\"Algebra\",\"title\":\"Abstract algebra\"},\"algebraic-number-theory\":{\"next\":\"p-adic-numbers\",\"prev\":\"quadratic-forms-genus-theory\",\"section\":\"Number theory\",\"title\":\"Algebraic number theory\"},\"algebraic-topology\":{\"next\":\"smooth-manifolds\",\"prev\":\"point-set-topology\",\"section\":\"Geometry & topology\",\"title\":\"Algebraic topology\"},\"analytic-continuation\":{\"next\":\"zeta-values\",\"prev\":\"dirichlet-series-euler-products\",\"section\":\"Modular forms & L-functions\",\"title\":\"Analytic continuation\"},\"bezout\":{\"next\":\"schemes\",\"prev\":\"projective-plane\",\"section\":\"Algebraic geometry\",\"title\":\"Bézout's theorem\"},\"bsd\":{\"next\":\"modularity-and-flt\",\"prev\":\"sato-tate\",\"section\":\"Modular forms & L-functions\",\"title\":\"Birch & Swinnerton-Dyer\"},\"category-theory\":{\"next\":\"representation-theory\",\"prev\":\"algebra\",\"section\":\"Algebra\",\"title\":\"Category theory\"},\"class-field-theory\":{\"next\":null,\"prev\":\"frobenius-and-reciprocity\",\"section\":\"Number theory\",\"title\":\"Class field theory\"},\"commutative-algebra\":{\"next\":\"homological\",\"prev\":\"representation-theory\",\"section\":\"Algebra\",\"title\":\"Commutative algebra\"},\"complex-analysis\":{\"next\":\"functional-analysis\",\"prev\":\"measure-theory\",\"section\":\"Analysis\",\"title\":\"Complex analysis\"},\"differential-forms\":{\"next\":\"differential-geometry\",\"prev\":\"smooth-manifolds\",\"section\":\"Geometry & topology\",\"title\":\"Differential forms\"},\"differential-geometry\":{\"next\":\"riemannian-geometry\",\"prev\":\"differential-forms\",\"section\":\"Geometry & topology\",\"title\":\"Differential geometry\"},\"dirichlet-series-euler-products\":{\"next\":\"analytic-continuation\",\"prev\":\"hecke-operators\",\"section\":\"Modular forms & L-functions\",\"title\":\"Dirichlet series &amp; Euler products\"},\"dynamical-systems\":{\"next\":\"probability-theory\",\"prev\":\"operator-algebras\",\"section\":\"Analysis\",\"title\":\"Dynamical systems\"},\"elliptic-curves\":{\"next\":\"singular-cubics-reduction\",\"prev\":\"functor-of-points\",\"section\":\"Algebraic geometry\",\"title\":\"Elliptic curves\"},\"etale-cohomology\":{\"next\":null,\"prev\":\"stacks\",\"section\":\"Algebraic geometry\",\"title\":\"Étale cohomology\"},\"frobenius-and-reciprocity\":{\"next\":\"class-field-theory\",\"prev\":\"adeles-and-ideles\",\"section\":\"Number theory\",\"title\":\"Frobenius &amp; reciprocity\"},\"functional-analysis\":{\"next\":\"operator-algebras\",\"prev\":\"complex-analysis\",\"section\":\"Analysis\",\"title\":\"Functional analysis\"},\"functor-of-points\":{\"next\":\"elliptic-curves\",\"prev\":\"morphisms-fiber-products\",\"section\":\"Algebraic geometry\",\"title\":\"Functor of points\"},\"galois\":{\"next\":\"quadratic-reciprocity\",\"prev\":null,\"section\":\"Number theory\",\"title\":\"Galois theory &amp; the quintic\"},\"galois-representations\":{\"next\":\"moonshine\",\"prev\":\"L-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Galois representations\"},\"hecke-operators\":{\"next\":\"dirichlet-series-euler-products\",\"prev\":\"partitions-generating-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Hecke operators\"},\"homological\":{\"next\":null,\"prev\":\"commutative-algebra\",\"section\":\"Algebra\",\"title\":\"Homological algebra\"},\"lie-groups\":{\"next\":\"riemann-surfaces\",\"prev\":\"riemannian-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Lie groups &amp; algebras\"},\"measure-theory\":{\"next\":\"complex-analysis\",\"prev\":\"real-analysis\",\"section\":\"Analysis\",\"title\":\"Measure theory\"},\"modular-forms\":{\"next\":\"theta-functions\",\"prev\":\"upper-half-plane-hyperbolic\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modular forms\"},\"modularity-and-flt\":{\"next\":null,\"prev\":\"bsd\",\"section\":\"Modular forms & L-functions\",\"title\":\"Modularity & FLT\"},\"moduli-spaces\":{\"next\":\"sheaf-cohomology\",\"prev\":\"singular-cubics-reduction\",\"section\":\"Algebraic geometry\",\"title\":\"Moduli spaces\"},\"moonshine\":{\"next\":\"sato-tate\",\"prev\":\"galois-representations\",\"section\":\"Modular forms & L-functions\",\"title\":\"Monstrous moonshine\"},\"morphisms-fiber-products\":{\"next\":\"functor-of-points\",\"prev\":\"sheaves\",\"section\":\"Algebraic geometry\",\"title\":\"Morphisms &amp; fiber products\"},\"naive-set-theory\":{\"next\":null,\"prev\":null,\"section\":\"Foundations\",\"title\":\"Naive set theory\"},\"operator-algebras\":{\"next\":\"dynamical-systems\",\"prev\":\"functional-analysis\",\"section\":\"Analysis\",\"title\":\"Operator algebras\"},\"p-adic-numbers\":{\"next\":\"adeles-and-ideles\",\"prev\":\"algebraic-number-theory\",\"section\":\"Number theory\",\"title\":\"p-adic numbers\"},\"partitions-generating-functions\":{\"next\":\"hecke-operators\",\"prev\":\"theta-functions\",\"section\":\"Modular forms & L-functions\",\"title\":\"Partitions &amp; generating functions\"},\"point-set-topology\":{\"next\":\"algebraic-topology\",\"prev\":null,\"section\":\"Geometry & topology\",\"title\":\"Point-set topology\"},\"power-sums-bernoulli\":{\"next\":\"waring\",\"prev\":\"sums-of-squares\",\"section\":\"Number theory\",\"title\":\"Power sums &amp; Bernoulli\"},\"probability-theory\":{\"next\":null,\"prev\":\"dynamical-systems\",\"section\":\"Analysis\",\"title\":\"Probability theory\"},\"projective-plane\":{\"next\":\"bezout\",\"prev\":null,\"section\":\"Algebraic geometry\",\"title\":\"Projective plane\"},\"quadratic-forms-genus-theory\":{\"next\":\"algebraic-number-theory\",\"prev\":\"waring\",\"section\":\"Number theory\",\"title\":\"Quadratic forms &amp; genus theory\"},\"quadratic-reciprocity\":{\"next\":\"sums-of-squares\",\"prev\":\"galois\",\"section\":\"Number theory\",\"title\":\"Quadratic reciprocity\"},\"real-analysis\":{\"next\":\"measure-theory\",\"prev\":null,\"section\":\"Analysis\",\"title\":\"Real analysis\"},\"representation-theory\":{\"next\":\"commutative-algebra\",\"prev\":\"category-theory\",\"section\":\"Algebra\",\"title\":\"Representation theory\"},\"riemann-surfaces\":{\"next\":null,\"prev\":\"lie-groups\",\"section\":\"Geometry & topology\",\"title\":\"Riemann surfaces\"},\"riemannian-geometry\":{\"next\":\"lie-groups\",\"prev\":\"differential-geometry\",\"section\":\"Geometry & topology\",\"title\":\"Riemannian geometry\"},\"sato-tate\":{\"next\":\"bsd\",\"prev\":\"moonshine\",\"section\":\"Modular forms & L-functions\",\"title\":\"Sato–Tate\"},\"schemes\":{\"next\":\"sheaves\",\"prev\":\"bezout\",\"section\":\"Algebraic geometry\",\"title\":\"Schemes\"},\"sheaf-cohomology\":{\"next\":\"stacks\",\"prev\":\"moduli-spaces\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaf cohomology\"},\"sheaves\":{\"next\":\"morphisms-fiber-products\",\"prev\":\"schemes\",\"section\":\"Algebraic geometry\",\"title\":\"Sheaves\"},\"singular-cubics-reduction\":{\"next\":\"moduli-spaces\",\"prev\":\"elliptic-curves\",\"section\":\"Algebraic geometry\",\"title\":\"Singular cubics &amp; reduction\"},\"smooth-manifolds\":{\"next\":\"differential-forms\",\"prev\":\"algebraic-topology\",\"section\":\"Geometry & topology\",\"title\":\"Smooth manifolds\"},\"stacks\":{\"next\":\"etale-cohomology\",\"prev\":\"sheaf-cohomology\",\"section\":\"Algebraic geometry\",\"title\":\"Stacks (Deligne–Mumford)\"},\"sums-of-squares\":{\"next\":\"power-sums-bernoulli\",\"prev\":\"quadratic-reciprocity\",\"section\":\"Number theory\",\"title\":\"Sums of squares\"},\"theta-functions\":{\"next\":\"partitions-generating-functions\",\"prev\":\"modular-forms\",\"section\":\"Modular forms & L-functions\",\"title\":\"Theta functions\"},\"upper-half-plane-hyperbolic\":{\"next\":\"modular-forms\",\"prev\":null,\"section\":\"Modular forms & L-functions\",\"title\":\"Upper half-plane\"},\"waring\":{\"next\":\"quadratic-forms-genus-theory\",\"prev\":\"power-sums-bernoulli\",\"section\":\"Number theory\",\"title\":\"Waring's problem\"},\"zeta-values\":{\"next\":\"L-functions\",\"prev\":\"analytic-continuation\",\"section\":\"Modular forms & L-functions\",\"title\":\"Zeta values\"}};</script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/widget-code-cell.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  .chip{display:inline-block;min-width:2.2em;text-align:center;padding:2px 6px;\n    border-radius:4px;font-family:ui-monospace,monospace;font-size:.88rem;margin:1px}\n  .chip.qr{background:#3d3418;color:var(--yellow);border:1px solid #5a4a1e}\n  .chip.nonqr{background:#1a1f2b;color:var(--mute);border:1px solid var(--line)}\n  .chip.neg{background:#2a1a18;color:var(--pink);border:1px solid #4a2820}\n  .chip.pos{background:#1a2418;color:var(--green);border:1px solid #2a4a20}\n  .cell{display:inline-flex;align-items:center;justify-content:center;\n    width:2.4em;height:2.4em;margin:1px;border-radius:4px;\n    font-family:ui-monospace,monospace;font-size:.85rem;border:1px solid var(--line)}\n  .grid-wrap{overflow-x:auto;padding:.4rem 0}\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"number-theory\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n\n/* number-theory helpers (shared by widgets) */\nfunction mod(a,n){ return ((a%n)+n)%n; }\nfunction modPow(b,e,n){\n  b = mod(b,n);\n  let r = 1n, bb = BigInt(b), ee = BigInt(e), nn = BigInt(n);\n  while(ee>0n){ if(ee&1n) r = (r*bb)%nn; bb=(bb*bb)%nn; ee>>=1n; }\n  return Number(r);\n}\nfunction isPrime(n){\n  if(n<2) return false;\n  if(n<4) return true;\n  if(n%2===0) return false;\n  for(let i=3;i*i<=n;i+=2) if(n%i===0) return false;\n  return true;\n}\n// Legendre symbol (a/p), p odd prime\nfunction legendre(a,p){\n  a = mod(a,p);\n  if(a===0) return 0;\n  const r = modPow(a,(p-1)/2,p);\n  return r===1 ? 1 : -1;\n}\n// Jacobi symbol (a/n), n odd positive\nfunction jacobi(a,n){\n  a = mod(a,n);\n  let t = 1;\n  while(a!==0){\n    while(a%2===0){\n      a/=2;\n      const r = n%8;\n      if(r===3||r===5) t = -t;\n    }\n    [a,n] = [n,a];\n    if(a%4===3 && n%4===3) t = -t;\n    a = mod(a,n);\n  }\n  return n===1 ? t : 0;\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n  <a href=\"#question\">1&nbsp;The&nbsp;question</a>\n  <a href=\"#legendre\">2&nbsp;Legendre&nbsp;symbol</a>\n  <a href=\"#supplementary\">3&nbsp;Supplementary&nbsp;laws</a>\n  <a href=\"#gauss-lemma\">4&nbsp;Gauss's&nbsp;lemma</a>\n  <a href=\"#reciprocity\">5&nbsp;Reciprocity</a>\n  <a href=\"#engine\">6&nbsp;Computation&nbsp;engine</a>\n  <a href=\"#jacobi\">7&nbsp;Jacobi&nbsp;symbol</a>\n  <a href=\"#why\">8&nbsp;Why&nbsp;it&nbsp;matters</a>\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Quadratic reciprocity — the first deep symmetry of the primes</h1>\n  <p class=\"sub\">Gauss called it the <em>theorema aureum</em>. A statement about which numbers are squares modulo a prime turns out to hide a perfect symmetry between pairs of primes — and that symmetry is the prototype of every reciprocity law that follows, from Artin to Langlands.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "question",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"question\">\n<h2>1. The question</h2>\n<p>Fix an odd prime $p$ and an integer $a$ not divisible by $p$. Ask: does the congruence\n$$ x^2 \\equiv a \\pmod p $$\nhave a solution? If yes, call $a$ a <strong>quadratic residue</strong> (QR) mod $p$; otherwise a <strong>non-residue</strong> (NR).</p>\n\n<p>For a fixed $p$, exactly half of the nonzero residues are QRs, because the squaring map $(\\mathbb{Z}/p)^\\times \\to (\\mathbb{Z}/p)^\\times$ is two-to-one onto its image — the kernel $\\{\\pm 1\\}$ has order $2$. That half of the story is easy. The hard half is the <em>reverse</em>:</p>\n\n<div class=\"note\">Fix $a$ (say $a=5$). For which primes $p$ is $a$ a QR mod $p$? Equivalently: as $p$ runs through the primes, which ones does $5$ \"belong to\"?</div>\n\n<p>Squaring is a local operation, so there is no reason to expect the answer to be describable in terms of $p$ alone. And yet — the answer depends <em>only on</em> $p \\bmod 4a$. This is the miracle we are here to unpack.</p>\n\n<h3>Hunt for the pattern</h3>\n<p>Pick a small prime $p$ and inspect the squares. The yellow entries are the QRs; the rest are non-residues (excluding $0$).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-squares",
+            "title": "Squares modulo <em>p</em>",
+            "hint": "yellow = quadratic residue",
+            "readoutId": "sq-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31];\n  const sel = $('#sq-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value = p; o.textContent = String(p);\n    sel.appendChild(o);\n  }\n  sel.value = 13;\n  const grid = $('#sq-grid'), out = $('#sq-out'), cnt = $('#sq-count');\n  function render(){\n    const p = +sel.value;\n    grid.innerHTML = '';\n    const qr = new Set();\n    for(let x=1;x<p;x++) qr.add((x*x)%p);\n    // table row: x, x^2 mod p\n    const wrap = document.createElement('div');\n    wrap.innerHTML = '<div class=\"small\" style=\"color:var(--mute);margin:.2rem 0\">$x$ on top, $x^2 \\\\bmod p$ below</div>';\n    const row1 = document.createElement('div'), row2 = document.createElement('div');\n    for(let x=0;x<p;x++){\n      const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;\n      c1.style.color='var(--mute)';\n      const v = (x*x)%p;\n      const c2 = document.createElement('span'); c2.className='cell ' + (v>0 && qr.has(v)?'qr':'nonqr');\n      c2.textContent=v;\n      row1.appendChild(c1); row2.appendChild(c2);\n    }\n    wrap.appendChild(row1); wrap.appendChild(row2);\n    // also a row showing which residues are QR vs NR\n    const hdr = document.createElement('div'); hdr.className='small';\n    hdr.style.cssText='color:var(--mute);margin-top:.6rem';\n    hdr.textContent='nonzero residues colored by QR / NR:';\n    wrap.appendChild(hdr);\n    const row3 = document.createElement('div');\n    for(let r=1;r<p;r++){\n      const c = document.createElement('span');\n      c.className = 'chip ' + (qr.has(r)?'qr':'nonqr');\n      c.textContent=r;\n      row3.appendChild(c);\n    }\n    wrap.appendChild(row3);\n    grid.appendChild(wrap);\n    cnt.textContent = `${qr.size} quadratic residues out of ${p-1} nonzero classes`;\n    out.textContent = `QRs mod ${p}: { ${[...qr].sort((a,b)=>a-b).join(', ')} }`;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sq-p\">prime $p$:</label>\n    <select id=\"sq-p\"></select>\n    <span class=\"small\" id=\"sq-count\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"grid-wrap\" id=\"sq-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sq-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-squares",
+            "title": "Squares modulo <em>p</em>",
+            "hint": "yellow = quadratic residue",
+            "readoutId": "sq-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31];\n  const sel = $('#sq-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value = p; o.textContent = String(p);\n    sel.appendChild(o);\n  }\n  sel.value = 13;\n  const grid = $('#sq-grid'), out = $('#sq-out'), cnt = $('#sq-count');\n  function render(){\n    const p = +sel.value;\n    grid.innerHTML = '';\n    const qr = new Set();\n    for(let x=1;x<p;x++) qr.add((x*x)%p);\n    // table row: x, x^2 mod p\n    const wrap = document.createElement('div');\n    wrap.innerHTML = '<div class=\"small\" style=\"color:var(--mute);margin:.2rem 0\">$x$ on top, $x^2 \\\\bmod p$ below</div>';\n    const row1 = document.createElement('div'), row2 = document.createElement('div');\n    for(let x=0;x<p;x++){\n      const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;\n      c1.style.color='var(--mute)';\n      const v = (x*x)%p;\n      const c2 = document.createElement('span'); c2.className='cell ' + (v>0 && qr.has(v)?'qr':'nonqr');\n      c2.textContent=v;\n      row1.appendChild(c1); row2.appendChild(c2);\n    }\n    wrap.appendChild(row1); wrap.appendChild(row2);\n    // also a row showing which residues are QR vs NR\n    const hdr = document.createElement('div'); hdr.className='small';\n    hdr.style.cssText='color:var(--mute);margin-top:.6rem';\n    hdr.textContent='nonzero residues colored by QR / NR:';\n    wrap.appendChild(hdr);\n    const row3 = document.createElement('div');\n    for(let r=1;r<p;r++){\n      const c = document.createElement('span');\n      c.className = 'chip ' + (qr.has(r)?'qr':'nonqr');\n      c.textContent=r;\n      row3.appendChild(c);\n    }\n    wrap.appendChild(row3);\n    grid.appendChild(wrap);\n    cnt.textContent = `${qr.size} quadratic residues out of ${p-1} nonzero classes`;\n    out.textContent = `QRs mod ${p}: { ${[...qr].sort((a,b)=>a-b).join(', ')} }`;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sq-p\">prime $p$:</label>\n    <select id=\"sq-p\"></select>\n    <span class=\"small\" id=\"sq-count\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"grid-wrap\" id=\"sq-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sq-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "legendre",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"legendre\">\n<h2>2. The Legendre symbol</h2>\n<p>Package the answer as a sign. For odd prime $p$ and $a\\in\\mathbb{Z}$ with $\\gcd(a,p)=1$, define the <strong>Legendre symbol</strong>\n$$\n\\left(\\frac{a}{p}\\right) = \\begin{cases} +1 & a\\text{ is a QR mod }p,\\\\ -1 & a\\text{ is a NR mod }p. \\end{cases}\n$$\nExtend by $\\left(\\frac{a}{p}\\right)=0$ when $p\\mid a$.</p>\n\n<h3>Multiplicativity</h3>\n<p>The map $a\\mapsto \\left(\\tfrac{a}{p}\\right)$ is a homomorphism\n$(\\mathbb{Z}/p)^\\times \\to \\{\\pm 1\\}$. Concretely\n$$ \\left(\\frac{ab}{p}\\right) = \\left(\\frac{a}{p}\\right)\\left(\\frac{b}{p}\\right). $$\nProof: $(\\mathbb{Z}/p)^\\times$ is cyclic, say with generator $g$. Squares are even powers of $g$. Write $a=g^i$, $b=g^j$; then $ab=g^{i+j}$ is a square iff $i+j$ is even, iff $i$ and $j$ have the same parity — matching the sign product.</p>\n\n<h3>Euler's criterion</h3>\n<div class=\"note\"><strong>Euler's criterion.</strong> For odd prime $p$ and $\\gcd(a,p)=1$,\n$$ a^{(p-1)/2} \\equiv \\left(\\frac{a}{p}\\right) \\pmod p. $$</div>\n\n<p>Proof. By Fermat $a^{p-1}\\equiv 1$, so $a^{(p-1)/2}\\equiv \\pm 1$. If $a=x^2$ then $a^{(p-1)/2}=x^{p-1}\\equiv 1$. For the converse, the polynomial $X^{(p-1)/2}-1$ has at most $(p-1)/2$ roots in the field $\\mathbb{F}_p$, and the $(p-1)/2$ QRs are already roots — so the NRs cannot be, and hit $-1$ instead.</p>\n\n<p>This gives a polynomial-time test: compute $a^{(p-1)/2} \\bmod p$ by repeated squaring. The widget below walks through the exponentiation.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler's criterion by fast exponentiation",
+            "hint": "compute $a^{(p-1)/2} \\bmod p$",
+            "readoutId": "eu-out",
+            "bodyScript": "  const aI = $('#eu-a'), pI = $('#eu-p'), go = $('#eu-go'), out = $('#eu-out');\n  function run(){\n    const a = parseInt(aI.value), p = parseInt(pI.value);\n    if(!Number.isFinite(a) || !Number.isFinite(p)){ out.textContent='enter integers'; return; }\n    if(p<3 || !isPrime(p)){ out.textContent=`${p} is not an odd prime`; return; }\n    if(p%2===0){ out.textContent='p must be odd'; return; }\n    if(mod(a,p)===0){ out.textContent=`a ≡ 0 (mod p), so (a/p)=0`; return; }\n    const e = (p-1)/2;\n    const lines = [];\n    lines.push(`goal: a^((p-1)/2) = ${mod(a,p)}^${e}  (mod ${p})`);\n    // binary expansion of e\n    const bits = e.toString(2);\n    lines.push(`exponent ${e} = (${bits})_2`);\n    let r = 1n, base = BigInt(mod(a,p)), P = BigInt(p);\n    // left-to-right square-and-multiply\n    for(let i=0;i<bits.length;i++){\n      r = (r*r)%P;\n      lines.push(`  square → ${r}`);\n      if(bits[i]==='1'){\n        r = (r*base)%P;\n        lines.push(`  bit 1: multiply by ${base} → ${r}`);\n      }\n    }\n    const val = Number(r);\n    const sym = val===1 ? +1 : (val===p-1 ? -1 : 0);\n    lines.push('');\n    lines.push(`result: ${val}  ≡  ${val===p-1?'-1':val}  (mod ${p})`);\n    lines.push(`(${a}/${p}) = ${sym>0?'+1':(sym<0?'-1':0)}   →  ${a} ${sym>0?'IS':'is NOT'} a QR mod ${p}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"eu-a\">$a =$</label><input id=\"eu-a\" type=\"number\" value=\"5\" style=\"width:5em\">\n    <label for=\"eu-p\">$p =$</label><input id=\"eu-p\" type=\"number\" value=\"41\" style=\"width:6em\">\n    <button id=\"eu-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "eu-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler's criterion by fast exponentiation",
+            "hint": "compute $a^{(p-1)/2} \\bmod p$",
+            "readoutId": "eu-out",
+            "bodyScript": "  const aI = $('#eu-a'), pI = $('#eu-p'), go = $('#eu-go'), out = $('#eu-out');\n  function run(){\n    const a = parseInt(aI.value), p = parseInt(pI.value);\n    if(!Number.isFinite(a) || !Number.isFinite(p)){ out.textContent='enter integers'; return; }\n    if(p<3 || !isPrime(p)){ out.textContent=`${p} is not an odd prime`; return; }\n    if(p%2===0){ out.textContent='p must be odd'; return; }\n    if(mod(a,p)===0){ out.textContent=`a ≡ 0 (mod p), so (a/p)=0`; return; }\n    const e = (p-1)/2;\n    const lines = [];\n    lines.push(`goal: a^((p-1)/2) = ${mod(a,p)}^${e}  (mod ${p})`);\n    // binary expansion of e\n    const bits = e.toString(2);\n    lines.push(`exponent ${e} = (${bits})_2`);\n    let r = 1n, base = BigInt(mod(a,p)), P = BigInt(p);\n    // left-to-right square-and-multiply\n    for(let i=0;i<bits.length;i++){\n      r = (r*r)%P;\n      lines.push(`  square → ${r}`);\n      if(bits[i]==='1'){\n        r = (r*base)%P;\n        lines.push(`  bit 1: multiply by ${base} → ${r}`);\n      }\n    }\n    const val = Number(r);\n    const sym = val===1 ? +1 : (val===p-1 ? -1 : 0);\n    lines.push('');\n    lines.push(`result: ${val}  ≡  ${val===p-1?'-1':val}  (mod ${p})`);\n    lines.push(`(${a}/${p}) = ${sym>0?'+1':(sym<0?'-1':0)}   →  ${a} ${sym>0?'IS':'is NOT'} a QR mod ${p}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"eu-a\">$a =$</label><input id=\"eu-a\" type=\"number\" value=\"5\" style=\"width:5em\">\n    <label for=\"eu-p\">$p =$</label><input id=\"eu-p\" type=\"number\" value=\"41\" style=\"width:6em\">\n    <button id=\"eu-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "eu-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#dir\">Dirichlet series and Euler products</a> · Dirichlet characters and L-series</div>\n    <div><a href=\"./quadratic-forms-genus-theory.html#binary-forms-basics\">Quadratic forms &amp; genus theory</a> · Binary quadratic forms</div>\n    <div><a href=\"./quadratic-reciprocity.html#gauss-lemma\">Quadratic reciprocity</a> · Gauss's lemma</div>\n    <div><a href=\"./quadratic-reciprocity.html#supplementary\">Quadratic reciprocity</a> · Supplementary laws</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "legendre-symbol",
+          "html": "<div class=\"quiz\" data-concept=\"legendre-symbol\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "supplementary",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"supplementary\">\n<h2>3. The supplementary laws</h2>\n<p>Multiplicativity reduces any Legendre symbol to a product of symbols $\\left(\\tfrac{-1}{p}\\right)$, $\\left(\\tfrac{2}{p}\\right)$, and $\\left(\\tfrac{q}{p}\\right)$ for odd primes $q$. Reciprocity will handle the last kind. The first two are the <em>supplementary laws</em>:</p>\n\n<div class=\"note\">\n<strong>First supplement.</strong> $\\displaystyle \\left(\\frac{-1}{p}\\right) = (-1)^{(p-1)/2} = \\begin{cases} +1 & p\\equiv 1\\pmod 4,\\\\ -1 & p\\equiv 3\\pmod 4. \\end{cases}$\n</div>\n\n<p>Proof: by Euler, $\\left(\\tfrac{-1}{p}\\right) \\equiv (-1)^{(p-1)/2}$; both sides are $\\pm 1$, so they are equal as integers.</p>\n\n<div class=\"note\">\n<strong>Second supplement.</strong> $\\displaystyle \\left(\\frac{2}{p}\\right) = (-1)^{(p^2-1)/8} = \\begin{cases} +1 & p\\equiv \\pm 1\\pmod 8,\\\\ -1 & p\\equiv \\pm 3\\pmod 8. \\end{cases}$\n</div>\n\n<p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\\{2,4,6,\\ldots,p-1\\}$ reduce to the \"upper half\" $\\{(p+1)/2,\\ldots,p-1\\}$ mod $p$, and read off the sign. The count turns out to be $\\lfloor p/4 \\rfloor$, giving the displayed parity.</p>\n\n<p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \\bmod 8$.</p>\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "supplementary-laws-qr",
+          "html": "<div class=\"quiz\" data-concept=\"supplementary-laws-qr\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./quadratic-reciprocity.html#reciprocity\">Quadratic reciprocity</a> · Quadratic reciprocity law</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "gauss-lemma",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"gauss-lemma\">\n<h2>4. Gauss's lemma</h2>\n<p>This is the combinatorial lever that lifts Euler's criterion to a form where reciprocity becomes visible. Fix odd prime $p$ and $a$ with $\\gcd(a,p)=1$. Consider the set\n$$ S = \\{a, 2a, 3a, \\ldots, \\tfrac{p-1}{2}a\\} \\pmod p. $$\nReduce each element to its representative in $\\{1,2,\\ldots,p-1\\}$, and let $\\mu$ be the number of them that land in the <em>upper half</em> $\\{(p+1)/2, \\ldots, p-1\\}$.</p>\n\n<div class=\"note\"><strong>Gauss's lemma.</strong> $\\displaystyle \\left(\\frac{a}{p}\\right) = (-1)^\\mu.$</div>\n\n<p>Sketch: reflect each upper-half residue $r$ to its negative $p-r$. The resulting set is exactly $\\{1,2,\\ldots,(p-1)/2\\}$ — so\n$$ \\prod_{j=1}^{(p-1)/2} ja \\equiv (-1)^\\mu \\prod_{j=1}^{(p-1)/2} j \\pmod p, $$\nwhich after cancelling factorials gives $a^{(p-1)/2} \\equiv (-1)^\\mu \\pmod p$, and Euler finishes the job.</p>\n\n<p>The widget below reveals $\\mu$ graphically. The circles are the residues $ja \\bmod p$ for $j=1,\\ldots,(p-1)/2$; red markers are in the upper half, so they contribute a $-1$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-gauss",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-gauss",
+            "title": "Gauss's lemma visualizer",
+            "hint": "count the red dots",
+            "svgId": "gl-svg",
+            "svgViewBox": "0 0 820 190",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "190",
+            "svgTitle": "Gauss&#39;s lemma visualizer",
+            "outputId": "gl-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label>$p =$</label>\n    <select id=\"gl-p\"></select>\n    <label for=\"gl-a\">$a =$</label>\n    <input id=\"gl-a\" type=\"number\" value=\"3\" style=\"width:5em\">\n    <button id=\"gl-go\">draw</button>",
+            "scriptBodyLiteral": "(function(){\n  const primes = [5,7,11,13,17,19,23,29,31,37,41,43,47];\n  const sel = $('#gl-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value=p; o.textContent=String(p); sel.appendChild(o);\n  }\n  sel.value = 17;\n  const aI = $('#gl-a'), go = $('#gl-go'), svg = $('#gl-svg'), out = $('#gl-out');\n  function run(){\n    const p = +sel.value, a = parseInt(aI.value);\n    svg.innerHTML = '';\n    if(!Number.isFinite(a) || mod(a,p)===0){\n      out.textContent='pick a with gcd(a,p)=1'; return;\n    }\n    const W = 820, H = 190;\n    const margin = 40;\n    const axisY = 110;\n    const x0 = margin, x1 = W-margin;\n    // draw axis\n    const ax = SVG('line',{x1:x0,y1:axisY,x2:x1,y2:axisY,\n      stroke:'var(--mute)','stroke-width':1});\n    svg.appendChild(ax);\n    // tick marks at 0..p\n    for(let k=0;k<=p;k++){\n      const x = x0 + (x1-x0)*k/p;\n      const t = SVG('line',{x1:x,y1:axisY-3,x2:x,y2:axisY+3,stroke:'var(--mute)','stroke-width':1});\n      svg.appendChild(t);\n      if(k===0 || k===p || k===(p-1)/2 || k===(p+1)/2){\n        const lab = SVG('text',{x, y:axisY+18,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n        lab.textContent = (k===(p-1)/2)? '(p-1)/2' : (k===(p+1)/2)? '(p+1)/2' : String(k);\n        svg.appendChild(lab);\n      }\n    }\n    // shade upper half\n    const shade = SVG('rect',{\n      x: x0 + (x1-x0)*((p+1)/2)/p, y: axisY-50,\n      width: (x1-x0)*((p-1)/2)/p, height: 50,\n      fill:'rgba(224,122,95,0.08)'\n    });\n    svg.insertBefore(shade, svg.firstChild);\n    // plot residues\n    let mu = 0;\n    const residues = [];\n    for(let j=1;j<=(p-1)/2;j++){\n      const r = mod(j*a, p);\n      const up = r > (p-1)/2;\n      if(up) mu++;\n      residues.push({j, r, up});\n      const x = x0 + (x1-x0)*r/p;\n      const y = axisY - 30 + (j%2? -8 : 8);\n      const col = up ? 'var(--pink)' : 'var(--green)';\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:5,fill:col,stroke:'#0b0f16','stroke-width':1.5}));\n      // small label j above/below\n      const lab = SVG('text',{x, y: y-10, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n      lab.textContent = 'j='+j;\n      svg.appendChild(lab);\n    }\n    // header text\n    const hdr = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--ink)'});\n    hdr.textContent = `residues ja mod ${p} for a = ${mod(a,p)}`;\n    svg.appendChild(hdr);\n    const leg = SVG('text',{x:W/2, y:170, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    leg.textContent = 'shaded region = upper half  ( > (p-1)/2 )';\n    svg.appendChild(leg);\n    // compute symbol directly, compare\n    const sym = legendre(a,p);\n    const sign = (mu%2===0)? 1 : -1;\n    const match = sym === sign ? 'matches' : 'DISAGREES WITH';\n    out.textContent =\n`p = ${p},  a = ${mod(a,p)}\nupper-half residues:\n  ${residues.filter(x=>x.up).map(x=>`${x.j}·${mod(a,p)} ≡ ${x.r}`).join('\\n  ') || '(none)'}\nμ = ${mu}\n(-1)^μ = ${sign>0?'+1':'-1'}  —  ${match}  Legendre (${mod(a,p)}/${p}) = ${sym>0?'+1':'-1'}`;\n  }\n  go.addEventListener('click', run);\n  sel.addEventListener('change', run); aI.addEventListener('change', run);\n  run();\n})();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-gauss",
+            "title": "Gauss's lemma visualizer",
+            "hint": "count the red dots",
+            "svgId": "gl-svg",
+            "svgViewBox": "0 0 820 190",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "190",
+            "svgTitle": "Gauss&#39;s lemma visualizer",
+            "outputId": "gl-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label>$p =$</label>\n    <select id=\"gl-p\"></select>\n    <label for=\"gl-a\">$a =$</label>\n    <input id=\"gl-a\" type=\"number\" value=\"3\" style=\"width:5em\">\n    <button id=\"gl-go\">draw</button>",
+            "scriptBodyLiteral": "(function(){\n  const primes = [5,7,11,13,17,19,23,29,31,37,41,43,47];\n  const sel = $('#gl-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value=p; o.textContent=String(p); sel.appendChild(o);\n  }\n  sel.value = 17;\n  const aI = $('#gl-a'), go = $('#gl-go'), svg = $('#gl-svg'), out = $('#gl-out');\n  function run(){\n    const p = +sel.value, a = parseInt(aI.value);\n    svg.innerHTML = '';\n    if(!Number.isFinite(a) || mod(a,p)===0){\n      out.textContent='pick a with gcd(a,p)=1'; return;\n    }\n    const W = 820, H = 190;\n    const margin = 40;\n    const axisY = 110;\n    const x0 = margin, x1 = W-margin;\n    // draw axis\n    const ax = SVG('line',{x1:x0,y1:axisY,x2:x1,y2:axisY,\n      stroke:'var(--mute)','stroke-width':1});\n    svg.appendChild(ax);\n    // tick marks at 0..p\n    for(let k=0;k<=p;k++){\n      const x = x0 + (x1-x0)*k/p;\n      const t = SVG('line',{x1:x,y1:axisY-3,x2:x,y2:axisY+3,stroke:'var(--mute)','stroke-width':1});\n      svg.appendChild(t);\n      if(k===0 || k===p || k===(p-1)/2 || k===(p+1)/2){\n        const lab = SVG('text',{x, y:axisY+18,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n        lab.textContent = (k===(p-1)/2)? '(p-1)/2' : (k===(p+1)/2)? '(p+1)/2' : String(k);\n        svg.appendChild(lab);\n      }\n    }\n    // shade upper half\n    const shade = SVG('rect',{\n      x: x0 + (x1-x0)*((p+1)/2)/p, y: axisY-50,\n      width: (x1-x0)*((p-1)/2)/p, height: 50,\n      fill:'rgba(224,122,95,0.08)'\n    });\n    svg.insertBefore(shade, svg.firstChild);\n    // plot residues\n    let mu = 0;\n    const residues = [];\n    for(let j=1;j<=(p-1)/2;j++){\n      const r = mod(j*a, p);\n      const up = r > (p-1)/2;\n      if(up) mu++;\n      residues.push({j, r, up});\n      const x = x0 + (x1-x0)*r/p;\n      const y = axisY - 30 + (j%2? -8 : 8);\n      const col = up ? 'var(--pink)' : 'var(--green)';\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:5,fill:col,stroke:'#0b0f16','stroke-width':1.5}));\n      // small label j above/below\n      const lab = SVG('text',{x, y: y-10, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n      lab.textContent = 'j='+j;\n      svg.appendChild(lab);\n    }\n    // header text\n    const hdr = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--ink)'});\n    hdr.textContent = `residues ja mod ${p} for a = ${mod(a,p)}`;\n    svg.appendChild(hdr);\n    const leg = SVG('text',{x:W/2, y:170, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    leg.textContent = 'shaded region = upper half  ( > (p-1)/2 )';\n    svg.appendChild(leg);\n    // compute symbol directly, compare\n    const sym = legendre(a,p);\n    const sign = (mu%2===0)? 1 : -1;\n    const match = sym === sign ? 'matches' : 'DISAGREES WITH';\n    out.textContent =\n`p = ${p},  a = ${mod(a,p)}\nupper-half residues:\n  ${residues.filter(x=>x.up).map(x=>`${x.j}·${mod(a,p)} ≡ ${x.r}`).join('\\n  ') || '(none)'}\nμ = ${mu}\n(-1)^μ = ${sign>0?'+1':'-1'}  —  ${match}  Legendre (${mod(a,p)}/${p}) = ${sym>0?'+1':'-1'}`;\n  }\n  go.addEventListener('click', run);\n  sel.addEventListener('change', run); aI.addEventListener('change', run);\n  run();\n})();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "gauss-lemma-qr",
+          "html": "<div class=\"quiz\" data-concept=\"gauss-lemma-qr\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./quadratic-reciprocity.html#reciprocity\">Quadratic reciprocity</a> · Quadratic reciprocity law</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "reciprocity",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"reciprocity\">\n<h2>5. The reciprocity law</h2>\n<p>Let $p, q$ be distinct odd primes. The symbols $\\left(\\tfrac{p}{q}\\right)$ and $\\left(\\tfrac{q}{p}\\right)$ are, individually, properties of how $p$ sits inside $\\mathbb{F}_q$ and how $q$ sits inside $\\mathbb{F}_p$ — two seemingly independent facts. Gauss's theorem says they are tied:</p>\n\n<div class=\"note\"><strong>Quadratic reciprocity (Gauss 1796).</strong>\n$$ \\left(\\frac{p}{q}\\right)\\left(\\frac{q}{p}\\right) = (-1)^{\\tfrac{p-1}{2}\\cdot\\tfrac{q-1}{2}}. $$\nEquivalently: the two symbols agree unless <em>both</em> $p$ and $q$ are $\\equiv 3 \\pmod 4$, in which case they flip signs.</div>\n\n<p>This is the \"golden theorem.\" The only way the product can be $-1$ is if $p\\equiv q\\equiv 3\\pmod 4$. Otherwise the two symbols track each other.</p>\n\n<h3>Sketch via Eisenstein's lemma</h3>\n<p>One way to see reciprocity is to refine Gauss's lemma. Count the lattice points strictly inside the triangle with vertices $(0,0), (p/2, 0), (p/2, q/2)$ and under the line $y = (q/p)x$. Call this count $T(p,q)$. Eisenstein's lemma says\n$$ \\left(\\frac{q}{p}\\right) = (-1)^{T(p,q)}. $$\nSwapping $p$ and $q$ swaps the two legs of the rectangle and replaces $T(p,q)$ by $T(q,p)$, and\n$$ T(p,q) + T(q,p) = \\frac{p-1}{2}\\cdot\\frac{q-1}{2} $$\nis the lattice-point count in the whole rectangle $[1,(p-1)/2]\\times[1,(q-1)/2]$, split by the diagonal (which misses all lattice points when $p\\ne q$). Multiplying the two symbols yields the parity of the sum, which is the reciprocity exponent.</p>\n\n<h3>The sign pattern</h3>\n<p>Visualise it. For each pair of small odd primes $(p,q)$, color the cell by whether $\\left(\\tfrac{p}{q}\\right)\\left(\\tfrac{q}{p}\\right)$ is $+1$ (green) or $-1$ (red). The red cells are precisely those where $p\\equiv q\\equiv 3 \\pmod 4$. The pattern is symmetric in $p,q$ and has a visible block structure.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pattern",
+            "title": "QR sign pattern over prime pairs",
+            "hint": "red: symbols flip;&nbsp; green: agree",
+            "readoutId": "pat-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31,37,41,43];\n  const grid = $('#pat-grid');\n  const tbl = document.createElement('table');\n  tbl.className = 'plain';\n  tbl.style.fontFamily = 'ui-monospace,monospace';\n  tbl.style.fontSize = '.85rem';\n  // header\n  const thead = document.createElement('thead');\n  const tr0 = document.createElement('tr');\n  tr0.appendChild(document.createElement('th'));\n  for(const q of primes){\n    const th = document.createElement('th');\n    th.textContent = q;\n    th.style.textAlign='center'; th.style.color='var(--mute)';\n    tr0.appendChild(th);\n  }\n  thead.appendChild(tr0); tbl.appendChild(thead);\n  const tbody = document.createElement('tbody');\n  for(const p of primes){\n    const tr = document.createElement('tr');\n    const th = document.createElement('th');\n    th.textContent = p;\n    th.style.color='var(--mute)';\n    tr.appendChild(th);\n    for(const q of primes){\n      const td = document.createElement('td');\n      td.style.textAlign='center';\n      if(p===q){\n        td.textContent='—';\n        td.style.color='var(--mute)';\n      } else {\n        const prod = legendre(p,q) * legendre(q,p);\n        const span = document.createElement('span');\n        span.className = 'chip ' + (prod>0?'pos':'neg');\n        span.textContent = prod>0 ? '+' : '−';\n        td.appendChild(span);\n      }\n      tr.appendChild(td);\n    }\n    tbody.appendChild(tr);\n  }\n  tbl.appendChild(tbody);\n  grid.appendChild(tbl);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div id=\"pat-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pat-out",
+                "content": "green $(p/q)(q/p) = +1$  ·  red $(p/q)(q/p) = -1$"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pattern",
+            "title": "QR sign pattern over prime pairs",
+            "hint": "red: symbols flip;&nbsp; green: agree",
+            "readoutId": "pat-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31,37,41,43];\n  const grid = $('#pat-grid');\n  const tbl = document.createElement('table');\n  tbl.className = 'plain';\n  tbl.style.fontFamily = 'ui-monospace,monospace';\n  tbl.style.fontSize = '.85rem';\n  // header\n  const thead = document.createElement('thead');\n  const tr0 = document.createElement('tr');\n  tr0.appendChild(document.createElement('th'));\n  for(const q of primes){\n    const th = document.createElement('th');\n    th.textContent = q;\n    th.style.textAlign='center'; th.style.color='var(--mute)';\n    tr0.appendChild(th);\n  }\n  thead.appendChild(tr0); tbl.appendChild(thead);\n  const tbody = document.createElement('tbody');\n  for(const p of primes){\n    const tr = document.createElement('tr');\n    const th = document.createElement('th');\n    th.textContent = p;\n    th.style.color='var(--mute)';\n    tr.appendChild(th);\n    for(const q of primes){\n      const td = document.createElement('td');\n      td.style.textAlign='center';\n      if(p===q){\n        td.textContent='—';\n        td.style.color='var(--mute)';\n      } else {\n        const prod = legendre(p,q) * legendre(q,p);\n        const span = document.createElement('span');\n        span.className = 'chip ' + (prod>0?'pos':'neg');\n        span.textContent = prod>0 ? '+' : '−';\n        td.appendChild(span);\n      }\n      tr.appendChild(td);\n    }\n    tbody.appendChild(tr);\n  }\n  tbl.appendChild(tbody);\n  grid.appendChild(tbl);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div id=\"pat-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pat-out",
+                "content": "green $(p/q)(q/p) = +1$  ·  red $(p/q)(q/p) = -1$"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-number-theory.html#ramification\">Ideal factorization and ramification</a></li>\n    <li><a href=\"./frobenius-and-reciprocity.html#frobenius\">Frobenius elements</a></li>\n    <li><a href=\"./frobenius-and-reciprocity.html#splitting\">Splitting types: split, inert, ramified</a></li>\n  </ul>\n</aside>\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./quadratic-forms-genus-theory.html#genus-theory\">Quadratic forms &amp; genus theory</a> · Genus theory</div>\n    <div><a href=\"./quadratic-reciprocity.html#jacobi\">Quadratic reciprocity</a> · The Jacobi symbol</div>\n    <div><a href=\"./sums-of-squares.html#twosq\">Sums of squares</a> · Sum of two squares</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "quadratic-reciprocity-law",
+          "html": "<div class=\"quiz\" data-concept=\"quadratic-reciprocity-law\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"engine\">\n<h2>6. The computation engine</h2>\n<p>With multiplicativity, the two supplements, and reciprocity, every Legendre symbol reduces to $\\pm 1$ by elementary operations. Two tricks make it fast:</p>\n<ul>\n  <li><strong>Reduce the top mod the bottom</strong> — $\\left(\\tfrac{a}{p}\\right) = \\left(\\tfrac{a\\bmod p}{p}\\right)$;</li>\n  <li><strong>Peel off factors of 2</strong> using the second supplement, and <strong>odd prime on top</strong> using reciprocity (with a sign flip iff $p\\equiv q\\equiv 3\\pmod 4$).</li>\n</ul>\n<p>This is exactly how the Jacobi-symbol algorithm works — and it runs in $O(\\log p)$ arithmetic operations, no factoring required. Try it.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-calc",
+            "title": "Legendre symbol calculator",
+            "hint": "step-by-step reduction",
+            "readoutId": "lc-out",
+            "bodyScript": "  const aI = $('#lc-a'), pI = $('#lc-p'), go = $('#lc-go'), out = $('#lc-out');\n  function run(){\n    const a0 = parseInt(aI.value), p0 = parseInt(pI.value);\n    if(!Number.isFinite(a0) || !Number.isFinite(p0)){ out.textContent='enter integers'; return; }\n    if(p0<3 || !isPrime(p0) || p0%2===0){ out.textContent='p must be an odd prime'; return; }\n    if(mod(a0,p0)===0){ out.textContent='(0/p) = 0'; return; }\n    const lines = [];\n    // Walk reduction: we keep a running sign and (a over p) where p is odd prime or odd integer\n    // We'll use odd-integer version (Jacobi). End when a=1.\n    let sign = 1;\n    let a = mod(a0, p0), p = p0;\n    lines.push(`compute (${a0}/${p0})`);\n    if(a !== a0) lines.push(`  reduce top: ${a0} ≡ ${a} (mod ${p0})  ⇒  (${a}/${p0})`);\n    let guard = 0;\n    while(a !== 1 && a !== 0 && guard++ < 50){\n      // factor out -1\n      if(a === p - 1 || a < 0){\n        const aa = mod(a,p);\n        if(aa === p-1){\n          const flip = ((p-1)/2) % 2;\n          if(flip){ sign = -sign; lines.push(`  peel -1: (-1/${p}) = -1  since ${p} ≡ 3 (mod 4)`); }\n          else lines.push(`  peel -1: (-1/${p}) = +1  since ${p} ≡ 1 (mod 4)`);\n          a = 1; break;\n        }\n      }\n      // peel 2s\n      while(a % 2 === 0){\n        a /= 2;\n        const r8 = p % 8;\n        const two = (r8===1||r8===7) ? +1 : -1;\n        if(two<0) sign = -sign;\n        lines.push(`  peel 2: (2/${p}) = ${two>0?'+1':'-1'}   (${p} ≡ ${r8} mod 8)  ⇒  (${a}/${p})`);\n      }\n      if(a === 1) break;\n      // now a is odd >=3; apply reciprocity with p (both odd)\n      // (a/p) = (p/a) * (-1)^((a-1)/2 * (p-1)/2)\n      const flip = (((a-1)/2) * ((p-1)/2)) % 2;\n      const before = `(${a}/${p})`;\n      const pmod = mod(p,a);\n      if(flip){\n        sign = -sign;\n        lines.push(`  reciprocity: ${before} = -(${p}/${a})   (both ≡ 3 mod 4)`);\n      } else {\n        lines.push(`  reciprocity: ${before} = (${p}/${a})`);\n      }\n      lines.push(`    reduce: (${p}/${a}) = (${pmod}/${a})`);\n      const newA = pmod, newP = a;\n      a = newA; p = newP;\n      if(a === 0){ lines.push('  → gcd(a,p)>1, symbol is 0'); out.textContent = lines.join('\\n'); return; }\n    }\n    if(a === 1) lines.push(`  (1/${p}) = +1`);\n    lines.push('');\n    const final = sign * (a===1?1:0);\n    lines.push(`(${a0}/${p0}) = ${final>0?'+1':(final<0?'-1':0)}`);\n    // verify via Euler\n    const check = legendre(a0, p0);\n    lines.push(`check by Euler's criterion: ${check>0?'+1':'-1'}  ${check===final?'✓':'✗'}`);\n    lines.push(`${a0} ${final>0?'IS':'is NOT'} a QR mod ${p0}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-a\">$a =$</label><input id=\"lc-a\" type=\"number\" value=\"30\" style=\"width:6em\">\n    <label for=\"lc-p\">$p =$</label><input id=\"lc-p\" type=\"number\" value=\"37\" style=\"width:6em\">\n    <button id=\"lc-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lc-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-calc",
+            "title": "Legendre symbol calculator",
+            "hint": "step-by-step reduction",
+            "readoutId": "lc-out",
+            "bodyScript": "  const aI = $('#lc-a'), pI = $('#lc-p'), go = $('#lc-go'), out = $('#lc-out');\n  function run(){\n    const a0 = parseInt(aI.value), p0 = parseInt(pI.value);\n    if(!Number.isFinite(a0) || !Number.isFinite(p0)){ out.textContent='enter integers'; return; }\n    if(p0<3 || !isPrime(p0) || p0%2===0){ out.textContent='p must be an odd prime'; return; }\n    if(mod(a0,p0)===0){ out.textContent='(0/p) = 0'; return; }\n    const lines = [];\n    // Walk reduction: we keep a running sign and (a over p) where p is odd prime or odd integer\n    // We'll use odd-integer version (Jacobi). End when a=1.\n    let sign = 1;\n    let a = mod(a0, p0), p = p0;\n    lines.push(`compute (${a0}/${p0})`);\n    if(a !== a0) lines.push(`  reduce top: ${a0} ≡ ${a} (mod ${p0})  ⇒  (${a}/${p0})`);\n    let guard = 0;\n    while(a !== 1 && a !== 0 && guard++ < 50){\n      // factor out -1\n      if(a === p - 1 || a < 0){\n        const aa = mod(a,p);\n        if(aa === p-1){\n          const flip = ((p-1)/2) % 2;\n          if(flip){ sign = -sign; lines.push(`  peel -1: (-1/${p}) = -1  since ${p} ≡ 3 (mod 4)`); }\n          else lines.push(`  peel -1: (-1/${p}) = +1  since ${p} ≡ 1 (mod 4)`);\n          a = 1; break;\n        }\n      }\n      // peel 2s\n      while(a % 2 === 0){\n        a /= 2;\n        const r8 = p % 8;\n        const two = (r8===1||r8===7) ? +1 : -1;\n        if(two<0) sign = -sign;\n        lines.push(`  peel 2: (2/${p}) = ${two>0?'+1':'-1'}   (${p} ≡ ${r8} mod 8)  ⇒  (${a}/${p})`);\n      }\n      if(a === 1) break;\n      // now a is odd >=3; apply reciprocity with p (both odd)\n      // (a/p) = (p/a) * (-1)^((a-1)/2 * (p-1)/2)\n      const flip = (((a-1)/2) * ((p-1)/2)) % 2;\n      const before = `(${a}/${p})`;\n      const pmod = mod(p,a);\n      if(flip){\n        sign = -sign;\n        lines.push(`  reciprocity: ${before} = -(${p}/${a})   (both ≡ 3 mod 4)`);\n      } else {\n        lines.push(`  reciprocity: ${before} = (${p}/${a})`);\n      }\n      lines.push(`    reduce: (${p}/${a}) = (${pmod}/${a})`);\n      const newA = pmod, newP = a;\n      a = newA; p = newP;\n      if(a === 0){ lines.push('  → gcd(a,p)>1, symbol is 0'); out.textContent = lines.join('\\n'); return; }\n    }\n    if(a === 1) lines.push(`  (1/${p}) = +1`);\n    lines.push('');\n    const final = sign * (a===1?1:0);\n    lines.push(`(${a0}/${p0}) = ${final>0?'+1':(final<0?'-1':0)}`);\n    // verify via Euler\n    const check = legendre(a0, p0);\n    lines.push(`check by Euler's criterion: ${check>0?'+1':'-1'}  ${check===final?'✓':'✗'}`);\n    lines.push(`${a0} ${final>0?'IS':'is NOT'} a QR mod ${p0}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-a\">$a =$</label><input id=\"lc-a\" type=\"number\" value=\"30\" style=\"width:6em\">\n    <label for=\"lc-p\">$p =$</label><input id=\"lc-p\" type=\"number\" value=\"37\" style=\"width:6em\">\n    <button id=\"lc-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lc-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<h3>The $(a/p)$ pattern as a function of $p$</h3>\n<p>Fix $a$. Then $\\left(\\tfrac{a}{p}\\right)$ is periodic in $p$ with period dividing $4|a|$. The reciprocity law is exactly the statement that this pattern exists and is governed by $p \\bmod 4a$ — a perfect preview of class field theory: the \"splitting behaviour\" of primes in $\\mathbb{Q}(\\sqrt a)$ depends only on a congruence condition.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-aqr",
+            "title": "When is <em>a</em> a QR mod <em>p</em>?",
+            "hint": "period in $p$ is a divisor of $4|a|$",
+            "readoutId": "aqr-out",
+            "bodyScript": "  const sel = $('#aqr-a'), strip = $('#aqr-strip'), out = $('#aqr-out'), per = $('#aqr-period');\n  function run(){\n    const a = parseInt(sel.value);\n    strip.innerHTML = '';\n    const primes = [];\n    for(let n=3;n<=200 && primes.length<36;n++) if(isPrime(n) && n !== Math.abs(a)) primes.push(n);\n    const modulus = 4*Math.abs(a);\n    // build table row: prime, symbol, residue mod 4a\n    const wrap = document.createElement('div');\n    wrap.style.fontFamily='ui-monospace,monospace'; wrap.style.fontSize='.85rem';\n    const row1 = document.createElement('div'), row2 = document.createElement('div'), row3 = document.createElement('div');\n    row1.style.cssText='color:var(--mute);margin-bottom:.2rem';\n    row2.style.cssText='margin-bottom:.2rem';\n    row3.style.cssText='color:var(--mute);margin-top:.2rem';\n    row1.textContent = 'p:';\n    row2.textContent = `(${a}/p):`;\n    row3.textContent = `p mod ${modulus}:`;\n    row1.style.whiteSpace='pre';\n    row2.style.whiteSpace='pre';\n    row3.style.whiteSpace='pre';\n    // use chip row instead\n    wrap.appendChild(document.createElement('div'));\n    wrap.innerHTML = '';\n    const makeRow = (label) => {\n      const d = document.createElement('div');\n      d.style.cssText='display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:.15rem 0';\n      const lab = document.createElement('span');\n      lab.style.cssText='color:var(--mute);min-width:6em;font-size:.85rem';\n      lab.textContent=label;\n      d.appendChild(lab);\n      return d;\n    };\n    const r1 = makeRow('p:');\n    const r2 = makeRow(`(${a}/p):`);\n    const r3 = makeRow(`p mod ${modulus}:`);\n    // residue-class → sign dictionary\n    const classMap = {};\n    for(const p of primes){\n      const c1 = document.createElement('span'); c1.className='chip'; c1.textContent=p;\n      c1.style.minWidth='2.4em';\n      r1.appendChild(c1);\n      const s = legendre(a,p);\n      const c2 = document.createElement('span');\n      c2.className='chip ' + (s>0?'pos':'neg');\n      c2.textContent = s>0?'+':'−'; c2.style.minWidth='2.4em';\n      r2.appendChild(c2);\n      const rclass = mod(p, modulus);\n      const c3 = document.createElement('span'); c3.className='chip'; c3.textContent=rclass;\n      c3.style.minWidth='2.4em';\n      r3.appendChild(c3);\n      // track consistency\n      if(!(rclass in classMap)) classMap[rclass] = s;\n      else if(classMap[rclass] !== s) classMap[rclass] = 0;\n    }\n    wrap.appendChild(r1); wrap.appendChild(r2); wrap.appendChild(r3);\n    strip.appendChild(wrap);\n    per.textContent = `sign depends only on p mod ${modulus}`;\n    const qrClasses = Object.entries(classMap).filter(([k,v])=>v===1).map(([k])=>k).sort((x,y)=>+x-+y);\n    const nrClasses = Object.entries(classMap).filter(([k,v])=>v===-1).map(([k])=>k).sort((x,y)=>+x-+y);\n    out.textContent =\n`a = ${a},  modulus = 4|a| = ${modulus}\n${a} is a QR when p mod ${modulus} ∈ { ${qrClasses.join(', ')} }\n${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;\n  }\n  sel.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$a =$</label>\n    <select id=\"aqr-a\">\n      <option value=\"-1\">-1</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\" selected>5</option>\n      <option value=\"7\">7</option>\n      <option value=\"-3\">-3</option>\n    </select>\n    <span class=\"small\" id=\"aqr-period\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"aqr-strip\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "aqr-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-aqr",
+            "title": "When is <em>a</em> a QR mod <em>p</em>?",
+            "hint": "period in $p$ is a divisor of $4|a|$",
+            "readoutId": "aqr-out",
+            "bodyScript": "  const sel = $('#aqr-a'), strip = $('#aqr-strip'), out = $('#aqr-out'), per = $('#aqr-period');\n  function run(){\n    const a = parseInt(sel.value);\n    strip.innerHTML = '';\n    const primes = [];\n    for(let n=3;n<=200 && primes.length<36;n++) if(isPrime(n) && n !== Math.abs(a)) primes.push(n);\n    const modulus = 4*Math.abs(a);\n    // build table row: prime, symbol, residue mod 4a\n    const wrap = document.createElement('div');\n    wrap.style.fontFamily='ui-monospace,monospace'; wrap.style.fontSize='.85rem';\n    const row1 = document.createElement('div'), row2 = document.createElement('div'), row3 = document.createElement('div');\n    row1.style.cssText='color:var(--mute);margin-bottom:.2rem';\n    row2.style.cssText='margin-bottom:.2rem';\n    row3.style.cssText='color:var(--mute);margin-top:.2rem';\n    row1.textContent = 'p:';\n    row2.textContent = `(${a}/p):`;\n    row3.textContent = `p mod ${modulus}:`;\n    row1.style.whiteSpace='pre';\n    row2.style.whiteSpace='pre';\n    row3.style.whiteSpace='pre';\n    // use chip row instead\n    wrap.appendChild(document.createElement('div'));\n    wrap.innerHTML = '';\n    const makeRow = (label) => {\n      const d = document.createElement('div');\n      d.style.cssText='display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:.15rem 0';\n      const lab = document.createElement('span');\n      lab.style.cssText='color:var(--mute);min-width:6em;font-size:.85rem';\n      lab.textContent=label;\n      d.appendChild(lab);\n      return d;\n    };\n    const r1 = makeRow('p:');\n    const r2 = makeRow(`(${a}/p):`);\n    const r3 = makeRow(`p mod ${modulus}:`);\n    // residue-class → sign dictionary\n    const classMap = {};\n    for(const p of primes){\n      const c1 = document.createElement('span'); c1.className='chip'; c1.textContent=p;\n      c1.style.minWidth='2.4em';\n      r1.appendChild(c1);\n      const s = legendre(a,p);\n      const c2 = document.createElement('span');\n      c2.className='chip ' + (s>0?'pos':'neg');\n      c2.textContent = s>0?'+':'−'; c2.style.minWidth='2.4em';\n      r2.appendChild(c2);\n      const rclass = mod(p, modulus);\n      const c3 = document.createElement('span'); c3.className='chip'; c3.textContent=rclass;\n      c3.style.minWidth='2.4em';\n      r3.appendChild(c3);\n      // track consistency\n      if(!(rclass in classMap)) classMap[rclass] = s;\n      else if(classMap[rclass] !== s) classMap[rclass] = 0;\n    }\n    wrap.appendChild(r1); wrap.appendChild(r2); wrap.appendChild(r3);\n    strip.appendChild(wrap);\n    per.textContent = `sign depends only on p mod ${modulus}`;\n    const qrClasses = Object.entries(classMap).filter(([k,v])=>v===1).map(([k])=>k).sort((x,y)=>+x-+y);\n    const nrClasses = Object.entries(classMap).filter(([k,v])=>v===-1).map(([k])=>k).sort((x,y)=>+x-+y);\n    out.textContent =\n`a = ${a},  modulus = 4|a| = ${modulus}\n${a} is a QR when p mod ${modulus} ∈ { ${qrClasses.join(', ')} }\n${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;\n  }\n  sel.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$a =$</label>\n    <select id=\"aqr-a\">\n      <option value=\"-1\">-1</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\" selected>5</option>\n      <option value=\"7\">7</option>\n      <option value=\"-3\">-3</option>\n    </select>\n    <span class=\"small\" id=\"aqr-period\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"aqr-strip\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "aqr-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<h3>Try it yourself — live code cell</h3>\n<p>The two reductions above — peeling factors and applying reciprocity — are nine lines of JavaScript. Edit the snippet, click <strong>Run</strong> (or Ctrl-Enter), and the return value shows up below. The Sieve of Eratosthenes is a handy warm-up; swap in any Legendre-symbol probe you like.</p>\n\n<div id=\"w-codecell-legendre\"></div>\n\n<script>\n(function(){\n  if(!window.MVCodeCell) return;\n  var source = [\n    '// Sieve of Eratosthenes + Legendre symbol by Euler\\'s criterion.',\n    '// Edit freely; return whatever you want to inspect.',\n    'function sieve(N){',\n    '  var is = new Uint8Array(N+1); is.fill(1); is[0]=is[1]=0;',\n    '  for(var p=2; p*p<=N; p++) if(is[p])',\n    '    for(var k=p*p; k<=N; k+=p) is[k]=0;',\n    '  var out=[]; for(var i=2;i<=N;i++) if(is[i]) out.push(i); return out;',\n    '}',\n    '',\n    'function legendre(a, p){',\n    '  // Compute a^((p-1)/2) mod p; returns +1, -1, or 0.',\n    '  a = ((a % p) + p) % p;',\n    '  if(a === 0) return 0;',\n    '  var r = 1, e = (p-1) >> 1;',\n    '  while(e > 0){ if(e & 1) r = (r*a) % p; a = (a*a) % p; e >>= 1; }',\n    '  return r === 1 ? 1 : (r === p-1 ? -1 : 0);',\n    '}',\n    '',\n    'var primes = sieve(60);',\n    'console.log(\"primes ≤ 60:\", primes.join(\" \"));',\n    'var p = 37;',\n    'var qrs = primes.filter(function(a){ return a < p && legendre(a, p) === 1; });',\n    'console.log(\"QRs among primes < 37:\", qrs.join(\" \"));',\n    '',\n    'return legendre(5, 23);    // → 1,  since 5 ≡ 11^2 (mod 23)'\n  ].join('\\n');\n  MVCodeCell.init('#w-codecell-legendre', {\n    title: 'Legendre symbol — live cell',\n    hint: 'Synchronous JS; 500 ms deadline; no async or network.',\n    initialCode: source,\n    maxLines: 16,\n    timeoutMs: 500\n  });\n})();\n</script>\n\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "jacobi",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"jacobi\">\n<h2>7. The Jacobi symbol</h2>\n<p>The Legendre symbol $\\left(\\tfrac{a}{p}\\right)$ needs $p$ prime. But the computation engine above was perfectly happy to push the \"bottom\" $p$ through non-prime intermediate values once reciprocity flipped the arguments. That is no accident: the natural home for reciprocity is a <em>multiplicative extension</em> of the Legendre symbol to all positive odd integers.</p>\n\n<p>For odd $n = p_1^{e_1}\\cdots p_k^{e_k} > 1$ and any integer $a$, define the <strong>Jacobi symbol</strong> by factoring the bottom:\n$$ \\left(\\frac{a}{n}\\right) = \\prod_{i=1}^{k}\\left(\\frac{a}{p_i}\\right)^{\\!e_i}. $$\nWhen $n$ is prime this is just the Legendre symbol, so no ambiguity arises. The symbol is multiplicative in <em>both</em> entries, vanishes iff $\\gcd(a,n)>1$, and otherwise equals $\\pm 1$.</p>\n\n<div class=\"note\"><strong>Caveat.</strong> $\\left(\\tfrac{a}{n}\\right)=+1$ <em>does not</em> imply $a$ is a square mod $n$. E.g. $\\left(\\tfrac{2}{15}\\right)=\\left(\\tfrac{2}{3}\\right)\\left(\\tfrac{2}{5}\\right)=(-1)(-1)=+1$, but $2$ is not a square mod $15$. Jacobi only tracks the parity of the number of prime factors where $a$ is a nonsquare. What survives is the <em>reciprocity identity</em>, not the squareness interpretation.</div>\n\n<p>The miracle is that reciprocity and both supplements extend verbatim. For odd positive coprime $m,n$:\n$$ \\left(\\frac{m}{n}\\right)\\left(\\frac{n}{m}\\right) = (-1)^{\\tfrac{m-1}{2}\\cdot\\tfrac{n-1}{2}}, \\qquad \\left(\\frac{-1}{n}\\right) = (-1)^{\\tfrac{n-1}{2}}, \\qquad \\left(\\frac{2}{n}\\right) = (-1)^{\\tfrac{n^2-1}{8}}. $$\nEach follows from the Legendre version by multiplicativity together with the identity $\\tfrac{mn-1}{2}\\equiv \\tfrac{m-1}{2}+\\tfrac{n-1}{2}\\pmod 2$ for odd $m,n$ (and its mod-8 cousin for the $(2/n)$ law). So the computation engine on section 6 <em>was</em> running the Jacobi algorithm — it never needed the intermediate bottoms to be prime. Dropping the primality test gives a Euclidean-style algorithm that runs in $O(\\log n)$ steps without ever factoring $n$.</p>\n\n<p>This matters for cryptography: Solovay–Strassen primality testing compares $\\left(\\tfrac{a}{n}\\right)$ with $a^{(n-1)/2}\\pmod n$, and the Jacobi symbol is the fast-to-compute side. More philosophically, the Jacobi symbol is the first glimpse of <em>characters of ray class groups</em>: the map $n\\mapsto \\left(\\tfrac{a}{n}\\right)$ is a Dirichlet character modulo $4|a|$, which is exactly the class-field-theory picture the next page develops.</p>\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "jacobi-symbol-generalization",
+          "html": "<div class=\"quiz\" data-concept=\"jacobi-symbol-generalization\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"why\">\n<h2>8. Why it matters</h2>\n<p>Quadratic reciprocity is the first and simplest in a tower of <em>reciprocity laws</em>, each saying that some subtle arithmetic invariant attached to a prime can be read off a congruence. The grand generalisation, <strong>Artin reciprocity</strong>, is the main theorem of class field theory; the <strong>Langlands program</strong> posits still deeper nonabelian analogues.</p>\n\n<h3>The bridge: Frobenius</h3>\n<p>Why should $(a/p)$ depend only on $p \\bmod 4a$? Because $(a/p) = +1$ iff $p$ <em>splits</em> in the quadratic number field $K = \\mathbb{Q}(\\sqrt a)$. Splitting is governed by the Frobenius element $\\mathrm{Frob}_p \\in \\mathrm{Gal}(K/\\mathbb{Q}) \\cong \\{\\pm 1\\}$. The ramification of $K/\\mathbb{Q}$ is supported on primes dividing $4a$, so $K$ is contained in the cyclotomic field $\\mathbb{Q}(\\zeta_{4a})$; Frobenius in a cyclotomic field is literally raising $\\zeta\\mapsto \\zeta^p$, which depends only on $p \\bmod 4a$. Quadratic reciprocity <em>is</em> the compatibility of these two pictures.</p>\n\n<div class=\"note\">The keyword is <strong>abelian extension</strong>. The Frobenius element in an abelian Galois group depends only on a congruence condition on $p$ — that is the one-line summary of class field theory, and the reason reciprocity exists.</div>\n\n<h3>Where to read next</h3>\n<ul>\n  <li><a href=\"./algebraic-number-theory.html\">Algebraic number theory</a> — rings of integers, primes splitting, Dedekind domains.</li>\n  <li><a href=\"./galois.html\">Galois theory</a> — the algebraic side of the Frobenius.</li>\n  <li><a href=\"./elliptic-curves.html\">Elliptic curves</a> — reciprocity for modular forms (the Taniyama–Shimura side of Langlands).</li>\n  <li><em>Sums of squares</em> (forthcoming <code>sums-of-squares.html</code>) — Fermat's theorem on $p = x^2+y^2$ is $\\left(\\tfrac{-1}{p}\\right) = +1$.</li>\n  <li><em>p-adic numbers</em> (forthcoming <code>p-adic-numbers.html</code>) — reciprocity generalises via Hilbert symbols and the product formula.</li>\n  <li><em>Frobenius and reciprocity</em> (forthcoming <code>frobenius-and-reciprocity.html</code>) — the long climb from Gauss to Langlands.</li>\n</ul>\n\n<p class=\"small\">Sources: Ash &amp; Gross, <em>Fearless Symmetry</em>, chs. 7–8; Edwards, <em>Higher Arithmetic</em>; Ireland &amp; Rosen, <em>A Classical Introduction to Modern Number Theory</em>, chs. 5 &amp; 11; Davenport, <em>The Higher Arithmetic</em>.</p>\n</section>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n/* sidebar TOC builder + active-section highlighting */\n(function(){\n  function build(){\n    const aside = document.querySelector('aside.sidetoc');\n    const topnav = document.querySelector('nav.toc');\n    if(!aside || !topnav) return;\n    const srcs = [...topnav.querySelectorAll('a[href^=\"#\"]')];\n    if(!srcs.length) return;\n    const title = document.createElement('div');\n    title.className = 'sidetoc-title';\n    title.textContent = 'On this page';\n    aside.appendChild(title);\n    const ol = document.createElement('ol');\n    srcs.forEach(src => {\n      const li = document.createElement('li');\n      const a = document.createElement('a');\n      a.href = src.getAttribute('href');\n      a.textContent = src.textContent.replace(/\\u00a0/g,' ').trim();\n      li.appendChild(a); ol.appendChild(li);\n    });\n    aside.appendChild(ol);\n    const links = [...aside.querySelectorAll('a')];\n    const sections = [];\n    links.forEach(a => {\n      const id = a.getAttribute('href').slice(1);\n      const s = document.getElementById(id);\n      if(s) sections.push({a, s});\n    });\n    if(!sections.length) return;\n    function update(){\n      const threshold = 140;\n      let activeLink = sections[0].a;\n      for(const {a,s} of sections){\n        if(s.getBoundingClientRect().top <= threshold) activeLink = a;\n      }\n      links.forEach(x => x.classList.remove('active'));\n      activeLink.classList.add('active');\n    }\n    update();\n    window.addEventListener('scroll', update, {passive:true});\n    window.addEventListener('resize', update);\n  }\n  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);\n  else build();\n})();\n</script>\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('quadratic-reciprocity'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>\n      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>\n      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>\n      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>\n      <tr><td>2026-04-21</td><td>round 2: 5 new quiz types + 6 novel widget categories</td></tr>\n      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>\n      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>\n      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>\n      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>\n      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>\n      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>\n      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>\n      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>\n      <tr><td>2026-04-19</td><td>more pages</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

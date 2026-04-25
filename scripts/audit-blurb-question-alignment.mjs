@@ -23,14 +23,7 @@
 //
 // Zero external dependencies.
 
-import { readFileSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
-const quizzesDir = join(repoRoot, 'quizzes');
+import { loadContentModel } from './lib/content-model.mjs';
 
 // ─────────────────────────────────────────────────────────────────────────
 // CLI.
@@ -117,21 +110,32 @@ const BLAND = new Set([
 // ─────────────────────────────────────────────────────────────────────────
 // Load concept graph + quiz bank.
 
-const indexPath = join(conceptsDir, 'index.json');
-const topics = JSON.parse(readFileSync(indexPath, 'utf8')).topics;
+const model = await loadContentModel();
+const topics = model.topicIds;
 
-const topicData = new Map(); // topic -> concepts JSON
-const quizData = new Map();  // topic -> quiz JSON
+// Preserve the original `topicData`/`quizData` shape (topic -> parsed JSON)
+// so downstream code paths (e.g. the --verbose branch that looks up c.title
+// and c.blurb on the raw doc) continue to operate on familiar records.
+const topicData = new Map(); // topic -> { concepts: [...] }
+const quizData = new Map();  // topic -> { quizzes: {...} }
 
 for (const topic of topics) {
-  const cp = join(conceptsDir, `${topic}.json`);
-  const qp = join(quizzesDir, `${topic}.json`);
-  if (existsSync(cp)) {
-    topicData.set(topic, JSON.parse(readFileSync(cp, 'utf8')));
+  const t = model.topics.get(topic);
+  if (t && t.conceptIds.length > 0) {
+    const conceptObjs = t.conceptIds
+      .map((id) => model.concepts.get(id))
+      .filter(Boolean)
+      .map((c) => ({
+        id: c.id,
+        title: c.title,
+        blurb: c.blurb,
+        anchor: c.anchor,
+        prereqs: c.prereqs.slice(),
+      }));
+    topicData.set(topic, { concepts: conceptObjs });
   }
-  if (existsSync(qp)) {
-    quizData.set(topic, JSON.parse(readFileSync(qp, 'utf8')));
-  }
+  const bank = model.quizBanks.get(topic);
+  if (bank) quizData.set(topic, bank);
 }
 
 // ─────────────────────────────────────────────────────────────────────────

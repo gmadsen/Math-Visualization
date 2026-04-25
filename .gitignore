@@ -10,8 +10,16 @@ Thumbs.db
 node_modules/
 npm-debug.log
 package-lock.json
+# CI needs the scripts lockfile for `npm ci --prefix scripts` — keep it tracked
+!scripts/package-lock.json
 
 # Local verification and scratch scripts — not part of the notebook
 _verify*.js
 _sidetoc_verify.js
 test_index.js
+
+.claude/worktrees
+.claude/worktree
+
+# examples/ build outputs
+examples/react-consumer/render.html

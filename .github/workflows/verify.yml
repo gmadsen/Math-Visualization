@@ -14,57 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Build concepts bundle
-        run: node scripts/build-concepts-bundle.mjs
-      - name: Build quizzes bundle
-        run: node scripts/build-quizzes-bundle.mjs
-      - name: Validate concepts
-        run: node scripts/validate-concepts.mjs
-      - name: Validate KaTeX spans
-        run: node scripts/validate-katex.mjs
-      - name: Audit callbacks
-        run: node scripts/audit-callbacks.mjs
-      - name: Audit used-in backlinks
-        run: node scripts/insert-used-in-backlinks.mjs
-      - name: Audit breadcrumb injection
-        run: node scripts/inject-breadcrumb.mjs
-      - name: Smoke test pages
-        run: node scripts/smoke-test.mjs
-      - name: Audit inline concept links
-        run: node scripts/audit-inline-links.mjs
-      - name: Audit cross-topic prereqs
-        run: node scripts/audit-cross-topic-prereqs.mjs
-      - name: Audit stale blurbs
-        run: node scripts/audit-stale-blurbs.mjs
-      - name: Audit color vars
-        run: node scripts/audit-color-vars.mjs
-      - name: Audit accessibility
-        run: node scripts/audit-accessibility.mjs
-      - name: Audit a11y fix
-        run: node scripts/fix-a11y.mjs
-      - name: Audit responsive breakpoints
-        run: node scripts/audit-responsive.mjs
-      - name: Audit widget interactivity
-        run: node scripts/audit-widget-interactivity.mjs
-      - name: Audit backlink quality
-        run: node scripts/audit-backlink-quality.mjs
-      - name: Audit backlink strength
-        run: node scripts/audit-backlink-strength.mjs
-      - name: Audit concept-graph health
-        run: node scripts/audit-concept-graph-health.mjs
-      - name: Audit doc drift
-        run: node scripts/audit-doc-drift.mjs
-      - name: Audit color vars in style blocks
-        run: node scripts/fix-color-vars-style.mjs
-      - name: Test offline bundle
-        run: node scripts/test-offline-bundle.mjs
-      - name: Audit notation consistency
-        run: node scripts/audit-notation.mjs
-      - name: Audit worked examples
-        run: node scripts/audit-worked-examples.mjs
-      - name: Audit blurb-question alignment
-        run: node scripts/audit-blurb-question-alignment.mjs
-      - name: Audit cross-page consistency
-        run: node scripts/audit-cross-page-consistency.mjs
-      - name: Audit bundle staleness
-        run: node scripts/audit-bundle-staleness.mjs
+      - name: Install script dependencies
+        run: npm ci --prefix scripts
+      - name: Rebuild (no-fix — mirrors local rebuild --no-fix, strict)
+        run: node scripts/rebuild.mjs --no-fix

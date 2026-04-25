@@ -170,7 +170,19 @@
   aside.related > div{margin:.15rem 0}
   aside.related .more{color:var(--mute);font-style:italic}
   aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
 </style>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
 </head>
 <body data-section="algebra" data-level="intermediate">
 <script>
@@ -239,7 +251,7 @@ function cfmt(a){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#def">1&nbsp;Representations</a>
   <a href="#examples">2&nbsp;Examples</a>
   <a href="#tensor-dual">3&nbsp;Tensor&nbsp;&amp;&nbsp;dual</a>
@@ -254,6 +266,7 @@ function cfmt(a){
   <a href="#sl2">12&nbsp;𝔰𝔩₂</a>
   <a href="#peter-weyl">13&nbsp;Peter–Weyl</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
 <main>
@@ -1237,7 +1250,9 @@ function innerProd(group, chiA, chiB){
   }
   return {re: re/group.order, im: im/group.order};
 }
+</script>
 
+<script>
 /* =============================== §6 Character table explorer =============================== */
 (function(){
   const wrap = $('#ct-wrap');
@@ -1343,7 +1358,9 @@ function innerProd(group, chiA, chiB){
   });
   render();
 })();
+</script>
 
+<script>
 /* =============================== §7 Representation decomposer =============================== */
 (function(){
   const gsel = $('#dc-group'), rsel = $('#dc-rep'), out = $('#dc-out');
@@ -1417,7 +1434,9 @@ function innerProd(group, chiA, chiB){
   rsel.addEventListener('change', update);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §7.1 Orbit-stabilizer visualizer =============================== */
 (function(){
   const svg = $('#ob-svg'), out = $('#ob-out'), pick = $('#ob-pick');
@@ -1517,7 +1536,9 @@ function innerProd(group, chiA, chiB){
   pick.addEventListener('change', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §7.2 Regular rep =============================== */
 (function(){
   const svg = $('#rg-svg'), out = $('#rg-out'), pick = $('#rg-pick');
@@ -1576,7 +1597,9 @@ function innerProd(group, chiA, chiB){
   pick.addEventListener('change', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §9 Young tableau widget =============================== */
 (function(){
   const nsel = $('#yg-n'), lsel = $('#yg-lam'), shape = $('#yg-shape'), out = $('#yg-out'), list = $('#yg-list');
@@ -1699,7 +1722,9 @@ function innerProd(group, chiA, chiB){
   lsel.addEventListener('change', render);
   populateLam();
 })();
+</script>
 
+<script>
 /* =============================== §3 Tensor character visualizer =============================== */
 (function(){
   const gsel = $('#tn-group'), vsel = $('#tn-v'), wsel = $('#tn-w'), out = $('#tn-out');
@@ -1746,7 +1771,9 @@ function innerProd(group, chiA, chiB){
   wsel.addEventListener('change', update);
   populate();
 })();
+</script>
 
+<script>
 /* =============================== §4 Maschke averaging projector =============================== */
 (function(){
   const sel = $('#mk-group'), btn = $('#mk-run'), out = $('#mk-out');
@@ -1810,7 +1837,9 @@ function innerProd(group, chiA, chiB){
   sel.addEventListener('change', run);
   run();
 })();
+</script>
 
+<script>
 /* =============================== §5 Schur Hom dimension =============================== */
 (function(){
   const gsel = $('#sc-group'), vsel = $('#sc-v'), wsel = $('#sc-w'), out = $('#sc-out');
@@ -1872,7 +1901,9 @@ function innerProd(group, chiA, chiB){
   wsel.addEventListener('change', update);
   populate();
 })();
+</script>
 
+<script>
 /* =============================== §9 Induced rep dimension calc =============================== */
 (function(){
   const sel = $('#in-pair'), dw = $('#in-dw'), out = $('#in-out');
@@ -1903,7 +1934,9 @@ function innerProd(group, chiA, chiB){
   dw.addEventListener('input', update);
   update();
 })();
+</script>
 
+<script>
 /* =============================== §11 Highest-weight construction =============================== */
 (function(){
   const sel = $('#hw-lam'), out = $('#hw-out');
@@ -1945,7 +1978,9 @@ function innerProd(group, chiA, chiB){
   sel.addEventListener('change', update);
   update();
 })();
+</script>
 
+<script>
 /* =============================== §10 𝔰𝔩₂ weight diagram =============================== */
 (function(){
   const svg = $('#sl-svg'), out = $('#sl-out'), slider = $('#sl-n'), val = $('#sl-nval');
@@ -2011,7 +2046,9 @@ function innerProd(group, chiA, chiB){
   slider.addEventListener('input', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §10 𝔰𝔩₂ tensor product =============================== */
 (function(){
   const svg = $('#slt-svg'), out = $('#slt-out');
@@ -2068,7 +2105,9 @@ function innerProd(group, chiA, chiB){
   nS.addEventListener('input', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §13 Peter–Weyl: SU(2) matrix coefficients =============================== */
 (function(){
   const svg = $('#pw-svg'), out = $('#pw-out'), sel = $('#pw-n');
@@ -2220,6 +2259,18 @@ function innerProd(group, chiA, chiB){
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>
+      <tr><td>2026-04-21</td><td>R7: algebra-section expansions — category-theory, commutative-algebra, homological, representation-theory all to 12+ concepts</td></tr>
+      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>
+      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>
+      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>
+      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>
+      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>
+      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>
+      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>
+      <tr><td>2026-04-20</td><td>progress chips, quiz feedback, authoring scripts, thin-topic backfill</td></tr>
+      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>
+      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>
       <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>

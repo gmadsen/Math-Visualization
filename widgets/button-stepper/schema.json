@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/button-stepper/schema.json",
+  "title": "button-stepper widget params",
+  "description": "Shared renderer for the button-stepper-svg and button-stepper-text families (~47 widgets): an SVG (or HTML-only) host plus one or more <button> elements wired to step/reset/next/prev/custom actions. Markup is assembled from a structured `layout` array of block descriptors (svg, row, readout, raw); portable consumers can drive their own UI from that data and the `buttons` action list alone. The `bodyScript` field is an ARTIFACT: the verbatim JS body of the driving IIFE, preserved byte-for-byte so the vanilla-HTML frontend round-trips exactly. Single-mode schema (no oneOf yet); later passes add linear-stepper and branching-machine variants.",
+  "meta": {
+    "family": "button-stepper",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "layout", "bodyScript"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl (and also copied into any <svg><title>…</title> whose titleText is omitted)."
+    },
+    "titleTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .ttl header element inside .hd. Default 'div' emits <div class=\"ttl\">; 'span' emits <span class=\"ttl\"> (a layout sub-variant in some legacy topics)."
+    },
+    "hintTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint. When absent, the .hint span is omitted entirely."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "Convenience mirror of the primary SVG's id. Portable consumers may use this; the vanilla renderer reads svg blocks from `layout`."
+    },
+    "viewBox": {
+      "type": "string",
+      "description": "Convenience mirror of the primary SVG's viewBox. Same note as svgId."
+    },
+    "readoutId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "Convenience mirror of the primary readout block's id (when present)."
+    },
+    "buttons": {
+      "type": "array",
+      "description": "Flat list of every button declared in `layout`, in DOM order, annotated with an action. Portable consumers can drive alternative UIs from this alone; the vanilla renderer ignores this list and reads buttons from `layout`.",
+      "items": { "$ref": "#/$defs/button" }
+    },
+    "stepCount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Optional linear-stepper state size. Implies step indices 0..stepCount-1."
+    },
+    "steps": {
+      "type": "array",
+      "description": "Optional sequence of named states for a discrete stepper. Each entry is an opaque object whose shape depends on the widget's draw logic.",
+      "items": { "type": "object" }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "Raw text placed between `<script>` and `(function(){` as `/* <here> */`. Preserves the original source's section banner (e.g. 'SECTION 2 widget' padded with equals signs). Portable consumers can ignore."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. The verbatim JS body that sits inside the `(function(){ … })();` IIFE of the driving <script>. Preserved byte-for-byte so the vanilla-HTML renderer can reproduce the original source. A portable frontend can ignore this field and drive its own renderer from `buttons`, `layout`, `steps`/`stepCount`."
+    },
+    "layout": {
+      "type": "array",
+      "description": "Ordered list of inner-widget block descriptors. Each block renders one top-level child of the widget div (after the .hd header, which is auto-generated from `title`/`hint`). Block kinds: 'svg', 'row', 'readout', 'raw'.",
+      "items": { "$ref": "#/$defs/layoutBlock" }
+    },
+    "trailingExplainer": {
+      "type": "string",
+      "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
+    },
+    "hdHtml": {
+      "type": "string",
+      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+    }
+  },
+  "$defs": {
+    "button": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+          "description": "Optional DOM id. Use this OR dataAttr for click targeting; some widgets key off one, some off the other."
+        },
+        "label": {
+          "type": "string",
+          "description": "Button text (may contain KaTeX $…$)."
+        },
+        "dataAttr": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "value"],
+          "properties": {
+            "name":  { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+            "value": { "type": "string" }
+          },
+          "description": "Single data-* attribute, emitted as `<name>=\"<value>\"`."
+        },
+        "className": {
+          "type": "string",
+          "description": "Optional class attribute (commonly 'active' for the default-selected button)."
+        },
+        "action": {
+          "type": "string",
+          "description": "Portable intent marker: one of 'step' | 'reset' | 'next' | 'prev' | <custom>. Consumed by portable frontends; vanilla markup is unaffected."
+        }
+      }
+    },
+    "layoutBlock": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "id", "viewBox", "width", "height"],
+          "properties": {
+            "kind":      { "const": "svg" },
+            "id":        { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "viewBox":   { "type": "string" },
+            "width":     { "type": ["integer", "string"] },
+            "height":    { "type": ["integer", "string"] },
+            "titleText": {
+              "type": "string",
+              "description": "Override for the <title> element's text content. Defaults to the widget's `title` when omitted."
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind":    { "const": "row" },
+            "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "label":   { "type": "string" },
+            "buttons": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/button" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "id"],
+          "properties": {
+            "kind":    { "const": "readout" },
+            "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "content": {
+              "type": "string",
+              "description": "Initial inner text/HTML. When omitted the readout renders empty."
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "html"],
+          "properties": {
+            "kind": { "const": "raw" },
+            "html": {
+              "type": "string",
+              "description": "ARTIFACT. Raw bytes inserted verbatim (with a leading two-space indent and trailing newline) — escape hatch for bespoke children that don't fit svg/row/readout."
+            }
+          }
+        }
+      ]
+    }
+  }
+}

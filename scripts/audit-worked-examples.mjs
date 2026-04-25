@@ -65,12 +65,8 @@
 // Zero dependencies — regex + string checks, stock node ≥ 18.
 
 import { readFileSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
+import { join } from 'node:path';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const argv = process.argv.slice(2);
 const VERBOSE = argv.includes('--verbose');
@@ -78,16 +74,27 @@ const VERBOSE = argv.includes('--verbose');
 // ────────────────────────────────────────────────────────────────────────
 // Load concept graph.
 
-const indexJson = JSON.parse(
-  readFileSync(join(conceptsDir, 'index.json'), 'utf8'),
-);
-const topics = indexJson.topics;
+const model = await loadContentModel();
+const repoRoot = model.repoRoot;
+const topics = model.topicIds;
 
-const topicData = new Map(); // topic-slug -> parsed JSON
+// Preserve the original `topicData` shape (topic -> { concepts, page }) so
+// downstream code (the main walk + --verbose branch) continues unchanged.
+const topicData = new Map();
 for (const topic of topics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p)) continue;
-  topicData.set(topic, JSON.parse(readFileSync(p, 'utf8')));
+  const t = model.topics.get(topic);
+  if (!t || t.conceptIds.length === 0) continue;
+  const conceptObjs = t.conceptIds
+    .map((id) => model.concepts.get(id))
+    .filter(Boolean)
+    .map((c) => ({
+      id: c.id,
+      title: c.title,
+      anchor: c.anchor,
+      blurb: c.blurb,
+      prereqs: c.prereqs.slice(),
+    }));
+  topicData.set(topic, { concepts: conceptObjs, page: t.page });
 }
 
 // ────────────────────────────────────────────────────────────────────────
@@ -374,6 +381,11 @@ for (const topic of topics) {
     missingPage++;
     continue;
   }
+  // Read the raw HTML directly: the detection rules below (regex scans over
+  // `<strong>Example`, `<h3 ...>`, balanced-div widget stripping, KaTeX span
+  // boundaries) are sensitive to whitespace and attribute quoting that the
+  // node-html-parser round-trip normalizes away, so the model's parsed DOM
+  // is unsuitable here. The model still supplies concept enumeration.
   const html = readFileSync(pagePath, 'utf8');
   for (const c of d.concepts || []) {
     totalConcepts++;

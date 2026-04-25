@@ -160,7 +160,19 @@
   aside.related > div{margin:.15rem 0}
   aside.related .more{color:var(--mute);font-style:italic}
   aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
 </style>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
 </head>
 <body data-section="analysis" data-level="advanced">
 <script>
@@ -268,7 +280,7 @@ function roots3(a2,a1,a0){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#cx">1&nbsp;Functions&nbsp;to&nbsp;algebra</a>
   <a href="#cstar">2&nbsp;C*-algebras</a>
   <a href="#banach-spec">3&nbsp;Banach&nbsp;spectrum</a>
@@ -286,6 +298,7 @@ function roots3(a2,a1,a0){
   <a href="#approx-units">15&nbsp;Approximate&nbsp;units</a>
   <a href="#groth">16&nbsp;Grothendieck&nbsp;parallel</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -2020,6 +2033,17 @@ $$\omega(a) = \langle \Omega_\omega,\, \pi_\omega(a)\Omega_\omega\rangle_\omega,
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-22</td><td>Phase 2d: reader-side widget/quiz toggle + coverage stats</td></tr>
+      <tr><td>2026-04-21</td><td>R6 part 2: operator-algebras 5→12 + 10 quiz calibrator rewrites</td></tr>
+      <tr><td>2026-04-21</td><td>R5: 2 new topics (dynamical systems, probability theory) + 2 expansions</td></tr>
+      <tr><td>2026-04-21</td><td>round 4: capstone stories, global search, light theme</td></tr>
+      <tr><td>2026-04-21</td><td>round 3: topic-page UX + state URLs + onboarding + review page</td></tr>
+      <tr><td>2026-04-20</td><td>glossary popovers, index ui refresh, pathway filters/stats/search</td></tr>
+      <tr><td>2026-04-20</td><td>re-apply phase 1 + docs sync after rollback</td></tr>
+      <tr><td>2026-04-20</td><td>mass a11y + color-var cleanup passes</td></tr>
+      <tr><td>2026-04-20</td><td>audit suite, UX polish, expert tier, breadcrumbs, stats page</td></tr>
+      <tr><td>2026-04-20</td><td>latex issue widget</td></tr>
+      <tr><td>2026-04-20</td><td>hard quizes and clean up</td></tr>
       <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>main topics added</td></tr>
