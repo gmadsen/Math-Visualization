@@ -61,54 +61,18 @@ AGENTS.md                     this file
 PLAN.md                       forward priorities and next tasks
 ```
 
-Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small node scripts that (a) flatten `concepts/*.json` and `quizzes/*.json` into `*/bundle.js` so `file://` double-click opens still work (browsers block `fetch()` of local JSON), (b) idempotently insert forward/reverse cross-reference asides into topic pages, or (c) validate the concept graph. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs `node scripts/rebuild.mjs --no-fix` on every push and PR.
+Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small Node scripts that (a) flatten `concepts/*.json` and `quizzes/*.json` into `*/bundle.js` so `file://` double-click opens still work (browsers block `fetch()` of local JSON), (b) idempotently insert forward/reverse cross-reference asides into topic pages, or (c) validate the concept graph. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs `node scripts/rebuild.mjs --no-fix` on every push and PR.
 
-Quality gates — all exit non-zero on failure and gate CI:
+**Full script catalog: [`scripts/README.md`](./scripts/README.md)** — one row per `.mjs`, grouped by role (orchestration, builders, repair tools, injectors, validators, advisory audits, tests). The categories at a glance:
 
-- [`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs) — duplicate ids, broken prereqs, cycles, missing anchors/blurbs.
-- [`scripts/validate-katex.mjs`](./scripts/validate-katex.mjs) — structural + macro-aware KaTeX checks on JSON fields (blurbs, quiz questions, etc.).
-- [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) — every page has sidebar, top-nav backlink, quiz wiring, ≥1 widget; anchors resolve.
-- [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs) — cross-topic prereqs have a forward "See also" aside.
-- [`scripts/inject-used-in-backlinks.mjs`](./scripts/inject-used-in-backlinks.mjs) — prereqs have a reverse "Used in" aside.
+- **Quality gates** (`validate-concepts`, `validate-katex`, `validate-schema`, `validate-widget-params`, `test-widget-renderers`, `smoke-test`, `test-roundtrip`, `audit-callbacks`) — non-zero on failure; CI fails.
+- **Injectors / fixers** that mutate HTML idempotently (`audit-callbacks --fix`, `inject-used-in-backlinks --fix`, `inject-breadcrumb --fix`, `inject-display-prefs --fix`, `inject-index-stats --fix`, `inject-changelog-footer`, `fix-a11y --fix`, `color-vars --fix`, `wire-katex-select --fix`, `repair-widget-scripts`).
+- **Builders** that produce derived files (`build-concepts-bundle`, `build-quizzes-bundle`, `build-widgets-bundle`, `build-search-index`, `build-section-indexes`, `extract-topic`, `render-topic`, `package-offline`, `new-topic`, `new-widget`).
+- **Advisory audits** that exit 0 and write `audits/*.md` (`stats-coverage`, `audit-graph-health`, `audit-stale-blurbs`, `audit-blurb-question-alignment`, `audit-worked-examples`, `audit-cross-topic-prereqs`, `audit-inline-links`, `audit-backlinks`, `audit-notation`, `audit-widget-interactivity`, `audit-accessibility`, `audit-responsive`, `audit-cross-page-consistency`, `audit-bundle-staleness`, `audit-draft-index-cards`, `audit-doc-drift`).
+- **Tests** (`test-offline-bundle`, `test-mobile-perf`).
+- **Shared libraries** in `scripts/lib/` — [`content-model.mjs`](./scripts/lib/content-model.mjs) (`loadContentModel()` returns memoized `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, etc.) + [`audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits import these rather than re-parsing JSON.
 
-Structured content gates — wired into `rebuild.mjs` and CI; all exit non-zero on failure:
-
-- [`scripts/validate-schema.mjs`](./scripts/validate-schema.mjs) — `concepts/*.json` and `quizzes/*.json` validate against the JSON Schemas under `schemas/`.
-- [`scripts/validate-widget-params.mjs`](./scripts/validate-widget-params.mjs) — every registry-driven `widget` block in `content/*.json` has `params` that validate against `widgets/<slug>/schema.json`.
-- [`scripts/test-roundtrip.mjs`](./scripts/test-roundtrip.mjs) — re-rendering `content/<topic>.json` via `render-topic.mjs` is byte-identical to `<topic>.html` on disk. Catches drift when a page is edited without updating its content JSON.
-
-Non-gating audits (advisory reports, safe to run any time):
-
-- [`scripts/audit-accessibility.mjs`](./scripts/audit-accessibility.mjs) — a11y checks: heading order, SVG `<title>`/`aria-label`, `<label for=>` wiring, color-only prose, viewport meta, `<html lang>`.
-- [`scripts/audit-responsive.mjs`](./scripts/audit-responsive.mjs) — responsive-design issues: viewport meta, fixed pixel widths, missing SVG `viewBox`, horizontal-overflow hazards.
-- [`scripts/color-vars.mjs`](./scripts/color-vars.mjs) — hex literals in widget markup + `<style>` blocks; audit mode exits 1 on hits, `--fix` rewrites paint attrs, `--fix --pattern '<regex>'` adds style-block substitutions.
-- [`scripts/audit-widget-interactivity.mjs`](./scripts/audit-widget-interactivity.mjs) — static vs. interactive widget classifier.
-- [`scripts/audit-backlinks.mjs`](./scripts/audit-backlinks.mjs) — "Used in" backlink structure (dead-ends, hubs, orphaned hubs) + weighted coupling-depth scoring (base edge + blurb + prose + quiz mentions).
-- [`scripts/audit-cross-topic-prereqs.mjs`](./scripts/audit-cross-topic-prereqs.mjs) — suggests missing cross-topic prereq edges from prose/quiz co-mentions.
-- [`scripts/audit-inline-links.mjs`](./scripts/audit-inline-links.mjs) — un-linked concept-title mentions in prose; `--fix` wraps the first occurrence per section.
-- [`scripts/audit-stale-blurbs.mjs`](./scripts/audit-stale-blurbs.mjs) — concept-blurb drift (LENGTH, MATCH, RECALL, OFFPAGE, DUP classes).
-- [`scripts/audit-graph-health.mjs`](./scripts/audit-graph-health.mjs) — concept-graph atomicity / multi-topic / implicit-prereq diagnostic plus a per-topic 🟢/🟡/🔴 scorecard. Writes `audits/graph-health.{tsv,md}`.
-- [`scripts/audit-blurb-question-alignment.mjs`](./scripts/audit-blurb-question-alignment.mjs) — flags quiz questions whose prompt doesn't probe anything named in the concept's blurb.
-- [`scripts/audit-bundle-staleness.mjs`](./scripts/audit-bundle-staleness.mjs) — fast check that `concepts/bundle.js` / `quizzes/bundle.js` are in sync with source JSON.
-- [`scripts/audit-cross-page-consistency.mjs`](./scripts/audit-cross-page-consistency.mjs) — `<head>` boilerplate + sidetoc scaffold + body-attr consistency across topic HTML.
-- [`scripts/audit-notation.mjs`](./scripts/audit-notation.mjs) — KaTeX macro / notation consistency across prose + quizzes.
-- [`scripts/audit-worked-examples.mjs`](./scripts/audit-worked-examples.mjs) — flags concept sections missing a `**Worked example:**` block.
-- [`scripts/stats-coverage.mjs`](./scripts/stats-coverage.mjs) — per-subject/per-topic/per-concept widget + quiz counts (by family/dimension/gesture/role and type/tier); coverage gaps. Writes `audits/coverage-stats.md`.
-- [`scripts/audit-draft-index-cards.mjs`](./scripts/audit-draft-index-cards.mjs) — flags `index.html` cards still in `new-topic.mjs` placeholder state (literal "draft" text, boilerplate `.desc`, unfilled TODO comment). Wired into `rebuild.mjs` as the `draft-cards` step.
-- [`scripts/audit-doc-drift.mjs`](./scripts/audit-doc-drift.mjs) — `PLAN.md` / `AGENTS.md` / `scripts/README.md` vs. on-disk reality. Wired into `rebuild.mjs` as the final advisory step.
-
-Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip; [`scripts/test-offline-bundle.mjs`](./scripts/test-offline-bundle.mjs) is the smoke test for its output. [`scripts/test-mobile-perf.mjs`](./scripts/test-mobile-perf.mjs) is a Playwright FPS check for 3D drag.
-
-Build helpers: [`scripts/build-search-index.mjs`](./scripts/build-search-index.mjs) flattens concepts + quizzes into `search-index.json` consumed by `search.html`.
-
-Content-shared tooling (injectors and section-index generator, run via `rebuild.mjs` or manually):
-
-- [`scripts/inject-breadcrumb.mjs`](./scripts/inject-breadcrumb.mjs) — injects a breadcrumb + prev/next-in-section block into every topic page's top nav. Idempotent via fence comments.
-- [`scripts/inject-display-prefs.mjs`](./scripts/inject-display-prefs.mjs) — injects `<script src="./js/display-prefs.js">` and CSS rules for `html[data-hide-widgets]`/`html[data-hide-quizzes]` into every topic page. Idempotent.
-- [`scripts/inject-index-stats.mjs`](./scripts/inject-index-stats.mjs) — keeps `index.html`'s hero-tagline topic / concept counts in sync with `concepts/index.json` + `concepts/*.json`. No more hand-edited stale numbers.
-- [`scripts/inject-changelog-footer.mjs`](./scripts/inject-changelog-footer.mjs) — regenerates every topic page's `<details class="changelog">` from `git log --follow`. `--audit` mode (used by rebuild --no-fix) exits 1 if any page is stale.
-- [`scripts/inject-page-metadata.mjs`](./scripts/inject-page-metadata.mjs) — stamps `data-section` / `data-level` on each topic's `<body>` using data read from `index.html`.
-- [`scripts/build-section-indexes.mjs`](./scripts/build-section-indexes.mjs) — generates per-section mini-index pages under `sections/`.
+One CLI front door: `node scripts/cli.mjs <space-separated-command>` routes by longest-prefix match (`cli.mjs audit backlinks` → `scripts/audit-backlinks.mjs`). Individual scripts remain directly callable; `rebuild.mjs` doesn't go through the CLI so CI stays dependency-free.
 
 ## Structured content pipeline
 
