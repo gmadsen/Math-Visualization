@@ -103,6 +103,58 @@ Quickstart: `node scripts/new-widget.mjs <slug> [--family <f>] [--dimension 2d|3
 
 Some fields exist purely to preserve byte-identical output from the current handwritten source (whitespace alignment inside script bodies, comment banners, inline style attributes that one widget uses but others don't). Mark them clearly in the schema and README as artifacts so a React / Three.js / any-frontend consumer knows to ignore them. Every other field is fundamental data that any renderer needs.
 
+## Page-global helpers
+
+Topic pages keep two helper blocks at the top of `<body>`. Copy the blocks verbatim from `category-theory.html` (2D) and `differential-geometry.html` (3D) — don't rewrite. They are shared code, not per-page snowflakes.
+
+### 2D helpers (every page)
+
+```js
+$(selector, root?)              // querySelector
+$$(selector, root?)             // querySelectorAll → array
+SVG(tag, attrs)                 // create namespaced SVG element
+drawArrow(svg, p1, p2, opts)    // curved arrow with optional label, marker auto-defed
+drawNode(svg, x, y, label, opts) // circle + centered label
+```
+
+### 3D helpers (pages with rotatable 3D widgets)
+
+Pages that render 3D surfaces or curves (`differential-geometry.html`, `smooth-manifolds.html`, anything using the `surface-viewer` widget) include this second block:
+
+```js
+vsub, vadd, vscl, vdot, vlen, vnorm, vcross   // basic 3-vector ops (arrays of 3)
+proj3(p, yaw, pitch)                          // isometric 3D → 2D projection,
+                                              // yaw around z, pitch around x
+curvColor(t)                                  // diverging colormap for curvature-tinted
+                                              // meshes (−1..+1 → blue..white..red)
+make3DDraggable(svg, draw, opts)              // pointer-drag → { yaw, pitch, dragging };
+                                              // calls draw() rAF-throttled
+```
+
+`make3DDraggable` is the canonical way to make a 3D widget rotatable. Usage pattern:
+
+```js
+function draw(){
+  svg.innerHTML = '';
+  const yaw = view.yaw, pitch = view.pitch;
+  // decimate mesh density while dragging so the user sees smooth rotation:
+  const NU = view.dragging ? 14 : 28;
+  const NV = view.dragging ? 20 : 40;
+  // …project vertices via proj3(P, yaw, pitch), sort quads by z (painter's
+  //  algorithm), fill polygons…
+}
+const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
+draw();
+```
+
+Three recurring gotchas:
+
+- **Decimation on drag** — cut `NU`/`NV` (or whatever your mesh density knob is) while `view.dragging` is true. The final `pointerup` triggers a full-resolution redraw automatically. Without this, heavy meshes chug visibly on rotation.
+- **Legends in viewport coords, not data coords** — anchor legends at fixed viewport offsets (e.g. `translate(-230, 155)`). Anchoring to `(xmin, ymin+pad)` drifts as the bounding box changes with rotation.
+- **Readout should advertise the interaction** — include a `yaw … · pitch … — drag to rotate` line in the widget's `.readout` so the affordance is discoverable.
+
+For widgets that previously had `yaw`/`pitch` sliders, **remove the slider** — the drag interaction supersedes it and redundant controls confuse users.
+
 ## Consumers
 
 - Vanilla site: `scripts/render-topic.mjs` resolves `slug` via dynamic `import("./widgets/<slug>/index.mjs")` and calls `renderMarkup` / `renderScript`. Used by every topic that has a `content/<topic>.json` entry.

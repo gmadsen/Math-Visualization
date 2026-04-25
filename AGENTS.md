@@ -158,51 +158,11 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **Cross-page callbacks**: when a concept's `prereqs` reference an id owned by another topic, the section ends with an `<aside class="callback">` listing "See also" links to the target anchors. Insertions are mechanical — run `node scripts/audit-callbacks.mjs --fix` after editing any `concepts/*.json` prereqs. The companion audit (`node scripts/audit-callbacks.mjs`, no flag) and a light smoke-test guard both enforce coverage.
 - **Per-page changelog footers**: every topic HTML ends with a `<details class="changelog">` block seeded from `git log`. New content PRs that touch a topic page should prepend a changelog row via re-running `scripts/inject-changelog-footer.mjs` — it rebuilds the block in place, picking up any new commits to the page.
 
-## Helper tools (in every page's top `<script>`)
+## Page-global helpers
 
-```js
-$(selector, root?)        // querySelector
-$$(selector, root?)       // querySelectorAll → array
-SVG(tag, attrs)           // create namespaced SVG element
-drawArrow(svg, p1, p2, opts)   // curved arrow with optional label, marker auto-def'd
-drawNode(svg, x, y, label, opts)  // circle + centered label
-```
+Every topic page has a 2D helper block (`$`, `$$`, `SVG`, `drawArrow`, `drawNode`) at the top of `<body>`. Pages with rotatable 3D widgets add a second block (`vsub`/`vadd`/…, `proj3`, `curvColor`, `make3DDraggable`).
 
-Copy the block verbatim from `category-theory.html` rather than rewriting.
-
-### 3D widgets — vectors, projection, and rotation
-
-Pages that render 3D surfaces or curves (e.g. `differential-geometry.html`, `smooth-manifolds.html`) keep a second helper block at the top of `<body>`. Copy it verbatim from [`differential-geometry.html`](./differential-geometry.html) — it provides:
-
-```js
-vsub, vadd, vscl, vdot, vlen, vnorm, vcross    // basic 3-vector ops (arrays of 3 numbers)
-proj3(p, yaw, pitch)                           // isometric 3D → 2D projection, yaw around z, pitch around x
-curvColor(t)                                   // diverging colormap for curvature-tinted meshes (−1..+1 → blue..white..red)
-make3DDraggable(svg, draw, opts)               // pointer-drag → { yaw, pitch, dragging } state; calls draw() rAF-throttled
-```
-
-`make3DDraggable` is the canonical way to make a 3D widget rotatable. Usage pattern:
-
-```js
-function draw(){
-  svg.innerHTML = '';
-  const yaw = view.yaw, pitch = view.pitch;
-  // decimate mesh density while dragging so the user sees smooth rotation:
-  const NU = view.dragging ? 14 : 28;
-  const NV = view.dragging ? 20 : 40;
-  // ...project vertices via proj3(P, yaw, pitch), sort quads by z (painter's algorithm), fill polygons...
-}
-const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
-draw();
-```
-
-Three recurring gotchas:
-
-- **Decimation on drag** — cut `NU`/`NV` (or whatever your mesh density knob is) while `view.dragging` is true, then the final `pointerup` triggers a full-resolution redraw automatically. Without this, heavy meshes chug on a drag.
-- **Legends in viewport coords, not data coords** — if you place a legend with `translate(xmin, ymin + pad)` it will drift as the bounding box changes with rotation. Anchor legends at fixed viewport coordinates (e.g. `translate(-230, 155)`).
-- **Readout should advertise the interaction** — include a `yaw … · pitch … — drag to rotate` line in the widget's `.readout` so the affordance is discoverable.
-
-For widgets that also need a view slider (e.g. pre-existing `yaw`/`pitch` sliders), remove the slider — the drag interaction supersedes it and redundant controls confuse users.
+**Copy verbatim** from [`category-theory.html`](./category-theory.html) (2D) and [`differential-geometry.html`](./differential-geometry.html) (3D) — do not rewrite. **Full reference: [`widgets/README.md`](./widgets/README.md) § "Page-global helpers"** (API surface + the `make3DDraggable` usage pattern + the three recurring gotchas: drag decimation, legend coords, readout discoverability).
 
 ## Quiz + progression (Brilliant-style)
 
