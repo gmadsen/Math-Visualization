@@ -4,10 +4,10 @@
 
 - Topics: **72**, concepts: **498**
 - Widgets: **459** (registry-driven: 457, inline: 2)
-- Quizzes: **2397** (v1: 1259, hard: 1125, expert: 13)
-- Quiz types: mcq: 1491, numeric: 800, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
+- Quizzes: **2453** (v1: 1297, hard: 1143, expert: 13)
+- Quiz types: mcq: 1514, numeric: 804, multi-select: 35, complex: 29, matching: 20, ordering: 18, spot-the-error: 15, proof-completion: 14, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **187**
-- Concepts lacking a hard-tier quiz: **112**
+- Concepts lacking a hard-tier quiz: **101**
 
 ## Per-slug registry adoption
 
@@ -55,8 +55,8 @@ page has wired one in yet.
   - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
   - by dimension: 2d: 65
   - by gesture: click: 63, slider+click: 1, interactive: 1
-- Quizzes: **408** (v1: 228, hard: 180, expert: 0)
-  - by type: mcq: 254, numeric: 134, multi-select: 11, ordering: 3, proof-completion: 2, matching: 2, complex: 1, spot-the-error: 1
+- Quizzes: **428** (v1: 242, hard: 186, expert: 0)
+  - by type: mcq: 265, numeric: 135, multi-select: 14, ordering: 4, spot-the-error: 4, matching: 3, proof-completion: 2, complex: 1
 
 ### Analysis
 
@@ -105,8 +105,8 @@ page has wired one in yet.
   - by family: button-stepper: 61, clickable-diagram: 15, clickable-graph: 3
   - by dimension: 2d: 79
   - by gesture: click: 79
-- Quizzes: **444** (v1: 243, hard: 201, expert: 0)
-  - by type: mcq: 298, numeric: 143, complex: 3
+- Quizzes: **480** (v1: 267, hard: 213, expert: 0)
+  - by type: mcq: 310, numeric: 146, multi-select: 7, spot-the-error: 6, matching: 5, complex: 3, ordering: 2, proof-completion: 1
 
 ## Per-topic
 
@@ -122,7 +122,7 @@ page has wired one in yet.
 - `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `infinity-categories` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
-- `derived-categories` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
+- `derived-categories` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
@@ -171,9 +171,9 @@ page has wired one in yet.
 - `moduli-spaces` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `sheaf-cohomology` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `stacks` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `algebraic-spaces` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `algebraic-spaces` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `intersection-theory-chow` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
-- `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `group-schemes` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)

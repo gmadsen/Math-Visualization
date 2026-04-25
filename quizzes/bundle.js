@@ -1839,16 +1839,44 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Why schemes aren't enough\"?",
+            "q": "Why does the étale-sheaf quotient $X = \\mathbb{A}^1 / \\mathbb{Z}$ fail to be a scheme over a field $k$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Because the action is not free.",
+              "Because $\\mathbb{Z}$ is not a finite group, so the quotient cannot be a scheme by general principles.",
+              "Because the diagonal $\\Delta_X$ pulls back to $\\mathbb{Z} \\times \\mathbb{A}^1$ along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X \\times X$, which is an infinite disjoint union and so $X$ fails to be quasi-separated.",
+              "Because $\\mathbb{A}^1$ is not proper."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$. For $X$ to be a scheme, $\\Delta_X$ would need to be quasi-compact (in fact, locally closed); but $R$ is an infinite disjoint union of $\\mathbb{A}^1$'s and so not quasi-compact. The action <em>is</em> free; finiteness of the group is irrelevant; properness of $\\mathbb{A}^1$ is unrelated."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following statements about $\\mathbb{A}^1 / \\mathbb{Z}$ over $k$ are true? (select all)",
+            "choices": [
+              "It is a sheaf on the étale site of schemes over $k$.",
+              "It admits an étale surjection from a scheme.",
+              "It is a quasi-separated algebraic space.",
+              "It is an algebraic space."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal pullback $R = \\mathbb{Z}\\times\\mathbb{A}^1$ being a scheme, $X$ is an algebraic space. It is <em>not</em> quasi-separated, because $\\Delta_X$ is not quasi-compact."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Spot the flawed step in the following \"proof\" that $\\mathbb{A}^1 / \\mathbb{Z}$ is a scheme.",
+            "steps": [
+              "$\\mathbb{Z}$ acts freely on $\\mathbb{A}^1_k$ by $n \\cdot x = x + n$.",
+              "Étale-locally on $\\mathbb{A}^1$, the action is trivial — pick a small étale neighbourhood of any closed point and at most one orbit element passes through it.",
+              "Since the action is free and étale-locally trivial, by the GAGA principle the quotient is automatically a smooth quasi-projective variety over $k$.",
+              "In particular, the quotient is a scheme.",
+              "QED."
+            ],
+            "answer": 2,
+            "explain": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective. GAGA does not produce schemes from étale quotient sheaves, and a free étale action on a scheme need not produce a scheme quotient (e.g. $\\mathbb{A}^1/\\mathbb{Z}$ itself). The correct conclusion is only that the quotient is an algebraic space."
           }
         ]
       },
@@ -1857,16 +1885,50 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Étale equivalence relations\"?",
+            "q": "Which of the following data does <em>not</em> define an étale equivalence relation on a scheme $U$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$R = \\Delta_U \\subset U \\times U$ — the trivial relation.",
+              "$R = G \\times U \\subset U \\times U$ via $(g,u) \\mapsto (u, g\\cdot u)$, where $G$ is a finite group acting freely on $U$.",
+              "$R = U \\times U$ itself — i.e. \"all points equivalent.\"",
+              "$R \\subset \\mathbb{A}^1 \\times \\mathbb{A}^1$ defined by $\\{(x, y) : y = x + 1\\}$ alone."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 3,
+            "explain": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e. $\\pi_0$ collapses to a point). Choice D fails transitivity — $x \\sim x+1$ and $x+1 \\sim x+2$ should imply $x \\sim x+2$, but $(x, x+2) \\not\\in R$. To make this an equivalence relation you would need $R = \\bigcup_{n \\in \\mathbb{Z}} \\{(x, x+n)\\} = \\mathbb{Z} \\times \\mathbb{A}^1$ — the relation generating $\\mathbb{A}^1/\\mathbb{Z}$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each scheme-theoretic gadget with its role in an étale equivalence relation $j = (s,t)\\colon R \\hookrightarrow U \\times U$.",
+            "left": [
+              "Reflexivity",
+              "Symmetry",
+              "Transitivity",
+              "Étale projections"
+            ],
+            "right": [
+              "$\\Delta_U \\colon U \\to U \\times U$ factors through $j$",
+              "swap involution $\\sigma$ on $U \\times U$ restricts to an automorphism of $R$",
+              "$R \\times_{s, U, t} R \\to U \\times U$ factors through $j$",
+              "both $s, t$ are étale morphisms from $R$ to $U$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Reflexivity = diagonal factors through $R$. Symmetry = swap restricts. Transitivity = the fibre product $R \\times_U R$ (composing equivalences) lands in $R$. Étale projections is the topology condition that makes the quotient an <em>algebraic space</em> rather than just any sheaf."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite group acting on a scheme $U$. The associated map $G \\times U \\to U \\times U$, $(g,u) \\mapsto (u, g\\cdot u)$, defines an étale equivalence relation if and only if which condition holds?",
+            "choices": [
+              "$G$ is abelian.",
+              "$G$ acts freely on $U$ in the étale-topology sense (trivial geometric stabilisers).",
+              "$U$ is quasi-projective.",
+              "$|G|$ is invertible on $U$."
+            ],
+            "answer": 1,
+            "explain": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free. Each projection $G \\times U \\to U$ is a disjoint union of $|G|$ copies of $U$, which is étale exactly when the source is reduced and the action is free in the geometric sense. Abelian-ness, quasi-projectivity, and invertibility of $|G|$ are unrelated to whether the relation is étale; they affect properties of the quotient (e.g. tameness) but not the equivalence-relation structure itself."
           }
         ]
       },
@@ -1875,16 +1937,71 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Algebraic spaces as étale sheaves\"?",
+            "q": "Which of the following is the cleanest characterisation of an algebraic space?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "A scheme that admits a Zariski cover by affines.",
+              "A sheaf on the étale site whose diagonal is representable by schemes and which admits an étale surjection from a scheme.",
+              "A stack whose automorphism groups are finite.",
+              "A locally ringed space with a covering by spectra of commutative rings."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas. Choice A is the definition of (a quasi-affine) scheme. Choice C describes DM stacks. Choice D is the classical definition of a scheme."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the following arrows / objects in the order in which they appear in the definition of an algebraic space (atlas first, equivalence relation second, etc.).",
+            "items": [
+              "the étale equivalence relation $R = U \\times_X U \\rightrightarrows U$",
+              "an étale surjection $U \\twoheadrightarrow X$ from a scheme $U$",
+              "the diagonal $\\Delta_X \\colon X \\to X \\times X$, representable by schemes",
+              "the étale sheaf $X \\colon (\\mathrm{Sch})_{\\acute e t}^{\\mathrm{op}} \\to \\mathrm{Set}$"
+            ],
+            "answer": [
+              3,
+              2,
+              1,
+              0
+            ],
+            "explain": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme; and finally the existence of an étale surjective $U \\twoheadrightarrow X$ closes the definition. (Some textbooks phrase it as $X = U/R$ for an étale equivalence relation; that's the equivalent étale-quotient form.)"
+          },
+          {
+            "type": "mcq",
+            "q": "If $X$ is an algebraic space and $U \\twoheadrightarrow X$ is an étale atlas, what is $R := U \\times_X U$ as a scheme?",
+            "choices": [
+              "The disjoint union $U \\sqcup U$.",
+              "The étale equivalence relation on $U$ realising $X = U/R$; both projections to $U$ are étale.",
+              "The diagonal $\\Delta_U$ inside $U \\times U$.",
+              "The same as $X$ — there is no extra information."
+            ],
+            "answer": 1,
+            "explain": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$. This is the étale equivalence relation, and $X = U/R$ as étale sheaves. It is generally <em>not</em> $\\Delta_U$ (that would force the atlas to be an isomorphism) and only equals $U \\sqcup U$ in trivial cases."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Suppose $X$ is an algebraic space with representable diagonal $\\Delta_X$. Which extra hypothesis on $\\Delta_X$ recovers the notion of <em>quasi-separated</em>?",
+            "choices": [
+              "$\\Delta_X$ is a closed immersion.",
+              "$\\Delta_X$ is étale.",
+              "$\\Delta_X$ is quasi-compact.",
+              "$\\Delta_X$ is proper."
+            ],
+            "answer": 2,
+            "explain": "By definition, $X$ is quasi-separated iff $\\Delta_X$ is quasi-compact. \"$\\Delta_X$ a closed immersion\" gives the strictly stronger condition <em>separated</em>; étale or proper diagonals are different conditions altogether. The example $\\mathbb{A}^1 / \\mathbb{Z}$ from §1 fails quasi-separatedness exactly because $\\Delta_X$ is not quasi-compact."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Spot the flawed step in the following \"proof\" that every algebraic space $X$ is a scheme.",
+            "steps": [
+              "Let $X$ be an algebraic space with étale atlas $U \\twoheadrightarrow X$ and diagonal $\\Delta_X \\colon X \\to X \\times X$.",
+              "$\\Delta_X$ is representable by schemes; in particular, the fibre product $R = U \\times_X U$ is a scheme.",
+              "Since $R \\rightrightarrows U$ is an étale equivalence relation of schemes, the categorical quotient $U/R$ exists as a scheme.",
+              "Therefore $X = U/R$ is a scheme.",
+              "QED."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is exactly where schemes fail: étale equivalence relations of schemes do <em>not</em> in general have scheme quotients — that's the whole reason algebraic spaces were invented. The classical theorem only guarantees a scheme quotient under extra hypotheses (e.g. all orbits in a single affine, or finite flat $G$-action with quasi-projective $U$). Without such hypotheses, $U/R$ is only an algebraic space."
           }
         ]
       },
@@ -1893,16 +2010,47 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Morphisms of algebraic spaces\"?",
+            "q": "Let $f \\colon X \\to Y$ be a morphism of algebraic spaces, presented by $\\tilde f \\colon U \\to V$ on étale atlases. Which property of $f$ is <em>not</em> determined by the corresponding property of $\\tilde f$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "étale",
+              "smooth",
+              "separated",
+              "locally of finite presentation"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does. Separatedness is more subtle: it is the condition that $\\Delta_f \\colon X \\to X \\times_Y X$ is a closed immersion, which involves the relation $R \\rightrightarrows U$ and is <em>not</em> determined by $\\tilde f$ alone."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all properties of scheme morphisms that are étale-local on the target (and hence transfer verbatim to morphisms of algebraic spaces).",
+            "choices": [
+              "étale",
+              "flat",
+              "proper",
+              "separated",
+              "finite",
+              "isomorphism"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ],
+            "explain": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target. Separated is the exception — it is a condition on the diagonal $\\Delta_f$ rather than on $f$ itself, and depends on the equivalence relation in the algebraic-space presentation."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $X$ and $Y$ are both schemes, viewed as algebraic spaces. A morphism of algebraic spaces $f \\colon X \\to Y$ is the same data as which of the following?",
+            "choices": [
+              "An étale equivalence relation on $X$.",
+              "A morphism of schemes $X \\to Y$ — the embedding (Schemes) $\\hookrightarrow$ (AlgSpaces) is fully faithful.",
+              "Any continuous map of underlying topological spaces.",
+              "A morphism of locally ringed spaces, but only up to étale localisation."
+            ],
+            "answer": 1,
+            "explain": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too. So a morphism between two schemes-as-algebraic-spaces is exactly a morphism of schemes — no extra data, no quotient by anything."
           }
         ]
       },
@@ -1911,16 +2059,70 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Examples: free quotients and a non-scheme\"?",
+            "q": "Why is the quotient $\\mathbb{A}^1/\\mathbb{Z}$ over a field <em>not</em> a separated, quasi-projective scheme?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Because $\\mathbb{Z}$ is not a finite group.",
+              "Because $\\mathbb{A}^1$ is not proper.",
+              "Because the diagonal $\\Delta_X$ is not quasi-compact — its pullback is the disjoint union $\\mathbb{Z}\\times\\mathbb{A}^1$, with infinitely many components.",
+              "Because $\\mathbb{A}^1$ is not affine."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact. But the diagonal of $\\mathbb{A}^1/\\mathbb{Z}$ pulls back along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X\\times X$ to $\\mathbb{Z}\\times\\mathbb{A}^1$ — an infinite disjoint union, not quasi-compact. The other choices are either false ($\\mathbb{A}^1$ <em>is</em> affine and one would expect properness to be unrelated to schemehood of a quotient) or red herrings."
+          },
+          {
+            "type": "mcq",
+            "q": "In Hironaka's smooth proper non-scheme example, what is the obstruction to being a scheme?",
+            "choices": [
+              "The space is non-reduced.",
+              "There is a proper curve $C$ such that no line bundle on the space restricts to one of positive degree on $C$ — i.e., no ample line bundle exists.",
+              "The space is not separated.",
+              "The space has dimension 0."
+            ],
+            "answer": 1,
+            "explain": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero. This forbids the existence of an ample line bundle, hence projectivity, hence (for proper smooth 3-folds over $\\mathbb{C}$) schemehood. The space is reduced, separated, and 3-dimensional."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all examples of algebraic spaces that are <em>not</em> schemes.",
+            "choices": [
+              "$\\operatorname{Spec}\\mathbb{Z}$",
+              "$\\mathbb{A}^1_k / \\mathbb{Z}$ over a field $k$",
+              "$\\mathbb{P}^n_k$",
+              "Hironaka's smooth proper 3-fold $H$",
+              "An étale double cover of $\\mathbb{P}^1$ (when the cover is connected)"
+            ],
+            "answer": [
+              1,
+              3
+            ],
+            "explain": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite group acting freely on a quasi-projective scheme $U$ over a field. Why is the quotient $U/G$ <em>always</em> a scheme in this case?",
+            "choices": [
+              "Because finite groups act trivially on étale cohomology.",
+              "Because every $G$-orbit on $U$ lies in a $G$-stable affine open subset, so the quotient can be glued from $\\operatorname{Spec}$s of $G$-invariants.",
+              "Because $\\mathbb{A}^1/\\mathbb{Z}$ is a scheme.",
+              "Because $G$ acts on cohomology by an automorphism."
+            ],
+            "answer": 1,
+            "explain": "The classical theorem (SGA 1 or [EGA III]) says that if $G$ is finite and every orbit on $U$ is contained in some affine open (which is automatic for quasi-projective $U$, since one can take a $G$-stable affine using ample-line-bundle averaging), then $U/G$ exists as a scheme. The Zariski-local structure is $\\mathrm{Spec}(R^G)$. Without quasi-projectivity, the conclusion can fail."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Spot the flawed step in this attempted proof that Hironaka's space $H$ is projective.",
+            "steps": [
+              "$H$ is a smooth proper algebraic space over $\\mathbb{C}$ of dimension 3.",
+              "By Chow's lemma, $H$ admits a proper birational map from a projective variety $\\tilde H$.",
+              "The pullback of an ample line bundle on $\\tilde H$ to $H$ is again ample (ampleness is preserved under proper birational pullback).",
+              "Hence $H$ admits an ample line bundle, and so is projective.",
+              "QED."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is false. Ampleness is <em>not</em> preserved under proper birational pullback — it can become only nef, and in Hironaka's example precisely this happens: the pullback restricts to degree zero on the descended curve $C$ that obstructs schemehood. Chow's lemma exists for algebraic spaces (giving a projective birational cover), but the pulled-back line bundle is only nef, not ample, so the conclusion fails."
           }
         ]
       },
@@ -1929,16 +2131,81 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Algebraic spaces sit between schemes and DM stacks\"?",
+            "q": "Which condition characterises algebraic spaces among Artin stacks?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "All geometric stabilisers are finite.",
+              "All geometric stabilisers are trivial; equivalently, the diagonal is a monomorphism.",
+              "There exists an étale atlas by a scheme.",
+              "The stack is quasi-compact."
+            ],
+            "answer": 1,
+            "explain": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism. Choice A characterises DM stacks; choice C is necessary but not sufficient (DM stacks also have étale atlases by schemes, e.g. $B(\\mathbb{Z}/2)$ has the trivial étale cover from a point times $\\mathbb{Z}/2$); choice D is unrelated."
+          },
+          {
+            "type": "matching",
+            "q": "Match each rung of the hierarchy with the condition on its diagonal.",
+            "left": [
+              "Schemes",
+              "Algebraic spaces",
+              "DM stacks",
+              "Artin stacks"
+            ],
+            "right": [
+              "$\\Delta$ is a locally closed immersion (and Zariski atlas exists)",
+              "$\\Delta$ is a monomorphism (representable by schemes)",
+              "$\\Delta$ is unramified (representable, equivalently finite + unramified)",
+              "$\\Delta$ is representable by algebraic spaces"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM) $\\Rightarrow$ representable (Artin). Each weakening corresponds to allowing more structure in the geometric stabilisers (none, none, finite étale, any algebraic group)."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $\\mathcal X = [\\mathbb{A}^1 / \\mathbb{Z}/2]$ where $\\mathbb{Z}/2$ acts by $x \\mapsto -x$. What kind of geometric object is $\\mathcal X$?",
+            "choices": [
+              "An algebraic space (in fact, a scheme): the quotient $\\mathbb{A}^1 / (\\mathbb{Z}/2) = \\operatorname{Spec} k[x^2]$.",
+              "An algebraic space but not a scheme — like Hironaka's example.",
+              "A DM stack but not an algebraic space — the action has a fixed point at $0$, so the geometric stabiliser there is nontrivial.",
+              "An Artin stack but not a DM stack."
+            ],
+            "answer": 2,
+            "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\operatorname{Spec} k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Suppose $\\mathcal X$ is an Artin stack with diagonal $\\Delta$. Which characterisation is correct?",
+            "choices": [
+              "$\\mathcal X$ is DM iff $\\Delta$ is unramified iff every geometric stabiliser is a finite étale group scheme.",
+              "$\\mathcal X$ is an algebraic space iff $\\Delta$ is étale.",
+              "$\\mathcal X$ is a scheme iff $\\Delta$ is finite.",
+              "$\\mathcal X$ is DM iff its coarse moduli space is a scheme."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "The clean characterisation is: $\\mathcal X$ is DM $\\Leftrightarrow$ $\\Delta_{\\mathcal X}$ is unramified $\\Leftrightarrow$ all geometric stabilisers are finite étale group schemes (and an étale atlas exists). Choice B is wrong: algebraic spaces have $\\Delta$ a <em>monomorphism</em>, not étale (étale + mono = open immersion, too strong). Choices C and D are unrelated to the standard characterisations."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are DM stacks but <em>not</em> algebraic spaces?",
+            "choices": [
+              "$B(\\mathbb{Z}/n)$ for $n \\ge 2$",
+              "$\\overline{\\mathcal{M}}_{1,1}$, the moduli of elliptic curves with one marked point",
+              "$\\mathbb{P}^1$ as a scheme",
+              "$BGL_n$ for $n \\ge 1$",
+              "$\\mathcal{M}_g$ for $g \\ge 2$"
+            ],
+            "answer": [
+              0,
+              1,
+              4
+            ],
+            "explain": "$B(\\mathbb{Z}/n)$, $\\overline{\\mathcal M}_{1,1}$ (with $\\mathbb{Z}/2$ stabiliser at the $j=1728$ point), and $\\mathcal M_g$ for $g \\ge 2$ are all DM stacks with nontrivial finite stabilisers, hence not algebraic spaces. $\\mathbb{P}^1$ is a scheme. $BGL_n$ has positive-dimensional stabiliser $GL_n$, so it is an Artin stack that is <em>not</em> DM."
           }
         ]
       }
@@ -6011,16 +6278,45 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The homotopy category $K(\\mathcal{A})$\"?",
+            "q": "Two chain maps $f, g \\colon X^\\bullet \\to Y^\\bullet$ are chain homotopic via $s = (s^n \\colon X^n \\to Y^{n-1})$. Which equation expresses this relation?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$f - g = s \\circ d_X - d_Y \\circ s$",
+              "$f - g = d_Y \\circ s + s \\circ d_X$",
+              "$f - g = d_Y \\circ s \\circ d_X$",
+              "$s$ is a chain map and $f \\circ s = g$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "By definition, $f \\simeq g$ iff there exists a degree $-1$ map $s$ with $f - g = ds + sd$. The order of the two terms is conventional (some texts use $f - g = sd + ds$, the same thing); $s$ itself is NOT a chain map.",
+            "hint": "Look at the formula displayed in the worked example."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE for any chain homotopy $f \\simeq g$ between chain maps $X^\\bullet \\to Y^\\bullet$?",
+            "choices": [
+              "$H^n(f) = H^n(g)$ for every $n$.",
+              "$f$ and $g$ have the same image as set maps in each degree.",
+              "$[f] = [g]$ as morphisms in $K(\\mathcal{A})$.",
+              "$f$ and $g$ differ by an isomorphism of $X^\\bullet$."
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Chain-homotopic maps induce equal maps on cohomology (so (1) holds) and become equal in $K(\\mathcal{A})$ by definition (so (3) holds). They generally differ as set maps (a chain homotopy is a witness, not a triviality), and there is no reason for them to differ by an iso of $X$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in the following \"proof\" that nullhomotopic chain maps induce zero on cohomology.",
+            "steps": [
+              "Suppose $f \\simeq 0$ via $s$, so $f = ds + sd$.",
+              "Pick a cocycle $x \\in \\ker d^n$, so $d x = 0$.",
+              "Then $f(x) = d(s(x)) + s(d(x)) = d(s(x)) + 0 = d(s(x))$.",
+              "Since $s(x)$ is also a cocycle, $d(s(x)) = 0$, so $f(x) = 0$.",
+              "Therefore $f$ kills every cohomology class, and $H^n(f) = 0$."
+            ],
+            "answer": 3,
+            "explain": "Step 4 is wrong: $s(x) \\in Y^{n-1}$ has no reason to be a cocycle. The correct conclusion is that $f(x) = d(s(x))$ is a coboundary, hence zero in $H^n(Y)$ — which is what we wanted.",
+            "hint": "Check whether $s(x)$ is required to be a cocycle."
           }
         ]
       },
@@ -6029,16 +6325,74 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Quasi-isomorphisms and localization\"?",
+            "q": "Which of the following chain maps in $\\mathrm{Ch}(\\mathrm{Ab})$ is a quasi-isomorphism?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathbb{Z}[0] \\xrightarrow{2} \\mathbb{Z}[0]$ (a single nonzero abelian group in degree $0$, multiplication by $2$).",
+              "$(\\mathbb{Z} \\xrightarrow{2} \\mathbb{Z}) \\to \\mathbb{Z}/2[1]$, with $f^0 = 0$ and $f^1$ the quotient $\\pi$ (degrees $0,1$).",
+              "$\\mathbb{Z}[0] \\to \\mathbb{Q}[0]$, the inclusion (single objects in degree $0$).",
+              "The identity $X \\to X$ for any $X$ — but only after we localize."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "Option (b) is the prototypical quasi-iso: $H^0(X) = 0 = H^0(Y)$, $H^1(X) = \\mathbb{Z}/2 \\xrightarrow{\\mathrm{id}} \\mathbb{Z}/2 = H^1(Y)$. (a) induces multiplication by $2$ on $\\mathbb{Z}$, NOT iso. (c) induces the inclusion $\\mathbb{Z} \\hookrightarrow \\mathbb{Q}$, not iso. (d) is the identity, which is always a quasi-iso, no localization needed.",
+            "hint": "Check $H^n(f)$ in each degree."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of \"localizing $K(\\mathcal{A})$ at quasi-isomorphisms\" in correct logical order.",
+            "items": [
+              "Verify the class of quasi-isos in $K(\\mathcal{A})$ satisfies the Ore conditions.",
+              "Define morphisms in $D(\\mathcal{A})$ as roofs $X \\xleftarrow{s} Z \\xrightarrow{f} Y$ with $s$ quasi-iso, modulo a calculus-of-fractions equivalence.",
+              "Pass to the homotopy category $K(\\mathcal{A}) = \\mathrm{Ch}(\\mathcal{A})/\\simeq$, identifying chain-homotopic maps.",
+              "Conclude $D(\\mathcal{A})$ is the universal target of a functor inverting quasi-isos."
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "First descend to $K$ (item index 2), then check Ore conditions there (index 0), then build $D$ via the roof calculus (index 1), then state the universal property (index 3)."
+          },
+          {
+            "type": "mcq",
+            "q": "True or false: every quasi-isomorphism in $K(\\mathcal{A})$ is an isomorphism in $K(\\mathcal{A})$.",
+            "choices": [
+              "True — that's the definition of $K$.",
+              "False — the chain map $(\\mathbb{Z} \\xrightarrow{2} \\mathbb{Z}) \\to \\mathbb{Z}/2[1]$ is a counterexample.",
+              "True — but only when $\\mathcal{A}$ has enough injectives.",
+              "False — but only for unbounded complexes."
+            ],
+            "answer": 1,
+            "explain": "Quasi-isos are NOT iso in $K(\\mathcal{A})$ in general. The reduction $(\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}) \\to \\mathbb{Z}/2[1]$ is a quasi-iso but admits no chain map back, even up to homotopy. This is precisely what motivates localizing at the quasi-isos to form $D(\\mathcal{A})$.",
+            "hint": "Recall the worked example with $\\mathbb{Z}$ and $\\mathbb{Z}/2$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT one of the Ore conditions verified by quasi-isomorphisms in $K(\\mathcal{A})$?",
+            "choices": [
+              "Composition: $s \\circ t$ is a quasi-iso whenever $s, t$ are.",
+              "Two-out-of-three: in a composable pair $f, g$ with $g \\circ f$ a quasi-iso, $f$ is a quasi-iso iff $g$ is.",
+              "Roof completion: given $f\\colon X \\to Y$ and $s\\colon Z \\to Y$ a quasi-iso, there exist $W$, $g\\colon W \\to X$, and a quasi-iso $t\\colon W \\to Z$ with $f \\circ g = s \\circ t$.",
+              "Injectivity: every quasi-iso $s\\colon X \\to Y$ has $H^n(s)$ injective in each degree."
+            ],
+            "answer": 3,
+            "explain": "(d) is automatic — quasi-isos induce isomorphisms on cohomology, in particular injections — but it's a consequence, not part of the Ore axioms. The genuine Ore conditions are (a), (b), and a roof-completion clause like (c) (sometimes stated dually). \"Two-out-of-three\" is a standard restatement.",
+            "hint": "Three of these are required by the localization theory; one is automatic."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student claims: \"If $f, g\\colon X \\to Y$ in $K(\\mathcal{A})$ are both quasi-isos, then $f = g$ in $K$.\" Find the bad step.",
+            "steps": [
+              "Both $H^n(f)$ and $H^n(g)$ are isomorphisms.",
+              "Therefore $H^n(f) = H^n(g)$ for every $n$.",
+              "Since the cohomology functor $H^*$ is faithful on $K(\\mathcal{A})$, $f$ and $g$ are equal in $K$.",
+              "Hence $[f] = [g]$ in $K(\\mathcal{A})$, as claimed."
+            ],
+            "answer": 1,
+            "explain": "Step (2) is wrong: two isomorphisms can be DIFFERENT isomorphisms. Take $X = Y = \\mathbb{Z}[0]$, $f = \\mathrm{id}$, $g = -\\mathrm{id}$ — both quasi-isos, but $H^0(f) = \\mathrm{id} \\neq -\\mathrm{id} = H^0(g)$. Step (3) compounds the error: $H^*$ is NOT faithful on $K$.",
+            "hint": "Consider $f = \\mathrm{id}$ and $g = -\\mathrm{id}$ on $\\mathbb{Z}[0]$."
           }
         ]
       },
@@ -6047,16 +6401,65 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The derived category $D(\\mathcal{A})$\"?",
+            "q": "For $R$ a ring and $M, N \\in \\mathrm{Mod}\\,R$, which classical group is recovered as $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathrm{Hom}_R(M, N)$ (independent of $i$)",
+              "$\\mathrm{Tor}_i^R(M, N)$",
+              "$\\mathrm{Ext}_R^i(M, N)$",
+              "$0$ unless $i = 0$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$. Tor would appear via $\\otimes^L$, not Hom. For $i = 0$ this gives ordinary Hom; for $i > 0$ we get the higher Ext groups."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct definition of $D^b(\\mathcal{A})$?",
+            "choices": [
+              "The derived category of complexes that are zero in some degree.",
+              "$D^+(\\mathcal{A}) \\cap D^-(\\mathcal{A})$ — complexes bounded both above and below.",
+              "$D^+(\\mathcal{A}) \\cup D^-(\\mathcal{A})$ — complexes bounded above OR below.",
+              "Complexes whose total cohomology $\\bigoplus H^i$ is finite-dimensional."
+            ],
+            "answer": 1,
+            "explain": "$D^b = D^+ \\cap D^-$, complexes bounded in both directions. Note: \"bounded\" can be interpreted strictly (the complex itself has $X^n = 0$ outside a range) or weakly via cohomology — for nice $\\mathcal{A}$ the two agree up to quasi-iso."
+          },
+          {
+            "type": "matching",
+            "q": "Match each subcategory of $D(\\mathcal{A})$ with what it parameterizes.",
+            "left": [
+              "Right derived functors $RF$",
+              "Left derived functors $LF$",
+              "Cohomology $H^i$ in finite range",
+              "Heart of the standard $t$-structure"
+            ],
+            "right": [
+              "$D^+(\\mathcal{A})$",
+              "$D^-(\\mathcal{A})$",
+              "$D^b(\\mathcal{A})$",
+              "$\\mathcal{A}$ embedded as $M \\mapsto M[0]$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$RF$ requires injective resolutions, which exist for bounded-below complexes ($D^+$). $LF$ dually wants projective resolutions, hence $D^-$. Bounded cohomology is the data of $D^b$. The heart of the standard $t$-structure is $\\mathcal{A}$ shifted to degree $0$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $R = k[x]/(x^2)$ for a field $k$. Compute $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(k[0], k[i])$ as a $k$-vector space, where $k = R/(x)$.",
+            "choices": [
+              "$k$ for $i = 0$ only; $0$ otherwise.",
+              "$k$ for every $i \\ge 0$; $0$ for $i < 0$.",
+              "$k^{i+1}$ for $i \\ge 0$.",
+              "$k$ for $i \\in \\{0\\}$ and $k^2$ otherwise."
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Hom}_{D}(k, k[i]) = \\mathrm{Ext}^i_R(k, k)$. A free resolution of $k$ is $\\dots \\to R \\xrightarrow{x} R \\xrightarrow{x} R \\to k \\to 0$ — periodic. Applying $\\mathrm{Hom}_R(-, k)$ gives $k \\xrightarrow{0} k \\xrightarrow{0} k \\to \\dots$ (since $x$ acts as $0$ on $k$). So $\\mathrm{Ext}^i_R(k, k) = k$ for every $i \\ge 0$. This is the prototypical \"Koszul-dual\" computation: a 0-dimensional non-reduced ring has nontrivial Ext in every degree.",
+            "hint": "Resolve $k$ over $R = k[x]/(x^2)$ — the resolution is periodic."
           }
         ]
       },
@@ -6065,52 +6468,60 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Triangulated structure and exact triangles\"?",
+            "q": "Given a chain map $f\\colon X \\to Y$ in $\\mathrm{Ch}(\\mathcal{A})$, the mapping cone $\\mathrm{Cone}(f)$ has:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathrm{Cone}(f)^n = X^n \\oplus Y^n$ with differential $\\mathrm{diag}(d_X, d_Y)$",
+              "$\\mathrm{Cone}(f)^n = X^{n+1} \\oplus Y^n$ with differential $\\bigl(\\begin{smallmatrix}-d_X & 0 \\\\ f & d_Y\\end{smallmatrix}\\bigr)$",
+              "$\\mathrm{Cone}(f)^n = X^n \\otimes Y^{n+1}$ with differential induced by the Leibniz rule",
+              "$\\mathrm{Cone}(f)^n = Y^n / f(X^n)$, the quotient"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
-          }
-        ]
-      },
-      "t-structures": {
-        "title": "$t$-structures and hearts",
-        "questions": [
+            "answer": 1,
+            "explain": "The cone shifts $X$ up by one and adjoins $Y$ in the same degree, with a twisted differential mixing $d_X, d_Y$, and $f$. The minus sign on $d_X$ is forced by $d^2 = 0$ together with the chain-map condition."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are axioms or immediate consequences of the triangulated structure on $D(\\mathcal{A})$?",
+            "choices": [
+              "Every morphism extends to a distinguished triangle.",
+              "The third object in a triangle is unique up to a canonical isomorphism (functorially).",
+              "Rotating a distinguished triangle gives another distinguished triangle.",
+              "Cohomology functors $\\mathcal{T} \\to \\mathcal{B}$ send triangles to long exact sequences."
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "(a), (c), (d) are part of the standard package. (b) is FALSE — uniqueness of the cone is only up to non-canonical iso, and the failure of functoriality of the cone is what prevents triangulated categories from being abelian.",
+            "hint": "Watch out for \"canonical\" — that's a strong word."
+          },
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$t$-structures and hearts\"?",
+            "q": "A short exact sequence $0 \\to A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\to 0$ in $\\mathcal{A}$ becomes a distinguished triangle in $D(\\mathcal{A})$:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\xrightarrow{0} A[1]$ — the connecting map is zero.",
+              "$A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\xrightarrow{\\delta} A[1]$, where $\\delta$ is a connecting map representing the extension class.",
+              "$A \\xrightarrow{\\iota} B \\xrightarrow{0} C \\xrightarrow{0} A[1]$ — only the inclusion is nontrivial.",
+              "Three triangles, one for each pair of consecutive maps."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "The triangle has a nonzero connecting map $\\delta\\colon C \\to A[1]$ representing the class $[B]$ in $\\mathrm{Ext}^1_{\\mathcal{A}}(C, A) = \\mathrm{Hom}_D(C, A[1])$. The class is zero iff the SES splits — generically it does not.",
+            "hint": "What if the SES does NOT split?"
           }
-        ]
-      },
-      "examples-D-Coh": {
-        "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
-        "questions": [
+        ],
+        "hard": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai\"?",
+            "q": "Take the chain map $f\\colon \\mathbb{Z}[0] \\xrightarrow{n} \\mathbb{Z}[0]$ in $\\mathrm{Ch}(\\mathrm{Ab})$ (multiplication by a nonzero integer $n$, both complexes concentrated in degree $0$). What is its mapping cone, viewed in $D^b(\\mathrm{Ab})$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathbb{Z}[0]$ — degree-$0$ free group",
+              "The zero complex",
+              "Quasi-isomorphic to $\\mathbb{Z}/n$ in a single degree",
+              "$\\mathbb{Z}[1]$ — free, shifted up"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "$\\mathrm{Cone}(f)$ is the 2-term complex $\\mathbb{Z} \\xrightarrow{n} \\mathbb{Z}$ supported in two consecutive degrees. Cohomology is concentrated in one degree: kernel of $\\times n$ is $0$, cokernel is $\\mathbb{Z}/n$. So in $D^b(\\mathrm{Ab})$, $\\mathrm{Cone}(f)$ is quasi-iso to $\\mathbb{Z}/n$ shifted into a single degree. The corresponding distinguished triangle $\\mathbb{Z} \\xrightarrow{n} \\mathbb{Z} \\to \\mathbb{Z}/n[\\text{shift}] \\to \\mathbb{Z}[1]$ recovers the SES $0 \\to \\mathbb{Z} \\xrightarrow{n} \\mathbb{Z} \\to \\mathbb{Z}/n \\to 0$.",
+            "hint": "The cone has cohomology only in one degree."
           }
         ]
       },
@@ -6119,16 +6530,154 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Derived functors $RF, LF$\"?",
+            "q": "What does it mean for $F\\colon \\mathcal{A} \\to \\mathcal{B}$ to admit a right derived functor $RF\\colon D^+(\\mathcal{A}) \\to D^+(\\mathcal{B})$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$F$ is exact.",
+              "$\\mathcal{A}$ has enough injectives, and $F$ is left exact (or at least additive).",
+              "$F$ commutes with arbitrary colimits.",
+              "$F$ is fully faithful."
+            ],
+            "answer": 1,
+            "explain": "The classical construction needs enough injectives in $\\mathcal{A}$ (so every $X$ has an injective resolution $X \\to I^\\bullet$) and additivity of $F$. Left exactness is what forces $RF$ to extend $F$ in degree $0$: $R^0 F(X) = F(X)$ for $X \\in \\mathcal{A}$.",
+            "hint": "What is needed to choose injective resolutions?"
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/6, \\mathbb{Z}/4)$ as an abelian group, then enter its order (number of elements).",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Use the resolution $0 \\to \\mathbb{Z} \\xrightarrow{6} \\mathbb{Z} \\to \\mathbb{Z}/6 \\to 0$. Apply $\\mathrm{Hom}(-, \\mathbb{Z}/4)$: get $\\mathbb{Z}/4 \\xrightarrow{6} \\mathbb{Z}/4$. Multiplication by $6 \\equiv 2 \\pmod 4$ has kernel $\\{0, 2\\}$ and cokernel $\\{0, 1\\}/\\langle 2\\rangle = \\mathbb{Z}/2$. So $\\mathrm{Ext}^1 = \\mathbb{Z}/2$, order $2$. (General formula: $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m,n)$, and $\\gcd(6,4) = 2$.)",
+            "hint": "$\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m, n)$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student computes $R\\Gamma(X, \\mathcal{F})$ for $X = \\mathbb{P}^1$, $\\mathcal{F} = \\mathcal{O}_{\\mathbb{P}^1}(-2)$. Find the flawed step.",
+            "steps": [
+              "Take a Čech cover by two affines $U_0 = \\{x_0 \\neq 0\\}$, $U_1 = \\{x_1 \\neq 0\\}$.",
+              "$\\Gamma(U_0, \\mathcal{O}(-2)) = 0$ and $\\Gamma(U_1, \\mathcal{O}(-2)) = 0$ — no global sections on each chart.",
+              "Therefore $H^0(X, \\mathcal{O}(-2)) = 0$ and $H^1(X, \\mathcal{O}(-2)) = 0$.",
+              "So $R\\Gamma(\\mathcal{O}(-2)) \\simeq 0$ in $D^b(\\mathrm{Vect}_k)$.",
+              "Hence $\\mathcal{O}(-2) \\simeq 0$ in $D^b(\\mathrm{Coh}\\,\\mathbb{P}^1)$ — but that's absurd."
+            ],
+            "answer": 1,
+            "explain": "Step (2) is wrong: $\\Gamma(U_i, \\mathcal{O}(-2))$ over an affine chart $U_i \\cong \\mathbb{A}^1$ is the FREE module on a generator (Laurent polynomials in one variable, with a degree shift). It is large, not zero. Computing the Čech cohomology correctly gives $H^0(\\mathbb{P}^1, \\mathcal{O}(-2)) = 0$ and $H^1(\\mathbb{P}^1, \\mathcal{O}(-2)) = k$ (Serre duality with $\\mathcal{O}(0)$). $R\\Gamma$ is not zero — and that's why $\\mathcal{O}(-2)$ is a nontrivial derived-category object.",
+            "hint": "What is $\\Gamma$ of a line bundle on an affine chart?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "When does $R(G \\circ F) \\cong RG \\circ RF$ as triangulated functors $D^+(\\mathcal{A}) \\to D^+(\\mathcal{C})$?",
+            "choices": [
+              "Always, for any composable left-exact functors.",
+              "When $F$ sends injectives in $\\mathcal{A}$ to injectives in $\\mathcal{B}$.",
+              "When $F$ sends injectives in $\\mathcal{A}$ to $G$-acyclic objects in $\\mathcal{B}$ (i.e. $R^i G$ vanishes on $F$(injectives) for $i > 0$).",
+              "Only when $G$ is exact."
+            ],
+            "answer": 2,
+            "explain": "(c) is the standard composition theorem (Grothendieck spectral sequence's degeneracy criterion). (b) is sufficient (an injective is a-fortiori acyclic) but not the sharpest condition. The general statement uses acyclicity. The Grothendieck SS $E_2^{p,q} = R^p G(R^q F(X)) \\Rightarrow R^{p+q}(GF)(X)$ collapses precisely when this hypothesis holds.",
+            "hint": "It involves acyclicity of $F$(injectives) for $G$."
+          },
+          {
+            "type": "mcq",
+            "q": "Compute $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/4, \\mathbb{Z}/6)$.",
+            "choices": [
+              "$\\mathbb{Z}/2$",
+              "$0$",
+              "$\\mathbb{Z}/4$",
+              "$\\mathbb{Z}/\\gcd(4,6) = \\mathbb{Z}/2$"
+            ],
+            "answer": 1,
+            "explain": "Over $\\mathbb{Z}$, every module has a free resolution of length $\\le 1$ (PID). So $\\mathrm{Tor}_i^{\\mathbb{Z}} = 0$ for $i \\ge 2$. (Compare: $\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/4, \\mathbb{Z}/6) = \\mathbb{Z}/2$.) Higher Tor over a Dedekind domain always vanishes.",
+            "hint": "What is the projective dimension of any $\\mathbb{Z}$-module?"
+          }
+        ]
+      },
+      "t-structures": {
+        "title": "$t$-structures and hearts",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the standard $t$-structure on $D(\\mathrm{Ab})$, the heart $\\heartsuit = D^{\\le 0} \\cap D^{\\ge 0}$ is equivalent to:",
+            "choices": [
+              "$D^b(\\mathrm{Ab})$",
+              "$\\mathrm{Ab}$ — the original abelian category, embedded as $M \\mapsto M[0]$",
+              "The category of complexes with finite total cohomology",
+              "The trivial category $0$"
+            ],
+            "answer": 1,
+            "explain": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$ shifted to degree $0$. So $\\heartsuit \\simeq \\mathcal{A}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The truncation triangle $\\tau_{\\le 0} X \\to X \\to \\tau_{\\ge 1} X \\to (\\tau_{\\le 0} X)[1]$ has which property?",
+            "choices": [
+              "$\\tau_{\\le 0} X$ and $\\tau_{\\ge 1} X$ are both in $\\mathcal{A}$ (degree $0$).",
+              "Concentrated in $D^{\\le 0}$ and $D^{\\ge 1}$ respectively, and the triangle is unique up to unique isomorphism.",
+              "Always splits, so $X \\simeq \\tau_{\\le 0} X \\oplus \\tau_{\\ge 1} X$.",
+              "Distinguished only when $\\mathcal{A}$ has finite cohomological dimension."
+            ],
+            "answer": 1,
+            "explain": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle. Splitting is the special case when $\\mathrm{Hom}(\\tau_{\\ge 1} X, \\tau_{\\le 0} X[1]) = 0$, which is RARE — the connecting map carries the gluing data."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these are TRUE about $t$-structures on a triangulated category $\\mathcal{T}$?",
+            "choices": [
+              "The heart $\\heartsuit$ is automatically abelian.",
+              "$H^0\\colon \\mathcal{T} \\to \\heartsuit$ is a cohomological functor (sends triangles to long exact sequences in $\\heartsuit$).",
+              "Every triangulated category has a unique $t$-structure.",
+              "Different $t$-structures on the same triangulated category can have non-equivalent hearts."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "(a), (b) are theorems. (d) is the whole point of perverse $t$-structures: $D^b_c(X)$ has both standard and perverse $t$-structures, with hearts $\\mathrm{Sh}_c(X)$ vs perverse sheaves — different abelian categories! (c) is FALSE — $t$-structures are extra data, not unique."
+          }
+        ]
+      },
+      "examples-D-Coh": {
+        "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Bondal–Orlov: when does the derived category $D^b(\\mathrm{Coh}\\,X)$ recover the smooth projective variety $X$?",
+            "choices": [
+              "Always — $X$ is determined by $D^b(\\mathrm{Coh}\\,X)$ for every smooth projective $X$.",
+              "When $\\omega_X$ (or $\\omega_X^{-1}$) is ample.",
+              "When $X$ is a curve.",
+              "Only when $X$ has trivial canonical bundle."
+            ],
+            "answer": 1,
+            "explain": "Bondal–Orlov: if $\\omega_X$ is ample (general type) or $\\omega_X^{-1}$ is ample (Fano), then $D^b(\\mathrm{Coh}\\,X)$ determines $X$. The hypothesis FAILS for Calabi–Yau ($\\omega_X$ trivial) and abelian varieties — and that's where derived equivalences between non-isomorphic varieties happen.",
+            "hint": "The result fails for Calabi–Yau and abelian varieties — what's special about those?"
+          },
+          {
+            "type": "mcq",
+            "q": "The Fourier–Mukai transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\to D^b(Y)$ associated to a kernel $\\mathcal{P} \\in D^b(X \\times Y)$ is defined as:",
+            "choices": [
+              "$R\\pi_{Y,*}(\\pi_X^* \\mathcal{E} \\otimes^L \\mathcal{P})$",
+              "$\\pi_{X,*}(\\pi_Y^* \\mathcal{E} \\otimes \\mathcal{P})$",
+              "$R\\mathrm{Hom}(\\mathcal{P}, \\mathcal{E})$",
+              "$\\mathcal{E} \\otimes \\mathcal{P}$ (no projections)"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "The standard formula: pull back to the product, twist by the kernel, derived push forward. Its analogy with the classical Fourier transform $\\hat f(\\xi) = \\int f(x) e^{-2\\pi i x \\xi}\\,dx$ explains the name."
+          },
+          {
+            "type": "mcq",
+            "q": "Mukai's original Fourier–Mukai transform identifies $D^b(X)$ with $D^b(\\hat X)$ where:",
+            "choices": [
+              "$X$ is any smooth projective variety, $\\hat X$ the dual variety in projective space",
+              "$X$ is an abelian variety, $\\hat X = \\mathrm{Pic}^0(X)$ the dual abelian variety, $\\mathcal{P}$ the Poincaré bundle",
+              "$X$ is a Calabi–Yau threefold, $\\hat X$ its mirror",
+              "$X$ is a K3 surface, $\\hat X$ a Hilbert scheme of points"
+            ],
+            "answer": 1,
+            "explain": "Mukai's 1981 theorem: for $X$ an abelian variety with dual $\\hat X$ and Poincaré bundle $\\mathcal{P}$ on $X \\times \\hat X$, the FM transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\xrightarrow{\\sim} D^b(\\hat X)$ is an equivalence. (b), (c), (d) are also derived-equivalence phenomena but not Mukai's specific construction.",
+            "hint": "Look up the Poincaré bundle."
           }
         ]
       }
@@ -9065,17 +9614,43 @@ window.MVQuizBank = {
         "title": "Finite étale covers",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Finite étale covers\"?",
+            "type": "multi-select",
+            "q": "Which conditions together define a finite étale morphism $f\\colon Y \\to X$ of schemes?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$f$ is finite",
+              "$f$ is flat",
+              "$f$ is unramified ($\\Omega^1_{Y/X} = 0$)",
+              "$f$ is proper but not necessarily finite",
+              "$f$ is surjective on closed points"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Finite étale = finite + flat + unramified. Equivalently, finite + smooth of relative dimension 0. Properness is implied by finiteness; surjectivity is not in the definition (a finite étale cover may have multiple connected components mapping to a connected base).",
+            "hint": "There are exactly three independent local conditions."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Q}[t,t^{-1}] = \\mathbb{G}_{m,\\mathbb{Q}}$ and let $Y = \\mathrm{Spec}\\,\\mathbb{Q}[s,s^{-1}]$ with $s^5 = t$. What is the degree (i.e. rank of $f_*\\mathcal{O}_Y$) of this finite étale cover $f\\colon Y \\to X$?",
+            "answer": 5,
+            "tol": 0.0001,
+            "explain": "$\\mathbb{Q}[s,s^{-1}]$ is free of rank 5 over $\\mathbb{Q}[t,t^{-1}]$ with basis $1, s, s^2, s^3, s^4$. The fiber over any geometric point has 5 elements (the 5 fifth roots of the chosen value of $t$).",
+            "hint": "Count a free basis of $\\mathbb{Q}[s,s^{-1}]$ over $\\mathbb{Q}[t,t^{-1}]$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where does this argument that $f\\colon \\mathrm{Spec}\\,\\mathbb{F}_p[s] \\to \\mathrm{Spec}\\,\\mathbb{F}_p[t]$, $t = s^p$, is finite étale go wrong?",
+            "steps": [
+              "$f$ is finite: $\\mathbb{F}_p[s]$ is free of rank $p$ over $\\mathbb{F}_p[t]$ with basis $1, s, \\ldots, s^{p-1}$.",
+              "$f$ is flat: free implies flat.",
+              "$f$ is unramified: $\\Omega^1_{Y/X} = \\mathbb{F}_p[s]\\,ds / (d(s^p)) = \\mathbb{F}_p[s]\\,ds / (p s^{p-1}\\,ds) = \\mathbb{F}_p[s]\\,ds$ — and this module is generated by $ds$ alone, so it is `small enough' to vanish.",
+              "Therefore $f$ is finite étale of degree $p$."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong. $\\Omega^1_{Y/X}$ is a free rank-1 $\\mathbb{F}_p[s]$-module (generated by $ds$), not zero — that is the opposite of unramified. The map $s \\mapsto s^p$ is purely inseparable in characteristic $p$, hence not étale; the argument that 'one generator means small' is bogus.",
+            "hint": "Look carefully at the relation $d(s^p) = p\\,s^{p-1}\\,ds$ in characteristic $p$."
           }
         ]
       },
@@ -9084,16 +9659,78 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The fiber functor at a geometric point\"?",
+            "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Q}$ and $\\bar{x} = \\mathrm{Spec}\\,\\overline{\\mathbb{Q}}$, what is the cardinality of $F_{\\bar{x}}(\\mathrm{Spec}\\,\\mathbb{Q}(\\sqrt[3]{2}))$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "1",
+              "2",
+              "3",
+              "6"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "$F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}_{\\mathbb{Q}}(L, \\overline{\\mathbb{Q}})$, which has cardinality $[L:\\mathbb{Q}] = 3$ for $L = \\mathbb{Q}(\\sqrt[3]{2})$ (the embeddings send $\\sqrt[3]{2}$ to $\\sqrt[3]{2}$, $\\omega\\sqrt[3]{2}$, or $\\omega^2\\sqrt[3]{2}$). Note that $L/\\mathbb{Q}$ is not Galois — $|\\mathrm{Aut}(L/\\mathbb{Q})| = 1$, but the fiber still has 3 points.",
+            "hint": "Count $\\mathbb{Q}$-algebra embeddings of $\\mathbb{Q}(\\sqrt[3]{2})$ into $\\overline{\\mathbb{Q}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a property of the fiber functor $F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$?",
+            "choices": [
+              "$F_{\\bar{x}}$ is faithful (no two distinct cover-morphisms induce the same set map of fibers).",
+              "$F_{\\bar{x}}$ preserves fiber products and disjoint unions.",
+              "$F_{\\bar{x}}$ takes values in finite sets.",
+              "$F_{\\bar{x}}$ is representable by a single object of $\\mathrm{F\\acute{E}t}/X$."
+            ],
+            "answer": 3,
+            "explain": "Faithfulness, exactness, and finite values are exactly the axioms making $\\mathrm{F\\acute{E}t}/X$ a Galois category. $F_{\\bar{x}}$ is only <em>pro-representable</em> in general — by the universal cover viewed as a pro-object of $\\mathrm{F\\acute{E}t}/X$ — not representable by a single finite étale cover (covers of $X$ by simply-connected schemes don't exist when $\\pi_1^{\\acute{e}t}$ is infinite).",
+            "hint": "What kind of object would represent it, and does it live in the category $\\mathrm{F\\acute{E}t}/X$ itself?"
+          },
+          {
+            "type": "matching",
+            "q": "Match each cover of $\\mathrm{Spec}\\,\\mathbb{R}$ with $|F_{\\bar{x}}(\\,\\cdot\\,)|$ for $\\bar{x} = \\mathrm{Spec}\\,\\mathbb{C}$.",
+            "left": [
+              "the trivial cover (i.e. $\\mathrm{Spec}\\,\\mathbb{R}$ over itself)",
+              "$\\mathrm{Spec}\\,\\mathbb{C} \\to \\mathrm{Spec}\\,\\mathbb{R}$",
+              "$\\mathrm{Spec}(\\mathbb{C} \\times \\mathbb{R}) \\to \\mathrm{Spec}\\,\\mathbb{R}$"
+            ],
+            "right": [
+              "1 point",
+              "2 points",
+              "3 points"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$|F_{\\bar{x}}(\\mathrm{Spec}\\,A)| = \\dim_{\\mathbb{R}} A$ for a finite étale $\\mathbb{R}$-algebra $A$. Trivial cover: 1. $\\mathbb{C}/\\mathbb{R}$: 2. $\\mathbb{C}\\times\\mathbb{R}$: $2+1 = 3$. The fiber sees the underlying rank, not the field-theoretic structure.",
+            "hint": "$|F_{\\bar{x}}(\\mathrm{Spec}\\,A)| = \\mathrm{rank}_{\\mathbb{R}}(A)$ for finite étale $A$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Two geometric points $\\bar{x}, \\bar{x}'$ over the same scheme-theoretic point of $X$ generally give non-equal fiber functors $F_{\\bar{x}}, F_{\\bar{x}'}$. What is the precise relationship between them?",
+            "choices": [
+              "They are equal as functors.",
+              "They are isomorphic as functors, and the set of natural isomorphisms $F_{\\bar{x}} \\Rightarrow F_{\\bar{x}'}$ is a torsor under $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "They are non-isomorphic in general.",
+              "They are isomorphic only if $X$ is Galois over a base."
+            ],
+            "answer": 1,
+            "explain": "Any two fiber functors at geometric points are (non-canonically) isomorphic — this is the analogue of 'change of basepoint' in topological $\\pi_1$. The set of isomorphisms is a torsor under either fundamental group, and choosing one identifies the two groups up to inner automorphism.",
+            "hint": "Compare with the classical fact that based vs. free homotopy classes of paths give a torsor under $\\pi_1$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where does this 'proof' that the fiber functor on $\\mathrm{Spec}\\,k$ is representable by a single finite étale cover go wrong (assume $k$ is a field with infinite absolute Galois group)?",
+            "steps": [
+              "$F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/\\mathrm{Spec}\\,k \\to \\mathrm{FinSet}$ is a functor with values in finite sets.",
+              "By the Yoneda lemma applied to corepresentable functors, $F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}(\\mathrm{Spec}\\,L, P)$ for some object $P$.",
+              "Since $F_{\\bar{x}}$ takes values in finite sets and $\\mathrm{F\\acute{E}t}/\\mathrm{Spec}\\,k$ is closed under products, $P$ is itself finite étale over $\\mathrm{Spec}\\,k$.",
+              "So the fiber functor is representable by a single finite étale cover."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong. $P$ exists only as a <em>pro-object</em>: $P = \\varprojlim_{L} \\mathrm{Spec}\\,L$ over all finite separable $L/k^{\\mathrm{sep}}$. This is $\\mathrm{Spec}\\,k^{\\mathrm{sep}}$, which has infinite-dimensional structure sheaf when $k^{\\mathrm{sep}}/k$ is an infinite extension (e.g. $k = \\mathbb{Q}$). It is not a finite étale cover. The closure-under-products argument fails because finite étale covers form a category closed under finite products but not arbitrary pro-objects.",
+            "hint": "Could $P = \\mathrm{Spec}\\,\\overline{\\mathbb{Q}}$ ever be finite étale over $\\mathrm{Spec}\\,\\mathbb{Q}$?"
           }
         ]
       },
@@ -9101,17 +9738,88 @@ window.MVQuizBank = {
         "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$\"?",
-            "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+            "type": "ordering",
+            "q": "Arrange the steps of Grothendieck's construction of $\\pi_1^{\\acute{e}t}$ in their logical order.",
+            "items": [
+              "Choose a geometric point $\\bar{x}\\colon \\mathrm{Spec}\\,\\Omega \\to X$.",
+              "Define the fiber functor $F_{\\bar{x}}(Y) = Y_{\\bar{x}}(\\Omega)$ on $\\mathrm{F\\acute{E}t}/X$.",
+              "Take $\\pi_1^{\\acute{e}t}(X,\\bar{x}) := \\mathrm{Aut}(F_{\\bar{x}})$ as a group.",
+              "Endow $\\pi_1^{\\acute{e}t}$ with the inverse-limit topology from $\\prod_Y \\mathrm{Sym}(F_{\\bar{x}}(Y))$.",
+              "Conclude $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X,\\bar{x})\\text{-FinSet}$."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "explain": "Geometric point → fiber functor → automorphism group → topology → equivalence of categories. Each step uses the previous; the equivalence is the payoff.",
+            "hint": "What's the very first datum you choose, and what's the last theorem you prove?"
+          },
+          {
+            "type": "mcq",
+            "q": "Under the equivalence $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X,\\bar{x})\\text{-FinSet}$, what corresponds to a connected finite étale cover $Y \\to X$ of degree $n$?",
+            "choices": [
+              "An open normal subgroup of $\\pi_1^{\\acute{e}t}$ of index $n$.",
+              "An open subgroup of $\\pi_1^{\\acute{e}t}$ of index $n$.",
+              "An arbitrary subgroup of order $n$.",
+              "A continuous homomorphism $\\pi_1^{\\acute{e}t} \\to \\mathbb{Z}/n$."
+            ],
+            "answer": 1,
+            "explain": "Connected covers ↔ transitive actions on finite sets ↔ open subgroups (the stabilizer of a fiber point), index = degree. Normality is the extra condition that singles out <em>Galois</em> (regular) covers, where the cover is itself a torsor under $\\pi_1^{\\acute{e}t}/H$.",
+            "hint": "Transitive actions on $n$-element sets ↔ stabilizer subgroups of which index?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are properties of $\\pi_1^{\\acute{e}t}(X, \\bar{x})$ for $X$ a connected scheme?",
+            "choices": [
+              "Profinite (compact, totally disconnected, Hausdorff).",
+              "Always finitely generated (as an abstract group).",
+              "Defined up to inner automorphism by the choice of $\\bar{x}$.",
+              "Equal to its profinite completion (i.e. itself).",
+              "Acts continuously on $F_{\\bar{x}}(Y)$ for every cover $Y$."
+            ],
+            "answer": [
+              0,
+              2,
+              3,
+              4
+            ],
+            "explain": "Profinite by construction (inverse limit of finite groups), so equal to its own profinite completion (a profinite group is its own profinite completion). Choice of basepoint changes the group up to inner automorphism. Continuous action on each fiber is the equivalence-of-categories statement. NOT finitely generated: $\\hat{\\mathbb{Z}}$ is not finitely generated as an abstract group (only topologically).",
+            "hint": "$\\hat{\\mathbb{Z}}$ is uncountable — could it be finitely generated as an abstract group?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $Y \\to X$ be a Galois cover with Galois group $G$. What is the relationship between $G$ and $\\pi_1^{\\acute{e}t}(X, \\bar{x})$?",
+            "choices": [
+              "$G$ is a closed subgroup of $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "$G$ is a continuous quotient of $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "$G$ equals $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "$G = \\pi_1^{\\acute{e}t}(Y, \\bar{x})$."
+            ],
+            "answer": 1,
+            "explain": "A Galois cover with group $G$ corresponds to an open <em>normal</em> subgroup $H \\triangleleft \\pi_1^{\\acute{e}t}$ with $\\pi_1^{\\acute{e}t}/H = G$. So $G$ is a finite continuous quotient — exactly the way $\\mathrm{Gal}(L/k)$ is a quotient of $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$.",
+            "hint": "Galois covers correspond to open normal subgroups; what does the quotient look like?"
+          },
+          {
+            "type": "proof-completion",
+            "q": "Prove that $\\pi_1^{\\acute{e}t}$ of a connected scheme is profinite. The next step after the given ones is:",
+            "steps": [
+              "$\\pi_1^{\\acute{e}t}(X,\\bar{x}) := \\mathrm{Aut}(F_{\\bar{x}})$ embeds into $\\prod_Y \\mathrm{Sym}(F_{\\bar{x}}(Y))$ via $\\sigma \\mapsto (\\sigma_Y)_Y$.",
+              "Each $\\mathrm{Sym}(F_{\\bar{x}}(Y))$ is a finite group (since $F_{\\bar{x}}(Y)$ is a finite set), so the product carries a profinite topology making it compact, totally disconnected, Hausdorff."
+            ],
+            "choices": [
+              "The image is open in the product, hence locally compact.",
+              "The image is closed in the product (it is cut out by the naturality conditions, which are equalities of finite sets), hence inherits a profinite topology.",
+              "The image is dense in the product, so $\\pi_1^{\\acute{e}t}$ is profinite by closure.",
+              "The image is finite, since each constraint cuts out a single element."
+            ],
+            "answer": 1,
+            "explain": "Each naturality condition $F_{\\bar{x}}(g)\\circ\\sigma_Y = \\sigma_{Y'}\\circ F_{\\bar{x}}(g)$ is a closed condition (an equality of permutations in a finite group — its complement is open in the product topology). Intersection of closed sets is closed. A closed subgroup of a profinite group is profinite.",
+            "hint": "Naturality conditions are equalities — what's the topological character of an equality cut?"
           }
         ]
       },
@@ -9120,16 +9828,59 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$\"?",
+            "q": "What is $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{R})$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "trivial",
+              "$\\mathbb{Z}/2$",
+              "$\\mathbb{Z}$",
+              "$\\hat{\\mathbb{Z}}$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(k^{\\mathrm{sep}}/k)$. For $k = \\mathbb{R}$, $k^{\\mathrm{sep}} = \\mathbb{C}$ and $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R}) = \\mathbb{Z}/2$, generated by complex conjugation. The only nontrivial connected finite étale cover of $\\mathrm{Spec}\\,\\mathbb{R}$ is $\\mathrm{Spec}\\,\\mathbb{C}$.",
+            "hint": "List the finite separable extensions of $\\mathbb{R}$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each open subgroup of $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ with the connected finite étale cover of $\\mathrm{Spec}\\,\\mathbb{Q}$ it corresponds to.",
+            "left": [
+              "the full group $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+              "$\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}(i))$",
+              "$\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}(\\sqrt[3]{2}))$"
+            ],
+            "right": [
+              "$\\mathrm{Spec}\\,\\mathbb{Q}$ (trivial cover, degree 1)",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}(i)$ (degree 2)",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}(\\sqrt[3]{2})$ (degree 3, not Galois)"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Open $H \\le \\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ ↔ finite separable $L \\subset \\overline{\\mathbb{Q}}$ via $L = \\overline{\\mathbb{Q}}^H$, with $[L:\\mathbb{Q}] = [\\mathrm{Gal}:H]$. Note that $\\mathbb{Q}(\\sqrt[3]{2})/\\mathbb{Q}$ is not Galois — the corresponding subgroup is not normal — but the equivalence works on all (connected) covers, not just Galois ones.",
+            "hint": "Index of $H$ = degree of the cover."
+          },
+          {
+            "type": "numeric",
+            "q": "How many connected finite étale covers does $\\mathrm{Spec}\\,\\mathbb{F}_5$ have of degree dividing 4 (counting up to isomorphism, i.e. counting subgroups of $\\mathrm{Gal}(\\overline{\\mathbb{F}_5}/\\mathbb{F}_5)$ of index dividing 4)?",
+            "answer": 3,
+            "tol": 0.0001,
+            "explain": "Connected covers of degree $n$ ↔ open subgroups of index $n$ in $\\hat{\\mathbb{Z}}$, of which there is exactly one (corresponding to $\\mathrm{Spec}\\,\\mathbb{F}_{5^n}$). Indices dividing 4: $n=1,2,4$, giving 3 covers (no $n=3$ contribution since $3 \\nmid 4$).",
+            "hint": "How many open subgroups of $\\hat{\\mathbb{Z}}$ have index $n$ exactly?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why do we use $k^{\\mathrm{sep}}$ rather than $\\bar{k}$ in defining the geometric basepoint $\\bar{x} = \\mathrm{Spec}\\,k^{\\mathrm{sep}}$?",
+            "choices": [
+              "Because $\\bar{k}/k$ is rarely Galois.",
+              "Because the étale site sees only separable extensions — purely inseparable extensions are not étale.",
+              "Because $k^{\\mathrm{sep}}$ is always Galois over $k$ but $\\bar{k}$ is not.",
+              "Because the absolute Galois group of $k$ is by convention $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$, not $\\mathrm{Aut}(\\bar{k}/k)$."
+            ],
+            "answer": 1,
+            "explain": "Finite étale extensions of fields are exactly finite separable extensions. Purely inseparable extensions $k(t^{1/p})/k(t)$ in characteristic $p$ are <em>not</em> étale — they fail unramifiedness ($\\Omega^1 \\ne 0$). So the étale fundamental group only sees finite quotients of $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$; the difference between $k^{\\mathrm{sep}}$ and $\\bar{k}$ disappears for perfect $k$ (e.g. characteristic 0 or finite fields)."
           }
         ]
       },
@@ -9138,16 +9889,42 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$\"?",
+            "q": "What is $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$ as an abstract topological group?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathbb{Z}$",
+              "$\\hat{\\mathbb{Z}} = \\varprojlim \\mathbb{Z}/n$",
+              "$\\mathbb{Z}/(q-1)$",
+              "$\\mathrm{GL}_1(\\mathbb{F}_q)$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "$\\mathbb{F}_q$ has a unique extension $\\mathbb{F}_{q^n}/\\mathbb{F}_q$ in each degree $n$, and they fit into a tower with $\\mathrm{Gal}(\\mathbb{F}_{q^n}/\\mathbb{F}_q) = \\mathbb{Z}/n$ (generated by Frobenius). The inverse limit is $\\hat{\\mathbb{Z}}$. Note: NOT $\\mathbb{Z}$ — $\\hat{\\mathbb{Z}}$ is the profinite completion of $\\mathbb{Z}$ and is uncountable.",
+            "hint": "Take an inverse limit over all finite extensions of $\\mathbb{F}_q$."
+          },
+          {
+            "type": "numeric",
+            "q": "Frobenius $\\mathrm{Frob}_q$ acts on the geometric fiber of $\\mathrm{Spec}\\,\\mathbb{F}_{q^{12}} \\to \\mathrm{Spec}\\,\\mathbb{F}_q$. How many orbits does $\\mathrm{Frob}_q^4$ have on this 12-point fiber?",
+            "answer": 4,
+            "tol": 0.0001,
+            "explain": "Frobenius $\\mathrm{Frob}_q$ acts as a 12-cycle on the fiber (the cover is connected, of degree 12). Its 4th power $\\mathrm{Frob}_q^4$ acts as a permutation with $\\gcd(4, 12) = 4$ disjoint cycles, each of length $12 / 4 = 3$. So 4 orbits.",
+            "hint": "$\\mathrm{Frob}_q^a$ on a $\\mathbb{Z}/n$-cycle has $\\gcd(a,n)$ orbits."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which integers $a \\in \\{1, 2, 3, 4, 5, 6\\}$ have the property that $\\mathrm{Frob}_q^a$ generates the same cyclic group $\\mathbb{Z}/6$ as $\\mathrm{Frob}_q$ on the 6-point fiber of $\\mathrm{Spec}\\,\\mathbb{F}_{q^6} \\to \\mathrm{Spec}\\,\\mathbb{F}_q$?",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "answer": [
+              0,
+              4
+            ],
+            "explain": "$\\mathrm{Frob}_q^a$ generates $\\mathbb{Z}/6$ iff $\\gcd(a, 6) = 1$, i.e. $a \\in \\{1, 5\\}$ (these are the units mod 6). For $a = 6$, $\\mathrm{Frob}_q^6$ is the identity, not a generator. For $a \\in \\{2, 3, 4\\}$, the action has multiple orbits — the cover decomposes when restricted to $\\mathbb{F}_{q^d}$ for $d = 6/\\gcd(a,6)$.",
+            "hint": "Generators of $\\mathbb{Z}/n$ are exactly the units mod $n$."
           }
         ]
       },
@@ -9156,16 +9933,68 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Comparison with topological $\\pi_1$\"?",
+            "q": "For a smooth complex variety $X$, what is the relationship between $\\pi_1^{\\acute{e}t}(X)$ and $\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "They are isomorphic as abstract groups.",
+              "$\\pi_1^{\\acute{e}t}(X)$ is the profinite completion of $\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))$.",
+              "$\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))$ is the profinite completion of $\\pi_1^{\\acute{e}t}(X)$.",
+              "There is no general relationship between them."
+            ],
+            "answer": 1,
+            "explain": "Riemann's existence theorem: every finite topological cover of $X(\\mathbb{C})$ is the analytification of a unique finite étale cover, so finite quotients agree. Taking inverse limits: $\\pi_1^{\\acute{e}t}(X) = \\widehat{\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))}$. They are NOT isomorphic in general — $\\pi_1^{\\mathrm{top}}(\\mathbb{C}^\\times) = \\mathbb{Z}$ while $\\pi_1^{\\acute{e}t}(\\mathbb{G}_{m,\\mathbb{C}}) = \\hat{\\mathbb{Z}}$.",
+            "hint": "Profinite completion always loses non-finite-quotient information."
+          },
+          {
+            "type": "matching",
+            "q": "Match each smooth complex variety with its étale fundamental group.",
+            "left": [
+              "$\\mathbb{A}^1_{\\mathbb{C}}$",
+              "$\\mathbb{G}_{m,\\mathbb{C}} = \\mathbb{A}^1 \\setminus \\{0\\}$",
+              "an elliptic curve $E_{\\mathbb{C}}$",
+              "$\\mathbb{P}^1_{\\mathbb{C}}$"
+            ],
+            "right": [
+              "$\\hat{\\mathbb{Z}}$",
+              "$\\hat{\\mathbb{Z}}^2$",
+              "trivial",
+              "trivial"
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "$\\mathbb{A}^1_{\\mathbb{C}}$ topologically $\\simeq \\mathbb{C}$ is contractible: $\\pi_1^{\\mathrm{top}} = 1$, so $\\pi_1^{\\acute{e}t} = 1$. $\\mathbb{G}_m$: $\\pi_1^{\\mathrm{top}} = \\mathbb{Z}$, completion $\\hat{\\mathbb{Z}}$. Elliptic curve: $\\pi_1^{\\mathrm{top}} = \\mathbb{Z}^2$, completion $\\hat{\\mathbb{Z}}^2$. $\\mathbb{P}^1_{\\mathbb{C}} = S^2$: simply connected.",
+            "hint": "Compute the topological $\\pi_1$ first, then take the profinite completion."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where does this 'proof' that $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{F}_p}) = 1$ go wrong?",
+            "steps": [
+              "$\\mathbb{A}^1_{\\mathbb{C}}$ is simply connected: $\\pi_1^{\\mathrm{top}}(\\mathbb{C}) = 1$.",
+              "By Riemann's existence theorem, $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{C}}) = \\widehat{\\pi_1^{\\mathrm{top}}(\\mathbb{C})} = 1$.",
+              "Étale fundamental groups are insensitive to the base field: $\\mathbb{A}^1$ is the same over $\\mathbb{C}$ and over $\\mathbb{F}_p$.",
+              "Therefore $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{F}_p}) = 1$."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong. $\\pi_1^{\\acute{e}t}$ is highly sensitive to the base field. Over $\\mathbb{F}_p$, $\\mathbb{A}^1$ admits Artin–Schreier covers $y^p - y = f(x)$ for any $f \\in \\mathbb{F}_p[x]$ — these are étale, connected, and Galois with group $\\mathbb{Z}/p$. So $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{F}_p})$ is enormous (a huge profinite group with infinitely many $\\mathbb{Z}/p$ quotients). Riemann existence applies only over $\\mathbb{C}$.",
+            "hint": "Have you ever seen $y^p - y = x$? Is it étale?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $X$ be a smooth proper variety over $\\overline{\\mathbb{Q}}$. Embed $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ to form $X_{\\mathbb{C}}$. What is the relationship between $\\pi_1^{\\acute{e}t}(X)$ and $\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$?",
+            "choices": [
+              "They are equal.",
+              "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is a closed normal subgroup of $\\pi_1^{\\acute{e}t}(X)$, with quotient $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\overline{\\mathbb{Q}})$ — but this is trivial since $\\overline{\\mathbb{Q}}$ is algebraically closed.",
+              "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is strictly larger than $\\pi_1^{\\acute{e}t}(X)$.",
+              "There is no general comparison."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "For a geometrically connected proper variety over an algebraically closed field, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (this uses properness — without it, base change can introduce new covers, e.g. $\\mathbb{A}^1$ acquires more covers under $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ via transcendental extensions). So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
+            "hint": "Properness is essential — what fails for $X = \\mathbb{A}^1$?"
           }
         ]
       }

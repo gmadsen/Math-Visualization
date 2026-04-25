@@ -167,6 +167,8 @@
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
 <script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
+<script src="./js/widget-modular-arithmetic-clock.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
@@ -251,11 +253,93 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="finite-etale-covers">
 <h2>1. Finite étale covers</h2>
-<p>A finite étale cover $Y \to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\mathrm{F\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group.</p>
-<div class="widget" id="w-etale-fundamental-group-placeholder">
-  <div class="hd"><div class="ttl">The fiber functor F_x̄ at a geometric point</div><div class="hint">illustration — full interactives in a follow-up PR</div></div>
-  <svg id="svg-etale-fundamental-group-placeholder" viewBox="0 0 320 160" width="320" height="160"><title>The fiber functor F_x̄ at a geometric point</title><circle cx="160" cy="80" r="12" fill="var(--blue)"/><text x="160" y="84" font-size="12" fill="var(--ink)" text-anchor="middle">x̄</text><circle cx="80" cy="80" r="6" fill="var(--yellow)"/><circle cx="100" cy="40" r="6" fill="var(--yellow)"/><circle cx="240" cy="80" r="6" fill="var(--yellow)"/><circle cx="220" cy="120" r="6" fill="var(--yellow)"/><line x1="92" y1="80" x2="148" y2="80" stroke="var(--mute)" stroke-dasharray="3 3"/><line x1="106" y1="46" x2="156" y2="74" stroke="var(--mute)" stroke-dasharray="3 3"/><line x1="172" y1="80" x2="234" y2="80" stroke="var(--mute)" stroke-dasharray="3 3"/><line x1="166" y1="86" x2="216" y2="116" stroke="var(--mute)" stroke-dasharray="3 3"/><text x="160" y="155" font-size="10" fill="var(--mute)" text-anchor="middle">π₁ = Aut(F_x̄)</text></svg>
+<p>A finite étale cover $f\colon Y \to X$ is a morphism of schemes that is <strong>finite</strong>, <strong>flat</strong>, and <strong>unramified</strong> — equivalently, finite and smooth of relative dimension zero. Locally on $X$, the structure sheaf $f_*\mathcal{O}_Y$ is a locally free $\mathcal{O}_X$-algebra of constant rank $n$ (the <em>degree</em> of the cover), and at every geometric point $\bar{x}$ the fiber $Y_{\bar{x}}$ is a finite étale $\bar{k}(\bar{x})$-algebra — a product of $n$ copies of the residue field $\bar{k}(\bar{x})$.</p>
+
+<p>Why these three conditions? <em>Finite</em> ensures fibers are 0-dimensional, i.e. honest finite sets; <em>flat</em> guarantees that the rank of $f_*\mathcal{O}_Y$ is locally constant, so the cover doesn't gain or lose sheets as we move; and <em>unramified</em> means the relative cotangent sheaf $\Omega^1_{Y/X}$ vanishes — there is no ramification, no infinitesimal collapse of sheets at any point. Together, étaleness is the algebro-geometric translation of "local homeomorphism with finite fibers." Over $\mathbb{C}$, an étale morphism between smooth varieties induces a topological covering map on $\mathbb{C}$-points (Riemann existence).</p>
+
+<p>The category $\mathrm{F\acute{E}t}/X$ — finite étale covers of $X$ with morphisms over $X$ — is closed under fiber products, disjoint unions, quotients by finite group actions, and contains the trivial covers $\bigsqcup_{i=1}^n X \to X$. It is a <em>Galois category</em> in Grothendieck's sense once we choose a geometric point: that structure is what powers the fundamental group.</p>
+
+<p><strong>Worked example.</strong> Take $X = \mathrm{Spec}\,k[t, t^{-1}] = \mathbb{G}_{m,k}$, the multiplicative group over a field $k$ with $\mathrm{char}(k) \nmid n$. The map $Y \to X$, $Y = \mathrm{Spec}\,k[s, s^{-1}]$ with $s^n = t$, is finite étale of degree $n$ — the algebraic version of the $n$-th-power covering of the circle by itself. The fiber over a geometric point $t = a$ is the set of $n$-th roots of $a$ in $\bar{k}$, a torsor under $\mu_n(\bar{k})$. Over $\mathbb{F}_p$ this fails for $n = p$ (the cover $s^p = t$ is purely inseparable, hence not étale) — a foreshadowing of the wild-ramification subtleties that don't arise in characteristic 0.</p>
+
+<div class="widget" id="w-fet-cover">
+  <div class="hd"><div class="ttl">A degree-3 étale cover and its fibers</div><div class="hint">click any base point in $X$ to see the fiber in $Y$</div></div>
+  <svg id="svg-fet-cover" viewBox="0 0 460 280" width="460" height="280" role="img" aria-label="An étale cover with three sheets — clicking a base point reveals the three-element fiber.">
+    <title>Three-sheeted étale cover with clickable base points</title>
+  </svg>
+  <div class="readout" id="ro-fet-cover">click any colored point on the lower curve $X$ to highlight its three-element fiber in the upper curve $Y$.</div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-fet-cover');
+  const out = document.getElementById('ro-fet-cover');
+  if(!svg || !out) return;
+  // Build the cover figure. Lower curve = X (a smooth affine "S"), upper curve = Y = three sheets.
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs){ const e = document.createElementNS(NS, tag); for(const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  // lower curve points (the base X)
+  const baseX = [70, 130, 200, 270, 340, 400];
+  const baseY = 220;
+  function lowerCurveY(x){ return baseY + 8*Math.sin((x-70)/60); }
+  // three sheets above
+  function sheetY(x, k){ // k=0,1,2
+    const dy = [-110, -75, -40][k];
+    const wob = [4, -3, 2][k];
+    return baseY + dy + wob*Math.sin((x-70)/45);
+  }
+  // draw smooth path through baseX along bottom curve and the three sheets
+  function smoothPath(yFn){
+    let d = '';
+    const N = 80;
+    for(let i=0; i<=N; i++){
+      const x = 50 + (430-50)*i/N;
+      const y = yFn(x);
+      d += (i===0 ? 'M ' : 'L ') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+    }
+    return d;
+  }
+  svg.appendChild(el('path', {d: smoothPath(lowerCurveY), fill:'none', stroke:'var(--blue)', 'stroke-width':2}));
+  for(let k=0; k<3; k++){
+    svg.appendChild(el('path', {d: smoothPath(x=>sheetY(x,k)), fill:'none', stroke:'var(--violet)', 'stroke-width':1.6, opacity:0.85}));
+  }
+  // labels
+  const lblX = el('text', {x:30, y:226, 'font-size':14, fill:'var(--ink)', 'font-style':'italic'}); lblX.textContent = 'X'; svg.appendChild(lblX);
+  const lblY = el('text', {x:30, y:90, 'font-size':14, fill:'var(--ink)', 'font-style':'italic'}); lblY.textContent = 'Y'; svg.appendChild(lblY);
+  const lblF = el('text', {x:438, y:160, 'font-size':12, fill:'var(--mute)'}); lblF.textContent = 'f'; svg.appendChild(lblF);
+  // fiber group + base points (clickable)
+  const fiberGroup = el('g', {}); svg.appendChild(fiberGroup);
+  const colors = ['var(--yellow)','var(--green)','var(--cyan)','var(--pink)','var(--violet)','var(--blue)'];
+  const dots = [];
+  baseX.forEach((x,i) => {
+    const c = el('circle', {cx:x, cy:lowerCurveY(x), r:7, fill:colors[i], stroke:'var(--ink)', 'stroke-width':1.5, style:'cursor:pointer'});
+    c.addEventListener('click', () => showFiber(i));
+    svg.appendChild(c);
+    const lbl = el('text', {x:x, y:lowerCurveY(x)+22, 'font-size':11, fill:'var(--mute)', 'text-anchor':'middle'});
+    lbl.textContent = 'x' + (i+1);
+    svg.appendChild(lbl);
+    dots.push(c);
+  });
+  function showFiber(i){
+    fiberGroup.innerHTML = '';
+    const x = baseX[i];
+    // three vertical dashed lines from the base point up through each sheet
+    for(let k=0; k<3; k++){
+      const sy = sheetY(x, k);
+      const ln = el('line', {x1:x, y1:lowerCurveY(x), x2:x, y2:sy, stroke:colors[i], 'stroke-width':1.4, 'stroke-dasharray':'3 3', opacity:0.85});
+      fiberGroup.appendChild(ln);
+      const dot = el('circle', {cx:x, cy:sy, r:5, fill:colors[i], stroke:'var(--ink)', 'stroke-width':1.2});
+      fiberGroup.appendChild(dot);
+    }
+    // tag the fiber
+    const tag = el('text', {x:x, y:sheetY(x,2)-12, 'font-size':11, fill:colors[i], 'text-anchor':'middle', 'font-weight':600});
+    tag.textContent = 'Y_x' + (i+1) + ' (3 points)';
+    fiberGroup.appendChild(tag);
+    out.textContent = 'fiber over $x_' + (i+1) + '$ has 3 geometric points — a torsor under $\\mathbb{Z}/3$ acting by deck transformation. degree of the cover is constant: ' + 'rank f_*O_Y = 3 everywhere.';
+    if(window.renderMathInElement) window.renderMathInElement(out, {throwOnError:false, delimiters:[{left:'$',right:'$',display:false}]});
+  }
+  // open with x3 highlighted to advertise the affordance
+  showFiber(2);
+})();
+</script>
 <div class="quiz" data-concept="finite-etale-covers"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -268,7 +352,85 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="fiber-functor">
 <h2>2. The fiber functor at a geometric point</h2>
-<p>Choosing a geometric point $\bar{x}: \mathrm{Spec}\,\bar{k} \to X$ gives a fiber functor $F_{\bar{x}}: \mathrm{F\acute{E}t}/X \to \mathrm{FinSet}$ sending $Y \to X$ to the underlying set of the fiber $Y_{\bar{x}}$. The étale fundamental group is the automorphism group of this functor.</p>
+<p>A <strong>geometric point</strong> of $X$ is a morphism $\bar{x}\colon \mathrm{Spec}\,\Omega \to X$ where $\Omega$ is a separably closed field — concretely, the choice of an algebraic-closure point lying over a scheme-theoretic point of $X$. It plays the role of a topological basepoint, but with the extra data of an embedding of residue fields into a fixed algebraic closure (different geometric points over the same scheme-theoretic point give canonically isomorphic, non-equal fiber functors).</p>
+
+<p>Each geometric point $\bar{x}$ defines the <strong>fiber functor</strong>
+$$F_{\bar{x}}\colon \mathrm{F\acute{E}t}/X \longrightarrow \mathrm{FinSet}, \qquad (Y \to X)\;\mapsto\;\mathrm{Hom}_X(\bar{x}, Y) = Y_{\bar{x}}(\Omega).$$
+On objects, $F_{\bar{x}}(Y)$ is the (finite) set of $\Omega$-points of $Y$ lying over $\bar{x}$. On morphisms, $F_{\bar{x}}(g\colon Y\to Y')$ is the induced map of fibers. Faithfulness, exactness, and the fact that the values are <em>finite</em> sets are exactly what make $\mathrm{F\acute{É}t}/X$ a <strong>Galois category</strong> (SGA 1, V).</p>
+
+<p>The functor packs all the cover data into a single combinatorial gadget: knowing $F_{\bar{x}}$ on every cover plus how $F_{\bar{x}}$ acts on morphisms determines the cover up to isomorphism. The étale fundamental group is then the <em>symmetry</em> of this packaging — the automorphisms of $F_{\bar{x}}$ as a functor.</p>
+
+<p><strong>Worked example.</strong> Take $X = \mathrm{Spec}\,\mathbb{Q}$, $\bar{x} = \mathrm{Spec}\,\overline{\mathbb{Q}}$. Then $F_{\bar{x}}(\mathrm{Spec}\,L) = \mathrm{Hom}_{\mathbb{Q}\text{-alg}}(L, \overline{\mathbb{Q}})$ — the set of embeddings of the finite separable extension $L/\mathbb{Q}$ into $\overline{\mathbb{Q}}$. By the primitive-element theorem, $|F_{\bar{x}}(\mathrm{Spec}\,L)| = [L:\mathbb{Q}]$. An automorphism of $F_{\bar{x}}$ must permute these embedding sets compatibly across all $L$ — exactly an element of $\mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q})$.</p>
+
+<div class="widget" id="w-fiber-fnctr">
+  <div class="hd"><div class="ttl">$F_{\bar{x}}$ on three covers of $\mathrm{Spec}\,\mathbb{Q}$</div><div class="hint">click a cover — see its image under $F_{\bar{x}}$</div></div>
+  <svg id="svg-fiber-fnctr" viewBox="0 0 460 240" width="460" height="240" role="img" aria-label="Fiber functor applied to three example covers of Spec Q.">
+    <title>Fiber functor on covers of Spec Q</title>
+  </svg>
+  <div class="readout" id="ro-fiber-fnctr">click a labeled cover on the left to compute $F_{\bar{x}}(Y)$.</div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-fiber-fnctr');
+  const out = document.getElementById('ro-fiber-fnctr');
+  if(!svg || !out) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, text){
+    const e = document.createElementNS(NS, tag);
+    for(const k in attrs) e.setAttribute(k, attrs[k]);
+    if(text != null) e.textContent = text;
+    return e;
+  }
+  // Three cover labels on the left, fiber displays on the right
+  const covers = [
+    { id: 'A', label: 'Spec Q[x]/(x²−2)',   blurb: 'L = Q(√2)',      fiber: ['+√2','−√2'],   note: 'F_x̄ = {+√2, −√2}, |·|=2 = [L:Q]' },
+    { id: 'B', label: 'Spec Q[x]/(x³−2)',   blurb: 'L = Q(∛2)',      fiber: ['∛2','ω·∛2','ω²·∛2'], note: 'F_x̄ = {∛2, ω·∛2, ω²·∛2}, |·|=3 = [L:Q] (note: not Galois over Q, but F_x̄ still has 3 points)' },
+    { id: 'C', label: 'Spec Q × Spec Q (trivial deg-2)', blurb: 'L = Q × Q', fiber: ['•','•'], note: 'F_x̄ on the trivial cover X⊔X = a 2-element set with no Gal action (every embedding fixed).' }
+  ];
+  // headers
+  svg.appendChild(el('text', {x:90, y:30, 'font-size':13, fill:'var(--ink)', 'font-weight':600, 'text-anchor':'middle'}, 'FÉt/Spec Q'));
+  svg.appendChild(el('text', {x:360, y:30, 'font-size':13, fill:'var(--ink)', 'font-weight':600, 'text-anchor':'middle'}, 'FinSet'));
+  svg.appendChild(el('text', {x:225, y:30, 'font-size':14, fill:'var(--yellow)', 'text-anchor':'middle', 'font-style':'italic'}, 'F_x̄'));
+  // arrow from category to FinSet
+  svg.appendChild(el('line', {x1:155, y1:26, x2:295, y2:26, stroke:'var(--mute)', 'stroke-width':1.2, 'marker-end':'url(#arr-ff)'}));
+  const defs = el('defs');
+  const mk = el('marker', {id:'arr-ff', viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+  mk.appendChild(el('path', {d:'M0,0 L10,5 L0,10 z', fill:'var(--mute)'}));
+  defs.appendChild(mk); svg.appendChild(defs);
+  // cover boxes
+  const fiberLayer = el('g', {}); svg.appendChild(fiberLayer);
+  let activeId = null;
+  covers.forEach((c, i) => {
+    const y = 60 + i*55;
+    const box = el('rect', {x:18, y:y-18, width:170, height:36, rx:6, fill:'var(--panel2)', stroke:'var(--line)', 'stroke-width':1, style:'cursor:pointer'});
+    box.addEventListener('click', () => render(c.id));
+    svg.appendChild(box);
+    const t1 = el('text', {x:103, y:y-3, 'font-size':11, fill:'var(--ink)', 'text-anchor':'middle', style:'pointer-events:none'}, c.label);
+    svg.appendChild(t1);
+    const t2 = el('text', {x:103, y:y+12, 'font-size':10, fill:'var(--mute)', 'text-anchor':'middle', style:'pointer-events:none'}, c.blurb);
+    svg.appendChild(t2);
+  });
+  function render(id){
+    activeId = id;
+    fiberLayer.innerHTML = '';
+    const c = covers.find(x => x.id === id);
+    const idx = covers.findIndex(x => x.id === id);
+    const y0 = 60 + idx*55;
+    // arrow from cover box to fiber
+    fiberLayer.appendChild(el('line', {x1:190, y1:y0, x2:300, y2:y0, stroke:'var(--yellow)', 'stroke-width':1.5, 'marker-end':'url(#arr-ff)'}));
+    // fiber dots
+    const dx = c.fiber.length === 1 ? 0 : 30;
+    const cx = 360, cy = y0;
+    c.fiber.forEach((f, k) => {
+      const x = cx + (k - (c.fiber.length-1)/2) * dx;
+      fiberLayer.appendChild(el('circle', {cx:x, cy:cy, r:5, fill:'var(--yellow)', stroke:'var(--ink)', 'stroke-width':1.2}));
+      fiberLayer.appendChild(el('text', {x:x, y:cy+18, 'font-size':10, fill:'var(--ink)', 'text-anchor':'middle'}, f));
+    });
+    out.textContent = c.note;
+  }
+  render('A');
+})();
+</script>
 <div class="quiz" data-concept="fiber-functor"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -281,7 +443,62 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="etale-pi1">
 <h2>3. $\pi_1^{\acute{e}t}(X, \bar{x}) = \mathrm{Aut}(F_{\bar{x}})$</h2>
-<p>$\pi_1^{\acute{e}t}(X, \bar{x})$ is the profinite group $\mathrm{Aut}(F_{\bar{x}})$, with topology induced by the pro-finite-set structure of fibers. It classifies finite étale covers via $\mathrm{F\acute{E}t}/X \simeq \pi_1^{\acute{e}t}(X, \bar{x})\text{-FinSet}$ — Grothendieck's Galois theory.</p>
+<p>The étale fundamental group is defined as
+$$ \pi_1^{\acute{e}t}(X, \bar{x}) \;:=\; \mathrm{Aut}(F_{\bar{x}}), $$
+the group of natural automorphisms of the fiber functor. An element $\sigma$ is the data of a permutation $\sigma_Y\in\mathrm{Sym}(F_{\bar{x}}(Y))$ for every cover $Y\to X$, compatibly with morphisms of covers — i.e. for $g\colon Y\to Y'$, the square $F_{\bar{x}}(g)\circ\sigma_Y = \sigma_{Y'}\circ F_{\bar{x}}(g)$ commutes.</p>
+
+<p><strong>Topology.</strong> Each $\mathrm{Sym}(F_{\bar{x}}(Y))$ is a finite group, and $\pi_1^{\acute{e}t}$ embeds into the inverse limit $\varprojlim_Y \mathrm{Sym}(F_{\bar{x}}(Y))$ as $Y$ ranges over $\mathrm{F\acute{É}t}/X$. With the inverse-limit topology this makes $\pi_1^{\acute{e}t}(X,\bar{x})$ a <strong>profinite group</strong> — compact, totally disconnected, Hausdorff. Continuous group homomorphisms out of it correspond to compatible families of finite permutations; this is why every cover automatically receives a continuous action.</p>
+
+<p><strong>Grothendieck's main theorem (SGA 1, Exp. V).</strong> The fiber functor lifts to an equivalence of categories
+$$ F_{\bar{x}}\colon \mathrm{F\acute{E}t}/X \;\xrightarrow{\;\sim\;}\; \pi_1^{\acute{e}t}(X,\bar{x})\text{-}\mathrm{FinSet}, $$
+where the right-hand side is finite sets with continuous left $\pi_1^{\acute{e}t}$-action. Connected covers correspond to transitive actions; under this dictionary, a connected cover $Y\to X$ of degree $n$ corresponds to a continuous transitive action on an $n$-element set, equivalently an open subgroup $H\le\pi_1^{\acute{e}t}$ of index $n$ (the stabilizer of a chosen point of $F_{\bar{x}}(Y)$). Universal covers are not schemes in general; they are <em>pro-objects</em> in $\mathrm{F\acute{É}t}/X$ — but the profinite group always exists.</p>
+
+<p>The proof-scrubber below walks through the construction of this equivalence: assemble all covers, take a compatible system of fiber points, read off the Galois group, and recover each cover from its $\pi_1^{\acute{e}t}$-set.</p>
+
+<div class="widget" id="w-pi1-construct"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-pi1-construct', {
+    title: "Building $\\pi_1^{\\acute{e}t}(X,\\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 360 200",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "1. Fix the geometric basepoint",
+        body: "Pick a geometric point $\\bar{x}\\colon \\mathrm{Spec}\\,\\Omega \\to X$. This anchors a basepoint in the role of an algebraic-closure embedding; different choices give canonically isomorphic functors but not equal ones.",
+        svgInner: "<circle cx='180' cy='130' r='44' fill='none' stroke='var(--blue)' stroke-width='1.6'/><text x='180' y='180' font-size='13' fill='var(--ink)' text-anchor='middle'>X</text><circle cx='220' cy='130' r='6' fill='var(--yellow)' stroke='var(--ink)' stroke-width='1.5'/><text x='240' y='133' font-size='12' fill='var(--mute)'>x̄ : Spec Ω → X</text>",
+      },
+      {
+        title: "2. Form the fiber functor",
+        body: "For every finite étale cover $Y\\to X$ assign the finite set $F_{\\bar{x}}(Y) = Y_{\\bar{x}}(\\Omega)$. This is functorial: a cover map $g\\colon Y\\to Y'$ goes to a set map of fibers.",
+        svgInner: "<rect x='30' y='80' width='110' height='80' rx='8' fill='var(--panel2)' stroke='var(--line)'/><text x='85' y='110' text-anchor='middle' font-size='11' fill='var(--ink)'>FÉt/X</text><text x='85' y='128' text-anchor='middle' font-size='10' fill='var(--mute)'>covers Y→X</text><rect x='220' y='80' width='110' height='80' rx='8' fill='var(--panel2)' stroke='var(--line)'/><text x='275' y='110' text-anchor='middle' font-size='11' fill='var(--ink)'>FinSet</text><text x='275' y='128' text-anchor='middle' font-size='10' fill='var(--mute)'>finite sets</text><line x1='148' y1='120' x2='212' y2='120' stroke='var(--yellow)' stroke-width='1.6' marker-end='url(#arr-pi1)'/><text x='180' y='110' text-anchor='middle' font-size='12' fill='var(--yellow)' font-style='italic'>F_x̄</text><defs><marker id='arr-pi1' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--yellow)'/></marker></defs>",
+      },
+      {
+        title: "3. Compatible permutations of fibers",
+        body: "An element $\\sigma\\in\\mathrm{Aut}(F_{\\bar{x}})$ is a system $(\\sigma_Y)$ of permutations of $F_{\\bar{x}}(Y)$, one per cover, commuting with the maps $F_{\\bar{x}}(g)$ for every $g\\colon Y\\to Y'$. Naturality.",
+        svgInner: "<circle cx='90' cy='80' r='4' fill='var(--yellow)'/><circle cx='130' cy='80' r='4' fill='var(--yellow)'/><circle cx='90' cy='160' r='4' fill='var(--cyan)'/><circle cx='130' cy='160' r='4' fill='var(--cyan)'/><circle cx='170' cy='160' r='4' fill='var(--cyan)'/><text x='110' y='65' font-size='10' fill='var(--mute)' text-anchor='middle'>F(Y)</text><text x='130' y='185' font-size='10' fill='var(--mute)' text-anchor='middle'>F(Y′)</text><line x1='90' y1='86' x2='90' y2='154' stroke='var(--mute)' stroke-dasharray='3 3'/><line x1='130' y1='86' x2='130' y2='154' stroke='var(--mute)' stroke-dasharray='3 3'/><path d='M 90 75 Q 110 55 130 75' fill='none' stroke='var(--pink)' stroke-width='1.5' marker-end='url(#arr-pi1b)'/><path d='M 90 165 Q 110 175 130 165' fill='none' stroke='var(--pink)' stroke-width='1.5' marker-end='url(#arr-pi1b)'/><text x='225' y='80' font-size='10' fill='var(--pink)'>σ_Y permutes F(Y)</text><text x='225' y='160' font-size='10' fill='var(--pink)'>σ_Y′ permutes F(Y′)</text><defs><marker id='arr-pi1b' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--pink)'/></marker></defs>",
+      },
+      {
+        title: "4. Profinite topology",
+        body: "Each $\\mathrm{Sym}(F_{\\bar{x}}(Y))$ is finite. The collection of $(\\sigma_Y)$ defines a closed subgroup of $\\prod_Y \\mathrm{Sym}(F_{\\bar{x}}(Y))$. With the inverse-limit topology, $\\pi_1^{\\acute{e}t}(X,\\bar{x})$ is profinite — compact, totally disconnected.",
+        svgInner: "<text x='180' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>π₁^ét(X, x̄)  =  lim Sym(F_x̄(Y))</text><text x='180' y='100' text-anchor='middle' font-size='10' fill='var(--mute)'>over all covers Y → X</text><text x='180' y='150' text-anchor='middle' font-size='12' fill='var(--yellow)' font-weight='600'>profinite group</text>",
+      },
+      {
+        title: "5. Equivalence of categories",
+        body: "Grothendieck: $F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/X \\xrightarrow{\\;\\sim\\;} \\pi_1^{\\acute{e}t}(X,\\bar{x})\\text{-FinSet}$. Connected covers ↔ transitive actions ↔ open subgroups (via stabilizers). Galois (= regular) covers ↔ open <em>normal</em> subgroups.",
+        svgInner: "<rect x='25' y='80' width='120' height='80' rx='8' fill='var(--panel2)' stroke='var(--line)'/><text x='85' y='115' text-anchor='middle' font-size='11' fill='var(--ink)'>FÉt/X</text><text x='85' y='135' text-anchor='middle' font-size='10' fill='var(--mute)'>covers</text><rect x='215' y='80' width='130' height='80' rx='8' fill='var(--panel2)' stroke='var(--line)'/><text x='280' y='110' text-anchor='middle' font-size='11' fill='var(--ink)'>π₁^ét-FinSet</text><text x='280' y='128' text-anchor='middle' font-size='10' fill='var(--mute)'>continuous</text><text x='280' y='142' text-anchor='middle' font-size='10' fill='var(--mute)'>finite G-sets</text><line x1='150' y1='120' x2='210' y2='120' stroke='var(--yellow)' stroke-width='1.8' marker-end='url(#arr-pi1c)'/><text x='180' y='110' text-anchor='middle' font-size='13' fill='var(--yellow)' font-style='italic'>≃</text><defs><marker id='arr-pi1c' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--yellow)'/></marker></defs>",
+      },
+      {
+        title: "6. Read off subgroups",
+        body: "Connected cover of degree $n$ ↔ open subgroup $H\\le\\pi_1^{\\acute{e}t}$ of index $n$ (stabilizer of a fiber point). Conjugate subgroups give isomorphic covers. Galois covers correspond to <em>normal</em> $H$, with deck group $\\pi_1^{\\acute{e}t}/H$.",
+        svgInner: "<text x='180' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>connected cover of deg n  ⇄  open H ≤ π₁ of index n</text><text x='180' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>Galois cover  ⇄  open H ◁ π₁</text><text x='180' y='170' text-anchor='middle' font-size='11' fill='var(--mute)'>deck group = π₁ / H</text>",
+      },
+    ],
+  });
+})();
+</script>
 <div class="quiz" data-concept="etale-pi1"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -295,7 +512,61 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="spec-field-galois">
 <h2>4. $\pi_1^{\acute{e}t}(\mathrm{Spec}\,k) = \mathrm{Gal}(\bar{k}/k)$</h2>
-<p>For a field $k$, the étale fundamental group of $\mathrm{Spec}\,k$ is the absolute Galois group $\mathrm{Gal}(\bar{k}/k)$. Finite étale covers $\mathrm{Spec}\,L \to \mathrm{Spec}\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory.</p>
+<p>The single most important worked example. Take $X = \mathrm{Spec}\,k$ for $k$ a field, and choose $\bar{x} = \mathrm{Spec}\,k^{\mathrm{sep}}$ as a geometric point (we use the separable closure rather than the full algebraic closure — they agree in characteristic 0 and for perfect fields). Then:
+$$ \pi_1^{\acute{e}t}(\mathrm{Spec}\,k, \bar{x}) \;\cong\; \mathrm{Gal}(k^{\mathrm{sep}}/k), $$
+the absolute Galois group of $k$, viewed with its profinite topology as $\varprojlim_{L/k\text{ finite Galois}}\mathrm{Gal}(L/k)$.</p>
+
+<p><strong>Why this works.</strong> A finite étale cover of $\mathrm{Spec}\,k$ is, by definition unwound, a finite étale $k$-algebra $A$. By the structure theorem, $A\cong \prod_i L_i$ where each $L_i/k$ is a finite separable extension. So a connected cover is exactly $\mathrm{Spec}\,L$ for a finite separable extension $L/k$. The fiber functor at $\bar{x}$ sends $\mathrm{Spec}\,L$ to $\mathrm{Hom}_{k\text{-alg}}(L, k^{\mathrm{sep}})$ — a finite set of size $[L:k]$ on which $\mathrm{Gal}(k^{\mathrm{sep}}/k)$ acts continuously by post-composition. This action is transitive (any two embeddings differ by a Galois element), so the connected covers correspond to open subgroups; under the dictionary, a connected cover of degree $n$ ↔ an open subgroup of index $n$ ↔ a finite separable extension $L\subset k^{\mathrm{sep}}$ with $[L:k]=n$. That is exactly the classical Galois correspondence.</p>
+
+<p>Conversely, every continuous transitive action of $\mathrm{Gal}(k^{\mathrm{sep}}/k)$ on a finite set arises from a unique (up to iso) finite separable $k$-algebra. So Grothendieck's equivalence collapses to the textbook fundamental theorem of Galois theory:
+$$ \{\text{finite separable }L/k\} \;\xleftrightarrow{\;1{:}1\;}\; \{\text{open subgroups of }\mathrm{Gal}(k^{\mathrm{sep}}/k)\}. $$</p>
+
+<p><strong>Worked example.</strong> $\pi_1^{\acute{e}t}(\mathrm{Spec}\,\mathbb{R}) = \mathrm{Gal}(\mathbb{C}/\mathbb{R}) = \mathbb{Z}/2$, generated by complex conjugation. Connected covers: only $\mathrm{Spec}\,\mathbb{R}$ (trivial, $H = \pi_1$, index 1) and $\mathrm{Spec}\,\mathbb{C}$ ($H = 1$, index 2). Disconnected covers: products of these. There are no other finite étale extensions of $\mathbb{R}$ — checked directly against the corresponding subgroup lattice $\{1\}\subset\mathbb{Z}/2$.</p>
+
+<div class="widget" id="w-galois-equiv"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-galois-equiv', {
+    title: "From Grothendieck's equivalence to classical Galois theory",
+    hint: "drag the slider to walk through the chain",
+    viewBox: "0 0 380 200",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "1. Start: étale covers of Spec k",
+        body: "Take $X = \\mathrm{Spec}\\,k$, $\\bar{x} = \\mathrm{Spec}\\,k^{\\mathrm{sep}}$. A finite étale cover is $\\mathrm{Spec}\\,A$ for a finite étale $k$-algebra $A$.",
+        svgInner: "<rect x='80' y='80' width='200' height='40' rx='6' fill='var(--panel2)' stroke='var(--line)'/><text x='180' y='105' text-anchor='middle' font-size='12' fill='var(--ink)'>FÉt / Spec k</text><text x='180' y='150' text-anchor='middle' font-size='11' fill='var(--mute)'>Spec A → Spec k, A finite étale k-algebra</text>",
+      },
+      {
+        title: "2. Decompose: A = ∏ L_i",
+        body: "Structure theorem for finite étale algebras: $A \\cong \\prod_i L_i$ with each $L_i/k$ a finite <em>separable</em> field extension. So connected covers are $\\mathrm{Spec}\\,L$ for finite separable $L/k$.",
+        svgInner: "<text x='190' y='60' text-anchor='middle' font-size='13' fill='var(--ink)'>A  ≅  L₁ × L₂ × ⋯ × Lᵣ</text><text x='190' y='100' text-anchor='middle' font-size='11' fill='var(--mute)'>(structure theorem)</text><text x='190' y='130' text-anchor='middle' font-size='12' fill='var(--yellow)'>connected ⇔ A is a single field</text>",
+      },
+      {
+        title: "3. Fiber = embeddings into k^sep",
+        body: "$F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}_{k\\text{-alg}}(L, k^{\\mathrm{sep}})$. By the primitive-element theorem, this set has size $[L:k]$.",
+        svgInner: "<text x='190' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>F_x̄(Spec L) = Hom_{k-alg}(L, k^sep)</text><text x='190' y='110' text-anchor='middle' font-size='12' fill='var(--ink)'>|F_x̄(Spec L)| = [L : k]</text>",
+      },
+      {
+        title: "4. Gal acts on embeddings",
+        body: "Any $\\sigma\\in\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$ acts on $\\mathrm{Hom}_{k}(L, k^{\\mathrm{sep}})$ by post-composition: $(\\sigma\\cdot\\iota)(x) = \\sigma(\\iota(x))$. The action is continuous and transitive on each $\\mathrm{Hom}(L, k^{\\mathrm{sep}})$.",
+        svgInner: "<text x='190' y='60' text-anchor='middle' font-size='12' fill='var(--ink)'>σ ∈ Gal(k^sep / k) :  ι  ↦  σ ∘ ι</text><circle cx='100' cy='130' r='5' fill='var(--yellow)'/><circle cx='150' cy='130' r='5' fill='var(--yellow)'/><circle cx='200' cy='130' r='5' fill='var(--yellow)'/><circle cx='250' cy='130' r='5' fill='var(--yellow)'/><path d='M 100 130 Q 125 110 150 130' fill='none' stroke='var(--pink)' stroke-width='1.4' marker-end='url(#arr-gal)'/><path d='M 150 130 Q 175 110 200 130' fill='none' stroke='var(--pink)' stroke-width='1.4' marker-end='url(#arr-gal)'/><path d='M 200 130 Q 225 110 250 130' fill='none' stroke='var(--pink)' stroke-width='1.4' marker-end='url(#arr-gal)'/><text x='180' y='160' text-anchor='middle' font-size='10' fill='var(--mute)'>transitive action on embeddings</text><defs><marker id='arr-gal' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--pink)'/></marker></defs>",
+      },
+      {
+        title: "5. Subgroups ↔ subfields",
+        body: "Open subgroup $H = \\mathrm{stab}(\\iota_0)\\le\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$ corresponds to the fixed-field $L = (k^{\\mathrm{sep}})^H$. This is the classical Galois correspondence.",
+        svgInner: "<text x='190' y='60' text-anchor='middle' font-size='12' fill='var(--ink)'>{open H ≤ Gal(k^sep/k)}</text><text x='190' y='80' text-anchor='middle' font-size='14' fill='var(--mute)'>↕ ↕</text><text x='190' y='110' text-anchor='middle' font-size='12' fill='var(--ink)'>{finite separable L ⊂ k^sep}</text><text x='190' y='150' text-anchor='middle' font-size='11' fill='var(--mute)'>H ↦ (k^sep)^H · L ↦ Gal(k^sep/L)</text>",
+      },
+      {
+        title: "6. Conclusion",
+        body: "Combining: $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k,\\bar{x}) \\cong \\mathrm{Gal}(k^{\\mathrm{sep}}/k)$, and Grothendieck's equivalence specializes to classical Galois theory. Galois (regular) covers correspond to <em>normal</em> open subgroups, i.e. Galois extensions $L/k$.",
+        svgInner: "<text x='190' y='90' text-anchor='middle' font-size='15' fill='var(--yellow)' font-weight='600'>π₁^ét(Spec k, x̄) ≅ Gal(k^sep / k)</text><text x='190' y='140' text-anchor='middle' font-size='11' fill='var(--mute)'>Grothendieck's Galois theory contains classical Galois theory</text>",
+      },
+    ],
+  });
+})();
+</script>
 <div class="quiz" data-concept="spec-field-galois"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -308,13 +579,117 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="frobenius-and-pi1">
 <h2>5. Frobenius generates $\pi_1^{\acute{e}t}(\mathrm{Spec}\,\mathbb{F}_q)$</h2>
-<p>$\pi_1^{\acute{e}t}(\mathrm{Spec}\,\mathbb{F}_q) = \hat{\mathbb{Z}}$, topologically generated by the Frobenius $\mathrm{Frob}_q\colon x \mapsto x^q$. Every cover of $\mathrm{Spec}\,\mathbb{F}_q$ is determined by the action of $\mathrm{Frob}_q$ on a finite set.</p>
+<p>The cleanest non-trivial étale fundamental group. Take $k = \mathbb{F}_q$, $q = p^r$. The separable closure $\overline{\mathbb{F}_q} = \bigcup_{n\ge 1}\mathbb{F}_{q^n}$ is the union of all finite extensions, each $\mathbb{F}_{q^n}/\mathbb{F}_q$ is Galois with cyclic Galois group of order $n$, and the Galois group is generated by the <strong>Frobenius automorphism</strong>
+$$\mathrm{Frob}_q \colon \overline{\mathbb{F}_q} \to \overline{\mathbb{F}_q}, \qquad x\mapsto x^q.$$
+Passing to the inverse limit:
+$$ \pi_1^{\acute{e}t}(\mathrm{Spec}\,\mathbb{F}_q) \;=\; \mathrm{Gal}(\overline{\mathbb{F}_q}/\mathbb{F}_q) \;=\; \varprojlim_n \mathbb{Z}/n \;=\; \hat{\mathbb{Z}}, $$
+topologically generated by $\mathrm{Frob}_q$.</p>
+
+<p><strong>What this group looks like.</strong> $\hat{\mathbb{Z}} = \prod_{\ell\text{ prime}}\mathbb{Z}_\ell$ is the profinite completion of $\mathbb{Z}$. Continuous homomorphisms $\hat{\mathbb{Z}}\to G$ to a finite group $G$ correspond to elements of $G$ (the image of the topological generator $\mathrm{Frob}_q$). So a finite étale cover of $\mathrm{Spec}\,\mathbb{F}_q$ of degree $n$ is the data of a permutation of an $n$-element set — namely, the action of $\mathrm{Frob}_q$ on the fiber. Connected covers correspond to single-cycle permutations: $\mathrm{Spec}\,\mathbb{F}_{q^n}\to\mathrm{Spec}\,\mathbb{F}_q$ is the unique connected cover of degree $n$, and $\mathrm{Frob}_q$ acts on its $n$-point fiber as an $n$-cycle.</p>
+
+<p>This is the structural reason that varieties over $\mathbb{F}_q$ are tractable: <em>all</em> étale-cover information is summarized by the action of a single element. The same picture, scaled up, drives the Lefschetz trace formula in étale cohomology — point counts of $X(\mathbb{F}_{q^n})$ are traces of $\mathrm{Frob}_q^n$.</p>
+
+<p>The clock below shows the cyclic group $\mathbb{Z}/n$ — the Galois group of the unique connected degree-$n$ cover $\mathrm{Spec}\,\mathbb{F}_{q^n}\to\mathrm{Spec}\,\mathbb{F}_q$. The "multiplication by $a$" map plays the role of $\mathrm{Frob}_q^a$ on the $n$-point fiber: when $\gcd(a,n)=1$, $\mathrm{Frob}_q^a$ still generates the cyclic group (the cover is still connected); when $\gcd(a,n)>1$, the $a$-th iterate fixes a proper subgroup — the orbits collapse, mirroring how the cover decomposes when restricted to an intermediate $\mathbb{F}_{q^d}$.</p>
+
+<div class="widget" id="w-frob-clock"></div>
+<script>
+(function(){
+  if(!window.MVModularArithmeticClock) return;
+  MVModularArithmeticClock.init('#w-frob-clock', {
+    kind: "multiplication",
+    title: "Frobenius on the fiber over Spec F_q",
+    hint: "n = degree of cover, a = power of Frobenius",
+    params: {n: 7, a: 1},
+  });
+})();
+</script>
+
+<p>The slider $n$ picks the cover $\mathrm{Spec}\,\mathbb{F}_{q^n}\to\mathrm{Spec}\,\mathbb{F}_q$; $a$ picks an element $\mathrm{Frob}_q^a\in\hat{\mathbb{Z}}/n\mathbb{Z}=\mathbb{Z}/n$. The cover is connected iff $a$ generates $\mathbb{Z}/n$, i.e. $\gcd(a,n)=1$ — exactly when $\mathrm{Frob}_q^a$ permutes the $n$-point fiber as a single cycle.</p>
+
 <div class="quiz" data-concept="frobenius-and-pi1"></div>
 </section>
 
 <section id="comparison-topological">
 <h2>6. Comparison with topological $\pi_1$</h2>
-<p>For a smooth complex variety $X$, the étale fundamental group $\pi_1^{\acute{e}t}(X)$ is the profinite completion of the topological $\pi_1(X(\mathbb{C}))$ (Riemann existence). For varieties over fields of characteristic 0 this captures all finite-cover information.</p>
+<p>Over $\mathbb{C}$ we have two fundamental groups available — the topological $\pi_1^{\mathrm{top}}(X(\mathbb{C}), x)$ from algebraic topology, and the étale $\pi_1^{\acute{e}t}(X, \bar{x})$ from §3. Riemann's existence theorem links them:
+$$ \pi_1^{\acute{e}t}(X, \bar{x}) \;\cong\; \widehat{\pi_1^{\mathrm{top}}(X(\mathbb{C}), x)} \;=\; \varprojlim_{N\triangleleft\pi_1^{\mathrm{top}},\,[\pi_1^{\mathrm{top}}:N]<\infty} \pi_1^{\mathrm{top}}/N, $$
+the <strong>profinite completion</strong> of the topological $\pi_1$.</p>
+
+<p><strong>Why.</strong> A finite topological cover of $X(\mathbb{C})$ corresponds to a subgroup of finite index in $\pi_1^{\mathrm{top}}$. By Riemann's existence theorem (analytic continuation of regular maps along finite topological covers gives algebraic structure), every such finite topological cover is the analytification of a finite étale cover of $X$, and conversely. So the two categories of finite covers — étale-algebraic and finite-topological — agree, and finite quotients of $\pi_1^{\mathrm{top}}$ match finite quotients of $\pi_1^{\acute{e}t}$.</p>
+
+<p><strong>Examples.</strong> $X = \mathbb{G}_m = \mathbb{A}^1\setminus\{0\}$ over $\mathbb{C}$: topologically $\mathbb{C}^\times \simeq S^1$, so $\pi_1^{\mathrm{top}} = \mathbb{Z}$, and $\pi_1^{\acute{e}t}(\mathbb{G}_{m,\mathbb{C}}) = \hat{\mathbb{Z}}$. The connected degree-$n$ étale cover is $\mathbb{G}_m \to \mathbb{G}_m$, $z\mapsto z^n$ — exactly the algebraic incarnation of the $n$-fold cover $S^1\to S^1$. For an elliptic curve $E$ over $\mathbb{C}$, $\pi_1^{\mathrm{top}}(E(\mathbb{C})) = \mathbb{Z}^2$, so $\pi_1^{\acute{e}t}(E_{\mathbb{C}}) = \hat{\mathbb{Z}}^2$, and the finite étale covers are the $n^2$-fold ones $[n]\colon E\to E$, recovering Tate-module data.</p>
+
+<p><strong>What goes wrong in characteristic $p$.</strong> In positive characteristic, $\pi_1^{\acute{e}t}$ is sensitive to wild ramification — Artin–Schreier covers $y^p - y = f$ are étale but have no characteristic-zero analogue, so $\pi_1^{\acute{e}t}(\mathbb{A}^1_{\mathbb{F}_p}) \neq \{1\}$ even though $\mathbb{A}^1_{\mathbb{C}}$ is simply connected (in both senses). Comparison only makes the étale side equal a profinite completion in characteristic 0, or after passing to <em>tame</em> quotients in $\mathrm{char}\,p$.</p>
+
+<div class="widget" id="w-cmp-square">
+  <div class="hd"><div class="ttl">The comparison square — click any vertex or edge</div><div class="hint">$\pi_1^{\mathrm{top}}\to\hat{\pi_1^{\mathrm{top}}} = \pi_1^{\acute{e}t}$</div></div>
+  <svg id="svg-cmp-square" viewBox="0 0 460 280" width="460" height="280" role="img" aria-label="Comparison square between topological and étale fundamental groups.">
+    <title>Comparison square: topological pi_1, finite covers, etale pi_1</title>
+  </svg>
+  <div class="readout" id="ro-cmp-square">click any node or arrow to read its role.</div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-cmp-square');
+  const out = document.getElementById('ro-cmp-square');
+  if(!svg || !out) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, text){
+    const e = document.createElementNS(NS, tag);
+    for(const k in attrs) e.setAttribute(k, attrs[k]);
+    if(text != null) e.textContent = text;
+    return e;
+  }
+  // marker
+  const defs = el('defs', {});
+  const mk = el('marker', {id:'arr-cmp', viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+  mk.appendChild(el('path', {d:'M0,0 L10,5 L0,10 z', fill:'var(--mute)'}));
+  defs.appendChild(mk);
+  svg.appendChild(defs);
+  // Four vertices of the square
+  const verts = [
+    {id:'tl', x:130, y:80,  label:'π₁^top(X(ℂ), x)',  role:'topological fundamental group of the underlying complex manifold X(ℂ); generally an abstract (non-profinite) finitely-presented group, e.g. ℤ for ℂ^×, ℤ² for an elliptic curve.'},
+    {id:'tr', x:340, y:80,  label:'π₁^ét(X, x̄)',     role:'étale fundamental group: profinite, encodes finite étale covers via Aut(F_x̄). For X smooth over ℂ, equal to the profinite completion of the top row.'},
+    {id:'bl', x:130, y:200, label:'finite covers (top)', role:'category of finite topological covering spaces of X(ℂ). Each such cover corresponds to a finite-index subgroup of π₁^top.'},
+    {id:'br', x:340, y:200, label:'finite étale covers', role:'category FÉt/X of finite étale covers of the scheme X. By Riemann existence, this category is equivalent to the bottom-left.'},
+  ];
+  // edges
+  const edges = [
+    {id:'top',   from:'tl', to:'tr', dy:-22, label:'profinite completion', role:'every finite quotient of π₁^top is a finite quotient of π₁^ét and vice versa — the canonical map G ↦ Ĝ identifies them after passing to finite quotients.'},
+    {id:'left',  from:'tl', to:'bl', dx:-44, label:'classify by H',         role:'Galois correspondence for topological covers: (connected cover, basepoint) ↔ subgroup H ≤ π₁^top of finite index.'},
+    {id:'right', from:'tr', to:'br', dx:36,  label:'Grothendieck',          role:'Grothendieck Galois theory: FÉt/X ≃ π₁^ét-FinSet. Connected cover of degree n ↔ open subgroup of index n.'},
+    {id:'bot',   from:'bl', to:'br', dy:24,  label:'Riemann existence',     role:'Riemann existence theorem: every finite topological cover of X(ℂ) underlies a unique finite étale cover of the scheme X (in characteristic 0).'},
+  ];
+  function find(id){ return verts.find(v => v.id === id); }
+  // draw edges
+  edges.forEach(e => {
+    const a = find(e.from), b = find(e.to);
+    const isHoriz = a.y === b.y;
+    const x1 = a.x + (b.x>a.x ? 70 : (b.x<a.x ? -70 : 0));
+    const y1 = a.y + (b.y>a.y ? 22 : (b.y<a.y ? -22 : 0));
+    const x2 = b.x - (b.x>a.x ? 70 : (b.x<a.x ? -70 : 0));
+    const y2 = b.y - (b.y>a.y ? 22 : (b.y<a.y ? -22 : 0));
+    const ln = el('line', {x1, y1, x2, y2, stroke:'var(--mute)', 'stroke-width':1.5, 'marker-end':'url(#arr-cmp)', style:'cursor:pointer'});
+    ln.addEventListener('click', () => out.textContent = '['+e.label+']  '+e.role);
+    svg.appendChild(ln);
+    const lx = (x1+x2)/2 + (e.dx||0);
+    const ly = (y1+y2)/2 + (e.dy||0);
+    const lbl = el('text', {x:lx, y:ly, 'font-size':11, fill:'var(--yellow)', 'text-anchor':'middle', 'font-style':'italic', style:'cursor:pointer'}, e.label);
+    lbl.addEventListener('click', () => out.textContent = '['+e.label+']  '+e.role);
+    svg.appendChild(lbl);
+  });
+  // draw vertices
+  verts.forEach(v => {
+    const r = el('rect', {x:v.x-70, y:v.y-22, width:140, height:44, rx:8, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.4, style:'cursor:pointer'});
+    r.addEventListener('click', () => out.textContent = '['+v.label+']  '+v.role);
+    svg.appendChild(r);
+    const t = el('text', {x:v.x, y:v.y+4, 'font-size':11.5, fill:'var(--ink)', 'text-anchor':'middle', style:'pointer-events:none'}, v.label);
+    svg.appendChild(t);
+  });
+  // initial readout
+  out.textContent = '['+verts[1].label+']  '+verts[1].role;
+})();
+</script>
 <div class="quiz" data-concept="comparison-topological"></div>
 </section>
 
