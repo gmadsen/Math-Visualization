@@ -2,6 +2,30 @@
 
 Read this file before making any change to the repository. Read [`PLAN.md`](./PLAN.md) immediately after to know what work is actually wanted — it defines current priorities, concrete next tasks, and the dependency spine.
 
+`CLAUDE.md` is a symlink to this file — Claude and any other LLM agent that consults a name-specific entry point lands here.
+
+## First-time setup per clone
+
+```bash
+git config core.hooksPath .githooks   # enable the pre-commit roundtrip guard
+npm ci --prefix scripts               # install build-time deps (ajv, node-html-parser)
+```
+
+The hooks directory is versioned, so updates propagate with `git pull`. Bypass a hook with `git commit --no-verify` if you know what you're doing. The `scripts/` lockfile is committed; CI runs the same `npm ci` step.
+
+## Daily workflow at a glance
+
+`content/<topic>.json` is the source of truth — `<topic>.html` is regenerated from it. Edit JSON, then:
+
+```bash
+node scripts/rebuild.mjs              # full chain in fix-mode (writes derived files)
+node scripts/rebuild.mjs --no-fix     # CI mirror — strict, fails on any drift
+```
+
+Per-step invocation and the full step enumeration are documented under § "Registering a new page" below. Direct edits to `<topic>.html` get overwritten on the next rebuild — to backport a legitimate HTML edit, run `node scripts/extract-topic.mjs <topic>` first to update the JSON.
+
+Scaffolders for the two common "add a new thing" flows: [`scripts/new-topic.mjs <slug> <section>`](./scripts/new-topic.mjs) (new topic page) and [`scripts/new-widget.mjs <slug>`](./scripts/new-widget.mjs) (new widget registry entry). Prefer them over hand-authoring the multi-step boilerplate.
+
 ## Project goal
 
 A single-file, interactive graduate-mathematics notebook in the spirit of 3Blue1Brown for aesthetic and Brilliant.org for pedagogy:
@@ -35,7 +59,7 @@ AGENTS.md                     this file
 PLAN.md                       forward priorities and next tasks
 ```
 
-Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small node scripts that (a) flatten `concepts/*.json` and `quizzes/*.json` into `*/bundle.js` so `file://` double-click opens still work (browsers block `fetch()` of local JSON), (b) idempotently insert forward/reverse cross-reference asides into topic pages, or (c) validate the concept graph. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs the whole chain on every push.
+Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small node scripts that (a) flatten `concepts/*.json` and `quizzes/*.json` into `*/bundle.js` so `file://` double-click opens still work (browsers block `fetch()` of local JSON), (b) idempotently insert forward/reverse cross-reference asides into topic pages, or (c) validate the concept graph. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs `node scripts/rebuild.mjs --no-fix` on every push and PR.
 
 Quality gates — all exit non-zero on failure and gate CI:
 
