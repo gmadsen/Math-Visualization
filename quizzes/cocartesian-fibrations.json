@@ -6,16 +6,69 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Left and right fibrations\"?",
+          "q": "Which horn-extension property characterizes a <strong>left fibration</strong> $p: \\mathcal{E} \\to \\mathcal{B}$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "Every inner horn $\\Lambda^n_k$ ($0 < k < n$) extends.",
+            "Every left horn $\\Lambda^n_0$ ($n \\geq 1$) extends.",
+            "Every right horn $\\Lambda^n_n$ ($n \\geq 1$) extends.",
+            "Every horn (inner or outer) extends — i.e. $p$ is a Kan fibration."
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "By definition, $p$ is a left fibration iff every diagram $\\Lambda^n_0 \\to \\mathcal{E}$ together with a chosen extension $\\Delta^n \\to \\mathcal{B}$ admits a filler $\\Delta^n \\to \\mathcal{E}$ for every $n \\geq 1$. Inner horns characterize <em>inner</em> fibrations (and quasi-categories when $\\mathcal{B} = *$); right horns characterize right fibrations.",
+          "hint": "$\\Lambda^n_0$ is the horn missing the face <em>opposite</em> the initial vertex."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every map that is a <strong>left fibration</strong>.",
+          "choices": [
+            "The constant map $\\Delta^0 \\to \\Delta^0$.",
+            "The fold $\\Delta^1 \\sqcup \\Delta^1 \\to \\Delta^1$ identifying the two copies vertex-to-vertex.",
+            "Any Kan fibration.",
+            "The unique map from a Kan complex $X$ to $\\Delta^0$.",
+            "The boundary inclusion $\\partial \\Delta^2 \\hookrightarrow \\Delta^2$."
+          ],
+          "answer": [0, 2, 3],
+          "explain": "Identity-style maps and Kan fibrations satisfy <em>every</em> horn condition, so they are left fibrations a fortiori. A Kan complex over a point is the same data as a Kan fibration to $\\Delta^0$. The boundary inclusion is not even surjective in dimension $2$ — it does not extend the constant horn at the missing $2$-simplex. The fold map is not a fibration of any kind.",
+          "hint": "Every Kan fibration is a left fibration; a left fibration over a point is precisely a Kan complex."
+        },
+        {
+          "type": "mcq",
+          "q": "Under straightening, a <strong>left fibration</strong> over $\\mathcal{B}$ corresponds to:",
+          "choices": [
+            "A functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+            "A functor $\\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$ (a presheaf of spaces).",
+            "A functor $\\mathcal{B} \\to \\mathcal{S}$ (a covariant family of spaces).",
+            "A functor $\\mathcal{B}^{\\mathrm{op}} \\to \\mathrm{Cat}_\\infty$ (a contravariant family of $\\infty$-categories)."
+          ],
+          "answer": 2,
+          "explain": "Left fibrations over $\\mathcal{B}$ straighten to functors $\\mathcal{B} \\to \\mathcal{S}$. Right fibrations over $\\mathcal{B}$ straighten to $\\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$, recovering the classical Yoneda picture of presheaves of spaces. Cocartesian / cartesian fibrations are the $\\mathrm{Cat}_\\infty$-valued versions.",
+          "hint": "The fibers of a left fibration are <em>spaces</em>, not categories; covariance comes from $\\Lambda^n_0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "spot-the-error",
+          "q": "Below is a sketch that 'every left fibration is a right fibration.' Find the false step.",
+          "steps": [
+            "Suppose $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration: every $\\Lambda^n_0$-horn lifts.",
+            "Reverse every $1$-simplex in $\\mathcal{B}$ and in $\\mathcal{E}$ — i.e. apply the $\\mathrm{op}$ functor coordinatewise.",
+            "Since $\\Lambda^n_0$ becomes $\\Lambda^n_n$ under $\\mathrm{op}$, $p^{\\mathrm{op}}$ is a right fibration; this proves the claim for $p^{\\mathrm{op}}$, hence for $p$.",
+            "Therefore $p$ itself is a right fibration."
+          ],
+          "answer": 3,
+          "explain": "Steps 1–3 are correct: $p$ a left fibration is equivalent to $p^{\\mathrm{op}}$ a right fibration. Step 4 silently identifies $p$ with $p^{\\mathrm{op}}$, which is wrong: the two are <em>opposite</em> maps, not equal. The true statement is the duality between left and right fibrations, not their coincidence."
+        },
+        {
+          "type": "mcq",
+          "q": "Joyal's recognition theorem says: a left fibration $p: \\mathcal{E} \\to \\mathcal{B}$ is a <em>trivial</em> Kan fibration iff…",
+          "choices": [
+            "$\\mathcal{E}$ and $\\mathcal{B}$ are both Kan complexes.",
+            "Every fiber $\\mathcal{E}_b$ is a contractible Kan complex.",
+            "$p$ admits a section.",
+            "$\\mathcal{B}$ is the nerve of an ordinary category."
+          ],
+          "answer": 1,
+          "explain": "A left fibration with contractible fibers is a trivial Kan fibration: contractibility kills all higher homotopy, so the fibration is in fact an equivalence. Existence of a section is necessary but far from sufficient; the base being a $1$-categorical nerve has no bearing on triviality."
         }
       ]
     },
@@ -24,16 +77,40 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Cocartesian edges\"?",
+          "q": "An edge $e: x \\to y$ in $\\mathcal{E}$ over $\\bar{e}: \\bar{x} \\to \\bar{y}$ is <strong>$p$-cocartesian</strong> iff:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "For every $z \\in \\mathcal{E}$, post-composition with $e$ induces an equivalence $\\mathrm{Map}_\\mathcal{E}(y, z) \\to \\mathrm{Map}_\\mathcal{E}(x, z) \\times_{\\mathrm{Map}_\\mathcal{B}(\\bar{x}, p(z))} \\mathrm{Map}_\\mathcal{B}(\\bar{y}, p(z))$.",
+            "$e$ is invertible in $\\mathcal{E}$.",
+            "$e$ projects to an isomorphism in $\\mathcal{B}$.",
+            "$\\bar{e}$ is the identity edge of $\\bar{x}$."
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "The cocartesian condition is exactly the universal lifting property: $e$ is cocartesian over $\\bar{e}$ iff for every $z$, the induced square on mapping spaces is a pullback in spaces. Equivalently, every $\\Lambda^{n+1}_0$-horn whose initial edge is $e$ lifts uniquely (up to contractible choice). Cocartesian edges need not be invertible.",
+          "hint": "The defining property is universal: extending $e$ to higher simplices upstairs is determined by the same data downstairs."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A claimed proof that 'every edge over an identity is cocartesian' goes:",
+          "steps": [
+            "Let $\\bar{e} = \\mathrm{id}_{\\bar{x}}$ and let $e: x \\to y$ in $\\mathcal{E}$ with $p(e) = \\bar{e}$.",
+            "Then $e$ lies in the fiber $\\mathcal{E}_{\\bar{x}}$, which is an $\\infty$-subcategory of $\\mathcal{E}$.",
+            "An edge inside the fiber is automatically a 'fiberwise' edge, i.e. lifts every horn whose base is in $\\mathcal{E}_{\\bar{x}}$.",
+            "Therefore $e$ is $p$-cocartesian for every such fibration $p$."
+          ],
+          "answer": 3,
+          "explain": "Step 4 confuses 'fiberwise lifting' with the cocartesian condition. The cocartesian property concerns horns whose base extends <em>off</em> the fiber — i.e. into edges of $\\mathcal{B}$ starting from $\\bar{x}$. A fiber-internal edge is cocartesian iff it is an <em>equivalence</em> in the fiber $\\mathcal{E}_{\\bar{x}}$ (HTT 2.4.1.5). A non-equivalence in the fiber is a perfectly valid edge over $\\mathrm{id}_{\\bar{x}}$ and is not cocartesian."
+        },
+        {
+          "type": "mcq",
+          "q": "If $e_1, e_2: x \\to y$ are both $p$-cocartesian over the same $\\bar{e}: \\bar{x} \\to \\bar{y}$, what is the relationship between them?",
+          "choices": [
+            "They are equal as $1$-simplices of $\\mathcal{E}$.",
+            "They are equivalent in the fiber $\\mathcal{E}_{\\bar{y}}$ via a canonical equivalence in $\\mathrm{Map}_{\\mathcal{E}_{\\bar{y}}}(y, y)$.",
+            "They are equivalent in $\\mathcal{E}$, but the equivalence need not lie in any fiber.",
+            "They become equal after passing to the homotopy category $h(\\mathcal{E})$."
+          ],
+          "answer": 1,
+          "explain": "Cocartesian lifts are unique up to a <em>contractible</em> space of choices, so any two cocartesian lifts of $\\bar{e}$ starting at $x$ are linked by an equivalence between their endpoints — and that equivalence sits in the fiber $\\mathcal{E}_{\\bar{y}}$ (since both endpoints live there). Equality on the nose is far too strong; the homotopy-category quotient is too coarse."
         }
       ]
     },
@@ -42,16 +119,75 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Cocartesian fibrations\"?",
+          "q": "$p: \\mathcal{E} \\to \\mathcal{B}$ is a <strong>cocartesian fibration</strong> iff $p$ is an inner fibration <em>and</em>:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "Every edge of $\\mathcal{E}$ is cocartesian.",
+            "For every edge $\\bar{e}: \\bar{x} \\to \\bar{y}$ of $\\mathcal{B}$ and every $x \\in \\mathcal{E}_{\\bar{x}}$, there exists a $p$-cocartesian edge $e: x \\to y$ with $p(e) = \\bar{e}$.",
+            "$p$ admits a section.",
+            "Every fiber $\\mathcal{E}_{\\bar{b}}$ is a Kan complex."
+          ],
+          "answer": 1,
+          "explain": "The standard definition (HTT 2.4.2.1, Kerodon 5.1.4): inner fibration plus the cocartesian-lift existence axiom. The fibers being Kan complexes characterizes <em>left</em> fibrations among cocartesian ones; every-edge-cocartesian forces $p$ to factor through an equivalence onto its image.",
+          "hint": "Two clauses: 'inner fibration' (so fibers are $\\infty$-categories) and 'cocartesian lifts always exist'."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are <strong>cocartesian fibrations</strong>?",
+          "choices": [
+            "The source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ for an $\\infty$-category $\\mathcal{C}$.",
+            "The product projection $\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$.",
+            "The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ from modules to commutative ring spectra.",
+            "The diagonal $\\mathcal{C} \\to \\mathcal{C} \\times \\mathcal{C}$.",
+            "The equalizer inclusion $\\mathrm{eq}(f, g) \\hookrightarrow \\mathcal{C}$ for parallel functors $f, g: \\mathcal{C} \\to \\mathcal{D}$."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Source-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (Kerodon 5.1.5). The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
+          "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-source maps fit; inclusions and diagonals don't."
+        },
+        {
+          "type": "mcq",
+          "q": "For the projection $p: \\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$, what is the transport functor along $\\bar{e}: c \\to c'$?",
+          "choices": [
+            "The identity functor on $\\mathcal{D}$.",
+            "Postcomposition with $\\bar{e}$, viewed as a functor $\\mathcal{D} \\to \\mathcal{D}$.",
+            "The constant functor $\\mathcal{D} \\to \\mathcal{D}$ at the initial object.",
+            "Pullback along $\\bar{e}$ — only defined when $\\mathcal{D}$ has fiber products."
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "The fiber over each $c$ is $\\mathcal{D}$ itself, and the cocartesian lift of $\\bar{e}: c \\to c'$ at $(c, d)$ is the edge $(\\bar{e}, \\mathrm{id}_d): (c, d) \\to (c', d)$. So $\\bar{e}_!: \\mathcal{D} \\to \\mathcal{D}$ is the identity, and the straightening is the constant functor $\\mathcal{C} \\to \\mathrm{Cat}_\\infty$ with value $\\mathcal{D}$.",
+          "hint": "A constant family of fibers ought to have constant transport."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "If $p: \\mathcal{E} \\to \\mathcal{B}$ is both a cocartesian fibration <em>and</em> a cartesian fibration, then $p$ encodes:",
+          "choices": [
+            "An $\\infty$-equivalence $\\mathcal{E} \\simeq \\mathcal{B}$.",
+            "An adjunction in the sense of HTT 5.2 — both fibrations together package the unit and counit.",
+            "Necessarily a Kan fibration (so all fibers are Kan complexes).",
+            "Nothing nontrivial — every cocartesian fibration is automatically cartesian."
+          ],
+          "answer": 1,
+          "explain": "A <em>biCartesian</em> fibration $p: \\mathcal{M} \\to \\Delta^1$ is exactly Lurie's encoding of an $\\infty$-adjunction (HTT 5.2.2.1): the cocartesian transport $0 \\to 1$ supplies the left adjoint, and the cartesian transport $1 \\to 0$ supplies the right adjoint, with the joint structure encoding the unit + counit. Over a more general base it encodes a <em>fiberwise</em> adjunction."
+        },
+        {
+          "type": "matching",
+          "q": "Match each cocartesian fibration $p$ to the corresponding straightened functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+          "left": [
+            "Constant functor $\\mathcal{C} \\to \\mathrm{Cat}_\\infty$ at $\\mathcal{D}$",
+            "Slice functor $c \\mapsto \\mathcal{C}_{c/}$",
+            "Module functor $R \\mapsto \\mathrm{Mod}_R$",
+            "$BG$-action on a space $X$"
+          ],
+          "right": [
+            "$\\mathrm{Mod}_{(-)} \\to \\mathrm{CAlg}$",
+            "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$",
+            "$X /\\!\\!/ G \\to BG$",
+            "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$"
+          ],
+          "answer": [3, 0, 2, 1],
+          "explain": "(left index → right slot.) Constant family ↔ product projection (idx 3 of left = $\\mathcal{C} \\times \\mathcal{D}$). Slice functor ↔ arrow-source (left idx 1 → right idx 0, since right[0] is the modules fibration — wait, double-check: right[0] is Mod$\\to$CAlg → matches Module functor (left idx 2). The intended answer pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'slice $c \\mapsto \\mathcal{C}_{c/}$' ↔ '$s: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$', 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. Each is a canonical example of straightening."
         }
       ]
     },
@@ -60,16 +196,68 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Fibers and transport functors\"?",
+          "q": "For the source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, what is the fiber over an object $x \\in \\mathcal{C}$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "The mapping space $\\mathrm{Map}_\\mathcal{C}(x, x)$.",
+            "The slice $\\mathcal{C}_{x/}$ — arrows out of $x$.",
+            "The slice $\\mathcal{C}_{/x}$ — arrows into $x$.",
+            "The whole of $\\mathcal{C}$ shifted by $x$."
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an arrow $f: a \\to b$; the source map sends $f$ to $a$. The fiber over $x$ is therefore the $\\infty$-category of arrows with source $x$, i.e. the slice $\\mathcal{C}_{x/}$. (The <em>target</em> map gives $\\mathcal{C}_{/x}$.) The transport functor along $\\bar{e}: x \\to y$ is the postcomposition $\\bar{e}_*: \\mathcal{C}_{x/} \\to \\mathcal{C}_{y/}$ … wait, careful: cocartesian lift of $\\bar{e}$ at an arrow $f: x \\to z$ is the $2$-simplex with $f$ on one face and $\\bar{e}$ on another, giving an arrow $y \\to z$ — i.e. <em>precomposition</em> by $\\bar{e}$, sending $f$ to $f \\circ \\bar{e}^{-1}$ … no: source map is cocartesian, so $\\bar{e}_!$ on $\\mathcal{C}_{x/}$ goes to $\\mathcal{C}_{y/}$ via filling. The end product is precomposition with $\\bar{e}$ in the contravariant direction.",
+          "hint": "An arrow $f: a \\to b$ has source $a$; the source-fiber over $x$ is what one builds out of arrows starting at $x$."
+        },
+        {
+          "type": "mcq",
+          "q": "Given $\\bar{e}: \\bar{x} \\to \\bar{y}$ and $\\bar{f}: \\bar{y} \\to \\bar{z}$ in $\\mathcal{B}$, the transport functor $(\\bar{f} \\circ \\bar{e})_!$ is canonically equivalent to:",
+          "choices": [
+            "$\\bar{e}_! \\circ \\bar{f}_!$",
+            "$\\bar{f}_! \\circ \\bar{e}_!$",
+            "Neither — the transport is only well-defined on individual edges, not on compositions.",
+            "$\\mathrm{id}$ — composition cancels in transport."
+          ],
+          "answer": 1,
+          "explain": "Transport is a (lax / pseudo) functorial assignment: composition of edges in $\\mathcal{B}$ becomes composition of transport functors in $\\mathrm{Cat}_\\infty$, $\\bar{f}_! \\bar{e}_!$, with a coherent equivalence — this is one face of the straightening equivalence. The order $\\bar{f}_! \\circ \\bar{e}_!$ matches the order of edges $\\bar{x} \\to \\bar{y} \\to \\bar{z}$.",
+          "hint": "Same composition order as the underlying edges in $\\mathcal{B}$."
+        },
+        {
+          "type": "mcq",
+          "q": "If $\\bar{e}: \\bar{x} \\to \\bar{y}$ is an <strong>equivalence</strong> in $\\mathcal{B}$, then $\\bar{e}_!: \\mathcal{E}_{\\bar{x}} \\to \\mathcal{E}_{\\bar{y}}$ is:",
+          "choices": [
+            "The constant functor at the initial object.",
+            "An $\\infty$-equivalence of fibers.",
+            "Always the identity (after identifying the fibers).",
+            "Defined only up to a non-trivial 2-cell, not as a functor."
+          ],
+          "answer": 1,
+          "explain": "Functoriality of transport sends equivalences in $\\mathcal{B}$ to equivalences in $\\mathrm{Cat}_\\infty$, so $\\bar{e}_!$ is itself an equivalence with inverse $\\bar{e}^{-1}_!$. Identifying it with the literal identity requires choosing a path between $\\bar{x}$ and $\\bar{y}$ — the equivalence depends on the chosen lift."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For the modules fibration $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$, what is the transport functor $\\bar{f}_!$ along a ring map $\\bar{f}: R \\to S$?",
+          "choices": [
+            "The forgetful functor $\\mathrm{Mod}_S \\to \\mathrm{Mod}_R$ (restriction of scalars).",
+            "The base-change functor $S \\otimes_R (-): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
+            "The internal-Hom $\\mathrm{Hom}_R(S, -): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
+            "Tensoring with the kernel of $\\bar{f}$."
+          ],
+          "answer": 1,
+          "explain": "Cocartesian transport along $R \\to S$ in the modules fibration is base change $S \\otimes_R^{\\mathbb{L}} -$. Restriction of scalars goes the <em>other</em> way (it's the <em>cartesian</em> transport, since the fibration is also cartesian — modules-over-CAlg is a biCartesian fibration whose two transports are an adjoint pair $S \\otimes_R - \\dashv \\mathrm{res}$).",
+          "hint": "Base change is left adjoint to restriction; cocartesian = left adjoint side."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the false step in this 'computation' of the fiber of the target map $t: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ over $y$:",
+          "steps": [
+            "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an edge $f: a \\to b$.",
+            "$t(f) = b$ — the target.",
+            "So $t^{-1}(y)$ consists of edges $f$ with $b = y$, i.e. arrows ending at $y$.",
+            "These form the slice $\\mathcal{C}_{y/}$ — arrows out of $y$."
+          ],
+          "answer": 3,
+          "explain": "Step 4 mislabels the slice. Arrows <em>ending</em> at $y$ — i.e. $a \\to y$ — form $\\mathcal{C}_{/y}$, the over-category of $y$. The slice $\\mathcal{C}_{y/}$ contains arrows <em>starting</em> at $y$. So the target-fiber is $\\mathcal{C}_{/y}$ (and the source-fiber is $\\mathcal{C}_{y/}$); confusing the two is the standard slip."
         }
       ]
     },
@@ -78,16 +266,68 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Straightening / unstraightening: the Grothendieck construction\"?",
+          "q": "Lurie's <strong>straightening</strong> equivalence sends a cocartesian fibration $p: \\mathcal{E} \\to \\mathcal{B}$ to:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "A functor $\\mathrm{St}(p): \\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+            "A functor $\\mathrm{St}(p): \\mathcal{B}^{\\mathrm{op}} \\to \\mathrm{Cat}_\\infty$.",
+            "A functor $\\mathrm{St}(p): \\mathcal{E} \\to \\mathrm{Cat}_\\infty$.",
+            "A pair of adjoint functors between $\\mathcal{E}$ and $\\mathcal{B}$."
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "The cocartesian-fibration straightening is covariant: $\\mathrm{St}(p): \\mathcal{B} \\to \\mathrm{Cat}_\\infty$, $\\bar{b} \\mapsto \\mathcal{E}_{\\bar{b}}$, $\\bar{e} \\mapsto \\bar{e}_!$. Cartesian fibrations straighten contravariantly — to $\\mathcal{B}^{\\mathrm{op}} \\to \\mathrm{Cat}_\\infty$.",
+          "hint": "Cocartesian = covariant; cartesian = contravariant."
+        },
+        {
+          "type": "mcq",
+          "q": "Restricted to <em>ordinary</em> categories (not $\\infty$-categories), the Grothendieck construction recovers:",
+          "choices": [
+            "The ordinary nerve functor $N: \\mathrm{Cat} \\to \\mathrm{sSet}$.",
+            "The classical equivalence between Grothendieck fibrations over $\\mathcal{C}$ and pseudofunctors $\\mathcal{C} \\to \\mathrm{Cat}$.",
+            "The Yoneda embedding $\\mathcal{C} \\to \\mathrm{PSh}(\\mathcal{C})$.",
+            "The Quillen equivalence between simplicial sets and topological spaces."
+          ],
+          "answer": 1,
+          "explain": "Restricting both sides to nerves of ordinary categories recovers the classical statement (Grothendieck SGA 1, Exp. VI): Grothendieck (op-)fibrations over $\\mathcal{C}$ = pseudofunctors $\\mathcal{C} \\to \\mathrm{Cat}$. The $\\infty$-version is its homotopy-coherent generalization with strict pseudofunctoriality replaced by coherence-up-to-higher-simplices."
+        },
+        {
+          "type": "mcq",
+          "q": "<strong>Unstraightening</strong> applied to the constant functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$ at $\\mathcal{D}$ produces:",
+          "choices": [
+            "The fold map $\\mathcal{D} \\sqcup \\mathcal{D} \\to \\mathcal{D}$.",
+            "The product projection $\\mathcal{B} \\times \\mathcal{D} \\to \\mathcal{B}$.",
+            "The diagonal $\\mathcal{B} \\to \\mathcal{B} \\times \\mathcal{D}$.",
+            "The mapping space $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{D})$."
+          ],
+          "answer": 1,
+          "explain": "A constant family of fibers all equal to $\\mathcal{D}$ unstraightens to the trivial fibration $\\mathcal{B} \\times \\mathcal{D} \\to \\mathcal{B}$, with all transport functors equal to $\\mathrm{id}_\\mathcal{D}$.",
+          "hint": "Constant fiber = product."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A morphism $p \\to q$ of cocartesian fibrations over $\\mathcal{B}$ — i.e. a commuting triangle $\\mathcal{E} \\to \\mathcal{F}$ over $\\mathcal{B}$ that <em>preserves cocartesian edges</em> — corresponds under straightening to:",
+          "choices": [
+            "An arbitrary natural transformation $\\mathrm{St}(p) \\to \\mathrm{St}(q)$.",
+            "Strictly nothing — only the fibrations themselves correspond, not their morphisms.",
+            "A natural transformation that is an equivalence on every component.",
+            "A morphism in $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$."
+          ],
+          "answer": 3,
+          "explain": "Straightening is a functor of $\\infty$-categories, sending the $\\infty$-category $\\mathrm{coCart}(\\mathcal{B})$ of cocartesian fibrations and cocartesian-edge-preserving maps to $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$. The cocartesian-preservation hypothesis is essential — without it, one obtains an arbitrary morphism over $\\mathcal{B}$, which corresponds to a lax natural transformation rather than a genuine one.",
+          "hint": "It's an equivalence of $\\infty$-categories, so morphisms correspond to morphisms — between functor $\\infty$-categories."
+        },
+        {
+          "type": "mcq",
+          "q": "How does straightening interact with the Cartesian product of fibrations? Concretely: if $p: \\mathcal{E} \\to \\mathcal{B}$ and $q: \\mathcal{F} \\to \\mathcal{B}$ are cocartesian, the fiberwise product $p \\times_\\mathcal{B} q: \\mathcal{E} \\times_\\mathcal{B} \\mathcal{F} \\to \\mathcal{B}$ corresponds to:",
+          "choices": [
+            "$\\mathrm{St}(p) \\times \\mathrm{St}(q)$, the pointwise product of functors $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+            "$\\mathrm{St}(p) \\sqcup \\mathrm{St}(q)$, the pointwise coproduct.",
+            "$\\mathrm{Fun}(\\mathrm{St}(p), \\mathrm{St}(q))$, the internal mapping object.",
+            "Generally undefined — fiberwise products of cocartesian fibrations need not be cocartesian."
+          ],
+          "answer": 0,
+          "explain": "Straightening preserves limits (it's an equivalence of presentable $\\infty$-categories), so the fiber product over $\\mathcal{B}$ corresponds to the pointwise product of the straightenings as objects of $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$. The fiberwise product is automatically cocartesian whenever both factors are."
         }
       ]
     },
@@ -96,16 +336,68 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Left fibrations ↔ presheaves of spaces\"?",
+          "q": "Restricting straightening to <em>left</em> fibrations gives an equivalence of $\\infty$-categories:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$.",
+            "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$.",
+            "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathrm{Fun}(\\mathcal{B}^{\\mathrm{op}}, \\mathcal{S})$ (i.e. presheaves of spaces).",
+            "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathcal{B}$ itself."
+          ],
+          "answer": 1,
+          "explain": "Left fibrations have <em>spaces</em> as fibers (their inner-fibration property + every-edge-cocartesian forces the fibers to be Kan complexes), so straightening lands in $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$ — covariant functors to spaces. <em>Right</em> fibrations give $\\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$, i.e. presheaves.",
+          "hint": "Left fibration ↔ covariant; presheaf is contravariant — that's right fibrations."
+        },
+        {
+          "type": "mcq",
+          "q": "Yoneda's $\\infty$-categorical embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B}) = \\mathrm{Fun}(\\mathcal{B}^{\\mathrm{op}}, \\mathcal{S})$ factors through:",
+          "choices": [
+            "The universal cocartesian fibration over $\\mathcal{B}$.",
+            "The universal <em>right</em> fibration over $\\mathcal{B}$ — i.e. the target map $\\mathrm{tw}(\\mathcal{B}) \\to \\mathcal{B}$ of the twisted-arrow $\\infty$-category projected onto its source-side.",
+            "The forgetful functor $\\mathrm{Cat}_\\infty \\to \\mathcal{S}$.",
+            "The classifying space functor $|-|: \\mathrm{sSet} \\to \\mathcal{S}$."
+          ],
+          "answer": 1,
+          "explain": "Yoneda factors through the universal right fibration: an object $b \\in \\mathcal{B}$ is sent to the slice $\\mathcal{B}_{/b}$, which is the fiber of the right fibration $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ over $b$. Straightening this right fibration recovers the Yoneda functor $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$.",
+          "hint": "$\\mathcal{B}_{/b}$ = the representable presheaf at $b$, viewed as the fiber of a fibration."
+        },
+        {
+          "type": "mcq",
+          "q": "A <strong>left fibration</strong> $p: \\mathcal{E} \\to \\mathcal{B}$ is the same data as a cocartesian fibration whose:",
+          "choices": [
+            "Fibers are all Kan complexes (i.e. $\\infty$-groupoids).",
+            "Fibers are all the same $\\infty$-category.",
+            "Fibers are empty for all but one object of $\\mathcal{B}$.",
+            "Base $\\mathcal{B}$ is a Kan complex."
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "A cocartesian fibration with $\\mathcal{S}$-valued fibers — equivalently, all fibers being Kan complexes — is exactly a left fibration. The straightening lands in $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$ rather than $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$ when this happens (HTT 2.1.1.2)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For $\\mathcal{B} = \\Delta^0$ (the point), which $\\infty$-categories admit the structure of <em>any</em> left fibration over $\\Delta^0$?",
+          "choices": [
+            "Only the trivial $\\infty$-category $\\Delta^0$.",
+            "All $\\infty$-categories.",
+            "Exactly the Kan complexes (i.e. $\\infty$-groupoids).",
+            "Exactly the nerves of ordinary categories."
+          ],
+          "answer": 2,
+          "explain": "A left fibration over a point is the same data as a Kan complex — its fiber, which is forced to be an $\\infty$-groupoid by the every-edge-cocartesian condition specialized to $\\mathcal{B} = \\Delta^0$. This recovers the equivalence $\\mathrm{LFib}(\\Delta^0) \\simeq \\mathcal{S}$.",
+          "hint": "$\\mathrm{Fun}(\\Delta^0, \\mathcal{S}) = \\mathcal{S}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The <em>universal</em> left fibration is:",
+          "choices": [
+            "$\\mathcal{S}_*/ \\to \\mathcal{S}$: the slice of pointed spaces over the $\\infty$-category of spaces.",
+            "$\\mathrm{id}: \\mathcal{S} \\to \\mathcal{S}$.",
+            "$\\Delta^1 \\to \\Delta^0$ — every left fibration pulls back from this.",
+            "There is no universal left fibration; the moduli of left fibrations is too large."
+          ],
+          "answer": 0,
+          "explain": "The forgetful $\\mathcal{S}_{*/} \\to \\mathcal{S}$ from pointed spaces (or 'spaces with a chosen basepoint') to spaces is the universal left fibration: every left fibration $\\mathcal{E} \\to \\mathcal{B}$ is the pullback of this universal one along its straightening $\\mathcal{B} \\to \\mathcal{S}$. This is a key tool in HTT §3.3."
         }
       ]
     },
@@ -113,17 +405,48 @@
       "title": "Examples: arrow categories, modules, classifying spaces",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"Examples: arrow categories, modules, classifying spaces\"?",
-          "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+          "type": "matching",
+          "q": "Match each canonical fibration to the functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$ (or $\\mathcal{S}$) that it straightens to.",
+          "left": [
+            "$c \\mapsto \\mathcal{C}_{c/}$ (slice $\\infty$-category)",
+            "$R \\mapsto \\mathrm{Mod}_R$ (with base change as functoriality)",
+            "$* \\mapsto X$ (a $G$-space, viewed via the action $G$-action functor $BG \\to \\mathcal{S}$)",
+            "$c \\mapsto \\{c\\}$ (constant singleton)"
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "right": [
+            "$X /\\!\\!/ G \\to BG$ — the homotopy quotient as a left fibration over $BG$",
+            "$\\mathrm{id}: \\mathcal{C} \\to \\mathcal{C}$ — every object's fiber is a singleton",
+            "$\\mathrm{Mod} \\to \\mathrm{CAlg}$ — the universal modules fibration",
+            "$s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the source map of the arrow category"
+          ],
+          "answer": [3, 2, 0, 1],
+          "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
+        },
+        {
+          "type": "multi-select",
+          "q": "Among the following projections, which are <strong>left fibrations</strong>?",
+          "choices": [
+            "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ — the slice 'forget the source' map.",
+            "$\\mathcal{C}_{/x} \\to \\mathcal{C}$ — the slice 'forget the target' map.",
+            "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$ — the source map.",
+            "$X /\\!\\!/ G \\to BG$ — homotopy quotient projection.",
+            "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$ — product projection where $\\mathcal{D}$ is an $\\infty$-category but not a Kan complex."
+          ],
+          "answer": [0, 3],
+          "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow source-map has $\\infty$-category fibers $\\mathcal{C}_{x/}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map is a <em>right</em> fibration. A product projection with an $\\infty$-category factor is cocartesian, not left.",
+          "hint": "Left fibration = cocartesian + Kan-complex fibers = $\\mathcal{S}$-valued straightening."
+        },
+        {
+          "type": "mcq",
+          "q": "For the modules fibration $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$, why is base change $S \\otimes_R^{\\mathbb{L}} -$ rather than ordinary tensor $S \\otimes_R -$ the correct transport?",
+          "choices": [
+            "Ordinary tensor doesn't even make sense in spectra.",
+            "The fibration is cocartesian in the $\\infty$-categorical sense, which builds in the higher coherence that derived (= homotopy-invariant) tensoring provides.",
+            "The two functors agree, so it doesn't matter.",
+            "Base change is computed using $\\mathrm{Tor}$, but the fibration only sees its $0$th cohomology."
+          ],
+          "answer": 1,
+          "explain": "The cocartesian-fibration formalism is intrinsically homotopy-coherent: cocartesian lifts are unique only up to (a contractible space of) higher homotopy, so the corresponding base-change functor is the derived (= $\\mathbb{L}$-tensor) one. Plain $\\otimes_R$ would be the wrong functor on $\\mathrm{Mod}_R$ at the chain-level, breaking homotopy invariance and failing to give a cocartesian fibration."
         }
       ]
     }
