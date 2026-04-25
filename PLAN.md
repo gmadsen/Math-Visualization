@@ -38,6 +38,7 @@ These are blocking better authoring ergonomics; pick them up in the next non-con
 - **`new-topic.mjs` should also append a README.md bullet** under the matching section. Currently a manual step (just done by hand for 15 topics; the scaffolder skipped this). Could also auto-update sections.json (currently scaffolder relies on user to add to sections.json).
 - **`new-concept` scaffold** — adding a concept to an existing topic still means editing `concepts/<topic>.json`, the section in `<topic>.html`, the quiz bank, and re-extracting `content/<topic>.json`. A scaffold could do all four (`new-topic.mjs` and `new-widget.mjs` are the templates).
 - **Index-card thumb art.** New-topic.mjs leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
+- **`read-prose <topic> [<concept-id>]` CLI.** Quality-pass tooling: returns just the `raw` blocks for a topic (or one concept's section), stripping widget SVG/script and quiz placeholders, with a stable handle the writer can pass back to patch the same blocks. ~50 lines on top of `loadContentModel`. Also worth: split `extract-topic.mjs` `raw` blocks on `<h2>`/`<p>` boundaries for paragraph-level Edit targets without full-file reads. Lever for cross-topic style/notation passes where SVG/script bytes are noise.
 
 ## Content debt
 
@@ -45,11 +46,10 @@ These are blocking better authoring ergonomics; pick them up in the next non-con
 - **Expert tier at 13 across the entire corpus** — no new topic adds expert questions. Single dedicated round of "for each topic, pick its 2 deepest concepts and write expert-tier questions" would be high-value.
 - **Cross-topic prereq edges** — once the architectural fix lands, the 15 new topics need real prereq wiring back into category-theory / schemes / etale-cohomology / homological / etc.
 
-## Three.js / Pyodide / lighter prose-block authoring (long-running)
+## Three.js / Pyodide / alt frontends (long-running)
 
 - **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 17 slugs should work since `renderMarkup` / `renderScript` are pure string functions.
 - **Three.js adoption decision.** `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics. Would converge with `surface-viewer`. Requires AGENTS.md amendment on dependency policy.
-- **Lighter prose-block authoring.** Now that `content/<topic>.json` is source of truth, prose blocks could move from raw HTML to mdx-lite. Needs reversibility for round-trip.
 - **Inline code cells for live examples.** `inline-code-cell` is a Web Worker JS sandbox; could be extended to Pyodide for sieves / sympy demos at the cost of a ~10MB CDN load.
 
 ## Script audit — overlap to assess
