@@ -4,10 +4,10 @@
 
 - Topics: **72**, concepts: **498**
 - Widgets: **459** (registry-driven: 457, inline: 2)
-- Quizzes: **2619** (v1: 1407, hard: 1199, expert: 13)
-- Quiz types: mcq: 1603, numeric: 848, multi-select: 58, complex: 29, matching: 26, ordering: 21, spot-the-error: 16, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Quizzes: **2659** (v1: 1433, hard: 1213, expert: 13)
+- Quiz types: mcq: 1629, numeric: 852, multi-select: 65, complex: 29, matching: 27, ordering: 21, spot-the-error: 18, proof-completion: 14, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **187**
-- Concepts lacking a hard-tier quiz: **72**
+- Concepts lacking a hard-tier quiz: **65**
 
 ## Per-slug registry adoption
 
@@ -55,8 +55,8 @@ page has wired one in yet.
   - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
   - by dimension: 2d: 65
   - by gesture: click: 63, slider+click: 1, interactive: 1
-- Quizzes: **520** (v1: 304, hard: 216, expert: 0)
-  - by type: mcq: 330, numeric: 143, multi-select: 28, matching: 7, ordering: 5, spot-the-error: 4, proof-completion: 2, complex: 1
+- Quizzes: **542** (v1: 318, hard: 224, expert: 0)
+  - by type: mcq: 343, numeric: 143, multi-select: 35, matching: 7, spot-the-error: 6, ordering: 5, proof-completion: 2, complex: 1
 
 ### Analysis
 
@@ -105,8 +105,8 @@ page has wired one in yet.
   - by family: button-stepper: 61, clickable-diagram: 15, clickable-graph: 3
   - by dimension: 2d: 79
   - by gesture: click: 79
-- Quizzes: **554** (v1: 315, hard: 239, expert: 0)
-  - by type: mcq: 334, numeric: 182, multi-select: 16, spot-the-error: 7, matching: 7, ordering: 4, complex: 3, proof-completion: 1
+- Quizzes: **572** (v1: 327, hard: 245, expert: 0)
+  - by type: mcq: 347, numeric: 186, multi-select: 16, matching: 8, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ## Per-topic
 
@@ -121,7 +121,7 @@ page has wired one in yet.
 - `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `infinity-categories` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
+- `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=29 (v1=21, hard=8, expert=0)
 - `derived-categories` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
@@ -177,7 +177,7 @@ page has wired one in yet.
 - `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
 - `group-schemes` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
@@ -227,6 +227,6 @@ page has wired one in yet.
 - `infty-functors` (infinity-categories)
 - `infty-adjunctions` (infinity-categories)
 - `presheaf-infty-topos` (infinity-topoi)
-- `infty-topos-definition` (infinity-topoi)
-- `giraud-infty` (infinity-topoi)
 - `geometric-morphisms-infty` (infinity-topoi)
+- `etale-infty-topos-of-scheme` (infinity-topoi)
+- `homotopy-category-K` (derived-categories)
