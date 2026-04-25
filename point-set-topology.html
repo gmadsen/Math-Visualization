@@ -22,6 +22,7 @@
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
 <script src="./js/widget-counterexample-generator.js"></script>
+<script src="./js/widget-counterexample-explorer.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -1192,7 +1193,208 @@ Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\
 })();
 </script>
 
-<div class="quiz" data-concept="separation-axioms"></div>
+
+
+<h3>A hypothesis tour: which axioms does each space satisfy?</h3>
+<p>The hierarchy $T_0\supset T_1\supset T_2\supset T_3\supset T_4$ is <em>strict</em> — at every level there is a space that clears the bar but fails the next. Pick a space from the dropdown below and read the pass/fail column: each row explains in one sentence why that axiom holds or breaks.</p>
+
+<div class="widget" id="w-separation-axioms"></div><script>
+/* =============================== SECTION 6 widget (counterexample-explorer) =============================== */
+(function(){
+  if(!window.MVCounterexampleExplorer) return;
+  MVCounterexampleExplorer.init('#w-separation-axioms', {
+      "title": "Separation axioms: a strict hierarchy",
+      "hint": "pick a space — see which axioms it satisfies",
+      "viewBox": "0 0 320 160",
+      "hypotheses": [
+          {
+              "id": "t0",
+              "label": "$T_0$: distinct points have distinct neighborhood filters"
+          },
+          {
+              "id": "t1",
+              "label": "$T_1$: for $x\\ne y$, opens $U\\ni x\\not\\ni y$ and $V\\ni y\\not\\ni x$ (singletons closed)"
+          },
+          {
+              "id": "t2",
+              "label": "$T_2$ Hausdorff: distinct points have *disjoint* open neighborhoods"
+          },
+          {
+              "id": "t3",
+              "label": "$T_3$ regular ($+T_1$): a point and a disjoint closed set have disjoint opens"
+          },
+          {
+              "id": "t4",
+              "label": "$T_4$ normal ($+T_1$): two disjoint closed sets have disjoint opens"
+          }
+      ],
+      "cases": [
+          {
+              "name": "Indiscrete $\\{a,b\\}$",
+              "latex": "\\tau = \\{\\varnothing,\\ \\{a,b\\}\\}",
+              "svgInner": "<rect x='60' y='40' width='200' height='80' rx='10' ry='10' fill='rgba(255,216,102,0.10)' stroke='var(--yellow)' stroke-width='1.5'/><circle cx='120' cy='80' r='5' fill='var(--blue)'/><circle cx='200' cy='80' r='5' fill='var(--blue)'/><text x='120' y='108' text-anchor='middle' font-size='12' fill='var(--ink)'>a</text><text x='200' y='108' text-anchor='middle' font-size='12' fill='var(--ink)'>b</text><text x='160' y='32' text-anchor='middle' font-size='11' fill='var(--yellow)'>the only non-empty open is X</text>",
+              "hypotheses": {
+                  "t0": {
+                      "pass": false,
+                      "note": "no open set distinguishes $a$ from $b$ — every non-empty open is $\\{a,b\\}$"
+                  },
+                  "t1": {
+                      "pass": false,
+                      "note": "$T_0$ fails, so $T_1$ certainly fails; $\\{a\\}$ is not closed"
+                  },
+                  "t2": {
+                      "pass": false,
+                      "note": "$T_1$ fails, so Hausdorff fails"
+                  },
+                  "t3": {
+                      "pass": false,
+                      "note": "no $T_1$, no regularity (we require $T_1$ in the $T_3$ convention)"
+                  },
+                  "t4": {
+                      "pass": false,
+                      "note": "no $T_1$, no normality"
+                  }
+              }
+          },
+          {
+              "name": "Sierpiński $\\{a,b\\}$",
+              "latex": "\\tau = \\{\\varnothing,\\ \\{a\\},\\ \\{a,b\\}\\}",
+              "svgInner": "<circle cx='110' cy='80' r='28' fill='rgba(88,196,221,0.18)' stroke='var(--blue)' stroke-width='1.5'/><circle cx='110' cy='80' r='5' fill='var(--blue)'/><circle cx='210' cy='80' r='5' fill='var(--pink)'/><text x='110' y='122' text-anchor='middle' font-size='12' fill='var(--ink)'>a (open)</text><text x='210' y='122' text-anchor='middle' font-size='12' fill='var(--ink)'>b (closed)</text><text x='160' y='32' text-anchor='middle' font-size='11' fill='var(--mute)'>$\\{a\\}$ is open; every open containing $b$ is all of $X$</text>",
+              "hypotheses": {
+                  "t0": {
+                      "pass": true,
+                      "note": "$\\{a\\}$ is an open containing $a$ but not $b$"
+                  },
+                  "t1": {
+                      "pass": false,
+                      "note": "every open containing $b$ also contains $a$, so $\\{b\\}$ is not closed"
+                  },
+                  "t2": {
+                      "pass": false,
+                      "note": "$T_1$ fails, so Hausdorff fails"
+                  },
+                  "t3": {
+                      "pass": false,
+                      "note": "no $T_1$, so not regular by our convention"
+                  },
+                  "t4": {
+                      "pass": false,
+                      "note": "no $T_1$, so not normal"
+                  }
+              }
+          },
+          {
+              "name": "Cofinite $\\mathbb{Z}$",
+              "latex": "U\\subseteq\\mathbb{Z}\\ \\text{open}\\iff U=\\varnothing\\ \\text{or}\\ \\mathbb{Z}\\setminus U\\ \\text{finite}",
+              "svgInner": "<line x1='20' y1='80' x2='300' y2='80' stroke='var(--mute)' stroke-width='0.6'/><g><circle cx='40' cy='80' r='3' fill='var(--blue)'/><circle cx='70' cy='80' r='3' fill='var(--blue)'/><circle cx='100' cy='80' r='3' fill='var(--pink)'/><circle cx='130' cy='80' r='3' fill='var(--blue)'/><circle cx='160' cy='80' r='3' fill='var(--pink)'/><circle cx='190' cy='80' r='3' fill='var(--blue)'/><circle cx='220' cy='80' r='3' fill='var(--pink)'/><circle cx='250' cy='80' r='3' fill='var(--blue)'/><circle cx='280' cy='80' r='3' fill='var(--blue)'/></g><text x='160' y='38' text-anchor='middle' font-size='11' fill='var(--mute)'>a typical open: $\\mathbb{Z}$ minus finitely many points (pink)</text><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>any two non-empty opens must overlap</text>",
+              "hypotheses": {
+                  "t0": {
+                      "pass": true,
+                      "note": "for $x\\ne y$, $\\mathbb{Z}\\setminus\\{y\\}$ is open, contains $x$, misses $y$"
+                  },
+                  "t1": {
+                      "pass": true,
+                      "note": "every singleton $\\{n\\}$ is finite, hence closed"
+                  },
+                  "t2": {
+                      "pass": false,
+                      "note": "two non-empty opens have cofinite complements, so their intersection is cofinite — never empty"
+                  },
+                  "t3": {
+                      "pass": false,
+                      "note": "fails Hausdorff, hence fails regular ($T_3$) in the $T_1$-including convention"
+                  },
+                  "t4": {
+                      "pass": false,
+                      "note": "two disjoint infinite closed sets exist, but the space is not Hausdorff so $T_4$ fails by convention"
+                  }
+              }
+          },
+          {
+              "name": "$\\mathbb{R}$, Euclidean",
+              "latex": "\\text{standard metric topology on } \\mathbb{R}",
+              "svgInner": "<line x1='20' y1='80' x2='300' y2='80' stroke='var(--mute)' stroke-width='0.6'/><line x1='100' y1='74' x2='100' y2='86' stroke='var(--mute)' stroke-width='0.6'/><line x1='220' y1='74' x2='220' y2='86' stroke='var(--mute)' stroke-width='0.6'/><rect x='70' y='68' width='60' height='24' rx='12' ry='12' fill='rgba(88,196,221,0.18)' stroke='var(--blue)' stroke-width='1.5'/><rect x='190' y='68' width='60' height='24' rx='12' ry='12' fill='rgba(255,216,102,0.18)' stroke='var(--yellow)' stroke-width='1.5'/><circle cx='100' cy='80' r='3' fill='var(--blue)'/><circle cx='220' cy='80' r='3' fill='var(--yellow)'/><text x='100' y='112' text-anchor='middle' font-size='11' fill='var(--ink)'>$x$</text><text x='220' y='112' text-anchor='middle' font-size='11' fill='var(--ink)'>$y$</text><text x='160' y='38' text-anchor='middle' font-size='11' fill='var(--mute)'>disjoint $\\varepsilon$-balls separate any $x\\ne y$</text>",
+              "hypotheses": {
+                  "t0": {
+                      "pass": true,
+                      "note": "metric $\\Rightarrow$ Hausdorff $\\Rightarrow T_0$"
+                  },
+                  "t1": {
+                      "pass": true,
+                      "note": "singletons in a metric space are closed"
+                  },
+                  "t2": {
+                      "pass": true,
+                      "note": "pick $\\varepsilon=\\tfrac12|x-y|$ and use open balls $B(x,\\varepsilon),\\ B(y,\\varepsilon)$"
+                  },
+                  "t3": {
+                      "pass": true,
+                      "note": "every metric space is regular: thicken a point and a disjoint closed set by distance $\\tfrac12\\,\\mathrm{dist}(x,A)$"
+                  },
+                  "t4": {
+                      "pass": true,
+                      "note": "every metric space is normal: use $f(x)=\\mathrm{dist}(x,A)/(\\mathrm{dist}(x,A)+\\mathrm{dist}(x,B))$"
+                  }
+              }
+          },
+          {
+              "name": "Double-origin line",
+              "latex": "\\mathbb{R}\\cup\\{0'\\},\\ \\text{opens around } 0' \\text{ mirror those around } 0",
+              "svgInner": "<line x1='20' y1='90' x2='300' y2='90' stroke='var(--mute)' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='110' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><rect x='120' y='78' width='80' height='24' rx='12' ry='12' fill='rgba(88,196,221,0.15)' stroke='var(--blue)' stroke-width='1.2'/><rect x='120' y='48' width='80' height='24' rx='12' ry='12' fill='rgba(224,122,95,0.15)' stroke='var(--pink)' stroke-width='1.2'/><circle cx='160' cy='90' r='4' fill='var(--blue)'/><circle cx='160' cy='60' r='4' fill='var(--pink)'/><text x='176' y='94' font-size='11' fill='var(--ink)'>$0$</text><text x='176' y='64' font-size='11' fill='var(--ink)'>$0'$</text><text x='160' y='128' text-anchor='middle' font-size='11' fill='var(--mute)'>every open around $0$ or $0'$ contains a punctured interval of the other</text>",
+              "hypotheses": {
+                  "t0": {
+                      "pass": true,
+                      "note": "any two distinct points have an open distinguishing them"
+                  },
+                  "t1": {
+                      "pass": true,
+                      "note": "every singleton is closed (the complement is a union of basic opens)"
+                  },
+                  "t2": {
+                      "pass": false,
+                      "note": "any open around $0$ and any open around $0'$ both contain a punctured neighborhood of the common axis, so they intersect"
+                  },
+                  "t3": {
+                      "pass": false,
+                      "note": "fails Hausdorff, hence fails regular"
+                  },
+                  "t4": {
+                      "pass": false,
+                      "note": "fails Hausdorff, hence fails normal"
+                  }
+              }
+          },
+          {
+              "name": "Niemytzki (Moore) plane",
+              "latex": "\\{(x,y)\\in\\mathbb{R}^2:y\\ge 0\\}\\ \\text{with tangent-disk opens on the boundary}",
+              "svgInner": "<rect x='20' y='30' width='280' height='100' fill='rgba(88,196,221,0.05)'/><line x1='20' y1='130' x2='300' y2='130' stroke='var(--mute)' stroke-width='1'/><circle cx='110' cy='110' r='20' fill='rgba(255,216,102,0.18)' stroke='var(--yellow)' stroke-width='1.2'/><circle cx='110' cy='130' r='2.5' fill='var(--yellow)'/><circle cx='220' cy='100' r='28' fill='rgba(88,196,221,0.18)' stroke='var(--blue)' stroke-width='1.2'/><circle cx='220' cy='100' r='2.5' fill='var(--blue)'/><text x='160' y='26' text-anchor='middle' font-size='11' fill='var(--mute)'>interior: usual metric balls · boundary: disks tangent at the point</text><text x='160' y='152' text-anchor='middle' font-size='10' fill='var(--mute)'>the $x$-axis is a closed discrete subspace of size $\\mathfrak{c}$</text>",
+              "hypotheses": {
+                  "t0": {
+                      "pass": true,
+                      "note": "a Hausdorff refinement of a metric topology"
+                  },
+                  "t1": {
+                      "pass": true,
+                      "note": "singletons are closed in any Hausdorff space"
+                  },
+                  "t2": {
+                      "pass": true,
+                      "note": "interior points separate with small Euclidean balls; boundary points separate with small tangent disks"
+                  },
+                  "t3": {
+                      "pass": true,
+                      "note": "the space is Tychonoff (completely regular + $T_1$), hence regular"
+                  },
+                  "t4": {
+                      "pass": false,
+                      "note": "the $x$-axis is a closed discrete subspace of cardinality $\\mathfrak{c}$ in a separable space — Jones' lemma forces normality to fail"
+                  }
+              }
+          }
+      ]
+  });
+})();
+</script><div class="quiz" data-concept="separation-axioms"></div>
 </section>
 
 <script>
