@@ -115,3 +115,32 @@ node scripts/rebuild.mjs --only <step>
 ```
 
 CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `rebuild.mjs --no-fix`.
+
+### All-in-one verification: the rebuild step list
+
+`rebuild.mjs` runs the full chain in this order. The authoritative source is the `STEPS` array in [`rebuild.mjs`](./rebuild.mjs); this list is asserted against it by [`audit-doc-drift.mjs`](./audit-doc-drift.mjs).
+
+1. `build-concepts-bundle.mjs`
+2. `build-quizzes-bundle.mjs`
+3. `build-widgets-bundle.mjs`
+4. `build-search-index.mjs`
+5. `validate-schema.mjs`
+6. `validate-widget-params.mjs`
+7. `test-widget-renderers.mjs`
+8. `validate-concepts.mjs`
+9. `validate-katex.mjs`
+10. `audit-callbacks.mjs --fix`
+11. `inject-used-in-backlinks.mjs --fix`
+12. `inject-breadcrumb.mjs --fix`
+13. `inject-display-prefs.mjs --fix`
+14. `inject-index-stats.mjs --fix`
+15. `fix-a11y.mjs --fix`
+16. `smoke-test.mjs`
+17. `test-roundtrip.mjs`
+18. `stats-coverage.mjs`
+19. `audit-draft-index-cards.mjs`
+20. `audit-doc-drift.mjs`
+
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
+
+`inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
