@@ -21,6 +21,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-constraint-bifurcation-explorer.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -1245,6 +1246,20 @@ $$ F(x, g(x)) = 0, \qquad g(a)=b. $$
   }
   fn.addEventListener('change',render); sx.addEventListener('input',render); sb.addEventListener('change',render);
   render();
+})();
+</script>
+
+<p>The sublevel set ({(x,y): g_a(x,y)le 0}) is a complementary view to the zero-set: a 2D region rather than a curve. As a parameter (a) sweeps, the region's topology can change at <em>bifurcation values</em> — exactly the points where the implicit function theorem fails (gradient vanishes) and the level structure tears or merges.</p>
+<div class="widget" id="w-saddle-pitchfork"></div><script>
+(function(){
+  if(!window.MVConstraintBifurcationExplorer) return;
+  MVConstraintBifurcationExplorer.init('#w-saddle-pitchfork', {
+    kind: "saddle-pitchfork",
+    title: "Sublevel set bifurcation: y² ≤ a·x² − x⁴",
+    hint: "drag a — at a = 0 the feasible region splits into two lobes (gradient vanishes; IFT fails)",
+    params: {"a":0.5},
+    domain: {"xRange":[-1.6,1.6],"yRange":[-1.2,1.2]},
+  });
 })();
 </script>
 

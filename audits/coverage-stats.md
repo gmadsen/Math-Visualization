@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **58**, concepts: **407**
-- Widgets: **457** (registry-driven: 455, inline: 2)
+- Widgets: **458** (registry-driven: 456, inline: 2)
 - Quizzes: **2298** (v1: 1160, hard: 1125, expert: 13)
 - Quiz types: mcq: 1397, numeric: 795, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
@@ -27,13 +27,13 @@ page has wired one in yet.
 | `input-form` | input-form | input | 2d | 4 | sums-of-squares |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | category-theory, power-sums-bernoulli |
 | `composition-explorer` | clickable-diagram | click | 2d | 1 | category-theory |
+| `constraint-bifurcation-explorer` | constraint-bifurcation-explorer | slider | 2d | 1 | real-analysis |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 1 | point-set-topology |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 1 | p-adic-numbers |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 1 | modular-forms |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 1 | quadratic-reciprocity |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
-| `constraint-bifurcation-explorer` | constraint-bifurcation-explorer | slider | 2d | 0 | _(none — fixture-only)_ |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 0 | _(none — fixture-only)_ |
 
 ## Per-subject
@@ -61,10 +61,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **7**, concepts: **100**
-- Widgets: **79** (registry-driven: 79, inline: 0)
-  - by family: button-stepper: 47, clickable-diagram: 31, recurrence-plotter: 1
-  - by dimension: 2d: 79
-  - by gesture: click: 78, slider: 1
+- Widgets: **80** (registry-driven: 80, inline: 0)
+  - by family: button-stepper: 47, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
+  - by dimension: 2d: 80
+  - by gesture: click: 78, slider: 2
 - Quizzes: **460** (v1: 238, hard: 209, expert: 13)
   - by type: mcq: 257, numeric: 132, complex: 15, multi-select: 14, matching: 12, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
 
@@ -116,7 +116,7 @@ page has wired one in yet.
 - `representation-theory` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
 - `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=71 (v1=36, hard=35, expert=0)
 - `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
-- `real-analysis` (Analysis) — concepts=14, widgets=14 (slug=14), quiz=71 (v1=42, hard=29, expert=0)
+- `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
