@@ -64,8 +64,10 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`validate-schema.mjs`](./validate-schema.mjs) | `concepts/*.json` + `quizzes/*.json` against `schemas/*.json` via AJV 2020-12. |
 | [`validate-widget-params.mjs`](./validate-widget-params.mjs) | `slug`-bearing widget blocks in `content/*.json` validate against `widgets/<slug>/schema.json`. |
 | [`test-widget-renderers.mjs`](./test-widget-renderers.mjs) | Unit tests (built-in `node:test`) for every widget slug: schema sanity, renderMarkup/renderScript purity, every content/ instance renders non-empty markup containing its widgetId. |
+| [`test-widget-hydration.mjs`](./test-widget-hydration.mjs) | jsdom-backed hydration test: for every widget that has a `js/widget-<slug>.js` runtime library, boots the lib, runs the rendered `<script>`, and asserts the host div ends up with ≥1 child element (no script errors). Per-instance fixtures from `content/*.json` + `widgets/<slug>/example.json`. |
 | [`validate-katex.mjs`](./validate-katex.mjs) | Structural + macro-aware KaTeX checks on blurbs, prose, quiz questions. |
 | [`smoke-test.mjs`](./smoke-test.mjs) | Per-page scaffolding: sidebar, nav, quiz wiring, anchors, changelog, callback/backlink invariants. |
+| [`test-topic-jsdom.mjs`](./test-topic-jsdom.mjs) | jsdom DOM-execution boot per topic page: inlines local scripts, stubs CDN KaTeX + browser-only globals, runs the page, asserts no script errors and that sidetoc / widgets / quiz headers actually populated. Filter via `--only <slug,…>` or `TOPIC_JSDOM_ONLY`. |
 | [`test-roundtrip.mjs`](./test-roundtrip.mjs) | `render-topic.mjs` output byte-identical to on-disk HTML for every `content/<topic>.json`. `--fix` mode (used by `rebuild.mjs`) writes rendered HTML to disk on drift — `content/*.json` is source of truth. `--no-fix` (CI) fails on drift. |
 | [`audit-callbacks.mjs`](./audit-callbacks.mjs) | Cross-topic prereqs surface as `<aside class="callback">`. |
 
@@ -127,20 +129,22 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 5. `validate-schema.mjs`
 6. `validate-widget-params.mjs`
 7. `test-widget-renderers.mjs`
-8. `validate-concepts.mjs`
-9. `validate-katex.mjs`
-10. `audit-callbacks.mjs --fix`
-11. `inject-used-in-backlinks.mjs --fix`
-12. `inject-breadcrumb.mjs --fix`
-13. `inject-display-prefs.mjs --fix`
-14. `inject-index-stats.mjs --fix`
-15. `fix-a11y.mjs --fix`
-16. `smoke-test.mjs`
-17. `test-roundtrip.mjs`
-18. `stats-coverage.mjs`
-19. `audit-draft-index-cards.mjs`
-20. `audit-doc-drift.mjs`
+8. `test-widget-hydration.mjs`
+9. `validate-concepts.mjs`
+10. `validate-katex.mjs`
+11. `audit-callbacks.mjs --fix`
+12. `inject-used-in-backlinks.mjs --fix`
+13. `inject-breadcrumb.mjs --fix`
+14. `inject-display-prefs.mjs --fix`
+15. `inject-index-stats.mjs --fix`
+16. `fix-a11y.mjs --fix`
+17. `smoke-test.mjs`
+18. `test-topic-jsdom.mjs`
+19. `test-roundtrip.mjs`
+20. `stats-coverage.mjs`
+21. `audit-draft-index-cards.mjs`
+22. `audit-doc-drift.mjs`
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

@@ -18,8 +18,17 @@ _verify*.js
 _sidetoc_verify.js
 test_index.js
 
+# Playwright/Chrome MCP scratch output
+.playwright-mcp/
+
+# Screenshot scratch from agent browser-MCP verification runs.
+# These land in repo root from Playwright/Chrome DevTools MCP calls.
+/de-rham-*.png
+/page-*.png
+
 .claude/worktrees
 .claude/worktree
+.claude/settings.local.json
 
 # examples/ build outputs
 examples/react-consumer/render.html
