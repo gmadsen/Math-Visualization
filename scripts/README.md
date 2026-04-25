@@ -70,6 +70,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`smoke-test.mjs`](./smoke-test.mjs) | Per-page scaffolding: sidebar, nav, quiz wiring, anchors, changelog, callback/backlink invariants. |
 | [`test-topic-jsdom.mjs`](./test-topic-jsdom.mjs) | jsdom DOM-execution boot per topic page: inlines local scripts, stubs CDN KaTeX + browser-only globals, runs the page, asserts no script errors and that sidetoc / widgets / quiz headers actually populated. Filter via `--only <slug,…>` or `TOPIC_JSDOM_ONLY`. |
 | [`test-roundtrip.mjs`](./test-roundtrip.mjs) | `render-topic.mjs` output byte-identical to on-disk HTML for every `content/<topic>.json`. `--fix` mode (used by `rebuild.mjs`) writes rendered HTML to disk on drift — `content/*.json` is source of truth. `--no-fix` (CI) fails on drift. |
+| [`test-json-block-writer.mjs`](./test-json-block-writer.mjs) | Unit tests for `lib/json-block-writer.mjs` (the JSON-source-of-truth equivalent of `lib/html-injector.mjs`). Round-trip neutrality, fence upsert/strip idempotency, position resolution (`before-quiz`/`after-quiz`/`before-section-end`/`after-fence:<other>`), `ensureCss` no-op behavior. |
 | [`audit-callbacks.mjs`](./audit-callbacks.mjs) | Cross-topic prereqs surface as `<aside class="callback">`. |
 
 ## Advisory audits (exit 0; write to `audits/`)
