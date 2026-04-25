@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/modular-arithmetic-clock/schema.json",
+  "title": "modular-arithmetic-clock widget params",
+  "description": "Visualizes arithmetic in Z/n on a circular dial of n equally-spaced points labeled 0..n-1. Two interaction modes selected by `kind`: 'addition' draws the chained walk 0 → a → (a+b) mod n with sliders for a and b; 'multiplication' draws every k → (k·a) mod n arrow and reports gcd(a,n) plus the cycle structure with sliders for a and n. The widget emits an empty host div; at runtime the page-global library `MVModularArithmeticClock` (js/widget-modular-arithmetic-clock.js) builds chrome (header, sliders, SVG, readout) via `MVModularArithmeticClock.init('#widgetId', config)`. A portable frontend can ignore renderScript and reimplement the dial from `kind + params` alone.",
+  "meta": {
+    "family": "modular-arithmetic-clock",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "kind"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the host `<div class=\"widget\">`."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+$",
+      "description": "SVG viewBox for the dial (defaults to '0 0 320 320')."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["addition", "multiplication"],
+      "description": "Selects the dial mode. 'addition' shows a + b in Z/n as a chained walk; 'multiplication' shows the map k -> a·k mod n as an arrow bundle and reports gcd / cycle length."
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Initial slider values. Missing keys fall back to library defaults. For both kinds: `n` (modulus, integer ≥ 2). For `addition`: `a`, `b` (operands, integers in [0, n-1]). For `multiplication`: `a` (multiplier, integer in [0, n-1]).",
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 60,
+          "description": "Modulus — number of points on the dial."
+        },
+        "a": {
+          "type": "integer",
+          "description": "First operand (addition) or the multiplier (multiplication)."
+        },
+        "b": {
+          "type": "integer",
+          "description": "Second addend (addition only; ignored when kind = 'multiplication')."
+        }
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+    }
+  }
+}

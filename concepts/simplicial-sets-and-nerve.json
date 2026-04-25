@@ -1,0 +1,61 @@
+{
+  "topic": "simplicial-sets-and-nerve",
+  "title": "Simplicial sets and the nerve",
+  "page": "simplicial-sets-and-nerve.html",
+  "concepts": [
+    {
+      "id": "simplex-category",
+      "title": "The simplex category $\\Delta$",
+      "anchor": "simplex-category",
+      "prereqs": [],
+      "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
+    },
+    {
+      "id": "simplicial-set",
+      "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
+      "anchor": "simplicial-set",
+      "prereqs": [
+        "simplex-category",
+        "presheaf-topos"
+      ],
+      "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$."
+    },
+    {
+      "id": "geometric-realization",
+      "title": "Geometric realization $|X|$",
+      "anchor": "geometric-realization",
+      "prereqs": [
+        "simplicial-set"
+      ],
+      "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
+    },
+    {
+      "id": "nerve-of-category",
+      "title": "The nerve $N(C)$ of a category",
+      "anchor": "nerve-of-category",
+      "prereqs": [
+        "simplicial-set"
+      ],
+      "blurb": "The nerve $N(C)_n$ is the set of length-$n$ composable strings of arrows in $C$. The face maps compose adjacent arrows; the degeneracies insert identities. The nerve is the bridge between category theory and homotopy theory."
+    },
+    {
+      "id": "kan-complex",
+      "title": "Kan complexes",
+      "anchor": "kan-complex",
+      "prereqs": [
+        "simplicial-set"
+      ],
+      "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence)."
+    },
+    {
+      "id": "horn-filling",
+      "title": "Inner-horn filling and quasi-categorical nerves",
+      "anchor": "horn-filling",
+      "prereqs": [
+        "kan-complex",
+        "nerve-of-category"
+      ],
+      "blurb": "Demanding fillers only for *inner* horns $\\Lambda^n_k$ ($0 < k < n$) gives the Joyal model of $\\infty$-categories. The nerve of an ordinary category is exactly the simplicial set in which every inner horn has a *unique* filler."
+    }
+  ]
+}

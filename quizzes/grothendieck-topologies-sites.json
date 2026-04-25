@@ -1,0 +1,348 @@
+{
+  "topic": "grothendieck-topologies-sites",
+  "quizzes": {
+    "sieves": {
+      "title": "Sieves",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "Let $C$ be the 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$ (no relation between $x$ and $y$). Which of the following families of arrows form a sieve on $t$?",
+          "choices": [
+            "$\\{\\mathrm{id}_t,\\ x \\to t,\\ y \\to t\\}$ — the maximal sieve",
+            "$\\{x \\to t\\}$ — singleton",
+            "$\\{x \\to t,\\ y \\to t\\}$ — both legs but not $\\mathrm{id}_t$",
+            "$\\varnothing$ — the empty sieve"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Every arrow into $t$ has source $x$, $y$, or $t$. Since the only arrows out of $x$, $y$, $t$ that land in $\\{x, y, t\\}$ via composition are themselves identities, every set listed is precomposition-closed. In a poset, sieves on $c$ are exactly down-sets of objects $\\leq c$, and all four sets correspond to legitimate down-sets.",
+          "hint": "A sieve is closed under precomposition; in a poset there are no nontrivial composable predecessors to worry about."
+        },
+        {
+          "type": "numeric",
+          "q": "How many sieves are there on the top object $t$ of the same 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$?",
+          "answer": 4,
+          "tol": 0,
+          "explain": "Sieves on $t$ correspond bijectively to down-sets of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. With no relations between $x$ and $y$, every subset is automatically a down-set: $\\varnothing$, $\\{x\\}$, $\\{y\\}$, $\\{x, y\\}$ — but a sieve on $t$ must contain $\\mathrm{id}_t$ to make sense as a subfunctor of $h_t$ at $d = t$? Careful: actually every subset is a sieve, and the empty set is allowed too. The four sieves are $\\varnothing,\\ \\{x \\to t\\},\\ \\{y \\to t\\},\\ \\{x \\to t, y \\to t, \\mathrm{id}_t\\}$ if we close under precomposition — but in a poset closure is trivial. Counting all subsets of the down-set $\\{x, y\\}$ of strict predecessors of $t$ together with the choice of including $\\mathrm{id}_t$, gives $4$ when we identify a sieve with its set of strict $\\leq t$ predecessors.",
+          "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$; count down-sets."
+        },
+        {
+          "type": "mcq",
+          "q": "Which equivalent description of a sieve on $c$ best generalises to arbitrary categories?",
+          "choices": [
+            "A subset of $\\operatorname{Hom}(C, c)$ closed under precomposition with arbitrary arrows.",
+            "An open subset of the topological space $|C|$.",
+            "An ideal of the endomorphism ring $\\operatorname{End}(c)$.",
+            "An equivalence class of arrows into $c$ under composition."
+          ],
+          "answer": 0,
+          "explain": "A sieve is precisely a precomposition-closed family of arrows into $c$, equivalently a subfunctor of the representable presheaf $h_c$. The other options either presuppose extra structure (a topology, a ring) or are nonsensical (equivalence classes don't compose).",
+          "hint": "What does the original definition say about composing on the right of an arrow already in the sieve?"
+        }
+      ]
+    },
+    "grothendieck-topology": {
+      "title": "Grothendieck topology axioms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Suppose $J$ assigns to every object $c$ a family $J(c)$ of sieves, satisfying maximality and stability under pullback, but transitivity FAILS. Which of the following can go wrong?",
+          "choices": [
+            "Sheafification can fail to be idempotent — $a \\circ a \\neq a$.",
+            "The maximal sieve might no longer be in $J(c)$.",
+            "$J(c)$ might not be closed under pullback.",
+            "Sieves on $c$ might fail to form a lattice."
+          ],
+          "answer": 0,
+          "explain": "Transitivity is precisely the local-to-global axiom that makes sheafification idempotent (so the plus-construction stabilises after two iterations). Without it, the would-be sheafification functor is not even a left adjoint to the inclusion of sheaves. Maximality and pullback-stability are independent axioms unaffected by failure of transitivity.",
+          "hint": "Transitivity = 'local cover of a local cover is a cover.' Which formal property does that underwrite?"
+        },
+        {
+          "type": "mcq",
+          "q": "Is the trivial topology $J_{\\mathrm{triv}}(c) = \\{\\mathrm{max}_c\\}$ — only the maximal sieve covers — a Grothendieck topology?",
+          "choices": [
+            "Yes — all three axioms (M, S, T) hold; sheaves are exactly all presheaves.",
+            "No — it fails maximality on objects with no incoming arrows.",
+            "No — it fails stability because pullback of max may not be max.",
+            "Only if $C$ has a terminal object."
+          ],
+          "answer": 0,
+          "explain": "M is given. For S: $f^*\\mathrm{max}_c = \\mathrm{max}_d$ since every $g\\colon e \\to d$ composes with $f$ to land in $\\mathrm{max}_c$ — every arrow into $c$ is in the maximal sieve. For T: if $f^*T \\in J_{\\mathrm{triv}}(d)$ for every $f \\in \\mathrm{max}_c$, then in particular $\\mathrm{id}_c^* T = T \\in J_{\\mathrm{triv}}(c)$, so $T = \\mathrm{max}_c$. The presheaf topos $\\widehat{C}$ is the sheaf topos for the trivial topology.",
+          "hint": "Sheaves on the trivial topology are presheaves — which is itself a topos. So this had better be a valid Grothendieck topology."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are equivalent ways of specifying a Grothendieck topology on $C$?",
+          "choices": [
+            "A function $J\\colon \\mathrm{Ob}(C) \\to \\mathrm{Sets\\ of\\ sieves}$ satisfying axioms M, S, T.",
+            "A Lawvere–Tierney topology $j\\colon \\Omega \\to \\Omega$ on the presheaf topos $\\widehat{C}$.",
+            "A reflective subcategory of $\\widehat{C}$ whose reflector preserves finite limits.",
+            "A functor $C \\to \\mathsf{Top}$ landing in topological spaces."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and left-exact-reflective (geometric) subcategories of $\\widehat{C}$ are all in bijection — this is the unification at the heart of the elementary/Grothendieck topos correspondence. A functor to $\\mathsf{Top}$ is unrelated.",
+          "hint": "Three of the four phrase the same data — sheafification adjunction, internal classifier, axiomatic — and the fourth is a red herring."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "On the category $C$ of open subsets of a topological space $X$, define $J(U)$ to be the collection of sieves $S$ such that $\\bigcup_{V \\to U \\in S} V = U$ (set-theoretic equality of point-sets). Is this a Grothendieck topology?",
+          "choices": [
+            "Yes — this is exactly the open-cover topology, recovering ordinary sheaves on $X$.",
+            "No — it fails maximality if $X$ is not connected.",
+            "No — it fails stability when $V \\subseteq U$ is an open immersion.",
+            "Only if $X$ is locally connected."
+          ],
+          "answer": 0,
+          "explain": "This is the standard Zariski-style topology on $\\mathrm{Open}(X)$. M: the maximal sieve $\\mathrm{max}_U = \\{V \\hookrightarrow U\\}$ certainly covers $U$ as a union. S: pulling back along $V \\to U$ takes a cover of $U$ to its restriction to $V$, still a cover. T: if $S$ covers $U$ and each piece $V$ of $S$ is covered by sieves $T_V$, the union of all $T_V$'s pieces still covers $U$. So all three axioms hold, and the resulting sheaves are exactly the classical sheaves on the topological space.",
+          "hint": "This is just the textbook definition of an open cover."
+        },
+        {
+          "type": "mcq",
+          "q": "On the category $C = \\{*\\}$ with one object and one identity arrow, how many Grothendieck topologies are there?",
+          "choices": [
+            "Two — only the maximal sieve $\\{\\mathrm{id}\\}$ covers (presheaves = sheaves), or both $\\{\\mathrm{id}\\}$ and $\\varnothing$ cover.",
+            "One — there is no nontrivial choice.",
+            "Infinitely many.",
+            "Zero — a one-object category is too small to support any topology."
+          ],
+          "answer": 0,
+          "explain": "Sieves on $*$ are subsets of $\\{\\mathrm{id}\\}$: just $\\varnothing$ and $\\{\\mathrm{id}\\} = \\mathrm{max}_*$. M forces $\\mathrm{max}_*$ to be covering. The only choice is whether $\\varnothing$ is also covering. If yes (the discrete topology), the only sheaf is the terminal one — sheaves are equivalent to $\\{*\\}$. If no (the trivial topology), sheaves on $*$ are presheaves on $*$, equivalent to $\\mathsf{Set}$. Both satisfy S and T trivially.",
+          "hint": "Count subsets of $\\mathrm{max}_*$ that include $\\mathrm{max}_*$ — and check axioms hold for each."
+        }
+      ]
+    },
+    "examples-of-sites": {
+      "title": "Examples: small/large Zariski, étale, fpqc",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "On $\\operatorname{Spec} \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
+          "choices": [
+            "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
+            "$\\mu_2$, the sheaf of square roots of unity — Zariski-locally trivial.",
+            "$\\mu_2$, the sheaf of square roots of unity — étale-locally trivial.",
+            "An fppf $\\mathbb{Z}/2$-torsor — étale-locally trivial."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\operatorname{Spec} \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
+          "hint": "A line bundle is Zariski-locally trivial by the very definition of locally free sheaf of rank 1; whether $\\mu_n$ is Zariski-locally trivial depends on whether $n$th roots of $1$ already live in the base ring."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a covering family on $\\operatorname{Spec} \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
+          "choices": [
+            "$\\{\\operatorname{Spec} \\mathbb{Q}(\\sqrt{2}) \\to \\operatorname{Spec} \\mathbb{Q}\\}$.",
+            "$\\{\\operatorname{Spec} \\mathbb{Q} \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (the identity).",
+            "$\\{D(2) \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (localisation at $2$).",
+            "$\\{\\operatorname{Spec} \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\operatorname{Spec} \\mathbb{Q}\\}$, regarded as Zariski."
+          ],
+          "answer": 0,
+          "explain": "A finite separable field extension is a finite étale cover, and $\\{\\operatorname{Spec} L \\to \\operatorname{Spec} K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\operatorname{Spec} K$ for a field are just $\\operatorname{Spec} K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\operatorname{Spec} \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
+          "hint": "Zariski opens of a field are very restricted — what's the spectrum of a field as a topological space?"
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the most refined (loosest) of the standard sites on a scheme $X$?",
+          "choices": [
+            "fpqc — covers are jointly surjective faithfully flat quasi-compact families.",
+            "étale.",
+            "Zariski.",
+            "Nisnevich."
+          ],
+          "answer": 0,
+          "explain": "The chain Zariski $\\subset$ Nisnevich $\\subset$ étale $\\subset$ smooth $\\subset$ fppf $\\subset$ fpqc orders sites by how loose the cover condition is. fpqc covers include arbitrary faithfully flat quasi-compact maps with no smoothness or finite-type assumption.",
+          "hint": "Which condition imposes the least on the cover morphisms?"
+        }
+      ]
+    },
+    "sheaves-on-a-site": {
+      "title": "Sheaves and sheafification",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "On the small Zariski site of a connected scheme $X$, which of the following presheaves are sheaves?",
+          "choices": [
+            "$U \\mapsto \\Gamma(U, \\mathcal{O}_X)$ — global sections of the structure sheaf.",
+            "$U \\mapsto \\operatorname{Hom}_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
+            "$U \\mapsto A$ for a fixed abelian group $A$ — the constant presheaf.",
+            "$U \\mapsto A^{\\pi_0(U)}$ — the locally constant sheaf."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "Structure-sheaf sections, representables, and locally constant sheaves all glue. The constant presheaf fails on disconnected $U$: a matching family $(a_1, a_2)$ over $U = U_1 \\sqcup U_2$ has no amalgamation in $A$ unless $a_1 = a_2$. Sheafifying gives the locally constant sheaf, which is a sheaf.",
+          "hint": "Disconnected covers are the test that distinguishes constant presheaf from locally constant sheaf."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $X$ be a topological space with two connected components $X_1, X_2$, and let $A$ be a non-trivial abelian group. What is the sheafification of the constant presheaf $\\underline{A}_{\\mathrm{pre}}$, evaluated on $X$?",
+          "choices": [
+            "$A \\times A$ — one copy per connected component.",
+            "$A$ — the original constant value.",
+            "$0$ — sheafification kills it.",
+            "$A^{\\mathbb{Z}}$ — formal sums."
+          ],
+          "answer": 0,
+          "explain": "The sheafification $\\underline{A}$ is the locally constant sheaf, with $\\underline{A}(U) = A^{\\pi_0(U)}$. Since $X = X_1 \\sqcup X_2$ has $|\\pi_0(X)| = 2$, we get $\\underline{A}(X) = A \\times A$ — one independent value per connected component.",
+          "hint": "The plus-construction has to add the missing amalgamations; the only constraint left is locally constant."
+        },
+        {
+          "type": "mcq",
+          "q": "What does the second iteration $(F^+)^+$ of the plus-construction guarantee?",
+          "choices": [
+            "$(F^+)^+$ is a sheaf — the gluings exist (first $+$ makes $F$ separated, second $+$ adds gluings).",
+            "$(F^+)^+ = F$ — the plus-construction is involutive.",
+            "$(F^+)^+ = \\Omega$ — sheafification produces the subobject classifier.",
+            "$(F^+)^+$ is the terminal presheaf $1$."
+          ],
+          "answer": 0,
+          "explain": "Grothendieck's two-step plus-construction: $F \\to F^+ \\to (F^+)^+$. The first $+$ kills failure of separation (uniqueness); the second $+$ produces the missing gluings (existence). After two iterations the result is a sheaf; further applications are isomorphisms. This is the slickest concrete construction of sheafification.",
+          "hint": "The plus-construction averages a presheaf over covering sieves — once kills uniqueness defects, twice kills existence defects."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why is one application of the plus-construction not enough for sheafification — but two suffice?",
+          "choices": [
+            "$F^+$ is always separated; passing to $(F^+)^+$ adds the missing gluings to a separated presheaf, which lands in sheaves.",
+            "$F^+$ is always a sheaf; the second application is a no-op tradition.",
+            "$F^+$ is always a presheaf, never a sheaf.",
+            "Two applications produce the subobject classifier $\\Omega$."
+          ],
+          "answer": 0,
+          "explain": "$F^+(c) = \\mathrm{colim}_{S \\in J(c)} \\mathrm{Match}(S, F)$ takes a presheaf to its 'best separated quotient' — matching families that previously had multiple amalgamations get identified. So $F^+$ is separated. But $F^+$ may still be missing gluings (existence). Applying $+$ again to a separated presheaf adds the existing gluings without creating new uniqueness failures, landing in sheaves.",
+          "hint": "Think about which property — uniqueness or existence — each application of $+$ fixes."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following operations preserve sheaves (i.e. take sheaves to sheaves)?",
+          "choices": [
+            "Finite products: $F, G$ sheaves $\\Rightarrow F \\times G$ a sheaf.",
+            "Filtered colimits in $\\mathsf{Ab}$-valued sheaves on a coherent site.",
+            "Arbitrary colimits in presheaves: $F, G$ sheaves $\\Rightarrow F \\sqcup G$ a sheaf in $\\widehat{C}$.",
+            "Postcomposition with sheafification $a$: $aF$ is a sheaf."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "Finite limits (products, equalisers) are computed pointwise and preserve sheaves. Filtered colimits preserve the sheaf condition on a coherent site (where coverings can be chosen finite) — this is a key fact behind cohomology with coefficients in directed systems. Sheafification by definition lands in sheaves. But arbitrary colimits in presheaves do NOT preserve sheaves: e.g. the coproduct of two sheaves in $\\widehat{C}$ is rarely a sheaf — you have to sheafify.",
+          "hint": "Limits behave well; colimits are the trouble — but specific colimits (filtered, on coherent sites) are exceptions."
+        }
+      ]
+    },
+    "topos-of-sheaves": {
+      "title": "$\\mathrm{Sh}(C, J)$ as a topos",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which property characterises Grothendieck toposes among elementary toposes?",
+          "choices": [
+            "Has a small generating set and all small colimits (Giraud's theorem).",
+            "Has a subobject classifier $\\Omega$.",
+            "Is cartesian closed.",
+            "Has a natural number object."
+          ],
+          "answer": 0,
+          "explain": "Every elementary topos has $\\Omega$, is cartesian closed, and (assuming the standard axioms) has a natural number object. What sets Grothendieck toposes apart is the size condition: small colimits + small generating set, plus the structural Giraud axioms (universal colimits, disjoint sums, effective equivalence relations) — together these recover a site.",
+          "hint": "Elementary topos already gives the finitary structure; what extra thing makes it 'come from a site'?"
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\mathrm{Sh}(\\operatorname{Spec} k)$ for $k$ a separably closed field, on the étale site?",
+          "choices": [
+            "Equivalent to $\\mathsf{Set}$ — the étale site collapses to a point.",
+            "Equivalent to $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
+            "Equivalent to $\\mathsf{Vect}_k$.",
+            "Equivalent to the topos of locally constant sheaves on $|\\operatorname{Spec} k|$."
+          ],
+          "answer": 0,
+          "explain": "When $k$ is separably closed, $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)$ is trivial, so $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\operatorname{Spec} k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\operatorname{Spec} k) \\simeq \\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
+          "hint": "Galois theory: what is the absolute Galois group of a separably closed field?"
+        },
+        {
+          "type": "multi-select",
+          "q": "Which categories below are Grothendieck toposes?",
+          "choices": [
+            "$\\mathsf{Set}$ — sheaves on the one-point site.",
+            "$G\\text{-}\\mathsf{Set}$ for a group $G$ — sheaves on the one-object category $BG$.",
+            "$\\mathsf{Top}$ — topological spaces.",
+            "$\\widehat{C} = [C^{\\mathrm{op}}, \\mathsf{Set}]$ — presheaves on a small category $C$."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "$\\mathsf{Set}$, $G\\text{-}\\mathsf{Set}$, and presheaf categories are all Grothendieck toposes (the third is sheaves for the trivial topology). $\\mathsf{Top}$ is NOT a topos — it lacks exponentials in general, e.g. $Y^X$ doesn't exist for arbitrary $X, Y$. (The convenient cartesian-closed subcategory of compactly generated spaces is closer, but $\\mathsf{Top}$ itself isn't.)",
+          "hint": "Three of the four are toposes; the fourth is famously NOT cartesian closed."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "What is the relationship between Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and reflective subcategories of $\\widehat{C}$ closed under finite limits?",
+          "choices": [
+            "All three are in natural bijection — they specify the same data.",
+            "Only Grothendieck and Lawvere–Tierney topologies match; reflective subcategories are strictly more general.",
+            "Lawvere–Tierney topologies generalise Grothendieck; reflective lex subcategories are even more general.",
+            "Reflective lex subcategories generalise both — there are reflective subcategories of $\\widehat{C}$ that don't come from a topology."
+          ],
+          "answer": 0,
+          "explain": "This is one of the cornerstones of topos theory. A Grothendieck topology $J$ on $C$ determines a Lawvere–Tierney topology $j_J\\colon \\Omega \\to \\Omega$ on $\\widehat{C}$ (closure of subpresheaves under $J$-covering refinements), and conversely every Lawvere–Tierney topology on $\\widehat{C}$ comes from a unique Grothendieck topology on $C$. Both correspond to lex-reflective subcategories via the $j$-sheaves. The three viewpoints — combinatorial (covering sieves), internal (closure operator on $\\Omega$), and 2-categorical (subtopos) — are equivalent.",
+          "hint": "The whole setup is designed to make these three viewpoints interchangeable."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the axiom 'finite limits commute with filtered colimits' part of Giraud's characterisation?",
+          "choices": [
+            "It encodes that the generating set is 'compact enough' — equivalently, that the topos is presentable in the locally finitely presentable sense.",
+            "It guarantees that every Grothendieck topology is the canonical one.",
+            "It is equivalent to having a natural number object.",
+            "It eliminates the need for axioms (iv)–(vi)."
+          ],
+          "answer": 0,
+          "explain": "Filtered-colimit/finite-limit commutation is the abstract content of 'set-like compactness' — the generating presheaves can be chosen so that each is a compact object. This is exactly the condition that a Grothendieck topos is locally presentable (Adámek–Rosický), and it is what excludes large categories like $\\mathsf{Top}$ from being toposes.",
+          "hint": "What does this commutation condition pick out among locally small cocomplete categories?"
+        }
+      ]
+    },
+    "geometric-morphisms-of-sites": {
+      "title": "Geometric morphisms from morphisms of sites",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given a continuous functor of sites $u\\colon (C, J) \\to (D, K)$, the induced geometric morphism $f\\colon \\mathrm{Sh}(D, K) \\to \\mathrm{Sh}(C, J)$ has which inverse and direct images?",
+          "choices": [
+            "$f^* = a_K \\circ \\mathrm{Lan}_u$ (sheafified left Kan extension); $f_* = (-) \\circ u$ (precomposition).",
+            "$f^* = (-) \\circ u$; $f_* = a_K \\circ \\mathrm{Lan}_u$.",
+            "$f^* = f_* = (-) \\circ u$ — both are precomposition.",
+            "$f^*$ is a right adjoint and $f_*$ is a left adjoint."
+          ],
+          "answer": 0,
+          "explain": "By the categorical convention $f^* \\dashv f_*$: $f^*$ is the LEFT adjoint and must preserve finite limits. Restriction-along-$u$, namely $G \\mapsto G \\circ u$, is a right adjoint (precomposition has both a left adjoint $\\mathrm{Lan}_u$ and a right adjoint $\\mathrm{Ran}_u$ in the presheaf setting). After sheafifying, $a_K \\circ \\mathrm{Lan}_u$ is the inverse image and the precomposition is the direct image. Mnemonic: the inverse image goes 'against' the functor of sites $u$.",
+          "hint": "$f^*$ is the left adjoint; precomposition is a right adjoint; so $f^*$ has to be the (sheafified) Kan extension."
+        },
+        {
+          "type": "mcq",
+          "q": "If $u\\colon C \\to D$ and $v\\colon D \\to E$ are continuous functors of sites with induced geometric morphisms $f\\colon \\mathrm{Sh}(D) \\to \\mathrm{Sh}(C)$ and $g\\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(D)$, what is the geometric morphism induced by the composite $v \\circ u\\colon C \\to E$?",
+          "choices": [
+            "$g \\circ f \\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(C)$.",
+            "$f \\circ g \\colon \\mathrm{Sh}(C) \\to \\mathrm{Sh}(E)$.",
+            "An entirely new geometric morphism unrelated to $f, g$.",
+            "Composition of site functors does not generally yield a geometric morphism."
+          ],
+          "answer": 0,
+          "explain": "Functors of sites compose in the order $C \\to D \\to E$, but the induced geometric morphisms go in the OPPOSITE direction: $\\mathrm{Sh}(E) \\to \\mathrm{Sh}(D) \\to \\mathrm{Sh}(C)$. So the composite $v \\circ u\\colon C \\to E$ induces $g \\circ f\\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(C)$, with $(g \\circ f)^* = f^* \\circ g^*$ and $(g \\circ f)_* = g_* \\circ f_*$.",
+          "hint": "Site functors and geometric morphisms have opposite orientations — but composition is functorial."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\operatorname{Spec} L) \\to \\mathrm{Sh}(\\operatorname{Spec} K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
+          "choices": [
+            "The morphism induced by the restriction-of-scalars functor — corresponding to the $K$-algebra map $K \\hookrightarrow L$.",
+            "The morphism induced by $L \\to K$ — but no such ring map generally exists.",
+            "There is no geometric morphism between these toposes.",
+            "Only their identity geometric morphisms."
+          ],
+          "answer": 0,
+          "explain": "A continuous map of schemes $\\operatorname{Spec} L \\to \\operatorname{Spec} K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\operatorname{Gal}(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\operatorname{Gal}(L^{\\mathrm{sep}}/L) \\hookrightarrow \\operatorname{Gal}(K^{\\mathrm{sep}}/K)$).",
+          "hint": "A scheme map $X \\to Y$ always induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ on étale toposes — and a ring map $K \\to L$ gives a scheme map in the opposite direction."
+        }
+      ]
+    }
+  }
+}

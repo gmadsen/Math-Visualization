@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Simplicial sets and nerve</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles &amp; idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":null,"prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series &amp; Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Etale fundamental group"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius &amp; reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory &amp; the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies sites"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras toposes"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"Infinity categories"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"Infinity topoi"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory chow"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups &amp; algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms &amp; fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions &amp; generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums &amp; Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms &amp; genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets and nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics &amp; reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebra" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+    <a href="#simplex-category">1&nbsp;The simplex category $\Delta$</a>
+  <a href="#simplicial-set">2&nbsp;Simplicial sets as $\Delta^{\mathrm{op}} \to \mathbf{Set}$</a>
+  <a href="#geometric-realization">3&nbsp;Geometric realization $|X|$</a>
+  <a href="#nerve-of-category">4&nbsp;The nerve $N(C)$ of a category</a>
+  <a href="#kan-complex">5&nbsp;Kan complexes</a>
+  <a href="#horn-filling">6&nbsp;Inner-horn filling and quasi-categorical nerves</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+
+
+
+
+
+
+
+
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Simplicial sets and nerve</h1>
+  <p class="sub">Combinatorial models of spaces: $\Delta$, simplicial sets, geometric realization, and the nerve $N(C)$.</p>
+</section>
+
+<section id="simplex-category">
+<h2>1. The simplex category $\Delta$</h2>
+<p>The <strong>simplex category</strong> $\Delta$ is the category whose objects are the finite non-empty totally ordered sets $[n] = \{0 < 1 < \cdots < n\}$ and whose morphisms $[m] \to [n]$ are weakly order-preserving maps. It is small (a skeleton of the category of finite non-empty totally ordered sets) and combinatorial: the entire structure is captured by two families of generating morphisms.</p>
+<p>The <strong>cofaces</strong> $d^i\colon [n-1] \to [n]$ ($0 \le i \le n$) are the unique injective order-preserving maps that miss the value $i$; they correspond geometrically to the $i$-th face inclusion of the standard $n$-simplex. The <strong>codegeneracies</strong> $s^j\colon [n+1] \to [n]$ ($0 \le j \le n$) are the unique surjective order-preserving maps that double the value $j$; they collapse two adjacent vertices into one. Every morphism in $\Delta$ factors uniquely as a composite of codegeneracies followed by cofaces, and the relations among the generators are the <strong>cosimplicial identities</strong>:</p>
+<p style="text-align:center">$d^j d^i = d^i d^{j-1}\;(i<j),\quad s^j s^i = s^i s^{j+1}\;(i\le j),\quad s^j d^i = \begin{cases} d^i s^{j-1} & i < j \\ \mathrm{id} & i \in \{j, j+1\} \\ d^{i-1} s^j & i > j+1.\end{cases}$</p>
+<p>The morphism count is a useful sanity check: order-preserving maps $[m] \to [n]$ correspond to weakly increasing sequences of length $m+1$ in $\{0,\ldots,n\}$, equivalently multisets of size $m+1$ from $n+1$ symbols, giving $\binom{m+n+1}{m+1}$. So $\Delta([1],[3]) = \binom{5}{2} = 10$. Two of these are degenerate (the constants); the rest split into compositions of the four cofaces and the lone $s^0\colon [1]\to[0]$ — which, taken together with the cosimplicial identities, is enough to generate $\Delta$.</p>
+<p>The reason this matters: a presheaf on $\Delta$ — a contravariant functor $\Delta^{\mathrm{op}} \to \mathbf{Set}$ — is exactly determined by sets $X_n$ together with the dualised generators $d_i\colon X_n \to X_{n-1}$ and $s_j\colon X_n \to X_{n+1}$ satisfying the dual <strong>simplicial identities</strong>. That is the data of a simplicial set, the subject of §2.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./simplicial-sets-and-nerve.html#simplicial-set">Simplicial sets and the nerve</a> · Simplicial sets as $\Delta^{\mathrm{op}} \to \mathbf{Set}$</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+<div class="widget" id="w-simplicial-sets-and-nerve-placeholder">
+  <div class="hd"><div class="ttl">Cofaces and codegeneracies</div><div class="hint">click a generating morphism to see what it does on $[n]$</div></div>
+  <svg id="svg-delta-generators" viewBox="0 0 560 280" width="560" height="280" role="img" aria-label="Generators of the simplex category"><title>Generators of the simplex category</title></svg>
+  <div class="row">
+    <button id="delta-reset" type="button">reset</button>
+    <span class="small">click a labelled arrow on the diagram</span>
+  </div>
+  <div class="readout" id="delta-readout">click a generating morphism…</div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-delta-generators');
+  const out = document.getElementById('delta-readout');
+  const reset = document.getElementById('delta-reset');
+  if(!svg) return;
+  // four columns: [0], [1], [2], [3]
+  const COLS = [
+    { name:'[0]', x: 80,  vertices:[140] },
+    { name:'[1]', x: 220, vertices:[100, 200] },
+    { name:'[2]', x: 360, vertices:[ 60, 140, 220] },
+    { name:'[3]', x: 500, vertices:[ 30, 100, 170, 240] },
+  ];
+  // Generators rendered as arrows between adjacent columns, with explanation.
+  // Cofaces d^i: [n] -> [n+1] inject and miss value i. Codegeneracies s^j: [n+1] -> [n] surject doubling j.
+  const GENS = [
+    // [0] -> [1]: d^0 hits 1, d^1 hits 0.
+    { id:'d0_01', kind:'face',   src:0, tgt:1, label:'d⁰',
+      desc:'d⁰ : [0] → [1] sends 0 ↦ 1 — the inclusion missing vertex 0.', srcMap:[140], tgtPick:[200] },
+    { id:'d1_01', kind:'face',   src:0, tgt:1, label:'d¹',
+      desc:'d¹ : [0] → [1] sends 0 ↦ 0 — the inclusion missing vertex 1.', srcMap:[140], tgtPick:[100], offset:18 },
+    { id:'s0_10', kind:'degen',  src:1, tgt:0, label:'s⁰',
+      desc:'s⁰ : [1] → [0] is the unique surjection — collapses both vertices to 0.' },
+    // [1] -> [2]: three cofaces.
+    { id:'d0_12', kind:'face',   src:1, tgt:2, label:'d⁰',
+      desc:'d⁰ : [1] → [2] sends (0,1) ↦ (1,2) — inclusion missing vertex 0.' },
+    { id:'d1_12', kind:'face',   src:1, tgt:2, label:'d¹',
+      desc:'d¹ : [1] → [2] sends (0,1) ↦ (0,2) — inclusion missing vertex 1.', offset:18 },
+    { id:'d2_12', kind:'face',   src:1, tgt:2, label:'d²',
+      desc:'d² : [1] → [2] sends (0,1) ↦ (0,1) — inclusion missing vertex 2.', offset:36 },
+    // [2] -> [1]: two codegens.
+    { id:'s0_21', kind:'degen',  src:2, tgt:1, label:'s⁰',
+      desc:'s⁰ : [2] → [1] sends (0,1,2) ↦ (0,0,1) — doubles vertex 0.' },
+    { id:'s1_21', kind:'degen',  src:2, tgt:1, label:'s¹',
+      desc:'s¹ : [2] → [1] sends (0,1,2) ↦ (0,1,1) — doubles vertex 1.', offset:18 },
+    // [2] -> [3]: a sample coface.
+    { id:'d1_23', kind:'face',   src:2, tgt:3, label:'d¹',
+      desc:'d¹ : [2] → [3] sends (0,1,2) ↦ (0,2,3) — inclusion missing vertex 1.' },
+    { id:'s0_32', kind:'degen',  src:3, tgt:2, label:'s⁰',
+      desc:'s⁰ : [3] → [2] sends (0,1,2,3) ↦ (0,0,1,2) — doubles vertex 0.' },
+  ];
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+  let active = null;
+
+  function drawCols(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // defs marker
+    const defs = el('defs');
+    const mk = el('marker',{id:'arr-delta', viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+    mk.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z', fill:'var(--blue)'}));
+    defs.appendChild(mk);
+    const mkY = el('marker',{id:'arr-delta-y', viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+    mkY.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z', fill:'var(--yellow)'}));
+    defs.appendChild(mkY);
+    svg.appendChild(defs);
+
+    // column labels and vertices
+    for(const c of COLS){
+      const t = el('text',{x:c.x, y:14, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});
+      t.textContent = c.name; svg.appendChild(t);
+      c.vertices.forEach((y,i)=>{
+        svg.appendChild(el('circle',{cx:c.x, cy:y, r:4, fill:'var(--ink)'}));
+        const lab = el('text',{x:c.x+10, y:y+4, 'font-size':11, fill:'var(--mute)'});
+        lab.textContent = String(i); svg.appendChild(lab);
+      });
+    }
+    // arrows
+    for(const g of GENS){
+      const c1 = COLS[g.src], c2 = COLS[g.tgt];
+      const y1 = (c1.vertices.reduce((a,b)=>a+b,0)/c1.vertices.length);
+      const y2 = (c2.vertices.reduce((a,b)=>a+b,0)/c2.vertices.length);
+      const dir = c2.x > c1.x ? 1 : -1;
+      const off = (g.offset||0) * (g.kind==='face' ? -1 : 1);
+      const x1 = c1.x + dir*22, x2 = c2.x - dir*22;
+      const my = (y1+y2)/2 + off;
+      const color = (active===g.id) ? 'var(--yellow)' : (g.kind==='face' ? 'var(--blue)' : 'var(--green)');
+      const markerId = (active===g.id) ? 'arr-delta-y' : 'arr-delta';
+      const pathStr = `M${x1} ${y1} Q ${(x1+x2)/2} ${my} ${x2} ${y2}`;
+      const p = el('path',{d:pathStr, fill:'none', stroke:color, 'stroke-width':1.7, 'marker-end':`url(#${markerId})`});
+      svg.appendChild(p);
+      // label
+      const lt = el('text',{x:(x1+x2)/2, y:my-6, 'text-anchor':'middle', 'font-size':11,
+        fill:color, 'font-style':'italic'});
+      lt.textContent = g.label;
+      svg.appendChild(lt);
+      // hit-rect for click
+      const r = el('rect',{x:Math.min(x1,x2)-2, y:Math.min(y1,y2,my)-12,
+        width:Math.abs(x2-x1)+4, height:Math.abs(y2-y1)+Math.abs(off)+24,
+        fill:'transparent', style:'cursor:pointer', 'data-gid':g.id});
+      svg.appendChild(r);
+    }
+    // legend
+    const lg = el('g',{transform:'translate(20, 252)'});
+    const lt1 = el('text',{x:0,y:0,'font-size':11,fill:'var(--blue)'});
+    lt1.textContent = 'blue: cofaces dⁱ (inject, miss i)'; lg.appendChild(lt1);
+    const lt2 = el('text',{x:0,y:16,'font-size':11,fill:'var(--green)'});
+    lt2.textContent = 'green: codegens sⁱ (surject, double i)'; lg.appendChild(lt2);
+    svg.appendChild(lg);
+  }
+
+  function showState(){
+    if(!active){ out.textContent = 'click a generating morphism…'; return; }
+    const g = GENS.find(x=>x.id===active);
+    if(!g) return;
+    const tag = g.kind==='face' ? 'COFACE' : 'CODEGENERACY';
+    let extra = '';
+    if(g.id==='d0_12') extra = '\n\nrelation: dⁱdʲ = dʲdⁱ⁻¹ for i<j (inserting two missing vertices is order-independent)';
+    if(g.id==='d2_12') extra = '\n\nthe simplex with vertices (0,1) sits as the bottom face of [2] when we miss vertex 2';
+    if(g.id==='s0_21') extra = '\n\nrelation: sⁱsʲ = sʲsⁱ⁺¹ for i≤j (doubling twice with adjacent indices commutes after a shift)';
+    if(g.id==='s1_21') extra = '\n\nthe pair s⁰, s¹ : [2]→[1] are exactly the two ways to be the surjection [2]↠[1] in Δ';
+    if(g.id==='d1_23') extra = '\n\nrelation: sʲdⁱ = dⁱ⁻¹sʲ for i > j+1; with i=1, j=0 here: s⁰d¹ = d¹s⁰? not quite, check the third identity.';
+    out.textContent = `${tag}: ${g.desc}${extra}`;
+  }
+
+  svg.addEventListener('click', (e)=>{
+    const gid = e.target && e.target.getAttribute && e.target.getAttribute('data-gid');
+    if(gid){ active = gid; drawCols(); showState(); }
+  });
+  reset.addEventListener('click', ()=>{ active=null; drawCols(); showState(); });
+
+  drawCols(); showState();
+})();
+</script>
+<div class="quiz" data-concept="simplex-category"></div>
+</section>
+
+<section id="simplicial-set">
+<h2>2. Simplicial sets as $\Delta^{\mathrm{op}} \to \mathbf{Set}$</h2>
+<p>A <strong>simplicial set</strong> is a presheaf on $\Delta$, i.e. a functor $X\colon \Delta^{\mathrm{op}} \to \mathbf{Set}$. Concretely it is the data of a sequence of sets $X_0, X_1, X_2, \ldots$ (the "$n$-simplices" $X_n$) together with face operators $d_i\colon X_n \to X_{n-1}$ ($0 \le i \le n$) and degeneracy operators $s_j\colon X_n \to X_{n+1}$ ($0 \le j \le n$) satisfying the (dualised) <strong>simplicial identities</strong> — the relations dual to those of §1. Maps of simplicial sets are natural transformations, equivalently graded maps respecting all $d_i, s_j$. The category $\mathbf{sSet} = \mathbf{Set}^{\Delta^{\mathrm{op}}}$ inherits a presheaf topos structure: it has all small limits and colimits, exponentials, and a subobject classifier.</p>
+<p>The motivating examples are the <strong>standard simplices</strong> $\Delta^n = \Delta(-, [n])\colon [m] \mapsto \Delta([m],[n])$ — the representable presheaves. By Yoneda, maps $\Delta^n \to X$ are exactly the elements of $X_n$, so each $n$-simplex $\sigma \in X_n$ <em>is</em> a map $\sigma\colon \Delta^n \to X$. Faces and degeneracies of $\sigma$ are the precompositions of $\sigma$ with the cofaces and codegeneracies of $\Delta$.</p>
+<p>The <strong>boundary</strong> $\partial \Delta^n \subset \Delta^n$ is the subobject consisting of all simplices that factor through some $d^i\colon \Delta^{n-1} \to \Delta^n$ — the union of the $n+1$ codimension-$1$ faces. The <strong>horn</strong> $\Lambda^n_k \subset \partial \Delta^n$ is the further subobject obtained by removing the $k$-th face: it is the union of all faces <em>except</em> the one opposite vertex $k$. The horn is <em>inner</em> when $0 < k < n$ and <em>outer</em> otherwise.</p>
+<p>A useful structural fact: every simplex factors uniquely as a degeneracy of a non-degenerate one (the <strong>Eilenberg–Zilber lemma</strong>). For $\sigma \in X_n$ there exist a unique surjection $\alpha\colon [n] \twoheadrightarrow [k]$ in $\Delta$ and a unique non-degenerate $\tau \in X_k$ with $\sigma = X(\alpha)(\tau)$. This is what eventually lets the geometric realization of §3 land in CW-complexes — one cell per non-degenerate simplex.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elementary-topos-theory.html#presheaf-topos">Presheaf toposes $\hat{C} = [C^{\mathrm{op}}, \mathbf{Set}]$</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./simplicial-sets-and-nerve.html#geometric-realization">Simplicial sets and the nerve</a> · Geometric realization $|X|$</div>
+    <div><a href="./simplicial-sets-and-nerve.html#kan-complex">Simplicial sets and the nerve</a> · Kan complexes</div>
+    <div><a href="./simplicial-sets-and-nerve.html#nerve-of-category">Simplicial sets and the nerve</a> · The nerve $N(C)$ of a category</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="widget" id="w-sset-faces">
+  <div class="hd"><div class="ttl">Faces and degeneracies of $\Delta^2$</div><div class="hint">click an $n$-simplex to see $d_i \sigma$ and $s_j \sigma$</div></div>
+  <svg id="svg-sset-faces" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="Faces and degeneracies on the standard 2-simplex"><title>Faces and degeneracies on Δ²</title></svg>
+  <div class="readout" id="sset-readout">click a vertex, edge, or the interior of the triangle…</div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-sset-faces');
+  const out = document.getElementById('sset-readout');
+  if(!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+
+  // Vertices of Δ² laid out as a triangle, edges labeled (01), (02), (12), interior the unique 2-simplex.
+  const V = [ {id:'v0', x:280, y:60,  label:'(0)'},
+              {id:'v1', x:120, y:240, label:'(1)'},
+              {id:'v2', x:440, y:240, label:'(2)'} ];
+  const E = [
+    {id:'e01', a:0, b:1, label:'(0,1)', faces:'d₀(0,1)=(1), d₁(0,1)=(0); degens s₀(0,1)=(0,0,1), s₁(0,1)=(0,1,1).'},
+    {id:'e02', a:0, b:2, label:'(0,2)', faces:'d₀(0,2)=(2), d₁(0,2)=(0); degens s₀(0,2)=(0,0,2), s₁(0,2)=(0,2,2).'},
+    {id:'e12', a:1, b:2, label:'(1,2)', faces:'d₀(1,2)=(2), d₁(1,2)=(1); degens s₀(1,2)=(1,1,2), s₁(1,2)=(1,2,2).'}
+  ];
+  const T = { id:'t012', label:'(0,1,2)',
+              faces:'d₀(0,1,2)=(1,2), d₁(0,1,2)=(0,2), d₂(0,1,2)=(0,1).' };
+
+  let active = null;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // shaded interior
+    const tri = el('polygon',{points:V.map(v=>`${v.x},${v.y}`).join(' '),
+      fill: active==='t012' ? 'color-mix(in srgb, var(--yellow) 28%, var(--panel2))'
+                              : 'color-mix(in srgb, var(--violet) 18%, var(--panel2))',
+      stroke:'var(--violet)', 'stroke-width':1.2,
+      style:'cursor:pointer', 'data-id':'t012'});
+    svg.appendChild(tri);
+    // edges
+    for(const e of E){
+      const a=V[e.a], b=V[e.b];
+      const stroke = active===e.id ? 'var(--yellow)' : 'var(--blue)';
+      const w = active===e.id ? 3.4 : 2.2;
+      svg.appendChild(el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y, stroke, 'stroke-width':w,
+        style:'cursor:pointer','data-id':e.id}));
+      // edge label
+      const mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      const lab = el('text',{x:mx, y:my-8, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      lab.textContent = e.label; svg.appendChild(lab);
+    }
+    // vertices
+    for(const v of V){
+      const fill = active===v.id ? 'var(--yellow)' : 'var(--ink)';
+      svg.appendChild(el('circle',{cx:v.x, cy:v.y, r:6, fill, style:'cursor:pointer','data-id':v.id}));
+      const t = el('text',{x:v.x, y:v.y - 12, 'text-anchor':'middle','font-size':12, fill:'var(--ink)'});
+      t.textContent = v.label; svg.appendChild(t);
+    }
+    // top-2-simplex label
+    const cx = (V[0].x+V[1].x+V[2].x)/3, cy = (V[0].y+V[1].y+V[2].y)/3;
+    const tlab = el('text',{x:cx, y:cy+5, 'text-anchor':'middle','font-size':13,
+      fill:'var(--ink)','font-style':'italic'});
+    tlab.textContent = T.label; svg.appendChild(tlab);
+  }
+  function showState(){
+    if(!active){ out.textContent = 'click a vertex, edge, or the interior of the triangle…'; return; }
+    if(active.startsWith('v')){
+      const v = V.find(x=>x.id===active);
+      out.textContent = `0-SIMPLEX ${v.label} — no faces; s₀${v.label} = ${v.label.replace(')','')},${v.label.slice(1)} (the constant edge).`;
+    } else if(active.startsWith('e')){
+      const e = E.find(x=>x.id===active);
+      out.textContent = `1-SIMPLEX ${e.label}\n${e.faces}`;
+    } else {
+      out.textContent = `2-SIMPLEX (0,1,2) — the unique non-degenerate 2-simplex of Δ².\n${T.faces}\n\nDegens: s₀ doubles vertex 0, s₁ doubles 1, s₂ doubles 2 — three distinct 3-simplices in (Δ²)₃, plus more iterated degens of (0,1,2) for higher n.`;
+    }
+  }
+  svg.addEventListener('click', (e)=>{
+    const id = e.target && e.target.getAttribute && e.target.getAttribute('data-id');
+    if(id){ active = id; draw(); showState(); }
+  });
+  draw(); showState();
+})();
+</script>
+
+<div class="quiz" data-concept="simplicial-set"></div>
+</section>
+
+<section id="geometric-realization">
+<h2>3. Geometric realization $|X|$</h2>
+<p>The <strong>geometric realization</strong> functor $|{-}|\colon \mathbf{sSet} \to \mathbf{Top}$ is the left Kan extension of the cosimplicial space $[n] \mapsto |\Delta^n|$ (the standard topological $n$-simplex) along the Yoneda embedding $\Delta \hookrightarrow \mathbf{sSet}$. Concretely:</p>
+<p style="text-align:center">$|X| \;=\; \Bigl( \coprod_{n \ge 0} X_n \times |\Delta^n| \Bigr) \,\Big/\, \sim,$</p>
+<p>where the equivalence relation glues $(\sigma, \alpha_*(t)) \sim (\alpha^*\sigma, t)$ for every $\alpha\colon [m] \to [n]$ in $\Delta$, every $\sigma \in X_n$, and every $t \in |\Delta^m|$. This is exactly the colimit over the category of simplices of $X$ of the diagram sending each simplex to its standard topological simplex.</p>
+<p>Geometric realization is the <strong>left adjoint</strong> to the <em>singular complex</em> functor $\mathrm{Sing}\colon \mathbf{Top} \to \mathbf{sSet}$ defined by $\mathrm{Sing}(Y)_n = \mathrm{Top}(|\Delta^n|, Y)$. The adjunction $|{-}| \dashv \mathrm{Sing}$ is the bedrock of the simplicial approach to homotopy theory. Quillen's theorem upgrades it to a Quillen equivalence of model categories, so the homotopy theories of Kan complexes and topological spaces (with weak equivalences) agree.</p>
+<p>Three computations make the picture concrete: $|\Delta^n|$ is the standard $n$-simplex; $|\partial \Delta^n| \cong S^{n-1}$ (its boundary is the $(n-1)$-sphere); and $|\Lambda^n_k|$ is the union of all faces but one — for $n=2$ this is two segments meeting at a vertex, contractible. Because of the Eilenberg–Zilber lemma, $|X|$ has a canonical CW-structure with one $n$-cell per non-degenerate $n$-simplex of $X$. Walk through the construction step by step below.</p>
+<div class="widget" id="w-realization-stepper">
+  <div class="hd"><div class="ttl">Building $|\Delta^2|$ and $|\partial \Delta^2|$</div><div class="hint">step through the gluing</div></div>
+  <svg id="svg-realization" viewBox="0 0 560 280" width="560" height="280" role="img" aria-label="Constructing the geometric realization of Delta-2"><title>Constructing |Δ²|</title></svg>
+  <div class="row">
+    <button id="real-prev" type="button">◀ prev</button>
+    <button id="real-next" type="button">next ▶</button>
+    <span class="small" id="real-counter">step 1 / 5</span>
+  </div>
+  <div class="readout" id="real-readout">step description appears here…</div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-realization');
+  const out = document.getElementById('real-readout');
+  const prev = document.getElementById('real-prev');
+  const next = document.getElementById('real-next');
+  const counter = document.getElementById('real-counter');
+  if(!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+
+  // Triangle vertices
+  const V = [{x:280,y:60},{x:120,y:240},{x:440,y:240}];
+
+  let step = 0;
+  const STEPS = [
+    { title: 'STEP 1 / 5 — start with the disjoint coproduct',
+      desc: 'For Δ² we have non-degenerate simplices: 3 vertices in dim 0, 3 edges in dim 1, 1 triangle in dim 2. Form the disjoint union of the corresponding topological simplices: three points, three closed intervals, and one filled triangle.',
+      draw: ()=>{
+        // three isolated points (left), three intervals (middle), one triangle (right)
+        for(let i=0;i<3;i++) svg.appendChild(el('circle',{cx:60+18*i, cy:80, r:5, fill:'var(--blue)'}));
+        for(let i=0;i<3;i++){
+          svg.appendChild(el('line',{x1:50, y1:140+22*i, x2:130, y2:140+22*i,
+            stroke:'var(--green)','stroke-width':3}));
+          svg.appendChild(el('circle',{cx:50, cy:140+22*i, r:3, fill:'var(--ink)'}));
+          svg.appendChild(el('circle',{cx:130, cy:140+22*i, r:3, fill:'var(--ink)'}));
+        }
+        // floating triangle
+        svg.appendChild(el('polygon',{points:'400,80 350,200 460,200',
+          fill:'color-mix(in srgb, var(--violet) 28%, var(--panel2))', stroke:'var(--violet)','stroke-width':1.4}));
+        const t = el('text',{x:280,y:24,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});
+        t.textContent = '∐ Xₙ × |Δⁿ| — disjoint coproduct, no gluing yet'; svg.appendChild(t);
+      } },
+    { title: 'STEP 2 / 5 — glue via face inclusions',
+      desc: 'For each face map d_i: X_n → X_{n-1} we identify (σ, d_i(t)) ∈ X_n × |Δⁿ| with (d_i σ, t) ∈ X_{n-1} × |Δ^{n-1}|. Effect: the three edges glue to specific vertices via their endpoints.',
+      draw: ()=>{
+        // edges + vertices in their target positions: 3 edges form an outer triangle of the eventual realization
+        // place vertices at triangle corners, edges between them
+        const A=V[0], B=V[1], C=V[2];
+        svg.appendChild(el('line',{x1:A.x,y1:A.y,x2:B.x,y2:B.y, stroke:'var(--green)','stroke-width':3}));
+        svg.appendChild(el('line',{x1:A.x,y1:A.y,x2:C.x,y2:C.y, stroke:'var(--green)','stroke-width':3}));
+        svg.appendChild(el('line',{x1:B.x,y1:B.y,x2:C.x,y2:C.y, stroke:'var(--green)','stroke-width':3}));
+        for(const v of V) svg.appendChild(el('circle',{cx:v.x,cy:v.y,r:6,fill:'var(--blue)'}));
+        const t = el('text',{x:280,y:24,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});
+        t.textContent = 'edges glue to vertices via face maps — boundary ∂Δ² takes shape';
+        svg.appendChild(t);
+      } },
+    { title: 'STEP 3 / 5 — this is |∂Δ²|',
+      desc: 'After all face-map gluings (and we still have NO 2-cell attached), what we have is the realization of the boundary subobject ∂Δ² ⊂ Δ². Topologically it is the triangle perimeter — a circle S¹.',
+      draw: ()=>{
+        const A=V[0], B=V[1], C=V[2];
+        svg.appendChild(el('line',{x1:A.x,y1:A.y,x2:B.x,y2:B.y, stroke:'var(--cyan)','stroke-width':4}));
+        svg.appendChild(el('line',{x1:A.x,y1:A.y,x2:C.x,y2:C.y, stroke:'var(--cyan)','stroke-width':4}));
+        svg.appendChild(el('line',{x1:B.x,y1:B.y,x2:C.x,y2:C.y, stroke:'var(--cyan)','stroke-width':4}));
+        for(const v of V) svg.appendChild(el('circle',{cx:v.x,cy:v.y,r:6,fill:'var(--blue)'}));
+        const t = el('text',{x:280,y:24,'font-size':13,fill:'var(--cyan)','text-anchor':'middle'});
+        t.textContent = '|∂Δ²| ≅ S¹'; svg.appendChild(t);
+      } },
+    { title: 'STEP 4 / 5 — attach the 2-cell',
+      desc: 'The unique non-degenerate 2-simplex (0,1,2) ∈ (Δ²)₂ contributes a copy of |Δ²|. Its three edges are glued to the three edges of |∂Δ²| along d₀, d₁, d₂. Result: the disk filled in.',
+      draw: ()=>{
+        const A=V[0], B=V[1], C=V[2];
+        svg.appendChild(el('polygon',{points:`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`,
+          fill:'color-mix(in srgb, var(--violet) 30%, var(--panel2))', stroke:'var(--violet)','stroke-width':2}));
+        for(const v of V) svg.appendChild(el('circle',{cx:v.x,cy:v.y,r:6,fill:'var(--blue)'}));
+        const t = el('text',{x:280,y:24,'font-size':13,fill:'var(--violet)','text-anchor':'middle'});
+        t.textContent = '|Δ²| ≅ D² (the closed 2-disk)'; svg.appendChild(t);
+      } },
+    { title: 'STEP 5 / 5 — degenerate simplices contribute nothing new',
+      desc: 'Eilenberg–Zilber: every degenerate simplex factors through a non-degenerate one via a surjection α. The relation (σ, α_*(t)) ∼ (α^*σ, t) collapses the entire copy of |Δⁿ| above a degenerate σ onto a copy of a lower-dim |Δᵏ|. The CW structure has exactly one cell per NON-degenerate simplex.',
+      draw: ()=>{
+        const A=V[0], B=V[1], C=V[2];
+        svg.appendChild(el('polygon',{points:`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`,
+          fill:'color-mix(in srgb, var(--violet) 30%, var(--panel2))', stroke:'var(--violet)','stroke-width':2}));
+        for(const v of V) svg.appendChild(el('circle',{cx:v.x,cy:v.y,r:6,fill:'var(--blue)'}));
+        // annotate cells
+        const lab = el('text',{x:280,y:165,'font-size':11,fill:'var(--ink)','text-anchor':'middle'});
+        lab.textContent = '1 two-cell, 3 one-cells, 3 zero-cells'; svg.appendChild(lab);
+        const t = el('text',{x:280,y:24,'font-size':13,fill:'var(--green)','text-anchor':'middle'});
+        t.textContent = 'CW-complex: one cell per non-degenerate simplex'; svg.appendChild(t);
+      } }
+  ];
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    STEPS[step].draw();
+    counter.textContent = `step ${step+1} / ${STEPS.length}`;
+    out.textContent = STEPS[step].title + '\n\n' + STEPS[step].desc;
+    prev.disabled = step===0;
+    next.disabled = step===STEPS.length-1;
+  }
+  prev.addEventListener('click', ()=>{ if(step>0){ step--; render(); }});
+  next.addEventListener('click', ()=>{ if(step<STEPS.length-1){ step++; render(); }});
+  render();
+})();
+</script>
+<div class="quiz" data-concept="geometric-realization"></div>
+</section>
+
+<section id="nerve-of-category">
+<h2>4. The nerve $N(C)$ of a category</h2>
+<p>For a small category $C$, the <strong>nerve</strong> $N(C)$ is the simplicial set with</p>
+<p style="text-align:center">$N(C)_n \;=\; \mathbf{Cat}([n], C) \;=\; \{\, x_0 \xrightarrow{f_1} x_1 \xrightarrow{f_2} \cdots \xrightarrow{f_n} x_n \,\}$,</p>
+<p>the set of length-$n$ composable strings of arrows in $C$ (where we view $[n]$ as the linear poset $0 < 1 < \cdots < n$, hence as a category with a unique arrow $i \to j$ whenever $i \le j$). The face maps $d_i$ act on $(f_1, \ldots, f_n)$ as: $d_0$ drops $f_1$, $d_n$ drops $f_n$, and for $0 < i < n$ the operator $d_i$ <em>composes</em> $f_{i+1} \circ f_i$. The degeneracies $s_j$ insert an identity at position $j$.</p>
+<p>This bridges category theory and homotopy theory: $N\colon \mathbf{Cat} \to \mathbf{sSet}$ is a fully faithful right adjoint, with left adjoint $h$ — the <em>homotopy / fundamental category</em> functor that sends a simplicial set $X$ to the category with objects $X_0$, generating arrows $X_1$, and relations $d_1 \sigma = d_0 \sigma \circ d_2 \sigma$ for $\sigma \in X_2$. Because $N$ is fully faithful, two small categories are equivalent iff their nerves are equivalent in the Joyal model structure on $\mathbf{sSet}$.</p>
+<p>Two computations to keep in mind. First, for a poset $P$ viewed as a category, $N(P)_n$ is the set of weakly increasing length-$(n+1)$ chains in $P$. Second, for a group $G$ regarded as a one-object groupoid $BG$, $N(BG)_n = G^n$ — the standard simplicial model for the classifying space, with $|N(BG)| \simeq BG$ a $K(G,1)$.</p>
+<div class="widget" id="w-nerve-cat">
+  <div class="hd"><div class="ttl">A 2-simplex in $N(C)$ is a composable pair</div><div class="hint">click an arrow $f$, then a composable arrow $g$ — see the 2-simplex</div></div>
+  <svg id="svg-nerve-cat" viewBox="0 0 560 280" width="560" height="280" role="img" aria-label="Nerve of a 3-object category"><title>Nerve of a 3-object category</title></svg>
+  <div class="row">
+    <button id="nerve-reset" type="button">reset</button>
+  </div>
+  <div class="readout" id="nerve-readout">click an arrow…</div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-nerve-cat');
+  const out = document.getElementById('nerve-readout');
+  const reset = document.getElementById('nerve-reset');
+  if(!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+
+  // C: three objects A,B,C with f:A→B, g:B→C, h=g∘f:A→C, plus identities (implicit)
+  const OBJ = { A:{x:120, y:200, label:'A'}, B:{x:280, y:60,  label:'B'}, C:{x:440, y:200, label:'C'} };
+  const ARR = [
+    {id:'f', src:'A', tgt:'B', label:'f', curve:18},
+    {id:'g', src:'B', tgt:'C', label:'g', curve:18},
+    {id:'h', src:'A', tgt:'C', label:'h = g∘f', curve:30}
+  ];
+  let picks = []; // sequence of arrow ids
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const defs = el('defs');
+    for(const c of ['blue','yellow','mute']){
+      const m = el('marker',{id:'arr-nerve-'+c, viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+      m.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z', fill:`var(--${c})`}));
+      defs.appendChild(m);
+    }
+    svg.appendChild(defs);
+    // arrows
+    for(const a of ARR){
+      const s = OBJ[a.src], t = OBJ[a.tgt];
+      const dx = t.x-s.x, dy = t.y-s.y, L = Math.hypot(dx,dy);
+      const ux = dx/L, uy = dy/L;
+      const x1 = s.x + ux*22, y1 = s.y + uy*22;
+      const x2 = t.x - ux*22, y2 = t.y - uy*22;
+      const mx = (x1+x2)/2 - uy*a.curve, my = (y1+y2)/2 + ux*a.curve;
+      let color = 'var(--blue)', mid = 'arr-nerve-blue';
+      if(picks.includes(a.id)){ color='var(--yellow)'; mid='arr-nerve-yellow'; }
+      const path = el('path',{d:`M${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`, fill:'none',
+        stroke:color, 'stroke-width':2, 'marker-end':`url(#${mid})`});
+      svg.appendChild(path);
+      // hit-area
+      const hit = el('path',{d:`M${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`, fill:'none',
+        stroke:'transparent', 'stroke-width':18, 'data-aid':a.id, style:'cursor:pointer'});
+      svg.appendChild(hit);
+      const lt = el('text',{x:mx, y:my-6, 'text-anchor':'middle','font-size':12, fill:color,'font-style':'italic'});
+      lt.textContent = a.label; svg.appendChild(lt);
+    }
+    // nodes
+    for(const k in OBJ){
+      const o = OBJ[k];
+      svg.appendChild(el('circle',{cx:o.x, cy:o.y, r:18, fill:'var(--panel2)', stroke:'var(--blue)','stroke-width':1.5}));
+      const t = el('text',{x:o.x, y:o.y+5, 'text-anchor':'middle','font-size':14,'font-weight':600, fill:'#fff'});
+      t.textContent = o.label; svg.appendChild(t);
+    }
+    // if we have a composable pair selected, sketch the 2-simplex (filled triangle)
+    if(picks.length===2){
+      const p = ARR.find(x=>x.id===picks[0]);
+      const q = ARR.find(x=>x.id===picks[1]);
+      if(p && q && p.tgt===q.src){
+        const a = OBJ[p.src], b = OBJ[p.tgt], c = OBJ[q.tgt];
+        svg.appendChild(el('polygon',{
+          points:`${a.x},${a.y} ${b.x},${b.y} ${c.x},${c.y}`,
+          fill:'color-mix(in srgb, var(--yellow) 22%, transparent)',
+          stroke:'var(--yellow)', 'stroke-width':1.5,
+          'stroke-dasharray':'5 4'
+        }));
+      }
+    }
+    // legend
+    const lg = el('g',{transform:'translate(20, 250)'});
+    const ll = el('text',{x:0,y:0,'font-size':11,fill:'var(--mute)'});
+    ll.textContent = 'objects of C, arrows = N(C)₁; pairs = N(C)₂'; lg.appendChild(ll);
+    svg.appendChild(lg);
+  }
+  function showState(){
+    if(picks.length===0){ out.textContent = 'click an arrow — it represents a 1-simplex of N(C).'; return; }
+    if(picks.length===1){
+      const a = ARR.find(x=>x.id===picks[0]);
+      out.textContent = `1-SIMPLEX f = ${a.label} : ${a.src} → ${a.tgt}\n\n  d₀(f) = ${a.tgt} (target),  d₁(f) = ${a.src} (source).\n\nNow click a SECOND arrow to form a composable pair (its source must match this one's target).`;
+      return;
+    }
+    const p = ARR.find(x=>x.id===picks[0]);
+    const q = ARR.find(x=>x.id===picks[1]);
+    if(!p || !q) return;
+    if(p.tgt !== q.src){
+      out.textContent = `${p.label} : ${p.src}→${p.tgt}\n${q.label} : ${q.src}→${q.tgt}\n\nNOT composable: target of first (${p.tgt}) ≠ source of second (${q.src}). Pairs (f, g) ∈ N(C)₂ require g.src = f.tgt.`;
+      return;
+    }
+    // composable
+    const compName = (p.id==='f' && q.id==='g') ? 'h = g∘f' : `${q.label} ∘ ${p.label}`;
+    out.textContent =
+      `2-SIMPLEX σ = (${p.label}, ${q.label}) ∈ N(C)₂\n\n` +
+      `  d₀ σ = ${q.label}  (drop the first arrow)\n` +
+      `  d₁ σ = ${compName}  (compose: this is the COMPOSITION face)\n` +
+      `  d₂ σ = ${p.label}  (drop the last arrow)\n\n` +
+      `In particular d₁(σ) is the unique morphism ${p.src} → ${q.tgt} obtained by composition — and the existence + uniqueness of this filler is exactly why N(C) is a quasi-category with unique inner-horn fillers (§6).`;
+  }
+  svg.addEventListener('click', (e)=>{
+    const aid = e.target && e.target.getAttribute && e.target.getAttribute('data-aid');
+    if(!aid) return;
+    if(picks.length<2) picks.push(aid); else picks=[aid];
+    draw(); showState();
+  });
+  reset.addEventListener('click', ()=>{ picks=[]; draw(); showState(); });
+  draw(); showState();
+})();
+</script>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./simplicial-sets-and-nerve.html#horn-filling">Simplicial sets and the nerve</a> · Inner-horn filling and quasi-categorical nerves</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+<div class="quiz" data-concept="nerve-of-category"></div>
+</section>
+
+<section id="kan-complex">
+<h2>5. Kan complexes</h2>
+<p>A simplicial set $X$ is a <strong>Kan complex</strong> (or satisfies the <strong>Kan extension condition</strong>) if every horn extends to a full simplex: for every $n \ge 1$, every $0 \le k \le n$, and every map of simplicial sets $\Lambda^n_k \to X$, there exists a (not necessarily unique) extension $\Delta^n \to X$:</p>
+<p style="text-align:center">$\begin{array}{ccc} \Lambda^n_k & \longrightarrow & X \\ \downarrow & \nearrow & \\ \Delta^n & & \end{array}$</p>
+<p>Equivalently, $X \to *$ is a <em>Kan fibration</em>: the unique map to the terminal object has the right lifting property against every horn inclusion $\Lambda^n_k \hookrightarrow \Delta^n$. Kan complexes are the fibrant objects in the Kan–Quillen model structure on $\mathbf{sSet}$ — the model structure that makes $|{-}| \dashv \mathrm{Sing}$ into a Quillen equivalence with $\mathbf{Top}$.</p>
+<p>The motivating example is the <strong>singular complex</strong> $\mathrm{Sing}(Y)$ of a topological space $Y$: $|\Lambda^n_k|$ is a strong deformation retract of $|\Delta^n|$, so any continuous map $|\Lambda^n_k| \to Y$ extends to $|\Delta^n|$, and translating across the realization–singular adjunction gives the Kan condition. By Quillen's theorem, $|{-}|\dashv \mathrm{Sing}$ descends to an equivalence between the homotopy category of Kan complexes and the homotopy category of CW-complexes (or, equivalently, of all topological spaces with weak equivalences inverted).</p>
+<p>Crucially, the nerve $N(C)$ of a category $C$ is a Kan complex iff $C$ is a <em>groupoid</em>. The reason is the outer horn: an outer horn $\Lambda^2_0 \to N(C)$ is a pair $f\colon a \to b$ and $h\colon a \to c$, and a filler asks for $g\colon b \to c$ with $h = g \circ f$ — this is right-divisibility, and it holds for every pair iff every morphism is invertible. Inner horns alone are easier (they correspond to ordinary composition), and they motivate §6.</p>
+<div class="widget" id="w-kan-horns">
+  <div class="hd"><div class="ttl">Inner vs. outer horns of $\Delta^2$</div><div class="hint">step through $\Lambda^2_0$, $\Lambda^2_1$, $\Lambda^2_2$ and see which extension data each provides</div></div>
+  <svg id="svg-horns" viewBox="0 0 560 280" width="560" height="280" role="img" aria-label="Inner versus outer horns of the 2-simplex"><title>Horns of Δ²</title></svg>
+  <div class="row">
+    <button id="horn-prev" type="button">◀ prev</button>
+    <button id="horn-next" type="button">next ▶</button>
+    <span class="small" id="horn-counter">1 / 3</span>
+  </div>
+  <div class="readout" id="horn-readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-horns');
+  const out = document.getElementById('horn-readout');
+  const prev = document.getElementById('horn-prev');
+  const next = document.getElementById('horn-next');
+  const counter = document.getElementById('horn-counter');
+  if(!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+
+  const V = [{x:280,y:60,label:'0'},{x:120,y:240,label:'1'},{x:440,y:240,label:'2'}];
+  function arrow(p, q, color){
+    const dx = q.x-p.x, dy = q.y-p.y, L = Math.hypot(dx,dy);
+    const ux=dx/L, uy=dy/L;
+    const x1=p.x+ux*22, y1=p.y+uy*22, x2=q.x-ux*22, y2=q.y-uy*22;
+    return el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':3,'marker-end':'url(#arr-horn)'});
+  }
+  function defs(){
+    const d = el('defs');
+    const m = el('marker',{id:'arr-horn', viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+    m.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z', fill:'var(--yellow)'}));
+    d.appendChild(m); return d;
+  }
+
+  // Each horn omits the face OPPOSITE vertex k. So Λ²_k contains the two edges through vertex k.
+  // For Λ²_0: edges (0,1) and (0,2) — both starting at 0, sharing source.
+  // For Λ²_1: edges (0,1) and (1,2) — composable f then g.
+  // For Λ²_2: edges (0,2) and (1,2) — both ending at 2, sharing target.
+  const STATES = [
+    { name:'Λ²_0 (OUTER horn)',
+      edges: [[0,1],[0,2]],
+      caption:
+        'OUTER horn Λ²_0 — the two edges emanating from vertex 0.\n\n' +
+        'Filler data needed: an edge (1,2). In a category C: given f:0→1 and h:0→2, find g:1→2 with h = g∘f.\n\n' +
+        'EXTENSION HOLDS for arbitrary C iff f is right-cancellable for every target — i.e., iff C is a groupoid.\n\n' +
+        '⇒ N(C) is a Kan complex iff C is a groupoid.' },
+    { name:'Λ²_1 (INNER horn)',
+      edges: [[0,1],[1,2]],
+      caption:
+        'INNER horn Λ²_1 — the two edges through vertex 1: a composable pair f:0→1, g:1→2.\n\n' +
+        'Filler data needed: an edge (0,2) and a 2-simplex with d₁ = (0,2). In a category C this is just COMPOSITION g∘f — exists and is unique.\n\n' +
+        '⇒ N(C) ALWAYS has unique inner-horn fillers, for any C. This is what makes N(C) a quasi-category and what §6 makes precise.' },
+    { name:'Λ²_2 (OUTER horn)',
+      edges: [[0,2],[1,2]],
+      caption:
+        'OUTER horn Λ²_2 — the two edges arriving at vertex 2: h:0→2 and g:1→2.\n\n' +
+        'Filler data needed: an edge (0,1). In C: given h and g, find f:0→1 with h = g∘f.\n\n' +
+        'Same story as Λ²_0 — extension iff g is left-cancellable, iff C is a groupoid.' }
+  ];
+  let step = 0;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(defs());
+    const s = STATES[step];
+    // outline of full Δ² in muted dashed
+    svg.appendChild(el('polygon',{points:V.map(v=>`${v.x},${v.y}`).join(' '),
+      fill:'transparent', stroke:'var(--mute)', 'stroke-width':1, 'stroke-dasharray':'4 4'}));
+    // present edges
+    for(const [a,b] of s.edges){
+      svg.appendChild(arrow(V[a], V[b], 'var(--yellow)'));
+    }
+    // vertices
+    for(const v of V){
+      svg.appendChild(el('circle',{cx:v.x, cy:v.y, r:14, fill:'var(--panel2)', stroke:'var(--yellow)','stroke-width':1.5}));
+      const t = el('text',{x:v.x, y:v.y+5, 'text-anchor':'middle','font-size':12,'font-weight':600, fill:'#fff'});
+      t.textContent = v.label; svg.appendChild(t);
+    }
+    // missing-edge label in faded
+    const all = [[0,1],[0,2],[1,2]];
+    const present = new Set(s.edges.map(e=>e.join(',')));
+    for(const [a,b] of all){
+      if(present.has(`${a},${b}`)) continue;
+      const A = V[a], B = V[b];
+      const mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
+      const t = el('text',{x:mx, y:my-4, 'text-anchor':'middle','font-size':11, fill:'var(--mute)','font-style':'italic'});
+      t.textContent = `(${a},${b}) — missing`; svg.appendChild(t);
+    }
+    const ttl = el('text',{x:280, y:24, 'text-anchor':'middle','font-size':14, fill:'var(--ink)','font-weight':600});
+    ttl.textContent = s.name; svg.appendChild(ttl);
+    counter.textContent = `${step+1} / ${STATES.length}`;
+    out.textContent = s.caption;
+    prev.disabled = step===0;
+    next.disabled = step===STATES.length-1;
+  }
+  prev.addEventListener('click', ()=>{ if(step>0){ step--; render(); }});
+  next.addEventListener('click', ()=>{ if(step<STATES.length-1){ step++; render(); }});
+  render();
+})();
+</script>
+<div class="quiz" data-concept="kan-complex"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./infinity-categories.html#quasi-category">$\infty$-categories (quasi-categories)</a> · Quasi-categories</div>
+    <div><a href="./simplicial-sets-and-nerve.html#horn-filling">Simplicial sets and the nerve</a> · Inner-horn filling and quasi-categorical nerves</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="horn-filling">
+<h2>6. Inner-horn filling and quasi-categorical nerves</h2>
+<p>The Kan condition asks for fillers of <em>every</em> horn, including the outer ones $\Lambda^n_0$ and $\Lambda^n_n$ that encode invertibility. Demanding fillers <strong>only</strong> for <em>inner</em> horns ($0 < k < n$) gives a strictly weaker condition that nevertheless captures all the algebra of composition. A simplicial set in which every inner horn extends is called a <strong>quasi-category</strong> (or weak Kan complex), and these are the fibrant objects of the <strong>Joyal model structure</strong> on $\mathbf{sSet}$.</p>
+<p>Quasi-categories are Boardman–Vogt and Joyal–Lurie's model for $(\infty, 1)$-categories. The picture: $0$-simplices are objects, $1$-simplices are morphisms, $2$-simplices witness compositions ($d_1$ is "the composite of $d_0$ and $d_2$", but the composite is determined only up to homotopy, giving an entire space of composites), and higher simplices encode coherences between coherences ad infinitum. Inner-horn filling is exactly the assertion "every composable string admits a composition".</p>
+<p>The fundamental theorem of nerves: <strong>$X = N(C)$ for some small category $C$ iff $X$ is a quasi-category in which every inner horn has a <em>unique</em> filler.</strong> Existence of fillers is "$X$ has compositions"; uniqueness is "the composition is a function, not a higher structure" — i.e., $X$ is a $1$-category. This is the precise sense in which classical category theory is the "$1$-truncated" piece of $\infty$-category theory.</p>
+<p>Two further refinements. (a) The Kan complexes (all horns fill, possibly non-uniquely) sit inside quasi-categories as those with all morphisms invertible — the $\infty$-groupoids. (b) For an arbitrary quasi-category $\mathcal{C}$, the homotopy category $h\mathcal{C}$ is obtained by quotienting $\mathcal{C}_1$ by homotopy of $1$-simplices; this $h\mathcal{C}$ is an honest $1$-category. The functor $h \dashv N$ is a Quillen pair between the Joyal model on $\mathbf{sSet}$ and $\mathbf{Cat}$, restricting to the inclusion $\mathbf{Cat} \hookrightarrow \mathbf{sSet}$ on the nerve side.</p>
+<div class="widget" id="w-inner-horn">
+  <div class="hd"><div class="ttl">Filling $\Lambda^2_1 \hookrightarrow N(C)$</div><div class="hint">click "fill" to compose</div></div>
+  <svg id="svg-inner-horn" viewBox="0 0 560 280" width="560" height="280" role="img" aria-label="Inner horn extension"><title>Filling Λ²₁</title></svg>
+  <div class="row">
+    <button id="ih-fill" type="button">fill the horn</button>
+    <button id="ih-reset" type="button">reset</button>
+  </div>
+  <div class="readout" id="ih-readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-inner-horn');
+  const out = document.getElementById('ih-readout');
+  const fillBtn = document.getElementById('ih-fill');
+  const reset = document.getElementById('ih-reset');
+  if(!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+
+  let filled = false;
+  const V = [{x:120,y:200,label:'a'},{x:280,y:60,label:'b'},{x:440,y:200,label:'c'}];
+
+  function defs(){
+    const d = el('defs');
+    for(const c of ['yellow','green','mute']){
+      const m = el('marker',{id:'arr-ih-'+c, viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+      m.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z', fill:`var(--${c})`}));
+      d.appendChild(m);
+    }
+    return d;
+  }
+  function arrow(p, q, color, mid, label, lyShift){
+    const dx = q.x-p.x, dy = q.y-p.y, L = Math.hypot(dx,dy);
+    const ux=dx/L, uy=dy/L;
+    const x1=p.x+ux*22, y1=p.y+uy*22, x2=q.x-ux*22, y2=q.y-uy*22;
+    const path = el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':2.5,'marker-end':`url(#arr-ih-${mid})`});
+    const mx=(x1+x2)/2, my=(y1+y2)/2;
+    const lt = el('text',{x:mx, y:my+(lyShift||-8), 'text-anchor':'middle','font-size':12,
+      fill:color,'font-style':'italic'});
+    lt.textContent = label;
+    return [path, lt];
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(defs());
+    if(filled){
+      // shaded 2-simplex
+      svg.appendChild(el('polygon',{points:V.map(v=>`${v.x},${v.y}`).join(' '),
+        fill:'color-mix(in srgb, var(--green) 22%, transparent)',
+        stroke:'var(--green)', 'stroke-width':1.5}));
+    }
+    // f: a→b
+    arrow(V[0], V[1], 'var(--yellow)', 'yellow', 'f').forEach(n=>svg.appendChild(n));
+    // g: b→c
+    arrow(V[1], V[2], 'var(--yellow)', 'yellow', 'g').forEach(n=>svg.appendChild(n));
+    // h = g∘f: a→c (only if filled)
+    if(filled){
+      arrow(V[0], V[2], 'var(--green)', 'green', 'h = g∘f', 16).forEach(n=>svg.appendChild(n));
+    } else {
+      // ghost dashed missing edge
+      const a=V[0], b=V[2];
+      const dx = b.x-a.x, dy = b.y-a.y, L = Math.hypot(dx,dy);
+      const ux=dx/L, uy=dy/L;
+      const x1=a.x+ux*22, y1=a.y+uy*22, x2=b.x-ux*22, y2=b.y-uy*22;
+      svg.appendChild(el('line',{x1,y1,x2,y2, stroke:'var(--mute)','stroke-width':1.5,
+        'stroke-dasharray':'5 4', 'marker-end':'url(#arr-ih-mute)'}));
+      const mx=(x1+x2)/2, my=(y1+y2)/2;
+      const lt = el('text',{x:mx, y:my+16, 'text-anchor':'middle','font-size':12, fill:'var(--mute)','font-style':'italic'});
+      lt.textContent = 'd₁σ — needed'; svg.appendChild(lt);
+    }
+    // nodes
+    for(const v of V){
+      svg.appendChild(el('circle',{cx:v.x, cy:v.y, r:18, fill:'var(--panel2)', stroke:'var(--blue)','stroke-width':1.5}));
+      const t = el('text',{x:v.x, y:v.y+5, 'text-anchor':'middle','font-size':14,'font-weight':600, fill:'#fff'});
+      t.textContent = v.label; svg.appendChild(t);
+    }
+    const ttl = el('text',{x:280,y:22,'text-anchor':'middle','font-size':13,
+      fill: filled ? 'var(--green)' : 'var(--yellow)', 'font-weight':600});
+    ttl.textContent = filled ? 'σ ∈ N(C)₂ — the unique filler' : 'Λ²₁ → N(C): inner horn given by (f, g)';
+    svg.appendChild(ttl);
+  }
+  function showState(){
+    if(!filled){
+      out.textContent =
+        'STATE: an inner horn Λ²₁ → N(C) consisting of f : a→b and g : b→c.\n\n' +
+        'To extend to a 2-simplex Δ² → N(C) we need (i) the third edge d₁σ : a→c and (ii) the 2-simplex σ itself.\n\n' +
+        'Click "fill the horn" to invoke composition.';
+    } else {
+      out.textContent =
+        'FILLED: σ = (f, g) ∈ N(C)₂.\n\n' +
+        '  d₂σ = f, d₀σ = g, d₁σ = g∘f.\n\n' +
+        'Existence of σ ⇔ (f, g) is composable in C — always true in a 1-category. UNIQUENESS of σ ⇔ composition is a function, not just defined up to homotopy. Both hold for N(C); only existence holds in a general quasi-category.\n\n' +
+        'CHARACTERISATION: a quasi-category X is the nerve of a 1-category iff every inner-horn filler is unique.';
+    }
+  }
+  fillBtn.addEventListener('click', ()=>{ filled=true; draw(); showState(); });
+  reset.addEventListener('click', ()=>{ filled=false; draw(); showState(); });
+  draw(); showState();
+})();
+</script>
+<div class="quiz" data-concept="horn-filling"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./infinity-categories.html#quasi-category">$\infty$-categories (quasi-categories)</a> · Quasi-categories</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('simplicial-sets-and-nerve'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-25</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

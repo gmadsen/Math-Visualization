@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/counterexample-explorer/schema.json",
+  "title": "counterexample-explorer widget params",
+  "description": "Pedagogical \"which-hypotheses-fail\" inspector. The author declares a list of `hypotheses` (rows) and a list of `cases` (candidate objects); each case provides a per-hypothesis `{ pass, note? }` cell. The widget renders a dropdown of cases, an optional SVG / LaTeX preview of the selected case, and a checklist showing which hypotheses pass (green check) vs fail (pink cross) with the per-cell note shown beneath. Pure declarative — the page-global library `MVCounterexampleExplorer` (js/widget-counterexample-explorer.js) does NOT evaluate functions or check hypotheses dynamically; it walks the data the author supplies. A portable frontend can ignore renderScript and consume the same `cases` / `hypotheses` arrays directly.",
+  "meta": {
+    "family": "counterexample-explorer",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "hypotheses", "cases"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer host `<div class=\"widget\">` that the library mounts into."
+    },
+    "title": {
+      "type": "string",
+      "description": "Widget title. Rendered in the chrome header (`.hd > .ttl`) the library builds at init time."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Short hint text rendered in `.hd > .hint`. Defaults to the library's standard hint when omitted."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+$",
+      "description": "SVG viewBox for the per-case illustration. Defaults to '0 0 320 160'. Used only when at least one case has `svgInner`."
+    },
+    "hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of hypothesis rows shown in the checklist. Each id must be unique — `cases[*].hypotheses[id]` is keyed by it. `label` may contain KaTeX delimiters `$…$` and is typeset at init time.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+            "description": "Stable hypothesis id used as a key inside each case's `hypotheses` map."
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable row label. Supports KaTeX `$…$` delimiters."
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of candidate objects. The dropdown lists each case by `name`; selecting one renders its illustration and per-hypothesis pass/fail row.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "hypotheses"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Short label shown in the dropdown."
+          },
+          "latex": {
+            "type": "string",
+            "description": "Optional LaTeX expression (no delimiters needed) rendered as the centerpiece of the illustration area when no `svgInner` is supplied."
+          },
+          "displayLabel": {
+            "type": "string",
+            "description": "Optional plain-text display label rendered alongside / instead of `latex`. Useful for non-formula candidates (e.g. \"Cantor set\")."
+          },
+          "svgInner": {
+            "type": "string",
+            "description": "Optional raw SVG inner HTML rendered into the illustration area. Use SVG element tags directly (no xmlns needed). Takes precedence over `latex` / `displayLabel` when present."
+          },
+          "hypotheses": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["pass"],
+              "properties": {
+                "pass": {
+                  "type": "boolean",
+                  "description": "True if this case satisfies the hypothesis, false if it's the counterexample for that hypothesis."
+                },
+                "note": {
+                  "type": "string",
+                  "description": "Optional explanation shown beneath the row (e.g. \"not differentiable at x = 0\"). Supports KaTeX `$…$`."
+                }
+              }
+            },
+            "description": "Map keyed by hypothesis id (from the top-level `hypotheses` array). Missing keys render as a neutral dash row."
+          }
+        }
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional comment placed between `<script>` and `(function(){` as `/* <here> */`. Lets a migrated source preserve its banner comment."
+    }
+  }
+}

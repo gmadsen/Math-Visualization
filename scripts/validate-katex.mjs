@@ -380,6 +380,7 @@ const KATEX_MACROS = new Set([
   'veebar', 'doublebarwedge', 'curlyvee', 'curlywedge', 'sqcap', 'sqcup',
   'amalg', 'ddagger', 'dagger', 'setminus', 'smallsetminus', 'wr', 'Cap',
   'Cup', 'doublecap', 'doublecup', 'leftthreetimes', 'rightthreetimes',
+  'ltimes', 'rtimes',
   'divideontimes',
   // Relations
   'leq', 'le', 'geq', 'ge', 'neq', 'ne', 'equiv', 'sim', 'simeq', 'approx',

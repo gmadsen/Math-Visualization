@@ -1,0 +1,392 @@
+{
+  "topic": "derived-categories",
+  "quizzes": {
+    "homotopy-category-K": {
+      "title": "The homotopy category $K(\\mathcal{A})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Two chain maps $f, g \\colon X^\\bullet \\to Y^\\bullet$ are chain homotopic via $s = (s^n \\colon X^n \\to Y^{n-1})$. Which equation expresses this relation?",
+          "choices": [
+            "$f - g = s \\circ d_X - d_Y \\circ s$",
+            "$f - g = d_Y \\circ s + s \\circ d_X$",
+            "$f - g = d_Y \\circ s \\circ d_X$",
+            "$s$ is a chain map and $f \\circ s = g$"
+          ],
+          "answer": 1,
+          "explain": "By definition, $f \\simeq g$ iff there exists a degree $-1$ map $s$ with $f - g = ds + sd$. The order of the two terms is conventional (some texts use $f - g = sd + ds$, the same thing); $s$ itself is NOT a chain map.",
+          "hint": "Look at the formula displayed in the worked example."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are TRUE for any chain homotopy $f \\simeq g$ between chain maps $X^\\bullet \\to Y^\\bullet$?",
+          "choices": [
+            "$H^n(f) = H^n(g)$ for every $n$.",
+            "$f$ and $g$ have the same image as set maps in each degree.",
+            "$[f] = [g]$ as morphisms in $K(\\mathcal{A})$.",
+            "$f$ and $g$ differ by an isomorphism of $X^\\bullet$."
+          ],
+          "answer": [0, 2],
+          "explain": "Chain-homotopic maps induce equal maps on cohomology (so (1) holds) and become equal in $K(\\mathcal{A})$ by definition (so (3) holds). They generally differ as set maps (a chain homotopy is a witness, not a triviality), and there is no reason for them to differ by an iso of $X$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the flawed step in the following \"proof\" that nullhomotopic chain maps induce zero on cohomology.",
+          "steps": [
+            "Suppose $f \\simeq 0$ via $s$, so $f = ds + sd$.",
+            "Pick a cocycle $x \\in \\ker d^n$, so $d x = 0$.",
+            "Then $f(x) = d(s(x)) + s(d(x)) = d(s(x)) + 0 = d(s(x))$.",
+            "Since $s(x)$ is also a cocycle, $d(s(x)) = 0$, so $f(x) = 0$.",
+            "Therefore $f$ kills every cohomology class, and $H^n(f) = 0$."
+          ],
+          "answer": 3,
+          "explain": "Step 4 is wrong: $s(x) \\in Y^{n-1}$ has no reason to be a cocycle. The correct conclusion is that $f(x) = d(s(x))$ is a coboundary, hence zero in $H^n(Y)$ — which is what we wanted.",
+          "hint": "Check whether $s(x)$ is required to be a cocycle."
+        }
+      ]
+    },
+    "quasi-isomorphisms": {
+      "title": "Quasi-isomorphisms and localization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following chain maps in $\\mathrm{Ch}(\\mathrm{Ab})$ is a quasi-isomorphism?",
+          "choices": [
+            "$\\mathbb{Z}[0] \\xrightarrow{2} \\mathbb{Z}[0]$ (a single nonzero abelian group in degree $0$, multiplication by $2$).",
+            "$(\\mathbb{Z} \\xrightarrow{2} \\mathbb{Z}) \\to \\mathbb{Z}/2[1]$, with $f^0 = 0$ and $f^1$ the quotient $\\pi$ (degrees $0,1$).",
+            "$\\mathbb{Z}[0] \\to \\mathbb{Q}[0]$, the inclusion (single objects in degree $0$).",
+            "The identity $X \\to X$ for any $X$ — but only after we localize."
+          ],
+          "answer": 1,
+          "explain": "Option (b) is the prototypical quasi-iso: $H^0(X) = 0 = H^0(Y)$, $H^1(X) = \\mathbb{Z}/2 \\xrightarrow{\\mathrm{id}} \\mathbb{Z}/2 = H^1(Y)$. (a) induces multiplication by $2$ on $\\mathbb{Z}$, NOT iso. (c) induces the inclusion $\\mathbb{Z} \\hookrightarrow \\mathbb{Q}$, not iso. (d) is the identity, which is always a quasi-iso, no localization needed.",
+          "hint": "Check $H^n(f)$ in each degree."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps of \"localizing $K(\\mathcal{A})$ at quasi-isomorphisms\" in correct logical order.",
+          "items": [
+            "Verify the class of quasi-isos in $K(\\mathcal{A})$ satisfies the Ore conditions.",
+            "Define morphisms in $D(\\mathcal{A})$ as roofs $X \\xleftarrow{s} Z \\xrightarrow{f} Y$ with $s$ quasi-iso, modulo a calculus-of-fractions equivalence.",
+            "Pass to the homotopy category $K(\\mathcal{A}) = \\mathrm{Ch}(\\mathcal{A})/\\simeq$, identifying chain-homotopic maps.",
+            "Conclude $D(\\mathcal{A})$ is the universal target of a functor inverting quasi-isos."
+          ],
+          "answer": [2, 0, 1, 3],
+          "explain": "First descend to $K$ (item index 2), then check Ore conditions there (index 0), then build $D$ via the roof calculus (index 1), then state the universal property (index 3)."
+        },
+        {
+          "type": "mcq",
+          "q": "True or false: every quasi-isomorphism in $K(\\mathcal{A})$ is an isomorphism in $K(\\mathcal{A})$.",
+          "choices": [
+            "True — that's the definition of $K$.",
+            "False — the chain map $(\\mathbb{Z} \\xrightarrow{2} \\mathbb{Z}) \\to \\mathbb{Z}/2[1]$ is a counterexample.",
+            "True — but only when $\\mathcal{A}$ has enough injectives.",
+            "False — but only for unbounded complexes."
+          ],
+          "answer": 1,
+          "explain": "Quasi-isos are NOT iso in $K(\\mathcal{A})$ in general. The reduction $(\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}) \\to \\mathbb{Z}/2[1]$ is a quasi-iso but admits no chain map back, even up to homotopy. This is precisely what motivates localizing at the quasi-isos to form $D(\\mathcal{A})$.",
+          "hint": "Recall the worked example with $\\mathbb{Z}$ and $\\mathbb{Z}/2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT one of the Ore conditions verified by quasi-isomorphisms in $K(\\mathcal{A})$?",
+          "choices": [
+            "Composition: $s \\circ t$ is a quasi-iso whenever $s, t$ are.",
+            "Two-out-of-three: in a composable pair $f, g$ with $g \\circ f$ a quasi-iso, $f$ is a quasi-iso iff $g$ is.",
+            "Roof completion: given $f\\colon X \\to Y$ and $s\\colon Z \\to Y$ a quasi-iso, there exist $W$, $g\\colon W \\to X$, and a quasi-iso $t\\colon W \\to Z$ with $f \\circ g = s \\circ t$.",
+            "Injectivity: every quasi-iso $s\\colon X \\to Y$ has $H^n(s)$ injective in each degree."
+          ],
+          "answer": 3,
+          "explain": "(d) is automatic — quasi-isos induce isomorphisms on cohomology, in particular injections — but it's a consequence, not part of the Ore axioms. The genuine Ore conditions are (a), (b), and a roof-completion clause like (c) (sometimes stated dually). \"Two-out-of-three\" is a standard restatement.",
+          "hint": "Three of these are required by the localization theory; one is automatic."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student claims: \"If $f, g\\colon X \\to Y$ in $K(\\mathcal{A})$ are both quasi-isos, then $f = g$ in $K$.\" Find the bad step.",
+          "steps": [
+            "Both $H^n(f)$ and $H^n(g)$ are isomorphisms.",
+            "Therefore $H^n(f) = H^n(g)$ for every $n$.",
+            "Since the cohomology functor $H^*$ is faithful on $K(\\mathcal{A})$, $f$ and $g$ are equal in $K$.",
+            "Hence $[f] = [g]$ in $K(\\mathcal{A})$, as claimed."
+          ],
+          "answer": 1,
+          "explain": "Step (2) is wrong: two isomorphisms can be DIFFERENT isomorphisms. Take $X = Y = \\mathbb{Z}[0]$, $f = \\mathrm{id}$, $g = -\\mathrm{id}$ — both quasi-isos, but $H^0(f) = \\mathrm{id} \\neq -\\mathrm{id} = H^0(g)$. Step (3) compounds the error: $H^*$ is NOT faithful on $K$.",
+          "hint": "Consider $f = \\mathrm{id}$ and $g = -\\mathrm{id}$ on $\\mathbb{Z}[0]$."
+        }
+      ]
+    },
+    "derived-category": {
+      "title": "The derived category $D(\\mathcal{A})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For $R$ a ring and $M, N \\in \\mathrm{Mod}\\,R$, which classical group is recovered as $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$?",
+          "choices": [
+            "$\\mathrm{Hom}_R(M, N)$ (independent of $i$)",
+            "$\\mathrm{Tor}_i^R(M, N)$",
+            "$\\mathrm{Ext}_R^i(M, N)$",
+            "$0$ unless $i = 0$"
+          ],
+          "answer": 2,
+          "explain": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$. Tor would appear via $\\otimes^L$, not Hom. For $i = 0$ this gives ordinary Hom; for $i > 0$ we get the higher Ext groups."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct definition of $D^b(\\mathcal{A})$?",
+          "choices": [
+            "The derived category of complexes that are zero in some degree.",
+            "$D^+(\\mathcal{A}) \\cap D^-(\\mathcal{A})$ — complexes bounded both above and below.",
+            "$D^+(\\mathcal{A}) \\cup D^-(\\mathcal{A})$ — complexes bounded above OR below.",
+            "Complexes whose total cohomology $\\bigoplus H^i$ is finite-dimensional."
+          ],
+          "answer": 1,
+          "explain": "$D^b = D^+ \\cap D^-$, complexes bounded in both directions. Note: \"bounded\" can be interpreted strictly (the complex itself has $X^n = 0$ outside a range) or weakly via cohomology — for nice $\\mathcal{A}$ the two agree up to quasi-iso."
+        },
+        {
+          "type": "matching",
+          "q": "Match each subcategory of $D(\\mathcal{A})$ with what it parameterizes.",
+          "left": [
+            "Right derived functors $RF$",
+            "Left derived functors $LF$",
+            "Cohomology $H^i$ in finite range",
+            "Heart of the standard $t$-structure"
+          ],
+          "right": [
+            "$D^+(\\mathcal{A})$",
+            "$D^-(\\mathcal{A})$",
+            "$D^b(\\mathcal{A})$",
+            "$\\mathcal{A}$ embedded as $M \\mapsto M[0]$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "$RF$ requires injective resolutions, which exist for bounded-below complexes ($D^+$). $LF$ dually wants projective resolutions, hence $D^-$. Bounded cohomology is the data of $D^b$. The heart of the standard $t$-structure is $\\mathcal{A}$ shifted to degree $0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $R = k[x]/(x^2)$ for a field $k$. Compute $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(k[0], k[i])$ as a $k$-vector space, where $k = R/(x)$.",
+          "choices": [
+            "$k$ for $i = 0$ only; $0$ otherwise.",
+            "$k$ for every $i \\ge 0$; $0$ for $i < 0$.",
+            "$k^{i+1}$ for $i \\ge 0$.",
+            "$k$ for $i \\in \\{0\\}$ and $k^2$ otherwise."
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{Hom}_{D}(k, k[i]) = \\mathrm{Ext}^i_R(k, k)$. A free resolution of $k$ is $\\dots \\to R \\xrightarrow{x} R \\xrightarrow{x} R \\to k \\to 0$ — periodic. Applying $\\mathrm{Hom}_R(-, k)$ gives $k \\xrightarrow{0} k \\xrightarrow{0} k \\to \\dots$ (since $x$ acts as $0$ on $k$). So $\\mathrm{Ext}^i_R(k, k) = k$ for every $i \\ge 0$. This is the prototypical \"Koszul-dual\" computation: a 0-dimensional non-reduced ring has nontrivial Ext in every degree.",
+          "hint": "Resolve $k$ over $R = k[x]/(x^2)$ — the resolution is periodic."
+        }
+      ]
+    },
+    "triangulated-structure": {
+      "title": "Triangulated structure and exact triangles",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given a chain map $f\\colon X \\to Y$ in $\\mathrm{Ch}(\\mathcal{A})$, the mapping cone $\\mathrm{Cone}(f)$ has:",
+          "choices": [
+            "$\\mathrm{Cone}(f)^n = X^n \\oplus Y^n$ with differential $\\mathrm{diag}(d_X, d_Y)$",
+            "$\\mathrm{Cone}(f)^n = X^{n+1} \\oplus Y^n$ with differential $\\bigl(\\begin{smallmatrix}-d_X & 0 \\\\ f & d_Y\\end{smallmatrix}\\bigr)$",
+            "$\\mathrm{Cone}(f)^n = X^n \\otimes Y^{n+1}$ with differential induced by the Leibniz rule",
+            "$\\mathrm{Cone}(f)^n = Y^n / f(X^n)$, the quotient"
+          ],
+          "answer": 1,
+          "explain": "The cone shifts $X$ up by one and adjoins $Y$ in the same degree, with a twisted differential mixing $d_X, d_Y$, and $f$. The minus sign on $d_X$ is forced by $d^2 = 0$ together with the chain-map condition."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are axioms or immediate consequences of the triangulated structure on $D(\\mathcal{A})$?",
+          "choices": [
+            "Every morphism extends to a distinguished triangle.",
+            "The third object in a triangle is unique up to a canonical isomorphism (functorially).",
+            "Rotating a distinguished triangle gives another distinguished triangle.",
+            "Cohomology functors $\\mathcal{T} \\to \\mathcal{B}$ send triangles to long exact sequences."
+          ],
+          "answer": [0, 2, 3],
+          "explain": "(a), (c), (d) are part of the standard package. (b) is FALSE — uniqueness of the cone is only up to non-canonical iso, and the failure of functoriality of the cone is what prevents triangulated categories from being abelian.",
+          "hint": "Watch out for \"canonical\" — that's a strong word."
+        },
+        {
+          "type": "mcq",
+          "q": "A short exact sequence $0 \\to A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\to 0$ in $\\mathcal{A}$ becomes a distinguished triangle in $D(\\mathcal{A})$:",
+          "choices": [
+            "$A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\xrightarrow{0} A[1]$ — the connecting map is zero.",
+            "$A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\xrightarrow{\\delta} A[1]$, where $\\delta$ is a connecting map representing the extension class.",
+            "$A \\xrightarrow{\\iota} B \\xrightarrow{0} C \\xrightarrow{0} A[1]$ — only the inclusion is nontrivial.",
+            "Three triangles, one for each pair of consecutive maps."
+          ],
+          "answer": 1,
+          "explain": "The triangle has a nonzero connecting map $\\delta\\colon C \\to A[1]$ representing the class $[B]$ in $\\mathrm{Ext}^1_{\\mathcal{A}}(C, A) = \\mathrm{Hom}_D(C, A[1])$. The class is zero iff the SES splits — generically it does not.",
+          "hint": "What if the SES does NOT split?"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Take the chain map $f\\colon \\mathbb{Z}[0] \\xrightarrow{n} \\mathbb{Z}[0]$ in $\\mathrm{Ch}(\\mathrm{Ab})$ (multiplication by a nonzero integer $n$, both complexes concentrated in degree $0$). What is its mapping cone, viewed in $D^b(\\mathrm{Ab})$?",
+          "choices": [
+            "$\\mathbb{Z}[0]$ — degree-$0$ free group",
+            "The zero complex",
+            "Quasi-isomorphic to $\\mathbb{Z}/n$ in a single degree",
+            "$\\mathbb{Z}[1]$ — free, shifted up"
+          ],
+          "answer": 2,
+          "explain": "$\\mathrm{Cone}(f)$ is the 2-term complex $\\mathbb{Z} \\xrightarrow{n} \\mathbb{Z}$ supported in two consecutive degrees. Cohomology is concentrated in one degree: kernel of $\\times n$ is $0$, cokernel is $\\mathbb{Z}/n$. So in $D^b(\\mathrm{Ab})$, $\\mathrm{Cone}(f)$ is quasi-iso to $\\mathbb{Z}/n$ shifted into a single degree. The corresponding distinguished triangle $\\mathbb{Z} \\xrightarrow{n} \\mathbb{Z} \\to \\mathbb{Z}/n[\\text{shift}] \\to \\mathbb{Z}[1]$ recovers the SES $0 \\to \\mathbb{Z} \\xrightarrow{n} \\mathbb{Z} \\to \\mathbb{Z}/n \\to 0$.",
+          "hint": "The cone has cohomology only in one degree."
+        }
+      ]
+    },
+    "derived-functors-triangulated": {
+      "title": "Derived functors $RF, LF$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does it mean for $F\\colon \\mathcal{A} \\to \\mathcal{B}$ to admit a right derived functor $RF\\colon D^+(\\mathcal{A}) \\to D^+(\\mathcal{B})$?",
+          "choices": [
+            "$F$ is exact.",
+            "$\\mathcal{A}$ has enough injectives, and $F$ is left exact (or at least additive).",
+            "$F$ commutes with arbitrary colimits.",
+            "$F$ is fully faithful."
+          ],
+          "answer": 1,
+          "explain": "The classical construction needs enough injectives in $\\mathcal{A}$ (so every $X$ has an injective resolution $X \\to I^\\bullet$) and additivity of $F$. Left exactness is what forces $RF$ to extend $F$ in degree $0$: $R^0 F(X) = F(X)$ for $X \\in \\mathcal{A}$.",
+          "hint": "What is needed to choose injective resolutions?"
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/6, \\mathbb{Z}/4)$ as an abelian group, then enter its order (number of elements).",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Use the resolution $0 \\to \\mathbb{Z} \\xrightarrow{6} \\mathbb{Z} \\to \\mathbb{Z}/6 \\to 0$. Apply $\\mathrm{Hom}(-, \\mathbb{Z}/4)$: get $\\mathbb{Z}/4 \\xrightarrow{6} \\mathbb{Z}/4$. Multiplication by $6 \\equiv 2 \\pmod 4$ has kernel $\\{0, 2\\}$ and cokernel $\\{0, 1\\}/\\langle 2\\rangle = \\mathbb{Z}/2$. So $\\mathrm{Ext}^1 = \\mathbb{Z}/2$, order $2$. (General formula: $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m,n)$, and $\\gcd(6,4) = 2$.)",
+          "hint": "$\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m, n)$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student computes $R\\Gamma(X, \\mathcal{F})$ for $X = \\mathbb{P}^1$, $\\mathcal{F} = \\mathcal{O}_{\\mathbb{P}^1}(-2)$. Find the flawed step.",
+          "steps": [
+            "Take a Čech cover by two affines $U_0 = \\{x_0 \\neq 0\\}$, $U_1 = \\{x_1 \\neq 0\\}$.",
+            "$\\Gamma(U_0, \\mathcal{O}(-2)) = 0$ and $\\Gamma(U_1, \\mathcal{O}(-2)) = 0$ — no global sections on each chart.",
+            "Therefore $H^0(X, \\mathcal{O}(-2)) = 0$ and $H^1(X, \\mathcal{O}(-2)) = 0$.",
+            "So $R\\Gamma(\\mathcal{O}(-2)) \\simeq 0$ in $D^b(\\mathrm{Vect}_k)$.",
+            "Hence $\\mathcal{O}(-2) \\simeq 0$ in $D^b(\\mathrm{Coh}\\,\\mathbb{P}^1)$ — but that's absurd."
+          ],
+          "answer": 1,
+          "explain": "Step (2) is wrong: $\\Gamma(U_i, \\mathcal{O}(-2))$ over an affine chart $U_i \\cong \\mathbb{A}^1$ is the FREE module on a generator (Laurent polynomials in one variable, with a degree shift). It is large, not zero. Computing the Čech cohomology correctly gives $H^0(\\mathbb{P}^1, \\mathcal{O}(-2)) = 0$ and $H^1(\\mathbb{P}^1, \\mathcal{O}(-2)) = k$ (Serre duality with $\\mathcal{O}(0)$). $R\\Gamma$ is not zero — and that's why $\\mathcal{O}(-2)$ is a nontrivial derived-category object.",
+          "hint": "What is $\\Gamma$ of a line bundle on an affine chart?"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "When does $R(G \\circ F) \\cong RG \\circ RF$ as triangulated functors $D^+(\\mathcal{A}) \\to D^+(\\mathcal{C})$?",
+          "choices": [
+            "Always, for any composable left-exact functors.",
+            "When $F$ sends injectives in $\\mathcal{A}$ to injectives in $\\mathcal{B}$.",
+            "When $F$ sends injectives in $\\mathcal{A}$ to $G$-acyclic objects in $\\mathcal{B}$ (i.e. $R^i G$ vanishes on $F$(injectives) for $i > 0$).",
+            "Only when $G$ is exact."
+          ],
+          "answer": 2,
+          "explain": "(c) is the standard composition theorem (Grothendieck spectral sequence's degeneracy criterion). (b) is sufficient (an injective is a-fortiori acyclic) but not the sharpest condition. The general statement uses acyclicity. The Grothendieck SS $E_2^{p,q} = R^p G(R^q F(X)) \\Rightarrow R^{p+q}(GF)(X)$ collapses precisely when this hypothesis holds.",
+          "hint": "It involves acyclicity of $F$(injectives) for $G$."
+        },
+        {
+          "type": "mcq",
+          "q": "Compute $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/4, \\mathbb{Z}/6)$.",
+          "choices": [
+            "$\\mathbb{Z}/2$",
+            "$0$",
+            "$\\mathbb{Z}/4$",
+            "$\\mathbb{Z}/\\gcd(4,6) = \\mathbb{Z}/2$"
+          ],
+          "answer": 1,
+          "explain": "Over $\\mathbb{Z}$, every module has a free resolution of length $\\le 1$ (PID). So $\\mathrm{Tor}_i^{\\mathbb{Z}} = 0$ for $i \\ge 2$. (Compare: $\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/4, \\mathbb{Z}/6) = \\mathbb{Z}/2$.) Higher Tor over a Dedekind domain always vanishes.",
+          "hint": "What is the projective dimension of any $\\mathbb{Z}$-module?"
+        }
+      ]
+    },
+    "t-structures": {
+      "title": "$t$-structures and hearts",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the standard $t$-structure on $D(\\mathrm{Ab})$, the heart $\\heartsuit = D^{\\le 0} \\cap D^{\\ge 0}$ is equivalent to:",
+          "choices": [
+            "$D^b(\\mathrm{Ab})$",
+            "$\\mathrm{Ab}$ — the original abelian category, embedded as $M \\mapsto M[0]$",
+            "The category of complexes with finite total cohomology",
+            "The trivial category $0$"
+          ],
+          "answer": 1,
+          "explain": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$ shifted to degree $0$. So $\\heartsuit \\simeq \\mathcal{A}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The truncation triangle $\\tau_{\\le 0} X \\to X \\to \\tau_{\\ge 1} X \\to (\\tau_{\\le 0} X)[1]$ has which property?",
+          "choices": [
+            "$\\tau_{\\le 0} X$ and $\\tau_{\\ge 1} X$ are both in $\\mathcal{A}$ (degree $0$).",
+            "Concentrated in $D^{\\le 0}$ and $D^{\\ge 1}$ respectively, and the triangle is unique up to unique isomorphism.",
+            "Always splits, so $X \\simeq \\tau_{\\le 0} X \\oplus \\tau_{\\ge 1} X$.",
+            "Distinguished only when $\\mathcal{A}$ has finite cohomological dimension."
+          ],
+          "answer": 1,
+          "explain": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle. Splitting is the special case when $\\mathrm{Hom}(\\tau_{\\ge 1} X, \\tau_{\\le 0} X[1]) = 0$, which is RARE — the connecting map carries the gluing data."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of these are TRUE about $t$-structures on a triangulated category $\\mathcal{T}$?",
+          "choices": [
+            "The heart $\\heartsuit$ is automatically abelian.",
+            "$H^0\\colon \\mathcal{T} \\to \\heartsuit$ is a cohomological functor (sends triangles to long exact sequences in $\\heartsuit$).",
+            "Every triangulated category has a unique $t$-structure.",
+            "Different $t$-structures on the same triangulated category can have non-equivalent hearts."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "(a), (b) are theorems. (d) is the whole point of perverse $t$-structures: $D^b_c(X)$ has both standard and perverse $t$-structures, with hearts $\\mathrm{Sh}_c(X)$ vs perverse sheaves — different abelian categories! (c) is FALSE — $t$-structures are extra data, not unique."
+        }
+      ]
+    },
+    "examples-D-Coh": {
+      "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Bondal–Orlov: when does the derived category $D^b(\\mathrm{Coh}\\,X)$ recover the smooth projective variety $X$?",
+          "choices": [
+            "Always — $X$ is determined by $D^b(\\mathrm{Coh}\\,X)$ for every smooth projective $X$.",
+            "When $\\omega_X$ (or $\\omega_X^{-1}$) is ample.",
+            "When $X$ is a curve.",
+            "Only when $X$ has trivial canonical bundle."
+          ],
+          "answer": 1,
+          "explain": "Bondal–Orlov: if $\\omega_X$ is ample (general type) or $\\omega_X^{-1}$ is ample (Fano), then $D^b(\\mathrm{Coh}\\,X)$ determines $X$. The hypothesis FAILS for Calabi–Yau ($\\omega_X$ trivial) and abelian varieties — and that's where derived equivalences between non-isomorphic varieties happen.",
+          "hint": "The result fails for Calabi–Yau and abelian varieties — what's special about those?"
+        },
+        {
+          "type": "mcq",
+          "q": "The Fourier–Mukai transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\to D^b(Y)$ associated to a kernel $\\mathcal{P} \\in D^b(X \\times Y)$ is defined as:",
+          "choices": [
+            "$R\\pi_{Y,*}(\\pi_X^* \\mathcal{E} \\otimes^L \\mathcal{P})$",
+            "$\\pi_{X,*}(\\pi_Y^* \\mathcal{E} \\otimes \\mathcal{P})$",
+            "$R\\mathrm{Hom}(\\mathcal{P}, \\mathcal{E})$",
+            "$\\mathcal{E} \\otimes \\mathcal{P}$ (no projections)"
+          ],
+          "answer": 0,
+          "explain": "The standard formula: pull back to the product, twist by the kernel, derived push forward. Its analogy with the classical Fourier transform $\\hat f(\\xi) = \\int f(x) e^{-2\\pi i x \\xi}\\,dx$ explains the name."
+        },
+        {
+          "type": "mcq",
+          "q": "Mukai's original Fourier–Mukai transform identifies $D^b(X)$ with $D^b(\\hat X)$ where:",
+          "choices": [
+            "$X$ is any smooth projective variety, $\\hat X$ the dual variety in projective space",
+            "$X$ is an abelian variety, $\\hat X = \\mathrm{Pic}^0(X)$ the dual abelian variety, $\\mathcal{P}$ the Poincaré bundle",
+            "$X$ is a Calabi–Yau threefold, $\\hat X$ its mirror",
+            "$X$ is a K3 surface, $\\hat X$ a Hilbert scheme of points"
+          ],
+          "answer": 1,
+          "explain": "Mukai's 1981 theorem: for $X$ an abelian variety with dual $\\hat X$ and Poincaré bundle $\\mathcal{P}$ on $X \\times \\hat X$, the FM transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\xrightarrow{\\sim} D^b(\\hat X)$ is an equivalence. (b), (c), (d) are also derived-equivalence phenomena but not Mukai's specific construction.",
+          "hint": "Look up the Poincaré bundle."
+        }
+      ]
+    }
+  }
+}

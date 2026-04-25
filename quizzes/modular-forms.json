@@ -1,6 +1,42 @@
 {
   "topic": "modular-forms",
   "quizzes": {
+    "lattices-in-C": {
+      "title": "Lattices in C",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the covolume of the lattice $\\Lambda = \\mathbb{Z}v_1 + \\mathbb{Z}v_2$ with $v_1=(2,0)$ and $v_2=(1,3)$ (i.e. $|\\det[v_1\\,v_2]|$).",
+          "answer": 6,
+          "tol": 0.001,
+          "explain": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$. The covolume is the absolute value, $6$. Geometrically this is the area of the fundamental parallelogram, and it is independent of the chosen basis — any other basis of the same $\\Lambda$ differs by a matrix of determinant $\\pm 1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Two ordered bases of the same lattice $\\Lambda$ are $(v_1,v_2)$ and $(v_1',v_2') = (v_1+v_2,\\, v_1+2v_2)$. Which matrix $M \\in \\mathrm{SL}_2(\\mathbb{Z})$ realizes the change of basis $(v_1',v_2') = (v_1,v_2)\\,M$?",
+          "choices": [
+            "$M = \\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$",
+            "$M = \\begin{pmatrix}1&2\\\\1&1\\end{pmatrix}$",
+            "$M = \\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$",
+            "$M = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$"
+          ],
+          "answer": 0,
+          "explain": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$. So $M=\\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$, and $\\det M = 1\\cdot 2 - 1\\cdot 1 = 1$, confirming $M\\in\\mathrm{SL}_2(\\mathbb{Z})$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following pairs is a valid $\\mathbb{Z}$-basis for the standard lattice $\\mathbb{Z}^2 \\subset \\mathbb{R}^2$?",
+          "choices": [
+            "$(1,0)$ and $(2,0)$",
+            "$(2,1)$ and $(1,1)$",
+            "$(2,0)$ and $(0,2)$",
+            "$(1,1)$ and $(2,2)$"
+          ],
+          "answer": 1,
+          "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
+        }
+      ]
+    },
     "sl2z-on-H": {
       "title": "SL2(Z) on H",
       "questions": [

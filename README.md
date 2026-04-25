@@ -36,6 +36,14 @@ Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for c
 - [Representation theory](./representation-theory.html) — characters, orthogonality, $\mathfrak{sl}_2$
 - [Commutative algebra](./commutative-algebra.html) — ideals, localization, tensor, flatness
 - [Homological algebra](./homological.html) — chain complexes, Ext, Tor, spectral sequences
+- [Derived categories](./derived-categories.html) — $K(\mathcal{A}) \to D(\mathcal{A})$, triangulated structure, derived functors, $t$-structures
+- [Elementary topos theory](./elementary-topos-theory.html) — finitely complete cartesian closed + subobject classifier $\Omega$
+- [Heyting algebras & intuitionist logic in toposes](./heyting-algebras-toposes.html) — internal language, Kripke–Joyal forcing, double-negation
+- [Grothendieck topologies & sites](./grothendieck-topologies-sites.html) — sieves, sheafification, Giraud
+- [Simplicial sets & the nerve](./simplicial-sets-and-nerve.html) — $\Delta$, geometric realization, nerve $N(C)$, Kan complexes, inner-horn filling
+- [$\infty$-categories (quasi-categories)](./infinity-categories.html) — Joyal's model, $h(\mathcal{C})$, $\infty$-functors / limits / adjunctions / Kan extensions
+- [Cocartesian fibrations & the Grothendieck construction](./cocartesian-fibrations.html) — left/right/cocartesian fibrations, straightening ↔ functors $\mathcal{B} \to \mathrm{Cat}_\infty$
+- [$\infty$-topoi (Lurie)](./infinity-topoi.html) — accessible left-exact localization, $\infty$-Giraud, hypercompletion, internal HoTT — capstone
 
 ### Analysis
 - [Real analysis](./real-analysis.html) — completeness of $\mathbb{R}$, $\varepsilon$–$\delta$ continuity, differentiation, uniform convergence, Riemann integration, multivariable diff/int, inverse function theorem
@@ -96,6 +104,13 @@ Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for c
 - [Sheaf cohomology](./sheaf-cohomology.html) — Čech cohomology, $H^i(\mathbb{P}^n,\mathcal{O}(d))$, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$
 - [Stacks (Deligne–Mumford)](./stacks.html) — groupoid-valued functors, $BG$, $\mathcal{M}_{1,1}$
 - [Étale cohomology](./etale-cohomology.html) — étale morphisms, $\ell$-adic cohomology, the Weil conjectures
+- [Algebraic spaces](./algebraic-spaces.html) — étale equivalence relations, the rung between schemes and DM stacks
+- [Intersection theory & Chow groups](./intersection-theory-chow.html) — cycles modulo rational equivalence, Chow ring of $\mathbb{P}^n$, Chern classes, GRR
+- [The étale fundamental group](./etale-fundamental-group.html) — finite étale covers, fiber functor, $\pi_1^{\acute{e}t}(\mathrm{Spec}\,k) = \mathrm{Gal}(\bar{k}/k)$
+- [Algebraic curves: higher genus](./algebraic-curves-higher-genus.html) — $g \ge 2$, Riemann–Roch, canonical embedding, hyperelliptic, $\mathcal{M}_g$
+- [Group schemes](./group-schemes.html) — $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$, Hopf algebras, étale-vs-connected, $\mathrm{Lie}(G)$, torsors
+- [Deformation theory](./deformation-theory.html) — first-order $H^1(T)$, obstructions $H^2(T)$, Schlessinger, cotangent complex
+- [Algebraic de Rham cohomology](./algebraic-de-rham-cohomology.html) — Kähler differentials, $H^*_{dR}$, Hodge filtration, Hodge diamond
 
 ## Resetting progress
 

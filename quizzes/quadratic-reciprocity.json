@@ -1,6 +1,37 @@
 {
   "topic": "quadratic-reciprocity",
   "quizzes": {
+    "multiplicative-group-mod-p": {
+      "title": "The multiplicative group $(\\mathbb{Z}/p)^\\times$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the order of the multiplicative group $(\\mathbb{Z}/13)^\\times$?",
+          "answer": 12,
+          "tol": 0.001,
+          "explain": "For prime $p$, every nonzero residue $1,2,\\ldots,p-1$ is a unit, so $|(\\mathbb{Z}/p)^\\times|=p-1$. With $p=13$ this is $12$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a primitive root mod $7$? (A primitive root generates all six nonzero residues by repeated multiplication.)",
+          "choices": [
+            "$2$ — its powers $2,4,1,2,4,1$ cycle with period $3$",
+            "$3$ — its powers $3,2,6,4,5,1$ visit every nonzero residue",
+            "$6$ — since $6\\equiv -1\\pmod 7$, its powers cycle as $6,1,6,1,\\ldots$",
+            "$4$ — its powers $4,2,1,4,2,1$ cycle with period $3$"
+          ],
+          "answer": 1,
+          "explain": "$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1\\pmod 7$ — all six nonzero residues appear, so $3$ has order $6=\\varphi(7)$ and is a primitive root. The other candidates have smaller orders ($2,4$ have order $3$; $6$ has order $2$)."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $3^5 \\bmod 7$.",
+          "answer": 5,
+          "tol": 0.001,
+          "explain": "$3^2=9\\equiv 2$, $3^4\\equiv 2^2=4$, so $3^5\\equiv 3\\cdot 4=12\\equiv 5\\pmod 7$. (Equivalently, $3$ is a primitive root mod $7$, and its fifth power lands at $5$.)"
+        }
+      ]
+    },
     "legendre-symbol": {
       "title": "Legendre symbol basics",
       "questions": [

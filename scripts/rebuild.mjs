@@ -59,7 +59,10 @@ const STEPS = [
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
+  { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
+  { name: 'widget-hydration', script: 'test-widget-hydration.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
+  { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },
   { name: 'backlinks',  script: 'inject-used-in-backlinks.mjs', fix: true  },
@@ -74,8 +77,10 @@ const STEPS = [
   // before publishing, or wire into a pre-release hook.
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
+  { name: 'topic-jsdom', script: 'test-topic-jsdom.mjs',        fix: false },
   { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
+  { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 

@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Derived categories</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles &amp; idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":null,"prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series &amp; Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Etale fundamental group"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius &amp; reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory &amp; the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies sites"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras toposes"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"Infinity categories"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"Infinity topoi"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory chow"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups &amp; algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms &amp; fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions &amp; generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums &amp; Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms &amp; genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets and nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics &amp; reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebra" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+    <a href="#homotopy-category">1&nbsp;The homotopy category K(A)</a>
+  <a href="#quasi-isomorphisms">2&nbsp;Quasi-isomorphisms and localization</a>
+  <a href="#derived-category">3&nbsp;The derived category D(A)</a>
+  <a href="#triangulated-structure">4&nbsp;Triangulated structure and exact triangles</a>
+  <a href="#derived-functors-triangulated">5&nbsp;Derived functors RF, LF</a>
+  <a href="#t-structures">6&nbsp;t-structures and hearts</a>
+  <a href="#d-coh">7&nbsp;$D^b(\mathrm{Coh}\,X)$ and Fourier–Mukai</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+
+
+
+
+
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Derived categories</h1>
+  <p class="sub">Inverting quasi-isomorphisms: triangulated structure, exact triangles, and derived functors $RF, LF$.</p>
+</section>
+
+<section id="homotopy-category">
+<h2>1. The homotopy category $K(\mathcal{A})$</h2>
+<p>Fix an abelian category $\mathcal{A}$ — concretely, $\mathcal{A} = \mathrm{Mod}\,R$ for a ring $R$, or $\mathcal{A} = \mathrm{Sh}(X)$ for sheaves of abelian groups on a space. The category of <strong>chain complexes</strong> $\mathrm{Ch}(\mathcal{A})$ has, as objects, $\mathbb{Z}$-graded sequences $\dots \to X^{n-1} \xrightarrow{d} X^n \xrightarrow{d} X^{n+1} \to \dots$ with $d \circ d = 0$, and as morphisms <em>chain maps</em> $f^\bullet$ commuting with the differentials. The cohomology functor $H^n(X^\bullet) = \ker d^n / \mathrm{im}\,d^{n-1}$ takes a complex to a graded object of $\mathcal{A}$.</p>
+
+<p>Two chain maps $f, g \colon X^\bullet \to Y^\bullet$ are <strong>chain homotopic</strong>, written $f \simeq g$, if there is a degree $-1$ map $s = (s^n \colon X^n \to Y^{n-1})$ with $f - g = ds + sd$. The geometric content: $s$ is a "chain-level nullhomotopy" of the difference $f - g$. Its key consequence is that homotopic maps induce the <em>same</em> map on cohomology — so cohomology is an invariant of the homotopy class.</p>
+
+<p>The <strong>homotopy category</strong> $K(\mathcal{A})$ has the same objects as $\mathrm{Ch}(\mathcal{A})$ but morphisms $\mathrm{Hom}_K(X, Y) = \mathrm{Hom}_{\mathrm{Ch}}(X, Y) / (\simeq)$. Composition is well-defined because chain homotopy is preserved by pre- and post-composition. Equivalently $K(\mathcal{A}) = \mathrm{Ch}(\mathcal{A})[\text{nullhomotopic maps}^{-1}]$ — we have inverted chain maps homotopic to zero, which is enough to make $H^n$ a representable functor on $K(\mathcal{A})$ but <em>not</em> yet enough to identify quasi-isomorphic complexes (that comes in §2).</p>
+
+<p>Why $K$ before $D$? Quasi-isomorphisms in $\mathrm{Ch}(\mathcal{A})$ don't admit a calculus of fractions — but their image in $K(\mathcal{A})$ does, because identifying homotopic maps is exactly what's needed to make the localization manageable. $K(\mathcal{A})$ already carries the shift functor $X[1]^n = X^{n+1}$ (with $d_{X[1]} = -d_X$) and the mapping cone construction; the localization map $K(\mathcal{A}) \to D(\mathcal{A})$ will preserve both.</p>
+
+<div class="widget" id="w-chain-homotopy">
+  <div class="hd"><div class="ttl">A chain homotopy between two maps</div><div class="hint">click a vertical / diagonal arrow to inspect</div></div>
+  <svg id="svg-chain-homotopy" viewBox="0 0 560 260" width="100%"><title>Chain complexes X and Y in three degrees with chain maps f, g and homotopy s</title>
+    <defs>
+      <marker id="ch-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+      <marker id="ch-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker>
+      <marker id="ch-arr-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+      <marker id="ch-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--pink)"/></marker>
+    </defs>
+    <!-- top row: X -->
+    <text x="40"  y="80" font-size="13" fill="var(--mute)">$X^\bullet$</text>
+    <text x="120" y="80" text-anchor="middle" font-size="14">$X^{n-1}$</text>
+    <text x="280" y="80" text-anchor="middle" font-size="14">$X^{n}$</text>
+    <text x="440" y="80" text-anchor="middle" font-size="14">$X^{n+1}$</text>
+    <line x1="160" y1="76" x2="240" y2="76" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
+    <line x1="320" y1="76" x2="400" y2="76" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
+    <text x="200" y="68" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
+    <text x="360" y="68" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
+    <!-- bottom row: Y -->
+    <text x="40"  y="220" font-size="13" fill="var(--mute)">$Y^\bullet$</text>
+    <text x="120" y="220" text-anchor="middle" font-size="14">$Y^{n-1}$</text>
+    <text x="280" y="220" text-anchor="middle" font-size="14">$Y^{n}$</text>
+    <text x="440" y="220" text-anchor="middle" font-size="14">$Y^{n+1}$</text>
+    <line x1="160" y1="216" x2="240" y2="216" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
+    <line x1="320" y1="216" x2="400" y2="216" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
+    <text x="200" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
+    <text x="360" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
+    <!-- vertical f arrows (yellow, slight left offset) -->
+    <line class="ch-pick" data-key="f-1" x1="112" y1="92" x2="112" y2="208" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ch-arr-y)" style="cursor:pointer"/>
+    <line class="ch-pick" data-key="f-0" x1="272" y1="92" x2="272" y2="208" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ch-arr-y)" style="cursor:pointer"/>
+    <line class="ch-pick" data-key="f-p" x1="432" y1="92" x2="432" y2="208" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ch-arr-y)" style="cursor:pointer"/>
+    <text x="100" y="155" font-size="12" fill="var(--yellow)">$f$</text>
+    <!-- vertical g arrows (cyan, slight right offset) -->
+    <line class="ch-pick" data-key="g-1" x1="132" y1="92" x2="132" y2="208" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#ch-arr-c)" style="cursor:pointer"/>
+    <line class="ch-pick" data-key="g-0" x1="292" y1="92" x2="292" y2="208" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#ch-arr-c)" style="cursor:pointer"/>
+    <line class="ch-pick" data-key="g-p" x1="452" y1="92" x2="452" y2="208" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#ch-arr-c)" style="cursor:pointer"/>
+    <text x="138" y="155" font-size="12" fill="var(--cyan)">$g$</text>
+    <!-- diagonal s arrows (pink, going up and to the left) -->
+    <line class="ch-pick" data-key="s-0" x1="260" y1="208" x2="160" y2="92" stroke="var(--pink)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ch-arr-p)" style="cursor:pointer"/>
+    <line class="ch-pick" data-key="s-p" x1="420" y1="208" x2="320" y2="92" stroke="var(--pink)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ch-arr-p)" style="cursor:pointer"/>
+    <text x="210" y="155" font-size="12" fill="var(--pink)">$s$</text>
+    <text x="370" y="155" font-size="12" fill="var(--pink)">$s$</text>
+  </svg>
+  <div class="readout" id="ch-readout">click an arrow above — yellow $f$, cyan $g$, dashed pink $s$ — to see what it does and the relation $f - g = ds + sd$ at that degree.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('ch-readout');
+  if(!ro) return;
+  const TXT = {
+    'f-1': "$f^{n-1}\\colon X^{n-1} \\to Y^{n-1}$ — a component of the chain map $f$. Chain-map condition: $d \\circ f^{n-1} = f^n \\circ d$.",
+    'f-0': "$f^{n}\\colon X^{n} \\to Y^{n}$ — degree-$n$ component of $f$. Used in the homotopy relation: $f^n - g^n = d \\circ s^n + s^{n+1} \\circ d$.",
+    'f-p': "$f^{n+1}\\colon X^{n+1} \\to Y^{n+1}$ — degree-$(n{+}1)$ component of $f$.",
+    'g-1': "$g^{n-1}\\colon X^{n-1} \\to Y^{n-1}$ — a competing chain map, possibly different from $f^{n-1}$.",
+    'g-0': "$g^{n}\\colon X^{n} \\to Y^{n}$ — at this degree, $f^n - g^n$ is precisely $d s^n + s^{n+1} d$.",
+    'g-p': "$g^{n+1}\\colon X^{n+1} \\to Y^{n+1}$.",
+    's-0':  "$s^{n}\\colon X^{n} \\to Y^{n-1}$ — degree $-1$, the chain homotopy. Witnesses $f \\simeq g$ via $f^n - g^n = d \\circ s^n + s^{n+1} \\circ d$. Note $s$ does NOT commute with $d$.",
+    's-p':  "$s^{n+1}\\colon X^{n+1} \\to Y^{n}$ — next component of the homotopy. Together with $s^n$ it controls degree $n$ of $f - g$.",
+  };
+  document.querySelectorAll('#svg-chain-homotopy .ch-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+
+<div class="note"><strong>Worked example.</strong> Let $R = k$ a field and consider the complex $X = (\,k \xrightarrow{1} k\,)$ in degrees $0,1$. The identity chain map $\mathrm{id}_X$ and the zero chain map $0$ are <em>chain homotopic</em> via $s\colon X^1 \to X^0$, $s = 1$: indeed $ds + sd = 0 \cdot 1 + 1 \cdot 1 = 1 = \mathrm{id} - 0$ in degree $1$, and similarly in degree $0$. So $[\mathrm{id}] = [0]$ in $K(\mathcal{A})$, which is right because $X$ is acyclic and hence isomorphic to $0$ in $K(\mathcal{A})$ — though strictly only a quasi-iso to $0$, this is one of the rare cases where homotopy already does the job.</div>
+
+<div class="quiz" data-concept="homotopy-category-K"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./derived-categories.html#quasi-isomorphisms">Derived categories</a> · Quasi-isomorphisms and localization</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="quasi-isomorphisms">
+<h2>2. Quasi-isomorphisms and localization</h2>
+<p>A chain map $f \colon X^\bullet \to Y^\bullet$ is a <strong>quasi-isomorphism</strong> if the induced map $H^n(f) \colon H^n(X) \to H^n(Y)$ is an isomorphism for every $n \in \mathbb{Z}$. Quasi-isomorphisms generalize the relation between a complex and its cohomology: an injective resolution $M \hookrightarrow I^\bullet$ is the prototype example, with the inclusion $M[0] \to I^\bullet$ a quasi-iso even though $M$ and $I^\bullet$ are very different complexes.</p>
+
+<p>Quasi-isomorphisms are <em>not</em> isomorphisms in $\mathrm{Ch}(\mathcal{A})$ or even in $K(\mathcal{A})$ in general. Standard counterexample in $\mathcal{A} = \mathrm{Ab}$: the chain map $\mathbb{Z} \xrightarrow{2} \mathbb{Z}$ (in degrees $0, 1$) maps to $0 \to \mathbb{Z}/2$ (concentrated in degree $1$) by reduction mod $2$ — a quasi-iso, but no chain map back exists, so it has no inverse in $K(\mathcal{A})$.</p>
+
+<p>The fix is <strong>localization</strong>: invert quasi-isos formally. The derived category $D(\mathcal{A}) := K(\mathcal{A})[\mathrm{qis}^{-1}]$ has the same objects, and morphisms $X \to Y$ are <em>roofs</em> $X \xleftarrow{s} Z \xrightarrow{f} Y$ with $s$ a quasi-iso, modulo a calculus-of-fractions equivalence. The quasi-iso class satisfies the <strong>Ore conditions</strong> in $K(\mathcal{A})$ (closed under composition, the "two-out-of-three" property, and a roof-completion property), so the localization is well-behaved and not merely abstract nonsense — every $D$-morphism has a roof representative.</p>
+
+<p>The universal property: any functor $F\colon K(\mathcal{A}) \to \mathcal{D}$ sending quasi-isos to isomorphisms factors uniquely through $D(\mathcal{A})$. So $D(\mathcal{A})$ is what you build when you accept "having the same cohomology" as the working definition of "isomorphic complex."</p>
+
+<div class="widget" id="w-qis-scrubber"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-qis-scrubber', {
+    title: "Anatomy of a quasi-isomorphism",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 460 220",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Two complexes of abelian groups",
+        body: "Take $\\mathcal{A} = \\mathrm{Ab}$. The complex $X^\\bullet$ is $\\mathbb{Z} \\xrightarrow{\\,2\\,} \\mathbb{Z}$ in degrees $0$ and $1$. The complex $Y^\\bullet$ is $0 \\to \\mathbb{Z}/2$, also concentrated in degree $1$. They look very different — but their cohomologies coincide.",
+        svgInner: "<text x='30' y='40' font-size='13' fill='var(--mute)'>X•:</text><text x='80' y='40' font-size='14' fill='var(--ink)'>ℤ</text><text x='130' y='40' font-size='12' fill='var(--mute)'>—2→</text><text x='190' y='40' font-size='14' fill='var(--ink)'>ℤ</text><text x='240' y='40' font-size='12' fill='var(--mute)'>(degrees 0, 1)</text><text x='30' y='110' font-size='13' fill='var(--mute)'>Y•:</text><text x='80' y='110' font-size='14' fill='var(--ink)'>0</text><text x='130' y='110' font-size='12' fill='var(--mute)'>→</text><text x='190' y='110' font-size='14' fill='var(--ink)'>ℤ/2</text><text x='240' y='110' font-size='12' fill='var(--mute)'>(degrees 0, 1)</text>"
+      },
+      {
+        title: "Compute the cohomology of X",
+        body: "$H^0(X) = \\ker(2\\colon \\mathbb{Z} \\to \\mathbb{Z}) = 0$ — multiplication by $2$ is injective. $H^1(X) = \\mathrm{coker}(2) = \\mathbb{Z}/2$. So $H^\\bullet(X) = (0, \\mathbb{Z}/2)$ concentrated in degree $1$.",
+        svgInner: "<text x='30' y='40' font-size='13' fill='var(--mute)'>H⁰(X):</text><text x='130' y='40' font-size='14' fill='var(--yellow)'>0</text><text x='180' y='40' font-size='12' fill='var(--mute)'>(ker of ×2)</text><text x='30' y='110' font-size='13' fill='var(--mute)'>H¹(X):</text><text x='130' y='110' font-size='14' fill='var(--yellow)'>ℤ/2</text><text x='180' y='110' font-size='12' fill='var(--mute)'>(coker of ×2)</text>"
+      },
+      {
+        title: "Cohomology of Y is read off",
+        body: "Since $Y$ has zero in degree $0$ and $\\mathbb{Z}/2$ in degree $1$ with no nontrivial differentials, $H^0(Y) = 0$ and $H^1(Y) = \\mathbb{Z}/2$. So $X$ and $Y$ have isomorphic cohomology — already a strong hint they should be identified.",
+        svgInner: "<text x='30' y='40' font-size='13' fill='var(--mute)'>H⁰(Y):</text><text x='130' y='40' font-size='14' fill='var(--cyan)'>0</text><text x='30' y='110' font-size='13' fill='var(--mute)'>H¹(Y):</text><text x='130' y='110' font-size='14' fill='var(--cyan)'>ℤ/2</text>"
+      },
+      {
+        title: "Build a chain map f: X → Y",
+        body: "Define $f^0 = 0\\colon \\mathbb{Z} \\to 0$ and $f^1 = \\pi\\colon \\mathbb{Z} \\twoheadrightarrow \\mathbb{Z}/2$ the reduction mod $2$. Square commutes: $\\pi \\circ 2 = 0$ in $\\mathbb{Z}/2$, and $0 \\circ \\mathrm{id} = 0$ on the $Y$ side. So $f$ is a genuine chain map.",
+        svgInner: "<text x='30' y='40' font-size='13' fill='var(--mute)'>X•:</text><text x='80' y='40' font-size='14'>ℤ</text><text x='130' y='40' font-size='12' fill='var(--mute)'>—2→</text><text x='190' y='40' font-size='14'>ℤ</text><text x='30' y='110' font-size='13' fill='var(--mute)'>Y•:</text><text x='80' y='110' font-size='14'>0</text><text x='130' y='110' font-size='12' fill='var(--mute)'>→</text><text x='190' y='110' font-size='14'>ℤ/2</text><line x1='84' y1='52' x2='84' y2='100' stroke='var(--yellow)' stroke-width='1.6' marker-end='url(#qis-arr)'/><line x1='194' y1='52' x2='194' y2='100' stroke='var(--yellow)' stroke-width='1.6' marker-end='url(#qis-arr)'/><text x='95' y='80' font-size='12' fill='var(--yellow)'>f⁰=0</text><text x='205' y='80' font-size='12' fill='var(--yellow)'>f¹=π</text><defs><marker id='qis-arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--yellow)'/></marker></defs>"
+      },
+      {
+        title: "Verify f is a quasi-isomorphism",
+        body: "On $H^0$: $H^0(X) = 0 \\xrightarrow{0} 0 = H^0(Y)$, trivially an iso. On $H^1$: $H^1(f)\\colon \\mathbb{Z}/2 \\to \\mathbb{Z}/2$ sends a representative $[a] \\in \\mathrm{coker}(2)$ to $\\pi(a) = a \\bmod 2$ — the identity map of $\\mathbb{Z}/2$. So $H^\\bullet(f)$ is iso in every degree: $f$ is a quasi-iso.",
+        svgInner: "<text x='40' y='50' font-size='13' fill='var(--ink)'>H⁰(f): 0 → 0</text><text x='250' y='50' font-size='12' fill='var(--green)'>✓ iso</text><text x='40' y='110' font-size='13' fill='var(--ink)'>H¹(f): ℤ/2 → ℤ/2</text><text x='250' y='110' font-size='12' fill='var(--green)'>✓ iso (= id)</text><text x='40' y='170' font-size='13' fill='var(--yellow)'>so f is a quasi-isomorphism.</text>"
+      },
+      {
+        title: "But f has no inverse in K(A)",
+        body: "Could a chain map $g\\colon Y \\to X$ invert $f$? Then $g^1 \\circ \\pi = \\mathrm{id}_{\\mathbb{Z}}$ in degree $1$ — impossible: $\\pi$ kills $2\\mathbb{Z}$ so any post-composition factors through $\\mathbb{Z}/2$, never reaching the surjection onto $\\mathbb{Z}$. No chain map back, so $f$ is not invertible in $K(\\mathrm{Ab})$.",
+        svgInner: "<text x='30' y='50' font-size='13' fill='var(--pink)'>Want: g: Y → X with f∘g = id, g∘f = id (in K).</text><text x='30' y='90' font-size='13' fill='var(--mute)'>Need g¹: ℤ/2 → ℤ with π∘g¹ = id_ℤ.</text><text x='30' y='130' font-size='13' fill='var(--ink)'>Impossible: g¹ factors via |ℤ/2| = 2.</text><text x='30' y='170' font-size='13' fill='var(--pink)'>So in K(Ab), f is not an iso.</text>"
+      },
+      {
+        title: "Localize: invert quasi-isos formally",
+        body: "Defining $D(\\mathcal{A}) := K(\\mathcal{A})[\\mathrm{qis}^{-1}]$ forces $f$ to become an isomorphism. Morphisms in $D$ are <em>roofs</em> $X \\xleftarrow{s} Z \\xrightarrow{h} Y$ with $s$ a quasi-iso; the formal inverse $f^{-1}$ is the roof $Y \\xleftarrow{f} X \\xrightarrow{\\mathrm{id}} X$. Two complexes with the same cohomology become isomorphic in $D(\\mathcal{A})$.",
+        svgInner: "<text x='220' y='50' text-anchor='middle' font-size='13' fill='var(--ink)'>X • • Y</text><text x='220' y='110' text-anchor='middle' font-size='15' fill='var(--yellow)'>X ←—Z—→ Y</text><text x='220' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>(s a quasi-iso, h any chain map)</text><text x='220' y='180' text-anchor='middle' font-size='13' fill='var(--green)'>X ≅ Y in D(A)</text>"
+      },
+    ],
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="quasi-isomorphisms"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./derived-categories.html#derived-category">Derived categories</a> · The derived category $D(\mathcal{A})$</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="derived-category">
+<h2>3. The derived category $D(\mathcal{A})$</h2>
+<p>The <strong>derived category</strong> $D(\mathcal{A})$ is characterized by a universal property: it is a category equipped with a functor $Q\colon K(\mathcal{A}) \to D(\mathcal{A})$ that inverts every quasi-isomorphism, and is initial among such — any functor $F\colon K(\mathcal{A}) \to \mathcal{D}$ that sends quasi-isos to isomorphisms factors uniquely through $Q$. By the same trick used in commutative algebra, $D(\mathcal{A})$ exists: morphisms are computed via the Ore calculus on roofs, modulo a chain-homotopy-and-equivalence relation.</p>
+
+<p>Concretely, a $D$-morphism $X \to Y$ is an equivalence class of <em>roofs</em>:
+$$X \xleftarrow{\;s\;} Z \xrightarrow{\;f\;} Y, \qquad s\text{ a quasi-iso},$$
+with two roofs equivalent if they admit a common refinement. Composition of roofs $X \xleftarrow{s} Z \xrightarrow{f} Y$ and $Y \xleftarrow{t} W \xrightarrow{g} V$ produces a third roof via a chosen pullback-style completion: pick $Z'$ with $Z' \to Z$ a quasi-iso whose composition $Z' \to Z \to Y$ lifts to $W$. The Ore conditions guarantee such a $Z'$ exists.</p>
+
+<p>Standard sub-categories cut $D(\mathcal{A})$ down by support:</p>
+<ul>
+  <li>$D^+(\mathcal{A})$: complexes bounded below — $X^n = 0$ for $n \ll 0$. The natural target of right derived functors.</li>
+  <li>$D^-(\mathcal{A})$: complexes bounded above — $X^n = 0$ for $n \gg 0$. The target of left derived functors.</li>
+  <li>$D^b(\mathcal{A}) = D^+ \cap D^-$: bounded complexes — the most-used variant in algebraic geometry, since $D^b(\mathrm{Coh}\,X)$ for a smooth projective $X$ is all you need.</li>
+</ul>
+
+<p>Worked example: for $R$ a ring, $D(\mathrm{Mod}\,R)$ contains $\mathrm{Mod}\,R$ as a full subcategory via $M \mapsto M[0]$, and $\mathrm{Hom}_{D}(M[0], N[i]) \cong \mathrm{Ext}_R^i(M, N)$. The classical Ext groups are recovered as Hom sets in $D$ between shifted modules — derived functors become representable.</p>
+
+<div class="widget" id="w-roof">
+  <div class="hd"><div class="ttl">Roofs in $D(\mathcal{A})$</div><div class="hint">click an arrow / object to see its role</div></div>
+  <svg id="svg-roof" viewBox="0 0 460 230" width="100%"><title>A roof representing a morphism in the derived category</title>
+    <defs>
+      <marker id="rf-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+      <marker id="rf-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker>
+      <marker id="rf-arr-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+    </defs>
+    <circle class="rf-pick" data-key="X"  cx="80"  cy="180" r="16" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="80"  y="184" text-anchor="middle" font-size="14" pointer-events="none">X</text>
+    <circle class="rf-pick" data-key="Y" cx="380" cy="180" r="16" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="380" y="184" text-anchor="middle" font-size="14" pointer-events="none">Y</text>
+    <circle class="rf-pick" data-key="Z" cx="230" cy="60"  r="16" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
+    <text x="230" y="64" text-anchor="middle" font-size="14" pointer-events="none">Z</text>
+    <line class="rf-pick" data-key="s" x1="218" y1="74" x2="96" y2="170" stroke="var(--yellow)" stroke-width="1.8" marker-end="url(#rf-arr-y)" style="cursor:pointer"/>
+    <text x="135" y="115" font-size="13" fill="var(--yellow)">$s$ (qis)</text>
+    <line class="rf-pick" data-key="f" x1="242" y1="74" x2="364" y2="170" stroke="var(--cyan)" stroke-width="1.8" marker-end="url(#rf-arr-c)" style="cursor:pointer"/>
+    <text x="320" y="115" font-size="13" fill="var(--cyan)">$f$</text>
+    <line x1="100" y1="180" x2="360" y2="180" stroke="var(--mute)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#rf-arr)"/>
+    <text x="230" y="210" text-anchor="middle" font-size="12" fill="var(--mute)">induced morphism in $D(\mathcal{A})$: $f \circ s^{-1}$</text>
+  </svg>
+  <div class="readout" id="rf-readout">click any node or arrow to see its role in the roof.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('rf-readout');
+  if(!ro) return;
+  const TXT = {
+    'X': "Source $X \\in D(\\mathcal{A})$ — an honest chain complex.",
+    'Y': "Target $Y \\in D(\\mathcal{A})$ — an honest chain complex.",
+    'Z': "Auxiliary complex $Z$ — the apex of the roof. Existence of $Z$ is guaranteed by the Ore conditions on quasi-isos in $K(\\mathcal{A})$. Different choices of $Z$ can give the <em>same</em> $D$-morphism — they're identified by a common refinement.",
+    's': "$s\\colon Z \\to X$ is a <strong>quasi-isomorphism</strong> in $K(\\mathcal{A})$. It is invertible in $D$, where the roof represents $f \\circ s^{-1}$.",
+    'f': "$f\\colon Z \\to Y$ is any chain map (homotopy class). Together with $s$, the pair $(s, f)$ encodes the formal fraction $f/s = f \\circ s^{-1}$ in $D(\\mathcal{A})$.",
+  };
+  document.querySelectorAll('#svg-roof .rf-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="derived-category"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./derived-categories.html#d-coh">Derived categories</a> · $D^b(\mathrm{Coh}\,X)$ and Fourier–Mukai</div>
+    <div><a href="./derived-categories.html#derived-functors-triangulated">Derived categories</a> · Derived functors $RF, LF$</div>
+    <div><a href="./derived-categories.html#triangulated-structure">Derived categories</a> · Triangulated structure and exact triangles</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="triangulated-structure">
+<h2>4. Triangulated structure and exact triangles</h2>
+<p>$D(\mathcal{A})$ is the standard example of a <strong>triangulated category</strong>. The data: a self-equivalence $[1]\colon D \to D$ (the shift, $X[1]^n = X^{n+1}$ with $d \mapsto -d$) and a class of <strong>distinguished triangles</strong>
+$$X \xrightarrow{u} Y \xrightarrow{v} Z \xrightarrow{w} X[1].$$
+A triangle is distinguished iff it is isomorphic in $D$ to a triangle of the form $X \xrightarrow{f} Y \to \mathrm{Cone}(f) \to X[1]$, where the <em>mapping cone</em> $\mathrm{Cone}(f)$ has $\mathrm{Cone}(f)^n = X^{n+1} \oplus Y^n$ with differential $\bigl(\begin{smallmatrix}-d_X & 0 \\ f & d_Y\end{smallmatrix}\bigr)$.</p>
+
+<p>Verdier's axioms (TR1–TR4) capture how triangles compose. The crucial one is <strong>TR3 (rotation)</strong>: rotating a distinguished triangle gives another distinguished triangle, $Y \xrightarrow{v} Z \xrightarrow{w} X[1] \xrightarrow{-u[1]} Y[1]$, and dually you can rotate backwards. This makes "the third vertex of the triangle" a functor $X \to Y \mapsto Z = \mathrm{Cone}(u)$, replacing the cokernel of an abelian-category morphism. In an abelian category, a short exact sequence $0 \to A \to B \to C \to 0$ becomes a distinguished triangle $A \to B \to C \to A[1]$ via the connecting map.</p>
+
+<p>The flagship payoff: the long exact cohomology sequence. Applying $H^0\colon D(\mathcal{A}) \to \mathcal{A}$ to a distinguished triangle yields
+$$\dots \to H^{-1}(Z) \to H^0(X) \to H^0(Y) \to H^0(Z) \to H^1(X) \to \dots$$
+— this is exact, an axiom of any triangulated category equipped with a cohomological functor. So the "snake lemma / connecting map" machinery of homological algebra is the shadow of triangle rotation.</p>
+
+<p>Beware: the cone is unique up to non-canonical isomorphism, so $D(\mathcal{A})$ is not an abelian category — there is no functorial cokernel. This is what we trade for the triangulated structure; it is the reason "the derived category" is genuinely different from "an abelian category of complexes."</p>
+
+<div class="widget" id="w-triangle">
+  <div class="hd"><div class="ttl">An exact triangle $X \to Y \to Z \to X[1]$</div><div class="hint">click any object or morphism</div></div>
+  <svg id="svg-triangle" viewBox="0 0 480 320" width="100%"><title>A distinguished triangle in D(A) with shift on the fourth vertex</title>
+    <defs>
+      <marker id="tr-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+      <marker id="tr-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker>
+      <marker id="tr-arr-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+      <marker id="tr-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--pink)"/></marker>
+    </defs>
+    <circle class="tr-pick" data-key="X"  cx="100" cy="220" r="20" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="100" y="225" text-anchor="middle" font-size="15" pointer-events="none">X</text>
+    <circle class="tr-pick" data-key="Y"  cx="240" cy="80"  r="20" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="240" y="85" text-anchor="middle" font-size="15" pointer-events="none">Y</text>
+    <circle class="tr-pick" data-key="Z"  cx="380" cy="220" r="20" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="380" y="225" text-anchor="middle" font-size="15" pointer-events="none">Z</text>
+    <circle class="tr-pick" data-key="X1" cx="240" cy="280" r="20" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
+    <text x="240" y="285" text-anchor="middle" font-size="13" pointer-events="none">X[1]</text>
+    <line class="tr-pick" data-key="u" x1="118" y1="208" x2="222" y2="92"  stroke="var(--yellow)" stroke-width="1.8" marker-end="url(#tr-arr-y)" style="cursor:pointer"/>
+    <text x="155" y="140" font-size="13" fill="var(--yellow)">u</text>
+    <line class="tr-pick" data-key="v" x1="258" y1="92" x2="362" y2="208"  stroke="var(--cyan)" stroke-width="1.8" marker-end="url(#tr-arr-c)" style="cursor:pointer"/>
+    <text x="320" y="140" font-size="13" fill="var(--cyan)">v</text>
+    <line class="tr-pick" data-key="w" x1="364" y1="232" x2="262" y2="276" stroke="var(--pink)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#tr-arr-p)" style="cursor:pointer"/>
+    <text x="335" y="266" font-size="13" fill="var(--pink)">w (deg +1)</text>
+    <line x1="218" y1="276" x2="116" y2="232" stroke="var(--mute)" stroke-width="1.2" stroke-dasharray="3 4" marker-end="url(#tr-arr)"/>
+    <text x="160" y="265" font-size="11" fill="var(--mute)">≅ (rotates back to X)</text>
+  </svg>
+  <div class="readout" id="tr-readout">click X, Y, Z, X[1], or any morphism to see its role.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('tr-readout');
+  if(!ro) return;
+  const TXT = {
+    'X':  "$X \\in D(\\mathcal{A})$ — the source. Its image under any cohomological functor $H$ enters the long exact sequence as $H^n(X)$.",
+    'Y':  "$Y \\in D(\\mathcal{A})$ — the middle term. Replaces the \"$B$\" of a SES $0 \\to A \\to B \\to C \\to 0$.",
+    'Z':  "$Z \\in D(\\mathcal{A})$ — the third vertex. For a chain map $u\\colon X \\to Y$, $Z \\cong \\mathrm{Cone}(u)$, the mapping cone. Replaces the role of a quotient / cokernel.",
+    'X1': "$X[1]$ — the shift of $X$ by one. Visiting this vertex is what makes a triangulated category genuinely <em>periodic</em>: you go around forever.",
+    'u':  "$u\\colon X \\to Y$ — the chain map you started with (or its image in $D$).",
+    'v':  "$v\\colon Y \\to Z$ — the canonical map into the cone $\\mathrm{Cone}(u)$, sending $y \\mapsto (0, y)$.",
+    'w':  "$w\\colon Z \\to X[1]$ — the connecting map of degree $+1$ (drawn dashed). Sends $(x, y) \\mapsto x$. On cohomology, $H^n(w)\\colon H^n(Z) \\to H^{n+1}(X)$ is the connecting homomorphism of the long exact sequence.",
+  };
+  document.querySelectorAll('#svg-triangle .tr-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="triangulated-structure"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./derived-categories.html#t-structures">Derived categories</a> · $t$-structures and hearts</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="derived-functors-triangulated">
+<h2>5. Derived functors $RF, LF$</h2>
+<p>Let $F\colon \mathcal{A} \to \mathcal{B}$ be a left-exact additive functor between abelian categories — $F = \mathrm{Hom}_R(M, -)$ or $F = \Gamma(X, -)$ on sheaves, say. The classical right derived functors $R^i F$ are computed by choosing an injective resolution $X \hookrightarrow I^\bullet$ and setting $R^i F(X) = H^i(F(I^\bullet))$. The construction depends on a choice but the answer doesn't.</p>
+
+<p>The triangulated viewpoint upgrades this: define the <strong>total right derived functor</strong>
+$$RF\colon D^+(\mathcal{A}) \to D^+(\mathcal{B}), \qquad RF(X^\bullet) = F(I^\bullet),$$
+where $X^\bullet \to I^\bullet$ is a quasi-iso to a complex of injectives. $RF$ is a triangulated functor — it commutes with shifts and sends distinguished triangles to distinguished triangles — and recovers the classical groups via $R^i F(X) = H^i(RF(X))$. Existence requires enough injectives in $\mathcal{A}$; left derived functors $LF$ are dual, requiring projective resolutions and bounded-above complexes.</p>
+
+<p>Two payoffs:</p>
+<ul>
+  <li><strong>Ext as Hom in the derived category.</strong> $\mathrm{Ext}^i_R(M, N) = R^i \mathrm{Hom}_R(M, -)(N) = \mathrm{Hom}_{D(\mathrm{Mod}\,R)}(M[0], N[i])$. The classical Yoneda Ext groups become genuine Hom sets between shifts.</li>
+  <li><strong>Composition.</strong> If $F\colon \mathcal{A} \to \mathcal{B}$ and $G\colon \mathcal{B} \to \mathcal{C}$ are left exact and $F$ sends injectives in $\mathcal{A}$ to $G$-acyclics in $\mathcal{B}$, then $R(G \circ F) \cong RG \circ RF$ as functors on $D^+$. This is the abstract source of the Grothendieck spectral sequence: $E_2^{p,q} = R^p G(R^q F(X)) \Rightarrow R^{p+q}(GF)(X)$.</li>
+</ul>
+
+<p>Worked example: for $R$ a Noetherian ring, $L \otimes^L_R\colon D^-(\mathrm{Mod}\,R) \to D^-(\mathrm{Mod}\,R)$ is the left derived tensor, and $H^{-i}(M \otimes^L N) = \mathrm{Tor}_i^R(M, N)$. The classical Tor groups package into a single triangulated functor — the lone object $M \otimes^L N$ knows everything the family $\mathrm{Tor}_*^R(M,N)$ knows.</p>
+
+<div class="widget" id="w-rf-scrubber"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-rf-scrubber', {
+    title: "Computing $RF$ via an injective resolution",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 480 220",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "The setup",
+        body: "Take $\\mathcal{A} = \\mathrm{Ab}$, $\\mathcal{B} = \\mathrm{Ab}$, $F = \\mathrm{Hom}_{\\mathbb{Z}}(\\mathbb{Z}/2, -)$ — a left-exact functor. We compute $RF(\\mathbb{Z})$, equivalently $\\mathrm{Ext}^*_{\\mathbb{Z}}(\\mathbb{Z}/2, \\mathbb{Z})$.",
+        svgInner: "<text x='40' y='80' font-size='14' fill='var(--ink)'>F = Hom(ℤ/2, −)</text><text x='40' y='130' font-size='14' fill='var(--ink)'>compute RF on X = ℤ.</text>"
+      },
+      {
+        title: "Pick an injective resolution",
+        body: "$\\mathbb{Z}$ is not injective in $\\mathrm{Ab}$ (it does not satisfy the divisibility lifting), but $\\mathbb{Q}$ and $\\mathbb{Q}/\\mathbb{Z}$ are. The standard injective resolution is $0 \\to \\mathbb{Z} \\to \\mathbb{Q} \\to \\mathbb{Q}/\\mathbb{Z} \\to 0$, giving the complex $I^\\bullet = (\\mathbb{Q} \\to \\mathbb{Q}/\\mathbb{Z})$ in degrees $0, 1$.",
+        svgInner: "<text x='40' y='60' font-size='13' fill='var(--mute)'>0 → ℤ → ℚ → ℚ/ℤ → 0</text><text x='40' y='110' font-size='13' fill='var(--ink)'>I• = (ℚ → ℚ/ℤ)</text><text x='40' y='150' font-size='13' fill='var(--mute)'>quasi-iso ℤ[0] → I• in D⁺(Ab)</text>"
+      },
+      {
+        title: "Apply F to the resolution",
+        body: "$F(\\mathbb{Q}) = \\mathrm{Hom}(\\mathbb{Z}/2, \\mathbb{Q}) = 0$ — there is no nonzero map from a torsion group to a torsion-free divisible group. $F(\\mathbb{Q}/\\mathbb{Z}) = \\mathrm{Hom}(\\mathbb{Z}/2, \\mathbb{Q}/\\mathbb{Z}) \\cong \\mathbb{Z}/2$, picking out the unique element of order $2$.",
+        svgInner: "<text x='40' y='60' font-size='13' fill='var(--ink)'>F(ℚ) = Hom(ℤ/2, ℚ) = 0</text><text x='40' y='110' font-size='13' fill='var(--ink)'>F(ℚ/ℤ) = Hom(ℤ/2, ℚ/ℤ) ≅ ℤ/2</text><text x='40' y='160' font-size='13' fill='var(--yellow)'>F(I•) = (0 → ℤ/2) (degrees 0, 1)</text>"
+      },
+      {
+        title: "RF(ℤ) is this complex itself",
+        body: "By definition $RF(\\mathbb{Z}) = F(I^\\bullet)$ as an object of $D^+(\\mathrm{Ab})$. Concretely: a 2-term complex $0 \\to \\mathbb{Z}/2$ with $\\mathbb{Z}/2$ in degree $1$. Note we did NOT take cohomology — we kept the complex.",
+        svgInner: "<text x='40' y='80' font-size='14' fill='var(--ink)'>RF(ℤ) = (0 → ℤ/2) ∈ D⁺(Ab)</text><text x='40' y='140' font-size='12' fill='var(--mute)'>(degrees 0, 1; trivial differential)</text>"
+      },
+      {
+        title: "Read off the classical Ext groups",
+        body: "$R^i F(\\mathbb{Z}) = H^i(RF(\\mathbb{Z}))$. Degree $0$: $H^0 = 0$, so $\\mathrm{Hom}(\\mathbb{Z}/2, \\mathbb{Z}) = 0$. Degree $1$: $H^1 = \\mathbb{Z}/2$, so $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/2, \\mathbb{Z}) \\cong \\mathbb{Z}/2$. Higher Ext vanish.",
+        svgInner: "<text x='40' y='50' font-size='13' fill='var(--mute)'>Hom(ℤ/2, ℤ) = 0</text><text x='40' y='100' font-size='13' fill='var(--yellow)'>Ext¹(ℤ/2, ℤ) ≅ ℤ/2</text><text x='40' y='150' font-size='13' fill='var(--mute)'>Extⁱ(ℤ/2, ℤ) = 0 for i ≥ 2</text>"
+      },
+      {
+        title: "Triangulated upshot",
+        body: "Apply $RF$ to the SES $0 \\to \\mathbb{Z} \\xrightarrow{2} \\mathbb{Z} \\to \\mathbb{Z}/2 \\to 0$ as a distinguished triangle in $D$. The induced long exact sequence in cohomology of $RF$ is exactly the classical Ext sequence connecting $\\mathrm{Hom}$ and $\\mathrm{Ext}^1$. Triangulated machinery $=$ classical homological algebra.",
+        svgInner: "<text x='40' y='60' font-size='13' fill='var(--ink)'>ℤ →² ℤ → ℤ/2 → ℤ[1]  (triangle)</text><text x='40' y='110' font-size='13' fill='var(--mute)'>↦  apply RF, get LES of Ext</text><text x='40' y='160' font-size='13' fill='var(--green)'>0 → 0 → 0 → ℤ/2 → 0 → ℤ/2 → ℤ/2 → 0</text>"
+      },
+    ],
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="derived-functors-triangulated"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./derived-categories.html#d-coh">Derived categories</a> · $D^b(\mathrm{Coh}\,X)$ and Fourier–Mukai</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="t-structures">
+<h2>6. $t$-structures and hearts</h2>
+<p>A <strong>$t$-structure</strong> on a triangulated category $\mathcal{T}$ is a pair of full subcategories $\mathcal{T}^{\le 0}, \mathcal{T}^{\ge 0} \subset \mathcal{T}$, with $\mathcal{T}^{\le n} := \mathcal{T}^{\le 0}[-n]$ etc., satisfying:</p>
+<ol>
+  <li><strong>Inclusion:</strong> $\mathcal{T}^{\le -1} \subset \mathcal{T}^{\le 0}$ and $\mathcal{T}^{\ge 1} \subset \mathcal{T}^{\ge 0}$.</li>
+  <li><strong>Orthogonality:</strong> $\mathrm{Hom}(\mathcal{T}^{\le 0}, \mathcal{T}^{\ge 1}) = 0$.</li>
+  <li><strong>Truncation:</strong> every $X \in \mathcal{T}$ fits in a distinguished triangle $\tau_{\le 0} X \to X \to \tau_{\ge 1} X \to (\tau_{\le 0} X)[1]$ with $\tau_{\le 0} X \in \mathcal{T}^{\le 0}$ and $\tau_{\ge 1} X \in \mathcal{T}^{\ge 1}$.</li>
+</ol>
+
+<p>The <strong>heart</strong> $\heartsuit := \mathcal{T}^{\le 0} \cap \mathcal{T}^{\ge 0}$ is automatically an <em>abelian</em> category, and $H^0\colon \mathcal{T} \to \heartsuit$ defined by $H^0(X) = \tau_{\le 0} \tau_{\ge 0} X$ is a cohomological functor sending distinguished triangles to long exact sequences. So $t$-structures equip a triangulated category with a "cohomology theory."</p>
+
+<p>The <strong>standard $t$-structure</strong> on $D(\mathcal{A})$ has $D^{\le 0}$ = complexes with $H^i = 0$ for $i &gt; 0$, and $D^{\ge 0}$ = complexes with $H^i = 0$ for $i &lt; 0$. Truncation is the classical good truncation: $\tau_{\le 0}(X) = (\dots \to X^{-1} \to \ker d^0 \to 0)$, sending $X$ to its piece concentrated in non-positive degree. The heart $D^{\le 0} \cap D^{\ge 0}$ consists of complexes with cohomology only in degree $0$ — and the embedding $\mathcal{A} \hookrightarrow D(\mathcal{A})$, $M \mapsto M[0]$ is an equivalence onto this heart. So $D(\mathcal{A})$ remembers $\mathcal{A}$.</p>
+
+<p>But $D(\mathcal{A})$ has <em>many</em> $t$-structures, not just the standard one. Tilting and perversity exploit this: the perverse $t$-structure on $D^b_c(X)$ (constructible sheaves) has heart the abelian category of perverse sheaves — totally different from the standard heart $\mathrm{Sh}_c(X)$, but living inside the same triangulated category. This is the engine of intersection cohomology and the Riemann–Hilbert correspondence.</p>
+
+<div class="widget" id="w-tstruct">
+  <div class="hd"><div class="ttl">$D^{\le n}$, $D^{\ge n}$, and the heart</div><div class="hint">click a band to see what lives there</div></div>
+  <svg id="svg-tstruct" viewBox="0 0 480 280" width="100%"><title>The standard t-structure on D(A) by cohomology bounds</title>
+    <line x1="240" y1="20" x2="240" y2="260" stroke="var(--line)" stroke-width="1"/>
+    <text x="246" y="28" font-size="11" fill="var(--mute)">degree</text>
+    <text x="246" y="50" font-size="11" fill="var(--mute)">−2</text>
+    <line x1="232" y1="50" x2="248" y2="50" stroke="var(--line)"/>
+    <text x="246" y="90" font-size="11" fill="var(--mute)">−1</text>
+    <line x1="232" y1="90" x2="248" y2="90" stroke="var(--line)"/>
+    <text x="246" y="130" font-size="12" fill="var(--ink)">0</text>
+    <line x1="232" y1="130" x2="248" y2="130" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="246" y="170" font-size="11" fill="var(--mute)">1</text>
+    <line x1="232" y1="170" x2="248" y2="170" stroke="var(--line)"/>
+    <text x="246" y="210" font-size="11" fill="var(--mute)">2</text>
+    <line x1="232" y1="210" x2="248" y2="210" stroke="var(--line)"/>
+    <rect class="ts-pick" data-key="leq0"  x="40"  y="100" width="160" height="160" fill="rgba(255,216,102,0.10)" stroke="var(--yellow)" stroke-dasharray="4 3" style="cursor:pointer"/>
+    <text x="120" y="170" text-anchor="middle" font-size="14" fill="var(--yellow)">$D^{\le 0}$</text>
+    <rect class="ts-pick" data-key="geq0"  x="280" y="20"  width="160" height="120" fill="rgba(125,224,214,0.10)" stroke="var(--cyan)" stroke-dasharray="4 3" style="cursor:pointer"/>
+    <text x="360" y="80" text-anchor="middle" font-size="14" fill="var(--cyan)">$D^{\ge 0}$</text>
+    <rect class="ts-pick" data-key="heart" x="280" y="120" width="160" height="20"  fill="rgba(179,157,219,0.30)" stroke="var(--violet)" style="cursor:pointer"/>
+    <text x="360" y="135" text-anchor="middle" font-size="12" fill="var(--violet)">heart $\heartsuit \simeq \mathcal{A}$</text>
+    <rect class="ts-pick" data-key="trunc" x="40"  y="40"  width="160" height="40"  fill="rgba(231,122,95,0.10)" stroke="var(--pink)" stroke-dasharray="4 3" style="cursor:pointer"/>
+    <text x="120" y="65" text-anchor="middle" font-size="12" fill="var(--pink)">$\tau_{\ge 1}X$ "lives upstairs"</text>
+  </svg>
+  <div class="readout" id="ts-readout">click a colored band to read its definition.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('ts-readout');
+  if(!ro) return;
+  const TXT = {
+    'leq0':  "$D^{\\le 0}(\\mathcal{A})$ — complexes $X$ with $H^i(X) = 0$ for $i &gt; 0$. Equivalently, quasi-isomorphic to a complex concentrated in non-positive degrees. Closed under shifts $[n]$ for $n \\ge 0$.",
+    'geq0':  "$D^{\\ge 0}(\\mathcal{A})$ — complexes $X$ with $H^i(X) = 0$ for $i &lt; 0$. Closed under shifts $[-n]$ for $n \\ge 0$. Together with $D^{\\le 0}$ they assemble the orthogonality axiom $\\mathrm{Hom}(D^{\\le 0}, D^{\\ge 1}) = 0$.",
+    'heart': "The <strong>heart</strong> $\\heartsuit = D^{\\le 0} \\cap D^{\\ge 0}$ — complexes with cohomology only in degree $0$. The functor $M \\mapsto M[0]$ embeds $\\mathcal{A}$ as an equivalence onto $\\heartsuit$. So you recover the abelian category from the triangulated one.",
+    'trunc': "Truncation $\\tau_{\\ge 1} X$ — the piece of $X$ \"upstairs\" of the heart. The triangle $\\tau_{\\le 0} X \\to X \\to \\tau_{\\ge 1} X \\to (\\tau_{\\le 0}X)[1]$ exhibits $X$ as glued from its non-positive and strictly-positive parts.",
+  };
+  document.querySelectorAll('#svg-tstruct .ts-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="t-structures"></div>
+</section>
+
+<section id="d-coh">
+<h2>7. $D^b(\mathrm{Coh}\,X)$ and Fourier–Mukai</h2>
+<p>The bounded derived category of coherent sheaves $D^b(\mathrm{Coh}\,X)$ on a smooth projective variety $X$ is the natural home for intersection theory, vector-bundle problems, and modern moduli. Its Hom sets package classical Ext groups: $\mathrm{Hom}_{D^b}(\mathcal{E}, \mathcal{F}[i]) = \mathrm{Ext}^i(\mathcal{E}, \mathcal{F})$. Serre duality reads $\mathrm{Hom}_{D^b}(\mathcal{E}, \mathcal{F}) \cong \mathrm{Hom}_{D^b}(\mathcal{F}, \mathcal{E} \otimes \omega_X[\dim X])^\vee$ — the canonical bundle becomes a shift by $\dim X$ inside $D^b$.</p>
+
+<p>A landmark result of Bondal–Orlov: if $X$ has ample (or anti-ample) canonical bundle, then $X \cong Y$ as varieties iff $D^b(\mathrm{Coh}\,X) \simeq D^b(\mathrm{Coh}\,Y)$ as triangulated categories. So for varieties of general type, the derived category recovers the variety. But this fails dramatically for Calabi–Yau and abelian varieties, where genuinely distinct varieties can have equivalent derived categories — these "derived equivalences" are the central phenomenon.</p>
+
+<p>The mechanism is the <strong>Fourier–Mukai transform</strong>. Given a kernel $\mathcal{P} \in D^b(\mathrm{Coh}(X \times Y))$, define
+$$\Phi_{\mathcal{P}}\colon D^b(\mathrm{Coh}\,X) \to D^b(\mathrm{Coh}\,Y), \qquad \Phi_{\mathcal{P}}(\mathcal{E}) = R\pi_{Y,*}\bigl(\pi_X^*\mathcal{E} \otimes^L \mathcal{P}\bigr),$$
+where $\pi_X, \pi_Y$ are the projections. Mukai's original example: $X$ an abelian variety, $\hat X$ the dual, $\mathcal{P}$ the Poincaré bundle on $X \times \hat X$. Then $\Phi_{\mathcal{P}}\colon D^b(X) \xrightarrow{\sim} D^b(\hat X)$ is an equivalence with $\Phi_{\mathcal{P}}^{-1} = \Phi_{\mathcal{P}^\vee}[\dim X]$. This was the first example of a non-trivial derived equivalence between non-isomorphic varieties.</p>
+
+<p>Orlov's representability theorem strengthens the picture: every fully faithful triangulated functor $D^b(\mathrm{Coh}\,X) \to D^b(\mathrm{Coh}\,Y)$ between smooth projective varieties is of Fourier–Mukai type for a unique kernel $\mathcal{P}$. So the integral-kernel calculus is forced: any derived equivalence is geometric, given by sheaves on a product.</p>
+
+<div class="widget" id="w-fm">
+  <div class="hd"><div class="ttl">The Fourier–Mukai correspondence</div><div class="hint">click a node or arrow</div></div>
+  <svg id="svg-fm" viewBox="0 0 480 280" width="100%"><title>The Fourier-Mukai transform via the product X x Y and a kernel sheaf P</title>
+    <defs>
+      <marker id="fm-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+    </defs>
+    <rect class="fm-pick" data-key="X" x="40"  y="180" width="120" height="60" rx="10" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="100" y="216" text-anchor="middle" font-size="14" pointer-events="none">$D^b(X)$</text>
+    <rect class="fm-pick" data-key="Y" x="320" y="180" width="120" height="60" rx="10" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="380" y="216" text-anchor="middle" font-size="14" pointer-events="none">$D^b(Y)$</text>
+    <rect class="fm-pick" data-key="XY" x="180" y="40" width="120" height="60" rx="10" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
+    <text x="240" y="76" text-anchor="middle" font-size="14" pointer-events="none">$D^b(X \times Y)$</text>
+    <text x="240" y="92" text-anchor="middle" font-size="11" pointer-events="none" fill="var(--mute)">kernel $\mathcal{P}$</text>
+    <line class="fm-pick" data-key="piX" x1="190" y1="100" x2="120" y2="178" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#fm-arr)" style="cursor:pointer"/>
+    <text x="130" y="140" font-size="13" fill="var(--yellow)">$\pi_X^*$</text>
+    <line class="fm-pick" data-key="piY" x1="290" y1="100" x2="360" y2="178" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#fm-arr)" style="cursor:pointer"/>
+    <text x="335" y="140" font-size="13" fill="var(--cyan)">$R\pi_{Y,*}$</text>
+    <line class="fm-pick" data-key="phi" x1="170" y1="210" x2="316" y2="210" stroke="var(--pink)" stroke-width="2" marker-end="url(#fm-arr)" style="cursor:pointer"/>
+    <text x="240" y="200" text-anchor="middle" font-size="13" fill="var(--pink)">$\Phi_{\mathcal{P}}$</text>
+  </svg>
+  <div class="readout" id="fm-readout">click a node or arrow to read its role.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('fm-readout');
+  if(!ro) return;
+  const TXT = {
+    'X':   "$D^b(X) := D^b(\\mathrm{Coh}\\,X)$, the source. For $X$ a smooth projective variety, this is the bounded derived category of coherent sheaves — the modern invariant for intersection theory.",
+    'Y':   "$D^b(Y)$, the target. The Fourier–Mukai transform $\\Phi_{\\mathcal{P}}$ may be an equivalence even when $X \\not\\cong Y$ — abelian varieties and their duals, for example.",
+    'XY':  "$D^b(X \\times Y)$, the home of the <strong>kernel</strong> $\\mathcal{P}$. Different kernels give different transforms; Orlov's theorem says EVERY fully-faithful triangulated functor $D^b(X) \\to D^b(Y)$ is of this form.",
+    'piX': "$\\pi_X^*$ — pullback along the projection $\\pi_X\\colon X \\times Y \\to X$. Lifts a sheaf $\\mathcal{E}$ on $X$ to $X \\times Y$.",
+    'piY': "$R\\pi_{Y,*}$ — derived pushforward along $\\pi_Y\\colon X \\times Y \\to Y$. Integrates the lifted sheaf, twisted by the kernel, down to $Y$.",
+    'phi': "$\\Phi_{\\mathcal{P}}(\\mathcal{E}) = R\\pi_{Y,*}(\\pi_X^*\\mathcal{E} \\otimes^L \\mathcal{P})$. The composite \"pull, twist, push\" — by analogy with the Fourier transform $\\hat f(\\xi) = \\int f(x) e^{-2\\pi i x \\xi}\\,dx$, with $\\mathcal{P}$ playing the role of the kernel $e^{-2\\pi i x \\xi}$.",
+  };
+  document.querySelectorAll('#svg-fm .fm-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="examples-D-Coh"></div>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('derived-categories'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-25</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+{
+  "topic": "group-schemes",
+  "quizzes": {
+    "group-scheme-definition": {
+      "title": "What is a group scheme?",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "Which of the following are group schemes over $\\mathbb{Z}$?",
+          "choices": [
+            "$\\mathrm{GL}_n = \\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, \\det^{-1}]$",
+            "$\\mathbb{A}^1 = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ (the bare affine line, with no group structure picked out)",
+            "$\\mathbb{G}_a = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
+            "$\\mathbb{P}^1 = \\mathrm{Proj}\\,\\mathbb{Z}[x_0, x_1]$"
+          ],
+          "answer": [0, 2],
+          "explain": "$\\mathrm{GL}_n$ and $\\mathbb{G}_a$ are group schemes (one comes with matrix multiplication, the other with addition). The bare $\\mathbb{A}^1$ without designated $(m, e, \\iota)$ is just a scheme — same underlying scheme as $\\mathbb{G}_a$ but the group structure is part of the data, not implicit. $\\mathbb{P}^1$ admits no group-scheme structure (it's a non-trivial projective variety; the only connected projective group schemes are abelian varieties, and $\\mathbb{P}^1$ has genus 0 not 1).",
+          "hint": "A group scheme is a scheme equipped with $(m, e, \\iota)$, not just a scheme."
+        },
+        {
+          "type": "mcq",
+          "q": "For the affine group scheme $\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive group), what is the comultiplication $\\Delta\\colon k[t] \\to k[t] \\otimes k[t]$ encoding the multiplication $m\\colon \\mathbb{G}_a \\times \\mathbb{G}_a \\to \\mathbb{G}_a$?",
+          "choices": [
+            "$\\Delta(t) = t \\otimes t$",
+            "$\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
+            "$\\Delta(t) = t \\otimes 1 \\cdot 1 \\otimes t$",
+            "$\\Delta(t) = 1 \\otimes 1$"
+          ],
+          "answer": 1,
+          "explain": "On $T$-points, $\\mathbb{G}_a(T) = \\Gamma(T,\\mathcal{O}_T)$ with addition. So the multiplication map sends $(a, b) \\mapsto a + b$, dualising to $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$. The choice $t \\otimes t$ would encode multiplication of units, which is $\\mathbb{G}_m$, not $\\mathbb{G}_a$.",
+          "hint": "Read off what the group law does to functions: $f(a+b)$ in terms of $f(a)$ and $f(b)$."
+        },
+        {
+          "type": "mcq",
+          "q": "If $G$ is a group scheme over $S$, what does the functor of points $h_G\\colon T \\mapsto G(T) = \\mathrm{Hom}_S(T, G)$ land in?",
+          "choices": [
+            "The category of sets",
+            "The category of groups",
+            "The category of topological spaces",
+            "The category of rings"
+          ],
+          "answer": 1,
+          "explain": "By definition, the structure morphisms $(m, e, \\iota)$ on $G$ make each $G(T)$ a group, and morphisms in $T$ induce group homomorphisms in $G(T)$. So $h_G$ factors through $\\mathbf{Grp}$. This is the functor-of-points characterisation.",
+          "hint": "What does the multiplication $m\\colon G \\times G \\to G$ induce on $T$-points?"
+        }
+      ]
+    },
+    "examples-Ga-Gm-mu-n": {
+      "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $|\\mu_{15}(\\bar{\\mathbb{F}_5})|$, the number of $\\bar{\\mathbb{F}_5}$-points of $\\mu_{15} = \\mathrm{Spec}\\,\\mathbb{F}_5[t]/(t^{15} - 1)$.",
+          "answer": 3,
+          "tol": 0,
+          "explain": "Over $\\bar{\\mathbb{F}_5}$, $t^{15} - 1$ has $\\gcd(15, 5)$-related splitting: write $15 = 3 \\cdot 5$. Then $t^{15} - 1 = (t^3 - 1)^5$ in characteristic $5$, so the only roots are the 3rd roots of unity, of which there are 3 (since $\\gcd(3,5) = 1$). General formula: $|\\mu_n(\\bar{\\mathbb{F}_p})| = n / p^{v_p(n)}$ — divide $n$ by the largest power of $p$ that divides it.",
+          "hint": "Factor out the $p$-part: $\\mu_n = \\mu_{p^k} \\times \\mu_{n/p^k}$ where $n = p^k m$ with $\\gcd(m,p) = 1$. The $p^k$ piece is purely infinitesimal."
+        },
+        {
+          "type": "multi-select",
+          "q": "Over $\\bar{\\mathbb{F}_p}$, which of the following are étale (no infinitesimal piece)?",
+          "choices": [
+            "$\\mathbb{Z}/n$ as a constant group scheme, for $\\gcd(n,p) = 1$",
+            "$\\mu_p$",
+            "$\\alpha_p$",
+            "$\\mu_n$ for $\\gcd(n,p) = 1$"
+          ],
+          "answer": [0, 3],
+          "explain": "Étale over $\\bar{\\mathbb{F}_p}$ ⇔ no $\\bar{\\mathbb{F}_p}$-multiplicity, i.e. the defining polynomial is separable. $\\mu_n$ is étale iff $n$ is invertible in $k$, so for $\\gcd(n,p) = 1$. The constant group scheme $\\mathbb{Z}/n$ is always étale. $\\mu_p$ has $t^p - 1 = (t-1)^p$ — connected, infinitesimal. $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$ is purely connected/infinitesimal.",
+          "hint": "Étale ⇔ separable defining polynomial, which fails when char divides the multiplicity."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the order of $\\mu_n$ as a finite group scheme over $\\mathbb{Q}$ (where order is $\\dim_{\\mathbb{Q}} \\Gamma(\\mu_n, \\mathcal{O}))$?",
+          "choices": [
+            "$\\varphi(n)$ (Euler totient)",
+            "$n$",
+            "$1$",
+            "$n - 1$"
+          ],
+          "answer": 1,
+          "explain": "$\\mu_n = \\mathrm{Spec}\\,\\mathbb{Q}[t]/(t^n - 1)$ has coordinate ring of $\\mathbb{Q}$-dimension $n$ (basis $1, t, t^2, \\ldots, t^{n-1}$). The Galois action splits this into eigenspaces by primitive $d$-th roots for $d \\mid n$, but the rank — the order of the group scheme — is $n$. Distinguish from $|\\mu_n(\\mathbb{Q})|$, which depends on what's in $\\mathbb{Q}$.",
+          "hint": "Order of a finite group scheme = rank of its coordinate algebra over $k$, not the number of $k$-points."
+        }
+      ]
+    },
+    "hopf-algebra": {
+      "title": "Affine group schemes ↔ commutative Hopf algebras",
+      "questions": [
+        {
+          "type": "matching",
+          "q": "Match each affine group scheme to its comultiplication $\\Delta(t)$ on the indicated generator.",
+          "left": [
+            "$t \\otimes t$",
+            "$t \\otimes 1 + 1 \\otimes t$",
+            "$t \\otimes t$ (in $k[t]/(t^n-1)$)",
+            "$t \\otimes 1 + 1 \\otimes t$ (in $k[t]/(t^p)$, char $p$)"
+          ],
+          "right": [
+            "$\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$",
+            "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$",
+            "$\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n-1)$",
+            "$\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "$\\mathbb{G}_m$ and $\\mu_n$ both have $\\Delta(t) = t \\otimes t$ — they encode the same multiplication law on units, just with different relations on $t$. $\\mathbb{G}_a$ and $\\alpha_p$ both have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$ — additive comultiplication, with $\\alpha_p$ adding the relation $t^p = 0$.",
+          "hint": "Multiplicative groups have $\\Delta(t) = t \\otimes t$; additive groups have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the antipode $S\\colon k[t, t^{-1}] \\to k[t, t^{-1}]$ for the Hopf algebra of $\\mathbb{G}_m$?",
+          "choices": [
+            "$S(t) = -t$",
+            "$S(t) = t^{-1}$",
+            "$S(t) = 1$",
+            "$S(t) = t^2$"
+          ],
+          "answer": 1,
+          "explain": "The antipode pulls back the inverse map $\\iota\\colon \\mathbb{G}_m \\to \\mathbb{G}_m$, $a \\mapsto a^{-1}$. So $S(t) = t^{-1}$. The check: $\\mu \\circ (\\mathrm{id} \\otimes S) \\circ \\Delta(t) = \\mu(t \\otimes t^{-1}) = t \\cdot t^{-1} = 1 = \\eta(\\epsilon(t))$. The choice $S(t) = -t$ is for $\\mathbb{G}_a$.",
+          "hint": "What is the inverse of $a \\in T^\\times$? Pull that back along $\\Delta$ via $a \\mapsto a^{-1}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The category of affine group schemes over $k$ is equivalent to which category?",
+          "choices": [
+            "Commutative Hopf algebras over $k$",
+            "The opposite of commutative Hopf algebras over $k$",
+            "Lie algebras over $k$",
+            "Cocommutative Hopf algebras over $k$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{Spec}$ is contravariant: morphisms of affine schemes go opposite to morphisms of rings. So affine group schemes / $k$ are equivalent to the <em>opposite</em> of commutative Hopf algebras / $k$. (Equivalently: covariantly equivalent to the category of commutative Hopf algebras with arrows reversed.) Cocommutative Hopf algebras correspond to commutative group schemes, a subclass.",
+          "hint": "Spec reverses arrows."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $A$ be the Hopf algebra of an affine group scheme $G$ over $k$. The Lie algebra $\\mathrm{Lie}(G)$ can be recovered from $A$ as which of the following?",
+          "choices": [
+            "$\\mathrm{Hom}_k(I/I^2, k)$, where $I = \\ker \\epsilon$ is the augmentation ideal",
+            "$A/I$",
+            "$I^2/I^3$",
+            "$\\mathrm{Hom}_k(A, k)$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathrm{Lie}(G) = T_e G = \\mathrm{Hom}_k(\\mathfrak{m}_e/\\mathfrak{m}_e^2, k)$ where $\\mathfrak{m}_e = I$ is the maximal ideal at the identity. The cotangent space at the identity is $I/I^2$; the tangent space is its $k$-linear dual. The bracket on $\\mathrm{Lie}(G)$ comes from the adjoint coaction, also encoded purely in the Hopf-algebra data.",
+          "hint": "Tangent space at a closed point is dual to maximal-ideal-mod-its-square."
+        },
+        {
+          "type": "mcq",
+          "q": "Cartier duality is an anti-equivalence on the category of finite commutative group schemes. For $G$ with Hopf algebra $A$, the Cartier dual $G^\\vee$ has Hopf algebra:",
+          "choices": [
+            "$A$ itself with $\\Delta$ and $\\mu$ swapped",
+            "$A^* = \\mathrm{Hom}_k(A, k)$ with $\\Delta$ and $\\mu$ swapped",
+            "$A \\otimes A$",
+            "$A^{\\mathrm{op}}$"
+          ],
+          "answer": 1,
+          "explain": "Cartier duality on a finite Hopf algebra is the linear dual $A^* = \\mathrm{Hom}_k(A, k)$, with the multiplication and comultiplication swapped (and similarly $\\eta \\leftrightarrow \\epsilon$, $S^\\vee = S$). For $G$ finite, $A$ is finite-dimensional so $A^*$ is again finite-dimensional and is again a (commutative, since $G$ commutative) Hopf algebra. Examples: $(\\mathbb{Z}/n)^\\vee = \\mu_n$, $\\alpha_p^\\vee = \\alpha_p$ (Cartier self-dual).",
+          "hint": "On a finite-dimensional Hopf algebra, dualising swaps algebra and coalgebra structures."
+        }
+      ]
+    },
+    "etale-vs-connected": {
+      "title": "Étale, connected, and infinitesimal pieces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the étale part of $\\mu_p$ over a perfect field $k$ of characteristic $p$?",
+          "choices": [
+            "$\\mu_p$ itself",
+            "Trivial: $\\mu_p^{ét} = 1$",
+            "$\\mathbb{Z}/p$",
+            "$\\alpha_p$"
+          ],
+          "answer": 1,
+          "explain": "Over $k$ of char $p$, $\\mu_p = \\mathrm{Spec}\\,k[t]/(t^p - 1) = \\mathrm{Spec}\\,k[t]/((t-1)^p)$ — the coordinate ring is local Artinian with one closed point, all nilpotents above. So $\\mu_p$ is connected (infinitesimal) and its étale quotient is trivial. Equivalently: $\\mu_p$ has only one $\\bar k$-point.",
+          "hint": "$t^p - 1 = (t-1)^p$ in characteristic $p$. How many distinct roots?"
+        },
+        {
+          "type": "mcq",
+          "q": "What is the connected part of $\\mathbb{Z}/n$ (the constant group scheme of order $n$) over any field?",
+          "choices": [
+            "$\\mathbb{Z}/n$ itself",
+            "Trivial: $(\\mathbb{Z}/n)^\\circ = 1$",
+            "$\\mu_n$",
+            "$\\alpha_n$"
+          ],
+          "answer": 1,
+          "explain": "The constant group scheme $\\mathbb{Z}/n = \\bigsqcup_{i=0}^{n-1} \\mathrm{Spec}\\,k$ is a disjoint union of $n$ copies of $\\mathrm{Spec}\\,k$ — étale by definition (it is finite étale of degree $n$). Connected component of identity is just the identity copy of $\\mathrm{Spec}\\,k$, i.e. trivial.",
+          "hint": "A constant group scheme is the disjoint union of $|G|$ copies of $\\mathrm{Spec}\\,k$. What is its identity component?"
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are true over a perfect field $k$ of characteristic $p > 0$?",
+          "choices": [
+            "Every finite commutative group scheme decomposes as $G^\\circ \\times G^{ét}$",
+            "$\\alpha_p$ and $\\mu_p$ are isomorphic as group schemes",
+            "Every finite étale group scheme over $k$ is trivial",
+            "In char 0, every finite group scheme is étale"
+          ],
+          "answer": [0, 3],
+          "explain": "(0) is the connected/étale decomposition over a perfect field. (1) is FALSE — $\\alpha_p$ and $\\mu_p$ are non-isomorphic: their Lie algebras are both $k$ (1-dim) but their Cartier duals differ ($\\alpha_p^\\vee = \\alpha_p$, $\\mu_p^\\vee = \\mathbb{Z}/p$). (2) is FALSE — finite étale group schemes over $k$ correspond to finite groups with continuous Galois action; lots of them. (3) is TRUE: in char 0, every finite scheme is reduced (no non-trivial nilpotents), hence étale.",
+          "hint": "$\\alpha_p$ and $\\mu_p$ are both purely infinitesimal — but are they the same?"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $G$ be a finite commutative group scheme of order $p^n$ over $\\bar{\\mathbb{F}_p}$. Cartier duality interchanges connected and étale pieces. What is the Cartier dual of $\\alpha_p$?",
+          "choices": [
+            "$\\mu_p$",
+            "$\\alpha_p$ (self-dual)",
+            "$\\mathbb{Z}/p$",
+            "$\\mathbb{G}_m$"
+          ],
+          "answer": 1,
+          "explain": "Cartier duality is given by $G^\\vee = \\mathrm{Hom}(G, \\mathbb{G}_m)$ in an appropriate sense; on finite group schemes, on Hopf algebras it is linear dualisation $A \\mapsto A^*$. For $A = k[t]/(t^p)$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$, the dual Hopf algebra is again $k[t]/(t^p)$ with the same comultiplication — $\\alpha_p$ is Cartier self-dual. The pair $(\\mu_p, \\mathbb{Z}/p)$ are also Cartier dual to each other.",
+          "hint": "$\\alpha_p$ is purely infinitesimal — its dual must also be purely infinitesimal (Cartier swaps connected and étale, but here both pieces are connected on each side)."
+        },
+        {
+          "type": "mcq",
+          "q": "Over a non-perfect field $k$ of characteristic $p$, the connected/étale decomposition $1 \\to G^\\circ \\to G \\to G^{ét} \\to 1$ may fail to:",
+          "choices": [
+            "Be a short exact sequence",
+            "Split (i.e. $G \\not\\cong G^\\circ \\rtimes G^{ét}$ in general)",
+            "Have $G^\\circ$ connected",
+            "Have $G^{ét}$ étale"
+          ],
+          "answer": 1,
+          "explain": "Over a perfect field, the sequence splits canonically. Over a non-perfect field, the splitting can fail — there are obstructions involving $p$-th-root-extraction (essentially, the imperfection ideal $k^{1/p} \\setminus k$). The sequence is still exact, $G^\\circ$ is still connected, and $G^{ét}$ is still étale, but $G$ need not be the semidirect product. Examples come from forms of $\\alpha_p$ over function fields like $\\mathbb{F}_p(s)$.",
+          "hint": "What goes wrong when $k$ is non-perfect — does the splitting use $p$-th roots?"
+        }
+      ]
+    },
+    "lie-algebra-of-G": {
+      "title": "Lie algebra $\\mathrm{Lie}(G)$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $\\dim_k \\mathrm{Lie}(\\mathrm{GL}_n)$ for $n = 4$.",
+          "answer": 16,
+          "tol": 0,
+          "explain": "$\\mathrm{Lie}(\\mathrm{GL}_n) = \\mathfrak{gl}_n = \\mathrm{Mat}_n(k)$, dimension $n^2$. For $n = 4$: $4^2 = 16$. Verify: a $k[\\epsilon]$-point of $\\mathrm{GL}_n$ lifting $I$ is $I + \\epsilon X$ for any $X \\in \\mathrm{Mat}_n(k)$ — the determinant condition $\\det(I + \\epsilon X) = 1 + \\epsilon\\,\\mathrm{tr}(X) \\in k[\\epsilon]^\\times$ is automatic.",
+          "hint": "$\\mathrm{Lie}(\\mathrm{GL}_n)$ is what set of matrices?"
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\mathrm{Lie}(\\mathbb{G}_m)$ as a Lie algebra over $k$?",
+          "choices": [
+            "$k$ with the trivial bracket $[a, b] = 0$ (the abelian 1-dim Lie algebra)",
+            "$k^\\times$, with bracket $[a, b] = ab - ba$",
+            "$\\mathfrak{gl}_1 = k$, with bracket $[a, b] = a - b$",
+            "Trivial: $\\{0\\}$"
+          ],
+          "answer": 0,
+          "explain": "A $k[\\epsilon]$-point of $\\mathbb{G}_m$ lifting $1$ is a unit of the form $1 + \\epsilon a$, $a \\in k$. So $\\mathrm{Lie}(\\mathbb{G}_m) = k$ as a vector space. Since $\\mathbb{G}_m$ is commutative, the bracket is identically zero. This is the 1-dimensional abelian Lie algebra.",
+          "hint": "$\\mathbb{G}_m$ is commutative — what does that say about the bracket on its Lie algebra?"
+        },
+        {
+          "type": "mcq",
+          "q": "If $G \\hookrightarrow H$ is a closed immersion of group schemes (i.e. $G$ is a closed subgroup of $H$), the induced map on Lie algebras $\\mathrm{Lie}(G) \\to \\mathrm{Lie}(H)$ is:",
+          "choices": [
+            "Always an isomorphism",
+            "Always injective",
+            "Always surjective",
+            "Generally neither injective nor surjective"
+          ],
+          "answer": 1,
+          "explain": "The Lie functor preserves closed immersions: if $G \\hookrightarrow H$ is closed, then $G(k[\\epsilon]) \\hookrightarrow H(k[\\epsilon])$ is injective, and restricting to the kernels of reduction-to-$G(k)$ / $H(k)$ gives $\\mathrm{Lie}(G) \\hookrightarrow \\mathrm{Lie}(H)$. Surjectivity fails in general (e.g. for $\\mathrm{SL}_n \\subset \\mathrm{GL}_n$, the codimension is $1$).",
+          "hint": "Closed immersions on dual-number points stay closed immersions on the kernels."
+        }
+      ]
+    },
+    "torsors-and-cohomology": {
+      "title": "$G$-torsors and $H^1(X, G)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is $H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m)$ for $k$ a field?",
+          "choices": [
+            "The unit group $k^\\times$",
+            "Trivial: $0$",
+            "$k^\\times / (k^\\times)^2$",
+            "$\\mathrm{Gal}(\\bar k/k)$"
+          ],
+          "answer": 1,
+          "explain": "Hilbert 90: $H^1(\\mathrm{Gal}(\\bar k/k), \\bar k^\\times) = 0$ for any field $k$. Equivalently, $H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathrm{Spec}\\,k) = 0$ — over a field there is only the trivial line bundle. Every $\\mathbb{G}_m$-torsor over $\\mathrm{Spec}\\,k$ trivialises.",
+          "hint": "Hilbert 90 in its sheaf-cohomological form."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following gives a non-trivial $\\mu_2$-torsor on $\\mathrm{Spec}\\,\\mathbb{Q}$?",
+          "choices": [
+            "$\\mathrm{Spec}\\,\\mathbb{Q} \\sqcup \\mathrm{Spec}\\,\\mathbb{Q}$ (with the swap action)",
+            "$\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{2}] \\to \\mathrm{Spec}\\,\\mathbb{Q}$",
+            "$\\mathrm{Spec}\\,\\mathbb{Q}[i]/(i^2 + 1)$ over $\\mathrm{Spec}\\,\\mathbb{Q}[i]$",
+            "$\\mathrm{Spec}\\,\\mathbb{Q}[t]/(t^2 - 1) \\to \\mathrm{Spec}\\,\\mathbb{Q}$"
+          ],
+          "answer": 1,
+          "explain": "By Kummer theory, $H^1_{ét}(\\mathrm{Spec}\\,\\mathbb{Q}, \\mu_2) = \\mathbb{Q}^\\times/(\\mathbb{Q}^\\times)^2$. The class of $a \\in \\mathbb{Q}^\\times$ corresponds to the torsor $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{a}]$. For $a = 2$, this is non-trivial because $2 \\not\\in (\\mathbb{Q}^\\times)^2$. Choice (0) is the trivial torsor (it is $\\mu_2 \\times \\mathrm{Spec}\\,\\mathbb{Q}$). Choice (3) is reducible: $t^2 - 1 = (t-1)(t+1)$, also trivial.",
+          "hint": "Non-trivial $\\mu_2$-torsors on $\\mathrm{Spec}\\,\\mathbb{Q}$ correspond to non-square rationals $a$; the torsor is $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{a}]$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $X = \\mathbb{P}^1_k$ over a field $k$, what is $H^1_{ét}(X, \\mathbb{G}_m)$?",
+          "choices": [
+            "$0$",
+            "$k^\\times$",
+            "$\\mathbb{Z}$",
+            "$\\mathrm{Gal}(\\bar k/k)$"
+          ],
+          "answer": 2,
+          "explain": "$H^1_{ét}(\\mathbb{P}^1, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathbb{P}^1) = \\mathbb{Z}$, generated by the class of $\\mathcal{O}(1)$. The Picard group of projective space is the group of line bundles up to isomorphism; for $\\mathbb{P}^n$ this is always $\\mathbb{Z}$ (the degree map is an isomorphism).",
+          "hint": "$H^1_{ét}(X, \\mathbb{G}_m) = \\mathrm{Pic}(X)$. What is the Picard group of $\\mathbb{P}^1$?"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Over a field $k$ of characteristic $p$, the Artin–Schreier sequence $0 \\to \\mathbb{Z}/p \\to \\mathbb{G}_a \\xrightarrow{F - \\mathrm{id}} \\mathbb{G}_a \\to 0$ (where $F$ is Frobenius) gives, for $X = \\mathrm{Spec}\\,k$ with $k$ separably closed:",
+          "choices": [
+            "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = 0$",
+            "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = k$",
+            "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = k/(F - \\mathrm{id})k$",
+            "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = \\mathbb{Z}/p$"
+          ],
+          "answer": 0,
+          "explain": "If $k$ is separably closed, every $\\mathbb{Z}/p$-torsor (i.e. every $\\mathbb{Z}/p$-Galois étale cover) of $\\mathrm{Spec}\\,k$ is trivial because the absolute Galois group of $k$ is trivial. Equivalently, the Artin–Schreier map $F - \\mathrm{id}\\colon k \\to k$ is surjective for $k$ separably closed (every element of $k$ is $a^p - a$ for some $a$). For non-sep-closed $k$, the answer is $k/(F-\\mathrm{id})k$.",
+          "hint": "$\\mathrm{Spec}$ of a separably closed field has trivial étale fundamental group."
+        },
+        {
+          "type": "mcq",
+          "q": "For $X$ a smooth projective curve of genus $g \\geq 1$ over $\\bar k$, the group $H^1_{ét}(X, \\mu_n)$ for $\\gcd(n, \\mathrm{char}\\,k) = 1$ is:",
+          "choices": [
+            "$0$",
+            "$(\\mathbb{Z}/n)^{2g}$",
+            "$\\mathbb{Z}/n$",
+            "$\\mathbb{Z}^{2g}$"
+          ],
+          "answer": 1,
+          "explain": "By the Kummer sequence $1 \\to \\mu_n \\to \\mathbb{G}_m \\xrightarrow{[n]} \\mathbb{G}_m \\to 1$ (exact in the étale topology for $n$ invertible in $k$), we get $\\Gamma^\\times/(\\Gamma^\\times)^n \\to H^1(X, \\mu_n) \\to \\mathrm{Pic}(X)[n] \\to 0$. For $X$ a complete curve over $\\bar k$, $\\Gamma(X, \\mathcal{O}_X) = \\bar k$, so the first piece is trivial. Then $H^1(X, \\mu_n) = \\mathrm{Pic}(X)[n] = \\mathrm{Pic}^0(X)[n] = J(X)[n] = (\\mathbb{Z}/n)^{2g}$ (the $n$-torsion of the Jacobian, for $\\gcd(n, p) = 1$).",
+          "hint": "$\\mathrm{Pic}^0(X)$ is the Jacobian, an abelian variety of dimension $g$; its $n$-torsion has rank $2g$ when $n$ is coprime to char."
+        }
+      ]
+    }
+  }
+}

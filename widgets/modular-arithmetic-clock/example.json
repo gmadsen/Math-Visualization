@@ -1,0 +1,8 @@
+{
+  "widgetId": "w-modular-arithmetic-clock-example",
+  "title": "Clock arithmetic in Z/12: 5 + 4 (mod 12)",
+  "hint": "drag a and b · the chained walk lands on (a+b) mod n",
+  "viewBox": "0 0 320 320",
+  "kind": "addition",
+  "params": { "n": 12, "a": 5, "b": 4 }
+}

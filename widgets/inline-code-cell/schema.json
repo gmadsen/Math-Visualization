@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/inline-code-cell/schema.json",
+  "title": "inline-code-cell widget params",
+  "description": "Tiny in-page JavaScript REPL. The widget emits an empty host div; at runtime the page-global library `MVInlineCodeCell` (js/widget-inline-code-cell.js) builds chrome (header, textarea pre-loaded with `initialCode`, Run button, output area) and executes user code inside a sandboxed Web Worker with a 2-second timeout. The Worker has no DOM access and no parent globals; a small math prelude (gcd, mod, factor, isPrime, primes, pow) is prepended based on `prelude`. A portable frontend can ignore renderScript and reuse the same params shape with its own sandbox.",
+  "meta": {
+    "family": "inline-code-cell",
+    "dimension": "2d",
+    "gesture": "edit",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer host `<div class=\"widget\">` that the library mounts into."
+    },
+    "title": {
+      "type": "string",
+      "description": "Widget title rendered in the chrome header (`.hd > .ttl`) the library builds at init time."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Short hint text rendered in `.hd > .hint`. Defaults to the library's standard hint when omitted."
+    },
+    "initialCode": {
+      "type": "string",
+      "description": "Code pre-loaded into the editor textarea. Defaults to '// type JS here\\n'."
+    },
+    "prelude": {
+      "type": "string",
+      "enum": ["math"],
+      "description": "Selects the helper set prepended to user code in the Worker. Today only 'math' is supported (gcd, mod, factor, isPrime, primes, pow). Defaults to 'math'."
+    },
+    "rows": {
+      "type": "integer",
+      "minimum": 4,
+      "maximum": 24,
+      "description": "Number of textarea rows for the editor. Defaults to 8."
+    },
+    "runLabel": {
+      "type": "string",
+      "description": "Label for the run button. Defaults to 'Run'."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional comment placed between `<script>` and `(function(){` as `/* <here> */`. Lets a migrated source preserve its banner comment."
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "widgetId": "w-inline-code-cell-example",
+  "title": "Number-theory sandbox",
+  "hint": "edit the code · click Run · runs in a sandboxed Web Worker (2s cap)",
+  "initialCode": "console.log('first 10 primes:', primes(30));\nconsole.log('factor(360):', factor(360));\nconsole.log('gcd(48,18):', gcd(48,18));\npow(7, 100, 13)",
+  "prelude": "math",
+  "rows": 8,
+  "runLabel": "Run"
+}

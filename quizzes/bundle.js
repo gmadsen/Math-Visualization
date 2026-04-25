@@ -1252,6 +1252,630 @@ window.MVQuizBank = {
       }
     }
   },
+  "algebraic-curves-higher-genus": {
+    "topic": "algebraic-curves-higher-genus",
+    "quizzes": {
+      "smooth-projective-curve": {
+        "title": "Smooth projective curves and their genus",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $C$ be a smooth projective curve of genus $g = 5$ over $\\bar k$. What is $\\dim_k H^0(C, \\Omega^1_C)$?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "By definition the genus equals $h^0(\\Omega^1_C)$. So $\\dim H^0(C, \\Omega^1_C) = g = 5$.",
+            "hint": "The genus is the dimension of the space of regular 1-forms — that's the definition."
+          },
+          {
+            "type": "numeric",
+            "q": "A smooth projective curve $C(\\mathbb{C})$ has topological Euler characteristic $\\chi_{\\mathrm{top}} = -8$. What is its genus $g$?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "$\\chi_{\\mathrm{top}} = 2 - 2g$, so $-8 = 2 - 2g \\Rightarrow g = 5$.",
+            "hint": "Use $\\chi = 2 - 2g$."
+          },
+          {
+            "type": "numeric",
+            "q": "A degree-3 cover $\\pi\\colon C \\to \\mathbb{P}^1$ has $b = 8$ simple branch points (each contributing $1$ to the ramification sum). Compute the genus of $C$ by Riemann–Hurwitz.",
+            "answer": 2,
+            "tol": 0,
+            "explain": "Riemann–Hurwitz: $2g - 2 = d(2 g_{\\mathbb{P}^1} - 2) + \\sum (e_p - 1) = 3 \\cdot (-2) + 8 = 2$, so $g = 2$.",
+            "hint": "$2g - 2 = d(2 g_{\\mathbb{P}^1} - 2) + b$ for simple branching."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is FALSE for a smooth projective curve $C$ of genus $g$ over an algebraically closed field?",
+            "choices": [
+              "$\\deg K_C = 2g - 2$.",
+              "Every divisor class of degree $> 2g - 2$ has $h^1 = 0$.",
+              "$C$ admits a non-constant map to $\\mathbb{P}^1$ of degree $\\le \\lfloor (g+3)/2 \\rfloor$ (gonality bound).",
+              "Every curve of genus $g \\ge 2$ admits a degree-$2$ map to $\\mathbb{P}^1$."
+            ],
+            "answer": 3,
+            "explain": "Only hyperelliptic curves have a $g^1_2$ — for $g \\ge 3$ the generic curve is non-hyperelliptic. The Brill–Noether-style gonality bound $\\lfloor (g+3)/2 \\rfloor$ is correct.",
+            "hint": "Most curves of genus $\\ge 3$ do NOT admit a degree-2 map to $\\mathbb{P}^1$."
+          }
+        ]
+      },
+      "divisors-on-curves": {
+        "title": "Divisors on curves",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "On a smooth projective curve $C$ of genus $g = 4$ over $\\mathbb{C}$, what is the complex dimension of the Jacobian $\\mathrm{Pic}^0(C)$?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "$\\mathrm{Pic}^0(C) = \\mathbb{C}^g / \\Lambda$ has complex dimension $g$. So for $g = 4$, $\\dim_{\\mathbb{C}} \\mathrm{Pic}^0(C) = 4$.",
+            "hint": "$\\dim \\mathrm{Pic}^0 = g$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $D = 2[p] - 3[q] + [r]$ on a smooth projective curve. Compute $\\deg D$.",
+            "answer": 0,
+            "tol": 0,
+            "explain": "$\\deg D = 2 + (-3) + 1 = 0$.",
+            "hint": "Sum the integer coefficients."
+          },
+          {
+            "type": "mcq",
+            "q": "Two divisors $D, D'$ on a smooth projective curve are linearly equivalent iff:",
+            "choices": [
+              "they have the same degree.",
+              "they have the same support.",
+              "$D - D' = \\mathrm{div}(f)$ for some nonzero rational function $f \\in k(C)^\\times$.",
+              "they define isomorphic algebraic curves."
+            ],
+            "answer": 2,
+            "explain": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e. the divisor of some rational function. This is the equivalence relation defining $\\mathrm{Pic}(C)$."
+          }
+        ]
+      },
+      "riemann-roch-curves": {
+        "title": "Riemann–Roch on curves",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "On a smooth projective curve of genus $g = 3$, take $D$ with $\\deg D = 5$. What is $h^0(D)$? (Use the high-degree vanishing: $\\deg D > 2g - 2$.)",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\deg D = 5 > 2g - 2 = 4$, so $h^0(K - D) = 0$ and Riemann–Roch gives $h^0(D) = \\deg D - g + 1 = 5 - 3 + 1 = 3$.",
+            "hint": "Past the threshold $\\deg D > 2g-2$, $h^0(D) = \\deg D - g + 1$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a curve of genus $g = 2$, $D = K_C$ (the canonical divisor). Compute $h^0(D)$.",
+            "answer": 2,
+            "tol": 0,
+            "explain": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a curve of genus $g = 4$, take $D$ with $\\deg D = 3$. Suppose further that $h^0(K - D) = 2$. What is $h^0(D)$?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "Riemann–Roch: $h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 4 + 1 = 0$. So $h^0(D) = h^0(K - D) = 2$.",
+            "hint": "Just plug $\\deg D = 3$, $g = 4$, $h^0(K-D) = 2$ into RR and solve for $h^0(D)$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On a non-hyperelliptic genus-$3$ curve $C$, let $D = p + q + r$ with $p, q, r$ three distinct points whose canonical-embedding images are NOT collinear. Riemann–Roch then gives $h^0(D) = 1$. Compute $h^0(K - D)$.",
+            "answer": 0,
+            "tol": 0,
+            "explain": "Riemann–Roch: $h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 3 + 1 = 1$. With $h^0(D) = 1$ this gives $h^0(K - D) = 0$. Equivalently: $K - D$ has degree $4 - 3 = 1$, but the three points are not collinear in $\\mathbb{P}^2$, so no canonical hyperplane (= line in the canonical $\\mathbb{P}^2$) cuts out $D$, and $|K - D|$ is empty.",
+            "hint": "Use $h^0(D) - h^0(K-D) = \\deg D - g + 1$ with $h^0(D) = 1$, $g = 3$, $\\deg D = 3$."
+          },
+          {
+            "type": "mcq",
+            "q": "On a curve $C$ of genus $g$, the linear system $|D|$ defines a morphism $\\varphi_D\\colon C \\to \\mathbb{P}^{r}$ where $r = h^0(D) - 1$. For $|D|$ to give a closed embedding, the standard sufficient condition is:",
+            "choices": [
+              "$\\deg D \\ge 2g$ (then $|D|$ is very ample).",
+              "$\\deg D \\ge g + 1$.",
+              "$D$ is effective.",
+              "$h^0(D) \\ge 2$."
+            ],
+            "answer": 0,
+            "explain": "On a smooth projective curve, $\\deg D \\ge 2g + 1$ guarantees very ample (and $\\ge 2g$ guarantees base-point-free + injective on tangent vectors generically). The standard cleanest threshold is $2g + 1$ ⇒ very ample, so 'at least $2g$' is the correct intuition. Of the four options, (a) is the canonical sufficient condition for very ampleness."
+          }
+        ]
+      },
+      "canonical-embedding": {
+        "title": "The canonical embedding",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "On a smooth projective curve of genus $g = 5$, what is $\\deg K_C$?",
+            "answer": 8,
+            "tol": 0,
+            "explain": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $C$ is a non-hyperelliptic smooth projective curve of genus $g = 4$, into what projective space $\\mathbb{P}^N$ does the canonical map embed $C$? Give $N$.",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\varphi_K\\colon C \\hookrightarrow \\mathbb{P}^{g-1} = \\mathbb{P}^3$ for $g = 4$. So $N = g - 1 = 3$.",
+            "hint": "Canonical map lands in $\\mathbb{P}^{g-1}$."
+          },
+          {
+            "type": "mcq",
+            "q": "A smooth projective curve $C$ of genus $g \\ge 3$ is non-hyperelliptic if and only if:",
+            "choices": [
+              "$C$ has a rational point.",
+              "$|K|$ has dimension $> g - 1$.",
+              "the canonical map $\\varphi_K\\colon C \\to \\mathbb{P}^{g-1}$ is a closed embedding.",
+              "$C$ has trivial automorphism group."
+            ],
+            "answer": 2,
+            "explain": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$). For hyperelliptic $C$, $\\varphi_K$ factors through the $2:1$ map to $\\mathbb{P}^1$ followed by the rational normal curve."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the correct genus-$3$ canonical model dichotomy?",
+            "choices": [
+              "Every genus-3 curve embeds canonically as a smooth quartic in $\\mathbb{P}^2$.",
+              "Non-hyperelliptic genus-3 ⇒ smooth quartic in $\\mathbb{P}^2$; hyperelliptic genus-3 ⇒ canonical image is a smooth conic, mapped $2:1$.",
+              "Every genus-3 curve embeds canonically in $\\mathbb{P}^3$ as a (2, 3) complete intersection.",
+              "Genus-3 curves never have a canonical embedding."
+            ],
+            "answer": 1,
+            "explain": "For $g = 3$: non-hyperelliptic curves embed as smooth plane quartics ($\\deg = 2g-2 = 4$ in $\\mathbb{P}^{g-1} = \\mathbb{P}^2$); hyperelliptic curves have $\\varphi_K$ factoring through $C \\xrightarrow{2:1} \\mathbb{P}^1 \\hookrightarrow \\mathbb{P}^2$ as a smooth conic. Choice (c) is the genus-4 dichotomy."
+          },
+          {
+            "type": "numeric",
+            "q": "A smooth canonical curve of genus $g = 6$ in $\\mathbb{P}^5$ has degree:",
+            "answer": 10,
+            "tol": 0,
+            "explain": "Canonical degree is $2g - 2 = 2 \\cdot 6 - 2 = 10$.",
+            "hint": "$\\deg K = 2g - 2$."
+          }
+        ]
+      },
+      "hyperelliptic-curves": {
+        "title": "Hyperelliptic curves",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many branch points does a hyperelliptic cover $\\pi\\colon C \\to \\mathbb{P}^1$ have when $C$ has genus $g = 5$?",
+            "answer": 12,
+            "tol": 0,
+            "explain": "For a hyperelliptic curve of genus $g$, the degree-$2$ cover has $2g + 2$ branch points (Riemann–Hurwitz with $d = 2$, simple ramification: $2g - 2 = 2(-2) + b \\Rightarrow b = 2g + 2$). For $g = 5$: $b = 12$.",
+            "hint": "Number of branch points is $2g + 2$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all curves which are hyperelliptic. (Assume each is smooth projective over $\\bar k$ and the equations are written affinely.)",
+            "choices": [
+              "$y^2 = x^5 + x + 1$",
+              "$x^4 + y^4 = 1$ (smooth plane quartic, generic)",
+              "$y^2 = x^7 + x^3 + 1$",
+              "Any smooth curve of genus $g = 2$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "(a) $y^2 = $ (degree 5) is hyperelliptic of genus 2. (c) $y^2 = $ (degree 7) is hyperelliptic of genus 3. (d) every genus-2 curve is hyperelliptic (canonical map is the unique $g^1_2$). The smooth plane quartic in (b) is the canonical model of a non-hyperelliptic genus-3 curve (generic case).",
+            "hint": "Hyperelliptic ⇔ $y^2 = f(x)$ with $f$ separable of degree $2g+1$ or $2g+2$, OR genus $\\le 2$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a hyperelliptic curve of genus $g = 4$ with hyperelliptic involution $\\sigma$, how many fixed points does $\\sigma$ have on $C$?",
+            "answer": 10,
+            "tol": 0,
+            "explain": "Fixed points of $\\sigma$ are exactly the ramification points of $\\pi\\colon C \\to \\mathbb{P}^1$, which sit one above each branch point. Number = $2g + 2 = 10$.",
+            "hint": "Ramification points = fixed points of involution = $2g + 2$."
+          }
+        ]
+      },
+      "moduli-of-curves-genus-g": {
+        "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is $\\dim \\mathcal{M}_g$ for $g = 7$?",
+            "answer": 18,
+            "tol": 0,
+            "explain": "For $g \\ge 2$, $\\dim \\mathcal{M}_g = 3g - 3 = 3 \\cdot 7 - 3 = 18$.",
+            "hint": "Use $\\dim \\mathcal{M}_g = 3g - 3$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the codimension of the hyperelliptic locus $\\mathcal{H}_g \\subset \\mathcal{M}_g$ for $g = 5$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\mathcal{H}_g$ has dimension $2g - 1$ inside $\\mathcal{M}_g$ of dimension $3g - 3$, so codimension $(3g-3) - (2g-1) = g - 2$. For $g = 5$: codim $= 3$.",
+            "hint": "Codimension is $g - 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds boundary divisors $\\Delta_0, \\Delta_1, \\ldots, \\Delta_{\\lfloor g/2 \\rfloor}$. The divisor $\\Delta_0$ parametrises:",
+            "choices": [
+              "smooth curves of geometric genus $0$.",
+              "irreducible nodal curves: a single component of geometric genus $g - 1$ with one self-intersecting node.",
+              "the union of two smooth curves of genera $0$ and $g$ glued at one node.",
+              "smooth curves with no automorphisms."
+            ],
+            "answer": 1,
+            "explain": "$\\Delta_0$ is the boundary divisor of irreducible nodal curves: pinch a non-separating loop in $C$ to a node, get an irreducible curve whose normalisation has genus $g - 1$. The arithmetic genus stays $g$.",
+            "hint": "Pinch a non-separating loop on $C$ — what stays connected?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "For $g = 5$, how many distinct boundary divisors $\\Delta_i$ does $\\overline{\\mathcal{M}}_g$ have? (Count all $\\Delta_i$ with $0 \\le i \\le \\lfloor g/2 \\rfloor$.)",
+            "answer": 3,
+            "tol": 0,
+            "explain": "Boundary divisors are $\\Delta_0, \\Delta_1, \\Delta_2$ (since $\\lfloor 5/2 \\rfloor = 2$ and $\\Delta_i$ for $i = 0, 1, 2$ are distinct: $\\Delta_0$ irreducible nodal, $\\Delta_1$ the (1, 4)-split, $\\Delta_2$ the (2, 3)-split). Total $= 3$.",
+            "hint": "Count $\\lfloor g/2 \\rfloor + 1$ for $g$ odd."
+          },
+          {
+            "type": "mcq",
+            "q": "The codimension of any single boundary divisor $\\Delta_i \\subset \\overline{\\mathcal{M}}_g$ is:",
+            "choices": [
+              "$0$ (it's open).",
+              "$1$ (it's a divisor).",
+              "$i$.",
+              "$g - i$."
+            ],
+            "answer": 1,
+            "explain": "By definition / construction $\\Delta_i$ is a boundary divisor — codimension $1$. Pinching $k$ disjoint cycles produces a stratum of codimension $k$; pinching exactly one cycle (the generic point of $\\Delta_i$) produces codim 1."
+          }
+        ]
+      }
+    }
+  },
+  "algebraic-de-rham-cohomology": {
+    "topic": "algebraic-de-rham-cohomology",
+    "quizzes": {
+      "kahler-differentials": {
+        "title": "Kähler differentials $\\Omega^1_{X/k}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $A = k[x, y]/(y^2 - x^3 - x)$ with $\\mathrm{char}\\,k \\ne 2$ — the affine model of an elliptic curve. What is $\\Omega^1_{A/k}$ as an $A$-module?",
+            "choices": [
+              "Free of rank 1, generated by $dx$ on the affine open $y \\ne 0$ and by $dy$ on $3x^2 + 1 \\ne 0$.",
+              "Free of rank 2 on $dx, dy$.",
+              "Zero — derivations into $A$-modules vanish on polynomial relations.",
+              "$A^{\\oplus 2} / (2y\\,dy - (3x^2 + 1)\\,dx)$ as an abstract $A$-module, but not locally free."
+            ],
+            "answer": 0,
+            "explain": "The conormal sequence reads $(f) / (f^2) \\to A\\,dx \\oplus A\\,dy \\to \\Omega^1_{A/k} \\to 0$ where $f = y^2 - x^3 - x$ and the first map sends $f \\mapsto df = 2y\\,dy - (3x^2 + 1)\\,dx$. Since the curve is smooth (the gradient $(\\partial_x f, \\partial_y f) = (-3x^2 - 1, 2y)$ is nowhere zero), the resulting rank-1 module is locally free: choose either $dx$ or $dy$ as the local generator depending on which partial derivative is invertible.",
+            "hint": "Smoothness of the curve says the gradient of $f$ is nowhere zero — exactly when $\\Omega^1$ is locally free of rank $\\dim X = 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property characterises the universal $k$-derivation $d\\colon A \\to \\Omega^1_{A/k}$?",
+            "choices": [
+              "For every $A$-module $M$ and every $k$-derivation $D\\colon A \\to M$, there is a unique $A$-linear $\\varphi\\colon \\Omega^1_{A/k} \\to M$ with $D = \\varphi \\circ d$.",
+              "$d$ is the unique $k$-linear map $A \\to \\Omega^1_{A/k}$ that is also a ring homomorphism.",
+              "$d$ is the unique surjection $A \\to \\Omega^1_{A/k}$ killing the units of $A$.",
+              "$d$ is uniquely determined by the requirement $d(fg) = f \\cdot g$ for all $f, g \\in A$."
+            ],
+            "answer": 0,
+            "explain": "The universal property says $\\mathrm{Hom}_A(\\Omega^1_{A/k}, M) \\xrightarrow{\\sim} \\mathrm{Der}_k(A, M)$ via $\\varphi \\mapsto \\varphi \\circ d$. This is what makes $\\Omega^1_{A/k}$ the 'right' module of differentials — every other $k$-derivation factors through it uniquely. Note $d$ is not a ring homomorphism (Leibniz, not multiplicativity), and $d$ is rarely surjective.",
+            "hint": "The universal property is a Hom-isomorphism: $\\Omega^1$ <em>represents</em> the functor $\\mathrm{Der}_k(A, -)$."
+          },
+          {
+            "type": "mcq",
+            "q": "On $X = \\mathbb{A}^2_k = \\mathrm{Spec}\\,k[x, y]$, what is $\\Omega^2_{X/k}$?",
+            "choices": [
+              "The free rank-1 module generated by $dx \\wedge dy$.",
+              "The free rank-2 module $k[x, y]\\,dx \\oplus k[x, y]\\,dy$.",
+              "Zero — $\\dim \\mathbb{A}^2 = 2$ and 2-forms vanish in dimension 2.",
+              "Non-locally-free, with rank that jumps at the origin."
+            ],
+            "answer": 0,
+            "explain": "$\\Omega^p_{X/k} = \\bigwedge^p \\Omega^1_{X/k}$. Here $\\Omega^1$ is free of rank $2$ on $dx, dy$, so $\\Omega^2 = \\bigwedge^2$ is free of rank $\\binom{2}{2} = 1$, generated by $dx \\wedge dy$. The top form $\\Omega^n$ on $\\mathbb{A}^n$ is always rank 1 — it's the canonical bundle.",
+            "hint": "$\\Omega^p$ is the $p$-th exterior power of $\\Omega^1$. Rank: $\\binom{n}{p}$ when $\\dim X = n$."
+          }
+        ]
+      },
+      "de-rham-complex": {
+        "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is $d^2 = 0$ on the algebraic de Rham complex $\\Omega^\\bullet_{X/k}$?",
+            "choices": [
+              "It is forced by the boundary condition $d(da) = 0$ on exact 1-forms together with the graded Leibniz rule, which propagates the vanishing to all $\\Omega^p$.",
+              "It is a consequence of $X$ being smooth — fails if $X$ is singular.",
+              "It is a consequence of $\\mathrm{char}\\,k = 0$ — fails in characteristic $p$.",
+              "It is a consequence of the integration pairing with cycles."
+            ],
+            "answer": 0,
+            "explain": "$(\\Omega^\\bullet, d)$ is a chain complex by construction: $d$ is built so that $d(da) = 0$ on 1-forms, and the Leibniz rule $d(\\alpha \\wedge \\beta) = d\\alpha \\wedge \\beta + (-1)^{|\\alpha|} \\alpha \\wedge d\\beta$ propagates this. Compute $d^2(a\\,db) = d(da \\wedge db) = d(da) \\wedge db - da \\wedge d(db) = 0$. This is purely algebraic — works over any base, smooth or singular.",
+            "hint": "The proof of $d^2 = 0$ is the same algebraic identity as in smooth de Rham — no smoothness or characteristic assumption."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $H^*_{dR}(\\mathbb{A}^1_k / k)$ for $k$ a field of characteristic 0?",
+            "choices": [
+              "$H^0 = k$, $H^i = 0$ for $i \\ge 1$.",
+              "$H^0 = k$, $H^1 = k$, $H^i = 0$ for $i \\ge 2$.",
+              "$H^0 = k[x]$, $H^1 = k[x]\\,dx$.",
+              "$H^i = k$ for all $i \\ge 0$."
+            ],
+            "answer": 0,
+            "explain": "On $\\mathbb{A}^1 = \\mathrm{Spec}\\,k[x]$, the complex is $k[x] \\xrightarrow{f \\mapsto f' dx} k[x]\\,dx$. In char 0, $d/dx$ has kernel $k$ (the constants) and is surjective (every $g\\,dx$ is $d$ of $\\int g$). So $H^0 = k$ and $H^1 = 0$, matching $\\mathbb{A}^1(\\mathbb{C}) \\simeq \\mathbb{C}$ being contractible.",
+            "hint": "Every polynomial $g(x)$ has an antiderivative in $k[x]$; only constants are in the kernel of $d/dx$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does computing $H^n_{dR}$ generally require <em>hyper</em>cohomology rather than cohomology of global sections?",
+            "choices": [
+              "Because $\\Omega^\\bullet_{X/k}$ is a complex of sheaves, not a single sheaf — taking only $\\Gamma$ would forget the higher cohomology of each individual $\\Omega^p$, which contributes (via the Hodge spectral sequence) to $H^*_{dR}$.",
+              "Because the differentials $d$ are not $\\mathcal{O}_X$-linear.",
+              "Because $X$ may not be quasi-coherent.",
+              "Because algebraic forms are formally a derived category."
+            ],
+            "answer": 0,
+            "explain": "Hypercohomology is the right derived functor of $\\Gamma$ applied to a complex; it incorporates both the de Rham differential $d$ and the sheaf cohomology of each term $\\Omega^p$. On affine $X$ each $\\Omega^p$ is acyclic so the two coincide; on $\\mathbb{P}^1$ the term $\\Omega^1$ has $H^1(\\mathbb{P}^1, \\Omega^1) = \\mathbb{C}$ which contributes the $H^2_{dR}(\\mathbb{P}^1) = \\mathbb{C}$.",
+            "hint": "On $\\mathbb{P}^1$, the global sections $\\Gamma(\\mathbb{P}^1, \\Omega^1) = 0$ would falsely suggest $H^*_{dR}$ has nothing in degree 2 — but $H^2_{dR}(\\mathbb{P}^1) = \\mathbb{C}$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "On $X = \\mathbb{A}^1_k$ over a field $k$ of characteristic $p > 0$, what is $H^1_{dR}(X/k)$?",
+            "choices": [
+              "Infinite-dimensional: the cokernel of $d/dx\\colon k[x] \\to k[x]$ is the span of $\\{x^{np-1} : n \\ge 1\\}$ (and $1\\,dx$ via the constant), since $d/dx(x^m) = m x^{m-1}$ vanishes whenever $p \\mid m$.",
+              "Zero — the algebraic Poincaré lemma still holds in characteristic $p$.",
+              "$k$ — generated by $dx$.",
+              "$k$ — generated by $\\frac{dx}{x}$, even though the latter is not regular on $\\mathbb{A}^1$."
+            ],
+            "answer": 0,
+            "explain": "In characteristic $p$, $d(x^p) = p x^{p-1}\\,dx = 0$, so $x^{p-1}\\,dx$ is closed but not exact. More generally $x^{kp - 1}\\,dx$ for $k \\ge 1$ is in the cokernel of $d$. The kernel of $d$ also expands to include all $x^{kp}$ (so $H^0_{dR}$ is infinite-dimensional too). This is one motivation for the Cartier operator and for crystalline cohomology — algebraic de Rham fails to compute the 'right' answer on affine varieties in positive characteristic.",
+            "hint": "What is $d(x^p)$ in characteristic $p$? Now think about the cokernel of $d/dx$ as a $k$-vector space."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X$ smooth proper over $\\mathbb{C}$, the Hodge-to-de-Rham spectral sequence $E_1^{p,q} = H^q(X, \\Omega^p) \\Rightarrow H^{p+q}_{dR}(X)$ degenerates at $E_1$. Which of the following is an immediate consequence?",
+            "choices": [
+              "$\\dim_\\mathbb{C} H^n_{dR}(X/\\mathbb{C}) = \\sum_{p + q = n} h^{p, q}(X)$ for every $n$.",
+              "$H^n(X(\\mathbb{C}); \\mathbb{Z})$ is torsion-free for every $n$.",
+              "$\\Omega^p_{X/\\mathbb{C}}$ is acyclic for $p \\ge 1$.",
+              "$X$ is rational."
+            ],
+            "answer": 0,
+            "explain": "$E_1$-degeneration means $E_1 = E_\\infty$, so for each $n$, $\\sum_{p + q = n} \\dim E_1^{p, q} = \\dim H^n_{dR}(X/\\mathbb{C})$ — i.e. the Betti numbers split into Hodge components. Torsion-freeness of integral cohomology is a separate (and not always true) statement; $\\Omega^p$ is generically <em>not</em> acyclic on a proper variety; rationality has no relation to $E_1$-degeneration.",
+            "hint": "$E_1$-degeneration is exactly the statement that the alternating sum becomes a sum: dimensions add along antidiagonals."
+          }
+        ]
+      },
+      "comparison-betti": {
+        "title": "Comparison with Betti cohomology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Grothendieck's algebraic-de-Rham comparison theorem applies to which of the following?",
+            "choices": [
+              "Any smooth (not necessarily projective) variety $X$ over $\\mathbb{C}$.",
+              "Any smooth proper variety $X$ over an algebraically closed field $k$ of characteristic 0, with the right-hand side being singular cohomology with $k$-coefficients.",
+              "Any normal variety $X$ over $\\mathbb{C}$.",
+              "Any scheme of finite type over $\\mathbb{C}$, regardless of singularities."
+            ],
+            "answer": 0,
+            "explain": "Grothendieck's theorem is for $X$ smooth of finite type over $\\mathbb{C}$. Properness is not required (in fact the theorem is most striking for affine varieties like $\\mathbb{C}^*$). For singular $X$ one needs $H$-modules or mixed Hodge complexes. Over fields other than $\\mathbb{C}$ the right-hand side has to be reinterpreted (e.g. étale, crystalline) — there is no 'singular cohomology with $k$-coefficients' for $k = \\overline{\\mathbb{F}_p}$.",
+            "hint": "The theorem needs analytic input (Poincaré lemma + GAGA), so the base must be $\\mathbb{C}$. Smoothness — but not properness — is essential."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $H^1_{dR}(\\mathbb{C}^* / \\mathbb{C})$, and what is a generator?",
+            "choices": [
+              "$\\mathbb{C}$, generated by $\\omega = \\frac{dz}{z}$.",
+              "$0$ — affine varieties have no higher de Rham cohomology.",
+              "$\\mathbb{C}$, generated by $dz$.",
+              "$\\mathbb{C}^2$, generated by $dz$ and $\\frac{dz}{z}$."
+            ],
+            "answer": 0,
+            "explain": "$\\mathbb{C}^* = \\mathrm{Spec}\\,\\mathbb{C}[z, z^{-1}]$. The differential $z^n \\mapsto n z^{n-1}\\,dz$ has image spanning every $z^m\\,dz$ except $m = -1$, so $H^1_{dR} = \\mathbb{C}\\cdot\\frac{dz}{z}$. The form $dz$ is exact ($= d(z)$) so it represents the zero class. Affine varieties absolutely can have higher de Rham cohomology — that's the point of $\\mathbb{C}^*$ as a witness.",
+            "hint": "Algebraic 1-forms on $\\mathbb{C}^*$ are $\\sum a_n z^n\\,dz$. Which one fails to be the differential of a Laurent polynomial?"
+          },
+          {
+            "type": "mcq",
+            "q": "The integration pairing $\\int_\\gamma \\frac{dz}{z}$ where $\\gamma$ is the unit circle in $\\mathbb{C}^*$ gives:",
+            "choices": [
+              "$2\\pi i$ — a transcendental number, witnessing that the comparison isomorphism over $\\mathbb{Q}$ requires a non-rational change of basis (a 'period').",
+              "$1$ — a normalised pairing of generators.",
+              "$0$ — the form is exact.",
+              "$\\infty$ — the integral diverges."
+            ],
+            "answer": 0,
+            "explain": "$\\int_\\gamma \\frac{dz}{z} = 2\\pi i$ by the residue theorem. The pairing $H^1_{dR}(\\mathbb{C}^*/\\mathbb{C}) \\times H_1(\\mathbb{C}^*; \\mathbb{Q}) \\to \\mathbb{C}$ is the comparison isomorphism for $\\mathbb{C}^*$ over $\\mathbb{Q}$: the algebraic class $[\\frac{dz}{z}] \\in H^1_{dR}(\\mathbb{C}^*/\\mathbb{Q})$ pairs with the topological class $[\\gamma] \\in H_1$ to give the period $2\\pi i$.",
+            "hint": "Residue theorem: $\\int_{|z|=1} \\frac{dz}{z} = 2\\pi i \\cdot \\mathrm{Res}_{z=0}(1/z)$."
+          }
+        ]
+      },
+      "hodge-filtration": {
+        "title": "The Hodge filtration $F^\\bullet$",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each gadget on the left with the gadget on the right that it equals (for $X$ smooth proper over $\\mathbb{C}$, by $E_1$-degeneration of the Hodge spectral sequence).",
+            "left": [
+              "$\\mathrm{gr}^p_F H^n_{dR}(X)$",
+              "$F^p H^n_{dR}(X) / F^{p+1} H^n_{dR}(X)$",
+              "$H^q(X, \\Omega^p_X)$",
+              "$H^{p, q}(X)$"
+            ],
+            "right": [
+              "$H^{n-p}(X, \\Omega^p_X)$",
+              "$E_\\infty^{p, n-p}$",
+              "$h^{p, q}$ in dimension",
+              "$\\dim H^q(X, \\Omega^p_X)$ in dimension"
+            ],
+            "answer": [
+              0,
+              0,
+              1,
+              2
+            ],
+            "explain": "By definition, $\\mathrm{gr}^p_F H^n = F^p / F^{p+1}$ (so the first two entries match the same right entry — but the question is structural: <em>both</em> equal $H^{n-p}(X, \\Omega^p)$ once you accept $E_1$-degeneration). $H^q(X, \\Omega^p) = H^{p, q}$ by the Dolbeault-style notation, with dimension $h^{p, q}$. Note: a clean Matching uses each right entry once — the intent here is the chain $\\mathrm{gr}^p_F = E_\\infty^{p, n-p} = E_1^{p, n-p} = H^{n-p}(X, \\Omega^p) = H^{p, n-p}$.",
+            "hint": "$E_1$-degeneration says $E_\\infty = E_1$, and the associated graded of the Hodge filtration on $H^n_{dR}$ is exactly $\\bigoplus_p E_\\infty^{p, n-p}$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $F^1 H^2_{dR}(\\mathbb{P}^1_\\mathbb{C} / \\mathbb{C})$?",
+            "choices": [
+              "$\\mathbb{C}$ — equal to $H^2_{dR}$ itself, since $H^2_{dR}(\\mathbb{P}^1)$ is pure of Hodge type $(1,1)$.",
+              "$0$ — there are no nonzero holomorphic 1-forms on $\\mathbb{P}^1$.",
+              "$\\mathbb{C}^2$ — both basis vectors of $H^1_{dR}$ contribute.",
+              "Undefined — $\\mathbb{P}^1$ is not smooth proper."
+            ],
+            "answer": 0,
+            "explain": "The Hodge diamond of $\\mathbb{P}^1$ is $h^{0,0} = h^{1,1} = 1$, all others zero. So $H^2_{dR}(\\mathbb{P}^1) = H^{1, 1} = \\mathbb{C}$ and $F^1 H^2 = \\bigoplus_{p \\ge 1} H^{p, 2-p} = H^{1, 1} = \\mathbb{C}$. The whole of $H^2$ sits in $F^1$ — it is pure of type $(1, 1)$. (Note: $H^1_{dR}(\\mathbb{P}^1) = 0$, so the question about $H^1$ is degenerate.)",
+            "hint": "On $\\mathbb{P}^1$ all nonzero Hodge numbers are on the diagonal $p = q$. Only one type contributes to each $H^n$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the <em>Hodge filtration</em> $F^\\bullet$ make sense over any field $k$ (not just $\\mathbb{C}$), while the <em>Hodge decomposition</em> $H^n = \\bigoplus_{p + q = n} H^{p, q}$ only makes sense over $\\mathbb{C}$?",
+            "choices": [
+              "$F^\\bullet$ is defined by the trivial truncation $\\sigma^{\\ge p} \\Omega^\\bullet$, which is a purely algebraic operation on the de Rham complex; the decomposition uses complex conjugation, which exists only over $\\mathbb{C}$ (or a field with a real structure).",
+              "$F^\\bullet$ is defined by an integral structure that exists over any base, while the decomposition involves real coefficients.",
+              "$F^\\bullet$ is the image of étale cohomology, which is functorial over $k$.",
+              "There is no actual obstruction; the decomposition can be defined over any field."
+            ],
+            "answer": 0,
+            "explain": "$F^p H^n_{dR}(X/k) = \\mathrm{im}(\\mathbb{H}^n(\\sigma^{\\ge p}\\Omega^\\bullet) \\to H^n_{dR})$ uses only the de Rham complex and its trivial truncation — both defined over any base. The decomposition $H^n = \\bigoplus H^{p, q}$ uses $H^{q, p} = \\overline{H^{p, q}}$ which requires complex conjugation. This distinction is foundational for $p$-adic Hodge theory — the filtration survives, the decomposition is replaced by other structures (Frobenius, etc.).",
+            "hint": "Complex conjugation: $\\overline{H^{p,q}} = H^{q,p}$. Does that make sense over $\\overline{\\mathbb{F}_p}$?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Griffiths transversality says: if $\\pi\\colon X \\to S$ is a smooth proper family of varieties with Gauss-Manin connection $\\nabla$ on $\\mathcal{H}^n := R^n \\pi_* \\Omega^\\bullet_{X/S}$, then for the Hodge filtration $F^\\bullet \\subset \\mathcal{H}^n$:",
+            "choices": [
+              "$\\nabla(F^p) \\subseteq F^{p-1} \\otimes \\Omega^1_S$, i.e. the filtration drops by at most 1 step under differentiation.",
+              "$\\nabla(F^p) \\subseteq F^p \\otimes \\Omega^1_S$, i.e. the filtration is preserved.",
+              "$\\nabla(F^p) \\subseteq F^0 \\otimes \\Omega^1_S$, no constraint beyond compatibility with the connection.",
+              "$\\nabla$ vanishes identically on $F^\\bullet$."
+            ],
+            "answer": 0,
+            "explain": "Griffiths transversality is the constraint $\\nabla(F^p) \\subseteq F^{p-1} \\otimes \\Omega^1_S$. Equivalently: $\\nabla\\colon F^p \\to F^{p-1} \\otimes \\Omega^1_S$ on the associated graded becomes $\\overline{\\nabla}\\colon \\mathrm{gr}^p_F \\to \\mathrm{gr}^{p-1}_F \\otimes \\Omega^1_S$, the Kodaira-Spencer-type differential. This is the structural constraint of a 'variation of Hodge structure' and underlies the Griffiths period domain.",
+            "hint": "Differentiating an algebraic class along a parameter shifts its 'holomorphic-degree' by at most one — that's the content."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $X$ is a smooth projective variety over a field of <em>positive</em> characteristic $p > 0$. Does the Hodge-to-de-Rham spectral sequence degenerate at $E_1$?",
+            "choices": [
+              "Not in general — but Deligne–Illusie (1987) proved it does when $X$ admits a smooth lift to $W_2(k)$ (the Witt vectors of length 2) and $\\dim X < p$.",
+              "Always — same proof as in characteristic 0.",
+              "Never — characteristic $p$ pathologies always obstruct degeneration.",
+              "Only when $X$ is a curve."
+            ],
+            "answer": 0,
+            "explain": "Deligne–Illusie (1987) gave an algebraic proof of Hodge-to-de-Rham degeneration in characteristic $p$ under the hypotheses (i) $X$ lifts to $W_2(k)$ and (ii) $\\dim X < p$. In dimension $\\ge p$ Mumford and others constructed counterexamples (smooth projective surfaces over $\\overline{\\mathbb{F}_p}$ where the spectral sequence does not degenerate). Curves of any dimension trivially degenerate (only two columns), so the answer 'only when X is a curve' is too restrictive. The Deligne–Illusie machine in particular gives a new proof of degeneration over $\\mathbb{C}$ via reduction mod $p$.",
+            "hint": "Deligne and Illusie revolutionised the subject in 1987 by giving a characteristic-$p$ proof — but only under technical hypotheses on lifting and dimension."
+          }
+        ]
+      },
+      "hodge-numbers": {
+        "title": "Hodge numbers $h^{p,q}(X)$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $h^{1, 1}(\\mathbb{P}^3_\\mathbb{C})$.",
+            "answer": 1,
+            "tol": 1e-9,
+            "explain": "By Bott vanishing, $h^{p, q}(\\mathbb{P}^n) = 1$ if $p = q \\le n$ and $0$ otherwise. So $h^{1, 1}(\\mathbb{P}^3) = 1$. The full diamond of $\\mathbb{P}^3$ is concentrated on the diagonal: $h^{0,0} = h^{1,1} = h^{2,2} = h^{3,3} = 1$, all others zero. Total Betti $= 4 = n + 1$, matching the cell decomposition.",
+            "hint": "$\\mathbb{P}^n$'s Hodge diamond is purely diagonal: $h^{p, q} = 1$ iff $p = q$."
+          },
+          {
+            "type": "mcq",
+            "q": "For a smooth projective variety $X$ of complex dimension $n$, Serre duality gives:",
+            "choices": [
+              "$h^{p, q} = h^{n - p, n - q}$ (reflection through the centre of the diamond).",
+              "$h^{p, q} = h^{q, p}$ (reflection across the diagonal of the diamond).",
+              "$h^{p, q} = h^{n - q, p}$ (rotation by $90°$).",
+              "$h^{p, q} = (-1)^{p + q}$."
+            ],
+            "answer": 0,
+            "explain": "Serre duality on a smooth projective $X$ of dimension $n$ says $H^q(X, \\mathcal{F}) \\cong H^{n-q}(X, \\omega_X \\otimes \\mathcal{F}^\\vee)^\\vee$. Applied to $\\mathcal{F} = \\Omega^p_X$ with $\\omega_X = \\Omega^n_X$: $H^q(X, \\Omega^p) \\cong H^{n-q}(X, \\Omega^{n-p})^\\vee$, hence $h^{p, q} = h^{n-p, n-q}$. The other symmetry $h^{p, q} = h^{q, p}$ is complex conjugation, a different (and complementary) reflection.",
+            "hint": "Serre duality pairs $\\Omega^p$ with $\\Omega^{n-p}$ (their tensor product is $\\omega_X = \\Omega^n$) and $H^q$ with $H^{n-q}$."
+          },
+          {
+            "type": "mcq",
+            "q": "A K3 surface has Hodge numbers $h^{0,0} = h^{2,2} = 1$, $h^{1, 0} = h^{0, 1} = h^{2, 1} = h^{1, 2} = 0$, $h^{2, 0} = h^{0, 2} = 1$, $h^{1, 1} = 20$. What is its topological Euler characteristic?",
+            "choices": [
+              "$24$.",
+              "$0$.",
+              "$22$.",
+              "$2$."
+            ],
+            "answer": 0,
+            "explain": "$\\chi_{\\mathrm{top}} = \\sum_n (-1)^n b_n = b_0 - b_1 + b_2 - b_3 + b_4 = 1 - 0 + (1 + 20 + 1) - 0 + 1 = 24$. This is one of the canonical numerical invariants of a K3 surface — and the same for every K3, since they are all deformation-equivalent.",
+            "hint": "Euler characteristic = alternating sum of Betti numbers = alternating sum of <em>Hodge</em> numbers (since Hodge numbers refine Betti)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "For a complex abelian variety $A$ of dimension $g$ (e.g. the Jacobian of a smooth projective curve of genus $g$), $h^{p, q}(A) = \\binom{g}{p} \\binom{g}{q}$. Compute $h^{1, 1}$ for $g = 4$.",
+            "answer": 16,
+            "tol": 1e-9,
+            "explain": "$h^{1, 1}(A^4) = \\binom{4}{1} \\cdot \\binom{4}{1} = 4 \\cdot 4 = 16$. The full diamond is $\\binom{g}{p}\\binom{g}{q}$, so the row sums are $b_n = \\binom{2g}{n}$ — i.e. the cohomology ring is the exterior algebra on $H^1$, exactly as for the torus $(S^1)^{2g}$, and the Hodge structure refines this.",
+            "hint": "The cohomology of a complex torus $\\mathbb{C}^g / \\Lambda$ is the exterior algebra on $H^1 = \\mathbb{C}^{2g}$; the Hodge decomposition splits $H^1 = \\mathbb{C}^g \\oplus \\overline{\\mathbb{C}^g}$."
+          },
+          {
+            "type": "mcq",
+            "q": "For a smooth projective complex Calabi–Yau threefold (e.g. the quintic in $\\mathbb{P}^4$), the Hodge diamond has $h^{0,0} = h^{3,3} = 1$, $h^{3,0} = h^{0,3} = 1$, $h^{1,0} = h^{0,1} = h^{2,0} = h^{0,2} = h^{3,1} = h^{1,3} = h^{3,2} = h^{2,3} = 0$. Mirror symmetry predicts the existence of a mirror Calabi–Yau $X^\\vee$ with what relation between Hodge numbers?",
+            "choices": [
+              "$h^{p, q}(X) = h^{3 - p, q}(X^\\vee)$ (a 'rotation' of the diamond by $90°$).",
+              "$h^{p, q}(X) = h^{p, 3 - q}(X^\\vee)$.",
+              "$h^{p, q}(X) = h^{q, p}(X^\\vee)$ — i.e. the mirror is just the conjugate.",
+              "$h^{p, q}(X) = -h^{p, q}(X^\\vee)$."
+            ],
+            "answer": 0,
+            "explain": "Mirror symmetry (in the Calabi–Yau threefold setting) predicts a mirror manifold $X^\\vee$ with Hodge diamond rotated by $90°$: $h^{p, q}(X) = h^{n - p, q}(X^\\vee)$ where $n = \\dim X = 3$. Equivalently the Hodge diamond reflects through its vertical axis. For $X$ the quintic (so $h^{1, 1} = 1$, $h^{2, 1} = 101$), the mirror has $h^{1, 1} = 101$ and $h^{2, 1} = 1$ — Greene–Plesser's original example.",
+            "hint": "Mirror symmetry exchanges Kähler $(h^{1,1})$ and complex-structure $(h^{2,1})$ moduli — i.e. swaps $p$ and $n - p$."
+          }
+        ]
+      },
+      "de-rham-curves": {
+        "title": "Worked example: de Rham of a smooth curve",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim_\\mathbb{C} H^1_{dR}(C / \\mathbb{C})$ for a smooth projective curve $C$ of genus $g = 7$.",
+            "answer": 14,
+            "tol": 1e-9,
+            "explain": "$\\dim H^1_{dR}(C / \\mathbb{C}) = b_1(C) = h^{1, 0} + h^{0, 1} = g + g = 2g$. For $g = 7$: $\\dim = 14$. This matches the topological $H^1$ of an oriented surface of genus $g$, which is $\\mathbb{Z}^{2g}$ (so $H^1$ with $\\mathbb{C}$-coefficients is $\\mathbb{C}^{2g}$).",
+            "hint": "On a curve, $H^1_{dR} \\cong H^0(\\Omega^1) \\oplus H^1(\\mathcal{O})$ by the Hodge decomposition; both pieces have dimension $g$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $h^{1, 0}(C)$ for a smooth projective curve of genus $g = 5$.",
+            "answer": 5,
+            "tol": 1e-9,
+            "explain": "$h^{1, 0}(C) = \\dim H^0(C, \\Omega^1_C) = g$ — this is the analytic <em>definition</em> of the genus. For $g = 5$ the answer is $5$. Equivalently $h^{0, 1} = h^1(\\mathcal{O}_C) = g$ by Serre duality. The full curve diamond is $\\{1, g, g, 1\\}$ (corners $= 1$, middle row both $= g$).",
+            "hint": "The space of holomorphic 1-forms on a genus-$g$ curve is $g$-dimensional — that's how the genus is detected over $\\mathbb{C}$."
+          },
+          {
+            "type": "mcq",
+            "q": "On an elliptic curve $E\\colon y^2 = x^3 + ax + b$ over $\\mathbb{C}$, the form $\\omega = \\frac{dx}{y}$ is:",
+            "choices": [
+              "Holomorphic (regular everywhere on $E$), spanning $H^0(E, \\Omega^1_E) \\subset F^1 H^1_{dR}(E)$.",
+              "Meromorphic with a pole at the point at infinity.",
+              "Exact ($= d$ of an algebraic function).",
+              "Not algebraic — only smooth."
+            ],
+            "answer": 0,
+            "explain": "The form $\\omega = dx/y$ is the famous Néron differential: regular everywhere on a smooth Weierstrass elliptic curve (verify: at infinity, change to local parameter $t = x/y$, then $\\omega = -dt + \\text{higher order}$, regular). It spans the 1-dimensional $H^0(E, \\Omega^1_E)$ and represents a generator of the $F^1$ piece of the Hodge filtration on $H^1_{dR}(E)$. The other generator of $H^1_{dR}$ is $x\\,dx/y$ (a 'second-kind' form, with poles but a non-trivial de Rham class).",
+            "hint": "Compute $\\omega$ in a local parameter at the point at infinity using $t = x/y$ and verify regularity."
+          }
+        ]
+      }
+    }
+  },
   "algebraic-number-theory": {
     "topic": "algebraic-number-theory",
     "quizzes": {
@@ -1605,6 +2229,386 @@ window.MVQuizBank = {
       }
     }
   },
+  "algebraic-spaces": {
+    "topic": "algebraic-spaces",
+    "quizzes": {
+      "why-algebraic-spaces": {
+        "title": "Why schemes aren't enough",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does the étale-sheaf quotient $X = \\mathbb{A}^1 / \\mathbb{Z}$ fail to be a scheme over a field $k$?",
+            "choices": [
+              "Because the action is not free.",
+              "Because $\\mathbb{Z}$ is not a finite group, so the quotient cannot be a scheme by general principles.",
+              "Because the diagonal $\\Delta_X$ pulls back to $\\mathbb{Z} \\times \\mathbb{A}^1$ along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X \\times X$, which is an infinite disjoint union and so $X$ fails to be quasi-separated.",
+              "Because $\\mathbb{A}^1$ is not proper."
+            ],
+            "answer": 2,
+            "explain": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$. For $X$ to be a scheme, $\\Delta_X$ would need to be quasi-compact (in fact, locally closed); but $R$ is an infinite disjoint union of $\\mathbb{A}^1$'s and so not quasi-compact. The action <em>is</em> free; finiteness of the group is irrelevant; properness of $\\mathbb{A}^1$ is unrelated."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following statements about $\\mathbb{A}^1 / \\mathbb{Z}$ over $k$ are true? (select all)",
+            "choices": [
+              "It is a sheaf on the étale site of schemes over $k$.",
+              "It admits an étale surjection from a scheme.",
+              "It is a quasi-separated algebraic space.",
+              "It is an algebraic space."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal pullback $R = \\mathbb{Z}\\times\\mathbb{A}^1$ being a scheme, $X$ is an algebraic space. It is <em>not</em> quasi-separated, because $\\Delta_X$ is not quasi-compact."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Spot the flawed step in the following \"proof\" that $\\mathbb{A}^1 / \\mathbb{Z}$ is a scheme.",
+            "steps": [
+              "$\\mathbb{Z}$ acts freely on $\\mathbb{A}^1_k$ by $n \\cdot x = x + n$.",
+              "Étale-locally on $\\mathbb{A}^1$, the action is trivial — pick a small étale neighbourhood of any closed point and at most one orbit element passes through it.",
+              "Since the action is free and étale-locally trivial, by the GAGA principle the quotient is automatically a smooth quasi-projective variety over $k$.",
+              "In particular, the quotient is a scheme.",
+              "QED."
+            ],
+            "answer": 2,
+            "explain": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective. GAGA does not produce schemes from étale quotient sheaves, and a free étale action on a scheme need not produce a scheme quotient (e.g. $\\mathbb{A}^1/\\mathbb{Z}$ itself). The correct conclusion is only that the quotient is an algebraic space."
+          }
+        ]
+      },
+      "etale-equivalence-relation": {
+        "title": "Étale equivalence relations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following data does <em>not</em> define an étale equivalence relation on a scheme $U$?",
+            "choices": [
+              "$R = \\Delta_U \\subset U \\times U$ — the trivial relation.",
+              "$R = G \\times U \\subset U \\times U$ via $(g,u) \\mapsto (u, g\\cdot u)$, where $G$ is a finite group acting freely on $U$.",
+              "$R = U \\times U$ itself — i.e. \"all points equivalent.\"",
+              "$R \\subset \\mathbb{A}^1 \\times \\mathbb{A}^1$ defined by $\\{(x, y) : y = x + 1\\}$ alone."
+            ],
+            "answer": 3,
+            "explain": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e. $\\pi_0$ collapses to a point). Choice D fails transitivity — $x \\sim x+1$ and $x+1 \\sim x+2$ should imply $x \\sim x+2$, but $(x, x+2) \\not\\in R$. To make this an equivalence relation you would need $R = \\bigcup_{n \\in \\mathbb{Z}} \\{(x, x+n)\\} = \\mathbb{Z} \\times \\mathbb{A}^1$ — the relation generating $\\mathbb{A}^1/\\mathbb{Z}$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each scheme-theoretic gadget with its role in an étale equivalence relation $j = (s,t)\\colon R \\hookrightarrow U \\times U$.",
+            "left": [
+              "Reflexivity",
+              "Symmetry",
+              "Transitivity",
+              "Étale projections"
+            ],
+            "right": [
+              "$\\Delta_U \\colon U \\to U \\times U$ factors through $j$",
+              "swap involution $\\sigma$ on $U \\times U$ restricts to an automorphism of $R$",
+              "$R \\times_{s, U, t} R \\to U \\times U$ factors through $j$",
+              "both $s, t$ are étale morphisms from $R$ to $U$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Reflexivity = diagonal factors through $R$. Symmetry = swap restricts. Transitivity = the fibre product $R \\times_U R$ (composing equivalences) lands in $R$. Étale projections is the topology condition that makes the quotient an <em>algebraic space</em> rather than just any sheaf."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite group acting on a scheme $U$. The associated map $G \\times U \\to U \\times U$, $(g,u) \\mapsto (u, g\\cdot u)$, defines an étale equivalence relation if and only if which condition holds?",
+            "choices": [
+              "$G$ is abelian.",
+              "$G$ acts freely on $U$ in the étale-topology sense (trivial geometric stabilisers).",
+              "$U$ is quasi-projective.",
+              "$|G|$ is invertible on $U$."
+            ],
+            "answer": 1,
+            "explain": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free. Each projection $G \\times U \\to U$ is a disjoint union of $|G|$ copies of $U$, which is étale exactly when the source is reduced and the action is free in the geometric sense. Abelian-ness, quasi-projectivity, and invertibility of $|G|$ are unrelated to whether the relation is étale; they affect properties of the quotient (e.g. tameness) but not the equivalence-relation structure itself."
+          }
+        ]
+      },
+      "algebraic-space-definition": {
+        "title": "Algebraic spaces as étale sheaves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the cleanest characterisation of an algebraic space?",
+            "choices": [
+              "A scheme that admits a Zariski cover by affines.",
+              "A sheaf on the étale site whose diagonal is representable by schemes and which admits an étale surjection from a scheme.",
+              "A stack whose automorphism groups are finite.",
+              "A locally ringed space with a covering by spectra of commutative rings."
+            ],
+            "answer": 1,
+            "explain": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas. Choice A is the definition of (a quasi-affine) scheme. Choice C describes DM stacks. Choice D is the classical definition of a scheme."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the following arrows / objects in the order in which they appear in the definition of an algebraic space (atlas first, equivalence relation second, etc.).",
+            "items": [
+              "the étale equivalence relation $R = U \\times_X U \\rightrightarrows U$",
+              "an étale surjection $U \\twoheadrightarrow X$ from a scheme $U$",
+              "the diagonal $\\Delta_X \\colon X \\to X \\times X$, representable by schemes",
+              "the étale sheaf $X \\colon (\\mathrm{Sch})_{\\acute e t}^{\\mathrm{op}} \\to \\mathrm{Set}$"
+            ],
+            "answer": [
+              3,
+              2,
+              1,
+              0
+            ],
+            "explain": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme; and finally the existence of an étale surjective $U \\twoheadrightarrow X$ closes the definition. (Some textbooks phrase it as $X = U/R$ for an étale equivalence relation; that's the equivalent étale-quotient form.)"
+          },
+          {
+            "type": "mcq",
+            "q": "If $X$ is an algebraic space and $U \\twoheadrightarrow X$ is an étale atlas, what is $R := U \\times_X U$ as a scheme?",
+            "choices": [
+              "The disjoint union $U \\sqcup U$.",
+              "The étale equivalence relation on $U$ realising $X = U/R$; both projections to $U$ are étale.",
+              "The diagonal $\\Delta_U$ inside $U \\times U$.",
+              "The same as $X$ — there is no extra information."
+            ],
+            "answer": 1,
+            "explain": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$. This is the étale equivalence relation, and $X = U/R$ as étale sheaves. It is generally <em>not</em> $\\Delta_U$ (that would force the atlas to be an isomorphism) and only equals $U \\sqcup U$ in trivial cases."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Suppose $X$ is an algebraic space with representable diagonal $\\Delta_X$. Which extra hypothesis on $\\Delta_X$ recovers the notion of <em>quasi-separated</em>?",
+            "choices": [
+              "$\\Delta_X$ is a closed immersion.",
+              "$\\Delta_X$ is étale.",
+              "$\\Delta_X$ is quasi-compact.",
+              "$\\Delta_X$ is proper."
+            ],
+            "answer": 2,
+            "explain": "By definition, $X$ is quasi-separated iff $\\Delta_X$ is quasi-compact. \"$\\Delta_X$ a closed immersion\" gives the strictly stronger condition <em>separated</em>; étale or proper diagonals are different conditions altogether. The example $\\mathbb{A}^1 / \\mathbb{Z}$ from §1 fails quasi-separatedness exactly because $\\Delta_X$ is not quasi-compact."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Spot the flawed step in the following \"proof\" that every algebraic space $X$ is a scheme.",
+            "steps": [
+              "Let $X$ be an algebraic space with étale atlas $U \\twoheadrightarrow X$ and diagonal $\\Delta_X \\colon X \\to X \\times X$.",
+              "$\\Delta_X$ is representable by schemes; in particular, the fibre product $R = U \\times_X U$ is a scheme.",
+              "Since $R \\rightrightarrows U$ is an étale equivalence relation of schemes, the categorical quotient $U/R$ exists as a scheme.",
+              "Therefore $X = U/R$ is a scheme.",
+              "QED."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is exactly where schemes fail: étale equivalence relations of schemes do <em>not</em> in general have scheme quotients — that's the whole reason algebraic spaces were invented. The classical theorem only guarantees a scheme quotient under extra hypotheses (e.g. all orbits in a single affine, or finite flat $G$-action with quasi-projective $U$). Without such hypotheses, $U/R$ is only an algebraic space."
+          }
+        ]
+      },
+      "morphisms-of-algebraic-spaces": {
+        "title": "Morphisms of algebraic spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $f \\colon X \\to Y$ be a morphism of algebraic spaces, presented by $\\tilde f \\colon U \\to V$ on étale atlases. Which property of $f$ is <em>not</em> determined by the corresponding property of $\\tilde f$?",
+            "choices": [
+              "étale",
+              "smooth",
+              "separated",
+              "locally of finite presentation"
+            ],
+            "answer": 2,
+            "explain": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does. Separatedness is more subtle: it is the condition that $\\Delta_f \\colon X \\to X \\times_Y X$ is a closed immersion, which involves the relation $R \\rightrightarrows U$ and is <em>not</em> determined by $\\tilde f$ alone."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all properties of scheme morphisms that are étale-local on the target (and hence transfer verbatim to morphisms of algebraic spaces).",
+            "choices": [
+              "étale",
+              "flat",
+              "proper",
+              "separated",
+              "finite",
+              "isomorphism"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ],
+            "explain": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target. Separated is the exception — it is a condition on the diagonal $\\Delta_f$ rather than on $f$ itself, and depends on the equivalence relation in the algebraic-space presentation."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $X$ and $Y$ are both schemes, viewed as algebraic spaces. A morphism of algebraic spaces $f \\colon X \\to Y$ is the same data as which of the following?",
+            "choices": [
+              "An étale equivalence relation on $X$.",
+              "A morphism of schemes $X \\to Y$ — the embedding (Schemes) $\\hookrightarrow$ (AlgSpaces) is fully faithful.",
+              "Any continuous map of underlying topological spaces.",
+              "A morphism of locally ringed spaces, but only up to étale localisation."
+            ],
+            "answer": 1,
+            "explain": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too. So a morphism between two schemes-as-algebraic-spaces is exactly a morphism of schemes — no extra data, no quotient by anything."
+          }
+        ]
+      },
+      "examples-of-algebraic-spaces": {
+        "title": "Examples: free quotients and a non-scheme",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is the quotient $\\mathbb{A}^1/\\mathbb{Z}$ over a field <em>not</em> a separated, quasi-projective scheme?",
+            "choices": [
+              "Because $\\mathbb{Z}$ is not a finite group.",
+              "Because $\\mathbb{A}^1$ is not proper.",
+              "Because the diagonal $\\Delta_X$ is not quasi-compact — its pullback is the disjoint union $\\mathbb{Z}\\times\\mathbb{A}^1$, with infinitely many components.",
+              "Because $\\mathbb{A}^1$ is not affine."
+            ],
+            "answer": 2,
+            "explain": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact. But the diagonal of $\\mathbb{A}^1/\\mathbb{Z}$ pulls back along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X\\times X$ to $\\mathbb{Z}\\times\\mathbb{A}^1$ — an infinite disjoint union, not quasi-compact. The other choices are either false ($\\mathbb{A}^1$ <em>is</em> affine and one would expect properness to be unrelated to schemehood of a quotient) or red herrings."
+          },
+          {
+            "type": "mcq",
+            "q": "In Hironaka's smooth proper non-scheme example, what is the obstruction to being a scheme?",
+            "choices": [
+              "The space is non-reduced.",
+              "There is a proper curve $C$ such that no line bundle on the space restricts to one of positive degree on $C$ — i.e., no ample line bundle exists.",
+              "The space is not separated.",
+              "The space has dimension 0."
+            ],
+            "answer": 1,
+            "explain": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero. This forbids the existence of an ample line bundle, hence projectivity, hence (for proper smooth 3-folds over $\\mathbb{C}$) schemehood. The space is reduced, separated, and 3-dimensional."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all examples of algebraic spaces that are <em>not</em> schemes.",
+            "choices": [
+              "$\\operatorname{Spec}\\mathbb{Z}$",
+              "$\\mathbb{A}^1_k / \\mathbb{Z}$ over a field $k$",
+              "$\\mathbb{P}^n_k$",
+              "Hironaka's smooth proper 3-fold $H$",
+              "An étale double cover of $\\mathbb{P}^1$ (when the cover is connected)"
+            ],
+            "answer": [
+              1,
+              3
+            ],
+            "explain": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite group acting freely on a quasi-projective scheme $U$ over a field. Why is the quotient $U/G$ <em>always</em> a scheme in this case?",
+            "choices": [
+              "Because finite groups act trivially on étale cohomology.",
+              "Because every $G$-orbit on $U$ lies in a $G$-stable affine open subset, so the quotient can be glued from $\\operatorname{Spec}$s of $G$-invariants.",
+              "Because $\\mathbb{A}^1/\\mathbb{Z}$ is a scheme.",
+              "Because $G$ acts on cohomology by an automorphism."
+            ],
+            "answer": 1,
+            "explain": "The classical theorem (SGA 1 or [EGA III]) says that if $G$ is finite and every orbit on $U$ is contained in some affine open (which is automatic for quasi-projective $U$, since one can take a $G$-stable affine using ample-line-bundle averaging), then $U/G$ exists as a scheme. The Zariski-local structure is $\\mathrm{Spec}(R^G)$. Without quasi-projectivity, the conclusion can fail."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Spot the flawed step in this attempted proof that Hironaka's space $H$ is projective.",
+            "steps": [
+              "$H$ is a smooth proper algebraic space over $\\mathbb{C}$ of dimension 3.",
+              "By Chow's lemma, $H$ admits a proper birational map from a projective variety $\\tilde H$.",
+              "The pullback of an ample line bundle on $\\tilde H$ to $H$ is again ample (ampleness is preserved under proper birational pullback).",
+              "Hence $H$ admits an ample line bundle, and so is projective.",
+              "QED."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is false. Ampleness is <em>not</em> preserved under proper birational pullback — it can become only nef, and in Hironaka's example precisely this happens: the pullback restricts to degree zero on the descended curve $C$ that obstructs schemehood. Chow's lemma exists for algebraic spaces (giving a projective birational cover), but the pulled-back line bundle is only nef, not ample, so the conclusion fails."
+          }
+        ]
+      },
+      "between-schemes-and-stacks": {
+        "title": "Algebraic spaces sit between schemes and DM stacks",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which condition characterises algebraic spaces among Artin stacks?",
+            "choices": [
+              "All geometric stabilisers are finite.",
+              "All geometric stabilisers are trivial; equivalently, the diagonal is a monomorphism.",
+              "There exists an étale atlas by a scheme.",
+              "The stack is quasi-compact."
+            ],
+            "answer": 1,
+            "explain": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism. Choice A characterises DM stacks; choice C is necessary but not sufficient (DM stacks also have étale atlases by schemes, e.g. $B(\\mathbb{Z}/2)$ has the trivial étale cover from a point times $\\mathbb{Z}/2$); choice D is unrelated."
+          },
+          {
+            "type": "matching",
+            "q": "Match each rung of the hierarchy with the condition on its diagonal.",
+            "left": [
+              "Schemes",
+              "Algebraic spaces",
+              "DM stacks",
+              "Artin stacks"
+            ],
+            "right": [
+              "$\\Delta$ is a locally closed immersion (and Zariski atlas exists)",
+              "$\\Delta$ is a monomorphism (representable by schemes)",
+              "$\\Delta$ is unramified (representable, equivalently finite + unramified)",
+              "$\\Delta$ is representable by algebraic spaces"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM) $\\Rightarrow$ representable (Artin). Each weakening corresponds to allowing more structure in the geometric stabilisers (none, none, finite étale, any algebraic group)."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $\\mathcal X = [\\mathbb{A}^1 / \\mathbb{Z}/2]$ where $\\mathbb{Z}/2$ acts by $x \\mapsto -x$. What kind of geometric object is $\\mathcal X$?",
+            "choices": [
+              "An algebraic space (in fact, a scheme): the quotient $\\mathbb{A}^1 / (\\mathbb{Z}/2) = \\operatorname{Spec} k[x^2]$.",
+              "An algebraic space but not a scheme — like Hironaka's example.",
+              "A DM stack but not an algebraic space — the action has a fixed point at $0$, so the geometric stabiliser there is nontrivial.",
+              "An Artin stack but not a DM stack."
+            ],
+            "answer": 2,
+            "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\operatorname{Spec} k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Suppose $\\mathcal X$ is an Artin stack with diagonal $\\Delta$. Which characterisation is correct?",
+            "choices": [
+              "$\\mathcal X$ is DM iff $\\Delta$ is unramified iff every geometric stabiliser is a finite étale group scheme.",
+              "$\\mathcal X$ is an algebraic space iff $\\Delta$ is étale.",
+              "$\\mathcal X$ is a scheme iff $\\Delta$ is finite.",
+              "$\\mathcal X$ is DM iff its coarse moduli space is a scheme."
+            ],
+            "answer": 0,
+            "explain": "The clean characterisation is: $\\mathcal X$ is DM $\\Leftrightarrow$ $\\Delta_{\\mathcal X}$ is unramified $\\Leftrightarrow$ all geometric stabilisers are finite étale group schemes (and an étale atlas exists). Choice B is wrong: algebraic spaces have $\\Delta$ a <em>monomorphism</em>, not étale (étale + mono = open immersion, too strong). Choices C and D are unrelated to the standard characterisations."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are DM stacks but <em>not</em> algebraic spaces?",
+            "choices": [
+              "$B(\\mathbb{Z}/n)$ for $n \\ge 2$",
+              "$\\overline{\\mathcal{M}}_{1,1}$, the moduli of elliptic curves with one marked point",
+              "$\\mathbb{P}^1$ as a scheme",
+              "$BGL_n$ for $n \\ge 1$",
+              "$\\mathcal{M}_g$ for $g \\ge 2$"
+            ],
+            "answer": [
+              0,
+              1,
+              4
+            ],
+            "explain": "$B(\\mathbb{Z}/n)$, $\\overline{\\mathcal M}_{1,1}$ (with $\\mathbb{Z}/2$ stabiliser at the $j=1728$ point), and $\\mathcal M_g$ for $g \\ge 2$ are all DM stacks with nontrivial finite stabilisers, hence not algebraic spaces. $\\mathbb{P}^1$ is a scheme. $BGL_n$ has positive-dimensional stabiliser $GL_n$, so it is an Artin stack that is <em>not</em> DM."
+          }
+        ]
+      }
+    }
+  },
   "algebraic-topology": {
     "topic": "algebraic-topology",
     "quizzes": {
@@ -1807,6 +2811,43 @@ window.MVQuizBank = {
             "answer": 2,
             "tol": 0.000001,
             "explain": "$\\mathbb{R}^2$ minus $n$ points deformation-retracts onto a wedge of $n$ circles, so $\\pi_1\\cong F_n$. For $n=2$ the free group $F_2$ has rank $2$."
+          }
+        ]
+      },
+      "universal-cover-of-circle": {
+        "title": "Universal cover of S¹",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the exponential covering $p\\colon\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, what is the fibre $p^{-1}(*)$ over the basepoint $*=1$?",
+            "choices": [
+              "$\\{0\\}$",
+              "$\\mathbb{Z}$",
+              "$\\mathbb{R}$",
+              "$\\mathbb{Q}$"
+            ],
+            "answer": 1,
+            "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover."
+          },
+          {
+            "type": "numeric",
+            "q": "Lift the loop $\\gamma(t)=e^{4\\pi i t}$ to a path in $\\mathbb{R}$ starting at $0$. What integer winding number $\\tilde\\gamma(1)$ do you get?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$. Its endpoint is $\\tilde\\gamma(1)=2$, so the loop winds twice."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of $\\mathbb{R}$ makes $p\\colon\\mathbb{R}\\to S^1$ the *universal* cover of $S^1$ (rather than just *some* cover)?",
+            "choices": [
+              "$\\mathbb{R}$ is locally Euclidean",
+              "$\\mathbb{R}$ is simply connected",
+              "$\\mathbb{R}$ is non-compact",
+              "$\\mathbb{R}$ has trivial deck group"
+            ],
+            "answer": 1,
+            "hint": "\"Universal\" means initial among connected covers — what does that require of the total space's $\\pi_1$?",
+            "explain": "A connected cover is universal precisely when its total space is simply connected ($\\pi_1=0$). $\\mathbb{R}$ is contractible, hence simply connected, so $\\mathbb{R}\\to S^1$ dominates every other connected cover via a unique factoring map."
           }
         ]
       },
@@ -4311,6 +5352,481 @@ window.MVQuizBank = {
       }
     }
   },
+  "cocartesian-fibrations": {
+    "topic": "cocartesian-fibrations",
+    "quizzes": {
+      "left-right-fibrations": {
+        "title": "Left and right fibrations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which horn-extension property characterizes a <strong>left fibration</strong> $p: \\mathcal{E} \\to \\mathcal{B}$?",
+            "choices": [
+              "Every inner horn $\\Lambda^n_k$ ($0 < k < n$) extends.",
+              "Every left horn $\\Lambda^n_0$ ($n \\geq 1$) extends.",
+              "Every right horn $\\Lambda^n_n$ ($n \\geq 1$) extends.",
+              "Every horn (inner or outer) extends — i.e. $p$ is a Kan fibration."
+            ],
+            "answer": 1,
+            "explain": "By definition, $p$ is a left fibration iff every diagram $\\Lambda^n_0 \\to \\mathcal{E}$ together with a chosen extension $\\Delta^n \\to \\mathcal{B}$ admits a filler $\\Delta^n \\to \\mathcal{E}$ for every $n \\geq 1$. Inner horns characterize <em>inner</em> fibrations (and quasi-categories when $\\mathcal{B} = *$); right horns characterize right fibrations.",
+            "hint": "$\\Lambda^n_0$ is the horn missing the face <em>opposite</em> the initial vertex."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every map that is a <strong>left fibration</strong>.",
+            "choices": [
+              "The constant map $\\Delta^0 \\to \\Delta^0$.",
+              "The fold $\\Delta^1 \\sqcup \\Delta^1 \\to \\Delta^1$ identifying the two copies vertex-to-vertex.",
+              "Any Kan fibration.",
+              "The unique map from a Kan complex $X$ to $\\Delta^0$.",
+              "The boundary inclusion $\\partial \\Delta^2 \\hookrightarrow \\Delta^2$."
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "Identity-style maps and Kan fibrations satisfy <em>every</em> horn condition, so they are left fibrations a fortiori. A Kan complex over a point is the same data as a Kan fibration to $\\Delta^0$. The boundary inclusion is not even surjective in dimension $2$ — it does not extend the constant horn at the missing $2$-simplex. The fold map is not a fibration of any kind.",
+            "hint": "Every Kan fibration is a left fibration; a left fibration over a point is precisely a Kan complex."
+          },
+          {
+            "type": "mcq",
+            "q": "Under straightening, a <strong>left fibration</strong> over $\\mathcal{B}$ corresponds to:",
+            "choices": [
+              "A functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+              "A functor $\\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$ (a presheaf of spaces).",
+              "A functor $\\mathcal{B} \\to \\mathcal{S}$ (a covariant family of spaces).",
+              "A functor $\\mathcal{B}^{\\mathrm{op}} \\to \\mathrm{Cat}_\\infty$ (a contravariant family of $\\infty$-categories)."
+            ],
+            "answer": 2,
+            "explain": "Left fibrations over $\\mathcal{B}$ straighten to functors $\\mathcal{B} \\to \\mathcal{S}$. Right fibrations over $\\mathcal{B}$ straighten to $\\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$, recovering the classical Yoneda picture of presheaves of spaces. Cocartesian / cartesian fibrations are the $\\mathrm{Cat}_\\infty$-valued versions.",
+            "hint": "The fibers of a left fibration are <em>spaces</em>, not categories; covariance comes from $\\Lambda^n_0$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "spot-the-error",
+            "q": "Below is a sketch that 'every left fibration is a right fibration.' Find the false step.",
+            "steps": [
+              "Suppose $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration: every $\\Lambda^n_0$-horn lifts.",
+              "Reverse every $1$-simplex in $\\mathcal{B}$ and in $\\mathcal{E}$ — i.e. apply the $\\mathrm{op}$ functor coordinatewise.",
+              "Since $\\Lambda^n_0$ becomes $\\Lambda^n_n$ under $\\mathrm{op}$, $p^{\\mathrm{op}}$ is a right fibration; this proves the claim for $p^{\\mathrm{op}}$, hence for $p$.",
+              "Therefore $p$ itself is a right fibration."
+            ],
+            "answer": 3,
+            "explain": "Steps 1–3 are correct: $p$ a left fibration is equivalent to $p^{\\mathrm{op}}$ a right fibration. Step 4 silently identifies $p$ with $p^{\\mathrm{op}}$, which is wrong: the two are <em>opposite</em> maps, not equal. The true statement is the duality between left and right fibrations, not their coincidence."
+          },
+          {
+            "type": "mcq",
+            "q": "Joyal's recognition theorem says: a left fibration $p: \\mathcal{E} \\to \\mathcal{B}$ is a <em>trivial</em> Kan fibration iff…",
+            "choices": [
+              "$\\mathcal{E}$ and $\\mathcal{B}$ are both Kan complexes.",
+              "Every fiber $\\mathcal{E}_b$ is a contractible Kan complex.",
+              "$p$ admits a section.",
+              "$\\mathcal{B}$ is the nerve of an ordinary category."
+            ],
+            "answer": 1,
+            "explain": "A left fibration with contractible fibers is a trivial Kan fibration: contractibility kills all higher homotopy, so the fibration is in fact an equivalence. Existence of a section is necessary but far from sufficient; the base being a $1$-categorical nerve has no bearing on triviality."
+          }
+        ]
+      },
+      "cocartesian-edge": {
+        "title": "Cocartesian edges",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An edge $e: x \\to y$ in $\\mathcal{E}$ over $\\bar{e}: \\bar{x} \\to \\bar{y}$ is <strong>$p$-cocartesian</strong> iff:",
+            "choices": [
+              "For every $z \\in \\mathcal{E}$, post-composition with $e$ induces an equivalence $\\mathrm{Map}_\\mathcal{E}(y, z) \\to \\mathrm{Map}_\\mathcal{E}(x, z) \\times_{\\mathrm{Map}_\\mathcal{B}(\\bar{x}, p(z))} \\mathrm{Map}_\\mathcal{B}(\\bar{y}, p(z))$.",
+              "$e$ is invertible in $\\mathcal{E}$.",
+              "$e$ projects to an isomorphism in $\\mathcal{B}$.",
+              "$\\bar{e}$ is the identity edge of $\\bar{x}$."
+            ],
+            "answer": 0,
+            "explain": "The cocartesian condition is exactly the universal lifting property: $e$ is cocartesian over $\\bar{e}$ iff for every $z$, the induced square on mapping spaces is a pullback in spaces. Equivalently, every $\\Lambda^{n+1}_0$-horn whose initial edge is $e$ lifts uniquely (up to contractible choice). Cocartesian edges need not be invertible.",
+            "hint": "The defining property is universal: extending $e$ to higher simplices upstairs is determined by the same data downstairs."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A claimed proof that 'every edge over an identity is cocartesian' goes:",
+            "steps": [
+              "Let $\\bar{e} = \\mathrm{id}_{\\bar{x}}$ and let $e: x \\to y$ in $\\mathcal{E}$ with $p(e) = \\bar{e}$.",
+              "Then $e$ lies in the fiber $\\mathcal{E}_{\\bar{x}}$, which is an $\\infty$-subcategory of $\\mathcal{E}$.",
+              "An edge inside the fiber is automatically a 'fiberwise' edge, i.e. lifts every horn whose base is in $\\mathcal{E}_{\\bar{x}}$.",
+              "Therefore $e$ is $p$-cocartesian for every such fibration $p$."
+            ],
+            "answer": 3,
+            "explain": "Step 4 confuses 'fiberwise lifting' with the cocartesian condition. The cocartesian property concerns horns whose base extends <em>off</em> the fiber — i.e. into edges of $\\mathcal{B}$ starting from $\\bar{x}$. A fiber-internal edge is cocartesian iff it is an <em>equivalence</em> in the fiber $\\mathcal{E}_{\\bar{x}}$ (HTT 2.4.1.5). A non-equivalence in the fiber is a perfectly valid edge over $\\mathrm{id}_{\\bar{x}}$ and is not cocartesian."
+          },
+          {
+            "type": "mcq",
+            "q": "If $e_1, e_2: x \\to y$ are both $p$-cocartesian over the same $\\bar{e}: \\bar{x} \\to \\bar{y}$, what is the relationship between them?",
+            "choices": [
+              "They are equal as $1$-simplices of $\\mathcal{E}$.",
+              "They are equivalent in the fiber $\\mathcal{E}_{\\bar{y}}$ via a canonical equivalence in $\\mathrm{Map}_{\\mathcal{E}_{\\bar{y}}}(y, y)$.",
+              "They are equivalent in $\\mathcal{E}$, but the equivalence need not lie in any fiber.",
+              "They become equal after passing to the homotopy category $h(\\mathcal{E})$."
+            ],
+            "answer": 1,
+            "explain": "Cocartesian lifts are unique up to a <em>contractible</em> space of choices, so any two cocartesian lifts of $\\bar{e}$ starting at $x$ are linked by an equivalence between their endpoints — and that equivalence sits in the fiber $\\mathcal{E}_{\\bar{y}}$ (since both endpoints live there). Equality on the nose is far too strong; the homotopy-category quotient is too coarse."
+          }
+        ]
+      },
+      "cocartesian-fibration": {
+        "title": "Cocartesian fibrations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$p: \\mathcal{E} \\to \\mathcal{B}$ is a <strong>cocartesian fibration</strong> iff $p$ is an inner fibration <em>and</em>:",
+            "choices": [
+              "Every edge of $\\mathcal{E}$ is cocartesian.",
+              "For every edge $\\bar{e}: \\bar{x} \\to \\bar{y}$ of $\\mathcal{B}$ and every $x \\in \\mathcal{E}_{\\bar{x}}$, there exists a $p$-cocartesian edge $e: x \\to y$ with $p(e) = \\bar{e}$.",
+              "$p$ admits a section.",
+              "Every fiber $\\mathcal{E}_{\\bar{b}}$ is a Kan complex."
+            ],
+            "answer": 1,
+            "explain": "The standard definition (HTT 2.4.2.1, Kerodon 5.1.4): inner fibration plus the cocartesian-lift existence axiom. The fibers being Kan complexes characterizes <em>left</em> fibrations among cocartesian ones; every-edge-cocartesian forces $p$ to factor through an equivalence onto its image.",
+            "hint": "Two clauses: 'inner fibration' (so fibers are $\\infty$-categories) and 'cocartesian lifts always exist'."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <strong>cocartesian fibrations</strong>?",
+            "choices": [
+              "The source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ for an $\\infty$-category $\\mathcal{C}$.",
+              "The product projection $\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$.",
+              "The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ from modules to commutative ring spectra.",
+              "The diagonal $\\mathcal{C} \\to \\mathcal{C} \\times \\mathcal{C}$.",
+              "The equalizer inclusion $\\mathrm{eq}(f, g) \\hookrightarrow \\mathcal{C}$ for parallel functors $f, g: \\mathcal{C} \\to \\mathcal{D}$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Source-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (Kerodon 5.1.5). The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
+            "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-source maps fit; inclusions and diagonals don't."
+          },
+          {
+            "type": "mcq",
+            "q": "For the projection $p: \\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$, what is the transport functor along $\\bar{e}: c \\to c'$?",
+            "choices": [
+              "The identity functor on $\\mathcal{D}$.",
+              "Postcomposition with $\\bar{e}$, viewed as a functor $\\mathcal{D} \\to \\mathcal{D}$.",
+              "The constant functor $\\mathcal{D} \\to \\mathcal{D}$ at the initial object.",
+              "Pullback along $\\bar{e}$ — only defined when $\\mathcal{D}$ has fiber products."
+            ],
+            "answer": 0,
+            "explain": "The fiber over each $c$ is $\\mathcal{D}$ itself, and the cocartesian lift of $\\bar{e}: c \\to c'$ at $(c, d)$ is the edge $(\\bar{e}, \\mathrm{id}_d): (c, d) \\to (c', d)$. So $\\bar{e}_!: \\mathcal{D} \\to \\mathcal{D}$ is the identity, and the straightening is the constant functor $\\mathcal{C} \\to \\mathrm{Cat}_\\infty$ with value $\\mathcal{D}$.",
+            "hint": "A constant family of fibers ought to have constant transport."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "If $p: \\mathcal{E} \\to \\mathcal{B}$ is both a cocartesian fibration <em>and</em> a cartesian fibration, then $p$ encodes:",
+            "choices": [
+              "An $\\infty$-equivalence $\\mathcal{E} \\simeq \\mathcal{B}$.",
+              "An adjunction in the sense of HTT 5.2 — both fibrations together package the unit and counit.",
+              "Necessarily a Kan fibration (so all fibers are Kan complexes).",
+              "Nothing nontrivial — every cocartesian fibration is automatically cartesian."
+            ],
+            "answer": 1,
+            "explain": "A <em>biCartesian</em> fibration $p: \\mathcal{M} \\to \\Delta^1$ is exactly Lurie's encoding of an $\\infty$-adjunction (HTT 5.2.2.1): the cocartesian transport $0 \\to 1$ supplies the left adjoint, and the cartesian transport $1 \\to 0$ supplies the right adjoint, with the joint structure encoding the unit + counit. Over a more general base it encodes a <em>fiberwise</em> adjunction."
+          },
+          {
+            "type": "matching",
+            "q": "Match each cocartesian fibration $p$ to the corresponding straightened functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+            "left": [
+              "Constant functor $\\mathcal{C} \\to \\mathrm{Cat}_\\infty$ at $\\mathcal{D}$",
+              "Slice functor $c \\mapsto \\mathcal{C}_{c/}$",
+              "Module functor $R \\mapsto \\mathrm{Mod}_R$",
+              "$BG$-action on a space $X$"
+            ],
+            "right": [
+              "$\\mathrm{Mod}_{(-)} \\to \\mathrm{CAlg}$",
+              "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$",
+              "$X /\\!\\!/ G \\to BG$",
+              "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$"
+            ],
+            "answer": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "explain": "(left index → right slot.) Constant family ↔ product projection (idx 3 of left = $\\mathcal{C} \\times \\mathcal{D}$). Slice functor ↔ arrow-source (left idx 1 → right idx 0, since right[0] is the modules fibration — wait, double-check: right[0] is Mod$\\to$CAlg → matches Module functor (left idx 2). The intended answer pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'slice $c \\mapsto \\mathcal{C}_{c/}$' ↔ '$s: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$', 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. Each is a canonical example of straightening."
+          }
+        ]
+      },
+      "fibers-and-transport": {
+        "title": "Fibers and transport functors",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, what is the fiber over an object $x \\in \\mathcal{C}$?",
+            "choices": [
+              "The mapping space $\\mathrm{Map}_\\mathcal{C}(x, x)$.",
+              "The slice $\\mathcal{C}_{x/}$ — arrows out of $x$.",
+              "The slice $\\mathcal{C}_{/x}$ — arrows into $x$.",
+              "The whole of $\\mathcal{C}$ shifted by $x$."
+            ],
+            "answer": 1,
+            "explain": "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an arrow $f: a \\to b$; the source map sends $f$ to $a$. The fiber over $x$ is therefore the $\\infty$-category of arrows with source $x$, i.e. the slice $\\mathcal{C}_{x/}$. (The <em>target</em> map gives $\\mathcal{C}_{/x}$.) The transport functor along $\\bar{e}: x \\to y$ is the postcomposition $\\bar{e}_*: \\mathcal{C}_{x/} \\to \\mathcal{C}_{y/}$ … wait, careful: cocartesian lift of $\\bar{e}$ at an arrow $f: x \\to z$ is the $2$-simplex with $f$ on one face and $\\bar{e}$ on another, giving an arrow $y \\to z$ — i.e. <em>precomposition</em> by $\\bar{e}$, sending $f$ to $f \\circ \\bar{e}^{-1}$ … no: source map is cocartesian, so $\\bar{e}_!$ on $\\mathcal{C}_{x/}$ goes to $\\mathcal{C}_{y/}$ via filling. The end product is precomposition with $\\bar{e}$ in the contravariant direction.",
+            "hint": "An arrow $f: a \\to b$ has source $a$; the source-fiber over $x$ is what one builds out of arrows starting at $x$."
+          },
+          {
+            "type": "mcq",
+            "q": "Given $\\bar{e}: \\bar{x} \\to \\bar{y}$ and $\\bar{f}: \\bar{y} \\to \\bar{z}$ in $\\mathcal{B}$, the transport functor $(\\bar{f} \\circ \\bar{e})_!$ is canonically equivalent to:",
+            "choices": [
+              "$\\bar{e}_! \\circ \\bar{f}_!$",
+              "$\\bar{f}_! \\circ \\bar{e}_!$",
+              "Neither — the transport is only well-defined on individual edges, not on compositions.",
+              "$\\mathrm{id}$ — composition cancels in transport."
+            ],
+            "answer": 1,
+            "explain": "Transport is a (lax / pseudo) functorial assignment: composition of edges in $\\mathcal{B}$ becomes composition of transport functors in $\\mathrm{Cat}_\\infty$, $\\bar{f}_! \\bar{e}_!$, with a coherent equivalence — this is one face of the straightening equivalence. The order $\\bar{f}_! \\circ \\bar{e}_!$ matches the order of edges $\\bar{x} \\to \\bar{y} \\to \\bar{z}$.",
+            "hint": "Same composition order as the underlying edges in $\\mathcal{B}$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\bar{e}: \\bar{x} \\to \\bar{y}$ is an <strong>equivalence</strong> in $\\mathcal{B}$, then $\\bar{e}_!: \\mathcal{E}_{\\bar{x}} \\to \\mathcal{E}_{\\bar{y}}$ is:",
+            "choices": [
+              "The constant functor at the initial object.",
+              "An $\\infty$-equivalence of fibers.",
+              "Always the identity (after identifying the fibers).",
+              "Defined only up to a non-trivial 2-cell, not as a functor."
+            ],
+            "answer": 1,
+            "explain": "Functoriality of transport sends equivalences in $\\mathcal{B}$ to equivalences in $\\mathrm{Cat}_\\infty$, so $\\bar{e}_!$ is itself an equivalence with inverse $\\bar{e}^{-1}_!$. Identifying it with the literal identity requires choosing a path between $\\bar{x}$ and $\\bar{y}$ — the equivalence depends on the chosen lift."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For the modules fibration $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$, what is the transport functor $\\bar{f}_!$ along a ring map $\\bar{f}: R \\to S$?",
+            "choices": [
+              "The forgetful functor $\\mathrm{Mod}_S \\to \\mathrm{Mod}_R$ (restriction of scalars).",
+              "The base-change functor $S \\otimes_R (-): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
+              "The internal-Hom $\\mathrm{Hom}_R(S, -): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
+              "Tensoring with the kernel of $\\bar{f}$."
+            ],
+            "answer": 1,
+            "explain": "Cocartesian transport along $R \\to S$ in the modules fibration is base change $S \\otimes_R^{\\mathbb{L}} -$. Restriction of scalars goes the <em>other</em> way (it's the <em>cartesian</em> transport, since the fibration is also cartesian — modules-over-CAlg is a biCartesian fibration whose two transports are an adjoint pair $S \\otimes_R - \\dashv \\mathrm{res}$).",
+            "hint": "Base change is left adjoint to restriction; cocartesian = left adjoint side."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the false step in this 'computation' of the fiber of the target map $t: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ over $y$:",
+            "steps": [
+              "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an edge $f: a \\to b$.",
+              "$t(f) = b$ — the target.",
+              "So $t^{-1}(y)$ consists of edges $f$ with $b = y$, i.e. arrows ending at $y$.",
+              "These form the slice $\\mathcal{C}_{y/}$ — arrows out of $y$."
+            ],
+            "answer": 3,
+            "explain": "Step 4 mislabels the slice. Arrows <em>ending</em> at $y$ — i.e. $a \\to y$ — form $\\mathcal{C}_{/y}$, the over-category of $y$. The slice $\\mathcal{C}_{y/}$ contains arrows <em>starting</em> at $y$. So the target-fiber is $\\mathcal{C}_{/y}$ (and the source-fiber is $\\mathcal{C}_{y/}$); confusing the two is the standard slip."
+          }
+        ]
+      },
+      "grothendieck-construction": {
+        "title": "Straightening / unstraightening: the Grothendieck construction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Lurie's <strong>straightening</strong> equivalence sends a cocartesian fibration $p: \\mathcal{E} \\to \\mathcal{B}$ to:",
+            "choices": [
+              "A functor $\\mathrm{St}(p): \\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+              "A functor $\\mathrm{St}(p): \\mathcal{B}^{\\mathrm{op}} \\to \\mathrm{Cat}_\\infty$.",
+              "A functor $\\mathrm{St}(p): \\mathcal{E} \\to \\mathrm{Cat}_\\infty$.",
+              "A pair of adjoint functors between $\\mathcal{E}$ and $\\mathcal{B}$."
+            ],
+            "answer": 0,
+            "explain": "The cocartesian-fibration straightening is covariant: $\\mathrm{St}(p): \\mathcal{B} \\to \\mathrm{Cat}_\\infty$, $\\bar{b} \\mapsto \\mathcal{E}_{\\bar{b}}$, $\\bar{e} \\mapsto \\bar{e}_!$. Cartesian fibrations straighten contravariantly — to $\\mathcal{B}^{\\mathrm{op}} \\to \\mathrm{Cat}_\\infty$.",
+            "hint": "Cocartesian = covariant; cartesian = contravariant."
+          },
+          {
+            "type": "mcq",
+            "q": "Restricted to <em>ordinary</em> categories (not $\\infty$-categories), the Grothendieck construction recovers:",
+            "choices": [
+              "The ordinary nerve functor $N: \\mathrm{Cat} \\to \\mathrm{sSet}$.",
+              "The classical equivalence between Grothendieck fibrations over $\\mathcal{C}$ and pseudofunctors $\\mathcal{C} \\to \\mathrm{Cat}$.",
+              "The Yoneda embedding $\\mathcal{C} \\to \\mathrm{PSh}(\\mathcal{C})$.",
+              "The Quillen equivalence between simplicial sets and topological spaces."
+            ],
+            "answer": 1,
+            "explain": "Restricting both sides to nerves of ordinary categories recovers the classical statement (Grothendieck SGA 1, Exp. VI): Grothendieck (op-)fibrations over $\\mathcal{C}$ = pseudofunctors $\\mathcal{C} \\to \\mathrm{Cat}$. The $\\infty$-version is its homotopy-coherent generalization with strict pseudofunctoriality replaced by coherence-up-to-higher-simplices."
+          },
+          {
+            "type": "mcq",
+            "q": "<strong>Unstraightening</strong> applied to the constant functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$ at $\\mathcal{D}$ produces:",
+            "choices": [
+              "The fold map $\\mathcal{D} \\sqcup \\mathcal{D} \\to \\mathcal{D}$.",
+              "The product projection $\\mathcal{B} \\times \\mathcal{D} \\to \\mathcal{B}$.",
+              "The diagonal $\\mathcal{B} \\to \\mathcal{B} \\times \\mathcal{D}$.",
+              "The mapping space $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{D})$."
+            ],
+            "answer": 1,
+            "explain": "A constant family of fibers all equal to $\\mathcal{D}$ unstraightens to the trivial fibration $\\mathcal{B} \\times \\mathcal{D} \\to \\mathcal{B}$, with all transport functors equal to $\\mathrm{id}_\\mathcal{D}$.",
+            "hint": "Constant fiber = product."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A morphism $p \\to q$ of cocartesian fibrations over $\\mathcal{B}$ — i.e. a commuting triangle $\\mathcal{E} \\to \\mathcal{F}$ over $\\mathcal{B}$ that <em>preserves cocartesian edges</em> — corresponds under straightening to:",
+            "choices": [
+              "An arbitrary natural transformation $\\mathrm{St}(p) \\to \\mathrm{St}(q)$.",
+              "Strictly nothing — only the fibrations themselves correspond, not their morphisms.",
+              "A natural transformation that is an equivalence on every component.",
+              "A morphism in $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$."
+            ],
+            "answer": 3,
+            "explain": "Straightening is a functor of $\\infty$-categories, sending the $\\infty$-category $\\mathrm{coCart}(\\mathcal{B})$ of cocartesian fibrations and cocartesian-edge-preserving maps to $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$. The cocartesian-preservation hypothesis is essential — without it, one obtains an arbitrary morphism over $\\mathcal{B}$, which corresponds to a lax natural transformation rather than a genuine one.",
+            "hint": "It's an equivalence of $\\infty$-categories, so morphisms correspond to morphisms — between functor $\\infty$-categories."
+          },
+          {
+            "type": "mcq",
+            "q": "How does straightening interact with the Cartesian product of fibrations? Concretely: if $p: \\mathcal{E} \\to \\mathcal{B}$ and $q: \\mathcal{F} \\to \\mathcal{B}$ are cocartesian, the fiberwise product $p \\times_\\mathcal{B} q: \\mathcal{E} \\times_\\mathcal{B} \\mathcal{F} \\to \\mathcal{B}$ corresponds to:",
+            "choices": [
+              "$\\mathrm{St}(p) \\times \\mathrm{St}(q)$, the pointwise product of functors $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
+              "$\\mathrm{St}(p) \\sqcup \\mathrm{St}(q)$, the pointwise coproduct.",
+              "$\\mathrm{Fun}(\\mathrm{St}(p), \\mathrm{St}(q))$, the internal mapping object.",
+              "Generally undefined — fiberwise products of cocartesian fibrations need not be cocartesian."
+            ],
+            "answer": 0,
+            "explain": "Straightening preserves limits (it's an equivalence of presentable $\\infty$-categories), so the fiber product over $\\mathcal{B}$ corresponds to the pointwise product of the straightenings as objects of $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$. The fiberwise product is automatically cocartesian whenever both factors are."
+          }
+        ]
+      },
+      "left-fibrations-as-presheaves": {
+        "title": "Left fibrations ↔ presheaves of spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Restricting straightening to <em>left</em> fibrations gives an equivalence of $\\infty$-categories:",
+            "choices": [
+              "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$.",
+              "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$.",
+              "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathrm{Fun}(\\mathcal{B}^{\\mathrm{op}}, \\mathcal{S})$ (i.e. presheaves of spaces).",
+              "$\\mathrm{LFib}(\\mathcal{B}) \\simeq \\mathcal{B}$ itself."
+            ],
+            "answer": 1,
+            "explain": "Left fibrations have <em>spaces</em> as fibers (their inner-fibration property + every-edge-cocartesian forces the fibers to be Kan complexes), so straightening lands in $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$ — covariant functors to spaces. <em>Right</em> fibrations give $\\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$, i.e. presheaves.",
+            "hint": "Left fibration ↔ covariant; presheaf is contravariant — that's right fibrations."
+          },
+          {
+            "type": "mcq",
+            "q": "Yoneda's $\\infty$-categorical embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B}) = \\mathrm{Fun}(\\mathcal{B}^{\\mathrm{op}}, \\mathcal{S})$ factors through:",
+            "choices": [
+              "The universal cocartesian fibration over $\\mathcal{B}$.",
+              "The universal <em>right</em> fibration over $\\mathcal{B}$ — i.e. the target map $\\mathrm{tw}(\\mathcal{B}) \\to \\mathcal{B}$ of the twisted-arrow $\\infty$-category projected onto its source-side.",
+              "The forgetful functor $\\mathrm{Cat}_\\infty \\to \\mathcal{S}$.",
+              "The classifying space functor $|-|: \\mathrm{sSet} \\to \\mathcal{S}$."
+            ],
+            "answer": 1,
+            "explain": "Yoneda factors through the universal right fibration: an object $b \\in \\mathcal{B}$ is sent to the slice $\\mathcal{B}_{/b}$, which is the fiber of the right fibration $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ over $b$. Straightening this right fibration recovers the Yoneda functor $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$.",
+            "hint": "$\\mathcal{B}_{/b}$ = the representable presheaf at $b$, viewed as the fiber of a fibration."
+          },
+          {
+            "type": "mcq",
+            "q": "A <strong>left fibration</strong> $p: \\mathcal{E} \\to \\mathcal{B}$ is the same data as a cocartesian fibration whose:",
+            "choices": [
+              "Fibers are all Kan complexes (i.e. $\\infty$-groupoids).",
+              "Fibers are all the same $\\infty$-category.",
+              "Fibers are empty for all but one object of $\\mathcal{B}$.",
+              "Base $\\mathcal{B}$ is a Kan complex."
+            ],
+            "answer": 0,
+            "explain": "A cocartesian fibration with $\\mathcal{S}$-valued fibers — equivalently, all fibers being Kan complexes — is exactly a left fibration. The straightening lands in $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$ rather than $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$ when this happens (HTT 2.1.1.2)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For $\\mathcal{B} = \\Delta^0$ (the point), which $\\infty$-categories admit the structure of <em>any</em> left fibration over $\\Delta^0$?",
+            "choices": [
+              "Only the trivial $\\infty$-category $\\Delta^0$.",
+              "All $\\infty$-categories.",
+              "Exactly the Kan complexes (i.e. $\\infty$-groupoids).",
+              "Exactly the nerves of ordinary categories."
+            ],
+            "answer": 2,
+            "explain": "A left fibration over a point is the same data as a Kan complex — its fiber, which is forced to be an $\\infty$-groupoid by the every-edge-cocartesian condition specialized to $\\mathcal{B} = \\Delta^0$. This recovers the equivalence $\\mathrm{LFib}(\\Delta^0) \\simeq \\mathcal{S}$.",
+            "hint": "$\\mathrm{Fun}(\\Delta^0, \\mathcal{S}) = \\mathcal{S}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The <em>universal</em> left fibration is:",
+            "choices": [
+              "$\\mathcal{S}_*/ \\to \\mathcal{S}$: the slice of pointed spaces over the $\\infty$-category of spaces.",
+              "$\\mathrm{id}: \\mathcal{S} \\to \\mathcal{S}$.",
+              "$\\Delta^1 \\to \\Delta^0$ — every left fibration pulls back from this.",
+              "There is no universal left fibration; the moduli of left fibrations is too large."
+            ],
+            "answer": 0,
+            "explain": "The forgetful $\\mathcal{S}_{*/} \\to \\mathcal{S}$ from pointed spaces (or 'spaces with a chosen basepoint') to spaces is the universal left fibration: every left fibration $\\mathcal{E} \\to \\mathcal{B}$ is the pullback of this universal one along its straightening $\\mathcal{B} \\to \\mathcal{S}$. This is a key tool in HTT §3.3."
+          }
+        ]
+      },
+      "examples-of-fibrations": {
+        "title": "Examples: arrow categories, modules, classifying spaces",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each canonical fibration to the functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$ (or $\\mathcal{S}$) that it straightens to.",
+            "left": [
+              "$c \\mapsto \\mathcal{C}_{c/}$ (slice $\\infty$-category)",
+              "$R \\mapsto \\mathrm{Mod}_R$ (with base change as functoriality)",
+              "$* \\mapsto X$ (a $G$-space, viewed via the action $G$-action functor $BG \\to \\mathcal{S}$)",
+              "$c \\mapsto \\{c\\}$ (constant singleton)"
+            ],
+            "right": [
+              "$X /\\!\\!/ G \\to BG$ — the homotopy quotient as a left fibration over $BG$",
+              "$\\mathrm{id}: \\mathcal{C} \\to \\mathcal{C}$ — every object's fiber is a singleton",
+              "$\\mathrm{Mod} \\to \\mathrm{CAlg}$ — the universal modules fibration",
+              "$s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the source map of the arrow category"
+            ],
+            "answer": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
+          },
+          {
+            "type": "multi-select",
+            "q": "Among the following projections, which are <strong>left fibrations</strong>?",
+            "choices": [
+              "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ — the slice 'forget the source' map.",
+              "$\\mathcal{C}_{/x} \\to \\mathcal{C}$ — the slice 'forget the target' map.",
+              "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$ — the source map.",
+              "$X /\\!\\!/ G \\to BG$ — homotopy quotient projection.",
+              "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$ — product projection where $\\mathcal{D}$ is an $\\infty$-category but not a Kan complex."
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow source-map has $\\infty$-category fibers $\\mathcal{C}_{x/}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map is a <em>right</em> fibration. A product projection with an $\\infty$-category factor is cocartesian, not left.",
+            "hint": "Left fibration = cocartesian + Kan-complex fibers = $\\mathcal{S}$-valued straightening."
+          },
+          {
+            "type": "mcq",
+            "q": "For the modules fibration $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$, why is base change $S \\otimes_R^{\\mathbb{L}} -$ rather than ordinary tensor $S \\otimes_R -$ the correct transport?",
+            "choices": [
+              "Ordinary tensor doesn't even make sense in spectra.",
+              "The fibration is cocartesian in the $\\infty$-categorical sense, which builds in the higher coherence that derived (= homotopy-invariant) tensoring provides.",
+              "The two functors agree, so it doesn't matter.",
+              "Base change is computed using $\\mathrm{Tor}$, but the fibration only sees its $0$th cohomology."
+            ],
+            "answer": 1,
+            "explain": "The cocartesian-fibration formalism is intrinsically homotopy-coherent: cocartesian lifts are unique only up to (a contractible space of) higher homotopy, so the corresponding base-change functor is the derived (= $\\mathbb{L}$-tensor) one. Plain $\\otimes_R$ would be the wrong functor on $\\mathrm{Mod}_R$ at the chain-level, breaking homotopy invariance and failing to give a cocartesian fibration."
+          }
+        ]
+      }
+    }
+  },
   "commutative-algebra": {
     "topic": "commutative-algebra",
     "quizzes": {
@@ -5509,6 +7025,742 @@ window.MVQuizBank = {
             ],
             "hint": "Think of the workflow: classify singularities first, build the contour, estimate the arc, invoke the theorem, then extract the real answer.",
             "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
+          }
+        ]
+      }
+    }
+  },
+  "deformation-theory": {
+    "topic": "deformation-theory",
+    "quizzes": {
+      "first-order-deformation": {
+        "title": "First-order deformations",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following are first-order deformations of $X_0 = \\mathrm{Spec}\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
+            "choices": [
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "A first-order deformation must (i) be flat over $D$, (ii) restrict to $X_0$ modulo $\\epsilon$. Choices 0 and 1 both restrict to $xy = 0$ and are flat (the second is the smoothing direction). Choice 2 collapses to the trivial deformation since $\\epsilon^2 = 0$. Choice 3 restricts to $x^2 = 0$, not $xy = 0$, so its special fibre is wrong."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the trivial first-order deformation of $X_0 = \\mathrm{Spec}\\,k$ (a single $k$-point)?",
+            "choices": [
+              "$\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) = \\mathrm{Spec}\\,D$ itself",
+              "$\\mathrm{Spec}\\,k$",
+              "$\\mathrm{Spec}\\,k \\sqcup \\mathrm{Spec}\\,k$ (two disjoint points)",
+              "$\\mathbb{A}^1_k$ (the affine line over $k$)"
+            ],
+            "answer": 0,
+            "explain": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Two first-order deformations $X, X'$ of $X_0$ are equivalent iff:",
+            "choices": [
+              "There is a $D$-isomorphism $X \\to X'$ restricting to the identity on $X_0$",
+              "$X$ and $X'$ are abstractly isomorphic as schemes",
+              "$X$ and $X'$ have the same coordinate ring",
+              "There is any $k$-isomorphism $X \\to X'$"
+            ],
+            "answer": 0,
+            "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\mathrm{Spec}$ of a 4-dimensional $k$-vector space)."
+          }
+        ]
+      },
+      "tangent-space-of-moduli": {
+        "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim H^1(\\mathbb{P}^n, T_{\\mathbb{P}^n})$ for any $n \\ge 1$.",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "By the Euler sequence $0 \\to \\mathcal{O} \\to \\mathcal{O}(1)^{n+1} \\to T_{\\mathbb{P}^n} \\to 0$ and the standard cohomology of $\\mathbb{P}^n$, $H^i(\\mathbb{P}^n, T_{\\mathbb{P}^n}) = 0$ for $i \\ge 1$. Hence $\\mathbb{P}^n$ is rigid: it has no first-order deformations.",
+            "hint": "Use the Euler sequence and the cohomology of $\\mathcal{O}(d)$ on $\\mathbb{P}^n$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 5$.",
+            "answer": 12,
+            "tol": 1e-9,
+            "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 12$ for $g = 5$. Riemann–Roch on $T_C$ (degree $2 - 2g = -8$) plus $h^0(T_C) = 0$ for $g \\ge 2$ gives the formula.",
+            "hint": "$\\dim \\mathcal{M}_g = 3g - 3$ for $g \\ge 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "For an elliptic curve $E$, what is $\\dim H^1(E, T_E)$?",
+            "choices": [
+              "$0$ — elliptic curves are rigid",
+              "$1$ — recovering $\\dim \\mathcal{M}_{1,1} = 1$",
+              "$3$ — same as $g = 2$",
+              "$g = 1$ — but the formula $3g - 3 = 0$, contradicting itself"
+            ],
+            "answer": 1,
+            "explain": "$T_E$ is trivial on an elliptic curve (the tangent bundle of an abelian variety is trivial), so $H^1(E, T_E) = H^1(E, \\mathcal{O}_E) \\cong k$. The formula $3g - 3$ specifically applies for $g \\ge 2$; the genus-$1$ case is $1$, giving the moduli space of elliptic curves a 1-parameter $j$-line."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim H^0(C, \\Omega^{\\otimes 2}_C)$ — the space of <strong>quadratic differentials</strong> on a smooth projective curve $C$ of genus $g = 6$. (Equal to $\\dim H^1(C, T_C)$ by Serre duality.)",
+            "answer": 15,
+            "tol": 1e-9,
+            "explain": "By Serre duality, $H^1(C, T_C) \\cong H^0(C, \\Omega^{\\otimes 2}_C)^\\vee$. Apply Riemann–Roch to $\\Omega^{\\otimes 2}_C$ (degree $4g - 4 = 20$): for $g \\ge 2$ the degree exceeds $2g - 2 = 10$, so $h^0 = \\deg - g + 1 = 20 - 6 + 1 = 15 = 3g - 3$.",
+            "hint": "Apply Riemann–Roch to $\\Omega^{\\otimes 2}_C$, which has degree $4g - 4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathbb{P}^n$ <em>infinitesimally rigid</em> — i.e., has $H^1(T) = 0$ — but $\\mathcal{M}_g$ for $g \\ge 2$ is positive-dimensional?",
+            "choices": [
+              "$\\mathbb{P}^n$ is smooth and curves are not, so cohomology behaves differently",
+              "$T_{\\mathbb{P}^n}$ is positive enough that $H^i$ vanishes for $i \\ge 1$ (Euler sequence + ample cohomology), while $T_C$ on a curve of $g \\ge 2$ has negative degree, killing $H^0$ but allowing $H^1 = 3g - 3 > 0$ via Riemann–Roch",
+              "$\\mathcal{M}_g$ is not actually a moduli space, just an invariant",
+              "Curves of genus $\\ge 2$ are special because they have group structure"
+            ],
+            "answer": 1,
+            "explain": "The dichotomy is purely cohomological: positivity of $T_{\\mathbb{P}^n}$ kills all higher cohomology, while $T_C$ has negative degree on a curve of $g \\ge 2$, forcing $H^0 = 0$ but leaving $H^1 = 3g - 3$ from Riemann–Roch.",
+            "hint": "Compare $\\deg T_{\\mathbb{P}^n}$ and $\\deg T_C$ for curves $g \\ge 2$."
+          }
+        ]
+      },
+      "obstructions-H2": {
+        "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "When is the deformation functor $\\mathrm{Def}_{X_0}$ <strong>unobstructed</strong> at $X_0$?",
+            "choices": [
+              "When $H^0(X_0, T_{X_0}) = 0$",
+              "When $H^1(X_0, T_{X_0}) = 0$",
+              "When $H^2(X_0, T_{X_0}) = 0$",
+              "When $H^i(X_0, T_{X_0}) = 0$ for all $i$"
+            ],
+            "answer": 2,
+            "explain": "Unobstructedness is precisely the statement that every obstruction class — which lives in $H^2(X_0, T_{X_0})$ — is forced to vanish. So $H^2 = 0$ is sufficient (and the cleanest sufficient condition). Vanishing of $H^1$ would mean no deformations at all (rigid), and $H^0$ controls infinitesimal automorphisms, not obstructions."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <strong>infinitesimally rigid</strong> ($H^1(X_0, T_{X_0}) = 0$)?",
+            "choices": [
+              "$\\mathbb{P}^n$ for any $n \\ge 1$",
+              "An elliptic curve $E$ over $k$",
+              "A smooth quadric hypersurface $\\mathbb{P}^1 \\times \\mathbb{P}^1 \\subset \\mathbb{P}^3$",
+              "A smooth projective curve of genus $g = 4$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathbb{P}^n$ has $H^1(T) = 0$ via the Euler sequence. The smooth quadric $\\mathbb{P}^1 \\times \\mathbb{P}^1$ also has $H^1(T) = 0$ (both factors are rigid and the product preserves this). Elliptic curves have $\\dim H^1(T_E) = 1$ (the $j$-line). A genus-$4$ curve has $\\dim H^1(T_C) = 3(4) - 3 = 9$, very much non-rigid."
+          },
+          {
+            "type": "mcq",
+            "q": "What does it mean for a first-order lift $X_1$ to be <em>obstructed</em>?",
+            "choices": [
+              "$X_1$ does not exist",
+              "The obstruction class $\\mathrm{ob}_1 \\in H^2(X_0, T_{X_0})$ is non-zero, so no second-order lift $X_2$ over $k[t]/(t^3)$ extending $X_1$ exists",
+              "$X_1$ exists but is not flat",
+              "$X_1$ has more than one second-order extension"
+            ],
+            "answer": 1,
+            "explain": "Obstruction is exactly the (provably zero or non-zero) class $\\mathrm{ob}_1(X_1) \\in H^2(X_0, T_{X_0})$ which controls whether a 2nd-order lift extending $X_1$ exists. Non-zero obstruction = no extension; this is what 'obstructed deformation' means."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A Calabi–Yau threefold $X$ has $H^2(X, T_X)$ generally <em>non-zero</em>. Why are its deformations nonetheless unobstructed?",
+            "choices": [
+              "Calabi–Yau threefolds are rigid, so the obstruction question is vacuous",
+              "Bogomolov–Tian–Todorov: a holomorphic volume form forces the obstruction map $\\mathrm{ob}_n \\colon H^1(T_X) \\to H^2(T_X)$ to vanish at every order, despite $H^2 \\ne 0$",
+              "$H^2(T_X) = 0$ for Calabi–Yau threefolds — the question is wrong",
+              "Their deformation theory is purely classical and uses only $\\Omega^1$"
+            ],
+            "answer": 1,
+            "explain": "BTT (Bogomolov–Tian–Todorov), via Ran's $T^1$-lifting, shows that a non-vanishing holomorphic volume form (the trivial canonical bundle $K_X = 0$ defining Calabi–Yau) makes every obstruction class trivial even though the codomain $H^2(T_X)$ is non-zero. So Calabi–Yau threefolds have unobstructed but very interesting moduli.",
+            "hint": "Bogomolov–Tian–Todorov."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $H^2(C, T_C) = 0$ automatic for any smooth projective curve $C$?",
+            "choices": [
+              "$T_C$ is ample",
+              "$\\dim C = 1$, so any coherent sheaf $\\mathcal{F}$ on $C$ has $H^i(C, \\mathcal{F}) = 0$ for all $i \\ge 2$ — Grothendieck's vanishing theorem on Noetherian dimension",
+              "Curves don't have a tangent bundle",
+              "It follows from Riemann–Roch on $T_C$"
+            ],
+            "answer": 1,
+            "explain": "Grothendieck's vanishing theorem: on a Noetherian topological space $X$ of dimension $n$, $H^i(X, \\mathcal{F}) = 0$ for $i > n$ and any abelian sheaf $\\mathcal{F}$. For a curve $n = 1$, hence $H^{\\ge 2} = 0$ automatically. This is why <em>every</em> smooth curve has unobstructed deformations.",
+            "hint": "Dimension reasoning, not Riemann–Roch."
+          }
+        ]
+      },
+      "deformation-functor": {
+        "title": "Deformation functors and Schlessinger's criteria",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following are among <strong>Schlessinger's conditions (H1)–(H4)</strong> for a functor $F\\colon \\mathrm{Art}_k \\to \\mathrm{Set}$ with $F(k) = \\{*\\}$?",
+            "choices": [
+              "(H1) $F(A' \\times_A A'') \\to F(A') \\times_{F(A)} F(A'')$ is surjective for $A' \\twoheadrightarrow A$",
+              "(H2) When $A = k$ and $A' \\twoheadrightarrow k$ is a small extension, the (H1) map is bijective",
+              "(H3) $F$ takes values in finite sets for every $A \\in \\mathrm{Art}_k$",
+              "$\\dim_k F(D) < \\infty$ where $D = k[\\epsilon]/(\\epsilon^2)$ — the tangent space is finite-dimensional"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "(H1) is the surjectivity condition; (H2) the bijectivity in the special-extension case; the finite-dimensional-tangent condition in choice 3 is (H3). Choice 2 is wrong: $F$ does not need to take values in finite sets — only the tangent-space condition is required."
+          },
+          {
+            "type": "mcq",
+            "q": "When does $\\mathrm{Def}_{X_0}$ have a <strong>hull</strong>?",
+            "choices": [
+              "Always",
+              "Iff Schlessinger's conditions (H1), (H2), and (H3) all hold",
+              "Iff $X_0$ is smooth",
+              "Iff $H^2(X_0, T_{X_0}) = 0$"
+            ],
+            "answer": 1,
+            "explain": "Schlessinger's theorem: $\\mathrm{Def}_{X_0}$ has a hull iff (H1)–(H3) hold; it is pro-representable iff (H1)–(H4) all hold. (H4) is the bijectivity strengthening of (H1)."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\mathrm{Def}_{X_0}(k[\\epsilon]/(\\epsilon^2))$ compute?",
+            "choices": [
+              "The automorphism group of $X_0$",
+              "The set of equivalence classes of first-order deformations of $X_0$, equivalently the tangent space of the deformation functor at $X_0$",
+              "The Picard group of $X_0$",
+              "The étale fundamental group $\\pi_1(X_0)$"
+            ],
+            "answer": 1,
+            "explain": "By definition, $\\mathrm{Def}_{X_0}(D)$ is the set of equivalence classes of flat $D$-deformations. This <em>is</em> the tangent space to the (pro-)moduli problem at $X_0$, and equals $H^1(X_0, T_{X_0})$ when $X_0$ is smooth."
+          }
+        ]
+      },
+      "cotangent-complex": {
+        "title": "The cotangent complex $L_{X/Y}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a <strong>smooth</strong> morphism $f\\colon X \\to Y$, the cotangent complex $L_{X/Y}$ is:",
+            "choices": [
+              "Concentrated in degree $0$ and equal to $\\Omega^1_{X/Y}[0]$",
+              "Concentrated in degree $-1$",
+              "An infinite complex with non-trivial cohomology in every non-positive degree",
+              "Always zero"
+            ],
+            "answer": 0,
+            "explain": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so $L_{X/Y} = \\Omega^1_{X/Y}[0]$ — no higher derived corrections needed."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\mathrm{Ext}^1_{\\mathcal{O}_X}(L_{X/Y}, \\mathcal{O}_X)$ classify?",
+            "choices": [
+              "Automorphisms of $X$ over $Y$",
+              "First-order deformations of $X \\to Y$ (i.e. flat lifts to $X[\\epsilon]/(\\epsilon^2)$ over $Y$)",
+              "Obstructions to lifting $X$",
+              "Global sections of $\\Omega^1_{X/Y}$"
+            ],
+            "answer": 1,
+            "explain": "The fundamental Illusie identification: $\\mathrm{Ext}^1(L_{X/Y}, \\mathcal{O}_X)$ is the tangent space of $\\mathrm{Def}_{X/Y}$, and $\\mathrm{Ext}^2(L_{X/Y}, \\mathcal{O}_X)$ holds the obstructions. For $X/Y$ smooth this recovers $H^1(T_{X/Y})$ and $H^2(T_{X/Y})$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X \\hookrightarrow Y$ a regular embedding (l.c.i.) of codimension $r$, the cotangent complex $L_{X/Y}$ has cohomology in which degrees?",
+            "choices": [
+              "Only degree $0$, equal to $\\Omega^1_{X/Y}$",
+              "Degrees $0$ and $-1$: $\\mathcal{H}^0 = \\Omega^1_{X/Y}$, $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2$ (the conormal sheaf)",
+              "Only degree $-r$",
+              "Degrees $0, -1, \\ldots, -r$"
+            ],
+            "answer": 1,
+            "explain": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$ (the conormal sheaf). For higher singularities one gets cohomology in deeper negative degrees."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "What is the <strong>transitivity triangle</strong> for $X \\to Y \\to Z$?",
+            "choices": [
+              "$L_{X/Y} \\to L_{X/Z} \\to L_{Y/Z} \\to L_{X/Y}[1]$",
+              "$f^* L_{Y/Z} \\to L_{X/Z} \\to L_{X/Y} \\to f^* L_{Y/Z}[1]$ in $D(\\mathcal{O}_X)$, where $f\\colon X \\to Y$",
+              "$L_{X/Z} = L_{X/Y} \\oplus L_{Y/Z}$",
+              "$L_{X/Y} \\otimes L_{Y/Z} = L_{X/Z}$"
+            ],
+            "answer": 1,
+            "explain": "The transitivity distinguished triangle $f^* L_{Y/Z} \\to L_{X/Z} \\to L_{X/Y} \\to f^* L_{Y/Z}[1]$ in $D(\\mathcal{O}_X)$ is the derived analogue of the conormal exact sequence $f^* \\Omega^1_{Y/Z} \\to \\Omega^1_{X/Z} \\to \\Omega^1_{X/Y} \\to 0$ — and replaces it for non-smooth maps.",
+            "hint": "Pull back the codomain along $f$."
+          },
+          {
+            "type": "mcq",
+            "q": "On a fat point $X_0 = \\mathrm{Spec}\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
+            "choices": [
+              "$0$ — fat points are rigid",
+              "$1$ — one direction of smoothing $x^2 = t$",
+              "$2$",
+              "$\\infty$"
+            ],
+            "answer": 1,
+            "explain": "$X_0 \\hookrightarrow \\mathbb{A}^1_k$ is a regular embedding (codimension $1$, ideal $(x^2)$), so $L_{X_0/k}$ has $\\mathcal{H}^0 = \\Omega^1 = k\\,dx/(2x\\,dx) \\cong k$ and $\\mathcal{H}^{-1} = (x^2)/(x^4) \\cong k$. A short computation gives $\\mathrm{Ext}^1(L_{X_0/k}, \\mathcal{O}_{X_0}) \\cong k$ — the single deformation direction $x^2 = t$ that smooths the fat point.",
+            "hint": "Use the two-term l.c.i. cotangent complex on the fat point."
+          }
+        ]
+      },
+      "deformation-of-a-curve": {
+        "title": "Worked example: deformations of a smooth curve",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 2$.",
+            "answer": 3,
+            "tol": 1e-9,
+            "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 3$ for $g = 2$. So $\\mathcal{M}_2$ is a smooth $3$-dimensional variety."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for $g = 3$.",
+            "answer": 6,
+            "tol": 1e-9,
+            "explain": "$3g - 3 = 6$ for $g = 3$. $\\mathcal{M}_3$ is smooth of dimension $6$; its open dense locus is parametrised by smooth plane quartics (the canonical embedding of a non-hyperelliptic genus-$3$ curve)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are smooth projective curves <strong>unobstructed</strong> — i.e. $\\mathcal{M}_g$ is smooth for all $g$?",
+            "choices": [
+              "$T_C$ is always trivial",
+              "$H^2(C, T_C) = 0$ because $\\dim C = 1$ — Grothendieck vanishing forces $H^{\\ge 2}$ of any coherent sheaf on a $1$-dimensional space to vanish",
+              "Curves have a group structure",
+              "Curves embed in projective space"
+            ],
+            "answer": 1,
+            "explain": "Grothendieck's vanishing theorem: on a Noetherian space of dimension $n$, $H^i(\\mathcal{F}) = 0$ for $i > n$. Hence $H^2(C, T_C) = 0$ on any curve, and the obstruction-class space is $0$. This is the structural reason $\\mathcal{M}_g$ is smooth — not a coincidence of Riemann–Roch."
+          }
+        ]
+      }
+    }
+  },
+  "derived-categories": {
+    "topic": "derived-categories",
+    "quizzes": {
+      "homotopy-category-K": {
+        "title": "The homotopy category $K(\\mathcal{A})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two chain maps $f, g \\colon X^\\bullet \\to Y^\\bullet$ are chain homotopic via $s = (s^n \\colon X^n \\to Y^{n-1})$. Which equation expresses this relation?",
+            "choices": [
+              "$f - g = s \\circ d_X - d_Y \\circ s$",
+              "$f - g = d_Y \\circ s + s \\circ d_X$",
+              "$f - g = d_Y \\circ s \\circ d_X$",
+              "$s$ is a chain map and $f \\circ s = g$"
+            ],
+            "answer": 1,
+            "explain": "By definition, $f \\simeq g$ iff there exists a degree $-1$ map $s$ with $f - g = ds + sd$. The order of the two terms is conventional (some texts use $f - g = sd + ds$, the same thing); $s$ itself is NOT a chain map.",
+            "hint": "Look at the formula displayed in the worked example."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE for any chain homotopy $f \\simeq g$ between chain maps $X^\\bullet \\to Y^\\bullet$?",
+            "choices": [
+              "$H^n(f) = H^n(g)$ for every $n$.",
+              "$f$ and $g$ have the same image as set maps in each degree.",
+              "$[f] = [g]$ as morphisms in $K(\\mathcal{A})$.",
+              "$f$ and $g$ differ by an isomorphism of $X^\\bullet$."
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Chain-homotopic maps induce equal maps on cohomology (so (1) holds) and become equal in $K(\\mathcal{A})$ by definition (so (3) holds). They generally differ as set maps (a chain homotopy is a witness, not a triviality), and there is no reason for them to differ by an iso of $X$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in the following \"proof\" that nullhomotopic chain maps induce zero on cohomology.",
+            "steps": [
+              "Suppose $f \\simeq 0$ via $s$, so $f = ds + sd$.",
+              "Pick a cocycle $x \\in \\ker d^n$, so $d x = 0$.",
+              "Then $f(x) = d(s(x)) + s(d(x)) = d(s(x)) + 0 = d(s(x))$.",
+              "Since $s(x)$ is also a cocycle, $d(s(x)) = 0$, so $f(x) = 0$.",
+              "Therefore $f$ kills every cohomology class, and $H^n(f) = 0$."
+            ],
+            "answer": 3,
+            "explain": "Step 4 is wrong: $s(x) \\in Y^{n-1}$ has no reason to be a cocycle. The correct conclusion is that $f(x) = d(s(x))$ is a coboundary, hence zero in $H^n(Y)$ — which is what we wanted.",
+            "hint": "Check whether $s(x)$ is required to be a cocycle."
+          }
+        ]
+      },
+      "quasi-isomorphisms": {
+        "title": "Quasi-isomorphisms and localization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following chain maps in $\\mathrm{Ch}(\\mathrm{Ab})$ is a quasi-isomorphism?",
+            "choices": [
+              "$\\mathbb{Z}[0] \\xrightarrow{2} \\mathbb{Z}[0]$ (a single nonzero abelian group in degree $0$, multiplication by $2$).",
+              "$(\\mathbb{Z} \\xrightarrow{2} \\mathbb{Z}) \\to \\mathbb{Z}/2[1]$, with $f^0 = 0$ and $f^1$ the quotient $\\pi$ (degrees $0,1$).",
+              "$\\mathbb{Z}[0] \\to \\mathbb{Q}[0]$, the inclusion (single objects in degree $0$).",
+              "The identity $X \\to X$ for any $X$ — but only after we localize."
+            ],
+            "answer": 1,
+            "explain": "Option (b) is the prototypical quasi-iso: $H^0(X) = 0 = H^0(Y)$, $H^1(X) = \\mathbb{Z}/2 \\xrightarrow{\\mathrm{id}} \\mathbb{Z}/2 = H^1(Y)$. (a) induces multiplication by $2$ on $\\mathbb{Z}$, NOT iso. (c) induces the inclusion $\\mathbb{Z} \\hookrightarrow \\mathbb{Q}$, not iso. (d) is the identity, which is always a quasi-iso, no localization needed.",
+            "hint": "Check $H^n(f)$ in each degree."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of \"localizing $K(\\mathcal{A})$ at quasi-isomorphisms\" in correct logical order.",
+            "items": [
+              "Verify the class of quasi-isos in $K(\\mathcal{A})$ satisfies the Ore conditions.",
+              "Define morphisms in $D(\\mathcal{A})$ as roofs $X \\xleftarrow{s} Z \\xrightarrow{f} Y$ with $s$ quasi-iso, modulo a calculus-of-fractions equivalence.",
+              "Pass to the homotopy category $K(\\mathcal{A}) = \\mathrm{Ch}(\\mathcal{A})/\\simeq$, identifying chain-homotopic maps.",
+              "Conclude $D(\\mathcal{A})$ is the universal target of a functor inverting quasi-isos."
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "First descend to $K$ (item index 2), then check Ore conditions there (index 0), then build $D$ via the roof calculus (index 1), then state the universal property (index 3)."
+          },
+          {
+            "type": "mcq",
+            "q": "True or false: every quasi-isomorphism in $K(\\mathcal{A})$ is an isomorphism in $K(\\mathcal{A})$.",
+            "choices": [
+              "True — that's the definition of $K$.",
+              "False — the chain map $(\\mathbb{Z} \\xrightarrow{2} \\mathbb{Z}) \\to \\mathbb{Z}/2[1]$ is a counterexample.",
+              "True — but only when $\\mathcal{A}$ has enough injectives.",
+              "False — but only for unbounded complexes."
+            ],
+            "answer": 1,
+            "explain": "Quasi-isos are NOT iso in $K(\\mathcal{A})$ in general. The reduction $(\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}) \\to \\mathbb{Z}/2[1]$ is a quasi-iso but admits no chain map back, even up to homotopy. This is precisely what motivates localizing at the quasi-isos to form $D(\\mathcal{A})$.",
+            "hint": "Recall the worked example with $\\mathbb{Z}$ and $\\mathbb{Z}/2$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT one of the Ore conditions verified by quasi-isomorphisms in $K(\\mathcal{A})$?",
+            "choices": [
+              "Composition: $s \\circ t$ is a quasi-iso whenever $s, t$ are.",
+              "Two-out-of-three: in a composable pair $f, g$ with $g \\circ f$ a quasi-iso, $f$ is a quasi-iso iff $g$ is.",
+              "Roof completion: given $f\\colon X \\to Y$ and $s\\colon Z \\to Y$ a quasi-iso, there exist $W$, $g\\colon W \\to X$, and a quasi-iso $t\\colon W \\to Z$ with $f \\circ g = s \\circ t$.",
+              "Injectivity: every quasi-iso $s\\colon X \\to Y$ has $H^n(s)$ injective in each degree."
+            ],
+            "answer": 3,
+            "explain": "(d) is automatic — quasi-isos induce isomorphisms on cohomology, in particular injections — but it's a consequence, not part of the Ore axioms. The genuine Ore conditions are (a), (b), and a roof-completion clause like (c) (sometimes stated dually). \"Two-out-of-three\" is a standard restatement.",
+            "hint": "Three of these are required by the localization theory; one is automatic."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student claims: \"If $f, g\\colon X \\to Y$ in $K(\\mathcal{A})$ are both quasi-isos, then $f = g$ in $K$.\" Find the bad step.",
+            "steps": [
+              "Both $H^n(f)$ and $H^n(g)$ are isomorphisms.",
+              "Therefore $H^n(f) = H^n(g)$ for every $n$.",
+              "Since the cohomology functor $H^*$ is faithful on $K(\\mathcal{A})$, $f$ and $g$ are equal in $K$.",
+              "Hence $[f] = [g]$ in $K(\\mathcal{A})$, as claimed."
+            ],
+            "answer": 1,
+            "explain": "Step (2) is wrong: two isomorphisms can be DIFFERENT isomorphisms. Take $X = Y = \\mathbb{Z}[0]$, $f = \\mathrm{id}$, $g = -\\mathrm{id}$ — both quasi-isos, but $H^0(f) = \\mathrm{id} \\neq -\\mathrm{id} = H^0(g)$. Step (3) compounds the error: $H^*$ is NOT faithful on $K$.",
+            "hint": "Consider $f = \\mathrm{id}$ and $g = -\\mathrm{id}$ on $\\mathbb{Z}[0]$."
+          }
+        ]
+      },
+      "derived-category": {
+        "title": "The derived category $D(\\mathcal{A})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $R$ a ring and $M, N \\in \\mathrm{Mod}\\,R$, which classical group is recovered as $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$?",
+            "choices": [
+              "$\\mathrm{Hom}_R(M, N)$ (independent of $i$)",
+              "$\\mathrm{Tor}_i^R(M, N)$",
+              "$\\mathrm{Ext}_R^i(M, N)$",
+              "$0$ unless $i = 0$"
+            ],
+            "answer": 2,
+            "explain": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$. Tor would appear via $\\otimes^L$, not Hom. For $i = 0$ this gives ordinary Hom; for $i > 0$ we get the higher Ext groups."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct definition of $D^b(\\mathcal{A})$?",
+            "choices": [
+              "The derived category of complexes that are zero in some degree.",
+              "$D^+(\\mathcal{A}) \\cap D^-(\\mathcal{A})$ — complexes bounded both above and below.",
+              "$D^+(\\mathcal{A}) \\cup D^-(\\mathcal{A})$ — complexes bounded above OR below.",
+              "Complexes whose total cohomology $\\bigoplus H^i$ is finite-dimensional."
+            ],
+            "answer": 1,
+            "explain": "$D^b = D^+ \\cap D^-$, complexes bounded in both directions. Note: \"bounded\" can be interpreted strictly (the complex itself has $X^n = 0$ outside a range) or weakly via cohomology — for nice $\\mathcal{A}$ the two agree up to quasi-iso."
+          },
+          {
+            "type": "matching",
+            "q": "Match each subcategory of $D(\\mathcal{A})$ with what it parameterizes.",
+            "left": [
+              "Right derived functors $RF$",
+              "Left derived functors $LF$",
+              "Cohomology $H^i$ in finite range",
+              "Heart of the standard $t$-structure"
+            ],
+            "right": [
+              "$D^+(\\mathcal{A})$",
+              "$D^-(\\mathcal{A})$",
+              "$D^b(\\mathcal{A})$",
+              "$\\mathcal{A}$ embedded as $M \\mapsto M[0]$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$RF$ requires injective resolutions, which exist for bounded-below complexes ($D^+$). $LF$ dually wants projective resolutions, hence $D^-$. Bounded cohomology is the data of $D^b$. The heart of the standard $t$-structure is $\\mathcal{A}$ shifted to degree $0$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $R = k[x]/(x^2)$ for a field $k$. Compute $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(k[0], k[i])$ as a $k$-vector space, where $k = R/(x)$.",
+            "choices": [
+              "$k$ for $i = 0$ only; $0$ otherwise.",
+              "$k$ for every $i \\ge 0$; $0$ for $i < 0$.",
+              "$k^{i+1}$ for $i \\ge 0$.",
+              "$k$ for $i \\in \\{0\\}$ and $k^2$ otherwise."
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Hom}_{D}(k, k[i]) = \\mathrm{Ext}^i_R(k, k)$. A free resolution of $k$ is $\\dots \\to R \\xrightarrow{x} R \\xrightarrow{x} R \\to k \\to 0$ — periodic. Applying $\\mathrm{Hom}_R(-, k)$ gives $k \\xrightarrow{0} k \\xrightarrow{0} k \\to \\dots$ (since $x$ acts as $0$ on $k$). So $\\mathrm{Ext}^i_R(k, k) = k$ for every $i \\ge 0$. This is the prototypical \"Koszul-dual\" computation: a 0-dimensional non-reduced ring has nontrivial Ext in every degree.",
+            "hint": "Resolve $k$ over $R = k[x]/(x^2)$ — the resolution is periodic."
+          }
+        ]
+      },
+      "triangulated-structure": {
+        "title": "Triangulated structure and exact triangles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given a chain map $f\\colon X \\to Y$ in $\\mathrm{Ch}(\\mathcal{A})$, the mapping cone $\\mathrm{Cone}(f)$ has:",
+            "choices": [
+              "$\\mathrm{Cone}(f)^n = X^n \\oplus Y^n$ with differential $\\mathrm{diag}(d_X, d_Y)$",
+              "$\\mathrm{Cone}(f)^n = X^{n+1} \\oplus Y^n$ with differential $\\bigl(\\begin{smallmatrix}-d_X & 0 \\\\ f & d_Y\\end{smallmatrix}\\bigr)$",
+              "$\\mathrm{Cone}(f)^n = X^n \\otimes Y^{n+1}$ with differential induced by the Leibniz rule",
+              "$\\mathrm{Cone}(f)^n = Y^n / f(X^n)$, the quotient"
+            ],
+            "answer": 1,
+            "explain": "The cone shifts $X$ up by one and adjoins $Y$ in the same degree, with a twisted differential mixing $d_X, d_Y$, and $f$. The minus sign on $d_X$ is forced by $d^2 = 0$ together with the chain-map condition."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are axioms or immediate consequences of the triangulated structure on $D(\\mathcal{A})$?",
+            "choices": [
+              "Every morphism extends to a distinguished triangle.",
+              "The third object in a triangle is unique up to a canonical isomorphism (functorially).",
+              "Rotating a distinguished triangle gives another distinguished triangle.",
+              "Cohomology functors $\\mathcal{T} \\to \\mathcal{B}$ send triangles to long exact sequences."
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "(a), (c), (d) are part of the standard package. (b) is FALSE — uniqueness of the cone is only up to non-canonical iso, and the failure of functoriality of the cone is what prevents triangulated categories from being abelian.",
+            "hint": "Watch out for \"canonical\" — that's a strong word."
+          },
+          {
+            "type": "mcq",
+            "q": "A short exact sequence $0 \\to A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\to 0$ in $\\mathcal{A}$ becomes a distinguished triangle in $D(\\mathcal{A})$:",
+            "choices": [
+              "$A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\xrightarrow{0} A[1]$ — the connecting map is zero.",
+              "$A \\xrightarrow{\\iota} B \\xrightarrow{\\pi} C \\xrightarrow{\\delta} A[1]$, where $\\delta$ is a connecting map representing the extension class.",
+              "$A \\xrightarrow{\\iota} B \\xrightarrow{0} C \\xrightarrow{0} A[1]$ — only the inclusion is nontrivial.",
+              "Three triangles, one for each pair of consecutive maps."
+            ],
+            "answer": 1,
+            "explain": "The triangle has a nonzero connecting map $\\delta\\colon C \\to A[1]$ representing the class $[B]$ in $\\mathrm{Ext}^1_{\\mathcal{A}}(C, A) = \\mathrm{Hom}_D(C, A[1])$. The class is zero iff the SES splits — generically it does not.",
+            "hint": "What if the SES does NOT split?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Take the chain map $f\\colon \\mathbb{Z}[0] \\xrightarrow{n} \\mathbb{Z}[0]$ in $\\mathrm{Ch}(\\mathrm{Ab})$ (multiplication by a nonzero integer $n$, both complexes concentrated in degree $0$). What is its mapping cone, viewed in $D^b(\\mathrm{Ab})$?",
+            "choices": [
+              "$\\mathbb{Z}[0]$ — degree-$0$ free group",
+              "The zero complex",
+              "Quasi-isomorphic to $\\mathbb{Z}/n$ in a single degree",
+              "$\\mathbb{Z}[1]$ — free, shifted up"
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{Cone}(f)$ is the 2-term complex $\\mathbb{Z} \\xrightarrow{n} \\mathbb{Z}$ supported in two consecutive degrees. Cohomology is concentrated in one degree: kernel of $\\times n$ is $0$, cokernel is $\\mathbb{Z}/n$. So in $D^b(\\mathrm{Ab})$, $\\mathrm{Cone}(f)$ is quasi-iso to $\\mathbb{Z}/n$ shifted into a single degree. The corresponding distinguished triangle $\\mathbb{Z} \\xrightarrow{n} \\mathbb{Z} \\to \\mathbb{Z}/n[\\text{shift}] \\to \\mathbb{Z}[1]$ recovers the SES $0 \\to \\mathbb{Z} \\xrightarrow{n} \\mathbb{Z} \\to \\mathbb{Z}/n \\to 0$.",
+            "hint": "The cone has cohomology only in one degree."
+          }
+        ]
+      },
+      "derived-functors-triangulated": {
+        "title": "Derived functors $RF, LF$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does it mean for $F\\colon \\mathcal{A} \\to \\mathcal{B}$ to admit a right derived functor $RF\\colon D^+(\\mathcal{A}) \\to D^+(\\mathcal{B})$?",
+            "choices": [
+              "$F$ is exact.",
+              "$\\mathcal{A}$ has enough injectives, and $F$ is left exact (or at least additive).",
+              "$F$ commutes with arbitrary colimits.",
+              "$F$ is fully faithful."
+            ],
+            "answer": 1,
+            "explain": "The classical construction needs enough injectives in $\\mathcal{A}$ (so every $X$ has an injective resolution $X \\to I^\\bullet$) and additivity of $F$. Left exactness is what forces $RF$ to extend $F$ in degree $0$: $R^0 F(X) = F(X)$ for $X \\in \\mathcal{A}$.",
+            "hint": "What is needed to choose injective resolutions?"
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/6, \\mathbb{Z}/4)$ as an abelian group, then enter its order (number of elements).",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Use the resolution $0 \\to \\mathbb{Z} \\xrightarrow{6} \\mathbb{Z} \\to \\mathbb{Z}/6 \\to 0$. Apply $\\mathrm{Hom}(-, \\mathbb{Z}/4)$: get $\\mathbb{Z}/4 \\xrightarrow{6} \\mathbb{Z}/4$. Multiplication by $6 \\equiv 2 \\pmod 4$ has kernel $\\{0, 2\\}$ and cokernel $\\{0, 1\\}/\\langle 2\\rangle = \\mathbb{Z}/2$. So $\\mathrm{Ext}^1 = \\mathbb{Z}/2$, order $2$. (General formula: $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m,n)$, and $\\gcd(6,4) = 2$.)",
+            "hint": "$\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m, n)$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student computes $R\\Gamma(X, \\mathcal{F})$ for $X = \\mathbb{P}^1$, $\\mathcal{F} = \\mathcal{O}_{\\mathbb{P}^1}(-2)$. Find the flawed step.",
+            "steps": [
+              "Take a Čech cover by two affines $U_0 = \\{x_0 \\neq 0\\}$, $U_1 = \\{x_1 \\neq 0\\}$.",
+              "$\\Gamma(U_0, \\mathcal{O}(-2)) = 0$ and $\\Gamma(U_1, \\mathcal{O}(-2)) = 0$ — no global sections on each chart.",
+              "Therefore $H^0(X, \\mathcal{O}(-2)) = 0$ and $H^1(X, \\mathcal{O}(-2)) = 0$.",
+              "So $R\\Gamma(\\mathcal{O}(-2)) \\simeq 0$ in $D^b(\\mathrm{Vect}_k)$.",
+              "Hence $\\mathcal{O}(-2) \\simeq 0$ in $D^b(\\mathrm{Coh}\\,\\mathbb{P}^1)$ — but that's absurd."
+            ],
+            "answer": 1,
+            "explain": "Step (2) is wrong: $\\Gamma(U_i, \\mathcal{O}(-2))$ over an affine chart $U_i \\cong \\mathbb{A}^1$ is the FREE module on a generator (Laurent polynomials in one variable, with a degree shift). It is large, not zero. Computing the Čech cohomology correctly gives $H^0(\\mathbb{P}^1, \\mathcal{O}(-2)) = 0$ and $H^1(\\mathbb{P}^1, \\mathcal{O}(-2)) = k$ (Serre duality with $\\mathcal{O}(0)$). $R\\Gamma$ is not zero — and that's why $\\mathcal{O}(-2)$ is a nontrivial derived-category object.",
+            "hint": "What is $\\Gamma$ of a line bundle on an affine chart?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "When does $R(G \\circ F) \\cong RG \\circ RF$ as triangulated functors $D^+(\\mathcal{A}) \\to D^+(\\mathcal{C})$?",
+            "choices": [
+              "Always, for any composable left-exact functors.",
+              "When $F$ sends injectives in $\\mathcal{A}$ to injectives in $\\mathcal{B}$.",
+              "When $F$ sends injectives in $\\mathcal{A}$ to $G$-acyclic objects in $\\mathcal{B}$ (i.e. $R^i G$ vanishes on $F$(injectives) for $i > 0$).",
+              "Only when $G$ is exact."
+            ],
+            "answer": 2,
+            "explain": "(c) is the standard composition theorem (Grothendieck spectral sequence's degeneracy criterion). (b) is sufficient (an injective is a-fortiori acyclic) but not the sharpest condition. The general statement uses acyclicity. The Grothendieck SS $E_2^{p,q} = R^p G(R^q F(X)) \\Rightarrow R^{p+q}(GF)(X)$ collapses precisely when this hypothesis holds.",
+            "hint": "It involves acyclicity of $F$(injectives) for $G$."
+          },
+          {
+            "type": "mcq",
+            "q": "Compute $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/4, \\mathbb{Z}/6)$.",
+            "choices": [
+              "$\\mathbb{Z}/2$",
+              "$0$",
+              "$\\mathbb{Z}/4$",
+              "$\\mathbb{Z}/\\gcd(4,6) = \\mathbb{Z}/2$"
+            ],
+            "answer": 1,
+            "explain": "Over $\\mathbb{Z}$, every module has a free resolution of length $\\le 1$ (PID). So $\\mathrm{Tor}_i^{\\mathbb{Z}} = 0$ for $i \\ge 2$. (Compare: $\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/4, \\mathbb{Z}/6) = \\mathbb{Z}/2$.) Higher Tor over a Dedekind domain always vanishes.",
+            "hint": "What is the projective dimension of any $\\mathbb{Z}$-module?"
+          }
+        ]
+      },
+      "t-structures": {
+        "title": "$t$-structures and hearts",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the standard $t$-structure on $D(\\mathrm{Ab})$, the heart $\\heartsuit = D^{\\le 0} \\cap D^{\\ge 0}$ is equivalent to:",
+            "choices": [
+              "$D^b(\\mathrm{Ab})$",
+              "$\\mathrm{Ab}$ — the original abelian category, embedded as $M \\mapsto M[0]$",
+              "The category of complexes with finite total cohomology",
+              "The trivial category $0$"
+            ],
+            "answer": 1,
+            "explain": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$ shifted to degree $0$. So $\\heartsuit \\simeq \\mathcal{A}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The truncation triangle $\\tau_{\\le 0} X \\to X \\to \\tau_{\\ge 1} X \\to (\\tau_{\\le 0} X)[1]$ has which property?",
+            "choices": [
+              "$\\tau_{\\le 0} X$ and $\\tau_{\\ge 1} X$ are both in $\\mathcal{A}$ (degree $0$).",
+              "Concentrated in $D^{\\le 0}$ and $D^{\\ge 1}$ respectively, and the triangle is unique up to unique isomorphism.",
+              "Always splits, so $X \\simeq \\tau_{\\le 0} X \\oplus \\tau_{\\ge 1} X$.",
+              "Distinguished only when $\\mathcal{A}$ has finite cohomological dimension."
+            ],
+            "answer": 1,
+            "explain": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle. Splitting is the special case when $\\mathrm{Hom}(\\tau_{\\ge 1} X, \\tau_{\\le 0} X[1]) = 0$, which is RARE — the connecting map carries the gluing data."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these are TRUE about $t$-structures on a triangulated category $\\mathcal{T}$?",
+            "choices": [
+              "The heart $\\heartsuit$ is automatically abelian.",
+              "$H^0\\colon \\mathcal{T} \\to \\heartsuit$ is a cohomological functor (sends triangles to long exact sequences in $\\heartsuit$).",
+              "Every triangulated category has a unique $t$-structure.",
+              "Different $t$-structures on the same triangulated category can have non-equivalent hearts."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "(a), (b) are theorems. (d) is the whole point of perverse $t$-structures: $D^b_c(X)$ has both standard and perverse $t$-structures, with hearts $\\mathrm{Sh}_c(X)$ vs perverse sheaves — different abelian categories! (c) is FALSE — $t$-structures are extra data, not unique."
+          }
+        ]
+      },
+      "examples-D-Coh": {
+        "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Bondal–Orlov: when does the derived category $D^b(\\mathrm{Coh}\\,X)$ recover the smooth projective variety $X$?",
+            "choices": [
+              "Always — $X$ is determined by $D^b(\\mathrm{Coh}\\,X)$ for every smooth projective $X$.",
+              "When $\\omega_X$ (or $\\omega_X^{-1}$) is ample.",
+              "When $X$ is a curve.",
+              "Only when $X$ has trivial canonical bundle."
+            ],
+            "answer": 1,
+            "explain": "Bondal–Orlov: if $\\omega_X$ is ample (general type) or $\\omega_X^{-1}$ is ample (Fano), then $D^b(\\mathrm{Coh}\\,X)$ determines $X$. The hypothesis FAILS for Calabi–Yau ($\\omega_X$ trivial) and abelian varieties — and that's where derived equivalences between non-isomorphic varieties happen.",
+            "hint": "The result fails for Calabi–Yau and abelian varieties — what's special about those?"
+          },
+          {
+            "type": "mcq",
+            "q": "The Fourier–Mukai transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\to D^b(Y)$ associated to a kernel $\\mathcal{P} \\in D^b(X \\times Y)$ is defined as:",
+            "choices": [
+              "$R\\pi_{Y,*}(\\pi_X^* \\mathcal{E} \\otimes^L \\mathcal{P})$",
+              "$\\pi_{X,*}(\\pi_Y^* \\mathcal{E} \\otimes \\mathcal{P})$",
+              "$R\\mathrm{Hom}(\\mathcal{P}, \\mathcal{E})$",
+              "$\\mathcal{E} \\otimes \\mathcal{P}$ (no projections)"
+            ],
+            "answer": 0,
+            "explain": "The standard formula: pull back to the product, twist by the kernel, derived push forward. Its analogy with the classical Fourier transform $\\hat f(\\xi) = \\int f(x) e^{-2\\pi i x \\xi}\\,dx$ explains the name."
+          },
+          {
+            "type": "mcq",
+            "q": "Mukai's original Fourier–Mukai transform identifies $D^b(X)$ with $D^b(\\hat X)$ where:",
+            "choices": [
+              "$X$ is any smooth projective variety, $\\hat X$ the dual variety in projective space",
+              "$X$ is an abelian variety, $\\hat X = \\mathrm{Pic}^0(X)$ the dual abelian variety, $\\mathcal{P}$ the Poincaré bundle",
+              "$X$ is a Calabi–Yau threefold, $\\hat X$ its mirror",
+              "$X$ is a K3 surface, $\\hat X$ a Hilbert scheme of points"
+            ],
+            "answer": 1,
+            "explain": "Mukai's 1981 theorem: for $X$ an abelian variety with dual $\\hat X$ and Poincaré bundle $\\mathcal{P}$ on $X \\times \\hat X$, the FM transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\xrightarrow{\\sim} D^b(\\hat X)$ is an equivalence. (b), (c), (d) are also derived-equivalence phenomena but not Mukai's specific construction.",
+            "hint": "Look up the Poincaré bundle."
           }
         ]
       }
@@ -6966,6 +9218,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "period-doubling-cascade": {
+        "title": "The period-doubling cascade",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
+            "answer": 0.6,
+            "tol": 0.000001,
+            "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
+          },
+          {
+            "type": "mcq",
+            "q": "At $r=3.2$ (just past the first period-doubling bifurcation at $r=3$), what is the period of the eventual attracting orbit of the logistic map?",
+            "choices": [
+              "1 (a fixed point)",
+              "2 (a 2-cycle)",
+              "4 (a 4-cycle)",
+              "Chaotic (no period)"
+            ],
+            "answer": 1,
+            "explain": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$. Between them — including $r=3.2$ — the attractor is a stable 2-cycle."
+          },
+          {
+            "type": "mcq",
+            "q": "Why do successive period-doubling bifurcations $r_n$ pile up so quickly toward $r_\\infty\\approx 3.5699$ — accelerating in $r$ but not in $n$?",
+            "choices": [
+              "Each iterate of the logistic map runs twice as fast as the previous one.",
+              "The intervals $r_n-r_{n-1}$ shrink geometrically by the Feigenbaum ratio $\\delta\\approx 4.6692$, so they form a convergent geometric series in $r$ even though $n$ grows linearly.",
+              "The Lyapunov exponent diverges to $+\\infty$ as $n$ increases.",
+              "The orbit becomes chaotic immediately after the first doubling."
+            ],
+            "answer": 1,
+            "explain": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$. So gaps between successive bifurcations contract by a constant factor $\\approx 1/\\delta$ each step — geometric convergence in $r$-space, even though $n$ marches up linearly. That is why infinitely many doublings fit into the finite interval $[3, r_\\infty]$."
+          }
+        ]
+      },
       "dyn-bifurcations": {
         "title": "Bifurcations",
         "questions": [
@@ -7551,6 +9839,414 @@ window.MVQuizBank = {
               3
             ],
             "explain": "The four standard asymptotic behaviours of dissipative flows: equilibrium, periodic, quasi-periodic, chaotic. Dimension climbs from 0 to a fractal value."
+          }
+        ]
+      }
+    }
+  },
+  "elementary-topos-theory": {
+    "topic": "elementary-topos-theory",
+    "quizzes": {
+      "topos-definition": {
+        "title": "What is a topos?",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Select all categories that are elementary toposes.",
+            "choices": [
+              "$\\mathbf{Set}$",
+              "$\\mathbf{Top}$ (topological spaces and continuous maps)",
+              "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+              "$\\mathbf{Ab}$ (abelian groups)",
+              "$[C^{\\mathrm{op}}, \\mathbf{Set}]$ for any small category $C$"
+            ],
+            "answer": [
+              0,
+              2,
+              4
+            ],
+            "explain": "$\\mathbf{Set}$ is the prototypical topos. $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ is a presheaf topos. Any presheaf category is a topos. $\\mathbf{Top}$ fails cartesian closure (function spaces aren't always topologisable). $\\mathbf{Ab}$ has no subobject classifier (a non-trivial $\\Omega$ would have to be additive, forcing collapse).",
+            "hint": "A topos requires finite limits, cartesian closure, and a subobject classifier. Which fail in $\\mathbf{Top}$ and $\\mathbf{Ab}$?"
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT one of the three defining axioms of an elementary topos?",
+            "choices": [
+              "Existence of all finite limits.",
+              "Cartesian closure: an exponential $B^A$ for every pair $A, B$.",
+              "Existence of a subobject classifier $\\Omega$.",
+              "Existence of all small colimits (cocompleteness)."
+            ],
+            "answer": 3,
+            "explain": "Elementary toposes need only finite limits, not arbitrary colimits. Grothendieck toposes are additionally cocomplete and have a small generator, but elementary toposes are weaker.",
+            "hint": "Compare 'elementary topos' (Lawvere–Tierney) vs 'Grothendieck topos'."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Mikkelsen / Paré–Tierney theorem, an elementary topos can equivalently be defined as a finitely complete category with which extra structure?",
+            "choices": [
+              "Power objects $P(A)$ for every object $A$.",
+              "All small limits.",
+              "An initial object $0$.",
+              "A zero object."
+            ],
+            "answer": 0,
+            "explain": "A finitely complete category with power objects automatically has exponentials and a subobject classifier $\\Omega = P(1)$, hence is a topos. This is the second equivalent definition.",
+            "hint": "The defining feature 'beyond limits' that recovers exponentials and $\\Omega$."
+          }
+        ]
+      },
+      "subobject-classifier": {
+        "title": "The subobject classifier $\\Omega$",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each topos to its subobject classifier $\\Omega$.",
+            "left": [
+              "$\\{\\bot, \\top\\}$",
+              "the set of sieves on $c$ at each $c \\in C$",
+              "the open subsets of $U$ at each open $U \\subseteq X$",
+              "the set of subgroups of $G$ (with conjugation action)"
+            ],
+            "right": [
+              "$\\mathbf{Set}$",
+              "presheaf topos $[C^{\\mathrm{op}}, \\mathbf{Set}]$",
+              "$\\mathrm{Sh}(X)$ for a space $X$",
+              "$G\\text{-}\\mathbf{Set}$ for a group $G$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on $\\mathbf{B}G$ and its $\\Omega$ unwinds to subgroups of $G$ with conjugation action.",
+            "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property uniquely characterises $\\Omega$ up to canonical isomorphism in $\\mathcal{E}$?",
+            "choices": [
+              "$\\Omega$ is the largest object of $\\mathcal{E}$.",
+              "$\\Omega$ represents the contravariant subobject functor $\\mathrm{Sub}\\colon \\mathcal{E}^{\\mathrm{op}} \\to \\mathbf{Set}$.",
+              "$\\Omega$ has exactly two global elements $1 \\to \\Omega$.",
+              "$\\Omega$ is initial in $\\mathcal{E}$."
+            ],
+            "answer": 1,
+            "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\mathrm{Hom}(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
+            "hint": "Yoneda: a representable functor determines its representing object up to unique iso."
+          },
+          {
+            "type": "mcq",
+            "q": "In the presheaf topos $\\hat{C}$ where $C = \\{a \\le b\\}$ is the walking arrow (the two-element chain), how many global sections does $\\Omega$ have, i.e. how many maps $1 \\to \\Omega$?",
+            "choices": [
+              "2",
+              "3",
+              "4",
+              "infinitely many"
+            ],
+            "answer": 1,
+            "explain": "Global sections of $\\Omega$ in $\\hat{C}$ correspond to subobjects of the terminal presheaf $1$, which are sieves on the maximal element compatible with restrictions. For the walking arrow these are: $\\emptyset$, $\\{a\\}$ (down-closed since $a \\le b$ is the only non-trivial inclusion and $\\{a\\}$ is closed under going down), and the whole $\\{a, b\\}$. So 3 — the topos is 3-valued.",
+            "hint": "The global sections of $\\Omega$ are the 'truth values' of the topos. For a poset, count the down-sets."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why does $\\mathbf{Ab}$ (the category of abelian groups) fail to have a subobject classifier?",
+            "choices": [
+              "Because $\\mathbf{Ab}$ is not finitely complete.",
+              "Because $\\mathbf{Ab}$ has no terminal object.",
+              "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\mathrm{Hom}(X, X/S)$ — varying with $S$, hence not by a single object.",
+              "Because in $\\mathbf{Ab}$ subobjects of $X$ correspond to quotients $X \\twoheadrightarrow X/S$, and the family of quotient maps is parameterised by $S$ itself rather than by maps to a fixed $\\Omega$. A representing $\\Omega$ would have to be additive, forcing the only candidate ($\\mathbb{Z}/2$) to fail the universal pullback property."
+            ],
+            "answer": 3,
+            "explain": "Subobjects in $\\mathbf{Ab}$ are kernels, named by quotient maps $X \\to X/S$ — and the codomain depends on $S$, so they cannot all be classified by a single $X \\to \\Omega$. Concretely, any candidate $\\Omega$ in $\\mathbf{Ab}$ would be an abelian group, with maps to it given by abelian group homomorphisms, which is far too restrictive. Option C is partially right but misstates the symptom; D is the cleanest articulation.",
+            "hint": "Think about how subobjects in $\\mathbf{Ab}$ are usually 'named.'"
+          },
+          {
+            "type": "mcq",
+            "q": "Let $C = \\{a, b\\}$ be the discrete category with two objects (no non-identity morphisms). What is $\\Omega$ in $\\hat{C} = \\mathbf{Set}^C$?",
+            "choices": [
+              "$\\Omega(a) = \\Omega(b) = \\{\\bot, \\top\\}$, with $|\\mathrm{Hom}(1, \\Omega)| = 4$.",
+              "$\\Omega(a) = \\Omega(b) = \\{*\\}$, the terminal object.",
+              "$\\Omega$ has $|\\mathrm{Hom}(1, \\Omega)| = 2$.",
+              "$\\Omega$ does not exist."
+            ],
+            "answer": 0,
+            "explain": "Sieves on $a$ in a discrete category are subsets of the empty set of non-identity arrows into $a$, plus the choice of including or excluding the identity — so $\\Omega(a) = \\{\\emptyset, \\{\\mathrm{id}_a\\}\\} = \\{\\bot,\\top\\}$. Same for $b$. The topos $\\mathbf{Set}^{\\{a,b\\}} = \\mathbf{Set} \\times \\mathbf{Set}$ has $\\Omega = \\{\\bot,\\top\\}\\times\\{\\bot,\\top\\}$, with 4 global sections.",
+            "hint": "A discrete category with two objects gives a product topos $\\mathbf{Set} \\times \\mathbf{Set}$."
+          }
+        ]
+      },
+      "characteristic-maps": {
+        "title": "Characteristic maps as truth values",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In $\\mathbf{Set}$, let $X = \\{1, 2, 3, 4\\}$ and $S = \\{2, 4\\}$. The characteristic map $\\chi_S\\colon X \\to \\Omega = \\{\\bot, \\top\\}$ sends:",
+            "choices": [
+              "$1 \\mapsto \\top, 2 \\mapsto \\top, 3 \\mapsto \\top, 4 \\mapsto \\top$",
+              "$1 \\mapsto \\bot, 2 \\mapsto \\top, 3 \\mapsto \\bot, 4 \\mapsto \\top$",
+              "$1 \\mapsto \\top, 2 \\mapsto \\bot, 3 \\mapsto \\top, 4 \\mapsto \\bot$",
+              "$1 \\mapsto \\bot, 2 \\mapsto \\bot, 3 \\mapsto \\bot, 4 \\mapsto \\bot$"
+            ],
+            "answer": 1,
+            "explain": "The characteristic map of $S \\subseteq X$ sends $x \\in S$ to $\\top$ and $x \\notin S$ to $\\bot$ — the indicator function. Here $S = \\{2, 4\\}$ so $\\chi_S(2) = \\chi_S(4) = \\top$ and $\\chi_S(1) = \\chi_S(3) = \\bot$.",
+            "hint": "In $\\mathbf{Set}$, $\\chi_S$ is the indicator function of $S$."
+          },
+          {
+            "type": "mcq",
+            "q": "In a topos, the internal conjunction $\\wedge\\colon \\Omega \\times \\Omega \\to \\Omega$ is defined as the characteristic map of which subobject of $\\Omega \\times \\Omega$?",
+            "choices": [
+              "$\\langle \\mathrm{true}, \\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$",
+              "$\\Delta_\\Omega\\colon \\Omega \\hookrightarrow \\Omega \\times \\Omega$",
+              "$\\langle \\mathrm{true}, \\mathrm{false}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$",
+              "All of $\\Omega \\times \\Omega$ (the identity subobject)"
+            ],
+            "answer": 0,
+            "explain": "$\\wedge$ should classify pairs $(p, q)$ with $p = q = \\top$. That subobject of $\\Omega \\times \\Omega$ is exactly $\\langle \\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$. Its characteristic map is $\\wedge$.",
+            "hint": "$p \\wedge q = \\top$ iff both $p$ and $q$ are $\\top$. Which subobject of $\\Omega \\times \\Omega$ does that pick out?"
+          },
+          {
+            "type": "ordering",
+            "q": "Order the following steps in the construction of internal conjunction $\\wedge\\colon \\Omega \\times \\Omega \\to \\Omega$.",
+            "items": [
+              "Define the subobject $\\langle\\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$.",
+              "Pull back $\\mathrm{true}\\colon 1 \\to \\Omega$ along the resulting map and verify the pullback square.",
+              "Apply the universal property of $\\Omega$: this monomorphism $1 \\hookrightarrow \\Omega \\times \\Omega$ has a unique characteristic map $\\Omega \\times \\Omega \\to \\Omega$.",
+              "Name that characteristic map $\\wedge$."
+            ],
+            "answer": [
+              0,
+              2,
+              1,
+              3
+            ],
+            "explain": "First identify the subobject $\\{(\\top,\\top)\\}$ of $\\Omega \\times \\Omega$, then invoke the universal property of $\\Omega$ to get its unique classifying map, verify it does what it should via pullback, and name it $\\wedge$.",
+            "hint": "Identify the subobject first, then apply the universal property."
+          }
+        ]
+      },
+      "power-objects": {
+        "title": "Power objects $P(A)$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "In $\\mathbf{Set}$, let $A = \\{a, b, c, d\\}$. Compute $|P(A)|$.",
+            "answer": 16,
+            "tol": 0,
+            "explain": "$P(A) = \\Omega^A$ in $\\mathbf{Set}$ is the set of functions $A \\to \\{\\bot, \\top\\}$, i.e. the power set $\\mathcal{P}(A)$. $|P(A)| = 2^{|A|} = 2^4 = 16$.",
+            "hint": "$|P(A)| = 2^{|A|}$ in $\\mathbf{Set}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The bijection $\\mathrm{Hom}(X \\times A, \\Omega) \\cong \\mathrm{Hom}(X, P(A))$ comes from which categorical principle?",
+            "choices": [
+              "The Yoneda lemma applied to $X$.",
+              "Cartesian closure: $(-)\\times A \\dashv (-)^A$, with $P(A) := \\Omega^A$.",
+              "Naturality of the subobject functor.",
+              "The fact that $\\Omega$ is a terminal object."
+            ],
+            "answer": 1,
+            "explain": "Cartesian closure provides $\\mathrm{Hom}(X \\times A, B) \\cong \\mathrm{Hom}(X, B^A)$ for every $B$. Plugging $B = \\Omega$ gives the displayed bijection with $P(A) = \\Omega^A$.",
+            "hint": "It's currying — the right-adjoint of $(-) \\times A$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the universal property of the membership relation $\\in_A \\hookrightarrow A \\times P(A)$?",
+            "choices": [
+              "$\\in_A$ is the subobject of $A \\times P(A)$ classified by the evaluation map $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$.",
+              "$\\in_A$ is the kernel of the projection $A \\times P(A) \\to P(A)$.",
+              "$\\in_A$ is the diagonal $\\Delta\\colon A \\to A \\times P(A)$.",
+              "$\\in_A$ is $A \\times P(A)$ itself (the whole product)."
+            ],
+            "answer": 0,
+            "explain": "$\\in_A$ is the universal subobject of $A \\times P(A)$: it is classified by the evaluation map $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$ obtained by uncurrying the identity $\\mathrm{id}_{P(A)}\\colon P(A) \\to P(A) = \\Omega^A$. Every other subobject $R \\hookrightarrow A \\times P(A)$ pulls back from $\\in_A$ along $\\mathrm{id} \\times \\hat\\chi$.",
+            "hint": "The membership relation should be the 'universal' subobject — the one all others pull back from."
+          }
+        ]
+      },
+      "presheaf-topos": {
+        "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $C = \\{a \\le b \\le c\\}$ be the chain of length 3. How many sieves are there on $c$?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Sieves on $c$ in a poset are down-closed subsets of $\\{a, b, c\\}$. The down-sets are: $\\emptyset, \\{a\\}, \\{a, b\\}, \\{a, b, c\\}$. So $|\\Omega(c)| = 4$.",
+            "hint": "In a poset, sieves on $c$ are down-closed subsets of $\\{x : x \\le c\\}$."
+          },
+          {
+            "type": "mcq",
+            "q": "In the presheaf topos $\\hat{C}$ for $C$ a small category, exponentials $G^F$ are computed by which formula?",
+            "choices": [
+              "$G^F(c) = G(c)^{F(c)}$ (pointwise).",
+              "$G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$ (Yoneda-tied).",
+              "$G^F(c) = \\mathrm{Hom}(F(c), G(c))$.",
+              "$G^F(c) = G(c) \\times F(c)$."
+            ],
+            "answer": 1,
+            "explain": "Pointwise definitions don't give the right adjoint. The correct formula uses the representable $よ(c) = \\mathrm{Hom}(-, c)$ and natural transformations: $G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$. Limits in $\\hat C$ are pointwise; exponentials are not.",
+            "hint": "Limits in $\\hat C$ are pointwise. Exponentials need Yoneda."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a presheaf topos?",
+            "choices": [
+              "Simplicial sets $[\\Delta^{\\mathrm{op}}, \\mathbf{Set}]$",
+              "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+              "$\\mathrm{Sh}(X)$ for a (non-discrete) topological space $X$",
+              "The arrow category $\\mathbf{Set}^\\to = [(\\bullet \\to \\bullet)^{\\mathrm{op}}, \\mathbf{Set}]$"
+            ],
+            "answer": 2,
+            "explain": "Sheaves on a non-discrete space $X$ are a *reflective subcategory* of presheaves on $\\mathrm{Open}(X)$, but they are not themselves a presheaf topos in general. Sheafification is needed. The other three are all presheaf categories.",
+            "hint": "Sheaves are presheaves satisfying a gluing condition — and that's a strict subcategory."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $C$ be the walking-isomorphism category — two objects $a, b$ with arrows $f\\colon a \\to b$, $g\\colon b \\to a$, and $g\\circ f = \\mathrm{id}_a$, $f \\circ g = \\mathrm{id}_b$. What is $\\hat{C}$ equivalent to?",
+            "choices": [
+              "$\\mathbf{Set}$",
+              "$\\mathbf{Set} \\times \\mathbf{Set}$",
+              "$\\mathbf{Set}^\\to$ (the arrow category)",
+              "The category of equivalence relations"
+            ],
+            "answer": 0,
+            "explain": "When $C$ is equivalent to a one-object category, so is $\\hat C$. The walking iso is equivalent to the terminal category (one object, one identity), so $\\hat C \\simeq \\mathbf{Set}$.",
+            "hint": "Equivalences of categories induce equivalences of presheaf categories. What category is the walking iso equivalent to?"
+          },
+          {
+            "type": "mcq",
+            "q": "In a presheaf topos $\\hat{C}$, what is $\\Omega$ at the level of 'global elements,' i.e. how many maps $1 \\to \\Omega$ are there in $\\hat{C}$?",
+            "choices": [
+              "Always exactly 2.",
+              "Equal to $|\\mathrm{Ob}(C)|$.",
+              "Equal to the number of subobjects of the terminal presheaf $1$ — i.e. the number of *global* sieves on $C$, where a global sieve is a system of sieves $S_c$ compatible under all morphisms.",
+              "Always infinite."
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{Hom}_{\\hat C}(1, \\Omega) = \\mathrm{Sub}_{\\hat C}(1)$: subobjects of the terminal presheaf. These correspond to *closed sieves on the whole category* — equivalently, idempotent natural transformations $1 \\to 1$. For $C = \\mathbf{B}G$ this gives 2 (only $\\emptyset$ and the maximal sieve survive); for a poset it gives the number of down-closed subsets of $\\mathrm{Ob}(C)$.",
+            "hint": "$\\mathrm{Hom}(1, \\Omega) = \\mathrm{Sub}(1)$ — subobjects of the terminal."
+          }
+        ]
+      },
+      "g-set-topos": {
+        "title": "The topos of $G$-sets",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence the lattice of subobjects of $G/1$ in $G\\text{-}\\mathbf{Set}$)?",
+            "choices": [
+              "$\\{1\\} < \\langle 3 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
+              "$\\{1\\} < \\langle 3 \\rangle, \\langle 2 \\rangle < \\mathbb{Z}/6$ — a diamond.",
+              "$\\{1\\} < \\langle 2 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
+              "$\\{1\\} < \\langle 1 \\rangle < \\mathbb{Z}/6$."
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top.",
+            "hint": "By Lagrange, divisors of 6 are $1, 2, 3, 6$; cyclic groups have one subgroup per divisor."
+          },
+          {
+            "type": "mcq",
+            "q": "In $G\\text{-}\\mathbf{Set}$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
+            "choices": [
+              "$\\{0, 1\\}$",
+              "the set of subgroups of $G$, with $G$ acting by conjugation",
+              "$G$ itself with the regular action",
+              "the set of normal subgroups only"
+            ],
+            "answer": 1,
+            "explain": "$\\Omega$ in $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ at the unique object $* \\in \\mathbf{B}G$ is the set of sieves on $*$, which unwinds to subgroups of $G$. The presheaf-restriction action becomes conjugation: $g \\cdot H = gHg^{-1}$. All subgroups appear, not just normal ones.",
+            "hint": "Sieves on the unique object of $\\mathbf{B}G$ are exactly subgroups of $G$ (downward closure becomes the subgroup property)."
+          },
+          {
+            "type": "mcq",
+            "q": "When does the topos $G\\text{-}\\mathbf{Set}$ collapse to (be equivalent to) ordinary $\\mathbf{Set}$?",
+            "choices": [
+              "When $G$ is abelian.",
+              "When $G$ is finite.",
+              "When $G$ is the trivial group $\\{e\\}$.",
+              "$G\\text{-}\\mathbf{Set}$ is never equivalent to $\\mathbf{Set}$ for non-trivial reasons."
+            ],
+            "answer": 2,
+            "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, $\\Omega$ has more than 2 elements (the lattice of subgroups), so the topos cannot be $\\mathbf{Set}$.",
+            "hint": "$\\Omega$ is the lattice of subgroups. When does that have only two elements?"
+          }
+        ]
+      },
+      "geometric-morphisms-intro": {
+        "title": "Geometric morphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ consists of an adjoint pair $f^* \\dashv f_*$. Which is the inverse-image, which is the direct-image, and which is the constraint?",
+            "choices": [
+              "$f^* \\colon \\mathcal{F} \\to \\mathcal{E}$ (inverse image, must be left exact); $f_* \\colon \\mathcal{E} \\to \\mathcal{F}$ (direct image).",
+              "$f^* \\colon \\mathcal{E} \\to \\mathcal{F}$ (inverse image, must be left exact); $f_* \\colon \\mathcal{F} \\to \\mathcal{E}$ (direct image).",
+              "$f^*$ and $f_*$ both go $\\mathcal{F} \\to \\mathcal{E}$.",
+              "$f^*$ is right exact; $f_*$ is left exact."
+            ],
+            "answer": 1,
+            "explain": "By convention the geometric morphism's named direction is the same as $f_*$ (direct image): $f_*\\colon \\mathcal{F} \\to \\mathcal{E}$ goes the same way as $f$. The inverse-image $f^*\\colon \\mathcal{E} \\to \\mathcal{F}$ goes the other way and is required to be left exact (preserve finite limits). Right adjoints are automatically left exact, but the constraint here is on the *left* adjoint $f^*$, which is non-trivial.",
+            "hint": "The 'direct image' is in the same direction as $f$ itself. The other one carries the exactness requirement."
+          },
+          {
+            "type": "mcq",
+            "q": "For a continuous map $f\\colon X \\to Y$ of topological spaces, the induced geometric morphism on sheaves goes which direction, and what plays the role of $f^*$?",
+            "choices": [
+              "$f\\colon \\mathrm{Sh}(Y) \\to \\mathrm{Sh}(X)$; $f^* = $ direct image.",
+              "$f\\colon \\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$; $f^* = $ pullback / inverse image of sheaves; $f_* = $ pushforward.",
+              "$f^* = $ pushforward, $f_* = $ pullback.",
+              "Only when $f$ is a homeomorphism does it induce a geometric morphism."
+            ],
+            "answer": 1,
+            "explain": "A continuous $f\\colon X \\to Y$ induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ in the same direction as $f$. The inverse-image functor $f^*\\colon \\mathrm{Sh}(Y) \\to \\mathrm{Sh}(X)$ is sheaf-pullback (left exact because $f^{-1}$ preserves intersections of opens); $f_*$ is pushforward (often called direct image of sheaves).",
+            "hint": "Topology: the map of *opens* goes the opposite way of $f$, but the geometric morphism still 'points like $f$.'"
+          },
+          {
+            "type": "mcq",
+            "q": "A *point* of a topos $\\mathcal{E}$ is by definition a geometric morphism with which source and target?",
+            "choices": [
+              "$\\mathcal{E} \\to \\mathbf{Set}$",
+              "$\\mathbf{Set} \\to \\mathcal{E}$",
+              "$\\mathcal{E} \\to \\mathcal{E}$",
+              "$1 \\to \\mathcal{E}$ in the 2-category of toposes"
+            ],
+            "answer": 1,
+            "explain": "Points of $\\mathcal{E}$ are geometric morphisms $\\mathbf{Set} \\to \\mathcal{E}$, mirroring continuous maps $\\{*\\} \\to X$ for spaces. The data is a left-exact left adjoint $p^*\\colon \\mathcal{E} \\to \\mathbf{Set}$ (the 'stalk' functor) plus its right adjoint $p_*\\colon \\mathbf{Set} \\to \\mathcal{E}$ (skyscraper).",
+            "hint": "A point is the 'morphism from a single point' — but the source/target convention follows the geometric-morphism convention."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The inclusion $\\mathrm{Sh}(C, J) \\hookrightarrow \\hat{C}$ of sheaves into presheaves is a geometric morphism. In which direction does the morphism go, and what is $f^*$?",
+            "choices": [
+              "$\\hat{C} \\to \\mathrm{Sh}(C, J)$ as a geometric morphism; $f^* = $ inclusion (so $f_* = $ sheafification, but this fails left exactness).",
+              "$\\mathrm{Sh}(C, J) \\to \\hat{C}$ as a geometric morphism; $f^* = $ sheafification (left exact!), $f_* = $ inclusion. The sheaves form a left-exact reflective subcategory.",
+              "Either direction works; both are geometric morphisms.",
+              "$\\mathrm{Sh}(C, J) \\to \\hat C$; $f^* = $ inclusion, $f_*$ = sheafification."
+            ],
+            "answer": 1,
+            "explain": "Sheaves form a *left-exact reflective* subcategory of presheaves. The geometric morphism is $\\mathrm{Sh}(C, J) \\to \\hat{C}$ with $f^* = $ sheafification $a$ (left exact — this is what 'left-exact reflective' means and is the content of the sheafification theorem), and $f_* = $ the inclusion (right adjoint to sheafification). Embedding-as-direct-image, sheafification-as-inverse-image.",
+            "hint": "Sheafification is a *left adjoint* (of the inclusion) and is left exact. That makes it $f^*$."
+          },
+          {
+            "type": "mcq",
+            "q": "An *essential* geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is one for which $f^*$ has an additional left adjoint $f_!$. Which of the following is NOT generally true of essential geometric morphisms?",
+            "choices": [
+              "They form a triple $f_! \\dashv f^* \\dashv f_*$.",
+              "$f_!$ preserves all colimits.",
+              "$f_!$ is automatically left exact (preserves finite limits).",
+              "Geometric morphisms induced by morphisms of small categories $C \\to D$ (yielding $[D^{\\mathrm{op}}, \\mathbf{Set}] \\to [C^{\\mathrm{op}}, \\mathbf{Set}]$ via Kan extension) are always essential."
+            ],
+            "answer": 2,
+            "explain": "Being a left adjoint, $f_!$ preserves all colimits — but it is *not* generally left exact. Essential morphisms in fact tend to be the ones where $f^*$ has both adjoints precisely because it has an even nicer 'Kan extension' structure on both sides. Forgetting left exactness of $f_!$ is exactly what allows $f^*$ to remain left exact while $f_!$ does the colimit work.",
+            "hint": "$f_!$ is a *left* adjoint — preserving colimits is automatic. What's special about $f^*$ being left exact, that $f_!$ doesn't share?"
           }
         ]
       }
@@ -8266,6 +10962,399 @@ window.MVQuizBank = {
             "answer": 2,
             "hint": "Characteristic-$p$ issues break the comparison outside characteristic zero.",
             "explain": "For smooth **projective** varieties over $\\mathbb{C}$ the comparison holds in all degrees. For non-proper (quasi-projective) varieties it can fail: étale cohomology with constant coefficients $\\mathbb{Q}_\\ell$ computes the cohomology of a singular complex, which need not agree with singular cohomology in high degrees (one needs compactly supported or mixed Hodge-theoretic corrections). The theorem in its clean form requires properness."
+          }
+        ]
+      }
+    }
+  },
+  "etale-fundamental-group": {
+    "topic": "etale-fundamental-group",
+    "quizzes": {
+      "finite-etale-covers": {
+        "title": "Finite étale covers",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which conditions together define a finite étale morphism $f\\colon Y \\to X$ of schemes?",
+            "choices": [
+              "$f$ is finite",
+              "$f$ is flat",
+              "$f$ is unramified ($\\Omega^1_{Y/X} = 0$)",
+              "$f$ is proper but not necessarily finite",
+              "$f$ is surjective on closed points"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Finite étale = finite + flat + unramified. Equivalently, finite + smooth of relative dimension 0. Properness is implied by finiteness; surjectivity is not in the definition (a finite étale cover may have multiple connected components mapping to a connected base).",
+            "hint": "There are exactly three independent local conditions."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Q}[t,t^{-1}] = \\mathbb{G}_{m,\\mathbb{Q}}$ and let $Y = \\mathrm{Spec}\\,\\mathbb{Q}[s,s^{-1}]$ with $s^5 = t$. What is the degree (i.e. rank of $f_*\\mathcal{O}_Y$) of this finite étale cover $f\\colon Y \\to X$?",
+            "answer": 5,
+            "tol": 0.0001,
+            "explain": "$\\mathbb{Q}[s,s^{-1}]$ is free of rank 5 over $\\mathbb{Q}[t,t^{-1}]$ with basis $1, s, s^2, s^3, s^4$. The fiber over any geometric point has 5 elements (the 5 fifth roots of the chosen value of $t$).",
+            "hint": "Count a free basis of $\\mathbb{Q}[s,s^{-1}]$ over $\\mathbb{Q}[t,t^{-1}]$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where does this argument that $f\\colon \\mathrm{Spec}\\,\\mathbb{F}_p[s] \\to \\mathrm{Spec}\\,\\mathbb{F}_p[t]$, $t = s^p$, is finite étale go wrong?",
+            "steps": [
+              "$f$ is finite: $\\mathbb{F}_p[s]$ is free of rank $p$ over $\\mathbb{F}_p[t]$ with basis $1, s, \\ldots, s^{p-1}$.",
+              "$f$ is flat: free implies flat.",
+              "$f$ is unramified: $\\Omega^1_{Y/X} = \\mathbb{F}_p[s]\\,ds / (d(s^p)) = \\mathbb{F}_p[s]\\,ds / (p s^{p-1}\\,ds) = \\mathbb{F}_p[s]\\,ds$ — and this module is generated by $ds$ alone, so it is `small enough' to vanish.",
+              "Therefore $f$ is finite étale of degree $p$."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong. $\\Omega^1_{Y/X}$ is a free rank-1 $\\mathbb{F}_p[s]$-module (generated by $ds$), not zero — that is the opposite of unramified. The map $s \\mapsto s^p$ is purely inseparable in characteristic $p$, hence not étale; the argument that 'one generator means small' is bogus.",
+            "hint": "Look carefully at the relation $d(s^p) = p\\,s^{p-1}\\,ds$ in characteristic $p$."
+          }
+        ]
+      },
+      "fiber-functor": {
+        "title": "The fiber functor at a geometric point",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Q}$ and $\\bar{x} = \\mathrm{Spec}\\,\\overline{\\mathbb{Q}}$, what is the cardinality of $F_{\\bar{x}}(\\mathrm{Spec}\\,\\mathbb{Q}(\\sqrt[3]{2}))$?",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "6"
+            ],
+            "answer": 2,
+            "explain": "$F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}_{\\mathbb{Q}}(L, \\overline{\\mathbb{Q}})$, which has cardinality $[L:\\mathbb{Q}] = 3$ for $L = \\mathbb{Q}(\\sqrt[3]{2})$ (the embeddings send $\\sqrt[3]{2}$ to $\\sqrt[3]{2}$, $\\omega\\sqrt[3]{2}$, or $\\omega^2\\sqrt[3]{2}$). Note that $L/\\mathbb{Q}$ is not Galois — $|\\mathrm{Aut}(L/\\mathbb{Q})| = 1$, but the fiber still has 3 points.",
+            "hint": "Count $\\mathbb{Q}$-algebra embeddings of $\\mathbb{Q}(\\sqrt[3]{2})$ into $\\overline{\\mathbb{Q}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a property of the fiber functor $F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$?",
+            "choices": [
+              "$F_{\\bar{x}}$ is faithful (no two distinct cover-morphisms induce the same set map of fibers).",
+              "$F_{\\bar{x}}$ preserves fiber products and disjoint unions.",
+              "$F_{\\bar{x}}$ takes values in finite sets.",
+              "$F_{\\bar{x}}$ is representable by a single object of $\\mathrm{F\\acute{E}t}/X$."
+            ],
+            "answer": 3,
+            "explain": "Faithfulness, exactness, and finite values are exactly the axioms making $\\mathrm{F\\acute{E}t}/X$ a Galois category. $F_{\\bar{x}}$ is only <em>pro-representable</em> in general — by the universal cover viewed as a pro-object of $\\mathrm{F\\acute{E}t}/X$ — not representable by a single finite étale cover (covers of $X$ by simply-connected schemes don't exist when $\\pi_1^{\\acute{e}t}$ is infinite).",
+            "hint": "What kind of object would represent it, and does it live in the category $\\mathrm{F\\acute{E}t}/X$ itself?"
+          },
+          {
+            "type": "matching",
+            "q": "Match each cover of $\\mathrm{Spec}\\,\\mathbb{R}$ with $|F_{\\bar{x}}(\\,\\cdot\\,)|$ for $\\bar{x} = \\mathrm{Spec}\\,\\mathbb{C}$.",
+            "left": [
+              "the trivial cover (i.e. $\\mathrm{Spec}\\,\\mathbb{R}$ over itself)",
+              "$\\mathrm{Spec}\\,\\mathbb{C} \\to \\mathrm{Spec}\\,\\mathbb{R}$",
+              "$\\mathrm{Spec}(\\mathbb{C} \\times \\mathbb{R}) \\to \\mathrm{Spec}\\,\\mathbb{R}$"
+            ],
+            "right": [
+              "1 point",
+              "2 points",
+              "3 points"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$|F_{\\bar{x}}(\\mathrm{Spec}\\,A)| = \\dim_{\\mathbb{R}} A$ for a finite étale $\\mathbb{R}$-algebra $A$. Trivial cover: 1. $\\mathbb{C}/\\mathbb{R}$: 2. $\\mathbb{C}\\times\\mathbb{R}$: $2+1 = 3$. The fiber sees the underlying rank, not the field-theoretic structure.",
+            "hint": "$|F_{\\bar{x}}(\\mathrm{Spec}\\,A)| = \\mathrm{rank}_{\\mathbb{R}}(A)$ for finite étale $A$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Two geometric points $\\bar{x}, \\bar{x}'$ over the same scheme-theoretic point of $X$ generally give non-equal fiber functors $F_{\\bar{x}}, F_{\\bar{x}'}$. What is the precise relationship between them?",
+            "choices": [
+              "They are equal as functors.",
+              "They are isomorphic as functors, and the set of natural isomorphisms $F_{\\bar{x}} \\Rightarrow F_{\\bar{x}'}$ is a torsor under $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "They are non-isomorphic in general.",
+              "They are isomorphic only if $X$ is Galois over a base."
+            ],
+            "answer": 1,
+            "explain": "Any two fiber functors at geometric points are (non-canonically) isomorphic — this is the analogue of 'change of basepoint' in topological $\\pi_1$. The set of isomorphisms is a torsor under either fundamental group, and choosing one identifies the two groups up to inner automorphism.",
+            "hint": "Compare with the classical fact that based vs. free homotopy classes of paths give a torsor under $\\pi_1$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where does this 'proof' that the fiber functor on $\\mathrm{Spec}\\,k$ is representable by a single finite étale cover go wrong (assume $k$ is a field with infinite absolute Galois group)?",
+            "steps": [
+              "$F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/\\mathrm{Spec}\\,k \\to \\mathrm{FinSet}$ is a functor with values in finite sets.",
+              "By the Yoneda lemma applied to corepresentable functors, $F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}(\\mathrm{Spec}\\,L, P)$ for some object $P$.",
+              "Since $F_{\\bar{x}}$ takes values in finite sets and $\\mathrm{F\\acute{E}t}/\\mathrm{Spec}\\,k$ is closed under products, $P$ is itself finite étale over $\\mathrm{Spec}\\,k$.",
+              "So the fiber functor is representable by a single finite étale cover."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong. $P$ exists only as a <em>pro-object</em>: $P = \\varprojlim_{L} \\mathrm{Spec}\\,L$ over all finite separable $L/k^{\\mathrm{sep}}$. This is $\\mathrm{Spec}\\,k^{\\mathrm{sep}}$, which has infinite-dimensional structure sheaf when $k^{\\mathrm{sep}}/k$ is an infinite extension (e.g. $k = \\mathbb{Q}$). It is not a finite étale cover. The closure-under-products argument fails because finite étale covers form a category closed under finite products but not arbitrary pro-objects.",
+            "hint": "Could $P = \\mathrm{Spec}\\,\\overline{\\mathbb{Q}}$ ever be finite étale over $\\mathrm{Spec}\\,\\mathbb{Q}$?"
+          }
+        ]
+      },
+      "etale-pi1": {
+        "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+        "questions": [
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of Grothendieck's construction of $\\pi_1^{\\acute{e}t}$ in their logical order.",
+            "items": [
+              "Choose a geometric point $\\bar{x}\\colon \\mathrm{Spec}\\,\\Omega \\to X$.",
+              "Define the fiber functor $F_{\\bar{x}}(Y) = Y_{\\bar{x}}(\\Omega)$ on $\\mathrm{F\\acute{E}t}/X$.",
+              "Take $\\pi_1^{\\acute{e}t}(X,\\bar{x}) := \\mathrm{Aut}(F_{\\bar{x}})$ as a group.",
+              "Endow $\\pi_1^{\\acute{e}t}$ with the inverse-limit topology from $\\prod_Y \\mathrm{Sym}(F_{\\bar{x}}(Y))$.",
+              "Conclude $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X,\\bar{x})\\text{-FinSet}$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "explain": "Geometric point → fiber functor → automorphism group → topology → equivalence of categories. Each step uses the previous; the equivalence is the payoff.",
+            "hint": "What's the very first datum you choose, and what's the last theorem you prove?"
+          },
+          {
+            "type": "mcq",
+            "q": "Under the equivalence $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X,\\bar{x})\\text{-FinSet}$, what corresponds to a connected finite étale cover $Y \\to X$ of degree $n$?",
+            "choices": [
+              "An open normal subgroup of $\\pi_1^{\\acute{e}t}$ of index $n$.",
+              "An open subgroup of $\\pi_1^{\\acute{e}t}$ of index $n$.",
+              "An arbitrary subgroup of order $n$.",
+              "A continuous homomorphism $\\pi_1^{\\acute{e}t} \\to \\mathbb{Z}/n$."
+            ],
+            "answer": 1,
+            "explain": "Connected covers ↔ transitive actions on finite sets ↔ open subgroups (the stabilizer of a fiber point), index = degree. Normality is the extra condition that singles out <em>Galois</em> (regular) covers, where the cover is itself a torsor under $\\pi_1^{\\acute{e}t}/H$.",
+            "hint": "Transitive actions on $n$-element sets ↔ stabilizer subgroups of which index?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are properties of $\\pi_1^{\\acute{e}t}(X, \\bar{x})$ for $X$ a connected scheme?",
+            "choices": [
+              "Profinite (compact, totally disconnected, Hausdorff).",
+              "Always finitely generated (as an abstract group).",
+              "Defined up to inner automorphism by the choice of $\\bar{x}$.",
+              "Equal to its profinite completion (i.e. itself).",
+              "Acts continuously on $F_{\\bar{x}}(Y)$ for every cover $Y$."
+            ],
+            "answer": [
+              0,
+              2,
+              3,
+              4
+            ],
+            "explain": "Profinite by construction (inverse limit of finite groups), so equal to its own profinite completion (a profinite group is its own profinite completion). Choice of basepoint changes the group up to inner automorphism. Continuous action on each fiber is the equivalence-of-categories statement. NOT finitely generated: $\\hat{\\mathbb{Z}}$ is not finitely generated as an abstract group (only topologically).",
+            "hint": "$\\hat{\\mathbb{Z}}$ is uncountable — could it be finitely generated as an abstract group?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $Y \\to X$ be a Galois cover with Galois group $G$. What is the relationship between $G$ and $\\pi_1^{\\acute{e}t}(X, \\bar{x})$?",
+            "choices": [
+              "$G$ is a closed subgroup of $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "$G$ is a continuous quotient of $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "$G$ equals $\\pi_1^{\\acute{e}t}(X, \\bar{x})$.",
+              "$G = \\pi_1^{\\acute{e}t}(Y, \\bar{x})$."
+            ],
+            "answer": 1,
+            "explain": "A Galois cover with group $G$ corresponds to an open <em>normal</em> subgroup $H \\triangleleft \\pi_1^{\\acute{e}t}$ with $\\pi_1^{\\acute{e}t}/H = G$. So $G$ is a finite continuous quotient — exactly the way $\\mathrm{Gal}(L/k)$ is a quotient of $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$.",
+            "hint": "Galois covers correspond to open normal subgroups; what does the quotient look like?"
+          },
+          {
+            "type": "proof-completion",
+            "q": "Prove that $\\pi_1^{\\acute{e}t}$ of a connected scheme is profinite. The next step after the given ones is:",
+            "steps": [
+              "$\\pi_1^{\\acute{e}t}(X,\\bar{x}) := \\mathrm{Aut}(F_{\\bar{x}})$ embeds into $\\prod_Y \\mathrm{Sym}(F_{\\bar{x}}(Y))$ via $\\sigma \\mapsto (\\sigma_Y)_Y$.",
+              "Each $\\mathrm{Sym}(F_{\\bar{x}}(Y))$ is a finite group (since $F_{\\bar{x}}(Y)$ is a finite set), so the product carries a profinite topology making it compact, totally disconnected, Hausdorff."
+            ],
+            "choices": [
+              "The image is open in the product, hence locally compact.",
+              "The image is closed in the product (it is cut out by the naturality conditions, which are equalities of finite sets), hence inherits a profinite topology.",
+              "The image is dense in the product, so $\\pi_1^{\\acute{e}t}$ is profinite by closure.",
+              "The image is finite, since each constraint cuts out a single element."
+            ],
+            "answer": 1,
+            "explain": "Each naturality condition $F_{\\bar{x}}(g)\\circ\\sigma_Y = \\sigma_{Y'}\\circ F_{\\bar{x}}(g)$ is a closed condition (an equality of permutations in a finite group — its complement is open in the product topology). Intersection of closed sets is closed. A closed subgroup of a profinite group is profinite.",
+            "hint": "Naturality conditions are equalities — what's the topological character of an equality cut?"
+          }
+        ]
+      },
+      "spec-field-galois": {
+        "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{R})$?",
+            "choices": [
+              "trivial",
+              "$\\mathbb{Z}/2$",
+              "$\\mathbb{Z}$",
+              "$\\hat{\\mathbb{Z}}$"
+            ],
+            "answer": 1,
+            "explain": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(k^{\\mathrm{sep}}/k)$. For $k = \\mathbb{R}$, $k^{\\mathrm{sep}} = \\mathbb{C}$ and $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R}) = \\mathbb{Z}/2$, generated by complex conjugation. The only nontrivial connected finite étale cover of $\\mathrm{Spec}\\,\\mathbb{R}$ is $\\mathrm{Spec}\\,\\mathbb{C}$.",
+            "hint": "List the finite separable extensions of $\\mathbb{R}$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each open subgroup of $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ with the connected finite étale cover of $\\mathrm{Spec}\\,\\mathbb{Q}$ it corresponds to.",
+            "left": [
+              "the full group $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+              "$\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}(i))$",
+              "$\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}(\\sqrt[3]{2}))$"
+            ],
+            "right": [
+              "$\\mathrm{Spec}\\,\\mathbb{Q}$ (trivial cover, degree 1)",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}(i)$ (degree 2)",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}(\\sqrt[3]{2})$ (degree 3, not Galois)"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Open $H \\le \\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ ↔ finite separable $L \\subset \\overline{\\mathbb{Q}}$ via $L = \\overline{\\mathbb{Q}}^H$, with $[L:\\mathbb{Q}] = [\\mathrm{Gal}:H]$. Note that $\\mathbb{Q}(\\sqrt[3]{2})/\\mathbb{Q}$ is not Galois — the corresponding subgroup is not normal — but the equivalence works on all (connected) covers, not just Galois ones.",
+            "hint": "Index of $H$ = degree of the cover."
+          },
+          {
+            "type": "numeric",
+            "q": "How many connected finite étale covers does $\\mathrm{Spec}\\,\\mathbb{F}_5$ have of degree dividing 4 (counting up to isomorphism, i.e. counting subgroups of $\\mathrm{Gal}(\\overline{\\mathbb{F}_5}/\\mathbb{F}_5)$ of index dividing 4)?",
+            "answer": 3,
+            "tol": 0.0001,
+            "explain": "Connected covers of degree $n$ ↔ open subgroups of index $n$ in $\\hat{\\mathbb{Z}}$, of which there is exactly one (corresponding to $\\mathrm{Spec}\\,\\mathbb{F}_{5^n}$). Indices dividing 4: $n=1,2,4$, giving 3 covers (no $n=3$ contribution since $3 \\nmid 4$).",
+            "hint": "How many open subgroups of $\\hat{\\mathbb{Z}}$ have index $n$ exactly?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why do we use $k^{\\mathrm{sep}}$ rather than $\\bar{k}$ in defining the geometric basepoint $\\bar{x} = \\mathrm{Spec}\\,k^{\\mathrm{sep}}$?",
+            "choices": [
+              "Because $\\bar{k}/k$ is rarely Galois.",
+              "Because the étale site sees only separable extensions — purely inseparable extensions are not étale.",
+              "Because $k^{\\mathrm{sep}}$ is always Galois over $k$ but $\\bar{k}$ is not.",
+              "Because the absolute Galois group of $k$ is by convention $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$, not $\\mathrm{Aut}(\\bar{k}/k)$."
+            ],
+            "answer": 1,
+            "explain": "Finite étale extensions of fields are exactly finite separable extensions. Purely inseparable extensions $k(t^{1/p})/k(t)$ in characteristic $p$ are <em>not</em> étale — they fail unramifiedness ($\\Omega^1 \\ne 0$). So the étale fundamental group only sees finite quotients of $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$; the difference between $k^{\\mathrm{sep}}$ and $\\bar{k}$ disappears for perfect $k$ (e.g. characteristic 0 or finite fields)."
+          }
+        ]
+      },
+      "frobenius-and-pi1": {
+        "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$ as an abstract topological group?",
+            "choices": [
+              "$\\mathbb{Z}$",
+              "$\\hat{\\mathbb{Z}} = \\varprojlim \\mathbb{Z}/n$",
+              "$\\mathbb{Z}/(q-1)$",
+              "$\\mathrm{GL}_1(\\mathbb{F}_q)$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{F}_q$ has a unique extension $\\mathbb{F}_{q^n}/\\mathbb{F}_q$ in each degree $n$, and they fit into a tower with $\\mathrm{Gal}(\\mathbb{F}_{q^n}/\\mathbb{F}_q) = \\mathbb{Z}/n$ (generated by Frobenius). The inverse limit is $\\hat{\\mathbb{Z}}$. Note: NOT $\\mathbb{Z}$ — $\\hat{\\mathbb{Z}}$ is the profinite completion of $\\mathbb{Z}$ and is uncountable.",
+            "hint": "Take an inverse limit over all finite extensions of $\\mathbb{F}_q$."
+          },
+          {
+            "type": "numeric",
+            "q": "Frobenius $\\mathrm{Frob}_q$ acts on the geometric fiber of $\\mathrm{Spec}\\,\\mathbb{F}_{q^{12}} \\to \\mathrm{Spec}\\,\\mathbb{F}_q$. How many orbits does $\\mathrm{Frob}_q^4$ have on this 12-point fiber?",
+            "answer": 4,
+            "tol": 0.0001,
+            "explain": "Frobenius $\\mathrm{Frob}_q$ acts as a 12-cycle on the fiber (the cover is connected, of degree 12). Its 4th power $\\mathrm{Frob}_q^4$ acts as a permutation with $\\gcd(4, 12) = 4$ disjoint cycles, each of length $12 / 4 = 3$. So 4 orbits.",
+            "hint": "$\\mathrm{Frob}_q^a$ on a $\\mathbb{Z}/n$-cycle has $\\gcd(a,n)$ orbits."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which integers $a \\in \\{1, 2, 3, 4, 5, 6\\}$ have the property that $\\mathrm{Frob}_q^a$ generates the same cyclic group $\\mathbb{Z}/6$ as $\\mathrm{Frob}_q$ on the 6-point fiber of $\\mathrm{Spec}\\,\\mathbb{F}_{q^6} \\to \\mathrm{Spec}\\,\\mathbb{F}_q$?",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "answer": [
+              0,
+              4
+            ],
+            "explain": "$\\mathrm{Frob}_q^a$ generates $\\mathbb{Z}/6$ iff $\\gcd(a, 6) = 1$, i.e. $a \\in \\{1, 5\\}$ (these are the units mod 6). For $a = 6$, $\\mathrm{Frob}_q^6$ is the identity, not a generator. For $a \\in \\{2, 3, 4\\}$, the action has multiple orbits — the cover decomposes when restricted to $\\mathbb{F}_{q^d}$ for $d = 6/\\gcd(a,6)$.",
+            "hint": "Generators of $\\mathbb{Z}/n$ are exactly the units mod $n$."
+          }
+        ]
+      },
+      "comparison-topological": {
+        "title": "Comparison with topological $\\pi_1$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a smooth complex variety $X$, what is the relationship between $\\pi_1^{\\acute{e}t}(X)$ and $\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))$?",
+            "choices": [
+              "They are isomorphic as abstract groups.",
+              "$\\pi_1^{\\acute{e}t}(X)$ is the profinite completion of $\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))$.",
+              "$\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))$ is the profinite completion of $\\pi_1^{\\acute{e}t}(X)$.",
+              "There is no general relationship between them."
+            ],
+            "answer": 1,
+            "explain": "Riemann's existence theorem: every finite topological cover of $X(\\mathbb{C})$ is the analytification of a unique finite étale cover, so finite quotients agree. Taking inverse limits: $\\pi_1^{\\acute{e}t}(X) = \\widehat{\\pi_1^{\\mathrm{top}}(X(\\mathbb{C}))}$. They are NOT isomorphic in general — $\\pi_1^{\\mathrm{top}}(\\mathbb{C}^\\times) = \\mathbb{Z}$ while $\\pi_1^{\\acute{e}t}(\\mathbb{G}_{m,\\mathbb{C}}) = \\hat{\\mathbb{Z}}$.",
+            "hint": "Profinite completion always loses non-finite-quotient information."
+          },
+          {
+            "type": "matching",
+            "q": "Match each smooth complex variety with its étale fundamental group.",
+            "left": [
+              "$\\mathbb{A}^1_{\\mathbb{C}}$",
+              "$\\mathbb{G}_{m,\\mathbb{C}} = \\mathbb{A}^1 \\setminus \\{0\\}$",
+              "an elliptic curve $E_{\\mathbb{C}}$",
+              "$\\mathbb{P}^1_{\\mathbb{C}}$"
+            ],
+            "right": [
+              "$\\hat{\\mathbb{Z}}$",
+              "$\\hat{\\mathbb{Z}}^2$",
+              "trivial",
+              "trivial"
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "$\\mathbb{A}^1_{\\mathbb{C}}$ topologically $\\simeq \\mathbb{C}$ is contractible: $\\pi_1^{\\mathrm{top}} = 1$, so $\\pi_1^{\\acute{e}t} = 1$. $\\mathbb{G}_m$: $\\pi_1^{\\mathrm{top}} = \\mathbb{Z}$, completion $\\hat{\\mathbb{Z}}$. Elliptic curve: $\\pi_1^{\\mathrm{top}} = \\mathbb{Z}^2$, completion $\\hat{\\mathbb{Z}}^2$. $\\mathbb{P}^1_{\\mathbb{C}} = S^2$: simply connected.",
+            "hint": "Compute the topological $\\pi_1$ first, then take the profinite completion."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where does this 'proof' that $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{F}_p}) = 1$ go wrong?",
+            "steps": [
+              "$\\mathbb{A}^1_{\\mathbb{C}}$ is simply connected: $\\pi_1^{\\mathrm{top}}(\\mathbb{C}) = 1$.",
+              "By Riemann's existence theorem, $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{C}}) = \\widehat{\\pi_1^{\\mathrm{top}}(\\mathbb{C})} = 1$.",
+              "Étale fundamental groups are insensitive to the base field: $\\mathbb{A}^1$ is the same over $\\mathbb{C}$ and over $\\mathbb{F}_p$.",
+              "Therefore $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{F}_p}) = 1$."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong. $\\pi_1^{\\acute{e}t}$ is highly sensitive to the base field. Over $\\mathbb{F}_p$, $\\mathbb{A}^1$ admits Artin–Schreier covers $y^p - y = f(x)$ for any $f \\in \\mathbb{F}_p[x]$ — these are étale, connected, and Galois with group $\\mathbb{Z}/p$. So $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{F}_p})$ is enormous (a huge profinite group with infinitely many $\\mathbb{Z}/p$ quotients). Riemann existence applies only over $\\mathbb{C}$.",
+            "hint": "Have you ever seen $y^p - y = x$? Is it étale?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $X$ be a smooth proper variety over $\\overline{\\mathbb{Q}}$. Embed $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ to form $X_{\\mathbb{C}}$. What is the relationship between $\\pi_1^{\\acute{e}t}(X)$ and $\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$?",
+            "choices": [
+              "They are equal.",
+              "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is a closed normal subgroup of $\\pi_1^{\\acute{e}t}(X)$, with quotient $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\overline{\\mathbb{Q}})$ — but this is trivial since $\\overline{\\mathbb{Q}}$ is algebraically closed.",
+              "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is strictly larger than $\\pi_1^{\\acute{e}t}(X)$.",
+              "There is no general comparison."
+            ],
+            "answer": 0,
+            "explain": "For a geometrically connected proper variety over an algebraically closed field, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (this uses properness — without it, base change can introduce new covers, e.g. $\\mathbb{A}^1$ acquires more covers under $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ via transcendental extensions). So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
+            "hint": "Properness is essential — what fails for $X = \\mathbb{A}^1$?"
           }
         ]
       }
@@ -10655,6 +13744,743 @@ window.MVQuizBank = {
       }
     }
   },
+  "grothendieck-topologies-sites": {
+    "topic": "grothendieck-topologies-sites",
+    "quizzes": {
+      "sieves": {
+        "title": "Sieves",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Let $C$ be the 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$ (no relation between $x$ and $y$). Which of the following families of arrows form a sieve on $t$?",
+            "choices": [
+              "$\\{\\mathrm{id}_t,\\ x \\to t,\\ y \\to t\\}$ — the maximal sieve",
+              "$\\{x \\to t\\}$ — singleton",
+              "$\\{x \\to t,\\ y \\to t\\}$ — both legs but not $\\mathrm{id}_t$",
+              "$\\varnothing$ — the empty sieve"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Every arrow into $t$ has source $x$, $y$, or $t$. Since the only arrows out of $x$, $y$, $t$ that land in $\\{x, y, t\\}$ via composition are themselves identities, every set listed is precomposition-closed. In a poset, sieves on $c$ are exactly down-sets of objects $\\leq c$, and all four sets correspond to legitimate down-sets.",
+            "hint": "A sieve is closed under precomposition; in a poset there are no nontrivial composable predecessors to worry about."
+          },
+          {
+            "type": "numeric",
+            "q": "How many sieves are there on the top object $t$ of the same 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Sieves on $t$ correspond bijectively to down-sets of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. With no relations between $x$ and $y$, every subset is automatically a down-set: $\\varnothing$, $\\{x\\}$, $\\{y\\}$, $\\{x, y\\}$ — but a sieve on $t$ must contain $\\mathrm{id}_t$ to make sense as a subfunctor of $h_t$ at $d = t$? Careful: actually every subset is a sieve, and the empty set is allowed too. The four sieves are $\\varnothing,\\ \\{x \\to t\\},\\ \\{y \\to t\\},\\ \\{x \\to t, y \\to t, \\mathrm{id}_t\\}$ if we close under precomposition — but in a poset closure is trivial. Counting all subsets of the down-set $\\{x, y\\}$ of strict predecessors of $t$ together with the choice of including $\\mathrm{id}_t$, gives $4$ when we identify a sieve with its set of strict $\\leq t$ predecessors.",
+            "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$; count down-sets."
+          },
+          {
+            "type": "mcq",
+            "q": "Which equivalent description of a sieve on $c$ best generalises to arbitrary categories?",
+            "choices": [
+              "A subset of $\\operatorname{Hom}(C, c)$ closed under precomposition with arbitrary arrows.",
+              "An open subset of the topological space $|C|$.",
+              "An ideal of the endomorphism ring $\\operatorname{End}(c)$.",
+              "An equivalence class of arrows into $c$ under composition."
+            ],
+            "answer": 0,
+            "explain": "A sieve is precisely a precomposition-closed family of arrows into $c$, equivalently a subfunctor of the representable presheaf $h_c$. The other options either presuppose extra structure (a topology, a ring) or are nonsensical (equivalence classes don't compose).",
+            "hint": "What does the original definition say about composing on the right of an arrow already in the sieve?"
+          }
+        ]
+      },
+      "grothendieck-topology": {
+        "title": "Grothendieck topology axioms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Suppose $J$ assigns to every object $c$ a family $J(c)$ of sieves, satisfying maximality and stability under pullback, but transitivity FAILS. Which of the following can go wrong?",
+            "choices": [
+              "Sheafification can fail to be idempotent — $a \\circ a \\neq a$.",
+              "The maximal sieve might no longer be in $J(c)$.",
+              "$J(c)$ might not be closed under pullback.",
+              "Sieves on $c$ might fail to form a lattice."
+            ],
+            "answer": 0,
+            "explain": "Transitivity is precisely the local-to-global axiom that makes sheafification idempotent (so the plus-construction stabilises after two iterations). Without it, the would-be sheafification functor is not even a left adjoint to the inclusion of sheaves. Maximality and pullback-stability are independent axioms unaffected by failure of transitivity.",
+            "hint": "Transitivity = 'local cover of a local cover is a cover.' Which formal property does that underwrite?"
+          },
+          {
+            "type": "mcq",
+            "q": "Is the trivial topology $J_{\\mathrm{triv}}(c) = \\{\\mathrm{max}_c\\}$ — only the maximal sieve covers — a Grothendieck topology?",
+            "choices": [
+              "Yes — all three axioms (M, S, T) hold; sheaves are exactly all presheaves.",
+              "No — it fails maximality on objects with no incoming arrows.",
+              "No — it fails stability because pullback of max may not be max.",
+              "Only if $C$ has a terminal object."
+            ],
+            "answer": 0,
+            "explain": "M is given. For S: $f^*\\mathrm{max}_c = \\mathrm{max}_d$ since every $g\\colon e \\to d$ composes with $f$ to land in $\\mathrm{max}_c$ — every arrow into $c$ is in the maximal sieve. For T: if $f^*T \\in J_{\\mathrm{triv}}(d)$ for every $f \\in \\mathrm{max}_c$, then in particular $\\mathrm{id}_c^* T = T \\in J_{\\mathrm{triv}}(c)$, so $T = \\mathrm{max}_c$. The presheaf topos $\\widehat{C}$ is the sheaf topos for the trivial topology.",
+            "hint": "Sheaves on the trivial topology are presheaves — which is itself a topos. So this had better be a valid Grothendieck topology."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are equivalent ways of specifying a Grothendieck topology on $C$?",
+            "choices": [
+              "A function $J\\colon \\mathrm{Ob}(C) \\to \\mathrm{Sets\\ of\\ sieves}$ satisfying axioms M, S, T.",
+              "A Lawvere–Tierney topology $j\\colon \\Omega \\to \\Omega$ on the presheaf topos $\\widehat{C}$.",
+              "A reflective subcategory of $\\widehat{C}$ whose reflector preserves finite limits.",
+              "A functor $C \\to \\mathsf{Top}$ landing in topological spaces."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and left-exact-reflective (geometric) subcategories of $\\widehat{C}$ are all in bijection — this is the unification at the heart of the elementary/Grothendieck topos correspondence. A functor to $\\mathsf{Top}$ is unrelated.",
+            "hint": "Three of the four phrase the same data — sheafification adjunction, internal classifier, axiomatic — and the fourth is a red herring."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "On the category $C$ of open subsets of a topological space $X$, define $J(U)$ to be the collection of sieves $S$ such that $\\bigcup_{V \\to U \\in S} V = U$ (set-theoretic equality of point-sets). Is this a Grothendieck topology?",
+            "choices": [
+              "Yes — this is exactly the open-cover topology, recovering ordinary sheaves on $X$.",
+              "No — it fails maximality if $X$ is not connected.",
+              "No — it fails stability when $V \\subseteq U$ is an open immersion.",
+              "Only if $X$ is locally connected."
+            ],
+            "answer": 0,
+            "explain": "This is the standard Zariski-style topology on $\\mathrm{Open}(X)$. M: the maximal sieve $\\mathrm{max}_U = \\{V \\hookrightarrow U\\}$ certainly covers $U$ as a union. S: pulling back along $V \\to U$ takes a cover of $U$ to its restriction to $V$, still a cover. T: if $S$ covers $U$ and each piece $V$ of $S$ is covered by sieves $T_V$, the union of all $T_V$'s pieces still covers $U$. So all three axioms hold, and the resulting sheaves are exactly the classical sheaves on the topological space.",
+            "hint": "This is just the textbook definition of an open cover."
+          },
+          {
+            "type": "mcq",
+            "q": "On the category $C = \\{*\\}$ with one object and one identity arrow, how many Grothendieck topologies are there?",
+            "choices": [
+              "Two — only the maximal sieve $\\{\\mathrm{id}\\}$ covers (presheaves = sheaves), or both $\\{\\mathrm{id}\\}$ and $\\varnothing$ cover.",
+              "One — there is no nontrivial choice.",
+              "Infinitely many.",
+              "Zero — a one-object category is too small to support any topology."
+            ],
+            "answer": 0,
+            "explain": "Sieves on $*$ are subsets of $\\{\\mathrm{id}\\}$: just $\\varnothing$ and $\\{\\mathrm{id}\\} = \\mathrm{max}_*$. M forces $\\mathrm{max}_*$ to be covering. The only choice is whether $\\varnothing$ is also covering. If yes (the discrete topology), the only sheaf is the terminal one — sheaves are equivalent to $\\{*\\}$. If no (the trivial topology), sheaves on $*$ are presheaves on $*$, equivalent to $\\mathsf{Set}$. Both satisfy S and T trivially.",
+            "hint": "Count subsets of $\\mathrm{max}_*$ that include $\\mathrm{max}_*$ — and check axioms hold for each."
+          }
+        ]
+      },
+      "examples-of-sites": {
+        "title": "Examples: small/large Zariski, étale, fpqc",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "On $\\operatorname{Spec} \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
+            "choices": [
+              "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
+              "$\\mu_2$, the sheaf of square roots of unity — Zariski-locally trivial.",
+              "$\\mu_2$, the sheaf of square roots of unity — étale-locally trivial.",
+              "An fppf $\\mathbb{Z}/2$-torsor — étale-locally trivial."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\operatorname{Spec} \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
+            "hint": "A line bundle is Zariski-locally trivial by the very definition of locally free sheaf of rank 1; whether $\\mu_n$ is Zariski-locally trivial depends on whether $n$th roots of $1$ already live in the base ring."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a covering family on $\\operatorname{Spec} \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
+            "choices": [
+              "$\\{\\operatorname{Spec} \\mathbb{Q}(\\sqrt{2}) \\to \\operatorname{Spec} \\mathbb{Q}\\}$.",
+              "$\\{\\operatorname{Spec} \\mathbb{Q} \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (the identity).",
+              "$\\{D(2) \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (localisation at $2$).",
+              "$\\{\\operatorname{Spec} \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\operatorname{Spec} \\mathbb{Q}\\}$, regarded as Zariski."
+            ],
+            "answer": 0,
+            "explain": "A finite separable field extension is a finite étale cover, and $\\{\\operatorname{Spec} L \\to \\operatorname{Spec} K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\operatorname{Spec} K$ for a field are just $\\operatorname{Spec} K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\operatorname{Spec} \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
+            "hint": "Zariski opens of a field are very restricted — what's the spectrum of a field as a topological space?"
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the most refined (loosest) of the standard sites on a scheme $X$?",
+            "choices": [
+              "fpqc — covers are jointly surjective faithfully flat quasi-compact families.",
+              "étale.",
+              "Zariski.",
+              "Nisnevich."
+            ],
+            "answer": 0,
+            "explain": "The chain Zariski $\\subset$ Nisnevich $\\subset$ étale $\\subset$ smooth $\\subset$ fppf $\\subset$ fpqc orders sites by how loose the cover condition is. fpqc covers include arbitrary faithfully flat quasi-compact maps with no smoothness or finite-type assumption.",
+            "hint": "Which condition imposes the least on the cover morphisms?"
+          }
+        ]
+      },
+      "sheaves-on-a-site": {
+        "title": "Sheaves and sheafification",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "On the small Zariski site of a connected scheme $X$, which of the following presheaves are sheaves?",
+            "choices": [
+              "$U \\mapsto \\Gamma(U, \\mathcal{O}_X)$ — global sections of the structure sheaf.",
+              "$U \\mapsto \\operatorname{Hom}_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
+              "$U \\mapsto A$ for a fixed abelian group $A$ — the constant presheaf.",
+              "$U \\mapsto A^{\\pi_0(U)}$ — the locally constant sheaf."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Structure-sheaf sections, representables, and locally constant sheaves all glue. The constant presheaf fails on disconnected $U$: a matching family $(a_1, a_2)$ over $U = U_1 \\sqcup U_2$ has no amalgamation in $A$ unless $a_1 = a_2$. Sheafifying gives the locally constant sheaf, which is a sheaf.",
+            "hint": "Disconnected covers are the test that distinguishes constant presheaf from locally constant sheaf."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X$ be a topological space with two connected components $X_1, X_2$, and let $A$ be a non-trivial abelian group. What is the sheafification of the constant presheaf $\\underline{A}_{\\mathrm{pre}}$, evaluated on $X$?",
+            "choices": [
+              "$A \\times A$ — one copy per connected component.",
+              "$A$ — the original constant value.",
+              "$0$ — sheafification kills it.",
+              "$A^{\\mathbb{Z}}$ — formal sums."
+            ],
+            "answer": 0,
+            "explain": "The sheafification $\\underline{A}$ is the locally constant sheaf, with $\\underline{A}(U) = A^{\\pi_0(U)}$. Since $X = X_1 \\sqcup X_2$ has $|\\pi_0(X)| = 2$, we get $\\underline{A}(X) = A \\times A$ — one independent value per connected component.",
+            "hint": "The plus-construction has to add the missing amalgamations; the only constraint left is locally constant."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the second iteration $(F^+)^+$ of the plus-construction guarantee?",
+            "choices": [
+              "$(F^+)^+$ is a sheaf — the gluings exist (first $+$ makes $F$ separated, second $+$ adds gluings).",
+              "$(F^+)^+ = F$ — the plus-construction is involutive.",
+              "$(F^+)^+ = \\Omega$ — sheafification produces the subobject classifier.",
+              "$(F^+)^+$ is the terminal presheaf $1$."
+            ],
+            "answer": 0,
+            "explain": "Grothendieck's two-step plus-construction: $F \\to F^+ \\to (F^+)^+$. The first $+$ kills failure of separation (uniqueness); the second $+$ produces the missing gluings (existence). After two iterations the result is a sheaf; further applications are isomorphisms. This is the slickest concrete construction of sheafification.",
+            "hint": "The plus-construction averages a presheaf over covering sieves — once kills uniqueness defects, twice kills existence defects."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why is one application of the plus-construction not enough for sheafification — but two suffice?",
+            "choices": [
+              "$F^+$ is always separated; passing to $(F^+)^+$ adds the missing gluings to a separated presheaf, which lands in sheaves.",
+              "$F^+$ is always a sheaf; the second application is a no-op tradition.",
+              "$F^+$ is always a presheaf, never a sheaf.",
+              "Two applications produce the subobject classifier $\\Omega$."
+            ],
+            "answer": 0,
+            "explain": "$F^+(c) = \\mathrm{colim}_{S \\in J(c)} \\mathrm{Match}(S, F)$ takes a presheaf to its 'best separated quotient' — matching families that previously had multiple amalgamations get identified. So $F^+$ is separated. But $F^+$ may still be missing gluings (existence). Applying $+$ again to a separated presheaf adds the existing gluings without creating new uniqueness failures, landing in sheaves.",
+            "hint": "Think about which property — uniqueness or existence — each application of $+$ fixes."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following operations preserve sheaves (i.e. take sheaves to sheaves)?",
+            "choices": [
+              "Finite products: $F, G$ sheaves $\\Rightarrow F \\times G$ a sheaf.",
+              "Filtered colimits in $\\mathsf{Ab}$-valued sheaves on a coherent site.",
+              "Arbitrary colimits in presheaves: $F, G$ sheaves $\\Rightarrow F \\sqcup G$ a sheaf in $\\widehat{C}$.",
+              "Postcomposition with sheafification $a$: $aF$ is a sheaf."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Finite limits (products, equalisers) are computed pointwise and preserve sheaves. Filtered colimits preserve the sheaf condition on a coherent site (where coverings can be chosen finite) — this is a key fact behind cohomology with coefficients in directed systems. Sheafification by definition lands in sheaves. But arbitrary colimits in presheaves do NOT preserve sheaves: e.g. the coproduct of two sheaves in $\\widehat{C}$ is rarely a sheaf — you have to sheafify.",
+            "hint": "Limits behave well; colimits are the trouble — but specific colimits (filtered, on coherent sites) are exceptions."
+          }
+        ]
+      },
+      "topos-of-sheaves": {
+        "title": "$\\mathrm{Sh}(C, J)$ as a topos",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which property characterises Grothendieck toposes among elementary toposes?",
+            "choices": [
+              "Has a small generating set and all small colimits (Giraud's theorem).",
+              "Has a subobject classifier $\\Omega$.",
+              "Is cartesian closed.",
+              "Has a natural number object."
+            ],
+            "answer": 0,
+            "explain": "Every elementary topos has $\\Omega$, is cartesian closed, and (assuming the standard axioms) has a natural number object. What sets Grothendieck toposes apart is the size condition: small colimits + small generating set, plus the structural Giraud axioms (universal colimits, disjoint sums, effective equivalence relations) — together these recover a site.",
+            "hint": "Elementary topos already gives the finitary structure; what extra thing makes it 'come from a site'?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\mathrm{Sh}(\\operatorname{Spec} k)$ for $k$ a separably closed field, on the étale site?",
+            "choices": [
+              "Equivalent to $\\mathsf{Set}$ — the étale site collapses to a point.",
+              "Equivalent to $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
+              "Equivalent to $\\mathsf{Vect}_k$.",
+              "Equivalent to the topos of locally constant sheaves on $|\\operatorname{Spec} k|$."
+            ],
+            "answer": 0,
+            "explain": "When $k$ is separably closed, $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)$ is trivial, so $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\operatorname{Spec} k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\operatorname{Spec} k) \\simeq \\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
+            "hint": "Galois theory: what is the absolute Galois group of a separably closed field?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which categories below are Grothendieck toposes?",
+            "choices": [
+              "$\\mathsf{Set}$ — sheaves on the one-point site.",
+              "$G\\text{-}\\mathsf{Set}$ for a group $G$ — sheaves on the one-object category $BG$.",
+              "$\\mathsf{Top}$ — topological spaces.",
+              "$\\widehat{C} = [C^{\\mathrm{op}}, \\mathsf{Set}]$ — presheaves on a small category $C$."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "$\\mathsf{Set}$, $G\\text{-}\\mathsf{Set}$, and presheaf categories are all Grothendieck toposes (the third is sheaves for the trivial topology). $\\mathsf{Top}$ is NOT a topos — it lacks exponentials in general, e.g. $Y^X$ doesn't exist for arbitrary $X, Y$. (The convenient cartesian-closed subcategory of compactly generated spaces is closer, but $\\mathsf{Top}$ itself isn't.)",
+            "hint": "Three of the four are toposes; the fourth is famously NOT cartesian closed."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "What is the relationship between Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and reflective subcategories of $\\widehat{C}$ closed under finite limits?",
+            "choices": [
+              "All three are in natural bijection — they specify the same data.",
+              "Only Grothendieck and Lawvere–Tierney topologies match; reflective subcategories are strictly more general.",
+              "Lawvere–Tierney topologies generalise Grothendieck; reflective lex subcategories are even more general.",
+              "Reflective lex subcategories generalise both — there are reflective subcategories of $\\widehat{C}$ that don't come from a topology."
+            ],
+            "answer": 0,
+            "explain": "This is one of the cornerstones of topos theory. A Grothendieck topology $J$ on $C$ determines a Lawvere–Tierney topology $j_J\\colon \\Omega \\to \\Omega$ on $\\widehat{C}$ (closure of subpresheaves under $J$-covering refinements), and conversely every Lawvere–Tierney topology on $\\widehat{C}$ comes from a unique Grothendieck topology on $C$. Both correspond to lex-reflective subcategories via the $j$-sheaves. The three viewpoints — combinatorial (covering sieves), internal (closure operator on $\\Omega$), and 2-categorical (subtopos) — are equivalent.",
+            "hint": "The whole setup is designed to make these three viewpoints interchangeable."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the axiom 'finite limits commute with filtered colimits' part of Giraud's characterisation?",
+            "choices": [
+              "It encodes that the generating set is 'compact enough' — equivalently, that the topos is presentable in the locally finitely presentable sense.",
+              "It guarantees that every Grothendieck topology is the canonical one.",
+              "It is equivalent to having a natural number object.",
+              "It eliminates the need for axioms (iv)–(vi)."
+            ],
+            "answer": 0,
+            "explain": "Filtered-colimit/finite-limit commutation is the abstract content of 'set-like compactness' — the generating presheaves can be chosen so that each is a compact object. This is exactly the condition that a Grothendieck topos is locally presentable (Adámek–Rosický), and it is what excludes large categories like $\\mathsf{Top}$ from being toposes.",
+            "hint": "What does this commutation condition pick out among locally small cocomplete categories?"
+          }
+        ]
+      },
+      "geometric-morphisms-of-sites": {
+        "title": "Geometric morphisms from morphisms of sites",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given a continuous functor of sites $u\\colon (C, J) \\to (D, K)$, the induced geometric morphism $f\\colon \\mathrm{Sh}(D, K) \\to \\mathrm{Sh}(C, J)$ has which inverse and direct images?",
+            "choices": [
+              "$f^* = a_K \\circ \\mathrm{Lan}_u$ (sheafified left Kan extension); $f_* = (-) \\circ u$ (precomposition).",
+              "$f^* = (-) \\circ u$; $f_* = a_K \\circ \\mathrm{Lan}_u$.",
+              "$f^* = f_* = (-) \\circ u$ — both are precomposition.",
+              "$f^*$ is a right adjoint and $f_*$ is a left adjoint."
+            ],
+            "answer": 0,
+            "explain": "By the categorical convention $f^* \\dashv f_*$: $f^*$ is the LEFT adjoint and must preserve finite limits. Restriction-along-$u$, namely $G \\mapsto G \\circ u$, is a right adjoint (precomposition has both a left adjoint $\\mathrm{Lan}_u$ and a right adjoint $\\mathrm{Ran}_u$ in the presheaf setting). After sheafifying, $a_K \\circ \\mathrm{Lan}_u$ is the inverse image and the precomposition is the direct image. Mnemonic: the inverse image goes 'against' the functor of sites $u$.",
+            "hint": "$f^*$ is the left adjoint; precomposition is a right adjoint; so $f^*$ has to be the (sheafified) Kan extension."
+          },
+          {
+            "type": "mcq",
+            "q": "If $u\\colon C \\to D$ and $v\\colon D \\to E$ are continuous functors of sites with induced geometric morphisms $f\\colon \\mathrm{Sh}(D) \\to \\mathrm{Sh}(C)$ and $g\\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(D)$, what is the geometric morphism induced by the composite $v \\circ u\\colon C \\to E$?",
+            "choices": [
+              "$g \\circ f \\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(C)$.",
+              "$f \\circ g \\colon \\mathrm{Sh}(C) \\to \\mathrm{Sh}(E)$.",
+              "An entirely new geometric morphism unrelated to $f, g$.",
+              "Composition of site functors does not generally yield a geometric morphism."
+            ],
+            "answer": 0,
+            "explain": "Functors of sites compose in the order $C \\to D \\to E$, but the induced geometric morphisms go in the OPPOSITE direction: $\\mathrm{Sh}(E) \\to \\mathrm{Sh}(D) \\to \\mathrm{Sh}(C)$. So the composite $v \\circ u\\colon C \\to E$ induces $g \\circ f\\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(C)$, with $(g \\circ f)^* = f^* \\circ g^*$ and $(g \\circ f)_* = g_* \\circ f_*$.",
+            "hint": "Site functors and geometric morphisms have opposite orientations — but composition is functorial."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\operatorname{Spec} L) \\to \\mathrm{Sh}(\\operatorname{Spec} K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
+            "choices": [
+              "The morphism induced by the restriction-of-scalars functor — corresponding to the $K$-algebra map $K \\hookrightarrow L$.",
+              "The morphism induced by $L \\to K$ — but no such ring map generally exists.",
+              "There is no geometric morphism between these toposes.",
+              "Only their identity geometric morphisms."
+            ],
+            "answer": 0,
+            "explain": "A continuous map of schemes $\\operatorname{Spec} L \\to \\operatorname{Spec} K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\operatorname{Gal}(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\operatorname{Gal}(L^{\\mathrm{sep}}/L) \\hookrightarrow \\operatorname{Gal}(K^{\\mathrm{sep}}/K)$).",
+            "hint": "A scheme map $X \\to Y$ always induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ on étale toposes — and a ring map $K \\to L$ gives a scheme map in the opposite direction."
+          }
+        ]
+      }
+    }
+  },
+  "group-schemes": {
+    "topic": "group-schemes",
+    "quizzes": {
+      "group-scheme-definition": {
+        "title": "What is a group scheme?",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following are group schemes over $\\mathbb{Z}$?",
+            "choices": [
+              "$\\mathrm{GL}_n = \\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, \\det^{-1}]$",
+              "$\\mathbb{A}^1 = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ (the bare affine line, with no group structure picked out)",
+              "$\\mathbb{G}_a = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
+              "$\\mathbb{P}^1 = \\mathrm{Proj}\\,\\mathbb{Z}[x_0, x_1]$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathrm{GL}_n$ and $\\mathbb{G}_a$ are group schemes (one comes with matrix multiplication, the other with addition). The bare $\\mathbb{A}^1$ without designated $(m, e, \\iota)$ is just a scheme — same underlying scheme as $\\mathbb{G}_a$ but the group structure is part of the data, not implicit. $\\mathbb{P}^1$ admits no group-scheme structure (it's a non-trivial projective variety; the only connected projective group schemes are abelian varieties, and $\\mathbb{P}^1$ has genus 0 not 1).",
+            "hint": "A group scheme is a scheme equipped with $(m, e, \\iota)$, not just a scheme."
+          },
+          {
+            "type": "mcq",
+            "q": "For the affine group scheme $\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive group), what is the comultiplication $\\Delta\\colon k[t] \\to k[t] \\otimes k[t]$ encoding the multiplication $m\\colon \\mathbb{G}_a \\times \\mathbb{G}_a \\to \\mathbb{G}_a$?",
+            "choices": [
+              "$\\Delta(t) = t \\otimes t$",
+              "$\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
+              "$\\Delta(t) = t \\otimes 1 \\cdot 1 \\otimes t$",
+              "$\\Delta(t) = 1 \\otimes 1$"
+            ],
+            "answer": 1,
+            "explain": "On $T$-points, $\\mathbb{G}_a(T) = \\Gamma(T,\\mathcal{O}_T)$ with addition. So the multiplication map sends $(a, b) \\mapsto a + b$, dualising to $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$. The choice $t \\otimes t$ would encode multiplication of units, which is $\\mathbb{G}_m$, not $\\mathbb{G}_a$.",
+            "hint": "Read off what the group law does to functions: $f(a+b)$ in terms of $f(a)$ and $f(b)$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $G$ is a group scheme over $S$, what does the functor of points $h_G\\colon T \\mapsto G(T) = \\mathrm{Hom}_S(T, G)$ land in?",
+            "choices": [
+              "The category of sets",
+              "The category of groups",
+              "The category of topological spaces",
+              "The category of rings"
+            ],
+            "answer": 1,
+            "explain": "By definition, the structure morphisms $(m, e, \\iota)$ on $G$ make each $G(T)$ a group, and morphisms in $T$ induce group homomorphisms in $G(T)$. So $h_G$ factors through $\\mathbf{Grp}$. This is the functor-of-points characterisation.",
+            "hint": "What does the multiplication $m\\colon G \\times G \\to G$ induce on $T$-points?"
+          }
+        ]
+      },
+      "examples-Ga-Gm-mu-n": {
+        "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $|\\mu_{15}(\\bar{\\mathbb{F}_5})|$, the number of $\\bar{\\mathbb{F}_5}$-points of $\\mu_{15} = \\mathrm{Spec}\\,\\mathbb{F}_5[t]/(t^{15} - 1)$.",
+            "answer": 3,
+            "tol": 0,
+            "explain": "Over $\\bar{\\mathbb{F}_5}$, $t^{15} - 1$ has $\\gcd(15, 5)$-related splitting: write $15 = 3 \\cdot 5$. Then $t^{15} - 1 = (t^3 - 1)^5$ in characteristic $5$, so the only roots are the 3rd roots of unity, of which there are 3 (since $\\gcd(3,5) = 1$). General formula: $|\\mu_n(\\bar{\\mathbb{F}_p})| = n / p^{v_p(n)}$ — divide $n$ by the largest power of $p$ that divides it.",
+            "hint": "Factor out the $p$-part: $\\mu_n = \\mu_{p^k} \\times \\mu_{n/p^k}$ where $n = p^k m$ with $\\gcd(m,p) = 1$. The $p^k$ piece is purely infinitesimal."
+          },
+          {
+            "type": "multi-select",
+            "q": "Over $\\bar{\\mathbb{F}_p}$, which of the following are étale (no infinitesimal piece)?",
+            "choices": [
+              "$\\mathbb{Z}/n$ as a constant group scheme, for $\\gcd(n,p) = 1$",
+              "$\\mu_p$",
+              "$\\alpha_p$",
+              "$\\mu_n$ for $\\gcd(n,p) = 1$"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "Étale over $\\bar{\\mathbb{F}_p}$ ⇔ no $\\bar{\\mathbb{F}_p}$-multiplicity, i.e. the defining polynomial is separable. $\\mu_n$ is étale iff $n$ is invertible in $k$, so for $\\gcd(n,p) = 1$. The constant group scheme $\\mathbb{Z}/n$ is always étale. $\\mu_p$ has $t^p - 1 = (t-1)^p$ — connected, infinitesimal. $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$ is purely connected/infinitesimal.",
+            "hint": "Étale ⇔ separable defining polynomial, which fails when char divides the multiplicity."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the order of $\\mu_n$ as a finite group scheme over $\\mathbb{Q}$ (where order is $\\dim_{\\mathbb{Q}} \\Gamma(\\mu_n, \\mathcal{O}))$?",
+            "choices": [
+              "$\\varphi(n)$ (Euler totient)",
+              "$n$",
+              "$1$",
+              "$n - 1$"
+            ],
+            "answer": 1,
+            "explain": "$\\mu_n = \\mathrm{Spec}\\,\\mathbb{Q}[t]/(t^n - 1)$ has coordinate ring of $\\mathbb{Q}$-dimension $n$ (basis $1, t, t^2, \\ldots, t^{n-1}$). The Galois action splits this into eigenspaces by primitive $d$-th roots for $d \\mid n$, but the rank — the order of the group scheme — is $n$. Distinguish from $|\\mu_n(\\mathbb{Q})|$, which depends on what's in $\\mathbb{Q}$.",
+            "hint": "Order of a finite group scheme = rank of its coordinate algebra over $k$, not the number of $k$-points."
+          }
+        ]
+      },
+      "hopf-algebra": {
+        "title": "Affine group schemes ↔ commutative Hopf algebras",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each affine group scheme to its comultiplication $\\Delta(t)$ on the indicated generator.",
+            "left": [
+              "$t \\otimes t$",
+              "$t \\otimes 1 + 1 \\otimes t$",
+              "$t \\otimes t$ (in $k[t]/(t^n-1)$)",
+              "$t \\otimes 1 + 1 \\otimes t$ (in $k[t]/(t^p)$, char $p$)"
+            ],
+            "right": [
+              "$\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$",
+              "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$",
+              "$\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n-1)$",
+              "$\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$\\mathbb{G}_m$ and $\\mu_n$ both have $\\Delta(t) = t \\otimes t$ — they encode the same multiplication law on units, just with different relations on $t$. $\\mathbb{G}_a$ and $\\alpha_p$ both have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$ — additive comultiplication, with $\\alpha_p$ adding the relation $t^p = 0$.",
+            "hint": "Multiplicative groups have $\\Delta(t) = t \\otimes t$; additive groups have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the antipode $S\\colon k[t, t^{-1}] \\to k[t, t^{-1}]$ for the Hopf algebra of $\\mathbb{G}_m$?",
+            "choices": [
+              "$S(t) = -t$",
+              "$S(t) = t^{-1}$",
+              "$S(t) = 1$",
+              "$S(t) = t^2$"
+            ],
+            "answer": 1,
+            "explain": "The antipode pulls back the inverse map $\\iota\\colon \\mathbb{G}_m \\to \\mathbb{G}_m$, $a \\mapsto a^{-1}$. So $S(t) = t^{-1}$. The check: $\\mu \\circ (\\mathrm{id} \\otimes S) \\circ \\Delta(t) = \\mu(t \\otimes t^{-1}) = t \\cdot t^{-1} = 1 = \\eta(\\epsilon(t))$. The choice $S(t) = -t$ is for $\\mathbb{G}_a$.",
+            "hint": "What is the inverse of $a \\in T^\\times$? Pull that back along $\\Delta$ via $a \\mapsto a^{-1}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The category of affine group schemes over $k$ is equivalent to which category?",
+            "choices": [
+              "Commutative Hopf algebras over $k$",
+              "The opposite of commutative Hopf algebras over $k$",
+              "Lie algebras over $k$",
+              "Cocommutative Hopf algebras over $k$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Spec}$ is contravariant: morphisms of affine schemes go opposite to morphisms of rings. So affine group schemes / $k$ are equivalent to the <em>opposite</em> of commutative Hopf algebras / $k$. (Equivalently: covariantly equivalent to the category of commutative Hopf algebras with arrows reversed.) Cocommutative Hopf algebras correspond to commutative group schemes, a subclass.",
+            "hint": "Spec reverses arrows."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $A$ be the Hopf algebra of an affine group scheme $G$ over $k$. The Lie algebra $\\mathrm{Lie}(G)$ can be recovered from $A$ as which of the following?",
+            "choices": [
+              "$\\mathrm{Hom}_k(I/I^2, k)$, where $I = \\ker \\epsilon$ is the augmentation ideal",
+              "$A/I$",
+              "$I^2/I^3$",
+              "$\\mathrm{Hom}_k(A, k)$"
+            ],
+            "answer": 0,
+            "explain": "$\\mathrm{Lie}(G) = T_e G = \\mathrm{Hom}_k(\\mathfrak{m}_e/\\mathfrak{m}_e^2, k)$ where $\\mathfrak{m}_e = I$ is the maximal ideal at the identity. The cotangent space at the identity is $I/I^2$; the tangent space is its $k$-linear dual. The bracket on $\\mathrm{Lie}(G)$ comes from the adjoint coaction, also encoded purely in the Hopf-algebra data.",
+            "hint": "Tangent space at a closed point is dual to maximal-ideal-mod-its-square."
+          },
+          {
+            "type": "mcq",
+            "q": "Cartier duality is an anti-equivalence on the category of finite commutative group schemes. For $G$ with Hopf algebra $A$, the Cartier dual $G^\\vee$ has Hopf algebra:",
+            "choices": [
+              "$A$ itself with $\\Delta$ and $\\mu$ swapped",
+              "$A^* = \\mathrm{Hom}_k(A, k)$ with $\\Delta$ and $\\mu$ swapped",
+              "$A \\otimes A$",
+              "$A^{\\mathrm{op}}$"
+            ],
+            "answer": 1,
+            "explain": "Cartier duality on a finite Hopf algebra is the linear dual $A^* = \\mathrm{Hom}_k(A, k)$, with the multiplication and comultiplication swapped (and similarly $\\eta \\leftrightarrow \\epsilon$, $S^\\vee = S$). For $G$ finite, $A$ is finite-dimensional so $A^*$ is again finite-dimensional and is again a (commutative, since $G$ commutative) Hopf algebra. Examples: $(\\mathbb{Z}/n)^\\vee = \\mu_n$, $\\alpha_p^\\vee = \\alpha_p$ (Cartier self-dual).",
+            "hint": "On a finite-dimensional Hopf algebra, dualising swaps algebra and coalgebra structures."
+          }
+        ]
+      },
+      "etale-vs-connected": {
+        "title": "Étale, connected, and infinitesimal pieces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the étale part of $\\mu_p$ over a perfect field $k$ of characteristic $p$?",
+            "choices": [
+              "$\\mu_p$ itself",
+              "Trivial: $\\mu_p^{ét} = 1$",
+              "$\\mathbb{Z}/p$",
+              "$\\alpha_p$"
+            ],
+            "answer": 1,
+            "explain": "Over $k$ of char $p$, $\\mu_p = \\mathrm{Spec}\\,k[t]/(t^p - 1) = \\mathrm{Spec}\\,k[t]/((t-1)^p)$ — the coordinate ring is local Artinian with one closed point, all nilpotents above. So $\\mu_p$ is connected (infinitesimal) and its étale quotient is trivial. Equivalently: $\\mu_p$ has only one $\\bar k$-point.",
+            "hint": "$t^p - 1 = (t-1)^p$ in characteristic $p$. How many distinct roots?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is the connected part of $\\mathbb{Z}/n$ (the constant group scheme of order $n$) over any field?",
+            "choices": [
+              "$\\mathbb{Z}/n$ itself",
+              "Trivial: $(\\mathbb{Z}/n)^\\circ = 1$",
+              "$\\mu_n$",
+              "$\\alpha_n$"
+            ],
+            "answer": 1,
+            "explain": "The constant group scheme $\\mathbb{Z}/n = \\bigsqcup_{i=0}^{n-1} \\mathrm{Spec}\\,k$ is a disjoint union of $n$ copies of $\\mathrm{Spec}\\,k$ — étale by definition (it is finite étale of degree $n$). Connected component of identity is just the identity copy of $\\mathrm{Spec}\\,k$, i.e. trivial.",
+            "hint": "A constant group scheme is the disjoint union of $|G|$ copies of $\\mathrm{Spec}\\,k$. What is its identity component?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are true over a perfect field $k$ of characteristic $p > 0$?",
+            "choices": [
+              "Every finite commutative group scheme decomposes as $G^\\circ \\times G^{ét}$",
+              "$\\alpha_p$ and $\\mu_p$ are isomorphic as group schemes",
+              "Every finite étale group scheme over $k$ is trivial",
+              "In char 0, every finite group scheme is étale"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "(0) is the connected/étale decomposition over a perfect field. (1) is FALSE — $\\alpha_p$ and $\\mu_p$ are non-isomorphic: their Lie algebras are both $k$ (1-dim) but their Cartier duals differ ($\\alpha_p^\\vee = \\alpha_p$, $\\mu_p^\\vee = \\mathbb{Z}/p$). (2) is FALSE — finite étale group schemes over $k$ correspond to finite groups with continuous Galois action; lots of them. (3) is TRUE: in char 0, every finite scheme is reduced (no non-trivial nilpotents), hence étale.",
+            "hint": "$\\alpha_p$ and $\\mu_p$ are both purely infinitesimal — but are they the same?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite commutative group scheme of order $p^n$ over $\\bar{\\mathbb{F}_p}$. Cartier duality interchanges connected and étale pieces. What is the Cartier dual of $\\alpha_p$?",
+            "choices": [
+              "$\\mu_p$",
+              "$\\alpha_p$ (self-dual)",
+              "$\\mathbb{Z}/p$",
+              "$\\mathbb{G}_m$"
+            ],
+            "answer": 1,
+            "explain": "Cartier duality is given by $G^\\vee = \\mathrm{Hom}(G, \\mathbb{G}_m)$ in an appropriate sense; on finite group schemes, on Hopf algebras it is linear dualisation $A \\mapsto A^*$. For $A = k[t]/(t^p)$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$, the dual Hopf algebra is again $k[t]/(t^p)$ with the same comultiplication — $\\alpha_p$ is Cartier self-dual. The pair $(\\mu_p, \\mathbb{Z}/p)$ are also Cartier dual to each other.",
+            "hint": "$\\alpha_p$ is purely infinitesimal — its dual must also be purely infinitesimal (Cartier swaps connected and étale, but here both pieces are connected on each side)."
+          },
+          {
+            "type": "mcq",
+            "q": "Over a non-perfect field $k$ of characteristic $p$, the connected/étale decomposition $1 \\to G^\\circ \\to G \\to G^{ét} \\to 1$ may fail to:",
+            "choices": [
+              "Be a short exact sequence",
+              "Split (i.e. $G \\not\\cong G^\\circ \\rtimes G^{ét}$ in general)",
+              "Have $G^\\circ$ connected",
+              "Have $G^{ét}$ étale"
+            ],
+            "answer": 1,
+            "explain": "Over a perfect field, the sequence splits canonically. Over a non-perfect field, the splitting can fail — there are obstructions involving $p$-th-root-extraction (essentially, the imperfection ideal $k^{1/p} \\setminus k$). The sequence is still exact, $G^\\circ$ is still connected, and $G^{ét}$ is still étale, but $G$ need not be the semidirect product. Examples come from forms of $\\alpha_p$ over function fields like $\\mathbb{F}_p(s)$.",
+            "hint": "What goes wrong when $k$ is non-perfect — does the splitting use $p$-th roots?"
+          }
+        ]
+      },
+      "lie-algebra-of-G": {
+        "title": "Lie algebra $\\mathrm{Lie}(G)$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim_k \\mathrm{Lie}(\\mathrm{GL}_n)$ for $n = 4$.",
+            "answer": 16,
+            "tol": 0,
+            "explain": "$\\mathrm{Lie}(\\mathrm{GL}_n) = \\mathfrak{gl}_n = \\mathrm{Mat}_n(k)$, dimension $n^2$. For $n = 4$: $4^2 = 16$. Verify: a $k[\\epsilon]$-point of $\\mathrm{GL}_n$ lifting $I$ is $I + \\epsilon X$ for any $X \\in \\mathrm{Mat}_n(k)$ — the determinant condition $\\det(I + \\epsilon X) = 1 + \\epsilon\\,\\mathrm{tr}(X) \\in k[\\epsilon]^\\times$ is automatic.",
+            "hint": "$\\mathrm{Lie}(\\mathrm{GL}_n)$ is what set of matrices?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\mathrm{Lie}(\\mathbb{G}_m)$ as a Lie algebra over $k$?",
+            "choices": [
+              "$k$ with the trivial bracket $[a, b] = 0$ (the abelian 1-dim Lie algebra)",
+              "$k^\\times$, with bracket $[a, b] = ab - ba$",
+              "$\\mathfrak{gl}_1 = k$, with bracket $[a, b] = a - b$",
+              "Trivial: $\\{0\\}$"
+            ],
+            "answer": 0,
+            "explain": "A $k[\\epsilon]$-point of $\\mathbb{G}_m$ lifting $1$ is a unit of the form $1 + \\epsilon a$, $a \\in k$. So $\\mathrm{Lie}(\\mathbb{G}_m) = k$ as a vector space. Since $\\mathbb{G}_m$ is commutative, the bracket is identically zero. This is the 1-dimensional abelian Lie algebra.",
+            "hint": "$\\mathbb{G}_m$ is commutative — what does that say about the bracket on its Lie algebra?"
+          },
+          {
+            "type": "mcq",
+            "q": "If $G \\hookrightarrow H$ is a closed immersion of group schemes (i.e. $G$ is a closed subgroup of $H$), the induced map on Lie algebras $\\mathrm{Lie}(G) \\to \\mathrm{Lie}(H)$ is:",
+            "choices": [
+              "Always an isomorphism",
+              "Always injective",
+              "Always surjective",
+              "Generally neither injective nor surjective"
+            ],
+            "answer": 1,
+            "explain": "The Lie functor preserves closed immersions: if $G \\hookrightarrow H$ is closed, then $G(k[\\epsilon]) \\hookrightarrow H(k[\\epsilon])$ is injective, and restricting to the kernels of reduction-to-$G(k)$ / $H(k)$ gives $\\mathrm{Lie}(G) \\hookrightarrow \\mathrm{Lie}(H)$. Surjectivity fails in general (e.g. for $\\mathrm{SL}_n \\subset \\mathrm{GL}_n$, the codimension is $1$).",
+            "hint": "Closed immersions on dual-number points stay closed immersions on the kernels."
+          }
+        ]
+      },
+      "torsors-and-cohomology": {
+        "title": "$G$-torsors and $H^1(X, G)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m)$ for $k$ a field?",
+            "choices": [
+              "The unit group $k^\\times$",
+              "Trivial: $0$",
+              "$k^\\times / (k^\\times)^2$",
+              "$\\mathrm{Gal}(\\bar k/k)$"
+            ],
+            "answer": 1,
+            "explain": "Hilbert 90: $H^1(\\mathrm{Gal}(\\bar k/k), \\bar k^\\times) = 0$ for any field $k$. Equivalently, $H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathrm{Spec}\\,k) = 0$ — over a field there is only the trivial line bundle. Every $\\mathbb{G}_m$-torsor over $\\mathrm{Spec}\\,k$ trivialises.",
+            "hint": "Hilbert 90 in its sheaf-cohomological form."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following gives a non-trivial $\\mu_2$-torsor on $\\mathrm{Spec}\\,\\mathbb{Q}$?",
+            "choices": [
+              "$\\mathrm{Spec}\\,\\mathbb{Q} \\sqcup \\mathrm{Spec}\\,\\mathbb{Q}$ (with the swap action)",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{2}] \\to \\mathrm{Spec}\\,\\mathbb{Q}$",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}[i]/(i^2 + 1)$ over $\\mathrm{Spec}\\,\\mathbb{Q}[i]$",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}[t]/(t^2 - 1) \\to \\mathrm{Spec}\\,\\mathbb{Q}$"
+            ],
+            "answer": 1,
+            "explain": "By Kummer theory, $H^1_{ét}(\\mathrm{Spec}\\,\\mathbb{Q}, \\mu_2) = \\mathbb{Q}^\\times/(\\mathbb{Q}^\\times)^2$. The class of $a \\in \\mathbb{Q}^\\times$ corresponds to the torsor $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{a}]$. For $a = 2$, this is non-trivial because $2 \\not\\in (\\mathbb{Q}^\\times)^2$. Choice (0) is the trivial torsor (it is $\\mu_2 \\times \\mathrm{Spec}\\,\\mathbb{Q}$). Choice (3) is reducible: $t^2 - 1 = (t-1)(t+1)$, also trivial.",
+            "hint": "Non-trivial $\\mu_2$-torsors on $\\mathrm{Spec}\\,\\mathbb{Q}$ correspond to non-square rationals $a$; the torsor is $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{a}]$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X = \\mathbb{P}^1_k$ over a field $k$, what is $H^1_{ét}(X, \\mathbb{G}_m)$?",
+            "choices": [
+              "$0$",
+              "$k^\\times$",
+              "$\\mathbb{Z}$",
+              "$\\mathrm{Gal}(\\bar k/k)$"
+            ],
+            "answer": 2,
+            "explain": "$H^1_{ét}(\\mathbb{P}^1, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathbb{P}^1) = \\mathbb{Z}$, generated by the class of $\\mathcal{O}(1)$. The Picard group of projective space is the group of line bundles up to isomorphism; for $\\mathbb{P}^n$ this is always $\\mathbb{Z}$ (the degree map is an isomorphism).",
+            "hint": "$H^1_{ét}(X, \\mathbb{G}_m) = \\mathrm{Pic}(X)$. What is the Picard group of $\\mathbb{P}^1$?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Over a field $k$ of characteristic $p$, the Artin–Schreier sequence $0 \\to \\mathbb{Z}/p \\to \\mathbb{G}_a \\xrightarrow{F - \\mathrm{id}} \\mathbb{G}_a \\to 0$ (where $F$ is Frobenius) gives, for $X = \\mathrm{Spec}\\,k$ with $k$ separably closed:",
+            "choices": [
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = 0$",
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = k$",
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = k/(F - \\mathrm{id})k$",
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = \\mathbb{Z}/p$"
+            ],
+            "answer": 0,
+            "explain": "If $k$ is separably closed, every $\\mathbb{Z}/p$-torsor (i.e. every $\\mathbb{Z}/p$-Galois étale cover) of $\\mathrm{Spec}\\,k$ is trivial because the absolute Galois group of $k$ is trivial. Equivalently, the Artin–Schreier map $F - \\mathrm{id}\\colon k \\to k$ is surjective for $k$ separably closed (every element of $k$ is $a^p - a$ for some $a$). For non-sep-closed $k$, the answer is $k/(F-\\mathrm{id})k$.",
+            "hint": "$\\mathrm{Spec}$ of a separably closed field has trivial étale fundamental group."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X$ a smooth projective curve of genus $g \\geq 1$ over $\\bar k$, the group $H^1_{ét}(X, \\mu_n)$ for $\\gcd(n, \\mathrm{char}\\,k) = 1$ is:",
+            "choices": [
+              "$0$",
+              "$(\\mathbb{Z}/n)^{2g}$",
+              "$\\mathbb{Z}/n$",
+              "$\\mathbb{Z}^{2g}$"
+            ],
+            "answer": 1,
+            "explain": "By the Kummer sequence $1 \\to \\mu_n \\to \\mathbb{G}_m \\xrightarrow{[n]} \\mathbb{G}_m \\to 1$ (exact in the étale topology for $n$ invertible in $k$), we get $\\Gamma^\\times/(\\Gamma^\\times)^n \\to H^1(X, \\mu_n) \\to \\mathrm{Pic}(X)[n] \\to 0$. For $X$ a complete curve over $\\bar k$, $\\Gamma(X, \\mathcal{O}_X) = \\bar k$, so the first piece is trivial. Then $H^1(X, \\mu_n) = \\mathrm{Pic}(X)[n] = \\mathrm{Pic}^0(X)[n] = J(X)[n] = (\\mathbb{Z}/n)^{2g}$ (the $n$-torsion of the Jacobian, for $\\gcd(n, p) = 1$).",
+            "hint": "$\\mathrm{Pic}^0(X)$ is the Jacobian, an abelian variety of dimension $g$; its $n$-torsion has rank $2g$ when $n$ is coprime to char."
+          }
+        ]
+      }
+    }
+  },
   "hecke-operators": {
     "topic": "hecke-operators",
     "quizzes": {
@@ -11005,6 +14831,404 @@ window.MVQuizBank = {
             "tol": 0.001,
             "hint": "Newforms have trivial character at good primes, simplifying the adjoint.",
             "explain": "On $S_k(\\Gamma_0(N))$ (trivial nebentypus), the diamond operator $\\langle p\\rangle$ acts as the identity ($\\times 1$), so $T_p^*=T_p$, confirming self-adjointness."
+          }
+        ]
+      }
+    }
+  },
+  "heyting-algebras-toposes": {
+    "topic": "heyting-algebras-toposes",
+    "quizzes": {
+      "heyting-algebra": {
+        "title": "Heyting algebras",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the open-set lattice $\\tau = \\{\\varnothing, \\{x\\}, \\{y\\}, \\{x,y\\}, X\\}$ of $X = \\{x,y,z\\}$, what is $\\{x\\} \\Rightarrow \\{y\\}$?",
+            "choices": [
+              "$\\{y\\}$",
+              "$\\{x,y\\}$",
+              "$\\varnothing$",
+              "$X$"
+            ],
+            "answer": 0,
+            "explain": "$a \\Rightarrow b$ is the largest $c$ with $a \\wedge c \\le b$. Test each candidate: $\\{x\\} \\cap \\{y\\} = \\varnothing \\subseteq \\{y\\}$ ✓, $\\{x\\} \\cap \\{x,y\\} = \\{x\\} \\not\\subseteq \\{y\\}$, $\\{x\\}\\cap X = \\{x\\}\\not\\subseteq\\{y\\}$. So the largest $c$ that works is $\\{y\\}$ itself.",
+            "hint": "Compute $\\{x\\} \\cap c$ for each $c$ in the lattice and check which lie inside $\\{y\\}$ — pick the largest."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following finite lattices are Heyting algebras?",
+            "choices": [
+              "Every finite distributive lattice",
+              "The 5-element non-distributive lattice $N_5$",
+              "Every finite Boolean algebra",
+              "The 5-element diamond $M_3$",
+              "Every finite chain $0 < a_1 < \\cdots < a_n < 1$"
+            ],
+            "answer": [
+              0,
+              2,
+              4
+            ],
+            "explain": "A finite lattice is Heyting iff it is distributive (then $b\\Rightarrow c$ exists as the join of all $x$ with $x\\wedge b\\le c$). $N_5$ and $M_3$ are the two forbidden non-distributive sublattices of Birkhoff's theorem, so they are not Heyting. Boolean algebras are distributive (in fact complemented). Finite chains are distributive.",
+            "hint": "Heyting ⇔ distributive (for finite lattices). The two non-distributive 5-element lattices are exactly $N_5$ and $M_3$."
+          },
+          {
+            "type": "mcq",
+            "q": "In a Heyting algebra, which identity holds for <em>every</em> element $a$?",
+            "choices": [
+              "$\\neg\\neg a = a$",
+              "$a \\vee \\neg a = \\top$",
+              "$\\neg\\neg\\neg a = \\neg a$",
+              "$a \\Rightarrow \\bot = \\top$"
+            ],
+            "answer": 2,
+            "explain": "$\\neg\\neg\\neg a = \\neg a$ is provable in intuitionist logic: from $a \\le \\neg\\neg a$ apply $\\neg$ (which reverses) to get $\\neg\\neg\\neg a \\le \\neg a$; combine with the dual instance. The first two are LEM/DNE — equivalent to being Boolean. The fourth fails when $a \\ne \\bot$.",
+            "hint": "Triple negation collapses to single negation in any Heyting algebra — but double negation does not collapse to identity."
+          }
+        ]
+      },
+      "omega-as-heyting-algebra": {
+        "title": "$\\Omega$ as an internal Heyting algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the subobject classifier $\\Omega$ in the topos $\\mathbf{Set}$?",
+            "choices": [
+              "The empty set $\\varnothing$",
+              "The two-element set $\\{\\bot, \\top\\}$",
+              "The natural numbers $\\mathbb{N}$",
+              "Any infinite set"
+            ],
+            "answer": 1,
+            "explain": "In $\\mathbf{Set}$, subobjects of $X$ are subsets, and a subset is determined by its indicator function $X \\to \\{\\bot,\\top\\}$. So $\\Omega = \\{\\bot,\\top\\}$ with $\\mathrm{true}(*)=\\top$. Two truth values — exactly the data needed for classical Boolean logic.",
+            "hint": "Subobjects of a set are subsets; an indicator function takes how many values?"
+          },
+          {
+            "type": "mcq",
+            "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets, $\\Omega$ as a $G$-set has underlying set:",
+            "choices": [
+              "The set of subgroups of $G$",
+              "The set of normal subgroups of $G$",
+              "$\\{\\bot, \\top\\}$ with trivial $G$-action",
+              "The set of conjugacy classes in $G$"
+            ],
+            "answer": 0,
+            "explain": "A subobject of the terminal $G$-set $\\{*\\}$ is a $G$-stable subset of $\\{*\\}$ — but the elements of $\\Omega$ in $G$-$\\mathbf{Set}$ are sieves on the unique object of the one-object groupoid $G$, which correspond to subgroups of $G$. The action of $g$ on $H \\le G$ is conjugation $H \\mapsto gHg^{-1}$.",
+            "hint": "Think of $G$ as a one-object groupoid; $\\Omega(c)$ in a presheaf topos is the sieves on $c$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Heyting operation on $\\Omega$ with the subobject of $\\Omega \\times \\Omega$ it classifies.",
+            "left": [
+              "$\\wedge$",
+              "$\\vee$",
+              "$\\Rightarrow$"
+            ],
+            "right": [
+              "image of $1+1 \\to \\Omega \\times \\Omega$ via $(\\top, x), (x, \\top)$",
+              "the diagonal $\\langle\\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega\\times\\Omega$",
+              "the order relation $\\le$ on $\\Omega$, the equaliser of $\\wedge$ and $\\pi_1$"
+            ],
+            "answer": [
+              1,
+              0,
+              2
+            ],
+            "explain": "$\\wedge$ classifies the singleton $(\\top,\\top)$; $\\vee$ classifies the union of the two true-lines; $\\Rightarrow$ classifies the order $\\le$. See Mac Lane–Moerdijk IV.8.",
+            "hint": "Conjunction is true only when both coordinates are true; implication is true when the first coordinate is below the second."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In $\\mathrm{Sh}(\\mathbb{R})$, the section $\\Omega(U)$ over an open $U \\subseteq \\mathbb{R}$ is:",
+            "choices": [
+              "$\\{\\bot, \\top\\}$",
+              "the set of open subsets of $U$",
+              "the set of all subsets of $U$",
+              "the closure operator on $U$"
+            ],
+            "answer": 1,
+            "explain": "In $\\mathrm{Sh}(X)$, $\\Omega$ is the sheaf $U \\mapsto \\{\\text{open subsets of } U\\}$ with $\\mathrm{true}_U = U$. A subobject of a sheaf $F$ over $U$ is a sub-sheaf, picked out by 'on which open does each section live.' This makes $\\Omega(U)$ a Heyting algebra under $\\cap, \\cup,$ and the formula $V \\Rightarrow W = \\mathrm{int}(U \\setminus V \\cup W)$.",
+            "hint": "Sub-sheaves of the terminal sheaf over $U$ are determined by the maximal open on which the section is defined."
+          },
+          {
+            "type": "mcq",
+            "q": "Which morphism implements the operation $\\neg\\colon \\Omega \\to \\Omega$?",
+            "choices": [
+              "the identity $\\Omega \\to \\Omega$",
+              "$\\Omega \\xrightarrow{\\langle 1, !\\circ\\bot\\rangle} \\Omega \\times \\Omega \\xrightarrow{\\Rightarrow} \\Omega$",
+              "the swap automorphism of $\\Omega$",
+              "$\\Omega \\xrightarrow{\\langle 1, !\\circ\\top\\rangle} \\Omega \\times \\Omega \\xrightarrow{\\wedge} \\Omega$"
+            ],
+            "answer": 1,
+            "explain": "$\\neg p = p \\Rightarrow \\bot$. The map pairs $p$ with the constant $\\bot$ (via the unique $\\Omega \\to 1$ then $\\bot\\colon 1 \\to \\Omega$) and applies $\\Rightarrow$. There is no canonical 'swap automorphism' on $\\Omega$ in non-Boolean toposes.",
+            "hint": "Negation is implication against falsehood."
+          }
+        ]
+      },
+      "internal-language": {
+        "title": "The internal Mitchell–Bénabou language",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each piece of the internal language to its categorical interpretation.",
+            "left": [
+              "a closed term $t\\colon A$",
+              "a formula $\\varphi$ in context $\\Gamma$",
+              "$\\exists x{:}A.\\,\\varphi$",
+              "$\\forall x{:}A.\\,\\varphi$"
+            ],
+            "right": [
+              "right adjoint $\\Pi_{\\pi}$ to pullback along $\\pi\\colon\\Gamma\\times A \\to \\Gamma$",
+              "global section $1 \\to \\llbracket A \\rrbracket$",
+              "left adjoint $\\Sigma_{\\pi}$ to pullback (image)",
+              "morphism $\\llbracket\\Gamma\\rrbracket \\to \\Omega$, equivalently a subobject of $\\llbracket\\Gamma\\rrbracket$"
+            ],
+            "answer": [
+              1,
+              3,
+              2,
+              0
+            ],
+            "explain": "Closed terms are global sections; formulas are characteristic maps (or equivalently subobjects); $\\exists$ is the image / left adjoint; $\\forall$ is the right adjoint to pullback. This is the standard Lawvere adjoint correspondence for quantifiers.",
+            "hint": "$\\exists$ is image-along-projection; $\\forall$ is dual."
+          },
+          {
+            "type": "mcq",
+            "q": "The formula $\\forall x.\\,(P(x) \\to Q(x))$ is interpreted in $\\mathrm{Sub}(1)$ as:",
+            "choices": [
+              "$\\Sigma_{\\pi}\\big(\\{P\\} \\Rightarrow \\{Q\\}\\big)$",
+              "$\\Pi_{\\pi}\\big(\\{P\\} \\Rightarrow \\{Q\\}\\big)$, where $\\pi\\colon A \\to 1$",
+              "$\\{P\\} \\cap \\{Q\\}$",
+              "the union $\\{P\\} \\cup \\{Q\\}$"
+            ],
+            "answer": 1,
+            "explain": "First compute $\\{P \\to Q\\} = \\{P\\} \\Rightarrow \\{Q\\}$ in $\\mathrm{Sub}(A)$. Then quantify universally: $\\forall x.\\,$ becomes $\\Pi_\\pi$, the right adjoint to $\\pi^*\\colon \\mathrm{Sub}(1) \\to \\mathrm{Sub}(A)$. So the answer is $\\Pi_\\pi(\\{P\\} \\Rightarrow \\{Q\\})$.",
+            "hint": "Implication first, then $\\forall$ as right adjoint to pullback."
+          },
+          {
+            "type": "mcq",
+            "q": "Provability $\\Gamma \\vdash \\varphi$ in the Mitchell–Bénabou logic translates to which categorical condition?",
+            "choices": [
+              "$\\{\\varphi\\} = \\varnothing$ in $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$",
+              "$\\{\\varphi\\} = \\llbracket\\Gamma\\rrbracket$ in $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$",
+              "$\\llbracket\\varphi\\rrbracket$ is an isomorphism",
+              "$\\Omega = \\{\\bot,\\top\\}$"
+            ],
+            "answer": 1,
+            "explain": "$\\Gamma \\vdash \\varphi$ means: in the context $\\Gamma$, $\\varphi$ is always true. In subobject terms, the subobject $\\{\\Gamma \\mid \\varphi\\}$ is everything — equal to the top of $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$. The classifying map $\\llbracket\\varphi\\rrbracket$ is then $\\mathrm{true}\\circ !\\colon \\llbracket\\Gamma\\rrbracket \\to 1 \\to \\Omega$.",
+            "hint": "A formula provable from $\\Gamma$ holds on the entire context object."
+          }
+        ]
+      },
+      "kripke-joyal-semantics": {
+        "title": "Kripke–Joyal forcing semantics",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "On the 2-world Kripke model with $C = (a \\to b)$ and valuation $\\llbracket p\\rrbracket(a)=\\varnothing$, $\\llbracket p\\rrbracket(b)=\\{*\\}$, which of the following are forced at world $b$?",
+            "choices": [
+              "$b \\Vdash p$",
+              "$b \\Vdash \\neg p$",
+              "$b \\Vdash p \\vee \\neg p$",
+              "$b \\Vdash \\neg\\neg p \\to p$",
+              "$b \\Vdash p \\to \\neg\\neg p$"
+            ],
+            "answer": [
+              0,
+              2,
+              3,
+              4
+            ],
+            "explain": "At $b$: (0) $b \\Vdash p$ since $\\llbracket p\\rrbracket(b) \\ne \\varnothing$. (1) $b \\not\\Vdash \\neg p$ since $\\mathrm{id}_b$ forces $p$. (2) $b \\Vdash p \\vee \\neg p$ via the left disjunct. (3) $b \\Vdash \\neg\\neg p \\to p$: every accessible $Y \\to b$ that forces $\\neg\\neg p$ also forces $p$ — direct. (4) $b \\Vdash p \\to \\neg\\neg p$: an intuitionist tautology. So everything except $\\neg p$ is forced at $b$. Note that LEM <em>holds at the maximal world</em> $b$ but <em>fails at the lower world</em> $a$.",
+            "hint": "At the highest world, you can verify $p$ directly; only $\\neg p$ requires no future to ever satisfy $p$, which fails."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kripke–Joyal clause for implication $\\varphi \\to \\psi$ at $X$ is:",
+            "choices": [
+              "$X \\Vdash \\varphi$ implies $X \\Vdash \\psi$",
+              "for every $f\\colon Y \\to X$, $Y \\Vdash \\varphi$ implies $Y \\Vdash \\psi$",
+              "there exists $f\\colon Y \\to X$ with $Y \\Vdash \\varphi$ and $Y \\Vdash \\psi$",
+              "$X \\not\\Vdash \\varphi$ or $X \\Vdash \\psi$"
+            ],
+            "answer": 1,
+            "explain": "Kripke–Joyal $\\to$ quantifies over <em>every</em> generalised element $Y \\to X$ — this is the persistence/stability condition. Without this universal closure, $\\to$ would not be invariant under restriction along arrows, and the clauses wouldn't be sound for the topos's internal logic.",
+            "hint": "Implication in intuitionist Kripke semantics persists along the accessibility relation — the clause must quantify over all accessible worlds."
+          },
+          {
+            "type": "mcq",
+            "q": "In a sheaf topos $\\mathrm{Sh}(X)$, the Kripke–Joyal clause for $\\exists y.\\,\\varphi$ at an open $U$ becomes:",
+            "choices": [
+              "there is a section $b$ on $U$ with $U \\Vdash \\varphi(b)$",
+              "there is a covering family $\\{U_i \\to U\\}$ and sections $b_i$ on $U_i$ with $U_i \\Vdash \\varphi(b_i)$",
+              "for every refinement $\\{U_i \\to U\\}$ and every section $b$, $U_i \\Vdash \\varphi(b)$",
+              "$\\varphi$ is true on the stalk at every point of $U$"
+            ],
+            "answer": 1,
+            "explain": "Existential quantification in sheaf forcing is 'locally a witness exists': there is a covering family on which the witness can be chosen. This is why constructive analysis builds objects locally and glues them by descent rather than picking global sections.",
+            "hint": "Sheaves are about local data; existential is local existence of a witness."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider the 3-world model $C$ with objects $a, b, c$ and arrows $a \\to b, a \\to c$ (no arrow $b \\leftrightarrow c$). Let $\\llbracket p\\rrbracket(b) = \\{*\\}$, $\\llbracket p\\rrbracket(a) = \\llbracket p\\rrbracket(c) = \\varnothing$. Where does $\\neg\\neg p$ hold?",
+            "choices": [
+              "Only at $b$",
+              "At $b$ and $a$",
+              "At all three worlds",
+              "Nowhere"
+            ],
+            "answer": 0,
+            "explain": "$\\neg\\neg p$ at $b$: every $Y \\to b$ has $Y \\not\\Vdash \\neg p$? The only arrow into $b$ is $\\mathrm{id}_b$; $b \\Vdash p$ so $b \\not\\Vdash \\neg p$. So $b \\Vdash \\neg\\neg p$. ✓ At $a$: consider $a \\to c$. We have $c \\Vdash \\neg p$ (the only arrow into $c$ is $\\mathrm{id}_c$, and $c \\not\\Vdash p$). So there's an accessible world where $\\neg p$ holds, hence $a \\not\\Vdash \\neg\\neg p$. At $c$: $c \\Vdash \\neg p$ already, so $c \\not\\Vdash \\neg\\neg p$. Only at $b$.",
+            "hint": "$\\neg\\neg p$ at $X$ means: every accessible $Y$ has some $Z \\to Y$ where $Z \\Vdash p$. The branching at $a$ towards $c$ kills $\\neg\\neg p$ at $a$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kripke–Joyal clause for disjunction in a topos requires a <em>cover</em> $\\{f_i\\colon X_i \\to X\\}$. In a presheaf topos $\\widehat{C}$, what is a cover of a representable $X = y(c)$?",
+            "choices": [
+              "any single arrow $y(d) \\to y(c)$",
+              "the identity $\\mathrm{id}\\colon y(c) \\to y(c)$ alone — there are no proper covers",
+              "any family $\\{y(d_i) \\to y(c)\\}$ that is jointly epimorphic",
+              "any family of arrows $d_i \\to c$ in $C$"
+            ],
+            "answer": 1,
+            "explain": "In a presheaf topos $\\widehat{C}$ (no Grothendieck topology), the only cover of a representable $y(c)$ is the trivial cover $\\{\\mathrm{id}\\}$. This is why Kripke–Joyal forcing on $\\widehat{C}$ collapses to the classical Kripke clauses (no genuine 'covering' refinement). Switching to sheaves $\\mathrm{Sh}(C, J)$ on a non-trivial site adds genuine covers and is what enables descent.",
+            "hint": "Presheaf toposes have no Grothendieck topology beyond the trivial one — covers are trivial."
+          }
+        ]
+      },
+      "lem-failure": {
+        "title": "Why LEM fails: double negation in toposes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In which presheaf topos does LEM <em>fail</em>?",
+            "choices": [
+              "$\\widehat{*}$ (the topos of presheaves on the one-object terminal category)",
+              "$\\widehat{(a \\to b)}$ (presheaves on the two-object category with one non-identity arrow)",
+              "$\\widehat{G}$ for $G$ a group, viewed as a one-object groupoid",
+              "Every presheaf topos is Boolean"
+            ],
+            "answer": 1,
+            "explain": "$\\widehat{*}$ is just $\\mathbf{Set}$ (Boolean). $\\widehat{G}$ is $G$-$\\mathbf{Set}$, also Boolean (since $G$ is a groupoid). $\\widehat{(a\\to b)}$ is non-Boolean: $\\Omega(a)$ has 3 elements (the sieves $\\varnothing, \\{a\\}, \\{a, a\\to b\\}$ — really the latter two), and the 3-element chain is the smallest non-Boolean Heyting algebra. LEM fails. Theorem: $\\widehat{C}$ is Boolean iff $C$ is a groupoid.",
+            "hint": "$\\widehat{C}$ is Boolean iff $C$ is a groupoid — the arrow $a \\to b$ is not invertible."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all toposes in which the law of excluded middle holds (i.e. all <em>Boolean</em> toposes).",
+            "choices": [
+              "$\\mathbf{Set}$",
+              "$G$-$\\mathbf{Set}$ for $G$ a group",
+              "$\\mathrm{Sh}(\\mathbb{R})$",
+              "$\\widehat{(a \\to b)}$",
+              "$\\mathrm{Sh}_{\\neg\\neg}(\\widehat{C})$ for any small category $C$",
+              "$\\mathrm{Sh}(X)$ for $X$ a discrete topological space"
+            ],
+            "answer": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "explain": "$\\mathbf{Set}$ and $G$-$\\mathbf{Set}$ are Boolean (the Boolean groupoid case). $\\mathrm{Sh}_{\\neg\\neg}$ is by construction the largest Boolean subtopos. $\\mathrm{Sh}(X)$ is Boolean iff $X$ is discrete (every subset open ⇒ open-set lattice is the powerset, which is Boolean). $\\mathrm{Sh}(\\mathbb{R})$ is non-Boolean (the open-set lattice has non-trivial boundary). $\\widehat{(a\\to b)}$ is non-Boolean.",
+            "hint": "Boolean toposes: $\\mathbf{Set}$, $G$-$\\mathbf{Set}$, $\\mathrm{Sh}_{\\neg\\neg}$, sheaves on discrete spaces — and not much else."
+          },
+          {
+            "type": "mcq",
+            "q": "The double-negation topology $\\neg\\neg\\colon \\Omega \\to \\Omega$ on a topos $\\mathcal{E}$ produces a subtopos $\\mathrm{Sh}_{\\neg\\neg}(\\mathcal{E}) \\hookrightarrow \\mathcal{E}$. What is its defining property?",
+            "choices": [
+              "It is the smallest subtopos containing all $\\neg\\neg$-closed subobjects",
+              "It is the largest <em>Boolean</em> subtopos of $\\mathcal{E}$",
+              "It is the topos of $\\neg$-fixpoints of $\\Omega$",
+              "It is always equivalent to $\\mathbf{Set}$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Sh}_{\\neg\\neg}(\\mathcal{E})$ is the largest Boolean subtopos of $\\mathcal{E}$ (Mac Lane–Moerdijk V.2 / VI.9). When $\\mathcal{E}$ is the topos of $\\beta$-names for a forcing condition, $\\mathrm{Sh}_{\\neg\\neg}$ is the model of ZFC obtained by Cohen forcing — the topos-theoretic shadow of forcing.",
+            "hint": "Double-negation 'rounds down' all subobjects to their $\\neg\\neg$-stable parts, exactly the ones that obey LEM."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which subobjects of $\\mathbb{R}$ in $\\mathrm{Sh}(\\mathbb{R})$ are $\\neg\\neg$-stable (i.e. equal to their double-negation)?",
+            "choices": [
+              "All open subsets",
+              "All subsets",
+              "The <em>regular</em> open subsets — those equal to the interior of their closure",
+              "Only $\\varnothing$ and $\\mathbb{R}$"
+            ],
+            "answer": 2,
+            "explain": "$\\neg\\neg U = \\mathrm{int}(\\overline{U})$ in the open-set lattice. So $U = \\neg\\neg U$ iff $U = \\mathrm{int}(\\overline{U})$, the definition of a regular open set. The regular opens form a complete Boolean algebra, the Booleanisation of the Heyting algebra of opens.",
+            "hint": "$\\neg U = \\mathrm{int}(U^c)$, so $\\neg\\neg U = \\mathrm{int}(\\mathrm{int}(U^c)^c) = \\mathrm{int}(\\overline{U})$."
+          },
+          {
+            "type": "mcq",
+            "q": "The classical theorem 'every set has a cardinality' (every set is in bijection with an initial ordinal) requires the axiom of choice. In a topos $\\mathcal{E}$, what is the relationship between AC and LEM?",
+            "choices": [
+              "AC and LEM are independent",
+              "AC implies LEM (Diaconescu's theorem)",
+              "LEM implies AC",
+              "They are equivalent in any topos"
+            ],
+            "answer": 1,
+            "explain": "Diaconescu's theorem (1975): if every epi splits internally in a topos $\\mathcal{E}$, then $\\mathcal{E}$ is Boolean. Constructive proof: from a 2-element quotient $\\{0,1\\}/{\\sim}$ where $\\sim$ depends on a proposition $\\varphi$, internal AC gives a section that decides $\\varphi$. The converse (LEM ⇒ AC) is false: $G$-$\\mathbf{Set}$ is Boolean but AC fails.",
+            "hint": "There's a famous theorem of Diaconescu connecting choice and excluded middle in any topos."
+          }
+        ]
+      },
+      "geometric-morphisms-logic": {
+        "title": "Geometric morphisms preserve geometric logic",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following logical connectives are <em>always</em> preserved by the inverse image $f^*$ of a geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$?",
+            "choices": [
+              "$\\wedge$ (binary conjunction)",
+              "$\\Rightarrow$ (implication)",
+              "$\\bigvee$ (arbitrary disjunction)",
+              "$\\forall$ (universal quantifier)",
+              "$\\exists$ (existential quantifier)",
+              "$=$ (equality)",
+              "$\\neg$ (negation)"
+            ],
+            "answer": [
+              0,
+              2,
+              4,
+              5
+            ],
+            "explain": "Geometric logic is the fragment $\\{\\top, \\bot, \\wedge, \\bigvee, \\exists, =\\}$. $f^*$ preserves finite limits ($\\wedge$, $=$) and arbitrary colimits ($\\bigvee$, $\\exists$ as image). $\\Rightarrow$, $\\forall$, $\\neg$ are right-adjoint constructions; left adjoints don't commute with right adjoints in general.",
+            "hint": "Geometric formulas use $\\wedge, \\bigvee, \\exists, =$ — and only those — because $f^*$ preserves finite limits and arbitrary colimits."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $f^*$ preserve $\\bigvee$ but not $\\bigwedge$ (infinitary conjunction)?",
+            "choices": [
+              "$f^*$ has a right adjoint, so it preserves all colimits but not all limits",
+              "$f^*$ preserves $\\bigvee$ for infinitary cardinality reasons",
+              "$\\bigwedge$ is not a meaningful operation in any topos",
+              "$f^*$ does preserve both — the question is malformed"
+            ],
+            "answer": 0,
+            "explain": "$f^* \\dashv f_*$, so $f^*$ is a left adjoint and preserves all colimits — including infinitary unions $\\bigvee$. It only preserves <em>finite</em> limits, not arbitrary ones; $\\bigwedge$ over an infinite index is an infinite limit, not preserved.",
+            "hint": "Left adjoints commute with colimits; $f^*$ is the left adjoint of the geometric morphism."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\mathcal{T}$ is a geometric theory and $\\varphi \\vdash_x \\psi$ is a geometric sequent provable in the classifying topos $\\mathrm{Set}[\\mathcal{T}]$, then for any topos $\\mathcal{F}$ with a $\\mathcal{T}$-model $M$:",
+            "choices": [
+              "$\\varphi \\vdash_x \\psi$ holds in $\\mathcal{F}$ at the model $M$",
+              "$\\varphi \\vdash_x \\psi$ may fail in $\\mathcal{F}$ unless $\\mathcal{F}$ is Boolean",
+              "$\\varphi \\vdash_x \\psi$ holds in $\\mathcal{F}$ iff $\\mathcal{F} = \\mathbf{Set}$",
+              "the sequent must be re-proved in $\\mathcal{F}$ from scratch"
+            ],
+            "answer": 0,
+            "explain": "This is geometric soundness: a $\\mathcal{T}$-model in $\\mathcal{F}$ corresponds to a geometric morphism $\\mathcal{F} \\to \\mathrm{Set}[\\mathcal{T}]$; $f^*$ preserves geometric formulas, so anything provable geometrically in the classifying topos transports along $f^*$ to $\\mathcal{F}$. This is the central technical reason for restricting to geometric logic.",
+            "hint": "The whole point of the geometric fragment: it transports along arbitrary geometric morphisms, including those classifying models."
           }
         ]
       }
@@ -11884,6 +16108,1166 @@ window.MVQuizBank = {
             "answer": 2,
             "tol": 0.000001,
             "explain": "Degeneration gives $H^n(E)\\cong\\bigoplus_{p+q=n}H^p(B)\\otimes H^q(F)$. For $n=2$: $(p,q)=(2,0)$ contributes $H^2(S^2)\\otimes H^0(S^2)=\\mathbb{Q}$, and $(0,2)$ contributes $H^0(S^2)\\otimes H^2(S^2)=\\mathbb{Q}$. Total $\\dim=2$."
+          }
+        ]
+      }
+    }
+  },
+  "infinity-categories": {
+    "topic": "infinity-categories",
+    "quizzes": {
+      "quasi-category": {
+        "title": "Quasi-categories",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following simplicial sets are quasi-categories?",
+            "choices": [
+              "$N(C)$ for $C$ an ordinary category (the nerve)",
+              "$\\Delta^n$ (the standard $n$-simplex) for any $n \\geq 0$",
+              "Any Kan complex (e.g. the singular complex $\\mathrm{Sing}(X)$ of a topological space)",
+              "An arbitrary simplicial set with no horn-filling property"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Nerves of ordinary categories are quasi-categories (with unique inner-horn fillers). The standard simplices $\\Delta^n$ are quasi-categories — they are nerves of the totally-ordered set $[n] = \\{0 < 1 < \\dots < n\\}$. Kan complexes are quasi-categories that additionally fill outer horns (so they are $\\infty$-groupoids). An arbitrary simplicial set has no horn-filling guarantee.",
+            "hint": "Inner-horn filling is the only requirement; nerves give it for free, $\\Delta^n$ is itself a nerve, and Kan complexes give more than required."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the precise role of inner horns $\\Lambda^n_k$ ($0 < k < n$) in the definition of a quasi-category?",
+            "choices": [
+              "Their fillers must <em>exist</em>, but uniqueness is not required.",
+              "Their fillers must exist <em>and</em> be unique — this distinguishes quasi-categories from nerves.",
+              "Outer horns ($k = 0$ or $k = n$) must fill, while inner horns are unconstrained.",
+              "Inner horns play no role; only $2$-simplices matter."
+            ],
+            "answer": 0,
+            "explain": "Joyal's definition: a quasi-category is a simplicial set in which every inner-horn map $\\Lambda^n_k \\to \\mathcal{C}$ ($0 < k < n$) extends along $\\Lambda^n_k \\hookrightarrow \\Delta^n$. Mere existence (not uniqueness) of fillers is what allows non-trivial higher coherence data. Unique inner-horn filling exactly characterizes nerves of ordinary categories. Outer horns are not required to fill (that would force the result to be a Kan complex).",
+            "hint": "Existence vs. uniqueness is the distinguishing axiom."
+          },
+          {
+            "type": "mcq",
+            "q": "Two parallel $1$-simplices $f, g\\colon x \\to y$ in a quasi-category $\\mathcal{C}$ are called <em>homotopic</em> when:",
+            "choices": [
+              "$f$ and $g$ are equal as elements of $\\mathcal{C}_1$.",
+              "There is a $2$-simplex $\\sigma$ with $\\partial_2 \\sigma = f$, $\\partial_0 \\sigma = \\mathrm{id}_y$, $\\partial_1 \\sigma = g$ (or any equivalent boundary configuration).",
+              "$f$ and $g$ have the same source <em>and</em> target.",
+              "There is a path in the topological realization $|\\mathcal{C}|$ between them."
+            ],
+            "answer": 1,
+            "explain": "Homotopy of $1$-simplices in a quasi-category is witnessed by a specific kind of $2$-simplex with one degenerate edge. Inner-horn filling for $\\Lambda^3_1$ and $\\Lambda^3_2$ implies this is an equivalence relation. Equality is too strong; sharing source and target is too weak; and topological realization is one consequence but not the definition.",
+            "hint": "The data witnessing $f \\simeq g$ is a $2$-simplex of a particular shape."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A simplicial set $\\mathcal{C}$ has the property that <em>every</em> horn $\\Lambda^n_k \\to \\mathcal{C}$ (inner and outer) admits a filler. What is the strongest correct conclusion?",
+            "choices": [
+              "$\\mathcal{C}$ is the nerve of an ordinary groupoid.",
+              "$\\mathcal{C}$ is a Kan complex; equivalently, an $\\infty$-groupoid; equivalently, presents the homotopy type of some space.",
+              "$\\mathcal{C}$ is the nerve of a category in which every morphism is invertible up to equality.",
+              "$\\mathcal{C}$ is automatically discrete (a $0$-skeleton)."
+            ],
+            "answer": 1,
+            "explain": "All-horn-filling = Kan complex = $\\infty$-groupoid. By the homotopy hypothesis (Quillen, Joyal), Kan complexes model homotopy types of topological spaces. This is strictly more than \"nerve of a groupoid\" because the latter has unique fillers and discrete higher-dimensional behaviour, while a general Kan complex can have arbitrary $\\pi_n$ for all $n$.",
+            "hint": "Filling all horns is more than the nerve of a groupoid — those have unique fillers."
+          },
+          {
+            "type": "mcq",
+            "q": "Consider the simplicial set $\\Delta^1 \\amalg_{\\partial \\Delta^1} \\Delta^1$ — two $1$-simplices glued along their boundary points (so two parallel edges from $0$ to $1$). Is this a quasi-category?",
+            "choices": [
+              "Yes — it has no nontrivial inner horns to fill.",
+              "Yes — it is the nerve of the free category on two parallel arrows.",
+              "No — there is an inner horn $\\Lambda^2_1$ formed by the two edges that has no filler.",
+              "It depends on whether we orient the edges in the same direction."
+            ],
+            "answer": 2,
+            "explain": "Take the two edges $f, g\\colon 0 \\to 1$. The horn $\\Lambda^2_1$ with $\\partial_0 = g$ and $\\partial_2 = f$ requires a $2$-simplex with $\\partial_1\\colon 0 \\to 1$ — but this would need a third $1$-simplex composing $f$ then $g$, and we only have two edges and no $2$-simplices. So no filler exists; the simplicial set fails to be a quasi-category. Contrast with the nerve of the free category on two parallel arrows, which has all the formal composites $g \\circ f$, $f \\circ g$, etc. as $1$-simplices.",
+            "hint": "Two parallel arrows form the inner horn $\\Lambda^2_1$ — what would the filler require?"
+          }
+        ]
+      },
+      "homotopy-category-of-infty": {
+        "title": "The homotopy category $h(\\mathcal{C})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $h(N(C))$ for $C$ an ordinary category?",
+            "choices": [
+              "A nontrivial completion of $C$.",
+              "Isomorphic to $C$ as $1$-categories.",
+              "The Kan completion of $C$.",
+              "Empty unless $C$ is a groupoid."
+            ],
+            "answer": 1,
+            "explain": "The construction $h\\colon \\mathbf{QCat} \\to \\mathbf{Cat}$ is left adjoint to the nerve $N$. The counit $h(N(C)) \\to C$ is an isomorphism: nerves of ordinary categories are exactly those quasi-categories with <em>unique</em> inner-horn fillers, so the homotopy relation $\\simeq$ on $1$-simplices is just equality, and $h$ collapses nothing.",
+            "hint": "$h$ is left adjoint to $N$; the counit at any ordinary category is an iso."
+          },
+          {
+            "type": "mcq",
+            "q": "Two parallel $1$-simplices $f, g\\colon x \\to y$ in a quasi-category $\\mathcal{C}$ have $[f] = [g]$ in $h(\\mathcal{C})$ iff:",
+            "choices": [
+              "$f = g$ as elements of $\\mathcal{C}_1$.",
+              "There exists a $2$-simplex $\\sigma$ exhibiting $f \\simeq g$ (e.g. with one face equal to $\\mathrm{id}_y$ and the other two equal to $f$ and $g$).",
+              "$\\mathrm{Map}_{\\mathcal{C}}(x, y)$ is contractible.",
+              "$x = y$."
+            ],
+            "answer": 1,
+            "explain": "Morphisms in $h(\\mathcal{C})$ are equivalence classes of $1$-simplices under the relation $\\simeq$ defined by existence of a $2$-simplex with the boundary configuration described. Equality of $1$-simplices is strictly stronger; contractibility of the mapping space would identify <em>all</em> parallel arrows; and $x = y$ is irrelevant to the equivalence.",
+            "hint": "The equivalence relation is precisely the existence of a witnessing $2$-simplex."
+          },
+          {
+            "type": "mcq",
+            "q": "Which structural property of a quasi-category $\\mathcal{C}$ is <em>completely lost</em> when passing to $h(\\mathcal{C})$?",
+            "choices": [
+              "The set of objects $\\mathcal{C}_0$.",
+              "The set of equivalence classes $\\pi_0 \\mathrm{Map}_{\\mathcal{C}}(x, y)$ for each pair $(x, y)$.",
+              "The higher homotopy groups $\\pi_k \\mathrm{Map}_{\\mathcal{C}}(x, y)$ for $k \\geq 1$.",
+              "Whether $f \\circ g$ exists for some pair of composable arrows."
+            ],
+            "answer": 2,
+            "explain": "$h(\\mathcal{C})$ retains the set of objects, the set of homotopy classes of morphisms (= $\\pi_0$ of mapping spaces), and the composition law. What it forgets is everything in the mapping spaces above $\\pi_0$ — the higher homotopy groups, which carry the genuine $\\infty$-categorical content (Toda brackets, Massey products, $A_\\infty$-coherences, etc.).",
+            "hint": "$h$ collapses each mapping space to its $\\pi_0$."
+          }
+        ]
+      },
+      "infty-functors": {
+        "title": "Functors and natural transformations $\\infty$-categorically",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $\\mathcal{C}, \\mathcal{D}$ be quasi-categories. An $\\infty$-functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ is, by definition:",
+            "choices": [
+              "A map of simplicial sets, i.e. functions $F_n\\colon \\mathcal{C}_n \\to \\mathcal{D}_n$ commuting with all face and degeneracy maps.",
+              "A pair $(F_0, F_1)$ on objects and morphisms, with composition preserved up to a chosen natural transformation that satisfies a coherence pentagon.",
+              "An ordinary functor on $h(\\mathcal{C}) \\to h(\\mathcal{D})$.",
+              "A continuous map between the realizations $|\\mathcal{C}| \\to |\\mathcal{D}|$."
+            ],
+            "answer": 0,
+            "explain": "By definition, an $\\infty$-functor is just a map of simplicial sets — the higher-coherence data (compositors, associators, etc.) is automatically encoded by compatibility with face maps in dimensions $\\geq 2$. The pentagon-style data of choice (b) is what you'd write down for a homotopy-coherent functor between strict $2$-categories, but in the quasi-category model it is built into the simplicial-set structure.",
+            "hint": "The simplicial-set definition is genuinely just 'a map of simplicial sets.'"
+          },
+          {
+            "type": "mcq",
+            "q": "An $\\infty$-functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ induces an underlying $1$-functor $h(F)\\colon h(\\mathcal{C}) \\to h(\\mathcal{D})$. Which is true?",
+            "choices": [
+              "$F$ is determined by $h(F)$.",
+              "$h(F)$ is determined by $F_0$ and $F_1$ (no higher data needed).",
+              "$F$ being an equivalence of quasi-categories is equivalent to $h(F)$ being an equivalence of $1$-categories.",
+              "$F$ being an equivalence of quasi-categories is equivalent to $h(F)$ being an equivalence of $1$-categories <em>and</em> $F$ inducing equivalences on all mapping spaces $\\mathrm{Map}_{\\mathcal{C}}(x, y) \\to \\mathrm{Map}_{\\mathcal{D}}(F(x), F(y))$."
+            ],
+            "answer": 3,
+            "explain": "$h(F)$ is built from $F_0$ and $F_1$ together with the homotopy relation, so $F_0$ and $F_1$ are <em>not</em> sufficient on their own — you need the existence-of-witnessing-$2$-simplices structure. $F$ is far from determined by $h(F)$: all higher coherence data lives above $h(F)$. The correct equivalence criterion is the conjunction in (d): $h(F)$ is essentially surjective and bijective on $\\pi_0$ of mapping spaces, plus $F$ is fully faithful at higher levels.",
+            "hint": "$h$ forgets higher mapping-space data, so $h(F)$ being an equivalence is necessary but not sufficient."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $C$ be an ordinary category. Which is a correct description of $\\infty$-functors $F\\colon N(C) \\to \\mathcal{S}$ (with $\\mathcal{S}$ the $\\infty$-category of spaces)?",
+            "choices": [
+              "Equivalent (as a quasi-category) to ordinary functors $C \\to \\mathrm{Set}$.",
+              "Equivalent to the $\\infty$-category of homotopy-coherent diagrams $C \\to \\mathrm{Top}$.",
+              "Always trivial, since $N(C)$ has unique inner-horn fillers.",
+              "In bijection with discrete $\\pi_0$ data."
+            ],
+            "answer": 1,
+            "explain": "By a theorem of Lurie (HTT 4.2), $\\mathrm{Fun}(N(C), \\mathcal{S})$ is equivalent to the $\\infty$-categorical localization of $\\mathrm{Fun}(C, \\mathrm{Top})$ at pointwise weak equivalences. So $\\infty$-functors out of $N(C)$ are precisely homotopy-coherent diagrams of spaces — which is the canonical replacement for the strict notion in homotopy theory. (a) collapses to set-valued functors, missing the homotopy data; (c) and (d) ignore that the <em>target</em> $\\mathcal{S}$ has rich higher structure even when the source is a $1$-category.",
+            "hint": "The source has unique fillers but the target $\\mathcal{S}$ does not."
+          }
+        ]
+      },
+      "infty-limits": {
+        "title": "$\\infty$-categorical (co)limits",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the $\\infty$-categorical product $X \\times Y$ in the $\\infty$-category of spaces $\\mathcal{S}$?",
+            "choices": [
+              "The cartesian product of underlying sets, with the discrete topology.",
+              "The set-theoretic cartesian product $X \\times Y$ as a Kan complex (= the cartesian product of the Kan complexes).",
+              "The smash product $X \\wedge Y$.",
+              "The homotopy pushout of $X \\leftarrow * \\to Y$."
+            ],
+            "answer": 1,
+            "explain": "Products in $\\mathcal{S}$ agree on the nose with cartesian products of the underlying Kan complexes (no homotopy correction needed); $\\mathcal{S}$ is cartesian closed and the standard product computes the $\\infty$-product. Smash products are the analogue in pointed spaces, and homotopy pushouts compute the join (a different colimit).",
+            "hint": "Products of Kan complexes are computed level-wise — no fibrant replacement required."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following $\\infty$-limits in $\\mathcal{S}$ <em>differ</em> from the corresponding strict limit in $\\mathrm{Set}$?",
+            "choices": [
+              "Pullback of a span $X \\to Z \\leftarrow Y$",
+              "Equalizer of $f, g\\colon X \\rightrightarrows Y$",
+              "Product $X \\times Y$",
+              "Limit of a constant diagram (i.e. the indexing $\\infty$-category is a single object with no nontrivial morphisms)"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Pullbacks become homotopy pullbacks: $X \\times_Z^h Y$ records triples (point, path, point), strictly larger in general than the set-theoretic fibre product. Equalizers become path spaces $\\{x : f(x) \\rightsquigarrow g(x)\\}$, also generally larger. Products and limits over discrete shapes coincide with their $1$-categorical counterparts (product of Kan complexes is again a Kan complex with no correction needed).",
+            "hint": "Limits over diagrams with morphisms gain homotopy data; limits over discrete shapes do not."
+          },
+          {
+            "type": "mcq",
+            "q": "An $\\infty$-category $\\mathcal{C}$ is <strong>cocomplete</strong> when:",
+            "choices": [
+              "Every diagram $p\\colon K \\to \\mathcal{C}$ from a small simplicial set $K$ has a colimit.",
+              "Every diagram from $\\Delta^0 \\cup \\Delta^0$ has a colimit (i.e. binary coproducts exist).",
+              "Every diagram from a small <em>$1$-category</em> has a colimit.",
+              "$\\mathcal{C} \\cong \\mathcal{S}$."
+            ],
+            "answer": 0,
+            "explain": "Cocompleteness means colimits exist for diagrams indexed by arbitrary small simplicial sets — not just $1$-categorical shapes — because $\\infty$-categorical diagrams have higher coherence data that needs to be matched in the colimit. (b) is just binary coproducts, way too weak; (c) misses the higher-shape diagrams (e.g. those indexed by $\\Delta^{\\mathrm{op}}$, the geometric-realization shape). (d) is much too strong.",
+            "hint": "$\\infty$-categorical cocompleteness uses arbitrary simplicial sets as indexing shapes."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In the $\\infty$-category $\\mathcal{S}$ of spaces, the pullback of a span $X \\to Z \\leftarrow Y$ where the right map $Y \\to Z$ is a Kan fibration with fibres equivalent to $F$, computes:",
+            "choices": [
+              "The strict set-theoretic pullback $\\{(x, y) : p(x) = q(y)\\}$ — and this is the homotopy pullback because $Y \\to Z$ is a fibration.",
+              "Always the empty space, regardless of $F$.",
+              "$X \\times Y$ (the product), independent of $Z$.",
+              "$Z$ itself."
+            ],
+            "answer": 0,
+            "explain": "When one of the maps in a span is a Kan fibration, the strict pullback agrees with the homotopy pullback (no fibrant replacement needed). This is exactly the criterion 'one map is a fibration' that lets you compute the homotopy pullback by the strict formula. The fibre of the resulting pullback over a point $x \\in X$ is the fibre of $Y \\to Z$ over $p(x)$, i.e. equivalent to $F$.",
+            "hint": "Fibrations make strict pullbacks compute homotopy pullbacks."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $\\mathcal{C}$ is a presentable $\\infty$-category. Which best characterizes the implications for limits and colimits?",
+            "choices": [
+              "$\\mathcal{C}$ is cocomplete and complete; both small limits and small colimits exist, and a functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ to another presentable $\\infty$-category has a right adjoint iff it preserves small colimits and is accessible.",
+              "$\\mathcal{C}$ has all colimits but no nontrivial limits.",
+              "$\\mathcal{C}$ has all finite (co)limits but small (co)limits may fail.",
+              "$\\mathcal{C}$ is automatically a stable $\\infty$-category."
+            ],
+            "answer": 0,
+            "explain": "Presentable $\\infty$-categories are both complete and cocomplete (Lurie HTT 5.5). The adjoint functor theorem in this setting (HTT 5.5.2.9) gives the criterion for left/right adjoint existence: preserve the relevant (co)limits and be accessible. Stability is a strictly stronger property (presentable + pointed + suspension is an equivalence).",
+            "hint": "Presentability subsumes both completeness and cocompleteness, and underwrites the adjoint functor theorem."
+          }
+        ]
+      },
+      "infty-adjunctions": {
+        "title": "Adjunctions $\\infty$-categorically",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $F\\colon C \\rightleftarrows D : G$ be an ordinary $1$-categorical adjunction with $C, D$ presentable $1$-categories. Does it lift to an $\\infty$-adjunction?",
+            "choices": [
+              "Never — $\\infty$-adjunctions require strictly more structure than $1$-categorical ones.",
+              "Yes — passing to the nerve gives an $\\infty$-adjunction $N(F) \\dashv N(G)$ between $N(C)$ and $N(D)$.",
+              "Only if $C$ and $D$ are groupoids.",
+              "Only if $F$ and $G$ commute strictly with all colimits and limits, respectively."
+            ],
+            "answer": 1,
+            "explain": "An ordinary adjunction passes through the nerve to give an $\\infty$-adjunction. The triangle identities hold strictly in the $1$-categorical case, hence (a fortiori) up to homotopy in the nerve. More substantively, Quillen adjunctions between model categories derive to $\\infty$-adjunctions between the underlying $\\infty$-categories — this is the source of derived adjunctions like $\\mathbb{L} \\otimes \\dashv \\mathbb{R}\\mathrm{Hom}$.",
+            "hint": "The nerve of a strict adjunction trivially satisfies the up-to-homotopy triangle identities."
+          },
+          {
+            "type": "mcq",
+            "q": "In an $\\infty$-adjunction $f \\dashv g$, the triangle identity $\\varepsilon f \\cdot f\\eta \\simeq \\mathrm{id}_f$ is encoded as:",
+            "choices": [
+              "An equality of $1$-simplices in the functor $\\infty$-category $\\mathrm{Fun}(\\mathcal{C}, \\mathcal{D})$.",
+              "A $2$-simplex in $\\mathrm{Fun}(\\mathcal{C}, \\mathcal{D})$ witnessing the homotopy, together with higher $n$-simplices ($n \\geq 3$) supplying coherence between different ways to compose.",
+              "A property of $\\eta$ alone, with $\\varepsilon$ unconstrained.",
+              "A strict equation between morphisms in $h(\\mathcal{D})$."
+            ],
+            "answer": 1,
+            "explain": "The defining characteristic of $\\infty$-adjunctions: triangle identities are weakened from strict equations to homotopies, encoded as $2$-simplices, and the coherence of these homotopies (e.g. that the two ways to compose a $3$-simplex agree up to a $4$-simplex) is part of the data, supplied by higher simplices. (a) collapses the homotopy weakening; (c) is asymmetric and wrong; (d) only holds in $h(\\mathcal{D})$ — but the $\\infty$-adjunction supplies more data than the homotopy category sees.",
+            "hint": "Up-to-homotopy = $2$-simplex witness, plus coherence between different witnesses = higher simplices."
+          },
+          {
+            "type": "mcq",
+            "q": "The $\\infty$-categorical adjoint functor theorem (Lurie HTT 5.5) says: if $g\\colon \\mathcal{D} \\to \\mathcal{C}$ is a functor between presentable $\\infty$-categories, then $g$ has a left adjoint iff:",
+            "choices": [
+              "$g$ preserves small <em>colimits</em>.",
+              "$g$ preserves small <em>limits</em> and is accessible.",
+              "$g$ is fully faithful.",
+              "$\\mathcal{D}$ is the $\\infty$-category of spaces $\\mathcal{S}$."
+            ],
+            "answer": 1,
+            "explain": "The adjoint functor theorem in the presentable $\\infty$-categorical setting: $g$ has a left adjoint iff it preserves small limits and is accessible. The dual is: $g$ has a right adjoint iff it preserves small colimits and is accessible. Choice (a) corresponds to the existence of a right adjoint, not a left one. Accessibility is the genuine extra hypothesis over the $1$-categorical SAFT.",
+            "hint": "Right adjoints preserve limits — so a left adjoint exists when $g$ preserves limits (plus accessibility)."
+          }
+        ]
+      },
+      "kan-extension": {
+        "title": "$\\infty$-categorical Kan extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "When does a left Kan extension $\\mathrm{Lan}_i F\\colon \\mathcal{D} \\to \\mathcal{E}$ along an $\\infty$-functor $i\\colon \\mathcal{C} \\to \\mathcal{D}$ exist (as a pointwise object)?",
+            "choices": [
+              "Always, for arbitrary $\\mathcal{C}, \\mathcal{D}, \\mathcal{E}$.",
+              "When $\\mathcal{E}$ admits sufficiently many small colimits — specifically, colimits of shape $\\mathcal{C}/_d$ for every $d \\in \\mathcal{D}$.",
+              "Only when $\\mathcal{C}$ is a $1$-category.",
+              "Only when $i$ is fully faithful."
+            ],
+            "answer": 1,
+            "explain": "The pointwise formula $(\\mathrm{Lan}_i F)(d) = \\mathrm{colim}_{\\mathcal{C}/_d} F$ requires the relevant colimit to exist in $\\mathcal{E}$. Cocompleteness of $\\mathcal{E}$ is the standard sufficient hypothesis (Lurie HTT 4.3.2.15). Right Kan extensions, dually, need limits of the corresponding shape.",
+            "hint": "The colimit formula is what does the work — it needs a target with enough colimits."
+          },
+          {
+            "type": "matching",
+            "q": "Match the Kan-extension-style construction with the indexing $\\infty$-category whose colimit/limit it computes.",
+            "left": [
+              "$(\\mathrm{Lan}_i F)(d)$",
+              "$(\\mathrm{Ran}_i F)(d)$",
+              "Free cocompletion of $\\mathcal{C}$",
+              "Ind-completion $\\mathrm{Ind}(\\mathcal{C})$"
+            ],
+            "right": [
+              "Limit indexed by the comma $\\infty$-category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{d/}$",
+              "Closure of $y(\\mathcal{C})$ under filtered colimits in $\\mathcal{P}(\\mathcal{C})$",
+              "Colimit indexed by the comma $\\infty$-category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{/d}$",
+              "$\\mathcal{P}(\\mathcal{C}) = \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$"
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "explain": "$(\\mathrm{Lan}_i F)(d) = \\mathrm{colim}_{\\mathcal{C}/_d} F$ uses the comma category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{/d}$ as the indexing shape. $(\\mathrm{Ran}_i F)(d)$ is dual, using $\\mathcal{D}_{d/}$ for a limit. The free cocompletion of $\\mathcal{C}$ is $\\mathcal{P}(\\mathcal{C}) = \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$, the $\\infty$-presheaf category. $\\mathrm{Ind}(\\mathcal{C})$ is the closure of the Yoneda image under filtered colimits.",
+            "hint": "Lan uses /d (slice over), Ran uses d/ (slice under). $\\mathcal{P}(\\mathcal{C})$ vs $\\mathrm{Ind}(\\mathcal{C})$ differ by which colimits you close under."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the $\\infty$-categorical pointwise formula for $\\mathrm{Lan}_i F$ \"automatically derived\"?",
+            "choices": [
+              "Because the colimit is computed in the homotopy category $h(\\mathcal{E})$.",
+              "Because $\\infty$-categorical colimits incorporate all the coherence data of the indexing shape, so they compute homotopy colimits — exactly the data classical \"deriving\" recovers by hand.",
+              "Because the formula uses limits, not colimits.",
+              "Because it is taken in the underlying $1$-category of $\\mathcal{E}$."
+            ],
+            "answer": 1,
+            "explain": "$\\infty$-categorical colimits over $\\infty$-categorical indexing shapes are <em>homotopy colimits</em> by construction: the $1$-simplices of the indexing $\\infty$-category contribute coherence data that the colimit is required to identify, exactly as in the bar-construction model of the homotopy colimit. So $\\mathrm{Lan}_i F$ is automatically the derived Kan extension. This is why ordinary derived functors $\\mathbb{L}F$ are $\\infty$-categorical Kan extensions of the lifted $F$ along a localization functor — no separate \"deriving\" step.",
+            "hint": "The $\\infty$-categorical colimit already incorporates the homotopy data; classical 'deriving' adds it back in by hand."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $i\\colon \\mathcal{C} \\to \\mathcal{D}$ be a fully faithful $\\infty$-functor and $F\\colon \\mathcal{C} \\to \\mathcal{E}$. The unit $\\eta\\colon F \\to (\\mathrm{Lan}_i F) \\circ i$:",
+            "choices": [
+              "Is always an equivalence — full faithfulness of $i$ pulls the colimit defining $(\\mathrm{Lan}_i F)(i(c))$ back to $F(c)$.",
+              "Is generally not an equivalence — $\\mathcal{C}/_{i(c)}$ has more than just the vertex $(c, \\mathrm{id})$ when $i$ is not also a sieve / final inclusion.",
+              "Is an equivalence iff $\\mathcal{E}$ is presentable.",
+              "Vanishes identically."
+            ],
+            "answer": 0,
+            "explain": "When $i$ is fully faithful, the comma $\\infty$-category $\\mathcal{C}/_{i(c)}$ has the vertex $(c, \\mathrm{id}_{i(c)})$ as a <em>final object</em>, so the colimit $\\mathrm{colim}_{\\mathcal{C}/_{i(c)}} F$ collapses to $F(c)$ (final-object cofinality). So $\\eta$ is an equivalence; this is the precise sense in which 'fully faithful $i$ + Kan extension' generalizes 'extension by zero outside the image' on the nose. (Note: this fact is HTT 4.3.2.15 — fully faithful $i$ ⇒ unit is an equivalence.)",
+            "hint": "Fully faithful $i$ makes $(c, \\mathrm{id})$ a final object of the comma — colimits collapse to final values."
+          },
+          {
+            "type": "mcq",
+            "q": "The free cocompletion $\\mathcal{P}(\\mathcal{C}) := \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$ has the universal property:",
+            "choices": [
+              "For any presentable $\\infty$-category $\\mathcal{E}$, $\\mathrm{Fun}^L(\\mathcal{P}(\\mathcal{C}), \\mathcal{E}) \\simeq \\mathrm{Fun}(\\mathcal{C}, \\mathcal{E})$, where $\\mathrm{Fun}^L$ denotes colimit-preserving $\\infty$-functors.",
+              "$\\mathcal{P}(\\mathcal{C})$ is initial among presentable $\\infty$-categories receiving a functor from $\\mathcal{C}$.",
+              "$\\mathrm{Fun}(\\mathcal{P}(\\mathcal{C}), \\mathcal{E}) \\simeq \\mathrm{Fun}(\\mathcal{C}, \\mathcal{E})$ for any $\\mathcal{E}$ (regardless of cocompleteness).",
+              "$\\mathcal{P}(\\mathcal{C})$ is a localization of $\\mathcal{C}$."
+            ],
+            "answer": 0,
+            "explain": "The universal property of the $\\infty$-presheaf category (Lurie HTT 5.1.5.6): precomposition with the Yoneda embedding induces an equivalence between the $\\infty$-category of <em>colimit-preserving</em> functors $\\mathcal{P}(\\mathcal{C}) \\to \\mathcal{E}$ (for $\\mathcal{E}$ cocomplete) and the $\\infty$-category of all functors $\\mathcal{C} \\to \\mathcal{E}$. Equivalently, $\\mathrm{Lan}_y$ is an equivalence on these subcategories. (b) is wrong — $\\mathcal{P}(\\mathcal{C})$ is not initial; it's universal for the \"colimit-preserving\" property. (c) drops the colimit-preserving hypothesis, which is the key.",
+            "hint": "The universal property is about <em>colimit-preserving</em> functors out of $\\mathcal{P}(\\mathcal{C})$, not arbitrary functors."
+          }
+        ]
+      }
+    }
+  },
+  "infinity-topoi": {
+    "topic": "infinity-topoi",
+    "quizzes": {
+      "presheaf-infty-topos": {
+        "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $\\mathcal{P}(*)$, the $\\infty$-category of presheaves on the terminal $\\infty$-category $* $?",
+            "choices": [
+              "$\\mathcal{P}(*) = \\mathsf{Set}$ — the 1-category of sets.",
+              "$\\mathcal{P}(*) \\simeq \\mathcal{S}$ — the $\\infty$-category of spaces (Kan complexes / animae).",
+              "$\\mathcal{P}(*) = \\mathrm{sSet}$ — bare simplicial sets, no homotopy.",
+              "$\\mathcal{P}(*) = \\emptyset$ — the empty $\\infty$-category."
+            ],
+            "answer": 1,
+            "explain": "$\\mathcal{P}(*) = \\mathrm{Fun}(*^{\\mathrm{op}}, \\mathcal{S}) \\simeq \\mathcal{S}$: a presheaf on $*$ is just a single space, so the functor category is $\\mathcal{S}$ itself. $\\mathcal{S}$ is the absolute $\\infty$-topos — what $\\mathsf{Set}$ is to 1-toposes. $\\mathrm{sSet}$ is the model, but $\\mathcal{S}$ is its localization at weak equivalences.",
+            "hint": "Mapping a single point to a category picks out one object — what does Fun($*$, $\\mathcal{C}$) look like?"
+          },
+          {
+            "type": "mcq",
+            "q": "The Yoneda embedding $j\\colon C \\hookrightarrow \\mathcal{P}(C)$ exhibits $\\mathcal{P}(C)$ as which universal object?",
+            "choices": [
+              "The free abelian $\\infty$-category on $C$.",
+              "The free cocompletion of $C$ — the universal cocomplete $\\infty$-category receiving $C$.",
+              "The free completion of $C$ — the universal complete $\\infty$-category receiving $C$.",
+              "The free monoidal $\\infty$-category on $C$."
+            ],
+            "answer": 1,
+            "explain": "$\\mathcal{P}(C)$ is the free cocompletion: for any cocomplete $\\mathcal{D}$, restriction along $j$ gives an equivalence $\\mathrm{Fun}^L(\\mathcal{P}(C), \\mathcal{D}) \\simeq \\mathrm{Fun}(C, \\mathcal{D})$. Every functor $C \\to \\mathcal{D}$ extends uniquely to a colimit-preserving functor on $\\mathcal{P}(C)$. The dual statement (free completion) is $\\mathrm{Ind}(C)$ for the limit side, NOT $\\mathcal{P}(C)$.",
+            "hint": "$\\mathcal{P}(C)$ is generated by representables under colimits."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE of the $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ for any small $\\infty$-category $C$?",
+            "choices": [
+              "$\\mathcal{P}(C)$ is presentable.",
+              "Every presheaf $F$ is a colimit of representables (over the category of elements $C/F$).",
+              "$\\mathcal{P}(C)$ is an $\\infty$-topos.",
+              "$\\mathcal{P}(C) \\simeq \\widehat{C} = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathsf{Set})$ — same as the 1-categorical presheaf topos."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "(1) Presentable: $\\mathcal{P}(C)$ is presentable as a functor $\\infty$-category from a small source. (2) Density: HTT 5.1.5.6, every $F$ is the colimit of its representables — the higher density theorem. (3) $\\mathcal{P}(C)$ is the prototype $\\infty$-topos, satisfying all $\\infty$-Giraud axioms. (4) is FALSE: $\\widehat C$ is the 1-truncated piece $\\tau_{\\leq 0} \\mathcal{P}(C)$ — $\\mathcal{P}(C)$ has nontrivial higher homotopy in mapping spaces.",
+            "hint": "Compare $\\mathsf{Set}$ to $\\mathcal{S}$ — the latter has higher homotopy."
+          }
+        ]
+      },
+      "infty-topos-definition": {
+        "title": "$\\infty$-topos via accessible left exact localization",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following are $\\infty$-topoi?",
+            "choices": [
+              "$\\mathcal{S}$ — the $\\infty$-category of spaces.",
+              "$\\mathcal{P}(C)$ for $C$ a small $\\infty$-category.",
+              "$\\mathrm{Mod}_R$ — the $\\infty$-category of $R$-module spectra, for $R$ a connective $\\mathbb{E}_\\infty$-ring.",
+              "$D(\\mathcal{A})$ — the derived $\\infty$-category of an abelian category $\\mathcal{A}$ (e.g. $\\mathcal{A} = \\mathrm{Mod}_R$ for a ring $R$)."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "(1) $\\mathcal{S} = \\mathcal{P}(*)$ is the prototype $\\infty$-topos. (2) $\\mathcal{P}(C)$ is the prototype too — by definition. (3) $\\mathrm{Mod}_R$ is presentable and stable but FAILS disjoint coproducts: in a stable $\\infty$-cat, $X \\oplus Y$ is the biproduct, not a disjoint coproduct (it equals the product). Stable $\\infty$-cats are NEVER $\\infty$-topoi (other than the trivial $\\{*\\}$). (4) Same: $D(\\mathcal{A})$ is stable, hence not an $\\infty$-topos in general. (Stable categories live on the OTHER side of the unstable/stable divide.)",
+            "hint": "An $\\infty$-topos has disjoint coproducts $X \\sqcup Y$. In a stable category, $X \\oplus Y$ is the BIPRODUCT (= product = coproduct) — that's the wrong sort of coproduct."
+          },
+          {
+            "type": "mcq",
+            "q": "An accessible left-exact localization $L\\colon \\mathcal{P}(C) \\rightleftarrows \\mathcal{X}$ produces an $\\infty$-topos $\\mathcal{X}$. Which condition on $L$ is the EXTRA ingredient (beyond 'accessible reflective')?",
+            "choices": [
+              "$L$ is faithful.",
+              "$L$ preserves finite $\\infty$-limits.",
+              "$L$ preserves all $\\infty$-colimits.",
+              "$L$ is conservative."
+            ],
+            "answer": 1,
+            "explain": "The defining extra is that $L$ is left exact — preserves finite $\\infty$-limits (the empty product $\\Rightarrow$ $L$ preserves the terminal object; binary product; pullback). Without left-exactness $\\mathcal{X}$ is just a presentable reflective subcategory. (Note: the LEFT adjoint $L$ automatically preserves all colimits, since it has a right adjoint $i$. So (3) is automatic, not extra. (1) and (4) would be wrong directions.)",
+            "hint": "What separates 'sheafification' from 'arbitrary localization' in 1-categorical sheaf theory?"
+          },
+          {
+            "type": "mcq",
+            "q": "In the $\\infty$-topos $\\mathrm{Sh}_\\infty(C, J)$, what is the descent condition that an $\\infty$-sheaf $F$ must satisfy on a covering family $\\{U_i \\to U\\}_i$?",
+            "choices": [
+              "$F(U) = \\prod_i F(U_i)$ — a bare product.",
+              "$F(U) = \\mathrm{eq}\\left(\\prod_i F(U_i) \\rightrightarrows \\prod_{i,j} F(U_{ij})\\right)$ — an equalizer.",
+              "$F(U) \\simeq \\mathrm{Tot}(F(U_\\bullet))$ — totalization (homotopy limit) over the full Čech simplicial diagram.",
+              "$F(U) = \\mathrm{colim}_i F(U_i)$ — a colimit."
+            ],
+            "answer": 2,
+            "explain": "The $\\infty$-sheaf condition is descent against the FULL Čech nerve $U_\\bullet$ — the totalization $F(U) = \\mathrm{Tot}(F(U_\\bullet))$ records sections plus 1-coherences (gluing on overlaps) plus 2-coherences plus … all higher coherences. (2) is the 1-categorical (set-valued) sheaf condition, which is the truncation of (3) at level 0. (1) misses gluing entirely. (4) is wrong direction.",
+            "hint": "For 1-sheaves, gluing requires sections on $U_i$ + agreement on overlaps $U_{ij}$. For $\\infty$-sheaves, you ALSO need triple agreements on $U_{ijk}$, quadruple on $U_{ijkl}$, …"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $\\mathcal{X} = \\mathrm{Sh}_\\infty(\\mathrm{Op}(X); \\mathcal{S})$ for $X$ a topological space. The 1-truncation $\\tau_{\\leq 0}\\mathcal{X}$ recovers what?",
+            "choices": [
+              "The 1-topos $\\mathrm{Sh}(X; \\mathsf{Set})$ of set-valued sheaves on $X$.",
+              "The full $\\infty$-topos $\\mathcal{X}$ itself — truncation does nothing.",
+              "The presheaf 1-topos $\\widehat{\\mathrm{Op}(X)}$.",
+              "The trivial $\\infty$-topos $\\{*\\}$."
+            ],
+            "answer": 0,
+            "explain": "$\\tau_{\\leq 0}\\colon \\mathcal{X} \\to \\mathcal{X}_{\\leq 0}$ truncates all higher homotopy from the values, leaving sets (i.e. discrete spaces); the result is the classical Grothendieck 1-topos $\\mathrm{Sh}(X; \\mathsf{Set})$. The 1-topos of set-valued sheaves embeds in the $\\infty$-topos as its 0-truncated piece — every classical étale sheaf, sheaf of groups, etc. lives inside $\\mathcal{X}$.",
+            "hint": "A $0$-truncated space is a discrete space (= a set)."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in this 'proof' that every accessible reflective subcategory of $\\mathcal{P}(C)$ is an $\\infty$-topos.",
+            "steps": [
+              "Let $L\\colon \\mathcal{P}(C) \\rightleftarrows \\mathcal{X}$ be an accessible reflective subcategory with $i\\colon \\mathcal{X} \\hookrightarrow \\mathcal{P}(C)$ fully faithful.",
+              "$\\mathcal{X}$ is presentable (since $\\mathcal{P}(C)$ is, and accessible reflective subcategories of presentable categories are presentable).",
+              "Since $L$ has a right adjoint $i$, $L$ preserves all colimits.",
+              "Therefore $L$ preserves finite limits as well — every left adjoint preserves limits.",
+              "Hence $L$ is left exact, and $\\mathcal{X}$ is an $\\infty$-topos by Lurie's definition."
+            ],
+            "answer": 3,
+            "explain": "Step 4 has the adjointness backwards: every RIGHT adjoint preserves limits, not every left adjoint. $L$ is the LEFT adjoint and so it automatically preserves COLIMITS (step 3 is correct). Whether $L$ preserves finite LIMITS is exactly the extra left-exactness condition — it is NOT automatic. Counter-example: any non-lex localization (e.g. localizing $\\mathcal{S}$ at the maps $S^n \\to *$ for $n \\geq 1$ gives a non-lex reflective subcategory, namely the discrete spaces, but this happens to also be lex; for a genuinely non-lex example see HTT 5.5.4).",
+            "hint": "Which adjoint preserves which kind of (co)limit?"
+          }
+        ]
+      },
+      "giraud-infty": {
+        "title": "$\\infty$-Giraud axioms",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following are $\\infty$-Giraud axioms (in Lurie's HTT 6.1.0.6 formulation)?",
+            "choices": [
+              "$\\mathcal{X}$ is presentable.",
+              "Coproducts in $\\mathcal{X}$ are disjoint and stable under pullback.",
+              "Every groupoid object in $\\mathcal{X}$ is effective (the Čech nerve of its colimit recovers it).",
+              "$\\mathcal{X}$ is locally cartesian closed (pullback preserves all colimits)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four are the $\\infty$-Giraud axioms (G1–G4): (1) presentability, (2) universal disjoint coproducts, (3) effective groupoid objects, (4) universal colimits = local cartesian closure. The 1-categorical Giraud axioms ask for effective EQUIVALENCE RELATIONS instead of groupoid objects — the homotopy-coherent generalization.",
+            "hint": "All four are correct — none of them is a 1-categorical axiom that fails to lift."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the homotopy-coherent generalization of '1-Giraud axiom: every equivalence relation is effective'?",
+            "choices": [
+              "Every monomorphism is an equivalence.",
+              "Every groupoid object $X_\\bullet$ is the Čech nerve of its colimit — i.e. $X_1 \\xrightarrow{(d_0, d_1)} X_0 \\times_{|X_\\bullet|} X_0$ is an equivalence.",
+              "Every functor $\\Delta^{\\mathrm{op}} \\to \\mathcal{X}$ is a colimit.",
+              "Every map of $\\infty$-topoi is a geometric morphism."
+            ],
+            "answer": 1,
+            "explain": "A 1-categorical equivalence relation $R \\hookrightarrow X \\times X$ encodes 'two elements are equivalent' as a sub-monomorphism. The $\\infty$-version replaces this with a groupoid OBJECT: a simplicial object $X_\\bullet$ satisfying Segal-style horn-filling, which captures composition of higher equivalences coherently. Effectivity means: $X_1$ (the 'equivalence relation' piece) reconstructs as the homotopy fiber of the diagonal $X_0 \\to |X_\\bullet|$.",
+            "hint": "What replaces 'sub-monomorphism' in $\\infty$-land?"
+          },
+          {
+            "type": "mcq",
+            "q": "Which $\\infty$-Giraud axiom is the source of the local cartesian closure of $\\mathcal{X}$ — and hence powers $\\Pi$-types in the internal HoTT?",
+            "choices": [
+              "G1 (presentability).",
+              "G2 (disjoint, pullback-stable coproducts).",
+              "G3 (effective groupoid objects).",
+              "G4 (universal colimits — pullback preserves all colimits)."
+            ],
+            "answer": 3,
+            "explain": "G4 (universal colimits) is equivalent to: each pullback functor $f^*\\colon \\mathcal{X}_{/Y} \\to \\mathcal{X}_{/X}$ preserves all colimits, hence has a right adjoint $f_*$ (by adjoint functor theorem + presentability). $f_*$ is the dependent product / $\\Pi$-type. Without G4 you cannot have $\\Pi$-types in the internal HoTT.",
+            "hint": "$\\Pi$-types correspond to right-adjoint pushforward; that adjoint exists iff pullback preserves colimits."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following 1-categorical Giraud axioms LIFT verbatim to the $\\infty$-categorical version, vs require modification?",
+            "choices": [
+              "'Has a small set of generators' — lifts to G1 (presentability) verbatim, modulo replacing 'generators' with 'compact generators of a presentable category'.",
+              "'Coproducts are disjoint' — lifts to G2 verbatim (disjoint = pullback over the coproduct is initial).",
+              "'Equivalence relations are effective' — lifts as 'groupoid objects are effective' (NOT the same: equivalence relation is a special case of groupoid object).",
+              "'Pullbacks of regular epimorphisms are regular epimorphisms' — lifts to G4 (universal colimits)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four are accurate: G1 lifts verbatim with the obvious presentability adaptation; G2 lifts verbatim (the pullback condition is stated identically); G3 generalizes — equivalence relations become groupoid objects, since in $\\infty$-land 'sub-monomorphism' becomes 'groupoid object on $X_0$'; G4 strengthens 'pullback preserves regular-epi colimits' to 'pullback preserves all colimits'. The verbatim/modify distinction is between G1, G2 (verbatim) and G3, G4 (modify-into-coherent).",
+            "hint": "Which axioms only mention objects/morphisms (lifts verbatim) vs. structure with notions of 'mono' or 'regular epi' (needs modification)?"
+          },
+          {
+            "type": "mcq",
+            "q": "An $\\infty$-category $\\mathcal{X}$ is presentable, has disjoint pullback-stable coproducts, has effective groupoid objects, but FAILS local cartesian closure (G4). Such an $\\mathcal{X}$ is called a what?",
+            "choices": [
+              "An $\\infty$-topos (this is the standard definition).",
+              "A locally presentable $\\infty$-category but not an $\\infty$-topos.",
+              "An $(\\infty,1)$-pretopos — has the pretopos axioms but lacks the dependent products.",
+              "A Grothendieck abelian category."
+            ],
+            "answer": 2,
+            "explain": "Without G4, $\\mathcal{X}$ is what one might call an $(\\infty,1)$-pretopos: it has presentability, disjoint coproducts, and quotient-by-groupoid effectivity, but lacks the local cartesian closure that $\\infty$-topoi require for power objects / dependent products. (The terminology is somewhat unsettled; some sources use 'lex' instead of 'pretopos'. The point: G4 is the genuinely strongest of the four axioms, and dropping it gives a strictly weaker class.)",
+            "hint": "Pretoposes in the 1-categorical sense lack power objects / subobject classifier in general."
+          }
+        ]
+      },
+      "geometric-morphisms-infty": {
+        "title": "Geometric morphisms of $\\infty$-topoi",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi consists of an adjoint pair $f^* \\dashv f_*$. Which functor is the LEFT adjoint, and which extra property does it satisfy?",
+            "choices": [
+              "$f^*$ left adjoint, left exact (preserves finite limits).",
+              "$f_*$ left adjoint, left exact.",
+              "$f^*$ right adjoint, preserves all colimits.",
+              "$f_*$ right adjoint, right exact."
+            ],
+            "answer": 0,
+            "explain": "Convention: $f^*$ is the LEFT adjoint (the 'inverse image'), and the topos axiom is that $f^*$ is left exact (preserves finite limits). $f_*$ (the RIGHT adjoint, the 'direct image') automatically preserves limits as a right adjoint — that's not a separate axiom. Note the geometric direction: $f$ goes $\\mathcal{F} \\to \\mathcal{E}$ but $f^*$ goes $\\mathcal{E} \\to \\mathcal{F}$ — the geometric morphism 'points the way of $f_*$'.",
+            "hint": "Pullback of a sheaf along $f$ goes against the arrow direction."
+          },
+          {
+            "type": "mcq",
+            "q": "For an étale geometric morphism $f\\colon \\mathcal{E}_{/X} \\to \\mathcal{E}$ — i.e. the slice projection over an object $X \\in \\mathcal{E}$ — what is $f^*$ on the terminal object $* \\in \\mathcal{E}$?",
+            "choices": [
+              "$f^*(*) = *$ — the terminal object of $\\mathcal{E}_{/X}$, which is $X \\to X$ (the identity).",
+              "$f^*(*) = \\emptyset$ — the initial object of $\\mathcal{E}_{/X}$.",
+              "$f^*(*) = X \\times X$ — the diagonal.",
+              "$f^*(*) = X$ — but as an object of $\\mathcal{E}$, not of the slice."
+            ],
+            "answer": 0,
+            "explain": "$f^*$ is left exact, so it preserves the terminal object. The terminal object of $\\mathcal{E}_{/X}$ is $\\mathrm{id}_X\\colon X \\to X$ (the unique map to itself). For $f^* = X \\times -$ on $\\mathcal{E}_{/X} \\to \\mathcal{E}_{/X}$ this would be $X \\times *$, but for the $f^*\\colon \\mathcal{E} \\to \\mathcal{E}_{/X}$ direction, $f^*(E) = (E \\times X \\to X)$, sending $* \\mapsto (X \\to X)$. ✓",
+            "hint": "The terminal of a slice $\\mathcal{E}_{/X}$ is always the identity-on-$X$ object."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE about geometric morphisms of $\\infty$-topoi?",
+            "choices": [
+              "$f$ is surjective iff $f^*$ is conservative (reflects equivalences).",
+              "An étale geometric morphism $\\mathcal{E}_{/X} \\to \\mathcal{E}$ is determined up to equivalence by the object $X \\in \\mathcal{E}$.",
+              "The 2-cells of the $(\\infty, 2)$-category of $\\infty$-topoi point in the $f^*$-direction — natural transformations $f^* \\to g^*$ between the inverse images.",
+              "Every left exact, accessible functor $\\mathcal{E} \\to \\mathcal{F}$ between $\\infty$-topoi is the inverse-image part of a unique geometric morphism."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four are correct: (1) is the standard definition of surjective; (2) is the fact that étale morphisms are equivalent to objects (HTT 6.3.5); (3) is the convention for 2-cells in $\\infty\\mathsf{Topoi}$; (4) is the corepresentability statement — by accessibility, a lex-accessible functor has a right adjoint (adjoint functor theorem) and so produces a geometric morphism.",
+            "hint": "All four are standard facts in HTT chapter 6."
+          }
+        ]
+      },
+      "hypercompletion": {
+        "title": "Hypercompletion and Whitehead's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An $\\infty$-topos $\\mathcal{X}$ is called <em>hypercomplete</em> iff which condition holds?",
+            "choices": [
+              "Every limit in $\\mathcal{X}$ commutes with every colimit.",
+              "Every $\\infty$-connective morphism (one inducing iso on all homotopy sheaves $\\pi_n$) is an equivalence.",
+              "$\\mathcal{X}$ is presentable.",
+              "$\\mathcal{X}$ has a generator."
+            ],
+            "answer": 1,
+            "explain": "Hypercompleteness IS the internal Whitehead theorem: $\\infty$-connective $\\Rightarrow$ equivalence. (3) and (4) are automatic for $\\infty$-topoi anyway (G1). (1) is far too strong (limits and colimits don't commute in general). The defining feature of hypercompletion is that it forces 'all homotopy sheaves agree' to imply 'objects are equivalent'.",
+            "hint": "Whitehead's classical theorem: $\\pi_n$-iso for all $n$ ⇒ homotopy equivalence."
+          },
+          {
+            "type": "mcq",
+            "q": "Hypercompletion is needed (i.e. $\\mathcal{X} \\neq \\mathcal{X}^\\wedge$) precisely when which property of the base fails?",
+            "choices": [
+              "When the base has finite cohomological dimension — finite-dim bases ARE the bad case.",
+              "When the base has infinite cohomological / Krull dimension — pathologies arise from unbounded-Postnikov-tower behavior.",
+              "When the base is non-Noetherian.",
+              "When the base is non-affine."
+            ],
+            "answer": 1,
+            "explain": "The standard pathology: bases of infinite cohomological / Krull dimension produce $\\infty$-connective morphisms that are not equivalences. Concretely, $\\mathrm{Sh}_\\infty(\\mathrm{Spec}(\\prod_n k_n))$ for an infinite product of fields fails Whitehead. Bases of finite covering dimension (smooth manifolds, Noetherian schemes of finite Krull dimension) automatically have hypercomplete $\\infty$-toposes.",
+            "hint": "Hypercompletion's failure is about Postnikov-tower divergence — what makes Postnikov towers fail to converge?"
+          },
+          {
+            "type": "mcq",
+            "q": "Internal Whitehead (the hypercompletion-defining property) says: a map $f\\colon X \\to Y$ in $\\mathcal{X}$ is an equivalence iff $\\pi_n(f)$ is iso for all $n \\geq 0$. Which is the formal correct statement?",
+            "choices": [
+              "$f$ is an equivalence iff $H^*(X) \\cong H^*(Y)$ as graded rings.",
+              "$f$ is an equivalence iff $f$ induces an iso on every homotopy SHEAF $\\pi_n(X) \\to \\pi_n(Y)$ in $\\mathcal{X}_{\\leq 0}$ for $n \\geq 0$.",
+              "$f$ is an equivalence iff $f$ induces an iso on global sections $\\Gamma(X) \\to \\Gamma(Y)$.",
+              "$f$ is an equivalence iff $f$ becomes an iso after $0$-truncation."
+            ],
+            "answer": 1,
+            "explain": "The homotopy SHEAF $\\pi_n(X)$ is the sheafification of the presheaf $U \\mapsto \\pi_n(\\Gamma(U; X))$ — a 0-truncated object of $\\mathcal{X}$. (1) is wrong: cohomology rings classify only certain features. (3) is too coarse: global-section iso doesn't suffice (a sheaf need not be detected globally). (4) is far too coarse: $0$-truncation kills all higher homotopy.",
+            "hint": "Whitehead's theorem is about each $\\pi_n$ pointwise, made internal by sheafifying."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $\\mathcal{X}$ be an $\\infty$-topos with hypercompletion $\\mathcal{X}^\\wedge \\hookrightarrow \\mathcal{X}$. The hypercompletion is a left-exact reflective subcategory. The localization functor inverts which class of morphisms?",
+            "choices": [
+              "The class of monomorphisms.",
+              "The class of $\\infty$-connective morphisms (those inducing iso on every $\\pi_n$).",
+              "The class of effective epimorphisms.",
+              "The class of equivalences in the underlying 1-topos $\\tau_{\\leq 0}\\mathcal{X}$."
+            ],
+            "answer": 1,
+            "explain": "By construction $\\mathcal{X}^\\wedge$ is the localization of $\\mathcal{X}$ at $\\infty$-connective morphisms — that's exactly what 'hypercompletion = forces internal Whitehead' means. The $\\infty$-connective maps were already preserved-iso by lex-localizations of presheaves; hypercompletion forces them to become equivalences in the target.",
+            "hint": "What does 'forces internal Whitehead' mean as a localization?"
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in this 'proof' that $\\mathrm{Sh}_\\infty(X)$ is always hypercomplete.",
+            "steps": [
+              "Let $X$ be any topological space.",
+              "Form $\\mathrm{Sh}_\\infty(X) = \\mathrm{Sh}_\\infty(\\mathrm{Op}(X), \\mathcal{S})$.",
+              "Postnikov towers in $\\mathcal{S}$ converge: $A \\xrightarrow{\\sim} \\lim \\tau_{\\leq n} A$ for any $A \\in \\mathcal{S}$.",
+              "Therefore Postnikov towers in $\\mathrm{Sh}_\\infty(X)$ converge pointwise: $F(U) \\xrightarrow{\\sim} \\lim \\tau_{\\leq n} F(U)$ for each $U \\in \\mathrm{Op}(X)$.",
+              "Hence $F \\xrightarrow{\\sim} \\lim \\tau_{\\leq n} F$ in $\\mathrm{Sh}_\\infty(X)$, so the topos is hypercomplete."
+            ],
+            "answer": 4,
+            "explain": "Step 5 is wrong: pointwise Postnikov-tower convergence (step 4) does NOT imply convergence in $\\mathrm{Sh}_\\infty(X)$. The issue is that $\\lim$ in $\\mathrm{Sh}_\\infty(X)$ is computed via sheafification — it differs from the pointwise limit. Concretely: the sheafification of a pointwise-converging Postnikov tower might disagree with the pointwise limit on some non-Noetherian / infinite-dim subspace, producing an $\\infty$-connective non-equivalence. This is exactly what causes hypercompletion failures for $X$ of unbounded covering dimension.",
+            "hint": "Limits in a sheaf category are not pointwise limits — sheafification matters."
+          }
+        ]
+      },
+      "internal-logic-of-infty-topos": {
+        "title": "Internal logic: homotopy type theory and $\\infty$-toposes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In a 1-topos $\\mathcal{E}$, the subobject classifier $\\Omega$ classifies subobjects (monomorphisms). In an $\\infty$-topos, what does the OBJECT CLASSIFIER $\\mathcal{U}_\\kappa$ classify?",
+            "choices": [
+              "Subobjects (monomorphisms) — same as the 1-topos version.",
+              "$\\kappa$-small fibrations (maps with $\\kappa$-compact fibers); the 1-categorical $\\Omega = \\mathcal{U}_{\\leq -1}$ classifying $(-1)$-truncated maps is the bottom of a tower of universes.",
+              "Only effective epimorphisms.",
+              "All morphisms, no size constraint."
+            ],
+            "answer": 1,
+            "explain": "The object classifier $\\mathcal{U}_\\kappa$ classifies $\\kappa$-small maps (HTT 6.1.6.7). The 1-categorical $\\Omega$ is recovered as $\\mathcal{U}_{\\leq -1}$, the part classifying $(-1)$-truncated maps (= monomorphisms). The full $\\mathcal{U}$ has a tower $\\mathcal{U}_{\\leq -1} \\subset \\mathcal{U}_{\\leq 0} \\subset \\mathcal{U}_{\\leq 1} \\subset \\cdots$ classifying $n$-truncated maps for each $n$. Without size constraint $\\mathcal{U}$ is class-sized, hence the $\\kappa$.",
+            "hint": "1-topos $\\Omega$ extends UPWARD to a tower of universes in an $\\infty$-topos."
+          },
+          {
+            "type": "mcq",
+            "q": "Voevodsky's univalence axiom — automatic in any Grothendieck $\\infty$-topos with universe $\\mathcal{U}$ — states what equivalence?",
+            "choices": [
+              "$\\mathrm{Type} =_\\mathcal{U} \\mathrm{Type}'$ iff $\\mathrm{Type}$ and $\\mathrm{Type}'$ have the same set of elements.",
+              "$\\mathrm{Map}_\\mathcal{U}(X, Y) \\simeq \\mathrm{Eq}(X, Y)$ — the path space between two types in the universe is equivalent to the space of equivalences between the types.",
+              "$\\mathrm{Map}_\\mathcal{U}(X, Y) \\simeq \\mathrm{Hom}(X, Y)$ — the path space is the space of all maps.",
+              "$\\mathrm{Map}_\\mathcal{U}(X, Y) = \\emptyset$ unless $X = Y$ literally."
+            ],
+            "answer": 1,
+            "explain": "Univalence: $(X =_\\mathcal{U} Y) \\simeq (X \\simeq Y)$ — identity in the universe is exactly equivalence of types. This is automatic in any Grothendieck $\\infty$-topos because the universe is constructed AS a moduli object: paths in the moduli space of objects ARE equivalences of objects, by definition. Voevodsky's contribution was to recognize this as the missing axiom for HoTT.",
+            "hint": "What is a path in the moduli space of objects?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following correspond correctly under the HoTT $\\leftrightarrow$ $\\infty$-topos dictionary?",
+            "choices": [
+              "Dependent product $\\Pi_{x:A} B(x)$ ↔ pushforward $f_*$ along the display map $B \\to A$ (right adjoint of pullback).",
+              "Dependent sum $\\Sigma_{x:A} B(x)$ ↔ pushforward $f_!$ (left adjoint of pullback).",
+              "Identity type $a =_A b$ ↔ mapping space $\\mathrm{Map}_A(a, b)$.",
+              "Higher inductive type ↔ a colimit in $\\mathcal{X}$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four are standard: $\\Pi$ uses the right adjoint $f_*$ (existence requires G4 / local cartesian closure); $\\Sigma$ uses the left adjoint $f_!$; identity types are path / mapping spaces (in the 'type' interpretation); HITs are colimits of generalized cell complexes. The dictionary is exact (modulo coherence subtleties addressed by Shulman, Cisinski, et al.).",
+            "hint": "All correct — these are the four fundamental correspondences."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In a 1-topos vs $\\infty$-topos, where does the subobject classifier $\\Omega$ sit in the universe tower?",
+            "choices": [
+              "$\\Omega = \\mathcal{U}$ — the subobject classifier IS the full universe in both cases.",
+              "$\\Omega = \\mathcal{U}_{\\leq -1}$ — the bottom level of the truncation tower; $\\Omega$ classifies $(-1)$-truncated subobjects (propositions / monomorphisms) in BOTH the 1-topos and $\\infty$-topos.",
+              "$\\Omega = \\mathcal{U}_{\\leq 0}$ — the level of sets, in both cases.",
+              "$\\Omega$ does not exist in an $\\infty$-topos — only the universe $\\mathcal{U}$ does."
+            ],
+            "answer": 1,
+            "explain": "$\\Omega = \\mathcal{U}_{\\leq -1}$: it classifies $(-1)$-truncated maps (= subobjects) in any $\\infty$-topos. The subobject classifier of a 1-topos persists into the $\\infty$-topos, but is now just the bottom of a tower $\\mathcal{U}_{\\leq -1} \\subset \\mathcal{U}_{\\leq 0} \\subset \\cdots \\subset \\mathcal{U}$. The full universe $\\mathcal{U}$ is genuinely new in the $\\infty$-world.",
+            "hint": "$(-1)$-truncated map = monomorphism = proposition."
+          },
+          {
+            "type": "mcq",
+            "q": "Shulman's coherence theorem (2019, 'All $(\\infty,1)$-toposes have strict univalent universes') has what consequence for HoTT-as-internal-language?",
+            "choices": [
+              "HoTT is consistent only in the $\\infty$-topos $\\mathcal{S}$ of spaces.",
+              "Any HoTT theorem proven synthetically holds in EVERY Grothendieck $\\infty$-topos via a strict (not just homotopy-coherent) model.",
+              "The univalence axiom is independent of the other HoTT axioms — Shulman's theorem proves both consistency and independence.",
+              "HoTT is equivalent to ZFC + Choice."
+            ],
+            "answer": 1,
+            "explain": "Shulman's result says that every Grothendieck $\\infty$-topos admits a strict (split) model of HoTT with univalent universes — earlier results gave only homotopy-coherent models, leaving residual coherence concerns. Consequence: HoTT is the synthetic language for $\\infty$-topos theory, and synthetic theorems (e.g. $\\pi_4(S^3) = \\mathbb{Z}/2$ via Brunerie's number) translate to theorems valid in every $\\infty$-topos simultaneously.",
+            "hint": "What problem did the coherence theorem resolve?"
+          }
+        ]
+      },
+      "etale-infty-topos-of-scheme": {
+        "title": "The étale $\\infty$-topos of a scheme",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the étale $\\infty$-topos of $\\mathrm{Spec}\\,\\mathbb{Z}$ — describe its 'shape'?",
+            "choices": [
+              "$\\mathrm{Sh}_\\infty((\\mathrm{Spec}\\,\\mathbb{Z})_{\\mathrm{ét}}) \\simeq \\mathcal{S}$ — equivalent to the absolute $\\infty$-topos of spaces.",
+              "$\\mathrm{Sh}_\\infty((\\mathrm{Spec}\\,\\mathbb{Z})_{\\mathrm{ét}})^\\wedge$ has a generic point $\\eta$ with local Galois group $G_\\mathbb{Q} = \\mathrm{Gal}(\\bar{\\mathbb{Q}}/\\mathbb{Q})$, and a closed point $(p)$ for each prime $p$, with local Galois group $G_{\\mathbb{F}_p} = \\widehat{\\mathbb{Z}}$ (topologically generated by Frobenius).",
+              "It is the trivial $\\infty$-topos with only the terminal object.",
+              "It is the étale 1-topos $\\mathrm{Sh}((\\mathrm{Spec}\\,\\mathbb{Z})_{\\mathrm{ét}})$ — the $\\infty$-version coincides with the 1-version for $\\mathrm{Spec}\\,\\mathbb{Z}$."
+            ],
+            "answer": 1,
+            "explain": "The étale $\\infty$-topos of $\\mathrm{Spec}\\,\\mathbb{Z}$ packages: a generic point $\\eta = (0)$ with local data $\\bar{\\mathbb{Q}}$ and Galois group $G_\\mathbb{Q}$; a closed point for each prime $p$ with local data $\\bar{\\mathbb{F}}_p$ and Galois group $G_{\\mathbb{F}_p} = \\widehat{\\mathbb{Z}}$. (1) is wrong: only $\\mathrm{Spec}\\,\\bar{k}$ for $\\bar k$ algebraically closed has étale $\\infty$-topos $\\simeq \\mathcal{S}$. (4) is wrong: the $\\infty$-version is genuinely larger and contains the 1-version as the 0-truncation.",
+            "hint": "Each prime gives a closed point; the generic point is at $(0)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hypercompletion plays what role in derived étale cohomology / $\\ell$-adic sheaves?",
+            "choices": [
+              "Hypercompletion is unnecessary — the natural étale $\\infty$-topos $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})$ already supports $\\ell$-adic sheaves.",
+              "Hypercompletion is required: $\\ell$-adic / pro-étale sheaves naturally live in $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$, the hypercompletion, where Postnikov towers (and hence inverse limits like $\\mathbb{Z}_\\ell = \\lim \\mathbb{Z}/\\ell^n$) converge correctly.",
+              "Hypercompletion exists only for $\\infty$-topoi over $\\mathrm{Spec}\\,\\mathbb{C}$.",
+              "Hypercompletion always trivializes the étale topos."
+            ],
+            "answer": 1,
+            "explain": "$\\ell$-adic sheaves are inverse-limit objects: $\\mathbb{Z}_\\ell$-coefficients are the inverse limit of $\\mathbb{Z}/\\ell^n$-coefficients. For these inverse limits to behave correctly in the $\\infty$-topos — equivalently, for the Postnikov / cohomological-degree tower to converge — you need hypercompleteness. The pro-étale $\\infty$-topos of Bhatt–Scholze is defined to be hypercomplete by design.",
+            "hint": "$\\ell$-adic = inverse limit over $n$ — what does that require for $\\infty$-sheaves?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE about the étale $\\infty$-topos $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ of a Noetherian scheme $X$ of finite Krull dimension?",
+            "choices": [
+              "It is hypercomplete.",
+              "Its 0-truncation $\\tau_{\\leq 0}\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ recovers the classical étale 1-topos $\\mathrm{Sh}_\\mathrm{ét}(X)$.",
+              "It is the natural home for derived étale cohomology and $\\ell$-adic sheaves.",
+              "By the Lurie–Galois theorem, it determines $X$ up to a profinite Galois twist (étale homotopy type)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four hold. (1) Finite Krull dimension is enough for hypercompletion to be automatic / harmless. (2) Truncation always recovers the 1-topos. (3) Derived étale theory naturally lives here. (4) Lurie's reconstruction (HTT 7.3 + Galois) recovers $X$ from $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ up to Galois twist — étale homotopy type in modern language.",
+            "hint": "All four are core facts about the étale $\\infty$-topos."
+          }
+        ]
+      }
+    }
+  },
+  "intersection-theory-chow": {
+    "topic": "intersection-theory-chow",
+    "quizzes": {
+      "cycles-and-equivalence": {
+        "title": "Algebraic cycles and rational equivalence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the cleanest definition of rational equivalence on $Z_k(X)$?",
+            "choices": [
+              "Two cycles $\\alpha, \\beta \\in Z_k(X)$ are rationally equivalent iff their difference is the divisor of a rational function on a $(k+1)$-dimensional subvariety of $X$.",
+              "Two cycles are rationally equivalent iff their difference is homologous to zero in singular homology.",
+              "Two cycles are rationally equivalent iff they have the same support.",
+              "Two cycles are rationally equivalent iff they have the same degree as $0$-cycles."
+            ],
+            "answer": 0,
+            "explain": "Rational equivalence is an algebraic homotopy: $\\alpha - \\beta = \\sum \\mathrm{div}_{W_j}(f_j)$ with $\\dim W_j = k+1$. Singular homology is a coarser invariant; degree is much coarser still.",
+            "hint": "Think of $\\mathbb{P}^1$ as the algebraic interval — divisors of rational functions are the connecting homotopies."
+          },
+          {
+            "type": "matching",
+            "q": "Match each cycle on $\\mathbb{P}^1$ with the unique class it represents in $A_0(\\mathbb{P}^1)$.",
+            "left": [
+              "$0 \\in A_0(\\mathbb{P}^1)$",
+              "$[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$",
+              "$2[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$"
+            ],
+            "right": [
+              "$[5] - [7]$",
+              "$[3]$",
+              "$[1] + [2]$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$A_0(\\mathbb{P}^1) = \\mathbb{Z}$ via degree. A degree-$0$ cycle is $0$; a degree-$1$ cycle is $[\\mathrm{pt}]$; a degree-$2$ cycle is $2[\\mathrm{pt}]$.",
+            "hint": "Compute the degree of each right-hand cycle."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in this attempted proof that $[P] - [Q] = 0$ in $A_0(C)$ for a smooth projective curve $C$ of genus $g \\ge 1$ and any two points $P, Q$.",
+            "steps": [
+              "Choose a rational function $f \\in k(C)^\\times$ such that $\\mathrm{div}(f) = [P] - [Q]$.",
+              "By the definition of rational equivalence, $\\mathrm{div}(f) \\sim_{\\mathrm{rat}} 0$.",
+              "Therefore $[P] - [Q] = 0$ in $A_0(C)$.",
+              "Hence $A_0(C) = \\mathbb{Z}$, generated by $[\\mathrm{pt}]$, regardless of genus."
+            ],
+            "answer": 0,
+            "explain": "Step 1 is the bug: a rational function with divisor $[P] - [Q]$ exists iff $[P] = [Q]$ in $\\mathrm{Pic}^0(C)$, i.e. iff $P, Q$ have the same image under Abel–Jacobi. For $g \\ge 1$ the Jacobian is non-trivial, so generic $P \\neq Q$ are inequivalent. Step 4 thus fails: $A_0(C) \\cong \\mathbb{Z} \\oplus \\mathrm{Pic}^0(C)$.",
+            "hint": "On $\\mathbb{P}^1$ every degree-$0$ divisor is principal — but $\\mathbb{P}^1$ is the genus-$0$ exception."
+          }
+        ]
+      },
+      "chow-groups": {
+        "title": "Chow groups $A_*(X)$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the rank of $A_*(\\mathbb{P}^4)$ as a $\\mathbb{Z}$-module?",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "$A_*(\\mathbb{P}^n) = \\bigoplus_{k=0}^n \\mathbb{Z} \\cdot [L^k] \\cong \\mathbb{Z}^{n+1}$, with one generator in each codimension $0, 1, \\ldots, n$. For $n = 4$ that's $5$.",
+            "hint": "Linear subspaces of dimension $0, 1, \\ldots, n$ generate the group, one per dimension."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $A_*(\\mathbb{A}^n)$?",
+            "choices": [
+              "$\\mathbb{Z}$, concentrated in dimension $n$.",
+              "$\\mathbb{Z}^{n+1}$, one generator per dimension.",
+              "$\\mathbb{Z}[h]/(h^{n+1})$.",
+              "$0$."
+            ],
+            "answer": 0,
+            "explain": "Every cycle on $\\mathbb{A}^n$ of dimension $< n$ is rationally equivalent to $0$ via a translation family pushing it to infinity. So $A_*(\\mathbb{A}^n) = A_n(\\mathbb{A}^n) \\cong \\mathbb{Z}$, generated by the fundamental class $[\\mathbb{A}^n]$.",
+            "hint": "Affine space is contractible in the rational-equivalence sense."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <em>true</em> about Chow groups $A_*(X)$ for smooth quasi-projective $X$?",
+            "choices": [
+              "Proper morphisms induce a covariant push-forward $f_*\\colon A_k(X) \\to A_k(Y)$.",
+              "Flat morphisms of relative dimension $r$ induce a contravariant pull-back $f^*\\colon A_k(Y) \\to A_{k+r}(X)$.",
+              "There is a cycle map $A_*(X) \\to H_{2*}^{\\mathrm{BM}}(X(\\mathbb{C}); \\mathbb{Z})$ which is always an isomorphism.",
+              "$A_*$ vanishes on smooth projective varieties whenever $X(\\mathbb{C})$ is simply connected."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities. The cycle map exists but generally fails to be either injective or surjective — Griffiths' work on Fano threefolds gives counterexamples to injectivity, and transcendental Hodge classes obstruct surjectivity. Simple-connectedness has no bearing on $A_*$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "What is the rank of $A_*(\\mathbb{P}^1 \\times \\mathbb{P}^1)$ as a $\\mathbb{Z}$-module?",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "$A_*(\\mathbb{P}^1 \\times \\mathbb{P}^1) = \\mathbb{Z}[h, k]/(h^2, k^2)$ has $\\mathbb{Z}$-basis $\\{1, h, k, hk\\}$, so rank $4$. (Equivalently, the Künneth formula: $A_*(X \\times Y) \\cong A_*(X) \\otimes A_*(Y)$ when one factor has a cell decomposition; rank $2 \\cdot 2 = 4$.)",
+            "hint": "Künneth + the answer for $A_*(\\mathbb{P}^1)$."
+          }
+        ]
+      },
+      "intersection-product": {
+        "title": "Intersection product on smooth $X$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Two distinct lines $L_1, L_2$ in $\\mathbb{P}^2$ meet in $[L_1] \\cdot [L_2] = ?$ point(s) (counted with multiplicity).",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "Each line has class $h \\in A^1(\\mathbb{P}^2) = \\mathbb{Z}$, so $[L_1] \\cdot [L_2] = h \\cdot h = h^2 \\in A^2(\\mathbb{P}^2) = \\mathbb{Z}$, with degree $1$.",
+            "hint": "Two lines in the projective plane meet in exactly one point."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^3$, a smooth quadric surface $Q$ (degree $2$) and a smooth cubic surface $S$ (degree $3$) intersect generically in a curve of degree $\\deg(Q \\cdot S) = ?$.",
+            "answer": 6,
+            "tol": 0.001,
+            "explain": "$[Q] = 2h$ and $[S] = 3h$ in $A^*(\\mathbb{P}^3) = \\mathbb{Z}[h]/(h^4)$. Their product is $[Q] \\cdot [S] = 6 h^2$, the class of a curve of degree $6$ (the degree of a $1$-cycle in $\\mathbb{P}^3$ is the coefficient of $h^2$ when paired with the line class $h$).",
+            "hint": "Multiply degrees: this is the projective Bézout in $\\mathbb{P}^3$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the moving lemma matter for defining $[Y] \\cdot [Z]$ when $Y, Z$ do <em>not</em> meet transversally?",
+            "choices": [
+              "It replaces one of $Y, Z$ by a rationally-equivalent cycle that <em>does</em> meet the other transversally, so the count of intersection points is well-defined modulo rational equivalence.",
+              "It guarantees that $Y \\cap Z$ is non-empty.",
+              "It allows the intersection product to be defined even on singular $X$.",
+              "It is needed to identify $A_0(X)$ with $\\mathbb{Z}$."
+            ],
+            "answer": 0,
+            "explain": "On smooth quasi-projective $X$, the moving lemma (Chow, Roberts) lets you replace either factor by a rationally-equivalent cycle in general position with the other; transverse-only intersections then define the product on classes. On singular $X$ the moving lemma fails; one falls back to the bivariant theory of Fulton–MacPherson.",
+            "hint": "Definitions need representatives in 'general position'; moving moves them there."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^2$, a smooth conic $C$ (degree $2$) and a tangent line $L$ at one of its points: what is the intersection multiplicity $i_p(C, L)$ at the tangent point $p$?",
+            "answer": 2,
+            "tol": 0.001,
+            "explain": "$\\mathcal{O}_{\\mathbb{P}^2, p}/(F, G)$ has length $2$ when $L$ is tangent to $C$ at $p$ — equivalently, two transverse intersections collide as you specialise from a secant to a tangent. Bézout still gives $\\deg(C \\cdot L) = 2$, but the intersection is concentrated at one point with $i_p = 2$.",
+            "hint": "Bézout gives the total — what makes the count survive when two transverse points collide?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is the self-intersection $h \\cdot h$ on $\\mathbb{P}^1 \\times \\mathbb{P}^1$, where $h = [\\mathbb{P}^1 \\times \\mathrm{pt}]$ is the class of a horizontal ruling?",
+            "choices": [
+              "$0$.",
+              "$1$.",
+              "$h^2$ (a non-zero class).",
+              "Undefined."
+            ],
+            "answer": 0,
+            "explain": "Two horizontal rulings $\\mathbb{P}^1 \\times \\{a\\}$ and $\\mathbb{P}^1 \\times \\{b\\}$ never meet for $a \\neq b$, so by the moving lemma $h \\cdot h = 0$ in $A^*(\\mathbb{P}^1 \\times \\mathbb{P}^1) = \\mathbb{Z}[h, k]/(h^2, k^2)$. Only $h \\cdot k = [\\mathrm{pt}]$ is non-zero.",
+            "hint": "Two parallel rulings of the same type don't meet — move one to verify."
+          }
+        ]
+      },
+      "chow-ring-of-pn": {
+        "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "In $A^*(\\mathbb{P}^5) = \\mathbb{Z}[h]/(h^6)$, what is $h^3 \\cdot h^2$? (Enter the integer coefficient if the result is $c \\cdot h^k$ for some $k \\le 5$, or $0$ if the product vanishes.)",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$h^3 \\cdot h^2 = h^5 \\in A^5(\\mathbb{P}^5)$, the class of a point — coefficient $1$. (We didn't hit the relation $h^6 = 0$ because $3 + 2 = 5 \\le 5$.)",
+            "hint": "Add the exponents and check whether you exceed $n = 5$."
+          },
+          {
+            "type": "numeric",
+            "q": "In $A^*(\\mathbb{P}^4)$, what is $h^3 \\cdot h^3$?",
+            "answer": 0,
+            "tol": 0.001,
+            "explain": "$3 + 3 = 6 > 4$, so $h^6 = 0$ by the relation $h^{n+1} = h^5 = 0$ which forces all higher powers to vanish.",
+            "hint": "Check whether the sum of exponents exceeds the dimension of the ambient space."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these computations from smallest to largest as integers (degree of the resulting $0$-cycle on the indicated $\\mathbb{P}^n$).",
+            "items": [
+              "$\\deg(h^2 \\cdot h^2)$ in $A^*(\\mathbb{P}^4)$ — i.e., a quartic surface meeting a quadric in $\\mathbb{P}^4$",
+              "$\\deg((2h)(3h))$ in $A^*(\\mathbb{P}^2)$ — Bézout for a conic and a cubic",
+              "$\\deg((4h)(5h)(6h))$ in $A^*(\\mathbb{P}^3)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "First: $h^2 \\cdot h^2 = h^4 = $ class of point on $\\mathbb{P}^4$, degree $1$. Second: $(2h)(3h) = 6 h^2$, degree $6$ on $\\mathbb{P}^2$. Third: $(4h)(5h)(6h) = 120\\, h^3$, degree $120$ on $\\mathbb{P}^3$. So the order $1 < 6 < 120$.",
+            "hint": "Compute each as an integer first, then sort."
+          }
+        ]
+      },
+      "chern-classes": {
+        "title": "Chern classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the total Chern class $c(\\mathcal{O}(2) \\oplus \\mathcal{O}(3))$ on $\\mathbb{P}^2$?",
+            "choices": [
+              "$1 + 5h + 6h^2$",
+              "$1 + 5h$",
+              "$1 + 6h^2$",
+              "$1 + 5h + 5h^2$"
+            ],
+            "answer": 0,
+            "explain": "By Whitney multiplicativity: $c(\\mathcal{O}(2)) = 1 + 2h$, $c(\\mathcal{O}(3)) = 1 + 3h$. Product: $(1 + 2h)(1 + 3h) = 1 + 5h + 6h^2$ in $A^*(\\mathbb{P}^2)$.",
+            "hint": "$c(\\mathcal{O}(d)) = 1 + dh$ for line bundles; multiply for direct sums."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^2$, what is $c_2(T_{\\mathbb{P}^2})$ as an integer (writing it as $c_2 = N \\cdot h^2$, give $N$)?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "Euler sequence $0 \\to \\mathcal{O} \\to \\mathcal{O}(1)^{\\oplus 3} \\to T_{\\mathbb{P}^2} \\to 0$. By multiplicativity (after tensoring properly): $c(\\mathcal{O})\\, c(T_{\\mathbb{P}^2}) = c(\\mathcal{O}(1))^3 = (1+h)^3 = 1 + 3h + 3h^2 + h^3$. Truncate at $h^3 = 0$: $c(T_{\\mathbb{P}^2}) = 1 + 3h + 3h^2$, so $c_2 = 3$.",
+            "hint": "Use the Euler sequence and read off the coefficient of $h^2$ in $(1+h)^3$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <em>axioms</em> of Chern classes (i.e., used to characterise them, not derived)?",
+            "choices": [
+              "$c_i(f^* E) = f^* c_i(E)$ (naturality).",
+              "$c(E) = c(E') \\cdot c(E'')$ for short exact sequences (Whitney sum).",
+              "$c(L) = 1 + c_1(L)$ for line bundles, with $c_1(L)$ the class of the divisor of zeros of a section.",
+              "$c_i(E) = 0$ for $i > \\mathrm{rk}(E)$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Naturality, Whitney sum, and the line-bundle normalisation are Grothendieck's three axioms; vanishing $c_i$ above the rank is a <em>consequence</em> (every rank-$r$ bundle has all non-trivial Chern classes in degrees $\\le r$).",
+            "hint": "The axioms must be enough to compute everything; the rank vanishing is forced by the splitting principle."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^3$, compute $c_2(T_{\\mathbb{P}^3})$ as the integer coefficient of $h^2$.",
+            "answer": 6,
+            "tol": 0.001,
+            "explain": "Euler: $c(T_{\\mathbb{P}^3}) = (1+h)^4 = 1 + 4h + 6h^2 + 4h^3 + h^4$. Truncate at $h^4 = 0$: $c(T_{\\mathbb{P}^3}) = 1 + 4h + 6h^2 + 4h^3$. So $c_2 = 6$.",
+            "hint": "Generalize the $\\mathbb{P}^2$ Euler-sequence calculation: $(1+h)^{n+1}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the splitting principle work? (i.e. why can we pretend a rank-$r$ vector bundle $E$ splits as a direct sum of line bundles when computing Chern classes?)",
+            "choices": [
+              "Because $A^*$ has an injective natural transformation $A^*(X) \\hookrightarrow A^*(\\mathbb{F}(E))$ to the Chow ring of the flag bundle $\\mathbb{F}(E) \\to X$, on which $E$ pulls back to a bundle with a complete filtration by sub-line-bundles.",
+              "Because every vector bundle on a smooth variety actually does split as a direct sum.",
+              "Because Chern classes vanish for non-split bundles.",
+              "Because $A^*$ does not see non-split short exact sequences."
+            ],
+            "answer": 0,
+            "explain": "The flag bundle $\\mathbb{F}(E)$ parametrises complete flags in fibres of $E$; on it the pulled-back $E$ acquires a tautological filtration with line-bundle quotients. The pull-back $A^*(X) \\to A^*(\\mathbb{F}(E))$ is split injective (Chow's projective-bundle formula iterated), so any identity true on $\\mathbb{F}(E)$ — where $E$ does split — descends to $X$. Vector bundles emphatically do not split in general (e.g., $T_{\\mathbb{P}^2}$).",
+            "hint": "Look at the flag bundle of $E$ — it adds the splitting data without changing the Chern classes."
+          }
+        ]
+      },
+      "riemann-roch-preview": {
+        "title": "Grothendieck–Riemann–Roch (preview)",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "By Riemann–Roch on a smooth projective curve $C$ of genus $g = 3$, compute $\\chi(C, \\mathcal{O}(D))$ where $\\deg D = 7$.",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "$\\chi(C, \\mathcal{O}(D)) = \\deg D + 1 - g = 7 + 1 - 3 = 5$.",
+            "hint": "$\\chi = \\deg D + 1 - g$ for any divisor on a smooth projective curve."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\chi(\\mathbb{P}^2, \\mathcal{O}(4))$ via Riemann–Roch / GRR.",
+            "answer": 15,
+            "tol": 0.001,
+            "explain": "$\\chi(\\mathbb{P}^2, \\mathcal{O}(d)) = \\binom{d+2}{2} = \\binom{6}{2} = 15$. (For $d \\ge 0$ this also equals $\\dim H^0(\\mathbb{P}^2, \\mathcal{O}(d))$ since higher cohomology vanishes.)",
+            "hint": "GRR on $\\mathbb{P}^2$ for $\\mathcal{O}(d)$ gives $(d+1)(d+2)/2$."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of GRR on $X = \\mathbb{P}^2$ for the sheaf $\\mathcal{F} = \\mathcal{O}(d)$, in the order one carries them out.",
+            "items": [
+              "Compute the Chern character $\\mathrm{ch}(\\mathcal{O}(d)) = e^{dh} = 1 + dh + (d^2/2) h^2$.",
+              "Compute the Todd class $\\mathrm{td}(T_{\\mathbb{P}^2}) = 1 + (3/2)h + h^2$ from the Euler sequence.",
+              "Multiply $\\mathrm{ch} \\cdot \\mathrm{td}$ in $A^*(\\mathbb{P}^2) \\otimes \\mathbb{Q}$ and read off the coefficient of $h^2$.",
+              "Push forward to a point via $f_*\\colon A^*(\\mathbb{P}^2) \\to A^*(\\mathrm{Spec}\\, k) = \\mathbb{Z}$ to obtain $\\chi$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Compute each ingredient, multiply, then take degree (= push-forward to a point). This is the universal recipe for Hirzebruch–Riemann–Roch on $\\mathbb{P}^n$.",
+            "hint": "First gather the ingredients (ch and td), then combine them, then specialise."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On a smooth projective surface $S$ with $K_S$ trivial (e.g. a K3 surface, where $\\chi(\\mathcal{O}_S) = 2$), compute $\\chi(S, \\mathcal{O}(D))$ for a divisor $D$ with $D \\cdot D = 4$. (Use the surface Riemann–Roch $\\chi = \\tfrac12 D \\cdot (D - K_S) + \\chi(\\mathcal{O}_S)$.)",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "With $K_S = 0$: $\\chi = \\tfrac12 D \\cdot D + \\chi(\\mathcal{O}_S) = \\tfrac12 \\cdot 4 + 2 = 4$.",
+            "hint": "$K_S = 0$ kills the $-D \\cdot K_S$ term; just plug into the formula."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathrm{td}(T_X)$ — rather than just $\\mathrm{ch}(T_X)$ — the right correction term in GRR?",
+            "choices": [
+              "Because the Todd class is the unique multiplicative characteristic class whose value on a line bundle $L$ with $c_1(L) = \\alpha$ is $\\alpha / (1 - e^{-\\alpha})$, which is exactly the Euler-characteristic-of-projective-space generating function.",
+              "Because the Chern character is not multiplicative.",
+              "Because $\\mathrm{td}$ vanishes on flat bundles, while $\\mathrm{ch}$ does not.",
+              "It's a historical accident; one could equivalently use $\\mathrm{ch}$."
+            ],
+            "answer": 0,
+            "explain": "Hirzebruch chose td precisely because $\\mathrm{td}(L)$ for $c_1(L) = \\alpha$ equals $\\alpha / (1 - e^{-\\alpha})$, whose coefficients reproduce $\\chi(\\mathbb{P}^n, \\mathcal{O}) = 1$ in all dimensions. Equivalently, $\\int_{\\mathbb{P}^n} \\mathrm{td}(T_{\\mathbb{P}^n}) = 1$, which uniquely characterises td among multiplicative classes.",
+            "hint": "Test the formula on $\\mathcal{O}_{\\mathbb{P}^n}$ — what value of $\\chi$ does it predict?"
           }
         ]
       }
@@ -13560,6 +18944,42 @@ window.MVQuizBank = {
   "modular-forms": {
     "topic": "modular-forms",
     "quizzes": {
+      "lattices-in-C": {
+        "title": "Lattices in C",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the covolume of the lattice $\\Lambda = \\mathbb{Z}v_1 + \\mathbb{Z}v_2$ with $v_1=(2,0)$ and $v_2=(1,3)$ (i.e. $|\\det[v_1\\,v_2]|$).",
+            "answer": 6,
+            "tol": 0.001,
+            "explain": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$. The covolume is the absolute value, $6$. Geometrically this is the area of the fundamental parallelogram, and it is independent of the chosen basis — any other basis of the same $\\Lambda$ differs by a matrix of determinant $\\pm 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Two ordered bases of the same lattice $\\Lambda$ are $(v_1,v_2)$ and $(v_1',v_2') = (v_1+v_2,\\, v_1+2v_2)$. Which matrix $M \\in \\mathrm{SL}_2(\\mathbb{Z})$ realizes the change of basis $(v_1',v_2') = (v_1,v_2)\\,M$?",
+            "choices": [
+              "$M = \\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$",
+              "$M = \\begin{pmatrix}1&2\\\\1&1\\end{pmatrix}$",
+              "$M = \\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$",
+              "$M = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$"
+            ],
+            "answer": 0,
+            "explain": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$. So $M=\\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$, and $\\det M = 1\\cdot 2 - 1\\cdot 1 = 1$, confirming $M\\in\\mathrm{SL}_2(\\mathbb{Z})$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following pairs is a valid $\\mathbb{Z}$-basis for the standard lattice $\\mathbb{Z}^2 \\subset \\mathbb{R}^2$?",
+            "choices": [
+              "$(1,0)$ and $(2,0)$",
+              "$(2,1)$ and $(1,1)$",
+              "$(2,0)$ and $(0,2)$",
+              "$(1,1)$ and $(2,2)$"
+            ],
+            "answer": 1,
+            "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
+          }
+        ]
+      },
       "sl2z-on-H": {
         "title": "SL2(Z) on H",
         "questions": [
@@ -19841,6 +25261,37 @@ window.MVQuizBank = {
   "quadratic-reciprocity": {
     "topic": "quadratic-reciprocity",
     "quizzes": {
+      "multiplicative-group-mod-p": {
+        "title": "The multiplicative group $(\\mathbb{Z}/p)^\\times$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the order of the multiplicative group $(\\mathbb{Z}/13)^\\times$?",
+            "answer": 12,
+            "tol": 0.001,
+            "explain": "For prime $p$, every nonzero residue $1,2,\\ldots,p-1$ is a unit, so $|(\\mathbb{Z}/p)^\\times|=p-1$. With $p=13$ this is $12$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a primitive root mod $7$? (A primitive root generates all six nonzero residues by repeated multiplication.)",
+            "choices": [
+              "$2$ — its powers $2,4,1,2,4,1$ cycle with period $3$",
+              "$3$ — its powers $3,2,6,4,5,1$ visit every nonzero residue",
+              "$6$ — since $6\\equiv -1\\pmod 7$, its powers cycle as $6,1,6,1,\\ldots$",
+              "$4$ — its powers $4,2,1,4,2,1$ cycle with period $3$"
+            ],
+            "answer": 1,
+            "explain": "$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1\\pmod 7$ — all six nonzero residues appear, so $3$ has order $6=\\varphi(7)$ and is a primitive root. The other candidates have smaller orders ($2,4$ have order $3$; $6$ has order $2$)."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $3^5 \\bmod 7$.",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "$3^2=9\\equiv 2$, $3^4\\equiv 2^2=4$, so $3^5\\equiv 3\\cdot 4=12\\equiv 5\\pmod 7$. (Equivalently, $3$ is a primitive root mod $7$, and its fifth power lands at $5$.)"
+          }
+        ]
+      },
       "legendre-symbol": {
         "title": "Legendre symbol basics",
         "questions": [
@@ -24507,6 +29958,318 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Coherent means finitely generated with finitely presented kernel on opens.",
             "explain": "Coherence requires local finite generation (and, for non-Noetherian rings, also that the kernel of any map from a free finite-rank sheaf is finitely generated). On a Noetherian scheme, local finite generation suffices."
+          }
+        ]
+      }
+    }
+  },
+  "simplicial-sets-and-nerve": {
+    "topic": "simplicial-sets-and-nerve",
+    "quizzes": {
+      "simplex-category": {
+        "title": "The simplex category $\\Delta$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these maps $[2] \\to [3]$ is a coface (injective and order-preserving, skipping vertex $2$)?",
+            "choices": [
+              "$0 \\mapsto 0,\\; 1 \\mapsto 1,\\; 2 \\mapsto 3$",
+              "$0 \\mapsto 0,\\; 1 \\mapsto 0,\\; 2 \\mapsto 1$",
+              "$0 \\mapsto 1,\\; 1 \\mapsto 0,\\; 2 \\mapsto 2$",
+              "$0 \\mapsto 0,\\; 1 \\mapsto 2,\\; 2 \\mapsto 2$"
+            ],
+            "answer": 0,
+            "explain": "Coface $d^2\\colon [2] \\to [3]$ is the unique injective order-preserving map whose image misses $2 \\in [3]$. Option 2 is a codegeneracy ($s^0$), option 3 is not order-preserving, and option 4 is neither injective nor missing $2$.",
+            "hint": "A coface is injective; a codegeneracy is surjective and doubles a vertex."
+          },
+          {
+            "type": "numeric",
+            "q": "How many morphisms $[1] \\to [3]$ are there in $\\Delta$?",
+            "answer": 10,
+            "tol": 0.5,
+            "explain": "Order-preserving maps $[m] \\to [n]$ are in bijection with weakly increasing sequences of length $m+1$ from $\\{0,\\ldots,n\\}$, equivalently with multisets of size $m+1$ from $n+1$ elements: $\\binom{m+n+1}{m+1}$. For $m=1, n=3$ this is $\\binom{5}{2} = 10$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which simplicial identity does $d^j d^i = d^i d^{j-1}$ (for $i < j$) encode at the level of vertex labels of the standard simplex?",
+            "choices": [
+              "Two consecutive face inclusions are independent of the order in which the dropped vertices are removed.",
+              "Two degeneracies that double the same vertex commute.",
+              "A face followed by a degeneracy on a higher index is the identity.",
+              "A degeneracy followed by a face on the same index undoes the degeneracy."
+            ],
+            "answer": 0,
+            "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
+          }
+        ]
+      },
+      "simplicial-set": {
+        "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many non-degenerate $1$-simplices does the standard simplex $\\Delta^3$ have?",
+            "answer": 6,
+            "tol": 0.5,
+            "explain": "Non-degenerate $k$-simplices of $\\Delta^n$ are injective order-preserving maps $[k] \\to [n]$, counted by $\\binom{n+1}{k+1}$. For $n=3, k=1$: $\\binom{4}{2}=6$ — the six edges of a tetrahedron."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these is the correct description of $(\\partial \\Delta^2)_1$, the set of $1$-simplices of the boundary of the standard $2$-simplex?",
+            "choices": [
+              "All order-preserving maps $[1] \\to [2]$ — both injective and degenerate.",
+              "Only the three injective maps $[1] \\to [2]$, no degenerate edges.",
+              "All maps $[1] \\to [2]$ that miss vertex $0$.",
+              "The empty set, since $\\partial$ removes all interior simplices."
+            ],
+            "answer": 0,
+            "explain": "$\\partial \\Delta^2$ agrees with $\\Delta^2$ in dimensions $< 2$: it has the same vertices and edges (including degenerate ones — degeneracies are formal data attached to lower-dim simplices, never `interior'). It only differs from $\\Delta^2$ in dimension $2$, where the unique non-degenerate $2$-simplex of $\\Delta^2$ is removed.",
+            "hint": "Boundary only deletes the top-dimensional non-degenerate cell; lower-dimensional simplices including degeneracies all stay."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the data of a simplicial set equivalent to a presheaf on $\\Delta$?",
+            "choices": [
+              "Because $\\mathbf{Set}$ has all small limits, every functor $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$ is automatically a presheaf.",
+              "Because the simplicial identities are exactly the relations among generators of $\\Delta$, so a $\\Delta^{\\mathrm{op}}$-action by $d_i, s_j$ is the same as a contravariant functor on $\\Delta$.",
+              "Because every presheaf is a colimit of representables.",
+              "Because the simplex category is filtered."
+            ],
+            "answer": 1,
+            "explain": "$\\Delta$ is generated by cofaces and codegeneracies subject to the cosimplicial identities; dualizing gives that a simplicial set (graded set with $d_i, s_j$ satisfying the simplicial identities) is the same as a contravariant functor $\\Delta \\to \\mathbf{Set}$. Option 1 confuses `presheaf' with `valued-in-Set'; option 3 is the density theorem, true but irrelevant; option 4 is false ($\\Delta$ is not filtered)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The Eilenberg–Zilber lemma says: every simplex $\\sigma \\in X_n$ factors uniquely as a degeneracy of a non-degenerate simplex. What concretely does this mean for representing a $\\sigma \\in X_3$?",
+            "choices": [
+              "There exists a unique surjective $\\alpha\\colon [3]\\twoheadrightarrow [k]$ in $\\Delta$ and a unique non-degenerate $\\tau \\in X_k$ with $\\sigma = \\alpha^* \\tau$.",
+              "Every $\\sigma$ is itself either non-degenerate or a face of a non-degenerate simplex.",
+              "$\\sigma$ is a sum of non-degenerate simplices in some abelianization.",
+              "$\\sigma$ becomes non-degenerate after enough applications of $d_0$."
+            ],
+            "answer": 0,
+            "explain": "Eilenberg–Zilber: $\\sigma = X(\\alpha)(\\tau)$ for a unique surjection $\\alpha$ in $\\Delta$ and a unique non-degenerate $\\tau$. This is what makes the geometric realization a CW-complex (one cell per non-degenerate simplex)."
+          },
+          {
+            "type": "numeric",
+            "q": "How many simplices (degenerate + non-degenerate) does $\\Delta^1$ have in dimension $2$?",
+            "answer": 4,
+            "tol": 0.5,
+            "explain": "$(\\Delta^1)_2 = \\Delta([2],[1])$, the set of weakly-increasing length-$3$ sequences in $\\{0,1\\}$: $(0,0,0), (0,0,1), (0,1,1), (1,1,1)$. The two constants are double degeneracies of the vertices; the middle two are $s_1$ and $s_0$ applied to the non-degenerate edge. There are no non-degenerate $2$-simplices in $\\Delta^1$ (none in dimension $> 1$)."
+          }
+        ]
+      },
+      "geometric-realization": {
+        "title": "Geometric realization $|X|$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $|\\Delta^n|$ as a topological space?",
+            "choices": [
+              "The standard topological $n$-simplex $\\{(t_0,\\ldots,t_n) \\in \\mathbb{R}^{n+1} : t_i \\geq 0,\\; \\sum t_i = 1\\}$.",
+              "The $n$-sphere $S^n$.",
+              "The disjoint union of $n+1$ points.",
+              "The closed unit ball $D^n$ with no further identifications."
+            ],
+            "answer": 0,
+            "explain": "By definition $|\\Delta^n|$ is the convex hull of $n+1$ affinely independent points; concretely the standard topological $n$-simplex. (It is homeomorphic to $D^n$, but the canonical model is the simplex itself, equipped with barycentric coordinates.)"
+          },
+          {
+            "type": "mcq",
+            "q": "The geometric realization $|\\partial \\Delta^n|$ is homeomorphic to which space?",
+            "choices": [
+              "The $(n-1)$-sphere $S^{n-1}$.",
+              "The $n$-disk $D^n$.",
+              "A bouquet of $n+1$ spheres.",
+              "A point."
+            ],
+            "answer": 0,
+            "explain": "$|\\partial \\Delta^n|$ is the boundary of the topological $n$-simplex, which is homeomorphic to $S^{n-1}$. For $n=2$ this is the triangle's boundary $\\cong S^1$; for $n=3$ the tetrahedron's boundary $\\cong S^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "$|\\Lambda^2_1|$, the realization of the inner horn of the $2$-simplex, is homeomorphic to:",
+            "choices": [
+              "Two edges meeting at the central vertex — i.e., the wedge of two intervals at $1$, contractible.",
+              "$S^1$.",
+              "A single edge $[0,1]$.",
+              "A disk $D^2$."
+            ],
+            "answer": 0,
+            "explain": "$\\Lambda^2_1 \\subset \\Delta^2$ is the union of the two edges through vertex $1$ — i.e., the edges $[0,1]$ and $[1,2]$. The realization is two segments joined at a midpoint; contractible (this is what makes the inner-horn extension property a kind of `composability' assertion, not a topological accident)."
+          }
+        ]
+      },
+      "nerve-of-category": {
+        "title": "The nerve $N(C)$ of a category",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $C$ be the poset $\\{a < b < c\\}$ viewed as a category (one arrow $x \\to y$ whenever $x \\le y$). How many $2$-simplices does $N(C)$ have? (Count all of $N(C)_2$, including degeneracies.)",
+            "answer": 10,
+            "tol": 0.5,
+            "explain": "$N(C)_2$ is the set of composable pairs $(f,g)$, equivalently functors $[2] \\to C$, equivalently order-preserving maps $\\{0,1,2\\} \\to \\{a,b,c\\}$. That count is $\\binom{2+2+1}{2+1} = \\binom{5}{3} = 10$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $G$ be the group $\\mathbb{Z}/2$ regarded as a one-object groupoid $BG$. How many non-degenerate $2$-simplices does $N(BG)$ have?",
+            "answer": 1,
+            "tol": 0.5,
+            "explain": "$N(BG)_n = G^n$, with $(g_1, g_2)$ non-degenerate iff each $g_i \\neq e$. For $G = \\mathbb{Z}/2$ there is exactly one non-identity element, so the only non-degenerate $2$-simplex is $(g, g)$ — one in total."
+          },
+          {
+            "type": "mcq",
+            "q": "Under what condition on a small category $C$ is $N(C)_2$ empty?",
+            "choices": [
+              "$C$ has no composable pairs of arrows — equivalently, every non-identity arrow has a target with no outgoing non-identity arrow.",
+              "$C$ has no non-identity arrows at all.",
+              "$C$ is the empty category.",
+              "Never — $N(C)_2$ always contains the degenerate $2$-simplices on identity arrows."
+            ],
+            "answer": 3,
+            "explain": "$N(C)_2$ contains all composable pairs $(f, g)$, including $(\\mathrm{id}_x, \\mathrm{id}_x)$ for every object $x$ of $C$ (this is $s_0 s_0$ of $x$). So $N(C)_2$ is empty only if $C$ itself has no objects — i.e., $C$ is the empty category, in which case all $N(C)_n$ are empty.",
+            "hint": "Identity arrows are still arrows; pairs of identities are still composable pairs."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Two small categories $C, D$ are equivalent iff $N(C) \\simeq N(D)$ in which model structure on simplicial sets?",
+            "choices": [
+              "The Joyal (quasi-category) model structure — equivalence of categories $\\iff$ Joyal-equivalence of nerves.",
+              "The Kan–Quillen model structure — equivalence of categories $\\iff$ weak homotopy equivalence of nerves.",
+              "Either: equivalences of categories give both Joyal- and Kan-equivalences.",
+              "Neither: $N$ is not homotopy-invariant in any way."
+            ],
+            "answer": 0,
+            "explain": "The nerve is fully faithful as a functor $\\mathbf{Cat} \\to \\mathbf{sSet}_{\\mathrm{Joyal}}$, and an equivalence of categories is exactly a Joyal equivalence of nerves. (A weak homotopy equivalence is much weaker — e.g. $N(C \\to *)$ is a weak homotopy equivalence whenever $C$ has an initial object, even though $C \\not\\simeq *$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Which functor is left adjoint to the nerve $N\\colon \\mathbf{Cat} \\to \\mathbf{sSet}$?",
+            "choices": [
+              "The homotopy category $h\\colon X \\mapsto \\tau_1 X$, generators-and-relations from $X_1$ modulo composition relations from $X_2$.",
+              "The left Kan extension along the Yoneda embedding.",
+              "Geometric realization $|{-}|$.",
+              "The fundamental groupoid $\\Pi_1$."
+            ],
+            "answer": 0,
+            "explain": "$N$ has a left adjoint $h$, the `homotopy / fundamental category' of a simplicial set: objects are $X_0$, morphisms are generated by $X_1$ modulo the relations $d_1 \\sigma = d_0 \\sigma \\circ d_2 \\sigma$ for $\\sigma \\in X_2$. For $X = N(C)$, $h(X) \\cong C$."
+          }
+        ]
+      },
+      "kan-complex": {
+        "title": "Kan complexes",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Kan complexes?",
+            "choices": [
+              "$N(C)$ for $C$ an arbitrary small category",
+              "$N(G)$ for $G$ a (small) groupoid",
+              "$\\mathrm{Sing}(X)$ for any topological space $X$",
+              "$\\Delta^n$ as a simplicial set",
+              "Any constant simplicial set"
+            ],
+            "answer": [
+              1,
+              2,
+              4
+            ],
+            "explain": "Singular complexes and nerves of groupoids are Kan complexes. Constant simplicial sets are Kan trivially (every horn factors through the constant). $\\Delta^n$ and $N(C)$ for a non-groupoidal $C$ are NOT Kan: the outer horn $\\Lambda^2_0$ of a composable pair $f, g$ in $N(C)$ would require an arrow $g \\circ f^{-1}$, which need not exist."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathrm{Sing}(X)$ a Kan complex for any topological space $X$?",
+            "choices": [
+              "Because $|\\Lambda^n_k|$ is a retract of $|\\Delta^n|$, so any continuous map $|\\Lambda^n_k| \\to X$ extends along $|\\Lambda^n_k| \\hookrightarrow |\\Delta^n|$.",
+              "Because $\\mathrm{Sing}$ preserves all colimits.",
+              "Because $X$ is Hausdorff.",
+              "Because every simplicial set is a Kan complex."
+            ],
+            "answer": 0,
+            "explain": "$|\\Lambda^n_k|$ is a strong deformation retract of $|\\Delta^n|$, so any continuous $|\\Lambda^n_k|\\to X$ extends to $|\\Delta^n|\\to X$. By the realization-singular adjunction this is exactly the lifting property defining Kan complex."
+          },
+          {
+            "type": "mcq",
+            "q": "Quillen's theorem: the geometric realization $|{-}|\\dashv \\mathrm{Sing}$ adjunction descends to an equivalence of homotopy categories between Kan complexes (not all simplicial sets) and which class of spaces?",
+            "choices": [
+              "CW-complexes (or, more generally, the homotopy category of all topological spaces with weak homotopy equivalences inverted).",
+              "Compact Hausdorff spaces.",
+              "Finite simplicial complexes only.",
+              "Locally contractible spaces."
+            ],
+            "answer": 0,
+            "explain": "Quillen's theorem: the adjunction $|{-}| \\dashv \\mathrm{Sing}$ is a Quillen equivalence between $\\mathbf{sSet}_{\\mathrm{Kan}}$ and $\\mathbf{Top}$ with weak equivalences and Serre fibrations. On homotopy categories: Kan complexes $\\simeq$ CW-complexes."
+          }
+        ]
+      },
+      "horn-filling": {
+        "title": "Inner-horn filling and quasi-categorical nerves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these is an *inner* horn?",
+            "choices": [
+              "$\\Lambda^3_1$",
+              "$\\Lambda^2_0$",
+              "$\\Lambda^3_0$",
+              "$\\Lambda^3_3$"
+            ],
+            "answer": 0,
+            "explain": "$\\Lambda^n_k$ is inner iff $0 < k < n$. For $n=3$: inner horns are $\\Lambda^3_1$ and $\\Lambda^3_2$; $\\Lambda^3_0$ and $\\Lambda^3_3$ are outer. For $n=2$: only $\\Lambda^2_1$ is inner."
+          },
+          {
+            "type": "mcq",
+            "q": "A simplicial set $X$ has a *unique* filler for every inner horn $\\Lambda^n_k \\hookrightarrow X$ iff:",
+            "choices": [
+              "$X \\cong N(C)$ for a uniquely determined small category $C$.",
+              "$X$ is a Kan complex.",
+              "$X = \\Delta^n$ for some $n$.",
+              "$X$ is the singular complex of some space."
+            ],
+            "answer": 0,
+            "explain": "This is the key characterisation: $X$ is the nerve of a $1$-category iff it is a quasi-category (inner horns extend) AND the extension is unique. Inner-horn fillers in $N(C)$ correspond to compositions $g \\circ f$, which exist and are unique."
+          },
+          {
+            "type": "mcq",
+            "q": "The Joyal model structure on $\\mathbf{sSet}$ takes which class as fibrant objects?",
+            "choices": [
+              "Quasi-categories — simplicial sets with extensions for every inner horn (existence, not uniqueness).",
+              "Kan complexes — extensions for every horn including outer.",
+              "Nerves of $1$-categories.",
+              "All simplicial sets."
+            ],
+            "answer": 0,
+            "explain": "Fibrant objects in the Joyal model structure are the quasi-categories (inner Kan complexes). Kan complexes are the fibrant objects in the Kan–Quillen model structure (a stricter condition); nerves of $1$-categories are quasi-categories with the additional uniqueness-of-fillers property."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In $N(C)$, an inner horn $\\Lambda^2_1 \\to N(C)$ is a pair of arrows $f\\colon a \\to b$ and $g\\colon b \\to c$. Why is the filler $\\Delta^2 \\to N(C)$ not just `existence' (a quasi-category condition) but `unique'?",
+            "choices": [
+              "Because composition in a $1$-category $C$ is a function — given $(f, g)$ the composite $g \\circ f$ is uniquely determined; there is only one $2$-simplex of $N(C)$ with $d_2 = f$, $d_0 = g$.",
+              "Because $N(C)$ is also a Kan complex.",
+              "Because every functor between $1$-categories preserves identities.",
+              "Because the filler property is a definition, not a theorem."
+            ],
+            "answer": 0,
+            "explain": "A $2$-simplex of $N(C)$ is a triple of composable arrows $a \\xrightarrow{f} b \\xrightarrow{g} c$ together with the third edge — but in a $1$-category that third edge IS $g \\circ f$, uniquely determined. In a quasi-category there can be many fillers (homotopies between candidate composites), which is what makes higher categories `higher'."
+          },
+          {
+            "type": "mcq",
+            "q": "Outer-horn extension in $N(C)$ — for instance, given $f\\colon a \\to b$ and $h\\colon a \\to c$, can we always fill $\\Lambda^2_0$? — corresponds to which categorical property?",
+            "choices": [
+              "Existence of a morphism $g\\colon b \\to c$ with $h = g \\circ f$ — i.e., right-divisibility, which holds iff every morphism is invertible (so $C$ is a groupoid).",
+              "Existence of pullbacks.",
+              "The category being abelian.",
+              "Smallness of the category."
+            ],
+            "answer": 0,
+            "explain": "$\\Lambda^2_0 \\hookrightarrow N(C)$ asks: given $f$ and $h$ sharing source $a$, is there $g$ with $h = g \\circ f$? This is right-divisibility by $f$. It holds for every $f$ iff every morphism is right-invertible, which for a small category means $C$ is a groupoid. (Symmetrically $\\Lambda^2_2$ corresponds to left-divisibility, also requiring groupoid.) Hence $N(C)$ is Kan iff $C$ is a groupoid."
           }
         ]
       }

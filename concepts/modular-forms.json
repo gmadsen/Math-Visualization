@@ -4,10 +4,17 @@
   "page": "modular-forms.html",
   "concepts": [
     {
+      "id": "lattices-in-C",
+      "title": "Lattices in C",
+      "anchor": "lattices-in-C",
+      "prereqs": [],
+      "blurb": "A lattice $\\Lambda \\subset \\mathbb{C}$ is a discrete subgroup of rank 2: $\\Lambda = \\mathbb{Z}\\omega_1 + \\mathbb{Z}\\omega_2$ with $\\omega_2/\\omega_1 \\notin \\mathbb{R}$. The same lattice has many bases — exactly the bases related by an $\\mathrm{SL}_2(\\mathbb{Z})$ change of coordinates — which is why modular forms are functions on lattices, or equivalently, $\\mathrm{SL}_2(\\mathbb{Z})$-equivariant functions of the basis ratio $\\tau = \\omega_2/\\omega_1 \\in \\mathbb{H}$."
+    },
+    {
       "id": "sl2z-on-H",
       "title": "SL2(Z) action on the upper half-plane",
       "anchor": "sl2z",
-      "prereqs": ["sl2r-action-on-H"],
+      "prereqs": ["lattices-in-C", "sl2r-action-on-H"],
       "blurb": "Matrices in SL2(Z) act by Möbius transformations and generate the modular equivalence relation on H."
     },
     {

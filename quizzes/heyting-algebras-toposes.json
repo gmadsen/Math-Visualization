@@ -1,0 +1,370 @@
+{
+  "topic": "heyting-algebras-toposes",
+  "quizzes": {
+    "heyting-algebra": {
+      "title": "Heyting algebras",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On the open-set lattice $\\tau = \\{\\varnothing, \\{x\\}, \\{y\\}, \\{x,y\\}, X\\}$ of $X = \\{x,y,z\\}$, what is $\\{x\\} \\Rightarrow \\{y\\}$?",
+          "choices": [
+            "$\\{y\\}$",
+            "$\\{x,y\\}$",
+            "$\\varnothing$",
+            "$X$"
+          ],
+          "answer": 0,
+          "explain": "$a \\Rightarrow b$ is the largest $c$ with $a \\wedge c \\le b$. Test each candidate: $\\{x\\} \\cap \\{y\\} = \\varnothing \\subseteq \\{y\\}$ ✓, $\\{x\\} \\cap \\{x,y\\} = \\{x\\} \\not\\subseteq \\{y\\}$, $\\{x\\}\\cap X = \\{x\\}\\not\\subseteq\\{y\\}$. So the largest $c$ that works is $\\{y\\}$ itself.",
+          "hint": "Compute $\\{x\\} \\cap c$ for each $c$ in the lattice and check which lie inside $\\{y\\}$ — pick the largest."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following finite lattices are Heyting algebras?",
+          "choices": [
+            "Every finite distributive lattice",
+            "The 5-element non-distributive lattice $N_5$",
+            "Every finite Boolean algebra",
+            "The 5-element diamond $M_3$",
+            "Every finite chain $0 < a_1 < \\cdots < a_n < 1$"
+          ],
+          "answer": [0, 2, 4],
+          "explain": "A finite lattice is Heyting iff it is distributive (then $b\\Rightarrow c$ exists as the join of all $x$ with $x\\wedge b\\le c$). $N_5$ and $M_3$ are the two forbidden non-distributive sublattices of Birkhoff's theorem, so they are not Heyting. Boolean algebras are distributive (in fact complemented). Finite chains are distributive.",
+          "hint": "Heyting ⇔ distributive (for finite lattices). The two non-distributive 5-element lattices are exactly $N_5$ and $M_3$."
+        },
+        {
+          "type": "mcq",
+          "q": "In a Heyting algebra, which identity holds for <em>every</em> element $a$?",
+          "choices": [
+            "$\\neg\\neg a = a$",
+            "$a \\vee \\neg a = \\top$",
+            "$\\neg\\neg\\neg a = \\neg a$",
+            "$a \\Rightarrow \\bot = \\top$"
+          ],
+          "answer": 2,
+          "explain": "$\\neg\\neg\\neg a = \\neg a$ is provable in intuitionist logic: from $a \\le \\neg\\neg a$ apply $\\neg$ (which reverses) to get $\\neg\\neg\\neg a \\le \\neg a$; combine with the dual instance. The first two are LEM/DNE — equivalent to being Boolean. The fourth fails when $a \\ne \\bot$.",
+          "hint": "Triple negation collapses to single negation in any Heyting algebra — but double negation does not collapse to identity."
+        }
+      ]
+    },
+    "omega-as-heyting-algebra": {
+      "title": "$\\Omega$ as an internal Heyting algebra",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the subobject classifier $\\Omega$ in the topos $\\mathbf{Set}$?",
+          "choices": [
+            "The empty set $\\varnothing$",
+            "The two-element set $\\{\\bot, \\top\\}$",
+            "The natural numbers $\\mathbb{N}$",
+            "Any infinite set"
+          ],
+          "answer": 1,
+          "explain": "In $\\mathbf{Set}$, subobjects of $X$ are subsets, and a subset is determined by its indicator function $X \\to \\{\\bot,\\top\\}$. So $\\Omega = \\{\\bot,\\top\\}$ with $\\mathrm{true}(*)=\\top$. Two truth values — exactly the data needed for classical Boolean logic.",
+          "hint": "Subobjects of a set are subsets; an indicator function takes how many values?"
+        },
+        {
+          "type": "mcq",
+          "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets, $\\Omega$ as a $G$-set has underlying set:",
+          "choices": [
+            "The set of subgroups of $G$",
+            "The set of normal subgroups of $G$",
+            "$\\{\\bot, \\top\\}$ with trivial $G$-action",
+            "The set of conjugacy classes in $G$"
+          ],
+          "answer": 0,
+          "explain": "A subobject of the terminal $G$-set $\\{*\\}$ is a $G$-stable subset of $\\{*\\}$ — but the elements of $\\Omega$ in $G$-$\\mathbf{Set}$ are sieves on the unique object of the one-object groupoid $G$, which correspond to subgroups of $G$. The action of $g$ on $H \\le G$ is conjugation $H \\mapsto gHg^{-1}$.",
+          "hint": "Think of $G$ as a one-object groupoid; $\\Omega(c)$ in a presheaf topos is the sieves on $c$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each Heyting operation on $\\Omega$ with the subobject of $\\Omega \\times \\Omega$ it classifies.",
+          "left": [
+            "$\\wedge$",
+            "$\\vee$",
+            "$\\Rightarrow$"
+          ],
+          "right": [
+            "image of $1+1 \\to \\Omega \\times \\Omega$ via $(\\top, x), (x, \\top)$",
+            "the diagonal $\\langle\\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega\\times\\Omega$",
+            "the order relation $\\le$ on $\\Omega$, the equaliser of $\\wedge$ and $\\pi_1$"
+          ],
+          "answer": [1, 0, 2],
+          "explain": "$\\wedge$ classifies the singleton $(\\top,\\top)$; $\\vee$ classifies the union of the two true-lines; $\\Rightarrow$ classifies the order $\\le$. See Mac Lane–Moerdijk IV.8.",
+          "hint": "Conjunction is true only when both coordinates are true; implication is true when the first coordinate is below the second."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In $\\mathrm{Sh}(\\mathbb{R})$, the section $\\Omega(U)$ over an open $U \\subseteq \\mathbb{R}$ is:",
+          "choices": [
+            "$\\{\\bot, \\top\\}$",
+            "the set of open subsets of $U$",
+            "the set of all subsets of $U$",
+            "the closure operator on $U$"
+          ],
+          "answer": 1,
+          "explain": "In $\\mathrm{Sh}(X)$, $\\Omega$ is the sheaf $U \\mapsto \\{\\text{open subsets of } U\\}$ with $\\mathrm{true}_U = U$. A subobject of a sheaf $F$ over $U$ is a sub-sheaf, picked out by 'on which open does each section live.' This makes $\\Omega(U)$ a Heyting algebra under $\\cap, \\cup,$ and the formula $V \\Rightarrow W = \\mathrm{int}(U \\setminus V \\cup W)$.",
+          "hint": "Sub-sheaves of the terminal sheaf over $U$ are determined by the maximal open on which the section is defined."
+        },
+        {
+          "type": "mcq",
+          "q": "Which morphism implements the operation $\\neg\\colon \\Omega \\to \\Omega$?",
+          "choices": [
+            "the identity $\\Omega \\to \\Omega$",
+            "$\\Omega \\xrightarrow{\\langle 1, !\\circ\\bot\\rangle} \\Omega \\times \\Omega \\xrightarrow{\\Rightarrow} \\Omega$",
+            "the swap automorphism of $\\Omega$",
+            "$\\Omega \\xrightarrow{\\langle 1, !\\circ\\top\\rangle} \\Omega \\times \\Omega \\xrightarrow{\\wedge} \\Omega$"
+          ],
+          "answer": 1,
+          "explain": "$\\neg p = p \\Rightarrow \\bot$. The map pairs $p$ with the constant $\\bot$ (via the unique $\\Omega \\to 1$ then $\\bot\\colon 1 \\to \\Omega$) and applies $\\Rightarrow$. There is no canonical 'swap automorphism' on $\\Omega$ in non-Boolean toposes.",
+          "hint": "Negation is implication against falsehood."
+        }
+      ]
+    },
+    "internal-language": {
+      "title": "The internal Mitchell–Bénabou language",
+      "questions": [
+        {
+          "type": "matching",
+          "q": "Match each piece of the internal language to its categorical interpretation.",
+          "left": [
+            "a closed term $t\\colon A$",
+            "a formula $\\varphi$ in context $\\Gamma$",
+            "$\\exists x{:}A.\\,\\varphi$",
+            "$\\forall x{:}A.\\,\\varphi$"
+          ],
+          "right": [
+            "right adjoint $\\Pi_{\\pi}$ to pullback along $\\pi\\colon\\Gamma\\times A \\to \\Gamma$",
+            "global section $1 \\to \\llbracket A \\rrbracket$",
+            "left adjoint $\\Sigma_{\\pi}$ to pullback (image)",
+            "morphism $\\llbracket\\Gamma\\rrbracket \\to \\Omega$, equivalently a subobject of $\\llbracket\\Gamma\\rrbracket$"
+          ],
+          "answer": [1, 3, 2, 0],
+          "explain": "Closed terms are global sections; formulas are characteristic maps (or equivalently subobjects); $\\exists$ is the image / left adjoint; $\\forall$ is the right adjoint to pullback. This is the standard Lawvere adjoint correspondence for quantifiers.",
+          "hint": "$\\exists$ is image-along-projection; $\\forall$ is dual."
+        },
+        {
+          "type": "mcq",
+          "q": "The formula $\\forall x.\\,(P(x) \\to Q(x))$ is interpreted in $\\mathrm{Sub}(1)$ as:",
+          "choices": [
+            "$\\Sigma_{\\pi}\\big(\\{P\\} \\Rightarrow \\{Q\\}\\big)$",
+            "$\\Pi_{\\pi}\\big(\\{P\\} \\Rightarrow \\{Q\\}\\big)$, where $\\pi\\colon A \\to 1$",
+            "$\\{P\\} \\cap \\{Q\\}$",
+            "the union $\\{P\\} \\cup \\{Q\\}$"
+          ],
+          "answer": 1,
+          "explain": "First compute $\\{P \\to Q\\} = \\{P\\} \\Rightarrow \\{Q\\}$ in $\\mathrm{Sub}(A)$. Then quantify universally: $\\forall x.\\,$ becomes $\\Pi_\\pi$, the right adjoint to $\\pi^*\\colon \\mathrm{Sub}(1) \\to \\mathrm{Sub}(A)$. So the answer is $\\Pi_\\pi(\\{P\\} \\Rightarrow \\{Q\\})$.",
+          "hint": "Implication first, then $\\forall$ as right adjoint to pullback."
+        },
+        {
+          "type": "mcq",
+          "q": "Provability $\\Gamma \\vdash \\varphi$ in the Mitchell–Bénabou logic translates to which categorical condition?",
+          "choices": [
+            "$\\{\\varphi\\} = \\varnothing$ in $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$",
+            "$\\{\\varphi\\} = \\llbracket\\Gamma\\rrbracket$ in $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$",
+            "$\\llbracket\\varphi\\rrbracket$ is an isomorphism",
+            "$\\Omega = \\{\\bot,\\top\\}$"
+          ],
+          "answer": 1,
+          "explain": "$\\Gamma \\vdash \\varphi$ means: in the context $\\Gamma$, $\\varphi$ is always true. In subobject terms, the subobject $\\{\\Gamma \\mid \\varphi\\}$ is everything — equal to the top of $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$. The classifying map $\\llbracket\\varphi\\rrbracket$ is then $\\mathrm{true}\\circ !\\colon \\llbracket\\Gamma\\rrbracket \\to 1 \\to \\Omega$.",
+          "hint": "A formula provable from $\\Gamma$ holds on the entire context object."
+        }
+      ]
+    },
+    "kripke-joyal-semantics": {
+      "title": "Kripke–Joyal forcing semantics",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "On the 2-world Kripke model with $C = (a \\to b)$ and valuation $\\llbracket p\\rrbracket(a)=\\varnothing$, $\\llbracket p\\rrbracket(b)=\\{*\\}$, which of the following are forced at world $b$?",
+          "choices": [
+            "$b \\Vdash p$",
+            "$b \\Vdash \\neg p$",
+            "$b \\Vdash p \\vee \\neg p$",
+            "$b \\Vdash \\neg\\neg p \\to p$",
+            "$b \\Vdash p \\to \\neg\\neg p$"
+          ],
+          "answer": [0, 2, 3, 4],
+          "explain": "At $b$: (0) $b \\Vdash p$ since $\\llbracket p\\rrbracket(b) \\ne \\varnothing$. (1) $b \\not\\Vdash \\neg p$ since $\\mathrm{id}_b$ forces $p$. (2) $b \\Vdash p \\vee \\neg p$ via the left disjunct. (3) $b \\Vdash \\neg\\neg p \\to p$: every accessible $Y \\to b$ that forces $\\neg\\neg p$ also forces $p$ — direct. (4) $b \\Vdash p \\to \\neg\\neg p$: an intuitionist tautology. So everything except $\\neg p$ is forced at $b$. Note that LEM <em>holds at the maximal world</em> $b$ but <em>fails at the lower world</em> $a$.",
+          "hint": "At the highest world, you can verify $p$ directly; only $\\neg p$ requires no future to ever satisfy $p$, which fails."
+        },
+        {
+          "type": "mcq",
+          "q": "The Kripke–Joyal clause for implication $\\varphi \\to \\psi$ at $X$ is:",
+          "choices": [
+            "$X \\Vdash \\varphi$ implies $X \\Vdash \\psi$",
+            "for every $f\\colon Y \\to X$, $Y \\Vdash \\varphi$ implies $Y \\Vdash \\psi$",
+            "there exists $f\\colon Y \\to X$ with $Y \\Vdash \\varphi$ and $Y \\Vdash \\psi$",
+            "$X \\not\\Vdash \\varphi$ or $X \\Vdash \\psi$"
+          ],
+          "answer": 1,
+          "explain": "Kripke–Joyal $\\to$ quantifies over <em>every</em> generalised element $Y \\to X$ — this is the persistence/stability condition. Without this universal closure, $\\to$ would not be invariant under restriction along arrows, and the clauses wouldn't be sound for the topos's internal logic.",
+          "hint": "Implication in intuitionist Kripke semantics persists along the accessibility relation — the clause must quantify over all accessible worlds."
+        },
+        {
+          "type": "mcq",
+          "q": "In a sheaf topos $\\mathrm{Sh}(X)$, the Kripke–Joyal clause for $\\exists y.\\,\\varphi$ at an open $U$ becomes:",
+          "choices": [
+            "there is a section $b$ on $U$ with $U \\Vdash \\varphi(b)$",
+            "there is a covering family $\\{U_i \\to U\\}$ and sections $b_i$ on $U_i$ with $U_i \\Vdash \\varphi(b_i)$",
+            "for every refinement $\\{U_i \\to U\\}$ and every section $b$, $U_i \\Vdash \\varphi(b)$",
+            "$\\varphi$ is true on the stalk at every point of $U$"
+          ],
+          "answer": 1,
+          "explain": "Existential quantification in sheaf forcing is 'locally a witness exists': there is a covering family on which the witness can be chosen. This is why constructive analysis builds objects locally and glues them by descent rather than picking global sections.",
+          "hint": "Sheaves are about local data; existential is local existence of a witness."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider the 3-world model $C$ with objects $a, b, c$ and arrows $a \\to b, a \\to c$ (no arrow $b \\leftrightarrow c$). Let $\\llbracket p\\rrbracket(b) = \\{*\\}$, $\\llbracket p\\rrbracket(a) = \\llbracket p\\rrbracket(c) = \\varnothing$. Where does $\\neg\\neg p$ hold?",
+          "choices": [
+            "Only at $b$",
+            "At $b$ and $a$",
+            "At all three worlds",
+            "Nowhere"
+          ],
+          "answer": 0,
+          "explain": "$\\neg\\neg p$ at $b$: every $Y \\to b$ has $Y \\not\\Vdash \\neg p$? The only arrow into $b$ is $\\mathrm{id}_b$; $b \\Vdash p$ so $b \\not\\Vdash \\neg p$. So $b \\Vdash \\neg\\neg p$. ✓ At $a$: consider $a \\to c$. We have $c \\Vdash \\neg p$ (the only arrow into $c$ is $\\mathrm{id}_c$, and $c \\not\\Vdash p$). So there's an accessible world where $\\neg p$ holds, hence $a \\not\\Vdash \\neg\\neg p$. At $c$: $c \\Vdash \\neg p$ already, so $c \\not\\Vdash \\neg\\neg p$. Only at $b$.",
+          "hint": "$\\neg\\neg p$ at $X$ means: every accessible $Y$ has some $Z \\to Y$ where $Z \\Vdash p$. The branching at $a$ towards $c$ kills $\\neg\\neg p$ at $a$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Kripke–Joyal clause for disjunction in a topos requires a <em>cover</em> $\\{f_i\\colon X_i \\to X\\}$. In a presheaf topos $\\widehat{C}$, what is a cover of a representable $X = y(c)$?",
+          "choices": [
+            "any single arrow $y(d) \\to y(c)$",
+            "the identity $\\mathrm{id}\\colon y(c) \\to y(c)$ alone — there are no proper covers",
+            "any family $\\{y(d_i) \\to y(c)\\}$ that is jointly epimorphic",
+            "any family of arrows $d_i \\to c$ in $C$"
+          ],
+          "answer": 1,
+          "explain": "In a presheaf topos $\\widehat{C}$ (no Grothendieck topology), the only cover of a representable $y(c)$ is the trivial cover $\\{\\mathrm{id}\\}$. This is why Kripke–Joyal forcing on $\\widehat{C}$ collapses to the classical Kripke clauses (no genuine 'covering' refinement). Switching to sheaves $\\mathrm{Sh}(C, J)$ on a non-trivial site adds genuine covers and is what enables descent.",
+          "hint": "Presheaf toposes have no Grothendieck topology beyond the trivial one — covers are trivial."
+        }
+      ]
+    },
+    "lem-failure": {
+      "title": "Why LEM fails: double negation in toposes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In which presheaf topos does LEM <em>fail</em>?",
+          "choices": [
+            "$\\widehat{*}$ (the topos of presheaves on the one-object terminal category)",
+            "$\\widehat{(a \\to b)}$ (presheaves on the two-object category with one non-identity arrow)",
+            "$\\widehat{G}$ for $G$ a group, viewed as a one-object groupoid",
+            "Every presheaf topos is Boolean"
+          ],
+          "answer": 1,
+          "explain": "$\\widehat{*}$ is just $\\mathbf{Set}$ (Boolean). $\\widehat{G}$ is $G$-$\\mathbf{Set}$, also Boolean (since $G$ is a groupoid). $\\widehat{(a\\to b)}$ is non-Boolean: $\\Omega(a)$ has 3 elements (the sieves $\\varnothing, \\{a\\}, \\{a, a\\to b\\}$ — really the latter two), and the 3-element chain is the smallest non-Boolean Heyting algebra. LEM fails. Theorem: $\\widehat{C}$ is Boolean iff $C$ is a groupoid.",
+          "hint": "$\\widehat{C}$ is Boolean iff $C$ is a groupoid — the arrow $a \\to b$ is not invertible."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all toposes in which the law of excluded middle holds (i.e. all <em>Boolean</em> toposes).",
+          "choices": [
+            "$\\mathbf{Set}$",
+            "$G$-$\\mathbf{Set}$ for $G$ a group",
+            "$\\mathrm{Sh}(\\mathbb{R})$",
+            "$\\widehat{(a \\to b)}$",
+            "$\\mathrm{Sh}_{\\neg\\neg}(\\widehat{C})$ for any small category $C$",
+            "$\\mathrm{Sh}(X)$ for $X$ a discrete topological space"
+          ],
+          "answer": [0, 1, 4, 5],
+          "explain": "$\\mathbf{Set}$ and $G$-$\\mathbf{Set}$ are Boolean (the Boolean groupoid case). $\\mathrm{Sh}_{\\neg\\neg}$ is by construction the largest Boolean subtopos. $\\mathrm{Sh}(X)$ is Boolean iff $X$ is discrete (every subset open ⇒ open-set lattice is the powerset, which is Boolean). $\\mathrm{Sh}(\\mathbb{R})$ is non-Boolean (the open-set lattice has non-trivial boundary). $\\widehat{(a\\to b)}$ is non-Boolean.",
+          "hint": "Boolean toposes: $\\mathbf{Set}$, $G$-$\\mathbf{Set}$, $\\mathrm{Sh}_{\\neg\\neg}$, sheaves on discrete spaces — and not much else."
+        },
+        {
+          "type": "mcq",
+          "q": "The double-negation topology $\\neg\\neg\\colon \\Omega \\to \\Omega$ on a topos $\\mathcal{E}$ produces a subtopos $\\mathrm{Sh}_{\\neg\\neg}(\\mathcal{E}) \\hookrightarrow \\mathcal{E}$. What is its defining property?",
+          "choices": [
+            "It is the smallest subtopos containing all $\\neg\\neg$-closed subobjects",
+            "It is the largest <em>Boolean</em> subtopos of $\\mathcal{E}$",
+            "It is the topos of $\\neg$-fixpoints of $\\Omega$",
+            "It is always equivalent to $\\mathbf{Set}$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{Sh}_{\\neg\\neg}(\\mathcal{E})$ is the largest Boolean subtopos of $\\mathcal{E}$ (Mac Lane–Moerdijk V.2 / VI.9). When $\\mathcal{E}$ is the topos of $\\beta$-names for a forcing condition, $\\mathrm{Sh}_{\\neg\\neg}$ is the model of ZFC obtained by Cohen forcing — the topos-theoretic shadow of forcing.",
+          "hint": "Double-negation 'rounds down' all subobjects to their $\\neg\\neg$-stable parts, exactly the ones that obey LEM."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which subobjects of $\\mathbb{R}$ in $\\mathrm{Sh}(\\mathbb{R})$ are $\\neg\\neg$-stable (i.e. equal to their double-negation)?",
+          "choices": [
+            "All open subsets",
+            "All subsets",
+            "The <em>regular</em> open subsets — those equal to the interior of their closure",
+            "Only $\\varnothing$ and $\\mathbb{R}$"
+          ],
+          "answer": 2,
+          "explain": "$\\neg\\neg U = \\mathrm{int}(\\overline{U})$ in the open-set lattice. So $U = \\neg\\neg U$ iff $U = \\mathrm{int}(\\overline{U})$, the definition of a regular open set. The regular opens form a complete Boolean algebra, the Booleanisation of the Heyting algebra of opens.",
+          "hint": "$\\neg U = \\mathrm{int}(U^c)$, so $\\neg\\neg U = \\mathrm{int}(\\mathrm{int}(U^c)^c) = \\mathrm{int}(\\overline{U})$."
+        },
+        {
+          "type": "mcq",
+          "q": "The classical theorem 'every set has a cardinality' (every set is in bijection with an initial ordinal) requires the axiom of choice. In a topos $\\mathcal{E}$, what is the relationship between AC and LEM?",
+          "choices": [
+            "AC and LEM are independent",
+            "AC implies LEM (Diaconescu's theorem)",
+            "LEM implies AC",
+            "They are equivalent in any topos"
+          ],
+          "answer": 1,
+          "explain": "Diaconescu's theorem (1975): if every epi splits internally in a topos $\\mathcal{E}$, then $\\mathcal{E}$ is Boolean. Constructive proof: from a 2-element quotient $\\{0,1\\}/{\\sim}$ where $\\sim$ depends on a proposition $\\varphi$, internal AC gives a section that decides $\\varphi$. The converse (LEM ⇒ AC) is false: $G$-$\\mathbf{Set}$ is Boolean but AC fails.",
+          "hint": "There's a famous theorem of Diaconescu connecting choice and excluded middle in any topos."
+        }
+      ]
+    },
+    "geometric-morphisms-logic": {
+      "title": "Geometric morphisms preserve geometric logic",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "Which of the following logical connectives are <em>always</em> preserved by the inverse image $f^*$ of a geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$?",
+          "choices": [
+            "$\\wedge$ (binary conjunction)",
+            "$\\Rightarrow$ (implication)",
+            "$\\bigvee$ (arbitrary disjunction)",
+            "$\\forall$ (universal quantifier)",
+            "$\\exists$ (existential quantifier)",
+            "$=$ (equality)",
+            "$\\neg$ (negation)"
+          ],
+          "answer": [0, 2, 4, 5],
+          "explain": "Geometric logic is the fragment $\\{\\top, \\bot, \\wedge, \\bigvee, \\exists, =\\}$. $f^*$ preserves finite limits ($\\wedge$, $=$) and arbitrary colimits ($\\bigvee$, $\\exists$ as image). $\\Rightarrow$, $\\forall$, $\\neg$ are right-adjoint constructions; left adjoints don't commute with right adjoints in general.",
+          "hint": "Geometric formulas use $\\wedge, \\bigvee, \\exists, =$ — and only those — because $f^*$ preserves finite limits and arbitrary colimits."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $f^*$ preserve $\\bigvee$ but not $\\bigwedge$ (infinitary conjunction)?",
+          "choices": [
+            "$f^*$ has a right adjoint, so it preserves all colimits but not all limits",
+            "$f^*$ preserves $\\bigvee$ for infinitary cardinality reasons",
+            "$\\bigwedge$ is not a meaningful operation in any topos",
+            "$f^*$ does preserve both — the question is malformed"
+          ],
+          "answer": 0,
+          "explain": "$f^* \\dashv f_*$, so $f^*$ is a left adjoint and preserves all colimits — including infinitary unions $\\bigvee$. It only preserves <em>finite</em> limits, not arbitrary ones; $\\bigwedge$ over an infinite index is an infinite limit, not preserved.",
+          "hint": "Left adjoints commute with colimits; $f^*$ is the left adjoint of the geometric morphism."
+        },
+        {
+          "type": "mcq",
+          "q": "If $\\mathcal{T}$ is a geometric theory and $\\varphi \\vdash_x \\psi$ is a geometric sequent provable in the classifying topos $\\mathrm{Set}[\\mathcal{T}]$, then for any topos $\\mathcal{F}$ with a $\\mathcal{T}$-model $M$:",
+          "choices": [
+            "$\\varphi \\vdash_x \\psi$ holds in $\\mathcal{F}$ at the model $M$",
+            "$\\varphi \\vdash_x \\psi$ may fail in $\\mathcal{F}$ unless $\\mathcal{F}$ is Boolean",
+            "$\\varphi \\vdash_x \\psi$ holds in $\\mathcal{F}$ iff $\\mathcal{F} = \\mathbf{Set}$",
+            "the sequent must be re-proved in $\\mathcal{F}$ from scratch"
+          ],
+          "answer": 0,
+          "explain": "This is geometric soundness: a $\\mathcal{T}$-model in $\\mathcal{F}$ corresponds to a geometric morphism $\\mathcal{F} \\to \\mathrm{Set}[\\mathcal{T}]$; $f^*$ preserves geometric formulas, so anything provable geometrically in the classifying topos transports along $f^*$ to $\\mathcal{F}$. This is the central technical reason for restricting to geometric logic.",
+          "hint": "The whole point of the geometric fragment: it transports along arbitrary geometric morphisms, including those classifying models."
+        }
+      ]
+    }
+  }
+}

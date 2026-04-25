@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/recurrence-plotter/schema.json",
+  "title": "recurrence-plotter widget params",
+  "description": "Iterates a single-variable recurrence `x_{n+1} = f(x_n)` (or two-term `x_{n+1} = f(x_n, x_{n-1})`) and shows the trajectory plus, for one-term cases, a cobweb diagram on the y=x line. The recurrence kind is selected from a curated whitelist (no expression evaluation) — the page-global library `MVRecurrencePlotter` (js/widget-recurrence-plotter.js) owns the iteration code and the slider controls per kind. The `params` object holds the kind-specific knob values; the library's defaults fill in any omitted keys.",
+  "meta": {
+    "family": "recurrence-plotter",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "kind"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the host `<div class=\"widget\">`."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+$",
+      "description": "SVG viewBox for the diagram (defaults to '0 0 480 220')."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["logistic", "quadratic", "linear-2term"],
+      "description": "Selects the recurrence rule. Each kind has its own slider set documented in js/widget-recurrence-plotter.js. New kinds are added in the library and listed here."
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Initial values for the kind's parameters. Missing keys fall back to the library's defaults. For `logistic`: { r, x0, n }. For `quadratic`: { a, c, x0, n }. For `linear-2term`: { a, b, x0, x1, n }."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+    }
+  }
+}

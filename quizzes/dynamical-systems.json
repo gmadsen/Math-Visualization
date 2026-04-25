@@ -376,6 +376,42 @@
         }
       ]
     },
+    "period-doubling-cascade": {
+      "title": "The period-doubling cascade",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
+          "answer": 0.6,
+          "tol": 1e-6,
+          "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
+        },
+        {
+          "type": "mcq",
+          "q": "At $r=3.2$ (just past the first period-doubling bifurcation at $r=3$), what is the period of the eventual attracting orbit of the logistic map?",
+          "choices": [
+            "1 (a fixed point)",
+            "2 (a 2-cycle)",
+            "4 (a 4-cycle)",
+            "Chaotic (no period)"
+          ],
+          "answer": 1,
+          "explain": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$. Between them — including $r=3.2$ — the attractor is a stable 2-cycle."
+        },
+        {
+          "type": "mcq",
+          "q": "Why do successive period-doubling bifurcations $r_n$ pile up so quickly toward $r_\\infty\\approx 3.5699$ — accelerating in $r$ but not in $n$?",
+          "choices": [
+            "Each iterate of the logistic map runs twice as fast as the previous one.",
+            "The intervals $r_n-r_{n-1}$ shrink geometrically by the Feigenbaum ratio $\\delta\\approx 4.6692$, so they form a convergent geometric series in $r$ even though $n$ grows linearly.",
+            "The Lyapunov exponent diverges to $+\\infty$ as $n$ increases.",
+            "The orbit becomes chaotic immediately after the first doubling."
+          ],
+          "answer": 1,
+          "explain": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$. So gaps between successive bifurcations contract by a constant factor $\\approx 1/\\delta$ each step — geometric convergence in $r$-space, even though $n$ marches up linearly. That is why infinitely many doublings fit into the finite interval $[3, r_\\infty]$."
+        }
+      ]
+    },
     "dyn-bifurcations": {
       "title": "Bifurcations",
       "questions": [

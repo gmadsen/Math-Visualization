@@ -17,16 +17,20 @@
 //      "possibly stale completion".
 //
 //   2. AGENTS.md script references vs. scripts/.
-//      Every .mjs in scripts/ should be mentioned at least once in AGENTS.md.
-//      Every .mjs name AGENTS.md mentions should exist on disk.
+//      Every .mjs name AGENTS.md mentions should exist on disk. (The reverse
+//      direction — every script must be mentioned — is covered by check 5
+//      against scripts/README.md, which is now the canonical script catalog.)
 //
-//   3. AGENTS.md rebuild.mjs step list vs. STEPS array.
+//   3. scripts/README.md rebuild.mjs step list vs. STEPS array.
 //      Pull the `const STEPS = [...]` literal out of rebuild.mjs, pull the
-//      numbered prose list in AGENTS.md's "Registering a new page" section,
-//      diff. Any mismatch in step name or order is flagged.
+//      numbered prose list in scripts/README.md's "All-in-one verification"
+//      section, diff. Any mismatch in step name or order is flagged.
+//      (This list moved here in commit X — it used to live in AGENTS.md, but
+//      AGENTS.md is now the agent-orientation entry point and scripts/README.md
+//      is the canonical script catalog.)
 //
-//   4. AGENTS.md `--only` enumeration vs. STEPS names.
-//      Same source-of-truth comparison, different location in AGENTS.md.
+//   4. scripts/README.md `--only` enumeration vs. STEPS names.
+//      Same source-of-truth comparison, different location in scripts/README.md.
 //
 //   5. scripts/README.md table rows vs. scripts/ directory.
 //      Mirror of check 2 against scripts/README.md. Every .mjs should appear
@@ -204,14 +208,10 @@ function checkAgentsVsScripts() {
   }
   const mjsFiles = listScripts();
 
-  // Every .mjs in scripts/ should be mentioned at least once in AGENTS.md.
-  for (const f of mjsFiles) {
-    if (!agents.includes(f)) {
-      push('AGENTS.md', 'warn', `undocumented script: scripts/${f}`);
-    }
-  }
-
   // Every `scripts/<name>.mjs` mentioned in AGENTS.md should exist on disk.
+  // (The reverse — every script must be mentioned in AGENTS.md — is no longer
+  // checked: scripts/README.md is the canonical catalog and is enforced by
+  // check 5 below. AGENTS.md only carries pointers + category overviews.)
   const mentioned = new Set();
   const re = /scripts\/([a-z0-9\-]+)\.mjs/gi;
   let m;
@@ -220,11 +220,12 @@ function checkAgentsVsScripts() {
   const bareRe = /`([a-z0-9\-]+)\.mjs`/gi;
   while ((m = bareRe.exec(agents))) mentioned.add(`${m[1]}.mjs`);
 
-  // Some bare `.mjs` names in AGENTS.md aren't scripts — e.g. `index.mjs`
-  // refers to the widgets/<slug>/index.mjs registry file. Skip anything
-  // whose filename is present under widgets/ so we don't flag widget
-  // module references as missing scripts.
-  const widgetModuleFiles = new Set();
+  // Some bare `.mjs` names in AGENTS.md aren't top-level scripts — e.g.
+  // `index.mjs` refers to widgets/<slug>/index.mjs registry files, and
+  // `content-model.mjs` / `audit-utils.mjs` live under scripts/lib/. Skip
+  // anything whose filename matches a widget module or scripts/lib/ entry
+  // so we don't flag those as missing.
+  const knownNonScriptFiles = new Set();
   const widgetsDir = join(repoRoot, 'widgets');
   if (existsSync(widgetsDir)) {
     for (const d of readdirSync(widgetsDir, { withFileTypes: true })) {
@@ -232,17 +233,27 @@ function checkAgentsVsScripts() {
       const sub = join(widgetsDir, d.name);
       try {
         for (const f of readdirSync(sub)) {
-          if (f.endsWith('.mjs')) widgetModuleFiles.add(f);
+          if (f.endsWith('.mjs')) knownNonScriptFiles.add(f);
         }
       } catch {
         /* skip unreadable dirs */
       }
     }
   }
+  const libDir = join(scriptsDir, 'lib');
+  if (existsSync(libDir)) {
+    try {
+      for (const f of readdirSync(libDir)) {
+        if (f.endsWith('.mjs')) knownNonScriptFiles.add(f);
+      }
+    } catch {
+      /* skip */
+    }
+  }
 
   const onDisk = new Set(mjsFiles);
   for (const name of mentioned) {
-    if (!onDisk.has(name) && !widgetModuleFiles.has(name)) {
+    if (!onDisk.has(name) && !knownNonScriptFiles.has(name)) {
       push('AGENTS.md', 'fail', `references missing script: scripts/${name}`);
     }
   }
@@ -279,15 +290,14 @@ function extractStepsArray(src) {
   return names;
 }
 
-function extractAgentsRebuildProseList(agents) {
-  // The prose list lives inside the "Registering a new page" section, introduced
-  // by "All-in-one verification: `node scripts/rebuild.mjs` runs the full chain
-  // in order" and enumerated as a numbered ordered list of scripts.
-  //
-  // Pull lines matching `   1. \`build-concepts-bundle.mjs\`` etc. in order.
-  const marker = agents.indexOf('All-in-one verification');
+function extractRebuildProseList(readme) {
+  // The prose list lives in scripts/README.md's "All-in-one verification: the
+  // rebuild step list" section, enumerated as a numbered ordered list of
+  // scripts. Pull lines matching `   1. \`build-concepts-bundle.mjs\`` etc.
+  // in order.
+  const marker = readme.indexOf('All-in-one verification');
   if (marker === -1) return null;
-  const region = agents.slice(marker, marker + 2000);
+  const region = readme.slice(marker, marker + 2000);
   // Match `name.mjs` or `name.mjs --fix` — the backtick may wrap the whole
   // "script + flags" string, so we allow arbitrary content before the closing
   // backtick.
@@ -298,15 +308,17 @@ function extractAgentsRebuildProseList(agents) {
   return names.length ? names : null;
 }
 
-function extractAgentsOnlyList(agents) {
+function extractOnlyList(readme) {
   // The `--only` enumeration is inline after a mention of `--only <step>`. The
   // list is a comma-separated sequence of backtick-quoted step names. It may
   // appear inside parentheses, after a colon, or inline in prose — we accept
   // any of those as long as we can find the first long run of backticked
-  // comma-separated names within ~800 chars of the `--only` mention.
-  const idx = agents.indexOf('--only');
+  // comma-separated names within ~800 chars of the "Valid names:" prose marker
+  // (or `--only` if the marker isn't present).
+  let idx = readme.indexOf('Valid names:');
+  if (idx === -1) idx = readme.indexOf('--only');
   if (idx === -1) return null;
-  const region = agents.slice(idx, idx + 800);
+  const region = readme.slice(idx, idx + 800);
   // Match a sequence of at least 3 backticked names joined by commas.
   const run = region.match(
     /(?:`[a-z0-9\-]+`(?:\s*,\s*|\s+))+`[a-z0-9\-]+`/
@@ -351,13 +363,13 @@ function checkRebuildStepList() {
     (steps.scriptByName && steps.scriptByName.get(n)) || stepNameToScript(n)
   );
 
-  const agents = readOrNull(join(repoRoot, 'AGENTS.md'));
-  if (!agents) return;
+  const readme = readOrNull(join(scriptsDir, 'README.md'));
+  if (!readme) return;
 
   // Prose step list (filenames).
-  const prose = extractAgentsRebuildProseList(agents);
+  const prose = extractRebuildProseList(readme);
   if (!prose) {
-    push('AGENTS.md', 'warn', 'could not find the "All-in-one verification" step list');
+    push('scripts/README.md', 'warn', 'could not find the "All-in-one verification" step list');
   } else {
     // Compare scripts, ignoring `--fix` suffix.
     const proseFull = prose.map((n) => `${n}.mjs`);
@@ -369,7 +381,7 @@ function checkRebuildStepList() {
       if (extra.length)   bits.push(`extra: ${extra.join(', ')}`);
       if (!bits.length)   bits.push('order differs');
       push(
-        'AGENTS.md',
+        'scripts/README.md',
         'fail',
         `step list mismatch: prose shows ${prose.length} steps, STEPS array has ${steps.length} (${bits.join('; ')})`,
         VERBOSE
@@ -380,9 +392,9 @@ function checkRebuildStepList() {
   }
 
   // --only enumeration.
-  const only = extractAgentsOnlyList(agents);
+  const only = extractOnlyList(readme);
   if (!only) {
-    push('AGENTS.md', 'warn', 'could not find a `--only` enumeration to check');
+    push('scripts/README.md', 'warn', 'could not find a `--only` enumeration to check');
   } else if (!arraysEqual(only, steps)) {
     const { missing, extra } = diffArrays(steps, only);
     const bits = [];
@@ -390,7 +402,7 @@ function checkRebuildStepList() {
     if (extra.length)   bits.push(`extra: ${extra.join(', ')}`);
     if (!bits.length)   bits.push('order differs');
     push(
-      'AGENTS.md',
+      'scripts/README.md',
       'fail',
       `--only enumeration mismatch vs STEPS array (${bits.join('; ')})`,
       VERBOSE ? `--only: ${only.join(', ')}\n        STEPS:  ${steps.join(', ')}` : null,

@@ -90,6 +90,14 @@ const bump = (m, k) => m.set(k, (m.get(k) || 0) + 1);
 //   1. block.meta (if present on the block itself)
 //   2. widgetMeta.get(block.slug) (for registry-driven blocks)
 //   3. unknown
+// Registry-wide per-slug instance count. Includes every topic that uses
+// the slug. Slugs registered under widgets/<slug>/ but not yet adopted
+// in any topic stay at 0 — flagged below as infrastructure-only.
+const slugCounts = new Map(); // slug -> { count, topics: Set<topicId> }
+for (const slug of widgetMeta.keys()) {
+  slugCounts.set(slug, { count: 0, topics: new Set() });
+}
+
 for (const f of readdirSync(contentDir)) {
   if (!f.endsWith('.json')) continue;
   const tid = f.replace(/\.json$/, '');
@@ -100,8 +108,15 @@ for (const f of readdirSync(contentDir)) {
     for (const b of s.blocks || []) {
       if (b.type !== 'widget') continue;
       row.widgets.total++;
-      if (b.slug) row.widgets.registryDriven++;
-      else row.widgets.inline++;
+      if (b.slug) {
+        row.widgets.registryDriven++;
+        if (!slugCounts.has(b.slug)) slugCounts.set(b.slug, { count: 0, topics: new Set() });
+        const sc = slugCounts.get(b.slug);
+        sc.count++;
+        sc.topics.add(tid);
+      } else {
+        row.widgets.inline++;
+      }
       const meta = (b.meta || (b.slug && widgetMeta.get(b.slug))) || {};
       bump(row.widgets.byFamily, meta.family || 'unknown');
       bump(row.widgets.byDimension, meta.dimension || 'unknown');
@@ -259,6 +274,26 @@ const summary = `# Coverage + type stats — widgets & quizzes
 - Quiz types: ${fmtMap(typeTotals)}
 - Concepts lacking a widget in their section: **${conceptsMissingWidget.length}**
 - Concepts lacking a hard-tier quiz: **${conceptsMissingHard.length}**
+
+## Per-slug registry adoption
+
+Every slug registered under \`widgets/<slug>/\`, with its current adoption
+across \`content/<topic>.json\`. Slugs at **0 instances** are
+infrastructure-only — they ship a renderer and a fixture, but no topic
+page has wired one in yet.
+
+| slug | family | gesture | dimension | instances | topics |
+|---|---|---|---|---:|---|
+${[...slugCounts.entries()]
+  .sort(([, a], [, b]) => b.count - a.count || (a.count === 0 ? 0 : 0))
+  .map(([slug, sc]) => {
+    const meta = widgetMeta.get(slug) || {};
+    const topicList = sc.topics.size === 0
+      ? '_(none — fixture-only)_'
+      : [...sc.topics].sort().join(', ');
+    return `| \`${slug}\` | ${meta.family || '—'} | ${meta.gesture || '—'} | ${meta.dimension || '—'} | ${sc.count} | ${topicList} |`;
+  })
+  .join('\n')}
 
 ## Per-subject
 

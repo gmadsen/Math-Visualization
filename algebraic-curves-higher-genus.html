@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Algebraic curves higher genus</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles &amp; idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":null,"prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series &amp; Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Etale fundamental group"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius &amp; reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory &amp; the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies sites"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras toposes"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"Infinity categories"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"Infinity topoi"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory chow"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups &amp; algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms &amp; fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions &amp; generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums &amp; Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms &amp; genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets and nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics &amp; reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-lattice-visualizer.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebraic geometry" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+    <a href="#smooth-projective-curve">1&nbsp;Smooth projective curves and their genus</a>
+  <a href="#divisors">2&nbsp;Divisors on curves</a>
+  <a href="#riemann-roch">3&nbsp;Riemann–Roch on curves</a>
+  <a href="#canonical-embedding">4&nbsp;The canonical embedding</a>
+  <a href="#hyperelliptic">5&nbsp;Hyperelliptic curves</a>
+  <a href="#moduli-of-curves-genus-g">6&nbsp;Moduli of higher-genus curves M_g</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+
+
+
+
+
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Algebraic curves higher genus</h1>
+  <p class="sub">Genus $g \ge 2$: Riemann–Roch, the canonical embedding, and $\mathcal{M}_g$.</p>
+</section>
+
+<section id="smooth-projective-curve">
+<h2>1. Smooth projective curves and their genus</h2>
+
+<p>A <strong>smooth projective curve</strong> over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension $1$. Concretely: a one-dimensional scheme that locally looks like $\mathrm{Spec}\, A$ with $A$ a regular ring of Krull dimension $1$, no embedded points, no nodes, no cusps. Over $k = \mathbb{C}$ the GAGA equivalence identifies smooth projective curves with compact Riemann surfaces — the same data wears two coats, algebraic and analytic.</p>
+
+<p>The single most important invariant is the <strong>genus</strong> $g = \dim_k H^0(C, \Omega^1_C)$, the dimension of the space of regular (= holomorphic) $1$-forms. Three other quantities give the same number, by deep theorems each worth its own name: the topological genus of $C(\mathbb{C})$ (number of handles), the arithmetic genus $1 - \chi(\mathcal{O}_C) = 1 - h^0(\mathcal{O}_C) + h^1(\mathcal{O}_C) = h^1(\mathcal{O}_C)$, and $1 - \tfrac12\chi_{\mathrm{top}}$. That all four agree on a smooth projective curve is the curve case of the Hirzebruch–Riemann–Roch theorem; in higher dimensions arithmetic and geometric genera diverge.</p>
+
+<p>Genus partitions curves into ladders of qualitatively different worlds. Genus $0$ is rigid: the unique smooth projective curve of genus $0$ over $\bar k$ is $\mathbb{P}^1$; there is no moduli. Genus $1$ is the territory of <a href="./elliptic-curves.html#complex">elliptic curves</a> — a one-parameter family classified by the $j$-invariant, every such curve a complex torus $\mathbb{C}/\Lambda$. From genus $2$ onward the moduli space $\mathcal{M}_g$ has dimension $3g - 3$ and the geometry stratifies further: hyperelliptic vs. non-hyperelliptic, generic vs. special Weierstrass points, $\theta$-divisor pathologies. Everything below is the catalogue of the new structure that appears once we cross the $g \ge 2$ threshold.</p>
+
+<p>The numerology is rigid enough to be worth memorizing in advance:</p>
+<table class="plain">
+  <thead><tr><th>quantity</th><th>value</th><th>character</th></tr></thead>
+  <tbody>
+    <tr><td>genus $g$</td><td>$g \ge 0$</td><td>topological / analytic / algebraic — all agree</td></tr>
+    <tr><td>$\chi_{\mathrm{top}}$</td><td>$2 - 2g$</td><td>topological</td></tr>
+    <tr><td>$\dim H^0(C, \Omega^1_C)$</td><td>$g$</td><td>Hodge</td></tr>
+    <tr><td>$\deg K_C$</td><td>$2g - 2$</td><td>algebro-geometric (canonical divisor)</td></tr>
+    <tr><td>$\dim \mathcal{M}_g$ ($g \ge 2$)</td><td>$3g - 3$</td><td>moduli-theoretic</td></tr>
+  </tbody>
+</table>
+
+<div class="widget" id="w-rh-cover">
+  <div class="hd"><div class="ttl">Riemann–Hurwitz: cover degree vs. genus</div><div class="hint">click a branch point — pick degree $d$ and number of branch points</div></div>
+  <svg id="svg-rh-cover" viewBox="0 0 520 260" width="520" height="260"><title>Riemann–Hurwitz cover with adjustable branch points</title></svg>
+  <div class="row">
+    <label for="rh-d">cover degree $d$</label>
+    <input type="range" id="rh-d" min="2" max="5" step="1" value="3">
+    <span class="small" id="rh-d-val">d = 3</span>
+  </div>
+  <div class="row">
+    <label for="rh-b">branch points $b$ (each simple)</label>
+    <input type="range" id="rh-b" min="0" max="10" step="2" value="4">
+    <span class="small" id="rh-b-val">b = 4</span>
+  </div>
+  <div class="readout" id="out-rh-cover"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#svg-rh-cover');
+  const out = $('#out-rh-cover');
+  const dEl = $('#rh-d'), bEl = $('#rh-b');
+  const dValEl = $('#rh-d-val'), bValEl = $('#rh-b-val');
+
+  function draw(){
+    svg.innerHTML = '';
+    const d = +dEl.value, b = +bEl.value;
+    dValEl.textContent = 'd = ' + d;
+    bValEl.textContent = 'b = ' + b;
+
+    // upper line: P^1 base with branch points marked
+    svg.appendChild(SVG('text',{x:18,y:208,'font-size':12,fill:'var(--mute)'}));
+    const baseY = 200;
+    const baseLine = SVG('line',{x1:60,y1:baseY,x2:480,y2:baseY,stroke:'var(--blue)','stroke-width':2});
+    svg.appendChild(baseLine);
+    const tBase = SVG('text',{x:495,y:baseY+4,'font-size':12,fill:'var(--blue)'});
+    tBase.textContent = 'ℙ¹';
+    svg.appendChild(tBase);
+
+    // branch points evenly spaced on base
+    const branches = [];
+    for(let i=0;i<b;i++){
+      const x = 90 + (i+1) * (380 / (b+1));
+      branches.push(x);
+      const c = SVG('circle',{cx:x,cy:baseY,r:5,fill:'var(--pink)','stroke':'var(--ink)','stroke-width':1});
+      c.style.cursor = 'pointer';
+      c.dataset.idx = i;
+      svg.appendChild(c);
+    }
+
+    // cover sheets — d horizontal slabs above base, with merging dots over branch points
+    const topY = 50, sheetGap = 22;
+    for(let s=0;s<d;s++){
+      const y = topY + s*sheetGap;
+      svg.appendChild(SVG('line',{x1:60,y1:y,x2:480,y2:y,stroke:'var(--yellow)','stroke-width':1.4,opacity:0.85}));
+    }
+    const tCov = SVG('text',{x:495,y:topY+4,'font-size':12,fill:'var(--yellow)'});
+    tCov.textContent = 'C';
+    svg.appendChild(tCov);
+
+    // mark fibres above each branch point: simple branch ⇒ two sheets meet, others stay separate
+    branches.forEach((x,i)=>{
+      // ramification dot at top
+      const ramY = topY + 0.5*sheetGap;
+      svg.appendChild(SVG('circle',{cx:x,cy:ramY,r:4,fill:'var(--pink)'}));
+      // remaining d-2 sheets just have ordinary dots
+      for(let s=2;s<d;s++){
+        svg.appendChild(SVG('circle',{cx:x,cy:topY+s*sheetGap,r:2.5,fill:'var(--yellow)'}));
+      }
+      // dashed projection arrow
+      svg.appendChild(SVG('line',{x1:x,y1:topY+(d-1)*sheetGap+6,x2:x,y2:baseY-7,stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    });
+
+    // legend at left
+    svg.appendChild(SVG('text',{x:10,y:topY+8,'font-size':11,fill:'var(--mute)'})).textContent = 'C';
+    svg.appendChild(SVG('text',{x:10,y:baseY+5,'font-size':11,fill:'var(--mute)'})).textContent = 'P¹';
+    svg.appendChild(SVG('text',{x:10,y:(topY+baseY)/2,'font-size':11,fill:'var(--mute)','font-style':'italic'})).textContent = 'π';
+
+    // genus from Riemann–Hurwitz: 2g_C - 2 = d(2 g_{P^1} - 2) + sum_p (e_p - 1).
+    // base is P^1 (g=0), each simple branch contributes (2-1) = 1 to ramification, with d-2 unramified sheets above.
+    // So: 2g - 2 = d(-2) + b ⇒ g = (b - 2d + 2)/2 = b/2 - d + 1.
+    const g = (b - 2*d + 2)/2;
+    let line1 = `degree d = ${d},  branch points b = ${b}`;
+    let line2 = `Riemann–Hurwitz:  2g − 2 = d(2·0 − 2) + b`;
+    let line3 = `              = −2d + b = ${-2*d + b}`;
+    let line4 = `cover genus  g = (b − 2d + 2)/2 = ${g}`;
+    if(g < 0) line4 += '   ✗ impossible (need b ≥ 2d − 2)';
+    out.textContent = [line1, line2, line3, line4].join('\n');
+  }
+
+  dEl.addEventListener('input', draw);
+  bEl.addEventListener('input', draw);
+  // click a branch point: increment b by 2 (must stay even-ish for simple branching with no extra constraint),
+  // or decrement on shift-click
+  svg.addEventListener('click', e=>{
+    const t = e.target;
+    if(t && t.tagName==='circle' && t.dataset.idx!==undefined){
+      const cur = +bEl.value;
+      const next = e.shiftKey ? Math.max(0, cur-2) : Math.min(10, cur+2);
+      bEl.value = next;
+      draw();
+    }
+  });
+  draw();
+})();
+</script>
+
+<p>The widget evaluates the <strong>Riemann–Hurwitz formula</strong>: for a degree-$d$ cover $\pi\colon C \to \mathbb{P}^1$ with simple branching at $b$ points, the cover's genus is $g = b/2 - d + 1$. Two visceral consequences: (i) covers of $\mathbb{P}^1$ realise every genus $g \ge 0$ as soon as $d \ge 2$ and $b = 2g + 2d - 2$; (ii) requiring $g \ge 0$ forces $b \ge 2d - 2$, the bottom of the moduli stratification. The hyperelliptic case ($d = 2$, $b = 2g+2$) is the leftmost edge of this picture and reappears in §5.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./schemes.html">Smooth projective integral schemes</a></li>
+    <li><a href="./riemann-surfaces.html#rh">Riemann–Hurwitz on Riemann surfaces</a></li>
+    <li><a href="./elliptic-curves.html#complex">Genus 1: $\mathbb{C}/\Lambda$</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-curves-higher-genus.html#divisors">Algebraic curves: higher genus</a> · Divisors on curves</div>
+    <div><a href="./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g">Algebraic curves: higher genus</a> · Moduli of higher-genus curves $\mathcal{M}_g$</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="smooth-projective-curve"></div>
+</section>
+
+<section id="divisors">
+<h2>2. Divisors on curves</h2>
+
+<p>A <strong>divisor</strong> on a smooth projective curve $C$ is a finite formal $\mathbb{Z}$-sum $D = \sum_p n_p [p]$ over closed points. Divisors form a free abelian group $\mathrm{Div}(C)$; the <strong>degree map</strong> $\deg\colon \mathrm{Div}(C) \to \mathbb{Z}$, $\deg D = \sum n_p \deg(p/k)$, is a homomorphism. The principal divisors $\mathrm{div}(f) = \sum_p \mathrm{ord}_p(f) \cdot [p]$ for $f \in k(C)^\times$ form a subgroup of degree $0$, and the <strong>Picard group</strong> $\mathrm{Pic}(C) = \mathrm{Div}(C)/\mathrm{Princ}(C)$ classifies isomorphism classes of line bundles on $C$ — equivalently, divisors up to <em>linear equivalence</em>.</p>
+
+<p>The degree map descends to $\deg\colon \mathrm{Pic}(C) \to \mathbb{Z}$, splitting the Picard group into degree slices: $\mathrm{Pic}(C) = \bigsqcup_d \mathrm{Pic}^d(C)$. Each slice is a torsor over the kernel $\mathrm{Pic}^0(C)$, the <strong>Jacobian</strong>. Over $\mathbb{C}$ a stunning fact: $\mathrm{Pic}^0(C) \cong \mathbb{C}^g / \Lambda_C$, a $g$-dimensional complex torus, where $\Lambda_C \subset \mathbb{C}^g$ is the period lattice of integrals of holomorphic $1$-forms over a basis of $H_1(C, \mathbb{Z}) \cong \mathbb{Z}^{2g}$. For $g = 1$ this lattice is exactly the lattice of <a href="./elliptic-curves.html#complex">$\mathbb{C}/\Lambda$</a> from the elliptic-curves topic; the elliptic curve <em>is</em> its own Jacobian, the only genus where this happens.</p>
+
+<p>For $g \ge 2$ the Jacobian acquires extra structure: a principal polarization (the $\theta$-divisor), an Abel–Jacobi map $\mathrm{AJ}\colon C \to \mathrm{Jac}(C)$, $p \mapsto \int_{p_0}^p \omega$, and via the symmetric powers $\mathrm{Sym}^d C \to \mathrm{Pic}^d(C)$ a description of effective divisors as fibres of a proper map. The widget below is a 2D slice of the period lattice — a faithful picture only for $g = 1$, but a useful ladder for visualising what "complex torus of dimension $g$" means.</p>
+
+<div class="widget" id="w-jacobian-lattice"></div>
+<script>
+(function(){
+  if(!window.MVLatticeVisualizer) return;
+  MVLatticeVisualizer.init('#w-jacobian-lattice', {
+    title: "Period lattice slice — Pic⁰(C) = Cᵍ / Λ",
+    hint: "drag v₁, v₂ — picture a 2D coordinate plane inside Jac(C)",
+    basis: {"v1":{"x":1,"y":0},"v2":{"x":0.45,"y":1.05}},
+    viewWindow: {"xRange":[-3,3],"yRange":[-3,3]},
+  });
+})();
+</script>
+
+<p>What you see is one $\mathbb{C}/\langle v_1, v_2\rangle$ factor; for genus $g$ the Jacobian is $g$ such complex-dimensional factors glued together with non-trivial periods $\Omega \in M_{g \times 2g}(\mathbb{C})$. Slide $v_1, v_2$ and read the covolume — the area of one fundamental parallelogram in this 2D slice. The full Jacobian's $g$-dimensional volume is $|\det(\mathrm{Im}\, \tau)|$ for a Riemann period matrix $\tau$ in the Siegel upper half-space.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaves.html">Line bundles &amp; the Picard group</a></li>
+    <li><a href="./elliptic-curves.html#complex">$\mathrm{Pic}^0(E) = E$ (genus 1)</a></li>
+    <li><a href="./moduli-spaces.html">$\mathrm{Jac}(C)$ as a moduli space</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-curves-higher-genus.html#riemann-roch">Algebraic curves: higher genus</a> · Riemann–Roch on curves</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="divisors-on-curves"></div>
+</section>
+
+<section id="riemann-roch">
+<h2>3. Riemann–Roch on curves</h2>
+
+<p>For a divisor $D$ on a smooth projective curve $C$ of genus $g$, the <strong>Riemann–Roch theorem</strong> equates two dimension counts:
+$$h^0(D) - h^0(K - D) = \deg D - g + 1,$$
+where $K = K_C$ is the canonical divisor (any divisor of a regular $1$-form $\omega \in H^0(C, \Omega^1_C)$). The first term $h^0(D) = \dim_k H^0(C, \mathcal{O}_C(D))$ counts global sections of $\mathcal{O}_C(D)$ — equivalently, rational functions $f$ with $\mathrm{div}(f) + D \ge 0$. The second term, $h^0(K - D) = h^1(D)$ by Serre duality, is the obstruction term.</p>
+
+<p>The reason genus controls everything: Riemann–Roch is exactly the statement $\chi(\mathcal{O}_C(D)) = \deg D + 1 - g$, that is, the Euler characteristic of any line bundle is degree-shifted-by-genus. Three immediate consequences are worth keeping at the front of the mind:</p>
+<ul>
+  <li><strong>Vanishing.</strong> If $\deg D > 2g - 2$, then $\deg(K - D) < 0$ so $h^0(K - D) = 0$ and Riemann–Roch becomes the equality $h^0(D) = \deg D - g + 1$.</li>
+  <li><strong>Canonical bundle.</strong> Setting $D = K$ gives $h^0(K) - h^0(0) = (2g - 2) - g + 1$, i.e. $h^0(K) = g$ — recovering the definition of genus.</li>
+  <li><strong>Inequality.</strong> Always $h^0(D) \ge \deg D - g + 1$, useful for proving sections exist when degrees are large.</li>
+</ul>
+
+<div class="widget" id="w-rr-scrub"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-rr-scrub', {
+    title: "Riemann–Roch worked out: $D = 3[p]$ on a genus-2 curve",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 460 200",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Setup",
+        body: "Take $C$ a smooth projective curve of genus $g = 2$ over $k = \\bar k$, and a single closed point $p \\in C$. We compute $h^0(C, \\mathcal{O}_C(3[p]))$ and $h^0(C, \\mathcal{O}_C(K - 3[p]))$ via Riemann–Roch.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>C : smooth proj. curve, g = 2</text><text x='30' y='110' font-size='14' fill='var(--ink)'>D = 3[p],  deg D = 3</text><text x='30' y='140' font-size='13' fill='var(--mute)'>K = canonical, deg K = 2g − 2 = 2</text>"
+      },
+      {
+        title: "Plug into Riemann–Roch",
+        body: "$h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 2 + 1 = 2$. So we know the difference; we still need to pin down $h^0(K - D)$ separately.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--yellow)'>h⁰(D) − h⁰(K − D) = 3 − 2 + 1 = 2</text><text x='30' y='130' font-size='13' fill='var(--mute)'>need h⁰(K − D) to finish.</text>"
+      },
+      {
+        title: "Use the degree of K − D",
+        body: "$\\deg(K - D) = \\deg K - \\deg D = 2 - 3 = -1 < 0$. A line bundle of negative degree on a curve has no nonzero global sections — any $f \\ne 0$ with $\\mathrm{div}(f) + (K - D) \\ge 0$ would give a positive-degree principal divisor, contradicting $\\deg \\mathrm{div}(f) = 0$.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>deg(K − D) = 2 − 3 = −1</text><text x='30' y='120' font-size='14' fill='var(--green)'>⇒ h⁰(K − D) = 0  (negative-degree vanishing)</text>"
+      },
+      {
+        title: "Solve for h⁰(D)",
+        body: "Substituting $h^0(K - D) = 0$ into the Riemann–Roch equation gives $h^0(D) = 2$. So $|3[p]|$ is a $g^1_3$: a $1$-dimensional linear system of degree-$3$ effective divisors. The associated map $C \\to \\mathbb{P}^1$ has degree $3$.",
+        svgInner: "<text x='30' y='80' font-size='15' fill='var(--yellow)'>h⁰(D) = 2</text><text x='30' y='120' font-size='13' fill='var(--mute)'>linear system |3[p]| has dim 2 − 1 = 1</text><text x='30' y='150' font-size='13' fill='var(--mute)'>= a g¹₃ on C.</text>"
+      },
+      {
+        title: "Sanity check via the degree threshold",
+        body: "We had $\\deg D = 3 > 2g - 2 = 2$, so we are in the vanishing range and Riemann–Roch reduces to the formula $h^0(D) = \\deg D - g + 1 = 3 - 2 + 1 = 2$ — same answer, no separate $h^0(K - D)$ needed once you know you're past the bound.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>deg D = 3 &gt; 2g − 2 = 2</text><text x='30' y='120' font-size='14' fill='var(--green)'>⇒ h⁰(D) = deg D − g + 1 = 2  ✓</text>"
+      }
+    ]
+  });
+})();
+</script>
+
+<p><strong>Worked example:</strong> for $D = nq$ with $q \in C$ a fixed point on a genus-$g$ curve, the dimensions $h^0(nq)$ as $n$ grows are determined by the <em>Weierstrass gap sequence</em>: there are exactly $g$ "gap" values $1 \le n_1 < \cdots < n_g \le 2g - 1$ where $h^0(nq) = h^0((n-1)q)$, and at all other $n$ the dimension goes up by $1$. For a generic point $q$ the gaps are $\{1, 2, \ldots, g\}$; for a Weierstrass point they jump (e.g. on a hyperelliptic curve the gaps at a Weierstrass point are $\{1, 3, 5, \ldots, 2g-1\}$). The worked $g = 2$, $D = 3[p]$ case in the scrubber above puts us at $n = 3 = 2g - 1$, the last possible gap value.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaf-cohomology.html">$\chi$ via $h^0 - h^1$</a></li>
+    <li><a href="./riemann-surfaces.html#rh">Riemann–Roch over $\mathbb{C}$ analytically</a></li>
+    <li><a href="./elliptic-curves.html#group">Riemann–Roch on $g = 1$ (Riemann's original toy)</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-curves-higher-genus.html#hyperelliptic">Algebraic curves: higher genus</a> · Hyperelliptic curves</div>
+    <div><a href="./algebraic-curves-higher-genus.html#canonical-embedding">Algebraic curves: higher genus</a> · The canonical embedding</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="riemann-roch-curves"></div>
+</section>
+
+<section id="canonical-embedding">
+<h2>4. The canonical embedding</h2>
+
+<p>On a curve $C$ of genus $g \ge 2$ the canonical linear system $|K|$ is base-point-free (Riemann–Roch + a short argument), and it has dimension $g - 1$ since $h^0(K) = g$. Choose a basis $\omega_1, \ldots, \omega_g$ of $H^0(C, \Omega^1_C)$. The <strong>canonical map</strong>
+$$\varphi_K\colon C \longrightarrow \mathbb{P}^{g-1}, \qquad p \longmapsto [\omega_1(p) : \cdots : \omega_g(p)]$$
+is a morphism whose image is intrinsic to $C$ up to projective isomorphism — different basis choices differ by elements of $\mathrm{PGL}_g$.</p>
+
+<p><strong>Max Noether's theorem</strong> (or "Enriques–Babbage") says: $\varphi_K$ is an embedding if and only if $C$ is non-hyperelliptic, in which case the image is a smooth projective curve of degree $\deg K = 2g - 2$ in $\mathbb{P}^{g-1}$. When $C$ is hyperelliptic, $\varphi_K$ is the composition $C \xrightarrow{2:1} \mathbb{P}^1 \hookrightarrow \mathbb{P}^{g-1}$ where the second map is the rational normal curve of degree $g - 1$; the canonical map factors through the hyperelliptic involution and is no longer injective.</p>
+
+<p>The canonical model is the most natural way to put an abstract curve into projective space: it is functorial in the sense that any automorphism of $C$ extends to a projective automorphism of the canonical image. For low genus the canonical image is concrete:</p>
+<ul>
+  <li><strong>$g = 2$:</strong> $\varphi_K\colon C \to \mathbb{P}^1$ is the unique $g^1_2$ — every genus-$2$ curve is hyperelliptic, no non-hyperelliptic case exists.</li>
+  <li><strong>$g = 3$:</strong> non-hyperelliptic ⇒ $\varphi_K(C)$ is a smooth quartic in $\mathbb{P}^2$ ($\deg = 4$, $\dim = 1$); hyperelliptic ⇒ image is a smooth conic $= \mathbb{P}^1$ in $\mathbb{P}^2$, mapped $2:1$.</li>
+  <li><strong>$g = 4$:</strong> non-hyperelliptic ⇒ $\varphi_K(C) \subset \mathbb{P}^3$ is the intersection of a unique quadric and a cubic (Petri's theorem in low genus).</li>
+  <li><strong>$g \ge 4$ generic:</strong> the canonical image is the intersection of all the quadrics through it (Noether–Enriques–Petri).</li>
+</ul>
+
+<div class="widget" id="w-canon-scrub"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-canon-scrub', {
+    title: "The canonical embedding for genus 3, walked",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 460 220",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Take a non-hyperelliptic curve of genus 3",
+        body: "Let $C$ be smooth projective of genus $3$. The space $H^0(C, \\Omega^1_C)$ has dimension $g = 3$; pick a basis $\\omega_1, \\omega_2, \\omega_3$.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>g = 3,  h⁰(K) = 3</text><text x='30' y='115' font-size='13' fill='var(--ink)'>basis ω₁, ω₂, ω₃ ∈ H⁰(C, Ω¹)</text>"
+      },
+      {
+        title: "Define the canonical map to P²",
+        body: "Set $\\varphi_K(p) = [\\omega_1(p) : \\omega_2(p) : \\omega_3(p)]$. Since $|K|$ is base-point-free for $g \\ge 2$, this is a morphism $\\varphi_K\\colon C \\to \\mathbb{P}^{g-1} = \\mathbb{P}^2$.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>φ_K : C → P²</text><text x='30' y='115' font-size='13' fill='var(--mute)'>p ↦ [ω₁(p) : ω₂(p) : ω₃(p)]</text>"
+      },
+      {
+        title: "Compute the degree of the image",
+        body: "If $\\varphi_K$ is an embedding, then $\\deg \\varphi_K(C) = \\deg K_C = 2g - 2 = 4$. So the image is a curve of degree $4$ in $\\mathbb{P}^2$ — a plane quartic.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>deg φ_K(C) = deg K = 2g − 2 = 4</text><text x='30' y='120' font-size='13' fill='var(--yellow)'>image is a smooth plane quartic in P²</text>"
+      },
+      {
+        title: "When IS it an embedding?",
+        body: "Max Noether's criterion: $\\varphi_K$ is an embedding ⇔ $|K - p - q|$ has dimension $g - 3$ for every two points $p, q$ (separates points + tangent vectors). This fails iff $|K - p - q|$ has the wrong dimension, which by Riemann–Roch happens iff $|p + q|$ is a $g^1_2$ — iff $C$ is hyperelliptic.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>φ_K embedding ⇔ C non-hyperelliptic</text><text x='30' y='120' font-size='13' fill='var(--mute)'>(failure ⇔ ∃ a g¹₂ ⇔ degree-2 map to P¹)</text>"
+      },
+      {
+        title: "Result for genus 3",
+        body: "Every smooth projective genus-$3$ curve is either: (a) <em>non-hyperelliptic</em> ⇒ $\\varphi_K$ embeds $C$ as a smooth quartic in $\\mathbb{P}^2$; or (b) <em>hyperelliptic</em> ⇒ $\\varphi_K$ factors as $C \\xrightarrow{2:1} \\mathbb{P}^1 \\hookrightarrow \\mathbb{P}^2$ (image is a smooth conic). Generic curves of genus $3$ are non-hyperelliptic — the hyperelliptic locus has codimension $g - 2 = 1$ in $\\mathcal{M}_3$.",
+        svgInner: "<text x='30' y='60' font-size='13' fill='var(--green)'>non-hyperelliptic ⇒ smooth quartic ⊂ P²</text><text x='30' y='95' font-size='13' fill='var(--pink)'>hyperelliptic ⇒ image is a conic, 2:1 cover</text><text x='30' y='150' font-size='13' fill='var(--mute)'>codim of hyperelliptic locus in M₃: g − 2 = 1</text>"
+      }
+    ]
+  });
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./projective-plane.html">Plane curves and degree</a></li>
+    <li><a href="./bezout.html">Quartics in $\mathbb{P}^2$ and intersection numbers</a></li>
+    <li><a href="./moduli-spaces.html">$\mathcal{M}_g$ stratified by Brill–Noether loci</a></li>
+  </ul>
+</aside>
+<div class="quiz" data-concept="canonical-embedding"></div>
+</section>
+
+<section id="hyperelliptic">
+<h2>5. Hyperelliptic curves</h2>
+
+<p>A smooth projective curve $C$ of genus $g \ge 2$ is <strong>hyperelliptic</strong> if it admits a degree-$2$ map $\pi\colon C \to \mathbb{P}^1$. Equivalently — by Riemann–Hurwitz with $d = 2$ and $b = 2g + 2$ branch points, each with simple ramification — every hyperelliptic curve is birational to an affine model
+$$y^2 = f(x), \qquad f(x) \in k[x] \text{ separable of degree } 2g+1 \text{ or } 2g+2.$$
+The map $\pi$ is the projection $(x, y) \mapsto x$, the involution $\sigma\colon (x, y) \mapsto (x, -y)$ (the "hyperelliptic involution") generates $\mathrm{Gal}(C/\mathbb{P}^1) = \mathbb{Z}/2$, and the $2g+2$ branch points are the roots of $f$ together with $\infty$ (if $\deg f$ is odd).</p>
+
+<p>Three different characterisations agree, and switching between them is the recurring move:</p>
+<ul>
+  <li><strong>Geometric:</strong> $\exists$ a degree-$2$ map $C \to \mathbb{P}^1$ — equivalently, $C$ carries a $g^1_2$ (a $1$-dimensional linear system of degree $2$).</li>
+  <li><strong>Canonical:</strong> the canonical map $\varphi_K\colon C \to \mathbb{P}^{g-1}$ is not an embedding — it factors through $\mathbb{P}^1$.</li>
+  <li><strong>Riemann–Roch:</strong> there exist two distinct points $p, q$ with $h^0(p + q) = 2$, i.e. $|p + q|$ separates points up to the hyperelliptic involution.</li>
+</ul>
+
+<p>Every genus-$2$ curve is hyperelliptic — its canonical map is exactly the unique $g^1_2$. From genus $3$ onward "generic" curves are non-hyperelliptic; hyperellipticity is a closed codimension-$(g-2)$ condition in $\mathcal{M}_g$. So in $\mathcal{M}_3$ hyperelliptic curves form a divisor (codim $1$); in $\mathcal{M}_4$ they form a codim-$2$ surface; in higher genus they are increasingly special.</p>
+
+<div class="widget" id="w-hyper-cover">
+  <div class="hd"><div class="ttl">The hyperelliptic 2:1 cover and its branch locus</div><div class="hint">click a branch point — see the involution swap</div></div>
+  <svg id="svg-hyper-cover" viewBox="0 0 540 280" width="540" height="280"><title>Hyperelliptic degree-2 cover with branch locus</title></svg>
+  <div class="row">
+    <label for="hyper-g">genus $g$</label>
+    <input type="range" id="hyper-g" min="2" max="6" step="1" value="3">
+    <span class="small" id="hyper-g-val">g = 3 → 2g+2 = 8 branch points</span>
+  </div>
+  <div class="readout" id="out-hyper-cover"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#svg-hyper-cover');
+  const out = $('#out-hyper-cover');
+  const gEl = $('#hyper-g'), gValEl = $('#hyper-g-val');
+  let selected = -1;
+
+  function draw(){
+    svg.innerHTML = '';
+    const g = +gEl.value;
+    const b = 2*g + 2;
+    gValEl.textContent = `g = ${g} → 2g+2 = ${b} branch points`;
+
+    const baseY = 220, topY = 60;
+    // base P^1
+    svg.appendChild(SVG('line',{x1:50,y1:baseY,x2:500,y2:baseY,stroke:'var(--blue)','stroke-width':2}));
+    const tBase = SVG('text',{x:512,y:baseY+4,'font-size':12,fill:'var(--blue)'}); tBase.textContent='ℙ¹'; svg.appendChild(tBase);
+    // upper hyperelliptic curve sketch — two sheets joining at branch points
+    // top sheet (y = +sqrt) and bottom sheet (y = −sqrt) drawn as wavy paths above base
+    let topPath = `M50 ${topY+30}`;
+    let botPath = `M50 ${topY+30}`;
+    const xs = [];
+    for(let i=0;i<b;i++){
+      const x = 70 + (i+1)*(420/(b+1));
+      xs.push(x);
+    }
+    // produce two sheets that meet at each x in xs (cycle around)
+    let lastX = 50;
+    let above = 1;  // upper or lower starts
+    xs.forEach((x,i)=>{
+      const midX = (lastX + x)/2;
+      // top arc: from (lastX, topY+30) up to (x, topY+30), curving upward
+      topPath += ` Q ${midX} ${topY+30 - 35} ${x} ${topY+30}`;
+      botPath += ` Q ${midX} ${topY+30 + 35} ${x} ${topY+30}`;
+      lastX = x;
+    });
+    topPath += ` Q ${(lastX+500)/2} ${topY+30 - 35} 500 ${topY+30}`;
+    botPath += ` Q ${(lastX+500)/2} ${topY+30 + 35} 500 ${topY+30}`;
+    svg.appendChild(SVG('path',{d:topPath,fill:'none',stroke:'var(--yellow)','stroke-width':1.6}));
+    svg.appendChild(SVG('path',{d:botPath,fill:'none',stroke:'var(--yellow)','stroke-width':1.6}));
+    const tCov = SVG('text',{x:512,y:topY+34,'font-size':12,fill:'var(--yellow)'}); tCov.textContent='C'; svg.appendChild(tCov);
+
+    // branch points on base
+    xs.forEach((x,i)=>{
+      const c = SVG('circle',{cx:x,cy:baseY,r:5,fill:'var(--pink)','stroke':'var(--ink)','stroke-width':1});
+      c.style.cursor='pointer';
+      c.dataset.idx = i;
+      svg.appendChild(c);
+      // and a single point on C above (sheets meet)
+      const cTop = SVG('circle',{cx:x,cy:topY+30,r:5,fill:i===selected?'var(--violet)':'var(--pink)','stroke':'var(--ink)','stroke-width':1});
+      cTop.style.cursor='pointer';
+      cTop.dataset.idx = i;
+      svg.appendChild(cTop);
+      // dashed projection
+      svg.appendChild(SVG('line',{x1:x,y1:topY+38,x2:x,y2:baseY-7,stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    });
+
+    // hyperelliptic involution arrows over a non-branch fibre (right-most, at x ≈ 480)
+    const probeX = 480;
+    const yHi = topY+30 - 25, yLo = topY+30 + 25;
+    svg.appendChild(SVG('circle',{cx:probeX,cy:yHi,r:4,fill:'var(--cyan)'}));
+    svg.appendChild(SVG('circle',{cx:probeX,cy:yLo,r:4,fill:'var(--cyan)'}));
+    drawArrow(svg,[probeX-2,yHi+3],[probeX-2,yLo-3],{color:'var(--cyan)',markerId:'hyper-arr',pad1:6,pad2:6,curve:14,label:'σ',labelSide:0});
+    drawArrow(svg,[probeX+2,yLo-3],[probeX+2,yHi+3],{color:'var(--cyan)',markerId:'hyper-arr',pad1:6,pad2:6,curve:-14});
+
+    // legend
+    svg.appendChild(SVG('text',{x:14,y:topY+34,'font-size':11,fill:'var(--mute)'})).textContent = 'C';
+    svg.appendChild(SVG('text',{x:14,y:baseY+5,'font-size':11,fill:'var(--mute)'})).textContent = 'ℙ¹';
+    svg.appendChild(SVG('text',{x:14,y:(topY+baseY+30)/2,'font-size':11,fill:'var(--mute)','font-style':'italic'})).textContent = 'π (deg 2)';
+    svg.appendChild(SVG('text',{x:probeX-100,y:yHi-12,'font-size':11,fill:'var(--cyan)'})).textContent = 'generic fibre: 2 points swapped by σ';
+
+    // readout
+    let lines = [];
+    lines.push(`genus g = ${g}`);
+    lines.push(`Riemann–Hurwitz: 2g − 2 = 2·(−2) + (2g + 2)·1 = 2g − 2  ✓`);
+    lines.push(`branch points: 2g + 2 = ${b}`);
+    if(selected >= 0){
+      lines.push('');
+      lines.push(`branch point #${selected+1} clicked`);
+      lines.push(`above: 1 ramification point; σ fixes it`);
+      lines.push(`Weierstrass point of C (gap sequence ${guessWeierstrass(g)})`);
+    } else {
+      lines.push('');
+      lines.push('click a branch point to inspect the involution');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  function guessWeierstrass(g){
+    const gaps = [];
+    for(let i=1;i<=g;i++) gaps.push(2*i - 1);
+    return '{' + gaps.join(', ') + '}';
+  }
+
+  gEl.addEventListener('input', ()=>{ selected=-1; draw(); });
+  svg.addEventListener('click', e=>{
+    const t = e.target;
+    if(t && t.tagName==='circle' && t.dataset.idx!==undefined){
+      selected = +t.dataset.idx;
+      draw();
+    }
+  });
+  draw();
+})();
+</script>
+
+<p>Each branch point of the cover is a <strong>Weierstrass point</strong> of $C$: a point where the gap sequence of $|np|$ deviates from the generic $\{1, 2, \ldots, g\}$. On a hyperelliptic curve the gap sequence at any branch point is $\{1, 3, 5, \ldots, 2g-1\}$, the maximum-jump pattern allowed. Generic curves have only finitely many Weierstrass points (with multiplicity, the count is $g^3 - g$); hyperelliptic curves concentrate them at the $2g+2$ ramification points.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./riemann-surfaces.html#branched">Branched covers and ramification</a></li>
+    <li><a href="./elliptic-curves.html#group">$g = 1$ as the "hyperelliptic" boundary case ($y^2 = $ cubic, $b = 4$)</a></li>
+  </ul>
+</aside>
+<div class="quiz" data-concept="hyperelliptic-curves"></div>
+</section>
+
+<section id="moduli-of-curves-genus-g">
+<h2>6. Moduli of higher-genus curves $\mathcal{M}_g$</h2>
+
+<p>$\mathcal{M}_g$ is the <strong>moduli space</strong> (or rather, the moduli stack — Deligne–Mumford for $g \ge 2$) parametrising smooth projective curves of genus $g$ up to isomorphism. For $g \ge 2$ it has dimension $3g - 3$ as an algebraic stack over any base; over $\mathbb{C}$ it is a complex orbifold of complex dimension $3g - 3$ and $\mathrm{Teich}_g \to \mathcal{M}_g$ is its universal cover by Teichmüller space.</p>
+
+<p>The dimension count is the deformation-theoretic statement $\dim T_C \mathcal{M}_g = h^1(C, T_C) = 3g - 3$ for $g \ge 2$. Three little tables of low-genus dimensions and structure:</p>
+<table class="plain">
+  <thead><tr><th>genus $g$</th><th>$\dim \mathcal{M}_g$</th><th>hyperelliptic locus codim</th><th>shape</th></tr></thead>
+  <tbody>
+    <tr><td>$0$</td><td>$0$</td><td>n/a</td><td>$\mathcal{M}_0 = \mathrm{pt}$</td></tr>
+    <tr><td>$1$</td><td>$1$</td><td>n/a</td><td>$\mathcal{M}_{1,1} \cong \mathbb{A}^1_j$</td></tr>
+    <tr><td>$2$</td><td>$3$</td><td>$0$ — all curves are hyperelliptic</td><td>$\mathcal{M}_2 = \mathcal{H}_2$, $3$-dim'l</td></tr>
+    <tr><td>$3$</td><td>$6$</td><td>$1$ — divisor $\mathcal{H}_3 \subset \mathcal{M}_3$</td><td>generic = plane quartic</td></tr>
+    <tr><td>$g \ge 2$</td><td>$3g - 3$</td><td>$g - 2$</td><td>open in $\overline{\mathcal{M}}_g$</td></tr>
+  </tbody>
+</table>
+
+<p>The Deligne–Mumford <strong>compactification</strong> $\overline{\mathcal{M}}_g$ adjoins <em>stable nodal curves</em> at the boundary: connected genus-$g$ curves with at worst nodal singularities and finite automorphism group. The boundary $\partial\overline{\mathcal{M}}_g = \overline{\mathcal{M}}_g \setminus \mathcal{M}_g$ decomposes as a union of <strong>boundary divisors</strong> $\Delta_0, \Delta_1, \ldots, \Delta_{\lfloor g/2\rfloor}$:</p>
+<ul>
+  <li>$\Delta_0$: irreducible curves with one self-node (pinching a non-separating cycle in $C$ — geometric genus drops by $1$).</li>
+  <li>$\Delta_i$ for $1 \le i \le \lfloor g/2 \rfloor$: nodal unions $C_1 \cup_p C_2$ with $g(C_1) = i$, $g(C_2) = g - i$ (pinching a separating cycle).</li>
+</ul>
+
+<div class="widget" id="w-mg-boundary">
+  <div class="hd"><div class="ttl">$\overline{\mathcal{M}}_g$ and its boundary divisors</div><div class="hint">click a node — see what nodal curve it parametrises</div></div>
+  <svg id="svg-mg-boundary" viewBox="0 0 540 320" width="540" height="320"><title>Mg-bar boundary divisor graph</title></svg>
+  <div class="row">
+    <label for="mg-g">genus $g$</label>
+    <input type="range" id="mg-g" min="2" max="6" step="1" value="4">
+    <span class="small" id="mg-g-val">g = 4 → ⌊g/2⌋ + 1 = 3 boundary divisors</span>
+  </div>
+  <div class="readout" id="out-mg-boundary"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#svg-mg-boundary');
+  const out = $('#out-mg-boundary');
+  const gEl = $('#mg-g'), gValEl = $('#mg-g-val');
+  let selected = null;
+
+  function draw(){
+    svg.innerHTML = '';
+    const g = +gEl.value;
+    const half = Math.floor(g/2);
+    gValEl.textContent = `g = ${g} → ⌊g/2⌋ + 1 = ${half+1} boundary divisors`;
+
+    // central node: smooth Mg
+    const cx = 270, cy = 150;
+    drawNode(svg, cx, cy, 'M_g', {r:30, stroke:'var(--violet)', fill:'var(--panel2)', textColor:'var(--violet)', fontSize:13});
+    const sub = SVG('text',{x:cx,y:cy+20,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    sub.textContent = `dim ${3*g-3}`;
+    svg.appendChild(sub);
+
+    // boundary nodes around: Δ_0, Δ_1, ..., Δ_{half}
+    const nodes = [];
+    nodes.push({key:'D0', label:'Δ₀', cx:120, cy:60, color:'var(--pink)', sub:'irreducible nodal'});
+    for(let i=1;i<=half;i++){
+      // place around center
+      const angle = -Math.PI/2 + (i / (half+0.4)) * Math.PI;
+      const r = 140;
+      const x = cx + r*Math.cos(angle);
+      const y = cy + r*Math.sin(angle);
+      nodes.push({key:`D${i}`, label:`Δ_${i}`, cx:x, cy:y, color:i===selected?'var(--cyan)':'var(--blue)', sub:`(${i}, ${g-i})`});
+    }
+    if(selected==='D0') nodes[0].color = 'var(--cyan)';
+
+    // edges: smooth → each boundary divisor (closure relation)
+    nodes.forEach(n=>{
+      drawArrow(svg, [cx,cy], [n.cx,n.cy], {color:'var(--mute)', markerId:'mg-arr', dash:'3 3', curve:6});
+    });
+
+    // draw nodes and tag with click handlers
+    nodes.forEach(n=>{
+      const grp = SVG('g',{});
+      const c = SVG('circle',{cx:n.cx,cy:n.cy,r:24,fill:'var(--panel2)','stroke':n.color,'stroke-width':2});
+      c.style.cursor='pointer';
+      c.dataset.key = n.key;
+      grp.appendChild(c);
+      const lab = SVG('text',{x:n.cx,y:n.cy+4,'text-anchor':'middle','font-size':13,fill:n.color,'font-weight':600});
+      lab.textContent = n.label;
+      lab.style.pointerEvents='none';
+      grp.appendChild(lab);
+      const t2 = SVG('text',{x:n.cx,y:n.cy+38,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t2.textContent = n.sub;
+      t2.style.pointerEvents='none';
+      grp.appendChild(t2);
+      svg.appendChild(grp);
+    });
+
+    // small inset diagrams for the selected boundary class
+    let lines = [];
+    lines.push(`smooth Mg dim = 3g − 3 = ${3*g-3}`);
+    lines.push(`Mg-bar = Mg ∪ ⋃_{i=0..⌊g/2⌋} Δ_i`);
+    if(selected==='D0'){
+      lines.push('');
+      lines.push('Δ₀: pinch a non-separating loop on C');
+      lines.push(`→ irreducible curve of geometric genus ${g-1} with one node`);
+      lines.push('arithmetic genus stays at g (conductor formula).');
+      // sketch in lower-left
+      const ix = 380, iy = 250;
+      svg.appendChild(SVG('path',{d:`M ${ix} ${iy} q 30 -30 60 0 q 30 30 0 0 q -30 30 -60 0 q -30 -30 0 0 z`,fill:'none',stroke:'var(--pink)','stroke-width':1.6}));
+      svg.appendChild(SVG('circle',{cx:ix+30,cy:iy,r:3,fill:'var(--pink)'}));
+      svg.appendChild(SVG('text',{x:ix+30,y:iy+24,'text-anchor':'middle','font-size':10,fill:'var(--pink)'})).textContent='1 self-node';
+    } else if(selected && selected.startsWith('D')){
+      const i = +selected.slice(1);
+      lines.push('');
+      lines.push(`Δ_${i}: pinch a separating curve splitting C into`);
+      lines.push(`(C₁, C₂) of genera (${i}, ${g-i})`);
+      lines.push(`dim Δ_${i} = (3i−3) + (3(g−i)−3) + 1 (the node) = 3g − 5 (codim 1 in Mg-bar)`);
+      const ix = 360, iy = 245;
+      svg.appendChild(SVG('circle',{cx:ix,cy:iy,r:18,fill:'none',stroke:'var(--blue)','stroke-width':1.6}));
+      svg.appendChild(SVG('text',{x:ix,y:iy+4,'text-anchor':'middle','font-size':10,fill:'var(--blue)'})).textContent=`g=${i}`;
+      svg.appendChild(SVG('circle',{cx:ix+50,cy:iy,r:18,fill:'none',stroke:'var(--blue)','stroke-width':1.6}));
+      svg.appendChild(SVG('text',{x:ix+50,y:iy+4,'text-anchor':'middle','font-size':10,fill:'var(--blue)'})).textContent=`g=${g-i}`;
+      svg.appendChild(SVG('circle',{cx:ix+25,cy:iy,r:3,fill:'var(--pink)'}));
+      svg.appendChild(SVG('text',{x:ix+25,y:iy+24,'text-anchor':'middle','font-size':10,fill:'var(--pink)'})).textContent='1 node';
+    } else {
+      lines.push('');
+      lines.push('click a Δ_i to see the corresponding nodal curve');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  gEl.addEventListener('input', ()=>{ selected=null; draw(); });
+  svg.addEventListener('click', e=>{
+    const t = e.target;
+    if(t && t.tagName==='circle' && t.dataset.key){
+      selected = t.dataset.key;
+      draw();
+    }
+  });
+  draw();
+})();
+</script>
+
+<p>Each boundary divisor has codimension $1$ in $\overline{\mathcal{M}}_g$, so $\dim \Delta_i = 3g - 4$. The combinatorics of how boundary strata intersect — pinching $k$ disjoint cycles produces a stratum of codimension $k$, parametrised by a stable graph — make $\overline{\mathcal{M}}_g$ a textbook example of a stratified Deligne–Mumford stack. The boundary classes $\delta_0, \delta_1, \ldots, \delta_{\lfloor g/2 \rfloor} \in \mathrm{Pic}(\overline{\mathcal{M}}_g)$ together with the Hodge class $\lambda$ generate a finite-rank piece of the Picard group; the relations between them (Mumford, Cornalba–Harris) are the engine of intersection theory on the moduli of curves.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./moduli-spaces.html">Moduli spaces in general</a></li>
+    <li><a href="./stacks.html">Deligne–Mumford stacks</a></li>
+    <li><a href="./deformation-theory.html">$h^1(C, T_C) = 3g - 3$ deformation count</a></li>
+  </ul>
+</aside>
+<div class="quiz" data-concept="moduli-of-curves-genus-g"></div>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('algebraic-curves-higher-genus'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-25</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

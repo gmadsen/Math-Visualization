@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/lattice-visualizer/schema.json",
+  "title": "lattice-visualizer widget params",
+  "description": "Visualizes a 2D lattice Λ = ℤv₁ + ℤv₂ in the plane. The widget emits an empty host div; at runtime the page-global library `MVLatticeVisualizer.init('#widgetId', config)` (js/widget-lattice-visualizer.js) builds chrome, four sliders (v₁.x, v₁.y, v₂.x, v₂.y), an SVG showing lattice points filling the visible window, the fundamental parallelogram (corners 0, v₁, v₁+v₂, v₂), and a readout with the covolume |det[v₁ v₂]|. An optional `sublattice.matrix` (a 2×2 integer matrix M) overlays the sublattice Λ' = M·Λ as larger highlighted dots and reports the index [Λ:Λ'] = |det M|. A portable frontend can ignore renderScript and consume `basis`, `viewWindow`, and `sublattice` directly.",
+  "meta": {
+    "family": "lattice-visualizer",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer host `<div class=\"widget\">` that the library mounts into."
+    },
+    "title": {
+      "type": "string",
+      "description": "Widget title. Rendered in the chrome header (`.hd > .ttl`)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Short hint text rendered in `.hd > .hint`. Defaults to the library's standard hint when omitted."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+$",
+      "description": "SVG viewBox for the diagram. Defaults to '0 0 360 320'."
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Initial basis vectors v₁, v₂ ∈ ℝ². Defaults to v₁=(1,0), v₂=(0,1) (square lattice). The four components become slider inputs.",
+      "properties": {
+        "v1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          }
+        },
+        "v2": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          }
+        }
+      }
+    },
+    "sublattice": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional sublattice Λ' = M·Λ rendered as larger pink dots. The 2×2 matrix M = [[m11,m12],[m21,m22]] expresses each sublattice basis vector as an integer combination of (v₁, v₂): w₁ = m11·v₁ + m21·v₂, w₂ = m12·v₁ + m22·v₂. The library reports [Λ:Λ'] = |det M|.",
+      "required": ["matrix"],
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "number" }
+          }
+        }
+      }
+    },
+    "viewWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Visible window in lattice coordinates (NOT pixels). Lattice points are drawn for integer (i, j) producing i·v₁ + j·v₂ inside this window. Defaults to xRange=[-3,3], yRange=[-3,3].",
+      "properties": {
+        "xRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        },
+        "yRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+    }
+  }
+}

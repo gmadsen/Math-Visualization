@@ -1,0 +1,9 @@
+{
+  "widgetId": "w-constraint-bifurcation-saddle-pitchfork-example",
+  "title": "Saddle pitchfork: y² ≤ a·x² − x⁴",
+  "hint": "drag a through 0 · one component splits into two",
+  "viewBox": "0 0 360 360",
+  "kind": "saddle-pitchfork",
+  "params": { "a": 0.5 },
+  "domain": { "xRange": [-1.6, 1.6], "yRange": [-1.2, 1.2] }
+}

@@ -1,0 +1,64 @@
+{
+  "topic": "heyting-algebras-toposes",
+  "title": "Heyting algebras and intuitionist logic in toposes",
+  "page": "heyting-algebras-toposes.html",
+  "concepts": [
+    {
+      "id": "heyting-algebra",
+      "title": "Heyting algebras",
+      "anchor": "heyting-algebra",
+      "prereqs": [],
+      "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
+    },
+    {
+      "id": "omega-as-heyting-algebra",
+      "title": "$\\Omega$ as an internal Heyting algebra",
+      "anchor": "omega-heyting",
+      "prereqs": [
+        "subobject-classifier",
+        "heyting-algebra"
+      ],
+      "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
+    },
+    {
+      "id": "internal-language",
+      "title": "The internal Mitchell–Bénabou language",
+      "anchor": "internal-language",
+      "prereqs": [
+        "omega-as-heyting-algebra",
+        "power-objects"
+      ],
+      "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail)."
+    },
+    {
+      "id": "kripke-joyal-semantics",
+      "title": "Kripke–Joyal forcing semantics",
+      "anchor": "kripke-joyal",
+      "prereqs": [
+        "internal-language",
+        "presheaf-topos"
+      ],
+      "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic."
+    },
+    {
+      "id": "lem-failure",
+      "title": "Why LEM fails: double negation in toposes",
+      "anchor": "lem-failure",
+      "prereqs": [
+        "internal-language",
+        "kripke-joyal-semantics"
+      ],
+      "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\"."
+    },
+    {
+      "id": "geometric-morphisms-logic",
+      "title": "Geometric morphisms preserve geometric logic",
+      "anchor": "geometric-morphisms-logic",
+      "prereqs": [
+        "geometric-morphisms-intro",
+        "internal-language"
+      ],
+      "blurb": "Inverse image functors $f^*$ preserve finite limits and arbitrary colimits — exactly the connectives of geometric logic ($\\exists, \\wedge, \\bigvee$). This is why geometric formulas transport across geometric morphisms while implication and $\\forall$ generally do not."
+    }
+  ]
+}

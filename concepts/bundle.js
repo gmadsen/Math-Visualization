@@ -10,6 +10,14 @@ window.__MVConcepts = {
       "representation-theory",
       "commutative-algebra",
       "homological",
+      "elementary-topos-theory",
+      "heyting-algebras-toposes",
+      "grothendieck-topologies-sites",
+      "simplicial-sets-and-nerve",
+      "infinity-categories",
+      "infinity-topoi",
+      "derived-categories",
+      "cocartesian-fibrations",
       "real-analysis",
       "measure-theory",
       "complex-analysis",
@@ -58,6 +66,13 @@ window.__MVConcepts = {
       "moduli-spaces",
       "sheaf-cohomology",
       "stacks",
+      "algebraic-spaces",
+      "intersection-theory-chow",
+      "etale-fundamental-group",
+      "algebraic-curves-higher-genus",
+      "group-schemes",
+      "deformation-theory",
+      "algebraic-de-rham-cohomology",
       "sato-tate",
       "bsd",
       "modularity-and-flt",
@@ -718,6 +733,538 @@ window.__MVConcepts = {
             "derived-functors"
           ],
           "blurb": "Spectral sequences stage difficult computations into successive approximation pages."
+        }
+      ]
+    },
+    "elementary-topos-theory": {
+      "topic": "elementary-topos-theory",
+      "title": "Elementary topos theory",
+      "page": "elementary-topos-theory.html",
+      "concepts": [
+        {
+          "id": "topos-definition",
+          "title": "What is a topos?",
+          "anchor": "definition",
+          "prereqs": [],
+          "blurb": "An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\\Omega$. The three pieces — limits, exponentials, $\\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense."
+        },
+        {
+          "id": "subobject-classifier",
+          "title": "The subobject classifier $\\Omega$",
+          "anchor": "subobject-classifier",
+          "prereqs": [
+            "topos-definition"
+          ],
+          "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function."
+        },
+        {
+          "id": "characteristic-maps",
+          "title": "Characteristic maps as truth values",
+          "anchor": "characteristic-maps",
+          "prereqs": [
+            "subobject-classifier"
+          ],
+          "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively."
+        },
+        {
+          "id": "power-objects",
+          "title": "Power objects $P(A)$",
+          "anchor": "power-objects",
+          "prereqs": [
+            "subobject-classifier"
+          ],
+          "blurb": "The power object $P(A) = \\Omega^A$ represents subobjects of $A$ in the same sense $\\mathcal{P}(A)$ does in $\\mathbf{Set}$: maps $X \\to P(A)$ correspond to subobjects of $X \\times A$. Power objects make every topos a model of the basic comprehension principle."
+        },
+        {
+          "id": "presheaf-topos",
+          "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
+          "anchor": "presheaf-topos",
+          "prereqs": [
+            "topos-definition"
+          ],
+          "blurb": "For any small category $C$, the functor category $\\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\\mathbf{Set}$."
+        },
+        {
+          "id": "g-set-topos",
+          "title": "The topos of $G$-sets",
+          "anchor": "g-set-topos",
+          "prereqs": [
+            "presheaf-topos"
+          ],
+          "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$."
+        },
+        {
+          "id": "geometric-morphisms-intro",
+          "title": "Geometric morphisms",
+          "anchor": "geometric-morphisms",
+          "prereqs": [
+            "topos-definition",
+            "presheaf-topos"
+          ],
+          "blurb": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact. They are the natural notion of \"map between toposes,\" generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction."
+        }
+      ]
+    },
+    "heyting-algebras-toposes": {
+      "topic": "heyting-algebras-toposes",
+      "title": "Heyting algebras and intuitionist logic in toposes",
+      "page": "heyting-algebras-toposes.html",
+      "concepts": [
+        {
+          "id": "heyting-algebra",
+          "title": "Heyting algebras",
+          "anchor": "heyting-algebra",
+          "prereqs": [],
+          "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
+        },
+        {
+          "id": "omega-as-heyting-algebra",
+          "title": "$\\Omega$ as an internal Heyting algebra",
+          "anchor": "omega-heyting",
+          "prereqs": [
+            "subobject-classifier",
+            "heyting-algebra"
+          ],
+          "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
+        },
+        {
+          "id": "internal-language",
+          "title": "The internal Mitchell–Bénabou language",
+          "anchor": "internal-language",
+          "prereqs": [
+            "omega-as-heyting-algebra",
+            "power-objects"
+          ],
+          "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail)."
+        },
+        {
+          "id": "kripke-joyal-semantics",
+          "title": "Kripke–Joyal forcing semantics",
+          "anchor": "kripke-joyal",
+          "prereqs": [
+            "internal-language",
+            "presheaf-topos"
+          ],
+          "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic."
+        },
+        {
+          "id": "lem-failure",
+          "title": "Why LEM fails: double negation in toposes",
+          "anchor": "lem-failure",
+          "prereqs": [
+            "internal-language",
+            "kripke-joyal-semantics"
+          ],
+          "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\"."
+        },
+        {
+          "id": "geometric-morphisms-logic",
+          "title": "Geometric morphisms preserve geometric logic",
+          "anchor": "geometric-morphisms-logic",
+          "prereqs": [
+            "geometric-morphisms-intro",
+            "internal-language"
+          ],
+          "blurb": "Inverse image functors $f^*$ preserve finite limits and arbitrary colimits — exactly the connectives of geometric logic ($\\exists, \\wedge, \\bigvee$). This is why geometric formulas transport across geometric morphisms while implication and $\\forall$ generally do not."
+        }
+      ]
+    },
+    "grothendieck-topologies-sites": {
+      "topic": "grothendieck-topologies-sites",
+      "title": "Grothendieck topologies and sites",
+      "page": "grothendieck-topologies-sites.html",
+      "concepts": [
+        {
+          "id": "sieves",
+          "title": "Sieves",
+          "anchor": "sieves",
+          "prereqs": [],
+          "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology."
+        },
+        {
+          "id": "grothendieck-topology",
+          "title": "Grothendieck topology axioms",
+          "anchor": "grothendieck-topology",
+          "prereqs": [
+            "sieves"
+          ],
+          "blurb": "A Grothendieck topology on $C$ assigns to each object $c$ a collection of \"covering\" sieves, satisfying maximality, stability under pullback, and a transitivity axiom. The data $(C, J)$ is called a site; sheaves on a site generalize sheaves on a topological space."
+        },
+        {
+          "id": "examples-of-sites",
+          "title": "Examples: small/large Zariski, étale, fpqc",
+          "anchor": "examples-of-sites",
+          "prereqs": [
+            "grothendieck-topology"
+          ],
+          "blurb": "The small Zariski site of a scheme has open immersions for covers; the étale site loosens to surjective étale maps; the fpqc site is even coarser. Each gives a different sheaf theory — Zariski-locally trivial $\\ne$ étale-locally trivial, the difference detecting Galois descent."
+        },
+        {
+          "id": "sheaves-on-a-site",
+          "title": "Sheaves and sheafification",
+          "anchor": "sheaves-on-a-site",
+          "prereqs": [
+            "grothendieck-topology"
+          ],
+          "blurb": "A sheaf on $(C, J)$ is a presheaf $F$ such that for every covering sieve $S$ of $c$, $F(c)$ is the limit of $F$ over $S$. The sheafification functor is the left adjoint of the inclusion of sheaves into presheaves; it averages a presheaf over all covering sieves."
+        },
+        {
+          "id": "topos-of-sheaves",
+          "title": "$\\mathrm{Sh}(C, J)$ as a topos",
+          "anchor": "topos-of-sheaves",
+          "prereqs": [
+            "sheaves-on-a-site",
+            "topos-definition"
+          ],
+          "blurb": "The category $\\mathrm{Sh}(C, J)$ of sheaves on a site is a Grothendieck topos — a particular kind of elementary topos that has all small colimits and a small generating set. Every Grothendieck topos arises this way (Giraud's theorem)."
+        },
+        {
+          "id": "geometric-morphisms-of-sites",
+          "title": "Geometric morphisms from morphisms of sites",
+          "anchor": "geometric-morphisms-sites",
+          "prereqs": [
+            "topos-of-sheaves",
+            "geometric-morphisms-intro"
+          ],
+          "blurb": "A continuous map of sites $f\\colon (D, K) \\to (C, J)$ induces a geometric morphism $\\mathrm{Sh}(D, K) \\to \\mathrm{Sh}(C, J)$. This is how site theory provides examples of geometric morphisms: pullback along $f$ on the level of sites pulls sheaves back."
+        }
+      ]
+    },
+    "simplicial-sets-and-nerve": {
+      "topic": "simplicial-sets-and-nerve",
+      "title": "Simplicial sets and the nerve",
+      "page": "simplicial-sets-and-nerve.html",
+      "concepts": [
+        {
+          "id": "simplex-category",
+          "title": "The simplex category $\\Delta$",
+          "anchor": "simplex-category",
+          "prereqs": [],
+          "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
+        },
+        {
+          "id": "simplicial-set",
+          "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
+          "anchor": "simplicial-set",
+          "prereqs": [
+            "simplex-category",
+            "presheaf-topos"
+          ],
+          "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$."
+        },
+        {
+          "id": "geometric-realization",
+          "title": "Geometric realization $|X|$",
+          "anchor": "geometric-realization",
+          "prereqs": [
+            "simplicial-set"
+          ],
+          "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
+        },
+        {
+          "id": "nerve-of-category",
+          "title": "The nerve $N(C)$ of a category",
+          "anchor": "nerve-of-category",
+          "prereqs": [
+            "simplicial-set"
+          ],
+          "blurb": "The nerve $N(C)_n$ is the set of length-$n$ composable strings of arrows in $C$. The face maps compose adjacent arrows; the degeneracies insert identities. The nerve is the bridge between category theory and homotopy theory."
+        },
+        {
+          "id": "kan-complex",
+          "title": "Kan complexes",
+          "anchor": "kan-complex",
+          "prereqs": [
+            "simplicial-set"
+          ],
+          "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence)."
+        },
+        {
+          "id": "horn-filling",
+          "title": "Inner-horn filling and quasi-categorical nerves",
+          "anchor": "horn-filling",
+          "prereqs": [
+            "kan-complex",
+            "nerve-of-category"
+          ],
+          "blurb": "Demanding fillers only for *inner* horns $\\Lambda^n_k$ ($0 < k < n$) gives the Joyal model of $\\infty$-categories. The nerve of an ordinary category is exactly the simplicial set in which every inner horn has a *unique* filler."
+        }
+      ]
+    },
+    "infinity-categories": {
+      "topic": "infinity-categories",
+      "title": "$\\infty$-categories (quasi-categories)",
+      "page": "infinity-categories.html",
+      "concepts": [
+        {
+          "id": "quasi-category",
+          "title": "Quasi-categories",
+          "anchor": "quasi-category",
+          "prereqs": [
+            "horn-filling",
+            "kan-complex"
+          ],
+          "blurb": "A quasi-category is a simplicial set in which every inner horn has at least one filler. The 1-simplices are \"morphisms,\" 2-simplices are \"homotopies between composites,\" and so on; composition is well-defined only up to higher homotopy."
+        },
+        {
+          "id": "homotopy-category-of-infty",
+          "title": "The homotopy category $h(\\mathcal{C})$",
+          "anchor": "homotopy-category",
+          "prereqs": [
+            "quasi-category"
+          ],
+          "blurb": "Quotienting a quasi-category $\\mathcal{C}$ by the equivalence relation \"there is a 2-simplex from $f$ to $g$\" gives an ordinary 1-category $h(\\mathcal{C})$. This is the shadow of $\\mathcal{C}$ visible to non-homotopical eyes."
+        },
+        {
+          "id": "infty-functors",
+          "title": "Functors and natural transformations $\\infty$-categorically",
+          "anchor": "infty-functors",
+          "prereqs": [
+            "quasi-category"
+          ],
+          "blurb": "An $\\infty$-functor $\\mathcal{C} \\to \\mathcal{D}$ is just a map of simplicial sets; natural transformations are 1-simplices in the mapping quasi-category. The Yoneda embedding lifts to $\\infty$-categories — and is again fully faithful."
+        },
+        {
+          "id": "infty-limits",
+          "title": "$\\infty$-categorical (co)limits",
+          "anchor": "infty-limits",
+          "prereqs": [
+            "infty-functors"
+          ],
+          "blurb": "Limits and colimits in an $\\infty$-category are defined via terminal/initial objects in slice quasi-categories. They generalize 1-categorical limits in the same way derived functors generalize ordinary functors — the homotopy data is built in."
+        },
+        {
+          "id": "infty-adjunctions",
+          "title": "Adjunctions $\\infty$-categorically",
+          "anchor": "infty-adjunctions",
+          "prereqs": [
+            "infty-functors",
+            "infty-limits"
+          ],
+          "blurb": "An $\\infty$-adjunction $f \\dashv g$ is a unit/counit pair living in the mapping spaces, satisfying the triangle identities up to coherent higher homotopy. Adjoint functor theorems carry over to the $\\infty$-categorical setting with extra accessibility hypotheses."
+        },
+        {
+          "id": "kan-extension",
+          "title": "$\\infty$-categorical Kan extensions",
+          "anchor": "kan-extension",
+          "prereqs": [
+            "infty-functors",
+            "infty-limits"
+          ],
+          "blurb": "Left and right Kan extensions in $\\infty$-categories are pointwise computable as colimits/limits over comma quasi-categories. They are the engine of derived functors, ind-completion, and the universal property of the $\\infty$-category of presheaves."
+        }
+      ]
+    },
+    "infinity-topoi": {
+      "topic": "infinity-topoi",
+      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
+      "page": "infinity-topoi.html",
+      "concepts": [
+        {
+          "id": "presheaf-infty-topos",
+          "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+          "anchor": "presheaf-infty-topos",
+          "prereqs": [
+            "quasi-category",
+            "presheaf-topos"
+          ],
+          "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos."
+        },
+        {
+          "id": "infty-topos-definition",
+          "title": "$\\infty$-topos via accessible left exact localization",
+          "anchor": "infty-topos-definition",
+          "prereqs": [
+            "presheaf-infty-topos",
+            "infty-limits"
+          ],
+          "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy."
+        },
+        {
+          "id": "giraud-infty",
+          "title": "$\\infty$-Giraud axioms",
+          "anchor": "giraud-infty",
+          "prereqs": [
+            "infty-topos-definition"
+          ],
+          "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form."
+        },
+        {
+          "id": "geometric-morphisms-infty",
+          "title": "Geometric morphisms of $\\infty$-topoi",
+          "anchor": "geometric-morphisms-infty",
+          "prereqs": [
+            "infty-topos-definition",
+            "infty-adjunctions"
+          ],
+          "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers."
+        },
+        {
+          "id": "hypercompletion",
+          "title": "Hypercompletion and Whitehead's theorem",
+          "anchor": "hypercompletion",
+          "prereqs": [
+            "infty-topos-definition"
+          ],
+          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
+        },
+        {
+          "id": "internal-logic-of-infty-topos",
+          "title": "Internal logic: homotopy type theory and ∞-toposes",
+          "anchor": "internal-logic",
+          "prereqs": [
+            "infty-topos-definition",
+            "internal-language"
+          ],
+          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
+        },
+        {
+          "id": "etale-infty-topos-of-scheme",
+          "title": "The étale $\\infty$-topos of a scheme",
+          "anchor": "etale-infty-topos",
+          "prereqs": [
+            "infty-topos-definition",
+            "geometric-morphisms-of-sites"
+          ],
+          "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry."
+        }
+      ]
+    },
+    "derived-categories": {
+      "topic": "derived-categories",
+      "title": "Derived categories",
+      "page": "derived-categories.html",
+      "concepts": [
+        {
+          "id": "homotopy-category-K",
+          "title": "The homotopy category $K(\\mathcal{A})$",
+          "anchor": "homotopy-category",
+          "prereqs": [],
+          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
+        },
+        {
+          "id": "quasi-isomorphisms",
+          "title": "Quasi-isomorphisms and localization",
+          "anchor": "quasi-isomorphisms",
+          "prereqs": [
+            "homotopy-category-K"
+          ],
+          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
+        },
+        {
+          "id": "derived-category",
+          "title": "The derived category $D(\\mathcal{A})$",
+          "anchor": "derived-category",
+          "prereqs": [
+            "quasi-isomorphisms"
+          ],
+          "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes."
+        },
+        {
+          "id": "triangulated-structure",
+          "title": "Triangulated structure and exact triangles",
+          "anchor": "triangulated-structure",
+          "prereqs": [
+            "derived-category"
+          ],
+          "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$."
+        },
+        {
+          "id": "derived-functors-triangulated",
+          "title": "Derived functors $RF, LF$",
+          "anchor": "derived-functors-triangulated",
+          "prereqs": [
+            "derived-category"
+          ],
+          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$."
+        },
+        {
+          "id": "t-structures",
+          "title": "$t$-structures and hearts",
+          "anchor": "t-structures",
+          "prereqs": [
+            "triangulated-structure"
+          ],
+          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
+        },
+        {
+          "id": "examples-D-Coh",
+          "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+          "anchor": "d-coh",
+          "prereqs": [
+            "derived-category",
+            "derived-functors-triangulated"
+          ],
+          "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels."
+        }
+      ]
+    },
+    "cocartesian-fibrations": {
+      "topic": "cocartesian-fibrations",
+      "title": "Cocartesian fibrations & the Grothendieck construction",
+      "page": "cocartesian-fibrations.html",
+      "concepts": [
+        {
+          "id": "left-right-fibrations",
+          "title": "Left and right fibrations",
+          "anchor": "left-right-fibrations",
+          "prereqs": [],
+          "blurb": "A map of simplicial sets $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration if every left horn $\\Lambda^n_0 \\to \\mathcal{E}$ extends along $\\Delta^n \\to \\mathcal{B}$; right fibrations are dual (right horns $\\Lambda^n_n$). They model contravariant / covariant functors with values in spaces."
+        },
+        {
+          "id": "cocartesian-edge",
+          "title": "Cocartesian edges",
+          "anchor": "cocartesian-edge",
+          "prereqs": [
+            "left-right-fibrations"
+          ],
+          "blurb": "An edge $e: x \\to y$ in $\\mathcal{E}$ above $\\bar{e}: \\bar{x} \\to \\bar{y}$ is $p$-cocartesian if any 2-simplex with $e$ as one face and a chosen extension downstairs lifts uniquely (up to higher homotopy). Cocartesian edges are the simplicial-set analogue of \"strong universal lifts.\""
+        },
+        {
+          "id": "cocartesian-fibration",
+          "title": "Cocartesian fibrations",
+          "anchor": "cocartesian-fibration",
+          "prereqs": [
+            "cocartesian-edge"
+          ],
+          "blurb": "$p$ is a cocartesian fibration if every edge $\\bar{e}: \\bar{x} \\to \\bar{y}$ in $\\mathcal{B}$ admits a $p$-cocartesian lift starting at any chosen $x \\in \\mathcal{E}_{\\bar{x}}$. This packages the data of a functor sending each object of $\\mathcal{B}$ to its fiber and each morphism to the induced \"transport\" between fibers."
+        },
+        {
+          "id": "fibers-and-transport",
+          "title": "Fibers and transport functors",
+          "anchor": "fibers-and-transport",
+          "prereqs": [
+            "cocartesian-fibration"
+          ],
+          "blurb": "The fiber $\\mathcal{E}_{\\bar{x}} = p^{-1}(\\bar{x})$ is an $\\infty$-category. A cocartesian lift of $\\bar{e}: \\bar{x} \\to \\bar{y}$ starting at $x \\in \\mathcal{E}_{\\bar{x}}$ ends at some $\\bar{e}_!(x) \\in \\mathcal{E}_{\\bar{y}}$, defining the transport functor $\\bar{e}_!: \\mathcal{E}_{\\bar{x}} \\to \\mathcal{E}_{\\bar{y}}$ — well-defined up to coherent homotopy."
+        },
+        {
+          "id": "grothendieck-construction",
+          "title": "Straightening / unstraightening: the Grothendieck construction",
+          "anchor": "grothendieck-construction",
+          "prereqs": [
+            "fibers-and-transport"
+          ],
+          "blurb": "Lurie's straightening / unstraightening equivalence: cocartesian fibrations over $\\mathcal{B}$ correspond to functors $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$. This is the $\\infty$-categorical Grothendieck construction — the same equivalence, with classical fibered categories on the left and 2-categorical pseudofunctors on the right, refined to the $\\infty$-setting."
+        },
+        {
+          "id": "left-fibrations-as-presheaves",
+          "title": "Left fibrations ↔ presheaves of spaces",
+          "anchor": "left-fibrations-as-presheaves",
+          "prereqs": [
+            "grothendieck-construction"
+          ],
+          "blurb": "Restricting straightening to left fibrations gives an equivalence between left fibrations over $\\mathcal{B}$ and functors $\\mathcal{B} \\to \\mathcal{S}$ (presheaves of spaces). The Yoneda embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$ factors through the universal left fibration over $\\mathcal{B}$."
+        },
+        {
+          "id": "examples-of-fibrations",
+          "title": "Examples: arrow categories, modules, classifying spaces",
+          "anchor": "examples",
+          "prereqs": [
+            "cocartesian-fibration",
+            "grothendieck-construction"
+          ],
+          "blurb": "The source map $\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ of the arrow $\\infty$-category is a cocartesian fibration whose fibers are slice categories. The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ is a cocartesian fibration whose transport is base change. The classifying space $BG$-fibration over a point recovers a $G$-action on its fiber."
         }
       ]
     },
@@ -1530,6 +2077,15 @@ window.__MVConcepts = {
           "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos."
         },
         {
+          "id": "period-doubling-cascade",
+          "title": "The period-doubling cascade",
+          "anchor": "period-doubling-cascade",
+          "prereqs": [
+            "dyn-iterated-maps"
+          ],
+          "blurb": "The logistic map $x_{n+1} = r\\,x_n(1-x_n)$ encodes how a single nonlinear feedback gives rise to chaos. As $r$ increases through $[3, 3.57]$ the attractor period-doubles ($1\\to 2\\to 4\\to 8\\to\\cdots$) at geometric rate $\\delta\\approx 4.6692$ — the Feigenbaum constant — and at $r\\approx 3.5699$ the orbit becomes chaotic, with periodic windows (e.g. period $3$ at $r\\approx 3.83$) interleaved."
+        },
+        {
           "id": "dyn-bifurcations",
           "title": "Bifurcations",
           "anchor": "bifurcation",
@@ -1816,6 +2372,15 @@ window.__MVConcepts = {
             "paths"
           ],
           "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality."
+        },
+        {
+          "id": "universal-cover-of-circle",
+          "title": "Universal cover of S¹",
+          "anchor": "universal-cover-circle",
+          "prereqs": [
+            "fundamental-group"
+          ],
+          "blurb": "The exponential map $p: \\mathbb{R} \\to S^1$, $t \\mapsto e^{2\\pi i t}$, is a covering with discrete fibre $\\mathbb{Z}$. Lifting loops to paths in $\\mathbb{R}$ converts the topology of $S^1$ into integer arithmetic — every loop has a winding number, and that's the iso $\\pi_1(S^1) \\cong \\mathbb{Z}$."
         },
         {
           "id": "covering-spaces",
@@ -2289,11 +2854,20 @@ window.__MVConcepts = {
       "page": "quadratic-reciprocity.html",
       "concepts": [
         {
+          "id": "multiplicative-group-mod-p",
+          "title": "The multiplicative group (Z/p)×",
+          "anchor": "multiplicative-group-mod-p",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on."
+        },
+        {
           "id": "legendre-symbol",
           "title": "The Legendre symbol",
           "anchor": "legendre",
           "prereqs": [
-            "sets-functions"
+            "multiplicative-group-mod-p"
           ],
           "blurb": "For odd prime p, the symbol (a/p) detects whether a is a square mod p, taking values 1, -1, or 0."
         },
@@ -2894,10 +3468,18 @@ window.__MVConcepts = {
       "page": "modular-forms.html",
       "concepts": [
         {
+          "id": "lattices-in-C",
+          "title": "Lattices in C",
+          "anchor": "lattices-in-C",
+          "prereqs": [],
+          "blurb": "A lattice $\\Lambda \\subset \\mathbb{C}$ is a discrete subgroup of rank 2: $\\Lambda = \\mathbb{Z}\\omega_1 + \\mathbb{Z}\\omega_2$ with $\\omega_2/\\omega_1 \\notin \\mathbb{R}$. The same lattice has many bases — exactly the bases related by an $\\mathrm{SL}_2(\\mathbb{Z})$ change of coordinates — which is why modular forms are functions on lattices, or equivalently, $\\mathrm{SL}_2(\\mathbb{Z})$-equivariant functions of the basis ratio $\\tau = \\omega_2/\\omega_1 \\in \\mathbb{H}$."
+        },
+        {
           "id": "sl2z-on-H",
           "title": "SL2(Z) action on the upper half-plane",
           "anchor": "sl2z",
           "prereqs": [
+            "lattices-in-C",
             "sl2r-action-on-H"
           ],
           "blurb": "Matrices in SL2(Z) act by Möbius transformations and generate the modular equivalence relation on H."
@@ -4099,6 +4681,420 @@ window.__MVConcepts = {
         }
       ]
     },
+    "algebraic-spaces": {
+      "topic": "algebraic-spaces",
+      "title": "Algebraic spaces",
+      "page": "algebraic-spaces.html",
+      "concepts": [
+        {
+          "id": "why-algebraic-spaces",
+          "title": "Why schemes aren't enough",
+          "anchor": "why-algebraic-spaces",
+          "prereqs": [],
+          "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
+        },
+        {
+          "id": "etale-equivalence-relation",
+          "title": "Étale equivalence relations",
+          "anchor": "etale-equivalence-relation",
+          "prereqs": [
+            "why-algebraic-spaces"
+          ],
+          "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces."
+        },
+        {
+          "id": "algebraic-space-definition",
+          "title": "Algebraic spaces as étale sheaves",
+          "anchor": "definition",
+          "prereqs": [
+            "etale-equivalence-relation"
+          ],
+          "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$."
+        },
+        {
+          "id": "morphisms-of-algebraic-spaces",
+          "title": "Morphisms of algebraic spaces",
+          "anchor": "morphisms",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
+        },
+        {
+          "id": "examples-of-algebraic-spaces",
+          "title": "Examples: free quotients and a non-scheme",
+          "anchor": "examples",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
+        },
+        {
+          "id": "between-schemes-and-stacks",
+          "title": "Algebraic spaces sit between schemes and DM stacks",
+          "anchor": "between-schemes-and-stacks",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry."
+        }
+      ]
+    },
+    "intersection-theory-chow": {
+      "topic": "intersection-theory-chow",
+      "title": "Intersection theory and Chow groups",
+      "page": "intersection-theory-chow.html",
+      "concepts": [
+        {
+          "id": "cycles-and-equivalence",
+          "title": "Algebraic cycles and rational equivalence",
+          "anchor": "cycles-and-equivalence",
+          "prereqs": [],
+          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
+        },
+        {
+          "id": "chow-groups",
+          "title": "Chow groups $A_*(X)$",
+          "anchor": "chow-groups",
+          "prereqs": [
+            "cycles-and-equivalence"
+          ],
+          "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles."
+        },
+        {
+          "id": "intersection-product",
+          "title": "Intersection product on smooth $X$",
+          "anchor": "intersection-product",
+          "prereqs": [
+            "chow-groups"
+          ],
+          "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring."
+        },
+        {
+          "id": "chow-ring-of-pn",
+          "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
+          "anchor": "chow-ring-of-pn",
+          "prereqs": [
+            "intersection-product"
+          ],
+          "blurb": "The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \\cdot D = (\\deg C)(\\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\\mathbb{Z}[h]/(h^3)$."
+        },
+        {
+          "id": "chern-classes",
+          "title": "Chern classes",
+          "anchor": "chern-classes",
+          "prereqs": [
+            "intersection-product"
+          ],
+          "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences."
+        },
+        {
+          "id": "riemann-roch-preview",
+          "title": "Grothendieck–Riemann–Roch (preview)",
+          "anchor": "riemann-roch-preview",
+          "prereqs": [
+            "chern-classes"
+          ],
+          "blurb": "GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \\otimes \\mathbb{Q}$ involving the Chern character $\\mathrm{ch}(E)$ and the Todd class $\\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement."
+        }
+      ]
+    },
+    "etale-fundamental-group": {
+      "topic": "etale-fundamental-group",
+      "title": "The étale fundamental group",
+      "page": "etale-fundamental-group.html",
+      "concepts": [
+        {
+          "id": "finite-etale-covers",
+          "title": "Finite étale covers",
+          "anchor": "finite-etale-covers",
+          "prereqs": [],
+          "blurb": "A finite étale cover $Y \\to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\\mathrm{F\\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group."
+        },
+        {
+          "id": "fiber-functor",
+          "title": "The fiber functor at a geometric point",
+          "anchor": "fiber-functor",
+          "prereqs": [
+            "finite-etale-covers"
+          ],
+          "blurb": "Choosing a geometric point $\\bar{x}: \\mathrm{Spec}\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor."
+        },
+        {
+          "id": "etale-pi1",
+          "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+          "anchor": "etale-pi1",
+          "prereqs": [
+            "fiber-functor"
+          ],
+          "blurb": "$\\pi_1^{\\acute{e}t}(X, \\bar{x})$ is the profinite group $\\mathrm{Aut}(F_{\\bar{x}})$, with topology induced by the pro-finite-set structure of fibers. It classifies finite étale covers via $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X, \\bar{x})\\text{-FinSet}$ — Grothendieck's Galois theory."
+        },
+        {
+          "id": "spec-field-galois",
+          "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+          "anchor": "spec-field-galois",
+          "prereqs": [
+            "etale-pi1"
+          ],
+          "blurb": "For a field $k$, the étale fundamental group of $\\mathrm{Spec}\\,k$ is the absolute Galois group $\\mathrm{Gal}(\\bar{k}/k)$. Finite étale covers $\\mathrm{Spec}\\,L \\to \\mathrm{Spec}\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory."
+        },
+        {
+          "id": "frobenius-and-pi1",
+          "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+          "anchor": "frobenius-and-pi1",
+          "prereqs": [
+            "spec-field-galois"
+          ],
+          "blurb": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q) = \\hat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_q\\colon x \\mapsto x^q$. Every cover of $\\mathrm{Spec}\\,\\mathbb{F}_q$ is determined by the action of $\\mathrm{Frob}_q$ on a finite set."
+        },
+        {
+          "id": "comparison-topological",
+          "title": "Comparison with topological $\\pi_1$",
+          "anchor": "comparison-topological",
+          "prereqs": [
+            "etale-pi1"
+          ],
+          "blurb": "For a smooth complex variety $X$, the étale fundamental group $\\pi_1^{\\acute{e}t}(X)$ is the profinite completion of the topological $\\pi_1(X(\\mathbb{C}))$ (Riemann existence). For varieties over fields of characteristic 0 this captures all finite-cover information."
+        }
+      ]
+    },
+    "algebraic-curves-higher-genus": {
+      "topic": "algebraic-curves-higher-genus",
+      "title": "Algebraic curves: higher genus",
+      "page": "algebraic-curves-higher-genus.html",
+      "concepts": [
+        {
+          "id": "smooth-projective-curve",
+          "title": "Smooth projective curves and their genus",
+          "anchor": "smooth-projective-curve",
+          "prereqs": [],
+          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
+        },
+        {
+          "id": "divisors-on-curves",
+          "title": "Divisors on curves",
+          "anchor": "divisors",
+          "prereqs": [
+            "smooth-projective-curve"
+          ],
+          "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$."
+        },
+        {
+          "id": "riemann-roch-curves",
+          "title": "Riemann–Roch on curves",
+          "anchor": "riemann-roch",
+          "prereqs": [
+            "divisors-on-curves"
+          ],
+          "blurb": "For a divisor $D$ on a smooth projective curve of genus $g$, $h^0(D) - h^0(K - D) = \\deg D - g + 1$, where $K$ is the canonical divisor. Riemann–Roch is the curve-level explanation of why genus controls the dimension of linear systems."
+        },
+        {
+          "id": "canonical-embedding",
+          "title": "The canonical embedding",
+          "anchor": "canonical-embedding",
+          "prereqs": [
+            "riemann-roch-curves"
+          ],
+          "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
+        },
+        {
+          "id": "hyperelliptic-curves",
+          "title": "Hyperelliptic curves",
+          "anchor": "hyperelliptic",
+          "prereqs": [
+            "riemann-roch-curves"
+          ],
+          "blurb": "A curve of genus $g \\ge 2$ is hyperelliptic if it admits a degree-2 map to $\\mathbb{P}^1$. Equivalently, $|K|$ does not separate points. Hyperelliptic curves form a codimension-$(g-2)$ locus in $\\mathcal{M}_g$ — most curves of genus $\\ge 3$ are not hyperelliptic."
+        },
+        {
+          "id": "moduli-of-curves-genus-g",
+          "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
+          "anchor": "moduli-of-curves-genus-g",
+          "prereqs": [
+            "smooth-projective-curve"
+          ],
+          "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary."
+        }
+      ]
+    },
+    "group-schemes": {
+      "topic": "group-schemes",
+      "title": "Group schemes",
+      "page": "group-schemes.html",
+      "concepts": [
+        {
+          "id": "group-scheme-definition",
+          "title": "What is a group scheme?",
+          "anchor": "group-scheme-definition",
+          "prereqs": [],
+          "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes."
+        },
+        {
+          "id": "examples-Ga-Gm-mu-n",
+          "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+          "anchor": "examples-Ga-Gm",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
+        },
+        {
+          "id": "hopf-algebra",
+          "title": "Affine group schemes ↔ commutative Hopf algebras",
+          "anchor": "hopf-algebra",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps."
+        },
+        {
+          "id": "etale-vs-connected",
+          "title": "Étale, connected, and infinitesimal pieces",
+          "anchor": "etale-vs-connected",
+          "prereqs": [
+            "examples-Ga-Gm-mu-n"
+          ],
+          "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$."
+        },
+        {
+          "id": "lie-algebra-of-G",
+          "title": "Lie algebra $\\mathrm{Lie}(G)$",
+          "anchor": "lie-algebra",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
+        },
+        {
+          "id": "torsors-and-cohomology",
+          "title": "$G$-torsors and $H^1(X, G)$",
+          "anchor": "torsors",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$)."
+        }
+      ]
+    },
+    "deformation-theory": {
+      "topic": "deformation-theory",
+      "title": "Deformation theory",
+      "page": "deformation-theory.html",
+      "concepts": [
+        {
+          "id": "first-order-deformation",
+          "title": "First-order deformations",
+          "anchor": "first-order-deformation",
+          "prereqs": [],
+          "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$."
+        },
+        {
+          "id": "tangent-space-of-moduli",
+          "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
+          "anchor": "tangent-space",
+          "prereqs": [
+            "first-order-deformation"
+          ],
+          "blurb": "Isomorphism classes of first-order deformations of a smooth $X_0$ form a $k$-vector space identified with $H^1(X_0, T_{X_0})$. This is the tangent space at $X_0$ to the moduli space — when smooth — and gives the dimension count via Riemann–Roch."
+        },
+        {
+          "id": "obstructions-H2",
+          "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
+          "anchor": "obstructions",
+          "prereqs": [
+            "tangent-space-of-moduli"
+          ],
+          "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$."
+        },
+        {
+          "id": "deformation-functor",
+          "title": "Deformation functors and Schlessinger's criteria",
+          "anchor": "deformation-functor",
+          "prereqs": [
+            "first-order-deformation"
+          ],
+          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
+        },
+        {
+          "id": "cotangent-complex",
+          "title": "The cotangent complex $L_{X/Y}$",
+          "anchor": "cotangent-complex",
+          "prereqs": [
+            "tangent-space-of-moduli"
+          ],
+          "blurb": "Illusie's cotangent complex $L_{X/Y}$ generalizes the relative cotangent sheaf $\\Omega^1_{X/Y}$ to a complex in $D^{\\le 0}(X)$. Tangent and obstruction spaces of any deformation problem live in $\\mathrm{Ext}^i$ of $L_{X/Y}$ — the unifying object behind the previous concepts."
+        },
+        {
+          "id": "deformation-of-a-curve",
+          "title": "Worked example: deformations of a smooth curve",
+          "anchor": "deformation-of-a-curve",
+          "prereqs": [
+            "tangent-space-of-moduli",
+            "obstructions-H2"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
+        }
+      ]
+    },
+    "algebraic-de-rham-cohomology": {
+      "topic": "algebraic-de-rham-cohomology",
+      "title": "Algebraic de Rham cohomology",
+      "page": "algebraic-de-rham-cohomology.html",
+      "concepts": [
+        {
+          "id": "kahler-differentials",
+          "title": "Kähler differentials $\\Omega^1_{X/k}$",
+          "anchor": "kahler-differentials",
+          "prereqs": [],
+          "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms."
+        },
+        {
+          "id": "de-rham-complex",
+          "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+          "anchor": "de-rham-complex",
+          "prereqs": [
+            "kahler-differentials"
+          ],
+          "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant."
+        },
+        {
+          "id": "comparison-betti",
+          "title": "Comparison with Betti cohomology",
+          "anchor": "comparison-betti",
+          "prereqs": [
+            "de-rham-complex"
+          ],
+          "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input."
+        },
+        {
+          "id": "hodge-filtration",
+          "title": "The Hodge filtration $F^\\bullet$",
+          "anchor": "hodge-filtration",
+          "prereqs": [
+            "de-rham-complex"
+          ],
+          "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition."
+        },
+        {
+          "id": "hodge-numbers",
+          "title": "Hodge numbers $h^{p,q}(X)$",
+          "anchor": "hodge-numbers",
+          "prereqs": [
+            "hodge-filtration"
+          ],
+          "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers."
+        },
+        {
+          "id": "de-rham-curves",
+          "title": "Worked example: de Rham of a smooth curve",
+          "anchor": "de-rham-curves",
+          "prereqs": [
+            "hodge-filtration"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
+        }
+      ]
+    },
     "sato-tate": {
       "topic": "sato-tate",
       "title": "Sato–Tate",
@@ -4492,6 +5488,13 @@ window.__MVConcepts = {
         "title": "Moduli of higher-genus curves",
         "goal": "higher-genus-moduli",
         "blurb": "$\\overline{\\mathcal{M}}_g$ — the Deligne–Mumford compactification via stable curves. Automorphisms force a stack, not a scheme; dimension $3g-3$ for $g\\ge 2$."
+      },
+      {
+        "id": "capstone-infinity-topoi",
+        "section": "Algebra",
+        "title": "$\\infty$-topoi (Lurie's higher topos theory)",
+        "goal": "infty-topos-definition",
+        "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
       }
     ]
   }

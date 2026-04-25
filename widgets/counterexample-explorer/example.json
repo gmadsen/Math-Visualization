@@ -1,0 +1,59 @@
+{
+  "widgetId": "w-counterexample-explorer-example",
+  "title": "Continuous vs. differentiable: a hypothesis tour",
+  "hint": "pick a candidate · check which hypotheses survive",
+  "viewBox": "0 0 320 160",
+  "hypotheses": [
+    { "id": "continuous",     "label": "Continuous on $[-1, 1]$" },
+    { "id": "differentiable", "label": "Differentiable on $(-1, 1)$" },
+    { "id": "monotonic",      "label": "Monotonic on $[-1, 1]$" },
+    { "id": "bounded",        "label": "Bounded on $[-1, 1]$" }
+  ],
+  "cases": [
+    {
+      "name": "f(x) = x",
+      "latex": "f(x) = x",
+      "svgInner": "<line x1='40' y1='140' x2='280' y2='20' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>",
+      "hypotheses": {
+        "continuous":     { "pass": true,  "note": "linear, hence continuous everywhere" },
+        "differentiable": { "pass": true,  "note": "$f'(x) = 1$" },
+        "monotonic":      { "pass": true,  "note": "strictly increasing" },
+        "bounded":        { "pass": true,  "note": "$|f(x)| \\le 1$ on $[-1, 1]$" }
+      }
+    },
+    {
+      "name": "f(x) = |x|",
+      "latex": "f(x) = |x|",
+      "svgInner": "<polyline points='40,20 160,140 280,20' fill='none' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='140' r='3' fill='var(--pink)'/>",
+      "hypotheses": {
+        "continuous":     { "pass": true,  "note": "the corner is continuous, just not smooth" },
+        "differentiable": { "pass": false, "note": "left and right derivatives disagree at $x = 0$" },
+        "monotonic":      { "pass": false, "note": "decreases on $[-1, 0]$, increases on $[0, 1]$" },
+        "bounded":        { "pass": true,  "note": "$0 \\le f(x) \\le 1$ on $[-1, 1]$" }
+      }
+    },
+    {
+      "name": "f(x) = sin(1/x), f(0) = 0",
+      "latex": "f(x) = \\begin{cases} \\sin(1/x) & x \\ne 0 \\\\ 0 & x = 0 \\end{cases}",
+      "svgInner": "<path d='M 40 80 Q 60 30 70 80 T 90 80 T 105 80 T 118 80 T 130 80 T 140 80 T 148 80 T 154 80 T 158 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><path d='M 162 80 T 170 80 T 182 80 T 195 80 T 210 80 T 230 80 T 260 30 T 280 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='80' r='3' fill='var(--pink)'/>",
+      "hypotheses": {
+        "continuous":     { "pass": false, "note": "$\\lim_{x \\to 0} \\sin(1/x)$ does not exist" },
+        "differentiable": { "pass": false, "note": "discontinuous at $0$, so not differentiable there" },
+        "monotonic":      { "pass": false, "note": "oscillates infinitely often near $0$" },
+        "bounded":        { "pass": true,  "note": "$|\\sin(1/x)| \\le 1$ everywhere" }
+      }
+    },
+    {
+      "name": "Weierstrass function",
+      "latex": "W(x) = \\sum_{n=0}^{\\infty} a^n \\cos(b^n \\pi x)",
+      "displayLabel": "Weierstrass function (continuous everywhere, differentiable nowhere)",
+      "svgInner": "<path d='M 40 80 L 50 70 L 55 85 L 62 65 L 70 95 L 78 60 L 85 90 L 92 50 L 100 100 L 108 55 L 116 95 L 124 45 L 132 105 L 140 60 L 148 90 L 156 50 L 164 100 L 172 55 L 180 95 L 188 45 L 196 105 L 204 60 L 212 90 L 220 50 L 228 100 L 236 65 L 244 85 L 252 70 L 260 95 L 268 60 L 276 80' fill='none' stroke='var(--blue)' stroke-width='1.2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>",
+      "hypotheses": {
+        "continuous":     { "pass": true,  "note": "uniformly convergent series of continuous functions" },
+        "differentiable": { "pass": false, "note": "nowhere differentiable — the canonical pathology" },
+        "monotonic":      { "pass": false, "note": "wild oscillation at every scale" },
+        "bounded":        { "pass": true,  "note": "$|W(x)| \\le \\sum a^n = 1/(1-a)$" }
+      }
+    }
+  ]
+}

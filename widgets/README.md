@@ -28,8 +28,55 @@ Both `renderMarkup` and `renderScript` are **pure functions of params**. They pr
 | `input-form` | shared | text/number form inputs driving a readout. `labelWraps` flag available. |
 | `surface-viewer` | shared | 3D parametric-surface / polyhedron / trajectory viewers built on the page-global `make3DDraggable` + `proj3` helpers. `standard` interaction for the common header-controls-svg-readout layout; `bare` interaction carries idiosyncratic layouts as a `bodyMarkup` artifact. |
 | `svg-illustration` | shared | static SVG figures with no driving script. Registered for `meta` + portability (alternate frontends can pick an illustration-appropriate rendering strategy). `renderScript` always returns `''`. |
+| `declarative-host` | shared | empty host div + a single `<library>.init('#widgetId', config)` call. Today's libraries: `MVPatternInduction` (rule-induction grid), `MVDiagramEditor` (draggable commutative diagrams). Add a third by extending the schema's `library` enum. |
+| `proof-scrubber` | shared | declarative wrapper over `MVProofScrubber` (`js/widget-proof-scrubber.js`). `steps: [{title, body, svgInner?}]` — slider + play-pause walks through proof steps with synchronized SVG. Per-step state is data, not closures. |
+| `recurrence-plotter` | shared | declarative wrapper over `MVRecurrencePlotter` (`js/widget-recurrence-plotter.js`). Iterates `x_{n+1} = f(x_n)` (or two-term) for a curated `kind` whitelist (logistic, quadratic, linear-2term); shows trajectory + cobweb. |
+| `modular-arithmetic-clock` | shared | declarative wrapper over `MVModularArithmeticClock` (`js/widget-modular-arithmetic-clock.js`). Z/n on a circular dial; `kind: addition` or `multiplication`; sliders for n, a, b. Highlights cycles and unit/zero-divisor structure. |
+| `lattice-visualizer` | shared | declarative wrapper over `MVLatticeVisualizer` (`js/widget-lattice-visualizer.js`). 2D lattice with basis sliders, fundamental domain, optional sublattice + index `[Λ:Λ′] = │det M│`. |
+| `constraint-bifurcation-explorer` | shared | declarative wrapper over `MVConstraintBifurcationExplorer` (`js/widget-constraint-bifurcation-explorer.js`). Per-pixel sampled feasible region for a curated constraint family (`circle-radius`, `ellipse-eccentricity`, `saddle-pitchfork`); slider for the parameter triggers the bifurcation. |
+| `counterexample-explorer` | shared | declarative wrapper over `MVCounterexampleExplorer` (`js/widget-counterexample-explorer.js`). Author declares hypotheses + cases as data; widget renders dropdown + illustration + pass/fail checklist. Library never evaluates objects — pass/fail is curated. |
+| `inline-code-cell` | shared | declarative wrapper over `MVInlineCodeCell` (`js/widget-inline-code-cell.js`). JS-only sandboxed REPL: textarea + Run button, code runs in a Web Worker (no DOM, 2-second timeout, network APIs deleted), captures `console.log` + return value. Number-theory prelude (`gcd`, `mod`, `factor`, `isPrime`, `primes`, `pow`). |
 
 See each slug's `README.md` for its param reference and alternate-frontend porting notes.
+
+## Choosing a widget when authoring a topic
+
+**Read this section before defaulting to button-stepper.** Today's corpus
+is heavily skewed (~77% of widgets are `button-stepper`); new topics
+reach for it because it's familiar, not because it's the best fit.
+Variety in the registry is there to be used — match the slug to the
+pedagogical move.
+
+Pick by what the reader *does*, not by what's easiest to wire:
+
+| reader's gesture | reach for | when                                                                                          |
+|------------------|-----------|-----------------------------------------------------------------------------------------------|
+| **read** the diagram | `svg-illustration`        | Static figure — no interaction needed; the picture *is* the point.                                |
+| **step** through a sequence | `button-stepper`           | Discrete states with prev/next/reset; default for "stages of a construction."                       |
+| **scrub** through a proof | `proof-scrubber`           | Multi-step argument with synchronized prose + diagram; scrubber + play/pause; longer than a stepper. |
+| **drag a slider** to vary one parameter | `parametric-plot`, `recurrence-plotter`, `modular-arithmetic-clock`, `lattice-visualizer`, `constraint-bifurcation-explorer` | Parameter sweep, bifurcation, iteration, basis change, region morphing. Pick by what's being plotted. |
+| **drag a 3D view** | `surface-viewer`           | 3D surface, manifold, polyhedron, trajectory — yaw/pitch via `make3DDraggable`.                   |
+| **click** a node / region of an SVG | `clickable-diagram`, `clickable-graph` | Selection-driven exploration: pick a morphism / pick a graph node, see consequences in a readout.  |
+| **type / fill in** a number or expression | `input-form`               | Form-driven probes — "give me an n, I'll factor it" — no slider semantics fits.                     |
+| **browse a curated case library** | `counterexample-explorer`  | "Here are 4 candidates and 4 hypotheses; for each pair, does it pass?" Pure data, no eval.        |
+| **edit and run code** | `inline-code-cell`         | Computational asides — number-theory experiments, lattice searches, sieve playgrounds. JS in a Web Worker. |
+| **everything else (rare)** | `declarative-host`         | Empty host div + `<library>.init` for `MVPatternInduction` / `MVDiagramEditor` etc. when the page-global library does the work. |
+
+A single concept page generally benefits from **at least two different
+gesture classes** — say, one slider widget and one click widget, or one
+proof-scrubber and one inline-code-cell. Reach across the table when
+the topic naturally has multiple "shapes" of insight (a static
+illustration motivates the definition; a slider explores the
+parameter space; a code cell verifies a special case numerically).
+
+When nothing in the table fits, **don't extend `button-stepper` to
+absorb it** — register a new slug via `node scripts/new-widget.mjs <slug>`
+and add it to this table. The 7 newest slugs (proof-scrubber,
+recurrence-plotter, modular-arithmetic-clock, lattice-visualizer,
+constraint-bifurcation-explorer, counterexample-explorer,
+inline-code-cell) all came from this rule. See `audits/coverage-stats.md`
+§ "Per-slug registry adoption" for the live instance count per slug —
+slugs at zero are infrastructure waiting for content.
 
 ## Bespoke vs. shared
 
@@ -55,6 +102,58 @@ Quickstart: `node scripts/new-widget.mjs <slug> [--family <f>] [--dimension 2d|3
 ## Presentational "artifact" params
 
 Some fields exist purely to preserve byte-identical output from the current handwritten source (whitespace alignment inside script bodies, comment banners, inline style attributes that one widget uses but others don't). Mark them clearly in the schema and README as artifacts so a React / Three.js / any-frontend consumer knows to ignore them. Every other field is fundamental data that any renderer needs.
+
+## Page-global helpers
+
+Topic pages keep two helper blocks at the top of `<body>`. Copy the blocks verbatim from `category-theory.html` (2D) and `differential-geometry.html` (3D) — don't rewrite. They are shared code, not per-page snowflakes.
+
+### 2D helpers (every page)
+
+```js
+$(selector, root?)              // querySelector
+$$(selector, root?)             // querySelectorAll → array
+SVG(tag, attrs)                 // create namespaced SVG element
+drawArrow(svg, p1, p2, opts)    // curved arrow with optional label, marker auto-defed
+drawNode(svg, x, y, label, opts) // circle + centered label
+```
+
+### 3D helpers (pages with rotatable 3D widgets)
+
+Pages that render 3D surfaces or curves (`differential-geometry.html`, `smooth-manifolds.html`, anything using the `surface-viewer` widget) include this second block:
+
+```js
+vsub, vadd, vscl, vdot, vlen, vnorm, vcross   // basic 3-vector ops (arrays of 3)
+proj3(p, yaw, pitch)                          // isometric 3D → 2D projection,
+                                              // yaw around z, pitch around x
+curvColor(t)                                  // diverging colormap for curvature-tinted
+                                              // meshes (−1..+1 → blue..white..red)
+make3DDraggable(svg, draw, opts)              // pointer-drag → { yaw, pitch, dragging };
+                                              // calls draw() rAF-throttled
+```
+
+`make3DDraggable` is the canonical way to make a 3D widget rotatable. Usage pattern:
+
+```js
+function draw(){
+  svg.innerHTML = '';
+  const yaw = view.yaw, pitch = view.pitch;
+  // decimate mesh density while dragging so the user sees smooth rotation:
+  const NU = view.dragging ? 14 : 28;
+  const NV = view.dragging ? 20 : 40;
+  // …project vertices via proj3(P, yaw, pitch), sort quads by z (painter's
+  //  algorithm), fill polygons…
+}
+const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
+draw();
+```
+
+Three recurring gotchas:
+
+- **Decimation on drag** — cut `NU`/`NV` (or whatever your mesh density knob is) while `view.dragging` is true. The final `pointerup` triggers a full-resolution redraw automatically. Without this, heavy meshes chug visibly on rotation.
+- **Legends in viewport coords, not data coords** — anchor legends at fixed viewport offsets (e.g. `translate(-230, 155)`). Anchoring to `(xmin, ymin+pad)` drifts as the bounding box changes with rotation.
+- **Readout should advertise the interaction** — include a `yaw … · pitch … — drag to rotate` line in the widget's `.readout` so the affordance is discoverable.
+
+For widgets that previously had `yaw`/`pitch` sliders, **remove the slider** — the drag interaction supersedes it and redundant controls confuse users.
 
 ## Consumers
 

@@ -868,6 +868,12 @@
       <div data-role="nextup"></div>
     `;
 
+    // Quiz titles can carry KaTeX (e.g. "The de Rham complex $\\Omega^\\bullet$").
+    // Tier hosts get typeset after their own render passes; the header is set
+    // here once and never touched again, so it needs an explicit pass.
+    const ttlEl = host.querySelector('.hd .ttl');
+    if(ttlEl) typeset(ttlEl);
+
     const v1Host       = host.querySelector('[data-role="v1-tier"]');
     const hardGate     = host.querySelector('[data-role="hard-gate"]');
     const hardHost     = host.querySelector('[data-role="hard-tier"]');

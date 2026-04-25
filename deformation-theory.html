@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Deformation theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles &amp; idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":null,"prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series &amp; Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Etale fundamental group"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius &amp; reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory &amp; the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies sites"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras toposes"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"Infinity categories"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"Infinity topoi"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory chow"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups &amp; algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms &amp; fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions &amp; generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums &amp; Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms &amp; genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets and nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics &amp; reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
+<script src="./js/widget-inline-code-cell.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebraic geometry" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+    <a href="#first-order-deformation">1&nbsp;First-order deformations</a>
+  <a href="#tangent-space">2&nbsp;Tangent space of moduli is $H^1(X_0, T_{X_0})$</a>
+  <a href="#obstructions">3&nbsp;Obstructions live in $H^2(X_0, T_{X_0})$</a>
+  <a href="#deformation-functor">4&nbsp;Deformation functors and Schlessinger's criteria</a>
+  <a href="#cotangent-complex">5&nbsp;The cotangent complex $L_{X/Y}$</a>
+  <a href="#deformation-of-a-curve">6&nbsp;Worked example: deformations of a smooth curve</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+
+
+
+
+
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Deformation theory</h1>
+  <p class="sub">First-order deformations live in $H^1(T)$, obstructions in $H^2(T)$ — the cotangent complex unifies them.</p>
+</section>
+
+<section id="first-order-deformation">
+<h2>1. First-order deformations</h2>
+<p>Let $k$ be a field and $X_0$ a scheme over $k$ — for now think of an affine variety, but the definition is local and globalises with no friction. Write $D = k[\epsilon]/(\epsilon^2)$ for the <strong>ring of dual numbers</strong>; geometrically $\mathrm{Spec}\,D$ is a "fattened point", a single closed point with a one-dimensional tangent direction. A <strong>first-order deformation</strong> of $X_0$ is a flat $D$-scheme $X$ together with a Cartesian square</p>
+<p style="text-align:center">$$\begin{array}{ccc} X_0 & \hookrightarrow & X \\ \downarrow & & \downarrow \\ \mathrm{Spec}\,k & \hookrightarrow & \mathrm{Spec}\,D \end{array}$$</p>
+<p>identifying the special fibre $X \otimes_D k$ with $X_0$. <em>Flatness is the key word</em>: it is what stops $X$ from being just a disjoint pair of fibres or an arbitrary thickening, and it is the algebraic incarnation of "the family deforms continuously". Two first-order deformations $X, X'$ are <strong>equivalent</strong> if there is a $D$-isomorphism $X \to X'$ restricting to the identity on $X_0$. The set of equivalence classes is denoted $\mathrm{Def}_{X_0}(D)$, or simply $T^1_{X_0}$.</p>
+
+<p>Why is the dual-number axis the right "tangent direction"? Functorially, a $D$-point of any moduli space $\mathcal{M}$ is a pair (a $k$-point $[X_0]$, plus a tangent vector at $[X_0]$). So $\mathrm{Def}_{X_0}(D)$ literally <em>is</em> the tangent space to the moduli problem at $X_0$ — provided we have a moduli space at all. (Hartshorne, Sernesi, and Illusie all open with this observation; it is the gateway to every later structure theorem.)</p>
+
+<p>The simplest non-example shows what flatness does. Take $X_0 = \mathrm{Spec}\,k[x,y]/(xy)$, the node. The <strong>trivial deformation</strong> is $X_0 \times_k \mathrm{Spec}\,D = \mathrm{Spec}\,k[x,y,\epsilon]/(xy, \epsilon^2)$ — a node with a fattened point glued to it but no actual smoothing. Replacing $xy$ by $xy - \epsilon$ gives a <em>different</em> deformation $\mathrm{Spec}\,k[x,y,\epsilon]/(xy - \epsilon, \epsilon^2)$, which is again flat over $D$ but now <em>not</em> equivalent to the trivial one — it is the first-order trace of smoothing the node to a hyperbola $xy = t$. Cohomology will see this as a non-zero class in $H^1(X_0, T_{X_0})$; the proof-scrubber below is the bridge.</p>
+
+<p><strong>Worked example:</strong> for $X_0 = \mathrm{Spec}\,A_0$ affine smooth over $k$, every first-order deformation is trivial — equivalently, $T^1_{X_0} = H^1(X_0, T_{X_0})$ vanishes for $X_0$ affine. The Čech computation behind this is exactly the obstruction-free patching the scrubber walks through. The interesting examples are global (projective) or singular.</p>
+
+<div class="widget" id="w-fod-scrub"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-fod-scrub', {
+    title: "Smoothing the node $xy = 0$ over $k[\\epsilon]/(\\epsilon^2)$",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 480 220",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "1. Pick the central fibre $X_0$",
+        body: "Take $X_0 = \\mathrm{Spec}\\,k[x,y]/(xy)$ — the union of the two coordinate axes meeting transversely at the origin (the standard node). Our task: classify the flat lifts of $X_0$ over $D = k[\\epsilon]/(\\epsilon^2)$ up to $D$-iso fixing $X_0$.",
+        svgInner: "<line x1='80' y1='50' x2='80' y2='190' stroke='var(--blue)' stroke-width='2'/><line x1='10' y1='120' x2='150' y2='120' stroke='var(--blue)' stroke-width='2'/><circle cx='80' cy='120' r='5' fill='var(--yellow)'/><text x='160' y='124' font-size='13' fill='var(--ink)'>$X_0 : xy = 0$</text><text x='160' y='150' font-size='12' fill='var(--mute)'>node at the origin</text><text x='250' y='95' font-size='13' fill='var(--ink)'>over $\\mathrm{Spec}\\,k$</text>"
+      },
+      {
+        title: "2. Form the trivial deformation $X_0 \\times_k \\mathrm{Spec}\\,D$",
+        body: "Base-change $X_0$ along $k \\hookrightarrow D$. As a ring this gives $k[x,y,\\epsilon]/(xy,\\epsilon^2)$ — still a node, just with $\\epsilon$-fuzz. This is the <em>identity</em> first-order deformation; every $X_0$ has it. Equivalence classes that match it are 'trivial'.",
+        svgInner: "<rect x='50' y='40' width='180' height='160' fill='none' stroke='var(--violet)' stroke-dasharray='3 3' stroke-width='1.5'/><line x1='140' y1='50' x2='140' y2='190' stroke='var(--blue)' stroke-width='2'/><line x1='70' y1='120' x2='210' y2='120' stroke='var(--blue)' stroke-width='2'/><circle cx='140' cy='120' r='5' fill='var(--yellow)'/><text x='250' y='100' font-size='13' fill='var(--violet)'>$X_0 \\times_k \\mathrm{Spec}\\,D$</text><text x='250' y='128' font-size='12' fill='var(--mute)'>$=k[x,y,\\epsilon]/(xy,\\epsilon^2)$</text><text x='250' y='160' font-size='12' fill='var(--mute)'>node $\\times$ fat point</text>"
+      },
+      {
+        title: "3. Try a non-trivial flat lift",
+        body: "Replace the equation $xy$ by $xy - \\epsilon$. Set $X = \\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\, \\epsilon^2)$. Modulo $\\epsilon$ this is $xy = 0$, so the special fibre is still $X_0$ ✓. Flatness over $D$ holds because $xy - \\epsilon$ is a regular element. But $X$ is <em>not</em> $D$-isomorphic to the trivial one — there is no change of variables fixing $X_0$ that makes the equations match.",
+        svgInner: "<path d='M 60,180 Q 140,140 220,100' fill='none' stroke='var(--green)' stroke-width='2'/><path d='M 60,100 Q 140,140 220,180' fill='none' stroke='var(--green)' stroke-width='2'/><text x='250' y='90' font-size='13' fill='var(--green)'>$xy - \\epsilon = 0$ to first order</text><text x='250' y='118' font-size='12' fill='var(--mute)'>flat over $D$, special fibre $= X_0$</text><text x='250' y='148' font-size='12' fill='var(--mute)'>but NOT $\\cong$ trivial deformation</text>"
+      },
+      {
+        title: "4. Čech-cohomology classification",
+        body: "Cover $X_0$ by affines $U_i$. On each $U_i$ flatness lets us trivialise the lift; the difference between two trivialisations on $U_i \\cap U_j$ is a derivation, i.e. a section of $T_{X_0}$. The cocycle condition on triples gives a class $[\\theta] \\in \\check H^1(X_0, T_{X_0})$, and equivalence classes of deformations correspond bijectively to $H^1$ classes. Trivial $\\leftrightarrow$ zero class; smoothing the node $\\leftrightarrow$ the non-zero class generated by $\\partial/\\partial(xy)$.",
+        svgInner: "<rect x='40' y='80' width='100' height='80' fill='none' stroke='var(--cyan)' stroke-width='1.5'/><rect x='110' y='80' width='100' height='80' fill='none' stroke='var(--cyan)' stroke-width='1.5'/><text x='90' y='75' font-size='11' fill='var(--cyan)' text-anchor='middle'>$U_i$</text><text x='160' y='75' font-size='11' fill='var(--cyan)' text-anchor='middle'>$U_j$</text><text x='125' y='185' font-size='12' fill='var(--yellow)' text-anchor='middle'>$\\theta_{ij} \\in T_{X_0}(U_i \\cap U_j)$</text><text x='250' y='110' font-size='13' fill='var(--ink)'>$\\delta\\theta = 0$ on triples</text><text x='250' y='140' font-size='12' fill='var(--mute)'>$\\Rightarrow [\\theta] \\in H^1(X_0, T_{X_0})$</text>"
+      },
+      {
+        title: "5. Recovery: $\\mathrm{Def}_{X_0}(D) = H^1(X_0, T_{X_0})$",
+        body: "Conversely, every Čech cocycle $\\theta_{ij}$ glues the trivial pieces $U_i \\times \\mathrm{Spec}\\,D$ into a flat $D$-scheme $X$ with special fibre $X_0$. Coboundaries shift the trivialisations; the bijection $\\{\\text{first-order deformations}\\}/{\\sim} \\;\\longleftrightarrow\\; H^1(X_0, T_{X_0})$ is canonical and the foundation of every later result.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--yellow)'>$\\mathrm{Def}_{X_0}(D) \\;\\xrightarrow{\\sim}\\; H^1(X_0, T_{X_0})$</text><text x='30' y='115' font-size='13' fill='var(--mute)'>natural $k$-vector-space structure inherited from $H^1$</text><text x='30' y='150' font-size='13' fill='var(--green)'>node example: $\\dim H^1 = 1$ (one direction of smoothing)</text><text x='30' y='185' font-size='13' fill='var(--mute)'>compatible with Hartshorne III.9 base-change of flatness</text>"
+      }
+    ]
+  });
+})();
+</script>
+<div class="quiz" data-concept="first-order-deformation"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./deformation-theory.html#deformation-functor">Deformation theory</a> · Deformation functors and Schlessinger's criteria</div>
+    <div><a href="./deformation-theory.html#tangent-space">Deformation theory</a> · Tangent space of moduli is $H^1(X_0, T_{X_0})$</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="tangent-space">
+<h2>2. Tangent space of moduli is $H^1(X_0, T_{X_0})$</h2>
+<p>Section 1 ended on the punchline that $\mathrm{Def}_{X_0}(D) \cong H^1(X_0, T_{X_0})$ for $X_0$ smooth (or, more generally, locally complete intersection with controlled singularities). This section unpacks <em>why</em> this is the tangent space to moduli: the construction is the standard "patching" pattern, and exhibiting the bijection on a small example is the right way to internalise it.</p>
+
+<p>The setup. Choose an affine open cover $\{U_i\}$ of $X_0$ with $X_0$ smooth. Flatness of any $D$-deformation $X$ is a local condition; on each $U_i$, smoothness gives a trivialisation $\varphi_i\colon X|_{U_i} \xrightarrow{\sim} U_i \times_k \mathrm{Spec}\,D$ (Hartshorne III.9.9). On $U_i \cap U_j$ we have two such trivialisations, and their difference $\varphi_j \circ \varphi_i^{-1}$ is an automorphism of $(U_i \cap U_j) \times \mathrm{Spec}\,D$ that restricts to the identity modulo $\epsilon$. Such an automorphism is precisely $\mathrm{id} + \epsilon \cdot \theta_{ij}$ for a unique derivation $\theta_{ij} \in T_{X_0}(U_i \cap U_j)$. The cocycle condition $\theta_{ij} + \theta_{jk} = \theta_{ik}$ on triples is forced; coboundaries arise from changes of trivialisation. Hence equivalence classes of first-order deformations $\leftrightarrow \check H^1(\{U_i\}, T_{X_0}) = H^1(X_0, T_{X_0})$.</p>
+
+<p>The geometric content: a class in $H^1(X_0, T_{X_0})$ encodes the obstruction to gluing the locally trivial pieces back into a globally trivial deformation. For $X_0 = \mathbb{P}^1$, $T_{\mathbb{P}^1} = \mathcal{O}(2)$ and $H^1(\mathbb{P}^1, \mathcal{O}(2)) = 0$ — every first-order deformation of $\mathbb{P}^1$ is trivial, i.e. $\mathbb{P}^1$ is <strong>infinitesimally rigid</strong>. The same vanishing $H^1(\mathbb{P}^n, T_{\mathbb{P}^n}) = 0$ holds for all $n \ge 1$ via the Euler sequence; $\mathbb{P}^n$ has no moduli. By contrast for a smooth curve $C$ of genus $g \ge 2$, Riemann–Roch and Serre duality give $\dim H^1(C, T_C) = 3g - 3$, the classical dimension of $\mathcal{M}_g$.</p>
+
+<p><strong>Worked example.</strong> For an elliptic curve $E$ over $k = \bar k$, $T_E \cong \mathcal{O}_E$ (the tangent bundle of an abelian variety is trivial), so $H^1(E, T_E) \cong H^1(E, \mathcal{O}_E)$ has dimension $1$ — recovering the familiar fact that $\mathcal{M}_{1,1}$ is one-dimensional, parametrised by the $j$-invariant.</p>
+
+<div class="widget" id="w-tangent-clickable">
+  <div class="hd"><div class="ttl">Čech 1-cocycle ↔ first-order lift, on a 2-chart cover</div><div class="hint">click a chart, an overlap, or the cocycle to see what it encodes</div></div>
+  <svg id="svg-tangent-clickable" viewBox="0 0 480 250" width="100%"><title>Two open charts of X_0 glued by a derivation θ giving a first-order deformation</title>
+    <defs>
+      <marker id="tg-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+      <marker id="tg-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker>
+    </defs>
+    <!-- two charts represented as rectangles -->
+    <rect class="tg-pick" data-key="Ui" x="40" y="50" width="160" height="120" fill="color-mix(in srgb, var(--blue) 12%, var(--panel2))" stroke="var(--blue)" stroke-width="1.5" style="cursor:pointer"/>
+    <text x="120" y="115" text-anchor="middle" font-size="14" fill="var(--ink)" pointer-events="none">$U_i \times \mathrm{Spec}\,D$</text>
+    <rect class="tg-pick" data-key="Uj" x="280" y="50" width="160" height="120" fill="color-mix(in srgb, var(--green) 12%, var(--panel2))" stroke="var(--green)" stroke-width="1.5" style="cursor:pointer"/>
+    <text x="360" y="115" text-anchor="middle" font-size="14" fill="var(--ink)" pointer-events="none">$U_j \times \mathrm{Spec}\,D$</text>
+    <!-- overlap region -->
+    <rect class="tg-pick" data-key="Uij" x="170" y="80" width="140" height="60" fill="color-mix(in srgb, var(--cyan) 18%, var(--panel))" stroke="var(--cyan)" stroke-dasharray="4 3" stroke-width="1.5" style="cursor:pointer"/>
+    <text x="240" y="115" text-anchor="middle" font-size="13" fill="var(--cyan)" pointer-events="none">$U_i \cap U_j$</text>
+    <!-- the cocycle θ_ij as an arrow above -->
+    <path class="tg-pick" data-key="theta" d="M 200 195 Q 240 235 280 195" fill="none" stroke="var(--yellow)" stroke-width="2" marker-end="url(#tg-arr-y)" style="cursor:pointer"/>
+    <text x="240" y="225" text-anchor="middle" font-size="13" fill="var(--yellow)" pointer-events="none">$\theta_{ij}$</text>
+    <!-- arrow showing equivalent trivialisations differ by id + ε·θ -->
+    <text class="tg-pick" data-key="lift" x="240" y="40" text-anchor="middle" font-size="13" fill="var(--violet)" style="cursor:pointer">click here for the global lift X</text>
+  </svg>
+  <div class="readout" id="tg-readout">click any rectangle, the cyan overlap, the yellow arrow, or the violet text — each encodes one piece of the bijection $H^1(X_0, T_{X_0}) \cong \mathrm{Def}_{X_0}(D)$.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('tg-readout');
+  if(!ro) return;
+  const TXT = {
+    'Ui':    "On the affine chart $U_i$, smoothness of $X_0$ gives a $D$-trivialisation $\\varphi_i\\colon X|_{U_i} \\xrightarrow{\\sim} U_i \\times_k \\mathrm{Spec}\\,D$. Locally, every flat lift is the boring product — the data lives entirely in how the charts <em>glue</em>.",
+    'Uj':    "Same story on $U_j$: the lift $X|_{U_j}$ is trivialised as $U_j \\times_k \\mathrm{Spec}\\,D$ via some $\\varphi_j$. There is no canonical choice — different $\\varphi_j$ differ by the action of $T_{X_0}(U_j)$, which is what gives coboundaries on the cohomology side.",
+    'Uij':   "On the overlap $U_i \\cap U_j$, both $\\varphi_i$ and $\\varphi_j$ trivialise. Their composite $\\varphi_j \\circ \\varphi_i^{-1}$ is an automorphism of $(U_i \\cap U_j) \\times \\mathrm{Spec}\\,D$ that is the identity modulo $\\epsilon$. Such an automorphism has the unique form $\\mathrm{id} + \\epsilon \\cdot \\theta_{ij}$.",
+    'theta': "The derivation $\\theta_{ij} \\in T_{X_0}(U_i \\cap U_j)$ is the <strong>Čech 1-cocycle</strong>. The cocycle condition $\\theta_{ij} + \\theta_{jk} = \\theta_{ik}$ on triple overlaps is automatic. Changing each $\\varphi_i$ by $\\mathrm{id} + \\epsilon\\xi_i$ shifts $\\theta_{ij}$ by the coboundary $\\xi_j - \\xi_i$. Hence $[\\theta] \\in H^1(X_0, T_{X_0})$.",
+    'lift':  "Conversely, every cocycle $[\\theta] \\in H^1(X_0, T_{X_0})$ assembles a flat $D$-scheme $X$ from the trivial pieces $U_i \\times \\mathrm{Spec}\\,D$ glued by $\\mathrm{id} + \\epsilon\\theta_{ij}$. The bijection $\\mathrm{Def}_{X_0}(D) \\xrightarrow{\\sim} H^1(X_0, T_{X_0})$ is a $k$-vector-space isomorphism — the tangent space to moduli at $[X_0]$.",
+  };
+  document.querySelectorAll('#svg-tangent-clickable .tg-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+<div class="quiz" data-concept="tangent-space-of-moduli"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./deformation-theory.html#obstructions">Deformation theory</a> · Obstructions live in $H^2(X_0, T_{X_0})$</div>
+    <div><a href="./deformation-theory.html#cotangent-complex">Deformation theory</a> · The cotangent complex $L_{X/Y}$</div>
+    <div><a href="./deformation-theory.html#deformation-of-a-curve">Deformation theory</a> · Worked example: deformations of a smooth curve</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="obstructions">
+<h2>3. Obstructions live in $H^2(X_0, T_{X_0})$</h2>
+<p>First-order deformations are the linear shadow of moduli; to "integrate" them — to extend a first-order lift over $D = k[\epsilon]/(\epsilon^2)$ to a second-order lift over $k[t]/(t^3)$, then $k[t]/(t^4)$, and onwards — generally requires solving a non-linear cocycle equation, and the obstruction to doing so lives one degree higher: in $H^2(X_0, T_{X_0})$.</p>
+
+<p>The mechanism. Start with a flat lift $X_n$ over $A_n = k[t]/(t^{n+1})$. Try to extend it to a lift $X_{n+1}$ over $A_{n+1} = k[t]/(t^{n+2})$. Locally — on each affine $U_i$ in your cover — extensions exist freely; the local automorphism groups are torsors over $T_{X_0}(U_i)$, exactly as before. Compatible local extensions glue iff a 2-cocycle $\mathrm{ob}(X_n) \in C^2(\{U_i\}, T_{X_0})$ vanishes; its cohomology class $[\mathrm{ob}(X_n)] \in H^2(X_0, T_{X_0})$ is the <strong>obstruction</strong>. If $[\mathrm{ob}(X_n)] = 0$ the obstruction can be killed by re-choosing the local extensions, and a global lift $X_{n+1}$ exists. If not, no $X_{n+1}$ exists; the deformation is <strong>obstructed</strong> at order $n$.</p>
+
+<p>Two consequences worth memorising. (a) <strong>Unobstructed implies smooth moduli.</strong> If $H^2(X_0, T_{X_0}) = 0$ then every obstruction class is forced to vanish and every first-order deformation extends to all orders, giving a formal smoothness statement: $\mathrm{Def}_{X_0}$ is pro-represented by a power-series ring $k[\![t_1, \ldots, t_d]\!]$ with $d = \dim H^1(X_0, T_{X_0})$. (b) <strong>Curves are special.</strong> For a smooth projective curve $C$ the dimension constraint $\dim C = 1$ forces $H^2(C, T_C) = 0$ (any sheaf on a 1-dimensional space has no $H^{\ge 2}$); this is why $\mathcal{M}_g$ is smooth and why curves "have no obstructions" — the deeper reason behind the dimension count $3g-3$.</p>
+
+<p>Counter-classical examples. Calabi–Yau threefolds typically have non-zero $H^2(X, T_X)$ but a miraculous cancellation (Bogomolov–Tian–Todorov, Ran's $T^1$-lifting): the obstruction map vanishes nonetheless, and the deformation theory is unobstructed despite having non-trivial $H^2$. By contrast, <em>some</em> threefolds have genuinely obstructed deformations — Mukai-style classifying spaces with non-reduced moduli.</p>
+
+<p><strong>Worked example.</strong> Consider $X_0 = \mathbb{P}^n$. The Euler sequence $0 \to \mathcal{O} \to \mathcal{O}(1)^{n+1} \to T_{\mathbb{P}^n} \to 0$ shows $H^i(\mathbb{P}^n, T_{\mathbb{P}^n}) = 0$ for all $i \ge 1$. Hence $\mathbb{P}^n$ is rigid (no first-order deformations) <em>and</em> unobstructed (no obstructions to chase). The "moduli space" of $\mathbb{P}^n$'s is a single point.</p>
+
+<div class="widget" id="w-obs-graph">
+  <div class="hd"><div class="ttl">Lifting tower: where the obstruction class lives</div><div class="hint">click a stage or an edge — green edge = obstruction vanishes, pink = obstructed</div></div>
+  <svg id="svg-obs-graph" viewBox="0 0 580 240" width="100%"><title>Obstruction graph: lifts X_n over k[t]/t^(n+1) and the obstruction class to lifting further</title>
+    <defs>
+      <marker id="ob-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--green)"/></marker>
+      <marker id="ob-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--pink)"/></marker>
+      <marker id="ob-arr-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+    </defs>
+    <!-- four nodes for X_0, X_1, X_2, X_3 -->
+    <circle class="ob-pick" data-key="X0" cx="70"  cy="120" r="22" fill="var(--panel2)" stroke="var(--blue)" stroke-width="1.8" style="cursor:pointer"/>
+    <text x="70"  y="125" text-anchor="middle" font-size="13" fill="var(--ink)" pointer-events="none">$X_0$</text>
+    <circle class="ob-pick" data-key="X1" cx="200" cy="120" r="22" fill="var(--panel2)" stroke="var(--yellow)" stroke-width="1.8" style="cursor:pointer"/>
+    <text x="200" y="125" text-anchor="middle" font-size="13" fill="var(--ink)" pointer-events="none">$X_1$</text>
+    <circle class="ob-pick" data-key="X2" cx="350" cy="120" r="22" fill="var(--panel2)" stroke="var(--yellow)" stroke-width="1.8" style="cursor:pointer"/>
+    <text x="350" y="125" text-anchor="middle" font-size="13" fill="var(--ink)" pointer-events="none">$X_2$</text>
+    <circle class="ob-pick" data-key="Xinf" cx="500" cy="120" r="22" fill="var(--panel2)" stroke="var(--cyan)" stroke-width="1.8" style="cursor:pointer"/>
+    <text x="500" y="125" text-anchor="middle" font-size="13" fill="var(--ink)" pointer-events="none">$X_\infty$</text>
+    <!-- ring labels under each node -->
+    <text x="70"  y="170" text-anchor="middle" font-size="11" fill="var(--mute)">$/k$</text>
+    <text x="200" y="170" text-anchor="middle" font-size="11" fill="var(--mute)">$/k[t]/t^2$</text>
+    <text x="350" y="170" text-anchor="middle" font-size="11" fill="var(--mute)">$/k[t]/t^3$</text>
+    <text x="500" y="170" text-anchor="middle" font-size="11" fill="var(--mute)">$/k[\![t]\!]$</text>
+    <!-- edges between stages -->
+    <line class="ob-pick" data-key="e01" x1="92"  y1="120" x2="178" y2="120" stroke="var(--green)" stroke-width="2" marker-end="url(#ob-arr-g)" style="cursor:pointer"/>
+    <text x="135" y="105" text-anchor="middle" font-size="11" fill="var(--green)" pointer-events="none">$\mathrm{ob}_0 = 0$</text>
+    <line class="ob-pick" data-key="e12" x1="222" y1="120" x2="328" y2="120" stroke="var(--pink)" stroke-width="2" marker-end="url(#ob-arr-p)" stroke-dasharray="5 4" style="cursor:pointer"/>
+    <text x="275" y="105" text-anchor="middle" font-size="11" fill="var(--pink)" pointer-events="none">$\mathrm{ob}_1 \in H^2(T_{X_0})$</text>
+    <line class="ob-pick" data-key="e2inf" x1="372" y1="120" x2="478" y2="120" stroke="var(--green)" stroke-width="2" marker-end="url(#ob-arr-g)" style="cursor:pointer"/>
+    <text x="425" y="105" text-anchor="middle" font-size="11" fill="var(--green)" pointer-events="none">$\mathrm{ob}_2 = 0 \Rightarrow$ formal lift</text>
+    <!-- bottom annotations -->
+    <text x="290" y="220" text-anchor="middle" font-size="12" fill="var(--mute)">Tower of Artinian truncations: a class in $H^2(X_0, T_{X_0})$ for each stage to lift further.</text>
+  </svg>
+  <div class="readout" id="ob-readout">click a node to see the lift, or an edge to inspect the obstruction class controlling that step.</div>
+</div>
+<script>
+(function(){
+  const ro = document.getElementById('ob-readout');
+  if(!ro) return;
+  const TXT = {
+    'X0':    "$X_0 = X \\otimes k$ — the central fibre we are deforming. Lives over $\\mathrm{Spec}\\,k$.",
+    'X1':    "$X_1$ — a flat lift over $A_1 = k[t]/(t^2)$. Equivalence classes of these are first-order deformations: $\\{X_1\\}/\\sim \\;\\cong\\; H^1(X_0, T_{X_0})$.",
+    'X2':    "$X_2$ — a flat lift over $A_2 = k[t]/(t^3)$ extending the chosen $X_1$. Existence of such an $X_2$ is governed by the obstruction class $\\mathrm{ob}_1 \\in H^2(X_0, T_{X_0})$.",
+    'Xinf':  "$X_\\infty$ — a formal lift over the complete local ring $k[\\![t]\\!]$. Existence is guaranteed when every $\\mathrm{ob}_n = 0$. If $H^2(X_0, T_{X_0}) = 0$, every $\\mathrm{ob}_n$ vanishes for free and the deformation is unobstructed at all orders.",
+    'e01':   "Step $X_0 \\rightsquigarrow X_1$. The 'obstruction' is trivially zero: a first-order lift always exists (e.g. the trivial one). The $H^1$-classification only kicks in once we ask <em>which</em> first-order lifts there are.",
+    'e12':   "Step $X_1 \\rightsquigarrow X_2$. The obstruction class $\\mathrm{ob}_1(X_1) \\in H^2(X_0, T_{X_0})$ is constructed as a 2-cocycle of local extensions — solving cocycle equations becomes non-linear at this order. If $[\\mathrm{ob}_1] = 0$ in $H^2$, an $X_2$ extending $X_1$ exists; if not, $X_1$ is genuinely obstructed.",
+    'e2inf': "Step $X_2 \\rightsquigarrow X_\\infty$. By induction, a formal lift exists iff every $\\mathrm{ob}_n = 0$. <strong>If $H^2(X_0, T_{X_0}) = 0$, all $\\mathrm{ob}_n$ are forced to vanish</strong>, and $\\mathrm{Def}_{X_0}$ is formally smooth — this is the smoothness criterion for moduli.",
+  };
+  document.querySelectorAll('#svg-obs-graph .ob-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-key');
+      ro.innerHTML = TXT[k] || '';
+      if(window.renderMathInElement){
+        renderMathInElement(ro, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+      }
+    });
+  });
+})();
+</script>
+<div class="quiz" data-concept="obstructions-H2"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./deformation-theory.html#deformation-of-a-curve">Deformation theory</a> · Worked example: deformations of a smooth curve</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="deformation-functor">
+<h2>4. Deformation functors and Schlessinger's criteria</h2>
+<p>The two preceding sections gave a hands-on Čech construction. To talk about <em>moduli</em> abstractly — even when no actual moduli scheme exists — Grothendieck and Schlessinger formalised the data into a functor.</p>
+
+<p>Let $\mathrm{Art}_k$ denote the category of <strong>Artin local $k$-algebras with residue field $k$</strong> (so $A$ is finite-dimensional over $k$ and has a unique maximal ideal $\mathfrak{m}_A$ with $A/\mathfrak{m}_A = k$). The <strong>deformation functor</strong> of $X_0$ is</p>
+<p style="text-align:center">$\mathrm{Def}_{X_0}\colon \mathrm{Art}_k \to \mathrm{Set}, \quad A \;\longmapsto\; \{\text{flat lifts $X/\mathrm{Spec}\,A$ of $X_0$}\}/\!\sim$</p>
+<p>where $\sim$ is $A$-isomorphism fixing the special fibre $X_0$. The dual numbers $D = k[\epsilon]/(\epsilon^2)$ are an Artin local ring, so $\mathrm{Def}_{X_0}(D) \cong H^1(X_0, T_{X_0})$ from §1–2 fits cleanly into this language.</p>
+
+<p>The functor $\mathrm{Def}_{X_0}$ is rarely <em>representable</em> in the strict sense (it would require a fine moduli scheme; deformations have automorphisms which obstruct this). Schlessinger's 1968 paper <em>Functors of Artin rings</em> identifies four conditions, traditionally numbered <strong>(H1)–(H4)</strong>, characterising when $\mathrm{Def}_{X_0}$ has a <strong>hull</strong>:</p>
+
+<ul>
+<li><strong>(H1)</strong> For surjections $A' \twoheadrightarrow A$ in $\mathrm{Art}_k$ and any $A'' \to A$, the natural map $\mathrm{Def}(A' \times_A A'') \to \mathrm{Def}(A') \times_{\mathrm{Def}(A)} \mathrm{Def}(A'')$ is surjective.</li>
+<li><strong>(H2)</strong> When $A = k$ and $A' \twoheadrightarrow k$ is a small extension, the map in (H1) is bijective.</li>
+<li><strong>(H3)</strong> $\dim_k \mathrm{Def}(D) < \infty$ — the tangent space of the functor is finite-dimensional.</li>
+<li><strong>(H4)</strong> The map in (H1) is bijective for arbitrary $A$ (this strengthens (H1)+(H2)). When (H4) holds along with (H1)–(H3), $\mathrm{Def}_{X_0}$ is <strong>pro-representable</strong> by a complete local Noetherian $k$-algebra $R$.</li>
+</ul>
+
+<p>A <strong>hull</strong> is a complete local $k$-algebra $R$ together with a smooth, surjective natural transformation $h_R \to \mathrm{Def}_{X_0}$ inducing an isomorphism on tangent spaces. Schlessinger's theorem: $\mathrm{Def}_{X_0}$ has a hull iff (H1), (H2), and (H3) hold; it is pro-representable iff (H1)–(H4) all hold. For $X_0$ smooth projective, all four hold, and the hull lives at the heart of every deformation-space construction (Hilbert schemes, $\mathrm{Quot}$-schemes, moduli of stable bundles).</p>
+
+<p><strong>Worked example.</strong> The functor $h_R \colon \mathrm{Art}_k \to \mathrm{Set}$, $A \mapsto \mathrm{Hom}_k\text{-alg}(R, A)$, of any complete local $k$-algebra $R$ trivially satisfies (H1)–(H4); so a representable functor is its own hull. The interesting examples are deformation functors of <em>singular</em> schemes (a node, a cusp), where (H4) can genuinely fail and only a hull exists. The bridge to actual moduli stacks is then through Artin's algebraisation criteria.</p>
+
+<div class="widget" id="w-schless-diagram">
+  <div class="hd"><div class="ttl">Schlessinger's pullback diagram</div><div class="hint">illustration — the (H1)/(H2) condition pictured</div></div>
+  <svg viewBox="0 0 460 240" width="100%"><title>The pullback square A' ×_A A'' that Schlessinger's conditions test</title>
+    <defs>
+      <marker id="sl-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+      <marker id="sl-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker>
+    </defs>
+    <!-- pullback square -->
+    <text x="80"  y="70"  text-anchor="middle" font-size="16" fill="var(--ink)">$A' \times_A A''$</text>
+    <text x="320" y="70"  text-anchor="middle" font-size="16" fill="var(--ink)">$A''$</text>
+    <text x="80"  y="170" text-anchor="middle" font-size="16" fill="var(--ink)">$A'$</text>
+    <text x="320" y="170" text-anchor="middle" font-size="16" fill="var(--ink)">$A$</text>
+    <line x1="130" y1="65" x2="270" y2="65" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#sl-arr)"/>
+    <line x1="80"  y1="80" x2="80"  y2="155" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#sl-arr-y)"/>
+    <line x1="320" y1="80" x2="320" y2="155" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#sl-arr-y)"/>
+    <line x1="130" y1="165" x2="270" y2="165" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#sl-arr)"/>
+    <text x="200" y="55"  text-anchor="middle" font-size="12" fill="var(--mute)">$\pi''$</text>
+    <text x="200" y="180" text-anchor="middle" font-size="12" fill="var(--mute)"></text>
+    <!-- annotation -->
+    <text x="230" y="220" text-anchor="middle" font-size="12" fill="var(--mute)">yellow arrows are <em>surjections</em>; (H1) tests the induced $\mathrm{Def}$-pullback.</text>
+  </svg>
+</div>
+<div class="quiz" data-concept="deformation-functor"></div>
+</section>
+
+<section id="cotangent-complex">
+<h2>5. The cotangent complex $L_{X/Y}$</h2>
+<p>The Čech-cohomology pictures of §1–3 see $T_{X_0} = \mathcal{H}om(\Omega^1_{X_0/k}, \mathcal{O}_{X_0})$ on the nose, but for $X_0$ singular the sheaf $\Omega^1_{X_0/k}$ doesn't carry enough information — squashing higher derived structure into a single sheaf loses obstruction data. Illusie (and, independently, Quillen) discovered the correct replacement: a <strong>complex</strong> $L_{X/Y}$ in the derived category $D^{\le 0}(\mathcal{O}_X)$ whose Ext groups recover the deformation invariants in a uniform way.</p>
+
+<p>The construction starts from a general fact about commutative algebras. Given a morphism $f\colon X \to Y$, choose a "free resolution" of $\mathcal{O}_X$ as an $\mathcal{O}_Y$-algebra by polynomial algebras $P_\bullet$ (a simplicial $\mathcal{O}_Y$-algebra resolution). The <strong>cotangent complex</strong></p>
+<p style="text-align:center">$L_{X/Y} \;:=\; \Omega^1_{P_\bullet/\mathcal{O}_Y} \otimes_{P_\bullet} \mathcal{O}_X$</p>
+<p>is an object in $D^{\le 0}(\mathcal{O}_X)$, well-defined up to quasi-isomorphism. The construction is the algebraic analogue of "take a CW model and compute its tangent bundle" — the resolution $P_\bullet$ is a "smooth approximation" of $X \to Y$, even when $f$ itself is singular.</p>
+
+<p>The structural facts that make this useful:</p>
+<ul>
+<li><strong>$f$ smooth $\Rightarrow$ $L_{X/Y}$ is concentrated in degree $0$ and equals $\Omega^1_{X/Y}[0]$.</strong> No new information beyond the relative differentials.</li>
+<li><strong>$f$ a regular embedding (l.c.i.) of codimension $r$ $\Rightarrow$ $L_{X/Y}$ has cohomology in degrees $0$ and $-1$:</strong> $\mathcal{H}^0 = \Omega^1_{X/Y}$, $\mathcal{H}^{-1} = \mathcal{I}/\mathcal{I}^2$ (the conormal sheaf).</li>
+<li><strong>Transitivity triangle.</strong> For $X \to Y \to Z$ there is a distinguished triangle $f^* L_{Y/Z} \to L_{X/Z} \to L_{X/Y} \to f^* L_{Y/Z}[1]$ — the derived analogue of the conormal exact sequence.</li>
+<li><strong>Deformation invariants.</strong> $\mathrm{Def}_{X/Y}(D) = \mathrm{Ext}^1_{\mathcal{O}_X}(L_{X/Y}, \mathcal{O}_X)$, the obstruction lives in $\mathrm{Ext}^2_{\mathcal{O}_X}(L_{X/Y}, \mathcal{O}_X)$. For $X/Y$ smooth this recovers $H^1(X, T_{X/Y})$ and $H^2(X, T_{X/Y})$ — sections 1–3 are the smooth case of the Ext interpretation.</li>
+</ul>
+
+<p>The point is uniformity: even when $X_0$ is singular and $T_{X_0} = \mathcal{H}om(\Omega^1_{X_0}, \mathcal{O}_{X_0})$ is the "wrong" object, $\mathrm{Ext}^i(L_{X_0/k}, \mathcal{O}_{X_0})$ is always the right one. Read Illusie's two-volume <em>Complexe cotangent et déformations</em> (SLN 239 + 283) once and the obstruction-theoretic fog clears.</p>
+
+<p><strong>Worked example.</strong> For $X_0 = \mathrm{Spec}\,k[x]/(x^2)$ (a fat point), $L_{X_0/k}$ has $\mathcal{H}^0 = \Omega^1 = k \cdot dx /(2x\,dx) \cong k$ and $\mathcal{H}^{-1} = (x^2)/(x^4) \cong k \cdot \overline{x^2}$ — both 1-dimensional. The deformation problem has $\mathrm{Ext}^1(L, k) = k$ (one direction: $x^2 = t$, smoothing the fat point) and $\mathrm{Ext}^2 = 0$ (no obstruction), correctly capturing $\mathrm{Def}(\text{fat point}) \cong \mathrm{Spec}\,k[\![t]\!]$.</p>
+
+<div class="widget" id="w-cotangent-scrub"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-cotangent-scrub', {
+    title: "Building $L_{X/Y}$ from a polynomial resolution",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 480 220",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "1. Start with $\\Omega^1_{X/Y}$",
+        body: "The naive tangent/obstruction object is $\\Omega^1_{X/Y}$, the sheaf of relative Kähler differentials. For $X \\to Y$ smooth this is locally free and works. For singular $X$ — say $X_0 = \\mathrm{Spec}\\,k[x]/(x^2)$ — the sheaf $\\Omega^1$ misses information: the singular structure is invisible to it.",
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--ink)'>$\\Omega^1_{X/Y}$ — relative differentials</text><text x='30' y='115' font-size='13' fill='var(--mute)'>locally free if $X/Y$ smooth</text><text x='30' y='150' font-size='13' fill='var(--pink)'>obstructed for singular $X$ — too coarse</text>"
+      },
+      {
+        title: "2. Take a simplicial resolution $P_\\bullet \\to \\mathcal{O}_X$",
+        body: "Resolve $\\mathcal{O}_X$ as an $\\mathcal{O}_Y$-algebra by a simplicial polynomial algebra $P_\\bullet$ — at each level $P_n$ is a polynomial ring on enough generators to surject onto whatever's left. This is the algebro-geometric analogue of a CW resolution, and the choice of $P_\\bullet$ is unique up to homotopy.",
+        svgInner: "<text x='30' y='60' font-size='14' fill='var(--ink)'>$P_0 \\twoheadrightarrow \\mathcal{O}_X$, $P_1 \\rightrightarrows P_0$, $P_2 \\Rrightarrow P_1$, $\\ldots$</text><text x='30' y='100' font-size='13' fill='var(--mute)'>each $P_n$ a polynomial $\\mathcal{O}_Y$-algebra</text><text x='30' y='130' font-size='13' fill='var(--mute)'>simplicial = face/degeneracy maps in every direction</text><text x='30' y='170' font-size='13' fill='var(--green)'>'free resolution' for commutative algebras</text>"
+      },
+      {
+        title: "3. Define $L_{X/Y} := \\Omega^1_{P_\\bullet/\\mathcal{O}_Y} \\otimes_{P_\\bullet} \\mathcal{O}_X$",
+        body: "Apply $\\Omega^1$ to the resolution and tensor down to $\\mathcal{O}_X$. The result is a simplicial $\\mathcal{O}_X$-module, and its associated chain complex (Dold–Kan) lives in $D^{\\le 0}(\\mathcal{O}_X)$ — concentrated in non-positive cohomological degrees because the resolution sits in non-negative simplicial degrees.",
+        svgInner: "<text x='30' y='75' font-size='14' fill='var(--yellow)'>$L_{X/Y} \\;:=\\; \\Omega^1_{P_\\bullet/\\mathcal{O}_Y} \\otimes_{P_\\bullet} \\mathcal{O}_X \\;\\in\\; D^{\\le 0}(\\mathcal{O}_X)$</text><text x='30' y='115' font-size='13' fill='var(--mute)'>$\\mathcal{H}^0(L_{X/Y}) = \\Omega^1_{X/Y}$</text><text x='30' y='145' font-size='13' fill='var(--mute)'>$\\mathcal{H}^{-1}(L_{X/Y}) =$ conormal sheaf when $f$ is l.c.i.</text>"
+      },
+      {
+        title: "4. Tangent / obstruction via $\\mathrm{Ext}^i$",
+        body: "Deformations of $X$ over $\\mathrm{Spec}\\,A$ for $A \\in \\mathrm{Art}_k$ are governed by $\\mathrm{Ext}^1_{\\mathcal{O}_X}(L_{X/Y}, \\mathcal{O}_X)$ (tangent space) and $\\mathrm{Ext}^2_{\\mathcal{O}_X}(L_{X/Y}, \\mathcal{O}_X)$ (obstruction). For $X/Y$ smooth, $L_{X/Y} = \\Omega^1_{X/Y}[0]$ and these are $H^1(X, T_{X/Y})$ and $H^2(X, T_{X/Y})$ — exactly the previous sections.",
+        svgInner: "<text x='30' y='70' font-size='14' fill='var(--green)'>tangent: $\\mathrm{Ext}^1(L_{X/Y}, \\mathcal{O}_X)$</text><text x='30' y='105' font-size='14' fill='var(--pink)'>obstruction: $\\mathrm{Ext}^2(L_{X/Y}, \\mathcal{O}_X)$</text><text x='30' y='150' font-size='13' fill='var(--mute)'>smooth case: matches $H^1(T)$, $H^2(T)$</text><text x='30' y='180' font-size='13' fill='var(--mute)'>singular case: only $L_{X/Y}$ gets it right</text>"
+      }
+    ]
+  });
+})();
+</script>
+<div class="quiz" data-concept="cotangent-complex"></div>
+</section>
+
+<section id="deformation-of-a-curve">
+<h2>6. Worked example: deformations of a smooth curve</h2>
+<p>The cleanest concrete instance of the §1–5 machinery: a smooth projective curve $C$ over $k = \bar k$, of genus $g$. Two facts conspire to give a uniformly clean answer:</p>
+<ul>
+<li><strong>$\dim C = 1 \Rightarrow H^i(C, \mathcal{F}) = 0$ for any $i \ge 2$ and any coherent $\mathcal{F}$.</strong> In particular $H^2(C, T_C) = 0$, so curves are <em>unobstructed</em> — every first-order deformation extends to all orders.</li>
+<li><strong>Riemann–Roch + Serre duality compute $H^1(C, T_C)$ explicitly.</strong> $T_C$ is a line bundle of degree $2 - 2g$ (it is the dual of the canonical bundle $\Omega^1_C$, which has degree $2g - 2$). For $g \ge 2$, $\deg T_C = 2 - 2g < 0$, hence $H^0(C, T_C) = 0$ (no infinitesimal automorphisms). Riemann–Roch then gives</li>
+</ul>
+<p style="text-align:center">$\chi(T_C) = \deg T_C - g + 1 = (2 - 2g) - g + 1 = 3 - 3g$,</p>
+<p>so $\dim H^1(C, T_C) = -\chi(T_C) = 3g - 3$. Equivalently, by Serre duality $H^1(C, T_C) \cong H^0(C, \Omega^1_C \otimes \Omega^1_C)^\vee = H^0(C, \Omega^{\otimes 2}_C)^\vee$ — the dual of the space of <strong>quadratic differentials</strong>, which has dimension $3g - 3$ by Riemann–Roch applied to $\Omega^{\otimes 2}_C$ (degree $4g - 4$).</p>
+
+<p>So for $g \ge 2$ the moduli space $\mathcal{M}_g$ is smooth of dimension $3g - 3$ at every point. The boundary cases:</p>
+<ul>
+<li><strong>$g = 0$:</strong> $C = \mathbb{P}^1$, $T = \mathcal{O}(2)$, $H^1 = 0$. Rigid: $\mathcal{M}_0$ is a point.</li>
+<li><strong>$g = 1$:</strong> $C$ elliptic, $T_C = \mathcal{O}_C$, $H^1(C, \mathcal{O}_C) \cong k$ has dimension $1$. $\mathcal{M}_{1,1}$ is one-dimensional (the $j$-line). Note $h^0(T_C) = 1$ as well — non-trivial automorphisms appear, foreshadowing why $\mathcal{M}_g$ for $g \le 1$ is best treated as a stack.</li>
+<li><strong>$g \ge 2$:</strong> $\dim \mathcal{M}_g = 3g - 3$, automorphism groups are finite, and $\mathcal{M}_g$ is a quasi-projective variety (Deligne–Mumford).</li>
+</ul>
+
+<p><strong>Worked example.</strong> For $g = 4$: $\dim \mathcal{M}_4 = 3(4) - 3 = 9$. A canonical curve of genus $4$ embeds via $\Omega^1$ into $\mathbb{P}^3$ as a degree-$6$ curve, the complete intersection of a quadric and a cubic. The "quadric or cubic" choice (whether the quadric is smooth or a cone) gives a stratification of $\mathcal{M}_4$ by trigonal versus general curves — the kind of geometric feature only made possible by knowing $\mathcal{M}_g$ is $9$-dimensional and smooth here.</p>
+
+<div class="widget" id="w-genus-tangent">
+  <div class="hd"><div class="ttl">$\dim T_{[C]}\mathcal{M}_g$ as a function of $g$</div><div class="hint">drag $g$ — the formula $3g - 3$ kicks in for $g \ge 2$</div></div>
+  <div class="row">
+    <label for="dt-g">genus $g$</label>
+    <input type="range" id="dt-g" min="0" max="10" step="1" value="4">
+    <span class="small" id="dt-g-val">g = 4</span>
+  </div>
+  <svg id="svg-genus-tangent" viewBox="0 0 480 220" width="100%"><title>Plot of dim H^1(C, T_C) versus genus g</title>
+    <defs>
+      <marker id="dt-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+    </defs>
+  </svg>
+  <div class="readout" id="dt-readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('svg-genus-tangent');
+  const out = document.getElementById('dt-readout');
+  const gEl = document.getElementById('dt-g');
+  const gVal = document.getElementById('dt-g-val');
+  if(!svg || !out || !gEl) return;
+
+  function dimH1T(g){
+    if(g === 0) return 0;        // P^1: rigid
+    if(g === 1) return 1;        // elliptic: 1-dim
+    return 3*g - 3;              // g >= 2: 3g - 3
+  }
+  function dimH0T(g){
+    if(g === 0) return 3;        // sl_2 = aut(P^1)
+    if(g === 1) return 1;        // translations
+    return 0;                    // g >= 2: no infinitesimal autos
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    // re-create the markers definitions
+    const defs = SVG('defs');
+    const m = SVG('marker',{id:'dt-arr', viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:6, markerHeight:6, orient:'auto'});
+    m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z', fill:'var(--ink)'}));
+    defs.appendChild(m);
+    svg.appendChild(defs);
+
+    const g = +gEl.value;
+    gVal.textContent = 'g = ' + g;
+
+    // axes
+    const x0 = 60, y0 = 180, xMax = 440, yMax = 30;
+    const xPx = (gg) => x0 + (xMax - x0) * (gg / 10);
+    const yPx = (dd) => y0 - (y0 - yMax) * (dd / 30);
+
+    // axes lines
+    svg.appendChild(SVG('line',{x1:x0, y1:y0, x2:xMax+10, y2:y0, stroke:'var(--mute)','stroke-width':1.2, 'marker-end':'url(#dt-arr)'}));
+    svg.appendChild(SVG('line',{x1:x0, y1:y0, x2:x0, y2:yMax-10, stroke:'var(--mute)','stroke-width':1.2, 'marker-end':'url(#dt-arr)'}));
+    // axis labels
+    const xl = SVG('text',{x:xMax+12, y:y0+14, 'font-size':12, fill:'var(--mute)'});
+    xl.textContent = 'g'; svg.appendChild(xl);
+    const yl = SVG('text',{x:x0-50, y:yMax-14, 'font-size':12, fill:'var(--mute)'});
+    yl.textContent = 'dim'; svg.appendChild(yl);
+
+    // tick labels for g
+    for(let gg = 0; gg <= 10; gg += 2){
+      const tx = xPx(gg);
+      svg.appendChild(SVG('line',{x1:tx, y1:y0, x2:tx, y2:y0+4, stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:tx, y:y0+16, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'});
+      t.textContent = gg; svg.appendChild(t);
+    }
+    // tick labels for dim
+    for(let dd = 0; dd <= 30; dd += 5){
+      const ty = yPx(dd);
+      svg.appendChild(SVG('line',{x1:x0-4, y1:ty, x2:x0, y2:ty, stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:x0-10, y:ty+4, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'});
+      t.textContent = dd; svg.appendChild(t);
+    }
+
+    // plot the dim H^1(T_C) curve as data points
+    for(let gg = 0; gg <= 10; gg += 1){
+      const dd = dimH1T(gg);
+      const cx = xPx(gg), cy = yPx(dd);
+      const isHere = (gg === g);
+      const c = SVG('circle',{cx, cy, r: isHere ? 7 : 4,
+        fill: isHere ? 'var(--yellow)' : 'var(--blue)',
+        stroke: isHere ? 'var(--ink)' : 'none',
+        'stroke-width': 1.5});
+      svg.appendChild(c);
+    }
+    // a 3g-3 reference line for g >= 2
+    let pathStr = '';
+    for(let gg = 2; gg <= 10; gg++){
+      pathStr += (pathStr ? ' L ' : 'M ') + xPx(gg) + ' ' + yPx(3*gg - 3);
+    }
+    svg.appendChild(SVG('path',{d:pathStr, fill:'none', stroke:'var(--violet)','stroke-width':1.2, 'stroke-dasharray':'4 3'}));
+    // label for the trend line
+    const ll = SVG('text',{x:xPx(8)+8, y:yPx(3*8 - 3)-8, 'font-size':11, fill:'var(--violet)'});
+    ll.textContent = 'y = 3g − 3 (g ≥ 2)';
+    svg.appendChild(ll);
+
+    // readout
+    const dim1 = dimH1T(g), dim0 = dimH0T(g);
+    let regime;
+    if(g === 0) regime = 'rigid (P¹ has no moduli)';
+    else if(g === 1) regime = 'elliptic curves: 1-parameter family (j-invariant)';
+    else regime = `M_g smooth of dim 3g − 3 = ${3*g-3}`;
+
+    out.innerHTML =
+      `genus $g = ${g}$ &nbsp;|&nbsp; ` +
+      `$\\dim H^1(C, T_C) = ${dim1}$ &nbsp;|&nbsp; ` +
+      `$\\dim H^0(C, T_C) = ${dim0}$ &nbsp;|&nbsp; ` +
+      `$H^2 = 0$ — ${regime}`;
+    if(window.renderMathInElement){
+      renderMathInElement(out, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false});
+    }
+  }
+  gEl.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="widget" id="w-curve-sandbox"></div>
+<script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#w-curve-sandbox', {
+    title: "Curve-deformation sandbox: verify $h^1(C, T_C) = 3g - 3$",
+    hint: "edit and Cmd/Ctrl+Enter to run · prelude: gcd, mod, factor, isPrime, primes, pow",
+    initialCode: "// Verify the Riemann-Roch computation for h^1(C, T_C) on a smooth proj curve of genus g.\n// T_C is the tangent line bundle, dual to the canonical Omega^1; deg T_C = 2 - 2g.\n// Serre duality:  h^1(C, T_C) = h^0(C, Omega^(2)) = dim of quadratic differentials.\n// Riemann-Roch on Omega^(2):  deg = 2(2g-2) = 4g-4, so for g >= 2 this is >= 2g-2 (the Serre bound)\n// hence  h^0(Omega^(2)) = (4g-4) - g + 1 = 3g - 3.\n\nfunction h1Tc(g){\n  if (g === 0) return 0;        // P^1: rigid\n  if (g === 1) return 1;        // elliptic: 1-dim\n  return 3*g - 3;               // g >= 2: 3g - 3\n}\n\n// Compare to the chi(T_C) shortcut: chi = deg(T) - g + 1 = (2-2g) - g + 1 = 3 - 3g\n// and h^0(T_C) = 0 for g >= 2, so h^1 = -chi = 3g - 3.\nfunction h1TcViaChi(g){\n  const degT = 2 - 2*g;\n  const chi  = degT - g + 1;\n  // for g >= 2:  h^0 = 0  =>  h^1 = -chi\n  if (g >= 2) return -chi;\n  if (g === 1) return 1;\n  if (g === 0) return 0;\n}\n\nfor (let g = 0; g <= 6; g++) {\n  const a = h1Tc(g), b = h1TcViaChi(g);\n  console.log('g = ' + g + ':  3g-3 formula = ' + a + ',  chi-route = ' + b + (a === b ? '  ok' : '  MISMATCH'));\n}\n",
+    prelude: "math",
+    rows: 14,
+    runLabel: "Run",
+  });
+})();
+</script>
+<div class="quiz" data-concept="deformation-of-a-curve"></div>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('deformation-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-25</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

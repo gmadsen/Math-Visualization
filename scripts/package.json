@@ -8,5 +8,8 @@
     "ajv": "^8.17.0",
     "ajv-formats": "^3.0.1",
     "node-html-parser": "^6.1.13"
+  },
+  "devDependencies": {
+    "jsdom": "^22.1.0"
   }
 }

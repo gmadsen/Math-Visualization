@@ -84,7 +84,9 @@
 
     const steps = opts.steps;
     const N = steps.length;
-    const hasAnyRender = steps.some(s => typeof s.render === 'function');
+    const hasAnyRender = steps.some(
+      s => typeof s.render === 'function' || typeof s.svgInner === 'string'
+    );
     const autoplayMs = Math.max(400, opts.autoplayMs || 2000);
     const viewBox = opts.viewBox || '0 0 320 160';
     const title = opts.title || 'Proof scrubber';
@@ -228,6 +230,13 @@
             if(global.console && global.console.error)
               global.console.error('proof-scrubber render step', i, err);
           }
+        } else if(typeof s.svgInner === 'string'){
+          // Declarative form: append the raw SVG fragment after the <title>.
+          // Parse via a wrapper <svg> so namespacing is preserved without
+          // forcing the caller to write xmlns on every element.
+          const tmp = document.createElementNS(SVGNS, 'svg');
+          tmp.innerHTML = s.svgInner;
+          while(tmp.firstChild) svg.appendChild(tmp.firstChild);
         }
       }
     }

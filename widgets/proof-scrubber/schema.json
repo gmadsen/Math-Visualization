@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/proof-scrubber/schema.json",
+  "title": "proof-scrubber widget params",
+  "description": "Timeline-style walkthrough of a multi-step proof. The widget emits an empty host div; at runtime the page-global `MVProofScrubber.init('#widgetId', config)` library (js/widget-proof-scrubber.js) builds chrome, a step slider, play/pause control, per-step text readout, and an optional SVG diagram. Each step is `{ title, body, svgInner? }`; the `svgInner` string is appended into the diagram SVG verbatim on step change. A portable frontend can ignore the renderScript and consume the same `steps` array directly.",
+  "meta": {
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "timeline",
+    "role": "guided"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "steps"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer host `<div class=\"widget\">` that the library mounts into."
+    },
+    "title": {
+      "type": "string",
+      "description": "Widget title. Rendered in the chrome header (`.hd > .ttl`) the library builds at init time."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Short hint text rendered in `.hd > .hint`. Defaults to the library's standard hint when omitted."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+$",
+      "description": "SVG viewBox for the per-step diagram. Defaults to '0 0 320 160'. Required only when at least one step has `svgInner`."
+    },
+    "autoplayMs": {
+      "type": "integer",
+      "minimum": 400,
+      "description": "Dwell time on each step during play, in ms. Defaults to 2000; minimum 400."
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered array of proof steps. The slider walks 0..N-1; each step's title + body show in the readout, and `svgInner` (if present) is appended to the diagram SVG.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "body"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "One-line step title shown above the body."
+          },
+          "body": {
+            "type": "string",
+            "description": "HTML body for the step. Supports KaTeX delimiters ($..$, $$..$$, \\(..\\), \\[..\\]) — the library re-typesets the readout after each step change."
+          },
+          "svgInner": {
+            "type": "string",
+            "description": "Raw SVG inner HTML appended to the diagram on this step. Use SVG element tags directly (no xmlns needed). Omit for steps that are text-only."
+          }
+        }
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional comment placed between `<script>` and `(function(){` as `/* <here> */`. Lets a migrated source preserve its banner comment."
+    }
+  }
+}

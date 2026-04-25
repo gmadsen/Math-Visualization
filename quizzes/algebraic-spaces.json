@@ -1,0 +1,338 @@
+{
+  "topic": "algebraic-spaces",
+  "quizzes": {
+    "why-algebraic-spaces": {
+      "title": "Why schemes aren't enough",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does the étale-sheaf quotient $X = \\mathbb{A}^1 / \\mathbb{Z}$ fail to be a scheme over a field $k$?",
+          "choices": [
+            "Because the action is not free.",
+            "Because $\\mathbb{Z}$ is not a finite group, so the quotient cannot be a scheme by general principles.",
+            "Because the diagonal $\\Delta_X$ pulls back to $\\mathbb{Z} \\times \\mathbb{A}^1$ along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X \\times X$, which is an infinite disjoint union and so $X$ fails to be quasi-separated.",
+            "Because $\\mathbb{A}^1$ is not proper."
+          ],
+          "answer": 2,
+          "explain": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$. For $X$ to be a scheme, $\\Delta_X$ would need to be quasi-compact (in fact, locally closed); but $R$ is an infinite disjoint union of $\\mathbb{A}^1$'s and so not quasi-compact. The action <em>is</em> free; finiteness of the group is irrelevant; properness of $\\mathbb{A}^1$ is unrelated."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following statements about $\\mathbb{A}^1 / \\mathbb{Z}$ over $k$ are true? (select all)",
+          "choices": [
+            "It is a sheaf on the étale site of schemes over $k$.",
+            "It admits an étale surjection from a scheme.",
+            "It is a quasi-separated algebraic space.",
+            "It is an algebraic space."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal pullback $R = \\mathbb{Z}\\times\\mathbb{A}^1$ being a scheme, $X$ is an algebraic space. It is <em>not</em> quasi-separated, because $\\Delta_X$ is not quasi-compact."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Spot the flawed step in the following \"proof\" that $\\mathbb{A}^1 / \\mathbb{Z}$ is a scheme.",
+          "steps": [
+            "$\\mathbb{Z}$ acts freely on $\\mathbb{A}^1_k$ by $n \\cdot x = x + n$.",
+            "Étale-locally on $\\mathbb{A}^1$, the action is trivial — pick a small étale neighbourhood of any closed point and at most one orbit element passes through it.",
+            "Since the action is free and étale-locally trivial, by the GAGA principle the quotient is automatically a smooth quasi-projective variety over $k$.",
+            "In particular, the quotient is a scheme.",
+            "QED."
+          ],
+          "answer": 2,
+          "explain": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective. GAGA does not produce schemes from étale quotient sheaves, and a free étale action on a scheme need not produce a scheme quotient (e.g. $\\mathbb{A}^1/\\mathbb{Z}$ itself). The correct conclusion is only that the quotient is an algebraic space."
+        }
+      ]
+    },
+    "etale-equivalence-relation": {
+      "title": "Étale equivalence relations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following data does <em>not</em> define an étale equivalence relation on a scheme $U$?",
+          "choices": [
+            "$R = \\Delta_U \\subset U \\times U$ — the trivial relation.",
+            "$R = G \\times U \\subset U \\times U$ via $(g,u) \\mapsto (u, g\\cdot u)$, where $G$ is a finite group acting freely on $U$.",
+            "$R = U \\times U$ itself — i.e. \"all points equivalent.\"",
+            "$R \\subset \\mathbb{A}^1 \\times \\mathbb{A}^1$ defined by $\\{(x, y) : y = x + 1\\}$ alone."
+          ],
+          "answer": 3,
+          "explain": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e. $\\pi_0$ collapses to a point). Choice D fails transitivity — $x \\sim x+1$ and $x+1 \\sim x+2$ should imply $x \\sim x+2$, but $(x, x+2) \\not\\in R$. To make this an equivalence relation you would need $R = \\bigcup_{n \\in \\mathbb{Z}} \\{(x, x+n)\\} = \\mathbb{Z} \\times \\mathbb{A}^1$ — the relation generating $\\mathbb{A}^1/\\mathbb{Z}$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each scheme-theoretic gadget with its role in an étale equivalence relation $j = (s,t)\\colon R \\hookrightarrow U \\times U$.",
+          "left": ["Reflexivity", "Symmetry", "Transitivity", "Étale projections"],
+          "right": [
+            "$\\Delta_U \\colon U \\to U \\times U$ factors through $j$",
+            "swap involution $\\sigma$ on $U \\times U$ restricts to an automorphism of $R$",
+            "$R \\times_{s, U, t} R \\to U \\times U$ factors through $j$",
+            "both $s, t$ are étale morphisms from $R$ to $U$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Reflexivity = diagonal factors through $R$. Symmetry = swap restricts. Transitivity = the fibre product $R \\times_U R$ (composing equivalences) lands in $R$. Étale projections is the topology condition that makes the quotient an <em>algebraic space</em> rather than just any sheaf."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $G$ be a finite group acting on a scheme $U$. The associated map $G \\times U \\to U \\times U$, $(g,u) \\mapsto (u, g\\cdot u)$, defines an étale equivalence relation if and only if which condition holds?",
+          "choices": [
+            "$G$ is abelian.",
+            "$G$ acts freely on $U$ in the étale-topology sense (trivial geometric stabilisers).",
+            "$U$ is quasi-projective.",
+            "$|G|$ is invertible on $U$."
+          ],
+          "answer": 1,
+          "explain": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free. Each projection $G \\times U \\to U$ is a disjoint union of $|G|$ copies of $U$, which is étale exactly when the source is reduced and the action is free in the geometric sense. Abelian-ness, quasi-projectivity, and invertibility of $|G|$ are unrelated to whether the relation is étale; they affect properties of the quotient (e.g. tameness) but not the equivalence-relation structure itself."
+        }
+      ]
+    },
+    "algebraic-space-definition": {
+      "title": "Algebraic spaces as étale sheaves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is the cleanest characterisation of an algebraic space?",
+          "choices": [
+            "A scheme that admits a Zariski cover by affines.",
+            "A sheaf on the étale site whose diagonal is representable by schemes and which admits an étale surjection from a scheme.",
+            "A stack whose automorphism groups are finite.",
+            "A locally ringed space with a covering by spectra of commutative rings."
+          ],
+          "answer": 1,
+          "explain": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas. Choice A is the definition of (a quasi-affine) scheme. Choice C describes DM stacks. Choice D is the classical definition of a scheme."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the following arrows / objects in the order in which they appear in the definition of an algebraic space (atlas first, equivalence relation second, etc.).",
+          "items": [
+            "the étale equivalence relation $R = U \\times_X U \\rightrightarrows U$",
+            "an étale surjection $U \\twoheadrightarrow X$ from a scheme $U$",
+            "the diagonal $\\Delta_X \\colon X \\to X \\times X$, representable by schemes",
+            "the étale sheaf $X \\colon (\\mathrm{Sch})_{\\acute e t}^{\\mathrm{op}} \\to \\mathrm{Set}$"
+          ],
+          "answer": [3, 2, 1, 0],
+          "explain": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme; and finally the existence of an étale surjective $U \\twoheadrightarrow X$ closes the definition. (Some textbooks phrase it as $X = U/R$ for an étale equivalence relation; that's the equivalent étale-quotient form.)"
+        },
+        {
+          "type": "mcq",
+          "q": "If $X$ is an algebraic space and $U \\twoheadrightarrow X$ is an étale atlas, what is $R := U \\times_X U$ as a scheme?",
+          "choices": [
+            "The disjoint union $U \\sqcup U$.",
+            "The étale equivalence relation on $U$ realising $X = U/R$; both projections to $U$ are étale.",
+            "The diagonal $\\Delta_U$ inside $U \\times U$.",
+            "The same as $X$ — there is no extra information."
+          ],
+          "answer": 1,
+          "explain": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$. This is the étale equivalence relation, and $X = U/R$ as étale sheaves. It is generally <em>not</em> $\\Delta_U$ (that would force the atlas to be an isomorphism) and only equals $U \\sqcup U$ in trivial cases."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Suppose $X$ is an algebraic space with representable diagonal $\\Delta_X$. Which extra hypothesis on $\\Delta_X$ recovers the notion of <em>quasi-separated</em>?",
+          "choices": [
+            "$\\Delta_X$ is a closed immersion.",
+            "$\\Delta_X$ is étale.",
+            "$\\Delta_X$ is quasi-compact.",
+            "$\\Delta_X$ is proper."
+          ],
+          "answer": 2,
+          "explain": "By definition, $X$ is quasi-separated iff $\\Delta_X$ is quasi-compact. \"$\\Delta_X$ a closed immersion\" gives the strictly stronger condition <em>separated</em>; étale or proper diagonals are different conditions altogether. The example $\\mathbb{A}^1 / \\mathbb{Z}$ from §1 fails quasi-separatedness exactly because $\\Delta_X$ is not quasi-compact."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Spot the flawed step in the following \"proof\" that every algebraic space $X$ is a scheme.",
+          "steps": [
+            "Let $X$ be an algebraic space with étale atlas $U \\twoheadrightarrow X$ and diagonal $\\Delta_X \\colon X \\to X \\times X$.",
+            "$\\Delta_X$ is representable by schemes; in particular, the fibre product $R = U \\times_X U$ is a scheme.",
+            "Since $R \\rightrightarrows U$ is an étale equivalence relation of schemes, the categorical quotient $U/R$ exists as a scheme.",
+            "Therefore $X = U/R$ is a scheme.",
+            "QED."
+          ],
+          "answer": 2,
+          "explain": "Step 3 is exactly where schemes fail: étale equivalence relations of schemes do <em>not</em> in general have scheme quotients — that's the whole reason algebraic spaces were invented. The classical theorem only guarantees a scheme quotient under extra hypotheses (e.g. all orbits in a single affine, or finite flat $G$-action with quasi-projective $U$). Without such hypotheses, $U/R$ is only an algebraic space."
+        }
+      ]
+    },
+    "morphisms-of-algebraic-spaces": {
+      "title": "Morphisms of algebraic spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $f \\colon X \\to Y$ be a morphism of algebraic spaces, presented by $\\tilde f \\colon U \\to V$ on étale atlases. Which property of $f$ is <em>not</em> determined by the corresponding property of $\\tilde f$?",
+          "choices": [
+            "étale",
+            "smooth",
+            "separated",
+            "locally of finite presentation"
+          ],
+          "answer": 2,
+          "explain": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does. Separatedness is more subtle: it is the condition that $\\Delta_f \\colon X \\to X \\times_Y X$ is a closed immersion, which involves the relation $R \\rightrightarrows U$ and is <em>not</em> determined by $\\tilde f$ alone."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all properties of scheme morphisms that are étale-local on the target (and hence transfer verbatim to morphisms of algebraic spaces).",
+          "choices": [
+            "étale",
+            "flat",
+            "proper",
+            "separated",
+            "finite",
+            "isomorphism"
+          ],
+          "answer": [0, 1, 2, 4, 5],
+          "explain": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target. Separated is the exception — it is a condition on the diagonal $\\Delta_f$ rather than on $f$ itself, and depends on the equivalence relation in the algebraic-space presentation."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $X$ and $Y$ are both schemes, viewed as algebraic spaces. A morphism of algebraic spaces $f \\colon X \\to Y$ is the same data as which of the following?",
+          "choices": [
+            "An étale equivalence relation on $X$.",
+            "A morphism of schemes $X \\to Y$ — the embedding (Schemes) $\\hookrightarrow$ (AlgSpaces) is fully faithful.",
+            "Any continuous map of underlying topological spaces.",
+            "A morphism of locally ringed spaces, but only up to étale localisation."
+          ],
+          "answer": 1,
+          "explain": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too. So a morphism between two schemes-as-algebraic-spaces is exactly a morphism of schemes — no extra data, no quotient by anything."
+        }
+      ]
+    },
+    "examples-of-algebraic-spaces": {
+      "title": "Examples: free quotients and a non-scheme",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is the quotient $\\mathbb{A}^1/\\mathbb{Z}$ over a field <em>not</em> a separated, quasi-projective scheme?",
+          "choices": [
+            "Because $\\mathbb{Z}$ is not a finite group.",
+            "Because $\\mathbb{A}^1$ is not proper.",
+            "Because the diagonal $\\Delta_X$ is not quasi-compact — its pullback is the disjoint union $\\mathbb{Z}\\times\\mathbb{A}^1$, with infinitely many components.",
+            "Because $\\mathbb{A}^1$ is not affine."
+          ],
+          "answer": 2,
+          "explain": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact. But the diagonal of $\\mathbb{A}^1/\\mathbb{Z}$ pulls back along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X\\times X$ to $\\mathbb{Z}\\times\\mathbb{A}^1$ — an infinite disjoint union, not quasi-compact. The other choices are either false ($\\mathbb{A}^1$ <em>is</em> affine and one would expect properness to be unrelated to schemehood of a quotient) or red herrings."
+        },
+        {
+          "type": "mcq",
+          "q": "In Hironaka's smooth proper non-scheme example, what is the obstruction to being a scheme?",
+          "choices": [
+            "The space is non-reduced.",
+            "There is a proper curve $C$ such that no line bundle on the space restricts to one of positive degree on $C$ — i.e., no ample line bundle exists.",
+            "The space is not separated.",
+            "The space has dimension 0."
+          ],
+          "answer": 1,
+          "explain": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero. This forbids the existence of an ample line bundle, hence projectivity, hence (for proper smooth 3-folds over $\\mathbb{C}$) schemehood. The space is reduced, separated, and 3-dimensional."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all examples of algebraic spaces that are <em>not</em> schemes.",
+          "choices": [
+            "$\\operatorname{Spec}\\mathbb{Z}$",
+            "$\\mathbb{A}^1_k / \\mathbb{Z}$ over a field $k$",
+            "$\\mathbb{P}^n_k$",
+            "Hironaka's smooth proper 3-fold $H$",
+            "An étale double cover of $\\mathbb{P}^1$ (when the cover is connected)"
+          ],
+          "answer": [1, 3],
+          "explain": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $G$ be a finite group acting freely on a quasi-projective scheme $U$ over a field. Why is the quotient $U/G$ <em>always</em> a scheme in this case?",
+          "choices": [
+            "Because finite groups act trivially on étale cohomology.",
+            "Because every $G$-orbit on $U$ lies in a $G$-stable affine open subset, so the quotient can be glued from $\\operatorname{Spec}$s of $G$-invariants.",
+            "Because $\\mathbb{A}^1/\\mathbb{Z}$ is a scheme.",
+            "Because $G$ acts on cohomology by an automorphism."
+          ],
+          "answer": 1,
+          "explain": "The classical theorem (SGA 1 or [EGA III]) says that if $G$ is finite and every orbit on $U$ is contained in some affine open (which is automatic for quasi-projective $U$, since one can take a $G$-stable affine using ample-line-bundle averaging), then $U/G$ exists as a scheme. The Zariski-local structure is $\\mathrm{Spec}(R^G)$. Without quasi-projectivity, the conclusion can fail."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Spot the flawed step in this attempted proof that Hironaka's space $H$ is projective.",
+          "steps": [
+            "$H$ is a smooth proper algebraic space over $\\mathbb{C}$ of dimension 3.",
+            "By Chow's lemma, $H$ admits a proper birational map from a projective variety $\\tilde H$.",
+            "The pullback of an ample line bundle on $\\tilde H$ to $H$ is again ample (ampleness is preserved under proper birational pullback).",
+            "Hence $H$ admits an ample line bundle, and so is projective.",
+            "QED."
+          ],
+          "answer": 2,
+          "explain": "Step 3 is false. Ampleness is <em>not</em> preserved under proper birational pullback — it can become only nef, and in Hironaka's example precisely this happens: the pullback restricts to degree zero on the descended curve $C$ that obstructs schemehood. Chow's lemma exists for algebraic spaces (giving a projective birational cover), but the pulled-back line bundle is only nef, not ample, so the conclusion fails."
+        }
+      ]
+    },
+    "between-schemes-and-stacks": {
+      "title": "Algebraic spaces sit between schemes and DM stacks",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which condition characterises algebraic spaces among Artin stacks?",
+          "choices": [
+            "All geometric stabilisers are finite.",
+            "All geometric stabilisers are trivial; equivalently, the diagonal is a monomorphism.",
+            "There exists an étale atlas by a scheme.",
+            "The stack is quasi-compact."
+          ],
+          "answer": 1,
+          "explain": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism. Choice A characterises DM stacks; choice C is necessary but not sufficient (DM stacks also have étale atlases by schemes, e.g. $B(\\mathbb{Z}/2)$ has the trivial étale cover from a point times $\\mathbb{Z}/2$); choice D is unrelated."
+        },
+        {
+          "type": "matching",
+          "q": "Match each rung of the hierarchy with the condition on its diagonal.",
+          "left": ["Schemes", "Algebraic spaces", "DM stacks", "Artin stacks"],
+          "right": [
+            "$\\Delta$ is a locally closed immersion (and Zariski atlas exists)",
+            "$\\Delta$ is a monomorphism (representable by schemes)",
+            "$\\Delta$ is unramified (representable, equivalently finite + unramified)",
+            "$\\Delta$ is representable by algebraic spaces"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM) $\\Rightarrow$ representable (Artin). Each weakening corresponds to allowing more structure in the geometric stabilisers (none, none, finite étale, any algebraic group)."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $\\mathcal X = [\\mathbb{A}^1 / \\mathbb{Z}/2]$ where $\\mathbb{Z}/2$ acts by $x \\mapsto -x$. What kind of geometric object is $\\mathcal X$?",
+          "choices": [
+            "An algebraic space (in fact, a scheme): the quotient $\\mathbb{A}^1 / (\\mathbb{Z}/2) = \\operatorname{Spec} k[x^2]$.",
+            "An algebraic space but not a scheme — like Hironaka's example.",
+            "A DM stack but not an algebraic space — the action has a fixed point at $0$, so the geometric stabiliser there is nontrivial.",
+            "An Artin stack but not a DM stack."
+          ],
+          "answer": 2,
+          "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\operatorname{Spec} k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Suppose $\\mathcal X$ is an Artin stack with diagonal $\\Delta$. Which characterisation is correct?",
+          "choices": [
+            "$\\mathcal X$ is DM iff $\\Delta$ is unramified iff every geometric stabiliser is a finite étale group scheme.",
+            "$\\mathcal X$ is an algebraic space iff $\\Delta$ is étale.",
+            "$\\mathcal X$ is a scheme iff $\\Delta$ is finite.",
+            "$\\mathcal X$ is DM iff its coarse moduli space is a scheme."
+          ],
+          "answer": 0,
+          "explain": "The clean characterisation is: $\\mathcal X$ is DM $\\Leftrightarrow$ $\\Delta_{\\mathcal X}$ is unramified $\\Leftrightarrow$ all geometric stabilisers are finite étale group schemes (and an étale atlas exists). Choice B is wrong: algebraic spaces have $\\Delta$ a <em>monomorphism</em>, not étale (étale + mono = open immersion, too strong). Choices C and D are unrelated to the standard characterisations."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are DM stacks but <em>not</em> algebraic spaces?",
+          "choices": [
+            "$B(\\mathbb{Z}/n)$ for $n \\ge 2$",
+            "$\\overline{\\mathcal{M}}_{1,1}$, the moduli of elliptic curves with one marked point",
+            "$\\mathbb{P}^1$ as a scheme",
+            "$BGL_n$ for $n \\ge 1$",
+            "$\\mathcal{M}_g$ for $g \\ge 2$"
+          ],
+          "answer": [0, 1, 4],
+          "explain": "$B(\\mathbb{Z}/n)$, $\\overline{\\mathcal M}_{1,1}$ (with $\\mathbb{Z}/2$ stabiliser at the $j=1728$ point), and $\\mathcal M_g$ for $g \\ge 2$ are all DM stacks with nontrivial finite stabilisers, hence not algebraic spaces. $\\mathbb{P}^1$ is a scheme. $BGL_n$ has positive-dimensional stabiliser $GL_n$, so it is an Artin stack that is <em>not</em> DM."
+        }
+      ]
+    }
+  }
+}
