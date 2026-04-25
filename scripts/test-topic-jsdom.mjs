@@ -51,6 +51,7 @@ const { JSDOM, VirtualConsole } = await import(
 const SKIP = new Set([
   'index.html',
   'pathway.html',
+  'mindmap.html',
   'widgets.html',
   'review.html',
   'search.html',

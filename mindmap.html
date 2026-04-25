@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mindmap — concept graph</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js"></script>
+<script src="./js/progress.js"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:16px;line-height:1.55}
+  a{color:var(--blue)}
+  main{max-width:1280px;margin:0 auto;padding:2rem 1.2rem 4rem}
+  h1{font-size:1.85rem;margin:0 0 .25rem;color:#fff;letter-spacing:-0.01em}
+  .sub{color:var(--mute);margin:0 0 1.2rem;max-width:880px}
+  .back{display:inline-block;color:var(--mute);text-decoration:none;margin-bottom:1rem;font-size:.9rem}
+  .back:hover{color:var(--yellow)}
+  .bar{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.65rem .8rem;margin-bottom:.9rem;position:relative}
+  .bar label{color:var(--mute);font-size:.86rem}
+  select,button,input[type="text"],input[type="range"]{
+    background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.4rem .55rem;font-family:inherit;font-size:.9rem;cursor:pointer}
+  input[type="text"]{cursor:text}
+  input[type="range"]{padding:0;width:90px}
+  button:hover{background:#242c3e}
+  button[disabled]{opacity:.5;cursor:not-allowed}
+  button[disabled]:hover{background:var(--panel2)}
+  .group{display:inline-flex;align-items:center;gap:.35rem;
+    border-right:1px solid var(--line);padding-right:.7rem;margin-right:.05rem}
+  .group:last-of-type{border-right:none}
+  #search{min-width:160px;max-width:240px}
+  .match-info{color:var(--mute);font-size:.82rem;min-width:84px}
+  .legend{display:flex;gap:.7rem;flex-wrap:wrap;color:var(--mute);font-size:.83rem;margin-left:auto}
+  .legend span{display:inline-flex;align-items:center;gap:.32rem}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
+  .sw.cap{border-radius:50%;border-width:2px}
+  .help-btn{padding:.32rem .55rem;font-weight:600;line-height:1}
+  .help-panel{position:absolute;top:100%;right:.4rem;margin-top:.3rem;z-index:20;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.8rem 1rem;min-width:280px;box-shadow:0 8px 24px rgba(0,0,0,.5);
+    font-size:.86rem;color:var(--ink)}
+  .help-panel h2{margin:0 0 .4rem;color:var(--yellow);font-size:.9rem;font-weight:600;letter-spacing:normal}
+  .help-panel dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.25rem .6rem}
+  .help-panel dt{color:var(--mute);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:.8rem;white-space:nowrap}
+  .help-panel dd{margin:0;color:var(--ink)}
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:0;overflow:hidden;position:relative;cursor:grab;
+    user-select:none;-webkit-user-select:none;height:680px}
+  .stage.dragging{cursor:grabbing}
+  svg.map{display:block;width:100%;height:100%;background:transparent;touch-action:none}
+  .edge{stroke:var(--line);stroke-width:.7;fill:none;opacity:.55;pointer-events:none}
+  .edge.cross{stroke:var(--mute);stroke-width:.9;opacity:.65}
+  .edge.dim{opacity:.07}
+  .edge.focus{stroke:var(--yellow);stroke-width:1.4;opacity:.95}
+  .edge.focus.in{stroke:var(--blue)}
+  .edge.focus.out{stroke:var(--pink)}
+  .node{cursor:pointer}
+  .node circle.bg{stroke:var(--line);stroke-width:1.2;
+    transition:stroke 120ms ease, stroke-width 120ms ease}
+  .node text.lbl{fill:var(--ink);font-size:10.5px;pointer-events:none;
+    font-family:inherit;dominant-baseline:central;text-anchor:start}
+  .node.cap circle.bg{stroke-width:2.2}
+  .node.dim circle.bg{opacity:.18}
+  .node.dim text.lbl{opacity:.18}
+  .node.focus circle.bg{stroke:var(--yellow);stroke-width:2.6;filter:drop-shadow(0 0 4px rgba(255,216,102,0.6))}
+  .node.match circle.bg{stroke:var(--yellow);stroke-width:2}
+  .node.mastered circle.bg{fill:rgba(131,193,103,0.32)}
+  .node.ready circle.bg{stroke:var(--yellow)}
+  .stats-row{display:flex;flex-wrap:wrap;gap:.7rem .9rem;margin-bottom:.7rem;
+    color:var(--mute);font-size:.85rem}
+  .stats-row b{color:var(--ink);font-weight:600}
+  .stats-row .stat{padding:.05rem .1rem}
+  .stats-row .gap{color:var(--pink)}
+  .focus-card{position:absolute;top:.7rem;left:.7rem;max-width:340px;
+    background:rgba(22,27,36,.94);border:1px solid var(--line);border-radius:8px;
+    padding:.7rem .9rem;font-size:.88rem;color:var(--ink);
+    backdrop-filter:blur(6px);z-index:5}
+  .focus-card .fcap{color:var(--yellow);font-size:.74rem;letter-spacing:.14em;
+    text-transform:uppercase;font-weight:600;margin-bottom:.25rem}
+  .focus-card h3{margin:0 0 .3rem;font-size:1rem;font-weight:600;color:#fff}
+  .focus-card .ftopic{color:var(--mute);font-size:.82rem;margin-bottom:.4rem}
+  .focus-card .fblurb{color:var(--ink);font-size:.85rem;line-height:1.45;margin-bottom:.5rem}
+  .focus-card .fdeg{display:flex;gap:.6rem;color:var(--mute);font-size:.78rem;margin-bottom:.4rem}
+  .focus-card .fdeg b{color:var(--ink)}
+  .focus-card .factions{display:flex;gap:.5rem;flex-wrap:wrap}
+  .focus-card .factions a, .focus-card .factions button{
+    color:var(--blue);background:transparent;border:1px solid var(--line);
+    padding:.25rem .55rem;border-radius:5px;font-size:.82rem;text-decoration:none;cursor:pointer}
+  .focus-card .factions a:hover, .focus-card .factions button:hover{
+    border-color:var(--yellow);color:var(--yellow)}
+  .tooltip{position:absolute;pointer-events:none;background:rgba(22,27,36,.96);
+    border:1px solid var(--line);border-radius:6px;padding:.4rem .6rem;
+    font-size:.82rem;color:var(--ink);z-index:8;max-width:280px;
+    box-shadow:0 4px 12px rgba(0,0,0,.4);display:none}
+  .tooltip .ttitle{color:#fff;font-weight:600;margin-bottom:.15rem}
+  .tooltip .ttopic{color:var(--mute);font-size:.78rem;margin-bottom:.2rem}
+  .tooltip .tdeg{color:var(--mute);font-size:.78rem}
+  .gap-list{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.7rem .9rem;margin-top:1rem;font-size:.88rem;color:var(--ink)}
+  .gap-list h3{margin:0 0 .4rem;font-size:.9rem;color:var(--pink);
+    letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+  .gap-list ul{margin:0;padding-left:1.1rem;color:var(--mute)}
+  .gap-list ul li{margin:.18rem 0}
+  .gap-list ul li .gtopic{color:var(--ink);font-weight:500}
+  .gap-list ul li code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:.82rem;color:var(--violet)}
+  .footer-note{color:var(--mute);font-size:.82rem;margin-top:1.2rem;line-height:1.6}
+  .footer-note code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:.82rem;background:var(--panel2);padding:.05rem .35rem;border-radius:3px}
+  kbd{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    background:var(--panel2);border:1px solid var(--line);border-radius:3px;
+    padding:.05rem .35rem;font-size:.78rem;color:var(--ink)}
+  .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:.5rem;color:var(--mute);font-size:.9rem;background:var(--panel);z-index:6}
+  .loading .bar-fill{width:200px;height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}
+  .loading .bar-fill > div{height:100%;background:var(--yellow);width:0;transition:width 80ms linear}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./index.html">← Notebook</a>
+  <h1>Mindmap</h1>
+  <p class="sub">
+    Every concept in the notebook (505 across 73 topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
+  </p>
+
+  <div class="bar">
+    <div class="group">
+      <input id="search" type="text" placeholder="Search concept… (/)" autocomplete="off" />
+      <span class="match-info" id="match-info"></span>
+    </div>
+    <div class="group">
+      <label for="section-filter">section:</label>
+      <select id="section-filter"><option value="">all</option></select>
+    </div>
+    <div class="group">
+      <label for="level-filter">level:</label>
+      <select id="level-filter">
+        <option value="">all</option>
+        <option value="prereq">prereq</option>
+        <option value="standard">standard</option>
+        <option value="advanced">advanced</option>
+        <option value="capstone">capstone</option>
+      </select>
+    </div>
+    <div class="group">
+      <label for="mastery-filter">mastery:</label>
+      <select id="mastery-filter">
+        <option value="">all</option>
+        <option value="locked">locked</option>
+        <option value="ready">ready</option>
+        <option value="mastered">mastered</option>
+      </select>
+    </div>
+    <div class="group">
+      <label for="depth">depth:</label>
+      <input id="depth" type="range" min="1" max="5" value="2" />
+      <span id="depth-val" class="match-info" style="min-width:32px">2</span>
+    </div>
+    <div class="group">
+      <button id="reset-view">reset</button>
+      <button id="reseed-layout" title="Recompute force layout from scratch">reseed</button>
+      <button id="help-btn" class="help-btn" aria-label="Keyboard shortcuts">?</button>
+      <div id="help-panel" class="help-panel" hidden>
+        <h2>Keys & gestures</h2>
+        <dl>
+          <dt>click node</dt><dd>focus neighborhood; click again to clear</dd>
+          <dt>dbl-click node</dt><dd>open the topic page at that concept</dd>
+          <dt>⌘/ctrl+click</dt><dd>toggle v1 mastery (saves to local storage)</dd>
+          <dt>drag bg</dt><dd>pan</dd>
+          <dt>wheel / pinch</dt><dd>zoom</dd>
+          <dt>/</dt><dd>focus search</dd>
+          <dt>esc</dt><dd>clear focus / dismiss</dd>
+          <dt>?</dt><dd>this panel</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row" id="stats-row"></div>
+
+  <div class="stage" id="stage">
+    <svg class="map" id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="focus-card" id="focus-card" hidden></div>
+    <div class="loading" id="loading"><div>computing layout…</div><div class="bar-fill"><div id="loading-bar"></div></div></div>
+  </div>
+
+  <div class="tooltip" id="tooltip"></div>
+
+  <div class="gap-list" id="gap-list" hidden>
+    <h3 id="gap-orphan-h" hidden>Topics with zero cross-topic prereqs</h3>
+    <ul id="gap-orphan-ul" hidden></ul>
+    <h3 id="gap-cap-h" hidden style="margin-top:.8rem">Capstones with smallest ancestor closures</h3>
+    <ul id="gap-cap-ul" hidden></ul>
+  </div>
+
+  <p class="footer-note">
+    Layout is force-directed and cached in <code>localStorage.mvnb.mindmap.layout.v1</code> (keyed to a content hash) — first visit takes a second, subsequent visits are instant. <b>Reseed</b> drops the cache and recomputes. Edges in <span style="color:var(--mute)">grey</span> are intra-topic; edges in <span style="color:var(--ink)">white-ish</span> cross topic boundaries (those are the spine of <a href="./pathway.html">pathway</a>). The "suspected gaps" panel surfaces capstones whose ancestor closure looks suspiciously thin — meant as a guide for cross-topic prereq passes, not a hard signal.
+  </p>
+</main>
+
+<script>
+(async function(){
+  // ---------- KaTeX ----------
+  function renderKatex(root){
+    if(typeof renderMathInElement !== 'function' || !root) return;
+    renderMathInElement(root, {
+      delimiters: [
+        {left:'$$', right:'$$', display:true},
+        {left:'\\[', right:'\\]', display:true},
+        {left:'$', right:'$', display:false},
+        {left:'\\(', right:'\\)', display:false}
+      ],
+      throwOnError: false
+    });
+  }
+  function whenKatexReady(fn){
+    if(typeof renderMathInElement === 'function'){ fn(); return; }
+    let tries = 0;
+    const t = setInterval(() => {
+      if(typeof renderMathInElement === 'function' || tries++ > 40){
+        clearInterval(t); fn();
+      }
+    }, 50);
+  }
+
+  // ---------- data load ----------
+  let idx, topicsArr, capstones, sectionsData;
+  if(window.__MVConcepts){
+    idx = window.__MVConcepts.index;
+    topicsArr = idx.topics.map(t => window.__MVConcepts.topics[t]);
+    capstones = window.__MVConcepts.capstones.capstones;
+    sectionsData = window.__MVConcepts.sections;
+  } else {
+    try {
+      idx = await fetch('./concepts/index.json').then(r=>r.json());
+      topicsArr = await Promise.all(idx.topics.map(t =>
+        fetch(`./concepts/${t}.json`).then(r=>r.json())));
+      capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
+      sectionsData = await fetch('./concepts/sections.json').then(r=>r.json());
+    } catch(e){
+      document.getElementById('stats-row').innerHTML =
+        '<span style="color:var(--pink)">Failed to load concept data: ' + e.message +
+        '. If you opened this file via <code>file://</code>, run <code>node scripts/build-concepts-bundle.mjs</code> ' +
+        'or serve via <code>python3 -m http.server</code>.</span>';
+      throw e;
+    }
+  }
+
+  // ---------- build node + edge sets ----------
+  const byId = new Map();
+  for(const t of topicsArr){
+    for(const c of t.concepts){
+      if(!byId.has(c.id)){
+        byId.set(c.id, {
+          ...c,
+          topicId: t.topic,
+          topicTitle: t.title,
+          topicPage: t.page || `${t.topic}.html`
+        });
+      }
+    }
+  }
+
+  // topic -> section title (canonical from sections.json)
+  const TOPIC_SECTION = {};
+  const SECTION_ORDER = sectionsData.sections.map(s => s.title);
+  for(const s of sectionsData.sections){
+    for(const t of s.topics) TOPIC_SECTION[t] = s.title;
+  }
+  // Foundations fallback for any topic not in sections.json (validator should
+  // catch this in CI, but be defensive at runtime so the page never crashes).
+  function sectionOf(topicId){
+    return TOPIC_SECTION[topicId] || 'Foundations';
+  }
+
+  const SECTION_COLOR = {
+    'Foundations':                  '#8c9aa6',
+    'Algebra':                      '#ffd866',
+    'Analysis':                     '#58c4dd',
+    'Geometry & topology':          '#7de0d6',
+    'Number theory':                '#83c167',
+    'Modular forms & L-functions':  '#e07a5f',
+    'Algebraic geometry':           '#b39ddb'
+  };
+
+  // Capstone goals → tagged for special rendering.
+  const CAPSTONE_GOAL_IDS = new Set(capstones.map(c => c.goal));
+
+  // Topic-level map (mirrors pathway.html). Concepts inherit their topic's
+  // level unless they're a capstone goal.
+  const TOPIC_LEVEL = {
+    'naive-set-theory':'prereq','algebra':'prereq','real-analysis':'prereq',
+    'complex-analysis':'prereq','point-set-topology':'prereq',
+    'algebraic-topology':'prereq','projective-plane':'prereq',
+    'operator-algebras':'advanced','class-field-theory':'advanced',
+    'theta-functions':'advanced','hecke-operators':'advanced',
+    'moonshine':'advanced','singular-cubics-reduction':'advanced',
+    'moduli-spaces':'advanced','sheaf-cohomology':'advanced',
+    'galois-representations':'capstone','sato-tate':'capstone',
+    'bsd':'capstone','modularity-and-flt':'capstone',
+    'stacks':'capstone','etale-cohomology':'capstone'
+  };
+  function levelOf(id){
+    if(CAPSTONE_GOAL_IDS.has(id)) return 'capstone';
+    const c = byId.get(id);
+    if(!c) return 'standard';
+    return TOPIC_LEVEL[c.topicId] || 'standard';
+  }
+
+  // Build node + edge arrays.
+  const nodes = [];
+  const nodeIndex = new Map();
+  for(const [id, c] of byId){
+    const section = sectionOf(c.topicId);
+    nodes.push({
+      id,
+      title: c.title,
+      blurb: c.blurb || '',
+      anchor: c.anchor,
+      topicId: c.topicId,
+      topicTitle: c.topicTitle,
+      topicPage: c.topicPage,
+      section,
+      color: SECTION_COLOR[section],
+      isCap: CAPSTONE_GOAL_IDS.has(id),
+      level: levelOf(id),
+      x:0, y:0, vx:0, vy:0,
+      degIn: 0, degOut: 0
+    });
+    nodeIndex.set(id, nodes.length - 1);
+  }
+
+  // Edges: prereq -> consumer, with cross-topic flag.
+  const edges = [];
+  // Adjacency lists, keyed by node array index.
+  const inAdj  = nodes.map(() => []); // ancestors (prereqs)
+  const outAdj = nodes.map(() => []); // descendants (consumers)
+  for(const c of byId.values()){
+    const ci = nodeIndex.get(c.id);
+    for(const p of (c.prereqs || [])){
+      if(!nodeIndex.has(p)) continue; // broken prereq is validator's job
+      const pi = nodeIndex.get(p);
+      const cross = nodes[pi].topicId !== nodes[ci].topicId;
+      edges.push({ from: pi, to: ci, cross });
+      inAdj[ci].push(pi);
+      outAdj[pi].push(ci);
+      nodes[ci].degIn++;
+      nodes[pi].degOut++;
+    }
+  }
+
+  // ---------- layout ----------
+  const STAGE_W = 1280, STAGE_H = 680;
+
+  // Section anchors arranged in a heptagonal layout. Foundations (single topic)
+  // sits at top-center; the other six form a hexagon below it.
+  const SECTION_ANCHOR = (() => {
+    const cx = STAGE_W / 2, cy = STAGE_H / 2 + 20;
+    const r = Math.min(STAGE_W, STAGE_H) * 0.34;
+    // Order chosen so subjects that share many cross-topic edges sit adjacent:
+    //   Foundations  (top-center, smaller orbit)
+    //   Algebra      (top-left)
+    //   Algebraic geometry (right of algebra → top-right)
+    //   Analysis     (right)
+    //   Geometry & topology (bottom-right)
+    //   Modular forms & L-functions (bottom-left)
+    //   Number theory (left)
+    return {
+      'Foundations':                 { x: cx,            y: cy - r * 1.05 },
+      'Algebra':                     { x: cx - r * 0.95, y: cy - r * 0.55 },
+      'Algebraic geometry':          { x: cx + r * 0.95, y: cy - r * 0.55 },
+      'Analysis':                    { x: cx + r * 1.10, y: cy + r * 0.20 },
+      'Geometry & topology':         { x: cx + r * 0.55, y: cy + r * 0.85 },
+      'Modular forms & L-functions': { x: cx - r * 0.55, y: cy + r * 0.85 },
+      'Number theory':               { x: cx - r * 1.10, y: cy + r * 0.20 }
+    };
+  })();
+
+  // Fingerprint of the input so we can invalidate the layout cache when the
+  // graph changes. fnv1a is stable across loads and tiny.
+  function fnv1a(str){
+    let h = 0x811c9dc5 >>> 0;
+    for(let i=0;i<str.length;i++){
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h.toString(16);
+  }
+  const layoutKey = (() => {
+    // Stable string: sorted node ids + edge endpoint pairs.
+    const parts = [];
+    parts.push(nodes.length.toString());
+    parts.push(edges.length.toString());
+    const sortedIds = nodes.map(n => n.id).slice().sort();
+    for(const id of sortedIds) parts.push(id);
+    const sortedEdges = edges.map(e => nodes[e.from].id + '>' + nodes[e.to].id).sort();
+    for(const e of sortedEdges) parts.push(e);
+    return 'mvnb.mindmap.layout.v1.' + fnv1a(parts.join('|'));
+  })();
+
+  function loadCachedLayout(){
+    try {
+      const raw = localStorage.getItem(layoutKey);
+      if(!raw) return null;
+      const parsed = JSON.parse(raw);
+      if(!parsed || parsed.length !== nodes.length) return null;
+      return parsed;
+    } catch { return null; }
+  }
+  function saveCachedLayout(){
+    try {
+      const arr = nodes.map(n => [n.x, n.y]);
+      localStorage.setItem(layoutKey, JSON.stringify(arr));
+    } catch {}
+  }
+  function clearCachedLayout(){
+    try { localStorage.removeItem(layoutKey); } catch {}
+  }
+
+  // Force layout: section-clustered with O(n²) repulsion.
+  // Tuned for ~500 nodes / ~3000 edges:
+  //   - Repulsion is reduced for in-section pairs (so sections stay tight)
+  //     and amplified for cross-section pairs (so clusters separate).
+  //   - Springs pull connected nodes together; cross-topic edges have a
+  //     longer ideal length so they form visible bridges instead of
+  //     compressing into the cluster.
+  //   - A per-node anchor pull holds each node near its section's home.
+  async function forceLayout(progressCb){
+    const STEPS = 260;
+    const REPEL_BASE = 1100;
+    const REPEL_CROSS = 1.6;     // cross-section pairs repel harder
+    const SPRING = 0.022;
+    const SPRING_LEN_INTRA = 26;
+    const SPRING_LEN_CROSS = 110;
+    const ANCHOR = 0.012;        // home-anchor pull; high = tighter clusters
+    const DAMP = 0.84;
+    const MAX_V = 8;
+    const MARGIN = 40;
+
+    // Initialize positions: spread inside section anchor regions.
+    for(const n of nodes){
+      const a = SECTION_ANCHOR[n.section];
+      n.x = a.x + (Math.random() - 0.5) * 90;
+      n.y = a.y + (Math.random() - 0.5) * 90;
+      n.vx = 0; n.vy = 0;
+    }
+
+    const N = nodes.length;
+    let lastYield = performance.now();
+    for(let step = 0; step < STEPS; step++){
+      // Pairwise repulsion. O(n²) — at N=505 this is ~127k pairs/step,
+      // 33M total. Cheap floats; runs in 1–2s in modern JS.
+      for(let i = 0; i < N; i++){
+        const ni = nodes[i];
+        for(let j = i + 1; j < N; j++){
+          const nj = nodes[j];
+          let dx = ni.x - nj.x;
+          let dy = ni.y - nj.y;
+          const d2 = dx*dx + dy*dy + 0.01;
+          const d = Math.sqrt(d2);
+          const same = ni.section === nj.section;
+          const k = same ? REPEL_BASE : REPEL_BASE * REPEL_CROSS;
+          const f = k / d2;
+          const fx = (dx / d) * f;
+          const fy = (dy / d) * f;
+          ni.vx += fx; ni.vy += fy;
+          nj.vx -= fx; nj.vy -= fy;
+        }
+      }
+      // Spring (edges).
+      for(const e of edges){
+        const a = nodes[e.from], b = nodes[e.to];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        const d = Math.sqrt(dx*dx + dy*dy) + 0.01;
+        const ideal = e.cross ? SPRING_LEN_CROSS : SPRING_LEN_INTRA;
+        const f = (d - ideal) * SPRING;
+        const fx = (dx / d) * f;
+        const fy = (dy / d) * f;
+        a.vx += fx; a.vy += fy;
+        b.vx -= fx; b.vy -= fy;
+      }
+      // Section anchor pull (cooling — stronger at first, weaker later so
+      // the graph relaxes inside its cluster after the gross structure is set).
+      const cool = 0.4 + 0.6 * Math.max(0, 1 - step / (STEPS * 0.6));
+      for(const n of nodes){
+        const a = SECTION_ANCHOR[n.section];
+        n.vx += (a.x - n.x) * ANCHOR * cool;
+        n.vy += (a.y - n.y) * ANCHOR * cool;
+      }
+      // Integrate with velocity clamp + damping.
+      for(const n of nodes){
+        if(n.vx > MAX_V) n.vx = MAX_V;
+        if(n.vx < -MAX_V) n.vx = -MAX_V;
+        if(n.vy > MAX_V) n.vy = MAX_V;
+        if(n.vy < -MAX_V) n.vy = -MAX_V;
+        n.x += n.vx;
+        n.y += n.vy;
+        n.vx *= DAMP;
+        n.vy *= DAMP;
+        // Soft viewport bounds.
+        if(n.x < MARGIN) n.x = MARGIN;
+        if(n.x > STAGE_W - MARGIN) n.x = STAGE_W - MARGIN;
+        if(n.y < MARGIN) n.y = MARGIN;
+        if(n.y > STAGE_H - MARGIN) n.y = STAGE_H - MARGIN;
+      }
+      // Yield to the event loop every ~60ms so the page doesn't freeze.
+      if(progressCb && (performance.now() - lastYield) > 60){
+        progressCb(step / STEPS);
+        await new Promise(r => setTimeout(r, 0));
+        lastYield = performance.now();
+      }
+    }
+    progressCb && progressCb(1);
+  }
+
+  // ---------- render ----------
+  const stage = document.getElementById('stage');
+  const svg = document.getElementById('map');
+  svg.setAttribute('viewBox', `0 0 ${STAGE_W} ${STAGE_H}`);
+
+  // Drawing layers.
+  const NS = 'http://www.w3.org/2000/svg';
+  const root = document.createElementNS(NS, 'g'); root.setAttribute('id','viewport'); svg.appendChild(root);
+  const edgeLayer = document.createElementNS(NS, 'g'); edgeLayer.setAttribute('id','edges'); root.appendChild(edgeLayer);
+  const nodeLayer = document.createElementNS(NS, 'g'); nodeLayer.setAttribute('id','nodes'); root.appendChild(nodeLayer);
+
+  // Per-node + per-edge DOM cache.
+  const nodeEls = new Array(nodes.length);
+  const edgeEls = new Array(edges.length);
+
+  function nodeRadius(n){
+    // Base 5 + log-degree bump; capstones get a min radius bump.
+    const deg = n.degIn + n.degOut;
+    let r = 4 + Math.min(7, Math.log(1 + deg) * 1.6);
+    if(n.isCap) r = Math.max(r, 8.5);
+    return r;
+  }
+
+  function buildEdges(){
+    const frag = document.createDocumentFragment();
+    edges.forEach((e, i) => {
+      const a = nodes[e.from], b = nodes[e.to];
+      const ln = document.createElementNS(NS, 'line');
+      ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y);
+      ln.setAttribute('x2', b.x); ln.setAttribute('y2', b.y);
+      ln.setAttribute('class', e.cross ? 'edge cross' : 'edge');
+      edgeEls[i] = ln; frag.appendChild(ln);
+    });
+    edgeLayer.appendChild(frag);
+  }
+  function buildNodes(){
+    const frag = document.createDocumentFragment();
+    nodes.forEach((n, i) => {
+      const g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'node' + (n.isCap ? ' cap' : ''));
+      g.setAttribute('transform', `translate(${n.x},${n.y})`);
+      g.dataset.idx = String(i);
+
+      const c = document.createElementNS(NS, 'circle');
+      c.setAttribute('class', 'bg');
+      c.setAttribute('r', nodeRadius(n));
+      c.setAttribute('fill', n.color);
+      c.setAttribute('fill-opacity', '0.55');
+      g.appendChild(c);
+
+      // Labels are added on demand for capstone nodes only — too noisy to
+      // label all 505 by default. Hover/focus shows the title.
+      if(n.isCap){
+        const t = document.createElementNS(NS, 'text');
+        t.setAttribute('class', 'lbl');
+        t.setAttribute('x', nodeRadius(n) + 3);
+        t.setAttribute('y', 0);
+        // Strip KaTeX delimiters from label preview for SVG <text>; the
+        // hover/focus card uses HTML and renders the math properly.
+        t.textContent = n.title.replace(/\$([^$]+)\$/g, '$1');
+        g.appendChild(t);
+      }
+
+      nodeEls[i] = g; frag.appendChild(g);
+    });
+    nodeLayer.appendChild(frag);
+  }
+
+  function syncEdgePositions(){
+    edges.forEach((e, i) => {
+      const a = nodes[e.from], b = nodes[e.to], ln = edgeEls[i];
+      ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y);
+      ln.setAttribute('x2', b.x); ln.setAttribute('y2', b.y);
+    });
+  }
+  function syncNodePositions(){
+    nodes.forEach((n, i) => {
+      nodeEls[i].setAttribute('transform', `translate(${n.x},${n.y})`);
+    });
+  }
+
+  // ---------- pan + zoom ----------
+  let viewT = { x: 0, y: 0, k: 1 };
+  function applyView(){
+    root.setAttribute('transform', `translate(${viewT.x},${viewT.y}) scale(${viewT.k})`);
+  }
+  (function wirePanZoom(){
+    let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    stage.addEventListener('pointerdown', (ev) => {
+      if(ev.target.closest('.node')) return; // node clicks handled separately
+      if(ev.button !== 0) return;
+      dragging = true; sx = ev.clientX; sy = ev.clientY; ox = viewT.x; oy = viewT.y;
+      stage.classList.add('dragging');
+      stage.setPointerCapture(ev.pointerId);
+    });
+    stage.addEventListener('pointermove', (ev) => {
+      if(!dragging) return;
+      viewT.x = ox + (ev.clientX - sx);
+      viewT.y = oy + (ev.clientY - sy);
+      applyView();
+    });
+    stage.addEventListener('pointerup', (ev) => {
+      dragging = false; stage.classList.remove('dragging');
+      try { stage.releasePointerCapture(ev.pointerId); } catch {}
+    });
+    stage.addEventListener('wheel', (ev) => {
+      ev.preventDefault();
+      const rect = stage.getBoundingClientRect();
+      const px = ev.clientX - rect.left, py = ev.clientY - rect.top;
+      // Convert from screen to viewBox coords for zoom anchor.
+      const sxr = STAGE_W / rect.width, syr = STAGE_H / rect.height;
+      const vx = (px * sxr - viewT.x) / viewT.k;
+      const vy = (py * syr - viewT.y) / viewT.k;
+      const factor = Math.exp(-ev.deltaY * 0.0014);
+      const newK = Math.min(6, Math.max(0.35, viewT.k * factor));
+      viewT.x = px * sxr - vx * newK;
+      viewT.y = py * syr - vy * newK;
+      viewT.k = newK;
+      applyView();
+    }, { passive: false });
+  })();
+
+  function resetView(){
+    viewT = { x: 0, y: 0, k: 1 };
+    applyView();
+  }
+
+  // ---------- mastery ----------
+  // Read mastery from MVProgress; nodes update visual class only.
+  function masteryClassFor(id){
+    if(!window.MVProgress) return '';
+    if(MVProgress.isMastered(id, 'v1')) return 'mastered';
+    // "ready" if all prereqs are mastered.
+    const c = byId.get(id);
+    if(!c) return '';
+    const ps = c.prereqs || [];
+    if(ps.length === 0) return 'ready';
+    const allMastered = ps.every(p => MVProgress.isMastered(p, 'v1'));
+    return allMastered ? 'ready' : '';
+  }
+  function applyMasteryClasses(){
+    nodes.forEach((n, i) => {
+      const m = masteryClassFor(n.id);
+      const el = nodeEls[i];
+      if(!el) return;
+      el.classList.remove('mastered','ready');
+      if(m) el.classList.add(m);
+    });
+  }
+
+  // ---------- focus ----------
+  let focusIdx = null;
+  let focusDepth = 2;
+  const depthSlider = document.getElementById('depth');
+  const depthVal = document.getElementById('depth-val');
+  depthSlider.addEventListener('input', () => {
+    focusDepth = parseInt(depthSlider.value, 10) || 2;
+    depthVal.textContent = String(focusDepth);
+    if(focusIdx !== null) applyFocus();
+  });
+
+  function bfsHops(startIdx, adj, k){
+    const hop = new Map(); hop.set(startIdx, 0);
+    let frontier = [startIdx];
+    for(let d = 1; d <= k; d++){
+      const next = [];
+      for(const u of frontier){
+        for(const v of adj[u]){
+          if(hop.has(v)) continue;
+          hop.set(v, d); next.push(v);
+        }
+      }
+      frontier = next;
+      if(frontier.length === 0) break;
+    }
+    return hop;
+  }
+
+  function applyFocus(){
+    const ins = bfsHops(focusIdx, inAdj, focusDepth);
+    const outs = bfsHops(focusIdx, outAdj, focusDepth);
+    const keep = new Set([...ins.keys(), ...outs.keys()]);
+
+    nodes.forEach((n, i) => {
+      const el = nodeEls[i];
+      el.classList.remove('focus','dim');
+      if(i === focusIdx) el.classList.add('focus');
+      else if(!keep.has(i)) el.classList.add('dim');
+    });
+    edges.forEach((e, i) => {
+      const ln = edgeEls[i];
+      ln.classList.remove('focus','in','out','dim');
+      const inIn = ins.has(e.from) && ins.has(e.to);
+      const inOut = outs.has(e.from) && outs.has(e.to);
+      if(e.to === focusIdx && ins.has(e.from)){
+        ln.classList.add('focus','in');
+      } else if(e.from === focusIdx && outs.has(e.to)){
+        ln.classList.add('focus','out');
+      } else if(inIn || inOut){
+        // both endpoints in the kept set, but not direct neighbors of focus
+        // — keep them visible (no dim) but no special tint.
+      } else {
+        ln.classList.add('dim');
+      }
+    });
+    showFocusCard(focusIdx, keep.size - 1);
+  }
+  function clearFocus(){
+    focusIdx = null;
+    nodes.forEach((_, i) => nodeEls[i].classList.remove('focus','dim'));
+    edges.forEach((_, i) => edgeEls[i].classList.remove('focus','in','out','dim'));
+    hideFocusCard();
+  }
+
+  const focusCard = document.getElementById('focus-card');
+  function showFocusCard(idx, neighborhoodCount){
+    const n = nodes[idx];
+    const m = masteryClassFor(n.id);
+    const masteryLabel = m === 'mastered' ? '✓ mastered' : m === 'ready' ? 'ready' : 'locked';
+    focusCard.innerHTML = `
+      <div class="fcap">${escHtml(n.section)}${n.isCap ? ' · capstone goal' : ''}</div>
+      <h3>${escHtml(n.title)}</h3>
+      <div class="ftopic">${escHtml(n.topicTitle)} <span style="color:var(--mute)">·</span> <span style="color:var(--${masteryClassFor(n.id) === 'mastered' ? 'green' : masteryClassFor(n.id) === 'ready' ? 'yellow' : 'mute'})">${masteryLabel}</span></div>
+      <div class="fblurb">${escHtml(n.blurb)}</div>
+      <div class="fdeg">
+        <span><b>${n.degIn}</b> prereqs</span>
+        <span><b>${n.degOut}</b> consumers</span>
+        <span><b>${neighborhoodCount}</b> in ${focusDepth}-hop neighborhood</span>
+      </div>
+      <div class="factions">
+        <a href="./${n.topicPage}#${n.anchor}" target="_blank" rel="noopener">open ↗</a>
+        <button data-action="toggle-mastery">toggle v1 mastery</button>
+        <button data-action="clear-focus">clear focus</button>
+      </div>
+    `;
+    focusCard.hidden = false;
+    whenKatexReady(() => renderKatex(focusCard));
+  }
+  function hideFocusCard(){ focusCard.hidden = true; }
+
+  focusCard.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-action]');
+    if(!btn) return;
+    if(focusIdx === null) return;
+    if(btn.dataset.action === 'toggle-mastery'){
+      if(!window.MVProgress) return;
+      const id = nodes[focusIdx].id;
+      const cur = MVProgress.isMastered(id, 'v1');
+      MVProgress.setMastered(id, 'v1', !cur);
+      applyMasteryClasses();
+      showFocusCard(focusIdx, /* neighborhoodCount unchanged */ 0);
+    } else if(btn.dataset.action === 'clear-focus'){
+      clearFocus();
+    }
+  });
+
+  // ---------- tooltip (hover) ----------
+  const tooltip = document.getElementById('tooltip');
+  function showTooltip(idx, ev){
+    const n = nodes[idx];
+    tooltip.innerHTML = `
+      <div class="ttitle">${escHtml(n.title)}</div>
+      <div class="ttopic">${escHtml(n.topicTitle)} · ${escHtml(n.section)}</div>
+      <div class="tdeg"><b>${n.degIn}</b> prereqs · <b>${n.degOut}</b> consumers${n.isCap ? ' · capstone' : ''}</div>
+    `;
+    const rect = stage.getBoundingClientRect();
+    let tx = ev.clientX - rect.left + 14;
+    let ty = ev.clientY - rect.top + 12;
+    tooltip.style.display = 'block';
+    // measure then clamp to stage bounds
+    const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+    if(tx + tw > rect.width) tx = ev.clientX - rect.left - tw - 14;
+    if(ty + th > rect.height) ty = ev.clientY - rect.top - th - 12;
+    tooltip.style.left = tx + 'px';
+    tooltip.style.top = ty + 'px';
+    whenKatexReady(() => renderKatex(tooltip));
+  }
+  function hideTooltip(){ tooltip.style.display = 'none'; }
+
+  // ---------- node interactions ----------
+  function escHtml(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  nodeLayer.addEventListener('pointerover', (ev) => {
+    const g = ev.target.closest('.node');
+    if(!g) return;
+    showTooltip(parseInt(g.dataset.idx, 10), ev);
+  });
+  nodeLayer.addEventListener('pointermove', (ev) => {
+    const g = ev.target.closest('.node');
+    if(!g) return;
+    // re-position only (tooltip already showing)
+    if(tooltip.style.display === 'block'){
+      const rect = stage.getBoundingClientRect();
+      let tx = ev.clientX - rect.left + 14;
+      let ty = ev.clientY - rect.top + 12;
+      const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+      if(tx + tw > rect.width) tx = ev.clientX - rect.left - tw - 14;
+      if(ty + th > rect.height) ty = ev.clientY - rect.top - th - 12;
+      tooltip.style.left = tx + 'px';
+      tooltip.style.top = ty + 'px';
+    }
+  });
+  nodeLayer.addEventListener('pointerout', (ev) => {
+    if(ev.relatedTarget && ev.relatedTarget.closest && ev.relatedTarget.closest('.node')) return;
+    hideTooltip();
+  });
+  nodeLayer.addEventListener('click', (ev) => {
+    const g = ev.target.closest('.node');
+    if(!g) return;
+    const idx = parseInt(g.dataset.idx, 10);
+    if(ev.metaKey || ev.ctrlKey){
+      if(!window.MVProgress) return;
+      const id = nodes[idx].id;
+      const cur = MVProgress.isMastered(id, 'v1');
+      MVProgress.setMastered(id, 'v1', !cur);
+      applyMasteryClasses();
+      return;
+    }
+    if(focusIdx === idx){ clearFocus(); return; }
+    focusIdx = idx;
+    applyFocus();
+  });
+  nodeLayer.addEventListener('dblclick', (ev) => {
+    const g = ev.target.closest('.node');
+    if(!g) return;
+    const idx = parseInt(g.dataset.idx, 10);
+    const n = nodes[idx];
+    window.open(`./${n.topicPage}#${n.anchor}`, '_blank', 'noopener');
+  });
+
+  // ---------- search ----------
+  const searchEl = document.getElementById('search');
+  const matchInfo = document.getElementById('match-info');
+  function applySearch(){
+    const q = searchEl.value.trim().toLowerCase();
+    if(!q){
+      nodes.forEach((_, i) => nodeEls[i].classList.remove('match'));
+      matchInfo.textContent = '';
+      return;
+    }
+    let n = 0;
+    nodes.forEach((node, i) => {
+      const hit = node.title.toLowerCase().includes(q) ||
+                  node.id.toLowerCase().includes(q) ||
+                  node.topicTitle.toLowerCase().includes(q);
+      nodeEls[i].classList.toggle('match', hit);
+      if(hit) n++;
+    });
+    matchInfo.textContent = n + ' match' + (n === 1 ? '' : 'es');
+  }
+  searchEl.addEventListener('input', applySearch);
+
+  // ---------- filters ----------
+  const sectionFilter = document.getElementById('section-filter');
+  const levelFilter = document.getElementById('level-filter');
+  const masteryFilter = document.getElementById('mastery-filter');
+  // Populate section dropdown.
+  for(const s of SECTION_ORDER){
+    const op = document.createElement('option');
+    op.value = s; op.textContent = s;
+    sectionFilter.appendChild(op);
+  }
+  function applyFilters(){
+    const sec = sectionFilter.value;
+    const lvl = levelFilter.value;
+    const m = masteryFilter.value;
+    nodes.forEach((n, i) => {
+      let pass = true;
+      if(sec && n.section !== sec) pass = false;
+      if(lvl && n.level !== lvl) pass = false;
+      if(m){
+        const cls = masteryClassFor(n.id);
+        if(m === 'locked'   && cls) pass = false;
+        if(m === 'ready'    && cls !== 'ready') pass = false;
+        if(m === 'mastered' && cls !== 'mastered') pass = false;
+      }
+      nodeEls[i].classList.toggle('dim', !pass);
+    });
+    // Edges: dim if either endpoint is filtered out.
+    edges.forEach((e, i) => {
+      const a = nodeEls[e.from], b = nodeEls[e.to];
+      const dim = a.classList.contains('dim') || b.classList.contains('dim');
+      edgeEls[i].classList.toggle('dim', dim);
+    });
+  }
+  sectionFilter.addEventListener('change', applyFilters);
+  levelFilter.addEventListener('change', applyFilters);
+  masteryFilter.addEventListener('change', applyFilters);
+
+  // ---------- buttons ----------
+  document.getElementById('reset-view').addEventListener('click', () => {
+    resetView();
+    clearFocus();
+    sectionFilter.value = ''; levelFilter.value = ''; masteryFilter.value = '';
+    searchEl.value = ''; applySearch(); applyFilters();
+  });
+  document.getElementById('reseed-layout').addEventListener('click', async () => {
+    clearCachedLayout();
+    document.getElementById('loading').style.display = 'flex';
+    await runLayout(/* forceRecompute */ true);
+    document.getElementById('loading').style.display = 'none';
+  });
+
+  // Help panel
+  const helpBtn = document.getElementById('help-btn');
+  const helpPanel = document.getElementById('help-panel');
+  function toggleHelp(force){
+    const next = typeof force === 'boolean' ? force : helpPanel.hidden;
+    helpPanel.hidden = !next;
+  }
+  helpBtn.addEventListener('click', () => toggleHelp());
+  document.addEventListener('click', (ev) => {
+    if(helpPanel.hidden) return;
+    if(ev.target.closest('#help-panel') || ev.target.closest('#help-btn')) return;
+    toggleHelp(false);
+  });
+
+  // ---------- keyboard ----------
+  document.addEventListener('keydown', (ev) => {
+    if(ev.key === '/' && document.activeElement !== searchEl){
+      ev.preventDefault(); searchEl.focus();
+    } else if(ev.key === 'Escape'){
+      if(!helpPanel.hidden) toggleHelp(false);
+      else clearFocus();
+      searchEl.blur();
+    } else if(ev.key === '?'){
+      toggleHelp();
+    }
+  });
+
+  // ---------- stats + gap detection ----------
+  function updateStats(){
+    const totalNodes = nodes.length;
+    const totalEdges = edges.length;
+    const crossEdges = edges.filter(e => e.cross).length;
+    const capCount = nodes.filter(n => n.isCap).length;
+    const masteredCount = window.MVProgress
+      ? nodes.filter(n => MVProgress.isMastered(n.id, 'v1')).length : 0;
+    document.getElementById('stats-row').innerHTML = `
+      <span class="stat"><b>${totalNodes}</b> concepts</span>
+      <span class="stat"><b>${totalEdges}</b> prereq edges</span>
+      <span class="stat"><b>${crossEdges}</b> cross-topic</span>
+      <span class="stat"><b>${capCount}</b> capstones</span>
+      <span class="stat"><b>${masteredCount}</b> mastered</span>
+    `;
+  }
+
+  // Surface two structural signals that suggest incomplete prereq wiring:
+  //   1. Topics where every concept's prereqs stay inside the same topic
+  //      (zero cross-topic edges out). Foundation/prereq topics like
+  //      naive-set-theory and algebra are legitimately self-contained, so we
+  //      annotate "(prereq topic)" rather than hide them — readers can judge.
+  //   2. Capstones with the smallest ancestor closures. These aren't always
+  //      gaps (some capstones really do depend on a small subgraph), but
+  //      they're the right place to look first when auditing.
+  function buildGapList(){
+    // ---- Orphan topics ----
+    // Tally cross-topic prereq count per topic.
+    const topicCrossOut = new Map();
+    const topicNodes = new Map();
+    for(const n of nodes){
+      topicCrossOut.set(n.topicId, topicCrossOut.get(n.topicId) || 0);
+      topicNodes.set(n.topicId, (topicNodes.get(n.topicId) || 0) + 1);
+      const prereqs = byId.get(n.id)?.prereqs || [];
+      for(const p of prereqs){
+        const owner = byId.get(p);
+        if(owner && owner.topicId !== n.topicId){
+          topicCrossOut.set(n.topicId, topicCrossOut.get(n.topicId) + 1);
+        }
+      }
+    }
+    // Topic display name from sectionsData fallback.
+    const topicDisplay = new Map();
+    for(const t of topicsArr) topicDisplay.set(t.topic, t.title);
+
+    // PREREQ_TOPICS: topics that legitimately have no cross-topic prereqs out
+    // because they're foundation-level. Marked but not hidden.
+    const PREREQ_TOPICS = new Set(['naive-set-theory','algebra']);
+
+    const orphanRows = [...topicCrossOut.entries()]
+      .filter(([, n]) => n === 0)
+      .map(([t]) => ({
+        topic: t,
+        title: topicDisplay.get(t) || t,
+        section: sectionOf(t),
+        conceptCount: topicNodes.get(t) || 0,
+        isPrereq: PREREQ_TOPICS.has(t)
+      }))
+      .sort((a, b) => {
+        // legitimate prereq topics last; otherwise alphabetic by section then title
+        if(a.isPrereq !== b.isPrereq) return a.isPrereq ? 1 : -1;
+        const s = a.section.localeCompare(b.section);
+        if(s !== 0) return s;
+        return a.title.localeCompare(b.title);
+      });
+
+    const orphanUl = document.getElementById('gap-orphan-ul');
+    const orphanH = document.getElementById('gap-orphan-h');
+    if(orphanRows.length > 0){
+      orphanUl.innerHTML = orphanRows.map(r => {
+        const tag = r.isPrereq
+          ? '<span style="color:var(--mute);font-style:italic">(prereq topic — likely fine)</span>'
+          : `<span style="color:var(--pink)">${r.conceptCount} concept${r.conceptCount === 1 ? '' : 's'} · no cross-topic edges</span>`;
+        return `<li><a href="./${escHtml(r.topic)}.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><span class="gtopic">${escHtml(r.title)}</span></a> — <span style="color:var(--mute)">${escHtml(r.section)}</span> · ${tag}</li>`;
+      }).join('');
+      orphanUl.hidden = false; orphanH.hidden = false;
+    }
+
+    // ---- Smallest capstone closures ----
+    const capRows = [];
+    for(const cap of capstones){
+      const idx = nodeIndex.get(cap.goal);
+      if(idx == null) continue;
+      const seen = new Set([idx]);
+      const queue = [idx];
+      while(queue.length){
+        const u = queue.shift();
+        for(const v of inAdj[u]){
+          if(seen.has(v)) continue;
+          seen.add(v); queue.push(v);
+        }
+      }
+      const ancestorCount = seen.size - 1;
+      // Cross-topic edge density inside the closure.
+      let crossInClosure = 0;
+      for(const i of seen){
+        for(const p of inAdj[i]){
+          if(nodes[p].topicId !== nodes[i].topicId) crossInClosure++;
+        }
+      }
+      capRows.push({ cap, ancestorCount, crossInClosure, idx });
+    }
+    capRows.sort((a, b) => a.ancestorCount - b.ancestorCount);
+    // Show the bottom 6 OR everything below the median, whichever is smaller.
+    const median = capRows[Math.floor(capRows.length / 2)]?.ancestorCount ?? 0;
+    const SHOW_N = Math.min(6, capRows.filter(r => r.ancestorCount <= median).length);
+    const capDisplayed = capRows.slice(0, SHOW_N);
+
+    const capUl = document.getElementById('gap-cap-ul');
+    const capH = document.getElementById('gap-cap-h');
+    if(capDisplayed.length > 0){
+      capUl.innerHTML = capDisplayed.map(r => {
+        const n = nodes[r.idx];
+        return `<li><span class="gtopic">${escHtml(r.cap.title)}</span> <code>${escHtml(r.cap.goal)}</code> — <span style="color:var(--mute)">${escHtml(n.topicTitle)} · ${r.ancestorCount} ancestor${r.ancestorCount === 1 ? '' : 's'}, ${r.crossInClosure} cross-topic edge${r.crossInClosure === 1 ? '' : 's'} in closure</span></li>`;
+      }).join('');
+      capUl.hidden = false; capH.hidden = false;
+    }
+
+    if(orphanRows.length === 0 && capDisplayed.length === 0){
+      document.getElementById('gap-list').hidden = true;
+      return;
+    }
+    document.getElementById('gap-list').hidden = false;
+    whenKatexReady(() => {
+      renderKatex(orphanUl);
+      renderKatex(capUl);
+    });
+  }
+
+  // ---------- legend ----------
+  function buildLegend(){
+    const bar = document.querySelector('.bar');
+    const legend = document.createElement('div');
+    legend.className = 'legend';
+    legend.innerHTML =
+      SECTION_ORDER.map(s =>
+        `<span><i class="sw" style="background:${SECTION_COLOR[s]}"></i>${s}</span>`
+      ).join('') +
+      `<span><i class="sw cap" style="background:transparent;border-color:var(--ink)"></i>capstone</span>`;
+    bar.appendChild(legend);
+  }
+
+  // ---------- run ----------
+  async function runLayout(forceRecompute){
+    if(!forceRecompute){
+      const cached = loadCachedLayout();
+      if(cached){
+        cached.forEach(([x, y], i) => { nodes[i].x = x; nodes[i].y = y; });
+        return;
+      }
+    }
+    const lbar = document.getElementById('loading-bar');
+    await forceLayout((p) => {
+      if(lbar) lbar.style.width = (p * 100).toFixed(0) + '%';
+    });
+    saveCachedLayout();
+  }
+
+  buildLegend();
+  updateStats();
+  buildGapList();
+
+  // Build the SVG once with placeholder positions; layout fills positions.
+  buildEdges();
+  buildNodes();
+
+  await runLayout(false);
+  syncEdgePositions();
+  syncNodePositions();
+  applyMasteryClasses();
+  document.getElementById('loading').style.display = 'none';
+
+  whenKatexReady(() => {
+    renderKatex(document.querySelector('main'));
+  });
+})();
+</script>
+</body>
+</html>
