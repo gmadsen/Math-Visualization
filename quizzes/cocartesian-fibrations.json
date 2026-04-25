@@ -1,0 +1,131 @@
+{
+  "topic": "cocartesian-fibrations",
+  "quizzes": {
+    "left-right-fibrations": {
+      "title": "Left and right fibrations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Left and right fibrations\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "cocartesian-edge": {
+      "title": "Cocartesian edges",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Cocartesian edges\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "cocartesian-fibration": {
+      "title": "Cocartesian fibrations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Cocartesian fibrations\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "fibers-and-transport": {
+      "title": "Fibers and transport functors",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Fibers and transport functors\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "grothendieck-construction": {
+      "title": "Straightening / unstraightening: the Grothendieck construction",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Straightening / unstraightening: the Grothendieck construction\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "left-fibrations-as-presheaves": {
+      "title": "Left fibrations ↔ presheaves of spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Left fibrations ↔ presheaves of spaces\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "examples-of-fibrations": {
+      "title": "Examples: arrow categories, modules, classifying spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Examples: arrow categories, modules, classifying spaces\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

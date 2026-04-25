@@ -1,0 +1,56 @@
+{
+  "topic": "cocartesian-fibrations",
+  "title": "Cocartesian fibrations & the Grothendieck construction",
+  "page": "cocartesian-fibrations.html",
+  "concepts": [
+    {
+      "id": "left-right-fibrations",
+      "title": "Left and right fibrations",
+      "anchor": "left-right-fibrations",
+      "prereqs": [],
+      "blurb": "A map of simplicial sets $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration if every left horn $\\Lambda^n_0 \\to \\mathcal{E}$ extends along $\\Delta^n \\to \\mathcal{B}$; right fibrations are dual (right horns $\\Lambda^n_n$). They model contravariant / covariant functors with values in spaces."
+    },
+    {
+      "id": "cocartesian-edge",
+      "title": "Cocartesian edges",
+      "anchor": "cocartesian-edge",
+      "prereqs": ["left-right-fibrations"],
+      "blurb": "An edge $e: x \\to y$ in $\\mathcal{E}$ above $\\bar{e}: \\bar{x} \\to \\bar{y}$ is $p$-cocartesian if any 2-simplex with $e$ as one face and a chosen extension downstairs lifts uniquely (up to higher homotopy). Cocartesian edges are the simplicial-set analogue of \"strong universal lifts.\""
+    },
+    {
+      "id": "cocartesian-fibration",
+      "title": "Cocartesian fibrations",
+      "anchor": "cocartesian-fibration",
+      "prereqs": ["cocartesian-edge"],
+      "blurb": "$p$ is a cocartesian fibration if every edge $\\bar{e}: \\bar{x} \\to \\bar{y}$ in $\\mathcal{B}$ admits a $p$-cocartesian lift starting at any chosen $x \\in \\mathcal{E}_{\\bar{x}}$. This packages the data of a functor sending each object of $\\mathcal{B}$ to its fiber and each morphism to the induced \"transport\" between fibers."
+    },
+    {
+      "id": "fibers-and-transport",
+      "title": "Fibers and transport functors",
+      "anchor": "fibers-and-transport",
+      "prereqs": ["cocartesian-fibration"],
+      "blurb": "The fiber $\\mathcal{E}_{\\bar{x}} = p^{-1}(\\bar{x})$ is an $\\infty$-category. A cocartesian lift of $\\bar{e}: \\bar{x} \\to \\bar{y}$ starting at $x \\in \\mathcal{E}_{\\bar{x}}$ ends at some $\\bar{e}_!(x) \\in \\mathcal{E}_{\\bar{y}}$, defining the transport functor $\\bar{e}_!: \\mathcal{E}_{\\bar{x}} \\to \\mathcal{E}_{\\bar{y}}$ — well-defined up to coherent homotopy."
+    },
+    {
+      "id": "grothendieck-construction",
+      "title": "Straightening / unstraightening: the Grothendieck construction",
+      "anchor": "grothendieck-construction",
+      "prereqs": ["fibers-and-transport"],
+      "blurb": "Lurie's straightening / unstraightening equivalence: cocartesian fibrations over $\\mathcal{B}$ correspond to functors $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$. This is the $\\infty$-categorical Grothendieck construction — the same equivalence, with classical fibered categories on the left and 2-categorical pseudofunctors on the right, refined to the $\\infty$-setting."
+    },
+    {
+      "id": "left-fibrations-as-presheaves",
+      "title": "Left fibrations ↔ presheaves of spaces",
+      "anchor": "left-fibrations-as-presheaves",
+      "prereqs": ["grothendieck-construction"],
+      "blurb": "Restricting straightening to left fibrations gives an equivalence between left fibrations over $\\mathcal{B}$ and functors $\\mathcal{B} \\to \\mathcal{S}$ (presheaves of spaces). The Yoneda embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$ factors through the universal left fibration over $\\mathcal{B}$."
+    },
+    {
+      "id": "examples-of-fibrations",
+      "title": "Examples: arrow categories, modules, classifying spaces",
+      "anchor": "examples",
+      "prereqs": ["cocartesian-fibration", "grothendieck-construction"],
+      "blurb": "The source map $\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ of the arrow $\\infty$-category is a cocartesian fibration whose fibers are slice categories. The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ is a cocartesian fibration whose transport is base change. The classifying space $BG$-fibration over a point recovers a $G$-action on its fiber."
+    }
+  ]
+}

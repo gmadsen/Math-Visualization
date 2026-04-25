@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **72**, concepts: **498**
+- Topics: **73**, concepts: **505**
 - Widgets: **459** (registry-driven: 457, inline: 2)
-- Quizzes: **2659** (v1: 1433, hard: 1213, expert: 13)
-- Quiz types: mcq: 1629, numeric: 852, multi-select: 65, complex: 29, matching: 27, ordering: 21, spot-the-error: 18, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **187**
-- Concepts lacking a hard-tier quiz: **65**
+- Quizzes: **2666** (v1: 1440, hard: 1213, expert: 13)
+- Quiz types: mcq: 1636, numeric: 852, multi-select: 65, complex: 29, matching: 27, ordering: 21, spot-the-error: 18, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **194**
+- Concepts lacking a hard-tier quiz: **72**
 
 ## Per-slug registry adoption
 
@@ -50,13 +50,13 @@ page has wired one in yet.
 
 ### Algebra
 
-- Topics: **12**, concepts: **106**
+- Topics: **13**, concepts: **113**
 - Widgets: **65** (registry-driven: 65, inline: 0)
   - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
   - by dimension: 2d: 65
   - by gesture: click: 63, slider+click: 1, interactive: 1
-- Quizzes: **542** (v1: 318, hard: 224, expert: 0)
-  - by type: mcq: 343, numeric: 143, multi-select: 35, matching: 7, spot-the-error: 6, ordering: 5, proof-completion: 2, complex: 1
+- Quizzes: **549** (v1: 325, hard: 224, expert: 0)
+  - by type: mcq: 350, numeric: 143, multi-select: 35, matching: 7, spot-the-error: 6, ordering: 5, proof-completion: 2, complex: 1
 
 ### Analysis
 
@@ -123,6 +123,7 @@ page has wired one in yet.
 - `infinity-categories` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=29 (v1=21, hard=8, expert=0)
 - `derived-categories` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
+- `cocartesian-fibrations` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
