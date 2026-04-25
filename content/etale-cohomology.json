@@ -114,7 +114,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-cohomology.html#ladic\">Étale cohomology</a> · ℓ-adic cohomology</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-spaces.html#definition\">Algebraic spaces</a> · Algebraic spaces as étale sheaves</div>\n    <div><a href=\"./algebraic-spaces.html#etale-equivalence-relation\">Algebraic spaces</a> · Étale equivalence relations</div>\n    <div><a href=\"./etale-cohomology.html#ladic\">Étale cohomology</a> · ℓ-adic cohomology</div>\n    <div><a href=\"./etale-fundamental-group.html#finite-etale-covers\">The étale fundamental group</a> · Finite étale covers</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

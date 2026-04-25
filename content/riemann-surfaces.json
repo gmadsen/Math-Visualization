@@ -12,7 +12,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./elliptic-curves.html#complex\">Elliptic curves</a> · Complex uniformization and CM</div>\n    <div><a href=\"./riemann-surfaces.html#branched\">Riemann surfaces</a> · Branched covers and maps</div>\n    <div><a href=\"./riemann-surfaces.html#rh\">Riemann surfaces</a> · Genus as the universal invariant</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#smooth-projective-curve\">Algebraic curves: higher genus</a> · Smooth projective curves and their genus</div>\n    <div><a href=\"./elliptic-curves.html#complex\">Elliptic curves</a> · Complex uniformization and CM</div>\n    <div><a href=\"./riemann-surfaces.html#branched\">Riemann surfaces</a> · Branched covers and maps</div>\n    <div><a href=\"./riemann-surfaces.html#rh\">Riemann surfaces</a> · Genus as the universal invariant</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

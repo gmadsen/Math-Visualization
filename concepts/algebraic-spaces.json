@@ -7,42 +7,58 @@
       "id": "why-algebraic-spaces",
       "title": "Why schemes aren't enough",
       "anchor": "why-algebraic-spaces",
-      "prereqs": [],
+      "prereqs": [
+        "spectrum-primes"
+      ],
       "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
     },
     {
       "id": "etale-equivalence-relation",
       "title": "Étale equivalence relations",
       "anchor": "etale-equivalence-relation",
-      "prereqs": ["why-algebraic-spaces"],
+      "prereqs": [
+        "why-algebraic-spaces",
+        "etale-morphism"
+      ],
       "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces."
     },
     {
       "id": "algebraic-space-definition",
       "title": "Algebraic spaces as étale sheaves",
       "anchor": "definition",
-      "prereqs": ["etale-equivalence-relation"],
+      "prereqs": [
+        "etale-equivalence-relation",
+        "etale-morphism",
+        "sheaves-on-a-site"
+      ],
       "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$."
     },
     {
       "id": "morphisms-of-algebraic-spaces",
       "title": "Morphisms of algebraic spaces",
       "anchor": "morphisms",
-      "prereqs": ["algebraic-space-definition"],
+      "prereqs": [
+        "algebraic-space-definition"
+      ],
       "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
     },
     {
       "id": "examples-of-algebraic-spaces",
       "title": "Examples: free quotients and a non-scheme",
       "anchor": "examples",
-      "prereqs": ["algebraic-space-definition"],
+      "prereqs": [
+        "algebraic-space-definition"
+      ],
       "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
     },
     {
       "id": "between-schemes-and-stacks",
       "title": "Algebraic spaces sit between schemes and DM stacks",
       "anchor": "between-schemes-and-stacks",
-      "prereqs": ["algebraic-space-definition"],
+      "prereqs": [
+        "algebraic-space-definition",
+        "dm-stacks-coarse-space"
+      ],
       "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry."
     }
   ]

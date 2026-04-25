@@ -272,7 +272,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./frobenius-and-reciprocity.html#decomposition\">Frobenius and reciprocity</a> · Decomposition and inertia groups</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-fundamental-group.html#spec-field-galois\">The étale fundamental group</a> · $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$</div>\n    <div><a href=\"./frobenius-and-reciprocity.html#decomposition\">Frobenius and reciprocity</a> · Decomposition and inertia groups</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

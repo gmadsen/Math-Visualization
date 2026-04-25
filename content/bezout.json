@@ -150,7 +150,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bezout.html#resultant\">Bézout theorem</a> · Resultants and elimination</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bezout.html#resultant\">Bézout theorem</a> · Resultants and elimination</div>\n    <div><a href=\"./intersection-theory-chow.html#intersection-product\">Intersection theory and Chow groups</a> · Intersection product on smooth $X$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

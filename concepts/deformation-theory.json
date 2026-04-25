@@ -7,42 +7,59 @@
       "id": "first-order-deformation",
       "title": "First-order deformations",
       "anchor": "first-order-deformation",
-      "prereqs": [],
+      "prereqs": [
+        "flat-modules",
+        "spectrum-primes"
+      ],
       "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$."
     },
     {
       "id": "tangent-space-of-moduli",
       "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
       "anchor": "tangent-space",
-      "prereqs": ["first-order-deformation"],
+      "prereqs": [
+        "first-order-deformation",
+        "cech-cohomology"
+      ],
       "blurb": "Isomorphism classes of first-order deformations of a smooth $X_0$ form a $k$-vector space identified with $H^1(X_0, T_{X_0})$. This is the tangent space at $X_0$ to the moduli space — when smooth — and gives the dimension count via Riemann–Roch."
     },
     {
       "id": "obstructions-H2",
       "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
       "anchor": "obstructions",
-      "prereqs": ["tangent-space-of-moduli"],
+      "prereqs": [
+        "tangent-space-of-moduli",
+        "cech-cohomology"
+      ],
       "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$."
     },
     {
       "id": "deformation-functor",
       "title": "Deformation functors and Schlessinger's criteria",
       "anchor": "deformation-functor",
-      "prereqs": ["first-order-deformation"],
+      "prereqs": [
+        "first-order-deformation"
+      ],
       "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
     },
     {
       "id": "cotangent-complex",
       "title": "The cotangent complex $L_{X/Y}$",
       "anchor": "cotangent-complex",
-      "prereqs": ["tangent-space-of-moduli"],
+      "prereqs": [
+        "tangent-space-of-moduli",
+        "kahler-differentials"
+      ],
       "blurb": "Illusie's cotangent complex $L_{X/Y}$ generalizes the relative cotangent sheaf $\\Omega^1_{X/Y}$ to a complex in $D^{\\le 0}(X)$. Tangent and obstruction spaces of any deformation problem live in $\\mathrm{Ext}^i$ of $L_{X/Y}$ — the unifying object behind the previous concepts."
     },
     {
       "id": "deformation-of-a-curve",
       "title": "Worked example: deformations of a smooth curve",
       "anchor": "deformation-of-a-curve",
-      "prereqs": ["tangent-space-of-moduli", "obstructions-H2"],
+      "prereqs": [
+        "tangent-space-of-moduli",
+        "obstructions-H2"
+      ],
       "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
     }
   ]

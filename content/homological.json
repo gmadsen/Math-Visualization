@@ -49,7 +49,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#flat\">Commutative algebra</a> · Flatness and Tor</div>\n    <div><a href=\"./homological.html#derived\">Homological algebra</a> · Derived functors and Ext/Tor</div>\n    <div><a href=\"./homological.html#exact\">Homological algebra</a> · Exact sequences</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#flat\">Commutative algebra</a> · Flatness and Tor</div>\n    <div><a href=\"./derived-categories.html#homotopy-category\">Derived categories</a> · The homotopy category $K(\\mathcal{A})$</div>\n    <div><a href=\"./homological.html#derived\">Homological algebra</a> · Derived functors and Ext/Tor</div>\n    <div><a href=\"./homological.html#exact\">Homological algebra</a> · Exact sequences</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -150,7 +150,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./commutative-algebra.html#flat\">Commutative algebra</a> · Flatness and Tor</div>\n    <div><a href=\"./homological.html#abelian\">Homological algebra</a> · Abelian categories and triangulated preview</div>\n    <div><a href=\"./homological.html#flat\">Homological algebra</a> · Flat modules</div>\n    <div><a href=\"./homological.html#injective\">Homological algebra</a> · Injective modules</div>\n    <div><a href=\"./homological.html#projective\">Homological algebra</a> · Projective modules</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#kahler-differentials\">Algebraic de Rham cohomology</a> · Kähler differentials $\\Omega^1_{X/k}$</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./commutative-algebra.html#flat\">Commutative algebra</a> · Flatness and Tor</div>\n    <div><a href=\"./derived-categories.html#triangulated-structure\">Derived categories</a> · Triangulated structure and exact triangles</div>\n    <div><a href=\"./homological.html#abelian\">Homological algebra</a> · Abelian categories and triangulated preview</div>\n    <div><a href=\"./homological.html#flat\">Homological algebra</a> · Flat modules</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -562,7 +562,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./homological.html#resolutions\">Homological algebra</a> · Resolutions: projective, injective, flat</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deformation-theory.html#first-order-deformation\">Deformation theory</a> · First-order deformations</div>\n    <div><a href=\"./homological.html#resolutions\">Homological algebra</a> · Resolutions: projective, injective, flat</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -638,7 +638,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./homological.html#resolutions\">Homological algebra</a> · Resolutions: projective, injective, flat</div>\n    <div><a href=\"./homological.html#spectral\">Homological algebra</a> · Spectral sequences</div>\n    <div><a href=\"./sheaf-cohomology.html#derived\">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./derived-categories.html#derived-functors-triangulated\">Derived categories</a> · Derived functors $RF, LF$</div>\n    <div><a href=\"./homological.html#resolutions\">Homological algebra</a> · Resolutions: projective, injective, flat</div>\n    <div><a href=\"./homological.html#spectral\">Homological algebra</a> · Spectral sequences</div>\n    <div><a href=\"./sheaf-cohomology.html#derived\">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -711,6 +711,10 @@
           "type": "quiz",
           "concept": "resolutions-ha",
           "html": "<div class=\"quiz\" data-concept=\"resolutions-ha\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./derived-categories.html#derived-functors-triangulated\">Derived categories</a> · Derived functors $RF, LF$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -843,6 +847,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./category-theory.html#cat\">Categories and morphisms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./derived-categories.html#t-structures\">Derived categories</a> · $t$-structures and hearts</div>\n    <div><a href=\"./derived-categories.html#triangulated-structure\">Derived categories</a> · Triangulated structure and exact triangles</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

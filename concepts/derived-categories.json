@@ -7,49 +7,69 @@
       "id": "homotopy-category-K",
       "title": "The homotopy category $K(\\mathcal{A})$",
       "anchor": "homotopy-category",
-      "prereqs": [],
+      "prereqs": [
+        "chain-complexes"
+      ],
       "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
     },
     {
       "id": "quasi-isomorphisms",
       "title": "Quasi-isomorphisms and localization",
       "anchor": "quasi-isomorphisms",
-      "prereqs": ["homotopy-category-K"],
+      "prereqs": [
+        "homotopy-category-K"
+      ],
       "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
     },
     {
       "id": "derived-category",
       "title": "The derived category $D(\\mathcal{A})$",
       "anchor": "derived-category",
-      "prereqs": ["quasi-isomorphisms"],
+      "prereqs": [
+        "quasi-isomorphisms"
+      ],
       "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes."
     },
     {
       "id": "triangulated-structure",
       "title": "Triangulated structure and exact triangles",
       "anchor": "triangulated-structure",
-      "prereqs": ["derived-category"],
+      "prereqs": [
+        "derived-category",
+        "exact-sequences",
+        "abelian-categories"
+      ],
       "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$."
     },
     {
       "id": "derived-functors-triangulated",
       "title": "Derived functors $RF, LF$",
       "anchor": "derived-functors-triangulated",
-      "prereqs": ["derived-category"],
+      "prereqs": [
+        "derived-category",
+        "derived-functors",
+        "resolutions-ha"
+      ],
       "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$."
     },
     {
       "id": "t-structures",
       "title": "$t$-structures and hearts",
       "anchor": "t-structures",
-      "prereqs": ["triangulated-structure"],
+      "prereqs": [
+        "triangulated-structure",
+        "abelian-categories"
+      ],
       "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
     },
     {
       "id": "examples-D-Coh",
       "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
       "anchor": "d-coh",
-      "prereqs": ["derived-category", "derived-functors-triangulated"],
+      "prereqs": [
+        "derived-category",
+        "derived-functors-triangulated"
+      ],
       "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels."
     }
   ]

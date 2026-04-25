@@ -745,7 +745,9 @@ window.__MVConcepts = {
           "id": "topos-definition",
           "title": "What is a topos?",
           "anchor": "definition",
-          "prereqs": [],
+          "prereqs": [
+            "limits-colimits"
+          ],
           "blurb": "An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\\Omega$. The three pieces — limits, exponentials, $\\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense."
         },
         {
@@ -753,7 +755,8 @@ window.__MVConcepts = {
           "title": "The subobject classifier $\\Omega$",
           "anchor": "subobject-classifier",
           "prereqs": [
-            "topos-definition"
+            "topos-definition",
+            "universal-properties"
           ],
           "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function."
         },
@@ -780,7 +783,9 @@ window.__MVConcepts = {
           "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
           "anchor": "presheaf-topos",
           "prereqs": [
-            "topos-definition"
+            "topos-definition",
+            "functors-natural-transformations",
+            "sieves"
           ],
           "blurb": "For any small category $C$, the functor category $\\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\\mathbf{Set}$."
         },
@@ -799,7 +804,8 @@ window.__MVConcepts = {
           "anchor": "geometric-morphisms",
           "prereqs": [
             "topos-definition",
-            "presheaf-topos"
+            "presheaf-topos",
+            "adjunctions"
           ],
           "blurb": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact. They are the natural notion of \"map between toposes,\" generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction."
         }
@@ -1139,7 +1145,9 @@ window.__MVConcepts = {
           "id": "homotopy-category-K",
           "title": "The homotopy category $K(\\mathcal{A})$",
           "anchor": "homotopy-category",
-          "prereqs": [],
+          "prereqs": [
+            "chain-complexes"
+          ],
           "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
         },
         {
@@ -1165,7 +1173,9 @@ window.__MVConcepts = {
           "title": "Triangulated structure and exact triangles",
           "anchor": "triangulated-structure",
           "prereqs": [
-            "derived-category"
+            "derived-category",
+            "exact-sequences",
+            "abelian-categories"
           ],
           "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$."
         },
@@ -1174,7 +1184,9 @@ window.__MVConcepts = {
           "title": "Derived functors $RF, LF$",
           "anchor": "derived-functors-triangulated",
           "prereqs": [
-            "derived-category"
+            "derived-category",
+            "derived-functors",
+            "resolutions-ha"
           ],
           "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$."
         },
@@ -1183,7 +1195,8 @@ window.__MVConcepts = {
           "title": "$t$-structures and hearts",
           "anchor": "t-structures",
           "prereqs": [
-            "triangulated-structure"
+            "triangulated-structure",
+            "abelian-categories"
           ],
           "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
         },
@@ -1208,7 +1221,9 @@ window.__MVConcepts = {
           "id": "left-right-fibrations",
           "title": "Left and right fibrations",
           "anchor": "left-right-fibrations",
-          "prereqs": [],
+          "prereqs": [
+            "horn-filling"
+          ],
           "blurb": "A map of simplicial sets $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration if every left horn $\\Lambda^n_0 \\to \\mathcal{E}$ extends along $\\Delta^n \\to \\mathcal{B}$; right fibrations are dual (right horns $\\Lambda^n_n$). They model contravariant / covariant functors with values in spaces."
         },
         {
@@ -1234,7 +1249,8 @@ window.__MVConcepts = {
           "title": "Fibers and transport functors",
           "anchor": "fibers-and-transport",
           "prereqs": [
-            "cocartesian-fibration"
+            "cocartesian-fibration",
+            "quasi-category"
           ],
           "blurb": "The fiber $\\mathcal{E}_{\\bar{x}} = p^{-1}(\\bar{x})$ is an $\\infty$-category. A cocartesian lift of $\\bar{e}: \\bar{x} \\to \\bar{y}$ starting at $x \\in \\mathcal{E}_{\\bar{x}}$ ends at some $\\bar{e}_!(x) \\in \\mathcal{E}_{\\bar{y}}$, defining the transport functor $\\bar{e}_!: \\mathcal{E}_{\\bar{x}} \\to \\mathcal{E}_{\\bar{y}}$ — well-defined up to coherent homotopy."
         },
@@ -1243,7 +1259,8 @@ window.__MVConcepts = {
           "title": "Straightening / unstraightening: the Grothendieck construction",
           "anchor": "grothendieck-construction",
           "prereqs": [
-            "fibers-and-transport"
+            "fibers-and-transport",
+            "infty-functors"
           ],
           "blurb": "Lurie's straightening / unstraightening equivalence: cocartesian fibrations over $\\mathcal{B}$ correspond to functors $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$. This is the $\\infty$-categorical Grothendieck construction — the same equivalence, with classical fibered categories on the left and 2-categorical pseudofunctors on the right, refined to the $\\infty$-setting."
         },
@@ -1252,7 +1269,8 @@ window.__MVConcepts = {
           "title": "Left fibrations ↔ presheaves of spaces",
           "anchor": "left-fibrations-as-presheaves",
           "prereqs": [
-            "grothendieck-construction"
+            "grothendieck-construction",
+            "yoneda-lemma"
           ],
           "blurb": "Restricting straightening to left fibrations gives an equivalence between left fibrations over $\\mathcal{B}$ and functors $\\mathcal{B} \\to \\mathcal{S}$ (presheaves of spaces). The Yoneda embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$ factors through the universal left fibration over $\\mathcal{B}$."
         },
@@ -4690,7 +4708,9 @@ window.__MVConcepts = {
           "id": "why-algebraic-spaces",
           "title": "Why schemes aren't enough",
           "anchor": "why-algebraic-spaces",
-          "prereqs": [],
+          "prereqs": [
+            "spectrum-primes"
+          ],
           "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
         },
         {
@@ -4698,7 +4718,8 @@ window.__MVConcepts = {
           "title": "Étale equivalence relations",
           "anchor": "etale-equivalence-relation",
           "prereqs": [
-            "why-algebraic-spaces"
+            "why-algebraic-spaces",
+            "etale-morphism"
           ],
           "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces."
         },
@@ -4707,7 +4728,9 @@ window.__MVConcepts = {
           "title": "Algebraic spaces as étale sheaves",
           "anchor": "definition",
           "prereqs": [
-            "etale-equivalence-relation"
+            "etale-equivalence-relation",
+            "etale-morphism",
+            "sheaves-on-a-site"
           ],
           "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$."
         },
@@ -4734,7 +4757,8 @@ window.__MVConcepts = {
           "title": "Algebraic spaces sit between schemes and DM stacks",
           "anchor": "between-schemes-and-stacks",
           "prereqs": [
-            "algebraic-space-definition"
+            "algebraic-space-definition",
+            "dm-stacks-coarse-space"
           ],
           "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry."
         }
@@ -4757,7 +4781,8 @@ window.__MVConcepts = {
           "title": "Chow groups $A_*(X)$",
           "anchor": "chow-groups",
           "prereqs": [
-            "cycles-and-equivalence"
+            "cycles-and-equivalence",
+            "singular-homology"
           ],
           "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles."
         },
@@ -4766,7 +4791,8 @@ window.__MVConcepts = {
           "title": "Intersection product on smooth $X$",
           "anchor": "intersection-product",
           "prereqs": [
-            "chow-groups"
+            "chow-groups",
+            "intersection-multiplicity"
           ],
           "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring."
         },
@@ -4784,7 +4810,8 @@ window.__MVConcepts = {
           "title": "Chern classes",
           "anchor": "chern-classes",
           "prereqs": [
-            "intersection-product"
+            "intersection-product",
+            "exact-sequences"
           ],
           "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences."
         },
@@ -4808,7 +4835,10 @@ window.__MVConcepts = {
           "id": "finite-etale-covers",
           "title": "Finite étale covers",
           "anchor": "finite-etale-covers",
-          "prereqs": [],
+          "prereqs": [
+            "etale-morphism",
+            "covering-spaces"
+          ],
           "blurb": "A finite étale cover $Y \\to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\\mathrm{F\\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group."
         },
         {
@@ -4816,7 +4846,8 @@ window.__MVConcepts = {
           "title": "The fiber functor at a geometric point",
           "anchor": "fiber-functor",
           "prereqs": [
-            "finite-etale-covers"
+            "finite-etale-covers",
+            "fundamental-group"
           ],
           "blurb": "Choosing a geometric point $\\bar{x}: \\mathrm{Spec}\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor."
         },
@@ -4825,7 +4856,8 @@ window.__MVConcepts = {
           "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
           "anchor": "etale-pi1",
           "prereqs": [
-            "fiber-functor"
+            "fiber-functor",
+            "fundamental-group"
           ],
           "blurb": "$\\pi_1^{\\acute{e}t}(X, \\bar{x})$ is the profinite group $\\mathrm{Aut}(F_{\\bar{x}})$, with topology induced by the pro-finite-set structure of fibers. It classifies finite étale covers via $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X, \\bar{x})\\text{-FinSet}$ — Grothendieck's Galois theory."
         },
@@ -4834,7 +4866,8 @@ window.__MVConcepts = {
           "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
           "anchor": "spec-field-galois",
           "prereqs": [
-            "etale-pi1"
+            "etale-pi1",
+            "fundamental-theorem-galois"
           ],
           "blurb": "For a field $k$, the étale fundamental group of $\\mathrm{Spec}\\,k$ is the absolute Galois group $\\mathrm{Gal}(\\bar{k}/k)$. Finite étale covers $\\mathrm{Spec}\\,L \\to \\mathrm{Spec}\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory."
         },
@@ -4867,7 +4900,10 @@ window.__MVConcepts = {
           "id": "smooth-projective-curve",
           "title": "Smooth projective curves and their genus",
           "anchor": "smooth-projective-curve",
-          "prereqs": [],
+          "prereqs": [
+            "projective-scheme",
+            "riemann-surface-definition"
+          ],
           "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
         },
         {
@@ -4893,7 +4929,8 @@ window.__MVConcepts = {
           "title": "The canonical embedding",
           "anchor": "canonical-embedding",
           "prereqs": [
-            "riemann-roch-curves"
+            "riemann-roch-curves",
+            "kahler-differentials"
           ],
           "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
         },
@@ -4911,7 +4948,8 @@ window.__MVConcepts = {
           "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
           "anchor": "moduli-of-curves-genus-g",
           "prereqs": [
-            "smooth-projective-curve"
+            "smooth-projective-curve",
+            "groupoids-and-descent"
           ],
           "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary."
         }
@@ -4926,7 +4964,9 @@ window.__MVConcepts = {
           "id": "group-scheme-definition",
           "title": "What is a group scheme?",
           "anchor": "group-scheme-definition",
-          "prereqs": [],
+          "prereqs": [
+            "spectrum-primes"
+          ],
           "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes."
         },
         {
@@ -4961,7 +5001,8 @@ window.__MVConcepts = {
           "title": "Lie algebra $\\mathrm{Lie}(G)$",
           "anchor": "lie-algebra",
           "prereqs": [
-            "group-scheme-definition"
+            "group-scheme-definition",
+            "lie-bracket-fields"
           ],
           "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
         },
@@ -4970,7 +5011,8 @@ window.__MVConcepts = {
           "title": "$G$-torsors and $H^1(X, G)$",
           "anchor": "torsors",
           "prereqs": [
-            "group-scheme-definition"
+            "group-scheme-definition",
+            "cech-cohomology"
           ],
           "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$)."
         }
@@ -4985,7 +5027,10 @@ window.__MVConcepts = {
           "id": "first-order-deformation",
           "title": "First-order deformations",
           "anchor": "first-order-deformation",
-          "prereqs": [],
+          "prereqs": [
+            "flat-modules",
+            "spectrum-primes"
+          ],
           "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$."
         },
         {
@@ -4993,7 +5038,8 @@ window.__MVConcepts = {
           "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
           "anchor": "tangent-space",
           "prereqs": [
-            "first-order-deformation"
+            "first-order-deformation",
+            "cech-cohomology"
           ],
           "blurb": "Isomorphism classes of first-order deformations of a smooth $X_0$ form a $k$-vector space identified with $H^1(X_0, T_{X_0})$. This is the tangent space at $X_0$ to the moduli space — when smooth — and gives the dimension count via Riemann–Roch."
         },
@@ -5002,7 +5048,8 @@ window.__MVConcepts = {
           "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
           "anchor": "obstructions",
           "prereqs": [
-            "tangent-space-of-moduli"
+            "tangent-space-of-moduli",
+            "cech-cohomology"
           ],
           "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$."
         },
@@ -5020,7 +5067,8 @@ window.__MVConcepts = {
           "title": "The cotangent complex $L_{X/Y}$",
           "anchor": "cotangent-complex",
           "prereqs": [
-            "tangent-space-of-moduli"
+            "tangent-space-of-moduli",
+            "kahler-differentials"
           ],
           "blurb": "Illusie's cotangent complex $L_{X/Y}$ generalizes the relative cotangent sheaf $\\Omega^1_{X/Y}$ to a complex in $D^{\\le 0}(X)$. Tangent and obstruction spaces of any deformation problem live in $\\mathrm{Ext}^i$ of $L_{X/Y}$ — the unifying object behind the previous concepts."
         },
@@ -5045,7 +5093,9 @@ window.__MVConcepts = {
           "id": "kahler-differentials",
           "title": "Kähler differentials $\\Omega^1_{X/k}$",
           "anchor": "kahler-differentials",
-          "prereqs": [],
+          "prereqs": [
+            "exact-sequences"
+          ],
           "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms."
         },
         {
@@ -5053,7 +5103,9 @@ window.__MVConcepts = {
           "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
           "anchor": "de-rham-complex",
           "prereqs": [
-            "kahler-differentials"
+            "kahler-differentials",
+            "exterior-derivative",
+            "forms-and-wedge"
           ],
           "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant."
         },
@@ -5062,7 +5114,8 @@ window.__MVConcepts = {
           "title": "Comparison with Betti cohomology",
           "anchor": "comparison-betti",
           "prereqs": [
-            "de-rham-complex"
+            "de-rham-complex",
+            "singular-homology"
           ],
           "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input."
         },
@@ -5089,7 +5142,8 @@ window.__MVConcepts = {
           "title": "Worked example: de Rham of a smooth curve",
           "anchor": "de-rham-curves",
           "prereqs": [
-            "hodge-filtration"
+            "hodge-filtration",
+            "stokes-derham"
           ],
           "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
         }

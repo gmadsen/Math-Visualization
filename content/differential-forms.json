@@ -30,7 +30,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./differential-forms.html#d\">Differential forms</a> · Exterior derivative</div>\n    <div><a href=\"./differential-forms.html#pullback\">Differential forms</a> · Pullback of forms</div>\n    <div><a href=\"./dynamical-systems.html#conservative\">Dynamical systems</a> · Conservative vs dissipative flows</div>\n    <div><a href=\"./riemannian-geometry.html#volume\">Riemannian geometry</a> · Riemannian volume form and divergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">Algebraic de Rham cohomology</a> · The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</div>\n    <div><a href=\"./differential-forms.html#d\">Differential forms</a> · Exterior derivative</div>\n    <div><a href=\"./differential-forms.html#pullback\">Differential forms</a> · Pullback of forms</div>\n    <div><a href=\"./dynamical-systems.html#conservative\">Dynamical systems</a> · Conservative vs dissipative flows</div>\n    <div><a href=\"./riemannian-geometry.html#volume\">Riemannian geometry</a> · Riemannian volume form and divergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -65,7 +65,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./differential-forms.html#deRham\">Differential forms</a> · Stokes theorem and de Rham cohomology</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">Algebraic de Rham cohomology</a> · The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</div>\n    <div><a href=\"./differential-forms.html#deRham\">Differential forms</a> · Stokes theorem and de Rham cohomology</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -152,7 +152,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

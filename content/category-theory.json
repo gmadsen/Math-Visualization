@@ -442,7 +442,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#twocat\">Category theory</a> · 2-categories preview</div>\n    <div><a href=\"./category-theory.html#lim-deep\">Category theory</a> · Limits and colimits</div>\n    <div><a href=\"./category-theory.html#mon\">Category theory</a> · Monoidal categories</div>\n    <div><a href=\"./category-theory.html#yoneda-deep\">Category theory</a> · The Yoneda lemma</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./sheaves.html#morphisms\">Sheaves</a> · Morphisms of sheaves and stalk criteria</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#twocat\">Category theory</a> · 2-categories preview</div>\n    <div><a href=\"./category-theory.html#lim-deep\">Category theory</a> · Limits and colimits</div>\n    <div><a href=\"./category-theory.html#mon\">Category theory</a> · Monoidal categories</div>\n    <div><a href=\"./category-theory.html#yoneda-deep\">Category theory</a> · The Yoneda lemma</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./elementary-topos-theory.html#presheaf-topos\">Elementary topos theory</a> · Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -1559,7 +1559,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functor-of-points.html#yoneda-embedding\">Functor of points</a> · The Yoneda embedding for schemes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./elementary-topos-theory.html#subobject-classifier\">Elementary topos theory</a> · The subobject classifier $\\Omega$</div>\n    <div><a href=\"./functor-of-points.html#yoneda-embedding\">Functor of points</a> · The Yoneda embedding for schemes</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -1933,7 +1933,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#adj-deep\">Category theory</a> · Adjunctions: unit, counit, triangle</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#adj-deep\">Category theory</a> · Adjunctions: unit, counit, triangle</div>\n    <div><a href=\"./cocartesian-fibrations.html#left-fibrations-as-presheaves\">Cocartesian fibrations &amp; the Grothendieck construction</a> · Left fibrations ↔ presheaves of spaces</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -2025,7 +2025,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./elementary-topos-theory.html#definition\">Elementary topos theory</a> · What is a topos?</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -2118,7 +2118,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./category-theory.html#mon-ad\">Category theory</a> · Monads and their algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./category-theory.html#mon-ad\">Category theory</a> · Monads and their algebras</div>\n    <div><a href=\"./elementary-topos-theory.html#geometric-morphisms\">Elementary topos theory</a> · Geometric morphisms</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
