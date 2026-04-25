@@ -21,6 +21,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-lattice-visualizer.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -348,6 +349,23 @@ word:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identi
 </script>
 
 <p>The action is geometric: $T$ slides the whole half-plane horizontally, and $S$ is the "conformal flip" that interchanges the inside and outside of the unit circle, upper half preserved. Compose them and you can carry any point anywhere — but in an extremely constrained way, because determinant one and integer entries together force a Euclidean-algorithm rigidity.</p>
+
+<h3>Why $\mathrm{SL}_2(\mathbb{Z})$? Lattices in $\mathbb{C}$</h3>
+<p>The cleanest motivation for studying this particular group is geometric. Fix a lattice $\Lambda = \mathbb{Z}v_1 + \mathbb{Z}v_2 \subset \mathbb{C}$ — a discrete additive subgroup of rank $2$. A modular form, in its earliest avatar, is a function on the set of such lattices that scales by a fixed power under $\Lambda \mapsto c\Lambda$. Two ordered bases $(v_1,v_2)$ and $(v_1',v_2')$ generate <em>the same</em> $\Lambda$ iff they are related by a matrix in $\mathrm{GL}_2(\mathbb{Z})$; restricting to oriented bases (those with $\mathrm{Im}(v_2/v_1) > 0$) gives exactly $\mathrm{SL}_2(\mathbb{Z})$. So the modular group <em>is</em> the basis-change group of a $2$-dimensional lattice, and its action on $\tau = v_2/v_1 \in \mathcal{H}$ is the action you see above.</p>
+
+<div class="widget" id="w-modular-lattice"></div><script>
+(function(){
+  if(!window.MVLatticeVisualizer) return;
+  MVLatticeVisualizer.init('#w-modular-lattice', {
+    title: "Lattices in C and the SL₂(ℤ) action",
+    hint: "drag v₁ and v₂ — change basis without changing the lattice",
+    basis: {"v1":{"x":1,"y":0},"v2":{"x":0.3,"y":0.95}},
+    viewWindow: {"xRange":[-3,3],"yRange":[-3,3]},
+    sublattice: {"matrix":[[2,1],[0,2]]},
+  });
+})();
+</script>
+<p>The fundamental parallelogram with corners $0,\,v_1,\,v_1+v_2,\,v_2$ is a fundamental domain for $\Lambda$ acting on $\mathbb{C}$ by translation; its Euclidean area is the <em>covolume</em> $|\det[v_1\ v_2]|$, an $\mathrm{SL}_2(\mathbb{Z})$-invariant of $\Lambda$. The pink overlay shows a sublattice $\Lambda' = M \cdot \Lambda$ with $M = \bigl(\begin{smallmatrix}2&1\\0&2\end{smallmatrix}\bigr)$; the index $[\Lambda:\Lambda'] = |\det M| = 4$ is the number of cosets, and equivalently the ratio of covolumes. Slide $v_1, v_2$ and watch both invariants stay rigid as the lattice deforms.</p>
 
 <aside class="callback">
   <div class="ttl">See also</div>

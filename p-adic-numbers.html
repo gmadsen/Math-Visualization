@@ -21,6 +21,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-inline-code-cell.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -896,7 +897,22 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
 
 <p>The take-away: in $\mathbb{Z}_p$, "approximate solution mod $p$" plus "derivative is a unit" always promotes to an exact root. This is why $p$-adic fields behave so well for deformation arguments.</p>
 
-<div class="quiz" data-concept="hensel-lemma"></div>
+
+<p>Try the lift yourself. The sandbox below uses BigInt so the modulus $p^{k+1}$ can grow without overflow; edit the seed, the prime, or the polynomial and re-run with Cmd/Ctrl-Enter.</p>
+
+<div class="widget" id="w-hensel-sandbox"></div><script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#w-hensel-sandbox', {
+    title: "Hensel-lift sandbox",
+    hint: "edit and Cmd/Ctrl+Enter to run · prelude includes gcd, mod, factor, isPrime, primes, pow",
+    initialCode: "// Hensel-lift sqrt(2) inside Z_7 starting from x = 3 (since 3^2 = 9 = 2 mod 7).\n// Newton step:  x  <-  x - (x^2 - 2) * (2x)^(-1)   (mod p^(k+1))\n// We use BigInt so the modulus p^(k+1) can grow without rounding.\nlet x = 3n;\nconst p = 7n;\nfor (let k = 0; k < 5; k++) {\n  const pk = p ** BigInt(k + 1);\n  // (2x) is a unit mod p (p is odd) so it is a unit mod p^(k+1) too.\n  // Tiny invert-by-search: pedagogical, not asymptotic — pk stays small.\n  let inv = 0n;\n  for (let t = 1n; t < pk; t++) {\n    if ((2n * x * t) % pk === 1n) { inv = t; break; }\n  }\n  const f = ((x * x - 2n) % pk + pk) % pk;\n  x = ((x - f * inv) % pk + pk) % pk;\n  console.log('mod ' + pk + ': x = ' + x + ', x^2 mod pk = ' + ((x * x) % pk));\n}\n// Try changing the seed (e.g. x = 4n  <- since 4^2 = 16 = 2 mod 7) or the prime.\n",
+    prelude: "math",
+    rows: 14,
+    runLabel: "Run",
+  });
+})();
+</script><div class="quiz" data-concept="hensel-lemma"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

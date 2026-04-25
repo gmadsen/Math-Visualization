@@ -21,6 +21,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-recurrence-plotter.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -743,6 +744,8 @@ function rk4Step(f, t, y, h){
   <div class="readout" id="co-out"></div>
 </div>
 
+<div class="widget" id="w-logistic-chaos"></div>
+
 <div class="quiz" data-concept="dyn-iterated-maps"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -796,6 +799,18 @@ function rk4Step(f, t, y, h){
   [pick, rs, xs].forEach(el=>el.addEventListener('input', render));
   pick.addEventListener('change', render);
   render();
+})();
+</script>
+
+<script>
+(function(){
+  if(!window.MVRecurrencePlotter) return;
+  MVRecurrencePlotter.init('#w-logistic-chaos', {
+    kind: "logistic",
+    title: "Logistic map: x_{n+1} = r·x_n·(1−x_n)",
+    hint: "drag r through the period-doubling cascade — try r ≈ 3.0, 3.45, 3.57, 3.83",
+    params: {"r":3.5,"x0":0.4,"n":80},
+  });
 })();
 </script>
 
