@@ -239,29 +239,7 @@ Check all of:
 
 ### Agent-environment fallback (no browser)
 
-If you're running in an agent sandbox without a real browser, use jsdom as a partial substitute — it won't exercise CSS layout or user interaction, but it will run the page's top-of-body helper script and KaTeX, and will surface script errors. Minimum shape:
-
-```js
-const { JSDOM, VirtualConsole } = require('jsdom');
-const errors = [];
-const vc = new VirtualConsole();
-vc.on('jsdomError', e => errors.push('jsdomError: ' + (e && (e.message||e))));
-vc.on('error',      e => errors.push('error: ' + (e && (e.message||e))));
-const dom = new JSDOM(html, {
-  runScripts: 'dangerously',
-  pretendToBeVisual: true,
-  virtualConsole: vc,
-  url: 'file://' + file
-});
-setTimeout(() => {
-  const { document } = dom.window;
-  // count sidebar links, top-nav anchors, .widget, section, svg; assert errors.length === 0
-}, 500);
-```
-
-Count `aside.sidetoc a`, `nav.toc a[href^="#"]`, `.widget`, `section`, and `.widget svg` to catch missing scaffolding, and assert zero jsdom errors. A clean jsdom run is necessary but not sufficient — say so explicitly when reporting. Widget interactivity still has to be verified by a human in a real browser before the page is considered final.
-
-If you can't run even jsdom, say so explicitly — do not claim a visual feature works.
+If you're running in an agent sandbox without a real browser, use **jsdom** as a partial substitute — it runs the page's top-of-body helper script and KaTeX and surfaces script errors, but does not exercise CSS layout or user interaction. **Full snippet + assertions: [`docs/agent-environment.md`](./docs/agent-environment.md).** A clean jsdom run is necessary but not sufficient — say so explicitly when reporting. If you can't run even jsdom, say so — do not claim a visual feature works.
 
 ## Parallelization protocol
 
