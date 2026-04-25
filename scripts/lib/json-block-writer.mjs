@@ -135,8 +135,13 @@ function resolveInsertIndex(section, position) {
     }
     return position === 'before-quiz' ? quizIdx : quizIdx + 1;
   }
-  if (typeof position === 'string' && position.startsWith('after-fence:')) {
-    const otherFence = position.slice('after-fence:'.length);
+  if (
+    typeof position === 'string' &&
+    (position.startsWith('after-fence:') || position.startsWith('before-fence:'))
+  ) {
+    const before = position.startsWith('before-fence:');
+    const prefix = before ? 'before-fence:' : 'after-fence:';
+    const otherFence = position.slice(prefix.length);
     if (!otherFence) {
       throw new Error(`malformed position "${position}"`);
     }
@@ -147,7 +152,7 @@ function resolveInsertIndex(section, position) {
         `no fence "${otherFence}" was found`,
       );
     }
-    return fenceIdx + 1;
+    return before ? fenceIdx : fenceIdx + 1;
   }
   throw new Error(`unknown position spec "${position}"`);
 }
@@ -171,7 +176,8 @@ function resolveInsertIndex(section, position) {
  *   fenceName    — fence label, e.g. 'callback', 'backlinks'
  *   contentHtml  — the inner HTML to wrap with the fence
  *   options.position — 'before-quiz' | 'after-quiz'
- *                    | 'before-section-end' | 'after-fence:<other>'
+ *                    | 'before-section-end'
+ *                    | 'after-fence:<other>' | 'before-fence:<other>'
  *
  * Returns `{ changed, action }`:
  *   action ∈ 'inserted' | 'replaced' | 'noop'

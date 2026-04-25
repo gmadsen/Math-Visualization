@@ -13,26 +13,39 @@
 //
 // Modes:
 //   default           Scan + print a report; exit 1 if any missing callback.
-//   --fix             Insert missing <aside class="callback"> blocks in place,
-//                     just before the section's closing </section> (or before
-//                     the section's quiz placeholder if one exists).
-//                     Never duplicates an existing identical href.
+//   --fix             Regenerate canonical fenced <aside class="callback"> blocks
+//                     in `content/<topic>.json` (the source of truth) for topics
+//                     that have one, falling back to direct HTML mutation for
+//                     the 15 legacy HTML-only topics.  Idempotent.
 //   --dry-run         Alias for default (scan-only).
 //
 // Re-runnable: safe to run repeatedly. Treats the union of existing
 // <a href="other.html#anchor"> inside the section as covered.
 //
+// Source-of-truth flip (2026-04-24): every <topic>.html is regenerated from
+// its `content/<topic>.json` by `test-roundtrip.mjs --fix` later in the
+// rebuild chain. Mutating HTML for those topics is a no-op (the next
+// roundtrip overwrites it). Therefore the --fix path mutates JSON when a
+// `content/<slug>.json` exists, falling back to HTML for the 15 unmigrated
+// topics.
+//
 // Consumes the shared content model (scripts/lib/content-model.mjs) to avoid
 // re-parsing concept JSON and HTML pages. Section-element lookup uses the
 // pre-parsed DOM (sections map / getElementById); host-range offsets are
-// derived from element `.range` metadata so the --fix writer can still do
-// byte-identical raw-HTML string splicing.
+// derived from element `.range` metadata so the HTML --fix writer can still
+// do byte-identical raw-HTML string splicing.
 
-import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import { parse as parseHtml } from 'node-html-parser';
 import { escapeRe } from './lib/audit-utils.mjs';
 import { loadContentModel } from './lib/content-model.mjs';
+import {
+  loadTopicContent,
+  saveTopicContent,
+  upsertFencedBlock,
+  findSection as findJsonSection,
+} from './lib/json-block-writer.mjs';
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
@@ -283,6 +296,258 @@ function insertCallback(topic, html, anchor, links) {
   return { html: newHtml, note: `inserted ${missingLinks.length} link(s)` };
 }
 
+// --------------------------------------------------------------------------
+// JSON-mutation path (preferred when content/<topic>.json exists).
+//
+// Strategy:
+//   1. Strip every un-fenced <aside class="callback">…</aside> from raw blocks
+//      across the topic's sections (one-time migration; pre-flip extracts
+//      embed it as raw HTML).  If a raw block becomes empty/whitespace-only
+//      after the strip, drop it.
+//   2. For each section that needs callbacks, upsertFencedBlock() with the
+//      canonical link list.  Position 'before-quiz' when a quiz block exists,
+//      else 'before-section-end'.
+//   3. ensureCss() guarantees the aside.callback rule is present in rawHead.
+//
+// Returns true iff the JSON document was mutated (i.e. needs to be saved).
+// --------------------------------------------------------------------------
+
+// Match an un-fenced <aside class="callback">...</aside>, including any
+// adjacent leading newline and the trailing whitespace up to (but not
+// including) the next non-whitespace token.  This intentionally swallows the
+// blank-line padding that the historic extractor left around the aside so
+// the strip + reinsert round-trip doesn't accumulate stray blank lines.
+const UNFENCED_CALLBACK_RE =
+  /\n?[ \t]*<aside\s+class=["']callback["'][^>]*>[\s\S]*?<\/aside>[ \t]*\n?/i;
+
+// Strip every un-fenced <aside class="callback"> ... </aside> from `section.blocks`.
+// Returns:
+//   { strips, anchorIndex, anchorSubstr }
+//     strips        — count of substring strips performed.
+//     anchorIndex   — index of the FIRST raw block where an un-fenced aside
+//                     was stripped (or -1 if none).
+//     anchorSubstr  — the byte string the strip would replace if you wanted
+//                     to inject a replacement INTO the same raw block at the
+//                     same offset.  For replace-in-place callers this is
+//                     irrelevant; use stripAndReplaceInBlock() instead which
+//                     does the substitution atomically.
+function stripUnfencedAsides(section) {
+  if (!Array.isArray(section.blocks)) return { strips: 0, anchorIndex: -1 };
+  let strips = 0;
+  let anchorIndex = -1;
+
+  let i = 0;
+  while (i < section.blocks.length) {
+    const b = section.blocks[i];
+    if (!b || b.type !== 'raw' || typeof b.html !== 'string') {
+      i++; continue;
+    }
+    if (b.html.includes('callback-auto-begin')) {
+      i++; continue;
+    }
+    let html = b.html;
+    let m;
+    let local = 0;
+    while ((m = UNFENCED_CALLBACK_RE.exec(html))) {
+      html = html.slice(0, m.index) + html.slice(m.index + m[0].length);
+      local++;
+    }
+    if (local === 0) { i++; continue; }
+    strips += local;
+    if (anchorIndex === -1) anchorIndex = i;
+    if (html.trim() === '') {
+      section.blocks.splice(i, 1);
+    } else {
+      b.html = html;
+      i++;
+    }
+  }
+  return { strips, anchorIndex };
+}
+
+// Replace the FIRST un-fenced <aside class="callback"> ... </aside> inside
+// `section`'s raw blocks with `replacementHtml` (verbatim — caller is
+// responsible for fence wrapping).  Preserves byte position: the
+// replacement lands exactly where the historic aside lived, including the
+// surrounding leading/trailing newlines that the regex captures.
+//
+// Returns:
+//   { replaced, blockIndex }   — replaced=true on success
+//   { replaced: false }        — no un-fenced aside was found
+function replaceFirstUnfencedAsideInPlace(section, replacementHtml) {
+  if (!Array.isArray(section.blocks)) return { replaced: false };
+  for (let i = 0; i < section.blocks.length; i++) {
+    const b = section.blocks[i];
+    if (!b || b.type !== 'raw' || typeof b.html !== 'string') continue;
+    if (b.html.includes('callback-auto-begin')) continue;
+    const m = UNFENCED_CALLBACK_RE.exec(b.html);
+    if (!m) continue;
+    // Splice the replacement in.  Preserve one leading / one trailing
+    // newline so the rendered output looks like the historic version.
+    const before = b.html.slice(0, m.index);
+    const after = b.html.slice(m.index + m[0].length);
+    const lead = m[0].startsWith('\n') ? '\n' : '';
+    const trail = m[0].endsWith('\n') ? '\n' : '';
+    b.html = before + lead + replacementHtml + trail + after;
+    return { replaced: true, blockIndex: i };
+  }
+  return { replaced: false };
+}
+
+// Replace an EXISTING fenced callback block in-place, regardless of whether
+// it lives inside its own raw block or is co-mingled with other content
+// (the latter happens when the first --fix run did an in-place replacement
+// of an un-fenced aside that sat next to the backlinks fence + section
+// close).  Preserves the surrounding bytes of the host raw block exactly.
+//
+// Returns:
+//   { replaced: true, changed: bool }   when an existing fenced block was
+//                                       found.  changed=false on byte-equal
+//                                       no-op (idempotent re-run).
+//   { replaced: false }                 when no fenced callback block exists
+function replaceFencedCallbackInPlace(section, fencedReplacement) {
+  if (!Array.isArray(section.blocks)) return { replaced: false };
+  const fencedRe =
+    /<!--\s*callback-auto-begin\s*-->[\s\S]*?<!--\s*callback-auto-end\s*-->/;
+  for (let i = 0; i < section.blocks.length; i++) {
+    const b = section.blocks[i];
+    if (!b || b.type !== 'raw' || typeof b.html !== 'string') continue;
+    const m = fencedRe.exec(b.html);
+    if (!m) continue;
+    if (m[0] === fencedReplacement) {
+      return { replaced: true, changed: false };
+    }
+    b.html = b.html.slice(0, m.index) + fencedReplacement + b.html.slice(m.index + m[0].length);
+    return { replaced: true, changed: true };
+  }
+  return { replaced: false };
+}
+
+// CSS that lives in rawHead's <style> block.  Same bytes as the HTML path so
+// the two write paths produce equivalent styling.
+const CALLBACK_CSS_RULE = CALLBACK_CSS;
+
+// Mutate `doc` (in place) to apply the canonical fenced-callback regeneration
+// for `hostKeys`. `hostKeys` is the same shape as the HTML path:
+// [{ anchor, id, links }].
+//
+// Returns { stripped, inserted, replaced, missingSections }:
+//   stripped        — total un-fenced aside strips across all sections
+//   inserted        — count of upsertFencedBlock calls returning 'inserted'
+//   replaced        — count returning 'replaced'
+//   missingSections — anchors referenced in hostKeys but not present in JSON
+//
+// Strategy:
+//
+//   Pass 1.  For sections whose cross-topic edges all went away (or never
+//            existed), strip any leftover un-fenced <aside class="callback">
+//            so stale links don't outlive the prereq edge that warranted
+//            them.
+//
+//   Pass 2.  For sections that still need callbacks, prefer in-place
+//            replacement of an existing un-fenced aside by the new fenced
+//            equivalent.  This is BYTE-EXACT in the rendered HTML region
+//            the aside used to occupy — important for the handful of pages
+//            where a nested <script> closes the <section> element early at
+//            parse time (e.g. category-theory#cat, dirichlet-series#perron),
+//            otherwise the audit's HTML-side parser would not see the new
+//            callback inside the parsed section boundary.
+//
+//            If no un-fenced aside exists, fall back to upsertFencedBlock
+//            with the canonical position picker (before-fence:backlinks if
+//            backlinks live in their own block, else before-quiz, else
+//            before-section-end).  Idempotent re-runs land in this branch
+//            (no un-fenced aside left) and upsertFencedBlock returns 'noop'.
+//
+//   Pass 3.  ensureCss for the aside.callback rule.
+function applyJsonFix(doc, hostKeys) {
+  let stripped = 0;
+  let inserted = 0;
+  let replaced = 0;
+  const missingSections = [];
+
+  // Note: we do NOT proactively strip un-fenced asides from sections that
+  // no longer need callbacks.  Sub-anchor concepts (e.g.
+  // algebraic-topology#paths) live inside a parent JSON section
+  // (#intro) whose section.id doesn't match the concept anchor, so they
+  // would land in missingSections and their existing un-fenced aside (which
+  // IS still valid content) would have been wiped here.  Leaving stale
+  // un-fenced asides on cross-edge-removed sections is acceptable: they
+  // continue to render valid hrefs until a future fix-pass picks them up.
+  for (const { anchor, links } of hostKeys) {
+    const found = findJsonSection(doc, anchor);
+    if (!found) {
+      missingSections.push(anchor);
+      continue;
+    }
+    const fencedHtml = wrapCallbackFence(buildCallbackHtml(links));
+
+    // Idempotency / in-place mutation: if the section already has a fenced
+    // callback block (anywhere — including INLINE inside a larger raw
+    // block, the steady state after the first --fix that did an in-place
+    // replacement of a co-mingled un-fenced aside), do a substring replace.
+    // upsertFencedBlock would wholesale-replace the host raw block here,
+    // losing surrounding backlinks-fence and </section> bytes.
+    const fencedReplace = replaceFencedCallbackInPlace(found.section, fencedHtml);
+    if (fencedReplace.replaced) {
+      if (fencedReplace.changed) replaced++;
+      continue;
+    }
+
+    // No fenced callback block — try in-place replacement of an existing
+    // un-fenced aside (the historic state coming out of pre-flip JSON
+    // extracts).
+    const inPlace = replaceFirstUnfencedAsideInPlace(found.section, fencedHtml);
+    if (inPlace.replaced) {
+      replaced++;
+      continue;
+    }
+
+    // No aside at all — pick a position and insert a new block.
+    const blocks = found.section.blocks;
+    const backlinksOwnBlock = blocks.findIndex(
+      (b) => b && b.type === 'raw' && typeof b.html === 'string' &&
+        /^\s*<!--\s*backlinks-auto-begin\s*-->/.test(b.html),
+    );
+    const hasQuiz = blocks.some((b) => b && b.type === 'quiz');
+    let position;
+    if (backlinksOwnBlock >= 0) position = 'before-fence:backlinks';
+    else if (hasQuiz) position = 'before-quiz';
+    else position = 'before-section-end';
+
+    const r = upsertFencedBlock(doc, anchor, 'callback', buildCallbackHtml(links), {
+      position,
+    });
+    if (r.action === 'inserted') inserted++;
+    else if (r.action === 'replaced') replaced++;
+  }
+
+  // Pass 3: ensure the aside.callback CSS rule lives in rawHead.  We don't
+  // use the generic ensureCss writer here because the display-prefs
+  // injector requires its fenced CSS to be the LAST rule before </style>;
+  // ensureCss would splice ours after that region and trigger a permanent
+  // ping-pong between the two injectors.  Instead, splice IN FRONT OF the
+  // display-prefs fence when present, otherwise before </style>.
+  if (typeof doc.rawHead === 'string' && !/aside\.callback\s*\{/.test(doc.rawHead)) {
+    const head = doc.rawHead;
+    const dpFence = '/* display-prefs-css-auto-begin */';
+    let insertAt = head.indexOf(dpFence);
+    if (insertAt < 0) insertAt = head.search(/<\/style>/i);
+    if (insertAt >= 0) {
+      doc.rawHead = head.slice(0, insertAt) + CALLBACK_CSS_RULE + '\n  ' + head.slice(insertAt);
+    }
+  }
+
+  return { stripped, inserted, replaced, missingSections };
+}
+
+// Wrap a callback-aside HTML in the canonical fence comments.  Mirrors what
+// upsertFencedBlock would write so the in-place replacement path produces
+// the exact same bytes.
+function wrapCallbackFence(asideHtml) {
+  return `<!-- callback-auto-begin -->\n${asideHtml}\n<!-- callback-auto-end -->`;
+}
+
 // Compute missing links for each anchor. Returns:
 //   { anchor, id, missing: string[] | null }
 //   `missing` = null when the section element itself can't be found.
@@ -307,6 +572,8 @@ function computeMissing(view, html, hostKeys) {
 
 // ----- Main -----
 let pagesTouched = 0;
+let jsonPagesTouched = 0;
+let htmlPagesTouched = 0;
 let hadMissing = false;
 const pagesWithMissing = new Set();
 
@@ -323,17 +590,28 @@ for (const topic of topics.values()) {
   const origHtml = html;
 
   // Collect host keys with cross-topic edges for this topic.
+  // Note: multiple concepts can share the same anchor (e.g. complex-analysis
+  // section #contour hosts contour-integral, cauchy-theorem, and
+  // cauchy-integral-formula).  In that case `needed` already aggregates the
+  // links set per anchor, so the entries would be duplicates of one another.
+  // The HTML --fix path tolerates dups (it idempotently checks present
+  // hrefs); the JSON --fix path mutates and would re-process the same
+  // section repeatedly.  Dedupe by anchor up front.
   const hostKeys = [];
+  const seenAnchors = new Set();
   for (const conceptId of topic.conceptIds) {
     const c = concepts.get(conceptId);
     if (!c || !c.anchor || c.topic !== topic.id) continue;
+    if (seenAnchors.has(c.anchor)) continue;
     const key = `${topic.id}::${c.anchor}`;
     if (needed.has(key)) {
+      seenAnchors.add(c.anchor);
       hostKeys.push({ anchor: c.anchor, id: c.id, links: needed.get(key) });
     }
   }
 
-  // Initial scan against the un-mutated page.
+  // Initial scan against the un-mutated page (for the no --fix report and
+  // also for the existing-count tally).
   const scan = computeMissing(topic, html, hostKeys);
   const localMissing = [];
   for (const { anchor, id, missing, links } of scan) {
@@ -347,34 +625,67 @@ for (const topic of topics.values()) {
   }
 
   if (FIX) {
-    if (hostKeys.length > 0) html = ensureCallbackCss(html);
-    // Iterate in reverse anchor order so later-doc inserts don't shift
-    // earlier-doc anchors. Re-parse the DOM whenever `html` has been mutated
-    // so element ranges stay aligned with the current `html` string.
-    let view = html === origHtml ? topic : reparseTopicView(html);
-    let viewHtml = html;
-    for (const { anchor, links } of hostKeys.slice().reverse()) {
-      if (viewHtml !== html) { view = reparseTopicView(html); viewHtml = html; }
-      const r = insertCallback(view, html, anchor, links);
-      html = r.html;
-      const m = r.note && r.note.match(/^(inserted|merged) (\d+)/);
-      if (m) insertedCount += parseInt(m[2], 10);
-    }
-    if (html !== origHtml) {
-      writeFileSync(pagePath, html);
-      pagesTouched++;
-    }
-    // Re-audit after fix.
-    const afterView = html === origHtml ? topic : reparseTopicView(html);
-    for (const { anchor, id, missing } of computeMissing(afterView, html, hostKeys)) {
-      if (missing === null) {
-        missingReport.push(`${page}: section #${anchor} (concept "${id}") not found`);
-        hadMissing = true;
-        pagesWithMissing.add(page);
-      } else if (missing.length > 0) {
-        hadMissing = true;
-        pagesWithMissing.add(page);
-        missingReport.push(`${page}: section #${anchor} (concept "${id}") still missing ${missing.length} link(s) after --fix`);
+    // Prefer the JSON-mutation path when content/<topic>.json exists.
+    // Otherwise fall back to the HTML path for the legacy HTML-only topics.
+    const jsonPath = resolve(repoRoot, 'content', `${topic.id}.json`);
+    if (existsSync(jsonPath)) {
+      // JSON path.
+      const doc = loadTopicContent(topic.id, repoRoot);
+      const result = applyJsonFix(doc, hostKeys);
+      insertedCount += result.inserted + result.replaced;
+      // Sub-anchor concepts (3 in the corpus today: paths, simply-connected,
+      // discriminant) carry their `anchor` field as an <h3 id> nested inside
+      // a parent <section id> whose JSON section.id is the parent. There's
+      // no clean way to write the canonical fenced block at the sub-anchor
+      // level inside the JSON model, so the existing un-fenced aside on the
+      // parent section is left in place — it still renders the callback
+      // links in the produced HTML. Surface as a warning, not a hard fail:
+      // the audit-only path (which scans HTML, not JSON) catches genuine
+      // missing-link regressions, so CI's `rebuild --no-fix` is still strict.
+      for (const anchor of result.missingSections) {
+        console.warn(`  ⚠ ${page}: skipping sub-anchor #${anchor} — JSON has no matching section, existing HTML aside on parent section preserved`);
+      }
+      const wrote = saveTopicContent(topic.id, doc, repoRoot);
+      if (wrote) {
+        jsonPagesTouched++;
+        pagesTouched++;
+      }
+      // No need to re-audit HTML — the rendered HTML is produced by the
+      // later test-roundtrip --fix step.  We trust the JSON mutation: the
+      // canonical fenced block contains exactly the links we want.
+    } else {
+      // HTML path (legacy / unmigrated topics).
+      if (hostKeys.length > 0) html = ensureCallbackCss(html);
+      // Iterate in reverse anchor order so later-doc inserts don't shift
+      // earlier-doc anchors. Re-parse the DOM whenever `html` has been
+      // mutated so element ranges stay aligned with the current `html`
+      // string.
+      let view = html === origHtml ? topic : reparseTopicView(html);
+      let viewHtml = html;
+      for (const { anchor, links } of hostKeys.slice().reverse()) {
+        if (viewHtml !== html) { view = reparseTopicView(html); viewHtml = html; }
+        const r = insertCallback(view, html, anchor, links);
+        html = r.html;
+        const m = r.note && r.note.match(/^(inserted|merged) (\d+)/);
+        if (m) insertedCount += parseInt(m[2], 10);
+      }
+      if (html !== origHtml) {
+        writeFileSync(pagePath, html);
+        htmlPagesTouched++;
+        pagesTouched++;
+      }
+      // Re-audit after fix.
+      const afterView = html === origHtml ? topic : reparseTopicView(html);
+      for (const { anchor, id, missing } of computeMissing(afterView, html, hostKeys)) {
+        if (missing === null) {
+          missingReport.push(`${page}: section #${anchor} (concept "${id}") not found`);
+          hadMissing = true;
+          pagesWithMissing.add(page);
+        } else if (missing.length > 0) {
+          hadMissing = true;
+          pagesWithMissing.add(page);
+          missingReport.push(`${page}: section #${anchor} (concept "${id}") still missing ${missing.length} link(s) after --fix`);
+        }
       }
     }
   } else if (localMissing.length > 0) {
@@ -387,8 +698,8 @@ for (const topic of topics.values()) {
 // ----- Report -----
 console.log(`audit-callbacks: ${topics.size} topic(s), ${totalEdges} cross-topic edge(s)`);
 if (FIX) {
-  console.log(`  pages touched: ${pagesTouched}`);
-  console.log(`  links inserted: ${insertedCount}`);
+  console.log(`  pages touched: ${pagesTouched} (json: ${jsonPagesTouched}, html: ${htmlPagesTouched})`);
+  console.log(`  links inserted/replaced: ${insertedCount}`);
 }
 console.log(`  links already present: ${existingCount}`);
 console.log('');
