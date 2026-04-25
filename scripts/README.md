@@ -61,6 +61,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | Script | What it checks |
 |---|---|
 | [`validate-concepts.mjs`](./validate-concepts.mjs) | Concept graph: duplicate ids, broken prereqs, cycles, missing fields, `concepts/index.json` ↔ `concepts/sections.json` coverage. |
+| [`audit-concept-latex.mjs`](./audit-concept-latex.mjs) | Concept-data sanity: every `\foo` / `^{...}` / `_{...}` in concept titles + blurbs (incl. `concepts/capstones.json`) is enclosed in `$…$`, `$$…$$`, `\(…\)`, or `\[…\]`. Catches authoring mistakes before they leak into nav strips, pathway SVG nodes, or the capstone dropdown. |
 | [`validate-schema.mjs`](./validate-schema.mjs) | `concepts/*.json` + `quizzes/*.json` against `schemas/*.json` via AJV 2020-12. |
 | [`validate-widget-params.mjs`](./validate-widget-params.mjs) | `slug`-bearing widget blocks in `content/*.json` validate against `widgets/<slug>/schema.json`. |
 | [`test-widget-renderers.mjs`](./test-widget-renderers.mjs) | Unit tests (built-in `node:test`) for every widget slug: schema sanity, renderMarkup/renderScript purity, every content/ instance renders non-empty markup containing its widgetId. |
@@ -131,20 +132,21 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 7. `test-widget-renderers.mjs`
 8. `test-widget-hydration.mjs`
 9. `validate-concepts.mjs`
-10. `validate-katex.mjs`
-11. `audit-callbacks.mjs --fix`
-12. `inject-used-in-backlinks.mjs --fix`
-13. `inject-breadcrumb.mjs --fix`
-14. `inject-display-prefs.mjs --fix`
-15. `inject-index-stats.mjs --fix`
-16. `fix-a11y.mjs --fix`
-17. `smoke-test.mjs`
-18. `test-topic-jsdom.mjs`
-19. `test-roundtrip.mjs`
-20. `stats-coverage.mjs`
-21. `audit-draft-index-cards.mjs`
-22. `audit-doc-drift.mjs`
+10. `audit-concept-latex.mjs`
+11. `validate-katex.mjs`
+12. `audit-callbacks.mjs --fix`
+13. `inject-used-in-backlinks.mjs --fix`
+14. `inject-breadcrumb.mjs --fix`
+15. `inject-display-prefs.mjs --fix`
+16. `inject-index-stats.mjs --fix`
+17. `fix-a11y.mjs --fix`
+18. `smoke-test.mjs`
+19. `test-topic-jsdom.mjs`
+20. `test-roundtrip.mjs`
+21. `stats-coverage.mjs`
+22. `audit-draft-index-cards.mjs`
+23. `audit-doc-drift.mjs`
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

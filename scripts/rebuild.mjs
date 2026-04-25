@@ -62,6 +62,7 @@ const STEPS = [
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
   { name: 'widget-hydration', script: 'test-widget-hydration.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
+  { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },
   { name: 'backlinks',  script: 'inject-used-in-backlinks.mjs', fix: true  },

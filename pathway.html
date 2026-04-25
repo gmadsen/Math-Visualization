@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<!-- katex-select shim: enhances <select> with KaTeX-bearing options (capstone goal picker) -->
+<script defer src="./js/katex-select.js"></script>
 <link rel="stylesheet" href="./css/theme-light.css">
 <script src="./js/theme-toggle.js"></script>
 <script src="./concepts/bundle.js"></script>
@@ -81,10 +83,18 @@
     transition:fill 150ms ease, stroke 150ms ease}
   .nodebox text{fill:var(--ink);font-size:13px;pointer-events:none}
   .nodebox .sub{fill:var(--mute);font-size:11px}
+  /* Title is rendered into a <foreignObject> so KaTeX inline math (e.g.
+     $\Omega^1$, $\mathcal{P}(C)$) typesets — SVG <text> can't host KaTeX. */
+  .nodebox foreignObject.nodelbl-fo{pointer-events:none}
+  .nodebox .nodelbl{font-size:13px;color:var(--ink);line-height:1.15;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:inherit}
+  .nodebox .nodelbl .katex{font-size:1em}
   .nodebox.ready rect.node-bg{stroke:var(--yellow)}
   .nodebox.ready text{fill:var(--yellow)}
+  .nodebox.ready .nodelbl{color:var(--yellow)}
   .nodebox.mastered rect.node-bg{fill:rgba(131,193,103,0.18);stroke:var(--green)}
   .nodebox.mastered text{fill:var(--green)}
+  .nodebox.mastered .nodelbl{color:var(--green)}
   .nodebox.hard rect.node-bg{stroke:var(--violet);stroke-width:2}
   .nodebox.hard.mastered rect.node-bg{fill:rgba(179,157,219,0.18)}
   .nodebox.locked rect.node-bg{opacity:.6}
@@ -401,6 +411,20 @@
       ],
       throwOnError: false
     });
+  }
+  // KaTeX auto-render is loaded with `defer` from a CDN; the IIFE that owns
+  // this code runs during parse (before the deferred scripts execute), and
+  // can also reach the first render() call before the CDN responds. Poll
+  // briefly so the first paint of node labels still gets typeset.
+  function whenKatexReady(fn){
+    if(typeof renderMathInElement === 'function'){ fn(); return; }
+    let tries = 0;
+    const t = setInterval(() => {
+      if(typeof renderMathInElement === 'function' || tries++ > 40){
+        clearInterval(t);
+        fn();
+      }
+    }, 50);
   }
 
   // ---------- data loading ----------
@@ -910,9 +934,19 @@
         fill: color
       });
       g.appendChild(stripe);
-      const t1 = el('text', {x: 16, y: 22});
-      t1.textContent = n.node.title;
-      g.appendChild(t1);
+      // Title goes into a <foreignObject> so inline KaTeX delimiters in the
+      // concept title (e.g. "Modules of Kähler differentials $\Omega^1$") get
+      // typeset by renderMathInElement at the end of this build pass. Width
+      // leaves room for the mastery rings on the right edge (cx = n.w - 16,
+      // outermost ring radius 16 → reserve ~38px).
+      const fo = el('foreignObject', {
+        class: 'nodelbl-fo', x: 12, y: 6, width: Math.max(0, n.w - 38), height: 24,
+      });
+      const lblDiv = document.createElement('div');
+      lblDiv.className = 'nodelbl';
+      lblDiv.textContent = n.node.title;
+      fo.appendChild(lblDiv);
+      g.appendChild(fo);
       const t2 = el('text', {x: 16, y: 42, class: 'sub'});
       t2.setAttribute('class','sub');
       t2.textContent = '#' + id;
@@ -983,6 +1017,11 @@
       });
       zoomRoot.appendChild(g);
     }
+
+    // KaTeX-typeset every node label (foreignObject contents) in one pass.
+    // Defer one tick so the deferred CDN scripts are guaranteed to have
+    // exposed renderMathInElement on first render.
+    whenKatexReady(() => renderKatex(zoomRoot));
 
     updateStats();
     updateSectionBars();
@@ -1128,6 +1167,9 @@
         <span class="tpcount">${r.v1}/${r.total}${r.hard ? ` · ${r.hard} hard` : ''}</span>
       </div>`;
     }).join('');
+    // Topic titles can carry KaTeX (e.g. "$\infty$-categories"); escapeHtml
+    // preserves the $...$ delimiters so renderMathInElement can find them.
+    whenKatexReady(() => renderKatex(bytopicBody));
   }
 
   function escapeHtml(s){
@@ -1217,6 +1259,9 @@
       `<span><b>${ready}</b> ready now</span>` +
       `<span><b>${unlockedNext}</b> unlock next</span>` +
       `<span><b>${mastered}</b>/${ids.length} mastered</span>`;
+    // Capstone titles carry KaTeX too — typeset the summary after the
+    // innerHTML pass so $\infty$-topoi etc. render.
+    whenKatexReady(() => renderKatex(el));
   }
 
   // ---------- search + filters (F1/F3) ----------
@@ -1908,6 +1953,14 @@
       group.appendChild(opt);
     }
     goalSel.appendChild(group);
+  }
+  // Capstone <option> labels can carry KaTeX (e.g. "$\infty$-topoi (Lurie's
+  // higher topos theory)"). Native <select> popups are drawn by the OS so
+  // the inline $...$ would render as raw source without the shim. The shim
+  // self-bootstraps on DOMContentLoaded but the options were appended just
+  // now, so re-scan explicitly.
+  if(window.KatexSelect && typeof window.KatexSelect.scan === 'function'){
+    window.KatexSelect.scan();
   }
   const params = new URLSearchParams(location.search);
   const initial = params.get('goal') || capstones[0].goal;

@@ -46,7 +46,8 @@ const { JSDOM, VirtualConsole } = await import(
 
 // Pages we don't jsdom-boot the same way as topic pages. Capstone "story"
 // pages are narrative-only (no sidetoc, no widgets); search.html is a UI
-// shell with no concept anchors. They have their own correctness criteria.
+// shell with no concept anchors; pathway.html has its own targeted suite
+// at the bottom of this file. They have their own correctness criteria.
 const SKIP = new Set([
   'index.html',
   'pathway.html',
@@ -308,3 +309,168 @@ for (const file of htmlFiles) {
     });
   });
 }
+
+// ---------- pathway.html ----------
+//
+// pathway.html has its own structural shape (no sidetoc, no <section>s, no
+// .quiz placeholders) but is a frequent regression target for KaTeX
+// rendering: capstone titles can carry $\infty$, SVG node labels need
+// foreignObject hosting, and dynamically-built HTML (cap-summary, by-topic
+// bars) needs an explicit typeset pass after each innerHTML write. The
+// generic topic boot test would mis-fire on pathway, so we run a targeted
+// check here.
+describe('pathway.html jsdom', () => {
+  test('capstone dropdown enhanced + dynamic HTML typeset + no raw $…$', async () => {
+    const file = 'pathway.html';
+    const abs = join(repoRoot, file);
+    if (!existsSync(abs)) return;
+    const html = readFileSync(abs, 'utf8');
+    const inlined = inlineLocalScripts(html);
+
+    const errors = [];
+    const vc = new VirtualConsole();
+    vc.on('jsdomError', (e) =>
+      errors.push(`jsdomError: ${e && (e.stack || e.message || e)}`),
+    );
+    vc.on('error', (e) => errors.push(`error: ${e && (e.message || e)}`));
+
+    const dom = new JSDOM(inlined, {
+      runScripts: 'dangerously',
+      pretendToBeVisual: true,
+      virtualConsole: vc,
+      url: `file://${abs}?goal=infty-topos-definition`,
+      beforeParse(window) {
+        window.katex = { render: () => {}, renderToString: () => '' };
+        let typesetCount = 0;
+        window.renderMathInElement = (el) => {
+          typesetCount++;
+          if (!el || !el.querySelectorAll) return;
+          const walker = window.document.createTreeWalker(
+            el,
+            window.NodeFilter.SHOW_TEXT,
+            null,
+          );
+          const targets = [];
+          let n;
+          while ((n = walker.nextNode())) targets.push(n);
+          for (const node of targets) {
+            const v = node.nodeValue;
+            if (!v || !v.includes('$')) continue;
+            node.nodeValue = v
+              .replace(/\$\$([^\$]+)\$\$/g, '«math»')
+              .replace(/\$([^\$\n]+?)\$/g, '«math»');
+          }
+        };
+        window.__renderMathCalls = () => typesetCount;
+        try {
+          window.localStorage.clear();
+        } catch {}
+        if (typeof window.IntersectionObserver !== 'function') {
+          window.IntersectionObserver = class {
+            constructor() {}
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+            takeRecords() { return []; }
+          };
+        }
+      },
+    });
+
+    // Pathway boot is gated on an `await fetch` for concepts/capstones; the
+    // bundle is inlined so it resolves quickly, but we still wait a few ticks.
+    await new Promise((r) => setTimeout(r, 200));
+
+    const w = dom.window;
+    const doc = w.document;
+
+    assert.deepEqual(
+      errors,
+      [],
+      `script execution surfaced errors:\n${errors.slice(0, 5).join('\n')}` +
+        (errors.length > 5 ? `\n…(${errors.length - 5} more)` : ''),
+    );
+
+    // Capstone dropdown was enhanced by js/katex-select.js — the shim
+    // mounts a .ks-button next to the hidden native <select>.
+    const ksButton = doc.querySelector('.ks-button');
+    assert.ok(
+      ksButton,
+      'js/katex-select.js shim did not mount on #goal-select — capstone titles ' +
+        'with $\\infty$ etc. would render as raw source in the OS dropdown',
+    );
+
+    // SVG node labels live in <foreignObject> so KaTeX can typeset them.
+    // (jsdom does not run our renderMathInElement on SVG-namespaced trees
+    // automatically — pathway calls renderKatex(zoomRoot) explicitly. We
+    // assert that the mechanism is in place: at least one node has a
+    // foreignObject .nodelbl child, and none use the legacy <text> for the
+    // title slot.)
+    const fos = doc.querySelectorAll('.nodebox foreignObject .nodelbl');
+    assert.ok(
+      fos.length > 0,
+      'no <foreignObject>.nodelbl children on .nodebox elements — ' +
+        'pathway must host node titles in foreignObject so KaTeX can typeset $…$',
+    );
+
+    // Visible-text scan: no surviving raw $\foo$ outside <option>, MathML
+    // annotations, or aria-hidden subtrees.
+    function visibleRaw() {
+      const walk = doc.createTreeWalker(doc.body, w.NodeFilter.SHOW_TEXT);
+      const hits = [];
+      let n;
+      while ((n = walk.nextNode())) {
+        let p = n.parentElement;
+        let hidden = false;
+        while (p) {
+          if (
+            p.tagName === 'SCRIPT' ||
+            p.tagName === 'STYLE' ||
+            p.tagName === 'OPTION'
+          ) {
+            hidden = true;
+            break;
+          }
+          if (
+            p.getAttribute &&
+            p.getAttribute('aria-hidden') === 'true'
+          ) {
+            hidden = true;
+            break;
+          }
+          if (p.classList && p.classList.contains('katex-mathml')) {
+            hidden = true;
+            break;
+          }
+          p = p.parentElement;
+        }
+        if (hidden) continue;
+        if (/\$[^$\n]*\\[a-zA-Z][^$]*\$/.test(n.nodeValue || '')) {
+          hits.push((n.nodeValue || '').trim().slice(0, 80));
+        }
+      }
+      return hits;
+    }
+    const raw = visibleRaw();
+    assert.deepEqual(
+      raw,
+      [],
+      `pathway.html has visible raw \`$…$\` text after KaTeX pass:\n${raw.join('\n')}`,
+    );
+
+    // The build pipeline must call renderKatex on the dynamic HTML targets:
+    // - #cap-summary (capstone progress strip)
+    // - #bytopic-body (per-topic progress bars)
+    // - zoomRoot SVG (foreignObject node labels)
+    // Each call increments __renderMathCalls(). With the inlined render(),
+    // we expect ≥ 3 calls.
+    const calls = w.__renderMathCalls ? w.__renderMathCalls() : 0;
+    assert.ok(
+      calls >= 2,
+      `expected renderMathInElement to be called for cap-summary/bytopic/nodes ` +
+        `(≥ 2 times); got ${calls}`,
+    );
+
+    dom.window.close();
+  });
+});
