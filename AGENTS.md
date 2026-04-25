@@ -94,6 +94,7 @@ Non-gating audits (advisory reports, safe to run any time):
 - [`scripts/audit-notation.mjs`](./scripts/audit-notation.mjs) — KaTeX macro / notation consistency across prose + quizzes.
 - [`scripts/audit-worked-examples.mjs`](./scripts/audit-worked-examples.mjs) — flags concept sections missing a `**Worked example:**` block.
 - [`scripts/stats-coverage.mjs`](./scripts/stats-coverage.mjs) — per-subject/per-topic/per-concept widget + quiz counts (by family/dimension/gesture/role and type/tier); coverage gaps. Writes `audits/coverage-stats.md`.
+- [`scripts/audit-draft-index-cards.mjs`](./scripts/audit-draft-index-cards.mjs) — flags `index.html` cards still in `new-topic.mjs` placeholder state (literal "draft" text, boilerplate `.desc`, unfilled TODO comment). Wired into `rebuild.mjs` as the `draft-cards` step.
 - [`scripts/audit-doc-drift.mjs`](./scripts/audit-doc-drift.mjs) — `PLAN.md` / `AGENTS.md` / `scripts/README.md` vs. on-disk reality. Wired into `rebuild.mjs` as the final advisory step.
 
 Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip; [`scripts/test-offline-bundle.mjs`](./scripts/test-offline-bundle.mjs) is the smoke test for its output. [`scripts/test-mobile-perf.mjs`](./scripts/test-mobile-perf.mjs) is a Playwright FPS check for 3D drag.
