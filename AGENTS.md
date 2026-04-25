@@ -242,124 +242,15 @@ For widgets that also need a view slider (e.g. pre-existing `yaw`/`pitch` slider
 
 ## Quiz + progression (Brilliant-style)
 
-Every new topic page should ship with quizzes for its concepts.
+Every new topic ships with a `quizzes/<topic>.json` bank. **Full reference: [`quizzes/README.md`](./quizzes/README.md)** — bank schema, the eight question types (`mcq`, `numeric`, `complex`, `multi-select`, `ordering`, `proof-completion`, `matching`, `spot-the-error`, `construction`, `guess-my-rule`), three-tier mastery model, and the quiz widget's behaviour.
 
-1. **Page wiring** — in `<head>`:
-   ```html
-   <script src="./js/progress.js"></script>
-   <script src="./js/quiz.js"></script>
-   <script src="./quizzes/bundle.js"></script>
-   ```
-   The bundle assigns `window.MVQuizBank = { <topic>: {...}, ... }`. `MVQuiz.init` reads it first and falls back to `fetch('./quizzes/<topic>.json')` for dev servers. Without the bundle tag, opening the page via `file://` shows "could not load" because browsers block local-file `fetch()`.
+The minimum operational checklist:
 
-   At the bottom of `<body>`:
-   ```html
-   <script>
-   (function(){
-     function start(){ if(window.MVQuiz) MVQuiz.init('<topic-id>'); }
-     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
-     else start();
-   })();
-   </script>
-   ```
-2. **Quiz placeholders** — drop at the end of each concept's section:
-   ```html
-   <div class="quiz" data-concept="<concept-id>"></div>
-   ```
-   The `data-concept` must match an `id` in `concepts/<topic>.json`.
-3. **Quiz bank** — `quizzes/<topic>.json`. Each concept entry carries a **v1 tier** (`questions`, required), an optional **hard tier** (`hard`, unlocked after v1 is mastered), and an optional **expert tier** (`expert`, unlocked after hard is mastered):
-   ```json
-   {
-     "topic": "<topic-id>",
-     "quizzes": {
-       "<concept-id>": {
-         "title": "Readable title",
-         "questions": [
-           { "type": "mcq",          "q": "...", "choices": ["a","b","c"], "answer": 1, "explain": "...", "hint": "optional short nudge" },
-           { "type": "numeric",      "q": "...", "answer": 5,     "tol": 1e-6,  "explain": "..." },
-           { "type": "complex",      "q": "...", "answer": [3,1], "tol": 1e-3,  "explain": "..." },
-           { "type": "multi-select", "q": "Select all abelian groups.", "choices": ["$\\mathbb{Z}$","$S_3$","$\\mathbb{Z}/4$"], "answer": [0,2], "explain": "..." },
-           { "type": "ordering",     "q": "Arrange the proof steps.",    "items": ["step A","step B","step C"],               "answer": [1,0,2], "explain": "..." }
-         ],
-         "hard": [
-           { "type": "mcq", "q": "...", "choices": [...], "answer": 2, "explain": "..." }
-         ],
-         "expert": [
-           { "type": "mcq", "q": "...", "choices": [...], "answer": 0, "explain": "..." }
-         ]
-       }
-     }
-   }
-   ```
-   Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**. The `expert` array is optional on top of `hard`; when present, aim for 2–3 questions that synthesize across multiple concepts or reach for the deepest non-obvious consequences — reserve this tier for the hardest problems.
-
-   **Question types**:
-   - `mcq` — single-correct multiple choice.
-   - `numeric` — scalar answer within absolute tolerance `tol`.
-   - `complex` — answer `[re, im]` within absolute tolerance `tol` on each component.
-   - `multi-select` — checkboxes; `answer` is the array of correct indices. Graded as a set (order-insensitive). Wrong-answer feedback distinguishes "too few", "too many", and "partially wrong".
-   - `ordering` — learner reorders `items` via ↑ / ↓ buttons on each row (click-to-promote; works on touch without drag-and-drop flakiness). `answer` is the correct permutation of indices (e.g. `[1,0,2]` means the item at original position 1 should come first). Wrong-answer feedback reports how many items are out of place without revealing which.
-   - `proof-completion` — learner sees the first N proof `steps` (numbered list, read-only) and picks the correct continuation from `choices` (radio buttons). `answer` is the index of the correct next step. Wrong-answer feedback points back to the last given step (the gap the learner missed must use it).
-     ```json
-     { "type": "proof-completion", "q": "...", "steps": ["step1","step2"],
-       "choices": ["A","B","C"], "answer": 1, "explain": "..." }
-     ```
-   - `matching` — pair items from two columns. `left` and `right` are the two item arrays (they may differ in semantic role); the widget renders `left` labeled `A, B, C, …` and puts a dropdown next to each `right` row asking which letter pairs with it. `answer[i]` is the index into `left` that pairs with `right[i]`. Wrong-answer feedback reports `"N of M pairs correct"` (never reveals which pair is wrong). `left` and `right` must have the same length.
-     ```json
-     { "type": "matching", "q": "...",
-       "left": ["theorem A", "theorem B", "theorem C"],
-       "right": ["implication X", "implication Y", "implication Z"],
-       "answer": [2, 0, 1], "explain": "..." }
-     ```
-   - `spot-the-error` — a proof is shown as a clickable numbered list; exactly one step contains a planted flaw. `answer` is the 0-based index of the flawed step. Feedback: clicking the correct step → ✓; clicking any other step → `"step N is valid — try another"`.
-     ```json
-     { "type": "spot-the-error", "q": "...",
-       "steps": ["s1","s2 (bad)","s3"], "answer": 1, "explain": "..." }
-     ```
-   - `construction` — draw-to-answer on an SVG canvas. `viewBox` sets the coordinate system; learner drags a marker to place a point; `target.x`, `target.y`, and `target.tolerance` (in viewBox units) define the acceptance region. Optional `start` object sets the marker's initial position. Feedback is directional: `"too far left/right/up/down"` based on the dominant error axis (no magnitude revealed). v1 only supports `target.kind: "point"`; lines/curves/regions can be added later without schema breakage.
-     ```json
-     { "type": "construction", "q": "...",
-       "target": { "kind": "point", "x": 40, "y": 60, "tolerance": 6 },
-       "viewBox": "0 0 100 100", "start": { "x": 50, "y": 50 },
-       "explain": "..." }
-     ```
-   - `guess-my-rule` — inductive pattern. `examples` are `[input, output]` pairs shown to the learner; `testCases` are `[input, expected]` pairs where the learner fills in expected outputs in text inputs. `tol` is the per-case absolute tolerance (defaults to `1e-6`). `inputKind`/`outputKind` are advisory labels (e.g. `"integer"`). Grading checks all test cases within tolerance; wrong-answer feedback reports how many match. No client-side formula sandbox — the simpler "fill in each output" variant is used.
-     ```json
-     { "type": "guess-my-rule", "q": "...",
-       "examples": [[1,1],[2,4],[3,9]],
-       "testCases": [[4,16],[5,25]],
-       "inputKind": "integer", "outputKind": "integer",
-       "tol": 1e-6, "hint": "...", "explain": "..." }
-     ```
-
-   **Optional `hint` field** (per question, any type): a short nudge the learner can reveal via the `?` button rendered next to the question. If `hint` is absent, the quiz widget falls back to the first sentence of `explain` (when that is a usable sentence of ≥ 20 chars). Revealing a hint does not affect mastery — it's purely a pedagogical aid.
-
-   **Schema compatibility**: banks without `hard` or `expert` keys keep behaving as before — nothing changes in the UI except the badge text.
-
-   **"Next up" panel**: after v1 mastery on a concept, the quiz widget renders a small "Next up" block listing up to 3 concepts that just became `ready` (their prereqs include the just-mastered concept and all other prereqs are also v1-mastered). Computed via `window.__MVConcepts` (from `concepts/bundle.js`); skipped silently on pages that don't load the bundle.
-4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. Mastery is tracked at three tiers per concept: `'v1'`, `'hard'`, and `'expert'`.
-
-   ```js
-   MVProgress.setMastered(conceptId, tier, value)   // tier ∈ {'v1','hard','expert'}
-   MVProgress.setMastered(conceptId, value)         // legacy 2-arg form; tier defaults to 'v1'
-   MVProgress.isMastered(conceptId)                 // true ⇔ v1 mastered
-   MVProgress.isMastered(conceptId, 'hard')         // true ⇔ hard mastered
-   MVProgress.isMastered(conceptId, 'expert')       // true ⇔ expert mastered
-   MVProgress.stateOf(conceptId, conceptsMap)
-     // → { state: 'locked'|'ready'|'mastered', v1: bool, hard: bool, expert: bool }
-   MVProgress.clearAll()                            // wipe storage
-   ```
-
-   Rules the store enforces:
-   - Setting `v1 = false` also clears `hard` and `expert` (can't have higher tiers without v1).
-   - Setting `hard = false` also clears `expert` (can't have expert without hard).
-   - Setting `hard = true` implies `v1 = true`.
-   - Setting `expert = true` implies `hard = true` and `v1 = true`.
-   - Only v1 mastery gates downstream concepts in `pathway.html` (locked/ready/mastered). Hard and expert mastery are separate visual rings — they don't unlock anything else.
-
-   **Storage migration**: legacy entries (bare booleans, the old `{at: ts}` form, or the two-tier `{v1, hard}` form) are coerced transparently on first read; missing fields default to `false`. The storage key (`mvnb.progress.v1`) is unchanged.
-
-   On v1 all-correct, the quiz widget calls `setMastered(conceptId, 'v1', true)` and exposes a "Harder tier unlocked" button if the bank has a `hard` array. Clicking it renders the hard tier; on all-correct there, the widget calls `setMastered(conceptId, 'hard', true)` and surfaces an "Expert tier unlocked" button if the bank has an `expert` array. On expert all-correct, the widget calls `setMastered(conceptId, 'expert', true)`. `pathway.html` currently draws two rings per node — an inner green ring for v1 mastery and an outer violet ring for hard-tier mastery; the expert tier is tracked in storage and readable via `isMastered(id, 'expert')` but not yet visualized on the pathway.
+- **Page wiring** — `<head>` loads `./js/progress.js`, `./js/quiz.js`, `./quizzes/bundle.js` (in that order); `<body>` ends with an `MVQuiz.init('<topic-id>')` IIFE. Copy from `category-theory.html`.
+- **Placeholders** — `<div class="quiz" data-concept="<concept-id>"></div>` at the end of each concept's section. `data-concept` must match an `id` in `concepts/<topic>.json`.
+- **Bank** — `quizzes/<topic>.json` keyed by concept id. Each entry has `questions` (v1 tier, required, ~3 questions); optional `hard` (2–3 questions chaining two concepts or probing counterexamples), unlocked after v1 mastery; optional `expert` (2–3 deepest-consequence questions), unlocked after hard.
+- **Bundle rebuild** — after editing any bank, run `node scripts/build-quizzes-bundle.mjs` (or `node scripts/rebuild.mjs`). The `file://` flow reads `quizzes/bundle.js`, not the JSON.
+- **Mastery API** — `MVProgress` (in [`js/progress.js`](./js/progress.js) — see JSDoc at top) tracks v1/hard/expert tiers under `localStorage.mvnb.progress.v1`. Only **v1** gates downstream concepts on `pathway.html`; hard/expert are visual-only rings.
 
 ## Concept graph
 
