@@ -4,108 +4,82 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Portable data model — what's next
-
-Context: the widget registry covers 450/452 widgets across 10 shared renderer slugs (see `widgets/README.md`). `content/<topic>.json` is source of truth as of 2026-04-24; `rebuild.mjs --no-fix` enforces byte-identical roundtrip in CI. Two prototype alternate frontends live under `examples/`. For the full landing trail, see `git log --oneline --grep='Phase [0-9]'`.
-
-**Remaining inline widgets (2/452, genuinely idiosyncratic — skip or custom-module):**
-
-- `galois/w-quintic-scrub`: uses `MVProofScrubber` with per-step `render(svg)` JS closures over local helpers. Closures aren't data; can't migrate to declarative form.
-- `class-field-theory/w-dict`: static `<div class="dict">` grid, no script, no svg. Would need a "static-grid" renderer — not worth a module for one widget.
-
-**Next moves (non-content):**
-
-- Full-topic React frontend: current POC under `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 10 slugs should work since `renderMarkup` / `renderScript` are pure string functions.
-- Three.js adoption decision: the `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics (Riemannian geometry, Lie groups, Riemann surfaces, moduli). Would converge with the existing `surface-viewer` slug. Requires an `AGENTS.md` amendment — the current rule is "no deps beyond KaTeX."
-- Lighter prose-block authoring format: prose blocks could move from raw HTML to an mdx-lite / tag-whitelist dialect. Needs reversibility so existing prose round-trips without loss.
-
-## Authoring ergonomics — open
-
-- **Adding a concept to an existing topic** currently means editing `concepts/<topic>.json`, the matching section in `<topic>.html`, the quiz bank, and re-extracting `content/<topic>.json`. A `new-concept` scaffold could do all four (`new-topic.mjs` and `new-widget.mjs` are the templates).
-
-## Script audit — overlap to assess
-
-46 scripts in `scripts/`. The non-consolidated ones should be reviewed for necessity and overlap:
-
-- **Candidates to merge or drop:**
-  - `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`.
-  - `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage; confirm whether signal is worth the maintenance.
-- **Consolidation candidates:** `validate-concepts.mjs`, `audit-widget-interactivity.mjs`, `audit-cross-page-consistency.mjs` all re-implement concept/topic loading. Could import `loadContentModel()`.
-
-A one-afternoon pass could probably cut 5–8 scripts without losing signal.
-
-## NPM packages — candidates worth evaluating
-
-Hand-rolled code that has mature npm equivalents:
-
-- **`cheerio`** over `node-html-parser` — cheerio is richer for DOM manipulation in the `inject-*`/`fix-*` scripts, though it's heavier (node-html-parser suits perf-sensitive parsing of 58 topic HTMLs).
-- **`katex` as a dependency** (not just a CDN loader) — would let `validate-katex.mjs` do real rendering instead of heuristic structural checks. Catches more bugs but slower.
-- **`remark` + `rehype`** — if we ever convert prose blocks to Markdown, this is the standard ecosystem. Not needed today.
-
-## Content gaps
+## Corpus snapshot (2026-04-25)
 
 From `audits/coverage-stats.md`:
 
-- 2298 total quizzes, 1160 v1 / 1125 hard / **only 13 expert** — the expert tier is barely populated.
-- 100 concepts lack a widget in their section.
-- 21 concepts lack a hard-tier quiz.
+- 73 topics, 505 concepts, 459 widgets, 2690 quizzes
+- Registry-driven widgets: 457 / 459 (99.6%)
+- Quiz tiers: v1 = 1454, hard = 1223, **expert = 13** (still barely populated)
+- 194 concepts lack a widget in their owning section
+- 67 concepts lack a hard-tier quiz
+
+The Algebra section grew from 5 → 13 topics this session (capstone arc + Kerodon Ch 5 fill); Algebraic geometry grew from 12 → 19 (Stacks-Project arc). 15 newly-authored topics still sit outside the source-of-truth flip — see "Architectural follow-ups" below.
+
+## Architectural follow-ups (deferred but real)
+
+These are blocking better authoring ergonomics; pick them up in the next non-content sprint.
+
+- **`inject-*` ↔ JSON gap.** `inject-breadcrumb.mjs`, `inject-used-in-backlinks.mjs`, and `audit-callbacks.mjs --fix` write to HTML directly. Under the source-of-truth flip (2026-04-24), `test-roundtrip.mjs --fix` then overwrites HTML from JSON, clobbering whatever the injectors wrote. We mass-patched `__MV_SECTION_MAP` in 58 content/*.json three times this session (capstone scaffold, Stacks-Project scaffold, cocartesian-fibrations scaffold). The proper fix is to teach those injectors to update JSON's `rawHead` / `raw` blocks instead of HTML. Substantial refactor — touches each `inject-*` script.
+- **`content/<slug>.json` migration for the 15 new topics.** They're HTML-only; `test-roundtrip.mjs` skips them. Run `node scripts/extract-topic.mjs <slug>` per topic to migrate. Memory: per-topic only, never wholesale (the corpus-wide form wipes slug substitutions). Each new topic uses inline widgets rather than the registry, so extraction is straightforward.
+- **Cross-topic prereqs for the 15 new topics.** Intentionally empty in scaffolding because of the JSON-injection gap above. Each new concept whose prereq lives in another topic needs both the prereq edge AND the matching callback / backlink aside in the upstream/downstream JSONs. Worth doing once `inject-*` writes JSON natively.
+- **Architectural fix: `inject-page-metadata.mjs`** has the same problem — writes HTML, not JSON. Same shape of fix.
+- **`audit-doc-drift` heuristic noise.** The slug-name token-matching produces "shipped" false positives whenever a slug name appears in a commit subject (which is always, when adopting). Either scope the matcher to titles only, or move to an explicit-checked-in-PR mechanism.
 
 ## Near-term tasks
 
-Seven new shared slugs landed without on-page consumers. Each ships a
-`widgets/<slug>/example.json` fixture used by
-`scripts/test-widget-renderers.mjs`; topic adoption (wiring an instance
-into a real `content/<topic>.json`) is the next step.
+- **Browser verification of the 15 new topic pages.** jsdom partial-pass is clean; visual check still pending. Highest-priority before the next merge of PR #32.
+- **Hard-tier quiz pass over the 15 new topics.** 67 concepts corpus-wide lack hard tier; most are in the new topics where deep-author agents only covered the 2–4 deepest concepts per page.
+- **Expert-tier authoring round.** Corpus has only 13 expert-tier questions total. One focused pass picking the 2 deepest concepts per topic would meaningfully grow this.
+- **Migrate the 15 new topics to `content/<slug>.json`** via `extract-topic.mjs`, one topic at a time (memory: never wholesale).
+- **Fix the `inject-*` ↔ JSON gap** so future scaffolds don't need the manual `__MV_SECTION_MAP` mass-patch (see Architectural follow-ups below).
 
-- **Adopt proof-scrubber.** Migrate `galois/w-quintic-scrub` from
-  closure-form to declarative `svgInner` form (or just register a new
-  proof-scrubber instance on a different page); add a 2nd–3rd instance on
-  `algebraic-topology` (covering-space lifting argument) or `algebra`
-  (Sylow proof).
-- **Adopt recurrence-plotter.** Add a logistic-map instance on
-  `real-analysis` to introduce period-doubling chaos; consider Newton
-  iteration on `complex-analysis`.
-- **Adopt modular-arithmetic-clock.** Wire into `quadratic-reciprocity`
-  (multiplication mod p), `algebra` (cyclic groups), or
-  `algebraic-number-theory` (units mod n).
-- **Adopt lattice-visualizer.** Embed on `modular-forms` (the
-  $\mathrm{SL}_2(\mathbb{Z})$ action on $\mathbb{Z}^2$),
-  `algebraic-number-theory` (Minkowski's theorem), or `sums-of-squares`
-  (Gaussian integers as a lattice).
-- **Adopt constraint-bifurcation-explorer.** Embed on `real-analysis` for
-  the saddle-pitchfork bifurcation; consider a dedicated
-  dynamical-systems page later.
-- **Adopt counterexample-explorer.** Embed the
-  continuous-vs-differentiable case library on `real-analysis`; build a
-  topological-space variant for `point-set-topology` (Hausdorff vs T1
-  vs etc.) and a measure-theory variant for `measure-theory` (integrable
-  vs continuous, etc.).
-- **Adopt inline-code-cell.** Embed on `quadratic-reciprocity` for
-  Legendre-symbol experiments, on `p-adic-numbers` for Hensel-lifting
-  demos, on `waring` for `g(k)` searches.
+## Browser verification — required before next merge
 
-## Capstone arc — higher topoi / internal logic / categorical logic (backlog)
+PR #32 currently has 15 new topic pages with rich interactive widgets that **were not visually confirmed** — the Playwright MCP needs Google Chrome at `/opt/google/chrome/chrome` (sudo to install) and the agent sandbox doesn't have it. jsdom partial-pass shows 0 console errors / correct DOM scaffold across all 15, but jsdom doesn't exercise click handlers, KaTeX rendering, or Web Worker boot.
 
-A user-requested capstone in the spirit of Lurie's _Higher Topos Theory_ that joins three threads: (1) intuitionist logic inside a category (Heyting algebras, internal language, Kripke–Joyal semantics); (2) classical Grothendieck toposes and their role in algebraic geometry; (3) ∞-categories and ∞-topoi. The capstone page is only viable once a supporting prereq arc exists — it's the algebraic-geometry-arc-sized project for the topos/higher-categorical corner of the notebook.
+Per-topic priority for spot-checks:
 
-**Prereq topics to author first, foundational → advanced:**
+- **`infinity-topoi.html`** — capstone, novel inline-code-cell with HoTT examples + counterexample-explorer with hypercompletion library
+- **`derived-categories.html`** — most widgets (49 SVGs); proof-scrubber for Ext computations
+- **`etale-fundamental-group.html`** — modular-arithmetic-clock reused as Frobenius (visually striking)
+- **`heyting-algebras-toposes.html`** — counterexample-explorer for LEM failure
+- A spot-check from each of the other 11
 
-1. **Elementary topos theory** — finitely complete cartesian closed categories with a subobject classifier Ω. Concept skeleton: terminal/product/equalizer, exponentials $B^A$, power object $P(A)$, subobject classifier, characteristic maps $\chi_S\colon X \to \Omega$, examples (Set, G-Set, presheaf toposes). Bridges from `category-theory` into the rest of the arc.
-2. **Heyting algebras & intuitionist logic in toposes** — the user's explicit interest. Heyting-algebra structure on Ω, the Mitchell–Bénabou internal language, geometric morphisms, LEM failure and double-negation topology, Kripke–Joyal semantics. Widget candidates: Heyting-truth-value explorer (pick a Kripke frame, see which formulas are forced), subobject-classifier diagram, forcing-in-presheaves demo.
-3. **Grothendieck topologies & sites** — coverings, sheafification, small vs large sites, topoi as sheaves of sets on a site, geometric morphisms between topoi. Feeds `etale-cohomology` and `sheaf-cohomology` (both partly cover this; pull it up as its own page so the capstone arc can depend on it).
-4. **Simplicial sets & the nerve** — Δ, simplicial objects, geometric realization, nerve of a category, Kan complexes vs categorical nerves. Prerequisite for any ∞-category definition.
-5. **∞-categories (quasi-categories)** — Joyal's inner-horn-filling model, homotopy category, functors/natural transformations up to homotopy, (co)limits ∞-categorically, adjunctions. Widget candidates: horn-filling visualizer (click to fill a 2-horn, watch the unique-up-to-homotopy composite appear), 2-simplex composition, a simplicial-set builder.
-6. **Capstone: ∞-topoi & higher topos theory (Lurie)** — (∞,1)-sheaves on an ∞-site, ∞-topoi via left-exact accessible localizations of presheaf ∞-categories, Giraud axioms ∞-categorically, descent, hypercompletion. Closing sections gesture at the three cross-connections the user wanted:
-   - **Internal logic ↔ algebraic geometry:** the étale topos of a scheme internalizes the theory of its sheaves; classical stalk-local reasoning = geometric-sequent reasoning in the internal language.
-   - **Higher categorical algebra:** E_∞-rings, stable ∞-categories, spectrum objects — how ∞-topoi underlie derived algebraic geometry. (Likely a separate downstream capstone rather than bundled here — call out the entry point, don't try to develop it.)
-   - **Realizability & effective toposes** — optional aside tying intuitionist logic back to computability.
+Install path: `sudo pacman -S google-chrome` (Arch) or equivalent → Playwright MCP works. Or just open these manually before merging.
 
-**Scope note.** The arc is ~6 topics, comparable to the algebraic-geometry arc. Each of items 1–3 stands alone pedagogically, so the arc can land in order without blocking on the later ∞-categorical machinery. Only items 5–6 require the simplicial/∞ apparatus; items 1–4 are squarely classical category theory + sheaf theory and could ship first as a "Categorical logic mini-arc" that's valuable on its own.
+## Authoring polish — small
 
-**Place in the notebook.** New subject group `Categorical logic & higher category theory`, sitting next to the existing algebra/topology groups in `concepts/sections.json`. Or fold items 1–3 into the existing `algebra` section and reserve the new section for items 4–6.
+- **`new-topic.mjs` should also append a README.md bullet** under the matching section. Currently a manual step (just done by hand for 15 topics; the scaffolder skipped this). Could also auto-update sections.json (currently scaffolder relies on user to add to sections.json).
+- **`new-concept` scaffold** — adding a concept to an existing topic still means editing `concepts/<topic>.json`, the section in `<topic>.html`, the quiz bank, and re-extracting `content/<topic>.json`. A scaffold could do all four (`new-topic.mjs` and `new-widget.mjs` are the templates).
+- **Index-card thumb art.** New-topic.mjs leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
 
-**Cross-topic wiring to verify before authoring.** `category-theory` defines functors, natural transformations, adjunctions, limits — the arc will lean on all of these and may need concept promotions (e.g., "Kan extension" currently lives inline; promote to a first-class concept so item 5 can prereq it).
+## Content debt
+
+- **67 concepts lack a hard-tier quiz** — most of them in the 15 new topics, where deep-author agents added hard tier only on the 2-4 deepest concepts per page. A focused pass to cover the rest is straightforward.
+- **Expert tier at 13 across the entire corpus** — no new topic adds expert questions. Single dedicated round of "for each topic, pick its 2 deepest concepts and write expert-tier questions" would be high-value.
+- **Cross-topic prereq edges** — once the architectural fix lands, the 15 new topics need real prereq wiring back into category-theory / schemes / etale-cohomology / homological / etc.
+
+## Three.js / Pyodide / lighter prose-block authoring (long-running)
+
+- **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 17 slugs should work since `renderMarkup` / `renderScript` are pure string functions.
+- **Three.js adoption decision.** `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics. Would converge with `surface-viewer`. Requires AGENTS.md amendment on dependency policy.
+- **Lighter prose-block authoring.** Now that `content/<topic>.json` is source of truth, prose blocks could move from raw HTML to mdx-lite. Needs reversibility for round-trip.
+- **Inline code cells for live examples.** `inline-code-cell` is a Web Worker JS sandbox; could be extended to Pyodide for sieves / sympy demos at the cost of a ~10MB CDN load.
+
+## Script audit — overlap to assess
+
+47 scripts in `scripts/` (was 46 + `test-widget-renderers.mjs`). Non-consolidated ones still worth reviewing:
+
+- **Candidates to merge or drop:** `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`; `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage, confirm signal value.
+- **Consolidation candidates:** `validate-concepts.mjs`, `audit-widget-interactivity.mjs`, `audit-cross-page-consistency.mjs` all re-implement concept/topic loading. Could import `loadContentModel()`.
+
+## NPM packages — candidates worth evaluating
+
+- **`cheerio`** over `node-html-parser` — richer for DOM manipulation in `inject-*`/`fix-*` scripts.
+- **`katex` as a dependency** — would let `validate-katex.mjs` do real rendering instead of heuristic checks.
+- **`remark` + `rehype`** — if prose blocks ever convert to Markdown, the standard ecosystem.
 
 ## Shipped recently
 
-Don't enumerate — see `git log --oneline -30`. If you're unsure whether an item is already done, `node scripts/audit-doc-drift.mjs` will cross-reference this file against recent commits.
+Don't enumerate — see `git log --oneline -50`. The major arcs that landed this session: the widget unit-test framework + 7 novel widget slugs; 7 widget topic adoptions; 4 widget-promotion-to-dedicated-concepts; the capstone arc (6 topics: elementary-topos-theory through infinity-topoi); the Stacks-Project mini-arc + full arc (8 topics: derived-categories through algebraic-de-rham-cohomology); the Kerodon Ch 5 fill (cocartesian-fibrations).

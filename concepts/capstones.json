@@ -153,6 +153,13 @@
       "title": "Moduli of higher-genus curves",
       "goal": "higher-genus-moduli",
       "blurb": "$\\overline{\\mathcal{M}}_g$ — the Deligne–Mumford compactification via stable curves. Automorphisms force a stack, not a scheme; dimension $3g-3$ for $g\\ge 2$."
+    },
+    {
+      "id": "capstone-infinity-topoi",
+      "section": "Algebra",
+      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
+      "goal": "infty-topos-definition",
+      "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
     }
   ]
 }
