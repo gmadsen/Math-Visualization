@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **58**, concepts: **407**
-- Widgets: **458** (registry-driven: 456, inline: 2)
+- Widgets: **459** (registry-driven: 457, inline: 2)
 - Quizzes: **2298** (v1: 1160, hard: 1125, expert: 13)
 - Quiz types: mcq: 1397, numeric: 795, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
@@ -33,8 +33,8 @@ page has wired one in yet.
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 1 | modular-forms |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 1 | quadratic-reciprocity |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
+| `proof-scrubber` | proof-scrubber | timeline | 2d | 1 | algebraic-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
-| `proof-scrubber` | proof-scrubber | timeline | 2d | 0 | _(none — fixture-only)_ |
 
 ## Per-subject
 
@@ -71,10 +71,10 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **8**, concepts: **48**
-- Widgets: **49** (registry-driven: 49, inline: 0)
-  - by family: button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1
-  - by dimension: 2d: 43, 3d: 6
-  - by gesture: click: 40, drag: 6, static: 2, select: 1
+- Widgets: **50** (registry-driven: 50, inline: 0)
+  - by family: button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1
+  - by dimension: 2d: 44, 3d: 6
+  - by gesture: click: 40, drag: 6, static: 2, select: 1, timeline: 1
 - Quizzes: **286** (v1: 144, hard: 142, expert: 0)
   - by type: mcq: 168, numeric: 111, complex: 7
 
@@ -124,7 +124,7 @@ page has wired one in yet.
 - `dynamical-systems` (Analysis) — concepts=12, widgets=13 (slug=13), quiz=72 (v1=36, hard=36, expert=0)
 - `probability-theory` (Analysis) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
-- `algebraic-topology` (Geometry & topology) — concepts=5, widgets=5 (slug=5), quiz=29 (v1=15, hard=14, expert=0)
+- `algebraic-topology` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=29 (v1=15, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=9), quiz=59 (v1=30, hard=29, expert=0)
 - `differential-forms` (Geometry & topology) — concepts=5, widgets=0 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `differential-geometry` (Geometry & topology) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
