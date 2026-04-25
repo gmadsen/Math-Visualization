@@ -178,44 +178,15 @@ The minimum operational checklist:
 
 ## Concept graph
 
-- [`concepts/<topic>.json`](./concepts) declares each concept with `id`, `title`, `anchor`, `prereqs`, `blurb`. Prereqs can reference ids from other topic files — cross-topic edges are the whole point of [`pathway.html`](./pathway.html).
-- Register the topic in [`concepts/index.json`](./concepts/index.json).
-- When adding a capstone page, also extend [`concepts/capstones.json`](./concepts/capstones.json) with a capstone entry. Each capstone entry needs a `section` field (one of the 7 index-section names above) — `pathway.html` uses it to group the capstone dropdown via `<optgroup>`.
-- **Rebuild the bundle** after any edit to `concepts/*.json` or `capstones.json`:
-  ```bash
-  node scripts/build-concepts-bundle.mjs
-  ```
-  `pathway.html` reads `concepts/bundle.js` first because browsers block `fetch()` of local JSON over `file://` (the double-click flow). If the bundle is stale, the page falls back to `fetch` and works under a dev server but shows an error when opened by double-clicking.
+`concepts/<topic>.json` is the per-topic concept graph. Each concept has `id`, `title`, `anchor`, `prereqs`, `blurb`. Prereqs may reference ids from other topic files — cross-topic edges are the spine of [`pathway.html`](./pathway.html).
 
-### Concept schema + anchor contract
+**Full reference: [`concepts/README.md`](./concepts/README.md)** — schema, anchor contract, topic registration (in `concepts/index.json` + `concepts/sections.json`, plus `concepts/capstones.json` for capstones), validation flow, callback semantics.
 
-Every entry in `concepts/<topic>.json`'s `concepts` array must carry exactly these fields:
+The operational checklist after editing anything under `concepts/`:
 
-- `id` — unique concept id across the whole notebook, kebab-case (e.g. `sato-tate-measure`). Other concepts' `prereqs` reference this id, possibly across topic files.
-- `title` — short human-readable title shown on `pathway.html` nodes and on the concept detail panel.
-- `anchor` — matches an `id="..."` attribute on the topic HTML page. `pathway.html` renders the "open page →" link as `<topic>.html#<anchor>`, so the `<section>` for that concept on the HTML page must carry the same id:
-  ```html
-  <section id="measure">
-    <h2>2. The Sato–Tate measure</h2>
-    …
-  </section>
-  ```
-  ```json
-  { "id": "sato-tate-measure", "anchor": "measure", … }
-  ```
-  A mismatch (missing `id=`, typo, moved section) is a silent 404 on the deep-link — the page opens but doesn't jump.
-- `prereqs` — array of concept ids (may reference concepts from other topic files). Drives the locked → ready → mastered state machine on `pathway.html`.
-- `blurb` — 1–2 sentence summary, rendered in the pathway detail panel.
-
-After editing any file under `concepts/`, run all three checks in order:
-
-```bash
-node scripts/build-concepts-bundle.mjs   # regenerate concepts/bundle.js so file:// opens still work
-node scripts/validate-concepts.mjs       # duplicate ids, broken prereqs, cycles, missing anchor/blurb
-node scripts/smoke-test.mjs              # verifies each concept's anchor resolves to id="…" on its topic page
-```
-
-The smoke test is what catches anchor drift — it refuses to exit 0 if any `concepts/<topic>.json` concept's `anchor` has no matching `id="<anchor>"` in `<topic>.html`.
+- Run `node scripts/rebuild.mjs` (or at minimum `build-concepts-bundle.mjs` + `validate-concepts.mjs` + `smoke-test.mjs`).
+- The **anchor contract** is a silent 404 if you break it: every concept's `anchor` field must match an `id="…"` on the corresponding `<section>` in the topic HTML. `smoke-test.mjs` is the gate.
+- Adding a cross-topic prereq requires `audit-callbacks.mjs --fix` (forward direction) and `inject-used-in-backlinks.mjs --fix` (reverse). Both are in the rebuild chain.
 
 ## Page scaffolding — required on every topic page
 
