@@ -97,6 +97,182 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "constraint-bifurcation-explorer",
+    "family": "constraint-bifurcation-explorer",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "constraint-bifurcation-explorer widget params",
+    "description": "Visualizes a parameterized 2D inequality `g_a(x, y) <= 0` by shading the feasible region on a coarse grid (marching-pixels), with a slider for the parameter `a`. The constraint family is selected from a curated whitelist by `kind` (no expression evaluation). As the slider sweeps `a`, the reader watches the region grow / shrink / split / collide — i.e., a bifurcation. The widget emits an empty host div; at runtime the page-global `MVConstraintBifurcationExplorer.init('#widgetId', config)` library (js/widget-constraint-bifurcation-explorer.js) builds chrome, the slider, the SVG with shaded cells, axes, and a KaTeX readout. A portable frontend can ignore renderScript and reimplement the sampler from `kind + params + domain` alone (catalog of kinds documented in the library).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "kind"
+    ],
+    "readmeExcerpt": "Visualizes a parameterized 2D inequality `g_a(x, y) <= 0` by shading the feasible region on a coarse grid (marching-pixels), with a slider for the parameter `a`. As `a` sweeps, the reader watches the feasible region grow / shrink / split / collide — i.e., a topological bifurcation in the constraint set. The widget emits an empty host div; the page-global library [`js/widget-constraint-bifurcation-explorer.js`](../../js/widget-constraint-bifurcation-explorer.js) builds chrome (header, slider, SVG with shaded cells, axes, readout) at runtime via `MVConstraintBifurcationExplorer.init('#widgetId', config)`.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-constraint-bifurcation-saddle-pitchfork-example",
+      "title": "Saddle pitchfork: y² ≤ a·x² − x⁴",
+      "hint": "drag a through 0 · one component splits into two",
+      "viewBox": "0 0 360 360",
+      "kind": "saddle-pitchfork",
+      "params": {
+        "a": 0.5
+      },
+      "domain": {
+        "xRange": [
+          -1.6,
+          1.6
+        ],
+        "yRange": [
+          -1.2,
+          1.2
+        ]
+      }
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-constraint-bifurcation-saddle-pitchfork-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVConstraintBifurcationExplorer) return;\n  MVConstraintBifurcationExplorer.init('#w-constraint-bifurcation-saddle-pitchfork-example', {\n    kind: \"saddle-pitchfork\",\n    title: \"Saddle pitchfork: y² ≤ a·x² − x⁴\",\n    hint: \"drag a through 0 · one component splits into two\",\n    viewBox: \"0 0 360 360\",\n    params: {\"a\":0.5},\n    domain: {\"xRange\":[-1.6,1.6],\"yRange\":[-1.2,1.2]},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "counterexample-explorer",
+    "family": "counterexample-explorer",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "counterexample-explorer widget params",
+    "description": "Pedagogical \"which-hypotheses-fail\" inspector. The author declares a list of `hypotheses` (rows) and a list of `cases` (candidate objects); each case provides a per-hypothesis `{ pass, note? }` cell. The widget renders a dropdown of cases, an optional SVG / LaTeX preview of the selected case, and a checklist showing which hypotheses pass (green check) vs fail (pink cross) with the per-cell note shown beneath. Pure declarative — the page-global library `MVCounterexampleExplorer` (js/widget-counterexample-explorer.js) does NOT evaluate functions or check hypotheses dynamically; it walks the data the author supplies. A portable frontend can ignore renderScript and consume the same `cases` / `hypotheses` arrays directly.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hypotheses",
+      "cases"
+    ],
+    "readmeExcerpt": "Pedagogical \"which-hypotheses-fail\" inspector. The author declares a list of **hypotheses** (e.g. \"continuous on [0,1]\", \"differentiable on (0,1)\", \"monotonic\") and a list of **candidate objects** (functions, sequences, sets); for each candidate, the widget shows which hypotheses pass (green check) and which fail (pink cross), with a short explanatory note per cell.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-counterexample-explorer-example",
+      "title": "Continuous vs. differentiable: a hypothesis tour",
+      "hint": "pick a candidate · check which hypotheses survive",
+      "viewBox": "0 0 320 160",
+      "hypotheses": [
+        {
+          "id": "continuous",
+          "label": "Continuous on $[-1, 1]$"
+        },
+        {
+          "id": "differentiable",
+          "label": "Differentiable on $(-1, 1)$"
+        },
+        {
+          "id": "monotonic",
+          "label": "Monotonic on $[-1, 1]$"
+        },
+        {
+          "id": "bounded",
+          "label": "Bounded on $[-1, 1]$"
+        }
+      ],
+      "cases": [
+        {
+          "name": "f(x) = x",
+          "latex": "f(x) = x",
+          "svgInner": "<line x1='40' y1='140' x2='280' y2='20' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>",
+          "hypotheses": {
+            "continuous": {
+              "pass": true,
+              "note": "linear, hence continuous everywhere"
+            },
+            "differentiable": {
+              "pass": true,
+              "note": "$f'(x) = 1$"
+            },
+            "monotonic": {
+              "pass": true,
+              "note": "strictly increasing"
+            },
+            "bounded": {
+              "pass": true,
+              "note": "$|f(x)| \\le 1$ on $[-1, 1]$"
+            }
+          }
+        },
+        {
+          "name": "f(x) = |x|",
+          "latex": "f(x) = |x|",
+          "svgInner": "<polyline points='40,20 160,140 280,20' fill='none' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='140' r='3' fill='var(--pink)'/>",
+          "hypotheses": {
+            "continuous": {
+              "pass": true,
+              "note": "the corner is continuous, just not smooth"
+            },
+            "differentiable": {
+              "pass": false,
+              "note": "left and right derivatives disagree at $x = 0$"
+            },
+            "monotonic": {
+              "pass": false,
+              "note": "decreases on $[-1, 0]$, increases on $[0, 1]$"
+            },
+            "bounded": {
+              "pass": true,
+              "note": "$0 \\le f(x) \\le 1$ on $[-1, 1]$"
+            }
+          }
+        },
+        {
+          "name": "f(x) = sin(1/x), f(0) = 0",
+          "latex": "f(x) = \\begin{cases} \\sin(1/x) & x \\ne 0 \\\\ 0 & x = 0 \\end{cases}",
+          "svgInner": "<path d='M 40 80 Q 60 30 70 80 T 90 80 T 105 80 T 118 80 T 130 80 T 140 80 T 148 80 T 154 80 T 158 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><path d='M 162 80 T 170 80 T 182 80 T 195 80 T 210 80 T 230 80 T 260 30 T 280 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='80' r='3' fill='var(--pink)'/>",
+          "hypotheses": {
+            "continuous": {
+              "pass": false,
+              "note": "$\\lim_{x \\to 0} \\sin(1/x)$ does not exist"
+            },
+            "differentiable": {
+              "pass": false,
+              "note": "discontinuous at $0$, so not differentiable there"
+            },
+            "monotonic": {
+              "pass": false,
+              "note": "oscillates infinitely often near $0$"
+            },
+            "bounded": {
+              "pass": true,
+              "note": "$|\\sin(1/x)| \\le 1$ everywhere"
+            }
+          }
+        },
+        {
+          "name": "Weierstrass function",
+          "latex": "W(x) = \\sum_{n=0}^{\\infty} a^n \\cos(b^n \\pi x)",
+          "displayLabel": "Weierstrass function (continuous everywhere, differentiable nowhere)",
+          "svgInner": "<path d='M 40 80 L 50 70 L 55 85 L 62 65 L 70 95 L 78 60 L 85 90 L 92 50 L 100 100 L 108 55 L 116 95 L 124 45 L 132 105 L 140 60 L 148 90 L 156 50 L 164 100 L 172 55 L 180 95 L 188 45 L 196 105 L 204 60 L 212 90 L 220 50 L 228 100 L 236 65 L 244 85 L 252 70 L 260 95 L 268 60 L 276 80' fill='none' stroke='var(--blue)' stroke-width='1.2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>",
+          "hypotheses": {
+            "continuous": {
+              "pass": true,
+              "note": "uniformly convergent series of continuous functions"
+            },
+            "differentiable": {
+              "pass": false,
+              "note": "nowhere differentiable — the canonical pathology"
+            },
+            "monotonic": {
+              "pass": false,
+              "note": "wild oscillation at every scale"
+            },
+            "bounded": {
+              "pass": true,
+              "note": "$|W(x)| \\le \\sum a^n = 1/(1-a)$"
+            }
+          }
+        }
+      ]
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-counterexample-explorer-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVCounterexampleExplorer) return;\n  MVCounterexampleExplorer.init('#w-counterexample-explorer-example', {\n      \"title\": \"Continuous vs. differentiable: a hypothesis tour\",\n      \"hint\": \"pick a candidate · check which hypotheses survive\",\n      \"viewBox\": \"0 0 320 160\",\n      \"hypotheses\": [\n          {\n              \"id\": \"continuous\",\n              \"label\": \"Continuous on $[-1, 1]$\"\n          },\n          {\n              \"id\": \"differentiable\",\n              \"label\": \"Differentiable on $(-1, 1)$\"\n          },\n          {\n              \"id\": \"monotonic\",\n              \"label\": \"Monotonic on $[-1, 1]$\"\n          },\n          {\n              \"id\": \"bounded\",\n              \"label\": \"Bounded on $[-1, 1]$\"\n          }\n      ],\n      \"cases\": [\n          {\n              \"name\": \"f(x) = x\",\n              \"latex\": \"f(x) = x\",\n              \"svgInner\": \"<line x1='40' y1='140' x2='280' y2='20' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": true,\n                      \"note\": \"linear, hence continuous everywhere\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": true,\n                      \"note\": \"$f'(x) = 1$\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": true,\n                      \"note\": \"strictly increasing\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$|f(x)| \\\\le 1$ on $[-1, 1]$\"\n                  }\n              }\n          },\n          {\n              \"name\": \"f(x) = |x|\",\n              \"latex\": \"f(x) = |x|\",\n              \"svgInner\": \"<polyline points='40,20 160,140 280,20' fill='none' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='140' r='3' fill='var(--pink)'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": true,\n                      \"note\": \"the corner is continuous, just not smooth\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": false,\n                      \"note\": \"left and right derivatives disagree at $x = 0$\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": false,\n                      \"note\": \"decreases on $[-1, 0]$, increases on $[0, 1]$\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$0 \\\\le f(x) \\\\le 1$ on $[-1, 1]$\"\n                  }\n              }\n          },\n          {\n              \"name\": \"f(x) = sin(1/x), f(0) = 0\",\n              \"latex\": \"f(x) = \\\\begin{cases} \\\\sin(1/x) & x \\\\ne 0 \\\\\\\\ 0 & x = 0 \\\\end{cases}\",\n              \"svgInner\": \"<path d='M 40 80 Q 60 30 70 80 T 90 80 T 105 80 T 118 80 T 130 80 T 140 80 T 148 80 T 154 80 T 158 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><path d='M 162 80 T 170 80 T 182 80 T 195 80 T 210 80 T 230 80 T 260 30 T 280 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='80' r='3' fill='var(--pink)'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": false,\n                      \"note\": \"$\\\\lim_{x \\\\to 0} \\\\sin(1/x)$ does not exist\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": false,\n                      \"note\": \"discontinuous at $0$, so not differentiable there\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": false,\n                      \"note\": \"oscillates infinitely often near $0$\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$|\\\\sin(1/x)| \\\\le 1$ everywhere\"\n                  }\n              }\n          },\n          {\n              \"name\": \"Weierstrass function\",\n              \"latex\": \"W(x) = \\\\sum_{n=0}^{\\\\infty} a^n \\\\cos(b^n \\\\pi x)\",\n              \"displayLabel\": \"Weierstrass function (continuous everywhere, differentiable nowhere)\",\n              \"svgInner\": \"<path d='M 40 80 L 50 70 L 55 85 L 62 65 L 70 95 L 78 60 L 85 90 L 92 50 L 100 100 L 108 55 L 116 95 L 124 45 L 132 105 L 140 60 L 148 90 L 156 50 L 164 100 L 172 55 L 180 95 L 188 45 L 196 105 L 204 60 L 212 90 L 220 50 L 228 100 L 236 65 L 244 85 L 252 70 L 260 95 L 268 60 L 276 80' fill='none' stroke='var(--blue)' stroke-width='1.2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": true,\n                      \"note\": \"uniformly convergent series of continuous functions\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": false,\n                      \"note\": \"nowhere differentiable — the canonical pathology\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": false,\n                      \"note\": \"wild oscillation at every scale\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$|W(x)| \\\\le \\\\sum a^n = 1/(1-a)$\"\n                  }\n              }\n          }\n      ]\n  });\n})();\n</script>"
+  },
+  {
     "slug": "declarative-host",
     "family": "declarative-host",
     "dimension": "2d",
@@ -114,6 +290,32 @@ window.__MVWidgets = [
     "exampleParams": null,
     "exampleMarkup": null,
     "exampleScript": null
+  },
+  {
+    "slug": "inline-code-cell",
+    "family": "inline-code-cell",
+    "dimension": "2d",
+    "gesture": "edit",
+    "role": "exploratory",
+    "title": "inline-code-cell widget params",
+    "description": "Tiny in-page JavaScript REPL. The widget emits an empty host div; at runtime the page-global library `MVInlineCodeCell` (js/widget-inline-code-cell.js) builds chrome (header, textarea pre-loaded with `initialCode`, Run button, output area) and executes user code inside a sandboxed Web Worker with a 2-second timeout. The Worker has no DOM access and no parent globals; a small math prelude (gcd, mod, factor, isPrime, primes, pow) is prepended based on `prelude`. A portable frontend can ignore renderScript and reuse the same params shape with its own sandbox.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Tiny in-page JavaScript REPL. The widget emits an empty host div; at runtime the page-global library [`js/widget-inline-code-cell.js`](../../js/widget-inline-code-cell.js) builds the chrome (header, textarea pre-loaded with `initialCode`, Run button, output area) by calling `MVInlineCodeCell.init('#widgetId', config)`.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-inline-code-cell-example",
+      "title": "Number-theory sandbox",
+      "hint": "edit the code · click Run · runs in a sandboxed Web Worker (2s cap)",
+      "initialCode": "console.log('first 10 primes:', primes(30));\nconsole.log('factor(360):', factor(360));\nconsole.log('gcd(48,18):', gcd(48,18));\npow(7, 100, 13)",
+      "prelude": "math",
+      "rows": 8,
+      "runLabel": "Run"
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-inline-code-cell-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVInlineCodeCell) return;\n  MVInlineCodeCell.init('#w-inline-code-cell-example', {\n    title: \"Number-theory sandbox\",\n    hint: \"edit the code · click Run · runs in a sandboxed Web Worker (2s cap)\",\n    initialCode: \"console.log('first 10 primes:', primes(30));\\nconsole.log('factor(360):', factor(360));\\nconsole.log('gcd(48,18):', gcd(48,18));\\npow(7, 100, 13)\",\n    prelude: \"math\",\n    rows: 8,\n    runLabel: \"Run\",\n  });\n})();\n</script>"
   },
   {
     "slug": "input-form",
@@ -136,6 +338,91 @@ window.__MVWidgets = [
     "exampleParams": null,
     "exampleMarkup": null,
     "exampleScript": null
+  },
+  {
+    "slug": "lattice-visualizer",
+    "family": "lattice-visualizer",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "lattice-visualizer widget params",
+    "description": "Visualizes a 2D lattice Λ = ℤv₁ + ℤv₂ in the plane. The widget emits an empty host div; at runtime the page-global library `MVLatticeVisualizer.init('#widgetId', config)` (js/widget-lattice-visualizer.js) builds chrome, four sliders (v₁.x, v₁.y, v₂.x, v₂.y), an SVG showing lattice points filling the visible window, the fundamental parallelogram (corners 0, v₁, v₁+v₂, v₂), and a readout with the covolume |det[v₁ v₂]|. An optional `sublattice.matrix` (a 2×2 integer matrix M) overlays the sublattice Λ' = M·Λ as larger highlighted dots and reports the index [Λ:Λ'] = |det M|. A portable frontend can ignore renderScript and consume `basis`, `viewWindow`, and `sublattice` directly.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Visualizes a 2D lattice $\\Lambda = \\mathbb{Z}v_1 + \\mathbb{Z}v_2$ in the plane. The widget emits an empty host div; the page-global library [`js/widget-lattice-visualizer.js`](../../js/widget-lattice-visualizer.js) builds the chrome (header, four basis-component sliders, SVG, readout) at runtime via `MVLatticeVisualizer.init('#widgetId', config)`.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-lattice-visualizer-example",
+      "title": "Hexagonal lattice and an index-4 sublattice",
+      "hint": "drag the v₁/v₂ sliders to deform the basis · pink dots are the sublattice",
+      "viewBox": "0 0 360 320",
+      "basis": {
+        "v1": {
+          "x": 1,
+          "y": 0
+        },
+        "v2": {
+          "x": 0.5,
+          "y": 0.866
+        }
+      },
+      "sublattice": {
+        "matrix": [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "viewWindow": {
+        "xRange": [
+          -3,
+          3
+        ],
+        "yRange": [
+          -3,
+          3
+        ]
+      }
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-lattice-visualizer-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVLatticeVisualizer) return;\n  MVLatticeVisualizer.init('#w-lattice-visualizer-example', {\n    title: \"Hexagonal lattice and an index-4 sublattice\",\n    hint: \"drag the v₁/v₂ sliders to deform the basis · pink dots are the sublattice\",\n    viewBox: \"0 0 360 320\",\n    basis: {\"v1\":{\"x\":1,\"y\":0},\"v2\":{\"x\":0.5,\"y\":0.866}},\n    viewWindow: {\"xRange\":[-3,3],\"yRange\":[-3,3]},\n    sublattice: {\"matrix\":[[2,0],[0,2]]},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "modular-arithmetic-clock",
+    "family": "modular-arithmetic-clock",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "modular-arithmetic-clock widget params",
+    "description": "Visualizes arithmetic in Z/n on a circular dial of n equally-spaced points labeled 0..n-1. Two interaction modes selected by `kind`: 'addition' draws the chained walk 0 → a → (a+b) mod n with sliders for a and b; 'multiplication' draws every k → (k·a) mod n arrow and reports gcd(a,n) plus the cycle structure with sliders for a and n. The widget emits an empty host div; at runtime the page-global library `MVModularArithmeticClock` (js/widget-modular-arithmetic-clock.js) builds chrome (header, sliders, SVG, readout) via `MVModularArithmeticClock.init('#widgetId', config)`. A portable frontend can ignore renderScript and reimplement the dial from `kind + params` alone.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "kind"
+    ],
+    "readmeExcerpt": "Visualizes arithmetic in $\\mathbb{Z}/n$ on a circular dial of $n$ equally spaced points labelled $0, 1, \\dots, n-1$. The widget emits an empty host div; the page-global library [`js/widget-modular-arithmetic-clock.js`](../../js/widget-modular-arithmetic-clock.js) builds chrome (header, sliders, SVG dial, readout) at runtime via `MVModularArithmeticClock.init('#widgetId', config)`.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-modular-arithmetic-clock-example",
+      "title": "Clock arithmetic in Z/12: 5 + 4 (mod 12)",
+      "hint": "drag a and b · the chained walk lands on (a+b) mod n",
+      "viewBox": "0 0 320 320",
+      "kind": "addition",
+      "params": {
+        "n": 12,
+        "a": 5,
+        "b": 4
+      }
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-modular-arithmetic-clock-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVModularArithmeticClock) return;\n  MVModularArithmeticClock.init('#w-modular-arithmetic-clock-example', {\n    kind: \"addition\",\n    title: \"Clock arithmetic in Z/12: 5 + 4 (mod 12)\",\n    hint: \"drag a and b · the chained walk lands on (a+b) mod n\",\n    viewBox: \"0 0 320 320\",\n    params: {\"n\":12,\"a\":5,\"b\":4},\n  });\n})();\n</script>"
   },
   {
     "slug": "natural-transformation-explorer",
@@ -258,6 +545,36 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-proof-scrubber-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVProofScrubber) return;\n  MVProofScrubber.init('#w-proof-scrubber-example', {\n    title: \"Pythagorean theorem — geometric proof\",\n    hint: \"drag the slider · or press play\",\n    viewBox: \"0 0 240 240\",\n    autoplayMs: 2000,\n    steps: [\n      {\n        title: \"The claim\",\n        body: \"For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>\",\n      },\n      {\n        title: \"Tile a square of side $a+b$ two ways\",\n        body: \"Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.\",\n        svgInner: \"<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>\",\n      },\n      {\n        title: \"Arrangement A: two squares $a^2 + b^2$\",\n        body: \"In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.\",\n        svgInner: \"<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>\",\n      },\n      {\n        title: \"Arrangement B: one square $c^2$\",\n        body: \"In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.\",\n        svgInner: \"<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>\",\n      },\n      {\n        title: \"Equate\",\n        body: \"Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>\",\n      },\n    ],\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "recurrence-plotter",
+    "family": "recurrence-plotter",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "recurrence-plotter widget params",
+    "description": "Iterates a single-variable recurrence `x_{n+1} = f(x_n)` (or two-term `x_{n+1} = f(x_n, x_{n-1})`) and shows the trajectory plus, for one-term cases, a cobweb diagram on the y=x line. The recurrence kind is selected from a curated whitelist (no expression evaluation) — the page-global library `MVRecurrencePlotter` (js/widget-recurrence-plotter.js) owns the iteration code and the slider controls per kind. The `params` object holds the kind-specific knob values; the library's defaults fill in any omitted keys.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "kind"
+    ],
+    "readmeExcerpt": "Iterates a single-variable recurrence `x_{n+1} = f(x_n)` (or two-term `x_{n+1} = f(x_n, x_{n-1})`) and shows the trajectory plus, for one-term cases, a cobweb diagram on the `y = x` line. The widget emits an empty host div; the page-global library [`js/widget-recurrence-plotter.js`](../../js/widget-recurrence-plotter.js) builds chrome (header, sliders, SVG, readout) at runtime via `MVRecurrencePlotter.init('#widgetId', config)`.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-logistic-map-example",
+      "title": "Logistic map: x_{n+1} = r·x_n·(1 − x_n)",
+      "hint": "drag r through the period-doubling cascade · cobweb on left · trajectory on right",
+      "viewBox": "0 0 480 220",
+      "kind": "logistic",
+      "params": {
+        "r": 3.5,
+        "x0": 0.4,
+        "n": 80
+      }
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-logistic-map-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVRecurrencePlotter) return;\n  MVRecurrencePlotter.init('#w-logistic-map-example', {\n    kind: \"logistic\",\n    title: \"Logistic map: x_{n+1} = r·x_n·(1 − x_n)\",\n    hint: \"drag r through the period-doubling cascade · cobweb on left · trajectory on right\",\n    viewBox: \"0 0 480 220\",\n    params: {\"r\":3.5,\"x0\":0.4,\"n\":80},\n  });\n})();\n</script>"
   },
   {
     "slug": "surface-viewer",

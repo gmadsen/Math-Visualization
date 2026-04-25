@@ -52,14 +52,37 @@ From `audits/coverage-stats.md`:
 
 ## Near-term tasks
 
-### Novel widgets
+Seven new shared slugs landed without on-page consumers. Each ships a
+`widgets/<slug>/example.json` fixture used by
+`scripts/test-widget-renderers.mjs`; topic adoption (wiring an instance
+into a real `content/<topic>.json`) is the next step.
 
-- **Proof/construction scrubber.** Timeline slider that replays a multi-step proof with synchronized narrative and diagram state.
-- **Constraint / bifurcation explorer.** Set equations or inequalities, watch the feasible region update; expose singularities.
-- **Counterexample generator.** UI for constructing pathological objects (non-continuous-but-integrable, non-Hausdorff) and checking which hypotheses fail.
-- **Inline code cells.** Tiny sandboxed cells (plain JS or Pyodide) for sieves, modular arithmetic, and other computational topics.
-
-### Stretch
+- **Adopt proof-scrubber.** Migrate `galois/w-quintic-scrub` from
+  closure-form to declarative `svgInner` form (or just register a new
+  proof-scrubber instance on a different page); add a 2nd–3rd instance on
+  `algebraic-topology` (covering-space lifting argument) or `algebra`
+  (Sylow proof).
+- **Adopt recurrence-plotter.** Add a logistic-map instance on
+  `real-analysis` to introduce period-doubling chaos; consider Newton
+  iteration on `complex-analysis`.
+- **Adopt modular-arithmetic-clock.** Wire into `quadratic-reciprocity`
+  (multiplication mod p), `algebra` (cyclic groups), or
+  `algebraic-number-theory` (units mod n).
+- **Adopt lattice-visualizer.** Embed on `modular-forms` (the
+  $\mathrm{SL}_2(\mathbb{Z})$ action on $\mathbb{Z}^2$),
+  `algebraic-number-theory` (Minkowski's theorem), or `sums-of-squares`
+  (Gaussian integers as a lattice).
+- **Adopt constraint-bifurcation-explorer.** Embed on `real-analysis` for
+  the saddle-pitchfork bifurcation; consider a dedicated
+  dynamical-systems page later.
+- **Adopt counterexample-explorer.** Embed the
+  continuous-vs-differentiable case library on `real-analysis`; build a
+  topological-space variant for `point-set-topology` (Hausdorff vs T1
+  vs etc.) and a measure-theory variant for `measure-theory` (integrable
+  vs continuous, etc.).
+- **Adopt inline-code-cell.** Embed on `quadratic-reciprocity` for
+  Legendre-symbol experiments, on `p-adic-numbers` for Hensel-lifting
+  demos, on `waring` for `g(k)` searches.
 
 ## Capstone arc — higher topoi / internal logic / categorical logic (backlog)
 

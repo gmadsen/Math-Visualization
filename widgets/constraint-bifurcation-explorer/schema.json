@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/constraint-bifurcation-explorer/schema.json",
+  "title": "constraint-bifurcation-explorer widget params",
+  "description": "Visualizes a parameterized 2D inequality `g_a(x, y) <= 0` by shading the feasible region on a coarse grid (marching-pixels), with a slider for the parameter `a`. The constraint family is selected from a curated whitelist by `kind` (no expression evaluation). As the slider sweeps `a`, the reader watches the region grow / shrink / split / collide — i.e., a bifurcation. The widget emits an empty host div; at runtime the page-global `MVConstraintBifurcationExplorer.init('#widgetId', config)` library (js/widget-constraint-bifurcation-explorer.js) builds chrome, the slider, the SVG with shaded cells, axes, and a KaTeX readout. A portable frontend can ignore renderScript and reimplement the sampler from `kind + params + domain` alone (catalog of kinds documented in the library).",
+  "meta": {
+    "family": "constraint-bifurcation-explorer",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "kind"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the host `<div class=\"widget\">`."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+$",
+      "description": "SVG viewBox for the diagram (defaults to '0 0 360 360')."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["circle-radius", "ellipse-eccentricity", "saddle-pitchfork"],
+      "description": "Selects the constraint family. Each kind has its own slider range, default domain, and KaTeX formula documented in js/widget-constraint-bifurcation-explorer.js. New kinds are added in the library and listed here."
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Initial value for the parameter `a`. Missing keys fall back to the library's per-kind defaults.",
+      "properties": {
+        "a": {
+          "type": "number",
+          "description": "Initial value of the bifurcation parameter `a`. Must lie within the kind's slider range."
+        }
+      }
+    },
+    "domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Plot domain in mathematical coordinates. Defaults to `{ xRange: [-3, 3], yRange: [-3, 3] }`.",
+      "properties": {
+        "xRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "[xMin, xMax] for the horizontal axis."
+        },
+        "yRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "[yMin, yMax] for the vertical axis."
+        }
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+    }
+  }
+}

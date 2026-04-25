@@ -1,0 +1,17 @@
+{
+  "widgetId": "w-lattice-visualizer-example",
+  "title": "Hexagonal lattice and an index-4 sublattice",
+  "hint": "drag the v₁/v₂ sliders to deform the basis · pink dots are the sublattice",
+  "viewBox": "0 0 360 320",
+  "basis": {
+    "v1": { "x": 1, "y": 0 },
+    "v2": { "x": 0.5, "y": 0.866 }
+  },
+  "sublattice": {
+    "matrix": [[2, 0], [0, 2]]
+  },
+  "viewWindow": {
+    "xRange": [-3, 3],
+    "yRange": [-3, 3]
+  }
+}
