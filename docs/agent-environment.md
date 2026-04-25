@@ -13,6 +13,24 @@ python3 -m http.server 8000
 
 The full reader-side checklist lives in CLAUDE.md.
 
+## Driving the browser from an agent: chrome / Playwright MCP
+
+Both the `chrome-devtools-mcp` and `playwright-mcp` plugins drive a real Chromium against your local dev server, so KaTeX rendering, click handlers, and Web Worker boot all run for real. The agent flow is:
+
+1. Start the local server bound to localhost — `python3 -m http.server 8765 --bind 127.0.0.1 --directory .` in the background.
+2. `mcp__plugin_playwright_playwright__browser_navigate` (or the chrome-devtools equivalent) to `http://127.0.0.1:8765/<page>.html`.
+3. `browser_console_messages` to catch script errors and KaTeX warnings; `browser_evaluate` to assert on the DOM (e.g. count `.widget` children, scan for raw `$…$` text, confirm `MVQuiz` initialised).
+4. `browser_take_screenshot` for any UI you want a visual record of — write into `/tmp/` or session scratch, **not** the repo (`*.png` ending up in repo root is gitignored).
+
+Prerequisite: a working Chromium. On Arch/Manjaro: `sudo pacman -S google-chrome` (or `chromium`). The Playwright MCP looks for `/opt/google/chrome/chrome` by default; if it's missing, `browser_navigate` fails with a clear message. Once installed, the MCP starts the browser on first use — no extra config.
+
+When you're scanning a page for raw KaTeX leakage, the gotcha checklist:
+
+- Skip `<option>` text — native `<select>` popups are OS-drawn; `js/katex-select.js` shims this with a hidden native + custom popup. Scan via the `.ks-button` text, not the `<select>`.
+- Skip `<annotation>` / `.katex-mathml` subtrees — KaTeX duplicates the source LaTeX into a hidden MathML annotation for accessibility. A naive `textContent` scan picks them up as false positives.
+- Skip `aria-hidden="true"` subtrees — same false-positive class.
+- SVG `<text>` elements cannot host KaTeX. If a node label needs math, it must live in `<foreignObject>` + `<div>`, then `renderMathInElement(svg)` after the build.
+
 ## When you don't have a browser: jsdom
 
 If you're running in an agent sandbox without a real browser, use jsdom as a **partial substitute**. It won't exercise CSS layout or user interaction, but it *will* run the page's top-of-body helper script and KaTeX, and it *will* surface script errors. Minimum shape:

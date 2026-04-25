@@ -28,25 +28,10 @@ These are blocking better authoring ergonomics; pick them up in the next non-con
 
 ## Near-term tasks
 
-- **Browser verification of the 15 new topic pages.** jsdom partial-pass is clean; visual check still pending. Highest-priority before the next merge of PR #32.
 - **Hard-tier quiz pass over the 15 new topics.** 67 concepts corpus-wide lack hard tier; most are in the new topics where deep-author agents only covered the 2–4 deepest concepts per page.
 - **Expert-tier authoring round.** Corpus has only 13 expert-tier questions total. One focused pass picking the 2 deepest concepts per topic would meaningfully grow this.
 - **Migrate the 15 new topics to `content/<slug>.json`** via `extract-topic.mjs`, one topic at a time (memory: never wholesale).
 - **Fix the `inject-*` ↔ JSON gap** so future scaffolds don't need the manual `__MV_SECTION_MAP` mass-patch (see Architectural follow-ups below).
-
-## Browser verification — required before next merge
-
-PR #32 currently has 15 new topic pages with rich interactive widgets that **were not visually confirmed** — the Playwright MCP needs Google Chrome at `/opt/google/chrome/chrome` (sudo to install) and the agent sandbox doesn't have it. jsdom partial-pass shows 0 console errors / correct DOM scaffold across all 15, but jsdom doesn't exercise click handlers, KaTeX rendering, or Web Worker boot.
-
-Per-topic priority for spot-checks:
-
-- **`infinity-topoi.html`** — capstone, novel inline-code-cell with HoTT examples + counterexample-explorer with hypercompletion library
-- **`derived-categories.html`** — most widgets (49 SVGs); proof-scrubber for Ext computations
-- **`etale-fundamental-group.html`** — modular-arithmetic-clock reused as Frobenius (visually striking)
-- **`heyting-algebras-toposes.html`** — counterexample-explorer for LEM failure
-- A spot-check from each of the other 11
-
-Install path: `sudo pacman -S google-chrome` (Arch) or equivalent → Playwright MCP works. Or just open these manually before merging.
 
 ## Authoring polish — small
 
@@ -82,4 +67,4 @@ Install path: `sudo pacman -S google-chrome` (Arch) or equivalent → Playwright
 
 ## Shipped recently
 
-Don't enumerate — see `git log --oneline -50`. The major arcs that landed this session: the widget unit-test framework + 7 novel widget slugs; 7 widget topic adoptions; 4 widget-promotion-to-dedicated-concepts; the capstone arc (6 topics: elementary-topos-theory through infinity-topoi); the Stacks-Project mini-arc + full arc (8 topics: derived-categories through algebraic-de-rham-cohomology); the Kerodon Ch 5 fill (cocartesian-fibrations).
+Don't enumerate — see `git log --oneline -50`. The major arcs that landed this session: the widget unit-test framework + 7 novel widget slugs; 7 widget topic adoptions; 4 widget-promotion-to-dedicated-concepts; the capstone arc (6 topics: elementary-topos-theory through infinity-topoi); the Stacks-Project mini-arc + full arc (8 topics: derived-categories through algebraic-de-rham-cohomology); the Kerodon Ch 5 fill (cocartesian-fibrations); jsdom hydration + topic-boot tests + concept-LaTeX audit + pathway KaTeX rendering fix; browser verification of all 15 new topics + 7 widget-adopting topics on PR #32 (chrome MCP, all clean).
