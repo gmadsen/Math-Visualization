@@ -1810,6 +1810,43 @@ window.MVQuizBank = {
           }
         ]
       },
+      "universal-cover-of-circle": {
+        "title": "Universal cover of S¹",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the exponential covering $p\\colon\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, what is the fibre $p^{-1}(*)$ over the basepoint $*=1$?",
+            "choices": [
+              "$\\{0\\}$",
+              "$\\mathbb{Z}$",
+              "$\\mathbb{R}$",
+              "$\\mathbb{Q}$"
+            ],
+            "answer": 1,
+            "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover."
+          },
+          {
+            "type": "numeric",
+            "q": "Lift the loop $\\gamma(t)=e^{4\\pi i t}$ to a path in $\\mathbb{R}$ starting at $0$. What integer winding number $\\tilde\\gamma(1)$ do you get?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$. Its endpoint is $\\tilde\\gamma(1)=2$, so the loop winds twice."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of $\\mathbb{R}$ makes $p\\colon\\mathbb{R}\\to S^1$ the *universal* cover of $S^1$ (rather than just *some* cover)?",
+            "choices": [
+              "$\\mathbb{R}$ is locally Euclidean",
+              "$\\mathbb{R}$ is simply connected",
+              "$\\mathbb{R}$ is non-compact",
+              "$\\mathbb{R}$ has trivial deck group"
+            ],
+            "answer": 1,
+            "hint": "\"Universal\" means initial among connected covers — what does that require of the total space's $\\pi_1$?",
+            "explain": "A connected cover is universal precisely when its total space is simply connected ($\\pi_1=0$). $\\mathbb{R}$ is contractible, hence simply connected, so $\\mathbb{R}\\to S^1$ dominates every other connected cover via a unique factoring map."
+          }
+        ]
+      },
       "covering-spaces": {
         "title": "Covering spaces",
         "questions": [
@@ -6963,6 +7000,42 @@ window.MVQuizBank = {
             "tol": 0.000001,
             "hint": "$f^2(x)=4x\\bmod 1$; solve $4p\\bmod 1=p$ away from fixed points.",
             "explain": "Fixed points of $f^2$: $4x-x\\in\\mathbb{Z}$ with $x\\in[0,1)$ gives $x\\in\\{0,1/3,2/3\\}$. Excluding the fixed point $x=0$, the 2-cycle is $\\{1/3,2/3\\}$: $f(1/3)=2/3$, $f(2/3)=1/3$."
+          }
+        ]
+      },
+      "period-doubling-cascade": {
+        "title": "The period-doubling cascade",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
+            "answer": 0.6,
+            "tol": 0.000001,
+            "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
+          },
+          {
+            "type": "mcq",
+            "q": "At $r=3.2$ (just past the first period-doubling bifurcation at $r=3$), what is the period of the eventual attracting orbit of the logistic map?",
+            "choices": [
+              "1 (a fixed point)",
+              "2 (a 2-cycle)",
+              "4 (a 4-cycle)",
+              "Chaotic (no period)"
+            ],
+            "answer": 1,
+            "explain": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$. Between them — including $r=3.2$ — the attractor is a stable 2-cycle."
+          },
+          {
+            "type": "mcq",
+            "q": "Why do successive period-doubling bifurcations $r_n$ pile up so quickly toward $r_\\infty\\approx 3.5699$ — accelerating in $r$ but not in $n$?",
+            "choices": [
+              "Each iterate of the logistic map runs twice as fast as the previous one.",
+              "The intervals $r_n-r_{n-1}$ shrink geometrically by the Feigenbaum ratio $\\delta\\approx 4.6692$, so they form a convergent geometric series in $r$ even though $n$ grows linearly.",
+              "The Lyapunov exponent diverges to $+\\infty$ as $n$ increases.",
+              "The orbit becomes chaotic immediately after the first doubling."
+            ],
+            "answer": 1,
+            "explain": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$. So gaps between successive bifurcations contract by a constant factor $\\approx 1/\\delta$ each step — geometric convergence in $r$-space, even though $n$ marches up linearly. That is why infinitely many doublings fit into the finite interval $[3, r_\\infty]$."
           }
         ]
       },
@@ -13560,6 +13633,42 @@ window.MVQuizBank = {
   "modular-forms": {
     "topic": "modular-forms",
     "quizzes": {
+      "lattices-in-C": {
+        "title": "Lattices in C",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the covolume of the lattice $\\Lambda = \\mathbb{Z}v_1 + \\mathbb{Z}v_2$ with $v_1=(2,0)$ and $v_2=(1,3)$ (i.e. $|\\det[v_1\\,v_2]|$).",
+            "answer": 6,
+            "tol": 0.001,
+            "explain": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$. The covolume is the absolute value, $6$. Geometrically this is the area of the fundamental parallelogram, and it is independent of the chosen basis — any other basis of the same $\\Lambda$ differs by a matrix of determinant $\\pm 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Two ordered bases of the same lattice $\\Lambda$ are $(v_1,v_2)$ and $(v_1',v_2') = (v_1+v_2,\\, v_1+2v_2)$. Which matrix $M \\in \\mathrm{SL}_2(\\mathbb{Z})$ realizes the change of basis $(v_1',v_2') = (v_1,v_2)\\,M$?",
+            "choices": [
+              "$M = \\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$",
+              "$M = \\begin{pmatrix}1&2\\\\1&1\\end{pmatrix}$",
+              "$M = \\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$",
+              "$M = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$"
+            ],
+            "answer": 0,
+            "explain": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$. So $M=\\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$, and $\\det M = 1\\cdot 2 - 1\\cdot 1 = 1$, confirming $M\\in\\mathrm{SL}_2(\\mathbb{Z})$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following pairs is a valid $\\mathbb{Z}$-basis for the standard lattice $\\mathbb{Z}^2 \\subset \\mathbb{R}^2$?",
+            "choices": [
+              "$(1,0)$ and $(2,0)$",
+              "$(2,1)$ and $(1,1)$",
+              "$(2,0)$ and $(0,2)$",
+              "$(1,1)$ and $(2,2)$"
+            ],
+            "answer": 1,
+            "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
+          }
+        ]
+      },
       "sl2z-on-H": {
         "title": "SL2(Z) on H",
         "questions": [
@@ -19841,6 +19950,37 @@ window.MVQuizBank = {
   "quadratic-reciprocity": {
     "topic": "quadratic-reciprocity",
     "quizzes": {
+      "multiplicative-group-mod-p": {
+        "title": "The multiplicative group $(\\mathbb{Z}/p)^\\times$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the order of the multiplicative group $(\\mathbb{Z}/13)^\\times$?",
+            "answer": 12,
+            "tol": 0.001,
+            "explain": "For prime $p$, every nonzero residue $1,2,\\ldots,p-1$ is a unit, so $|(\\mathbb{Z}/p)^\\times|=p-1$. With $p=13$ this is $12$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a primitive root mod $7$? (A primitive root generates all six nonzero residues by repeated multiplication.)",
+            "choices": [
+              "$2$ — its powers $2,4,1,2,4,1$ cycle with period $3$",
+              "$3$ — its powers $3,2,6,4,5,1$ visit every nonzero residue",
+              "$6$ — since $6\\equiv -1\\pmod 7$, its powers cycle as $6,1,6,1,\\ldots$",
+              "$4$ — its powers $4,2,1,4,2,1$ cycle with period $3$"
+            ],
+            "answer": 1,
+            "explain": "$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1\\pmod 7$ — all six nonzero residues appear, so $3$ has order $6=\\varphi(7)$ and is a primitive root. The other candidates have smaller orders ($2,4$ have order $3$; $6$ has order $2$)."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $3^5 \\bmod 7$.",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "$3^2=9\\equiv 2$, $3^4\\equiv 2^2=4$, so $3^5\\equiv 3\\cdot 4=12\\equiv 5\\pmod 7$. (Equivalently, $3$ is a primitive root mod $7$, and its fifth power lands at $5$.)"
+          }
+        ]
+      },
       "legendre-symbol": {
         "title": "Legendre symbol basics",
         "questions": [

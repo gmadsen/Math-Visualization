@@ -25,6 +25,13 @@
       "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality."
     },
     {
+      "id": "universal-cover-of-circle",
+      "title": "Universal cover of S¹",
+      "anchor": "universal-cover-circle",
+      "prereqs": ["fundamental-group"],
+      "blurb": "The exponential map $p: \\mathbb{R} \\to S^1$, $t \\mapsto e^{2\\pi i t}$, is a covering with discrete fibre $\\mathbb{Z}$. Lifting loops to paths in $\\mathbb{R}$ converts the topology of $S^1$ into integer arithmetic — every loop has a winding number, and that's the iso $\\pi_1(S^1) \\cong \\mathbb{Z}$."
+    },
+    {
       "id": "covering-spaces",
       "title": "Covering spaces",
       "anchor": "covers",

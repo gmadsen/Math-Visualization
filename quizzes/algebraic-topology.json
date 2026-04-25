@@ -189,6 +189,43 @@
         }
       ]
     },
+    "universal-cover-of-circle": {
+      "title": "Universal cover of S¹",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Under the exponential covering $p\\colon\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, what is the fibre $p^{-1}(*)$ over the basepoint $*=1$?",
+          "choices": [
+            "$\\{0\\}$",
+            "$\\mathbb{Z}$",
+            "$\\mathbb{R}$",
+            "$\\mathbb{Q}$"
+          ],
+          "answer": 1,
+          "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover."
+        },
+        {
+          "type": "numeric",
+          "q": "Lift the loop $\\gamma(t)=e^{4\\pi i t}$ to a path in $\\mathbb{R}$ starting at $0$. What integer winding number $\\tilde\\gamma(1)$ do you get?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$. Its endpoint is $\\tilde\\gamma(1)=2$, so the loop winds twice."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property of $\\mathbb{R}$ makes $p\\colon\\mathbb{R}\\to S^1$ the *universal* cover of $S^1$ (rather than just *some* cover)?",
+          "choices": [
+            "$\\mathbb{R}$ is locally Euclidean",
+            "$\\mathbb{R}$ is simply connected",
+            "$\\mathbb{R}$ is non-compact",
+            "$\\mathbb{R}$ has trivial deck group"
+          ],
+          "answer": 1,
+          "hint": "\"Universal\" means initial among connected covers — what does that require of the total space's $\\pi_1$?",
+          "explain": "A connected cover is universal precisely when its total space is simply connected ($\\pi_1=0$). $\\mathbb{R}$ is contractible, hence simply connected, so $\\mathbb{R}\\to S^1$ dominates every other connected cover via a unique factoring map."
+        }
+      ]
+    },
     "covering-spaces": {
       "title": "Covering spaces",
       "questions": [

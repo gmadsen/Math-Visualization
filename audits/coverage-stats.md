@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **58**, concepts: **407**
+- Topics: **58**, concepts: **411**
 - Widgets: **459** (registry-driven: 457, inline: 2)
-- Quizzes: **2298** (v1: 1160, hard: 1125, expert: 13)
-- Quiz types: mcq: 1397, numeric: 795, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
+- Quizzes: **2310** (v1: 1172, hard: 1125, expert: 13)
+- Quiz types: mcq: 1404, numeric: 800, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
-- Concepts lacking a hard-tier quiz: **21**
+- Concepts lacking a hard-tier quiz: **25**
 
 ## Per-slug registry adoption
 
@@ -60,43 +60,43 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **7**, concepts: **100**
+- Topics: **7**, concepts: **101**
 - Widgets: **80** (registry-driven: 80, inline: 0)
   - by family: button-stepper: 47, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
   - by dimension: 2d: 80
   - by gesture: click: 78, slider: 2
-- Quizzes: **460** (v1: 238, hard: 209, expert: 13)
-  - by type: mcq: 257, numeric: 132, complex: 15, multi-select: 14, matching: 12, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
+- Quizzes: **463** (v1: 241, hard: 209, expert: 13)
+  - by type: mcq: 259, numeric: 133, complex: 15, multi-select: 14, matching: 12, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
 
 ### Geometry & topology
 
-- Topics: **8**, concepts: **48**
+- Topics: **8**, concepts: **49**
 - Widgets: **50** (registry-driven: 50, inline: 0)
   - by family: button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1
   - by dimension: 2d: 44, 3d: 6
   - by gesture: click: 40, drag: 6, static: 2, select: 1, timeline: 1
-- Quizzes: **286** (v1: 144, hard: 142, expert: 0)
-  - by type: mcq: 168, numeric: 111, complex: 7
+- Quizzes: **289** (v1: 147, hard: 142, expert: 0)
+  - by type: mcq: 170, numeric: 112, complex: 7
 
 ### Number theory
 
-- Topics: **11**, concepts: **56**
+- Topics: **11**, concepts: **57**
 - Widgets: **73** (registry-driven: 71, inline: 2)
   - by family: button-stepper: 58, clickable-diagram: 4, input-form: 4, unknown: 2, declarative-host: 2, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1
   - by dimension: 2d: 71, unknown: 2
   - by gesture: click: 63, input: 4, unknown: 2, interactive: 2, slider: 1, edit: 1
-- Quizzes: **337** (v1: 169, hard: 168, expert: 0)
-  - by type: mcq: 219, numeric: 114, complex: 3, guess-my-rule: 1
+- Quizzes: **340** (v1: 172, hard: 168, expert: 0)
+  - by type: mcq: 220, numeric: 116, complex: 3, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
-- Topics: **14**, concepts: **70**
+- Topics: **14**, concepts: **71**
 - Widgets: **108** (registry-driven: 108, inline: 0)
   - by family: button-stepper: 98, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 1
   - by dimension: 2d: 108
   - by gesture: click: 98, slider: 6, static: 4
-- Quizzes: **420** (v1: 210, hard: 210, expert: 0)
-  - by type: mcq: 269, numeric: 150, ordering: 1
+- Quizzes: **423** (v1: 213, hard: 210, expert: 0)
+  - by type: mcq: 271, numeric: 151, ordering: 1
 
 ### Algebraic geometry
 
@@ -121,10 +121,10 @@ page has wired one in yet.
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
-- `dynamical-systems` (Analysis) — concepts=12, widgets=13 (slug=13), quiz=72 (v1=36, hard=36, expert=0)
+- `dynamical-systems` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=39, hard=36, expert=0)
 - `probability-theory` (Analysis) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
-- `algebraic-topology` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=29 (v1=15, hard=14, expert=0)
+- `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=9), quiz=59 (v1=30, hard=29, expert=0)
 - `differential-forms` (Geometry & topology) — concepts=5, widgets=0 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `differential-geometry` (Geometry & topology) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
@@ -132,7 +132,7 @@ page has wired one in yet.
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `galois` (Number theory) — concepts=5, widgets=6 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
-- `quadratic-reciprocity` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
+- `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `sums-of-squares` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `power-sums-bernoulli` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=31 (v1=16, hard=15, expert=0)
@@ -143,7 +143,7 @@ page has wired one in yet.
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `modular-forms` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
+- `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `partitions-generating-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)

@@ -1530,6 +1530,15 @@ window.__MVConcepts = {
           "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos."
         },
         {
+          "id": "period-doubling-cascade",
+          "title": "The period-doubling cascade",
+          "anchor": "period-doubling-cascade",
+          "prereqs": [
+            "dyn-iterated-maps"
+          ],
+          "blurb": "The logistic map $x_{n+1} = r\\,x_n(1-x_n)$ encodes how a single nonlinear feedback gives rise to chaos. As $r$ increases through $[3, 3.57]$ the attractor period-doubles ($1\\to 2\\to 4\\to 8\\to\\cdots$) at geometric rate $\\delta\\approx 4.6692$ — the Feigenbaum constant — and at $r\\approx 3.5699$ the orbit becomes chaotic, with periodic windows (e.g. period $3$ at $r\\approx 3.83$) interleaved."
+        },
+        {
           "id": "dyn-bifurcations",
           "title": "Bifurcations",
           "anchor": "bifurcation",
@@ -1816,6 +1825,15 @@ window.__MVConcepts = {
             "paths"
           ],
           "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality."
+        },
+        {
+          "id": "universal-cover-of-circle",
+          "title": "Universal cover of S¹",
+          "anchor": "universal-cover-circle",
+          "prereqs": [
+            "fundamental-group"
+          ],
+          "blurb": "The exponential map $p: \\mathbb{R} \\to S^1$, $t \\mapsto e^{2\\pi i t}$, is a covering with discrete fibre $\\mathbb{Z}$. Lifting loops to paths in $\\mathbb{R}$ converts the topology of $S^1$ into integer arithmetic — every loop has a winding number, and that's the iso $\\pi_1(S^1) \\cong \\mathbb{Z}$."
         },
         {
           "id": "covering-spaces",
@@ -2289,11 +2307,20 @@ window.__MVConcepts = {
       "page": "quadratic-reciprocity.html",
       "concepts": [
         {
+          "id": "multiplicative-group-mod-p",
+          "title": "The multiplicative group (Z/p)×",
+          "anchor": "multiplicative-group-mod-p",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on."
+        },
+        {
           "id": "legendre-symbol",
           "title": "The Legendre symbol",
           "anchor": "legendre",
           "prereqs": [
-            "sets-functions"
+            "multiplicative-group-mod-p"
           ],
           "blurb": "For odd prime p, the symbol (a/p) detects whether a is a square mod p, taking values 1, -1, or 0."
         },
@@ -2894,10 +2921,18 @@ window.__MVConcepts = {
       "page": "modular-forms.html",
       "concepts": [
         {
+          "id": "lattices-in-C",
+          "title": "Lattices in C",
+          "anchor": "lattices-in-C",
+          "prereqs": [],
+          "blurb": "A lattice $\\Lambda \\subset \\mathbb{C}$ is a discrete subgroup of rank 2: $\\Lambda = \\mathbb{Z}\\omega_1 + \\mathbb{Z}\\omega_2$ with $\\omega_2/\\omega_1 \\notin \\mathbb{R}$. The same lattice has many bases — exactly the bases related by an $\\mathrm{SL}_2(\\mathbb{Z})$ change of coordinates — which is why modular forms are functions on lattices, or equivalently, $\\mathrm{SL}_2(\\mathbb{Z})$-equivariant functions of the basis ratio $\\tau = \\omega_2/\\omega_1 \\in \\mathbb{H}$."
+        },
+        {
           "id": "sl2z-on-H",
           "title": "SL2(Z) action on the upper half-plane",
           "anchor": "sl2z",
           "prereqs": [
+            "lattices-in-C",
             "sl2r-action-on-H"
           ],
           "blurb": "Matrices in SL2(Z) act by Möbius transformations and generate the modular equivalence relation on H."
