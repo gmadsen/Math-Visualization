@@ -26,6 +26,8 @@ Per-step invocation and the full step enumeration are documented under § "Regis
 
 Scaffolders for the two common "add a new thing" flows: [`scripts/new-topic.mjs <slug> <section>`](./scripts/new-topic.mjs) (new topic page) and [`scripts/new-widget.mjs <slug>`](./scripts/new-widget.mjs) (new widget registry entry). Prefer them over hand-authoring the multi-step boilerplate.
 
+**Before adding a widget to a page, consult [`widgets/README.md`](./widgets/README.md) § "Choosing a widget when authoring a topic"** as the menu of available shared renderers. The corpus today is heavily skewed toward `button-stepper`; the registry has slug variety (proof-scrubber, parametric-plot, surface-viewer, recurrence-plotter, lattice-visualizer, modular-arithmetic-clock, constraint-bifurcation-explorer, counterexample-explorer, inline-code-cell, etc.) intended to be reached for when the gesture matches. `audits/coverage-stats.md` § "Per-slug registry adoption" shows which slugs are under-adopted.
+
 ## Project goal
 
 A single-file, interactive graduate-mathematics notebook in the spirit of 3Blue1Brown for aesthetic and Brilliant.org for pedagogy:

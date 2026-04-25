@@ -38,6 +38,45 @@ Both `renderMarkup` and `renderScript` are **pure functions of params**. They pr
 
 See each slug's `README.md` for its param reference and alternate-frontend porting notes.
 
+## Choosing a widget when authoring a topic
+
+**Read this section before defaulting to button-stepper.** Today's corpus
+is heavily skewed (~77% of widgets are `button-stepper`); new topics
+reach for it because it's familiar, not because it's the best fit.
+Variety in the registry is there to be used — match the slug to the
+pedagogical move.
+
+Pick by what the reader *does*, not by what's easiest to wire:
+
+| reader's gesture | reach for | when                                                                                          |
+|------------------|-----------|-----------------------------------------------------------------------------------------------|
+| **read** the diagram | `svg-illustration`        | Static figure — no interaction needed; the picture *is* the point.                                |
+| **step** through a sequence | `button-stepper`           | Discrete states with prev/next/reset; default for "stages of a construction."                       |
+| **scrub** through a proof | `proof-scrubber`           | Multi-step argument with synchronized prose + diagram; scrubber + play/pause; longer than a stepper. |
+| **drag a slider** to vary one parameter | `parametric-plot`, `recurrence-plotter`, `modular-arithmetic-clock`, `lattice-visualizer`, `constraint-bifurcation-explorer` | Parameter sweep, bifurcation, iteration, basis change, region morphing. Pick by what's being plotted. |
+| **drag a 3D view** | `surface-viewer`           | 3D surface, manifold, polyhedron, trajectory — yaw/pitch via `make3DDraggable`.                   |
+| **click** a node / region of an SVG | `clickable-diagram`, `clickable-graph` | Selection-driven exploration: pick a morphism / pick a graph node, see consequences in a readout.  |
+| **type / fill in** a number or expression | `input-form`               | Form-driven probes — "give me an n, I'll factor it" — no slider semantics fits.                     |
+| **browse a curated case library** | `counterexample-explorer`  | "Here are 4 candidates and 4 hypotheses; for each pair, does it pass?" Pure data, no eval.        |
+| **edit and run code** | `inline-code-cell`         | Computational asides — number-theory experiments, lattice searches, sieve playgrounds. JS in a Web Worker. |
+| **everything else (rare)** | `declarative-host`         | Empty host div + `<library>.init` for `MVPatternInduction` / `MVDiagramEditor` etc. when the page-global library does the work. |
+
+A single concept page generally benefits from **at least two different
+gesture classes** — say, one slider widget and one click widget, or one
+proof-scrubber and one inline-code-cell. Reach across the table when
+the topic naturally has multiple "shapes" of insight (a static
+illustration motivates the definition; a slider explores the
+parameter space; a code cell verifies a special case numerically).
+
+When nothing in the table fits, **don't extend `button-stepper` to
+absorb it** — register a new slug via `node scripts/new-widget.mjs <slug>`
+and add it to this table. The 7 newest slugs (proof-scrubber,
+recurrence-plotter, modular-arithmetic-clock, lattice-visualizer,
+constraint-bifurcation-explorer, counterexample-explorer,
+inline-code-cell) all came from this rule. See `audits/coverage-stats.md`
+§ "Per-slug registry adoption" for the live instance count per slug —
+slugs at zero are infrastructure waiting for content.
+
 ## Bespoke vs. shared
 
 - **Bespoke** (`composition-explorer`, `natural-transformation-explorer`): one module per widget. Cheap to write, schema matches one widget's shape, no cross-widget abstraction. Use when the widget is irreducibly idiosyncratic.
