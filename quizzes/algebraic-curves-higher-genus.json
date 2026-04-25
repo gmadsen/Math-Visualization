@@ -5,107 +5,275 @@
       "title": "Smooth projective curves and their genus",
       "questions": [
         {
+          "type": "numeric",
+          "q": "Let $C$ be a smooth projective curve of genus $g = 5$ over $\\bar k$. What is $\\dim_k H^0(C, \\Omega^1_C)$?",
+          "answer": 5,
+          "tol": 0,
+          "explain": "By definition the genus equals $h^0(\\Omega^1_C)$. So $\\dim H^0(C, \\Omega^1_C) = g = 5$.",
+          "hint": "The genus is the dimension of the space of regular 1-forms — that's the definition."
+        },
+        {
+          "type": "numeric",
+          "q": "A smooth projective curve $C(\\mathbb{C})$ has topological Euler characteristic $\\chi_{\\mathrm{top}} = -8$. What is its genus $g$?",
+          "answer": 5,
+          "tol": 0,
+          "explain": "$\\chi_{\\mathrm{top}} = 2 - 2g$, so $-8 = 2 - 2g \\Rightarrow g = 5$.",
+          "hint": "Use $\\chi = 2 - 2g$."
+        },
+        {
+          "type": "numeric",
+          "q": "A degree-3 cover $\\pi\\colon C \\to \\mathbb{P}^1$ has $b = 8$ simple branch points (each contributing $1$ to the ramification sum). Compute the genus of $C$ by Riemann–Hurwitz.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "Riemann–Hurwitz: $2g - 2 = d(2 g_{\\mathbb{P}^1} - 2) + \\sum (e_p - 1) = 3 \\cdot (-2) + 8 = 2$, so $g = 2$.",
+          "hint": "$2g - 2 = d(2 g_{\\mathbb{P}^1} - 2) + b$ for simple branching."
+        }
+      ],
+      "hard": [
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"Smooth projective curves and their genus\"?",
+          "q": "Which of the following is FALSE for a smooth projective curve $C$ of genus $g$ over an algebraically closed field?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\deg K_C = 2g - 2$.",
+            "Every divisor class of degree $> 2g - 2$ has $h^1 = 0$.",
+            "$C$ admits a non-constant map to $\\mathbb{P}^1$ of degree $\\le \\lfloor (g+3)/2 \\rfloor$ (gonality bound).",
+            "Every curve of genus $g \\ge 2$ admits a degree-$2$ map to $\\mathbb{P}^1$."
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 3,
+          "explain": "Only hyperelliptic curves have a $g^1_2$ — for $g \\ge 3$ the generic curve is non-hyperelliptic. The Brill–Noether-style gonality bound $\\lfloor (g+3)/2 \\rfloor$ is correct.",
+          "hint": "Most curves of genus $\\ge 3$ do NOT admit a degree-2 map to $\\mathbb{P}^1$."
         }
       ]
     },
+
     "divisors-on-curves": {
       "title": "Divisors on curves",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"Divisors on curves\"?",
-          "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
-          ],
+          "type": "numeric",
+          "q": "On a smooth projective curve $C$ of genus $g = 4$ over $\\mathbb{C}$, what is the complex dimension of the Jacobian $\\mathrm{Pic}^0(C)$?",
+          "answer": 4,
+          "tol": 0,
+          "explain": "$\\mathrm{Pic}^0(C) = \\mathbb{C}^g / \\Lambda$ has complex dimension $g$. So for $g = 4$, $\\dim_{\\mathbb{C}} \\mathrm{Pic}^0(C) = 4$.",
+          "hint": "$\\dim \\mathrm{Pic}^0 = g$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $D = 2[p] - 3[q] + [r]$ on a smooth projective curve. Compute $\\deg D$.",
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "tol": 0,
+          "explain": "$\\deg D = 2 + (-3) + 1 = 0$.",
+          "hint": "Sum the integer coefficients."
+        },
+        {
+          "type": "mcq",
+          "q": "Two divisors $D, D'$ on a smooth projective curve are linearly equivalent iff:",
+          "choices": [
+            "they have the same degree.",
+            "they have the same support.",
+            "$D - D' = \\mathrm{div}(f)$ for some nonzero rational function $f \\in k(C)^\\times$.",
+            "they define isomorphic algebraic curves."
+          ],
+          "answer": 2,
+          "explain": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e. the divisor of some rational function. This is the equivalence relation defining $\\mathrm{Pic}(C)$."
         }
       ]
     },
+
     "riemann-roch-curves": {
       "title": "Riemann–Roch on curves",
       "questions": [
         {
+          "type": "numeric",
+          "q": "On a smooth projective curve of genus $g = 3$, take $D$ with $\\deg D = 5$. What is $h^0(D)$? (Use the high-degree vanishing: $\\deg D > 2g - 2$.)",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$\\deg D = 5 > 2g - 2 = 4$, so $h^0(K - D) = 0$ and Riemann–Roch gives $h^0(D) = \\deg D - g + 1 = 5 - 3 + 1 = 3$.",
+          "hint": "Past the threshold $\\deg D > 2g-2$, $h^0(D) = \\deg D - g + 1$."
+        },
+        {
+          "type": "numeric",
+          "q": "On a curve of genus $g = 2$, $D = K_C$ (the canonical divisor). Compute $h^0(D)$.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$."
+        },
+        {
+          "type": "numeric",
+          "q": "On a curve of genus $g = 4$, take $D$ with $\\deg D = 3$. Suppose further that $h^0(K - D) = 2$. What is $h^0(D)$?",
+          "answer": 2,
+          "tol": 0,
+          "explain": "Riemann–Roch: $h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 4 + 1 = 0$. So $h^0(D) = h^0(K - D) = 2$.",
+          "hint": "Just plug $\\deg D = 3$, $g = 4$, $h^0(K-D) = 2$ into RR and solve for $h^0(D)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "On a non-hyperelliptic genus-$3$ curve $C$, let $D = p + q + r$ with $p, q, r$ three distinct points whose canonical-embedding images are NOT collinear. Riemann–Roch then gives $h^0(D) = 1$. Compute $h^0(K - D)$.",
+          "answer": 0,
+          "tol": 0,
+          "explain": "Riemann–Roch: $h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 3 + 1 = 1$. With $h^0(D) = 1$ this gives $h^0(K - D) = 0$. Equivalently: $K - D$ has degree $4 - 3 = 1$, but the three points are not collinear in $\\mathbb{P}^2$, so no canonical hyperplane (= line in the canonical $\\mathbb{P}^2$) cuts out $D$, and $|K - D|$ is empty.",
+          "hint": "Use $h^0(D) - h^0(K-D) = \\deg D - g + 1$ with $h^0(D) = 1$, $g = 3$, $\\deg D = 3$."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"Riemann–Roch on curves\"?",
+          "q": "On a curve $C$ of genus $g$, the linear system $|D|$ defines a morphism $\\varphi_D\\colon C \\to \\mathbb{P}^{r}$ where $r = h^0(D) - 1$. For $|D|$ to give a closed embedding, the standard sufficient condition is:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\deg D \\ge 2g$ (then $|D|$ is very ample).",
+            "$\\deg D \\ge g + 1$.",
+            "$D$ is effective.",
+            "$h^0(D) \\ge 2$."
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "On a smooth projective curve, $\\deg D \\ge 2g + 1$ guarantees very ample (and $\\ge 2g$ guarantees base-point-free + injective on tangent vectors generically). The standard cleanest threshold is $2g + 1$ ⇒ very ample, so 'at least $2g$' is the correct intuition. Of the four options, (a) is the canonical sufficient condition for very ampleness."
         }
       ]
     },
+
     "canonical-embedding": {
       "title": "The canonical embedding",
       "questions": [
         {
+          "type": "numeric",
+          "q": "On a smooth projective curve of genus $g = 5$, what is $\\deg K_C$?",
+          "answer": 8,
+          "tol": 0,
+          "explain": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $C$ is a non-hyperelliptic smooth projective curve of genus $g = 4$, into what projective space $\\mathbb{P}^N$ does the canonical map embed $C$? Give $N$.",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$\\varphi_K\\colon C \\hookrightarrow \\mathbb{P}^{g-1} = \\mathbb{P}^3$ for $g = 4$. So $N = g - 1 = 3$.",
+          "hint": "Canonical map lands in $\\mathbb{P}^{g-1}$."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"The canonical embedding\"?",
+          "q": "A smooth projective curve $C$ of genus $g \\ge 3$ is non-hyperelliptic if and only if:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$C$ has a rational point.",
+            "$|K|$ has dimension $> g - 1$.",
+            "the canonical map $\\varphi_K\\colon C \\to \\mathbb{P}^{g-1}$ is a closed embedding.",
+            "$C$ has trivial automorphism group."
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 2,
+          "explain": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$). For hyperelliptic $C$, $\\varphi_K$ factors through the $2:1$ map to $\\mathbb{P}^1$ followed by the rational normal curve."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct genus-$3$ canonical model dichotomy?",
+          "choices": [
+            "Every genus-3 curve embeds canonically as a smooth quartic in $\\mathbb{P}^2$.",
+            "Non-hyperelliptic genus-3 ⇒ smooth quartic in $\\mathbb{P}^2$; hyperelliptic genus-3 ⇒ canonical image is a smooth conic, mapped $2:1$.",
+            "Every genus-3 curve embeds canonically in $\\mathbb{P}^3$ as a (2, 3) complete intersection.",
+            "Genus-3 curves never have a canonical embedding."
+          ],
+          "answer": 1,
+          "explain": "For $g = 3$: non-hyperelliptic curves embed as smooth plane quartics ($\\deg = 2g-2 = 4$ in $\\mathbb{P}^{g-1} = \\mathbb{P}^2$); hyperelliptic curves have $\\varphi_K$ factoring through $C \\xrightarrow{2:1} \\mathbb{P}^1 \\hookrightarrow \\mathbb{P}^2$ as a smooth conic. Choice (c) is the genus-4 dichotomy."
+        },
+        {
+          "type": "numeric",
+          "q": "A smooth canonical curve of genus $g = 6$ in $\\mathbb{P}^5$ has degree:",
+          "answer": 10,
+          "tol": 0,
+          "explain": "Canonical degree is $2g - 2 = 2 \\cdot 6 - 2 = 10$.",
+          "hint": "$\\deg K = 2g - 2$."
         }
       ]
     },
+
     "hyperelliptic-curves": {
       "title": "Hyperelliptic curves",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"Hyperelliptic curves\"?",
+          "type": "numeric",
+          "q": "How many branch points does a hyperelliptic cover $\\pi\\colon C \\to \\mathbb{P}^1$ have when $C$ has genus $g = 5$?",
+          "answer": 12,
+          "tol": 0,
+          "explain": "For a hyperelliptic curve of genus $g$, the degree-$2$ cover has $2g + 2$ branch points (Riemann–Hurwitz with $d = 2$, simple ramification: $2g - 2 = 2(-2) + b \\Rightarrow b = 2g + 2$). For $g = 5$: $b = 12$.",
+          "hint": "Number of branch points is $2g + 2$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all curves which are hyperelliptic. (Assume each is smooth projective over $\\bar k$ and the equations are written affinely.)",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$y^2 = x^5 + x + 1$",
+            "$x^4 + y^4 = 1$ (smooth plane quartic, generic)",
+            "$y^2 = x^7 + x^3 + 1$",
+            "Any smooth curve of genus $g = 2$"
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": [0, 2, 3],
+          "explain": "(a) $y^2 = $ (degree 5) is hyperelliptic of genus 2. (c) $y^2 = $ (degree 7) is hyperelliptic of genus 3. (d) every genus-2 curve is hyperelliptic (canonical map is the unique $g^1_2$). The smooth plane quartic in (b) is the canonical model of a non-hyperelliptic genus-3 curve (generic case).",
+          "hint": "Hyperelliptic ⇔ $y^2 = f(x)$ with $f$ separable of degree $2g+1$ or $2g+2$, OR genus $\\le 2$."
+        },
+        {
+          "type": "numeric",
+          "q": "On a hyperelliptic curve of genus $g = 4$ with hyperelliptic involution $\\sigma$, how many fixed points does $\\sigma$ have on $C$?",
+          "answer": 10,
+          "tol": 0,
+          "explain": "Fixed points of $\\sigma$ are exactly the ramification points of $\\pi\\colon C \\to \\mathbb{P}^1$, which sit one above each branch point. Number = $2g + 2 = 10$.",
+          "hint": "Ramification points = fixed points of involution = $2g + 2$."
         }
       ]
     },
+
     "moduli-of-curves-genus-g": {
       "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
       "questions": [
         {
+          "type": "numeric",
+          "q": "What is $\\dim \\mathcal{M}_g$ for $g = 7$?",
+          "answer": 18,
+          "tol": 0,
+          "explain": "For $g \\ge 2$, $\\dim \\mathcal{M}_g = 3g - 3 = 3 \\cdot 7 - 3 = 18$.",
+          "hint": "Use $\\dim \\mathcal{M}_g = 3g - 3$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the codimension of the hyperelliptic locus $\\mathcal{H}_g \\subset \\mathcal{M}_g$ for $g = 5$?",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$\\mathcal{H}_g$ has dimension $2g - 1$ inside $\\mathcal{M}_g$ of dimension $3g - 3$, so codimension $(3g-3) - (2g-1) = g - 2$. For $g = 5$: codim $= 3$.",
+          "hint": "Codimension is $g - 2$."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"Moduli of higher-genus curves $\\mathcal{M}_g$\"?",
+          "q": "The Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds boundary divisors $\\Delta_0, \\Delta_1, \\ldots, \\Delta_{\\lfloor g/2 \\rfloor}$. The divisor $\\Delta_0$ parametrises:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "smooth curves of geometric genus $0$.",
+            "irreducible nodal curves: a single component of geometric genus $g - 1$ with one self-intersecting node.",
+            "the union of two smooth curves of genera $0$ and $g$ glued at one node.",
+            "smooth curves with no automorphisms."
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "$\\Delta_0$ is the boundary divisor of irreducible nodal curves: pinch a non-separating loop in $C$ to a node, get an irreducible curve whose normalisation has genus $g - 1$. The arithmetic genus stays $g$.",
+          "hint": "Pinch a non-separating loop on $C$ — what stays connected?"
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For $g = 5$, how many distinct boundary divisors $\\Delta_i$ does $\\overline{\\mathcal{M}}_g$ have? (Count all $\\Delta_i$ with $0 \\le i \\le \\lfloor g/2 \\rfloor$.)",
+          "answer": 3,
+          "tol": 0,
+          "explain": "Boundary divisors are $\\Delta_0, \\Delta_1, \\Delta_2$ (since $\\lfloor 5/2 \\rfloor = 2$ and $\\Delta_i$ for $i = 0, 1, 2$ are distinct: $\\Delta_0$ irreducible nodal, $\\Delta_1$ the (1, 4)-split, $\\Delta_2$ the (2, 3)-split). Total $= 3$.",
+          "hint": "Count $\\lfloor g/2 \\rfloor + 1$ for $g$ odd."
+        },
+        {
+          "type": "mcq",
+          "q": "The codimension of any single boundary divisor $\\Delta_i \\subset \\overline{\\mathcal{M}}_g$ is:",
+          "choices": [
+            "$0$ (it's open).",
+            "$1$ (it's a divisor).",
+            "$i$.",
+            "$g - i$."
+          ],
+          "answer": 1,
+          "explain": "By definition / construction $\\Delta_i$ is a boundary divisor — codimension $1$. Pinching $k$ disjoint cycles produces a stratum of codimension $k$; pinching exactly one cycle (the generic point of $\\Delta_i$) produces codim 1."
         }
       ]
     }

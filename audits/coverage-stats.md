@@ -4,10 +4,10 @@
 
 - Topics: **72**, concepts: **498**
 - Widgets: **459** (registry-driven: 457, inline: 2)
-- Quizzes: **2510** (v1: 1335, hard: 1162, expert: 13)
-- Quiz types: mcq: 1542, numeric: 823, multi-select: 39, complex: 29, matching: 22, ordering: 21, spot-the-error: 16, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Quizzes: **2565** (v1: 1371, hard: 1181, expert: 13)
+- Quiz types: mcq: 1566, numeric: 841, multi-select: 50, complex: 29, matching: 24, ordering: 21, spot-the-error: 16, proof-completion: 14, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **187**
-- Concepts lacking a hard-tier quiz: **91**
+- Concepts lacking a hard-tier quiz: **81**
 
 ## Per-slug registry adoption
 
@@ -55,8 +55,8 @@ page has wired one in yet.
   - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
   - by dimension: 2d: 65
   - by gesture: click: 63, slider+click: 1, interactive: 1
-- Quizzes: **466** (v1: 268, hard: 198, expert: 0)
-  - by type: mcq: 292, numeric: 142, multi-select: 16, ordering: 5, matching: 4, spot-the-error: 4, proof-completion: 2, complex: 1
+- Quizzes: **502** (v1: 292, hard: 210, expert: 0)
+  - by type: mcq: 315, numeric: 143, multi-select: 26, matching: 6, ordering: 5, spot-the-error: 4, proof-completion: 2, complex: 1
 
 ### Analysis
 
@@ -105,8 +105,8 @@ page has wired one in yet.
   - by family: button-stepper: 61, clickable-diagram: 15, clickable-graph: 3
   - by dimension: 2d: 79
   - by gesture: click: 79
-- Quizzes: **499** (v1: 279, hard: 220, expert: 0)
-  - by type: mcq: 311, numeric: 158, multi-select: 9, spot-the-error: 7, matching: 6, ordering: 4, complex: 3, proof-completion: 1
+- Quizzes: **518** (v1: 291, hard: 227, expert: 0)
+  - by type: mcq: 312, numeric: 175, multi-select: 10, spot-the-error: 7, matching: 6, ordering: 4, complex: 3, proof-completion: 1
 
 ## Per-topic
 
@@ -117,8 +117,8 @@ page has wired one in yet.
 - `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=71 (v1=36, hard=35, expert=0)
 - `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
 - `elementary-topos-theory` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
-- `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
-- `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `infinity-categories` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
@@ -174,7 +174,7 @@ page has wired one in yet.
 - `algebraic-spaces` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `intersection-theory-chow` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
 - `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
 - `group-schemes` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
 - `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
@@ -215,18 +215,18 @@ page has wired one in yet.
 - `power-objects` (elementary-topos-theory)
 - `g-set-topos` (elementary-topos-theory)
 - `heyting-algebra` (heyting-algebras-toposes)
-- `omega-as-heyting-algebra` (heyting-algebras-toposes)
 - `internal-language` (heyting-algebras-toposes)
-- `kripke-joyal-semantics` (heyting-algebras-toposes)
-- `lem-failure` (heyting-algebras-toposes)
 - `geometric-morphisms-logic` (heyting-algebras-toposes)
 - `sieves` (grothendieck-topologies-sites)
-- `grothendieck-topology` (grothendieck-topologies-sites)
 - `examples-of-sites` (grothendieck-topologies-sites)
-- `sheaves-on-a-site` (grothendieck-topologies-sites)
-- `topos-of-sheaves` (grothendieck-topologies-sites)
 - `geometric-morphisms-of-sites` (grothendieck-topologies-sites)
 - `simplex-category` (simplicial-sets-and-nerve)
 - `geometric-realization` (simplicial-sets-and-nerve)
 - `kan-complex` (simplicial-sets-and-nerve)
 - `quasi-category` (infinity-categories)
+- `homotopy-category-of-infty` (infinity-categories)
+- `infty-functors` (infinity-categories)
+- `infty-limits` (infinity-categories)
+- `infty-adjunctions` (infinity-categories)
+- `kan-extension` (infinity-categories)
+- `presheaf-infty-topos` (infinity-topoi)

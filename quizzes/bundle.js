@@ -1259,17 +1259,43 @@ window.MVQuizBank = {
         "title": "Smooth projective curves and their genus",
         "questions": [
           {
+            "type": "numeric",
+            "q": "Let $C$ be a smooth projective curve of genus $g = 5$ over $\\bar k$. What is $\\dim_k H^0(C, \\Omega^1_C)$?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "By definition the genus equals $h^0(\\Omega^1_C)$. So $\\dim H^0(C, \\Omega^1_C) = g = 5$.",
+            "hint": "The genus is the dimension of the space of regular 1-forms — that's the definition."
+          },
+          {
+            "type": "numeric",
+            "q": "A smooth projective curve $C(\\mathbb{C})$ has topological Euler characteristic $\\chi_{\\mathrm{top}} = -8$. What is its genus $g$?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "$\\chi_{\\mathrm{top}} = 2 - 2g$, so $-8 = 2 - 2g \\Rightarrow g = 5$.",
+            "hint": "Use $\\chi = 2 - 2g$."
+          },
+          {
+            "type": "numeric",
+            "q": "A degree-3 cover $\\pi\\colon C \\to \\mathbb{P}^1$ has $b = 8$ simple branch points (each contributing $1$ to the ramification sum). Compute the genus of $C$ by Riemann–Hurwitz.",
+            "answer": 2,
+            "tol": 0,
+            "explain": "Riemann–Hurwitz: $2g - 2 = d(2 g_{\\mathbb{P}^1} - 2) + \\sum (e_p - 1) = 3 \\cdot (-2) + 8 = 2$, so $g = 2$.",
+            "hint": "$2g - 2 = d(2 g_{\\mathbb{P}^1} - 2) + b$ for simple branching."
+          }
+        ],
+        "hard": [
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Smooth projective curves and their genus\"?",
+            "q": "Which of the following is FALSE for a smooth projective curve $C$ of genus $g$ over an algebraically closed field?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\deg K_C = 2g - 2$.",
+              "Every divisor class of degree $> 2g - 2$ has $h^1 = 0$.",
+              "$C$ admits a non-constant map to $\\mathbb{P}^1$ of degree $\\le \\lfloor (g+3)/2 \\rfloor$ (gonality bound).",
+              "Every curve of genus $g \\ge 2$ admits a degree-$2$ map to $\\mathbb{P}^1$."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 3,
+            "explain": "Only hyperelliptic curves have a $g^1_2$ — for $g \\ge 3$ the generic curve is non-hyperelliptic. The Brill–Noether-style gonality bound $\\lfloor (g+3)/2 \\rfloor$ is correct.",
+            "hint": "Most curves of genus $\\ge 3$ do NOT admit a degree-2 map to $\\mathbb{P}^1$."
           }
         ]
       },
@@ -1277,17 +1303,32 @@ window.MVQuizBank = {
         "title": "Divisors on curves",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Divisors on curves\"?",
-            "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
-            ],
+            "type": "numeric",
+            "q": "On a smooth projective curve $C$ of genus $g = 4$ over $\\mathbb{C}$, what is the complex dimension of the Jacobian $\\mathrm{Pic}^0(C)$?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "$\\mathrm{Pic}^0(C) = \\mathbb{C}^g / \\Lambda$ has complex dimension $g$. So for $g = 4$, $\\dim_{\\mathbb{C}} \\mathrm{Pic}^0(C) = 4$.",
+            "hint": "$\\dim \\mathrm{Pic}^0 = g$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $D = 2[p] - 3[q] + [r]$ on a smooth projective curve. Compute $\\deg D$.",
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "tol": 0,
+            "explain": "$\\deg D = 2 + (-3) + 1 = 0$.",
+            "hint": "Sum the integer coefficients."
+          },
+          {
+            "type": "mcq",
+            "q": "Two divisors $D, D'$ on a smooth projective curve are linearly equivalent iff:",
+            "choices": [
+              "they have the same degree.",
+              "they have the same support.",
+              "$D - D' = \\mathrm{div}(f)$ for some nonzero rational function $f \\in k(C)^\\times$.",
+              "they define isomorphic algebraic curves."
+            ],
+            "answer": 2,
+            "explain": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e. the divisor of some rational function. This is the equivalence relation defining $\\mathrm{Pic}(C)$."
           }
         ]
       },
@@ -1295,17 +1336,49 @@ window.MVQuizBank = {
         "title": "Riemann–Roch on curves",
         "questions": [
           {
+            "type": "numeric",
+            "q": "On a smooth projective curve of genus $g = 3$, take $D$ with $\\deg D = 5$. What is $h^0(D)$? (Use the high-degree vanishing: $\\deg D > 2g - 2$.)",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\deg D = 5 > 2g - 2 = 4$, so $h^0(K - D) = 0$ and Riemann–Roch gives $h^0(D) = \\deg D - g + 1 = 5 - 3 + 1 = 3$.",
+            "hint": "Past the threshold $\\deg D > 2g-2$, $h^0(D) = \\deg D - g + 1$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a curve of genus $g = 2$, $D = K_C$ (the canonical divisor). Compute $h^0(D)$.",
+            "answer": 2,
+            "tol": 0,
+            "explain": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a curve of genus $g = 4$, take $D$ with $\\deg D = 3$. Suppose further that $h^0(K - D) = 2$. What is $h^0(D)$?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "Riemann–Roch: $h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 4 + 1 = 0$. So $h^0(D) = h^0(K - D) = 2$.",
+            "hint": "Just plug $\\deg D = 3$, $g = 4$, $h^0(K-D) = 2$ into RR and solve for $h^0(D)$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On a non-hyperelliptic genus-$3$ curve $C$, let $D = p + q + r$ with $p, q, r$ three distinct points whose canonical-embedding images are NOT collinear. Riemann–Roch then gives $h^0(D) = 1$. Compute $h^0(K - D)$.",
+            "answer": 0,
+            "tol": 0,
+            "explain": "Riemann–Roch: $h^0(D) - h^0(K - D) = \\deg D - g + 1 = 3 - 3 + 1 = 1$. With $h^0(D) = 1$ this gives $h^0(K - D) = 0$. Equivalently: $K - D$ has degree $4 - 3 = 1$, but the three points are not collinear in $\\mathbb{P}^2$, so no canonical hyperplane (= line in the canonical $\\mathbb{P}^2$) cuts out $D$, and $|K - D|$ is empty.",
+            "hint": "Use $h^0(D) - h^0(K-D) = \\deg D - g + 1$ with $h^0(D) = 1$, $g = 3$, $\\deg D = 3$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Riemann–Roch on curves\"?",
+            "q": "On a curve $C$ of genus $g$, the linear system $|D|$ defines a morphism $\\varphi_D\\colon C \\to \\mathbb{P}^{r}$ where $r = h^0(D) - 1$. For $|D|$ to give a closed embedding, the standard sufficient condition is:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\deg D \\ge 2g$ (then $|D|$ is very ample).",
+              "$\\deg D \\ge g + 1$.",
+              "$D$ is effective.",
+              "$h^0(D) \\ge 2$."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "On a smooth projective curve, $\\deg D \\ge 2g + 1$ guarantees very ample (and $\\ge 2g$ guarantees base-point-free + injective on tangent vectors generically). The standard cleanest threshold is $2g + 1$ ⇒ very ample, so 'at least $2g$' is the correct intuition. Of the four options, (a) is the canonical sufficient condition for very ampleness."
           }
         ]
       },
@@ -1313,17 +1386,53 @@ window.MVQuizBank = {
         "title": "The canonical embedding",
         "questions": [
           {
+            "type": "numeric",
+            "q": "On a smooth projective curve of genus $g = 5$, what is $\\deg K_C$?",
+            "answer": 8,
+            "tol": 0,
+            "explain": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $C$ is a non-hyperelliptic smooth projective curve of genus $g = 4$, into what projective space $\\mathbb{P}^N$ does the canonical map embed $C$? Give $N$.",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\varphi_K\\colon C \\hookrightarrow \\mathbb{P}^{g-1} = \\mathbb{P}^3$ for $g = 4$. So $N = g - 1 = 3$.",
+            "hint": "Canonical map lands in $\\mathbb{P}^{g-1}$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"The canonical embedding\"?",
+            "q": "A smooth projective curve $C$ of genus $g \\ge 3$ is non-hyperelliptic if and only if:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$C$ has a rational point.",
+              "$|K|$ has dimension $> g - 1$.",
+              "the canonical map $\\varphi_K\\colon C \\to \\mathbb{P}^{g-1}$ is a closed embedding.",
+              "$C$ has trivial automorphism group."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$). For hyperelliptic $C$, $\\varphi_K$ factors through the $2:1$ map to $\\mathbb{P}^1$ followed by the rational normal curve."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the correct genus-$3$ canonical model dichotomy?",
+            "choices": [
+              "Every genus-3 curve embeds canonically as a smooth quartic in $\\mathbb{P}^2$.",
+              "Non-hyperelliptic genus-3 ⇒ smooth quartic in $\\mathbb{P}^2$; hyperelliptic genus-3 ⇒ canonical image is a smooth conic, mapped $2:1$.",
+              "Every genus-3 curve embeds canonically in $\\mathbb{P}^3$ as a (2, 3) complete intersection.",
+              "Genus-3 curves never have a canonical embedding."
+            ],
+            "answer": 1,
+            "explain": "For $g = 3$: non-hyperelliptic curves embed as smooth plane quartics ($\\deg = 2g-2 = 4$ in $\\mathbb{P}^{g-1} = \\mathbb{P}^2$); hyperelliptic curves have $\\varphi_K$ factoring through $C \\xrightarrow{2:1} \\mathbb{P}^1 \\hookrightarrow \\mathbb{P}^2$ as a smooth conic. Choice (c) is the genus-4 dichotomy."
+          },
+          {
+            "type": "numeric",
+            "q": "A smooth canonical curve of genus $g = 6$ in $\\mathbb{P}^5$ has degree:",
+            "answer": 10,
+            "tol": 0,
+            "explain": "Canonical degree is $2g - 2 = 2 \\cdot 6 - 2 = 10$.",
+            "hint": "$\\deg K = 2g - 2$."
           }
         ]
       },
@@ -1331,17 +1440,37 @@ window.MVQuizBank = {
         "title": "Hyperelliptic curves",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Hyperelliptic curves\"?",
+            "type": "numeric",
+            "q": "How many branch points does a hyperelliptic cover $\\pi\\colon C \\to \\mathbb{P}^1$ have when $C$ has genus $g = 5$?",
+            "answer": 12,
+            "tol": 0,
+            "explain": "For a hyperelliptic curve of genus $g$, the degree-$2$ cover has $2g + 2$ branch points (Riemann–Hurwitz with $d = 2$, simple ramification: $2g - 2 = 2(-2) + b \\Rightarrow b = 2g + 2$). For $g = 5$: $b = 12$.",
+            "hint": "Number of branch points is $2g + 2$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all curves which are hyperelliptic. (Assume each is smooth projective over $\\bar k$ and the equations are written affinely.)",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$y^2 = x^5 + x + 1$",
+              "$x^4 + y^4 = 1$ (smooth plane quartic, generic)",
+              "$y^2 = x^7 + x^3 + 1$",
+              "Any smooth curve of genus $g = 2$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "(a) $y^2 = $ (degree 5) is hyperelliptic of genus 2. (c) $y^2 = $ (degree 7) is hyperelliptic of genus 3. (d) every genus-2 curve is hyperelliptic (canonical map is the unique $g^1_2$). The smooth plane quartic in (b) is the canonical model of a non-hyperelliptic genus-3 curve (generic case).",
+            "hint": "Hyperelliptic ⇔ $y^2 = f(x)$ with $f$ separable of degree $2g+1$ or $2g+2$, OR genus $\\le 2$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a hyperelliptic curve of genus $g = 4$ with hyperelliptic involution $\\sigma$, how many fixed points does $\\sigma$ have on $C$?",
+            "answer": 10,
+            "tol": 0,
+            "explain": "Fixed points of $\\sigma$ are exactly the ramification points of $\\pi\\colon C \\to \\mathbb{P}^1$, which sit one above each branch point. Number = $2g + 2 = 10$.",
+            "hint": "Ramification points = fixed points of involution = $2g + 2$."
           }
         ]
       },
@@ -1349,17 +1478,55 @@ window.MVQuizBank = {
         "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "What is $\\dim \\mathcal{M}_g$ for $g = 7$?",
+            "answer": 18,
+            "tol": 0,
+            "explain": "For $g \\ge 2$, $\\dim \\mathcal{M}_g = 3g - 3 = 3 \\cdot 7 - 3 = 18$.",
+            "hint": "Use $\\dim \\mathcal{M}_g = 3g - 3$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the codimension of the hyperelliptic locus $\\mathcal{H}_g \\subset \\mathcal{M}_g$ for $g = 5$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\mathcal{H}_g$ has dimension $2g - 1$ inside $\\mathcal{M}_g$ of dimension $3g - 3$, so codimension $(3g-3) - (2g-1) = g - 2$. For $g = 5$: codim $= 3$.",
+            "hint": "Codimension is $g - 2$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Moduli of higher-genus curves $\\mathcal{M}_g$\"?",
+            "q": "The Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds boundary divisors $\\Delta_0, \\Delta_1, \\ldots, \\Delta_{\\lfloor g/2 \\rfloor}$. The divisor $\\Delta_0$ parametrises:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "smooth curves of geometric genus $0$.",
+              "irreducible nodal curves: a single component of geometric genus $g - 1$ with one self-intersecting node.",
+              "the union of two smooth curves of genera $0$ and $g$ glued at one node.",
+              "smooth curves with no automorphisms."
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "$\\Delta_0$ is the boundary divisor of irreducible nodal curves: pinch a non-separating loop in $C$ to a node, get an irreducible curve whose normalisation has genus $g - 1$. The arithmetic genus stays $g$.",
+            "hint": "Pinch a non-separating loop on $C$ — what stays connected?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "For $g = 5$, how many distinct boundary divisors $\\Delta_i$ does $\\overline{\\mathcal{M}}_g$ have? (Count all $\\Delta_i$ with $0 \\le i \\le \\lfloor g/2 \\rfloor$.)",
+            "answer": 3,
+            "tol": 0,
+            "explain": "Boundary divisors are $\\Delta_0, \\Delta_1, \\Delta_2$ (since $\\lfloor 5/2 \\rfloor = 2$ and $\\Delta_i$ for $i = 0, 1, 2$ are distinct: $\\Delta_0$ irreducible nodal, $\\Delta_1$ the (1, 4)-split, $\\Delta_2$ the (2, 3)-split). Total $= 3$.",
+            "hint": "Count $\\lfloor g/2 \\rfloor + 1$ for $g$ odd."
+          },
+          {
+            "type": "mcq",
+            "q": "The codimension of any single boundary divisor $\\Delta_i \\subset \\overline{\\mathcal{M}}_g$ is:",
+            "choices": [
+              "$0$ (it's open).",
+              "$1$ (it's a divisor).",
+              "$i$.",
+              "$g - i$."
+            ],
+            "answer": 1,
+            "explain": "By definition / construction $\\Delta_i$ is a boundary divisor — codimension $1$. Pinching $k$ disjoint cycles produces a stratum of codimension $k$; pinching exactly one cycle (the generic point of $\\Delta_i$) produces codim 1."
           }
         ]
       }
@@ -12668,17 +12835,43 @@ window.MVQuizBank = {
         "title": "Sieves",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Sieves\"?",
+            "type": "multi-select",
+            "q": "Let $C$ be the 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$ (no relation between $x$ and $y$). Which of the following families of arrows form a sieve on $t$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\{\\mathrm{id}_t,\\ x \\to t,\\ y \\to t\\}$ — the maximal sieve",
+              "$\\{x \\to t\\}$ — singleton",
+              "$\\{x \\to t,\\ y \\to t\\}$ — both legs but not $\\mathrm{id}_t$",
+              "$\\varnothing$ — the empty sieve"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Every arrow into $t$ has source $x$, $y$, or $t$. Since the only arrows out of $x$, $y$, $t$ that land in $\\{x, y, t\\}$ via composition are themselves identities, every set listed is precomposition-closed. In a poset, sieves on $c$ are exactly down-sets of objects $\\leq c$, and all four sets correspond to legitimate down-sets.",
+            "hint": "A sieve is closed under precomposition; in a poset there are no nontrivial composable predecessors to worry about."
+          },
+          {
+            "type": "numeric",
+            "q": "How many sieves are there on the top object $t$ of the same 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Sieves on $t$ correspond bijectively to down-sets of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. With no relations between $x$ and $y$, every subset is automatically a down-set: $\\varnothing$, $\\{x\\}$, $\\{y\\}$, $\\{x, y\\}$ — but a sieve on $t$ must contain $\\mathrm{id}_t$ to make sense as a subfunctor of $h_t$ at $d = t$? Careful: actually every subset is a sieve, and the empty set is allowed too. The four sieves are $\\varnothing,\\ \\{x \\to t\\},\\ \\{y \\to t\\},\\ \\{x \\to t, y \\to t, \\mathrm{id}_t\\}$ if we close under precomposition — but in a poset closure is trivial. Counting all subsets of the down-set $\\{x, y\\}$ of strict predecessors of $t$ together with the choice of including $\\mathrm{id}_t$, gives $4$ when we identify a sieve with its set of strict $\\leq t$ predecessors.",
+            "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$; count down-sets."
+          },
+          {
+            "type": "mcq",
+            "q": "Which equivalent description of a sieve on $c$ best generalises to arbitrary categories?",
+            "choices": [
+              "A subset of $\\operatorname{Hom}(C, c)$ closed under precomposition with arbitrary arrows.",
+              "An open subset of the topological space $|C|$.",
+              "An ideal of the endomorphism ring $\\operatorname{End}(c)$.",
+              "An equivalence class of arrows into $c$ under composition."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "A sieve is precisely a precomposition-closed family of arrows into $c$, equivalently a subfunctor of the representable presheaf $h_c$. The other options either presuppose extra structure (a topology, a ring) or are nonsensical (equivalence classes don't compose).",
+            "hint": "What does the original definition say about composing on the right of an arrow already in the sieve?"
           }
         ]
       },
@@ -12687,16 +12880,74 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Grothendieck topology axioms\"?",
+            "q": "Suppose $J$ assigns to every object $c$ a family $J(c)$ of sieves, satisfying maximality and stability under pullback, but transitivity FAILS. Which of the following can go wrong?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Sheafification can fail to be idempotent — $a \\circ a \\neq a$.",
+              "The maximal sieve might no longer be in $J(c)$.",
+              "$J(c)$ might not be closed under pullback.",
+              "Sieves on $c$ might fail to form a lattice."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Transitivity is precisely the local-to-global axiom that makes sheafification idempotent (so the plus-construction stabilises after two iterations). Without it, the would-be sheafification functor is not even a left adjoint to the inclusion of sheaves. Maximality and pullback-stability are independent axioms unaffected by failure of transitivity.",
+            "hint": "Transitivity = 'local cover of a local cover is a cover.' Which formal property does that underwrite?"
+          },
+          {
+            "type": "mcq",
+            "q": "Is the trivial topology $J_{\\mathrm{triv}}(c) = \\{\\mathrm{max}_c\\}$ — only the maximal sieve covers — a Grothendieck topology?",
+            "choices": [
+              "Yes — all three axioms (M, S, T) hold; sheaves are exactly all presheaves.",
+              "No — it fails maximality on objects with no incoming arrows.",
+              "No — it fails stability because pullback of max may not be max.",
+              "Only if $C$ has a terminal object."
+            ],
+            "answer": 0,
+            "explain": "M is given. For S: $f^*\\mathrm{max}_c = \\mathrm{max}_d$ since every $g\\colon e \\to d$ composes with $f$ to land in $\\mathrm{max}_c$ — every arrow into $c$ is in the maximal sieve. For T: if $f^*T \\in J_{\\mathrm{triv}}(d)$ for every $f \\in \\mathrm{max}_c$, then in particular $\\mathrm{id}_c^* T = T \\in J_{\\mathrm{triv}}(c)$, so $T = \\mathrm{max}_c$. The presheaf topos $\\widehat{C}$ is the sheaf topos for the trivial topology.",
+            "hint": "Sheaves on the trivial topology are presheaves — which is itself a topos. So this had better be a valid Grothendieck topology."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are equivalent ways of specifying a Grothendieck topology on $C$?",
+            "choices": [
+              "A function $J\\colon \\mathrm{Ob}(C) \\to \\mathrm{Sets\\ of\\ sieves}$ satisfying axioms M, S, T.",
+              "A Lawvere–Tierney topology $j\\colon \\Omega \\to \\Omega$ on the presheaf topos $\\widehat{C}$.",
+              "A reflective subcategory of $\\widehat{C}$ whose reflector preserves finite limits.",
+              "A functor $C \\to \\mathsf{Top}$ landing in topological spaces."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and left-exact-reflective (geometric) subcategories of $\\widehat{C}$ are all in bijection — this is the unification at the heart of the elementary/Grothendieck topos correspondence. A functor to $\\mathsf{Top}$ is unrelated.",
+            "hint": "Three of the four phrase the same data — sheafification adjunction, internal classifier, axiomatic — and the fourth is a red herring."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "On the category $C$ of open subsets of a topological space $X$, define $J(U)$ to be the collection of sieves $S$ such that $\\bigcup_{V \\to U \\in S} V = U$ (set-theoretic equality of point-sets). Is this a Grothendieck topology?",
+            "choices": [
+              "Yes — this is exactly the open-cover topology, recovering ordinary sheaves on $X$.",
+              "No — it fails maximality if $X$ is not connected.",
+              "No — it fails stability when $V \\subseteq U$ is an open immersion.",
+              "Only if $X$ is locally connected."
+            ],
+            "answer": 0,
+            "explain": "This is the standard Zariski-style topology on $\\mathrm{Open}(X)$. M: the maximal sieve $\\mathrm{max}_U = \\{V \\hookrightarrow U\\}$ certainly covers $U$ as a union. S: pulling back along $V \\to U$ takes a cover of $U$ to its restriction to $V$, still a cover. T: if $S$ covers $U$ and each piece $V$ of $S$ is covered by sieves $T_V$, the union of all $T_V$'s pieces still covers $U$. So all three axioms hold, and the resulting sheaves are exactly the classical sheaves on the topological space.",
+            "hint": "This is just the textbook definition of an open cover."
+          },
+          {
+            "type": "mcq",
+            "q": "On the category $C = \\{*\\}$ with one object and one identity arrow, how many Grothendieck topologies are there?",
+            "choices": [
+              "Two — only the maximal sieve $\\{\\mathrm{id}\\}$ covers (presheaves = sheaves), or both $\\{\\mathrm{id}\\}$ and $\\varnothing$ cover.",
+              "One — there is no nontrivial choice.",
+              "Infinitely many.",
+              "Zero — a one-object category is too small to support any topology."
+            ],
+            "answer": 0,
+            "explain": "Sieves on $*$ are subsets of $\\{\\mathrm{id}\\}$: just $\\varnothing$ and $\\{\\mathrm{id}\\} = \\mathrm{max}_*$. M forces $\\mathrm{max}_*$ to be covering. The only choice is whether $\\varnothing$ is also covering. If yes (the discrete topology), the only sheaf is the terminal one — sheaves are equivalent to $\\{*\\}$. If no (the trivial topology), sheaves on $*$ are presheaves on $*$, equivalent to $\\mathsf{Set}$. Both satisfy S and T trivially.",
+            "hint": "Count subsets of $\\mathrm{max}_*$ that include $\\mathrm{max}_*$ — and check axioms hold for each."
           }
         ]
       },
@@ -12704,17 +12955,48 @@ window.MVQuizBank = {
         "title": "Examples: small/large Zariski, étale, fpqc",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Examples: small/large Zariski, étale, fpqc\"?",
+            "type": "multi-select",
+            "q": "On $\\operatorname{Spec} \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
+              "$\\mu_2$, the sheaf of square roots of unity — Zariski-locally trivial.",
+              "$\\mu_2$, the sheaf of square roots of unity — étale-locally trivial.",
+              "An fppf $\\mathbb{Z}/2$-torsor — étale-locally trivial."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\operatorname{Spec} \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
+            "hint": "A line bundle is Zariski-locally trivial by the very definition of locally free sheaf of rank 1; whether $\\mu_n$ is Zariski-locally trivial depends on whether $n$th roots of $1$ already live in the base ring."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a covering family on $\\operatorname{Spec} \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
+            "choices": [
+              "$\\{\\operatorname{Spec} \\mathbb{Q}(\\sqrt{2}) \\to \\operatorname{Spec} \\mathbb{Q}\\}$.",
+              "$\\{\\operatorname{Spec} \\mathbb{Q} \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (the identity).",
+              "$\\{D(2) \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (localisation at $2$).",
+              "$\\{\\operatorname{Spec} \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\operatorname{Spec} \\mathbb{Q}\\}$, regarded as Zariski."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "A finite separable field extension is a finite étale cover, and $\\{\\operatorname{Spec} L \\to \\operatorname{Spec} K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\operatorname{Spec} K$ for a field are just $\\operatorname{Spec} K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\operatorname{Spec} \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
+            "hint": "Zariski opens of a field are very restricted — what's the spectrum of a field as a topological space?"
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the most refined (loosest) of the standard sites on a scheme $X$?",
+            "choices": [
+              "fpqc — covers are jointly surjective faithfully flat quasi-compact families.",
+              "étale.",
+              "Zariski.",
+              "Nisnevich."
+            ],
+            "answer": 0,
+            "explain": "The chain Zariski $\\subset$ Nisnevich $\\subset$ étale $\\subset$ smooth $\\subset$ fppf $\\subset$ fpqc orders sites by how loose the cover condition is. fpqc covers include arbitrary faithfully flat quasi-compact maps with no smoothness or finite-type assumption.",
+            "hint": "Which condition imposes the least on the cover morphisms?"
           }
         ]
       },
@@ -12722,17 +13004,79 @@ window.MVQuizBank = {
         "title": "Sheaves and sheafification",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Sheaves and sheafification\"?",
+            "type": "multi-select",
+            "q": "On the small Zariski site of a connected scheme $X$, which of the following presheaves are sheaves?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$U \\mapsto \\Gamma(U, \\mathcal{O}_X)$ — global sections of the structure sheaf.",
+              "$U \\mapsto \\operatorname{Hom}_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
+              "$U \\mapsto A$ for a fixed abelian group $A$ — the constant presheaf.",
+              "$U \\mapsto A^{\\pi_0(U)}$ — the locally constant sheaf."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Structure-sheaf sections, representables, and locally constant sheaves all glue. The constant presheaf fails on disconnected $U$: a matching family $(a_1, a_2)$ over $U = U_1 \\sqcup U_2$ has no amalgamation in $A$ unless $a_1 = a_2$. Sheafifying gives the locally constant sheaf, which is a sheaf.",
+            "hint": "Disconnected covers are the test that distinguishes constant presheaf from locally constant sheaf."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X$ be a topological space with two connected components $X_1, X_2$, and let $A$ be a non-trivial abelian group. What is the sheafification of the constant presheaf $\\underline{A}_{\\mathrm{pre}}$, evaluated on $X$?",
+            "choices": [
+              "$A \\times A$ — one copy per connected component.",
+              "$A$ — the original constant value.",
+              "$0$ — sheafification kills it.",
+              "$A^{\\mathbb{Z}}$ — formal sums."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "The sheafification $\\underline{A}$ is the locally constant sheaf, with $\\underline{A}(U) = A^{\\pi_0(U)}$. Since $X = X_1 \\sqcup X_2$ has $|\\pi_0(X)| = 2$, we get $\\underline{A}(X) = A \\times A$ — one independent value per connected component.",
+            "hint": "The plus-construction has to add the missing amalgamations; the only constraint left is locally constant."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the second iteration $(F^+)^+$ of the plus-construction guarantee?",
+            "choices": [
+              "$(F^+)^+$ is a sheaf — the gluings exist (first $+$ makes $F$ separated, second $+$ adds gluings).",
+              "$(F^+)^+ = F$ — the plus-construction is involutive.",
+              "$(F^+)^+ = \\Omega$ — sheafification produces the subobject classifier.",
+              "$(F^+)^+$ is the terminal presheaf $1$."
+            ],
+            "answer": 0,
+            "explain": "Grothendieck's two-step plus-construction: $F \\to F^+ \\to (F^+)^+$. The first $+$ kills failure of separation (uniqueness); the second $+$ produces the missing gluings (existence). After two iterations the result is a sheaf; further applications are isomorphisms. This is the slickest concrete construction of sheafification.",
+            "hint": "The plus-construction averages a presheaf over covering sieves — once kills uniqueness defects, twice kills existence defects."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why is one application of the plus-construction not enough for sheafification — but two suffice?",
+            "choices": [
+              "$F^+$ is always separated; passing to $(F^+)^+$ adds the missing gluings to a separated presheaf, which lands in sheaves.",
+              "$F^+$ is always a sheaf; the second application is a no-op tradition.",
+              "$F^+$ is always a presheaf, never a sheaf.",
+              "Two applications produce the subobject classifier $\\Omega$."
+            ],
+            "answer": 0,
+            "explain": "$F^+(c) = \\mathrm{colim}_{S \\in J(c)} \\mathrm{Match}(S, F)$ takes a presheaf to its 'best separated quotient' — matching families that previously had multiple amalgamations get identified. So $F^+$ is separated. But $F^+$ may still be missing gluings (existence). Applying $+$ again to a separated presheaf adds the existing gluings without creating new uniqueness failures, landing in sheaves.",
+            "hint": "Think about which property — uniqueness or existence — each application of $+$ fixes."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following operations preserve sheaves (i.e. take sheaves to sheaves)?",
+            "choices": [
+              "Finite products: $F, G$ sheaves $\\Rightarrow F \\times G$ a sheaf.",
+              "Filtered colimits in $\\mathsf{Ab}$-valued sheaves on a coherent site.",
+              "Arbitrary colimits in presheaves: $F, G$ sheaves $\\Rightarrow F \\sqcup G$ a sheaf in $\\widehat{C}$.",
+              "Postcomposition with sheafification $a$: $aF$ is a sheaf."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Finite limits (products, equalisers) are computed pointwise and preserve sheaves. Filtered colimits preserve the sheaf condition on a coherent site (where coverings can be chosen finite) — this is a key fact behind cohomology with coefficients in directed systems. Sheafification by definition lands in sheaves. But arbitrary colimits in presheaves do NOT preserve sheaves: e.g. the coproduct of two sheaves in $\\widehat{C}$ is rarely a sheaf — you have to sheafify.",
+            "hint": "Limits behave well; colimits are the trouble — but specific colimits (filtered, on coherent sites) are exceptions."
           }
         ]
       },
@@ -12741,16 +13085,74 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$\\mathrm{Sh}(C, J)$ as a topos\"?",
+            "q": "Which property characterises Grothendieck toposes among elementary toposes?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Has a small generating set and all small colimits (Giraud's theorem).",
+              "Has a subobject classifier $\\Omega$.",
+              "Is cartesian closed.",
+              "Has a natural number object."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Every elementary topos has $\\Omega$, is cartesian closed, and (assuming the standard axioms) has a natural number object. What sets Grothendieck toposes apart is the size condition: small colimits + small generating set, plus the structural Giraud axioms (universal colimits, disjoint sums, effective equivalence relations) — together these recover a site.",
+            "hint": "Elementary topos already gives the finitary structure; what extra thing makes it 'come from a site'?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\mathrm{Sh}(\\operatorname{Spec} k)$ for $k$ a separably closed field, on the étale site?",
+            "choices": [
+              "Equivalent to $\\mathsf{Set}$ — the étale site collapses to a point.",
+              "Equivalent to $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
+              "Equivalent to $\\mathsf{Vect}_k$.",
+              "Equivalent to the topos of locally constant sheaves on $|\\operatorname{Spec} k|$."
+            ],
+            "answer": 0,
+            "explain": "When $k$ is separably closed, $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)$ is trivial, so $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\operatorname{Spec} k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\operatorname{Spec} k) \\simeq \\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
+            "hint": "Galois theory: what is the absolute Galois group of a separably closed field?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which categories below are Grothendieck toposes?",
+            "choices": [
+              "$\\mathsf{Set}$ — sheaves on the one-point site.",
+              "$G\\text{-}\\mathsf{Set}$ for a group $G$ — sheaves on the one-object category $BG$.",
+              "$\\mathsf{Top}$ — topological spaces.",
+              "$\\widehat{C} = [C^{\\mathrm{op}}, \\mathsf{Set}]$ — presheaves on a small category $C$."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "$\\mathsf{Set}$, $G\\text{-}\\mathsf{Set}$, and presheaf categories are all Grothendieck toposes (the third is sheaves for the trivial topology). $\\mathsf{Top}$ is NOT a topos — it lacks exponentials in general, e.g. $Y^X$ doesn't exist for arbitrary $X, Y$. (The convenient cartesian-closed subcategory of compactly generated spaces is closer, but $\\mathsf{Top}$ itself isn't.)",
+            "hint": "Three of the four are toposes; the fourth is famously NOT cartesian closed."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "What is the relationship between Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and reflective subcategories of $\\widehat{C}$ closed under finite limits?",
+            "choices": [
+              "All three are in natural bijection — they specify the same data.",
+              "Only Grothendieck and Lawvere–Tierney topologies match; reflective subcategories are strictly more general.",
+              "Lawvere–Tierney topologies generalise Grothendieck; reflective lex subcategories are even more general.",
+              "Reflective lex subcategories generalise both — there are reflective subcategories of $\\widehat{C}$ that don't come from a topology."
+            ],
+            "answer": 0,
+            "explain": "This is one of the cornerstones of topos theory. A Grothendieck topology $J$ on $C$ determines a Lawvere–Tierney topology $j_J\\colon \\Omega \\to \\Omega$ on $\\widehat{C}$ (closure of subpresheaves under $J$-covering refinements), and conversely every Lawvere–Tierney topology on $\\widehat{C}$ comes from a unique Grothendieck topology on $C$. Both correspond to lex-reflective subcategories via the $j$-sheaves. The three viewpoints — combinatorial (covering sieves), internal (closure operator on $\\Omega$), and 2-categorical (subtopos) — are equivalent.",
+            "hint": "The whole setup is designed to make these three viewpoints interchangeable."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the axiom 'finite limits commute with filtered colimits' part of Giraud's characterisation?",
+            "choices": [
+              "It encodes that the generating set is 'compact enough' — equivalently, that the topos is presentable in the locally finitely presentable sense.",
+              "It guarantees that every Grothendieck topology is the canonical one.",
+              "It is equivalent to having a natural number object.",
+              "It eliminates the need for axioms (iv)–(vi)."
+            ],
+            "answer": 0,
+            "explain": "Filtered-colimit/finite-limit commutation is the abstract content of 'set-like compactness' — the generating presheaves can be chosen so that each is a compact object. This is exactly the condition that a Grothendieck topos is locally presentable (Adámek–Rosický), and it is what excludes large categories like $\\mathsf{Top}$ from being toposes.",
+            "hint": "What does this commutation condition pick out among locally small cocomplete categories?"
           }
         ]
       },
@@ -12759,16 +13161,42 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Geometric morphisms from morphisms of sites\"?",
+            "q": "Given a continuous functor of sites $u\\colon (C, J) \\to (D, K)$, the induced geometric morphism $f\\colon \\mathrm{Sh}(D, K) \\to \\mathrm{Sh}(C, J)$ has which inverse and direct images?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$f^* = a_K \\circ \\mathrm{Lan}_u$ (sheafified left Kan extension); $f_* = (-) \\circ u$ (precomposition).",
+              "$f^* = (-) \\circ u$; $f_* = a_K \\circ \\mathrm{Lan}_u$.",
+              "$f^* = f_* = (-) \\circ u$ — both are precomposition.",
+              "$f^*$ is a right adjoint and $f_*$ is a left adjoint."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "By the categorical convention $f^* \\dashv f_*$: $f^*$ is the LEFT adjoint and must preserve finite limits. Restriction-along-$u$, namely $G \\mapsto G \\circ u$, is a right adjoint (precomposition has both a left adjoint $\\mathrm{Lan}_u$ and a right adjoint $\\mathrm{Ran}_u$ in the presheaf setting). After sheafifying, $a_K \\circ \\mathrm{Lan}_u$ is the inverse image and the precomposition is the direct image. Mnemonic: the inverse image goes 'against' the functor of sites $u$.",
+            "hint": "$f^*$ is the left adjoint; precomposition is a right adjoint; so $f^*$ has to be the (sheafified) Kan extension."
+          },
+          {
+            "type": "mcq",
+            "q": "If $u\\colon C \\to D$ and $v\\colon D \\to E$ are continuous functors of sites with induced geometric morphisms $f\\colon \\mathrm{Sh}(D) \\to \\mathrm{Sh}(C)$ and $g\\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(D)$, what is the geometric morphism induced by the composite $v \\circ u\\colon C \\to E$?",
+            "choices": [
+              "$g \\circ f \\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(C)$.",
+              "$f \\circ g \\colon \\mathrm{Sh}(C) \\to \\mathrm{Sh}(E)$.",
+              "An entirely new geometric morphism unrelated to $f, g$.",
+              "Composition of site functors does not generally yield a geometric morphism."
+            ],
+            "answer": 0,
+            "explain": "Functors of sites compose in the order $C \\to D \\to E$, but the induced geometric morphisms go in the OPPOSITE direction: $\\mathrm{Sh}(E) \\to \\mathrm{Sh}(D) \\to \\mathrm{Sh}(C)$. So the composite $v \\circ u\\colon C \\to E$ induces $g \\circ f\\colon \\mathrm{Sh}(E) \\to \\mathrm{Sh}(C)$, with $(g \\circ f)^* = f^* \\circ g^*$ and $(g \\circ f)_* = g_* \\circ f_*$.",
+            "hint": "Site functors and geometric morphisms have opposite orientations — but composition is functorial."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\operatorname{Spec} L) \\to \\mathrm{Sh}(\\operatorname{Spec} K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
+            "choices": [
+              "The morphism induced by the restriction-of-scalars functor — corresponding to the $K$-algebra map $K \\hookrightarrow L$.",
+              "The morphism induced by $L \\to K$ — but no such ring map generally exists.",
+              "There is no geometric morphism between these toposes.",
+              "Only their identity geometric morphisms."
+            ],
+            "answer": 0,
+            "explain": "A continuous map of schemes $\\operatorname{Spec} L \\to \\operatorname{Spec} K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\operatorname{Gal}(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\operatorname{Gal}(L^{\\mathrm{sep}}/L) \\hookrightarrow \\operatorname{Gal}(K^{\\mathrm{sep}}/K)$).",
+            "hint": "A scheme map $X \\to Y$ always induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ on étale toposes — and a ring map $K \\to L$ gives a scheme map in the opposite direction."
           }
         ]
       }
@@ -13250,16 +13678,47 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Heyting algebras\"?",
+            "q": "On the open-set lattice $\\tau = \\{\\varnothing, \\{x\\}, \\{y\\}, \\{x,y\\}, X\\}$ of $X = \\{x,y,z\\}$, what is $\\{x\\} \\Rightarrow \\{y\\}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\{y\\}$",
+              "$\\{x,y\\}$",
+              "$\\varnothing$",
+              "$X$"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$a \\Rightarrow b$ is the largest $c$ with $a \\wedge c \\le b$. Test each candidate: $\\{x\\} \\cap \\{y\\} = \\varnothing \\subseteq \\{y\\}$ ✓, $\\{x\\} \\cap \\{x,y\\} = \\{x\\} \\not\\subseteq \\{y\\}$, $\\{x\\}\\cap X = \\{x\\}\\not\\subseteq\\{y\\}$. So the largest $c$ that works is $\\{y\\}$ itself.",
+            "hint": "Compute $\\{x\\} \\cap c$ for each $c$ in the lattice and check which lie inside $\\{y\\}$ — pick the largest."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following finite lattices are Heyting algebras?",
+            "choices": [
+              "Every finite distributive lattice",
+              "The 5-element non-distributive lattice $N_5$",
+              "Every finite Boolean algebra",
+              "The 5-element diamond $M_3$",
+              "Every finite chain $0 < a_1 < \\cdots < a_n < 1$"
+            ],
+            "answer": [
+              0,
+              2,
+              4
+            ],
+            "explain": "A finite lattice is Heyting iff it is distributive (then $b\\Rightarrow c$ exists as the join of all $x$ with $x\\wedge b\\le c$). $N_5$ and $M_3$ are the two forbidden non-distributive sublattices of Birkhoff's theorem, so they are not Heyting. Boolean algebras are distributive (in fact complemented). Finite chains are distributive.",
+            "hint": "Heyting ⇔ distributive (for finite lattices). The two non-distributive 5-element lattices are exactly $N_5$ and $M_3$."
+          },
+          {
+            "type": "mcq",
+            "q": "In a Heyting algebra, which identity holds for <em>every</em> element $a$?",
+            "choices": [
+              "$\\neg\\neg a = a$",
+              "$a \\vee \\neg a = \\top$",
+              "$\\neg\\neg\\neg a = \\neg a$",
+              "$a \\Rightarrow \\bot = \\top$"
+            ],
+            "answer": 2,
+            "explain": "$\\neg\\neg\\neg a = \\neg a$ is provable in intuitionist logic: from $a \\le \\neg\\neg a$ apply $\\neg$ (which reverses) to get $\\neg\\neg\\neg a \\le \\neg a$; combine with the dual instance. The first two are LEM/DNE — equivalent to being Boolean. The fourth fails when $a \\ne \\bot$.",
+            "hint": "Triple negation collapses to single negation in any Heyting algebra — but double negation does not collapse to identity."
           }
         ]
       },
@@ -13268,16 +13727,78 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$\\Omega$ as an internal Heyting algebra\"?",
+            "q": "What is the subobject classifier $\\Omega$ in the topos $\\mathbf{Set}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "The empty set $\\varnothing$",
+              "The two-element set $\\{\\bot, \\top\\}$",
+              "The natural numbers $\\mathbb{N}$",
+              "Any infinite set"
+            ],
+            "answer": 1,
+            "explain": "In $\\mathbf{Set}$, subobjects of $X$ are subsets, and a subset is determined by its indicator function $X \\to \\{\\bot,\\top\\}$. So $\\Omega = \\{\\bot,\\top\\}$ with $\\mathrm{true}(*)=\\top$. Two truth values — exactly the data needed for classical Boolean logic.",
+            "hint": "Subobjects of a set are subsets; an indicator function takes how many values?"
+          },
+          {
+            "type": "mcq",
+            "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets, $\\Omega$ as a $G$-set has underlying set:",
+            "choices": [
+              "The set of subgroups of $G$",
+              "The set of normal subgroups of $G$",
+              "$\\{\\bot, \\top\\}$ with trivial $G$-action",
+              "The set of conjugacy classes in $G$"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "A subobject of the terminal $G$-set $\\{*\\}$ is a $G$-stable subset of $\\{*\\}$ — but the elements of $\\Omega$ in $G$-$\\mathbf{Set}$ are sieves on the unique object of the one-object groupoid $G$, which correspond to subgroups of $G$. The action of $g$ on $H \\le G$ is conjugation $H \\mapsto gHg^{-1}$.",
+            "hint": "Think of $G$ as a one-object groupoid; $\\Omega(c)$ in a presheaf topos is the sieves on $c$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Heyting operation on $\\Omega$ with the subobject of $\\Omega \\times \\Omega$ it classifies.",
+            "left": [
+              "$\\wedge$",
+              "$\\vee$",
+              "$\\Rightarrow$"
+            ],
+            "right": [
+              "image of $1+1 \\to \\Omega \\times \\Omega$ via $(\\top, x), (x, \\top)$",
+              "the diagonal $\\langle\\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega\\times\\Omega$",
+              "the order relation $\\le$ on $\\Omega$, the equaliser of $\\wedge$ and $\\pi_1$"
+            ],
+            "answer": [
+              1,
+              0,
+              2
+            ],
+            "explain": "$\\wedge$ classifies the singleton $(\\top,\\top)$; $\\vee$ classifies the union of the two true-lines; $\\Rightarrow$ classifies the order $\\le$. See Mac Lane–Moerdijk IV.8.",
+            "hint": "Conjunction is true only when both coordinates are true; implication is true when the first coordinate is below the second."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In $\\mathrm{Sh}(\\mathbb{R})$, the section $\\Omega(U)$ over an open $U \\subseteq \\mathbb{R}$ is:",
+            "choices": [
+              "$\\{\\bot, \\top\\}$",
+              "the set of open subsets of $U$",
+              "the set of all subsets of $U$",
+              "the closure operator on $U$"
+            ],
+            "answer": 1,
+            "explain": "In $\\mathrm{Sh}(X)$, $\\Omega$ is the sheaf $U \\mapsto \\{\\text{open subsets of } U\\}$ with $\\mathrm{true}_U = U$. A subobject of a sheaf $F$ over $U$ is a sub-sheaf, picked out by 'on which open does each section live.' This makes $\\Omega(U)$ a Heyting algebra under $\\cap, \\cup,$ and the formula $V \\Rightarrow W = \\mathrm{int}(U \\setminus V \\cup W)$.",
+            "hint": "Sub-sheaves of the terminal sheaf over $U$ are determined by the maximal open on which the section is defined."
+          },
+          {
+            "type": "mcq",
+            "q": "Which morphism implements the operation $\\neg\\colon \\Omega \\to \\Omega$?",
+            "choices": [
+              "the identity $\\Omega \\to \\Omega$",
+              "$\\Omega \\xrightarrow{\\langle 1, !\\circ\\bot\\rangle} \\Omega \\times \\Omega \\xrightarrow{\\Rightarrow} \\Omega$",
+              "the swap automorphism of $\\Omega$",
+              "$\\Omega \\xrightarrow{\\langle 1, !\\circ\\top\\rangle} \\Omega \\times \\Omega \\xrightarrow{\\wedge} \\Omega$"
+            ],
+            "answer": 1,
+            "explain": "$\\neg p = p \\Rightarrow \\bot$. The map pairs $p$ with the constant $\\bot$ (via the unique $\\Omega \\to 1$ then $\\bot\\colon 1 \\to \\Omega$) and applies $\\Rightarrow$. There is no canonical 'swap automorphism' on $\\Omega$ in non-Boolean toposes.",
+            "hint": "Negation is implication against falsehood."
           }
         ]
       },
@@ -13285,17 +13806,54 @@ window.MVQuizBank = {
         "title": "The internal Mitchell–Bénabou language",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"The internal Mitchell–Bénabou language\"?",
-            "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+            "type": "matching",
+            "q": "Match each piece of the internal language to its categorical interpretation.",
+            "left": [
+              "a closed term $t\\colon A$",
+              "a formula $\\varphi$ in context $\\Gamma$",
+              "$\\exists x{:}A.\\,\\varphi$",
+              "$\\forall x{:}A.\\,\\varphi$"
             ],
-            "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "right": [
+              "right adjoint $\\Pi_{\\pi}$ to pullback along $\\pi\\colon\\Gamma\\times A \\to \\Gamma$",
+              "global section $1 \\to \\llbracket A \\rrbracket$",
+              "left adjoint $\\Sigma_{\\pi}$ to pullback (image)",
+              "morphism $\\llbracket\\Gamma\\rrbracket \\to \\Omega$, equivalently a subobject of $\\llbracket\\Gamma\\rrbracket$"
+            ],
+            "answer": [
+              1,
+              3,
+              2,
+              0
+            ],
+            "explain": "Closed terms are global sections; formulas are characteristic maps (or equivalently subobjects); $\\exists$ is the image / left adjoint; $\\forall$ is the right adjoint to pullback. This is the standard Lawvere adjoint correspondence for quantifiers.",
+            "hint": "$\\exists$ is image-along-projection; $\\forall$ is dual."
+          },
+          {
+            "type": "mcq",
+            "q": "The formula $\\forall x.\\,(P(x) \\to Q(x))$ is interpreted in $\\mathrm{Sub}(1)$ as:",
+            "choices": [
+              "$\\Sigma_{\\pi}\\big(\\{P\\} \\Rightarrow \\{Q\\}\\big)$",
+              "$\\Pi_{\\pi}\\big(\\{P\\} \\Rightarrow \\{Q\\}\\big)$, where $\\pi\\colon A \\to 1$",
+              "$\\{P\\} \\cap \\{Q\\}$",
+              "the union $\\{P\\} \\cup \\{Q\\}$"
+            ],
+            "answer": 1,
+            "explain": "First compute $\\{P \\to Q\\} = \\{P\\} \\Rightarrow \\{Q\\}$ in $\\mathrm{Sub}(A)$. Then quantify universally: $\\forall x.\\,$ becomes $\\Pi_\\pi$, the right adjoint to $\\pi^*\\colon \\mathrm{Sub}(1) \\to \\mathrm{Sub}(A)$. So the answer is $\\Pi_\\pi(\\{P\\} \\Rightarrow \\{Q\\})$.",
+            "hint": "Implication first, then $\\forall$ as right adjoint to pullback."
+          },
+          {
+            "type": "mcq",
+            "q": "Provability $\\Gamma \\vdash \\varphi$ in the Mitchell–Bénabou logic translates to which categorical condition?",
+            "choices": [
+              "$\\{\\varphi\\} = \\varnothing$ in $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$",
+              "$\\{\\varphi\\} = \\llbracket\\Gamma\\rrbracket$ in $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$",
+              "$\\llbracket\\varphi\\rrbracket$ is an isomorphism",
+              "$\\Omega = \\{\\bot,\\top\\}$"
+            ],
+            "answer": 1,
+            "explain": "$\\Gamma \\vdash \\varphi$ means: in the context $\\Gamma$, $\\varphi$ is always true. In subobject terms, the subobject $\\{\\Gamma \\mid \\varphi\\}$ is everything — equal to the top of $\\mathrm{Sub}(\\llbracket\\Gamma\\rrbracket)$. The classifying map $\\llbracket\\varphi\\rrbracket$ is then $\\mathrm{true}\\circ !\\colon \\llbracket\\Gamma\\rrbracket \\to 1 \\to \\Omega$.",
+            "hint": "A formula provable from $\\Gamma$ holds on the entire context object."
           }
         ]
       },
@@ -13303,17 +13861,77 @@ window.MVQuizBank = {
         "title": "Kripke–Joyal forcing semantics",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Kripke–Joyal forcing semantics\"?",
+            "type": "multi-select",
+            "q": "On the 2-world Kripke model with $C = (a \\to b)$ and valuation $\\llbracket p\\rrbracket(a)=\\varnothing$, $\\llbracket p\\rrbracket(b)=\\{*\\}$, which of the following are forced at world $b$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$b \\Vdash p$",
+              "$b \\Vdash \\neg p$",
+              "$b \\Vdash p \\vee \\neg p$",
+              "$b \\Vdash \\neg\\neg p \\to p$",
+              "$b \\Vdash p \\to \\neg\\neg p$"
+            ],
+            "answer": [
+              0,
+              2,
+              3,
+              4
+            ],
+            "explain": "At $b$: (0) $b \\Vdash p$ since $\\llbracket p\\rrbracket(b) \\ne \\varnothing$. (1) $b \\not\\Vdash \\neg p$ since $\\mathrm{id}_b$ forces $p$. (2) $b \\Vdash p \\vee \\neg p$ via the left disjunct. (3) $b \\Vdash \\neg\\neg p \\to p$: every accessible $Y \\to b$ that forces $\\neg\\neg p$ also forces $p$ — direct. (4) $b \\Vdash p \\to \\neg\\neg p$: an intuitionist tautology. So everything except $\\neg p$ is forced at $b$. Note that LEM <em>holds at the maximal world</em> $b$ but <em>fails at the lower world</em> $a$.",
+            "hint": "At the highest world, you can verify $p$ directly; only $\\neg p$ requires no future to ever satisfy $p$, which fails."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kripke–Joyal clause for implication $\\varphi \\to \\psi$ at $X$ is:",
+            "choices": [
+              "$X \\Vdash \\varphi$ implies $X \\Vdash \\psi$",
+              "for every $f\\colon Y \\to X$, $Y \\Vdash \\varphi$ implies $Y \\Vdash \\psi$",
+              "there exists $f\\colon Y \\to X$ with $Y \\Vdash \\varphi$ and $Y \\Vdash \\psi$",
+              "$X \\not\\Vdash \\varphi$ or $X \\Vdash \\psi$"
+            ],
+            "answer": 1,
+            "explain": "Kripke–Joyal $\\to$ quantifies over <em>every</em> generalised element $Y \\to X$ — this is the persistence/stability condition. Without this universal closure, $\\to$ would not be invariant under restriction along arrows, and the clauses wouldn't be sound for the topos's internal logic.",
+            "hint": "Implication in intuitionist Kripke semantics persists along the accessibility relation — the clause must quantify over all accessible worlds."
+          },
+          {
+            "type": "mcq",
+            "q": "In a sheaf topos $\\mathrm{Sh}(X)$, the Kripke–Joyal clause for $\\exists y.\\,\\varphi$ at an open $U$ becomes:",
+            "choices": [
+              "there is a section $b$ on $U$ with $U \\Vdash \\varphi(b)$",
+              "there is a covering family $\\{U_i \\to U\\}$ and sections $b_i$ on $U_i$ with $U_i \\Vdash \\varphi(b_i)$",
+              "for every refinement $\\{U_i \\to U\\}$ and every section $b$, $U_i \\Vdash \\varphi(b)$",
+              "$\\varphi$ is true on the stalk at every point of $U$"
+            ],
+            "answer": 1,
+            "explain": "Existential quantification in sheaf forcing is 'locally a witness exists': there is a covering family on which the witness can be chosen. This is why constructive analysis builds objects locally and glues them by descent rather than picking global sections.",
+            "hint": "Sheaves are about local data; existential is local existence of a witness."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider the 3-world model $C$ with objects $a, b, c$ and arrows $a \\to b, a \\to c$ (no arrow $b \\leftrightarrow c$). Let $\\llbracket p\\rrbracket(b) = \\{*\\}$, $\\llbracket p\\rrbracket(a) = \\llbracket p\\rrbracket(c) = \\varnothing$. Where does $\\neg\\neg p$ hold?",
+            "choices": [
+              "Only at $b$",
+              "At $b$ and $a$",
+              "At all three worlds",
+              "Nowhere"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$\\neg\\neg p$ at $b$: every $Y \\to b$ has $Y \\not\\Vdash \\neg p$? The only arrow into $b$ is $\\mathrm{id}_b$; $b \\Vdash p$ so $b \\not\\Vdash \\neg p$. So $b \\Vdash \\neg\\neg p$. ✓ At $a$: consider $a \\to c$. We have $c \\Vdash \\neg p$ (the only arrow into $c$ is $\\mathrm{id}_c$, and $c \\not\\Vdash p$). So there's an accessible world where $\\neg p$ holds, hence $a \\not\\Vdash \\neg\\neg p$. At $c$: $c \\Vdash \\neg p$ already, so $c \\not\\Vdash \\neg\\neg p$. Only at $b$.",
+            "hint": "$\\neg\\neg p$ at $X$ means: every accessible $Y$ has some $Z \\to Y$ where $Z \\Vdash p$. The branching at $a$ towards $c$ kills $\\neg\\neg p$ at $a$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kripke–Joyal clause for disjunction in a topos requires a <em>cover</em> $\\{f_i\\colon X_i \\to X\\}$. In a presheaf topos $\\widehat{C}$, what is a cover of a representable $X = y(c)$?",
+            "choices": [
+              "any single arrow $y(d) \\to y(c)$",
+              "the identity $\\mathrm{id}\\colon y(c) \\to y(c)$ alone — there are no proper covers",
+              "any family $\\{y(d_i) \\to y(c)\\}$ that is jointly epimorphic",
+              "any family of arrows $d_i \\to c$ in $C$"
+            ],
+            "answer": 1,
+            "explain": "In a presheaf topos $\\widehat{C}$ (no Grothendieck topology), the only cover of a representable $y(c)$ is the trivial cover $\\{\\mathrm{id}\\}$. This is why Kripke–Joyal forcing on $\\widehat{C}$ collapses to the classical Kripke clauses (no genuine 'covering' refinement). Switching to sheaves $\\mathrm{Sh}(C, J)$ on a non-trivial site adds genuine covers and is what enables descent.",
+            "hint": "Presheaf toposes have no Grothendieck topology beyond the trivial one — covers are trivial."
           }
         ]
       },
@@ -13322,16 +13940,77 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Why LEM fails: double negation in toposes\"?",
+            "q": "In which presheaf topos does LEM <em>fail</em>?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\widehat{*}$ (the topos of presheaves on the one-object terminal category)",
+              "$\\widehat{(a \\to b)}$ (presheaves on the two-object category with one non-identity arrow)",
+              "$\\widehat{G}$ for $G$ a group, viewed as a one-object groupoid",
+              "Every presheaf topos is Boolean"
             ],
-            "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "$\\widehat{*}$ is just $\\mathbf{Set}$ (Boolean). $\\widehat{G}$ is $G$-$\\mathbf{Set}$, also Boolean (since $G$ is a groupoid). $\\widehat{(a\\to b)}$ is non-Boolean: $\\Omega(a)$ has 3 elements (the sieves $\\varnothing, \\{a\\}, \\{a, a\\to b\\}$ — really the latter two), and the 3-element chain is the smallest non-Boolean Heyting algebra. LEM fails. Theorem: $\\widehat{C}$ is Boolean iff $C$ is a groupoid.",
+            "hint": "$\\widehat{C}$ is Boolean iff $C$ is a groupoid — the arrow $a \\to b$ is not invertible."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all toposes in which the law of excluded middle holds (i.e. all <em>Boolean</em> toposes).",
+            "choices": [
+              "$\\mathbf{Set}$",
+              "$G$-$\\mathbf{Set}$ for $G$ a group",
+              "$\\mathrm{Sh}(\\mathbb{R})$",
+              "$\\widehat{(a \\to b)}$",
+              "$\\mathrm{Sh}_{\\neg\\neg}(\\widehat{C})$ for any small category $C$",
+              "$\\mathrm{Sh}(X)$ for $X$ a discrete topological space"
+            ],
+            "answer": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "explain": "$\\mathbf{Set}$ and $G$-$\\mathbf{Set}$ are Boolean (the Boolean groupoid case). $\\mathrm{Sh}_{\\neg\\neg}$ is by construction the largest Boolean subtopos. $\\mathrm{Sh}(X)$ is Boolean iff $X$ is discrete (every subset open ⇒ open-set lattice is the powerset, which is Boolean). $\\mathrm{Sh}(\\mathbb{R})$ is non-Boolean (the open-set lattice has non-trivial boundary). $\\widehat{(a\\to b)}$ is non-Boolean.",
+            "hint": "Boolean toposes: $\\mathbf{Set}$, $G$-$\\mathbf{Set}$, $\\mathrm{Sh}_{\\neg\\neg}$, sheaves on discrete spaces — and not much else."
+          },
+          {
+            "type": "mcq",
+            "q": "The double-negation topology $\\neg\\neg\\colon \\Omega \\to \\Omega$ on a topos $\\mathcal{E}$ produces a subtopos $\\mathrm{Sh}_{\\neg\\neg}(\\mathcal{E}) \\hookrightarrow \\mathcal{E}$. What is its defining property?",
+            "choices": [
+              "It is the smallest subtopos containing all $\\neg\\neg$-closed subobjects",
+              "It is the largest <em>Boolean</em> subtopos of $\\mathcal{E}$",
+              "It is the topos of $\\neg$-fixpoints of $\\Omega$",
+              "It is always equivalent to $\\mathbf{Set}$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Sh}_{\\neg\\neg}(\\mathcal{E})$ is the largest Boolean subtopos of $\\mathcal{E}$ (Mac Lane–Moerdijk V.2 / VI.9). When $\\mathcal{E}$ is the topos of $\\beta$-names for a forcing condition, $\\mathrm{Sh}_{\\neg\\neg}$ is the model of ZFC obtained by Cohen forcing — the topos-theoretic shadow of forcing.",
+            "hint": "Double-negation 'rounds down' all subobjects to their $\\neg\\neg$-stable parts, exactly the ones that obey LEM."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which subobjects of $\\mathbb{R}$ in $\\mathrm{Sh}(\\mathbb{R})$ are $\\neg\\neg$-stable (i.e. equal to their double-negation)?",
+            "choices": [
+              "All open subsets",
+              "All subsets",
+              "The <em>regular</em> open subsets — those equal to the interior of their closure",
+              "Only $\\varnothing$ and $\\mathbb{R}$"
+            ],
+            "answer": 2,
+            "explain": "$\\neg\\neg U = \\mathrm{int}(\\overline{U})$ in the open-set lattice. So $U = \\neg\\neg U$ iff $U = \\mathrm{int}(\\overline{U})$, the definition of a regular open set. The regular opens form a complete Boolean algebra, the Booleanisation of the Heyting algebra of opens.",
+            "hint": "$\\neg U = \\mathrm{int}(U^c)$, so $\\neg\\neg U = \\mathrm{int}(\\mathrm{int}(U^c)^c) = \\mathrm{int}(\\overline{U})$."
+          },
+          {
+            "type": "mcq",
+            "q": "The classical theorem 'every set has a cardinality' (every set is in bijection with an initial ordinal) requires the axiom of choice. In a topos $\\mathcal{E}$, what is the relationship between AC and LEM?",
+            "choices": [
+              "AC and LEM are independent",
+              "AC implies LEM (Diaconescu's theorem)",
+              "LEM implies AC",
+              "They are equivalent in any topos"
+            ],
+            "answer": 1,
+            "explain": "Diaconescu's theorem (1975): if every epi splits internally in a topos $\\mathcal{E}$, then $\\mathcal{E}$ is Boolean. Constructive proof: from a 2-element quotient $\\{0,1\\}/{\\sim}$ where $\\sim$ depends on a proposition $\\varphi$, internal AC gives a section that decides $\\varphi$. The converse (LEM ⇒ AC) is false: $G$-$\\mathbf{Set}$ is Boolean but AC fails.",
+            "hint": "There's a famous theorem of Diaconescu connecting choice and excluded middle in any topos."
           }
         ]
       },
@@ -13339,17 +14018,51 @@ window.MVQuizBank = {
         "title": "Geometric morphisms preserve geometric logic",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Geometric morphisms preserve geometric logic\"?",
+            "type": "multi-select",
+            "q": "Which of the following logical connectives are <em>always</em> preserved by the inverse image $f^*$ of a geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\wedge$ (binary conjunction)",
+              "$\\Rightarrow$ (implication)",
+              "$\\bigvee$ (arbitrary disjunction)",
+              "$\\forall$ (universal quantifier)",
+              "$\\exists$ (existential quantifier)",
+              "$=$ (equality)",
+              "$\\neg$ (negation)"
+            ],
+            "answer": [
+              0,
+              2,
+              4,
+              5
+            ],
+            "explain": "Geometric logic is the fragment $\\{\\top, \\bot, \\wedge, \\bigvee, \\exists, =\\}$. $f^*$ preserves finite limits ($\\wedge$, $=$) and arbitrary colimits ($\\bigvee$, $\\exists$ as image). $\\Rightarrow$, $\\forall$, $\\neg$ are right-adjoint constructions; left adjoints don't commute with right adjoints in general.",
+            "hint": "Geometric formulas use $\\wedge, \\bigvee, \\exists, =$ — and only those — because $f^*$ preserves finite limits and arbitrary colimits."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $f^*$ preserve $\\bigvee$ but not $\\bigwedge$ (infinitary conjunction)?",
+            "choices": [
+              "$f^*$ has a right adjoint, so it preserves all colimits but not all limits",
+              "$f^*$ preserves $\\bigvee$ for infinitary cardinality reasons",
+              "$\\bigwedge$ is not a meaningful operation in any topos",
+              "$f^*$ does preserve both — the question is malformed"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$f^* \\dashv f_*$, so $f^*$ is a left adjoint and preserves all colimits — including infinitary unions $\\bigvee$. It only preserves <em>finite</em> limits, not arbitrary ones; $\\bigwedge$ over an infinite index is an infinite limit, not preserved.",
+            "hint": "Left adjoints commute with colimits; $f^*$ is the left adjoint of the geometric morphism."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\mathcal{T}$ is a geometric theory and $\\varphi \\vdash_x \\psi$ is a geometric sequent provable in the classifying topos $\\mathrm{Set}[\\mathcal{T}]$, then for any topos $\\mathcal{F}$ with a $\\mathcal{T}$-model $M$:",
+            "choices": [
+              "$\\varphi \\vdash_x \\psi$ holds in $\\mathcal{F}$ at the model $M$",
+              "$\\varphi \\vdash_x \\psi$ may fail in $\\mathcal{F}$ unless $\\mathcal{F}$ is Boolean",
+              "$\\varphi \\vdash_x \\psi$ holds in $\\mathcal{F}$ iff $\\mathcal{F} = \\mathbf{Set}$",
+              "the sequent must be re-proved in $\\mathcal{F}$ from scratch"
+            ],
+            "answer": 0,
+            "explain": "This is geometric soundness: a $\\mathcal{T}$-model in $\\mathcal{F}$ corresponds to a geometric morphism $\\mathcal{F} \\to \\mathrm{Set}[\\mathcal{T}]$; $f^*$ preserves geometric formulas, so anything provable geometrically in the classifying topos transports along $f^*$ to $\\mathcal{F}$. This is the central technical reason for restricting to geometric logic.",
+            "hint": "The whole point of the geometric fragment: it transports along arbitrary geometric morphisms, including those classifying models."
           }
         ]
       }
