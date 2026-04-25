@@ -1,0 +1,113 @@
+{
+  "topic": "heyting-algebras-toposes",
+  "quizzes": {
+    "heyting-algebra": {
+      "title": "Heyting algebras",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Heyting algebras\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "omega-as-heyting-algebra": {
+      "title": "$\\Omega$ as an internal Heyting algebra",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\Omega$ as an internal Heyting algebra\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "internal-language": {
+      "title": "The internal Mitchell–Bénabou language",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The internal Mitchell–Bénabou language\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "kripke-joyal-semantics": {
+      "title": "Kripke–Joyal forcing semantics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Kripke–Joyal forcing semantics\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "lem-failure": {
+      "title": "Why LEM fails: double negation in toposes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Why LEM fails: double negation in toposes\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "geometric-morphisms-logic": {
+      "title": "Geometric morphisms preserve geometric logic",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Geometric morphisms preserve geometric logic\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

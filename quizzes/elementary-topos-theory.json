@@ -1,0 +1,131 @@
+{
+  "topic": "elementary-topos-theory",
+  "quizzes": {
+    "topos-definition": {
+      "title": "What is a topos?",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"What is a topos?\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "subobject-classifier": {
+      "title": "The subobject classifier $\\Omega$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The subobject classifier $\\Omega$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "characteristic-maps": {
+      "title": "Characteristic maps as truth values",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Characteristic maps as truth values\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "power-objects": {
+      "title": "Power objects $P(A)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Power objects $P(A)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "presheaf-topos": {
+      "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "g-set-topos": {
+      "title": "The topos of $G$-sets",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The topos of $G$-sets\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "geometric-morphisms-intro": {
+      "title": "Geometric morphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Geometric morphisms\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

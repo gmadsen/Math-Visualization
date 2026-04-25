@@ -7629,6 +7629,137 @@ window.MVQuizBank = {
       }
     }
   },
+  "elementary-topos-theory": {
+    "topic": "elementary-topos-theory",
+    "quizzes": {
+      "topos-definition": {
+        "title": "What is a topos?",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"What is a topos?\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "subobject-classifier": {
+        "title": "The subobject classifier $\\Omega$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The subobject classifier $\\Omega$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "characteristic-maps": {
+        "title": "Characteristic maps as truth values",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Characteristic maps as truth values\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "power-objects": {
+        "title": "Power objects $P(A)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Power objects $P(A)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "presheaf-topos": {
+        "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "g-set-topos": {
+        "title": "The topos of $G$-sets",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The topos of $G$-sets\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "geometric-morphisms-intro": {
+        "title": "Geometric morphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Geometric morphisms\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
   "elliptic-curves": {
     "topic": "elliptic-curves",
     "quizzes": {
@@ -10728,6 +10859,119 @@ window.MVQuizBank = {
       }
     }
   },
+  "grothendieck-topologies-sites": {
+    "topic": "grothendieck-topologies-sites",
+    "quizzes": {
+      "sieves": {
+        "title": "Sieves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Sieves\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "grothendieck-topology": {
+        "title": "Grothendieck topology axioms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Grothendieck topology axioms\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "examples-of-sites": {
+        "title": "Examples: small/large Zariski, étale, fpqc",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Examples: small/large Zariski, étale, fpqc\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "sheaves-on-a-site": {
+        "title": "Sheaves and sheafification",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Sheaves and sheafification\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "topos-of-sheaves": {
+        "title": "$\\mathrm{Sh}(C, J)$ as a topos",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\mathrm{Sh}(C, J)$ as a topos\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "geometric-morphisms-of-sites": {
+        "title": "Geometric morphisms from morphisms of sites",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Geometric morphisms from morphisms of sites\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
   "hecke-operators": {
     "topic": "hecke-operators",
     "quizzes": {
@@ -11078,6 +11322,119 @@ window.MVQuizBank = {
             "tol": 0.001,
             "hint": "Newforms have trivial character at good primes, simplifying the adjoint.",
             "explain": "On $S_k(\\Gamma_0(N))$ (trivial nebentypus), the diamond operator $\\langle p\\rangle$ acts as the identity ($\\times 1$), so $T_p^*=T_p$, confirming self-adjointness."
+          }
+        ]
+      }
+    }
+  },
+  "heyting-algebras-toposes": {
+    "topic": "heyting-algebras-toposes",
+    "quizzes": {
+      "heyting-algebra": {
+        "title": "Heyting algebras",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Heyting algebras\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "omega-as-heyting-algebra": {
+        "title": "$\\Omega$ as an internal Heyting algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\Omega$ as an internal Heyting algebra\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "internal-language": {
+        "title": "The internal Mitchell–Bénabou language",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The internal Mitchell–Bénabou language\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "kripke-joyal-semantics": {
+        "title": "Kripke–Joyal forcing semantics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Kripke–Joyal forcing semantics\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "lem-failure": {
+        "title": "Why LEM fails: double negation in toposes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Why LEM fails: double negation in toposes\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "geometric-morphisms-logic": {
+        "title": "Geometric morphisms preserve geometric logic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Geometric morphisms preserve geometric logic\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
           }
         ]
       }
@@ -11957,6 +12314,250 @@ window.MVQuizBank = {
             "answer": 2,
             "tol": 0.000001,
             "explain": "Degeneration gives $H^n(E)\\cong\\bigoplus_{p+q=n}H^p(B)\\otimes H^q(F)$. For $n=2$: $(p,q)=(2,0)$ contributes $H^2(S^2)\\otimes H^0(S^2)=\\mathbb{Q}$, and $(0,2)$ contributes $H^0(S^2)\\otimes H^2(S^2)=\\mathbb{Q}$. Total $\\dim=2$."
+          }
+        ]
+      }
+    }
+  },
+  "infinity-categories": {
+    "topic": "infinity-categories",
+    "quizzes": {
+      "quasi-category": {
+        "title": "Quasi-categories",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Quasi-categories\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "homotopy-category-of-infty": {
+        "title": "The homotopy category $h(\\mathcal{C})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The homotopy category $h(\\mathcal{C})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "infty-functors": {
+        "title": "Functors and natural transformations $\\infty$-categorically",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Functors and natural transformations $\\infty$-categorically\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "infty-limits": {
+        "title": "$\\infty$-categorical (co)limits",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\infty$-categorical (co)limits\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "infty-adjunctions": {
+        "title": "Adjunctions $\\infty$-categorically",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Adjunctions $\\infty$-categorically\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "kan-extension": {
+        "title": "$\\infty$-categorical Kan extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\infty$-categorical Kan extensions\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
+  "infinity-topoi": {
+    "topic": "infinity-topoi",
+    "quizzes": {
+      "presheaf-infty-topos": {
+        "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\mathcal{P}(C)$: presheaf $\\infty$-topoi\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "infty-topos-definition": {
+        "title": "$\\infty$-topos via accessible left exact localization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\infty$-topos via accessible left exact localization\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "giraud-infty": {
+        "title": "$\\infty$-Giraud axioms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\infty$-Giraud axioms\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "geometric-morphisms-infty": {
+        "title": "Geometric morphisms of $\\infty$-topoi",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Geometric morphisms of $\\infty$-topoi\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "hypercompletion": {
+        "title": "Hypercompletion and Whitehead's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Hypercompletion and Whitehead's theorem\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "internal-logic-of-infty-topos": {
+        "title": "Internal logic: homotopy type theory and ∞-toposes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Internal logic: homotopy type theory and ∞-toposes\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "etale-infty-topos-of-scheme": {
+        "title": "The étale $\\infty$-topos of a scheme",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The étale $\\infty$-topos of a scheme\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
           }
         ]
       }
@@ -24647,6 +25248,119 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Coherent means finitely generated with finitely presented kernel on opens.",
             "explain": "Coherence requires local finite generation (and, for non-Noetherian rings, also that the kernel of any map from a free finite-rank sheaf is finitely generated). On a Noetherian scheme, local finite generation suffices."
+          }
+        ]
+      }
+    }
+  },
+  "simplicial-sets-and-nerve": {
+    "topic": "simplicial-sets-and-nerve",
+    "quizzes": {
+      "simplex-category": {
+        "title": "The simplex category $\\Delta$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The simplex category $\\Delta$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "simplicial-set": {
+        "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "geometric-realization": {
+        "title": "Geometric realization $|X|$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Geometric realization $|X|$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "nerve-of-category": {
+        "title": "The nerve $N(C)$ of a category",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The nerve $N(C)$ of a category\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "kan-complex": {
+        "title": "Kan complexes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Kan complexes\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "horn-filling": {
+        "title": "Inner-horn filling and quasi-categorical nerves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Inner-horn filling and quasi-categorical nerves\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
           }
         ]
       }

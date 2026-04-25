@@ -1,0 +1,113 @@
+{
+  "topic": "grothendieck-topologies-sites",
+  "quizzes": {
+    "sieves": {
+      "title": "Sieves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Sieves\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "grothendieck-topology": {
+      "title": "Grothendieck topology axioms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Grothendieck topology axioms\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "examples-of-sites": {
+      "title": "Examples: small/large Zariski, étale, fpqc",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Examples: small/large Zariski, étale, fpqc\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "sheaves-on-a-site": {
+      "title": "Sheaves and sheafification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Sheaves and sheafification\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "topos-of-sheaves": {
+      "title": "$\\mathrm{Sh}(C, J)$ as a topos",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\mathrm{Sh}(C, J)$ as a topos\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "geometric-morphisms-of-sites": {
+      "title": "Geometric morphisms from morphisms of sites",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Geometric morphisms from morphisms of sites\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

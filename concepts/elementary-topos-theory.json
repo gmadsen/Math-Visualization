@@ -1,0 +1,69 @@
+{
+  "topic": "elementary-topos-theory",
+  "title": "Elementary topos theory",
+  "page": "elementary-topos-theory.html",
+  "concepts": [
+    {
+      "id": "topos-definition",
+      "title": "What is a topos?",
+      "anchor": "definition",
+      "prereqs": [],
+      "blurb": "An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\\Omega$. The three pieces — limits, exponentials, $\\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense."
+    },
+    {
+      "id": "subobject-classifier",
+      "title": "The subobject classifier $\\Omega$",
+      "anchor": "subobject-classifier",
+      "prereqs": [
+        "topos-definition"
+      ],
+      "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function."
+    },
+    {
+      "id": "characteristic-maps",
+      "title": "Characteristic maps as truth values",
+      "anchor": "characteristic-maps",
+      "prereqs": [
+        "subobject-classifier"
+      ],
+      "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively."
+    },
+    {
+      "id": "power-objects",
+      "title": "Power objects $P(A)$",
+      "anchor": "power-objects",
+      "prereqs": [
+        "subobject-classifier"
+      ],
+      "blurb": "The power object $P(A) = \\Omega^A$ represents subobjects of $A$ in the same sense $\\mathcal{P}(A)$ does in $\\mathbf{Set}$: maps $X \\to P(A)$ correspond to subobjects of $X \\times A$. Power objects make every topos a model of the basic comprehension principle."
+    },
+    {
+      "id": "presheaf-topos",
+      "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
+      "anchor": "presheaf-topos",
+      "prereqs": [
+        "topos-definition"
+      ],
+      "blurb": "For any small category $C$, the functor category $\\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\\mathbf{Set}$."
+    },
+    {
+      "id": "g-set-topos",
+      "title": "The topos of $G$-sets",
+      "anchor": "g-set-topos",
+      "prereqs": [
+        "presheaf-topos"
+      ],
+      "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$."
+    },
+    {
+      "id": "geometric-morphisms-intro",
+      "title": "Geometric morphisms",
+      "anchor": "geometric-morphisms",
+      "prereqs": [
+        "topos-definition",
+        "presheaf-topos"
+      ],
+      "blurb": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact. They are the natural notion of \"map between toposes,\" generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction."
+    }
+  ]
+}

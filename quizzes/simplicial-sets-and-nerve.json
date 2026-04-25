@@ -1,0 +1,113 @@
+{
+  "topic": "simplicial-sets-and-nerve",
+  "quizzes": {
+    "simplex-category": {
+      "title": "The simplex category $\\Delta$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The simplex category $\\Delta$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "simplicial-set": {
+      "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "geometric-realization": {
+      "title": "Geometric realization $|X|$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Geometric realization $|X|$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "nerve-of-category": {
+      "title": "The nerve $N(C)$ of a category",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The nerve $N(C)$ of a category\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "kan-complex": {
+      "title": "Kan complexes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Kan complexes\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "horn-filling": {
+      "title": "Inner-horn filling and quasi-categorical nerves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Inner-horn filling and quasi-categorical nerves\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

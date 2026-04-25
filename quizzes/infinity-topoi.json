@@ -1,0 +1,131 @@
+{
+  "topic": "infinity-topoi",
+  "quizzes": {
+    "presheaf-infty-topos": {
+      "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\mathcal{P}(C)$: presheaf $\\infty$-topoi\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "infty-topos-definition": {
+      "title": "$\\infty$-topos via accessible left exact localization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\infty$-topos via accessible left exact localization\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "giraud-infty": {
+      "title": "$\\infty$-Giraud axioms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\infty$-Giraud axioms\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "geometric-morphisms-infty": {
+      "title": "Geometric morphisms of $\\infty$-topoi",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Geometric morphisms of $\\infty$-topoi\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "hypercompletion": {
+      "title": "Hypercompletion and Whitehead's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Hypercompletion and Whitehead's theorem\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "internal-logic-of-infty-topos": {
+      "title": "Internal logic: homotopy type theory and ∞-toposes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Internal logic: homotopy type theory and ∞-toposes\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "etale-infty-topos-of-scheme": {
+      "title": "The étale $\\infty$-topos of a scheme",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The étale $\\infty$-topos of a scheme\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

@@ -16,7 +16,13 @@
         "category-theory",
         "representation-theory",
         "commutative-algebra",
-        "homological"
+        "homological",
+        "elementary-topos-theory",
+        "heyting-algebras-toposes",
+        "grothendieck-topologies-sites",
+        "simplicial-sets-and-nerve",
+        "infinity-categories",
+        "infinity-topoi"
       ]
     },
     {

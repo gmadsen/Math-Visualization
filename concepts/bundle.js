@@ -10,6 +10,12 @@ window.__MVConcepts = {
       "representation-theory",
       "commutative-algebra",
       "homological",
+      "elementary-topos-theory",
+      "heyting-algebras-toposes",
+      "grothendieck-topologies-sites",
+      "simplicial-sets-and-nerve",
+      "infinity-categories",
+      "infinity-topoi",
       "real-analysis",
       "measure-theory",
       "complex-analysis",
@@ -718,6 +724,400 @@ window.__MVConcepts = {
             "derived-functors"
           ],
           "blurb": "Spectral sequences stage difficult computations into successive approximation pages."
+        }
+      ]
+    },
+    "elementary-topos-theory": {
+      "topic": "elementary-topos-theory",
+      "title": "Elementary topos theory",
+      "page": "elementary-topos-theory.html",
+      "concepts": [
+        {
+          "id": "topos-definition",
+          "title": "What is a topos?",
+          "anchor": "definition",
+          "prereqs": [],
+          "blurb": "An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\\Omega$. The three pieces — limits, exponentials, $\\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense."
+        },
+        {
+          "id": "subobject-classifier",
+          "title": "The subobject classifier $\\Omega$",
+          "anchor": "subobject-classifier",
+          "prereqs": [
+            "topos-definition"
+          ],
+          "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function."
+        },
+        {
+          "id": "characteristic-maps",
+          "title": "Characteristic maps as truth values",
+          "anchor": "characteristic-maps",
+          "prereqs": [
+            "subobject-classifier"
+          ],
+          "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively."
+        },
+        {
+          "id": "power-objects",
+          "title": "Power objects $P(A)$",
+          "anchor": "power-objects",
+          "prereqs": [
+            "subobject-classifier"
+          ],
+          "blurb": "The power object $P(A) = \\Omega^A$ represents subobjects of $A$ in the same sense $\\mathcal{P}(A)$ does in $\\mathbf{Set}$: maps $X \\to P(A)$ correspond to subobjects of $X \\times A$. Power objects make every topos a model of the basic comprehension principle."
+        },
+        {
+          "id": "presheaf-topos",
+          "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
+          "anchor": "presheaf-topos",
+          "prereqs": [
+            "topos-definition"
+          ],
+          "blurb": "For any small category $C$, the functor category $\\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\\mathbf{Set}$."
+        },
+        {
+          "id": "g-set-topos",
+          "title": "The topos of $G$-sets",
+          "anchor": "g-set-topos",
+          "prereqs": [
+            "presheaf-topos"
+          ],
+          "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$."
+        },
+        {
+          "id": "geometric-morphisms-intro",
+          "title": "Geometric morphisms",
+          "anchor": "geometric-morphisms",
+          "prereqs": [
+            "topos-definition",
+            "presheaf-topos"
+          ],
+          "blurb": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact. They are the natural notion of \"map between toposes,\" generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction."
+        }
+      ]
+    },
+    "heyting-algebras-toposes": {
+      "topic": "heyting-algebras-toposes",
+      "title": "Heyting algebras and intuitionist logic in toposes",
+      "page": "heyting-algebras-toposes.html",
+      "concepts": [
+        {
+          "id": "heyting-algebra",
+          "title": "Heyting algebras",
+          "anchor": "heyting-algebra",
+          "prereqs": [],
+          "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
+        },
+        {
+          "id": "omega-as-heyting-algebra",
+          "title": "$\\Omega$ as an internal Heyting algebra",
+          "anchor": "omega-heyting",
+          "prereqs": [
+            "subobject-classifier",
+            "heyting-algebra"
+          ],
+          "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
+        },
+        {
+          "id": "internal-language",
+          "title": "The internal Mitchell–Bénabou language",
+          "anchor": "internal-language",
+          "prereqs": [
+            "omega-as-heyting-algebra",
+            "power-objects"
+          ],
+          "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail)."
+        },
+        {
+          "id": "kripke-joyal-semantics",
+          "title": "Kripke–Joyal forcing semantics",
+          "anchor": "kripke-joyal",
+          "prereqs": [
+            "internal-language",
+            "presheaf-topos"
+          ],
+          "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic."
+        },
+        {
+          "id": "lem-failure",
+          "title": "Why LEM fails: double negation in toposes",
+          "anchor": "lem-failure",
+          "prereqs": [
+            "internal-language",
+            "kripke-joyal-semantics"
+          ],
+          "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\"."
+        },
+        {
+          "id": "geometric-morphisms-logic",
+          "title": "Geometric morphisms preserve geometric logic",
+          "anchor": "geometric-morphisms-logic",
+          "prereqs": [
+            "geometric-morphisms-intro",
+            "internal-language"
+          ],
+          "blurb": "Inverse image functors $f^*$ preserve finite limits and arbitrary colimits — exactly the connectives of geometric logic ($\\exists, \\wedge, \\bigvee$). This is why geometric formulas transport across geometric morphisms while implication and $\\forall$ generally do not."
+        }
+      ]
+    },
+    "grothendieck-topologies-sites": {
+      "topic": "grothendieck-topologies-sites",
+      "title": "Grothendieck topologies and sites",
+      "page": "grothendieck-topologies-sites.html",
+      "concepts": [
+        {
+          "id": "sieves",
+          "title": "Sieves",
+          "anchor": "sieves",
+          "prereqs": [],
+          "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology."
+        },
+        {
+          "id": "grothendieck-topology",
+          "title": "Grothendieck topology axioms",
+          "anchor": "grothendieck-topology",
+          "prereqs": [
+            "sieves"
+          ],
+          "blurb": "A Grothendieck topology on $C$ assigns to each object $c$ a collection of \"covering\" sieves, satisfying maximality, stability under pullback, and a transitivity axiom. The data $(C, J)$ is called a site; sheaves on a site generalize sheaves on a topological space."
+        },
+        {
+          "id": "examples-of-sites",
+          "title": "Examples: small/large Zariski, étale, fpqc",
+          "anchor": "examples-of-sites",
+          "prereqs": [
+            "grothendieck-topology"
+          ],
+          "blurb": "The small Zariski site of a scheme has open immersions for covers; the étale site loosens to surjective étale maps; the fpqc site is even coarser. Each gives a different sheaf theory — Zariski-locally trivial $\\ne$ étale-locally trivial, the difference detecting Galois descent."
+        },
+        {
+          "id": "sheaves-on-a-site",
+          "title": "Sheaves and sheafification",
+          "anchor": "sheaves-on-a-site",
+          "prereqs": [
+            "grothendieck-topology"
+          ],
+          "blurb": "A sheaf on $(C, J)$ is a presheaf $F$ such that for every covering sieve $S$ of $c$, $F(c)$ is the limit of $F$ over $S$. The sheafification functor is the left adjoint of the inclusion of sheaves into presheaves; it averages a presheaf over all covering sieves."
+        },
+        {
+          "id": "topos-of-sheaves",
+          "title": "$\\mathrm{Sh}(C, J)$ as a topos",
+          "anchor": "topos-of-sheaves",
+          "prereqs": [
+            "sheaves-on-a-site",
+            "topos-definition"
+          ],
+          "blurb": "The category $\\mathrm{Sh}(C, J)$ of sheaves on a site is a Grothendieck topos — a particular kind of elementary topos that has all small colimits and a small generating set. Every Grothendieck topos arises this way (Giraud's theorem)."
+        },
+        {
+          "id": "geometric-morphisms-of-sites",
+          "title": "Geometric morphisms from morphisms of sites",
+          "anchor": "geometric-morphisms-sites",
+          "prereqs": [
+            "topos-of-sheaves",
+            "geometric-morphisms-intro"
+          ],
+          "blurb": "A continuous map of sites $f\\colon (D, K) \\to (C, J)$ induces a geometric morphism $\\mathrm{Sh}(D, K) \\to \\mathrm{Sh}(C, J)$. This is how site theory provides examples of geometric morphisms: pullback along $f$ on the level of sites pulls sheaves back."
+        }
+      ]
+    },
+    "simplicial-sets-and-nerve": {
+      "topic": "simplicial-sets-and-nerve",
+      "title": "Simplicial sets and the nerve",
+      "page": "simplicial-sets-and-nerve.html",
+      "concepts": [
+        {
+          "id": "simplex-category",
+          "title": "The simplex category $\\Delta$",
+          "anchor": "simplex-category",
+          "prereqs": [],
+          "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
+        },
+        {
+          "id": "simplicial-set",
+          "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
+          "anchor": "simplicial-set",
+          "prereqs": [
+            "simplex-category",
+            "presheaf-topos"
+          ],
+          "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$."
+        },
+        {
+          "id": "geometric-realization",
+          "title": "Geometric realization $|X|$",
+          "anchor": "geometric-realization",
+          "prereqs": [
+            "simplicial-set"
+          ],
+          "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
+        },
+        {
+          "id": "nerve-of-category",
+          "title": "The nerve $N(C)$ of a category",
+          "anchor": "nerve-of-category",
+          "prereqs": [
+            "simplicial-set"
+          ],
+          "blurb": "The nerve $N(C)_n$ is the set of length-$n$ composable strings of arrows in $C$. The face maps compose adjacent arrows; the degeneracies insert identities. The nerve is the bridge between category theory and homotopy theory."
+        },
+        {
+          "id": "kan-complex",
+          "title": "Kan complexes",
+          "anchor": "kan-complex",
+          "prereqs": [
+            "simplicial-set"
+          ],
+          "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence)."
+        },
+        {
+          "id": "horn-filling",
+          "title": "Inner-horn filling and quasi-categorical nerves",
+          "anchor": "horn-filling",
+          "prereqs": [
+            "kan-complex",
+            "nerve-of-category"
+          ],
+          "blurb": "Demanding fillers only for *inner* horns $\\Lambda^n_k$ ($0 < k < n$) gives the Joyal model of $\\infty$-categories. The nerve of an ordinary category is exactly the simplicial set in which every inner horn has a *unique* filler."
+        }
+      ]
+    },
+    "infinity-categories": {
+      "topic": "infinity-categories",
+      "title": "$\\infty$-categories (quasi-categories)",
+      "page": "infinity-categories.html",
+      "concepts": [
+        {
+          "id": "quasi-category",
+          "title": "Quasi-categories",
+          "anchor": "quasi-category",
+          "prereqs": [
+            "horn-filling",
+            "kan-complex"
+          ],
+          "blurb": "A quasi-category is a simplicial set in which every inner horn has at least one filler. The 1-simplices are \"morphisms,\" 2-simplices are \"homotopies between composites,\" and so on; composition is well-defined only up to higher homotopy."
+        },
+        {
+          "id": "homotopy-category-of-infty",
+          "title": "The homotopy category $h(\\mathcal{C})$",
+          "anchor": "homotopy-category",
+          "prereqs": [
+            "quasi-category"
+          ],
+          "blurb": "Quotienting a quasi-category $\\mathcal{C}$ by the equivalence relation \"there is a 2-simplex from $f$ to $g$\" gives an ordinary 1-category $h(\\mathcal{C})$. This is the shadow of $\\mathcal{C}$ visible to non-homotopical eyes."
+        },
+        {
+          "id": "infty-functors",
+          "title": "Functors and natural transformations $\\infty$-categorically",
+          "anchor": "infty-functors",
+          "prereqs": [
+            "quasi-category"
+          ],
+          "blurb": "An $\\infty$-functor $\\mathcal{C} \\to \\mathcal{D}$ is just a map of simplicial sets; natural transformations are 1-simplices in the mapping quasi-category. The Yoneda embedding lifts to $\\infty$-categories — and is again fully faithful."
+        },
+        {
+          "id": "infty-limits",
+          "title": "$\\infty$-categorical (co)limits",
+          "anchor": "infty-limits",
+          "prereqs": [
+            "infty-functors"
+          ],
+          "blurb": "Limits and colimits in an $\\infty$-category are defined via terminal/initial objects in slice quasi-categories. They generalize 1-categorical limits in the same way derived functors generalize ordinary functors — the homotopy data is built in."
+        },
+        {
+          "id": "infty-adjunctions",
+          "title": "Adjunctions $\\infty$-categorically",
+          "anchor": "infty-adjunctions",
+          "prereqs": [
+            "infty-functors",
+            "infty-limits"
+          ],
+          "blurb": "An $\\infty$-adjunction $f \\dashv g$ is a unit/counit pair living in the mapping spaces, satisfying the triangle identities up to coherent higher homotopy. Adjoint functor theorems carry over to the $\\infty$-categorical setting with extra accessibility hypotheses."
+        },
+        {
+          "id": "kan-extension",
+          "title": "$\\infty$-categorical Kan extensions",
+          "anchor": "kan-extension",
+          "prereqs": [
+            "infty-functors",
+            "infty-limits"
+          ],
+          "blurb": "Left and right Kan extensions in $\\infty$-categories are pointwise computable as colimits/limits over comma quasi-categories. They are the engine of derived functors, ind-completion, and the universal property of the $\\infty$-category of presheaves."
+        }
+      ]
+    },
+    "infinity-topoi": {
+      "topic": "infinity-topoi",
+      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
+      "page": "infinity-topoi.html",
+      "concepts": [
+        {
+          "id": "presheaf-infty-topos",
+          "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+          "anchor": "presheaf-infty-topos",
+          "prereqs": [
+            "quasi-category",
+            "presheaf-topos"
+          ],
+          "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos."
+        },
+        {
+          "id": "infty-topos-definition",
+          "title": "$\\infty$-topos via accessible left exact localization",
+          "anchor": "infty-topos-definition",
+          "prereqs": [
+            "presheaf-infty-topos",
+            "infty-limits"
+          ],
+          "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy."
+        },
+        {
+          "id": "giraud-infty",
+          "title": "$\\infty$-Giraud axioms",
+          "anchor": "giraud-infty",
+          "prereqs": [
+            "infty-topos-definition"
+          ],
+          "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form."
+        },
+        {
+          "id": "geometric-morphisms-infty",
+          "title": "Geometric morphisms of $\\infty$-topoi",
+          "anchor": "geometric-morphisms-infty",
+          "prereqs": [
+            "infty-topos-definition",
+            "infty-adjunctions"
+          ],
+          "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers."
+        },
+        {
+          "id": "hypercompletion",
+          "title": "Hypercompletion and Whitehead's theorem",
+          "anchor": "hypercompletion",
+          "prereqs": [
+            "infty-topos-definition"
+          ],
+          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
+        },
+        {
+          "id": "internal-logic-of-infty-topos",
+          "title": "Internal logic: homotopy type theory and ∞-toposes",
+          "anchor": "internal-logic",
+          "prereqs": [
+            "infty-topos-definition",
+            "internal-language"
+          ],
+          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
+        },
+        {
+          "id": "etale-infty-topos-of-scheme",
+          "title": "The étale $\\infty$-topos of a scheme",
+          "anchor": "etale-infty-topos",
+          "prereqs": [
+            "infty-topos-definition",
+            "geometric-morphisms-of-sites"
+          ],
+          "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry."
         }
       ]
     },

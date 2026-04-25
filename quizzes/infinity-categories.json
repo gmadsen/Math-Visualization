@@ -1,0 +1,113 @@
+{
+  "topic": "infinity-categories",
+  "quizzes": {
+    "quasi-category": {
+      "title": "Quasi-categories",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Quasi-categories\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "homotopy-category-of-infty": {
+      "title": "The homotopy category $h(\\mathcal{C})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The homotopy category $h(\\mathcal{C})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "infty-functors": {
+      "title": "Functors and natural transformations $\\infty$-categorically",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Functors and natural transformations $\\infty$-categorically\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "infty-limits": {
+      "title": "$\\infty$-categorical (co)limits",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\infty$-categorical (co)limits\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "infty-adjunctions": {
+      "title": "Adjunctions $\\infty$-categorically",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Adjunctions $\\infty$-categorically\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "kan-extension": {
+      "title": "$\\infty$-categorical Kan extensions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\infty$-categorical Kan extensions\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

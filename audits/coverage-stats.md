@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **58**, concepts: **411**
+- Topics: **64**, concepts: **449**
 - Widgets: **459** (registry-driven: 457, inline: 2)
-- Quizzes: **2310** (v1: 1172, hard: 1125, expert: 13)
-- Quiz types: mcq: 1404, numeric: 800, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **100**
-- Concepts lacking a hard-tier quiz: **25**
+- Quizzes: **2348** (v1: 1210, hard: 1125, expert: 13)
+- Quiz types: mcq: 1442, numeric: 800, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **138**
+- Concepts lacking a hard-tier quiz: **63**
 
 ## Per-slug registry adoption
 
@@ -50,13 +50,13 @@ page has wired one in yet.
 
 ### Algebra
 
-- Topics: **5**, concepts: **61**
+- Topics: **11**, concepts: **99**
 - Widgets: **65** (registry-driven: 65, inline: 0)
   - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
   - by dimension: 2d: 65
   - by gesture: click: 63, slider+click: 1, interactive: 1
-- Quizzes: **363** (v1: 183, hard: 180, expert: 0)
-  - by type: mcq: 209, numeric: 134, multi-select: 11, ordering: 3, proof-completion: 2, matching: 2, complex: 1, spot-the-error: 1
+- Quizzes: **401** (v1: 221, hard: 180, expert: 0)
+  - by type: mcq: 247, numeric: 134, multi-select: 11, ordering: 3, proof-completion: 2, matching: 2, complex: 1, spot-the-error: 1
 
 ### Analysis
 
@@ -116,6 +116,12 @@ page has wired one in yet.
 - `representation-theory` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
 - `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=71 (v1=36, hard=35, expert=0)
 - `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
+- `elementary-topos-theory` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
+- `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `infinity-categories` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=6 (v1=6, hard=0, expert=0)
+- `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=7 (v1=7, hard=0, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
@@ -181,38 +187,38 @@ page has wired one in yet.
 - `group-representations` (representation-theory)
 - `characters-orthogonality` (representation-theory)
 - `long-exact-sequence` (homological)
-- `sigma-algebras` (measure-theory)
-- `riemann-sphere` (complex-analysis)
-- `mobius-transformations` (complex-analysis)
-- `cauchy-riemann` (complex-analysis)
-- `holomorphic-function` (complex-analysis)
-- `domain-coloring` (complex-analysis)
-- `cauchy-theorem` (complex-analysis)
-- `cauchy-integral-formula` (complex-analysis)
-- `liouville` (complex-analysis)
-- `fta` (complex-analysis)
-- `maximum-modulus` (complex-analysis)
-- `schwarz-lemma` (complex-analysis)
+- `topos-definition` (elementary-topos-theory)
+- `subobject-classifier` (elementary-topos-theory)
+- `characteristic-maps` (elementary-topos-theory)
+- `power-objects` (elementary-topos-theory)
+- `presheaf-topos` (elementary-topos-theory)
+- `g-set-topos` (elementary-topos-theory)
+- `geometric-morphisms-intro` (elementary-topos-theory)
+- `heyting-algebra` (heyting-algebras-toposes)
+- `omega-as-heyting-algebra` (heyting-algebras-toposes)
+- `internal-language` (heyting-algebras-toposes)
+- `kripke-joyal-semantics` (heyting-algebras-toposes)
+- `lem-failure` (heyting-algebras-toposes)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
-- `riemann-sphere` (complex-analysis)
-- `holomorphic-function` (complex-analysis)
-- `domain-coloring` (complex-analysis)
-- `contour-integral` (complex-analysis)
-- `cauchy-theorem` (complex-analysis)
-- `cauchy-integral-formula` (complex-analysis)
-- `analyticity` (complex-analysis)
-- `liouville` (complex-analysis)
-- `fta` (complex-analysis)
-- `maximum-modulus` (complex-analysis)
-- `schwarz-lemma` (complex-analysis)
-- `laurent-series` (complex-analysis)
-- `singularity-classification` (complex-analysis)
-- `argument-principle` (complex-analysis)
-- `rouche` (complex-analysis)
-- `conformal-map` (complex-analysis)
-- `disk-automorphisms` (complex-analysis)
-- `normal-families` (complex-analysis)
-- `riemann-mapping` (complex-analysis)
-- `harmonic-functions` (complex-analysis)
+- `topos-definition` (elementary-topos-theory)
+- `subobject-classifier` (elementary-topos-theory)
+- `characteristic-maps` (elementary-topos-theory)
+- `power-objects` (elementary-topos-theory)
+- `presheaf-topos` (elementary-topos-theory)
+- `g-set-topos` (elementary-topos-theory)
+- `geometric-morphisms-intro` (elementary-topos-theory)
+- `heyting-algebra` (heyting-algebras-toposes)
+- `omega-as-heyting-algebra` (heyting-algebras-toposes)
+- `internal-language` (heyting-algebras-toposes)
+- `kripke-joyal-semantics` (heyting-algebras-toposes)
+- `lem-failure` (heyting-algebras-toposes)
+- `geometric-morphisms-logic` (heyting-algebras-toposes)
+- `sieves` (grothendieck-topologies-sites)
+- `grothendieck-topology` (grothendieck-topologies-sites)
+- `examples-of-sites` (grothendieck-topologies-sites)
+- `sheaves-on-a-site` (grothendieck-topologies-sites)
+- `topos-of-sheaves` (grothendieck-topologies-sites)
+- `geometric-morphisms-of-sites` (grothendieck-topologies-sites)
+- `simplex-category` (simplicial-sets-and-nerve)
