@@ -41,9 +41,9 @@ Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for c
 - [Heyting algebras & intuitionist logic in toposes](./heyting-algebras-toposes.html) — internal language, Kripke–Joyal forcing, double-negation
 - [Grothendieck topologies & sites](./grothendieck-topologies-sites.html) — sieves, sheafification, Giraud
 - [Simplicial sets & the nerve](./simplicial-sets-and-nerve.html) — $\Delta$, geometric realization, nerve $N(C)$, Kan complexes, inner-horn filling
-- [$\infty$-categories (quasi-categories)](./infinity-categories.html) — Joyal's model, $h(\mathcal{C})$, $\infty$-functors / limits / adjunctions / Kan extensions
+- [∞-categories (quasi-categories)](./infinity-categories.html) — Joyal's model, $h(\mathcal{C})$, ∞-functors / limits / adjunctions / Kan extensions
 - [Cocartesian fibrations & the Grothendieck construction](./cocartesian-fibrations.html) — left/right/cocartesian fibrations, straightening ↔ functors $\mathcal{B} \to \mathrm{Cat}_\infty$
-- [$\infty$-topoi (Lurie)](./infinity-topoi.html) — accessible left-exact localization, $\infty$-Giraud, hypercompletion, internal HoTT — capstone
+- [∞-topoi (Lurie)](./infinity-topoi.html) — accessible left-exact localization, ∞-Giraud, hypercompletion, internal HoTT — capstone
 
 ### Analysis
 - [Real analysis](./real-analysis.html) — completeness of $\mathbb{R}$, $\varepsilon$–$\delta$ continuity, differentiation, uniform convergence, Riemann integration, multivariable diff/int, inverse function theorem
