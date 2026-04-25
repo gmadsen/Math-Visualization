@@ -59,6 +59,7 @@ const STEPS = [
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
+  { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },

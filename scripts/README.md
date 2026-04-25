@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 18-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 19-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -63,6 +63,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`validate-concepts.mjs`](./validate-concepts.mjs) | Concept graph: duplicate ids, broken prereqs, cycles, missing fields, `concepts/index.json` ↔ `concepts/sections.json` coverage. |
 | [`validate-schema.mjs`](./validate-schema.mjs) | `concepts/*.json` + `quizzes/*.json` against `schemas/*.json` via AJV 2020-12. |
 | [`validate-widget-params.mjs`](./validate-widget-params.mjs) | `slug`-bearing widget blocks in `content/*.json` validate against `widgets/<slug>/schema.json`. |
+| [`test-widget-renderers.mjs`](./test-widget-renderers.mjs) | Unit tests (built-in `node:test`) for every widget slug: schema sanity, renderMarkup/renderScript purity, every content/ instance renders non-empty markup containing its widgetId. |
 | [`validate-katex.mjs`](./validate-katex.mjs) | Structural + macro-aware KaTeX checks on blurbs, prose, quiz questions. |
 | [`smoke-test.mjs`](./smoke-test.mjs) | Per-page scaffolding: sidebar, nav, quiz wiring, anchors, changelog, callback/backlink invariants. |
 | [`test-roundtrip.mjs`](./test-roundtrip.mjs) | `render-topic.mjs` output byte-identical to on-disk HTML for every `content/<topic>.json`. `--fix` mode (used by `rebuild.mjs`) writes rendered HTML to disk on drift — `content/*.json` is source of truth. `--no-fix` (CI) fails on drift. |
@@ -107,7 +108,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 Default path after any content edit:
 
 ```bash
-node scripts/rebuild.mjs           # 18 steps, fix-mode; bails on first failure
+node scripts/rebuild.mjs           # 19 steps, fix-mode; bails on first failure
 node scripts/rebuild.mjs --no-fix  # CI mirror (read-only; fails if anything drifted)
 node scripts/rebuild.mjs --only <step>
 ```

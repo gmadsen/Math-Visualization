@@ -427,27 +427,28 @@ When you publish `new-topic.html`:
    node scripts/build-quizzes-bundle.mjs
    ```
    `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
-8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 18 steps, summarized here:
+8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 19 steps, summarized here:
    1. `build-concepts-bundle.mjs`
    2. `build-quizzes-bundle.mjs`
    3. `build-widgets-bundle.mjs`
    4. `build-search-index.mjs`
    5. `validate-schema.mjs`
    6. `validate-widget-params.mjs`
-   7. `validate-concepts.mjs`
-   8. `validate-katex.mjs`
-   9. `audit-callbacks.mjs --fix`
-   10. `inject-used-in-backlinks.mjs --fix`
-   11. `inject-breadcrumb.mjs --fix`
-   12. `inject-display-prefs.mjs --fix`
-   13. `inject-index-stats.mjs --fix`
-   14. `fix-a11y.mjs --fix`
-   15. `smoke-test.mjs`
-   16. `test-roundtrip.mjs`
-   17. `stats-coverage.mjs`
-   18. `audit-doc-drift.mjs`
+   7. `test-widget-renderers.mjs`
+   8. `validate-concepts.mjs`
+   9. `validate-katex.mjs`
+   10. `audit-callbacks.mjs --fix`
+   11. `inject-used-in-backlinks.mjs --fix`
+   12. `inject-breadcrumb.mjs --fix`
+   13. `inject-display-prefs.mjs --fix`
+   14. `inject-index-stats.mjs --fix`
+   15. `fix-a11y.mjs --fix`
+   16. `smoke-test.mjs`
+   17. `test-roundtrip.mjs`
+   18. `stats-coverage.mjs`
+   19. `audit-doc-drift.mjs`
 
-   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
+   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
 
    `inject-changelog-footer.mjs` is intentionally NOT in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
 
