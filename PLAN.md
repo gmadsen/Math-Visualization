@@ -9,10 +9,12 @@ When something ships, delete its bullet here. The full step list of `rebuild.mjs
 Context: the widget registry covers 450/452 widgets across 10 shared renderer slugs (see `widgets/README.md`). `content/<topic>.json` is source of truth as of 2026-04-24; `rebuild.mjs --no-fix` enforces byte-identical roundtrip in CI. Two prototype alternate frontends live under `examples/`. For the full landing trail, see `git log --oneline --grep='Phase [0-9]'`.
 
 **Remaining inline widgets (2/452, genuinely idiosyncratic — skip or custom-module):**
+
 - `galois/w-quintic-scrub`: uses `MVProofScrubber` with per-step `render(svg)` JS closures over local helpers. Closures aren't data; can't migrate to declarative form.
 - `class-field-theory/w-dict`: static `<div class="dict">` grid, no script, no svg. Would need a "static-grid" renderer — not worth a module for one widget.
 
 **Next moves (non-content):**
+
 - Full-topic React frontend: current POC under `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 10 slugs should work since `renderMarkup` / `renderScript` are pure string functions.
 - Three.js adoption decision: the `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics (Riemannian geometry, Lie groups, Riemann surfaces, moduli). Would converge with the existing `surface-viewer` slug. Requires an `AGENTS.md` amendment — the current rule is "no deps beyond KaTeX."
 - Lighter prose-block authoring format: prose blocks could move from raw HTML to an mdx-lite / tag-whitelist dialect. Needs reversibility so existing prose round-trips without loss.
@@ -59,13 +61,9 @@ From `audits/coverage-stats.md`:
 
 ### Stretch
 
-- **Challenge mode.** Timed mixed-concept gauntlet; competitive-against-self.
-- **Learner profiles.** Multiple profiles per browser, each with its own `MVProgress` slice.
-- **Anki deck export** per topic.
-
 ## Capstone arc — higher topoi / internal logic / categorical logic (backlog)
 
-A user-requested capstone in the spirit of Lurie's *Higher Topos Theory* that joins three threads: (1) intuitionist logic inside a category (Heyting algebras, internal language, Kripke–Joyal semantics); (2) classical Grothendieck toposes and their role in algebraic geometry; (3) ∞-categories and ∞-topoi. The capstone page is only viable once a supporting prereq arc exists — it's the algebraic-geometry-arc-sized project for the topos/higher-categorical corner of the notebook.
+A user-requested capstone in the spirit of Lurie's _Higher Topos Theory_ that joins three threads: (1) intuitionist logic inside a category (Heyting algebras, internal language, Kripke–Joyal semantics); (2) classical Grothendieck toposes and their role in algebraic geometry; (3) ∞-categories and ∞-topoi. The capstone page is only viable once a supporting prereq arc exists — it's the algebraic-geometry-arc-sized project for the topos/higher-categorical corner of the notebook.
 
 **Prereq topics to author first, foundational → advanced:**
 

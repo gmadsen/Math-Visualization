@@ -208,6 +208,58 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "proof-scrubber",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "timeline",
+    "role": "guided",
+    "title": "proof-scrubber widget params",
+    "description": "Timeline-style walkthrough of a multi-step proof. The widget emits an empty host div; at runtime the page-global `MVProofScrubber.init('#widgetId', config)` library (js/widget-proof-scrubber.js) builds chrome, a step slider, play/pause control, per-step text readout, and an optional SVG diagram. Each step is `{ title, body, svgInner? }`; the `svgInner` string is appended into the diagram SVG verbatim on step change. A portable frontend can ignore the renderScript and consume the same `steps` array directly.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "steps"
+    ],
+    "readmeExcerpt": "Timeline-style walkthrough of a multi-step proof. The widget emits an empty host div; at runtime the page-global library [`js/widget-proof-scrubber.js`](../../js/widget-proof-scrubber.js) builds the chrome (header, step chips, slider + play/pause, optional SVG diagram, and a text readout) by calling `MVProofScrubber.init('#widgetId', config)`.",
+    "hasExample": true,
+    "exampleParams": {
+      "widgetId": "w-proof-scrubber-example",
+      "title": "Pythagorean theorem — geometric proof",
+      "hint": "drag the slider · or press play",
+      "viewBox": "0 0 240 240",
+      "autoplayMs": 2000,
+      "steps": [
+        {
+          "title": "The claim",
+          "body": "For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.",
+          "svgInner": "<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>"
+        },
+        {
+          "title": "Tile a square of side $a+b$ two ways",
+          "body": "Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.",
+          "svgInner": "<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>"
+        },
+        {
+          "title": "Arrangement A: two squares $a^2 + b^2$",
+          "body": "In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.",
+          "svgInner": "<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>"
+        },
+        {
+          "title": "Arrangement B: one square $c^2$",
+          "body": "In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.",
+          "svgInner": "<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>"
+        },
+        {
+          "title": "Equate",
+          "body": "Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.",
+          "svgInner": "<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>"
+        }
+      ]
+    },
+    "exampleMarkup": "<div class=\"widget\" id=\"w-proof-scrubber-example\"></div>",
+    "exampleScript": "<script>\n(function(){\n  if(!window.MVProofScrubber) return;\n  MVProofScrubber.init('#w-proof-scrubber-example', {\n    title: \"Pythagorean theorem — geometric proof\",\n    hint: \"drag the slider · or press play\",\n    viewBox: \"0 0 240 240\",\n    autoplayMs: 2000,\n    steps: [\n      {\n        title: \"The claim\",\n        body: \"For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>\",\n      },\n      {\n        title: \"Tile a square of side $a+b$ two ways\",\n        body: \"Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.\",\n        svgInner: \"<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>\",\n      },\n      {\n        title: \"Arrangement A: two squares $a^2 + b^2$\",\n        body: \"In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.\",\n        svgInner: \"<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>\",\n      },\n      {\n        title: \"Arrangement B: one square $c^2$\",\n        body: \"In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.\",\n        svgInner: \"<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>\",\n      },\n      {\n        title: \"Equate\",\n        body: \"Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>\",\n      },\n    ],\n  });\n})();\n</script>"
+  },
+  {
     "slug": "surface-viewer",
     "family": "surface-viewer",
     "dimension": "3d",

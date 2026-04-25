@@ -28,6 +28,7 @@ Both `renderMarkup` and `renderScript` are **pure functions of params**. They pr
 | `input-form` | shared | text/number form inputs driving a readout. `labelWraps` flag available. |
 | `surface-viewer` | shared | 3D parametric-surface / polyhedron / trajectory viewers built on the page-global `make3DDraggable` + `proj3` helpers. `standard` interaction for the common header-controls-svg-readout layout; `bare` interaction carries idiosyncratic layouts as a `bodyMarkup` artifact. |
 | `svg-illustration` | shared | static SVG figures with no driving script. Registered for `meta` + portability (alternate frontends can pick an illustration-appropriate rendering strategy). `renderScript` always returns `''`. |
+| `proof-scrubber` | shared | declarative wrapper over `MVProofScrubber` (`js/widget-proof-scrubber.js`). `steps: [{title, body, svgInner?}]` — slider + play-pause walks through proof steps with synchronized SVG. Per-step state is data, not closures. |
 
 See each slug's `README.md` for its param reference and alternate-frontend porting notes.
 

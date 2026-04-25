@@ -53,16 +53,39 @@ function walkBlocks(node, visit) {
 
 function loadInstancesPerSlug() {
   const bySlug = Object.create(null);
-  if (!existsSync(contentDir)) return bySlug;
-  for (const f of readdirSync(contentDir).sort()) {
-    if (!f.endsWith('.json')) continue;
-    const topic = f.replace(/\.json$/, '');
-    const data = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
-    walkBlocks(data, (block) => {
-      if (!block.slug) return;
-      if (!bySlug[block.slug]) bySlug[block.slug] = [];
-      bySlug[block.slug].push({ topic, params: block.params || {} });
-    });
+  if (existsSync(contentDir)) {
+    for (const f of readdirSync(contentDir).sort()) {
+      if (!f.endsWith('.json')) continue;
+      const topic = f.replace(/\.json$/, '');
+      const data = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
+      walkBlocks(data, (block) => {
+        if (!block.slug) return;
+        if (!bySlug[block.slug]) bySlug[block.slug] = [];
+        bySlug[block.slug].push({ topic, params: block.params || {} });
+      });
+    }
+  }
+  // Fixture fallback: widgets/<slug>/example.json (or examples/*.json) lets a
+  // newly-registered slug ship with tested infrastructure before any topic
+  // page adopts it. The fixture is loaded for tests but never emitted into
+  // a topic page automatically — content authors still wire it in by hand
+  // once they have a use case.
+  for (const slug of listSlugs()) {
+    const single = join(widgetsDir, slug, 'example.json');
+    if (existsSync(single)) {
+      const params = JSON.parse(readFileSync(single, 'utf8'));
+      if (!bySlug[slug]) bySlug[slug] = [];
+      bySlug[slug].push({ topic: 'fixture:example.json', params });
+    }
+    const examplesDir = join(widgetsDir, slug, 'examples');
+    if (existsSync(examplesDir)) {
+      for (const f of readdirSync(examplesDir).sort()) {
+        if (!f.endsWith('.json')) continue;
+        const params = JSON.parse(readFileSync(join(examplesDir, f), 'utf8'));
+        if (!bySlug[slug]) bySlug[slug] = [];
+        bySlug[slug].push({ topic: `fixture:examples/${f}`, params });
+      }
+    }
   }
   return bySlug;
 }
