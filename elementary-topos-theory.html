@@ -167,6 +167,7 @@
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
 <script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
@@ -255,7 +256,10 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="definition">
 <h2>1. What is a topos?</h2>
-<p>An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\Omega$. The three pieces — limits, exponentials, $\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense.</p>
+<p>An <strong>elementary topos</strong> is a category $\mathcal{E}$ that is (i) finitely complete, (ii) cartesian closed, and (iii) equipped with a subobject classifier $\Omega$. Equivalently, by a theorem of Mikkelsen, finitely complete + power objects $P(A)$ — the other two axioms follow. Mac Lane and Moerdijk's <em>Sheaves in Geometry and Logic</em> develops the theory in this order; Johnstone's <em>Elephant</em> takes the power-object route.</p>
+<p>Each axiom does work. Finite limits give us pullbacks, and so subobjects, equalisers, and fibre products — the bones of any "category of structured sets." Cartesian closure gives an internal hom: an object $B^A$ such that maps $X \to B^A$ correspond naturally to maps $X \times A \to B$. This lets the category internalise function spaces, and it's exactly the <a href="./category-theory.html#adjunctions">adjunction</a> $(-)\times A \dashv (-)^A$. Together with the terminal object $1$ this already makes $\mathcal{E}$ a model of the simply-typed lambda calculus.</p>
+<p>The third axiom — a subobject classifier $\Omega$ — is what makes $\mathcal{E}$ truly set-like rather than merely cartesian-closed. It says that for every object $X$ the partially ordered class $\mathrm{Sub}(X)$ of subobjects is representable: $\mathrm{Sub}(X) \cong \mathrm{Hom}(X, \Omega)$ naturally in $X$. Equivalently, the contravariant functor $\mathrm{Sub}\colon \mathcal{E}^{\mathrm{op}} \to \mathbf{Set}$ is representable — and the representing object $\Omega$ inherits enough internal structure to model first-order intuitionist logic. Given $(\mathcal{E}, \Omega)$ one recovers exponentials $\Omega^A = P(A)$ as the "power object" classifying subobjects of $A$ — so the three axioms triangulate.</p>
+<p>Examples to keep in mind throughout: $\mathbf{Set}$ itself (with $\Omega = \{\bot, \top\}$), every presheaf category $[C^{\mathrm{op}}, \mathbf{Set}]$, every category $\mathrm{Sh}(X)$ of sheaves on a topological space, and (with mild hypotheses) the category $G\text{-}\mathbf{Set}$ of left $G$-sets for a group $G$. Non-examples worth flagging: $\mathbf{Top}$ (no exponentials in general — function spaces aren't always topologisable) and $\mathbf{Ab}$ (an abelian category never has a subobject classifier unless it is trivial, since $\Omega$ is rarely additive).</p>
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
@@ -274,16 +278,97 @@ function drawNode(svg, x, y, label, opts={}){
 <!-- backlinks-auto-end -->
 
 
-<div class="widget" id="w-elementary-topos-theory-placeholder">
-  <div class="hd"><div class="ttl">The subobject classifier</div><div class="hint">illustration — full interactives in a follow-up PR</div></div>
-  <svg id="svg-elementary-topos-theory-placeholder" viewBox="0 0 320 160" width="320" height="160"><title>The subobject classifier</title><rect x="40" y="40" width="240" height="80" fill="none" stroke="var(--mute)" stroke-width="1.5"/><text x="160" y="76" text-anchor="middle" font-size="18" fill="var(--ink)" font-weight="600">Ω</text><text x="160" y="100" text-anchor="middle" font-size="11" fill="var(--mute)">subobject classifier</text><line x1="60" y1="130" x2="100" y2="130" stroke="var(--blue)" stroke-width="2"/><text x="80" y="148" text-anchor="middle" font-size="10" fill="var(--blue)">true</text><line x1="220" y1="130" x2="260" y2="130" stroke="var(--pink)" stroke-width="2"/><text x="240" y="148" text-anchor="middle" font-size="10" fill="var(--pink)">false</text></svg>
-</div>
+<div class="widget" id="w-topos-axioms-scrub"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-topos-axioms-scrub', {
+    title: "What is a topos? — three axioms, one structure",
+    hint: "drag the slider · or press play",
+    viewBox: "0 0 320 180",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Axiom 1 — finite limits",
+        body: "$\\mathcal{E}$ has a terminal object $1$ and pullbacks (hence equalisers, products, and all finite limits). The bones of every category-of-structured-sets argument: subobjects, fibre products, kernels.",
+        svgInner: "<rect x='30' y='40' width='50' height='30' fill='none' stroke='var(--blue)' stroke-width='1.5'/><text x='55' y='60' text-anchor='middle' font-size='12' fill='var(--ink)'>P</text><rect x='150' y='40' width='50' height='30' fill='none' stroke='var(--mute)' stroke-width='1.2'/><text x='175' y='60' text-anchor='middle' font-size='12' fill='var(--ink)'>X</text><rect x='30' y='110' width='50' height='30' fill='none' stroke='var(--mute)' stroke-width='1.2'/><text x='55' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>Y</text><rect x='150' y='110' width='50' height='30' fill='none' stroke='var(--mute)' stroke-width='1.2'/><text x='175' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>Z</text><line x1='80' y1='55' x2='150' y2='55' stroke='var(--mute)' stroke-width='1.4' marker-end='url(#arr-tx)'/><line x1='55' y1='70' x2='55' y2='110' stroke='var(--mute)' stroke-width='1.4' marker-end='url(#arr-tx)'/><line x1='175' y1='70' x2='175' y2='110' stroke='var(--mute)' stroke-width='1.4' marker-end='url(#arr-tx)'/><line x1='80' y1='125' x2='150' y2='125' stroke='var(--mute)' stroke-width='1.4' marker-end='url(#arr-tx)'/><defs><marker id='arr-tx' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--mute)'/></marker></defs><text x='240' y='90' font-size='13' fill='var(--blue)'>P = X ×_Z Y</text>"
+      },
+      {
+        title: "Axiom 2 — cartesian closure",
+        body: "For every $A$ the functor $(-) \\times A$ has a right adjoint $(-)^A$. Equivalently, $\\mathrm{Hom}(X \\times A, B) \\cong \\mathrm{Hom}(X, B^A)$ naturally in $X$. Currying is internal: function spaces are objects, not just hom-sets.",
+        svgInner: "<rect x='40' y='50' width='60' height='30' fill='none' stroke='var(--green)' stroke-width='1.5'/><text x='70' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>X × A</text><rect x='220' y='50' width='60' height='30' fill='none' stroke='var(--green)' stroke-width='1.5'/><text x='250' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>B</text><line x1='100' y1='65' x2='220' y2='65' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tx2)'/><defs><marker id='arr-tx2' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='160' y='58' text-anchor='middle' font-size='11' fill='var(--mute)'>f</text><rect x='40' y='130' width='60' height='30' fill='none' stroke='var(--green)' stroke-width='1.5'/><text x='70' y='150' text-anchor='middle' font-size='12' fill='var(--ink)'>X</text><rect x='220' y='130' width='60' height='30' fill='none' stroke='var(--green)' stroke-width='1.5'/><text x='250' y='150' text-anchor='middle' font-size='12' fill='var(--ink)'>B^A</text><line x1='100' y1='145' x2='220' y2='145' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tx2)'/><text x='160' y='138' text-anchor='middle' font-size='11' fill='var(--mute)'>f̂ = curry f</text><text x='160' y='110' text-anchor='middle' font-size='10' fill='var(--violet)'>≅</text>"
+      },
+      {
+        title: "Axiom 3 — a subobject classifier $\\Omega$",
+        body: "There is an object $\\Omega$ and a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ arises uniquely as a pullback of $\\mathrm{true}$ along some $\\chi_S\\colon X \\to \\Omega$. This makes $\\mathrm{Sub}(X)$ representable by $\\Omega$.",
+        svgInner: "<rect x='40' y='30' width='50' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='65' y='50' text-anchor='middle' font-size='12' fill='var(--ink)'>S</text><rect x='200' y='30' width='50' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='225' y='50' text-anchor='middle' font-size='12' fill='var(--ink)'>1</text><rect x='40' y='110' width='50' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='65' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>X</text><rect x='200' y='110' width='50' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='225' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>Ω</text><line x1='90' y1='45' x2='200' y2='45' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tx3)'/><line x1='65' y1='60' x2='65' y2='110' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tx3)'/><line x1='225' y1='60' x2='225' y2='110' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tx3)'/><line x1='90' y1='125' x2='200' y2='125' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tx3)'/><defs><marker id='arr-tx3' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='145' y='40' text-anchor='middle' font-size='10' fill='var(--mute)'>!</text><text x='75' y='90' font-size='10' fill='var(--mute)'>↪</text><text x='235' y='90' font-size='10' fill='var(--mute)'>true</text><text x='145' y='118' text-anchor='middle' font-size='10' fill='var(--mute)'>χ_S</text><text x='160' y='160' text-anchor='middle' font-size='10' fill='var(--violet)'>pullback square</text>"
+      },
+      {
+        title: "Power objects $\\Omega^A = P(A)$",
+        body: "Cartesian closure + a classifier ⇒ for each $A$ the exponential $\\Omega^A$ exists. Maps $X \\to \\Omega^A$ correspond to maps $X \\times A \\to \\Omega$, i.e. to subobjects of $X \\times A$ — exactly the power-set functor's universal property.",
+        svgInner: "<rect x='30' y='50' width='80' height='30' fill='none' stroke='var(--violet)' stroke-width='1.5'/><text x='70' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>X × A → Ω</text><rect x='200' y='50' width='80' height='30' fill='none' stroke='var(--violet)' stroke-width='1.5'/><text x='240' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>X → P(A)</text><text x='155' y='70' text-anchor='middle' font-size='14' fill='var(--violet)'>≅</text><text x='160' y='110' text-anchor='middle' font-size='11' fill='var(--mute)'>P(A) := Ω^A</text><text x='160' y='150' text-anchor='middle' font-size='12' fill='var(--green)'>subobjects of X×A ↔ X-indexed families of subobjects of A</text>"
+      },
+      {
+        title: "The package",
+        body: "$\\mathcal{E}$ is an <em>elementary topos</em> when all three axioms hold simultaneously. The synergy: $\\Omega$ + cartesian closure ⇒ internal Heyting-algebra structure on every $\\mathrm{Sub}(X)$, and one can interpret first-order intuitionist logic inside $\\mathcal{E}$.",
+        svgInner: "<circle cx='80' cy='90' r='42' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)' stroke-width='1.5'/><text x='80' y='86' text-anchor='middle' font-size='11' fill='var(--ink)'>finite</text><text x='80' y='100' text-anchor='middle' font-size='11' fill='var(--ink)'>limits</text><circle cx='160' cy='90' r='42' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)' stroke-width='1.5'/><text x='160' y='86' text-anchor='middle' font-size='11' fill='var(--ink)'>cartesian</text><text x='160' y='100' text-anchor='middle' font-size='11' fill='var(--ink)'>closed</text><circle cx='240' cy='90' r='42' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='240' y='86' text-anchor='middle' font-size='11' fill='var(--ink)'>classifier</text><text x='240' y='100' text-anchor='middle' font-size='11' fill='var(--ink)'>Ω</text><text x='160' y='160' text-anchor='middle' font-size='13' fill='var(--violet)' font-weight='600'>topos</text>"
+      },
+    ],
+  });
+})();
+</script>
 <div class="quiz" data-concept="topos-definition"></div>
 </section>
 
 <section id="subobject-classifier">
 <h2>2. The subobject classifier $\Omega$</h2>
-<p>The subobject classifier $\Omega$ is an object equipped with a map $\mathrm{true}\colon 1 \to \Omega$ such that every monomorphism $S \hookrightarrow X$ is the pullback of $\mathrm{true}$ along a unique characteristic map $\chi_S\colon X \to \Omega$. In $\mathbf{Set}$, $\Omega = \{\bot, \top\}$ and $\chi_S$ is the indicator function.</p>
+<p>A <strong>subobject classifier</strong> in $\mathcal{E}$ is a monomorphism $\mathrm{true}\colon 1 \hookrightarrow \Omega$ with the universal property that <em>every</em> monomorphism $S \hookrightarrow X$ in $\mathcal{E}$ fits into a unique pullback square</p>
+<p>$$\begin{array}{ccc} S & \to & 1 \\ \downarrow & & \downarrow \mathrm{true} \\ X & \xrightarrow{\chi_S} & \Omega \end{array}$$</p>
+<p>The map $\chi_S\colon X \to \Omega$ is the <strong>characteristic map</strong> (or <em>classifying map</em>) of $S$. Universality says $\chi$ is unique: $\mathrm{Sub}(X) \to \mathrm{Hom}(X, \Omega)$, $S \mapsto \chi_S$, is a bijection natural in $X$. By <a href="./category-theory.html#nat">Yoneda</a> this means $\Omega$ <em>represents</em> the contravariant subobject functor $\mathrm{Sub}\colon \mathcal{E}^{\mathrm{op}} \to \mathbf{Set}$.</p>
+<p>In $\mathbf{Set}$ the classifier is $\Omega = \{\bot, \top\}$ with $\mathrm{true}\colon \{*\} \to \{\bot,\top\}$ picking out $\top$. The characteristic map of $S \subseteq X$ is the indicator function $\chi_S(x) = \top$ iff $x \in S$. The pullback of $\{*\}$ along $\chi_S$ is exactly $\chi_S^{-1}(\top) = S$. Two-valued, classical, sharp.</p>
+<p>In other toposes $\Omega$ has more shape. In a presheaf topos $\hat{C}$ the elements of $\Omega(c)$ are the <em>sieves</em> on $c$ — the downward-closed subsets of $C/c$ — and $\mathrm{true}_c$ is the maximal sieve. In sheaves on a space $X$, sections of $\Omega$ over an open $U$ are open subsets of $U$. In each case $\Omega$ inherits an internal Heyting-algebra structure from intersections of subobjects: $\Omega$ is the topos's "object of truth values," and that lattice is generally <em>not</em> Boolean — which is why topos logic is intuitionist by default.</p>
+<div class="widget" id="w-omega-scrub"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-omega-scrub', {
+    title: "$\\Omega$ in $\\mathbf{Set}$ — and why it generalises",
+    hint: "drag the slider · or press play",
+    viewBox: "0 0 320 180",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "A subset of $X$",
+        body: "Take $X = \\{1,2,3,4,5,6\\}$ and $S = \\{2, 4, 6\\}$ — the even numbers. The inclusion $S \\hookrightarrow X$ is a monomorphism. We want to <em>name</em> this subobject by a single map $X \\to \\Omega$.",
+        svgInner: "<rect x='30' y='40' width='260' height='100' rx='8' fill='var(--panel2)' stroke='var(--blue)' stroke-width='1.5'/><text x='40' y='60' font-size='11' fill='var(--mute)'>X = {1..6}</text>" + [1,2,3,4,5,6].map((n,i)=>{const x=60+i*40, sel=n%2===0; return `<circle cx='${x}' cy='100' r='14' fill='${sel?'var(--yellow)':'var(--panel)'}' stroke='${sel?'var(--yellow)':'var(--mute)'}' stroke-width='1.5'/><text x='${x}' y='105' text-anchor='middle' font-size='13' fill='${sel?'#111':'var(--ink)'}' font-weight='600'>${n}</text>`}).join('') + "<text x='160' y='160' text-anchor='middle' font-size='11' fill='var(--green)'>S = even ⊆ X</text>"
+      },
+      {
+        title: "Choose $\\Omega = \\{\\bot, \\top\\}$",
+        body: "Let $\\Omega = \\{\\bot, \\top\\}$ with $\\mathrm{true}\\colon \\{*\\} \\to \\Omega$ picking $\\top$. Two truth values, exactly the data needed to record \"in or out.\"",
+        svgInner: "<circle cx='100' cy='90' r='30' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)' stroke-width='1.5'/><text x='100' y='95' text-anchor='middle' font-size='14' fill='var(--ink)'>⊤</text><circle cx='220' cy='90' r='30' fill='color-mix(in srgb, var(--pink) 25%, var(--panel2))' stroke='var(--pink)' stroke-width='1.5'/><text x='220' y='95' text-anchor='middle' font-size='14' fill='var(--ink)'>⊥</text><text x='160' y='150' text-anchor='middle' font-size='11' fill='var(--mute)'>Ω = {⊥, ⊤} with true(*) = ⊤</text>"
+      },
+      {
+        title: "The indicator function",
+        body: "Define $\\chi_S\\colon X \\to \\Omega$ by $\\chi_S(x) = \\top$ if $x\\in S$, else $\\bot$. This is the <em>indicator function</em> of $S$.",
+        svgInner: [1,2,3,4,5,6].map((n,i)=>{const x=40+i*45, sel=n%2===0; return `<circle cx='${x}' cy='50' r='12' fill='${sel?'var(--yellow)':'var(--panel)'}' stroke='${sel?'var(--yellow)':'var(--mute)'}' stroke-width='1.5'/><text x='${x}' y='54' text-anchor='middle' font-size='11' fill='${sel?'#111':'var(--ink)'}'>${n}</text><line x1='${x}' y1='62' x2='${sel?100:220}' y2='128' stroke='${sel?'var(--green)':'var(--pink)'}' stroke-width='1' stroke-opacity='0.6'/>`}).join('') + "<circle cx='100' cy='140' r='14' fill='color-mix(in srgb, var(--green) 30%, var(--panel2))' stroke='var(--green)'/><text x='100' y='144' text-anchor='middle' font-size='12' fill='var(--ink)'>⊤</text><circle cx='220' cy='140' r='14' fill='color-mix(in srgb, var(--pink) 30%, var(--panel2))' stroke='var(--pink)'/><text x='220' y='144' text-anchor='middle' font-size='12' fill='var(--ink)'>⊥</text><text x='160' y='168' text-anchor='middle' font-size='10' fill='var(--mute)'>χ_S: X → Ω</text>"
+      },
+      {
+        title: "The pullback recovers $S$",
+        body: "Pull back $\\mathrm{true}\\colon \\{*\\} \\to \\Omega$ along $\\chi_S$: the fibre over $\\top$ is exactly $\\chi_S^{-1}(\\top) = S$. So $S$ is recovered, and $\\chi_S$ is the unique map for which this works.",
+        svgInner: "<rect x='30' y='30' width='60' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='60' y='50' text-anchor='middle' font-size='12' fill='var(--ink)'>S</text><rect x='220' y='30' width='60' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='250' y='50' text-anchor='middle' font-size='12' fill='var(--ink)'>1</text><rect x='30' y='110' width='60' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='60' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>X</text><rect x='220' y='110' width='60' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5'/><text x='250' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>Ω</text><line x1='90' y1='45' x2='220' y2='45' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-om)'/><line x1='60' y1='60' x2='60' y2='110' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-om)'/><line x1='250' y1='60' x2='250' y2='110' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-om)'/><line x1='90' y1='125' x2='220' y2='125' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-om)'/><defs><marker id='arr-om' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='75' y='90' font-size='10' fill='var(--mute)'>↪</text><text x='258' y='90' font-size='10' fill='var(--mute)'>true</text><text x='155' y='118' text-anchor='middle' font-size='11' fill='var(--green)'>χ_S</text><text x='160' y='168' text-anchor='middle' font-size='10' fill='var(--violet)'>pullback ⟹ unique χ_S</text>"
+      },
+      {
+        title: "Universality: this defines $\\Omega$",
+        body: "An object $\\Omega$ with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ is a <em>subobject classifier</em> when the pullback construction is a bijection $\\mathrm{Sub}(X) \\xrightarrow{\\sim} \\mathrm{Hom}(X, \\Omega)$ for every $X$. By Yoneda this representability characterises $\\Omega$ uniquely up to canonical iso.",
+        svgInner: "<rect x='40' y='50' width='100' height='30' fill='none' stroke='var(--violet)' stroke-width='1.5'/><text x='90' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>Sub(X)</text><rect x='190' y='50' width='100' height='30' fill='none' stroke='var(--violet)' stroke-width='1.5'/><text x='240' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>Hom(X, Ω)</text><text x='165' y='70' text-anchor='middle' font-size='14' fill='var(--violet)'>≅</text><text x='160' y='110' text-anchor='middle' font-size='11' fill='var(--mute)'>natural in X</text><text x='160' y='150' text-anchor='middle' font-size='11' fill='var(--green)'>Ω represents Sub(–)</text>"
+      },
+      {
+        title: "Beyond $\\mathbf{Set}$",
+        body: "In a presheaf topos $\\hat{C}$, $\\Omega(c) = \\{\\text{sieves on } c\\}$. In $\\mathrm{Sh}(X)$, $\\Omega(U) = \\{\\text{open subsets of } U\\}$. Generally $\\Omega$ is an internal Heyting algebra — multi-valued, intuitionist, sharp only in $\\mathbf{Set}$.",
+        svgInner: "<rect x='30' y='30' width='80' height='40' fill='color-mix(in srgb, var(--blue) 20%, var(--panel2))' stroke='var(--blue)' stroke-width='1.4' rx='6'/><text x='70' y='48' text-anchor='middle' font-size='10' fill='var(--ink)'>Set</text><text x='70' y='62' text-anchor='middle' font-size='10' fill='var(--mute)'>{⊥,⊤}</text><rect x='120' y='30' width='80' height='40' fill='color-mix(in srgb, var(--green) 20%, var(--panel2))' stroke='var(--green)' stroke-width='1.4' rx='6'/><text x='160' y='48' text-anchor='middle' font-size='10' fill='var(--ink)'>presheaves</text><text x='160' y='62' text-anchor='middle' font-size='10' fill='var(--mute)'>sieves</text><rect x='210' y='30' width='80' height='40' fill='color-mix(in srgb, var(--yellow) 20%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.4' rx='6'/><text x='250' y='48' text-anchor='middle' font-size='10' fill='var(--ink)'>sheaves</text><text x='250' y='62' text-anchor='middle' font-size='10' fill='var(--mute)'>opens</text><text x='160' y='110' text-anchor='middle' font-size='12' fill='var(--violet)'>Ω = internal Heyting algebra</text><text x='160' y='140' text-anchor='middle' font-size='10' fill='var(--mute)'>not Boolean in general — drives intuitionist logic</text>"
+      },
+    ],
+  });
+})();
+</script>
 <div class="quiz" data-concept="subobject-classifier"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -298,13 +383,152 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="characteristic-maps">
 <h2>3. Characteristic maps as truth values</h2>
-<p>Every subobject of $X$ is named by exactly one map $X \to \Omega$, so $\Omega$ doubles as the object of "truth values" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\Omega$ that the topos sees natively.</p>
+<p>Once we have $\Omega$, every subobject $S \hookrightarrow X$ is named by a unique map $\chi_S\colon X \to \Omega$, and conversely every $X \to \Omega$ comes from a subobject by pulling back $\mathrm{true}$. So $\Omega$ doubles as the topos's object of <em>truth values</em>: a global section $1 \to \Omega$ is a propositional truth value, and a generalised element $X \to \Omega$ is a "predicate on $X$."</p>
+<p>The reason this is useful is that logical operations on predicates become morphisms in $\mathcal{E}$. The internal conjunction $\wedge\colon \Omega \times \Omega \to \Omega$ is the characteristic map of the diagonal $\langle \mathrm{true}, \mathrm{true}\rangle\colon 1 \hookrightarrow \Omega \times \Omega$. The internal implication $\Rightarrow\colon \Omega \times \Omega \to \Omega$ classifies $\{(p,q) : p \le q\} \hookrightarrow \Omega \times \Omega$. From these one builds an internal Heyting algebra structure on every $\mathrm{Sub}(X)$: $\chi_{S \cap T} = \chi_S \wedge \chi_T$, and so on. In $\mathbf{Set}$ this is just the boolean algebra of subsets; in a non-Boolean topos negation is genuinely weaker than excluded middle.</p>
+<p>Concretely: classifying $S \cap T$ as a subobject of $X$ amounts to forming the pullback of $\mathrm{true}\colon 1 \to \Omega$ along $X \xrightarrow{\langle \chi_S, \chi_T\rangle} \Omega \times \Omega \xrightarrow{\wedge} \Omega$. Every Boolean / Heyting reasoning step you'd write on the board for $\mathbf{Set}$ has an exact diagrammatic counterpart inside $\mathcal{E}$. This is the bridge to the Mitchell–Bénabou internal language: a topos is <em>internally</em> a model of higher-order intuitionist logic.</p>
+<div class="widget" id="w-chi-pullback">
+  <div class="hd"><div class="ttl">Characteristic-map explorer</div><div class="hint">click a subset of $X$ — its characteristic map appears</div></div>
+  <svg id="svg-chi-pullback" viewBox="0 0 480 280" width="480" height="280"><title>Characteristic-map explorer</title></svg>
+  <div class="readout" id="out-chi-pullback">Click any element of $X$ to toggle it in/out of $S$. The characteristic map $\chi_S\colon X \to \Omega$ updates live, and the pullback square shows that $S = \chi_S^{-1}(\top)$.</div>
+</div><script>
+(function(){
+  const svg=$('#svg-chi-pullback'), out=$('#out-chi-pullback');
+  const N = 6;
+  const elts = Array.from({length:N},(_,i)=>i+1);
+  const inS = new Set([2,4,6]); // start with even
+  function render(){
+    svg.innerHTML='';
+    // Pullback square layout
+    // top-left: S, top-right: 1
+    // bot-left: X, bot-right: Ω
+    // we draw the square in a left half and the live mapping in a right half
+    // Square (left half)
+    const xs=40, xt=160, ys=30, yt=110;
+    // arrows
+    svg.appendChild(SVG('line',{x1:xs+50,y1:ys+15,x2:xt,y2:ys+15,stroke:'var(--ink)','stroke-width':1.5,'marker-end':'url(#arr-chi)'}));
+    svg.appendChild(SVG('line',{x1:xs+25,y1:ys+30,x2:xs+25,y2:yt,stroke:'var(--ink)','stroke-width':1.5,'marker-end':'url(#arr-chi)'}));
+    svg.appendChild(SVG('line',{x1:xt+25,y1:ys+30,x2:xt+25,y2:yt,stroke:'var(--ink)','stroke-width':1.5,'marker-end':'url(#arr-chi)'}));
+    svg.appendChild(SVG('line',{x1:xs+50,y1:yt+15,x2:xt,y2:yt+15,stroke:'var(--green)','stroke-width':1.8,'marker-end':'url(#arr-chi-g)'}));
+    let defs = SVG('defs');
+    const m1 = SVG('marker',{id:'arr-chi',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+    m1.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--ink)'}));
+    const m2 = SVG('marker',{id:'arr-chi-g',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+    m2.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--green)'}));
+    defs.appendChild(m1); defs.appendChild(m2);
+    svg.appendChild(defs);
+    // boxes
+    function box(x,y,lab,col){
+      svg.appendChild(SVG('rect',{x,y,width:50,height:30,fill:'none',stroke:col,'stroke-width':1.4}));
+      const t=SVG('text',{x:x+25,y:y+19,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});
+      t.textContent=lab; svg.appendChild(t);
+    }
+    box(xs,ys,'S','var(--yellow)');
+    box(xt,ys,'1','var(--yellow)');
+    box(xs,yt,'X','var(--yellow)');
+    box(xt,yt,'Ω','var(--yellow)');
+    // labels for arrows
+    const lt = SVG('text',{x:(xs+50+xt)/2,y:ys+11,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); lt.textContent='!'; svg.appendChild(lt);
+    const lr = SVG('text',{x:xt+38,y:(ys+yt)/2+15,'font-size':10,fill:'var(--mute)'}); lr.textContent='true'; svg.appendChild(lr);
+    const ll = SVG('text',{x:xs-2,y:(ys+yt)/2+18,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); ll.textContent='↪'; svg.appendChild(ll);
+    const lb = SVG('text',{x:(xs+50+xt)/2,y:yt+11,'text-anchor':'middle','font-size':10,fill:'var(--green)','font-weight':600}); lb.textContent='χ_S'; svg.appendChild(lb);
+    // pullback corner mark
+    svg.appendChild(SVG('path',{d:`M${xs+58} ${ys+38} L${xs+58} ${ys+50} L${xs+70} ${ys+50}`,fill:'none',stroke:'var(--mute)','stroke-width':1}));
+    // Right half: X elements + mapping to Ω
+    // X: row of dots at y=30 inside an X-box from x=240..460
+    svg.appendChild(SVG('rect',{x:240,y:18,width:220,height:50,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3',rx:6}));
+    const tx = SVG('text',{x:248,y:14,'font-size':10,fill:'var(--mute)'}); tx.textContent='X'; svg.appendChild(tx);
+    elts.forEach((n,i)=>{
+      const cx = 260 + i*32;
+      const sel = inS.has(n);
+      const c = SVG('circle',{cx,cy:43,r:13,fill:sel?'var(--green)':'var(--panel2)',stroke:sel?'var(--green)':'var(--mute)','stroke-width':1.5,cursor:'pointer'});
+      c.addEventListener('click',()=>{
+        if(inS.has(n)) inS.delete(n); else inS.add(n);
+        render();
+      });
+      svg.appendChild(c);
+      const t = SVG('text',{x:cx,y:48,'text-anchor':'middle','font-size':12,fill:sel?'#111':'var(--ink)','font-weight':600,'pointer-events':'none'});
+      t.textContent = String(n); svg.appendChild(t);
+    });
+    // Ω targets: ⊤ at (300,150), ⊥ at (420,150)
+    svg.appendChild(SVG('rect',{x:240,y:130,width:220,height:50,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3',rx:6}));
+    const tom = SVG('text',{x:248,y:126,'font-size':10,fill:'var(--mute)'}); tom.textContent='Ω'; svg.appendChild(tom);
+    svg.appendChild(SVG('circle',{cx:300,cy:155,r:18,fill:'color-mix(in srgb, var(--green) 30%, var(--panel2))',stroke:'var(--green)','stroke-width':1.5}));
+    const tt = SVG('text',{x:300,y:160,'text-anchor':'middle','font-size':14,fill:'var(--ink)'}); tt.textContent='⊤'; svg.appendChild(tt);
+    svg.appendChild(SVG('circle',{cx:420,cy:155,r:18,fill:'color-mix(in srgb, var(--pink) 30%, var(--panel2))',stroke:'var(--pink)','stroke-width':1.5}));
+    const tf = SVG('text',{x:420,y:160,'text-anchor':'middle','font-size':14,fill:'var(--ink)'}); tf.textContent='⊥'; svg.appendChild(tf);
+    // arrows from each element to ⊤ or ⊥
+    elts.forEach((n,i)=>{
+      const cx = 260 + i*32;
+      const sel = inS.has(n);
+      const tx = sel?300:420;
+      svg.appendChild(SVG('line',{x1:cx,y1:56,x2:tx,y2:140,stroke:sel?'var(--green)':'var(--pink)','stroke-width':1,'stroke-opacity':0.45}));
+    });
+    // χ_S label
+    const lc = SVG('text',{x:350,y:100,'text-anchor':'middle','font-size':12,fill:'var(--violet)','font-style':'italic'});
+    lc.textContent='χ_S'; svg.appendChild(lc);
+    // status readout
+    const inList = elts.filter(n=>inS.has(n));
+    const outList = elts.filter(n=>!inS.has(n));
+    const Sstr = inList.length ? '{ ' + inList.join(', ') + ' }' : '∅';
+    out.innerHTML = `<b>S</b> = ${Sstr} &nbsp;·&nbsp; ` +
+      `χ_S sends ${inList.length ? inList.join(', ') : '— nothing —'} to <span style="color:var(--green)">⊤</span>` +
+      ` and ${outList.length ? outList.join(', ') : '— nothing —'} to <span style="color:var(--pink)">⊥</span>.<br/>` +
+      `<span class="small">The pullback of true: 1 → Ω along χ_S is exactly $\\chi_S^{-1}(\\top)$ = S, and χ_S is uniquely determined by S.</span>`;
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  render();
+})();
+</script>
 <div class="quiz" data-concept="characteristic-maps"></div>
 </section>
 
 <section id="power-objects">
 <h2>4. Power objects $P(A)$</h2>
-<p>The power object $P(A) = \Omega^A$ represents subobjects of $A$ in the same sense $\mathcal{P}(A)$ does in $\mathbf{Set}$: maps $X \to P(A)$ correspond to subobjects of $X \times A$. Power objects make every topos a model of the basic comprehension principle.</p>
+<p>The <strong>power object</strong> of $A$ is $P(A) = \Omega^A$ — the exponential of $\Omega$ by $A$. It represents the "<em>subobjects of $A$, parameterised by $X$</em>" functor: there is a natural bijection</p>
+<p>$$\mathrm{Sub}(X \times A) \;\cong\; \mathrm{Hom}(X \times A, \Omega) \;\cong\; \mathrm{Hom}(X, \Omega^A) \;=\; \mathrm{Hom}(X, P(A)).$$</p>
+<p>The first iso is the universal property of $\Omega$; the second is currying via cartesian closure. Together they say that giving an $X$-indexed family of subobjects of $A$ is the same as giving a single map $X \to P(A)$. Setting $X = 1$ recovers $\mathrm{Sub}(A) \cong \mathrm{Hom}(1, P(A))$, the global elements of $P(A)$ — the "actual subsets" of $A$ that the topos sees.</p>
+<p>In $\mathbf{Set}$ the power object $P(A)$ is the usual power set $\mathcal{P}(A)$, and $|P(A)| = 2^{|A|}$. The element-of relation $\in_A \subseteq A \times P(A)$ is classified by the evaluation map $\mathrm{ev}\colon A \times P(A) \to \Omega$. In a presheaf topos $\hat{C}$ one computes $P(A)(c) = \{\text{subpresheaves of } A \times \mathrm{Hom}(-,c)\}$ — markedly bigger than $2^{A(c)}$ in general, because subpresheaves can be more refined than pointwise subsets.</p>
+<p>The Mikkelsen / Paré / Tierney theorem says power objects are essentially what defines a topos: a finitely complete category with power objects automatically has exponentials and a subobject classifier. So $P(A)$ is not just a derived gadget — it can stand in for the entire definition.</p>
+<div class="widget" id="w-power-scrub"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-power-scrub', {
+    title: "Currying $X \\times A \\to \\Omega$ as $X \\to P(A)$",
+    hint: "drag the slider · or press play",
+    viewBox: "0 0 320 180",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Subobjects of $X \\times A$",
+        body: "A subobject $R \\hookrightarrow X \\times A$ is a relation between $X$ and $A$. Its characteristic map $\\chi_R\\colon X \\times A \\to \\Omega$ records whether $(x,a) \\in R$.",
+        svgInner: "<rect x='40' y='50' width='90' height='40' fill='none' stroke='var(--blue)' stroke-width='1.5' rx='4'/><text x='85' y='75' text-anchor='middle' font-size='12' fill='var(--ink)'>X × A</text><rect x='220' y='50' width='60' height='40' fill='none' stroke='var(--yellow)' stroke-width='1.5' rx='4'/><text x='250' y='75' text-anchor='middle' font-size='12' fill='var(--ink)'>Ω</text><line x1='130' y1='70' x2='220' y2='70' stroke='var(--ink)' stroke-width='1.6' marker-end='url(#arr-pw)'/><defs><marker id='arr-pw' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='175' y='62' text-anchor='middle' font-size='11' fill='var(--mute)' font-style='italic'>χ_R</text><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>R ⊆ X × A &nbsp;⟷&nbsp; χ_R: X × A → Ω</text>"
+      },
+      {
+        title: "Cartesian closure: curry",
+        body: "Cartesian closure gives the adjunction $(-) \\times A \\dashv (-)^A$. Currying transforms $f\\colon X \\times A \\to \\Omega$ into $\\hat f\\colon X \\to \\Omega^A$.",
+        svgInner: "<rect x='30' y='40' width='80' height='30' fill='none' stroke='var(--green)' stroke-width='1.5' rx='4'/><text x='70' y='60' text-anchor='middle' font-size='12' fill='var(--ink)'>X × A</text><rect x='200' y='40' width='80' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5' rx='4'/><text x='240' y='60' text-anchor='middle' font-size='12' fill='var(--ink)'>Ω</text><line x1='110' y1='55' x2='200' y2='55' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-pw2)'/><defs><marker id='arr-pw2' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='155' y='48' text-anchor='middle' font-size='11' fill='var(--mute)'>f</text><rect x='30' y='110' width='80' height='30' fill='none' stroke='var(--green)' stroke-width='1.5' rx='4'/><text x='70' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>X</text><rect x='200' y='110' width='80' height='30' fill='none' stroke='var(--violet)' stroke-width='1.5' rx='4'/><text x='240' y='130' text-anchor='middle' font-size='12' fill='var(--ink)'>Ω^A</text><line x1='110' y1='125' x2='200' y2='125' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-pw2)'/><text x='155' y='118' text-anchor='middle' font-size='11' fill='var(--mute)'>f̂</text><text x='155' y='95' text-anchor='middle' font-size='14' fill='var(--violet)'>≅</text>"
+      },
+      {
+        title: "Define $P(A) := \\Omega^A$",
+        body: "Set $P(A) = \\Omega^A$. Combining the two bijections: $\\mathrm{Sub}(X \\times A) \\cong \\mathrm{Hom}(X \\times A, \\Omega) \\cong \\mathrm{Hom}(X, P(A))$.",
+        svgInner: "<rect x='15' y='80' width='100' height='30' fill='none' stroke='var(--blue)' stroke-width='1.5' rx='4'/><text x='65' y='100' text-anchor='middle' font-size='11' fill='var(--ink)'>Sub(X × A)</text><rect x='130' y='80' width='100' height='30' fill='none' stroke='var(--green)' stroke-width='1.5' rx='4'/><text x='180' y='100' text-anchor='middle' font-size='10' fill='var(--ink)'>Hom(X×A, Ω)</text><rect x='245' y='80' width='75' height='30' fill='none' stroke='var(--violet)' stroke-width='1.5' rx='4'/><text x='282' y='100' text-anchor='middle' font-size='11' fill='var(--ink)'>Hom(X, P(A))</text><text x='122' y='100' font-size='13' fill='var(--mute)'>≅</text><text x='237' y='100' font-size='13' fill='var(--mute)'>≅</text><text x='160' y='150' text-anchor='middle' font-size='11' fill='var(--violet)'>P(A) classifies subobjects of A, parameterised</text>"
+      },
+      {
+        title: "Check in $\\mathbf{Set}$: $P(A) = \\mathcal{P}(A)$",
+        body: "In $\\mathbf{Set}$: $\\Omega = \\{\\bot,\\top\\}$, so $\\Omega^A$ is the set of functions $A \\to \\{\\bot,\\top\\}$ — i.e. $\\mathcal{P}(A)$. Cardinality: $|P(A)| = 2^{|A|}$. The evaluation $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$ is exactly $(a, S) \\mapsto [a \\in S]$.",
+        svgInner: "<text x='160' y='35' text-anchor='middle' font-size='12' fill='var(--mute)'>A = {a, b, c}</text>" + ['{ }','{a}','{b}','{c}','{a,b}','{a,c}','{b,c}','{a,b,c}'].map((s,i)=>{const x=40+(i%4)*70, y=70+Math.floor(i/4)*45; return `<rect x='${x}' y='${y}' width='60' height='30' rx='4' fill='color-mix(in srgb, var(--violet) 18%, var(--panel2))' stroke='var(--violet)' stroke-width='1.2'/><text x='${x+30}' y='${y+19}' text-anchor='middle' font-size='11' fill='var(--ink)'>${s}</text>`}).join('') + "<text x='160' y='168' text-anchor='middle' font-size='11' fill='var(--green)'>P(A) = 2^A, |P(A)| = 8 = 2³</text>"
+      },
+      {
+        title: "Internal element-of",
+        body: "There is a canonical subobject $\\in_A \\hookrightarrow A \\times P(A)$ — the membership relation — classified by $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$. Every topos has its own Mitchell–Bénabou language: comprehension $\\{a \\in A : \\varphi(a)\\}$ produces a subobject of $A$, named by a global element $1 \\to P(A)$.",
+        svgInner: "<rect x='40' y='50' width='100' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5' rx='4'/><text x='90' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>∈_A ↪ A × P(A)</text><rect x='200' y='50' width='80' height='30' fill='none' stroke='var(--yellow)' stroke-width='1.5' rx='4'/><text x='240' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>Ω</text><line x1='140' y1='65' x2='200' y2='65' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-pw3)'/><defs><marker id='arr-pw3' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='170' y='58' text-anchor='middle' font-size='11' fill='var(--mute)'>ev</text><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--violet)'>comprehension: { a : φ(a) }: 1 → P(A)</text>"
+      },
+    ],
+  });
+})();
+</script>
 <div class="quiz" data-concept="power-objects"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -317,7 +541,173 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="presheaf-topos">
 <h2>5. Presheaf toposes $\hat{C} = [C^{\mathrm{op}}, \mathbf{Set}]$</h2>
-<p>For any small category $C$, the functor category $\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\mathbf{Set}$.</p>
+<p>For any small category $C$, the <strong>presheaf category</strong> $\hat{C} = [C^{\mathrm{op}}, \mathbf{Set}]$ is an elementary topos. Limits and colimits are computed pointwise. Exponentials are given by the formula $G^F(c) = \mathrm{Hom}_{\hat C}(F \times \mathrm{Hom}(-, c), G)$ — Yoneda is doing the work.</p>
+<p>The subobject classifier of $\hat{C}$ is the presheaf $\Omega$ defined by $\Omega(c) = \{\text{sieves on } c\}$. A <strong>sieve</strong> on $c$ is a set $S$ of morphisms with codomain $c$ that is downward closed under precomposition: $f \in S$ and $g$ composable ⇒ $f \circ g \in S$. Equivalently, a sieve is a subpresheaf of the representable $\mathrm{Hom}(-, c) = よ(c)$. The "true" arrow $\mathrm{true}_c\colon 1 \to \Omega(c)$ picks out the maximal sieve (all of $C/c$); restriction along $f\colon c' \to c$ pulls back $S$ to $f^*S = \{g : f\circ g \in S\}$.</p>
+<p>The poset case is most concrete. If $C$ is a poset (viewed as a category with at most one arrow between any two objects), then a sieve on $c$ is exactly a downward-closed subset of $\{c' \in C : c' \le c\}$, i.e. a down-set in the principal filter at $c$. The lattice of sieves on $c$ is then the Heyting algebra of down-sets — generally not Boolean, which is why presheaf toposes are intuitionist.</p>
+<p>Presheaf toposes are the workhorse non-classical examples in topos theory. Special cases: $\mathbf{Set}^{\to}$ — the arrow category (presheaves on the walking arrow $\bullet \to \bullet$) — has $\Omega$ a 3-element set; the topos of $G$-sets is $[\mathbf{B}G^{\mathrm{op}}, \mathbf{Set}]$; simplicial sets are $[\Delta^{\mathrm{op}}, \mathbf{Set}]$. Every Grothendieck topos arises as a left-exact reflective subcategory of some $\hat{C}$, so presheaf toposes are universal in a precise sense.</p>
+<div class="widget" id="w-sieves-graph">
+  <div class="hd"><div class="ttl">Sieves on a poset</div><div class="hint">click any object — the sieves on it appear; pick one to see it as a down-set</div></div>
+  <div class="row"><label>poset
+    <select id="sv-pick">
+      <option value="chain3">chain $a \le b \le c$ (3 objects)</option>
+      <option value="vee">$\vee$-poset: $a, b \le c$ (2 incomparable below 1)</option>
+      <option value="diamond">diamond: $\bot \le a, b \le \top$</option>
+    </select></label>
+  </div>
+  <svg id="svg-sieves-graph" viewBox="0 0 480 240" width="480" height="240"><title>Sieves on a poset</title></svg>
+  <div class="readout" id="out-sieves-graph">Click an object to enumerate its sieves. Each sieve is a down-set in the principal filter; the maximal sieve is $\mathrm{true}$.</div>
+</div><script>
+(function(){
+  const svg=$('#svg-sieves-graph'), out=$('#out-sieves-graph'), pick=$('#sv-pick');
+  // Three posets, each laid out as nodes + edges (edge = ≤, drawn from lower to upper)
+  const POSETS = {
+    chain3: {
+      name: 'chain a ≤ b ≤ c',
+      nodes: [
+        { id:'a', label:'a', x:100, y:180 },
+        { id:'b', label:'b', x:240, y:120 },
+        { id:'c', label:'c', x:380, y:60  },
+      ],
+      // edges: lower ≤ upper
+      edges: [['a','b'], ['b','c']],
+    },
+    vee: {
+      name: 'a, b ≤ c',
+      nodes: [
+        { id:'a', label:'a', x:140, y:180 },
+        { id:'b', label:'b', x:340, y:180 },
+        { id:'c', label:'c', x:240, y:60 },
+      ],
+      edges: [['a','c'], ['b','c']],
+    },
+    diamond: {
+      name: 'diamond ⊥ ≤ a,b ≤ ⊤',
+      nodes: [
+        { id:'bot', label:'⊥', x:240, y:200 },
+        { id:'a',   label:'a', x:140, y:120 },
+        { id:'b',   label:'b', x:340, y:120 },
+        { id:'top', label:'⊤', x:240, y:40  },
+      ],
+      edges: [['bot','a'],['bot','b'],['a','top'],['b','top']],
+    },
+  };
+  // Compute principal filter (set of objects ≤ c) by transitive closure on edges
+  function principalDown(P, c){
+    const par = new Map(); P.nodes.forEach(n=>par.set(n.id,new Set([n.id])));
+    // edges go lower → upper, so for each upper u: par(u) includes par(lower)
+    let changed = true;
+    while(changed){
+      changed = false;
+      for(const [lo,up] of P.edges){
+        const su=par.get(up), sl=par.get(lo);
+        const before = su.size;
+        for(const x of sl) su.add(x);
+        if(su.size!==before) changed = true;
+      }
+    }
+    return par.get(c); // set of x with x ≤ c
+  }
+  // Enumerate sieves on c: downward-closed subsets of principalDown(c).
+  // For a poset this equals down-sets of the sub-poset on principalDown(c).
+  function sievesOn(P, c){
+    const D = [...principalDown(P,c)];
+    // build sub-edges
+    const ord = (x,y) => { // x ≤ y in P
+      const Dy = principalDown(P,y); return Dy.has(x);
+    };
+    // generate all subsets; keep down-closed
+    const out = [];
+    const N = D.length;
+    for(let mask=0; mask<(1<<N); mask++){
+      const S = new Set();
+      for(let i=0;i<N;i++) if(mask&(1<<i)) S.add(D[i]);
+      // downward closed: if y∈S and x ≤ y, then x∈S
+      let ok = true;
+      for(const y of S){
+        for(const x of D){
+          if(x===y) continue;
+          if(ord(x,y) && !S.has(x)){ ok=false; break; }
+        }
+        if(!ok) break;
+      }
+      if(ok) out.push([...S].sort());
+    }
+    return out;
+  }
+  let selected = null;
+  let selectedSieve = -1;
+  function render(){
+    svg.innerHTML='';
+    const key = pick.value, P = POSETS[key];
+    // edges
+    for(const [lo,up] of P.edges){
+      const A = P.nodes.find(n=>n.id===lo), B = P.nodes.find(n=>n.id===up);
+      svg.appendChild(SVG('line',{x1:A.x,y1:A.y,x2:B.x,y2:B.y,stroke:'var(--mute)','stroke-width':1.5}));
+    }
+    // selected sieve set (if any)
+    let sieves = [];
+    let down = new Set();
+    if(selected){
+      sieves = sievesOn(P, selected);
+      if(selectedSieve>=0 && selectedSieve<sieves.length){
+        down = new Set(sieves[selectedSieve]);
+      }
+    }
+    // nodes
+    for(const n of P.nodes){
+      const isSel = selected===n.id;
+      const inDown = down.has(n.id);
+      const c = SVG('circle',{cx:n.x,cy:n.y,r:18,
+        fill: inDown ? 'var(--yellow)' : (isSel ? 'color-mix(in srgb, var(--violet) 30%, var(--panel2))' : 'var(--panel2)'),
+        stroke: isSel ? 'var(--violet)' : 'var(--blue)',
+        'stroke-width': isSel?2.5:1.5,
+        cursor:'pointer'});
+      c.addEventListener('click',()=>{
+        if(selected===n.id){ selected=null; selectedSieve=-1; }
+        else { selected=n.id; selectedSieve=-1; }
+        render();
+      });
+      svg.appendChild(c);
+      const t = SVG('text',{x:n.x,y:n.y+5,'text-anchor':'middle','font-size':14,
+        fill: inDown ? '#111' : 'var(--ink)','font-weight':600,'pointer-events':'none'});
+      t.textContent = n.label; svg.appendChild(t);
+    }
+    // poset name
+    const nlab = SVG('text',{x:240,y:25,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    nlab.textContent = P.name; svg.appendChild(nlab);
+    // readout
+    if(!selected){
+      out.innerHTML = 'Click an object to enumerate its sieves. Each sieve is a down-set in the principal filter; the maximal sieve is $\\mathrm{true}$.';
+    } else {
+      const fmt = (S) => S.length ? '{ ' + S.map(id=>P.nodes.find(n=>n.id===id).label).join(', ') + ' }' : '∅';
+      const lines = sieves.map((S,i)=>{
+        const isMax = i===sieves.length-1;
+        const isMin = S.length===0;
+        const tag = isMax ? ' &nbsp;<span style="color:var(--green)">true</span>' : (isMin ? ' &nbsp;<span style="color:var(--pink)">false</span>' : '');
+        const cur = i===selectedSieve ? ' <b style="color:var(--violet)">●</b>' : '';
+        return `<div style="cursor:pointer;padding:2px 0" data-i="${i}">[${i}] ${fmt(S)}${tag}${cur}</div>`;
+      }).join('');
+      const cLab = P.nodes.find(n=>n.id===selected).label;
+      out.innerHTML = `Sieves on <b>${cLab}</b> &nbsp;·&nbsp; |Ω(${cLab})| = ${sieves.length}` +
+        `<br/><span class="small">Click a row to highlight its down-set on the diagram.</span>` +
+        lines;
+      // wire the row clicks
+      out.querySelectorAll('div[data-i]').forEach(div=>{
+        div.addEventListener('click',()=>{
+          const i = parseInt(div.dataset.i,10);
+          selectedSieve = (selectedSieve===i ? -1 : i);
+          render();
+        });
+      });
+    }
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  pick.addEventListener('change',()=>{ selected=null; selectedSieve=-1; render(); });
+  render();
+})();
+</script>
 <div class="quiz" data-concept="presheaf-topos"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -334,13 +724,275 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="g-set-topos">
 <h2>6. The topos of $G$-sets</h2>
-<p>For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\{\bot,\top\}$ in $\mathbf{Set}$.</p>
+<p>For a group $G$, let $\mathbf{B}G$ denote the one-object groupoid with $\mathrm{Hom}(*,*) = G$. The category of <strong>left $G$-sets</strong> — sets $X$ with a left $G$-action $G \times X \to X$ — is exactly the presheaf topos $[\mathbf{B}G^{\mathrm{op}}, \mathbf{Set}] = G\text{-}\mathbf{Set}$. (The $\mathrm{op}$ swaps left/right; for a group it makes no essential difference because $g \mapsto g^{-1}$ is an isomorphism.) So everything from the presheaf section applies: $G\text{-}\mathbf{Set}$ has all limits and colimits computed underlyingly in $\mathbf{Set}$ with the $G$-action carried along, and it is cartesian closed with $Y^X$ the set of $G$-equivariant maps $X \to Y$ on which $G$ acts by conjugation.</p>
+<p>Its subobjects of a transitive $G$-set $G/H$ are particularly clean: a subobject of $G/H$ is determined by an intermediate subgroup $H \le K \le G$, namely the image of $G/H \to G/K$. Equivariant maps $G/H \to G/K$ correspond to $H$-fixed cosets $K\setminus G^H$, which by Frobenius reciprocity is non-empty iff $H \le K$ up to conjugation. So the lattice of subobjects of $G/H$ inside $G\text{-}\mathbf{Set}$ records the subgroup structure between $H$ and $G$.</p>
+<p>The subobject classifier $\Omega$ in $G\text{-}\mathbf{Set}$ is the set of subgroups of $G$ (more precisely: its underlying set is the set of subgroups, with $G$ acting by conjugation $g\cdot H = gHg^{-1}$). The arrow $\mathrm{true}\colon 1 \to \Omega$ picks out the full subgroup $G$ itself. Given a $G$-equivariant inclusion $S \hookrightarrow X$, the classifying map $\chi_S\colon X \to \Omega$ sends $x$ to the stabiliser-of-membership $\{g \in G : gx \in S\}$ — a subgroup of $G$, hence an element of $\Omega$. When $G$ is the trivial group this collapses to $\{\bot, \top\}$ and we recover ordinary $\mathbf{Set}$.</p>
+<div class="widget" id="w-gset-graph">
+  <div class="hd"><div class="ttl">Subobjects of $G/H$ as intermediate subgroups</div><div class="hint">click a subgroup — the corresponding subobject of $G/1$ lights up</div></div>
+  <div class="row"><label>group
+    <select id="gs-pick">
+      <option value="z6">$G = \mathbb{Z}/6$ (cyclic)</option>
+      <option value="s3">$G = S_3$</option>
+      <option value="v4">$G = V_4 = \mathbb{Z}/2 \times \mathbb{Z}/2$</option>
+    </select></label>
+  </div>
+  <svg id="svg-gset-graph" viewBox="0 0 480 280" width="480" height="280"><title>Subobjects of G/H as intermediate subgroups</title></svg>
+  <div class="readout" id="out-gset-graph">Click a node in the subgroup lattice. The subobject of $G$ (acting on itself by left translation) corresponding to that subgroup will appear on the right.</div>
+</div><script>
+(function(){
+  const svg=$('#svg-gset-graph'), out=$('#out-gset-graph'), pick=$('#gs-pick');
+  // For each group: list subgroups (each a subset of element-labels), and a Hasse diagram (edges = covering relations, lower → upper inclusion).
+  const GROUPS = {
+    z6: {
+      name: 'ℤ/6 = {0,1,2,3,4,5}',
+      elements: ['0','1','2','3','4','5'],
+      subs: {
+        e:    { label:'{0}',          set:['0'],                  x:240, y:230 },
+        z2:   { label:'⟨3⟩ = {0,3}',  set:['0','3'],              x:140, y:140 },
+        z3:   { label:'⟨2⟩ = {0,2,4}',set:['0','2','4'],          x:340, y:140 },
+        full: { label:'ℤ/6',          set:['0','1','2','3','4','5'], x:240, y:50 },
+      },
+      edges: [['e','z2'],['e','z3'],['z2','full'],['z3','full']],
+    },
+    s3: {
+      name: 'S₃ = {e, r, r², s, sr, sr²}',
+      elements: ['e','r','r²','s','sr','sr²'],
+      subs: {
+        E:    { label:'{e}',           set:['e'],                       x:240, y:230 },
+        s1:   { label:'⟨s⟩',           set:['e','s'],                   x:120, y:140 },
+        s2:   { label:'⟨sr⟩',          set:['e','sr'],                  x:240, y:140 },
+        s3sub:{ label:'⟨sr²⟩',         set:['e','sr²'],                 x:360, y:140 },
+        rot:  { label:'⟨r⟩ = A₃',      set:['e','r','r²'],              x:60,  y:140 },
+        full: { label:'S₃',            set:['e','r','r²','s','sr','sr²'],x:240, y:50 },
+      },
+      edges: [['E','s1'],['E','s2'],['E','s3sub'],['E','rot'],
+              ['s1','full'],['s2','full'],['s3sub','full'],['rot','full']],
+    },
+    v4: {
+      name: 'V₄ = {e, a, b, ab}',
+      elements: ['e','a','b','ab'],
+      subs: {
+        E:    { label:'{e}',     set:['e'],                x:240, y:230 },
+        a:    { label:'⟨a⟩',     set:['e','a'],            x:130, y:140 },
+        b:    { label:'⟨b⟩',     set:['e','b'],            x:240, y:140 },
+        ab:   { label:'⟨ab⟩',    set:['e','ab'],           x:350, y:140 },
+        full: { label:'V₄',      set:['e','a','b','ab'],   x:240, y:50  },
+      },
+      edges: [['E','a'],['E','b'],['E','ab'],['a','full'],['b','full'],['ab','full']],
+    },
+  };
+  let selected = null;
+  function render(){
+    svg.innerHTML='';
+    const key = pick.value, G = GROUPS[key];
+    // header
+    const nlab = SVG('text',{x:120,y:24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    nlab.textContent = 'Subgroup lattice of ' + G.name; svg.appendChild(nlab);
+    const nlab2 = SVG('text',{x:380,y:24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    nlab2.textContent = 'G acting on itself: G·x for x ∈ ' + (selected ? G.subs[selected].label : '?'); svg.appendChild(nlab2);
+    // subgroup lattice on the LEFT half (x < 240)
+    // Re-map nodes to live in [20..220] x [50..230]
+    const left = {}; for(const id of Object.keys(G.subs)){
+      const s = G.subs[id];
+      // rescale x from [60..420] → [20..220]
+      const nx = 20 + ((s.x - 60) / 360) * 200;
+      left[id] = { x:nx, y:s.y };
+    }
+    // edges
+    for(const [lo,up] of G.edges){
+      const A = left[lo], B = left[up];
+      svg.appendChild(SVG('line',{x1:A.x,y1:A.y,x2:B.x,y2:B.y,stroke:'var(--mute)','stroke-width':1.4}));
+    }
+    // nodes
+    for(const id of Object.keys(G.subs)){
+      const s = G.subs[id], pos = left[id];
+      const isSel = selected===id;
+      const c = SVG('circle',{cx:pos.x,cy:pos.y,r:18,
+        fill: isSel ? 'var(--yellow)' : 'var(--panel2)',
+        stroke: isSel ? 'var(--violet)' : 'var(--blue)',
+        'stroke-width': isSel?2.5:1.5,
+        cursor:'pointer'});
+      c.addEventListener('click',()=>{
+        selected = (selected===id ? null : id);
+        render();
+      });
+      svg.appendChild(c);
+      const labText = s.label.length > 6 ? '·' : s.label.replace(/⟨|⟩/g,'').substring(0,3);
+      const t = SVG('text',{x:pos.x,y:pos.y+5,'text-anchor':'middle','font-size':10,
+        fill: isSel ? '#111' : 'var(--ink)','font-weight':600,'pointer-events':'none'});
+      t.textContent = labText; svg.appendChild(t);
+      // floating label below
+      const tlab = SVG('text',{x:pos.x,y:pos.y+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)','pointer-events':'none'});
+      tlab.textContent = s.label; svg.appendChild(tlab);
+    }
+    // RIGHT half: G as a set of dots, with the selected subobject highlighted
+    // bounding box [260..460] x [50..230]
+    svg.appendChild(SVG('rect',{x:260,y:50,width:200,height:180,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3',rx:6}));
+    const tx = SVG('text',{x:268,y:46,'font-size':10,fill:'var(--mute)'}); tx.textContent='G as a G-set'; svg.appendChild(tx);
+    const elements = G.elements;
+    const Sset = selected ? new Set(G.subs[selected].set) : new Set();
+    elements.forEach((e,i)=>{
+      const cols = 3;
+      const cx = 280 + (i%cols)*60;
+      const cy = 80 + Math.floor(i/cols)*55;
+      const inSel = Sset.has(e);
+      svg.appendChild(SVG('circle',{cx,cy,r:18,
+        fill: inSel ? 'var(--yellow)' : 'var(--panel2)',
+        stroke: inSel ? 'var(--yellow)' : 'var(--mute)',
+        'stroke-width':1.5}));
+      const t = SVG('text',{x:cx,y:cy+5,'text-anchor':'middle','font-size':12,
+        fill: inSel ? '#111' : 'var(--ink)','font-weight':600});
+      t.textContent = e; svg.appendChild(t);
+    });
+    // readout
+    if(!selected){
+      out.innerHTML = 'Click a node in the subgroup lattice. The subobject of $G$ (acting on itself by left translation) corresponding to that subgroup will appear on the right.';
+    } else {
+      const s = G.subs[selected];
+      const isFull = s.set.length===elements.length;
+      const isTriv = s.set.length===1;
+      const tag = isFull ? '<span style="color:var(--green)">⊤ — true</span>'
+                : (isTriv ? '<span style="color:var(--pink)">⊥ — bottom (trivial subobject)</span>'
+                          : '<span style="color:var(--violet)">intermediate</span>');
+      out.innerHTML = `Subgroup <b>${s.label}</b> ↔ subobject <b>{${s.set.join(', ')}}</b> ⊆ G &nbsp;·&nbsp; ${tag}` +
+        `<br/><span class="small">In the topos $G\\text{-}\\mathbf{Set}$, $\\Omega$ is the set of subgroups of $G$ (with conjugation action); $\\mathrm{true}$ picks out $G$ itself. The lattice on the left is exactly $\\mathrm{Sub}_{G\\text{-}\\mathbf{Set}}(G/1)$ as a poset of subgroups.</span>`;
+    }
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  pick.addEventListener('change',()=>{ selected=null; render(); });
+  render();
+})();
+</script>
 <div class="quiz" data-concept="g-set-topos"></div>
 </section>
 
 <section id="geometric-morphisms">
 <h2>7. Geometric morphisms</h2>
-<p>A geometric morphism $f\colon \mathcal{F} \to \mathcal{E}$ is an adjoint pair $f^* \dashv f_*$ with $f^*$ left exact. They are the natural notion of "map between toposes," generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction.</p>
+<p>A <strong>geometric morphism</strong> $f\colon \mathcal{F} \to \mathcal{E}$ between toposes is the data of an <a href="./category-theory.html#adjunctions">adjoint pair</a> $f^* \dashv f_*$, where $f^*\colon \mathcal{E} \to \mathcal{F}$ is the <em>inverse image</em> functor and $f_*\colon \mathcal{F} \to \mathcal{E}$ is the <em>direct image</em>, subject to the constraint that $f^*$ is <strong>left exact</strong> — preserves all finite limits. The direction is the topology direction: $f^*$ goes the same way as the geometric morphism's named arrow $f$, while $f_*$ goes the other way. (One symbol; two functors; the asymmetry is real.)</p>
+<p>The motivating example is a continuous map $f\colon X \to Y$ between topological spaces. It induces $f^{-1}\colon \mathrm{Open}(Y) \to \mathrm{Open}(X)$ and the corresponding inverse-image / direct-image pair on sheaves: $f^*\colon \mathrm{Sh}(Y) \to \mathrm{Sh}(X)$ takes the sheaf-pullback (and is left exact because $f^{-1}$ preserves finite intersections), while $f_*$ takes pushforward sheaves. Continuous maps of spaces $\rightleftarrows$ geometric morphisms of toposes is functorial up to canonical 2-iso, with the topos $\mathrm{Sh}(X)$ remembering all the topological information of a sober space.</p>
+<p>Geometric morphisms also encode "points." A <em>point</em> of a topos $\mathcal{E}$ is a geometric morphism $\mathbf{Set} \to \mathcal{E}$, mirroring the fact that points of a space $X$ correspond to continuous maps from a one-point space. For a sheaf topos $\mathrm{Sh}(X)$ this gives the points of $X$ (when $X$ is sober). In the algebraic-geometric direction, a ring homomorphism $A \to B$ induces a geometric morphism $\mathrm{Sh}(\mathrm{Spec}\, B) \to \mathrm{Sh}(\mathrm{Spec}\, A)$ — same direction as the spec map.</p>
+<p>Special families: a geometric morphism is an <em>embedding</em> when $f_*$ is full and faithful (think: closed/open subspace inclusion); a <em>surjection</em> when $f^*$ is faithful (covers); and an <em>essential</em> geometric morphism additionally has a left adjoint $f_!$ to $f^*$ (so $f_! \dashv f^* \dashv f_*$). The Grothendieck programme then unfolds: morphisms of sites induce geometric morphisms, the inclusion $\mathrm{Sh}(C, J) \hookrightarrow \hat{C}$ of sheaves into presheaves is a geometric morphism with $f^* = $ sheafification, and so on.</p>
+<div class="widget" id="w-geom-graph">
+  <div class="hd"><div class="ttl">Geometric-morphism direction explorer</div><div class="hint">click a functor — its direction and exactness role appear</div></div>
+  <div class="row"><label>example
+    <select id="gm-pick">
+      <option value="space">continuous $f\colon X \to Y$ ⟶ $\mathrm{Sh}(X) \to \mathrm{Sh}(Y)$</option>
+      <option value="ring">ring map $\varphi\colon A \to B$ ⟶ $\mathrm{Sh}(\mathrm{Spec}\, B) \to \mathrm{Sh}(\mathrm{Spec}\, A)$</option>
+      <option value="point">a point: $p\colon \mathbf{Set} \to \mathcal{E}$</option>
+    </select></label>
+  </div>
+  <svg id="svg-geom-graph" viewBox="0 0 480 240" width="480" height="240"><title>Geometric-morphism direction explorer</title></svg>
+  <div class="readout" id="out-geom-graph">Click on $f^*$ or $f_*$ to see which functor it is, which direction it points, and which exactness it carries.</div>
+</div><script>
+(function(){
+  const svg=$('#svg-geom-graph'), out=$('#out-geom-graph'), pick=$('#gm-pick');
+  const SCENARIOS = {
+    space: {
+      title: 'Continuous f: X → Y',
+      F: { label:'Sh(X)',    sub:'topos of sheaves on X' },
+      E: { label:'Sh(Y)',    sub:'topos of sheaves on Y' },
+      arrowName: 'f',
+      arrowDir:  'F→E',
+      explainStar:  'f* = inverse image / sheaf-pullback. Goes Sh(Y) → Sh(X) (opposite of how it would go on opens). Left exact: preserves finite limits, in particular intersections of subsheaves. This is the "left adjoint" — left in f* ⊣ f_*.',
+      explainStara: 'f_* = direct image / pushforward. Goes Sh(X) → Sh(Y) (same direction as f). Right adjoint to f*. Generally only left exact, not right exact: takes section into sections, but doesn\'t play well with quotients.',
+    },
+    ring: {
+      title: 'Ring map φ: A → B  (Spec reverses!)',
+      F: { label:'Sh(Spec B)', sub:'sheaves on Spec B' },
+      E: { label:'Sh(Spec A)', sub:'sheaves on Spec A' },
+      arrowName: 'Spec(φ)',
+      arrowDir:  'F→E',
+      explainStar:  'f* = pullback along Spec(φ). Goes Sh(Spec A) → Sh(Spec B). Left exact. The direction matches the morphism Spec(φ): Spec B → Spec A — the topology / scheme direction reverses the ring map.',
+      explainStara: 'f_* = pushforward along Spec(φ). Goes Sh(Spec B) → Sh(Spec A). Right adjoint to f*; takes a sheaf on Spec B to its global-sections-by-fibre on Spec A.',
+    },
+    point: {
+      title: 'A point p: Set → 𝓔',
+      F: { label:'Set',      sub:'a single point' },
+      E: { label:'𝓔',        sub:'an arbitrary topos' },
+      arrowName: 'p',
+      arrowDir:  'F→E',
+      explainStar:  'p* = "stalk at p". Goes 𝓔 → Set. Left exact — preserves finite limits, so the stalk of an intersection of subobjects is the intersection of stalks. Defining a point of a topos is exactly choosing such a left-exact left adjoint.',
+      explainStara: 'p_* = "skyscraper / point pushforward". Goes Set → 𝓔. Right adjoint to p*; sends a set S to the constant-sheaf-supported-at-p variant.',
+    },
+  };
+  let highlight = null;
+  function render(){
+    svg.innerHTML='';
+    const sc = SCENARIOS[pick.value];
+    // title
+    const tt = SVG('text',{x:240,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tt.textContent = sc.title; svg.appendChild(tt);
+    // two boxes
+    function box(x,lab,sub,col){
+      svg.appendChild(SVG('rect',{x,y:90,width:120,height:60,fill:'none',stroke:col,'stroke-width':1.5,rx:6}));
+      const t=SVG('text',{x:x+60,y:115,'text-anchor':'middle','font-size':14,fill:'var(--ink)','font-weight':600});
+      t.textContent=lab; svg.appendChild(t);
+      const ts=SVG('text',{x:x+60,y:135,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      ts.textContent=sub; svg.appendChild(ts);
+    }
+    box(40, sc.F.label, sc.F.sub, 'var(--blue)');
+    box(320,sc.E.label, sc.E.sub, 'var(--green)');
+    // f* and f_* arrows
+    // f*: from E (right) to F (left), top arrow
+    const starHi = highlight==='star';
+    const stara = highlight==='stara';
+    // arrow from (320,105) → (160,105), labelled "f*"
+    const c1 = SVG('path',{
+      d:'M320 105 Q 240 65 160 105',
+      fill:'none', stroke: starHi ? 'var(--yellow)' : 'var(--ink)',
+      'stroke-width': starHi ? 2.4 : 1.5,
+      'marker-end':'url(#arr-gm)', cursor:'pointer'});
+    c1.addEventListener('click',()=>{ highlight = (highlight==='star'?null:'star'); render(); });
+    svg.appendChild(c1);
+    const lc1 = SVG('text',{x:240,y:60,'text-anchor':'middle','font-size':14,
+      fill: starHi ? 'var(--yellow)' : 'var(--ink)','font-style':'italic','font-weight':600,cursor:'pointer'});
+    lc1.textContent='f*'; lc1.addEventListener('click',()=>{ highlight = (highlight==='star'?null:'star'); render(); });
+    svg.appendChild(lc1);
+    const lcb = SVG('text',{x:240,y:78,'text-anchor':'middle','font-size':9,
+      fill: starHi ? 'var(--yellow)' : 'var(--mute)'});
+    lcb.textContent='inverse image (left exact)'; svg.appendChild(lcb);
+    // f_*: from F (left) to E (right), bottom arrow
+    const c2 = SVG('path',{
+      d:'M160 145 Q 240 185 320 145',
+      fill:'none', stroke: stara ? 'var(--yellow)' : 'var(--ink)',
+      'stroke-width': stara ? 2.4 : 1.5,
+      'marker-end':'url(#arr-gm)', cursor:'pointer'});
+    c2.addEventListener('click',()=>{ highlight = (highlight==='stara'?null:'stara'); render(); });
+    svg.appendChild(c2);
+    const lc2 = SVG('text',{x:240,y:200,'text-anchor':'middle','font-size':14,
+      fill: stara ? 'var(--yellow)' : 'var(--ink)','font-style':'italic','font-weight':600,cursor:'pointer'});
+    lc2.textContent='f_*'; lc2.addEventListener('click',()=>{ highlight = (highlight==='stara'?null:'stara'); render(); });
+    svg.appendChild(lc2);
+    const lc2b = SVG('text',{x:240,y:218,'text-anchor':'middle','font-size':9,
+      fill: stara ? 'var(--yellow)' : 'var(--mute)'});
+    lc2b.textContent='direct image (right adjoint)'; svg.appendChild(lc2b);
+    // adjunction symbol
+    const adj = SVG('text',{x:240,y:128,'text-anchor':'middle','font-size':12,fill:'var(--violet)','font-style':'italic'});
+    adj.textContent='⊣'; svg.appendChild(adj);
+    // marker
+    const defs = SVG('defs');
+    const m = SVG('marker',{id:'arr-gm',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto'});
+    m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--ink)'}));
+    defs.appendChild(m);
+    svg.appendChild(defs);
+    // readout
+    if(!highlight){
+      out.innerHTML = `Click on $f^*$ or $f_*$ to see which functor it is, which direction it points, and which exactness it carries.<br/><span class="small">Adjunction: $f^* \\dashv f_*$ with $f^*$ left exact. The geometric morphism's named direction matches $f^*$ going $\\mathcal{E} \\to \\mathcal{F}$ (or, if you prefer, $f_*$ going $\\mathcal{F} \\to \\mathcal{E}$ — same way as $f$).</span>`;
+    } else {
+      const txt = highlight==='star' ? sc.explainStar : sc.explainStara;
+      const which = highlight==='star' ? 'f*' : 'f_*';
+      out.innerHTML = `<b>${which}</b>: ${txt}`;
+    }
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  pick.addEventListener('change',()=>{ highlight=null; render(); });
+  render();
+})();
+</script>
 <div class="quiz" data-concept="geometric-morphisms-intro"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">

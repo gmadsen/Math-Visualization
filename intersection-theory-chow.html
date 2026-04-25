@@ -167,6 +167,7 @@
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
 <script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
@@ -251,11 +252,49 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="cycles-and-equivalence">
 <h2>1. Algebraic cycles and rational equivalence</h2>
-<p>An algebraic $k$-cycle on $X$ is a finite formal $\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting.</p>
-<div class="widget" id="w-intersection-theory-chow-placeholder">
-  <div class="hd"><div class="ttl">Cycles intersecting in finitely many points</div><div class="hint">illustration — full interactives in a follow-up PR</div></div>
-  <svg id="svg-intersection-theory-chow-placeholder" viewBox="0 0 320 160" width="320" height="160"><title>Cycles intersecting in finitely many points</title><line x1="60" y1="80" x2="260" y2="80" stroke="var(--mute)" stroke-width="1"/><line x1="160" y1="20" x2="160" y2="140" stroke="var(--mute)" stroke-width="1"/><circle cx="100" cy="60" r="3" fill="var(--blue)"/><circle cx="160" cy="40" r="3" fill="var(--green)"/><circle cx="220" cy="60" r="3" fill="var(--yellow)"/><circle cx="120" cy="110" r="3" fill="var(--pink)"/><text x="160" y="155" font-size="10" fill="var(--mute)" text-anchor="middle">[C] · [D] = #(C ∩ D)</text></svg>
-</div>
+<p>Fix a variety (or scheme) $X$ over a field $k$. The group of <strong>algebraic $k$-cycles</strong> $Z_k(X)$ is the free abelian group on closed irreducible subvarieties of dimension $k$. A cycle $\alpha \in Z_k(X)$ is therefore a finite formal sum $\sum n_i [V_i]$ with $n_i \in \mathbb{Z}$ and each $V_i \subseteq X$ a closed subvariety of dimension exactly $k$. Note the dimension grading is by <em>algebraic</em> dimension; the codimension grading $Z^c(X) = Z_{\dim X - c}(X)$ is the one used when $X$ is equidimensional.</p>
+<p>Naked cycles are too rigid: $[\{0\}]$ and $[\{1\}]$ are different elements of $Z_0(\mathbb{A}^1)$, even though every reasonable invariant should regard them as the "same" $0$-cycle. The remedy is <strong>rational equivalence</strong>. Two $k$-cycles $\alpha, \alpha' \in Z_k(X)$ are rationally equivalent, $\alpha \sim_{\mathrm{rat}} \alpha'$, if there exist $(k+1)$-dimensional subvarieties $W_j \subseteq X$ and rational functions $f_j \in k(W_j)^\times$ such that</p>
+<p>$$ \alpha - \alpha' \;=\; \sum_j \mathrm{div}_{W_j}(f_j) \;\in\; Z_k(X). $$</p>
+<p>Each $\mathrm{div}_{W_j}(f_j)$ is the principal Weil divisor on $W_j$ pushed forward to $X$ — a $\mathbb{Z}$-linear combination of the codimension-one subvarieties of $W_j$, weighted by the order of vanishing or pole of $f_j$ along each. The slogan is: <em>rational equivalence is the connecting homotopy in the world of algebraic cycles, with $\mathbb{P}^1$ playing the role of the unit interval.</em> Indeed, $\alpha \sim_{\mathrm{rat}} \alpha'$ iff there is a cycle $\Gamma$ on $X \times \mathbb{P}^1$ (flat over $\mathbb{P}^1$ on each component) whose fibre over $0$ is $\alpha$ and whose fibre over $\infty$ is $\alpha'$.</p>
+<p>Concretely on $\mathbb{P}^1$ itself: any two distinct points are rationally equivalent, because the rational function $f(t) = t - a$ on $\mathbb{P}^1$ has $\mathrm{div}(f) = [a] - [\infty]$ — proving $[a] \sim [\infty]$ for every $a \in \mathbb{A}^1$, hence all $0$-cycles of degree $1$ on $\mathbb{P}^1$ collapse to a single class. The widget below walks through the core example: a one-parameter family $t \mapsto [1 : t]$ that degenerates two distinct points on $\mathbb{P}^1$ into a single doubled point, exhibiting the rational equivalence as a divisor on a $1$-cycle (the family graph) sitting inside $\mathbb{P}^1 \times \mathbb{P}^1$. Compare this with $\bezout$'s degree count and with the cycle classes that show up as fundamental classes in $\schemes$ — rational equivalence is what turns subvarieties into "homology-like" classes.</p>
+<div class="widget" id="w-cycles-rateq"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-cycles-rateq', {
+    title: "Rational equivalence on $\\mathbb{P}^1$: $[0] \\sim [\\infty]$",
+    hint: "drag the slider — two points slide together via a rational function",
+    viewBox: "0 0 360 200",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Two distinct points on $\\mathbb{P}^1$",
+        body: "Start with the $0$-cycle $\\alpha = [0] - [\\infty]$ on $\\mathbb{P}^1$. As a free abelian generator it is a non-trivial element of $Z_0(\\mathbb{P}^1)$. The question: is $\\alpha$ rationally equivalent to $0$? Equivalently, can we exhibit it as $\\mathrm{div}(f)$ for some $f \\in k(\\mathbb{P}^1)^\\times$?",
+        svgInner: "<line x1='40' y1='100' x2='320' y2='100' stroke='var(--mute)' stroke-width='1.4'/><circle cx='80' cy='100' r='6' fill='var(--green)' stroke='var(--ink)' stroke-width='1.5'/><text x='80' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>[0]</text><circle cx='280' cy='100' r='6' fill='var(--pink)' stroke='var(--ink)' stroke-width='1.5'/><text x='280' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>[∞]</text><text x='180' y='150' text-anchor='middle' font-size='12' fill='var(--mute)'>α = [0] − [∞] ∈ Z₀(ℙ¹)</text>"
+      },
+      {
+        title: "The family $\\Gamma_t = \\{(t, [1:t])\\}$",
+        body: "Embed $\\mathbb{P}^1$ as the diagonal-ish family inside $\\mathbb{P}^1 \\times \\mathbb{P}^1$ via $t \\mapsto (t, [1:t])$. The graph $\\Gamma$ is a $1$-dimensional cycle on $\\mathbb{P}^1 \\times \\mathbb{P}^1$, projecting isomorphically onto the first factor. We will use it as the $(k+1)$-cycle $W$ in the rational-equivalence definition.",
+        svgInner: "<rect x='40' y='30' width='280' height='140' fill='none' stroke='var(--line)' stroke-width='1'/><text x='30' y='38' font-size='10' fill='var(--mute)'>ℙ¹×ℙ¹</text><path d='M 60 160 Q 180 100 300 40' fill='none' stroke='var(--blue)' stroke-width='2'/><text x='250' y='65' font-size='11' fill='var(--blue)'>Γ : t ↦ (t,[1:t])</text><circle cx='60' cy='160' r='4' fill='var(--green)'/><circle cx='300' cy='40' r='4' fill='var(--pink)'/><text x='60' y='180' font-size='10' text-anchor='middle' fill='var(--mute)'>(0, [1:0])</text><text x='300' y='30' font-size='10' text-anchor='middle' fill='var(--mute)'>(∞, [1:∞])</text>"
+      },
+      {
+        title: "Pull back the rational function $f(t) = t$",
+        body: "On the family curve $\\Gamma \\cong \\mathbb{P}^1$ take the rational function $f(t) = t$. It has a simple zero at $t = 0$ and a simple pole at $t = \\infty$, so $$ \\mathrm{div}_\\Gamma(f) = 1 \\cdot (0, [1:0]) - 1 \\cdot (\\infty, [1:\\infty]). $$ This is a $0$-cycle on $\\mathbb{P}^1 \\times \\mathbb{P}^1$ — and pushing forward along the projection $\\pi_1$ collapses it to a $0$-cycle on $\\mathbb{P}^1$.",
+        svgInner: "<rect x='40' y='30' width='280' height='140' fill='none' stroke='var(--line)' stroke-width='1'/><path d='M 60 160 Q 180 100 300 40' fill='none' stroke='var(--blue)' stroke-width='2'/><circle cx='60' cy='160' r='6' fill='var(--green)' stroke='var(--ink)' stroke-width='1.5'/><text x='75' y='172' font-size='11' fill='var(--green)'>+1: f=0</text><circle cx='300' cy='40' r='6' fill='var(--pink)' stroke='var(--ink)' stroke-width='1.5'/><text x='220' y='35' font-size='11' fill='var(--pink)'>−1: f=∞</text><text x='180' y='190' text-anchor='middle' font-size='11' fill='var(--mute)'>div_Γ(t) = (0,·) − (∞,·)</text>"
+      },
+      {
+        title: "Push forward to $\\mathbb{P}^1$",
+        body: "The first projection $\\pi_1\\colon \\mathbb{P}^1 \\times \\mathbb{P}^1 \\to \\mathbb{P}^1$ restricted to $\\Gamma$ is an isomorphism, so $\\pi_{1*}\\mathrm{div}_\\Gamma(f) = [0] - [\\infty]$. By the very definition of rational equivalence, this gives $$ [0] - [\\infty] = \\mathrm{div}_\\Gamma(f) \\in Z_0(\\mathbb{P}^1), $$ so $[0] \\sim_{\\mathrm{rat}} [\\infty]$.",
+        svgInner: "<line x1='40' y1='100' x2='320' y2='100' stroke='var(--mute)' stroke-width='1.4'/><circle cx='80' cy='100' r='6' fill='var(--green)'/><circle cx='280' cy='100' r='6' fill='var(--pink)'/><text x='80' y='80' text-anchor='middle' font-size='11' fill='var(--green)'>+1·[0]</text><text x='280' y='80' text-anchor='middle' font-size='11' fill='var(--pink)'>−1·[∞]</text><text x='180' y='140' text-anchor='middle' font-size='12' fill='var(--yellow)'>[0] − [∞] = div(f)</text><text x='180' y='160' text-anchor='middle' font-size='11' fill='var(--mute)'>so [0] ∼_rat [∞] in A₀(ℙ¹)</text>"
+      },
+      {
+        title: "Consequence: $A_0(\\mathbb{P}^1) = \\mathbb{Z}$",
+        body: "Every degree-$1$ point on $\\mathbb{P}^1$ collapses to one class — the same argument with $f(t) = t - a$ proves $[a] \\sim [\\infty]$ for any $a$. So the Chow group $A_0(\\mathbb{P}^1)$ is generated by a single class $[\\mathrm{pt}]$ and is isomorphic to $\\mathbb{Z}$ (via degree). This is the smallest non-trivial computation in the theory; everything in the next section assembles and globalises it.",
+        svgInner: "<line x1='40' y1='100' x2='320' y2='100' stroke='var(--mute)' stroke-width='1.4'/><circle cx='180' cy='100' r='8' fill='var(--yellow)' stroke='var(--ink)' stroke-width='1.6'/><text x='180' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>[pt]</text><text x='180' y='150' text-anchor='middle' font-size='13' fill='var(--yellow)' font-weight='600'>A₀(ℙ¹) = ℤ · [pt]</text>"
+      }
+    ]
+  });
+})();
+</script>
 <div class="quiz" data-concept="cycles-and-equivalence"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -268,7 +307,132 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="chow-groups">
 <h2>2. Chow groups $A_*(X)$</h2>
-<p>The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles.</p>
+<p>Quotienting out by rational equivalence packages every cycle on $X$ into a graded abelian group:</p>
+<p>$$ A_k(X) \;=\; Z_k(X) \big/ \mathrm{Rat}_k(X), \qquad A_*(X) \;=\; \bigoplus_{k \ge 0} A_k(X). $$</p>
+<p>For smooth $X$ of pure dimension $n$ we re-grade by codimension $A^c(X) = A_{n-c}(X)$ and write $A^*(X) = \bigoplus_c A^c(X)$. The intersection product (next section) makes $A^*(X)$ a graded ring; without smoothness one only has $A_*$ as a covariantly-functorial graded group with a cap-product action.</p>
+<p>Three computations to internalise. First: $A_*(\mathbb{A}^n) = A_n(\mathbb{A}^n) \cdot [\mathbb{A}^n] \cong \mathbb{Z}$ — every cycle of dimension $< n$ is rationally equivalent to $0$ via translation in the family $\mathbb{A}^n \times \mathbb{A}^1 \to \mathbb{A}^n$ (push everything to infinity). Second: $A_*(\mathbb{P}^n) \cong \mathbb{Z}^{n+1}$, generated by the class $[L^k]$ of a linear subspace of dimension $k$ for each $0 \le k \le n$. Third (functoriality): a proper morphism $f\colon X \to Y$ induces a covariant push-forward $f_*\colon A_k(X) \to A_k(Y)$ via $f_*[V] = \deg(V/f(V)) \cdot [f(V)]$ (with $\deg = 0$ when $V \to f(V)$ is not generically finite); a flat morphism induces a contravariant pull-back $f^*\colon A_k(Y) \to A_{k+r}(X)$ where $r$ is the relative dimension.</p>
+<p>Conceptually, $A_*$ is the algebraic analogue of singular homology: there is a cycle map $\mathrm{cl}\colon A_*(X) \to H_{2*}^{\mathrm{BM}}(X(\mathbb{C}); \mathbb{Z})$ to Borel–Moore homology when $X$ is over $\mathbb{C}$, but it is generally far from injective or surjective — the kernel detects "algebraic but homologically trivial" cycles (Griffiths' results on the Fano threefold), and the cokernel reflects transcendental classes invisible to algebraic geometry. The widget below lets you click on a cycle in a small toy ground set (degree-$d$ effective $0$-cycles on a genus-$1$ curve) and see which other cycles share its rational-equivalence class.</p>
+<div class="widget" id="w-chow-orbits">
+  <div class="hd"><div class="ttl">Linear-equivalence orbits on a curve</div><div class="hint">click a cycle node — its rational-equivalence class lights up</div></div>
+  <div class="row"><label>variety
+    <select id="chow-pick">
+      <option value="P1">$\mathbb{P}^1$ — every degree-$1$ point is in one class</option>
+      <option value="A1">$\mathbb{A}^1$ — same: $A_0 = \mathbb{Z} \cdot [\mathrm{pt}]$</option>
+      <option value="E">$E$ (elliptic curve) — Abel–Jacobi: $A_0(E) \cong \mathbb{Z} \oplus E(k)$</option>
+    </select></label>
+  </div>
+  <svg id="svg-chow-orbits" viewBox="0 0 480 220" width="480" height="220"><title>Cycles connected by rational equivalence</title></svg>
+  <div class="readout" id="out-chow-orbits">Click a labelled cycle to see its rational-equivalence class.</div>
+</div><script>
+(function(){
+  const svg=$('#svg-chow-orbits'), out=$('#out-chow-orbits'), pick=$('#chow-pick');
+  // Each scenario: list of "cycles" (labels with positions) and a function classify(c) -> string key.
+  // Two cycles share an orbit iff classify returns equal keys.
+  const SCENARIOS = {
+    'P1': {
+      title: 'On ℙ¹: degree determines the rational-equivalence class.',
+      cycles: [
+        { id:'A', label:'[0]',         x:80,  y:80,  deg:1, key:'d1' },
+        { id:'B', label:'[1]',         x:160, y:60,  deg:1, key:'d1' },
+        { id:'C', label:'[∞]',         x:240, y:80,  deg:1, key:'d1' },
+        { id:'D', label:'[2]+[3]',     x:330, y:60,  deg:2, key:'d2' },
+        { id:'E', label:'2[0]',        x:330, y:140, deg:2, key:'d2' },
+        { id:'F', label:'[0]−[∞]',     x:80,  y:160, deg:0, key:'d0' },
+        { id:'G', label:'[5]−[7]',     x:200, y:170, deg:0, key:'d0' }
+      ],
+      explain: (c, cls)=>`On ℙ¹ rational equivalence collapses to <b>degree</b>: $A_0(\\mathbb{P}^1)=\\mathbb{Z}$, generated by [pt]. Class of <b>${c.label}</b>: degree $${c.deg}$ — orbits are the level sets of $\\deg$. ${cls.length} cycle(s) match in this toy set.`
+    },
+    'A1': {
+      title: 'On 𝔸¹: every effective 0-cycle is rationally equivalent to a multiple of any single point.',
+      cycles: [
+        { id:'A', label:'[0]',  x:80, y:90,  deg:1, key:'d1' },
+        { id:'B', label:'[7]',  x:170,y:70,  deg:1, key:'d1' },
+        { id:'C', label:'[π]',  x:260,y:100, deg:1, key:'d1' },
+        { id:'D', label:'2[0]', x:340,y:80,  deg:2, key:'d2' },
+        { id:'E', label:'[1]+[3]', x:340, y:160, deg:2, key:'d2' },
+        { id:'F', label:'[1]−[5]', x:120, y:170, deg:0, key:'d0' }
+      ],
+      explain: (c, cls)=>`$A_0(\\mathbb{A}^1) = \\mathbb{Z}$, with the same class function as ℙ¹ (push the difference to infinity). Class of <b>${c.label}</b>: degree $${c.deg}$. ${cls.length} cycle(s) in this orbit.`
+    },
+    'E': {
+      title: 'On an elliptic curve E: Abel–Jacobi gives A₀(E) ≅ ℤ ⊕ E(k); two degree-d cycles are equivalent iff their sums in E(k) agree.',
+      cycles: [
+        // mock-summed values; "key" encodes (degree, P-image-mod-3) for visual demo
+        { id:'A', label:'[O]',     x:80, y:60,  deg:1, key:'1:0' },
+        { id:'B', label:'[P]',     x:160,y:60,  deg:1, key:'1:1' },
+        { id:'C', label:'[2P]',    x:240,y:60,  deg:1, key:'1:2' },
+        { id:'D', label:'[O]+[2P]',x:80, y:170, deg:2, key:'2:2' },
+        { id:'E', label:'2[P]',    x:200,y:170, deg:2, key:'2:2' },
+        { id:'F', label:'[O]−[P]', x:340,y:60,  deg:0, key:'0:-1' },
+        { id:'G', label:'[2P]−[3P]',x:340,y:170,deg:0, key:'0:-1' }
+      ],
+      explain: (c, cls)=>`On an elliptic curve, two cycles are rationally equivalent iff they have the same degree <em>and</em> the same image under the Abel–Jacobi summation. Class of <b>${c.label}</b>: ${cls.length} match here. <span class='small'>(Toy abelian group ℤ/3 is used in the diagram so equivalent classes are visible at a glance.)</span>`
+    }
+  };
+  let selected = null;
+  function render(){
+    const key = pick.value, scn = SCENARIOS[key];
+    svg.innerHTML='';
+    const t = SVG('text',{x:240, y:30, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t.textContent = scn.title; svg.appendChild(t);
+    // pre-compute orbit of selected
+    let orbit = null;
+    if(selected !== null){
+      const sel = scn.cycles.find(c=>c.id===selected);
+      orbit = sel ? scn.cycles.filter(c=>c.key===sel.key).map(c=>c.id) : null;
+    }
+    // draw faint edges between cycles in the same orbit
+    for(let i=0;i<scn.cycles.length;i++){
+      for(let j=i+1;j<scn.cycles.length;j++){
+        if(scn.cycles[i].key === scn.cycles[j].key){
+          const a=scn.cycles[i], b=scn.cycles[j];
+          const inOrbit = orbit && orbit.includes(a.id) && orbit.includes(b.id);
+          svg.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,
+            stroke: inOrbit?'var(--yellow)':'var(--green)',
+            'stroke-width': inOrbit?2.5:1,
+            'stroke-opacity': inOrbit?1:0.35,
+            'stroke-dasharray': inOrbit?'':'4 3'}));
+        }
+      }
+    }
+    // nodes
+    for(const c of scn.cycles){
+      const inOrbit = orbit && orbit.includes(c.id);
+      const isSel = selected===c.id;
+      const grp = SVG('g',{cursor:'pointer'});
+      grp.appendChild(SVG('rect',{x:c.x-32, y:c.y-14, width:64, height:28, rx:6,
+        fill: inOrbit ? 'var(--yellow)' : 'var(--panel2)',
+        stroke: isSel ? 'var(--violet)' : 'var(--blue)',
+        'stroke-width': isSel?2.5:1.5}));
+      const tx = SVG('text',{x:c.x, y:c.y+4, 'text-anchor':'middle', 'font-size':12,
+        fill: inOrbit ? '#111' : 'var(--ink)', 'font-weight':600, 'pointer-events':'none'});
+      tx.textContent = c.label; grp.appendChild(tx);
+      grp.addEventListener('click', ()=>{ selected = (selected===c.id ? null : c.id); render(); });
+      svg.appendChild(grp);
+    }
+    // readout
+    if(selected===null){
+      out.innerHTML = 'Click a labelled cycle to see its rational-equivalence class.';
+    } else {
+      const sel = scn.cycles.find(c=>c.id===selected);
+      const cls = scn.cycles.filter(c=>c.key===sel.key);
+      out.innerHTML = scn.explain(sel, cls);
+    }
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  pick.addEventListener('change', ()=>{ selected=null; render(); });
+  render();
+})();
+</script>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bezout.html#bezout">Bézout's theorem</a> — the prototype intersection-number computation, recovered in §4 from the Chow ring of $\mathbb{P}^2$.</li>
+    <li><a href="./schemes.html">Schemes</a> — every closed subvariety appearing here is the support of a closed subscheme; rational equivalence is most cleanly stated in scheme-theoretic language.</li>
+  </ul>
+</aside>
 <div class="quiz" data-concept="chow-groups"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -281,7 +445,125 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="intersection-product">
 <h2>3. Intersection product on smooth $X$</h2>
-<p>On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \cdot Z \in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring.</p>
+<p>For a smooth variety $X$ of dimension $n$, the Chow group $A^*(X)$ carries a graded-commutative <strong>intersection product</strong></p>
+<p>$$ \cdot \;:\; A^p(X) \otimes A^q(X) \longrightarrow A^{p+q}(X) $$</p>
+<p>characterised on transverse pairs by counting set-theoretic intersection points with multiplicity. Concretely, if $Y \subset X$ is a subvariety of codimension $p$ and $Z \subset X$ is of codimension $q$, and if $Y, Z$ meet <em>transversally</em> (every component of $Y \cap Z$ has the expected codimension $p + q$ and the tangent spaces span $T_x X$ at every smooth point of intersection), then $$ [Y] \cdot [Z] \;=\; [Y \cap Z] \;\in\; A^{p+q}(X). $$ When $p + q = n$ the right-hand side is a $0$-cycle, and one gets a numerical intersection number $\#(Y \cdot Z) \in \mathbb{Z}$ by passing to degree (i.e. push-forward to $\mathrm{Spec}\, k$).</p>
+<p>The non-transverse case is the whole game. Two cycles need not meet transversally — even worse, $[Y] \cdot [Y]$ asks for the self-intersection, which is meaningless set-theoretically. The <strong>moving lemma</strong> (Chow, Roberts) rescues this on smooth quasi-projective $X$: every cycle class is rationally equivalent to one in general position with any fixed cycle, so we can replace one of $Y, Z$ by an equivalent cycle that <em>does</em> meet the other transversally and then count points. Well-definedness is the content of the moving-lemma proof. On singular $X$ the moving lemma fails in general — one has to descend to operational Chow groups or work with the bivariant theory of Fulton–MacPherson.</p>
+<p>The <em>local intersection multiplicity</em> at an isolated component $W$ of $Y \cap Z$ is computed by Serre's formula $$ i(Y, Z; W) \;=\; \sum_{i \ge 0} (-1)^i \, \mathrm{length}_{\mathcal{O}_{X,W}} \mathrm{Tor}^{\mathcal{O}_{X,W}}_i(\mathcal{O}_Y, \mathcal{O}_Z). $$ When $Y, Z$ are Cohen–Macaulay and meet in the expected codimension only the $i=0$ term survives, giving the geometric multiplicity $\mathrm{length}\, \mathcal{O}_{X,W}/(I_Y + I_Z)$. Click an intersection point in the surface widget to see how the contribution at that point assembles into the total $Y \cdot Z$.</p>
+<div class="widget" id="w-intprod-click">
+  <div class="hd"><div class="ttl">Two curves on a surface — click an intersection</div><div class="hint">click any • to see its local contribution</div></div>
+  <div class="row"><label>configuration
+    <select id="ip-pick">
+      <option value="P2-conic-line">$\mathbb{P}^2$ : conic $\cap$ line — degree $2 \cdot 1 = 2$</option>
+      <option value="P2-cubic-line">$\mathbb{P}^2$ : cubic $\cap$ line — degree $3 \cdot 1 = 3$</option>
+      <option value="P2-tangent">$\mathbb{P}^2$ : conic $\cap$ tangent line — one point with $i = 2$</option>
+      <option value="P1xP1">$\mathbb{P}^1 \times \mathbb{P}^1$ : two rulings of opposite type — exactly one transverse point</option>
+    </select></label>
+  </div>
+  <svg id="svg-intprod" viewBox="0 0 480 280" width="480" height="280"><title>Intersection points on a surface</title></svg>
+  <div class="readout" id="out-intprod">Click a labelled intersection point to see its multiplicity and contribution to $Y \cdot Z$.</div>
+</div><script>
+(function(){
+  const svg=$('#svg-intprod'), out=$('#out-intprod'), pick=$('#ip-pick');
+  const CFGS = {
+    'P2-conic-line': {
+      curves: [
+        // conic: ellipse-ish in the box
+        { kind:'ellipse', cx:240, cy:140, rx:140, ry:80, stroke:'var(--blue)', label:'C : F=0 (deg 2)' },
+        // secant line
+        { kind:'line', x1:60, y1:200, x2:420, y2:80, stroke:'var(--pink)', label:'L : G=0 (deg 1)' }
+      ],
+      points: [
+        { id:'P', x:135, y:174, mult:1, why:'transverse — distinct tangents — $i = \\mathrm{length}\\,\\mathcal{O}/(F,G) = 1$.' },
+        { id:'Q', x:332, y:108, mult:1, why:'transverse — distinct tangents — $i = 1$.' }
+      ],
+      total: '$[C] \\cdot [L] = 2 \\cdot 1 \\cdot [\\mathrm{pt}] = 2 \\cdot h^2 \\in A^2(\\mathbb{P}^2) \\cong \\mathbb{Z}$.'
+    },
+    'P2-cubic-line': {
+      curves: [
+        { kind:'cubic-curve', stroke:'var(--blue)', label:'C : cubic (deg 3)' },
+        { kind:'line', x1:30, y1:170, x2:450, y2:130, stroke:'var(--pink)', label:'L (deg 1)' }
+      ],
+      points: [
+        { id:'P', x:90, y:166, mult:1, why:'transverse — $i = 1$.' },
+        { id:'Q', x:240, y:152, mult:1, why:'transverse — $i = 1$.' },
+        { id:'R', x:390, y:138, mult:1, why:'transverse — $i = 1$.' }
+      ],
+      total: '$[C] \\cdot [L] = 3 \\cdot 1 = 3$ — three points, each with multiplicity $1$.'
+    },
+    'P2-tangent': {
+      curves: [
+        { kind:'ellipse', cx:240, cy:140, rx:140, ry:80, stroke:'var(--blue)', label:'C : F = 0' },
+        { kind:'line', x1:80, y1:60, x2:400, y2:60, stroke:'var(--pink)', label:'L : tangent at top' }
+      ],
+      points: [
+        { id:'T', x:240, y:60, mult:2, why:'tangential intersection — $\\mathcal{O}/(F,G)$ has length $2$ — $i = 2$. Equivalent to two transverse points after a small perturbation of $L$ (this is exactly the moving-lemma trick).' }
+      ],
+      total: '$[C] \\cdot [L] = 2 \\cdot [\\mathrm{pt}]$ — Bézout still gives $\\deg = 2$, but here it is concentrated at a single point.'
+    },
+    'P1xP1': {
+      curves: [
+        { kind:'line', x1:60, y1:140, x2:420, y2:140, stroke:'var(--blue)', label:'F : ℙ¹ × {pt} (class h)' },
+        { kind:'line', x1:240, y1:30, x2:240, y2:250, stroke:'var(--pink)', label:'G : {pt} × ℙ¹ (class k)' }
+      ],
+      points: [
+        { id:'P', x:240, y:140, mult:1, why:'transverse — exactly one point. $h \\cdot k = [\\mathrm{pt}]$, while $h \\cdot h = k \\cdot k = 0$ (parallel rulings never meet).' }
+      ],
+      total: '$h \\cdot k = 1$ in $A^*(\\mathbb{P}^1 \\times \\mathbb{P}^1) = \\mathbb{Z}[h,k]/(h^2, k^2)$.'
+    }
+  };
+  let selected = null;
+  function drawCurve(c){
+    if(c.kind==='ellipse'){
+      svg.appendChild(SVG('ellipse',{cx:c.cx,cy:c.cy,rx:c.rx,ry:c.ry,fill:'none',stroke:c.stroke,'stroke-width':2}));
+    } else if(c.kind==='line'){
+      svg.appendChild(SVG('line',{x1:c.x1,y1:c.y1,x2:c.x2,y2:c.y2,stroke:c.stroke,'stroke-width':2}));
+    } else if(c.kind==='cubic-curve'){
+      // sketchy cubic going up-down-up
+      svg.appendChild(SVG('path',{d:'M 60 220 C 130 60, 180 60, 240 150 C 300 240, 360 80, 420 90',
+        fill:'none',stroke:c.stroke,'stroke-width':2}));
+    }
+  }
+  function render(){
+    const cfg = CFGS[pick.value];
+    svg.innerHTML='';
+    // legend
+    let yL = 30;
+    for(const c of cfg.curves){
+      const sw = SVG('line',{x1:30,y1:yL,x2:60,y2:yL,stroke:c.stroke,'stroke-width':2.5});
+      svg.appendChild(sw);
+      const tx = SVG('text',{x:66,y:yL+4,'font-size':11,fill:'var(--ink)'}); tx.textContent=c.label; svg.appendChild(tx);
+      yL += 14;
+    }
+    // curves
+    for(const c of cfg.curves) drawCurve(c);
+    // points
+    for(const p of cfg.points){
+      const isSel = selected===p.id;
+      const c = SVG('circle',{cx:p.x,cy:p.y,r: isSel?9:6,
+        fill: isSel?'var(--yellow)':'var(--green)',
+        stroke:'var(--ink)','stroke-width':isSel?2:1.4,
+        cursor:'pointer'});
+      c.addEventListener('click',()=>{ selected = (selected===p.id ? null : p.id); render(); });
+      svg.appendChild(c);
+      const t = SVG('text',{x:p.x+12,y:p.y-8,'font-size':12,fill:'var(--ink)','pointer-events':'none'});
+      t.textContent = p.id + (p.mult>1 ? ` (i=${p.mult})` : '');
+      svg.appendChild(t);
+    }
+    if(selected===null){
+      out.innerHTML = 'Click a labelled intersection point to see its multiplicity. Total: ' + cfg.total;
+    } else {
+      const p = cfg.points.find(q=>q.id===selected);
+      out.innerHTML = `<b>Point ${p.id}</b>: $i_p(Y,Z) = ${p.mult}$. ${p.why}<br><span class='small'>Sum over all points: ${cfg.total}</span>`;
+    }
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  pick.addEventListener('change',()=>{ selected=null; render(); });
+  render();
+})();
+</script>
 <div class="quiz" data-concept="intersection-product"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -295,13 +577,198 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="chow-ring-of-pn">
 <h2>4. $A^*(\mathbb{P}^n) = \mathbb{Z}[h]/(h^{n+1})$</h2>
-<p>The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \cdot D = (\deg C)(\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\mathbb{Z}[h]/(h^3)$.</p>
+<p>Among all smooth varieties, projective space has the simplest Chow ring imaginable: <em>a truncated polynomial ring on a single generator</em>. Let $h \in A^1(\mathbb{P}^n)$ denote the class of a hyperplane $H \subset \mathbb{P}^n$. Then</p>
+<p>$$ A^*(\mathbb{P}^n) \;=\; \mathbb{Z}[h] \,\big/\, (h^{n+1}), \qquad A^k(\mathbb{P}^n) = \mathbb{Z} \cdot h^k \quad (0 \le k \le n). $$</p>
+<p>The geometric content of $h^k$ is the class of any codimension-$k$ linear subspace $L^{n-k} \subset \mathbb{P}^n$ — every two such are rationally equivalent (move them via a linear family). The relation $h^{n+1} = 0$ is forced by dimension: a codimension-$(n+1)$ subvariety of $\mathbb{P}^n$ doesn't exist (it would have negative dimension), so its class is $0$.</p>
+<p>The intersection product is multiplication of polynomials in $h$ followed by truncation. Two effective hypersurfaces of degrees $d_1, d_2$ have classes $d_1 h$ and $d_2 h$, so they intersect in the class $d_1 d_2 \, h^2$. For $n = 2$ this is exactly <a href="./bezout.html#bezout">Bézout's theorem</a>: $C \cdot D = (\deg C)(\deg D)$ points (with multiplicity) in $\mathbb{P}^2$. For general $n$, intersecting $n$ hypersurfaces of degrees $d_1, \ldots, d_n$ in general position gives $$ d_1 h \cdot d_2 h \cdots d_n h \;=\; (d_1 d_2 \cdots d_n) \, h^n \;\in\; A^n(\mathbb{P}^n) = \mathbb{Z}, $$ recovering the projective Bézout count. Higher products of the same generator pile up "schubert-like" classes: $h^k$ has degree $1$ as the class of a codimension-$k$ linear space, and the intersection $h^a \cdot h^b = h^{a+b}$ if $a + b \le n$, else $0$.</p>
+<p>The proof uses the affine cell decomposition $\mathbb{P}^n = \mathbb{A}^n \sqcup \mathbb{A}^{n-1} \sqcup \cdots \sqcup \mathbb{A}^0$ (Schubert cells), Quillen's affine bundle lemma $A_*(\mathbb{A}^n) = \mathbb{Z}$, and the localization sequence to assemble $A^*(\mathbb{P}^n)$ from the cells. The widget below lets you pick $n$ and explore the resulting ring; it also lets you compute $h^a \cdot h^b$ for arbitrary $a, b$.</p>
+<div class="widget" id="w-pn-ring">
+  <div class="hd"><div class="ttl">$A^*(\mathbb{P}^n) = \mathbb{Z}[h]/(h^{n+1})$ — slide $n$, multiply $h^a \cdot h^b$</div><div class="hint">drag the sliders</div></div>
+  <div class="row"><label>$n =$ <input type="range" id="pn-n" min="1" max="6" step="1" value="3"></label><span id="pn-n-readout" class="pill">3</span></div>
+  <div class="row"><label>$a =$ <input type="range" id="pn-a" min="0" max="6" step="1" value="1"></label><span id="pn-a-readout" class="pill">1</span></div>
+  <div class="row"><label>$b =$ <input type="range" id="pn-b" min="0" max="6" step="1" value="2"></label><span id="pn-b-readout" class="pill">2</span></div>
+  <svg id="svg-pn-ring" viewBox="0 0 480 200" width="480" height="200"><title>Chow ring of ℙⁿ as truncated polynomial ring</title></svg>
+  <div class="readout" id="out-pn-ring"></div>
+</div><script>
+(function(){
+  const svg=$('#svg-pn-ring'), out=$('#out-pn-ring');
+  const Nsl=$('#pn-n'), Asl=$('#pn-a'), Bsl=$('#pn-b');
+  const Nro=$('#pn-n-readout'), Aro=$('#pn-a-readout'), Bro=$('#pn-b-readout');
+  function render(){
+    const n = +Nsl.value, a = +Asl.value, b = +Bsl.value;
+    Nro.textContent = String(n);
+    Aro.textContent = String(a);
+    Bro.textContent = String(b);
+    svg.innerHTML='';
+    // draw the basis 1, h, h², ..., h^n as boxes; draw h^{n+1}, h^{n+2}, ... greyed out
+    const total = Math.max(n+1, a+b+1, 8);
+    const boxW = Math.min(50, 440/total);
+    const startX = 40;
+    for(let k=0;k<=Math.max(total-1, n+2);k++){
+      const x = startX + k*boxW;
+      const y = 80;
+      const inRing = (k <= n);
+      svg.appendChild(SVG('rect',{x, y, width:boxW-4, height:40, rx:5,
+        fill: inRing ? 'var(--panel2)' : 'transparent',
+        stroke: inRing ? 'var(--blue)' : 'var(--mute)',
+        'stroke-dasharray': inRing ? '' : '3 3',
+        'stroke-width': 1.5}));
+      const t = SVG('text',{x:x+(boxW-4)/2, y:y+25, 'text-anchor':'middle', 'font-size':12,
+        fill: inRing?'var(--ink)':'var(--mute)', 'font-style':'italic'});
+      t.textContent = k===0 ? '1' : ('h'+(k===1?'':'^'+k));
+      svg.appendChild(t);
+      // label codim/dim
+      const cd = SVG('text',{x:x+(boxW-4)/2, y:y-6, 'text-anchor':'middle', 'font-size':9,
+        fill:'var(--mute)'});
+      cd.textContent = inRing ? `codim ${k}` : '0';
+      svg.appendChild(cd);
+    }
+    // draw labels for the relation
+    const lab = SVG('text',{x:240, y:40, 'text-anchor':'middle', 'font-size':12, fill:'var(--yellow)'});
+    lab.textContent = `h^{n+1} = h^${n+1} = 0  (truncation)`;
+    svg.appendChild(lab);
+    // highlight a, b, a+b
+    function highlight(k, color){
+      if(k > n+5) return;
+      const x = startX + k*boxW;
+      svg.appendChild(SVG('rect',{x:x-1, y:79, width:boxW-2, height:42, rx:6,
+        fill:'none', stroke:color, 'stroke-width':2.5}));
+    }
+    highlight(a, 'var(--cyan)');
+    highlight(b, 'var(--pink)');
+    if(a+b<=n) highlight(a+b, 'var(--yellow)');
+    // legend
+    const ll = SVG('text',{x:40, y:160, 'font-size':11, fill:'var(--cyan)'});
+    ll.textContent = `cyan: h^${a}`; svg.appendChild(ll);
+    const ll2 = SVG('text',{x:140, y:160, 'font-size':11, fill:'var(--pink)'});
+    ll2.textContent = `pink: h^${b}`; svg.appendChild(ll2);
+    if(a+b<=n){
+      const ll3 = SVG('text',{x:240, y:160, 'font-size':11, fill:'var(--yellow)'});
+      ll3.textContent = `yellow: h^${a}·h^${b} = h^${a+b}`; svg.appendChild(ll3);
+    }
+    // readout
+    const ans = (a+b<=n)
+      ? `$h^${a} \\cdot h^${b} = h^${a+b}$ — codimension-${a+b} class. As a degree on $\\mathbb{P}^${n}$: $\\deg(h^${a+b}) = ${a+b===n?1:0}$ (only $h^n$ is the class of a point).`
+      : `$h^${a} \\cdot h^${b} = 0$ in $A^*(\\mathbb{P}^${n})$ because $${a+b} > ${n}$ — codimensions exceed the dimension of the ambient space.`;
+    out.innerHTML = `$A^*(\\mathbb{P}^${n}) = \\mathbb{Z}[h]/(h^${n+1})$, rank ${n+1}.<br>${ans}`;
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  Nsl.addEventListener('input',render);
+  Asl.addEventListener('input',render);
+  Bsl.addEventListener('input',render);
+  render();
+})();
+</script>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bezout.html#bezout">Bézout's theorem</a> — the case $n = 2$, recovered as multiplication in $\mathbb{Z}[h]/(h^3)$.</li>
+  </ul>
+</aside>
 <div class="quiz" data-concept="chow-ring-of-pn"></div>
 </section>
 
 <section id="chern-classes">
 <h2>5. Chern classes</h2>
-<p>A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \in A^i(X)$ for $i = 0, \ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \cdots + c_r$ is multiplicative in short exact sequences.</p>
+<p>A rank-$r$ vector bundle $E$ on a smooth variety $X$ carries an axiomatically-defined sequence of <strong>Chern classes</strong> $c_i(E) \in A^i(X)$ for $i = 0, 1, \ldots, r$, packaged into the <em>total Chern class</em> $$ c(E) \;=\; 1 + c_1(E) + c_2(E) + \cdots + c_r(E) \;\in\; A^*(X). $$ Concretely, $c_i(E)$ is the class of the locus where $r - i + 1$ generic sections of $E$ become linearly dependent — the obstruction to extending $i$ chosen sections to a frame on a Zariski-open set.</p>
+<p>The Grothendieck axioms pin them down uniquely:</p>
+<ul>
+  <li><strong>Naturality.</strong> $c_i(f^*E) = f^* c_i(E)$ for any morphism $f\colon Y \to X$.</li>
+  <li><strong>Whitney sum / multiplicativity.</strong> For every short exact sequence $0 \to E' \to E \to E'' \to 0$ of vector bundles on $X$, the total Chern classes multiply: $$ c(E) \;=\; c(E') \cdot c(E'') \;\in\; A^*(X). $$ Equivalently, in degrees: $c_k(E) = \sum_{i+j=k} c_i(E') \, c_j(E'')$.</li>
+  <li><strong>Normalisation.</strong> For a line bundle $L$, $c(L) = 1 + c_1(L)$, where $c_1(L)$ is the class of the divisor of zeros of any rational section.</li>
+</ul>
+<p>Multiplicativity is the lever that makes Chern classes computable. Given a filtration $0 = E_0 \subset E_1 \subset \cdots \subset E_r = E$ by sub-bundles with line-bundle quotients $L_i = E_i / E_{i-1}$, the total Chern class factors as $$ c(E) \;=\; \prod_{i=1}^r (1 + \alpha_i), \qquad \alpha_i = c_1(L_i). $$ The classes $\alpha_i$ are the <em>Chern roots</em> of $E$. They live not in $A^*(X)$ but in the cohomology of an auxiliary "splitting principle" cover; the elementary symmetric functions of the $\alpha_i$ recover $c_i(E)$. Anything you want to compute about $E$ — Chern character, Todd class, top Chern class as Euler class — comes from these Chern roots.</p>
+<p>The widget lets you build a rank-$r$ bundle as the direct sum of line bundles with chosen first Chern classes and watches $c(E)$ assemble multiplicatively. For non-split bundles the same arithmetic governs whatever filtration you can find.</p>
+<div class="widget" id="w-chern-mult">
+  <div class="hd"><div class="ttl">Whitney sum: $c(E' \oplus E'') = c(E') \cdot c(E'')$</div><div class="hint">click summands — the product builds up term by term</div></div>
+  <div class="row">
+    <label>$E' = $
+      <select id="ch-Ep">
+        <option value="O">$\mathcal{O}_X$ (trivial line)</option>
+        <option value="L1" selected>$\mathcal{O}(1)$ ($c_1 = h$)</option>
+        <option value="L2">$\mathcal{O}(2)$ ($c_1 = 2h$)</option>
+        <option value="OO">$\mathcal{O}_X^{\oplus 2}$ (rank 2 trivial)</option>
+        <option value="O1O2">$\mathcal{O}(1) \oplus \mathcal{O}(2)$</option>
+        <option value="TP2">$T_{\mathbb{P}^2}$ (tangent bundle, rank 2)</option>
+      </select>
+    </label>
+    <label>$E'' = $
+      <select id="ch-Epp">
+        <option value="O">$\mathcal{O}_X$</option>
+        <option value="L1">$\mathcal{O}(1)$</option>
+        <option value="L2" selected>$\mathcal{O}(2)$</option>
+        <option value="OO">$\mathcal{O}_X^{\oplus 2}$</option>
+      </select>
+    </label>
+  </div>
+  <svg id="svg-chern" viewBox="0 0 480 220" width="480" height="220"><title>Chern class multiplication</title></svg>
+  <div class="readout" id="out-chern"></div>
+</div><script>
+(function(){
+  const svg=$('#svg-chern'), out=$('#out-chern'), Ep=$('#ch-Ep'), Epp=$('#ch-Epp');
+  // Bundle data: name, rank, Chern classes as polynomial in h represented as [c0, c1, c2, ...]
+  // (We work in A^*(ℙ²) so we truncate at h^3 = 0 conceptually; widget displays up through h^4 grayed.)
+  const BUNDLES = {
+    'O':    { name:'\\mathcal{O}_X',                       rank:1, c:[1, 0, 0]   },
+    'L1':   { name:'\\mathcal{O}(1)',                      rank:1, c:[1, 1, 0]   },
+    'L2':   { name:'\\mathcal{O}(2)',                      rank:1, c:[1, 2, 0]   },
+    'OO':   { name:'\\mathcal{O}_X^{\\oplus 2}',             rank:2, c:[1, 0, 0]   },
+    'O1O2': { name:'\\mathcal{O}(1) \\oplus \\mathcal{O}(2)', rank:2, c:[1, 3, 2]   },
+    'TP2':  { name:'T_{\\mathbb{P}^2}',                     rank:2, c:[1, 3, 3]   } // Euler seq: 0→O→O(1)^3→TP²→0 → c(TP²)=(1+h)^3=1+3h+3h²+h³
+  };
+  function polyMul(a,b){
+    const out = new Array(a.length+b.length-1).fill(0);
+    for(let i=0;i<a.length;i++) for(let j=0;j<b.length;j++) out[i+j]+=a[i]*b[j];
+    return out;
+  }
+  function fmtPoly(c){
+    const parts = [];
+    for(let k=0;k<c.length;k++){
+      if(c[k]===0) continue;
+      const sign = c[k]>0 ? (parts.length? ' + ' : '') : ' - ';
+      const a = Math.abs(c[k]);
+      const acoef = (a===1 && k>0) ? '' : a;
+      const hk = k===0 ? '' : (k===1 ? 'h' : `h^${k}`);
+      parts.push(sign + acoef + hk);
+    }
+    return parts.length ? parts.join('') : '0';
+  }
+  function render(){
+    const A = BUNDLES[Ep.value], B = BUNDLES[Epp.value];
+    const prod = polyMul(A.c, B.c);
+    svg.innerHTML='';
+    // boxes for E', E'', E
+    const boxes = [
+      { label:`E' = ${A.name}`, poly:A.c, x:30, y:60,  color:'var(--cyan)' },
+      { label:`E'' = ${B.name}`, poly:B.c, x:30, y:130, color:'var(--pink)' },
+      { label:`E = E' \\oplus E''`, poly:prod, x:260, y:95, color:'var(--yellow)' }
+    ];
+    for(const bx of boxes){
+      svg.appendChild(SVG('rect',{x:bx.x, y:bx.y-22, width:200, height:44, rx:8,
+        fill:'var(--panel2)', stroke:bx.color, 'stroke-width':1.8}));
+      const t1 = SVG('text',{x:bx.x+10, y:bx.y-4, 'font-size':11, fill:'var(--mute)'});
+      t1.textContent = `c(${bx.label.replace(/\\.*?\}/g,'').replace(/[\\{}]/g,'').replace(/oplus/,'⊕').replace(/mathcal/g,'').replace(/mathbb/g,'').replace(/_X/g,'').replace(/_{[^}]*}/g,'')}) =`;
+      svg.appendChild(t1);
+      const t2 = SVG('text',{x:bx.x+10, y:bx.y+14, 'font-size':12, fill:'var(--ink)','font-family':'ui-monospace,monospace'});
+      t2.textContent = fmtPoly(bx.poly);
+      svg.appendChild(t2);
+    }
+    // multiplication arrow
+    svg.appendChild(SVG('text',{x:240, y:100, 'text-anchor':'middle', 'font-size':16, fill:'var(--yellow)'})).textContent = '×';
+    svg.appendChild(SVG('text',{x:240, y:135, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'})).textContent = 'Whitney';
+    // readout
+    out.innerHTML = `Multiplicativity: $c(E) = c(E') \\cdot c(E'')$.<br>$ c(${A.name}) = ${fmtPoly(A.c)} $, $ c(${B.name}) = ${fmtPoly(B.c)} $, so $$ c(E) = (${fmtPoly(A.c)})\\cdot(${fmtPoly(B.c)}) = ${fmtPoly(prod)}. $$ Rank of $E$ is ${A.rank+B.rank}, so the top non-zero Chern class is in codimension at most ${A.rank+B.rank}.`;
+    if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+  }
+  Ep.addEventListener('change',render);
+  Epp.addEventListener('change',render);
+  render();
+})();
+</script>
 <div class="quiz" data-concept="chern-classes"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -314,7 +781,59 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="riemann-roch-preview">
 <h2>6. Grothendieck–Riemann–Roch (preview)</h2>
-<p>GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \otimes \mathbb{Q}$ involving the Chern character $\mathrm{ch}(E)$ and the Todd class $\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement.</p>
+<p>The classical Riemann–Roch theorem on a smooth projective curve $C$ of genus $g$ asserts that for any divisor $D$, $$ \chi(C, \mathcal{O}(D)) \;=\; \deg D + 1 - g. $$ For a smooth surface $S$ and an invertible sheaf $\mathcal{O}(D)$, the analogue is $$ \chi(S, \mathcal{O}(D)) \;=\; \tfrac{1}{2} D \cdot (D - K_S) + \chi(S, \mathcal{O}_S). $$ Each formula is an Euler-characteristic computation expressed in terms of intersection numbers and a discrete invariant of $X$ (genus, canonical class, Euler characteristic). <strong>Grothendieck–Riemann–Roch</strong> is the statement that uniformly produces every such formula from a single functorial equation.</p>
+<p>The data: define the <em>Chern character</em> by $\mathrm{ch}(E) = \sum_i e^{\alpha_i} \in A^*(X) \otimes \mathbb{Q}$ where the $\alpha_i$ are the Chern roots; concretely $\mathrm{ch}(E) = \mathrm{rk}(E) + c_1 + \tfrac12(c_1^2 - 2c_2) + \cdots$. Define the <em>Todd class</em> by $\mathrm{td}(E) = \prod_i \tfrac{\alpha_i}{1 - e^{-\alpha_i}}$; its first few terms are $\mathrm{td}(E) = 1 + \tfrac12 c_1 + \tfrac1{12}(c_1^2 + c_2) + \cdots$. Both are multiplicative in short exact sequences (after suitable interpretation), and both extend to the Grothendieck group $K_0(X)$ — the abelian group generated by coherent sheaves modulo the relation $[\mathcal{F}] = [\mathcal{F}'] + [\mathcal{F}'']$ for short exact sequences.</p>
+<p>The theorem: for a proper morphism $f\colon X \to Y$ of smooth varieties and a coherent sheaf $\mathcal{F}$ on $X$, $$ \boxed{ \;\mathrm{ch}(f_* \mathcal{F}) \cdot \mathrm{td}(T_Y) \;=\; f_* \bigl(\mathrm{ch}(\mathcal{F}) \cdot \mathrm{td}(T_X)\bigr) \;\in\; A^*(Y) \otimes \mathbb{Q}. \;} $$ When $Y = \mathrm{Spec}\, k$, the left-hand side is just $\chi(X, \mathcal{F}) \cdot 1$ and the right-hand side is the Hirzebruch–Riemann–Roch formula $\int_X \mathrm{ch}(\mathcal{F}) \cdot \mathrm{td}(T_X)$. Specialising further to curves recovers the classical Riemann–Roch; specialising to surfaces gives Noether's formula and the surface Riemann–Roch above. The widget walks through the assembly of GRR on $X = \mathbb{P}^2$ for a line bundle $\mathcal{O}(d)$.</p>
+<div class="widget" id="w-grr-scrub"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-grr-scrub', {
+    title: "GRR on $\\mathbb{P}^2$ for $\\mathcal{O}(d)$",
+    hint: "drag the slider — assemble the Hirzebruch RR formula step by step",
+    viewBox: "0 0 360 200",
+    autoplayMs: 2600,
+    steps: [
+      {
+        title: "The data on $\\mathbb{P}^2$",
+        body: "Take $X = \\mathbb{P}^2$, $\\mathcal{F} = \\mathcal{O}(d)$, and $f\\colon \\mathbb{P}^2 \\to \\mathrm{Spec}\\, k$. We want $\\chi(\\mathbb{P}^2, \\mathcal{O}(d))$. The Chow ring is $A^*(\\mathbb{P}^2) = \\mathbb{Z}[h]/(h^3)$ — $h$ the hyperplane class, $h^2$ the class of a point.",
+        svgInner: "<rect x='30' y='40' width='300' height='110' rx='10' fill='var(--panel2)' stroke='var(--blue)' stroke-width='1.5'/><text x='180' y='75' text-anchor='middle' font-size='13' fill='var(--ink)'>X = ℙ², F = 𝒪(d), f: ℙ² → Spec k</text><text x='180' y='105' text-anchor='middle' font-size='11' fill='var(--mute)'>A*(ℙ²) = ℤ[h]/(h³)</text><text x='180' y='125' text-anchor='middle' font-size='11' fill='var(--mute)'>χ(ℙ², 𝒪(d)) = ?</text>"
+      },
+      {
+        title: "Chern character $\\mathrm{ch}(\\mathcal{O}(d))$",
+        body: "The first Chern class $c_1(\\mathcal{O}(d)) = d h$. As a line bundle there is one Chern root $\\alpha_1 = d h$. So $$ \\mathrm{ch}(\\mathcal{O}(d)) \\;=\\; e^{dh} \\;=\\; 1 + d h + \\tfrac{d^2}{2} h^2. $$ (Higher terms vanish in $A^*(\\mathbb{P}^2)$ because $h^3 = 0$.)",
+        svgInner: "<text x='180' y='40' text-anchor='middle' font-size='13' fill='var(--cyan)'>ch(𝒪(d)) = e^{dh}</text><text x='180' y='80' text-anchor='middle' font-size='14' fill='var(--ink)'>= 1 + dh + (d²/2) h²</text><text x='180' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>(truncate at h³ = 0)</text>"
+      },
+      {
+        title: "Todd class $\\mathrm{td}(T_{\\mathbb{P}^2})$",
+        body: "From the Euler sequence $0 \\to \\mathcal{O} \\to \\mathcal{O}(1)^{\\oplus 3} \\to T_{\\mathbb{P}^2} \\to 0$ we get $c(T_{\\mathbb{P}^2}) = (1 + h)^3 = 1 + 3h + 3h^2$. Splitting into roots: $T_{\\mathbb{P}^2}$ has Chern roots $\\alpha_1, \\alpha_2$ with $\\alpha_1 + \\alpha_2 = 3h$ and $\\alpha_1 \\alpha_2 = 3h^2$. Then $$ \\mathrm{td}(T_{\\mathbb{P}^2}) = 1 + \\tfrac32 h + h^2. $$",
+        svgInner: "<text x='180' y='40' text-anchor='middle' font-size='12' fill='var(--ink)'>0 → 𝒪 → 𝒪(1)^3 → T_{ℙ²} → 0</text><text x='180' y='75' text-anchor='middle' font-size='12' fill='var(--ink)'>c(T) = (1+h)³ = 1 + 3h + 3h²</text><text x='180' y='115' text-anchor='middle' font-size='13' fill='var(--violet)'>td(T) = 1 + (3/2)h + h²</text>"
+      },
+      {
+        title: "Multiply: $\\mathrm{ch} \\cdot \\mathrm{td}$",
+        body: "Multiply in $A^*(\\mathbb{P}^2) \\otimes \\mathbb{Q}$, dropping $h^k$ for $k \\ge 3$: $$ \\mathrm{ch}(\\mathcal{O}(d)) \\cdot \\mathrm{td}(T_{\\mathbb{P}^2}) \\;=\\; \\bigl(1 + dh + \\tfrac{d^2}{2} h^2\\bigr) \\bigl(1 + \\tfrac{3}{2} h + h^2\\bigr). $$ The coefficient of $h^2$ is $1 + \\tfrac{3d}{2} + \\tfrac{d^2}{2} = \\tfrac{(d+1)(d+2)}{2}$.",
+        svgInner: "<text x='180' y='50' text-anchor='middle' font-size='12' fill='var(--ink)'>(1 + dh + (d²/2)h²)·(1 + (3/2)h + h²)</text><text x='180' y='95' text-anchor='middle' font-size='13' fill='var(--yellow)'>[h²] = 1 + 3d/2 + d²/2</text><text x='180' y='125' text-anchor='middle' font-size='14' fill='var(--green)'>= (d+1)(d+2)/2</text>"
+      },
+      {
+        title: "Push forward: $\\chi$ is the degree",
+        body: "Because $f\\colon \\mathbb{P}^2 \\to \\mathrm{pt}$ has $f_*$ equal to the degree map on $A^*$, and only $h^2$ survives push-forward (it is the class of a point), $$ \\chi(\\mathbb{P}^2, \\mathcal{O}(d)) \\;=\\; f_*\\bigl(\\mathrm{ch}(\\mathcal{O}(d)) \\cdot \\mathrm{td}(T_{\\mathbb{P}^2})\\bigr) \\;=\\; \\tbinom{d+2}{2}. $$ The closed-form formula matches the elementary count $\\dim H^0(\\mathbb{P}^2, \\mathcal{O}(d)) = \\binom{d+2}{2}$ for $d \\ge 0$ (with higher cohomology vanishing).",
+        svgInner: "<text x='180' y='40' text-anchor='middle' font-size='12' fill='var(--ink)'>f_*: A*(ℙ²) → A*(pt) = ℤ</text><text x='180' y='75' text-anchor='middle' font-size='12' fill='var(--mute)'>only [h²] = [pt] survives</text><rect x='80' y='100' width='200' height='40' rx='8' fill='var(--panel2)' stroke='var(--green)' stroke-width='2'/><text x='180' y='125' text-anchor='middle' font-size='14' fill='var(--green)' font-weight='600'>χ(ℙ², 𝒪(d)) = (d+1)(d+2)/2</text>"
+      },
+      {
+        title: "Why this is the right packaging",
+        body: "Replacing $\\mathbb{P}^2$ by a curve $C$ recovers $\\chi(C, \\mathcal{O}(D)) = \\deg D + 1 - g$ from $\\mathrm{ch}(\\mathcal{O}(D)) = 1 + D$ and $\\mathrm{td}(T_C) = 1 + \\tfrac12 c_1(T_C) = 1 - \\tfrac12 K_C$, with $\\deg(-\\tfrac12 K_C) = 1 - g$. Replacing it with a surface gives the Noether formula. The functoriality of GRR — pushing along any proper $f$ — is what lets you mix-and-match Riemann–Roch on different varieties without re-deriving anything.",
+        svgInner: "<text x='180' y='30' text-anchor='middle' font-size='12' fill='var(--mute)'>same formula, three specialisations:</text><text x='180' y='65' text-anchor='middle' font-size='12' fill='var(--ink)'>curve C: χ = deg D + 1 − g</text><text x='180' y='95' text-anchor='middle' font-size='12' fill='var(--ink)'>surface S: χ = D·(D−K)/2 + χ(𝒪)</text><text x='180' y='125' text-anchor='middle' font-size='12' fill='var(--ink)'>ℙⁿ: χ(𝒪(d)) = (d+n)!/(d! n!)</text><text x='180' y='160' text-anchor='middle' font-size='12' fill='var(--yellow)' font-weight='600'>all from one GRR equation</text>"
+      }
+    ]
+  });
+})();
+</script>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaves.html">Sheaves</a> — coherent sheaves are the input data of $\chi(X, \mathcal{F})$.</li>
+    <li><a href="./schemes.html">Schemes</a> — Riemann–Roch generalises to schemes via the same Chern-character / Todd-class machine.</li>
+  </ul>
+</aside>
 <div class="quiz" data-concept="riemann-roch-preview"></div>
 </section>
 

@@ -8768,17 +8768,48 @@ window.MVQuizBank = {
         "title": "What is a topos?",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"What is a topos?\"?",
+            "type": "multi-select",
+            "q": "Select all categories that are elementary toposes.",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathbf{Set}$",
+              "$\\mathbf{Top}$ (topological spaces and continuous maps)",
+              "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+              "$\\mathbf{Ab}$ (abelian groups)",
+              "$[C^{\\mathrm{op}}, \\mathbf{Set}]$ for any small category $C$"
+            ],
+            "answer": [
+              0,
+              2,
+              4
+            ],
+            "explain": "$\\mathbf{Set}$ is the prototypical topos. $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ is a presheaf topos. Any presheaf category is a topos. $\\mathbf{Top}$ fails cartesian closure (function spaces aren't always topologisable). $\\mathbf{Ab}$ has no subobject classifier (a non-trivial $\\Omega$ would have to be additive, forcing collapse).",
+            "hint": "A topos requires finite limits, cartesian closure, and a subobject classifier. Which fail in $\\mathbf{Top}$ and $\\mathbf{Ab}$?"
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT one of the three defining axioms of an elementary topos?",
+            "choices": [
+              "Existence of all finite limits.",
+              "Cartesian closure: an exponential $B^A$ for every pair $A, B$.",
+              "Existence of a subobject classifier $\\Omega$.",
+              "Existence of all small colimits (cocompleteness)."
+            ],
+            "answer": 3,
+            "explain": "Elementary toposes need only finite limits, not arbitrary colimits. Grothendieck toposes are additionally cocomplete and have a small generator, but elementary toposes are weaker.",
+            "hint": "Compare 'elementary topos' (Lawvere–Tierney) vs 'Grothendieck topos'."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Mikkelsen / Paré–Tierney theorem, an elementary topos can equivalently be defined as a finitely complete category with which extra structure?",
+            "choices": [
+              "Power objects $P(A)$ for every object $A$.",
+              "All small limits.",
+              "An initial object $0$.",
+              "A zero object."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "A finitely complete category with power objects automatically has exponentials and a subobject classifier $\\Omega = P(1)$, hence is a topos. This is the second equivalent definition.",
+            "hint": "The defining feature 'beyond limits' that recovers exponentials and $\\Omega$."
           }
         ]
       },
@@ -8786,17 +8817,82 @@ window.MVQuizBank = {
         "title": "The subobject classifier $\\Omega$",
         "questions": [
           {
+            "type": "matching",
+            "q": "Match each topos to its subobject classifier $\\Omega$.",
+            "left": [
+              "$\\{\\bot, \\top\\}$",
+              "the set of sieves on $c$ at each $c \\in C$",
+              "the open subsets of $U$ at each open $U \\subseteq X$",
+              "the set of subgroups of $G$ (with conjugation action)"
+            ],
+            "right": [
+              "$\\mathbf{Set}$",
+              "presheaf topos $[C^{\\mathrm{op}}, \\mathbf{Set}]$",
+              "$\\mathrm{Sh}(X)$ for a space $X$",
+              "$G\\text{-}\\mathbf{Set}$ for a group $G$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on $\\mathbf{B}G$ and its $\\Omega$ unwinds to subgroups of $G$ with conjugation action.",
+            "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"The subobject classifier $\\Omega$\"?",
+            "q": "Which property uniquely characterises $\\Omega$ up to canonical isomorphism in $\\mathcal{E}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\Omega$ is the largest object of $\\mathcal{E}$.",
+              "$\\Omega$ represents the contravariant subobject functor $\\mathrm{Sub}\\colon \\mathcal{E}^{\\mathrm{op}} \\to \\mathbf{Set}$.",
+              "$\\Omega$ has exactly two global elements $1 \\to \\Omega$.",
+              "$\\Omega$ is initial in $\\mathcal{E}$."
+            ],
+            "answer": 1,
+            "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\mathrm{Hom}(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
+            "hint": "Yoneda: a representable functor determines its representing object up to unique iso."
+          },
+          {
+            "type": "mcq",
+            "q": "In the presheaf topos $\\hat{C}$ where $C = \\{a \\le b\\}$ is the walking arrow (the two-element chain), how many global sections does $\\Omega$ have, i.e. how many maps $1 \\to \\Omega$?",
+            "choices": [
+              "2",
+              "3",
+              "4",
+              "infinitely many"
+            ],
+            "answer": 1,
+            "explain": "Global sections of $\\Omega$ in $\\hat{C}$ correspond to subobjects of the terminal presheaf $1$, which are sieves on the maximal element compatible with restrictions. For the walking arrow these are: $\\emptyset$, $\\{a\\}$ (down-closed since $a \\le b$ is the only non-trivial inclusion and $\\{a\\}$ is closed under going down), and the whole $\\{a, b\\}$. So 3 — the topos is 3-valued.",
+            "hint": "The global sections of $\\Omega$ are the 'truth values' of the topos. For a poset, count the down-sets."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why does $\\mathbf{Ab}$ (the category of abelian groups) fail to have a subobject classifier?",
+            "choices": [
+              "Because $\\mathbf{Ab}$ is not finitely complete.",
+              "Because $\\mathbf{Ab}$ has no terminal object.",
+              "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\mathrm{Hom}(X, X/S)$ — varying with $S$, hence not by a single object.",
+              "Because in $\\mathbf{Ab}$ subobjects of $X$ correspond to quotients $X \\twoheadrightarrow X/S$, and the family of quotient maps is parameterised by $S$ itself rather than by maps to a fixed $\\Omega$. A representing $\\Omega$ would have to be additive, forcing the only candidate ($\\mathbb{Z}/2$) to fail the universal pullback property."
+            ],
+            "answer": 3,
+            "explain": "Subobjects in $\\mathbf{Ab}$ are kernels, named by quotient maps $X \\to X/S$ — and the codomain depends on $S$, so they cannot all be classified by a single $X \\to \\Omega$. Concretely, any candidate $\\Omega$ in $\\mathbf{Ab}$ would be an abelian group, with maps to it given by abelian group homomorphisms, which is far too restrictive. Option C is partially right but misstates the symptom; D is the cleanest articulation.",
+            "hint": "Think about how subobjects in $\\mathbf{Ab}$ are usually 'named.'"
+          },
+          {
+            "type": "mcq",
+            "q": "Let $C = \\{a, b\\}$ be the discrete category with two objects (no non-identity morphisms). What is $\\Omega$ in $\\hat{C} = \\mathbf{Set}^C$?",
+            "choices": [
+              "$\\Omega(a) = \\Omega(b) = \\{\\bot, \\top\\}$, with $|\\mathrm{Hom}(1, \\Omega)| = 4$.",
+              "$\\Omega(a) = \\Omega(b) = \\{*\\}$, the terminal object.",
+              "$\\Omega$ has $|\\mathrm{Hom}(1, \\Omega)| = 2$.",
+              "$\\Omega$ does not exist."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Sieves on $a$ in a discrete category are subsets of the empty set of non-identity arrows into $a$, plus the choice of including or excluding the identity — so $\\Omega(a) = \\{\\emptyset, \\{\\mathrm{id}_a\\}\\} = \\{\\bot,\\top\\}$. Same for $b$. The topos $\\mathbf{Set}^{\\{a,b\\}} = \\mathbf{Set} \\times \\mathbf{Set}$ has $\\Omega = \\{\\bot,\\top\\}\\times\\{\\bot,\\top\\}$, with 4 global sections.",
+            "hint": "A discrete category with two objects gives a product topos $\\mathbf{Set} \\times \\mathbf{Set}$."
           }
         ]
       },
@@ -8805,16 +8901,47 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Characteristic maps as truth values\"?",
+            "q": "In $\\mathbf{Set}$, let $X = \\{1, 2, 3, 4\\}$ and $S = \\{2, 4\\}$. The characteristic map $\\chi_S\\colon X \\to \\Omega = \\{\\bot, \\top\\}$ sends:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$1 \\mapsto \\top, 2 \\mapsto \\top, 3 \\mapsto \\top, 4 \\mapsto \\top$",
+              "$1 \\mapsto \\bot, 2 \\mapsto \\top, 3 \\mapsto \\bot, 4 \\mapsto \\top$",
+              "$1 \\mapsto \\top, 2 \\mapsto \\bot, 3 \\mapsto \\top, 4 \\mapsto \\bot$",
+              "$1 \\mapsto \\bot, 2 \\mapsto \\bot, 3 \\mapsto \\bot, 4 \\mapsto \\bot$"
+            ],
+            "answer": 1,
+            "explain": "The characteristic map of $S \\subseteq X$ sends $x \\in S$ to $\\top$ and $x \\notin S$ to $\\bot$ — the indicator function. Here $S = \\{2, 4\\}$ so $\\chi_S(2) = \\chi_S(4) = \\top$ and $\\chi_S(1) = \\chi_S(3) = \\bot$.",
+            "hint": "In $\\mathbf{Set}$, $\\chi_S$ is the indicator function of $S$."
+          },
+          {
+            "type": "mcq",
+            "q": "In a topos, the internal conjunction $\\wedge\\colon \\Omega \\times \\Omega \\to \\Omega$ is defined as the characteristic map of which subobject of $\\Omega \\times \\Omega$?",
+            "choices": [
+              "$\\langle \\mathrm{true}, \\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$",
+              "$\\Delta_\\Omega\\colon \\Omega \\hookrightarrow \\Omega \\times \\Omega$",
+              "$\\langle \\mathrm{true}, \\mathrm{false}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$",
+              "All of $\\Omega \\times \\Omega$ (the identity subobject)"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$\\wedge$ should classify pairs $(p, q)$ with $p = q = \\top$. That subobject of $\\Omega \\times \\Omega$ is exactly $\\langle \\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$. Its characteristic map is $\\wedge$.",
+            "hint": "$p \\wedge q = \\top$ iff both $p$ and $q$ are $\\top$. Which subobject of $\\Omega \\times \\Omega$ does that pick out?"
+          },
+          {
+            "type": "ordering",
+            "q": "Order the following steps in the construction of internal conjunction $\\wedge\\colon \\Omega \\times \\Omega \\to \\Omega$.",
+            "items": [
+              "Define the subobject $\\langle\\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$.",
+              "Pull back $\\mathrm{true}\\colon 1 \\to \\Omega$ along the resulting map and verify the pullback square.",
+              "Apply the universal property of $\\Omega$: this monomorphism $1 \\hookrightarrow \\Omega \\times \\Omega$ has a unique characteristic map $\\Omega \\times \\Omega \\to \\Omega$.",
+              "Name that characteristic map $\\wedge$."
+            ],
+            "answer": [
+              0,
+              2,
+              1,
+              3
+            ],
+            "explain": "First identify the subobject $\\{(\\top,\\top)\\}$ of $\\Omega \\times \\Omega$, then invoke the universal property of $\\Omega$ to get its unique classifying map, verify it does what it should via pullback, and name it $\\wedge$.",
+            "hint": "Identify the subobject first, then apply the universal property."
           }
         ]
       },
@@ -8822,17 +8949,38 @@ window.MVQuizBank = {
         "title": "Power objects $P(A)$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "In $\\mathbf{Set}$, let $A = \\{a, b, c, d\\}$. Compute $|P(A)|$.",
+            "answer": 16,
+            "tol": 0,
+            "explain": "$P(A) = \\Omega^A$ in $\\mathbf{Set}$ is the set of functions $A \\to \\{\\bot, \\top\\}$, i.e. the power set $\\mathcal{P}(A)$. $|P(A)| = 2^{|A|} = 2^4 = 16$.",
+            "hint": "$|P(A)| = 2^{|A|}$ in $\\mathbf{Set}$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Power objects $P(A)$\"?",
+            "q": "The bijection $\\mathrm{Hom}(X \\times A, \\Omega) \\cong \\mathrm{Hom}(X, P(A))$ comes from which categorical principle?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "The Yoneda lemma applied to $X$.",
+              "Cartesian closure: $(-)\\times A \\dashv (-)^A$, with $P(A) := \\Omega^A$.",
+              "Naturality of the subobject functor.",
+              "The fact that $\\Omega$ is a terminal object."
+            ],
+            "answer": 1,
+            "explain": "Cartesian closure provides $\\mathrm{Hom}(X \\times A, B) \\cong \\mathrm{Hom}(X, B^A)$ for every $B$. Plugging $B = \\Omega$ gives the displayed bijection with $P(A) = \\Omega^A$.",
+            "hint": "It's currying — the right-adjoint of $(-) \\times A$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the universal property of the membership relation $\\in_A \\hookrightarrow A \\times P(A)$?",
+            "choices": [
+              "$\\in_A$ is the subobject of $A \\times P(A)$ classified by the evaluation map $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$.",
+              "$\\in_A$ is the kernel of the projection $A \\times P(A) \\to P(A)$.",
+              "$\\in_A$ is the diagonal $\\Delta\\colon A \\to A \\times P(A)$.",
+              "$\\in_A$ is $A \\times P(A)$ itself (the whole product)."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$\\in_A$ is the universal subobject of $A \\times P(A)$: it is classified by the evaluation map $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$ obtained by uncurrying the identity $\\mathrm{id}_{P(A)}\\colon P(A) \\to P(A) = \\Omega^A$. Every other subobject $R \\hookrightarrow A \\times P(A)$ pulls back from $\\in_A$ along $\\mathrm{id} \\times \\hat\\chi$.",
+            "hint": "The membership relation should be the 'universal' subobject — the one all others pull back from."
           }
         ]
       },
@@ -8840,17 +8988,66 @@ window.MVQuizBank = {
         "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "Let $C = \\{a \\le b \\le c\\}$ be the chain of length 3. How many sieves are there on $c$?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Sieves on $c$ in a poset are down-closed subsets of $\\{a, b, c\\}$. The down-sets are: $\\emptyset, \\{a\\}, \\{a, b\\}, \\{a, b, c\\}$. So $|\\Omega(c)| = 4$.",
+            "hint": "In a poset, sieves on $c$ are down-closed subsets of $\\{x : x \\le c\\}$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$\"?",
+            "q": "In the presheaf topos $\\hat{C}$ for $C$ a small category, exponentials $G^F$ are computed by which formula?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$G^F(c) = G(c)^{F(c)}$ (pointwise).",
+              "$G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$ (Yoneda-tied).",
+              "$G^F(c) = \\mathrm{Hom}(F(c), G(c))$.",
+              "$G^F(c) = G(c) \\times F(c)$."
+            ],
+            "answer": 1,
+            "explain": "Pointwise definitions don't give the right adjoint. The correct formula uses the representable $よ(c) = \\mathrm{Hom}(-, c)$ and natural transformations: $G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$. Limits in $\\hat C$ are pointwise; exponentials are not.",
+            "hint": "Limits in $\\hat C$ are pointwise. Exponentials need Yoneda."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a presheaf topos?",
+            "choices": [
+              "Simplicial sets $[\\Delta^{\\mathrm{op}}, \\mathbf{Set}]$",
+              "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+              "$\\mathrm{Sh}(X)$ for a (non-discrete) topological space $X$",
+              "The arrow category $\\mathbf{Set}^\\to = [(\\bullet \\to \\bullet)^{\\mathrm{op}}, \\mathbf{Set}]$"
+            ],
+            "answer": 2,
+            "explain": "Sheaves on a non-discrete space $X$ are a *reflective subcategory* of presheaves on $\\mathrm{Open}(X)$, but they are not themselves a presheaf topos in general. Sheafification is needed. The other three are all presheaf categories.",
+            "hint": "Sheaves are presheaves satisfying a gluing condition — and that's a strict subcategory."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $C$ be the walking-isomorphism category — two objects $a, b$ with arrows $f\\colon a \\to b$, $g\\colon b \\to a$, and $g\\circ f = \\mathrm{id}_a$, $f \\circ g = \\mathrm{id}_b$. What is $\\hat{C}$ equivalent to?",
+            "choices": [
+              "$\\mathbf{Set}$",
+              "$\\mathbf{Set} \\times \\mathbf{Set}$",
+              "$\\mathbf{Set}^\\to$ (the arrow category)",
+              "The category of equivalence relations"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "When $C$ is equivalent to a one-object category, so is $\\hat C$. The walking iso is equivalent to the terminal category (one object, one identity), so $\\hat C \\simeq \\mathbf{Set}$.",
+            "hint": "Equivalences of categories induce equivalences of presheaf categories. What category is the walking iso equivalent to?"
+          },
+          {
+            "type": "mcq",
+            "q": "In a presheaf topos $\\hat{C}$, what is $\\Omega$ at the level of 'global elements,' i.e. how many maps $1 \\to \\Omega$ are there in $\\hat{C}$?",
+            "choices": [
+              "Always exactly 2.",
+              "Equal to $|\\mathrm{Ob}(C)|$.",
+              "Equal to the number of subobjects of the terminal presheaf $1$ — i.e. the number of *global* sieves on $C$, where a global sieve is a system of sieves $S_c$ compatible under all morphisms.",
+              "Always infinite."
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{Hom}_{\\hat C}(1, \\Omega) = \\mathrm{Sub}_{\\hat C}(1)$: subobjects of the terminal presheaf. These correspond to *closed sieves on the whole category* — equivalently, idempotent natural transformations $1 \\to 1$. For $C = \\mathbf{B}G$ this gives 2 (only $\\emptyset$ and the maximal sieve survive); for a poset it gives the number of down-closed subsets of $\\mathrm{Ob}(C)$.",
+            "hint": "$\\mathrm{Hom}(1, \\Omega) = \\mathrm{Sub}(1)$ — subobjects of the terminal."
           }
         ]
       },
@@ -8859,16 +9056,42 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The topos of $G$-sets\"?",
+            "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence the lattice of subobjects of $G/1$ in $G\\text{-}\\mathbf{Set}$)?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\{1\\} < \\langle 3 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
+              "$\\{1\\} < \\langle 3 \\rangle, \\langle 2 \\rangle < \\mathbb{Z}/6$ — a diamond.",
+              "$\\{1\\} < \\langle 2 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
+              "$\\{1\\} < \\langle 1 \\rangle < \\mathbb{Z}/6$."
             ],
-            "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top.",
+            "hint": "By Lagrange, divisors of 6 are $1, 2, 3, 6$; cyclic groups have one subgroup per divisor."
+          },
+          {
+            "type": "mcq",
+            "q": "In $G\\text{-}\\mathbf{Set}$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
+            "choices": [
+              "$\\{0, 1\\}$",
+              "the set of subgroups of $G$, with $G$ acting by conjugation",
+              "$G$ itself with the regular action",
+              "the set of normal subgroups only"
+            ],
+            "answer": 1,
+            "explain": "$\\Omega$ in $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ at the unique object $* \\in \\mathbf{B}G$ is the set of sieves on $*$, which unwinds to subgroups of $G$. The presheaf-restriction action becomes conjugation: $g \\cdot H = gHg^{-1}$. All subgroups appear, not just normal ones.",
+            "hint": "Sieves on the unique object of $\\mathbf{B}G$ are exactly subgroups of $G$ (downward closure becomes the subgroup property)."
+          },
+          {
+            "type": "mcq",
+            "q": "When does the topos $G\\text{-}\\mathbf{Set}$ collapse to (be equivalent to) ordinary $\\mathbf{Set}$?",
+            "choices": [
+              "When $G$ is abelian.",
+              "When $G$ is finite.",
+              "When $G$ is the trivial group $\\{e\\}$.",
+              "$G\\text{-}\\mathbf{Set}$ is never equivalent to $\\mathbf{Set}$ for non-trivial reasons."
+            ],
+            "answer": 2,
+            "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, $\\Omega$ has more than 2 elements (the lattice of subgroups), so the topos cannot be $\\mathbf{Set}$.",
+            "hint": "$\\Omega$ is the lattice of subgroups. When does that have only two elements?"
           }
         ]
       },
@@ -8877,16 +9100,70 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Geometric morphisms\"?",
+            "q": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ consists of an adjoint pair $f^* \\dashv f_*$. Which is the inverse-image, which is the direct-image, and which is the constraint?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$f^* \\colon \\mathcal{F} \\to \\mathcal{E}$ (inverse image, must be left exact); $f_* \\colon \\mathcal{E} \\to \\mathcal{F}$ (direct image).",
+              "$f^* \\colon \\mathcal{E} \\to \\mathcal{F}$ (inverse image, must be left exact); $f_* \\colon \\mathcal{F} \\to \\mathcal{E}$ (direct image).",
+              "$f^*$ and $f_*$ both go $\\mathcal{F} \\to \\mathcal{E}$.",
+              "$f^*$ is right exact; $f_*$ is left exact."
             ],
-            "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "By convention the geometric morphism's named direction is the same as $f_*$ (direct image): $f_*\\colon \\mathcal{F} \\to \\mathcal{E}$ goes the same way as $f$. The inverse-image $f^*\\colon \\mathcal{E} \\to \\mathcal{F}$ goes the other way and is required to be left exact (preserve finite limits). Right adjoints are automatically left exact, but the constraint here is on the *left* adjoint $f^*$, which is non-trivial.",
+            "hint": "The 'direct image' is in the same direction as $f$ itself. The other one carries the exactness requirement."
+          },
+          {
+            "type": "mcq",
+            "q": "For a continuous map $f\\colon X \\to Y$ of topological spaces, the induced geometric morphism on sheaves goes which direction, and what plays the role of $f^*$?",
+            "choices": [
+              "$f\\colon \\mathrm{Sh}(Y) \\to \\mathrm{Sh}(X)$; $f^* = $ direct image.",
+              "$f\\colon \\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$; $f^* = $ pullback / inverse image of sheaves; $f_* = $ pushforward.",
+              "$f^* = $ pushforward, $f_* = $ pullback.",
+              "Only when $f$ is a homeomorphism does it induce a geometric morphism."
+            ],
+            "answer": 1,
+            "explain": "A continuous $f\\colon X \\to Y$ induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ in the same direction as $f$. The inverse-image functor $f^*\\colon \\mathrm{Sh}(Y) \\to \\mathrm{Sh}(X)$ is sheaf-pullback (left exact because $f^{-1}$ preserves intersections of opens); $f_*$ is pushforward (often called direct image of sheaves).",
+            "hint": "Topology: the map of *opens* goes the opposite way of $f$, but the geometric morphism still 'points like $f$.'"
+          },
+          {
+            "type": "mcq",
+            "q": "A *point* of a topos $\\mathcal{E}$ is by definition a geometric morphism with which source and target?",
+            "choices": [
+              "$\\mathcal{E} \\to \\mathbf{Set}$",
+              "$\\mathbf{Set} \\to \\mathcal{E}$",
+              "$\\mathcal{E} \\to \\mathcal{E}$",
+              "$1 \\to \\mathcal{E}$ in the 2-category of toposes"
+            ],
+            "answer": 1,
+            "explain": "Points of $\\mathcal{E}$ are geometric morphisms $\\mathbf{Set} \\to \\mathcal{E}$, mirroring continuous maps $\\{*\\} \\to X$ for spaces. The data is a left-exact left adjoint $p^*\\colon \\mathcal{E} \\to \\mathbf{Set}$ (the 'stalk' functor) plus its right adjoint $p_*\\colon \\mathbf{Set} \\to \\mathcal{E}$ (skyscraper).",
+            "hint": "A point is the 'morphism from a single point' — but the source/target convention follows the geometric-morphism convention."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The inclusion $\\mathrm{Sh}(C, J) \\hookrightarrow \\hat{C}$ of sheaves into presheaves is a geometric morphism. In which direction does the morphism go, and what is $f^*$?",
+            "choices": [
+              "$\\hat{C} \\to \\mathrm{Sh}(C, J)$ as a geometric morphism; $f^* = $ inclusion (so $f_* = $ sheafification, but this fails left exactness).",
+              "$\\mathrm{Sh}(C, J) \\to \\hat{C}$ as a geometric morphism; $f^* = $ sheafification (left exact!), $f_* = $ inclusion. The sheaves form a left-exact reflective subcategory.",
+              "Either direction works; both are geometric morphisms.",
+              "$\\mathrm{Sh}(C, J) \\to \\hat C$; $f^* = $ inclusion, $f_*$ = sheafification."
+            ],
+            "answer": 1,
+            "explain": "Sheaves form a *left-exact reflective* subcategory of presheaves. The geometric morphism is $\\mathrm{Sh}(C, J) \\to \\hat{C}$ with $f^* = $ sheafification $a$ (left exact — this is what 'left-exact reflective' means and is the content of the sheafification theorem), and $f_* = $ the inclusion (right adjoint to sheafification). Embedding-as-direct-image, sheafification-as-inverse-image.",
+            "hint": "Sheafification is a *left adjoint* (of the inclusion) and is left exact. That makes it $f^*$."
+          },
+          {
+            "type": "mcq",
+            "q": "An *essential* geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is one for which $f^*$ has an additional left adjoint $f_!$. Which of the following is NOT generally true of essential geometric morphisms?",
+            "choices": [
+              "They form a triple $f_! \\dashv f^* \\dashv f_*$.",
+              "$f_!$ preserves all colimits.",
+              "$f_!$ is automatically left exact (preserves finite limits).",
+              "Geometric morphisms induced by morphisms of small categories $C \\to D$ (yielding $[D^{\\mathrm{op}}, \\mathbf{Set}] \\to [C^{\\mathrm{op}}, \\mathbf{Set}]$ via Kan extension) are always essential."
+            ],
+            "answer": 2,
+            "explain": "Being a left adjoint, $f_!$ preserves all colimits — but it is *not* generally left exact. Essential morphisms in fact tend to be the ones where $f^*$ has both adjoints precisely because it has an even nicer 'Kan extension' structure on both sides. Forgetting left exactness of $f_!$ is exactly what allows $f^*$ to remain left exact while $f_!$ does the colimit work.",
+            "hint": "$f_!$ is a *left* adjoint — preserving colimits is automatic. What's special about $f^*$ being left exact, that $f_!$ doesn't share?"
           }
         ]
       }
@@ -14209,16 +14486,50 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Algebraic cycles and rational equivalence\"?",
+            "q": "Which of the following is the cleanest definition of rational equivalence on $Z_k(X)$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Two cycles $\\alpha, \\beta \\in Z_k(X)$ are rationally equivalent iff their difference is the divisor of a rational function on a $(k+1)$-dimensional subvariety of $X$.",
+              "Two cycles are rationally equivalent iff their difference is homologous to zero in singular homology.",
+              "Two cycles are rationally equivalent iff they have the same support.",
+              "Two cycles are rationally equivalent iff they have the same degree as $0$-cycles."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Rational equivalence is an algebraic homotopy: $\\alpha - \\beta = \\sum \\mathrm{div}_{W_j}(f_j)$ with $\\dim W_j = k+1$. Singular homology is a coarser invariant; degree is much coarser still.",
+            "hint": "Think of $\\mathbb{P}^1$ as the algebraic interval — divisors of rational functions are the connecting homotopies."
+          },
+          {
+            "type": "matching",
+            "q": "Match each cycle on $\\mathbb{P}^1$ with the unique class it represents in $A_0(\\mathbb{P}^1)$.",
+            "left": [
+              "$0 \\in A_0(\\mathbb{P}^1)$",
+              "$[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$",
+              "$2[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$"
+            ],
+            "right": [
+              "$[5] - [7]$",
+              "$[3]$",
+              "$[1] + [2]$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$A_0(\\mathbb{P}^1) = \\mathbb{Z}$ via degree. A degree-$0$ cycle is $0$; a degree-$1$ cycle is $[\\mathrm{pt}]$; a degree-$2$ cycle is $2[\\mathrm{pt}]$.",
+            "hint": "Compute the degree of each right-hand cycle."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in this attempted proof that $[P] - [Q] = 0$ in $A_0(C)$ for a smooth projective curve $C$ of genus $g \\ge 1$ and any two points $P, Q$.",
+            "steps": [
+              "Choose a rational function $f \\in k(C)^\\times$ such that $\\mathrm{div}(f) = [P] - [Q]$.",
+              "By the definition of rational equivalence, $\\mathrm{div}(f) \\sim_{\\mathrm{rat}} 0$.",
+              "Therefore $[P] - [Q] = 0$ in $A_0(C)$.",
+              "Hence $A_0(C) = \\mathbb{Z}$, generated by $[\\mathrm{pt}]$, regardless of genus."
+            ],
+            "answer": 0,
+            "explain": "Step 1 is the bug: a rational function with divisor $[P] - [Q]$ exists iff $[P] = [Q]$ in $\\mathrm{Pic}^0(C)$, i.e. iff $P, Q$ have the same image under Abel–Jacobi. For $g \\ge 1$ the Jacobian is non-trivial, so generic $P \\neq Q$ are inequivalent. Step 4 thus fails: $A_0(C) \\cong \\mathbb{Z} \\oplus \\mathrm{Pic}^0(C)$.",
+            "hint": "On $\\mathbb{P}^1$ every degree-$0$ divisor is principal — but $\\mathbb{P}^1$ is the genus-$0$ exception."
           }
         ]
       },
@@ -14226,17 +14537,50 @@ window.MVQuizBank = {
         "title": "Chow groups $A_*(X)$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "What is the rank of $A_*(\\mathbb{P}^4)$ as a $\\mathbb{Z}$-module?",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "$A_*(\\mathbb{P}^n) = \\bigoplus_{k=0}^n \\mathbb{Z} \\cdot [L^k] \\cong \\mathbb{Z}^{n+1}$, with one generator in each codimension $0, 1, \\ldots, n$. For $n = 4$ that's $5$.",
+            "hint": "Linear subspaces of dimension $0, 1, \\ldots, n$ generate the group, one per dimension."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Chow groups $A_*(X)$\"?",
+            "q": "What is $A_*(\\mathbb{A}^n)$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathbb{Z}$, concentrated in dimension $n$.",
+              "$\\mathbb{Z}^{n+1}$, one generator per dimension.",
+              "$\\mathbb{Z}[h]/(h^{n+1})$.",
+              "$0$."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Every cycle on $\\mathbb{A}^n$ of dimension $< n$ is rationally equivalent to $0$ via a translation family pushing it to infinity. So $A_*(\\mathbb{A}^n) = A_n(\\mathbb{A}^n) \\cong \\mathbb{Z}$, generated by the fundamental class $[\\mathbb{A}^n]$.",
+            "hint": "Affine space is contractible in the rational-equivalence sense."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <em>true</em> about Chow groups $A_*(X)$ for smooth quasi-projective $X$?",
+            "choices": [
+              "Proper morphisms induce a covariant push-forward $f_*\\colon A_k(X) \\to A_k(Y)$.",
+              "Flat morphisms of relative dimension $r$ induce a contravariant pull-back $f^*\\colon A_k(Y) \\to A_{k+r}(X)$.",
+              "There is a cycle map $A_*(X) \\to H_{2*}^{\\mathrm{BM}}(X(\\mathbb{C}); \\mathbb{Z})$ which is always an isomorphism.",
+              "$A_*$ vanishes on smooth projective varieties whenever $X(\\mathbb{C})$ is simply connected."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities. The cycle map exists but generally fails to be either injective or surjective — Griffiths' work on Fano threefolds gives counterexamples to injectivity, and transcendental Hodge classes obstruct surjectivity. Simple-connectedness has no bearing on $A_*$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "What is the rank of $A_*(\\mathbb{P}^1 \\times \\mathbb{P}^1)$ as a $\\mathbb{Z}$-module?",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "$A_*(\\mathbb{P}^1 \\times \\mathbb{P}^1) = \\mathbb{Z}[h, k]/(h^2, k^2)$ has $\\mathbb{Z}$-basis $\\{1, h, k, hk\\}$, so rank $4$. (Equivalently, the Künneth formula: $A_*(X \\times Y) \\cong A_*(X) \\otimes A_*(Y)$ when one factor has a cell decomposition; rank $2 \\cdot 2 = 4$.)",
+            "hint": "Künneth + the answer for $A_*(\\mathbb{P}^1)$."
           }
         ]
       },
@@ -14244,17 +14588,56 @@ window.MVQuizBank = {
         "title": "Intersection product on smooth $X$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "Two distinct lines $L_1, L_2$ in $\\mathbb{P}^2$ meet in $[L_1] \\cdot [L_2] = ?$ point(s) (counted with multiplicity).",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "Each line has class $h \\in A^1(\\mathbb{P}^2) = \\mathbb{Z}$, so $[L_1] \\cdot [L_2] = h \\cdot h = h^2 \\in A^2(\\mathbb{P}^2) = \\mathbb{Z}$, with degree $1$.",
+            "hint": "Two lines in the projective plane meet in exactly one point."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^3$, a smooth quadric surface $Q$ (degree $2$) and a smooth cubic surface $S$ (degree $3$) intersect generically in a curve of degree $\\deg(Q \\cdot S) = ?$.",
+            "answer": 6,
+            "tol": 0.001,
+            "explain": "$[Q] = 2h$ and $[S] = 3h$ in $A^*(\\mathbb{P}^3) = \\mathbb{Z}[h]/(h^4)$. Their product is $[Q] \\cdot [S] = 6 h^2$, the class of a curve of degree $6$ (the degree of a $1$-cycle in $\\mathbb{P}^3$ is the coefficient of $h^2$ when paired with the line class $h$).",
+            "hint": "Multiply degrees: this is the projective Bézout in $\\mathbb{P}^3$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Intersection product on smooth $X$\"?",
+            "q": "Why does the moving lemma matter for defining $[Y] \\cdot [Z]$ when $Y, Z$ do <em>not</em> meet transversally?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "It replaces one of $Y, Z$ by a rationally-equivalent cycle that <em>does</em> meet the other transversally, so the count of intersection points is well-defined modulo rational equivalence.",
+              "It guarantees that $Y \\cap Z$ is non-empty.",
+              "It allows the intersection product to be defined even on singular $X$.",
+              "It is needed to identify $A_0(X)$ with $\\mathbb{Z}$."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "On smooth quasi-projective $X$, the moving lemma (Chow, Roberts) lets you replace either factor by a rationally-equivalent cycle in general position with the other; transverse-only intersections then define the product on classes. On singular $X$ the moving lemma fails; one falls back to the bivariant theory of Fulton–MacPherson.",
+            "hint": "Definitions need representatives in 'general position'; moving moves them there."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^2$, a smooth conic $C$ (degree $2$) and a tangent line $L$ at one of its points: what is the intersection multiplicity $i_p(C, L)$ at the tangent point $p$?",
+            "answer": 2,
+            "tol": 0.001,
+            "explain": "$\\mathcal{O}_{\\mathbb{P}^2, p}/(F, G)$ has length $2$ when $L$ is tangent to $C$ at $p$ — equivalently, two transverse intersections collide as you specialise from a secant to a tangent. Bézout still gives $\\deg(C \\cdot L) = 2$, but the intersection is concentrated at one point with $i_p = 2$.",
+            "hint": "Bézout gives the total — what makes the count survive when two transverse points collide?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is the self-intersection $h \\cdot h$ on $\\mathbb{P}^1 \\times \\mathbb{P}^1$, where $h = [\\mathbb{P}^1 \\times \\mathrm{pt}]$ is the class of a horizontal ruling?",
+            "choices": [
+              "$0$.",
+              "$1$.",
+              "$h^2$ (a non-zero class).",
+              "Undefined."
+            ],
+            "answer": 0,
+            "explain": "Two horizontal rulings $\\mathbb{P}^1 \\times \\{a\\}$ and $\\mathbb{P}^1 \\times \\{b\\}$ never meet for $a \\neq b$, so by the moving lemma $h \\cdot h = 0$ in $A^*(\\mathbb{P}^1 \\times \\mathbb{P}^1) = \\mathbb{Z}[h, k]/(h^2, k^2)$. Only $h \\cdot k = [\\mathrm{pt}]$ is non-zero.",
+            "hint": "Two parallel rulings of the same type don't meet — move one to verify."
           }
         ]
       },
@@ -14262,17 +14645,36 @@ window.MVQuizBank = {
         "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$\"?",
-            "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
-            ],
+            "type": "numeric",
+            "q": "In $A^*(\\mathbb{P}^5) = \\mathbb{Z}[h]/(h^6)$, what is $h^3 \\cdot h^2$? (Enter the integer coefficient if the result is $c \\cdot h^k$ for some $k \\le 5$, or $0$ if the product vanishes.)",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$h^3 \\cdot h^2 = h^5 \\in A^5(\\mathbb{P}^5)$, the class of a point — coefficient $1$. (We didn't hit the relation $h^6 = 0$ because $3 + 2 = 5 \\le 5$.)",
+            "hint": "Add the exponents and check whether you exceed $n = 5$."
+          },
+          {
+            "type": "numeric",
+            "q": "In $A^*(\\mathbb{P}^4)$, what is $h^3 \\cdot h^3$?",
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "tol": 0.001,
+            "explain": "$3 + 3 = 6 > 4$, so $h^6 = 0$ by the relation $h^{n+1} = h^5 = 0$ which forces all higher powers to vanish.",
+            "hint": "Check whether the sum of exponents exceeds the dimension of the ambient space."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these computations from smallest to largest as integers (degree of the resulting $0$-cycle on the indicated $\\mathbb{P}^n$).",
+            "items": [
+              "$\\deg(h^2 \\cdot h^2)$ in $A^*(\\mathbb{P}^4)$ — i.e., a quartic surface meeting a quadric in $\\mathbb{P}^4$",
+              "$\\deg((2h)(3h))$ in $A^*(\\mathbb{P}^2)$ — Bézout for a conic and a cubic",
+              "$\\deg((4h)(5h)(6h))$ in $A^*(\\mathbb{P}^3)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "First: $h^2 \\cdot h^2 = h^4 = $ class of point on $\\mathbb{P}^4$, degree $1$. Second: $(2h)(3h) = 6 h^2$, degree $6$ on $\\mathbb{P}^2$. Third: $(4h)(5h)(6h) = 120\\, h^3$, degree $120$ on $\\mathbb{P}^3$. So the order $1 < 6 < 120$.",
+            "hint": "Compute each as an integer first, then sort."
           }
         ]
       },
@@ -14281,16 +14683,64 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Chern classes\"?",
+            "q": "What is the total Chern class $c(\\mathcal{O}(2) \\oplus \\mathcal{O}(3))$ on $\\mathbb{P}^2$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$1 + 5h + 6h^2$",
+              "$1 + 5h$",
+              "$1 + 6h^2$",
+              "$1 + 5h + 5h^2$"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "By Whitney multiplicativity: $c(\\mathcal{O}(2)) = 1 + 2h$, $c(\\mathcal{O}(3)) = 1 + 3h$. Product: $(1 + 2h)(1 + 3h) = 1 + 5h + 6h^2$ in $A^*(\\mathbb{P}^2)$.",
+            "hint": "$c(\\mathcal{O}(d)) = 1 + dh$ for line bundles; multiply for direct sums."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^2$, what is $c_2(T_{\\mathbb{P}^2})$ as an integer (writing it as $c_2 = N \\cdot h^2$, give $N$)?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "Euler sequence $0 \\to \\mathcal{O} \\to \\mathcal{O}(1)^{\\oplus 3} \\to T_{\\mathbb{P}^2} \\to 0$. By multiplicativity (after tensoring properly): $c(\\mathcal{O})\\, c(T_{\\mathbb{P}^2}) = c(\\mathcal{O}(1))^3 = (1+h)^3 = 1 + 3h + 3h^2 + h^3$. Truncate at $h^3 = 0$: $c(T_{\\mathbb{P}^2}) = 1 + 3h + 3h^2$, so $c_2 = 3$.",
+            "hint": "Use the Euler sequence and read off the coefficient of $h^2$ in $(1+h)^3$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <em>axioms</em> of Chern classes (i.e., used to characterise them, not derived)?",
+            "choices": [
+              "$c_i(f^* E) = f^* c_i(E)$ (naturality).",
+              "$c(E) = c(E') \\cdot c(E'')$ for short exact sequences (Whitney sum).",
+              "$c(L) = 1 + c_1(L)$ for line bundles, with $c_1(L)$ the class of the divisor of zeros of a section.",
+              "$c_i(E) = 0$ for $i > \\mathrm{rk}(E)$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Naturality, Whitney sum, and the line-bundle normalisation are Grothendieck's three axioms; vanishing $c_i$ above the rank is a <em>consequence</em> (every rank-$r$ bundle has all non-trivial Chern classes in degrees $\\le r$).",
+            "hint": "The axioms must be enough to compute everything; the rank vanishing is forced by the splitting principle."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{P}^3$, compute $c_2(T_{\\mathbb{P}^3})$ as the integer coefficient of $h^2$.",
+            "answer": 6,
+            "tol": 0.001,
+            "explain": "Euler: $c(T_{\\mathbb{P}^3}) = (1+h)^4 = 1 + 4h + 6h^2 + 4h^3 + h^4$. Truncate at $h^4 = 0$: $c(T_{\\mathbb{P}^3}) = 1 + 4h + 6h^2 + 4h^3$. So $c_2 = 6$.",
+            "hint": "Generalize the $\\mathbb{P}^2$ Euler-sequence calculation: $(1+h)^{n+1}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the splitting principle work? (i.e. why can we pretend a rank-$r$ vector bundle $E$ splits as a direct sum of line bundles when computing Chern classes?)",
+            "choices": [
+              "Because $A^*$ has an injective natural transformation $A^*(X) \\hookrightarrow A^*(\\mathbb{F}(E))$ to the Chow ring of the flag bundle $\\mathbb{F}(E) \\to X$, on which $E$ pulls back to a bundle with a complete filtration by sub-line-bundles.",
+              "Because every vector bundle on a smooth variety actually does split as a direct sum.",
+              "Because Chern classes vanish for non-split bundles.",
+              "Because $A^*$ does not see non-split short exact sequences."
+            ],
+            "answer": 0,
+            "explain": "The flag bundle $\\mathbb{F}(E)$ parametrises complete flags in fibres of $E$; on it the pulled-back $E$ acquires a tautological filtration with line-bundle quotients. The pull-back $A^*(X) \\to A^*(\\mathbb{F}(E))$ is split injective (Chow's projective-bundle formula iterated), so any identity true on $\\mathbb{F}(E)$ — where $E$ does split — descends to $X$. Vector bundles emphatically do not split in general (e.g., $T_{\\mathbb{P}^2}$).",
+            "hint": "Look at the flag bundle of $E$ — it adds the splitting data without changing the Chern classes."
           }
         ]
       },
@@ -14298,17 +14748,61 @@ window.MVQuizBank = {
         "title": "Grothendieck–Riemann–Roch (preview)",
         "questions": [
           {
+            "type": "numeric",
+            "q": "By Riemann–Roch on a smooth projective curve $C$ of genus $g = 3$, compute $\\chi(C, \\mathcal{O}(D))$ where $\\deg D = 7$.",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "$\\chi(C, \\mathcal{O}(D)) = \\deg D + 1 - g = 7 + 1 - 3 = 5$.",
+            "hint": "$\\chi = \\deg D + 1 - g$ for any divisor on a smooth projective curve."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\chi(\\mathbb{P}^2, \\mathcal{O}(4))$ via Riemann–Roch / GRR.",
+            "answer": 15,
+            "tol": 0.001,
+            "explain": "$\\chi(\\mathbb{P}^2, \\mathcal{O}(d)) = \\binom{d+2}{2} = \\binom{6}{2} = 15$. (For $d \\ge 0$ this also equals $\\dim H^0(\\mathbb{P}^2, \\mathcal{O}(d))$ since higher cohomology vanishes.)",
+            "hint": "GRR on $\\mathbb{P}^2$ for $\\mathcal{O}(d)$ gives $(d+1)(d+2)/2$."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of GRR on $X = \\mathbb{P}^2$ for the sheaf $\\mathcal{F} = \\mathcal{O}(d)$, in the order one carries them out.",
+            "items": [
+              "Compute the Chern character $\\mathrm{ch}(\\mathcal{O}(d)) = e^{dh} = 1 + dh + (d^2/2) h^2$.",
+              "Compute the Todd class $\\mathrm{td}(T_{\\mathbb{P}^2}) = 1 + (3/2)h + h^2$ from the Euler sequence.",
+              "Multiply $\\mathrm{ch} \\cdot \\mathrm{td}$ in $A^*(\\mathbb{P}^2) \\otimes \\mathbb{Q}$ and read off the coefficient of $h^2$.",
+              "Push forward to a point via $f_*\\colon A^*(\\mathbb{P}^2) \\to A^*(\\mathrm{Spec}\\, k) = \\mathbb{Z}$ to obtain $\\chi$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Compute each ingredient, multiply, then take degree (= push-forward to a point). This is the universal recipe for Hirzebruch–Riemann–Roch on $\\mathbb{P}^n$.",
+            "hint": "First gather the ingredients (ch and td), then combine them, then specialise."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "On a smooth projective surface $S$ with $K_S$ trivial (e.g. a K3 surface, where $\\chi(\\mathcal{O}_S) = 2$), compute $\\chi(S, \\mathcal{O}(D))$ for a divisor $D$ with $D \\cdot D = 4$. (Use the surface Riemann–Roch $\\chi = \\tfrac12 D \\cdot (D - K_S) + \\chi(\\mathcal{O}_S)$.)",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "With $K_S = 0$: $\\chi = \\tfrac12 D \\cdot D + \\chi(\\mathcal{O}_S) = \\tfrac12 \\cdot 4 + 2 = 4$.",
+            "hint": "$K_S = 0$ kills the $-D \\cdot K_S$ term; just plug into the formula."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Grothendieck–Riemann–Roch (preview)\"?",
+            "q": "Why is $\\mathrm{td}(T_X)$ — rather than just $\\mathrm{ch}(T_X)$ — the right correction term in GRR?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Because the Todd class is the unique multiplicative characteristic class whose value on a line bundle $L$ with $c_1(L) = \\alpha$ is $\\alpha / (1 - e^{-\\alpha})$, which is exactly the Euler-characteristic-of-projective-space generating function.",
+              "Because the Chern character is not multiplicative.",
+              "Because $\\mathrm{td}$ vanishes on flat bundles, while $\\mathrm{ch}$ does not.",
+              "It's a historical accident; one could equivalently use $\\mathrm{ch}$."
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Hirzebruch chose td precisely because $\\mathrm{td}(L)$ for $c_1(L) = \\alpha$ equals $\\alpha / (1 - e^{-\\alpha})$, whose coefficients reproduce $\\chi(\\mathbb{P}^n, \\mathcal{O}) = 1$ in all dimensions. Equivalently, $\\int_{\\mathbb{P}^n} \\mathrm{td}(T_{\\mathbb{P}^n}) = 1$, which uniquely characterises td among multiplicative classes.",
+            "hint": "Test the formula on $\\mathcal{O}_{\\mathbb{P}^n}$ — what value of $\\chi$ does it predict?"
           }
         ]
       }
@@ -27012,16 +27506,35 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The simplex category $\\Delta$\"?",
+            "q": "Which of these maps $[2] \\to [3]$ is a coface (injective and order-preserving, skipping vertex $2$)?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$0 \\mapsto 0,\\; 1 \\mapsto 1,\\; 2 \\mapsto 3$",
+              "$0 \\mapsto 0,\\; 1 \\mapsto 0,\\; 2 \\mapsto 1$",
+              "$0 \\mapsto 1,\\; 1 \\mapsto 0,\\; 2 \\mapsto 2$",
+              "$0 \\mapsto 0,\\; 1 \\mapsto 2,\\; 2 \\mapsto 2$"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Coface $d^2\\colon [2] \\to [3]$ is the unique injective order-preserving map whose image misses $2 \\in [3]$. Option 2 is a codegeneracy ($s^0$), option 3 is not order-preserving, and option 4 is neither injective nor missing $2$.",
+            "hint": "A coface is injective; a codegeneracy is surjective and doubles a vertex."
+          },
+          {
+            "type": "numeric",
+            "q": "How many morphisms $[1] \\to [3]$ are there in $\\Delta$?",
+            "answer": 10,
+            "tol": 0.5,
+            "explain": "Order-preserving maps $[m] \\to [n]$ are in bijection with weakly increasing sequences of length $m+1$ from $\\{0,\\ldots,n\\}$, equivalently with multisets of size $m+1$ from $n+1$ elements: $\\binom{m+n+1}{m+1}$. For $m=1, n=3$ this is $\\binom{5}{2} = 10$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which simplicial identity does $d^j d^i = d^i d^{j-1}$ (for $i < j$) encode at the level of vertex labels of the standard simplex?",
+            "choices": [
+              "Two consecutive face inclusions are independent of the order in which the dropped vertices are removed.",
+              "Two degeneracies that double the same vertex commute.",
+              "A face followed by a degeneracy on a higher index is the identity.",
+              "A degeneracy followed by a face on the same index undoes the degeneracy."
+            ],
+            "answer": 0,
+            "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
           }
         ]
       },
@@ -27029,17 +27542,57 @@ window.MVQuizBank = {
         "title": "Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "How many non-degenerate $1$-simplices does the standard simplex $\\Delta^3$ have?",
+            "answer": 6,
+            "tol": 0.5,
+            "explain": "Non-degenerate $k$-simplices of $\\Delta^n$ are injective order-preserving maps $[k] \\to [n]$, counted by $\\binom{n+1}{k+1}$. For $n=3, k=1$: $\\binom{4}{2}=6$ — the six edges of a tetrahedron."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Simplicial sets as $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$\"?",
+            "q": "Which of these is the correct description of $(\\partial \\Delta^2)_1$, the set of $1$-simplices of the boundary of the standard $2$-simplex?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "All order-preserving maps $[1] \\to [2]$ — both injective and degenerate.",
+              "Only the three injective maps $[1] \\to [2]$, no degenerate edges.",
+              "All maps $[1] \\to [2]$ that miss vertex $0$.",
+              "The empty set, since $\\partial$ removes all interior simplices."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$\\partial \\Delta^2$ agrees with $\\Delta^2$ in dimensions $< 2$: it has the same vertices and edges (including degenerate ones — degeneracies are formal data attached to lower-dim simplices, never `interior'). It only differs from $\\Delta^2$ in dimension $2$, where the unique non-degenerate $2$-simplex of $\\Delta^2$ is removed.",
+            "hint": "Boundary only deletes the top-dimensional non-degenerate cell; lower-dimensional simplices including degeneracies all stay."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the data of a simplicial set equivalent to a presheaf on $\\Delta$?",
+            "choices": [
+              "Because $\\mathbf{Set}$ has all small limits, every functor $\\Delta^{\\mathrm{op}} \\to \\mathbf{Set}$ is automatically a presheaf.",
+              "Because the simplicial identities are exactly the relations among generators of $\\Delta$, so a $\\Delta^{\\mathrm{op}}$-action by $d_i, s_j$ is the same as a contravariant functor on $\\Delta$.",
+              "Because every presheaf is a colimit of representables.",
+              "Because the simplex category is filtered."
+            ],
+            "answer": 1,
+            "explain": "$\\Delta$ is generated by cofaces and codegeneracies subject to the cosimplicial identities; dualizing gives that a simplicial set (graded set with $d_i, s_j$ satisfying the simplicial identities) is the same as a contravariant functor $\\Delta \\to \\mathbf{Set}$. Option 1 confuses `presheaf' with `valued-in-Set'; option 3 is the density theorem, true but irrelevant; option 4 is false ($\\Delta$ is not filtered)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The Eilenberg–Zilber lemma says: every simplex $\\sigma \\in X_n$ factors uniquely as a degeneracy of a non-degenerate simplex. What concretely does this mean for representing a $\\sigma \\in X_3$?",
+            "choices": [
+              "There exists a unique surjective $\\alpha\\colon [3]\\twoheadrightarrow [k]$ in $\\Delta$ and a unique non-degenerate $\\tau \\in X_k$ with $\\sigma = \\alpha^* \\tau$.",
+              "Every $\\sigma$ is itself either non-degenerate or a face of a non-degenerate simplex.",
+              "$\\sigma$ is a sum of non-degenerate simplices in some abelianization.",
+              "$\\sigma$ becomes non-degenerate after enough applications of $d_0$."
+            ],
+            "answer": 0,
+            "explain": "Eilenberg–Zilber: $\\sigma = X(\\alpha)(\\tau)$ for a unique surjection $\\alpha$ in $\\Delta$ and a unique non-degenerate $\\tau$. This is what makes the geometric realization a CW-complex (one cell per non-degenerate simplex)."
+          },
+          {
+            "type": "numeric",
+            "q": "How many simplices (degenerate + non-degenerate) does $\\Delta^1$ have in dimension $2$?",
+            "answer": 4,
+            "tol": 0.5,
+            "explain": "$(\\Delta^1)_2 = \\Delta([2],[1])$, the set of weakly-increasing length-$3$ sequences in $\\{0,1\\}$: $(0,0,0), (0,0,1), (0,1,1), (1,1,1)$. The two constants are double degeneracies of the vertices; the middle two are $s_1$ and $s_0$ applied to the non-degenerate edge. There are no non-degenerate $2$-simplices in $\\Delta^1$ (none in dimension $> 1$)."
           }
         ]
       },
@@ -27048,16 +27601,39 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Geometric realization $|X|$\"?",
+            "q": "What is $|\\Delta^n|$ as a topological space?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "The standard topological $n$-simplex $\\{(t_0,\\ldots,t_n) \\in \\mathbb{R}^{n+1} : t_i \\geq 0,\\; \\sum t_i = 1\\}$.",
+              "The $n$-sphere $S^n$.",
+              "The disjoint union of $n+1$ points.",
+              "The closed unit ball $D^n$ with no further identifications."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "By definition $|\\Delta^n|$ is the convex hull of $n+1$ affinely independent points; concretely the standard topological $n$-simplex. (It is homeomorphic to $D^n$, but the canonical model is the simplex itself, equipped with barycentric coordinates.)"
+          },
+          {
+            "type": "mcq",
+            "q": "The geometric realization $|\\partial \\Delta^n|$ is homeomorphic to which space?",
+            "choices": [
+              "The $(n-1)$-sphere $S^{n-1}$.",
+              "The $n$-disk $D^n$.",
+              "A bouquet of $n+1$ spheres.",
+              "A point."
+            ],
+            "answer": 0,
+            "explain": "$|\\partial \\Delta^n|$ is the boundary of the topological $n$-simplex, which is homeomorphic to $S^{n-1}$. For $n=2$ this is the triangle's boundary $\\cong S^1$; for $n=3$ the tetrahedron's boundary $\\cong S^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "$|\\Lambda^2_1|$, the realization of the inner horn of the $2$-simplex, is homeomorphic to:",
+            "choices": [
+              "Two edges meeting at the central vertex — i.e., the wedge of two intervals at $1$, contractible.",
+              "$S^1$.",
+              "A single edge $[0,1]$.",
+              "A disk $D^2$."
+            ],
+            "answer": 0,
+            "explain": "$\\Lambda^2_1 \\subset \\Delta^2$ is the union of the two edges through vertex $1$ — i.e., the edges $[0,1]$ and $[1,2]$. The realization is two segments joined at a midpoint; contractible (this is what makes the inner-horn extension property a kind of `composability' assertion, not a topological accident)."
           }
         ]
       },
@@ -27065,17 +27641,57 @@ window.MVQuizBank = {
         "title": "The nerve $N(C)$ of a category",
         "questions": [
           {
+            "type": "numeric",
+            "q": "Let $C$ be the poset $\\{a < b < c\\}$ viewed as a category (one arrow $x \\to y$ whenever $x \\le y$). How many $2$-simplices does $N(C)$ have? (Count all of $N(C)_2$, including degeneracies.)",
+            "answer": 10,
+            "tol": 0.5,
+            "explain": "$N(C)_2$ is the set of composable pairs $(f,g)$, equivalently functors $[2] \\to C$, equivalently order-preserving maps $\\{0,1,2\\} \\to \\{a,b,c\\}$. That count is $\\binom{2+2+1}{2+1} = \\binom{5}{3} = 10$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $G$ be the group $\\mathbb{Z}/2$ regarded as a one-object groupoid $BG$. How many non-degenerate $2$-simplices does $N(BG)$ have?",
+            "answer": 1,
+            "tol": 0.5,
+            "explain": "$N(BG)_n = G^n$, with $(g_1, g_2)$ non-degenerate iff each $g_i \\neq e$. For $G = \\mathbb{Z}/2$ there is exactly one non-identity element, so the only non-degenerate $2$-simplex is $(g, g)$ — one in total."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"The nerve $N(C)$ of a category\"?",
+            "q": "Under what condition on a small category $C$ is $N(C)_2$ empty?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$C$ has no composable pairs of arrows — equivalently, every non-identity arrow has a target with no outgoing non-identity arrow.",
+              "$C$ has no non-identity arrows at all.",
+              "$C$ is the empty category.",
+              "Never — $N(C)_2$ always contains the degenerate $2$-simplices on identity arrows."
+            ],
+            "answer": 3,
+            "explain": "$N(C)_2$ contains all composable pairs $(f, g)$, including $(\\mathrm{id}_x, \\mathrm{id}_x)$ for every object $x$ of $C$ (this is $s_0 s_0$ of $x$). So $N(C)_2$ is empty only if $C$ itself has no objects — i.e., $C$ is the empty category, in which case all $N(C)_n$ are empty.",
+            "hint": "Identity arrows are still arrows; pairs of identities are still composable pairs."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Two small categories $C, D$ are equivalent iff $N(C) \\simeq N(D)$ in which model structure on simplicial sets?",
+            "choices": [
+              "The Joyal (quasi-category) model structure — equivalence of categories $\\iff$ Joyal-equivalence of nerves.",
+              "The Kan–Quillen model structure — equivalence of categories $\\iff$ weak homotopy equivalence of nerves.",
+              "Either: equivalences of categories give both Joyal- and Kan-equivalences.",
+              "Neither: $N$ is not homotopy-invariant in any way."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "The nerve is fully faithful as a functor $\\mathbf{Cat} \\to \\mathbf{sSet}_{\\mathrm{Joyal}}$, and an equivalence of categories is exactly a Joyal equivalence of nerves. (A weak homotopy equivalence is much weaker — e.g. $N(C \\to *)$ is a weak homotopy equivalence whenever $C$ has an initial object, even though $C \\not\\simeq *$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Which functor is left adjoint to the nerve $N\\colon \\mathbf{Cat} \\to \\mathbf{sSet}$?",
+            "choices": [
+              "The homotopy category $h\\colon X \\mapsto \\tau_1 X$, generators-and-relations from $X_1$ modulo composition relations from $X_2$.",
+              "The left Kan extension along the Yoneda embedding.",
+              "Geometric realization $|{-}|$.",
+              "The fundamental groupoid $\\Pi_1$."
+            ],
+            "answer": 0,
+            "explain": "$N$ has a left adjoint $h$, the `homotopy / fundamental category' of a simplicial set: objects are $X_0$, morphisms are generated by $X_1$ modulo the relations $d_1 \\sigma = d_0 \\sigma \\circ d_2 \\sigma$ for $\\sigma \\in X_2$. For $X = N(C)$, $h(X) \\cong C$."
           }
         ]
       },
@@ -27083,17 +27699,45 @@ window.MVQuizBank = {
         "title": "Kan complexes",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Kan complexes\"?",
+            "type": "multi-select",
+            "q": "Which of the following are Kan complexes?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$N(C)$ for $C$ an arbitrary small category",
+              "$N(G)$ for $G$ a (small) groupoid",
+              "$\\mathrm{Sing}(X)$ for any topological space $X$",
+              "$\\Delta^n$ as a simplicial set",
+              "Any constant simplicial set"
+            ],
+            "answer": [
+              1,
+              2,
+              4
+            ],
+            "explain": "Singular complexes and nerves of groupoids are Kan complexes. Constant simplicial sets are Kan trivially (every horn factors through the constant). $\\Delta^n$ and $N(C)$ for a non-groupoidal $C$ are NOT Kan: the outer horn $\\Lambda^2_0$ of a composable pair $f, g$ in $N(C)$ would require an arrow $g \\circ f^{-1}$, which need not exist."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathrm{Sing}(X)$ a Kan complex for any topological space $X$?",
+            "choices": [
+              "Because $|\\Lambda^n_k|$ is a retract of $|\\Delta^n|$, so any continuous map $|\\Lambda^n_k| \\to X$ extends along $|\\Lambda^n_k| \\hookrightarrow |\\Delta^n|$.",
+              "Because $\\mathrm{Sing}$ preserves all colimits.",
+              "Because $X$ is Hausdorff.",
+              "Because every simplicial set is a Kan complex."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$|\\Lambda^n_k|$ is a strong deformation retract of $|\\Delta^n|$, so any continuous $|\\Lambda^n_k|\\to X$ extends to $|\\Delta^n|\\to X$. By the realization-singular adjunction this is exactly the lifting property defining Kan complex."
+          },
+          {
+            "type": "mcq",
+            "q": "Quillen's theorem: the geometric realization $|{-}|\\dashv \\mathrm{Sing}$ adjunction descends to an equivalence of homotopy categories between Kan complexes (not all simplicial sets) and which class of spaces?",
+            "choices": [
+              "CW-complexes (or, more generally, the homotopy category of all topological spaces with weak homotopy equivalences inverted).",
+              "Compact Hausdorff spaces.",
+              "Finite simplicial complexes only.",
+              "Locally contractible spaces."
+            ],
+            "answer": 0,
+            "explain": "Quillen's theorem: the adjunction $|{-}| \\dashv \\mathrm{Sing}$ is a Quillen equivalence between $\\mathbf{sSet}_{\\mathrm{Kan}}$ and $\\mathbf{Top}$ with weak equivalences and Serre fibrations. On homotopy categories: Kan complexes $\\simeq$ CW-complexes."
           }
         ]
       },
@@ -27102,16 +27746,65 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Inner-horn filling and quasi-categorical nerves\"?",
+            "q": "Which of these is an *inner* horn?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\Lambda^3_1$",
+              "$\\Lambda^2_0$",
+              "$\\Lambda^3_0$",
+              "$\\Lambda^3_3$"
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$\\Lambda^n_k$ is inner iff $0 < k < n$. For $n=3$: inner horns are $\\Lambda^3_1$ and $\\Lambda^3_2$; $\\Lambda^3_0$ and $\\Lambda^3_3$ are outer. For $n=2$: only $\\Lambda^2_1$ is inner."
+          },
+          {
+            "type": "mcq",
+            "q": "A simplicial set $X$ has a *unique* filler for every inner horn $\\Lambda^n_k \\hookrightarrow X$ iff:",
+            "choices": [
+              "$X \\cong N(C)$ for a uniquely determined small category $C$.",
+              "$X$ is a Kan complex.",
+              "$X = \\Delta^n$ for some $n$.",
+              "$X$ is the singular complex of some space."
+            ],
+            "answer": 0,
+            "explain": "This is the key characterisation: $X$ is the nerve of a $1$-category iff it is a quasi-category (inner horns extend) AND the extension is unique. Inner-horn fillers in $N(C)$ correspond to compositions $g \\circ f$, which exist and are unique."
+          },
+          {
+            "type": "mcq",
+            "q": "The Joyal model structure on $\\mathbf{sSet}$ takes which class as fibrant objects?",
+            "choices": [
+              "Quasi-categories — simplicial sets with extensions for every inner horn (existence, not uniqueness).",
+              "Kan complexes — extensions for every horn including outer.",
+              "Nerves of $1$-categories.",
+              "All simplicial sets."
+            ],
+            "answer": 0,
+            "explain": "Fibrant objects in the Joyal model structure are the quasi-categories (inner Kan complexes). Kan complexes are the fibrant objects in the Kan–Quillen model structure (a stricter condition); nerves of $1$-categories are quasi-categories with the additional uniqueness-of-fillers property."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In $N(C)$, an inner horn $\\Lambda^2_1 \\to N(C)$ is a pair of arrows $f\\colon a \\to b$ and $g\\colon b \\to c$. Why is the filler $\\Delta^2 \\to N(C)$ not just `existence' (a quasi-category condition) but `unique'?",
+            "choices": [
+              "Because composition in a $1$-category $C$ is a function — given $(f, g)$ the composite $g \\circ f$ is uniquely determined; there is only one $2$-simplex of $N(C)$ with $d_2 = f$, $d_0 = g$.",
+              "Because $N(C)$ is also a Kan complex.",
+              "Because every functor between $1$-categories preserves identities.",
+              "Because the filler property is a definition, not a theorem."
+            ],
+            "answer": 0,
+            "explain": "A $2$-simplex of $N(C)$ is a triple of composable arrows $a \\xrightarrow{f} b \\xrightarrow{g} c$ together with the third edge — but in a $1$-category that third edge IS $g \\circ f$, uniquely determined. In a quasi-category there can be many fillers (homotopies between candidate composites), which is what makes higher categories `higher'."
+          },
+          {
+            "type": "mcq",
+            "q": "Outer-horn extension in $N(C)$ — for instance, given $f\\colon a \\to b$ and $h\\colon a \\to c$, can we always fill $\\Lambda^2_0$? — corresponds to which categorical property?",
+            "choices": [
+              "Existence of a morphism $g\\colon b \\to c$ with $h = g \\circ f$ — i.e., right-divisibility, which holds iff every morphism is invertible (so $C$ is a groupoid).",
+              "Existence of pullbacks.",
+              "The category being abelian.",
+              "Smallness of the category."
+            ],
+            "answer": 0,
+            "explain": "$\\Lambda^2_0 \\hookrightarrow N(C)$ asks: given $f$ and $h$ sharing source $a$, is there $g$ with $h = g \\circ f$? This is right-divisibility by $f$. It holds for every $f$ iff every morphism is right-invertible, which for a small category means $C$ is a groupoid. (Symmetrically $\\Lambda^2_2$ corresponds to left-divisibility, also requiring groupoid.) Hence $N(C)$ is Kan iff $C$ is a groupoid."
           }
         ]
       }

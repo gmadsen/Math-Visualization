@@ -5,17 +5,44 @@
       "title": "What is a topos?",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"What is a topos?\"?",
+          "type": "multi-select",
+          "q": "Select all categories that are elementary toposes.",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\mathbf{Set}$",
+            "$\\mathbf{Top}$ (topological spaces and continuous maps)",
+            "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+            "$\\mathbf{Ab}$ (abelian groups)",
+            "$[C^{\\mathrm{op}}, \\mathbf{Set}]$ for any small category $C$"
+          ],
+          "answer": [0, 2, 4],
+          "explain": "$\\mathbf{Set}$ is the prototypical topos. $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ is a presheaf topos. Any presheaf category is a topos. $\\mathbf{Top}$ fails cartesian closure (function spaces aren't always topologisable). $\\mathbf{Ab}$ has no subobject classifier (a non-trivial $\\Omega$ would have to be additive, forcing collapse).",
+          "hint": "A topos requires finite limits, cartesian closure, and a subobject classifier. Which fail in $\\mathbf{Top}$ and $\\mathbf{Ab}$?"
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT one of the three defining axioms of an elementary topos?",
+          "choices": [
+            "Existence of all finite limits.",
+            "Cartesian closure: an exponential $B^A$ for every pair $A, B$.",
+            "Existence of a subobject classifier $\\Omega$.",
+            "Existence of all small colimits (cocompleteness)."
+          ],
+          "answer": 3,
+          "explain": "Elementary toposes need only finite limits, not arbitrary colimits. Grothendieck toposes are additionally cocomplete and have a small generator, but elementary toposes are weaker.",
+          "hint": "Compare 'elementary topos' (Lawvere–Tierney) vs 'Grothendieck topos'."
+        },
+        {
+          "type": "mcq",
+          "q": "By the Mikkelsen / Paré–Tierney theorem, an elementary topos can equivalently be defined as a finitely complete category with which extra structure?",
+          "choices": [
+            "Power objects $P(A)$ for every object $A$.",
+            "All small limits.",
+            "An initial object $0$.",
+            "A zero object."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "A finitely complete category with power objects automatically has exponentials and a subobject classifier $\\Omega = P(1)$, hence is a topos. This is the second equivalent definition.",
+          "hint": "The defining feature 'beyond limits' that recovers exponentials and $\\Omega$."
         }
       ]
     },
@@ -23,17 +50,77 @@
       "title": "The subobject classifier $\\Omega$",
       "questions": [
         {
+          "type": "matching",
+          "q": "Match each topos to its subobject classifier $\\Omega$.",
+          "left": [
+            "$\\{\\bot, \\top\\}$",
+            "the set of sieves on $c$ at each $c \\in C$",
+            "the open subsets of $U$ at each open $U \\subseteq X$",
+            "the set of subgroups of $G$ (with conjugation action)"
+          ],
+          "right": [
+            "$\\mathbf{Set}$",
+            "presheaf topos $[C^{\\mathrm{op}}, \\mathbf{Set}]$",
+            "$\\mathrm{Sh}(X)$ for a space $X$",
+            "$G\\text{-}\\mathbf{Set}$ for a group $G$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on $\\mathbf{B}G$ and its $\\Omega$ unwinds to subgroups of $G$ with conjugation action.",
+          "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"The subobject classifier $\\Omega$\"?",
+          "q": "Which property uniquely characterises $\\Omega$ up to canonical isomorphism in $\\mathcal{E}$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\Omega$ is the largest object of $\\mathcal{E}$.",
+            "$\\Omega$ represents the contravariant subobject functor $\\mathrm{Sub}\\colon \\mathcal{E}^{\\mathrm{op}} \\to \\mathbf{Set}$.",
+            "$\\Omega$ has exactly two global elements $1 \\to \\Omega$.",
+            "$\\Omega$ is initial in $\\mathcal{E}$."
+          ],
+          "answer": 1,
+          "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\mathrm{Hom}(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
+          "hint": "Yoneda: a representable functor determines its representing object up to unique iso."
+        },
+        {
+          "type": "mcq",
+          "q": "In the presheaf topos $\\hat{C}$ where $C = \\{a \\le b\\}$ is the walking arrow (the two-element chain), how many global sections does $\\Omega$ have, i.e. how many maps $1 \\to \\Omega$?",
+          "choices": [
+            "2",
+            "3",
+            "4",
+            "infinitely many"
+          ],
+          "answer": 1,
+          "explain": "Global sections of $\\Omega$ in $\\hat{C}$ correspond to subobjects of the terminal presheaf $1$, which are sieves on the maximal element compatible with restrictions. For the walking arrow these are: $\\emptyset$, $\\{a\\}$ (down-closed since $a \\le b$ is the only non-trivial inclusion and $\\{a\\}$ is closed under going down), and the whole $\\{a, b\\}$. So 3 — the topos is 3-valued.",
+          "hint": "The global sections of $\\Omega$ are the 'truth values' of the topos. For a poset, count the down-sets."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why does $\\mathbf{Ab}$ (the category of abelian groups) fail to have a subobject classifier?",
+          "choices": [
+            "Because $\\mathbf{Ab}$ is not finitely complete.",
+            "Because $\\mathbf{Ab}$ has no terminal object.",
+            "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\mathrm{Hom}(X, X/S)$ — varying with $S$, hence not by a single object.",
+            "Because in $\\mathbf{Ab}$ subobjects of $X$ correspond to quotients $X \\twoheadrightarrow X/S$, and the family of quotient maps is parameterised by $S$ itself rather than by maps to a fixed $\\Omega$. A representing $\\Omega$ would have to be additive, forcing the only candidate ($\\mathbb{Z}/2$) to fail the universal pullback property."
+          ],
+          "answer": 3,
+          "explain": "Subobjects in $\\mathbf{Ab}$ are kernels, named by quotient maps $X \\to X/S$ — and the codomain depends on $S$, so they cannot all be classified by a single $X \\to \\Omega$. Concretely, any candidate $\\Omega$ in $\\mathbf{Ab}$ would be an abelian group, with maps to it given by abelian group homomorphisms, which is far too restrictive. Option C is partially right but misstates the symptom; D is the cleanest articulation.",
+          "hint": "Think about how subobjects in $\\mathbf{Ab}$ are usually 'named.'"
+        },
+        {
+          "type": "mcq",
+          "q": "Let $C = \\{a, b\\}$ be the discrete category with two objects (no non-identity morphisms). What is $\\Omega$ in $\\hat{C} = \\mathbf{Set}^C$?",
+          "choices": [
+            "$\\Omega(a) = \\Omega(b) = \\{\\bot, \\top\\}$, with $|\\mathrm{Hom}(1, \\Omega)| = 4$.",
+            "$\\Omega(a) = \\Omega(b) = \\{*\\}$, the terminal object.",
+            "$\\Omega$ has $|\\mathrm{Hom}(1, \\Omega)| = 2$.",
+            "$\\Omega$ does not exist."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "Sieves on $a$ in a discrete category are subsets of the empty set of non-identity arrows into $a$, plus the choice of including or excluding the identity — so $\\Omega(a) = \\{\\emptyset, \\{\\mathrm{id}_a\\}\\} = \\{\\bot,\\top\\}$. Same for $b$. The topos $\\mathbf{Set}^{\\{a,b\\}} = \\mathbf{Set} \\times \\mathbf{Set}$ has $\\Omega = \\{\\bot,\\top\\}\\times\\{\\bot,\\top\\}$, with 4 global sections.",
+          "hint": "A discrete category with two objects gives a product topos $\\mathbf{Set} \\times \\mathbf{Set}$."
         }
       ]
     },
@@ -42,16 +129,42 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Characteristic maps as truth values\"?",
+          "q": "In $\\mathbf{Set}$, let $X = \\{1, 2, 3, 4\\}$ and $S = \\{2, 4\\}$. The characteristic map $\\chi_S\\colon X \\to \\Omega = \\{\\bot, \\top\\}$ sends:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$1 \\mapsto \\top, 2 \\mapsto \\top, 3 \\mapsto \\top, 4 \\mapsto \\top$",
+            "$1 \\mapsto \\bot, 2 \\mapsto \\top, 3 \\mapsto \\bot, 4 \\mapsto \\top$",
+            "$1 \\mapsto \\top, 2 \\mapsto \\bot, 3 \\mapsto \\top, 4 \\mapsto \\bot$",
+            "$1 \\mapsto \\bot, 2 \\mapsto \\bot, 3 \\mapsto \\bot, 4 \\mapsto \\bot$"
+          ],
+          "answer": 1,
+          "explain": "The characteristic map of $S \\subseteq X$ sends $x \\in S$ to $\\top$ and $x \\notin S$ to $\\bot$ — the indicator function. Here $S = \\{2, 4\\}$ so $\\chi_S(2) = \\chi_S(4) = \\top$ and $\\chi_S(1) = \\chi_S(3) = \\bot$.",
+          "hint": "In $\\mathbf{Set}$, $\\chi_S$ is the indicator function of $S$."
+        },
+        {
+          "type": "mcq",
+          "q": "In a topos, the internal conjunction $\\wedge\\colon \\Omega \\times \\Omega \\to \\Omega$ is defined as the characteristic map of which subobject of $\\Omega \\times \\Omega$?",
+          "choices": [
+            "$\\langle \\mathrm{true}, \\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$",
+            "$\\Delta_\\Omega\\colon \\Omega \\hookrightarrow \\Omega \\times \\Omega$",
+            "$\\langle \\mathrm{true}, \\mathrm{false}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$",
+            "All of $\\Omega \\times \\Omega$ (the identity subobject)"
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "$\\wedge$ should classify pairs $(p, q)$ with $p = q = \\top$. That subobject of $\\Omega \\times \\Omega$ is exactly $\\langle \\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$. Its characteristic map is $\\wedge$.",
+          "hint": "$p \\wedge q = \\top$ iff both $p$ and $q$ are $\\top$. Which subobject of $\\Omega \\times \\Omega$ does that pick out?"
+        },
+        {
+          "type": "ordering",
+          "q": "Order the following steps in the construction of internal conjunction $\\wedge\\colon \\Omega \\times \\Omega \\to \\Omega$.",
+          "items": [
+            "Define the subobject $\\langle\\mathrm{true},\\mathrm{true}\\rangle\\colon 1 \\hookrightarrow \\Omega \\times \\Omega$.",
+            "Pull back $\\mathrm{true}\\colon 1 \\to \\Omega$ along the resulting map and verify the pullback square.",
+            "Apply the universal property of $\\Omega$: this monomorphism $1 \\hookrightarrow \\Omega \\times \\Omega$ has a unique characteristic map $\\Omega \\times \\Omega \\to \\Omega$.",
+            "Name that characteristic map $\\wedge$."
+          ],
+          "answer": [0, 2, 1, 3],
+          "explain": "First identify the subobject $\\{(\\top,\\top)\\}$ of $\\Omega \\times \\Omega$, then invoke the universal property of $\\Omega$ to get its unique classifying map, verify it does what it should via pullback, and name it $\\wedge$.",
+          "hint": "Identify the subobject first, then apply the universal property."
         }
       ]
     },
@@ -59,17 +172,38 @@
       "title": "Power objects $P(A)$",
       "questions": [
         {
+          "type": "numeric",
+          "q": "In $\\mathbf{Set}$, let $A = \\{a, b, c, d\\}$. Compute $|P(A)|$.",
+          "answer": 16,
+          "tol": 0,
+          "explain": "$P(A) = \\Omega^A$ in $\\mathbf{Set}$ is the set of functions $A \\to \\{\\bot, \\top\\}$, i.e. the power set $\\mathcal{P}(A)$. $|P(A)| = 2^{|A|} = 2^4 = 16$.",
+          "hint": "$|P(A)| = 2^{|A|}$ in $\\mathbf{Set}$."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"Power objects $P(A)$\"?",
+          "q": "The bijection $\\mathrm{Hom}(X \\times A, \\Omega) \\cong \\mathrm{Hom}(X, P(A))$ comes from which categorical principle?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "The Yoneda lemma applied to $X$.",
+            "Cartesian closure: $(-)\\times A \\dashv (-)^A$, with $P(A) := \\Omega^A$.",
+            "Naturality of the subobject functor.",
+            "The fact that $\\Omega$ is a terminal object."
+          ],
+          "answer": 1,
+          "explain": "Cartesian closure provides $\\mathrm{Hom}(X \\times A, B) \\cong \\mathrm{Hom}(X, B^A)$ for every $B$. Plugging $B = \\Omega$ gives the displayed bijection with $P(A) = \\Omega^A$.",
+          "hint": "It's currying — the right-adjoint of $(-) \\times A$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the universal property of the membership relation $\\in_A \\hookrightarrow A \\times P(A)$?",
+          "choices": [
+            "$\\in_A$ is the subobject of $A \\times P(A)$ classified by the evaluation map $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$.",
+            "$\\in_A$ is the kernel of the projection $A \\times P(A) \\to P(A)$.",
+            "$\\in_A$ is the diagonal $\\Delta\\colon A \\to A \\times P(A)$.",
+            "$\\in_A$ is $A \\times P(A)$ itself (the whole product)."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "$\\in_A$ is the universal subobject of $A \\times P(A)$: it is classified by the evaluation map $\\mathrm{ev}\\colon A \\times P(A) \\to \\Omega$ obtained by uncurrying the identity $\\mathrm{id}_{P(A)}\\colon P(A) \\to P(A) = \\Omega^A$. Every other subobject $R \\hookrightarrow A \\times P(A)$ pulls back from $\\in_A$ along $\\mathrm{id} \\times \\hat\\chi$.",
+          "hint": "The membership relation should be the 'universal' subobject — the one all others pull back from."
         }
       ]
     },
@@ -77,17 +211,66 @@
       "title": "Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$",
       "questions": [
         {
+          "type": "numeric",
+          "q": "Let $C = \\{a \\le b \\le c\\}$ be the chain of length 3. How many sieves are there on $c$?",
+          "answer": 4,
+          "tol": 0,
+          "explain": "Sieves on $c$ in a poset are down-closed subsets of $\\{a, b, c\\}$. The down-sets are: $\\emptyset, \\{a\\}, \\{a, b\\}, \\{a, b, c\\}$. So $|\\Omega(c)| = 4$.",
+          "hint": "In a poset, sieves on $c$ are down-closed subsets of $\\{x : x \\le c\\}$."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$\"?",
+          "q": "In the presheaf topos $\\hat{C}$ for $C$ a small category, exponentials $G^F$ are computed by which formula?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$G^F(c) = G(c)^{F(c)}$ (pointwise).",
+            "$G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$ (Yoneda-tied).",
+            "$G^F(c) = \\mathrm{Hom}(F(c), G(c))$.",
+            "$G^F(c) = G(c) \\times F(c)$."
+          ],
+          "answer": 1,
+          "explain": "Pointwise definitions don't give the right adjoint. The correct formula uses the representable $よ(c) = \\mathrm{Hom}(-, c)$ and natural transformations: $G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$. Limits in $\\hat C$ are pointwise; exponentials are not.",
+          "hint": "Limits in $\\hat C$ are pointwise. Exponentials need Yoneda."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a presheaf topos?",
+          "choices": [
+            "Simplicial sets $[\\Delta^{\\mathrm{op}}, \\mathbf{Set}]$",
+            "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+            "$\\mathrm{Sh}(X)$ for a (non-discrete) topological space $X$",
+            "The arrow category $\\mathbf{Set}^\\to = [(\\bullet \\to \\bullet)^{\\mathrm{op}}, \\mathbf{Set}]$"
+          ],
+          "answer": 2,
+          "explain": "Sheaves on a non-discrete space $X$ are a *reflective subcategory* of presheaves on $\\mathrm{Open}(X)$, but they are not themselves a presheaf topos in general. Sheafification is needed. The other three are all presheaf categories.",
+          "hint": "Sheaves are presheaves satisfying a gluing condition — and that's a strict subcategory."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $C$ be the walking-isomorphism category — two objects $a, b$ with arrows $f\\colon a \\to b$, $g\\colon b \\to a$, and $g\\circ f = \\mathrm{id}_a$, $f \\circ g = \\mathrm{id}_b$. What is $\\hat{C}$ equivalent to?",
+          "choices": [
+            "$\\mathbf{Set}$",
+            "$\\mathbf{Set} \\times \\mathbf{Set}$",
+            "$\\mathbf{Set}^\\to$ (the arrow category)",
+            "The category of equivalence relations"
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "When $C$ is equivalent to a one-object category, so is $\\hat C$. The walking iso is equivalent to the terminal category (one object, one identity), so $\\hat C \\simeq \\mathbf{Set}$.",
+          "hint": "Equivalences of categories induce equivalences of presheaf categories. What category is the walking iso equivalent to?"
+        },
+        {
+          "type": "mcq",
+          "q": "In a presheaf topos $\\hat{C}$, what is $\\Omega$ at the level of 'global elements,' i.e. how many maps $1 \\to \\Omega$ are there in $\\hat{C}$?",
+          "choices": [
+            "Always exactly 2.",
+            "Equal to $|\\mathrm{Ob}(C)|$.",
+            "Equal to the number of subobjects of the terminal presheaf $1$ — i.e. the number of *global* sieves on $C$, where a global sieve is a system of sieves $S_c$ compatible under all morphisms.",
+            "Always infinite."
+          ],
+          "answer": 2,
+          "explain": "$\\mathrm{Hom}_{\\hat C}(1, \\Omega) = \\mathrm{Sub}_{\\hat C}(1)$: subobjects of the terminal presheaf. These correspond to *closed sieves on the whole category* — equivalently, idempotent natural transformations $1 \\to 1$. For $C = \\mathbf{B}G$ this gives 2 (only $\\emptyset$ and the maximal sieve survive); for a poset it gives the number of down-closed subsets of $\\mathrm{Ob}(C)$.",
+          "hint": "$\\mathrm{Hom}(1, \\Omega) = \\mathrm{Sub}(1)$ — subobjects of the terminal."
         }
       ]
     },
@@ -96,16 +279,42 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"The topos of $G$-sets\"?",
+          "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence the lattice of subobjects of $G/1$ in $G\\text{-}\\mathbf{Set}$)?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\{1\\} < \\langle 3 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
+            "$\\{1\\} < \\langle 3 \\rangle, \\langle 2 \\rangle < \\mathbb{Z}/6$ — a diamond.",
+            "$\\{1\\} < \\langle 2 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
+            "$\\{1\\} < \\langle 1 \\rangle < \\mathbb{Z}/6$."
           ],
-          "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top.",
+          "hint": "By Lagrange, divisors of 6 are $1, 2, 3, 6$; cyclic groups have one subgroup per divisor."
+        },
+        {
+          "type": "mcq",
+          "q": "In $G\\text{-}\\mathbf{Set}$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
+          "choices": [
+            "$\\{0, 1\\}$",
+            "the set of subgroups of $G$, with $G$ acting by conjugation",
+            "$G$ itself with the regular action",
+            "the set of normal subgroups only"
+          ],
+          "answer": 1,
+          "explain": "$\\Omega$ in $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ at the unique object $* \\in \\mathbf{B}G$ is the set of sieves on $*$, which unwinds to subgroups of $G$. The presheaf-restriction action becomes conjugation: $g \\cdot H = gHg^{-1}$. All subgroups appear, not just normal ones.",
+          "hint": "Sieves on the unique object of $\\mathbf{B}G$ are exactly subgroups of $G$ (downward closure becomes the subgroup property)."
+        },
+        {
+          "type": "mcq",
+          "q": "When does the topos $G\\text{-}\\mathbf{Set}$ collapse to (be equivalent to) ordinary $\\mathbf{Set}$?",
+          "choices": [
+            "When $G$ is abelian.",
+            "When $G$ is finite.",
+            "When $G$ is the trivial group $\\{e\\}$.",
+            "$G\\text{-}\\mathbf{Set}$ is never equivalent to $\\mathbf{Set}$ for non-trivial reasons."
+          ],
+          "answer": 2,
+          "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, $\\Omega$ has more than 2 elements (the lattice of subgroups), so the topos cannot be $\\mathbf{Set}$.",
+          "hint": "$\\Omega$ is the lattice of subgroups. When does that have only two elements?"
         }
       ]
     },
@@ -114,16 +323,70 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Geometric morphisms\"?",
+          "q": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ consists of an adjoint pair $f^* \\dashv f_*$. Which is the inverse-image, which is the direct-image, and which is the constraint?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$f^* \\colon \\mathcal{F} \\to \\mathcal{E}$ (inverse image, must be left exact); $f_* \\colon \\mathcal{E} \\to \\mathcal{F}$ (direct image).",
+            "$f^* \\colon \\mathcal{E} \\to \\mathcal{F}$ (inverse image, must be left exact); $f_* \\colon \\mathcal{F} \\to \\mathcal{E}$ (direct image).",
+            "$f^*$ and $f_*$ both go $\\mathcal{F} \\to \\mathcal{E}$.",
+            "$f^*$ is right exact; $f_*$ is left exact."
           ],
-          "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "By convention the geometric morphism's named direction is the same as $f_*$ (direct image): $f_*\\colon \\mathcal{F} \\to \\mathcal{E}$ goes the same way as $f$. The inverse-image $f^*\\colon \\mathcal{E} \\to \\mathcal{F}$ goes the other way and is required to be left exact (preserve finite limits). Right adjoints are automatically left exact, but the constraint here is on the *left* adjoint $f^*$, which is non-trivial.",
+          "hint": "The 'direct image' is in the same direction as $f$ itself. The other one carries the exactness requirement."
+        },
+        {
+          "type": "mcq",
+          "q": "For a continuous map $f\\colon X \\to Y$ of topological spaces, the induced geometric morphism on sheaves goes which direction, and what plays the role of $f^*$?",
+          "choices": [
+            "$f\\colon \\mathrm{Sh}(Y) \\to \\mathrm{Sh}(X)$; $f^* = $ direct image.",
+            "$f\\colon \\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$; $f^* = $ pullback / inverse image of sheaves; $f_* = $ pushforward.",
+            "$f^* = $ pushforward, $f_* = $ pullback.",
+            "Only when $f$ is a homeomorphism does it induce a geometric morphism."
+          ],
+          "answer": 1,
+          "explain": "A continuous $f\\colon X \\to Y$ induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ in the same direction as $f$. The inverse-image functor $f^*\\colon \\mathrm{Sh}(Y) \\to \\mathrm{Sh}(X)$ is sheaf-pullback (left exact because $f^{-1}$ preserves intersections of opens); $f_*$ is pushforward (often called direct image of sheaves).",
+          "hint": "Topology: the map of *opens* goes the opposite way of $f$, but the geometric morphism still 'points like $f$.'"
+        },
+        {
+          "type": "mcq",
+          "q": "A *point* of a topos $\\mathcal{E}$ is by definition a geometric morphism with which source and target?",
+          "choices": [
+            "$\\mathcal{E} \\to \\mathbf{Set}$",
+            "$\\mathbf{Set} \\to \\mathcal{E}$",
+            "$\\mathcal{E} \\to \\mathcal{E}$",
+            "$1 \\to \\mathcal{E}$ in the 2-category of toposes"
+          ],
+          "answer": 1,
+          "explain": "Points of $\\mathcal{E}$ are geometric morphisms $\\mathbf{Set} \\to \\mathcal{E}$, mirroring continuous maps $\\{*\\} \\to X$ for spaces. The data is a left-exact left adjoint $p^*\\colon \\mathcal{E} \\to \\mathbf{Set}$ (the 'stalk' functor) plus its right adjoint $p_*\\colon \\mathbf{Set} \\to \\mathcal{E}$ (skyscraper).",
+          "hint": "A point is the 'morphism from a single point' — but the source/target convention follows the geometric-morphism convention."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The inclusion $\\mathrm{Sh}(C, J) \\hookrightarrow \\hat{C}$ of sheaves into presheaves is a geometric morphism. In which direction does the morphism go, and what is $f^*$?",
+          "choices": [
+            "$\\hat{C} \\to \\mathrm{Sh}(C, J)$ as a geometric morphism; $f^* = $ inclusion (so $f_* = $ sheafification, but this fails left exactness).",
+            "$\\mathrm{Sh}(C, J) \\to \\hat{C}$ as a geometric morphism; $f^* = $ sheafification (left exact!), $f_* = $ inclusion. The sheaves form a left-exact reflective subcategory.",
+            "Either direction works; both are geometric morphisms.",
+            "$\\mathrm{Sh}(C, J) \\to \\hat C$; $f^* = $ inclusion, $f_*$ = sheafification."
+          ],
+          "answer": 1,
+          "explain": "Sheaves form a *left-exact reflective* subcategory of presheaves. The geometric morphism is $\\mathrm{Sh}(C, J) \\to \\hat{C}$ with $f^* = $ sheafification $a$ (left exact — this is what 'left-exact reflective' means and is the content of the sheafification theorem), and $f_* = $ the inclusion (right adjoint to sheafification). Embedding-as-direct-image, sheafification-as-inverse-image.",
+          "hint": "Sheafification is a *left adjoint* (of the inclusion) and is left exact. That makes it $f^*$."
+        },
+        {
+          "type": "mcq",
+          "q": "An *essential* geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is one for which $f^*$ has an additional left adjoint $f_!$. Which of the following is NOT generally true of essential geometric morphisms?",
+          "choices": [
+            "They form a triple $f_! \\dashv f^* \\dashv f_*$.",
+            "$f_!$ preserves all colimits.",
+            "$f_!$ is automatically left exact (preserves finite limits).",
+            "Geometric morphisms induced by morphisms of small categories $C \\to D$ (yielding $[D^{\\mathrm{op}}, \\mathbf{Set}] \\to [C^{\\mathrm{op}}, \\mathbf{Set}]$ via Kan extension) are always essential."
+          ],
+          "answer": 2,
+          "explain": "Being a left adjoint, $f_!$ preserves all colimits — but it is *not* generally left exact. Essential morphisms in fact tend to be the ones where $f^*$ has both adjoints precisely because it has an even nicer 'Kan extension' structure on both sides. Forgetting left exactness of $f_!$ is exactly what allows $f^*$ to remain left exact while $f_!$ does the colimit work.",
+          "hint": "$f_!$ is a *left* adjoint — preserving colimits is automatic. What's special about $f^*$ being left exact, that $f_!$ doesn't share?"
         }
       ]
     }
