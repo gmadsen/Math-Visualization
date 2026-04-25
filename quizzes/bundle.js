@@ -6331,17 +6331,44 @@ window.MVQuizBank = {
         "title": "First-order deformations",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"First-order deformations\"?",
+            "type": "multi-select",
+            "q": "Which of the following are first-order deformations of $X_0 = \\mathrm{Spec}\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
+              "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "A first-order deformation must (i) be flat over $D$, (ii) restrict to $X_0$ modulo $\\epsilon$. Choices 0 and 1 both restrict to $xy = 0$ and are flat (the second is the smoothing direction). Choice 2 collapses to the trivial deformation since $\\epsilon^2 = 0$. Choice 3 restricts to $x^2 = 0$, not $xy = 0$, so its special fibre is wrong."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the trivial first-order deformation of $X_0 = \\mathrm{Spec}\\,k$ (a single $k$-point)?",
+            "choices": [
+              "$\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) = \\mathrm{Spec}\\,D$ itself",
+              "$\\mathrm{Spec}\\,k$",
+              "$\\mathrm{Spec}\\,k \\sqcup \\mathrm{Spec}\\,k$ (two disjoint points)",
+              "$\\mathbb{A}^1_k$ (the affine line over $k$)"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Two first-order deformations $X, X'$ of $X_0$ are equivalent iff:",
+            "choices": [
+              "There is a $D$-isomorphism $X \\to X'$ restricting to the identity on $X_0$",
+              "$X$ and $X'$ are abstractly isomorphic as schemes",
+              "$X$ and $X'$ have the same coordinate ring",
+              "There is any $k$-isomorphism $X \\to X'$"
+            ],
+            "answer": 0,
+            "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\mathrm{Spec}$ of a 4-dimensional $k$-vector space)."
           }
         ]
       },
@@ -6349,17 +6376,55 @@ window.MVQuizBank = {
         "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Tangent space of moduli is $H^1(X_0, T_{X_0})$\"?",
-            "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
-            ],
+            "type": "numeric",
+            "q": "Compute $\\dim H^1(\\mathbb{P}^n, T_{\\mathbb{P}^n})$ for any $n \\ge 1$.",
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "tol": 1e-9,
+            "explain": "By the Euler sequence $0 \\to \\mathcal{O} \\to \\mathcal{O}(1)^{n+1} \\to T_{\\mathbb{P}^n} \\to 0$ and the standard cohomology of $\\mathbb{P}^n$, $H^i(\\mathbb{P}^n, T_{\\mathbb{P}^n}) = 0$ for $i \\ge 1$. Hence $\\mathbb{P}^n$ is rigid: it has no first-order deformations.",
+            "hint": "Use the Euler sequence and the cohomology of $\\mathcal{O}(d)$ on $\\mathbb{P}^n$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 5$.",
+            "answer": 12,
+            "tol": 1e-9,
+            "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 12$ for $g = 5$. Riemann–Roch on $T_C$ (degree $2 - 2g = -8$) plus $h^0(T_C) = 0$ for $g \\ge 2$ gives the formula.",
+            "hint": "$\\dim \\mathcal{M}_g = 3g - 3$ for $g \\ge 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "For an elliptic curve $E$, what is $\\dim H^1(E, T_E)$?",
+            "choices": [
+              "$0$ — elliptic curves are rigid",
+              "$1$ — recovering $\\dim \\mathcal{M}_{1,1} = 1$",
+              "$3$ — same as $g = 2$",
+              "$g = 1$ — but the formula $3g - 3 = 0$, contradicting itself"
+            ],
+            "answer": 1,
+            "explain": "$T_E$ is trivial on an elliptic curve (the tangent bundle of an abelian variety is trivial), so $H^1(E, T_E) = H^1(E, \\mathcal{O}_E) \\cong k$. The formula $3g - 3$ specifically applies for $g \\ge 2$; the genus-$1$ case is $1$, giving the moduli space of elliptic curves a 1-parameter $j$-line."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim H^0(C, \\Omega^{\\otimes 2}_C)$ — the space of <strong>quadratic differentials</strong> on a smooth projective curve $C$ of genus $g = 6$. (Equal to $\\dim H^1(C, T_C)$ by Serre duality.)",
+            "answer": 15,
+            "tol": 1e-9,
+            "explain": "By Serre duality, $H^1(C, T_C) \\cong H^0(C, \\Omega^{\\otimes 2}_C)^\\vee$. Apply Riemann–Roch to $\\Omega^{\\otimes 2}_C$ (degree $4g - 4 = 20$): for $g \\ge 2$ the degree exceeds $2g - 2 = 10$, so $h^0 = \\deg - g + 1 = 20 - 6 + 1 = 15 = 3g - 3$.",
+            "hint": "Apply Riemann–Roch to $\\Omega^{\\otimes 2}_C$, which has degree $4g - 4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathbb{P}^n$ <em>infinitesimally rigid</em> — i.e., has $H^1(T) = 0$ — but $\\mathcal{M}_g$ for $g \\ge 2$ is positive-dimensional?",
+            "choices": [
+              "$\\mathbb{P}^n$ is smooth and curves are not, so cohomology behaves differently",
+              "$T_{\\mathbb{P}^n}$ is positive enough that $H^i$ vanishes for $i \\ge 1$ (Euler sequence + ample cohomology), while $T_C$ on a curve of $g \\ge 2$ has negative degree, killing $H^0$ but allowing $H^1 = 3g - 3 > 0$ via Riemann–Roch",
+              "$\\mathcal{M}_g$ is not actually a moduli space, just an invariant",
+              "Curves of genus $\\ge 2$ are special because they have group structure"
+            ],
+            "answer": 1,
+            "explain": "The dichotomy is purely cohomological: positivity of $T_{\\mathbb{P}^n}$ kills all higher cohomology, while $T_C$ has negative degree on a curve of $g \\ge 2$, forcing $H^0 = 0$ but leaving $H^1 = 3g - 3$ from Riemann–Roch.",
+            "hint": "Compare $\\deg T_{\\mathbb{P}^n}$ and $\\deg T_C$ for curves $g \\ge 2$."
           }
         ]
       },
@@ -6368,16 +6433,70 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Obstructions live in $H^2(X_0, T_{X_0})$\"?",
+            "q": "When is the deformation functor $\\mathrm{Def}_{X_0}$ <strong>unobstructed</strong> at $X_0$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "When $H^0(X_0, T_{X_0}) = 0$",
+              "When $H^1(X_0, T_{X_0}) = 0$",
+              "When $H^2(X_0, T_{X_0}) = 0$",
+              "When $H^i(X_0, T_{X_0}) = 0$ for all $i$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 2,
+            "explain": "Unobstructedness is precisely the statement that every obstruction class — which lives in $H^2(X_0, T_{X_0})$ — is forced to vanish. So $H^2 = 0$ is sufficient (and the cleanest sufficient condition). Vanishing of $H^1$ would mean no deformations at all (rigid), and $H^0$ controls infinitesimal automorphisms, not obstructions."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <strong>infinitesimally rigid</strong> ($H^1(X_0, T_{X_0}) = 0$)?",
+            "choices": [
+              "$\\mathbb{P}^n$ for any $n \\ge 1$",
+              "An elliptic curve $E$ over $k$",
+              "A smooth quadric hypersurface $\\mathbb{P}^1 \\times \\mathbb{P}^1 \\subset \\mathbb{P}^3$",
+              "A smooth projective curve of genus $g = 4$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathbb{P}^n$ has $H^1(T) = 0$ via the Euler sequence. The smooth quadric $\\mathbb{P}^1 \\times \\mathbb{P}^1$ also has $H^1(T) = 0$ (both factors are rigid and the product preserves this). Elliptic curves have $\\dim H^1(T_E) = 1$ (the $j$-line). A genus-$4$ curve has $\\dim H^1(T_C) = 3(4) - 3 = 9$, very much non-rigid."
+          },
+          {
+            "type": "mcq",
+            "q": "What does it mean for a first-order lift $X_1$ to be <em>obstructed</em>?",
+            "choices": [
+              "$X_1$ does not exist",
+              "The obstruction class $\\mathrm{ob}_1 \\in H^2(X_0, T_{X_0})$ is non-zero, so no second-order lift $X_2$ over $k[t]/(t^3)$ extending $X_1$ exists",
+              "$X_1$ exists but is not flat",
+              "$X_1$ has more than one second-order extension"
+            ],
+            "answer": 1,
+            "explain": "Obstruction is exactly the (provably zero or non-zero) class $\\mathrm{ob}_1(X_1) \\in H^2(X_0, T_{X_0})$ which controls whether a 2nd-order lift extending $X_1$ exists. Non-zero obstruction = no extension; this is what 'obstructed deformation' means."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A Calabi–Yau threefold $X$ has $H^2(X, T_X)$ generally <em>non-zero</em>. Why are its deformations nonetheless unobstructed?",
+            "choices": [
+              "Calabi–Yau threefolds are rigid, so the obstruction question is vacuous",
+              "Bogomolov–Tian–Todorov: a holomorphic volume form forces the obstruction map $\\mathrm{ob}_n \\colon H^1(T_X) \\to H^2(T_X)$ to vanish at every order, despite $H^2 \\ne 0$",
+              "$H^2(T_X) = 0$ for Calabi–Yau threefolds — the question is wrong",
+              "Their deformation theory is purely classical and uses only $\\Omega^1$"
+            ],
+            "answer": 1,
+            "explain": "BTT (Bogomolov–Tian–Todorov), via Ran's $T^1$-lifting, shows that a non-vanishing holomorphic volume form (the trivial canonical bundle $K_X = 0$ defining Calabi–Yau) makes every obstruction class trivial even though the codomain $H^2(T_X)$ is non-zero. So Calabi–Yau threefolds have unobstructed but very interesting moduli.",
+            "hint": "Bogomolov–Tian–Todorov."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $H^2(C, T_C) = 0$ automatic for any smooth projective curve $C$?",
+            "choices": [
+              "$T_C$ is ample",
+              "$\\dim C = 1$, so any coherent sheaf $\\mathcal{F}$ on $C$ has $H^i(C, \\mathcal{F}) = 0$ for all $i \\ge 2$ — Grothendieck's vanishing theorem on Noetherian dimension",
+              "Curves don't have a tangent bundle",
+              "It follows from Riemann–Roch on $T_C$"
+            ],
+            "answer": 1,
+            "explain": "Grothendieck's vanishing theorem: on a Noetherian topological space $X$ of dimension $n$, $H^i(X, \\mathcal{F}) = 0$ for $i > n$ and any abelian sheaf $\\mathcal{F}$. For a curve $n = 1$, hence $H^{\\ge 2} = 0$ automatically. This is why <em>every</em> smooth curve has unobstructed deformations.",
+            "hint": "Dimension reasoning, not Riemann–Roch."
           }
         ]
       },
@@ -6385,17 +6504,44 @@ window.MVQuizBank = {
         "title": "Deformation functors and Schlessinger's criteria",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Deformation functors and Schlessinger's criteria\"?",
+            "type": "multi-select",
+            "q": "Which of the following are among <strong>Schlessinger's conditions (H1)–(H4)</strong> for a functor $F\\colon \\mathrm{Art}_k \\to \\mathrm{Set}$ with $F(k) = \\{*\\}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "(H1) $F(A' \\times_A A'') \\to F(A') \\times_{F(A)} F(A'')$ is surjective for $A' \\twoheadrightarrow A$",
+              "(H2) When $A = k$ and $A' \\twoheadrightarrow k$ is a small extension, the (H1) map is bijective",
+              "(H3) $F$ takes values in finite sets for every $A \\in \\mathrm{Art}_k$",
+              "$\\dim_k F(D) < \\infty$ where $D = k[\\epsilon]/(\\epsilon^2)$ — the tangent space is finite-dimensional"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "(H1) is the surjectivity condition; (H2) the bijectivity in the special-extension case; the finite-dimensional-tangent condition in choice 3 is (H3). Choice 2 is wrong: $F$ does not need to take values in finite sets — only the tangent-space condition is required."
+          },
+          {
+            "type": "mcq",
+            "q": "When does $\\mathrm{Def}_{X_0}$ have a <strong>hull</strong>?",
+            "choices": [
+              "Always",
+              "Iff Schlessinger's conditions (H1), (H2), and (H3) all hold",
+              "Iff $X_0$ is smooth",
+              "Iff $H^2(X_0, T_{X_0}) = 0$"
+            ],
+            "answer": 1,
+            "explain": "Schlessinger's theorem: $\\mathrm{Def}_{X_0}$ has a hull iff (H1)–(H3) hold; it is pro-representable iff (H1)–(H4) all hold. (H4) is the bijectivity strengthening of (H1)."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\mathrm{Def}_{X_0}(k[\\epsilon]/(\\epsilon^2))$ compute?",
+            "choices": [
+              "The automorphism group of $X_0$",
+              "The set of equivalence classes of first-order deformations of $X_0$, equivalently the tangent space of the deformation functor at $X_0$",
+              "The Picard group of $X_0$",
+              "The étale fundamental group $\\pi_1(X_0)$"
+            ],
+            "answer": 1,
+            "explain": "By definition, $\\mathrm{Def}_{X_0}(D)$ is the set of equivalence classes of flat $D$-deformations. This <em>is</em> the tangent space to the (pro-)moduli problem at $X_0$, and equals $H^1(X_0, T_{X_0})$ when $X_0$ is smooth."
           }
         ]
       },
@@ -6404,16 +6550,67 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The cotangent complex $L_{X/Y}$\"?",
+            "q": "For a <strong>smooth</strong> morphism $f\\colon X \\to Y$, the cotangent complex $L_{X/Y}$ is:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Concentrated in degree $0$ and equal to $\\Omega^1_{X/Y}[0]$",
+              "Concentrated in degree $-1$",
+              "An infinite complex with non-trivial cohomology in every non-positive degree",
+              "Always zero"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so $L_{X/Y} = \\Omega^1_{X/Y}[0]$ — no higher derived corrections needed."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\mathrm{Ext}^1_{\\mathcal{O}_X}(L_{X/Y}, \\mathcal{O}_X)$ classify?",
+            "choices": [
+              "Automorphisms of $X$ over $Y$",
+              "First-order deformations of $X \\to Y$ (i.e. flat lifts to $X[\\epsilon]/(\\epsilon^2)$ over $Y$)",
+              "Obstructions to lifting $X$",
+              "Global sections of $\\Omega^1_{X/Y}$"
+            ],
+            "answer": 1,
+            "explain": "The fundamental Illusie identification: $\\mathrm{Ext}^1(L_{X/Y}, \\mathcal{O}_X)$ is the tangent space of $\\mathrm{Def}_{X/Y}$, and $\\mathrm{Ext}^2(L_{X/Y}, \\mathcal{O}_X)$ holds the obstructions. For $X/Y$ smooth this recovers $H^1(T_{X/Y})$ and $H^2(T_{X/Y})$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X \\hookrightarrow Y$ a regular embedding (l.c.i.) of codimension $r$, the cotangent complex $L_{X/Y}$ has cohomology in which degrees?",
+            "choices": [
+              "Only degree $0$, equal to $\\Omega^1_{X/Y}$",
+              "Degrees $0$ and $-1$: $\\mathcal{H}^0 = \\Omega^1_{X/Y}$, $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2$ (the conormal sheaf)",
+              "Only degree $-r$",
+              "Degrees $0, -1, \\ldots, -r$"
+            ],
+            "answer": 1,
+            "explain": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$ (the conormal sheaf). For higher singularities one gets cohomology in deeper negative degrees."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "What is the <strong>transitivity triangle</strong> for $X \\to Y \\to Z$?",
+            "choices": [
+              "$L_{X/Y} \\to L_{X/Z} \\to L_{Y/Z} \\to L_{X/Y}[1]$",
+              "$f^* L_{Y/Z} \\to L_{X/Z} \\to L_{X/Y} \\to f^* L_{Y/Z}[1]$ in $D(\\mathcal{O}_X)$, where $f\\colon X \\to Y$",
+              "$L_{X/Z} = L_{X/Y} \\oplus L_{Y/Z}$",
+              "$L_{X/Y} \\otimes L_{Y/Z} = L_{X/Z}$"
+            ],
+            "answer": 1,
+            "explain": "The transitivity distinguished triangle $f^* L_{Y/Z} \\to L_{X/Z} \\to L_{X/Y} \\to f^* L_{Y/Z}[1]$ in $D(\\mathcal{O}_X)$ is the derived analogue of the conormal exact sequence $f^* \\Omega^1_{Y/Z} \\to \\Omega^1_{X/Z} \\to \\Omega^1_{X/Y} \\to 0$ — and replaces it for non-smooth maps.",
+            "hint": "Pull back the codomain along $f$."
+          },
+          {
+            "type": "mcq",
+            "q": "On a fat point $X_0 = \\mathrm{Spec}\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
+            "choices": [
+              "$0$ — fat points are rigid",
+              "$1$ — one direction of smoothing $x^2 = t$",
+              "$2$",
+              "$\\infty$"
+            ],
+            "answer": 1,
+            "explain": "$X_0 \\hookrightarrow \\mathbb{A}^1_k$ is a regular embedding (codimension $1$, ideal $(x^2)$), so $L_{X_0/k}$ has $\\mathcal{H}^0 = \\Omega^1 = k\\,dx/(2x\\,dx) \\cong k$ and $\\mathcal{H}^{-1} = (x^2)/(x^4) \\cong k$. A short computation gives $\\mathrm{Ext}^1(L_{X_0/k}, \\mathcal{O}_{X_0}) \\cong k$ — the single deformation direction $x^2 = t$ that smooths the fat point.",
+            "hint": "Use the two-term l.c.i. cotangent complex on the fat point."
           }
         ]
       },
@@ -6421,17 +6618,30 @@ window.MVQuizBank = {
         "title": "Worked example: deformations of a smooth curve",
         "questions": [
           {
+            "type": "numeric",
+            "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 2$.",
+            "answer": 3,
+            "tol": 1e-9,
+            "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 3$ for $g = 2$. So $\\mathcal{M}_2$ is a smooth $3$-dimensional variety."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for $g = 3$.",
+            "answer": 6,
+            "tol": 1e-9,
+            "explain": "$3g - 3 = 6$ for $g = 3$. $\\mathcal{M}_3$ is smooth of dimension $6$; its open dense locus is parametrised by smooth plane quartics (the canonical embedding of a non-hyperelliptic genus-$3$ curve)."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Worked example: deformations of a smooth curve\"?",
+            "q": "Why are smooth projective curves <strong>unobstructed</strong> — i.e. $\\mathcal{M}_g$ is smooth for all $g$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$T_C$ is always trivial",
+              "$H^2(C, T_C) = 0$ because $\\dim C = 1$ — Grothendieck vanishing forces $H^{\\ge 2}$ of any coherent sheaf on a $1$-dimensional space to vanish",
+              "Curves have a group structure",
+              "Curves embed in projective space"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "Grothendieck's vanishing theorem: on a Noetherian space of dimension $n$, $H^i(\\mathcal{F}) = 0$ for $i > n$. Hence $H^2(C, T_C) = 0$ on any curve, and the obstruction-class space is $0$. This is the structural reason $\\mathcal{M}_g$ is smooth — not a coincidence of Riemann–Roch."
           }
         ]
       }
@@ -13209,17 +13419,46 @@ window.MVQuizBank = {
         "title": "What is a group scheme?",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"What is a group scheme?\"?",
+            "type": "multi-select",
+            "q": "Which of the following are group schemes over $\\mathbb{Z}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathrm{GL}_n = \\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, \\det^{-1}]$",
+              "$\\mathbb{A}^1 = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ (the bare affine line, with no group structure picked out)",
+              "$\\mathbb{G}_a = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
+              "$\\mathbb{P}^1 = \\mathrm{Proj}\\,\\mathbb{Z}[x_0, x_1]$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathrm{GL}_n$ and $\\mathbb{G}_a$ are group schemes (one comes with matrix multiplication, the other with addition). The bare $\\mathbb{A}^1$ without designated $(m, e, \\iota)$ is just a scheme — same underlying scheme as $\\mathbb{G}_a$ but the group structure is part of the data, not implicit. $\\mathbb{P}^1$ admits no group-scheme structure (it's a non-trivial projective variety; the only connected projective group schemes are abelian varieties, and $\\mathbb{P}^1$ has genus 0 not 1).",
+            "hint": "A group scheme is a scheme equipped with $(m, e, \\iota)$, not just a scheme."
+          },
+          {
+            "type": "mcq",
+            "q": "For the affine group scheme $\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive group), what is the comultiplication $\\Delta\\colon k[t] \\to k[t] \\otimes k[t]$ encoding the multiplication $m\\colon \\mathbb{G}_a \\times \\mathbb{G}_a \\to \\mathbb{G}_a$?",
+            "choices": [
+              "$\\Delta(t) = t \\otimes t$",
+              "$\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
+              "$\\Delta(t) = t \\otimes 1 \\cdot 1 \\otimes t$",
+              "$\\Delta(t) = 1 \\otimes 1$"
+            ],
+            "answer": 1,
+            "explain": "On $T$-points, $\\mathbb{G}_a(T) = \\Gamma(T,\\mathcal{O}_T)$ with addition. So the multiplication map sends $(a, b) \\mapsto a + b$, dualising to $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$. The choice $t \\otimes t$ would encode multiplication of units, which is $\\mathbb{G}_m$, not $\\mathbb{G}_a$.",
+            "hint": "Read off what the group law does to functions: $f(a+b)$ in terms of $f(a)$ and $f(b)$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $G$ is a group scheme over $S$, what does the functor of points $h_G\\colon T \\mapsto G(T) = \\mathrm{Hom}_S(T, G)$ land in?",
+            "choices": [
+              "The category of sets",
+              "The category of groups",
+              "The category of topological spaces",
+              "The category of rings"
+            ],
+            "answer": 1,
+            "explain": "By definition, the structure morphisms $(m, e, \\iota)$ on $G$ make each $G(T)$ a group, and morphisms in $T$ induce group homomorphisms in $G(T)$. So $h_G$ factors through $\\mathbf{Grp}$. This is the functor-of-points characterisation.",
+            "hint": "What does the multiplication $m\\colon G \\times G \\to G$ induce on $T$-points?"
           }
         ]
       },
@@ -13227,17 +13466,41 @@ window.MVQuizBank = {
         "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$\"?",
+            "type": "numeric",
+            "q": "Compute $|\\mu_{15}(\\bar{\\mathbb{F}_5})|$, the number of $\\bar{\\mathbb{F}_5}$-points of $\\mu_{15} = \\mathrm{Spec}\\,\\mathbb{F}_5[t]/(t^{15} - 1)$.",
+            "answer": 3,
+            "tol": 0,
+            "explain": "Over $\\bar{\\mathbb{F}_5}$, $t^{15} - 1$ has $\\gcd(15, 5)$-related splitting: write $15 = 3 \\cdot 5$. Then $t^{15} - 1 = (t^3 - 1)^5$ in characteristic $5$, so the only roots are the 3rd roots of unity, of which there are 3 (since $\\gcd(3,5) = 1$). General formula: $|\\mu_n(\\bar{\\mathbb{F}_p})| = n / p^{v_p(n)}$ — divide $n$ by the largest power of $p$ that divides it.",
+            "hint": "Factor out the $p$-part: $\\mu_n = \\mu_{p^k} \\times \\mu_{n/p^k}$ where $n = p^k m$ with $\\gcd(m,p) = 1$. The $p^k$ piece is purely infinitesimal."
+          },
+          {
+            "type": "multi-select",
+            "q": "Over $\\bar{\\mathbb{F}_p}$, which of the following are étale (no infinitesimal piece)?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mathbb{Z}/n$ as a constant group scheme, for $\\gcd(n,p) = 1$",
+              "$\\mu_p$",
+              "$\\alpha_p$",
+              "$\\mu_n$ for $\\gcd(n,p) = 1$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "Étale over $\\bar{\\mathbb{F}_p}$ ⇔ no $\\bar{\\mathbb{F}_p}$-multiplicity, i.e. the defining polynomial is separable. $\\mu_n$ is étale iff $n$ is invertible in $k$, so for $\\gcd(n,p) = 1$. The constant group scheme $\\mathbb{Z}/n$ is always étale. $\\mu_p$ has $t^p - 1 = (t-1)^p$ — connected, infinitesimal. $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$ is purely connected/infinitesimal.",
+            "hint": "Étale ⇔ separable defining polynomial, which fails when char divides the multiplicity."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the order of $\\mu_n$ as a finite group scheme over $\\mathbb{Q}$ (where order is $\\dim_{\\mathbb{Q}} \\Gamma(\\mu_n, \\mathcal{O}))$?",
+            "choices": [
+              "$\\varphi(n)$ (Euler totient)",
+              "$n$",
+              "$1$",
+              "$n - 1$"
+            ],
+            "answer": 1,
+            "explain": "$\\mu_n = \\mathrm{Spec}\\,\\mathbb{Q}[t]/(t^n - 1)$ has coordinate ring of $\\mathbb{Q}$-dimension $n$ (basis $1, t, t^2, \\ldots, t^{n-1}$). The Galois action splits this into eigenspaces by primitive $d$-th roots for $d \\mid n$, but the rank — the order of the group scheme — is $n$. Distinguish from $|\\mu_n(\\mathbb{Q})|$, which depends on what's in $\\mathbb{Q}$.",
+            "hint": "Order of a finite group scheme = rank of its coordinate algebra over $k$, not the number of $k$-points."
           }
         ]
       },
@@ -13245,17 +13508,82 @@ window.MVQuizBank = {
         "title": "Affine group schemes ↔ commutative Hopf algebras",
         "questions": [
           {
+            "type": "matching",
+            "q": "Match each affine group scheme to its comultiplication $\\Delta(t)$ on the indicated generator.",
+            "left": [
+              "$t \\otimes t$",
+              "$t \\otimes 1 + 1 \\otimes t$",
+              "$t \\otimes t$ (in $k[t]/(t^n-1)$)",
+              "$t \\otimes 1 + 1 \\otimes t$ (in $k[t]/(t^p)$, char $p$)"
+            ],
+            "right": [
+              "$\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$",
+              "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$",
+              "$\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n-1)$",
+              "$\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$\\mathbb{G}_m$ and $\\mu_n$ both have $\\Delta(t) = t \\otimes t$ — they encode the same multiplication law on units, just with different relations on $t$. $\\mathbb{G}_a$ and $\\alpha_p$ both have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$ — additive comultiplication, with $\\alpha_p$ adding the relation $t^p = 0$.",
+            "hint": "Multiplicative groups have $\\Delta(t) = t \\otimes t$; additive groups have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$."
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Affine group schemes ↔ commutative Hopf algebras\"?",
+            "q": "What is the antipode $S\\colon k[t, t^{-1}] \\to k[t, t^{-1}]$ for the Hopf algebra of $\\mathbb{G}_m$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$S(t) = -t$",
+              "$S(t) = t^{-1}$",
+              "$S(t) = 1$",
+              "$S(t) = t^2$"
+            ],
+            "answer": 1,
+            "explain": "The antipode pulls back the inverse map $\\iota\\colon \\mathbb{G}_m \\to \\mathbb{G}_m$, $a \\mapsto a^{-1}$. So $S(t) = t^{-1}$. The check: $\\mu \\circ (\\mathrm{id} \\otimes S) \\circ \\Delta(t) = \\mu(t \\otimes t^{-1}) = t \\cdot t^{-1} = 1 = \\eta(\\epsilon(t))$. The choice $S(t) = -t$ is for $\\mathbb{G}_a$.",
+            "hint": "What is the inverse of $a \\in T^\\times$? Pull that back along $\\Delta$ via $a \\mapsto a^{-1}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The category of affine group schemes over $k$ is equivalent to which category?",
+            "choices": [
+              "Commutative Hopf algebras over $k$",
+              "The opposite of commutative Hopf algebras over $k$",
+              "Lie algebras over $k$",
+              "Cocommutative Hopf algebras over $k$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Spec}$ is contravariant: morphisms of affine schemes go opposite to morphisms of rings. So affine group schemes / $k$ are equivalent to the <em>opposite</em> of commutative Hopf algebras / $k$. (Equivalently: covariantly equivalent to the category of commutative Hopf algebras with arrows reversed.) Cocommutative Hopf algebras correspond to commutative group schemes, a subclass.",
+            "hint": "Spec reverses arrows."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $A$ be the Hopf algebra of an affine group scheme $G$ over $k$. The Lie algebra $\\mathrm{Lie}(G)$ can be recovered from $A$ as which of the following?",
+            "choices": [
+              "$\\mathrm{Hom}_k(I/I^2, k)$, where $I = \\ker \\epsilon$ is the augmentation ideal",
+              "$A/I$",
+              "$I^2/I^3$",
+              "$\\mathrm{Hom}_k(A, k)$"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "$\\mathrm{Lie}(G) = T_e G = \\mathrm{Hom}_k(\\mathfrak{m}_e/\\mathfrak{m}_e^2, k)$ where $\\mathfrak{m}_e = I$ is the maximal ideal at the identity. The cotangent space at the identity is $I/I^2$; the tangent space is its $k$-linear dual. The bracket on $\\mathrm{Lie}(G)$ comes from the adjoint coaction, also encoded purely in the Hopf-algebra data.",
+            "hint": "Tangent space at a closed point is dual to maximal-ideal-mod-its-square."
+          },
+          {
+            "type": "mcq",
+            "q": "Cartier duality is an anti-equivalence on the category of finite commutative group schemes. For $G$ with Hopf algebra $A$, the Cartier dual $G^\\vee$ has Hopf algebra:",
+            "choices": [
+              "$A$ itself with $\\Delta$ and $\\mu$ swapped",
+              "$A^* = \\mathrm{Hom}_k(A, k)$ with $\\Delta$ and $\\mu$ swapped",
+              "$A \\otimes A$",
+              "$A^{\\mathrm{op}}$"
+            ],
+            "answer": 1,
+            "explain": "Cartier duality on a finite Hopf algebra is the linear dual $A^* = \\mathrm{Hom}_k(A, k)$, with the multiplication and comultiplication swapped (and similarly $\\eta \\leftrightarrow \\epsilon$, $S^\\vee = S$). For $G$ finite, $A$ is finite-dimensional so $A^*$ is again finite-dimensional and is again a (commutative, since $G$ commutative) Hopf algebra. Examples: $(\\mathbb{Z}/n)^\\vee = \\mu_n$, $\\alpha_p^\\vee = \\alpha_p$ (Cartier self-dual).",
+            "hint": "On a finite-dimensional Hopf algebra, dualising swaps algebra and coalgebra structures."
           }
         ]
       },
@@ -13264,16 +13592,73 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Étale, connected, and infinitesimal pieces\"?",
+            "q": "What is the étale part of $\\mu_p$ over a perfect field $k$ of characteristic $p$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$\\mu_p$ itself",
+              "Trivial: $\\mu_p^{ét} = 1$",
+              "$\\mathbb{Z}/p$",
+              "$\\alpha_p$"
             ],
-            "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "Over $k$ of char $p$, $\\mu_p = \\mathrm{Spec}\\,k[t]/(t^p - 1) = \\mathrm{Spec}\\,k[t]/((t-1)^p)$ — the coordinate ring is local Artinian with one closed point, all nilpotents above. So $\\mu_p$ is connected (infinitesimal) and its étale quotient is trivial. Equivalently: $\\mu_p$ has only one $\\bar k$-point.",
+            "hint": "$t^p - 1 = (t-1)^p$ in characteristic $p$. How many distinct roots?"
+          },
+          {
+            "type": "mcq",
+            "q": "What is the connected part of $\\mathbb{Z}/n$ (the constant group scheme of order $n$) over any field?",
+            "choices": [
+              "$\\mathbb{Z}/n$ itself",
+              "Trivial: $(\\mathbb{Z}/n)^\\circ = 1$",
+              "$\\mu_n$",
+              "$\\alpha_n$"
+            ],
+            "answer": 1,
+            "explain": "The constant group scheme $\\mathbb{Z}/n = \\bigsqcup_{i=0}^{n-1} \\mathrm{Spec}\\,k$ is a disjoint union of $n$ copies of $\\mathrm{Spec}\\,k$ — étale by definition (it is finite étale of degree $n$). Connected component of identity is just the identity copy of $\\mathrm{Spec}\\,k$, i.e. trivial.",
+            "hint": "A constant group scheme is the disjoint union of $|G|$ copies of $\\mathrm{Spec}\\,k$. What is its identity component?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are true over a perfect field $k$ of characteristic $p > 0$?",
+            "choices": [
+              "Every finite commutative group scheme decomposes as $G^\\circ \\times G^{ét}$",
+              "$\\alpha_p$ and $\\mu_p$ are isomorphic as group schemes",
+              "Every finite étale group scheme over $k$ is trivial",
+              "In char 0, every finite group scheme is étale"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "(0) is the connected/étale decomposition over a perfect field. (1) is FALSE — $\\alpha_p$ and $\\mu_p$ are non-isomorphic: their Lie algebras are both $k$ (1-dim) but their Cartier duals differ ($\\alpha_p^\\vee = \\alpha_p$, $\\mu_p^\\vee = \\mathbb{Z}/p$). (2) is FALSE — finite étale group schemes over $k$ correspond to finite groups with continuous Galois action; lots of them. (3) is TRUE: in char 0, every finite scheme is reduced (no non-trivial nilpotents), hence étale.",
+            "hint": "$\\alpha_p$ and $\\mu_p$ are both purely infinitesimal — but are they the same?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite commutative group scheme of order $p^n$ over $\\bar{\\mathbb{F}_p}$. Cartier duality interchanges connected and étale pieces. What is the Cartier dual of $\\alpha_p$?",
+            "choices": [
+              "$\\mu_p$",
+              "$\\alpha_p$ (self-dual)",
+              "$\\mathbb{Z}/p$",
+              "$\\mathbb{G}_m$"
+            ],
+            "answer": 1,
+            "explain": "Cartier duality is given by $G^\\vee = \\mathrm{Hom}(G, \\mathbb{G}_m)$ in an appropriate sense; on finite group schemes, on Hopf algebras it is linear dualisation $A \\mapsto A^*$. For $A = k[t]/(t^p)$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$, the dual Hopf algebra is again $k[t]/(t^p)$ with the same comultiplication — $\\alpha_p$ is Cartier self-dual. The pair $(\\mu_p, \\mathbb{Z}/p)$ are also Cartier dual to each other.",
+            "hint": "$\\alpha_p$ is purely infinitesimal — its dual must also be purely infinitesimal (Cartier swaps connected and étale, but here both pieces are connected on each side)."
+          },
+          {
+            "type": "mcq",
+            "q": "Over a non-perfect field $k$ of characteristic $p$, the connected/étale decomposition $1 \\to G^\\circ \\to G \\to G^{ét} \\to 1$ may fail to:",
+            "choices": [
+              "Be a short exact sequence",
+              "Split (i.e. $G \\not\\cong G^\\circ \\rtimes G^{ét}$ in general)",
+              "Have $G^\\circ$ connected",
+              "Have $G^{ét}$ étale"
+            ],
+            "answer": 1,
+            "explain": "Over a perfect field, the sequence splits canonically. Over a non-perfect field, the splitting can fail — there are obstructions involving $p$-th-root-extraction (essentially, the imperfection ideal $k^{1/p} \\setminus k$). The sequence is still exact, $G^\\circ$ is still connected, and $G^{ét}$ is still étale, but $G$ need not be the semidirect product. Examples come from forms of $\\alpha_p$ over function fields like $\\mathbb{F}_p(s)$.",
+            "hint": "What goes wrong when $k$ is non-perfect — does the splitting use $p$-th roots?"
           }
         ]
       },
@@ -13281,17 +13666,38 @@ window.MVQuizBank = {
         "title": "Lie algebra $\\mathrm{Lie}(G)$",
         "questions": [
           {
+            "type": "numeric",
+            "q": "Compute $\\dim_k \\mathrm{Lie}(\\mathrm{GL}_n)$ for $n = 4$.",
+            "answer": 16,
+            "tol": 0,
+            "explain": "$\\mathrm{Lie}(\\mathrm{GL}_n) = \\mathfrak{gl}_n = \\mathrm{Mat}_n(k)$, dimension $n^2$. For $n = 4$: $4^2 = 16$. Verify: a $k[\\epsilon]$-point of $\\mathrm{GL}_n$ lifting $I$ is $I + \\epsilon X$ for any $X \\in \\mathrm{Mat}_n(k)$ — the determinant condition $\\det(I + \\epsilon X) = 1 + \\epsilon\\,\\mathrm{tr}(X) \\in k[\\epsilon]^\\times$ is automatic.",
+            "hint": "$\\mathrm{Lie}(\\mathrm{GL}_n)$ is what set of matrices?"
+          },
+          {
             "type": "mcq",
-            "q": "What is the principal claim of \"Lie algebra $\\mathrm{Lie}(G)$\"?",
+            "q": "What is $\\mathrm{Lie}(\\mathbb{G}_m)$ as a Lie algebra over $k$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$k$ with the trivial bracket $[a, b] = 0$ (the abelian 1-dim Lie algebra)",
+              "$k^\\times$, with bracket $[a, b] = ab - ba$",
+              "$\\mathfrak{gl}_1 = k$, with bracket $[a, b] = a - b$",
+              "Trivial: $\\{0\\}$"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "A $k[\\epsilon]$-point of $\\mathbb{G}_m$ lifting $1$ is a unit of the form $1 + \\epsilon a$, $a \\in k$. So $\\mathrm{Lie}(\\mathbb{G}_m) = k$ as a vector space. Since $\\mathbb{G}_m$ is commutative, the bracket is identically zero. This is the 1-dimensional abelian Lie algebra.",
+            "hint": "$\\mathbb{G}_m$ is commutative — what does that say about the bracket on its Lie algebra?"
+          },
+          {
+            "type": "mcq",
+            "q": "If $G \\hookrightarrow H$ is a closed immersion of group schemes (i.e. $G$ is a closed subgroup of $H$), the induced map on Lie algebras $\\mathrm{Lie}(G) \\to \\mathrm{Lie}(H)$ is:",
+            "choices": [
+              "Always an isomorphism",
+              "Always injective",
+              "Always surjective",
+              "Generally neither injective nor surjective"
+            ],
+            "answer": 1,
+            "explain": "The Lie functor preserves closed immersions: if $G \\hookrightarrow H$ is closed, then $G(k[\\epsilon]) \\hookrightarrow H(k[\\epsilon])$ is injective, and restricting to the kernels of reduction-to-$G(k)$ / $H(k)$ gives $\\mathrm{Lie}(G) \\hookrightarrow \\mathrm{Lie}(H)$. Surjectivity fails in general (e.g. for $\\mathrm{SL}_n \\subset \\mathrm{GL}_n$, the codimension is $1$).",
+            "hint": "Closed immersions on dual-number points stay closed immersions on the kernels."
           }
         ]
       },
@@ -13300,16 +13706,70 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$G$-torsors and $H^1(X, G)$\"?",
+            "q": "What is $H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m)$ for $k$ a field?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "The unit group $k^\\times$",
+              "Trivial: $0$",
+              "$k^\\times / (k^\\times)^2$",
+              "$\\mathrm{Gal}(\\bar k/k)$"
+            ],
+            "answer": 1,
+            "explain": "Hilbert 90: $H^1(\\mathrm{Gal}(\\bar k/k), \\bar k^\\times) = 0$ for any field $k$. Equivalently, $H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathrm{Spec}\\,k) = 0$ — over a field there is only the trivial line bundle. Every $\\mathbb{G}_m$-torsor over $\\mathrm{Spec}\\,k$ trivialises.",
+            "hint": "Hilbert 90 in its sheaf-cohomological form."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following gives a non-trivial $\\mu_2$-torsor on $\\mathrm{Spec}\\,\\mathbb{Q}$?",
+            "choices": [
+              "$\\mathrm{Spec}\\,\\mathbb{Q} \\sqcup \\mathrm{Spec}\\,\\mathbb{Q}$ (with the swap action)",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{2}] \\to \\mathrm{Spec}\\,\\mathbb{Q}$",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}[i]/(i^2 + 1)$ over $\\mathrm{Spec}\\,\\mathbb{Q}[i]$",
+              "$\\mathrm{Spec}\\,\\mathbb{Q}[t]/(t^2 - 1) \\to \\mathrm{Spec}\\,\\mathbb{Q}$"
+            ],
+            "answer": 1,
+            "explain": "By Kummer theory, $H^1_{ét}(\\mathrm{Spec}\\,\\mathbb{Q}, \\mu_2) = \\mathbb{Q}^\\times/(\\mathbb{Q}^\\times)^2$. The class of $a \\in \\mathbb{Q}^\\times$ corresponds to the torsor $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{a}]$. For $a = 2$, this is non-trivial because $2 \\not\\in (\\mathbb{Q}^\\times)^2$. Choice (0) is the trivial torsor (it is $\\mu_2 \\times \\mathrm{Spec}\\,\\mathbb{Q}$). Choice (3) is reducible: $t^2 - 1 = (t-1)(t+1)$, also trivial.",
+            "hint": "Non-trivial $\\mu_2$-torsors on $\\mathrm{Spec}\\,\\mathbb{Q}$ correspond to non-square rationals $a$; the torsor is $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{a}]$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X = \\mathbb{P}^1_k$ over a field $k$, what is $H^1_{ét}(X, \\mathbb{G}_m)$?",
+            "choices": [
+              "$0$",
+              "$k^\\times$",
+              "$\\mathbb{Z}$",
+              "$\\mathrm{Gal}(\\bar k/k)$"
+            ],
+            "answer": 2,
+            "explain": "$H^1_{ét}(\\mathbb{P}^1, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathbb{P}^1) = \\mathbb{Z}$, generated by the class of $\\mathcal{O}(1)$. The Picard group of projective space is the group of line bundles up to isomorphism; for $\\mathbb{P}^n$ this is always $\\mathbb{Z}$ (the degree map is an isomorphism).",
+            "hint": "$H^1_{ét}(X, \\mathbb{G}_m) = \\mathrm{Pic}(X)$. What is the Picard group of $\\mathbb{P}^1$?"
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Over a field $k$ of characteristic $p$, the Artin–Schreier sequence $0 \\to \\mathbb{Z}/p \\to \\mathbb{G}_a \\xrightarrow{F - \\mathrm{id}} \\mathbb{G}_a \\to 0$ (where $F$ is Frobenius) gives, for $X = \\mathrm{Spec}\\,k$ with $k$ separably closed:",
+            "choices": [
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = 0$",
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = k$",
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = k/(F - \\mathrm{id})k$",
+              "$H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{Z}/p) = \\mathbb{Z}/p$"
             ],
             "answer": 0,
-            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "If $k$ is separably closed, every $\\mathbb{Z}/p$-torsor (i.e. every $\\mathbb{Z}/p$-Galois étale cover) of $\\mathrm{Spec}\\,k$ is trivial because the absolute Galois group of $k$ is trivial. Equivalently, the Artin–Schreier map $F - \\mathrm{id}\\colon k \\to k$ is surjective for $k$ separably closed (every element of $k$ is $a^p - a$ for some $a$). For non-sep-closed $k$, the answer is $k/(F-\\mathrm{id})k$.",
+            "hint": "$\\mathrm{Spec}$ of a separably closed field has trivial étale fundamental group."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X$ a smooth projective curve of genus $g \\geq 1$ over $\\bar k$, the group $H^1_{ét}(X, \\mu_n)$ for $\\gcd(n, \\mathrm{char}\\,k) = 1$ is:",
+            "choices": [
+              "$0$",
+              "$(\\mathbb{Z}/n)^{2g}$",
+              "$\\mathbb{Z}/n$",
+              "$\\mathbb{Z}^{2g}$"
+            ],
+            "answer": 1,
+            "explain": "By the Kummer sequence $1 \\to \\mu_n \\to \\mathbb{G}_m \\xrightarrow{[n]} \\mathbb{G}_m \\to 1$ (exact in the étale topology for $n$ invertible in $k$), we get $\\Gamma^\\times/(\\Gamma^\\times)^n \\to H^1(X, \\mu_n) \\to \\mathrm{Pic}(X)[n] \\to 0$. For $X$ a complete curve over $\\bar k$, $\\Gamma(X, \\mathcal{O}_X) = \\bar k$, so the first piece is trivial. Then $H^1(X, \\mu_n) = \\mathrm{Pic}(X)[n] = \\mathrm{Pic}^0(X)[n] = J(X)[n] = (\\mathbb{Z}/n)^{2g}$ (the $n$-torsion of the Jacobian, for $\\gcd(n, p) = 1$).",
+            "hint": "$\\mathrm{Pic}^0(X)$ is the Jacobian, an abelian variety of dimension $g$; its $n$-torsion has rank $2g$ when $n$ is coprime to char."
           }
         ]
       }
@@ -14954,17 +15414,75 @@ window.MVQuizBank = {
         "title": "Quasi-categories",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the principal claim of \"Quasi-categories\"?",
+            "type": "multi-select",
+            "q": "Which of the following simplicial sets are quasi-categories?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "$N(C)$ for $C$ an ordinary category (the nerve)",
+              "$\\Delta^n$ (the standard $n$-simplex) for any $n \\geq 0$",
+              "Any Kan complex (e.g. the singular complex $\\mathrm{Sing}(X)$ of a topological space)",
+              "An arbitrary simplicial set with no horn-filling property"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Nerves of ordinary categories are quasi-categories (with unique inner-horn fillers). The standard simplices $\\Delta^n$ are quasi-categories — they are nerves of the totally-ordered set $[n] = \\{0 < 1 < \\dots < n\\}$. Kan complexes are quasi-categories that additionally fill outer horns (so they are $\\infty$-groupoids). An arbitrary simplicial set has no horn-filling guarantee.",
+            "hint": "Inner-horn filling is the only requirement; nerves give it for free, $\\Delta^n$ is itself a nerve, and Kan complexes give more than required."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the precise role of inner horns $\\Lambda^n_k$ ($0 < k < n$) in the definition of a quasi-category?",
+            "choices": [
+              "Their fillers must <em>exist</em>, but uniqueness is not required.",
+              "Their fillers must exist <em>and</em> be unique — this distinguishes quasi-categories from nerves.",
+              "Outer horns ($k = 0$ or $k = n$) must fill, while inner horns are unconstrained.",
+              "Inner horns play no role; only $2$-simplices matter."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Joyal's definition: a quasi-category is a simplicial set in which every inner-horn map $\\Lambda^n_k \\to \\mathcal{C}$ ($0 < k < n$) extends along $\\Lambda^n_k \\hookrightarrow \\Delta^n$. Mere existence (not uniqueness) of fillers is what allows non-trivial higher coherence data. Unique inner-horn filling exactly characterizes nerves of ordinary categories. Outer horns are not required to fill (that would force the result to be a Kan complex).",
+            "hint": "Existence vs. uniqueness is the distinguishing axiom."
+          },
+          {
+            "type": "mcq",
+            "q": "Two parallel $1$-simplices $f, g\\colon x \\to y$ in a quasi-category $\\mathcal{C}$ are called <em>homotopic</em> when:",
+            "choices": [
+              "$f$ and $g$ are equal as elements of $\\mathcal{C}_1$.",
+              "There is a $2$-simplex $\\sigma$ with $\\partial_2 \\sigma = f$, $\\partial_0 \\sigma = \\mathrm{id}_y$, $\\partial_1 \\sigma = g$ (or any equivalent boundary configuration).",
+              "$f$ and $g$ have the same source <em>and</em> target.",
+              "There is a path in the topological realization $|\\mathcal{C}|$ between them."
+            ],
+            "answer": 1,
+            "explain": "Homotopy of $1$-simplices in a quasi-category is witnessed by a specific kind of $2$-simplex with one degenerate edge. Inner-horn filling for $\\Lambda^3_1$ and $\\Lambda^3_2$ implies this is an equivalence relation. Equality is too strong; sharing source and target is too weak; and topological realization is one consequence but not the definition.",
+            "hint": "The data witnessing $f \\simeq g$ is a $2$-simplex of a particular shape."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A simplicial set $\\mathcal{C}$ has the property that <em>every</em> horn $\\Lambda^n_k \\to \\mathcal{C}$ (inner and outer) admits a filler. What is the strongest correct conclusion?",
+            "choices": [
+              "$\\mathcal{C}$ is the nerve of an ordinary groupoid.",
+              "$\\mathcal{C}$ is a Kan complex; equivalently, an $\\infty$-groupoid; equivalently, presents the homotopy type of some space.",
+              "$\\mathcal{C}$ is the nerve of a category in which every morphism is invertible up to equality.",
+              "$\\mathcal{C}$ is automatically discrete (a $0$-skeleton)."
+            ],
+            "answer": 1,
+            "explain": "All-horn-filling = Kan complex = $\\infty$-groupoid. By the homotopy hypothesis (Quillen, Joyal), Kan complexes model homotopy types of topological spaces. This is strictly more than \"nerve of a groupoid\" because the latter has unique fillers and discrete higher-dimensional behaviour, while a general Kan complex can have arbitrary $\\pi_n$ for all $n$.",
+            "hint": "Filling all horns is more than the nerve of a groupoid — those have unique fillers."
+          },
+          {
+            "type": "mcq",
+            "q": "Consider the simplicial set $\\Delta^1 \\amalg_{\\partial \\Delta^1} \\Delta^1$ — two $1$-simplices glued along their boundary points (so two parallel edges from $0$ to $1$). Is this a quasi-category?",
+            "choices": [
+              "Yes — it has no nontrivial inner horns to fill.",
+              "Yes — it is the nerve of the free category on two parallel arrows.",
+              "No — there is an inner horn $\\Lambda^2_1$ formed by the two edges that has no filler.",
+              "It depends on whether we orient the edges in the same direction."
+            ],
+            "answer": 2,
+            "explain": "Take the two edges $f, g\\colon 0 \\to 1$. The horn $\\Lambda^2_1$ with $\\partial_0 = g$ and $\\partial_2 = f$ requires a $2$-simplex with $\\partial_1\\colon 0 \\to 1$ — but this would need a third $1$-simplex composing $f$ then $g$, and we only have two edges and no $2$-simplices. So no filler exists; the simplicial set fails to be a quasi-category. Contrast with the nerve of the free category on two parallel arrows, which has all the formal composites $g \\circ f$, $f \\circ g$, etc. as $1$-simplices.",
+            "hint": "Two parallel arrows form the inner horn $\\Lambda^2_1$ — what would the filler require?"
           }
         ]
       },
@@ -14973,16 +15491,42 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"The homotopy category $h(\\mathcal{C})$\"?",
+            "q": "What is $h(N(C))$ for $C$ an ordinary category?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "A nontrivial completion of $C$.",
+              "Isomorphic to $C$ as $1$-categories.",
+              "The Kan completion of $C$.",
+              "Empty unless $C$ is a groupoid."
             ],
-            "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "The construction $h\\colon \\mathbf{QCat} \\to \\mathbf{Cat}$ is left adjoint to the nerve $N$. The counit $h(N(C)) \\to C$ is an isomorphism: nerves of ordinary categories are exactly those quasi-categories with <em>unique</em> inner-horn fillers, so the homotopy relation $\\simeq$ on $1$-simplices is just equality, and $h$ collapses nothing.",
+            "hint": "$h$ is left adjoint to $N$; the counit at any ordinary category is an iso."
+          },
+          {
+            "type": "mcq",
+            "q": "Two parallel $1$-simplices $f, g\\colon x \\to y$ in a quasi-category $\\mathcal{C}$ have $[f] = [g]$ in $h(\\mathcal{C})$ iff:",
+            "choices": [
+              "$f = g$ as elements of $\\mathcal{C}_1$.",
+              "There exists a $2$-simplex $\\sigma$ exhibiting $f \\simeq g$ (e.g. with one face equal to $\\mathrm{id}_y$ and the other two equal to $f$ and $g$).",
+              "$\\mathrm{Map}_{\\mathcal{C}}(x, y)$ is contractible.",
+              "$x = y$."
+            ],
+            "answer": 1,
+            "explain": "Morphisms in $h(\\mathcal{C})$ are equivalence classes of $1$-simplices under the relation $\\simeq$ defined by existence of a $2$-simplex with the boundary configuration described. Equality of $1$-simplices is strictly stronger; contractibility of the mapping space would identify <em>all</em> parallel arrows; and $x = y$ is irrelevant to the equivalence.",
+            "hint": "The equivalence relation is precisely the existence of a witnessing $2$-simplex."
+          },
+          {
+            "type": "mcq",
+            "q": "Which structural property of a quasi-category $\\mathcal{C}$ is <em>completely lost</em> when passing to $h(\\mathcal{C})$?",
+            "choices": [
+              "The set of objects $\\mathcal{C}_0$.",
+              "The set of equivalence classes $\\pi_0 \\mathrm{Map}_{\\mathcal{C}}(x, y)$ for each pair $(x, y)$.",
+              "The higher homotopy groups $\\pi_k \\mathrm{Map}_{\\mathcal{C}}(x, y)$ for $k \\geq 1$.",
+              "Whether $f \\circ g$ exists for some pair of composable arrows."
+            ],
+            "answer": 2,
+            "explain": "$h(\\mathcal{C})$ retains the set of objects, the set of homotopy classes of morphisms (= $\\pi_0$ of mapping spaces), and the composition law. What it forgets is everything in the mapping spaces above $\\pi_0$ — the higher homotopy groups, which carry the genuine $\\infty$-categorical content (Toda brackets, Massey products, $A_\\infty$-coherences, etc.).",
+            "hint": "$h$ collapses each mapping space to its $\\pi_0$."
           }
         ]
       },
@@ -14991,16 +15535,42 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Functors and natural transformations $\\infty$-categorically\"?",
+            "q": "Let $\\mathcal{C}, \\mathcal{D}$ be quasi-categories. An $\\infty$-functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ is, by definition:",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "A map of simplicial sets, i.e. functions $F_n\\colon \\mathcal{C}_n \\to \\mathcal{D}_n$ commuting with all face and degeneracy maps.",
+              "A pair $(F_0, F_1)$ on objects and morphisms, with composition preserved up to a chosen natural transformation that satisfies a coherence pentagon.",
+              "An ordinary functor on $h(\\mathcal{C}) \\to h(\\mathcal{D})$.",
+              "A continuous map between the realizations $|\\mathcal{C}| \\to |\\mathcal{D}|$."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "By definition, an $\\infty$-functor is just a map of simplicial sets — the higher-coherence data (compositors, associators, etc.) is automatically encoded by compatibility with face maps in dimensions $\\geq 2$. The pentagon-style data of choice (b) is what you'd write down for a homotopy-coherent functor between strict $2$-categories, but in the quasi-category model it is built into the simplicial-set structure.",
+            "hint": "The simplicial-set definition is genuinely just 'a map of simplicial sets.'"
+          },
+          {
+            "type": "mcq",
+            "q": "An $\\infty$-functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ induces an underlying $1$-functor $h(F)\\colon h(\\mathcal{C}) \\to h(\\mathcal{D})$. Which is true?",
+            "choices": [
+              "$F$ is determined by $h(F)$.",
+              "$h(F)$ is determined by $F_0$ and $F_1$ (no higher data needed).",
+              "$F$ being an equivalence of quasi-categories is equivalent to $h(F)$ being an equivalence of $1$-categories.",
+              "$F$ being an equivalence of quasi-categories is equivalent to $h(F)$ being an equivalence of $1$-categories <em>and</em> $F$ inducing equivalences on all mapping spaces $\\mathrm{Map}_{\\mathcal{C}}(x, y) \\to \\mathrm{Map}_{\\mathcal{D}}(F(x), F(y))$."
+            ],
+            "answer": 3,
+            "explain": "$h(F)$ is built from $F_0$ and $F_1$ together with the homotopy relation, so $F_0$ and $F_1$ are <em>not</em> sufficient on their own — you need the existence-of-witnessing-$2$-simplices structure. $F$ is far from determined by $h(F)$: all higher coherence data lives above $h(F)$. The correct equivalence criterion is the conjunction in (d): $h(F)$ is essentially surjective and bijective on $\\pi_0$ of mapping spaces, plus $F$ is fully faithful at higher levels.",
+            "hint": "$h$ forgets higher mapping-space data, so $h(F)$ being an equivalence is necessary but not sufficient."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $C$ be an ordinary category. Which is a correct description of $\\infty$-functors $F\\colon N(C) \\to \\mathcal{S}$ (with $\\mathcal{S}$ the $\\infty$-category of spaces)?",
+            "choices": [
+              "Equivalent (as a quasi-category) to ordinary functors $C \\to \\mathrm{Set}$.",
+              "Equivalent to the $\\infty$-category of homotopy-coherent diagrams $C \\to \\mathrm{Top}$.",
+              "Always trivial, since $N(C)$ has unique inner-horn fillers.",
+              "In bijection with discrete $\\pi_0$ data."
+            ],
+            "answer": 1,
+            "explain": "By a theorem of Lurie (HTT 4.2), $\\mathrm{Fun}(N(C), \\mathcal{S})$ is equivalent to the $\\infty$-categorical localization of $\\mathrm{Fun}(C, \\mathrm{Top})$ at pointwise weak equivalences. So $\\infty$-functors out of $N(C)$ are precisely homotopy-coherent diagrams of spaces — which is the canonical replacement for the strict notion in homotopy theory. (a) collapses to set-valued functors, missing the homotopy data; (c) and (d) ignore that the <em>target</em> $\\mathcal{S}$ has rich higher structure even when the source is a $1$-category.",
+            "hint": "The source has unique fillers but the target $\\mathcal{S}$ does not."
           }
         ]
       },
@@ -15009,16 +15579,73 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$\\infty$-categorical (co)limits\"?",
+            "q": "What is the $\\infty$-categorical product $X \\times Y$ in the $\\infty$-category of spaces $\\mathcal{S}$?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "The cartesian product of underlying sets, with the discrete topology.",
+              "The set-theoretic cartesian product $X \\times Y$ as a Kan complex (= the cartesian product of the Kan complexes).",
+              "The smash product $X \\wedge Y$.",
+              "The homotopy pushout of $X \\leftarrow * \\to Y$."
+            ],
+            "answer": 1,
+            "explain": "Products in $\\mathcal{S}$ agree on the nose with cartesian products of the underlying Kan complexes (no homotopy correction needed); $\\mathcal{S}$ is cartesian closed and the standard product computes the $\\infty$-product. Smash products are the analogue in pointed spaces, and homotopy pushouts compute the join (a different colimit).",
+            "hint": "Products of Kan complexes are computed level-wise — no fibrant replacement required."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following $\\infty$-limits in $\\mathcal{S}$ <em>differ</em> from the corresponding strict limit in $\\mathrm{Set}$?",
+            "choices": [
+              "Pullback of a span $X \\to Z \\leftarrow Y$",
+              "Equalizer of $f, g\\colon X \\rightrightarrows Y$",
+              "Product $X \\times Y$",
+              "Limit of a constant diagram (i.e. the indexing $\\infty$-category is a single object with no nontrivial morphisms)"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Pullbacks become homotopy pullbacks: $X \\times_Z^h Y$ records triples (point, path, point), strictly larger in general than the set-theoretic fibre product. Equalizers become path spaces $\\{x : f(x) \\rightsquigarrow g(x)\\}$, also generally larger. Products and limits over discrete shapes coincide with their $1$-categorical counterparts (product of Kan complexes is again a Kan complex with no correction needed).",
+            "hint": "Limits over diagrams with morphisms gain homotopy data; limits over discrete shapes do not."
+          },
+          {
+            "type": "mcq",
+            "q": "An $\\infty$-category $\\mathcal{C}$ is <strong>cocomplete</strong> when:",
+            "choices": [
+              "Every diagram $p\\colon K \\to \\mathcal{C}$ from a small simplicial set $K$ has a colimit.",
+              "Every diagram from $\\Delta^0 \\cup \\Delta^0$ has a colimit (i.e. binary coproducts exist).",
+              "Every diagram from a small <em>$1$-category</em> has a colimit.",
+              "$\\mathcal{C} \\cong \\mathcal{S}$."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "Cocompleteness means colimits exist for diagrams indexed by arbitrary small simplicial sets — not just $1$-categorical shapes — because $\\infty$-categorical diagrams have higher coherence data that needs to be matched in the colimit. (b) is just binary coproducts, way too weak; (c) misses the higher-shape diagrams (e.g. those indexed by $\\Delta^{\\mathrm{op}}$, the geometric-realization shape). (d) is much too strong.",
+            "hint": "$\\infty$-categorical cocompleteness uses arbitrary simplicial sets as indexing shapes."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In the $\\infty$-category $\\mathcal{S}$ of spaces, the pullback of a span $X \\to Z \\leftarrow Y$ where the right map $Y \\to Z$ is a Kan fibration with fibres equivalent to $F$, computes:",
+            "choices": [
+              "The strict set-theoretic pullback $\\{(x, y) : p(x) = q(y)\\}$ — and this is the homotopy pullback because $Y \\to Z$ is a fibration.",
+              "Always the empty space, regardless of $F$.",
+              "$X \\times Y$ (the product), independent of $Z$.",
+              "$Z$ itself."
+            ],
+            "answer": 0,
+            "explain": "When one of the maps in a span is a Kan fibration, the strict pullback agrees with the homotopy pullback (no fibrant replacement needed). This is exactly the criterion 'one map is a fibration' that lets you compute the homotopy pullback by the strict formula. The fibre of the resulting pullback over a point $x \\in X$ is the fibre of $Y \\to Z$ over $p(x)$, i.e. equivalent to $F$.",
+            "hint": "Fibrations make strict pullbacks compute homotopy pullbacks."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $\\mathcal{C}$ is a presentable $\\infty$-category. Which best characterizes the implications for limits and colimits?",
+            "choices": [
+              "$\\mathcal{C}$ is cocomplete and complete; both small limits and small colimits exist, and a functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ to another presentable $\\infty$-category has a right adjoint iff it preserves small colimits and is accessible.",
+              "$\\mathcal{C}$ has all colimits but no nontrivial limits.",
+              "$\\mathcal{C}$ has all finite (co)limits but small (co)limits may fail.",
+              "$\\mathcal{C}$ is automatically a stable $\\infty$-category."
+            ],
+            "answer": 0,
+            "explain": "Presentable $\\infty$-categories are both complete and cocomplete (Lurie HTT 5.5). The adjoint functor theorem in this setting (HTT 5.5.2.9) gives the criterion for left/right adjoint existence: preserve the relevant (co)limits and be accessible. Stability is a strictly stronger property (presentable + pointed + suspension is an equivalence).",
+            "hint": "Presentability subsumes both completeness and cocompleteness, and underwrites the adjoint functor theorem."
           }
         ]
       },
@@ -15027,16 +15654,42 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"Adjunctions $\\infty$-categorically\"?",
+            "q": "Let $F\\colon C \\rightleftarrows D : G$ be an ordinary $1$-categorical adjunction with $C, D$ presentable $1$-categories. Does it lift to an $\\infty$-adjunction?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Never — $\\infty$-adjunctions require strictly more structure than $1$-categorical ones.",
+              "Yes — passing to the nerve gives an $\\infty$-adjunction $N(F) \\dashv N(G)$ between $N(C)$ and $N(D)$.",
+              "Only if $C$ and $D$ are groupoids.",
+              "Only if $F$ and $G$ commute strictly with all colimits and limits, respectively."
             ],
-            "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "answer": 1,
+            "explain": "An ordinary adjunction passes through the nerve to give an $\\infty$-adjunction. The triangle identities hold strictly in the $1$-categorical case, hence (a fortiori) up to homotopy in the nerve. More substantively, Quillen adjunctions between model categories derive to $\\infty$-adjunctions between the underlying $\\infty$-categories — this is the source of derived adjunctions like $\\mathbb{L} \\otimes \\dashv \\mathbb{R}\\mathrm{Hom}$.",
+            "hint": "The nerve of a strict adjunction trivially satisfies the up-to-homotopy triangle identities."
+          },
+          {
+            "type": "mcq",
+            "q": "In an $\\infty$-adjunction $f \\dashv g$, the triangle identity $\\varepsilon f \\cdot f\\eta \\simeq \\mathrm{id}_f$ is encoded as:",
+            "choices": [
+              "An equality of $1$-simplices in the functor $\\infty$-category $\\mathrm{Fun}(\\mathcal{C}, \\mathcal{D})$.",
+              "A $2$-simplex in $\\mathrm{Fun}(\\mathcal{C}, \\mathcal{D})$ witnessing the homotopy, together with higher $n$-simplices ($n \\geq 3$) supplying coherence between different ways to compose.",
+              "A property of $\\eta$ alone, with $\\varepsilon$ unconstrained.",
+              "A strict equation between morphisms in $h(\\mathcal{D})$."
+            ],
+            "answer": 1,
+            "explain": "The defining characteristic of $\\infty$-adjunctions: triangle identities are weakened from strict equations to homotopies, encoded as $2$-simplices, and the coherence of these homotopies (e.g. that the two ways to compose a $3$-simplex agree up to a $4$-simplex) is part of the data, supplied by higher simplices. (a) collapses the homotopy weakening; (c) is asymmetric and wrong; (d) only holds in $h(\\mathcal{D})$ — but the $\\infty$-adjunction supplies more data than the homotopy category sees.",
+            "hint": "Up-to-homotopy = $2$-simplex witness, plus coherence between different witnesses = higher simplices."
+          },
+          {
+            "type": "mcq",
+            "q": "The $\\infty$-categorical adjoint functor theorem (Lurie HTT 5.5) says: if $g\\colon \\mathcal{D} \\to \\mathcal{C}$ is a functor between presentable $\\infty$-categories, then $g$ has a left adjoint iff:",
+            "choices": [
+              "$g$ preserves small <em>colimits</em>.",
+              "$g$ preserves small <em>limits</em> and is accessible.",
+              "$g$ is fully faithful.",
+              "$\\mathcal{D}$ is the $\\infty$-category of spaces $\\mathcal{S}$."
+            ],
+            "answer": 1,
+            "explain": "The adjoint functor theorem in the presentable $\\infty$-categorical setting: $g$ has a left adjoint iff it preserves small limits and is accessible. The dual is: $g$ has a right adjoint iff it preserves small colimits and is accessible. Choice (a) corresponds to the existence of a right adjoint, not a left one. Accessibility is the genuine extra hypothesis over the $1$-categorical SAFT.",
+            "hint": "Right adjoints preserve limits — so a left adjoint exists when $g$ preserves limits (plus accessibility)."
           }
         ]
       },
@@ -15045,16 +15698,81 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the principal claim of \"$\\infty$-categorical Kan extensions\"?",
+            "q": "When does a left Kan extension $\\mathrm{Lan}_i F\\colon \\mathcal{D} \\to \\mathcal{E}$ along an $\\infty$-functor $i\\colon \\mathcal{C} \\to \\mathcal{D}$ exist (as a pointwise object)?",
             "choices": [
-              "See the section above for the precise statement.",
-              "A trivial assertion with no content.",
-              "A claim equivalent to the law of excluded middle.",
-              "A claim that holds only in classical set theory."
+              "Always, for arbitrary $\\mathcal{C}, \\mathcal{D}, \\mathcal{E}$.",
+              "When $\\mathcal{E}$ admits sufficiently many small colimits — specifically, colimits of shape $\\mathcal{C}/_d$ for every $d \\in \\mathcal{D}$.",
+              "Only when $\\mathcal{C}$ is a $1$-category.",
+              "Only when $i$ is fully faithful."
+            ],
+            "answer": 1,
+            "explain": "The pointwise formula $(\\mathrm{Lan}_i F)(d) = \\mathrm{colim}_{\\mathcal{C}/_d} F$ requires the relevant colimit to exist in $\\mathcal{E}$. Cocompleteness of $\\mathcal{E}$ is the standard sufficient hypothesis (Lurie HTT 4.3.2.15). Right Kan extensions, dually, need limits of the corresponding shape.",
+            "hint": "The colimit formula is what does the work — it needs a target with enough colimits."
+          },
+          {
+            "type": "matching",
+            "q": "Match the Kan-extension-style construction with the indexing $\\infty$-category whose colimit/limit it computes.",
+            "left": [
+              "$(\\mathrm{Lan}_i F)(d)$",
+              "$(\\mathrm{Ran}_i F)(d)$",
+              "Free cocompletion of $\\mathcal{C}$",
+              "Ind-completion $\\mathrm{Ind}(\\mathcal{C})$"
+            ],
+            "right": [
+              "Limit indexed by the comma $\\infty$-category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{d/}$",
+              "Closure of $y(\\mathcal{C})$ under filtered colimits in $\\mathcal{P}(\\mathcal{C})$",
+              "Colimit indexed by the comma $\\infty$-category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{/d}$",
+              "$\\mathcal{P}(\\mathcal{C}) = \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$"
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "explain": "$(\\mathrm{Lan}_i F)(d) = \\mathrm{colim}_{\\mathcal{C}/_d} F$ uses the comma category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{/d}$ as the indexing shape. $(\\mathrm{Ran}_i F)(d)$ is dual, using $\\mathcal{D}_{d/}$ for a limit. The free cocompletion of $\\mathcal{C}$ is $\\mathcal{P}(\\mathcal{C}) = \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$, the $\\infty$-presheaf category. $\\mathrm{Ind}(\\mathcal{C})$ is the closure of the Yoneda image under filtered colimits.",
+            "hint": "Lan uses /d (slice over), Ran uses d/ (slice under). $\\mathcal{P}(\\mathcal{C})$ vs $\\mathrm{Ind}(\\mathcal{C})$ differ by which colimits you close under."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the $\\infty$-categorical pointwise formula for $\\mathrm{Lan}_i F$ \"automatically derived\"?",
+            "choices": [
+              "Because the colimit is computed in the homotopy category $h(\\mathcal{E})$.",
+              "Because $\\infty$-categorical colimits incorporate all the coherence data of the indexing shape, so they compute homotopy colimits — exactly the data classical \"deriving\" recovers by hand.",
+              "Because the formula uses limits, not colimits.",
+              "Because it is taken in the underlying $1$-category of $\\mathcal{E}$."
+            ],
+            "answer": 1,
+            "explain": "$\\infty$-categorical colimits over $\\infty$-categorical indexing shapes are <em>homotopy colimits</em> by construction: the $1$-simplices of the indexing $\\infty$-category contribute coherence data that the colimit is required to identify, exactly as in the bar-construction model of the homotopy colimit. So $\\mathrm{Lan}_i F$ is automatically the derived Kan extension. This is why ordinary derived functors $\\mathbb{L}F$ are $\\infty$-categorical Kan extensions of the lifted $F$ along a localization functor — no separate \"deriving\" step.",
+            "hint": "The $\\infty$-categorical colimit already incorporates the homotopy data; classical 'deriving' adds it back in by hand."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $i\\colon \\mathcal{C} \\to \\mathcal{D}$ be a fully faithful $\\infty$-functor and $F\\colon \\mathcal{C} \\to \\mathcal{E}$. The unit $\\eta\\colon F \\to (\\mathrm{Lan}_i F) \\circ i$:",
+            "choices": [
+              "Is always an equivalence — full faithfulness of $i$ pulls the colimit defining $(\\mathrm{Lan}_i F)(i(c))$ back to $F(c)$.",
+              "Is generally not an equivalence — $\\mathcal{C}/_{i(c)}$ has more than just the vertex $(c, \\mathrm{id})$ when $i$ is not also a sieve / final inclusion.",
+              "Is an equivalence iff $\\mathcal{E}$ is presentable.",
+              "Vanishes identically."
             ],
             "answer": 0,
-            "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-            "hint": "Read the concept blurb at the top of the section."
+            "explain": "When $i$ is fully faithful, the comma $\\infty$-category $\\mathcal{C}/_{i(c)}$ has the vertex $(c, \\mathrm{id}_{i(c)})$ as a <em>final object</em>, so the colimit $\\mathrm{colim}_{\\mathcal{C}/_{i(c)}} F$ collapses to $F(c)$ (final-object cofinality). So $\\eta$ is an equivalence; this is the precise sense in which 'fully faithful $i$ + Kan extension' generalizes 'extension by zero outside the image' on the nose. (Note: this fact is HTT 4.3.2.15 — fully faithful $i$ ⇒ unit is an equivalence.)",
+            "hint": "Fully faithful $i$ makes $(c, \\mathrm{id})$ a final object of the comma — colimits collapse to final values."
+          },
+          {
+            "type": "mcq",
+            "q": "The free cocompletion $\\mathcal{P}(\\mathcal{C}) := \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$ has the universal property:",
+            "choices": [
+              "For any presentable $\\infty$-category $\\mathcal{E}$, $\\mathrm{Fun}^L(\\mathcal{P}(\\mathcal{C}), \\mathcal{E}) \\simeq \\mathrm{Fun}(\\mathcal{C}, \\mathcal{E})$, where $\\mathrm{Fun}^L$ denotes colimit-preserving $\\infty$-functors.",
+              "$\\mathcal{P}(\\mathcal{C})$ is initial among presentable $\\infty$-categories receiving a functor from $\\mathcal{C}$.",
+              "$\\mathrm{Fun}(\\mathcal{P}(\\mathcal{C}), \\mathcal{E}) \\simeq \\mathrm{Fun}(\\mathcal{C}, \\mathcal{E})$ for any $\\mathcal{E}$ (regardless of cocompleteness).",
+              "$\\mathcal{P}(\\mathcal{C})$ is a localization of $\\mathcal{C}$."
+            ],
+            "answer": 0,
+            "explain": "The universal property of the $\\infty$-presheaf category (Lurie HTT 5.1.5.6): precomposition with the Yoneda embedding induces an equivalence between the $\\infty$-category of <em>colimit-preserving</em> functors $\\mathcal{P}(\\mathcal{C}) \\to \\mathcal{E}$ (for $\\mathcal{E}$ cocomplete) and the $\\infty$-category of all functors $\\mathcal{C} \\to \\mathcal{E}$. Equivalently, $\\mathrm{Lan}_y$ is an equivalence on these subcategories. (b) is wrong — $\\mathcal{P}(\\mathcal{C})$ is not initial; it's universal for the \"colimit-preserving\" property. (c) drops the colimit-preserving hypothesis, which is the key.",
+            "hint": "The universal property is about <em>colimit-preserving</em> functors out of $\\mathcal{P}(\\mathcal{C})$, not arbitrary functors."
           }
         ]
       }

@@ -167,6 +167,9 @@
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
 <script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-modular-arithmetic-clock.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
+<script src="./js/widget-counterexample-explorer.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
@@ -252,11 +255,125 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="group-scheme-definition">
 <h2>1. What is a group scheme?</h2>
-<p>A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \times_S G \to G$, inverse $\iota: G \to G$, and identity $e: S \to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes.</p>
-<div class="widget" id="w-group-schemes-placeholder">
-  <div class="hd"><div class="ttl">Spec of a Hopf algebra: 𝔾_m</div><div class="hint">illustration — full interactives in a follow-up PR</div></div>
-  <svg id="svg-group-schemes-placeholder" viewBox="0 0 320 160" width="320" height="160"><title>Spec of a Hopf algebra: 𝔾_m</title><rect x="60" y="40" width="200" height="80" fill="none" stroke="var(--mute)"/><text x="160" y="65" font-size="14" fill="var(--ink)" text-anchor="middle">Spec A</text><text x="160" y="85" font-size="11" fill="var(--mute)" text-anchor="middle">A = k[t, t⁻¹]</text><text x="160" y="105" font-size="11" fill="var(--green)" text-anchor="middle">G = 𝔾_m</text><text x="160" y="135" font-size="10" fill="var(--mute)" text-anchor="middle">Δ(t) = t ⊗ t  ·  S(t) = t⁻¹</text></svg>
+<p>A <strong>group scheme</strong> over a base scheme $S$ is an $S$-scheme $\pi\colon G \to S$ together with three structure morphisms over $S$:</p>
+<ul>
+  <li>a <em>multiplication</em> $m\colon G \times_S G \to G$,</li>
+  <li>an <em>identity</em> $e\colon S \to G$ (a section of $\pi$),</li>
+  <li>an <em>inverse</em> $\iota\colon G \to G$,</li>
+</ul>
+<p>satisfying the group axioms <em>diagrammatically</em>. There are no elements in sight: associativity, the identity property, and the inverse property are stated as the commutativity of four squares and triangles in the category of $S$-schemes. Equivalently, by the functor-of-points philosophy, $G$ is a group scheme iff the representable functor $h_G(T) = \mathrm{Hom}_S(T, G)$ lands in $\mathbf{Grp}$ for every $S$-scheme $T$ — naturally in $T$. So a group scheme is exactly a <em>group object</em> in the category $\mathbf{Sch}_S$ of $S$-schemes.</p>
+
+<p>Spelled out as commuting diagrams: associativity is the equality $m \circ (m \times \mathrm{id}) = m \circ (\mathrm{id} \times m)\colon G^3 \to G$. The identity axiom says that the two compositions $G \xrightarrow{(e\circ\pi,\, \mathrm{id})} G \times_S G \xrightarrow{m} G$ and $G \xrightarrow{(\mathrm{id},\, e\circ\pi)} G \times_S G \xrightarrow{m} G$ both equal $\mathrm{id}_G$. The inverse axiom says that $m \circ (\mathrm{id}, \iota) = e \circ \pi$ (and the symmetric version). These are the same four diagrams that define a group object in <em>any</em> category with finite products — what is special about $\mathbf{Sch}_S$ is that the product is the fibre product over $S$, and the resulting structure is rich enough to support algebraic geometry instead of just set-theoretic combinatorics.</p>
+
+<p>The functor-of-points view is the workhorse. Saying "$G$ is a group scheme" is the same as giving, for each test scheme $T$, a group structure on $G(T) := \mathrm{Hom}_S(T,G)$, varying naturally with $T$. Concrete dictionary: $\mathbb{G}_m(T) = \Gamma(T, \mathcal{O}_T)^\times$ (the group of units of the ring of global sections); $\mathbb{G}_a(T) = \Gamma(T, \mathcal{O}_T)$ (additive group); $\mathrm{GL}_n(T) = \mathrm{GL}_n(\Gamma(T, \mathcal{O}_T))$; $\mu_n(T) = \{f \in \Gamma(T,\mathcal{O}_T)^\times : f^n = 1\}$. A morphism of group schemes is a morphism of schemes that respects these natural group structures — equivalently, makes the obvious squares commute.</p>
+
+<p>Click each of the four group-axiom diagrams below to see the equation it encodes. They are exactly the diagrams that define a group object in any category with finite products; the only thing scheme-theoretic about a group scheme is that the products are fibre products over $S$.</p>
+
+<div class="widget" id="w-axiom-diagrams">
+  <div class="hd"><div class="ttl">The four group-axiom diagrams</div><div class="hint">click an axiom — see the morphism equation it encodes</div></div>
+  <div class="row">
+    <button data-ax="assoc" class="active">associativity</button>
+    <button data-ax="ident-l">left identity</button>
+    <button data-ax="ident-r">right identity</button>
+    <button data-ax="inv">inverse</button>
+  </div>
+  <svg id="svg-axiom-diagrams" viewBox="0 0 480 220" width="480" height="220"><title>Four group-axiom diagrams as commuting squares of schemes</title></svg>
+  <div class="readout" id="out-axiom-diagrams">click a button — its diagram appears.</div>
 </div>
+<script>
+(function(){
+  const svg = $('#svg-axiom-diagrams'), out = $('#out-axiom-diagrams');
+  const buttons = $$('button[data-ax]', $('#w-axiom-diagrams'));
+  const DIAGS = {
+    assoc: {
+      nodes: [
+        { x: 90,  y: 50,  label: 'G³', col:'var(--blue)' },
+        { x: 360, y: 50,  label: 'G²', col:'var(--blue)' },
+        { x: 90,  y: 170, label: 'G²', col:'var(--blue)' },
+        { x: 360, y: 170, label: 'G',  col:'var(--green)' },
+      ],
+      arrows: [
+        { from:0, to:1, label: 'm × id', side:0 },
+        { from:0, to:2, label: 'id × m', side:1 },
+        { from:1, to:3, label: 'm',      side:0 },
+        { from:2, to:3, label: 'm',      side:1 },
+      ],
+      readout: 'ASSOCIATIVITY: m ∘ (m × id) = m ∘ (id × m) : G³ → G.\nThe two ways of multiplying three elements agree.',
+    },
+    'ident-l': {
+      nodes: [
+        { x: 90,  y: 110, label: 'G',     col:'var(--green)' },
+        { x: 240, y: 50,  label: 'S × G', col:'var(--blue)' },
+        { x: 240, y: 170, label: 'G × G', col:'var(--blue)' },
+        { x: 380, y: 110, label: 'G',     col:'var(--green)' },
+      ],
+      arrows: [
+        { from:0, to:1, label: '(π, id)', side:0 },
+        { from:1, to:2, label: 'e × id',  side:0 },
+        { from:2, to:3, label: 'm',       side:0 },
+        { from:0, to:3, label: 'id',      side:1, curve: 50, dash:'4 4' },
+      ],
+      readout: 'LEFT IDENTITY: m ∘ (e × id) ∘ (π, id) = id_G.\nMultiplying by the identity on the left does nothing.',
+    },
+    'ident-r': {
+      nodes: [
+        { x: 90,  y: 110, label: 'G',     col:'var(--green)' },
+        { x: 240, y: 50,  label: 'G × S', col:'var(--blue)' },
+        { x: 240, y: 170, label: 'G × G', col:'var(--blue)' },
+        { x: 380, y: 110, label: 'G',     col:'var(--green)' },
+      ],
+      arrows: [
+        { from:0, to:1, label: '(id, π)', side:0 },
+        { from:1, to:2, label: 'id × e',  side:0 },
+        { from:2, to:3, label: 'm',       side:0 },
+        { from:0, to:3, label: 'id',      side:1, curve: 50, dash:'4 4' },
+      ],
+      readout: 'RIGHT IDENTITY: m ∘ (id × e) ∘ (id, π) = id_G.\nMultiplying by the identity on the right does nothing.',
+    },
+    inv: {
+      nodes: [
+        { x: 90,  y: 110, label: 'G',     col:'var(--green)' },
+        { x: 240, y: 110, label: 'G × G', col:'var(--blue)' },
+        { x: 380, y: 50,  label: 'G',     col:'var(--green)' },
+        { x: 380, y: 170, label: 'S',     col:'var(--violet)' },
+      ],
+      arrows: [
+        { from:0, to:1, label: '(id, ι)', side:0 },
+        { from:1, to:2, label: 'm',       side:0 },
+        { from:0, to:3, label: 'π',       side:1 },
+        { from:3, to:2, label: 'e',       side:1 },
+      ],
+      readout: 'INVERSE: m ∘ (id, ι) = e ∘ π.\nA group element times its inverse equals identity.',
+    },
+  };
+  function draw(key){
+    const D = DIAGS[key];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    for(const a of D.arrows){
+      const p1 = D.nodes[a.from], p2 = D.nodes[a.to];
+      drawArrow(svg, [p1.x, p1.y], [p2.x, p2.y], {
+        color: 'var(--ink)', curve: a.curve||0, label: a.label, labelSide: a.side,
+        markerId: 'arr-ax-'+key+'-'+a.from+'-'+a.to, dash: a.dash||null, pad1: 22, pad2: 24
+      });
+    }
+    for(const n of D.nodes){
+      drawNode(svg, n.x, n.y, n.label, { r: 22, stroke: n.col, fill:'var(--panel2)', fontSize: 13 });
+    }
+    out.textContent = D.readout;
+  }
+  buttons.forEach(b => {
+    b.addEventListener('click', () => {
+      buttons.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      draw(b.getAttribute('data-ax'));
+    });
+  });
+  draw('assoc');
+})();
+</script>
+
+<div class="note"><strong>Worked example.</strong> Take $G = \mathrm{GL}_n$ over $\mathbb{Z}$. Then $G(T) = \mathrm{GL}_n(\Gamma(T,\mathcal{O}_T))$. Multiplication $m$ is matrix multiplication; identity $e$ picks the identity matrix; inverse $\iota$ sends a matrix to its inverse (which exists because we restricted to invertible matrices). The four diagrams above commute pointwise on $T$-points by ordinary group-theory associativity in $\mathrm{GL}_n$ of a ring — and that's enough by Yoneda.</div>
+
 <div class="quiz" data-concept="group-scheme-definition"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -272,7 +389,55 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="examples-Ga-Gm">
 <h2>2. Examples: $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$</h2>
-<p>$\mathbb{G}_a = \mathrm{Spec}\,k[t]$ (additive), $\mathbb{G}_m = \mathrm{Spec}\,k[t, t^{-1}]$ (multiplicative), $\mu_n = \mathrm{Spec}\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\alpha_p = \mathrm{Spec}\,k[t]/(t^p)$. The four basic affine group schemes.</p>
+<p>Four small affine group schemes carry most of the local theory. Each one is $\mathrm{Spec}$ of a small commutative ring, and the group structure comes from a comultiplication $\Delta$ on that ring (next section). They are the building blocks: every other affine group scheme is, locally, a successive extension of these.</p>
+
+<ul>
+  <li><strong>The additive group</strong> $\mathbb{G}_a = \mathrm{Spec}\,k[t]$. Its $T$-points are $\mathbb{G}_a(T) = \Gamma(T, \mathcal{O}_T)$ under addition; the comultiplication is $\Delta(t) = t \otimes 1 + 1 \otimes t$, encoding $(a,b) \mapsto a + b$.</li>
+  <li><strong>The multiplicative group</strong> $\mathbb{G}_m = \mathrm{Spec}\,k[t, t^{-1}]$. Its $T$-points are the units $\Gamma(T,\mathcal{O}_T)^\times$; comultiplication $\Delta(t) = t \otimes t$ encodes multiplication of units.</li>
+  <li><strong>$n$-th roots of unity</strong> $\mu_n = \mathrm{Spec}\,k[t]/(t^n - 1)$. Its $T$-points are $\{f \in \Gamma(T,\mathcal{O}_T)^\times : f^n = 1\}$; same comultiplication $\Delta(t) = t \otimes t$ as $\mathbb{G}_m$. There is a closed immersion $\mu_n \hookrightarrow \mathbb{G}_m$ — $\mu_n$ is the kernel of the $n$-th power map $[n]\colon \mathbb{G}_m \to \mathbb{G}_m$.</li>
+  <li><strong>The infinitesimal $\alpha_p$</strong> in characteristic $p$: $\alpha_p = \mathrm{Spec}\,k[t]/(t^p)$ over a field $k$ of characteristic $p$. Comultiplication $\Delta(t) = t \otimes 1 + 1 \otimes t$ as for $\mathbb{G}_a$, but with the relation $t^p = 0$. Equivalently, $\alpha_p$ is the kernel of Frobenius $\mathrm{Frob}\colon \mathbb{G}_a \to \mathbb{G}_a$, $x \mapsto x^p$.</li>
+</ul>
+
+<p>Over a field $k$, count the $\bar k$-points to feel the geometry. $\mathbb{G}_a(\bar k) = \bar k$ and $\mathbb{G}_m(\bar k) = \bar k^\times$ are vast. By contrast, $\mu_n$ is finite of order $n$ <em>provided</em> $n$ is invertible in $k$: in $\bar k$ the equation $t^n = 1$ has exactly $n$ distinct solutions, the cyclic group of $n$-th roots of unity. If $\mathrm{char}(k) = p$ and $p \mid n$, things change — e.g. over $\bar{\mathbb{F}_p}$, $\mu_p$ has only one $\bar{\mathbb{F}_p}$-point because $t^p - 1 = (t-1)^p$, but as a scheme it is still nonzero (it has nilpotents). And $\alpha_p$ has only one $\bar k$-point but is geometrically nontrivial — it lives entirely in the infinitesimal direction.</p>
+
+<p>The clock toy below dramatises the analogy. Pick $n$ and a multiplier $a$. The map $k \mapsto a\cdot k \pmod n$ on the dial $\mathbb{Z}/n$ is exactly the multiplication-by-$\zeta^a$ map on $\mu_n(\mathbb{C})$ once you identify $\mathbb{Z}/n$ with $\mu_n(\mathbb{C})$ via $k \leftrightarrow \zeta^k = e^{2\pi i k/n}$. When $\gcd(a,n) = 1$, the map is a bijection — that's precisely when $\zeta^a$ is itself a primitive $n$-th root, i.e. a generator of $\mu_n$. When $\gcd(a,n) > 1$ the orbit collapses onto a proper subgroup, the same way a non-unit element of $\mu_n$ generates a proper $\mu_d$ inside it for $d = n/\gcd(a,n)$.</p>
+
+<div class="widget" id="w-mu-n-clock"></div><script>
+(function(){
+  if(!window.MVModularArithmeticClock) return;
+  MVModularArithmeticClock.init('#w-mu-n-clock', {
+    kind: "multiplication",
+    title: "$\\mu_n$ as the cyclic group of $n$-th roots of unity",
+    hint: "drag $n$ and $a$ — orbits visit $\\mu_d$ for $d = n/\\gcd(a,n)$",
+    params: {"n":12, "a":5},
+  });
+})();
+</script>
+
+<p>And the additive analogue, for comparison — the additive walk on the dial $\mathbb{Z}/n$ is the analogue of multiplication on $\mu_n$ <em>upstairs</em> at the level of exponents:</p>
+
+<div class="widget" id="w-mu-n-add"></div><script>
+(function(){
+  if(!window.MVModularArithmeticClock) return;
+  MVModularArithmeticClock.init('#w-mu-n-add', {
+    kind: "addition",
+    title: "Additive walk: the exponent picture",
+    hint: "$0 \\to a \\to (a+b) \\bmod n$ — the exponents in $\\zeta^k$",
+    params: {"n":12, "a":4, "b":3},
+  });
+})();
+</script>
+
+<div class="note"><strong>Worked example.</strong> Over $\bar{\mathbb{F}_5}$, $|\mu_4(\bar{\mathbb{F}_5})| = 4$ because $\gcd(4,5) = 1$ and $t^4 - 1 = (t-1)(t-2)(t-3)(t-4)$ splits into distinct linear factors. Over $\bar{\mathbb{F}_2}$, $|\mu_4(\bar{\mathbb{F}_2})| = 1$: the equation becomes $t^4 - 1 = (t-1)^4$ and there is only the root $t = 1$ (with multiplicity 4 — the nilpotent infinitesimal pieces survive at the scheme level).</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./quadratic-reciprocity.html#multiplicative-group-mod-p">$(\mathbb{Z}/p)^\times$ as a cyclic group</a></li>
+    <li><a href="./galois.html#cyclotomic">Cyclotomic extensions and $\mu_n$</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="examples-Ga-Gm-mu-n"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -285,25 +450,354 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="hopf-algebra">
 <h2>3. Affine group schemes ↔ commutative Hopf algebras</h2>
-<p>An affine group scheme $G = \mathrm{Spec}\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\Delta: A \to A \otimes A$, counit $\epsilon: A \to k$, and antipode $S: A \to A$ from the multiplication, identity, and inverse maps.</p>
+<p>An <strong>affine</strong> group scheme over $k$ is one of the form $G = \mathrm{Spec}\,A$ for some commutative $k$-algebra $A$. The contravariant equivalence $\mathrm{Spec}\colon \mathbf{CAlg}_k^{\mathrm{op}} \xrightarrow{\sim} \mathbf{AffSch}_k$ then turns the structure morphisms $m, e, \iota$ into the structure maps $\Delta, \epsilon, S$ on $A$ — but with arrows reversed. The result is a <em>Hopf algebra</em>: a commutative $k$-algebra equipped with</p>
+<ul>
+  <li>a <em>comultiplication</em> $\Delta\colon A \to A \otimes_k A$ (from $m\colon G \times G \to G$),</li>
+  <li>a <em>counit</em> $\epsilon\colon A \to k$ (from $e\colon \mathrm{Spec}\,k \to G$),</li>
+  <li>an <em>antipode</em> $S\colon A \to A$ (from $\iota\colon G \to G$),</li>
+</ul>
+<p>satisfying coassociativity, the counit law, and the antipode equation — the diagrams of §1 with every arrow reversed. The category of affine group schemes over $k$ is anti-equivalent to the category of commutative Hopf algebras over $k$. A morphism of group schemes corresponds to a morphism of Hopf algebras (algebra map respecting $\Delta, \epsilon, S$).</p>
+
+<p>The dictionary is concrete. For $\mathbb{G}_m = \mathrm{Spec}\,k[t,t^{-1}]$, the multiplication $(a,b) \mapsto ab$ on units pulls back to $\Delta(t) = t \otimes t$; the identity element $1$ pulls back to $\epsilon(t) = 1$; and the inverse $a \mapsto a^{-1}$ pulls back to $S(t) = t^{-1}$. For $\mathbb{G}_a = \mathrm{Spec}\,k[t]$, addition $(a,b)\mapsto a+b$ pulls back to $\Delta(t) = t\otimes 1 + 1 \otimes t$; identity is $\epsilon(t) = 0$; inverse is $S(t) = -t$. The pattern is: every group-theoretic statement on points is dual to an algebraic identity in the Hopf algebra. <em>Cocommutative</em> Hopf algebras correspond to <em>commutative</em> group schemes (multiplication is symmetric).</p>
+
+<p>Why insist on this duality? Because the Hopf-algebra side is where the calculation lives. To check whether a candidate affine group scheme actually satisfies the group axioms, one verifies the dual identities on $A$ — for example, coassociativity $(\Delta \otimes \mathrm{id}) \circ \Delta = (\mathrm{id} \otimes \Delta) \circ \Delta$, which is just an equality of two algebra maps $A \to A^{\otimes 3}$. To construct $\mathrm{Lie}(G)$ in §5 we'll use the augmentation ideal $I = \ker \epsilon \subset A$ and form $I/I^2$. Subgroup schemes correspond to Hopf-ideal quotients $A \twoheadrightarrow A/J$. And so on — the Hopf-algebra perspective makes the proofs algebraic.</p>
+
+<div class="widget" id="w-hopf-scrub"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-hopf-scrub', {
+    title: "$G$ a group object $\\Leftrightarrow$ $A = \\mathcal{O}(G)$ a Hopf algebra",
+    hint: "scrub or play — six steps, end-to-end",
+    viewBox: "0 0 360 200",
+    autoplayMs: 2600,
+    steps: [
+      {
+        title: "Step 1 — start with a group object $G$ in $\\mathbf{Sch}_k$",
+        body: "Assume $G$ is affine: $G = \\mathrm{Spec}\\,A$ for some commutative $k$-algebra $A$. Group structure on $G$ means $(m, e, \\iota)$ as in §1. Goal: read off algebra structure on $A$.",
+        svgInner: "<rect x='90' y='60' width='180' height='80' fill='var(--panel2)' stroke='var(--blue)' stroke-width='1.6' rx='10'/><text x='180' y='95' text-anchor='middle' font-size='14' fill='var(--ink)'>$G = \\mathrm{Spec}\\,A$</text><text x='180' y='118' text-anchor='middle' font-size='11' fill='var(--mute)'>$A$ commutative $k$-algebra</text><text x='180' y='170' text-anchor='middle' font-size='11' fill='var(--mute)'>$(m, e, \\iota)$ make $G$ a group object</text>"
+      },
+      {
+        title: "Step 2 — apply $\\mathrm{Spec}^{-1} = \\Gamma$ to flip arrows",
+        body: "The functor $\\mathrm{Spec}\\colon \\mathbf{CAlg}_k^{\\mathrm{op}} \\xrightarrow{\\sim} \\mathbf{AffSch}_k$ is an anti-equivalence. Each morphism of schemes $G \\to G'$ corresponds to a morphism of algebras $\\mathcal{O}(G') \\to \\mathcal{O}(G)$ in the <em>opposite</em> direction. Crucially, $\\mathcal{O}(G \\times_k G) = A \\otimes_k A$.",
+        svgInner: "<text x='180' y='40' text-anchor='middle' font-size='12' fill='var(--mute)'>$\\mathrm{Spec}^{-1}$ = global sections</text><line x1='90' y1='100' x2='270' y2='100' stroke='var(--ink)' stroke-width='1.4' marker-end='url(#arr-hopf2)'/><defs><marker id='arr-hopf2' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='90' y='120' font-size='12' fill='var(--blue)'>$f\\colon G' \\to G$</text><text x='270' y='120' font-size='12' fill='var(--violet)' text-anchor='end'>$f^*\\colon A \\to A'$</text><text x='180' y='160' text-anchor='middle' font-size='11' fill='var(--green)'>$\\mathcal{O}(G \\times G) = A \\otimes A$ (key identity)</text>"
+      },
+      {
+        title: "Step 3 — comultiplication $\\Delta$",
+        body: "The multiplication $m\\colon G \\times G \\to G$ pulls back to $\\Delta := m^*\\colon A \\to A \\otimes A$. Associativity of $m$ is the commutative cube; reversing arrows yields <em>coassociativity</em>: $(\\Delta \\otimes \\mathrm{id}) \\circ \\Delta = (\\mathrm{id} \\otimes \\Delta) \\circ \\Delta$.",
+        svgInner: "<rect x='40' y='60' width='100' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='90' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$A$</text><rect x='220' y='60' width='100' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='270' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$A \\otimes A$</text><line x1='140' y1='80' x2='220' y2='80' stroke='var(--ink)' stroke-width='1.4' marker-end='url(#arr-hopf3)'/><defs><marker id='arr-hopf3' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='180' y='70' text-anchor='middle' font-size='12' fill='var(--violet)'>$\\Delta$</text><text x='180' y='160' text-anchor='middle' font-size='11' fill='var(--mute)'>e.g. $\\mathbb{G}_m$: $\\Delta(t) = t \\otimes t$. $\\mathbb{G}_a$: $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$.</text>"
+      },
+      {
+        title: "Step 4 — counit $\\epsilon$",
+        body: "The identity section $e\\colon \\mathrm{Spec}\\,k \\to G$ pulls back to $\\epsilon := e^*\\colon A \\to k$. The identity axiom $m \\circ (e, \\mathrm{id}) = \\mathrm{id} = m \\circ (\\mathrm{id}, e)$ becomes the <em>counit law</em>: $(\\epsilon \\otimes \\mathrm{id}) \\circ \\Delta = \\mathrm{id} = (\\mathrm{id} \\otimes \\epsilon) \\circ \\Delta$.",
+        svgInner: "<rect x='40' y='60' width='100' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='90' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$A$</text><rect x='220' y='60' width='100' height='40' fill='var(--panel2)' stroke='var(--violet)' rx='6'/><text x='270' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$k$</text><line x1='140' y1='80' x2='220' y2='80' stroke='var(--ink)' stroke-width='1.4' marker-end='url(#arr-hopf4)'/><defs><marker id='arr-hopf4' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='180' y='70' text-anchor='middle' font-size='12' fill='var(--violet)'>$\\epsilon$</text><text x='180' y='160' text-anchor='middle' font-size='11' fill='var(--mute)'>e.g. $\\mathbb{G}_m$: $\\epsilon(t) = 1$. $\\mathbb{G}_a$: $\\epsilon(t) = 0$.</text>"
+      },
+      {
+        title: "Step 5 — antipode $S$",
+        body: "The inverse $\\iota\\colon G \\to G$ pulls back to $S := \\iota^*\\colon A \\to A$. The inverse axiom $m \\circ (\\mathrm{id}, \\iota) = e \\circ \\pi$ dualises to the <em>antipode equation</em>: $\\mu \\circ (\\mathrm{id} \\otimes S) \\circ \\Delta = \\eta \\circ \\epsilon$ (and the symmetric version), where $\\mu, \\eta$ are the algebra multiplication and unit on $A$.",
+        svgInner: "<rect x='40' y='60' width='100' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='90' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$A$</text><rect x='220' y='60' width='100' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='270' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$A$</text><path d='M 90 95 Q 180 130 270 95' fill='none' stroke='var(--pink)' stroke-width='1.5' marker-end='url(#arr-hopf5)'/><defs><marker id='arr-hopf5' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--pink)'/></marker></defs><text x='180' y='130' text-anchor='middle' font-size='12' fill='var(--pink)'>$S$</text><text x='180' y='170' text-anchor='middle' font-size='11' fill='var(--mute)'>e.g. $\\mathbb{G}_m$: $S(t) = t^{-1}$. $\\mathbb{G}_a$: $S(t) = -t$.</text>"
+      },
+      {
+        title: "Step 6 — $A$ is a (commutative) Hopf algebra",
+        body: "The data $(A, \\mu, \\eta, \\Delta, \\epsilon, S)$ satisfying the algebra/coalgebra axioms plus the antipode equation is exactly a <em>commutative Hopf algebra</em>. Reversing the construction (start with a commutative Hopf algebra, apply $\\mathrm{Spec}$) recovers $G$. So affine group schemes $\\Leftrightarrow$ commutative Hopf algebras.",
+        svgInner: "<rect x='80' y='40' width='200' height='130' fill='color-mix(in srgb, var(--green) 14%, var(--panel2))' stroke='var(--green)' stroke-width='1.8' rx='10'/><text x='180' y='75' text-anchor='middle' font-size='14' fill='var(--ink)' font-weight='600'>Hopf algebra $(A, \\mu, \\eta, \\Delta, \\epsilon, S)$</text><text x='180' y='105' text-anchor='middle' font-size='11' fill='var(--mute)'>$\\mu, \\eta$ — algebra structure</text><text x='180' y='125' text-anchor='middle' font-size='11' fill='var(--mute)'>$\\Delta, \\epsilon$ — coalgebra structure</text><text x='180' y='145' text-anchor='middle' font-size='11' fill='var(--mute)'>$S$ — antipode (the inverse)</text>"
+      },
+    ],
+  });
+})();
+</script>
+
+<p>The dual structures fit together as in the table below: the four arrows on the left compose with $m, e$ as a <em>group</em>; their op-arrows on the right compose with $\Delta, \epsilon$ as a <em>cogroup</em>. Click an arrow to see what the dual identity says for the running examples $\mathbb{G}_a, \mathbb{G}_m, \mu_n$.</p>
+
+<div class="widget" id="w-hopf-duality">
+  <div class="hd"><div class="ttl">Group ops $\leftrightarrow$ Hopf-algebra ops</div><div class="hint">click a row — see the four examples evaluated</div></div>
+  <svg id="svg-hopf-duality" viewBox="0 0 480 240" width="480" height="240"><title>Group ops vs Hopf-algebra ops</title></svg>
+  <div class="readout" id="out-hopf-duality">click a row to inspect.</div>
+</div>
+<script>
+(function(){
+  const svg = $('#svg-hopf-duality'), out = $('#out-hopf-duality');
+  const ROWS = [
+    { id:'mult',  group:'$m\\colon G \\times G \\to G$',     hopf:'$\\Delta\\colon A \\to A \\otimes A$', readout:
+      'MULTIPLICATION ↔ COMULTIPLICATION\n  𝔾_a:  Δ(t) = t ⊗ 1 + 1 ⊗ t\n  𝔾_m:  Δ(t) = t ⊗ t\n  μ_n:   Δ(t) = t ⊗ t  (in k[t]/(tⁿ−1))\n  α_p:   Δ(t) = t ⊗ 1 + 1 ⊗ t  (in k[t]/(tᵖ))' },
+    { id:'ident', group:'$e\\colon \\mathrm{Spec}\\,k \\to G$', hopf:'$\\epsilon\\colon A \\to k$',           readout:
+      'IDENTITY ↔ COUNIT\n  𝔾_a:  ε(t) = 0      (the additive identity)\n  𝔾_m:  ε(t) = 1      (the multiplicative identity)\n  μ_n:   ε(t) = 1\n  α_p:   ε(t) = 0' },
+    { id:'inv',   group:'$\\iota\\colon G \\to G$',           hopf:'$S\\colon A \\to A$',                   readout:
+      'INVERSE ↔ ANTIPODE\n  𝔾_a:  S(t) = −t\n  𝔾_m:  S(t) = t⁻¹\n  μ_n:   S(t) = t⁻¹ = tⁿ⁻¹\n  α_p:   S(t) = −t' },
+  ];
+  function draw(activeId){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const headerY = 30;
+    const tHead = SVG('text',{x:120, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead.textContent='Group $G$'; svg.appendChild(tHead);
+    const tHead2 = SVG('text',{x:360, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead2.textContent='Hopf algebra $A = \\mathcal{O}(G)$'; svg.appendChild(tHead2);
+    ROWS.forEach((row,i)=>{
+      const y = 70 + i*50;
+      const isActive = row.id===activeId;
+      const col = isActive ? 'var(--yellow)' : 'var(--ink)';
+      const bgcol = isActive ? 'color-mix(in srgb, var(--yellow) 18%, var(--panel2))' : 'var(--panel2)';
+      const r1 = SVG('rect',{x:30,y:y-20,width:180,height:34,fill:bgcol,stroke:col,'stroke-width':1.4,rx:6,style:'cursor:pointer','data-row':row.id});
+      svg.appendChild(r1);
+      const t1 = SVG('text',{x:120,y:y,'text-anchor':'middle','font-size':12,fill:'var(--ink)',style:'pointer-events:none'}); t1.textContent=row.group; svg.appendChild(t1);
+      const r2 = SVG('rect',{x:270,y:y-20,width:180,height:34,fill:bgcol,stroke:col,'stroke-width':1.4,rx:6,style:'cursor:pointer','data-row':row.id});
+      svg.appendChild(r2);
+      const t2 = SVG('text',{x:360,y:y,'text-anchor':'middle','font-size':12,fill:'var(--ink)',style:'pointer-events:none'}); t2.textContent=row.hopf; svg.appendChild(t2);
+      // double arrow between
+      ensureArrow(svg,'arr-hop-l-'+i,col); ensureArrow(svg,'arr-hop-r-'+i,col);
+      const ar1 = SVG('line',{x1:215,y1:y-2,x2:265,y2:y-2,stroke:col,'stroke-width':1.4,'marker-end':`url(#arr-hop-r-${i})`}); svg.appendChild(ar1);
+      const ar2 = SVG('line',{x1:265,y1:y+8,x2:215,y2:y+8,stroke:col,'stroke-width':1.4,'marker-end':`url(#arr-hop-l-${i})`}); svg.appendChild(ar2);
+    });
+    if(window.renderMathInElement){
+      try { window.renderMathInElement(svg,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false}); } catch(e){}
+    }
+  }
+  let active = 'mult';
+  draw(active); out.textContent = ROWS.find(r=>r.id===active).readout;
+  svg.addEventListener('click', e=>{
+    let n = e.target;
+    while(n && n!==svg && !(n.getAttribute && n.getAttribute('data-row'))) n = n.parentNode;
+    const id = n && n.getAttribute && n.getAttribute('data-row');
+    if(!id) return;
+    active = id; draw(active); out.textContent = ROWS.find(r=>r.id===id).readout;
+  });
+})();
+</script>
+
 <div class="quiz" data-concept="hopf-algebra"></div>
 </section>
 
 <section id="etale-vs-connected">
 <h2>4. Étale, connected, and infinitesimal pieces</h2>
-<p>Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\circ$ and an étale piece $G^{\acute{e}t}$. In characteristic 0, $G^\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\alpha_p, \mu_p$ live in $G^\circ$.</p>
+<p>Over a perfect field $k$, the finite commutative group schemes form an abelian category — call it $\mathbf{FCGS}_k$ — and every object decomposes canonically. Each $G$ sits in a short exact sequence</p>
+<p style="text-align:center">$1 \to G^\circ \to G \to G^{\mathrm{\acute{e}t}} \to 1$</p>
+<p>where $G^\circ$ is the <em>connected component of the identity</em> (a connected, hence local, scheme — supported at one point) and $G^{\mathrm{\acute{e}t}} = \pi_0(G)$ is the <em>étale</em> quotient (a constant group scheme over $\bar k$). Over a perfect field this sequence splits canonically: $G \cong G^\circ \rtimes G^{\mathrm{\acute{e}t}}$, where in the commutative case the semidirect product is just a direct product. The proof uses that $\mathcal{O}(G^\circ)$ is the local Artin component at the identity and $\mathcal{O}(G^{\mathrm{\acute{e}t}}) = \mathcal{O}(G) / \mathfrak{m}_e^\infty \cdot \text{stuff}$ — concretely, $G^{\mathrm{\acute{e}t}}$ is recovered as $\mathrm{Spec}(\mathcal{O}(G)_{\mathrm{red}}/\text{nilpotents at non-identity components})$.</p>
+
+<p>The key cases: in <strong>characteristic 0</strong>, every finite group scheme is automatically étale (no non-trivial infinitesimals, because finite étale algebras are exactly products of finite separable extensions). So $G^\circ = 1$ always, and $\mathbf{FCGS}_{\mathbb{Q}}$ collapses to the ordinary category of finite groups (with continuous Galois action). In <strong>characteristic $p$</strong>, the connected piece can be non-trivial — that is where $\alpha_p$ and $\mu_p$ live. Both have $\bar k$-point set of size 1 and are concentrated at the identity, but they are distinct group schemes (different Hopf algebras, different Lie algebras). Even more refined: the connected/étale decomposition can be applied dually too, giving Cartier-style components $G^{\circ,\circ}, G^{\circ,\mathrm{\acute{e}t}}, G^{\mathrm{\acute{e}t},\circ}, G^{\mathrm{\acute{e}t},\mathrm{\acute{e}t}}$ (the last two equal in the commutative case because Cartier duality swaps connected and étale).</p>
+
+<p>A useful slogan: étale-ness is a topological/separable feature — $G$ is étale over $k$ iff it is "discrete in the étale topology," equivalently iff the augmentation ideal $\mathfrak{m}_e$ is generated by elements $f$ with $\mathrm{d}f$ generating $\mathfrak{m}_e/\mathfrak{m}_e^2$ rationally. Connectedness is an infinitesimal feature — $G^\circ$ has a single $\bar k$-point but a thick local ring filling out the tangent space at the identity. The two are orthogonal: a finite étale group scheme has trivial Lie algebra; a connected (infinitesimal) one has Lie algebra equal to its dimension.</p>
+
+<p>Click each finite group scheme below to see its $G^\circ \rtimes G^{\mathrm{\acute{e}t}}$ decomposition over the indicated field.</p>
+
+<div class="widget" id="w-decomp-graph">
+  <div class="hd"><div class="ttl">$G^\circ \rtimes G^{\mathrm{\acute{e}t}}$ over a perfect field</div><div class="hint">click a node — see its decomposition</div></div>
+  <svg id="svg-decomp-graph" viewBox="0 0 540 280" width="540" height="280"><title>Connected/étale decomposition for various finite group schemes</title></svg>
+  <div class="readout" id="out-decomp-graph">click a node above.</div>
+</div>
+<script>
+(function(){
+  const svg = $('#svg-decomp-graph'), out = $('#out-decomp-graph');
+  const NODES = [
+    { id:'znq',     x:90,  y:60,  label:'$\\mathbb{Z}/n$ over $\\mathbb{Q}$',
+      readout:'$\\mathbb{Z}/n$ over $\\mathbb{Q}$ (char 0):\n  $G^\\circ = 1$, $G^{ét} = \\mathbb{Z}/n$.\n  Entirely étale; ordinary finite group.' },
+    { id:'munqq',   x:270, y:60,  label:'$\\mu_n$ over $\\mathbb{Q}$',
+      readout:'$\\mu_n$ over $\\mathbb{Q}$ (char 0):\n  $G^\\circ = 1$, $G^{ét} = \\mu_n$ (étale, of order $n$).\n  Note: as a group, $\\mu_n(\\bar{\\mathbb{Q}}) \\cong \\mathbb{Z}/n$, but as a $\\mathbb{Q}$-group scheme there is a Galois action.' },
+    { id:'munfp',   x:450, y:60,  label:'$\\mu_n$ over $\\bar{\\mathbb{F}_p}$, $\\gcd(n,p)=1$',
+      readout:'$\\mu_n$ over $\\bar{\\mathbb{F}_p}$, $\\gcd(n,p)=1$:\n  $G^\\circ = 1$, $G^{ét} = \\mu_n \\cong \\mathbb{Z}/n$.\n  Étale because $n$ is invertible in $k$.' },
+    { id:'mup',     x:90,  y:170, label:'$\\mu_p$ over $\\bar{\\mathbb{F}_p}$',
+      readout:'$\\mu_p$ over $\\bar{\\mathbb{F}_p}$ (char $p$):\n  $G^\\circ = \\mu_p$, $G^{ét} = 1$.\n  Connected (infinitesimal): $t^p - 1 = (t-1)^p$, only one $\\bar k$-point.\n  Lie algebra is $k$, abelian.' },
+    { id:'alphap',  x:270, y:170, label:'$\\alpha_p$ over $\\bar{\\mathbb{F}_p}$',
+      readout:'$\\alpha_p$ over $\\bar{\\mathbb{F}_p}$ (char $p$):\n  $G^\\circ = \\alpha_p$, $G^{ét} = 1$.\n  Purely infinitesimal; $\\alpha_p = \\ker(\\mathrm{Frob}\\colon \\mathbb{G}_a \\to \\mathbb{G}_a)$.\n  Lie algebra is $k$, abelian, but $\\alpha_p \\not\\cong \\mu_p$.' },
+    { id:'mixed',   x:450, y:170, label:'$\\mu_{pn}$ over $\\bar{\\mathbb{F}_p}$, $\\gcd(n,p)=1$',
+      readout:'$\\mu_{pn}$ over $\\bar{\\mathbb{F}_p}$ (char $p$):\n  $G^\\circ = \\mu_p$ (size 1 set-theoretically), $G^{ét} = \\mu_n$ (size $n$).\n  $\\mu_{pn} = \\mu_p \\times \\mu_n$ — both pieces non-trivial.' },
+  ];
+  function draw(activeId){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    NODES.forEach(n => {
+      const isActive = activeId===n.id;
+      const fill = isActive ? 'color-mix(in srgb, var(--yellow) 28%, var(--panel2))' : 'var(--panel2)';
+      const stroke = isActive ? 'var(--yellow)' : 'var(--blue)';
+      const rect = SVG('rect',{x:n.x-70,y:n.y-22,width:140,height:50,fill,stroke,'stroke-width':1.6,rx:8,style:'cursor:pointer','data-id':n.id});
+      svg.appendChild(rect);
+      const txt = SVG('text',{x:n.x,y:n.y+5,'text-anchor':'middle','font-size':11,fill:'var(--ink)',style:'pointer-events:none'});
+      txt.textContent = n.label; svg.appendChild(txt);
+    });
+    // legend
+    const lg = SVG('text',{x:270,y:260,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    lg.textContent = 'top row: char 0 / coprime-to-$p$ → étale.   bottom row: char $p$ → connected pieces appear.';
+    svg.appendChild(lg);
+    if(window.renderMathInElement){
+      try { window.renderMathInElement(svg,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false}); } catch(e){}
+    }
+  }
+  let active = 'znq';
+  draw(active); out.textContent = NODES.find(n=>n.id===active).readout;
+  svg.addEventListener('click', e=>{
+    let n = e.target;
+    while(n && n!==svg && !(n.getAttribute && n.getAttribute('data-id'))) n = n.parentNode;
+    const id = n && n.getAttribute && n.getAttribute('data-id');
+    if(!id) return;
+    active = id; draw(active); out.textContent = NODES.find(x=>x.id===id).readout;
+  });
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./etale-cohomology.html#etale-morphisms">Étale morphisms</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="etale-vs-connected"></div>
 </section>
 
 <section id="lie-algebra">
 <h2>5. Lie algebra $\mathrm{Lie}(G)$</h2>
-<p>$\mathrm{Lie}(G) = \ker(G(k[\epsilon]/\epsilon^2) \to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \mathbb{R}$ or $\mathbb{C}$ and $G$ is smooth.</p>
+<p>The Lie algebra of an algebraic group $G$ over $k$ is defined functorially via dual numbers. Let $k[\epsilon] := k[\epsilon]/\epsilon^2$ be the ring of dual numbers (rank 2 over $k$, with $\epsilon$ a square-zero element); the natural projection $k[\epsilon] \to k$ killing $\epsilon$ induces a map of $k$-points $G(k[\epsilon]) \to G(k)$. The <em>Lie algebra</em> is its kernel as a set, equipped with a $k$-vector-space structure and a Lie bracket from the adjoint action:</p>
+<p style="text-align:center">$\mathrm{Lie}(G) := \ker\bigl(G(k[\epsilon]/\epsilon^2) \to G(k)\bigr).$</p>
+
+<p>Why is this the right object? A $k[\epsilon]$-point of $G$ that lifts the identity is a "first-order deformation" of $\mathrm{id}_e$ — a tangent vector at $e \in G$. So set-theoretically $\mathrm{Lie}(G) = T_e G$, the Zariski tangent space at the identity. The vector-space structure is forced: addition comes from the diagonal $G \times G \to G$, scalar multiplication from $k$-linearity of dual numbers. The non-trivial part is the <em>bracket</em>, which comes from <em>conjugation</em>: for $g \in G(k[\epsilon][\epsilon'])$ (dual numbers in two variables) and $h \in G(k[\epsilon'])$, the commutator $g h g^{-1} h^{-1}$ measures the failure of $G$ to be commutative at first order, and lives in $\mathrm{Lie}(G) \otimes_k k\epsilon\epsilon'$. Extracting the $\epsilon\epsilon'$-coefficient gives the Lie bracket $[\cdot, \cdot]$ on $\mathrm{Lie}(G)$.</p>
+
+<p>Concrete computations. For $G = \mathrm{GL}_n$: a $k[\epsilon]$-point is a matrix $M = I + \epsilon X$ with $X \in \mathrm{Mat}_n(k)$ arbitrary (since $\det M = 1 + \epsilon\,\mathrm{tr}(X)$ is automatically a unit in $k[\epsilon]$ — no extra condition). So $\mathrm{Lie}(\mathrm{GL}_n) = \mathrm{Mat}_n(k) =: \mathfrak{gl}_n$, with bracket the usual matrix commutator. Dimension $n^2$. For $G = \mathrm{SL}_n$ the same calculation with the constraint $\det M = 1$ forces $\mathrm{tr}(X) = 0$, so $\mathrm{Lie}(\mathrm{SL}_n) = \mathfrak{sl}_n$, dimension $n^2 - 1$. For $\mathbb{G}_m$: a point of $\mathbb{G}_m(k[\epsilon])$ is a unit $u = 1 + \epsilon a$ with $a \in k$ arbitrary, so $\mathrm{Lie}(\mathbb{G}_m) = k$ — one-dimensional, abelian (bracket is trivially zero because $\mathbb{G}_m$ is commutative). For $\mathbb{G}_a$: a point is $a \in k$ with addition law on dual numbers, so again $\mathrm{Lie}(\mathbb{G}_a) = k$, abelian.</p>
+
+<p>Over $\mathbb{R}$ or $\mathbb{C}$, when $G$ is smooth, this construction agrees with the classical Lie algebra of the Lie group $G(\mathbb{R})$ (or $G(\mathbb{C})$) as left-invariant vector fields, or as the tangent space at the identity with bracket from the differential of conjugation. The dual-number formulation has the advantage of working uniformly in any characteristic, including for non-smooth $G$ (in which case $\dim_k \mathrm{Lie}(G)$ can exceed $\dim G$ — that excess <em>is</em> the failure of smoothness at the identity).</p>
+
+<div class="widget" id="w-lie-scrub"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-lie-scrub', {
+    title: "Constructing $\\mathrm{Lie}(G)$ from dual numbers",
+    hint: "scrub or play — five steps",
+    viewBox: "0 0 360 200",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Step 1 — dual numbers",
+        body: "Let $k[\\epsilon] = k[t]/(t^2)$, where $\\epsilon = t \\bmod t^2$. So $\\epsilon^2 = 0$ but $\\epsilon \\ne 0$. The natural projection $\\pi\\colon k[\\epsilon] \\to k$, $\\epsilon \\mapsto 0$, has a section $k \\hookrightarrow k[\\epsilon]$.",
+        svgInner: "<rect x='90' y='40' width='180' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='180' y='65' text-anchor='middle' font-size='13' fill='var(--ink)'>$k[\\epsilon] = k \\oplus k\\,\\epsilon$, $\\epsilon^2 = 0$</text><line x1='180' y1='90' x2='180' y2='130' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-lie1)'/><defs><marker id='arr-lie1' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='200' y='115' font-size='12' fill='var(--mute)'>$\\pi\\colon \\epsilon \\mapsto 0$</text><rect x='130' y='140' width='100' height='40' fill='var(--panel2)' stroke='var(--green)' rx='6'/><text x='180' y='165' text-anchor='middle' font-size='13' fill='var(--ink)'>$k$</text>"
+      },
+      {
+        title: "Step 2 — apply $G$",
+        body: "$G$ is a functor $\\mathbf{CAlg}_k \\to \\mathbf{Grp}$. Apply it to the projection $\\pi$ to get a group homomorphism $G(\\pi)\\colon G(k[\\epsilon]) \\to G(k)$. The fiber over $e \\in G(k)$ is the kernel.",
+        svgInner: "<rect x='30' y='40' width='130' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='95' y='65' text-anchor='middle' font-size='12' fill='var(--ink)'>$G(k[\\epsilon])$</text><rect x='200' y='40' width='130' height='40' fill='var(--panel2)' stroke='var(--green)' rx='6'/><text x='265' y='65' text-anchor='middle' font-size='12' fill='var(--ink)'>$G(k)$</text><line x1='160' y1='60' x2='200' y2='60' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-lie2)'/><defs><marker id='arr-lie2' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='180' y='52' text-anchor='middle' font-size='11' fill='var(--mute)'>$G(\\pi)$</text><text x='180' y='150' text-anchor='middle' font-size='12' fill='var(--violet)'>$\\mathrm{Lie}(G) := \\ker G(\\pi)$</text>"
+      },
+      {
+        title: "Step 3 — vector-space structure",
+        body: "The set $\\mathrm{Lie}(G)$ inherits a $k$-vector-space structure: addition from $m\\colon G \\times G \\to G$ on the dual-number ring, scalar multiplication from the $k$-action on $k[\\epsilon]$ ($\\lambda\\cdot(1 + \\epsilon a) = 1 + \\epsilon(\\lambda a)$, after identifying $\\mathrm{Lie}(G)$ as a kernel).",
+        svgInner: "<text x='180' y='40' text-anchor='middle' font-size='13' fill='var(--ink)'>$\\mathrm{Lie}(G) \\;\\cong\\; T_e G$</text><text x='180' y='70' text-anchor='middle' font-size='11' fill='var(--mute)'>= Zariski tangent space at the identity</text><line x1='100' y1='110' x2='260' y2='110' stroke='var(--blue)' stroke-width='2'/><circle cx='180' cy='110' r='5' fill='var(--green)'/><text x='180' y='100' text-anchor='middle' font-size='11' fill='var(--green)'>$e$</text><line x1='180' y1='110' x2='240' y2='80' stroke='var(--violet)' stroke-width='2' marker-end='url(#arr-lie3)'/><defs><marker id='arr-lie3' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--violet)'/></marker></defs><text x='250' y='75' font-size='12' fill='var(--violet)'>$X \\in \\mathrm{Lie}(G)$</text>"
+      },
+      {
+        title: "Step 4 — bracket from the adjoint action",
+        body: "Use two dual variables $\\epsilon, \\epsilon'$ in $k[\\epsilon, \\epsilon']/(\\epsilon^2, \\epsilon'^2)$. For $g = e + \\epsilon X$ and $h = e + \\epsilon' Y$ in $G$, the commutator $[g,h] = g h g^{-1} h^{-1}$ has the form $e + \\epsilon\\epsilon'\\,[X, Y]$. The coefficient of $\\epsilon\\epsilon'$ <em>is</em> the bracket.",
+        svgInner: "<text x='180' y='40' text-anchor='middle' font-size='12' fill='var(--ink)'>$g h g^{-1} h^{-1} = e + \\epsilon\\epsilon'\\,[X,Y] + \\ldots$</text><rect x='40' y='80' width='90' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='85' y='105' text-anchor='middle' font-size='11' fill='var(--ink)'>$g, h \\in G$</text><rect x='230' y='80' width='90' height='40' fill='var(--panel2)' stroke='var(--violet)' rx='6'/><text x='275' y='105' text-anchor='middle' font-size='11' fill='var(--ink)'>$[X, Y] \\in \\mathrm{Lie}(G)$</text><line x1='130' y1='100' x2='230' y2='100' stroke='var(--ink)' stroke-width='1.4' marker-end='url(#arr-lie4)'/><defs><marker id='arr-lie4' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='180' y='160' text-anchor='middle' font-size='11' fill='var(--mute)'>For $G$ commutative the bracket is zero.</text>"
+      },
+      {
+        title: "Step 5 — example: $\\mathrm{Lie}(\\mathrm{GL}_n) = \\mathfrak{gl}_n$",
+        body: "An element of $\\mathrm{GL}_n(k[\\epsilon])$ lifting $I$ is $I + \\epsilon X$ for arbitrary $X \\in \\mathrm{Mat}_n(k)$ (since $\\det(I + \\epsilon X) = 1 + \\epsilon\\,\\mathrm{tr}(X)$ is always a unit). The bracket from $g h g^{-1} h^{-1}$ is the matrix commutator $XY - YX$. So $\\mathrm{Lie}(\\mathrm{GL}_n) = \\mathfrak{gl}_n$, dimension $n^2$.",
+        svgInner: "<rect x='80' y='40' width='200' height='130' fill='color-mix(in srgb, var(--green) 14%, var(--panel2))' stroke='var(--green)' stroke-width='1.8' rx='10'/><text x='180' y='75' text-anchor='middle' font-size='14' fill='var(--ink)' font-weight='600'>$\\dim \\mathrm{Lie}(\\mathrm{GL}_n) = n^2$</text><text x='180' y='105' text-anchor='middle' font-size='11' fill='var(--mute)'>elements: $I + \\epsilon X$, $X \\in \\mathrm{Mat}_n(k)$</text><text x='180' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>$[X, Y] = XY - YX$ (matrix commutator)</text><text x='180' y='155' text-anchor='middle' font-size='11' fill='var(--violet)'>$\\mathrm{Lie}(\\mathrm{SL}_n) = \\mathfrak{sl}_n$, codim 1 (trace 0)</text>"
+      },
+    ],
+  });
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html">Lie groups and their Lie algebras</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="lie-algebra-of-G"></div>
 </section>
 
 <section id="torsors">
 <h2>6. $G$-torsors and $H^1(X, G)$</h2>
-<p>A $G$-torsor over $X$ is a scheme $P \to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \mathbb{G}_m$).</p>
+<p>Let $G$ be a group scheme over a base $S$. A <strong>$G$-torsor</strong> (or "principal $G$-bundle") over an $S$-scheme $X$ is an $X$-scheme $\pi\colon P \to X$ equipped with a $G$-action $G \times_S P \to P$ over $X$ that is</p>
+<ul>
+  <li><em>free and transitive</em> — the map $G \times_S P \to P \times_X P$, $(g, p) \mapsto (gp, p)$, is an isomorphism;</li>
+  <li><em>étale-locally trivial</em> — there is an étale cover $\{U_i \to X\}$ such that $P|_{U_i} \cong G \times U_i$ as $G$-spaces over $U_i$.</li>
+</ul>
+<p>The trivial torsor is $G \times_S X$, with $G$ acting on the first factor. Trivial-locally-but-not-globally is exactly the $H^1$-flavour of the moduli problem: torsors are <em>twisted forms</em> of the trivial bundle, glued by transition cocycles in $G$. The base case $X = \mathrm{Spec}\,k$ for $k$ a field recovers <em>Galois cohomology</em>: $H^1_{\mathrm{\acute{e}t}}(\mathrm{Spec}\,k, G) = H^1(\mathrm{Gal}(\bar k/k), G(\bar k))$ for smooth commutative $G$.</p>
+
+<p>The moduli-theoretic punchline is that isomorphism classes of $G$-torsors over $X$ are classified by the first étale cohomology:</p>
+<p style="text-align:center">$\{\,\text{$G$-torsors on $X$}\,\}/\!\cong \;=\; H^1_{\mathrm{\acute{e}t}}(X, G).$</p>
+<p>This is a vast generalisation of vector-bundle classification. For $G = \mathbb{G}_m$, a torsor is a line bundle (well, the $\mathbb{G}_m$-bundle of frames of a line bundle); the classification recovers the Picard group $\mathrm{Pic}(X) = H^1_{\mathrm{\acute{e}t}}(X, \mathbb{G}_m)$ (Hilbert 90 says this agrees with $H^1$ in the Zariski topology). For $G = \mu_n$, the Kummer sequence $1 \to \mu_n \to \mathbb{G}_m \xrightarrow{[n]} \mathbb{G}_m \to 1$ gives the long exact sequence</p>
+<p style="text-align:center">$\cdots \to \Gamma(X,\mathcal{O}_X)^\times \xrightarrow{[n]} \Gamma(X,\mathcal{O}_X)^\times \to H^1_{\mathrm{\acute{e}t}}(X, \mu_n) \to \mathrm{Pic}(X)[n] \to 0$</p>
+<p>so $\mu_n$-torsors are Kummer-style "$n$-th roots of a unit, modulo $n$-th powers" combined with $n$-torsion in $\mathrm{Pic}$. For $G$ a finite étale group scheme, $H^1_{\mathrm{\acute{e}t}}(X, G)$ classifies $G$-Galois covers of $X$.</p>
+
+<p>The case library below catalogues the canonical examples — trivial vs non-trivial torsors over a few standard bases — so you can see when the classification gives something new and when it doesn't.</p>
+
+<div class="widget" id="w-torsor-cases"></div><script>
+(function(){
+  if(!window.MVCounterexampleExplorer) return;
+  MVCounterexampleExplorer.init('#w-torsor-cases', {
+    title: "Torsors over a few standard bases",
+    hint: "pick a $(G, X)$ pair — see whether $H^1_{ét}(X, G)$ is trivial",
+    viewBox: "0 0 320 160",
+    hypotheses: [
+      { id: 'trivial',  label: 'Every $G$-torsor on $X$ is trivial' },
+      { id: 'finite',   label: '$H^1_{ét}(X, G)$ is finite' },
+      { id: 'kummer',   label: 'Kummer description: $H^1(X, \\mu_n) = k^\\times/(k^\\times)^n$ when $X = \\mathrm{Spec}\\,k$' },
+      { id: 'picard',   label: '$H^1_{ét}(X, \\mathbb{G}_m) = \\mathrm{Pic}(X)$' },
+    ],
+    cases: [
+      {
+        name: '$\\mathbb{G}_m$ over $\\mathrm{Spec}\\,k$, $k$ a field',
+        latex: 'H^1_{ét}(\\mathrm{Spec}\\,k, \\mathbb{G}_m) = \\mathrm{Pic}(k) = 0',
+        svgInner: "<rect x='90' y='40' width='140' height='80' fill='var(--panel2)' stroke='var(--green)' stroke-width='1.6' rx='10'/><text x='160' y='75' text-anchor='middle' font-size='13' fill='var(--ink)'>$\\mathrm{Spec}\\,k$</text><text x='160' y='100' text-anchor='middle' font-size='11' fill='var(--mute)'>one point — Picard group trivial</text>",
+        hypotheses: {
+          trivial: { pass: true,  note: 'Hilbert 90: $H^1(k, \\mathbb{G}_m) = 0$. Every $\\mathbb{G}_m$-torsor over a field is trivial.' },
+          finite:  { pass: true,  note: 'Trivially finite (it is the trivial group).' },
+          kummer:  { pass: false, note: 'Statement is about $\\mu_n$, not $\\mathbb{G}_m$.' },
+          picard:  { pass: true,  note: 'Both sides are $0$ for $X = \\mathrm{Spec}\\,k$.' },
+        }
+      },
+      {
+        name: '$\\mathbb{G}_m$ over $X = \\mathbb{P}^1_k$',
+        latex: 'H^1_{ét}(\\mathbb{P}^1, \\mathbb{G}_m) = \\mathrm{Pic}(\\mathbb{P}^1) = \\mathbb{Z}',
+        svgInner: "<ellipse cx='160' cy='80' rx='100' ry='40' fill='none' stroke='var(--blue)' stroke-width='1.6'/><text x='160' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$\\mathbb{P}^1$</text><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>$\\mathcal{O}(d)$ for each $d \\in \\mathbb{Z}$</text>",
+        hypotheses: {
+          trivial: { pass: false, note: 'Non-trivial: the line bundle $\\mathcal{O}(1)$ has no global section in the trivialisation.' },
+          finite:  { pass: false, note: '$\\mathrm{Pic}(\\mathbb{P}^1) = \\mathbb{Z}$ — countably infinite.' },
+          kummer:  { pass: false, note: '$X$ is not affine, and the question is about $\\mathbb{G}_m$.' },
+          picard:  { pass: true,  note: 'Yes; this is the prototypical example of $H^1_{ét}(X, \\mathbb{G}_m) = \\mathrm{Pic}(X) = \\mathbb{Z}$.' },
+        }
+      },
+      {
+        name: '$\\mu_n$ over $\\mathrm{Spec}\\,\\mathbb{Q}$',
+        latex: 'H^1_{ét}(\\mathrm{Spec}\\,\\mathbb{Q}, \\mu_n) = \\mathbb{Q}^\\times / (\\mathbb{Q}^\\times)^n',
+        svgInner: "<rect x='40' y='40' width='240' height='80' fill='var(--panel2)' stroke='var(--violet)' stroke-width='1.6' rx='10'/><text x='160' y='65' text-anchor='middle' font-size='12' fill='var(--ink)'>$\\mathbb{Q}^\\times / (\\mathbb{Q}^\\times)^n$</text><text x='160' y='95' text-anchor='middle' font-size='11' fill='var(--mute)'>e.g. $n=2$: $\\{1, -1, 2, -2, 3, -3, 5, -5, \\ldots\\}/\\mathrm{squares}$</text>",
+        hypotheses: {
+          trivial: { pass: false, note: 'For $n \\geq 2$, $\\mathbb{Q}^\\times/(\\mathbb{Q}^\\times)^n$ is non-trivial — e.g. $2 \\not\\in (\\mathbb{Q}^\\times)^2$ gives a non-trivial $\\mu_2$-torsor (the étale double cover $\\mathrm{Spec}\\,\\mathbb{Q}[\\sqrt{2}] \\to \\mathrm{Spec}\\,\\mathbb{Q}$).' },
+          finite:  { pass: false, note: '$\\mathbb{Q}^\\times/(\\mathbb{Q}^\\times)^n$ is infinite (countable) for $n \\geq 2$.' },
+          kummer:  { pass: true,  note: 'Direct from the Kummer sequence + Hilbert 90 over a field.' },
+          picard:  { pass: false, note: 'Statement is about $\\mathbb{G}_m$, not $\\mu_n$.' },
+        }
+      },
+      {
+        name: '$\\mu_n$ over $X$ with $\\mathrm{Pic}(X)$ non-trivial',
+        latex: '0 \\to \\Gamma(X,\\mathcal{O})^\\times/(\\Gamma)^n \\to H^1(X,\\mu_n) \\to \\mathrm{Pic}(X)[n] \\to 0',
+        svgInner: "<line x1='30' y1='80' x2='80' y2='80' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tor1)'/><defs><marker id='arr-tor1' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><rect x='80' y='60' width='80' height='40' fill='var(--panel2)' stroke='var(--blue)' rx='6'/><text x='120' y='85' text-anchor='middle' font-size='10' fill='var(--ink)'>$\\Gamma^\\times/(\\Gamma^\\times)^n$</text><line x1='160' y1='80' x2='200' y2='80' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-tor1)'/><rect x='200' y='60' width='80' height='40' fill='var(--panel2)' stroke='var(--violet)' rx='6'/><text x='240' y='85' text-anchor='middle' font-size='10' fill='var(--ink)'>$\\mathrm{Pic}(X)[n]$</text><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>Kummer SES splits $H^1(X, \\mu_n)$ in two pieces</text>",
+        hypotheses: {
+          trivial: { pass: false, note: 'Both pieces (units mod $n$-th powers and $n$-torsion in Pic) are typically non-trivial.' },
+          finite:  { pass: false, note: 'Generally infinite (Galois descent + non-finite Pic).' },
+          kummer:  { pass: false, note: 'The clean equality only holds when $\\mathrm{Pic}(X) = 0$ (e.g. $X = \\mathrm{Spec}\\,k$).' },
+          picard:  { pass: false, note: 'The statement is the equality with $\\mathrm{Pic}$, but for $\\mathbb{G}_m$, not $\\mu_n$.' },
+        }
+      },
+      {
+        name: 'Finite étale $G$ over $\\mathrm{Spec}\\,k$',
+        latex: 'H^1_{ét}(\\mathrm{Spec}\\,k, G) = H^1(\\mathrm{Gal}(\\bar k/k), G(\\bar k))',
+        svgInner: "<rect x='80' y='40' width='160' height='80' fill='color-mix(in srgb, var(--green) 14%, var(--panel2))' stroke='var(--green)' stroke-width='1.6' rx='10'/><text x='160' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>Galois cohomology</text><text x='160' y='95' text-anchor='middle' font-size='11' fill='var(--mute)'>classifies $G$-Galois covers of $\\mathrm{Spec}\\,k$</text>",
+        hypotheses: {
+          trivial: { pass: false, note: 'Generically non-trivial — e.g. $G = \\mathbb{Z}/2$ over $\\mathbb{Q}$: $H^1 = \\mathbb{Q}^\\times/(\\mathbb{Q}^\\times)^2$.' },
+          finite:  { pass: false, note: 'Galois cohomology is typically infinite (continuous, not finite, except over finite fields).' },
+          kummer:  { pass: false, note: 'Specific to $\\mu_n$.' },
+          picard:  { pass: false, note: 'About $\\mathbb{G}_m$.' },
+        }
+      },
+    ],
+  });
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./etale-cohomology.html">Étale cohomology</a></li>
+    <li><a href="./class-field-theory.html">Class field theory and Galois cohomology</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="torsors-and-cohomology"></div>
 </section>
 

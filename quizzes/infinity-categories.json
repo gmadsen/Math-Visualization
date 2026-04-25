@@ -5,17 +5,71 @@
       "title": "Quasi-categories",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"Quasi-categories\"?",
+          "type": "multi-select",
+          "q": "Which of the following simplicial sets are quasi-categories?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$N(C)$ for $C$ an ordinary category (the nerve)",
+            "$\\Delta^n$ (the standard $n$-simplex) for any $n \\geq 0$",
+            "Any Kan complex (e.g. the singular complex $\\mathrm{Sing}(X)$ of a topological space)",
+            "An arbitrary simplicial set with no horn-filling property"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Nerves of ordinary categories are quasi-categories (with unique inner-horn fillers). The standard simplices $\\Delta^n$ are quasi-categories — they are nerves of the totally-ordered set $[n] = \\{0 < 1 < \\dots < n\\}$. Kan complexes are quasi-categories that additionally fill outer horns (so they are $\\infty$-groupoids). An arbitrary simplicial set has no horn-filling guarantee.",
+          "hint": "Inner-horn filling is the only requirement; nerves give it for free, $\\Delta^n$ is itself a nerve, and Kan complexes give more than required."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the precise role of inner horns $\\Lambda^n_k$ ($0 < k < n$) in the definition of a quasi-category?",
+          "choices": [
+            "Their fillers must <em>exist</em>, but uniqueness is not required.",
+            "Their fillers must exist <em>and</em> be unique — this distinguishes quasi-categories from nerves.",
+            "Outer horns ($k = 0$ or $k = n$) must fill, while inner horns are unconstrained.",
+            "Inner horns play no role; only $2$-simplices matter."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "Joyal's definition: a quasi-category is a simplicial set in which every inner-horn map $\\Lambda^n_k \\to \\mathcal{C}$ ($0 < k < n$) extends along $\\Lambda^n_k \\hookrightarrow \\Delta^n$. Mere existence (not uniqueness) of fillers is what allows non-trivial higher coherence data. Unique inner-horn filling exactly characterizes nerves of ordinary categories. Outer horns are not required to fill (that would force the result to be a Kan complex).",
+          "hint": "Existence vs. uniqueness is the distinguishing axiom."
+        },
+        {
+          "type": "mcq",
+          "q": "Two parallel $1$-simplices $f, g\\colon x \\to y$ in a quasi-category $\\mathcal{C}$ are called <em>homotopic</em> when:",
+          "choices": [
+            "$f$ and $g$ are equal as elements of $\\mathcal{C}_1$.",
+            "There is a $2$-simplex $\\sigma$ with $\\partial_2 \\sigma = f$, $\\partial_0 \\sigma = \\mathrm{id}_y$, $\\partial_1 \\sigma = g$ (or any equivalent boundary configuration).",
+            "$f$ and $g$ have the same source <em>and</em> target.",
+            "There is a path in the topological realization $|\\mathcal{C}|$ between them."
+          ],
+          "answer": 1,
+          "explain": "Homotopy of $1$-simplices in a quasi-category is witnessed by a specific kind of $2$-simplex with one degenerate edge. Inner-horn filling for $\\Lambda^3_1$ and $\\Lambda^3_2$ implies this is an equivalence relation. Equality is too strong; sharing source and target is too weak; and topological realization is one consequence but not the definition.",
+          "hint": "The data witnessing $f \\simeq g$ is a $2$-simplex of a particular shape."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A simplicial set $\\mathcal{C}$ has the property that <em>every</em> horn $\\Lambda^n_k \\to \\mathcal{C}$ (inner and outer) admits a filler. What is the strongest correct conclusion?",
+          "choices": [
+            "$\\mathcal{C}$ is the nerve of an ordinary groupoid.",
+            "$\\mathcal{C}$ is a Kan complex; equivalently, an $\\infty$-groupoid; equivalently, presents the homotopy type of some space.",
+            "$\\mathcal{C}$ is the nerve of a category in which every morphism is invertible up to equality.",
+            "$\\mathcal{C}$ is automatically discrete (a $0$-skeleton)."
+          ],
+          "answer": 1,
+          "explain": "All-horn-filling = Kan complex = $\\infty$-groupoid. By the homotopy hypothesis (Quillen, Joyal), Kan complexes model homotopy types of topological spaces. This is strictly more than \"nerve of a groupoid\" because the latter has unique fillers and discrete higher-dimensional behaviour, while a general Kan complex can have arbitrary $\\pi_n$ for all $n$.",
+          "hint": "Filling all horns is more than the nerve of a groupoid — those have unique fillers."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider the simplicial set $\\Delta^1 \\amalg_{\\partial \\Delta^1} \\Delta^1$ — two $1$-simplices glued along their boundary points (so two parallel edges from $0$ to $1$). Is this a quasi-category?",
+          "choices": [
+            "Yes — it has no nontrivial inner horns to fill.",
+            "Yes — it is the nerve of the free category on two parallel arrows.",
+            "No — there is an inner horn $\\Lambda^2_1$ formed by the two edges that has no filler.",
+            "It depends on whether we orient the edges in the same direction."
+          ],
+          "answer": 2,
+          "explain": "Take the two edges $f, g\\colon 0 \\to 1$. The horn $\\Lambda^2_1$ with $\\partial_0 = g$ and $\\partial_2 = f$ requires a $2$-simplex with $\\partial_1\\colon 0 \\to 1$ — but this would need a third $1$-simplex composing $f$ then $g$, and we only have two edges and no $2$-simplices. So no filler exists; the simplicial set fails to be a quasi-category. Contrast with the nerve of the free category on two parallel arrows, which has all the formal composites $g \\circ f$, $f \\circ g$, etc. as $1$-simplices.",
+          "hint": "Two parallel arrows form the inner horn $\\Lambda^2_1$ — what would the filler require?"
         }
       ]
     },
@@ -24,16 +78,42 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"The homotopy category $h(\\mathcal{C})$\"?",
+          "q": "What is $h(N(C))$ for $C$ an ordinary category?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "A nontrivial completion of $C$.",
+            "Isomorphic to $C$ as $1$-categories.",
+            "The Kan completion of $C$.",
+            "Empty unless $C$ is a groupoid."
           ],
-          "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "The construction $h\\colon \\mathbf{QCat} \\to \\mathbf{Cat}$ is left adjoint to the nerve $N$. The counit $h(N(C)) \\to C$ is an isomorphism: nerves of ordinary categories are exactly those quasi-categories with <em>unique</em> inner-horn fillers, so the homotopy relation $\\simeq$ on $1$-simplices is just equality, and $h$ collapses nothing.",
+          "hint": "$h$ is left adjoint to $N$; the counit at any ordinary category is an iso."
+        },
+        {
+          "type": "mcq",
+          "q": "Two parallel $1$-simplices $f, g\\colon x \\to y$ in a quasi-category $\\mathcal{C}$ have $[f] = [g]$ in $h(\\mathcal{C})$ iff:",
+          "choices": [
+            "$f = g$ as elements of $\\mathcal{C}_1$.",
+            "There exists a $2$-simplex $\\sigma$ exhibiting $f \\simeq g$ (e.g. with one face equal to $\\mathrm{id}_y$ and the other two equal to $f$ and $g$).",
+            "$\\mathrm{Map}_{\\mathcal{C}}(x, y)$ is contractible.",
+            "$x = y$."
+          ],
+          "answer": 1,
+          "explain": "Morphisms in $h(\\mathcal{C})$ are equivalence classes of $1$-simplices under the relation $\\simeq$ defined by existence of a $2$-simplex with the boundary configuration described. Equality of $1$-simplices is strictly stronger; contractibility of the mapping space would identify <em>all</em> parallel arrows; and $x = y$ is irrelevant to the equivalence.",
+          "hint": "The equivalence relation is precisely the existence of a witnessing $2$-simplex."
+        },
+        {
+          "type": "mcq",
+          "q": "Which structural property of a quasi-category $\\mathcal{C}$ is <em>completely lost</em> when passing to $h(\\mathcal{C})$?",
+          "choices": [
+            "The set of objects $\\mathcal{C}_0$.",
+            "The set of equivalence classes $\\pi_0 \\mathrm{Map}_{\\mathcal{C}}(x, y)$ for each pair $(x, y)$.",
+            "The higher homotopy groups $\\pi_k \\mathrm{Map}_{\\mathcal{C}}(x, y)$ for $k \\geq 1$.",
+            "Whether $f \\circ g$ exists for some pair of composable arrows."
+          ],
+          "answer": 2,
+          "explain": "$h(\\mathcal{C})$ retains the set of objects, the set of homotopy classes of morphisms (= $\\pi_0$ of mapping spaces), and the composition law. What it forgets is everything in the mapping spaces above $\\pi_0$ — the higher homotopy groups, which carry the genuine $\\infty$-categorical content (Toda brackets, Massey products, $A_\\infty$-coherences, etc.).",
+          "hint": "$h$ collapses each mapping space to its $\\pi_0$."
         }
       ]
     },
@@ -42,16 +122,42 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Functors and natural transformations $\\infty$-categorically\"?",
+          "q": "Let $\\mathcal{C}, \\mathcal{D}$ be quasi-categories. An $\\infty$-functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ is, by definition:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "A map of simplicial sets, i.e. functions $F_n\\colon \\mathcal{C}_n \\to \\mathcal{D}_n$ commuting with all face and degeneracy maps.",
+            "A pair $(F_0, F_1)$ on objects and morphisms, with composition preserved up to a chosen natural transformation that satisfies a coherence pentagon.",
+            "An ordinary functor on $h(\\mathcal{C}) \\to h(\\mathcal{D})$.",
+            "A continuous map between the realizations $|\\mathcal{C}| \\to |\\mathcal{D}|$."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "By definition, an $\\infty$-functor is just a map of simplicial sets — the higher-coherence data (compositors, associators, etc.) is automatically encoded by compatibility with face maps in dimensions $\\geq 2$. The pentagon-style data of choice (b) is what you'd write down for a homotopy-coherent functor between strict $2$-categories, but in the quasi-category model it is built into the simplicial-set structure.",
+          "hint": "The simplicial-set definition is genuinely just 'a map of simplicial sets.'"
+        },
+        {
+          "type": "mcq",
+          "q": "An $\\infty$-functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ induces an underlying $1$-functor $h(F)\\colon h(\\mathcal{C}) \\to h(\\mathcal{D})$. Which is true?",
+          "choices": [
+            "$F$ is determined by $h(F)$.",
+            "$h(F)$ is determined by $F_0$ and $F_1$ (no higher data needed).",
+            "$F$ being an equivalence of quasi-categories is equivalent to $h(F)$ being an equivalence of $1$-categories.",
+            "$F$ being an equivalence of quasi-categories is equivalent to $h(F)$ being an equivalence of $1$-categories <em>and</em> $F$ inducing equivalences on all mapping spaces $\\mathrm{Map}_{\\mathcal{C}}(x, y) \\to \\mathrm{Map}_{\\mathcal{D}}(F(x), F(y))$."
+          ],
+          "answer": 3,
+          "explain": "$h(F)$ is built from $F_0$ and $F_1$ together with the homotopy relation, so $F_0$ and $F_1$ are <em>not</em> sufficient on their own — you need the existence-of-witnessing-$2$-simplices structure. $F$ is far from determined by $h(F)$: all higher coherence data lives above $h(F)$. The correct equivalence criterion is the conjunction in (d): $h(F)$ is essentially surjective and bijective on $\\pi_0$ of mapping spaces, plus $F$ is fully faithful at higher levels.",
+          "hint": "$h$ forgets higher mapping-space data, so $h(F)$ being an equivalence is necessary but not sufficient."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $C$ be an ordinary category. Which is a correct description of $\\infty$-functors $F\\colon N(C) \\to \\mathcal{S}$ (with $\\mathcal{S}$ the $\\infty$-category of spaces)?",
+          "choices": [
+            "Equivalent (as a quasi-category) to ordinary functors $C \\to \\mathrm{Set}$.",
+            "Equivalent to the $\\infty$-category of homotopy-coherent diagrams $C \\to \\mathrm{Top}$.",
+            "Always trivial, since $N(C)$ has unique inner-horn fillers.",
+            "In bijection with discrete $\\pi_0$ data."
+          ],
+          "answer": 1,
+          "explain": "By a theorem of Lurie (HTT 4.2), $\\mathrm{Fun}(N(C), \\mathcal{S})$ is equivalent to the $\\infty$-categorical localization of $\\mathrm{Fun}(C, \\mathrm{Top})$ at pointwise weak equivalences. So $\\infty$-functors out of $N(C)$ are precisely homotopy-coherent diagrams of spaces — which is the canonical replacement for the strict notion in homotopy theory. (a) collapses to set-valued functors, missing the homotopy data; (c) and (d) ignore that the <em>target</em> $\\mathcal{S}$ has rich higher structure even when the source is a $1$-category.",
+          "hint": "The source has unique fillers but the target $\\mathcal{S}$ does not."
         }
       ]
     },
@@ -60,16 +166,70 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"$\\infty$-categorical (co)limits\"?",
+          "q": "What is the $\\infty$-categorical product $X \\times Y$ in the $\\infty$-category of spaces $\\mathcal{S}$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "The cartesian product of underlying sets, with the discrete topology.",
+            "The set-theoretic cartesian product $X \\times Y$ as a Kan complex (= the cartesian product of the Kan complexes).",
+            "The smash product $X \\wedge Y$.",
+            "The homotopy pushout of $X \\leftarrow * \\to Y$."
+          ],
+          "answer": 1,
+          "explain": "Products in $\\mathcal{S}$ agree on the nose with cartesian products of the underlying Kan complexes (no homotopy correction needed); $\\mathcal{S}$ is cartesian closed and the standard product computes the $\\infty$-product. Smash products are the analogue in pointed spaces, and homotopy pushouts compute the join (a different colimit).",
+          "hint": "Products of Kan complexes are computed level-wise — no fibrant replacement required."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following $\\infty$-limits in $\\mathcal{S}$ <em>differ</em> from the corresponding strict limit in $\\mathrm{Set}$?",
+          "choices": [
+            "Pullback of a span $X \\to Z \\leftarrow Y$",
+            "Equalizer of $f, g\\colon X \\rightrightarrows Y$",
+            "Product $X \\times Y$",
+            "Limit of a constant diagram (i.e. the indexing $\\infty$-category is a single object with no nontrivial morphisms)"
+          ],
+          "answer": [0, 1],
+          "explain": "Pullbacks become homotopy pullbacks: $X \\times_Z^h Y$ records triples (point, path, point), strictly larger in general than the set-theoretic fibre product. Equalizers become path spaces $\\{x : f(x) \\rightsquigarrow g(x)\\}$, also generally larger. Products and limits over discrete shapes coincide with their $1$-categorical counterparts (product of Kan complexes is again a Kan complex with no correction needed).",
+          "hint": "Limits over diagrams with morphisms gain homotopy data; limits over discrete shapes do not."
+        },
+        {
+          "type": "mcq",
+          "q": "An $\\infty$-category $\\mathcal{C}$ is <strong>cocomplete</strong> when:",
+          "choices": [
+            "Every diagram $p\\colon K \\to \\mathcal{C}$ from a small simplicial set $K$ has a colimit.",
+            "Every diagram from $\\Delta^0 \\cup \\Delta^0$ has a colimit (i.e. binary coproducts exist).",
+            "Every diagram from a small <em>$1$-category</em> has a colimit.",
+            "$\\mathcal{C} \\cong \\mathcal{S}$."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "Cocompleteness means colimits exist for diagrams indexed by arbitrary small simplicial sets — not just $1$-categorical shapes — because $\\infty$-categorical diagrams have higher coherence data that needs to be matched in the colimit. (b) is just binary coproducts, way too weak; (c) misses the higher-shape diagrams (e.g. those indexed by $\\Delta^{\\mathrm{op}}$, the geometric-realization shape). (d) is much too strong.",
+          "hint": "$\\infty$-categorical cocompleteness uses arbitrary simplicial sets as indexing shapes."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the $\\infty$-category $\\mathcal{S}$ of spaces, the pullback of a span $X \\to Z \\leftarrow Y$ where the right map $Y \\to Z$ is a Kan fibration with fibres equivalent to $F$, computes:",
+          "choices": [
+            "The strict set-theoretic pullback $\\{(x, y) : p(x) = q(y)\\}$ — and this is the homotopy pullback because $Y \\to Z$ is a fibration.",
+            "Always the empty space, regardless of $F$.",
+            "$X \\times Y$ (the product), independent of $Z$.",
+            "$Z$ itself."
+          ],
+          "answer": 0,
+          "explain": "When one of the maps in a span is a Kan fibration, the strict pullback agrees with the homotopy pullback (no fibrant replacement needed). This is exactly the criterion 'one map is a fibration' that lets you compute the homotopy pullback by the strict formula. The fibre of the resulting pullback over a point $x \\in X$ is the fibre of $Y \\to Z$ over $p(x)$, i.e. equivalent to $F$.",
+          "hint": "Fibrations make strict pullbacks compute homotopy pullbacks."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $\\mathcal{C}$ is a presentable $\\infty$-category. Which best characterizes the implications for limits and colimits?",
+          "choices": [
+            "$\\mathcal{C}$ is cocomplete and complete; both small limits and small colimits exist, and a functor $F\\colon \\mathcal{C} \\to \\mathcal{D}$ to another presentable $\\infty$-category has a right adjoint iff it preserves small colimits and is accessible.",
+            "$\\mathcal{C}$ has all colimits but no nontrivial limits.",
+            "$\\mathcal{C}$ has all finite (co)limits but small (co)limits may fail.",
+            "$\\mathcal{C}$ is automatically a stable $\\infty$-category."
+          ],
+          "answer": 0,
+          "explain": "Presentable $\\infty$-categories are both complete and cocomplete (Lurie HTT 5.5). The adjoint functor theorem in this setting (HTT 5.5.2.9) gives the criterion for left/right adjoint existence: preserve the relevant (co)limits and be accessible. Stability is a strictly stronger property (presentable + pointed + suspension is an equivalence).",
+          "hint": "Presentability subsumes both completeness and cocompleteness, and underwrites the adjoint functor theorem."
         }
       ]
     },
@@ -78,16 +238,42 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Adjunctions $\\infty$-categorically\"?",
+          "q": "Let $F\\colon C \\rightleftarrows D : G$ be an ordinary $1$-categorical adjunction with $C, D$ presentable $1$-categories. Does it lift to an $\\infty$-adjunction?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "Never — $\\infty$-adjunctions require strictly more structure than $1$-categorical ones.",
+            "Yes — passing to the nerve gives an $\\infty$-adjunction $N(F) \\dashv N(G)$ between $N(C)$ and $N(D)$.",
+            "Only if $C$ and $D$ are groupoids.",
+            "Only if $F$ and $G$ commute strictly with all colimits and limits, respectively."
           ],
-          "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "An ordinary adjunction passes through the nerve to give an $\\infty$-adjunction. The triangle identities hold strictly in the $1$-categorical case, hence (a fortiori) up to homotopy in the nerve. More substantively, Quillen adjunctions between model categories derive to $\\infty$-adjunctions between the underlying $\\infty$-categories — this is the source of derived adjunctions like $\\mathbb{L} \\otimes \\dashv \\mathbb{R}\\mathrm{Hom}$.",
+          "hint": "The nerve of a strict adjunction trivially satisfies the up-to-homotopy triangle identities."
+        },
+        {
+          "type": "mcq",
+          "q": "In an $\\infty$-adjunction $f \\dashv g$, the triangle identity $\\varepsilon f \\cdot f\\eta \\simeq \\mathrm{id}_f$ is encoded as:",
+          "choices": [
+            "An equality of $1$-simplices in the functor $\\infty$-category $\\mathrm{Fun}(\\mathcal{C}, \\mathcal{D})$.",
+            "A $2$-simplex in $\\mathrm{Fun}(\\mathcal{C}, \\mathcal{D})$ witnessing the homotopy, together with higher $n$-simplices ($n \\geq 3$) supplying coherence between different ways to compose.",
+            "A property of $\\eta$ alone, with $\\varepsilon$ unconstrained.",
+            "A strict equation between morphisms in $h(\\mathcal{D})$."
+          ],
+          "answer": 1,
+          "explain": "The defining characteristic of $\\infty$-adjunctions: triangle identities are weakened from strict equations to homotopies, encoded as $2$-simplices, and the coherence of these homotopies (e.g. that the two ways to compose a $3$-simplex agree up to a $4$-simplex) is part of the data, supplied by higher simplices. (a) collapses the homotopy weakening; (c) is asymmetric and wrong; (d) only holds in $h(\\mathcal{D})$ — but the $\\infty$-adjunction supplies more data than the homotopy category sees.",
+          "hint": "Up-to-homotopy = $2$-simplex witness, plus coherence between different witnesses = higher simplices."
+        },
+        {
+          "type": "mcq",
+          "q": "The $\\infty$-categorical adjoint functor theorem (Lurie HTT 5.5) says: if $g\\colon \\mathcal{D} \\to \\mathcal{C}$ is a functor between presentable $\\infty$-categories, then $g$ has a left adjoint iff:",
+          "choices": [
+            "$g$ preserves small <em>colimits</em>.",
+            "$g$ preserves small <em>limits</em> and is accessible.",
+            "$g$ is fully faithful.",
+            "$\\mathcal{D}$ is the $\\infty$-category of spaces $\\mathcal{S}$."
+          ],
+          "answer": 1,
+          "explain": "The adjoint functor theorem in the presentable $\\infty$-categorical setting: $g$ has a left adjoint iff it preserves small limits and is accessible. The dual is: $g$ has a right adjoint iff it preserves small colimits and is accessible. Choice (a) corresponds to the existence of a right adjoint, not a left one. Accessibility is the genuine extra hypothesis over the $1$-categorical SAFT.",
+          "hint": "Right adjoints preserve limits — so a left adjoint exists when $g$ preserves limits (plus accessibility)."
         }
       ]
     },
@@ -96,16 +282,76 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"$\\infty$-categorical Kan extensions\"?",
+          "q": "When does a left Kan extension $\\mathrm{Lan}_i F\\colon \\mathcal{D} \\to \\mathcal{E}$ along an $\\infty$-functor $i\\colon \\mathcal{C} \\to \\mathcal{D}$ exist (as a pointwise object)?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "Always, for arbitrary $\\mathcal{C}, \\mathcal{D}, \\mathcal{E}$.",
+            "When $\\mathcal{E}$ admits sufficiently many small colimits — specifically, colimits of shape $\\mathcal{C}/_d$ for every $d \\in \\mathcal{D}$.",
+            "Only when $\\mathcal{C}$ is a $1$-category.",
+            "Only when $i$ is fully faithful."
+          ],
+          "answer": 1,
+          "explain": "The pointwise formula $(\\mathrm{Lan}_i F)(d) = \\mathrm{colim}_{\\mathcal{C}/_d} F$ requires the relevant colimit to exist in $\\mathcal{E}$. Cocompleteness of $\\mathcal{E}$ is the standard sufficient hypothesis (Lurie HTT 4.3.2.15). Right Kan extensions, dually, need limits of the corresponding shape.",
+          "hint": "The colimit formula is what does the work — it needs a target with enough colimits."
+        },
+        {
+          "type": "matching",
+          "q": "Match the Kan-extension-style construction with the indexing $\\infty$-category whose colimit/limit it computes.",
+          "left": [
+            "$(\\mathrm{Lan}_i F)(d)$",
+            "$(\\mathrm{Ran}_i F)(d)$",
+            "Free cocompletion of $\\mathcal{C}$",
+            "Ind-completion $\\mathrm{Ind}(\\mathcal{C})$"
+          ],
+          "right": [
+            "Limit indexed by the comma $\\infty$-category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{d/}$",
+            "Closure of $y(\\mathcal{C})$ under filtered colimits in $\\mathcal{P}(\\mathcal{C})$",
+            "Colimit indexed by the comma $\\infty$-category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{/d}$",
+            "$\\mathcal{P}(\\mathcal{C}) = \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$"
+          ],
+          "answer": [2, 0, 3, 1],
+          "explain": "$(\\mathrm{Lan}_i F)(d) = \\mathrm{colim}_{\\mathcal{C}/_d} F$ uses the comma category $\\mathcal{C} \\times_{\\mathcal{D}} \\mathcal{D}_{/d}$ as the indexing shape. $(\\mathrm{Ran}_i F)(d)$ is dual, using $\\mathcal{D}_{d/}$ for a limit. The free cocompletion of $\\mathcal{C}$ is $\\mathcal{P}(\\mathcal{C}) = \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$, the $\\infty$-presheaf category. $\\mathrm{Ind}(\\mathcal{C})$ is the closure of the Yoneda image under filtered colimits.",
+          "hint": "Lan uses /d (slice over), Ran uses d/ (slice under). $\\mathcal{P}(\\mathcal{C})$ vs $\\mathrm{Ind}(\\mathcal{C})$ differ by which colimits you close under."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the $\\infty$-categorical pointwise formula for $\\mathrm{Lan}_i F$ \"automatically derived\"?",
+          "choices": [
+            "Because the colimit is computed in the homotopy category $h(\\mathcal{E})$.",
+            "Because $\\infty$-categorical colimits incorporate all the coherence data of the indexing shape, so they compute homotopy colimits — exactly the data classical \"deriving\" recovers by hand.",
+            "Because the formula uses limits, not colimits.",
+            "Because it is taken in the underlying $1$-category of $\\mathcal{E}$."
+          ],
+          "answer": 1,
+          "explain": "$\\infty$-categorical colimits over $\\infty$-categorical indexing shapes are <em>homotopy colimits</em> by construction: the $1$-simplices of the indexing $\\infty$-category contribute coherence data that the colimit is required to identify, exactly as in the bar-construction model of the homotopy colimit. So $\\mathrm{Lan}_i F$ is automatically the derived Kan extension. This is why ordinary derived functors $\\mathbb{L}F$ are $\\infty$-categorical Kan extensions of the lifted $F$ along a localization functor — no separate \"deriving\" step.",
+          "hint": "The $\\infty$-categorical colimit already incorporates the homotopy data; classical 'deriving' adds it back in by hand."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $i\\colon \\mathcal{C} \\to \\mathcal{D}$ be a fully faithful $\\infty$-functor and $F\\colon \\mathcal{C} \\to \\mathcal{E}$. The unit $\\eta\\colon F \\to (\\mathrm{Lan}_i F) \\circ i$:",
+          "choices": [
+            "Is always an equivalence — full faithfulness of $i$ pulls the colimit defining $(\\mathrm{Lan}_i F)(i(c))$ back to $F(c)$.",
+            "Is generally not an equivalence — $\\mathcal{C}/_{i(c)}$ has more than just the vertex $(c, \\mathrm{id})$ when $i$ is not also a sieve / final inclusion.",
+            "Is an equivalence iff $\\mathcal{E}$ is presentable.",
+            "Vanishes identically."
           ],
           "answer": 0,
-          "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "When $i$ is fully faithful, the comma $\\infty$-category $\\mathcal{C}/_{i(c)}$ has the vertex $(c, \\mathrm{id}_{i(c)})$ as a <em>final object</em>, so the colimit $\\mathrm{colim}_{\\mathcal{C}/_{i(c)}} F$ collapses to $F(c)$ (final-object cofinality). So $\\eta$ is an equivalence; this is the precise sense in which 'fully faithful $i$ + Kan extension' generalizes 'extension by zero outside the image' on the nose. (Note: this fact is HTT 4.3.2.15 — fully faithful $i$ ⇒ unit is an equivalence.)",
+          "hint": "Fully faithful $i$ makes $(c, \\mathrm{id})$ a final object of the comma — colimits collapse to final values."
+        },
+        {
+          "type": "mcq",
+          "q": "The free cocompletion $\\mathcal{P}(\\mathcal{C}) := \\mathrm{Fun}(\\mathcal{C}^{\\mathrm{op}}, \\mathcal{S})$ has the universal property:",
+          "choices": [
+            "For any presentable $\\infty$-category $\\mathcal{E}$, $\\mathrm{Fun}^L(\\mathcal{P}(\\mathcal{C}), \\mathcal{E}) \\simeq \\mathrm{Fun}(\\mathcal{C}, \\mathcal{E})$, where $\\mathrm{Fun}^L$ denotes colimit-preserving $\\infty$-functors.",
+            "$\\mathcal{P}(\\mathcal{C})$ is initial among presentable $\\infty$-categories receiving a functor from $\\mathcal{C}$.",
+            "$\\mathrm{Fun}(\\mathcal{P}(\\mathcal{C}), \\mathcal{E}) \\simeq \\mathrm{Fun}(\\mathcal{C}, \\mathcal{E})$ for any $\\mathcal{E}$ (regardless of cocompleteness).",
+            "$\\mathcal{P}(\\mathcal{C})$ is a localization of $\\mathcal{C}$."
+          ],
+          "answer": 0,
+          "explain": "The universal property of the $\\infty$-presheaf category (Lurie HTT 5.1.5.6): precomposition with the Yoneda embedding induces an equivalence between the $\\infty$-category of <em>colimit-preserving</em> functors $\\mathcal{P}(\\mathcal{C}) \\to \\mathcal{E}$ (for $\\mathcal{E}$ cocomplete) and the $\\infty$-category of all functors $\\mathcal{C} \\to \\mathcal{E}$. Equivalently, $\\mathrm{Lan}_y$ is an equivalence on these subcategories. (b) is wrong — $\\mathcal{P}(\\mathcal{C})$ is not initial; it's universal for the \"colimit-preserving\" property. (c) drops the colimit-preserving hypothesis, which is the key.",
+          "hint": "The universal property is about <em>colimit-preserving</em> functors out of $\\mathcal{P}(\\mathcal{C})$, not arbitrary functors."
         }
       ]
     }

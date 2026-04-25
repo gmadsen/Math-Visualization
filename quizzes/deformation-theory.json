@@ -5,17 +5,40 @@
       "title": "First-order deformations",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"First-order deformations\"?",
+          "type": "multi-select",
+          "q": "Which of the following are first-order deformations of $X_0 = \\mathrm{Spec}\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
+            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
+            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
+            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "A first-order deformation must (i) be flat over $D$, (ii) restrict to $X_0$ modulo $\\epsilon$. Choices 0 and 1 both restrict to $xy = 0$ and are flat (the second is the smoothing direction). Choice 2 collapses to the trivial deformation since $\\epsilon^2 = 0$. Choice 3 restricts to $x^2 = 0$, not $xy = 0$, so its special fibre is wrong."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the trivial first-order deformation of $X_0 = \\mathrm{Spec}\\,k$ (a single $k$-point)?",
+          "choices": [
+            "$\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) = \\mathrm{Spec}\\,D$ itself",
+            "$\\mathrm{Spec}\\,k$",
+            "$\\mathrm{Spec}\\,k \\sqcup \\mathrm{Spec}\\,k$ (two disjoint points)",
+            "$\\mathbb{A}^1_k$ (the affine line over $k$)"
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
+        },
+        {
+          "type": "mcq",
+          "q": "Two first-order deformations $X, X'$ of $X_0$ are equivalent iff:",
+          "choices": [
+            "There is a $D$-isomorphism $X \\to X'$ restricting to the identity on $X_0$",
+            "$X$ and $X'$ are abstractly isomorphic as schemes",
+            "$X$ and $X'$ have the same coordinate ring",
+            "There is any $k$-isomorphism $X \\to X'$"
+          ],
+          "answer": 0,
+          "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\mathrm{Spec}$ of a 4-dimensional $k$-vector space)."
         }
       ]
     },
@@ -23,17 +46,55 @@
       "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"Tangent space of moduli is $H^1(X_0, T_{X_0})$\"?",
-          "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
-          ],
+          "type": "numeric",
+          "q": "Compute $\\dim H^1(\\mathbb{P}^n, T_{\\mathbb{P}^n})$ for any $n \\ge 1$.",
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "tol": 1e-9,
+          "explain": "By the Euler sequence $0 \\to \\mathcal{O} \\to \\mathcal{O}(1)^{n+1} \\to T_{\\mathbb{P}^n} \\to 0$ and the standard cohomology of $\\mathbb{P}^n$, $H^i(\\mathbb{P}^n, T_{\\mathbb{P}^n}) = 0$ for $i \\ge 1$. Hence $\\mathbb{P}^n$ is rigid: it has no first-order deformations.",
+          "hint": "Use the Euler sequence and the cohomology of $\\mathcal{O}(d)$ on $\\mathbb{P}^n$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 5$.",
+          "answer": 12,
+          "tol": 1e-9,
+          "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 12$ for $g = 5$. Riemann–Roch on $T_C$ (degree $2 - 2g = -8$) plus $h^0(T_C) = 0$ for $g \\ge 2$ gives the formula.",
+          "hint": "$\\dim \\mathcal{M}_g = 3g - 3$ for $g \\ge 2$."
+        },
+        {
+          "type": "mcq",
+          "q": "For an elliptic curve $E$, what is $\\dim H^1(E, T_E)$?",
+          "choices": [
+            "$0$ — elliptic curves are rigid",
+            "$1$ — recovering $\\dim \\mathcal{M}_{1,1} = 1$",
+            "$3$ — same as $g = 2$",
+            "$g = 1$ — but the formula $3g - 3 = 0$, contradicting itself"
+          ],
+          "answer": 1,
+          "explain": "$T_E$ is trivial on an elliptic curve (the tangent bundle of an abelian variety is trivial), so $H^1(E, T_E) = H^1(E, \\mathcal{O}_E) \\cong k$. The formula $3g - 3$ specifically applies for $g \\ge 2$; the genus-$1$ case is $1$, giving the moduli space of elliptic curves a 1-parameter $j$-line."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute $\\dim H^0(C, \\Omega^{\\otimes 2}_C)$ — the space of <strong>quadratic differentials</strong> on a smooth projective curve $C$ of genus $g = 6$. (Equal to $\\dim H^1(C, T_C)$ by Serre duality.)",
+          "answer": 15,
+          "tol": 1e-9,
+          "explain": "By Serre duality, $H^1(C, T_C) \\cong H^0(C, \\Omega^{\\otimes 2}_C)^\\vee$. Apply Riemann–Roch to $\\Omega^{\\otimes 2}_C$ (degree $4g - 4 = 20$): for $g \\ge 2$ the degree exceeds $2g - 2 = 10$, so $h^0 = \\deg - g + 1 = 20 - 6 + 1 = 15 = 3g - 3$.",
+          "hint": "Apply Riemann–Roch to $\\Omega^{\\otimes 2}_C$, which has degree $4g - 4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $\\mathbb{P}^n$ <em>infinitesimally rigid</em> — i.e., has $H^1(T) = 0$ — but $\\mathcal{M}_g$ for $g \\ge 2$ is positive-dimensional?",
+          "choices": [
+            "$\\mathbb{P}^n$ is smooth and curves are not, so cohomology behaves differently",
+            "$T_{\\mathbb{P}^n}$ is positive enough that $H^i$ vanishes for $i \\ge 1$ (Euler sequence + ample cohomology), while $T_C$ on a curve of $g \\ge 2$ has negative degree, killing $H^0$ but allowing $H^1 = 3g - 3 > 0$ via Riemann–Roch",
+            "$\\mathcal{M}_g$ is not actually a moduli space, just an invariant",
+            "Curves of genus $\\ge 2$ are special because they have group structure"
+          ],
+          "answer": 1,
+          "explain": "The dichotomy is purely cohomological: positivity of $T_{\\mathbb{P}^n}$ kills all higher cohomology, while $T_C$ has negative degree on a curve of $g \\ge 2$, forcing $H^0 = 0$ but leaving $H^1 = 3g - 3$ from Riemann–Roch.",
+          "hint": "Compare $\\deg T_{\\mathbb{P}^n}$ and $\\deg T_C$ for curves $g \\ge 2$."
         }
       ]
     },
@@ -42,16 +103,67 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"Obstructions live in $H^2(X_0, T_{X_0})$\"?",
+          "q": "When is the deformation functor $\\mathrm{Def}_{X_0}$ <strong>unobstructed</strong> at $X_0$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "When $H^0(X_0, T_{X_0}) = 0$",
+            "When $H^1(X_0, T_{X_0}) = 0$",
+            "When $H^2(X_0, T_{X_0}) = 0$",
+            "When $H^i(X_0, T_{X_0}) = 0$ for all $i$"
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 2,
+          "explain": "Unobstructedness is precisely the statement that every obstruction class — which lives in $H^2(X_0, T_{X_0})$ — is forced to vanish. So $H^2 = 0$ is sufficient (and the cleanest sufficient condition). Vanishing of $H^1$ would mean no deformations at all (rigid), and $H^0$ controls infinitesimal automorphisms, not obstructions."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are <strong>infinitesimally rigid</strong> ($H^1(X_0, T_{X_0}) = 0$)?",
+          "choices": [
+            "$\\mathbb{P}^n$ for any $n \\ge 1$",
+            "An elliptic curve $E$ over $k$",
+            "A smooth quadric hypersurface $\\mathbb{P}^1 \\times \\mathbb{P}^1 \\subset \\mathbb{P}^3$",
+            "A smooth projective curve of genus $g = 4$"
+          ],
+          "answer": [0, 2],
+          "explain": "$\\mathbb{P}^n$ has $H^1(T) = 0$ via the Euler sequence. The smooth quadric $\\mathbb{P}^1 \\times \\mathbb{P}^1$ also has $H^1(T) = 0$ (both factors are rigid and the product preserves this). Elliptic curves have $\\dim H^1(T_E) = 1$ (the $j$-line). A genus-$4$ curve has $\\dim H^1(T_C) = 3(4) - 3 = 9$, very much non-rigid."
+        },
+        {
+          "type": "mcq",
+          "q": "What does it mean for a first-order lift $X_1$ to be <em>obstructed</em>?",
+          "choices": [
+            "$X_1$ does not exist",
+            "The obstruction class $\\mathrm{ob}_1 \\in H^2(X_0, T_{X_0})$ is non-zero, so no second-order lift $X_2$ over $k[t]/(t^3)$ extending $X_1$ exists",
+            "$X_1$ exists but is not flat",
+            "$X_1$ has more than one second-order extension"
+          ],
+          "answer": 1,
+          "explain": "Obstruction is exactly the (provably zero or non-zero) class $\\mathrm{ob}_1(X_1) \\in H^2(X_0, T_{X_0})$ which controls whether a 2nd-order lift extending $X_1$ exists. Non-zero obstruction = no extension; this is what 'obstructed deformation' means."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A Calabi–Yau threefold $X$ has $H^2(X, T_X)$ generally <em>non-zero</em>. Why are its deformations nonetheless unobstructed?",
+          "choices": [
+            "Calabi–Yau threefolds are rigid, so the obstruction question is vacuous",
+            "Bogomolov–Tian–Todorov: a holomorphic volume form forces the obstruction map $\\mathrm{ob}_n \\colon H^1(T_X) \\to H^2(T_X)$ to vanish at every order, despite $H^2 \\ne 0$",
+            "$H^2(T_X) = 0$ for Calabi–Yau threefolds — the question is wrong",
+            "Their deformation theory is purely classical and uses only $\\Omega^1$"
+          ],
+          "answer": 1,
+          "explain": "BTT (Bogomolov–Tian–Todorov), via Ran's $T^1$-lifting, shows that a non-vanishing holomorphic volume form (the trivial canonical bundle $K_X = 0$ defining Calabi–Yau) makes every obstruction class trivial even though the codomain $H^2(T_X)$ is non-zero. So Calabi–Yau threefolds have unobstructed but very interesting moduli.",
+          "hint": "Bogomolov–Tian–Todorov."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $H^2(C, T_C) = 0$ automatic for any smooth projective curve $C$?",
+          "choices": [
+            "$T_C$ is ample",
+            "$\\dim C = 1$, so any coherent sheaf $\\mathcal{F}$ on $C$ has $H^i(C, \\mathcal{F}) = 0$ for all $i \\ge 2$ — Grothendieck's vanishing theorem on Noetherian dimension",
+            "Curves don't have a tangent bundle",
+            "It follows from Riemann–Roch on $T_C$"
+          ],
+          "answer": 1,
+          "explain": "Grothendieck's vanishing theorem: on a Noetherian topological space $X$ of dimension $n$, $H^i(X, \\mathcal{F}) = 0$ for $i > n$ and any abelian sheaf $\\mathcal{F}$. For a curve $n = 1$, hence $H^{\\ge 2} = 0$ automatically. This is why <em>every</em> smooth curve has unobstructed deformations.",
+          "hint": "Dimension reasoning, not Riemann–Roch."
         }
       ]
     },
@@ -59,17 +171,40 @@
       "title": "Deformation functors and Schlessinger's criteria",
       "questions": [
         {
-          "type": "mcq",
-          "q": "What is the principal claim of \"Deformation functors and Schlessinger's criteria\"?",
+          "type": "multi-select",
+          "q": "Which of the following are among <strong>Schlessinger's conditions (H1)–(H4)</strong> for a functor $F\\colon \\mathrm{Art}_k \\to \\mathrm{Set}$ with $F(k) = \\{*\\}$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "(H1) $F(A' \\times_A A'') \\to F(A') \\times_{F(A)} F(A'')$ is surjective for $A' \\twoheadrightarrow A$",
+            "(H2) When $A = k$ and $A' \\twoheadrightarrow k$ is a small extension, the (H1) map is bijective",
+            "(H3) $F$ takes values in finite sets for every $A \\in \\mathrm{Art}_k$",
+            "$\\dim_k F(D) < \\infty$ where $D = k[\\epsilon]/(\\epsilon^2)$ — the tangent space is finite-dimensional"
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": [0, 1, 3],
+          "explain": "(H1) is the surjectivity condition; (H2) the bijectivity in the special-extension case; the finite-dimensional-tangent condition in choice 3 is (H3). Choice 2 is wrong: $F$ does not need to take values in finite sets — only the tangent-space condition is required."
+        },
+        {
+          "type": "mcq",
+          "q": "When does $\\mathrm{Def}_{X_0}$ have a <strong>hull</strong>?",
+          "choices": [
+            "Always",
+            "Iff Schlessinger's conditions (H1), (H2), and (H3) all hold",
+            "Iff $X_0$ is smooth",
+            "Iff $H^2(X_0, T_{X_0}) = 0$"
+          ],
+          "answer": 1,
+          "explain": "Schlessinger's theorem: $\\mathrm{Def}_{X_0}$ has a hull iff (H1)–(H3) hold; it is pro-representable iff (H1)–(H4) all hold. (H4) is the bijectivity strengthening of (H1)."
+        },
+        {
+          "type": "mcq",
+          "q": "What does $\\mathrm{Def}_{X_0}(k[\\epsilon]/(\\epsilon^2))$ compute?",
+          "choices": [
+            "The automorphism group of $X_0$",
+            "The set of equivalence classes of first-order deformations of $X_0$, equivalently the tangent space of the deformation functor at $X_0$",
+            "The Picard group of $X_0$",
+            "The étale fundamental group $\\pi_1(X_0)$"
+          ],
+          "answer": 1,
+          "explain": "By definition, $\\mathrm{Def}_{X_0}(D)$ is the set of equivalence classes of flat $D$-deformations. This <em>is</em> the tangent space to the (pro-)moduli problem at $X_0$, and equals $H^1(X_0, T_{X_0})$ when $X_0$ is smooth."
         }
       ]
     },
@@ -78,16 +213,67 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What is the principal claim of \"The cotangent complex $L_{X/Y}$\"?",
+          "q": "For a <strong>smooth</strong> morphism $f\\colon X \\to Y$, the cotangent complex $L_{X/Y}$ is:",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "Concentrated in degree $0$ and equal to $\\Omega^1_{X/Y}[0]$",
+            "Concentrated in degree $-1$",
+            "An infinite complex with non-trivial cohomology in every non-positive degree",
+            "Always zero"
           ],
           "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "explain": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so $L_{X/Y} = \\Omega^1_{X/Y}[0]$ — no higher derived corrections needed."
+        },
+        {
+          "type": "mcq",
+          "q": "What does $\\mathrm{Ext}^1_{\\mathcal{O}_X}(L_{X/Y}, \\mathcal{O}_X)$ classify?",
+          "choices": [
+            "Automorphisms of $X$ over $Y$",
+            "First-order deformations of $X \\to Y$ (i.e. flat lifts to $X[\\epsilon]/(\\epsilon^2)$ over $Y$)",
+            "Obstructions to lifting $X$",
+            "Global sections of $\\Omega^1_{X/Y}$"
+          ],
+          "answer": 1,
+          "explain": "The fundamental Illusie identification: $\\mathrm{Ext}^1(L_{X/Y}, \\mathcal{O}_X)$ is the tangent space of $\\mathrm{Def}_{X/Y}$, and $\\mathrm{Ext}^2(L_{X/Y}, \\mathcal{O}_X)$ holds the obstructions. For $X/Y$ smooth this recovers $H^1(T_{X/Y})$ and $H^2(T_{X/Y})$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $X \\hookrightarrow Y$ a regular embedding (l.c.i.) of codimension $r$, the cotangent complex $L_{X/Y}$ has cohomology in which degrees?",
+          "choices": [
+            "Only degree $0$, equal to $\\Omega^1_{X/Y}$",
+            "Degrees $0$ and $-1$: $\\mathcal{H}^0 = \\Omega^1_{X/Y}$, $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2$ (the conormal sheaf)",
+            "Only degree $-r$",
+            "Degrees $0, -1, \\ldots, -r$"
+          ],
+          "answer": 1,
+          "explain": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$ (the conormal sheaf). For higher singularities one gets cohomology in deeper negative degrees."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "What is the <strong>transitivity triangle</strong> for $X \\to Y \\to Z$?",
+          "choices": [
+            "$L_{X/Y} \\to L_{X/Z} \\to L_{Y/Z} \\to L_{X/Y}[1]$",
+            "$f^* L_{Y/Z} \\to L_{X/Z} \\to L_{X/Y} \\to f^* L_{Y/Z}[1]$ in $D(\\mathcal{O}_X)$, where $f\\colon X \\to Y$",
+            "$L_{X/Z} = L_{X/Y} \\oplus L_{Y/Z}$",
+            "$L_{X/Y} \\otimes L_{Y/Z} = L_{X/Z}$"
+          ],
+          "answer": 1,
+          "explain": "The transitivity distinguished triangle $f^* L_{Y/Z} \\to L_{X/Z} \\to L_{X/Y} \\to f^* L_{Y/Z}[1]$ in $D(\\mathcal{O}_X)$ is the derived analogue of the conormal exact sequence $f^* \\Omega^1_{Y/Z} \\to \\Omega^1_{X/Z} \\to \\Omega^1_{X/Y} \\to 0$ — and replaces it for non-smooth maps.",
+          "hint": "Pull back the codomain along $f$."
+        },
+        {
+          "type": "mcq",
+          "q": "On a fat point $X_0 = \\mathrm{Spec}\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
+          "choices": [
+            "$0$ — fat points are rigid",
+            "$1$ — one direction of smoothing $x^2 = t$",
+            "$2$",
+            "$\\infty$"
+          ],
+          "answer": 1,
+          "explain": "$X_0 \\hookrightarrow \\mathbb{A}^1_k$ is a regular embedding (codimension $1$, ideal $(x^2)$), so $L_{X_0/k}$ has $\\mathcal{H}^0 = \\Omega^1 = k\\,dx/(2x\\,dx) \\cong k$ and $\\mathcal{H}^{-1} = (x^2)/(x^4) \\cong k$. A short computation gives $\\mathrm{Ext}^1(L_{X_0/k}, \\mathcal{O}_{X_0}) \\cong k$ — the single deformation direction $x^2 = t$ that smooths the fat point.",
+          "hint": "Use the two-term l.c.i. cotangent complex on the fat point."
         }
       ]
     },
@@ -95,17 +281,30 @@
       "title": "Worked example: deformations of a smooth curve",
       "questions": [
         {
+          "type": "numeric",
+          "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 2$.",
+          "answer": 3,
+          "tol": 1e-9,
+          "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 3$ for $g = 2$. So $\\mathcal{M}_2$ is a smooth $3$-dimensional variety."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for $g = 3$.",
+          "answer": 6,
+          "tol": 1e-9,
+          "explain": "$3g - 3 = 6$ for $g = 3$. $\\mathcal{M}_3$ is smooth of dimension $6$; its open dense locus is parametrised by smooth plane quartics (the canonical embedding of a non-hyperelliptic genus-$3$ curve)."
+        },
+        {
           "type": "mcq",
-          "q": "What is the principal claim of \"Worked example: deformations of a smooth curve\"?",
+          "q": "Why are smooth projective curves <strong>unobstructed</strong> — i.e. $\\mathcal{M}_g$ is smooth for all $g$?",
           "choices": [
-            "See the section above for the precise statement.",
-            "A trivial assertion with no content.",
-            "A claim equivalent to the law of excluded middle.",
-            "A claim that holds only in classical set theory."
+            "$T_C$ is always trivial",
+            "$H^2(C, T_C) = 0$ because $\\dim C = 1$ — Grothendieck vanishing forces $H^{\\ge 2}$ of any coherent sheaf on a $1$-dimensional space to vanish",
+            "Curves have a group structure",
+            "Curves embed in projective space"
           ],
-          "answer": 0,
-          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
-          "hint": "Read the concept blurb at the top of the section."
+          "answer": 1,
+          "explain": "Grothendieck's vanishing theorem: on a Noetherian space of dimension $n$, $H^i(\\mathcal{F}) = 0$ for $i > n$. Hence $H^2(C, T_C) = 0$ on any curve, and the obstruction-class space is $0$. This is the structural reason $\\mathcal{M}_g$ is smooth — not a coincidence of Riemann–Roch."
         }
       ]
     }
