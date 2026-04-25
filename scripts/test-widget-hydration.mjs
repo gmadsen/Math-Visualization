@@ -185,3 +185,171 @@ for (const slug of slugs) {
     }
   });
 }
+
+// ---------- per-widget parameter sweeps ----------
+//
+// The hydration tests above prove each widget boots once for its declared
+// fixtures. The sweeps below exercise widget-specific runtime invariants
+// that only surface under user interaction (slider drags, kind switches).
+// Each sweep calls `MV<Widget>.init` repeatedly with parameter combinations
+// that previously surfaced bugs.
+
+function bootWidget(slugDir, libSrcCache) {
+  const errors = [];
+  const vc = new VirtualConsole();
+  vc.on('jsdomError', (e) =>
+    errors.push(`jsdomError: ${e && (e.stack || e.message || e)}`),
+  );
+  vc.on('error', (e) => errors.push(`error: ${e && (e.message || e)}`));
+  const html = `<!doctype html><html><body><div id="w"></div></body></html>`;
+  const dom = new JSDOM(html, {
+    runScripts: 'dangerously',
+    pretendToBeVisual: true,
+    virtualConsole: vc,
+    url: 'file:///widget-functional-test/',
+  });
+  const w = dom.window;
+  w.katex = { render: () => {}, renderToString: () => '' };
+  w.renderMathInElement = () => {};
+  const s = w.document.createElement('script');
+  s.textContent = libSrcCache;
+  w.document.head.appendChild(s);
+  return { dom, errors, w };
+}
+
+describe('modular-arithmetic-clock: multiplication mode parameter sweep', () => {
+  // Codex P1 caught 2026-04-25: when gcd(a, n) != 1, the orbit
+  // k → k·a → … is rho-shaped (a tail flowing into a cycle). The original
+  // multCycles() only stored cycle members, so tail nodes had
+  // cycleOfIdx[k] === undefined, and the render path crashed with
+  //   TypeError: Cannot read properties of undefined (reading 'length')
+  // on every non-unit slider change. Fixed by back-filling tail nodes to
+  // their convergent cycle index. This sweep proves no parameter
+  // combination crashes in either kind.
+  const libPath = libPathFor('modular-arithmetic-clock');
+  if (!libPath) return;
+  const libSrc = readFileSync(libPath, 'utf8');
+
+  test('every (n, a) in n ∈ {8, 12, 15, 16} runs without error', () => {
+    const { dom, errors, w } = bootWidget('modular-arithmetic-clock', libSrc);
+    const totalCases = [];
+    for (const n of [8, 12, 15, 16]) {
+      for (let a = 0; a < n; a++) {
+        totalCases.push({ n, a });
+      }
+    }
+    let crashes = 0;
+    const samples = [];
+    for (const c of totalCases) {
+      errors.length = 0;
+      w.MVModularArithmeticClock.init('#w', {
+        kind: 'multiplication',
+        title: 't',
+        params: { n: c.n, a: c.a },
+      });
+      if (errors.length) {
+        crashes++;
+        if (samples.length < 3) {
+          samples.push({ ...c, err: errors[0].slice(0, 200) });
+        }
+      }
+    }
+    dom.window.close();
+    assert.equal(
+      crashes,
+      0,
+      `${crashes}/${totalCases.length} (n,a) cases crashed; samples:\n` +
+        JSON.stringify(samples, null, 2),
+    );
+  });
+
+  test('addition mode: every (n, a, b) in n=12 runs without error', () => {
+    const { dom, errors, w } = bootWidget('modular-arithmetic-clock', libSrc);
+    const cases = [];
+    for (let a = 0; a < 12; a++) {
+      for (let b = 0; b < 12; b++) {
+        cases.push({ a, b });
+      }
+    }
+    let crashes = 0;
+    for (const c of cases) {
+      errors.length = 0;
+      w.MVModularArithmeticClock.init('#w', {
+        kind: 'addition',
+        title: 't',
+        params: { n: 12, a: c.a, b: c.b },
+      });
+      if (errors.length) crashes++;
+    }
+    dom.window.close();
+    assert.equal(crashes, 0, `${crashes}/${cases.length} addition cases crashed`);
+  });
+});
+
+describe('recurrence-plotter: cobweb baseline anchored to y = 0', () => {
+  // Codex P2 caught 2026-04-25: the cobweb path is documented to start at
+  // (x0, 0) — the x-axis — but seeded its first point at cyScale(yMin),
+  // i.e. the visible plot bottom. For ranges like quadratic's [-2, 2],
+  // that drew the first vertical segment from y=-2 instead of y=0,
+  // visually misrepresenting the iteration. Fixed by clamping 0 into
+  // [yMin, yMax]. This test inspects the first cobweb point.
+  const libPath = libPathFor('recurrence-plotter');
+  if (!libPath) return;
+  const libSrc = readFileSync(libPath, 'utf8');
+
+  test('quadratic kind starts cobweb at y = 0 (range [-2, 2])', () => {
+    const { dom, errors, w } = bootWidget('recurrence-plotter', libSrc);
+    w.MVRecurrencePlotter.init('#w', {
+      kind: 'quadratic',
+      title: 't',
+      params: { a: -1.4, c: 0.3, x0: 0, n: 30 },
+    });
+    assert.deepEqual(
+      errors,
+      [],
+      `recurrence-plotter init surfaced errors:\n${errors.join('\n')}`,
+    );
+    // First cobweb polyline is the yellow one (cobweb subplot only exists
+    // for one-term kinds — quadratic qualifies).
+    const polylines = [
+      ...w.document.querySelectorAll('polyline'),
+    ].filter((p) => /yellow/i.test(p.getAttribute('stroke') || ''));
+    assert.ok(
+      polylines.length >= 1,
+      `expected at least one yellow cobweb polyline; got ${polylines.length}`,
+    );
+    const firstPoint = polylines[0].getAttribute('points').split(' ')[0];
+    const [, ys] = firstPoint.split(',');
+    const y = Number(ys);
+    // viewBox is "0 0 480 220"; margin.t = 16, plotH = 220 - 16 - 28 = 176.
+    // yScale(0) = 16 + 176 * (1 - (0 - (-2)) / 4) = 16 + 176 * 0.5 = 104.
+    // yScale(yMin=-2) would be 16 + 176 * (1 - 0) = 192 (the wrong value).
+    assert.ok(
+      Math.abs(y - 104) < 1,
+      `cobweb first y should be ≈ 104 (y=0 axis); got ${y} (192 = old buggy bottom of plot)`,
+    );
+    dom.window.close();
+  });
+
+  test('logistic kind: range [0, 1] — cobweb still starts at y = 0', () => {
+    const { dom, errors, w } = bootWidget('recurrence-plotter', libSrc);
+    w.MVRecurrencePlotter.init('#w', {
+      kind: 'logistic',
+      title: 't',
+      params: { r: 3.7, x0: 0.5, n: 40 },
+    });
+    assert.deepEqual(errors, []);
+    // For logistic, yMin=0, so clamp(0, [0,1]) = 0. yScale(0) = 16 + 176 = 192.
+    const polylines = [
+      ...w.document.querySelectorAll('polyline'),
+    ].filter((p) => /yellow/i.test(p.getAttribute('stroke') || ''));
+    const firstPoint = polylines[0].getAttribute('points').split(' ')[0];
+    const [, ys] = firstPoint.split(',');
+    const y = Number(ys);
+    assert.ok(
+      Math.abs(y - 192) < 1,
+      `logistic cobweb first y should be ≈ 192 (y=0 = bottom of [0,1] range); got ${y}`,
+    );
+    dom.window.close();
+  });
+});

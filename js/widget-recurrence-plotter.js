@@ -297,10 +297,16 @@
           points: fpts.join(' '), fill: 'none', stroke: 'var(--green)', 'stroke-width': '1.2',
         }));
         // Cobweb path: from (x0, 0) up to (x0, f(x0)), across to (f(x0), f(x0)),
-        // up/down to (f(x0), f(f(x0))), etc.
+        // up/down to (f(x0), f(f(x0))), etc. Anchor the first vertical
+        // segment to the x-axis (y=0) when 0 ∈ [yMin, yMax]; otherwise clamp
+        // to the closest visible edge. Previously we always seeded at
+        // cyScale(yMin), which for ranges like [-2, 2] (quadratic mode)
+        // started the cobweb at the plot's bottom edge instead of at y=0,
+        // making the first segment visually wrong.
+        const baselineY = Math.max(yMin, Math.min(yMax, 0));
         const cw_pts = [];
         let x = params.x0;
-        cw_pts.push(`${cxScale(x)},${cyScale(yMin)}`);
+        cw_pts.push(`${cxScale(x)},${cyScale(baselineY)}`);
         for (let i = 0; i < Math.min(40, params.n); i++) {
           const fx = f(x);
           if (!Number.isFinite(fx)) break;

@@ -162,13 +162,29 @@
         drawDial(svg, p.n, cx, cy, R, r, highlights);
 
         // Arrows: every k -> (k·a) mod n, colored by cycle membership.
+        // For non-unit `a`, the orbit of k is rho-shaped: a tail
+        // k → k·a → … flowing into a cycle. multCycles only stores cycle
+        // members, so tail nodes have no entry yet — assign each tail the
+        // cycle index it converges to (back-fill by walking forward).
         const cycleOfIdx = new Array(p.n);
         cycles.forEach((cyc, ci) => { for (const k of cyc) cycleOfIdx[k] = ci; });
+        for (let k = 0; k < p.n; k++) {
+          if (cycleOfIdx[k] !== undefined) continue;
+          const trail = [];
+          let x = k;
+          // Bounded by p.n iterations: every orbit reaches its cycle in ≤ n steps.
+          for (let i = 0; i < p.n && cycleOfIdx[x] === undefined; i++) {
+            trail.push(x);
+            x = mod(x * a, p.n);
+          }
+          const ci = cycleOfIdx[x];
+          for (const t of trail) cycleOfIdx[t] = ci;
+        }
         for (let k = 0; k < p.n; k++) {
           const j = mod(k * a, p.n);
           if (j === k) continue; // skip self-loops; the dial dot shows it
           const ci = cycleOfIdx[k];
-          const color = cycles[ci].length === 1
+          const color = (ci === undefined || cycles[ci].length === 1)
             ? 'var(--mute)'
             : palette[ci % palette.length];
           drawArrow(svg, ctx, k, j, color, `mc-${k}`, /*thin=*/true);
