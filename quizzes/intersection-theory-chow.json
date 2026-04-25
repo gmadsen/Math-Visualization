@@ -1,0 +1,113 @@
+{
+  "topic": "intersection-theory-chow",
+  "quizzes": {
+    "cycles-and-equivalence": {
+      "title": "Algebraic cycles and rational equivalence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Algebraic cycles and rational equivalence\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "chow-groups": {
+      "title": "Chow groups $A_*(X)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Chow groups $A_*(X)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "intersection-product": {
+      "title": "Intersection product on smooth $X$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Intersection product on smooth $X$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "chow-ring-of-pn": {
+      "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "chern-classes": {
+      "title": "Chern classes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Chern classes\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "riemann-roch-preview": {
+      "title": "Grothendieck–Riemann–Roch (preview)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Grothendieck–Riemann–Roch (preview)\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

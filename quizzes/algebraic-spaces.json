@@ -1,0 +1,113 @@
+{
+  "topic": "algebraic-spaces",
+  "quizzes": {
+    "why-algebraic-spaces": {
+      "title": "Why schemes aren't enough",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Why schemes aren't enough\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "etale-equivalence-relation": {
+      "title": "Étale equivalence relations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Étale equivalence relations\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "algebraic-space-definition": {
+      "title": "Algebraic spaces as étale sheaves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Algebraic spaces as étale sheaves\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "morphisms-of-algebraic-spaces": {
+      "title": "Morphisms of algebraic spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Morphisms of algebraic spaces\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "examples-of-algebraic-spaces": {
+      "title": "Examples: free quotients and a non-scheme",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Examples: free quotients and a non-scheme\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "between-schemes-and-stacks": {
+      "title": "Algebraic spaces sit between schemes and DM stacks",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Algebraic spaces sit between schemes and DM stacks\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

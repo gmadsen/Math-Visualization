@@ -1,0 +1,113 @@
+{
+  "topic": "group-schemes",
+  "quizzes": {
+    "group-scheme-definition": {
+      "title": "What is a group scheme?",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"What is a group scheme?\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "examples-Ga-Gm-mu-n": {
+      "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "hopf-algebra": {
+      "title": "Affine group schemes ↔ commutative Hopf algebras",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Affine group schemes ↔ commutative Hopf algebras\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "etale-vs-connected": {
+      "title": "Étale, connected, and infinitesimal pieces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Étale, connected, and infinitesimal pieces\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "lie-algebra-of-G": {
+      "title": "Lie algebra $\\mathrm{Lie}(G)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Lie algebra $\\mathrm{Lie}(G)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "torsors-and-cohomology": {
+      "title": "$G$-torsors and $H^1(X, G)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$G$-torsors and $H^1(X, G)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

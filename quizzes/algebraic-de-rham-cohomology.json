@@ -1,0 +1,113 @@
+{
+  "topic": "algebraic-de-rham-cohomology",
+  "quizzes": {
+    "kahler-differentials": {
+      "title": "Kähler differentials $\\Omega^1_{X/k}$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Kähler differentials $\\Omega^1_{X/k}$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "de-rham-complex": {
+      "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "comparison-betti": {
+      "title": "Comparison with Betti cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Comparison with Betti cohomology\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "hodge-filtration": {
+      "title": "The Hodge filtration $F^\\bullet$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The Hodge filtration $F^\\bullet$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "hodge-numbers": {
+      "title": "Hodge numbers $h^{p,q}(X)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Hodge numbers $h^{p,q}(X)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "de-rham-curves": {
+      "title": "Worked example: de Rham of a smooth curve",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Worked example: de Rham of a smooth curve\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

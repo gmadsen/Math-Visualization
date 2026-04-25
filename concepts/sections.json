@@ -17,6 +17,7 @@
         "representation-theory",
         "commutative-algebra",
         "homological",
+        "derived-categories",
         "elementary-topos-theory",
         "heyting-algebras-toposes",
         "grothendieck-topologies-sites",
@@ -104,7 +105,14 @@
         "moduli-spaces",
         "sheaf-cohomology",
         "stacks",
-        "etale-cohomology"
+        "etale-cohomology",
+        "algebraic-spaces",
+        "intersection-theory-chow",
+        "etale-fundamental-group",
+        "algebraic-curves-higher-genus",
+        "group-schemes",
+        "deformation-theory",
+        "algebraic-de-rham-cohomology"
       ]
     }
   ]

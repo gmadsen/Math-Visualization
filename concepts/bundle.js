@@ -16,6 +16,7 @@ window.__MVConcepts = {
       "simplicial-sets-and-nerve",
       "infinity-categories",
       "infinity-topoi",
+      "derived-categories",
       "real-analysis",
       "measure-theory",
       "complex-analysis",
@@ -64,6 +65,13 @@ window.__MVConcepts = {
       "moduli-spaces",
       "sheaf-cohomology",
       "stacks",
+      "algebraic-spaces",
+      "intersection-theory-chow",
+      "etale-fundamental-group",
+      "algebraic-curves-higher-genus",
+      "group-schemes",
+      "deformation-theory",
+      "algebraic-de-rham-cohomology",
       "sato-tate",
       "bsd",
       "modularity-and-flt",
@@ -1118,6 +1126,75 @@ window.__MVConcepts = {
             "geometric-morphisms-of-sites"
           ],
           "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry."
+        }
+      ]
+    },
+    "derived-categories": {
+      "topic": "derived-categories",
+      "title": "Derived categories",
+      "page": "derived-categories.html",
+      "concepts": [
+        {
+          "id": "homotopy-category-K",
+          "title": "The homotopy category $K(\\mathcal{A})$",
+          "anchor": "homotopy-category",
+          "prereqs": [],
+          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
+        },
+        {
+          "id": "quasi-isomorphisms",
+          "title": "Quasi-isomorphisms and localization",
+          "anchor": "quasi-isomorphisms",
+          "prereqs": [
+            "homotopy-category-K"
+          ],
+          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
+        },
+        {
+          "id": "derived-category",
+          "title": "The derived category $D(\\mathcal{A})$",
+          "anchor": "derived-category",
+          "prereqs": [
+            "quasi-isomorphisms"
+          ],
+          "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes."
+        },
+        {
+          "id": "triangulated-structure",
+          "title": "Triangulated structure and exact triangles",
+          "anchor": "triangulated-structure",
+          "prereqs": [
+            "derived-category"
+          ],
+          "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$."
+        },
+        {
+          "id": "derived-functors-triangulated",
+          "title": "Derived functors $RF, LF$",
+          "anchor": "derived-functors-triangulated",
+          "prereqs": [
+            "derived-category"
+          ],
+          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$."
+        },
+        {
+          "id": "t-structures",
+          "title": "$t$-structures and hearts",
+          "anchor": "t-structures",
+          "prereqs": [
+            "triangulated-structure"
+          ],
+          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
+        },
+        {
+          "id": "examples-D-Coh",
+          "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+          "anchor": "d-coh",
+          "prereqs": [
+            "derived-category",
+            "derived-functors-triangulated"
+          ],
+          "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels."
         }
       ]
     },
@@ -4531,6 +4608,420 @@ window.__MVConcepts = {
             "deligne-mumford-vs-artin"
           ],
           "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps."
+        }
+      ]
+    },
+    "algebraic-spaces": {
+      "topic": "algebraic-spaces",
+      "title": "Algebraic spaces",
+      "page": "algebraic-spaces.html",
+      "concepts": [
+        {
+          "id": "why-algebraic-spaces",
+          "title": "Why schemes aren't enough",
+          "anchor": "why-algebraic-spaces",
+          "prereqs": [],
+          "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
+        },
+        {
+          "id": "etale-equivalence-relation",
+          "title": "Étale equivalence relations",
+          "anchor": "etale-equivalence-relation",
+          "prereqs": [
+            "why-algebraic-spaces"
+          ],
+          "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces."
+        },
+        {
+          "id": "algebraic-space-definition",
+          "title": "Algebraic spaces as étale sheaves",
+          "anchor": "definition",
+          "prereqs": [
+            "etale-equivalence-relation"
+          ],
+          "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$."
+        },
+        {
+          "id": "morphisms-of-algebraic-spaces",
+          "title": "Morphisms of algebraic spaces",
+          "anchor": "morphisms",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
+        },
+        {
+          "id": "examples-of-algebraic-spaces",
+          "title": "Examples: free quotients and a non-scheme",
+          "anchor": "examples",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
+        },
+        {
+          "id": "between-schemes-and-stacks",
+          "title": "Algebraic spaces sit between schemes and DM stacks",
+          "anchor": "between-schemes-and-stacks",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry."
+        }
+      ]
+    },
+    "intersection-theory-chow": {
+      "topic": "intersection-theory-chow",
+      "title": "Intersection theory and Chow groups",
+      "page": "intersection-theory-chow.html",
+      "concepts": [
+        {
+          "id": "cycles-and-equivalence",
+          "title": "Algebraic cycles and rational equivalence",
+          "anchor": "cycles-and-equivalence",
+          "prereqs": [],
+          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
+        },
+        {
+          "id": "chow-groups",
+          "title": "Chow groups $A_*(X)$",
+          "anchor": "chow-groups",
+          "prereqs": [
+            "cycles-and-equivalence"
+          ],
+          "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles."
+        },
+        {
+          "id": "intersection-product",
+          "title": "Intersection product on smooth $X$",
+          "anchor": "intersection-product",
+          "prereqs": [
+            "chow-groups"
+          ],
+          "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring."
+        },
+        {
+          "id": "chow-ring-of-pn",
+          "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
+          "anchor": "chow-ring-of-pn",
+          "prereqs": [
+            "intersection-product"
+          ],
+          "blurb": "The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \\cdot D = (\\deg C)(\\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\\mathbb{Z}[h]/(h^3)$."
+        },
+        {
+          "id": "chern-classes",
+          "title": "Chern classes",
+          "anchor": "chern-classes",
+          "prereqs": [
+            "intersection-product"
+          ],
+          "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences."
+        },
+        {
+          "id": "riemann-roch-preview",
+          "title": "Grothendieck–Riemann–Roch (preview)",
+          "anchor": "riemann-roch-preview",
+          "prereqs": [
+            "chern-classes"
+          ],
+          "blurb": "GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \\otimes \\mathbb{Q}$ involving the Chern character $\\mathrm{ch}(E)$ and the Todd class $\\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement."
+        }
+      ]
+    },
+    "etale-fundamental-group": {
+      "topic": "etale-fundamental-group",
+      "title": "The étale fundamental group",
+      "page": "etale-fundamental-group.html",
+      "concepts": [
+        {
+          "id": "finite-etale-covers",
+          "title": "Finite étale covers",
+          "anchor": "finite-etale-covers",
+          "prereqs": [],
+          "blurb": "A finite étale cover $Y \\to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\\mathrm{F\\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group."
+        },
+        {
+          "id": "fiber-functor",
+          "title": "The fiber functor at a geometric point",
+          "anchor": "fiber-functor",
+          "prereqs": [
+            "finite-etale-covers"
+          ],
+          "blurb": "Choosing a geometric point $\\bar{x}: \\mathrm{Spec}\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor."
+        },
+        {
+          "id": "etale-pi1",
+          "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+          "anchor": "etale-pi1",
+          "prereqs": [
+            "fiber-functor"
+          ],
+          "blurb": "$\\pi_1^{\\acute{e}t}(X, \\bar{x})$ is the profinite group $\\mathrm{Aut}(F_{\\bar{x}})$, with topology induced by the pro-finite-set structure of fibers. It classifies finite étale covers via $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X, \\bar{x})\\text{-FinSet}$ — Grothendieck's Galois theory."
+        },
+        {
+          "id": "spec-field-galois",
+          "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+          "anchor": "spec-field-galois",
+          "prereqs": [
+            "etale-pi1"
+          ],
+          "blurb": "For a field $k$, the étale fundamental group of $\\mathrm{Spec}\\,k$ is the absolute Galois group $\\mathrm{Gal}(\\bar{k}/k)$. Finite étale covers $\\mathrm{Spec}\\,L \\to \\mathrm{Spec}\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory."
+        },
+        {
+          "id": "frobenius-and-pi1",
+          "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+          "anchor": "frobenius-and-pi1",
+          "prereqs": [
+            "spec-field-galois"
+          ],
+          "blurb": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q) = \\hat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_q\\colon x \\mapsto x^q$. Every cover of $\\mathrm{Spec}\\,\\mathbb{F}_q$ is determined by the action of $\\mathrm{Frob}_q$ on a finite set."
+        },
+        {
+          "id": "comparison-topological",
+          "title": "Comparison with topological $\\pi_1$",
+          "anchor": "comparison-topological",
+          "prereqs": [
+            "etale-pi1"
+          ],
+          "blurb": "For a smooth complex variety $X$, the étale fundamental group $\\pi_1^{\\acute{e}t}(X)$ is the profinite completion of the topological $\\pi_1(X(\\mathbb{C}))$ (Riemann existence). For varieties over fields of characteristic 0 this captures all finite-cover information."
+        }
+      ]
+    },
+    "algebraic-curves-higher-genus": {
+      "topic": "algebraic-curves-higher-genus",
+      "title": "Algebraic curves: higher genus",
+      "page": "algebraic-curves-higher-genus.html",
+      "concepts": [
+        {
+          "id": "smooth-projective-curve",
+          "title": "Smooth projective curves and their genus",
+          "anchor": "smooth-projective-curve",
+          "prereqs": [],
+          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
+        },
+        {
+          "id": "divisors-on-curves",
+          "title": "Divisors on curves",
+          "anchor": "divisors",
+          "prereqs": [
+            "smooth-projective-curve"
+          ],
+          "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$."
+        },
+        {
+          "id": "riemann-roch-curves",
+          "title": "Riemann–Roch on curves",
+          "anchor": "riemann-roch",
+          "prereqs": [
+            "divisors-on-curves"
+          ],
+          "blurb": "For a divisor $D$ on a smooth projective curve of genus $g$, $h^0(D) - h^0(K - D) = \\deg D - g + 1$, where $K$ is the canonical divisor. Riemann–Roch is the curve-level explanation of why genus controls the dimension of linear systems."
+        },
+        {
+          "id": "canonical-embedding",
+          "title": "The canonical embedding",
+          "anchor": "canonical-embedding",
+          "prereqs": [
+            "riemann-roch-curves"
+          ],
+          "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
+        },
+        {
+          "id": "hyperelliptic-curves",
+          "title": "Hyperelliptic curves",
+          "anchor": "hyperelliptic",
+          "prereqs": [
+            "riemann-roch-curves"
+          ],
+          "blurb": "A curve of genus $g \\ge 2$ is hyperelliptic if it admits a degree-2 map to $\\mathbb{P}^1$. Equivalently, $|K|$ does not separate points. Hyperelliptic curves form a codimension-$(g-2)$ locus in $\\mathcal{M}_g$ — most curves of genus $\\ge 3$ are not hyperelliptic."
+        },
+        {
+          "id": "moduli-of-curves-genus-g",
+          "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
+          "anchor": "moduli-of-curves-genus-g",
+          "prereqs": [
+            "smooth-projective-curve"
+          ],
+          "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary."
+        }
+      ]
+    },
+    "group-schemes": {
+      "topic": "group-schemes",
+      "title": "Group schemes",
+      "page": "group-schemes.html",
+      "concepts": [
+        {
+          "id": "group-scheme-definition",
+          "title": "What is a group scheme?",
+          "anchor": "group-scheme-definition",
+          "prereqs": [],
+          "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes."
+        },
+        {
+          "id": "examples-Ga-Gm-mu-n",
+          "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+          "anchor": "examples-Ga-Gm",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
+        },
+        {
+          "id": "hopf-algebra",
+          "title": "Affine group schemes ↔ commutative Hopf algebras",
+          "anchor": "hopf-algebra",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps."
+        },
+        {
+          "id": "etale-vs-connected",
+          "title": "Étale, connected, and infinitesimal pieces",
+          "anchor": "etale-vs-connected",
+          "prereqs": [
+            "examples-Ga-Gm-mu-n"
+          ],
+          "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$."
+        },
+        {
+          "id": "lie-algebra-of-G",
+          "title": "Lie algebra $\\mathrm{Lie}(G)$",
+          "anchor": "lie-algebra",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
+        },
+        {
+          "id": "torsors-and-cohomology",
+          "title": "$G$-torsors and $H^1(X, G)$",
+          "anchor": "torsors",
+          "prereqs": [
+            "group-scheme-definition"
+          ],
+          "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$)."
+        }
+      ]
+    },
+    "deformation-theory": {
+      "topic": "deformation-theory",
+      "title": "Deformation theory",
+      "page": "deformation-theory.html",
+      "concepts": [
+        {
+          "id": "first-order-deformation",
+          "title": "First-order deformations",
+          "anchor": "first-order-deformation",
+          "prereqs": [],
+          "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$."
+        },
+        {
+          "id": "tangent-space-of-moduli",
+          "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
+          "anchor": "tangent-space",
+          "prereqs": [
+            "first-order-deformation"
+          ],
+          "blurb": "Isomorphism classes of first-order deformations of a smooth $X_0$ form a $k$-vector space identified with $H^1(X_0, T_{X_0})$. This is the tangent space at $X_0$ to the moduli space — when smooth — and gives the dimension count via Riemann–Roch."
+        },
+        {
+          "id": "obstructions-H2",
+          "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
+          "anchor": "obstructions",
+          "prereqs": [
+            "tangent-space-of-moduli"
+          ],
+          "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$."
+        },
+        {
+          "id": "deformation-functor",
+          "title": "Deformation functors and Schlessinger's criteria",
+          "anchor": "deformation-functor",
+          "prereqs": [
+            "first-order-deformation"
+          ],
+          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
+        },
+        {
+          "id": "cotangent-complex",
+          "title": "The cotangent complex $L_{X/Y}$",
+          "anchor": "cotangent-complex",
+          "prereqs": [
+            "tangent-space-of-moduli"
+          ],
+          "blurb": "Illusie's cotangent complex $L_{X/Y}$ generalizes the relative cotangent sheaf $\\Omega^1_{X/Y}$ to a complex in $D^{\\le 0}(X)$. Tangent and obstruction spaces of any deformation problem live in $\\mathrm{Ext}^i$ of $L_{X/Y}$ — the unifying object behind the previous concepts."
+        },
+        {
+          "id": "deformation-of-a-curve",
+          "title": "Worked example: deformations of a smooth curve",
+          "anchor": "deformation-of-a-curve",
+          "prereqs": [
+            "tangent-space-of-moduli",
+            "obstructions-H2"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
+        }
+      ]
+    },
+    "algebraic-de-rham-cohomology": {
+      "topic": "algebraic-de-rham-cohomology",
+      "title": "Algebraic de Rham cohomology",
+      "page": "algebraic-de-rham-cohomology.html",
+      "concepts": [
+        {
+          "id": "kahler-differentials",
+          "title": "Kähler differentials $\\Omega^1_{X/k}$",
+          "anchor": "kahler-differentials",
+          "prereqs": [],
+          "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms."
+        },
+        {
+          "id": "de-rham-complex",
+          "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+          "anchor": "de-rham-complex",
+          "prereqs": [
+            "kahler-differentials"
+          ],
+          "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant."
+        },
+        {
+          "id": "comparison-betti",
+          "title": "Comparison with Betti cohomology",
+          "anchor": "comparison-betti",
+          "prereqs": [
+            "de-rham-complex"
+          ],
+          "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input."
+        },
+        {
+          "id": "hodge-filtration",
+          "title": "The Hodge filtration $F^\\bullet$",
+          "anchor": "hodge-filtration",
+          "prereqs": [
+            "de-rham-complex"
+          ],
+          "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition."
+        },
+        {
+          "id": "hodge-numbers",
+          "title": "Hodge numbers $h^{p,q}(X)$",
+          "anchor": "hodge-numbers",
+          "prereqs": [
+            "hodge-filtration"
+          ],
+          "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers."
+        },
+        {
+          "id": "de-rham-curves",
+          "title": "Worked example: de Rham of a smooth curve",
+          "anchor": "de-rham-curves",
+          "prereqs": [
+            "hodge-filtration"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
         }
       ]
     },

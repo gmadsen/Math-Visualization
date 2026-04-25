@@ -1,0 +1,113 @@
+{
+  "topic": "algebraic-curves-higher-genus",
+  "quizzes": {
+    "smooth-projective-curve": {
+      "title": "Smooth projective curves and their genus",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Smooth projective curves and their genus\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "divisors-on-curves": {
+      "title": "Divisors on curves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Divisors on curves\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "riemann-roch-curves": {
+      "title": "Riemann–Roch on curves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Riemann–Roch on curves\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "canonical-embedding": {
+      "title": "The canonical embedding",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The canonical embedding\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "hyperelliptic-curves": {
+      "title": "Hyperelliptic curves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Hyperelliptic curves\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "moduli-of-curves-genus-g": {
+      "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Moduli of higher-genus curves $\\mathcal{M}_g$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

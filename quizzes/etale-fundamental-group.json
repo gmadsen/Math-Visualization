@@ -1,0 +1,113 @@
+{
+  "topic": "etale-fundamental-group",
+  "quizzes": {
+    "finite-etale-covers": {
+      "title": "Finite étale covers",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Finite étale covers\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "fiber-functor": {
+      "title": "The fiber functor at a geometric point",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The fiber functor at a geometric point\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "etale-pi1": {
+      "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "spec-field-galois": {
+      "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "frobenius-and-pi1": {
+      "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "comparison-topological": {
+      "title": "Comparison with topological $\\pi_1$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Comparison with topological $\\pi_1$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

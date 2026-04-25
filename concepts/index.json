@@ -13,6 +13,7 @@
     "simplicial-sets-and-nerve",
     "infinity-categories",
     "infinity-topoi",
+    "derived-categories",
 
     "real-analysis",
     "measure-theory",
@@ -66,6 +67,13 @@
     "moduli-spaces",
     "sheaf-cohomology",
     "stacks",
+    "algebraic-spaces",
+    "intersection-theory-chow",
+    "etale-fundamental-group",
+    "algebraic-curves-higher-genus",
+    "group-schemes",
+    "deformation-theory",
+    "algebraic-de-rham-cohomology",
 
     "sato-tate",
     "bsd",

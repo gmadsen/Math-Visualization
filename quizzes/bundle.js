@@ -1252,6 +1252,232 @@ window.MVQuizBank = {
       }
     }
   },
+  "algebraic-curves-higher-genus": {
+    "topic": "algebraic-curves-higher-genus",
+    "quizzes": {
+      "smooth-projective-curve": {
+        "title": "Smooth projective curves and their genus",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Smooth projective curves and their genus\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "divisors-on-curves": {
+        "title": "Divisors on curves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Divisors on curves\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "riemann-roch-curves": {
+        "title": "Riemann–Roch on curves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Riemann–Roch on curves\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "canonical-embedding": {
+        "title": "The canonical embedding",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The canonical embedding\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "hyperelliptic-curves": {
+        "title": "Hyperelliptic curves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Hyperelliptic curves\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "moduli-of-curves-genus-g": {
+        "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Moduli of higher-genus curves $\\mathcal{M}_g$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
+  "algebraic-de-rham-cohomology": {
+    "topic": "algebraic-de-rham-cohomology",
+    "quizzes": {
+      "kahler-differentials": {
+        "title": "Kähler differentials $\\Omega^1_{X/k}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Kähler differentials $\\Omega^1_{X/k}$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "de-rham-complex": {
+        "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "comparison-betti": {
+        "title": "Comparison with Betti cohomology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Comparison with Betti cohomology\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "hodge-filtration": {
+        "title": "The Hodge filtration $F^\\bullet$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The Hodge filtration $F^\\bullet$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "hodge-numbers": {
+        "title": "Hodge numbers $h^{p,q}(X)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Hodge numbers $h^{p,q}(X)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "de-rham-curves": {
+        "title": "Worked example: de Rham of a smooth curve",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Worked example: de Rham of a smooth curve\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
   "algebraic-number-theory": {
     "topic": "algebraic-number-theory",
     "quizzes": {
@@ -1600,6 +1826,119 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Class number and unit rank are independent.",
             "explain": "Class number and unit rank are independent invariants. $h_K=1$ (PID) and unit rank $r_1+r_2-1=2+0-1=1$ (one fundamental unit) both hold for $\\mathbb{Q}(\\sqrt{5})$. Real quadratic fields always have unit rank $1$, regardless of $h_K$."
+          }
+        ]
+      }
+    }
+  },
+  "algebraic-spaces": {
+    "topic": "algebraic-spaces",
+    "quizzes": {
+      "why-algebraic-spaces": {
+        "title": "Why schemes aren't enough",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Why schemes aren't enough\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "etale-equivalence-relation": {
+        "title": "Étale equivalence relations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Étale equivalence relations\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "algebraic-space-definition": {
+        "title": "Algebraic spaces as étale sheaves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Algebraic spaces as étale sheaves\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "morphisms-of-algebraic-spaces": {
+        "title": "Morphisms of algebraic spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Morphisms of algebraic spaces\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "examples-of-algebraic-spaces": {
+        "title": "Examples: free quotients and a non-scheme",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Examples: free quotients and a non-scheme\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "between-schemes-and-stacks": {
+        "title": "Algebraic spaces sit between schemes and DM stacks",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Algebraic spaces sit between schemes and DM stacks\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
           }
         ]
       }
@@ -5551,6 +5890,250 @@ window.MVQuizBank = {
       }
     }
   },
+  "deformation-theory": {
+    "topic": "deformation-theory",
+    "quizzes": {
+      "first-order-deformation": {
+        "title": "First-order deformations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"First-order deformations\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "tangent-space-of-moduli": {
+        "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Tangent space of moduli is $H^1(X_0, T_{X_0})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "obstructions-H2": {
+        "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Obstructions live in $H^2(X_0, T_{X_0})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "deformation-functor": {
+        "title": "Deformation functors and Schlessinger's criteria",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Deformation functors and Schlessinger's criteria\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "cotangent-complex": {
+        "title": "The cotangent complex $L_{X/Y}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The cotangent complex $L_{X/Y}$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "deformation-of-a-curve": {
+        "title": "Worked example: deformations of a smooth curve",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Worked example: deformations of a smooth curve\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
+  "derived-categories": {
+    "topic": "derived-categories",
+    "quizzes": {
+      "homotopy-category-K": {
+        "title": "The homotopy category $K(\\mathcal{A})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The homotopy category $K(\\mathcal{A})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "quasi-isomorphisms": {
+        "title": "Quasi-isomorphisms and localization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Quasi-isomorphisms and localization\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "derived-category": {
+        "title": "The derived category $D(\\mathcal{A})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The derived category $D(\\mathcal{A})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "triangulated-structure": {
+        "title": "Triangulated structure and exact triangles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Triangulated structure and exact triangles\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "t-structures": {
+        "title": "$t$-structures and hearts",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$t$-structures and hearts\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "examples-D-Coh": {
+        "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "derived-functors-triangulated": {
+        "title": "Derived functors $RF, LF$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Derived functors $RF, LF$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
   "differential-forms": {
     "topic": "differential-forms",
     "quizzes": {
@@ -8475,6 +9058,119 @@ window.MVQuizBank = {
       }
     }
   },
+  "etale-fundamental-group": {
+    "topic": "etale-fundamental-group",
+    "quizzes": {
+      "finite-etale-covers": {
+        "title": "Finite étale covers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Finite étale covers\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "fiber-functor": {
+        "title": "The fiber functor at a geometric point",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"The fiber functor at a geometric point\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "etale-pi1": {
+        "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "spec-field-galois": {
+        "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "frobenius-and-pi1": {
+        "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "comparison-topological": {
+        "title": "Comparison with topological $\\pi_1$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Comparison with topological $\\pi_1$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
   "frobenius-and-reciprocity": {
     "topic": "frobenius-and-reciprocity",
     "quizzes": {
@@ -10972,6 +11668,119 @@ window.MVQuizBank = {
       }
     }
   },
+  "group-schemes": {
+    "topic": "group-schemes",
+    "quizzes": {
+      "group-scheme-definition": {
+        "title": "What is a group scheme?",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"What is a group scheme?\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "examples-Ga-Gm-mu-n": {
+        "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "hopf-algebra": {
+        "title": "Affine group schemes ↔ commutative Hopf algebras",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Affine group schemes ↔ commutative Hopf algebras\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "etale-vs-connected": {
+        "title": "Étale, connected, and infinitesimal pieces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Étale, connected, and infinitesimal pieces\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "lie-algebra-of-G": {
+        "title": "Lie algebra $\\mathrm{Lie}(G)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Lie algebra $\\mathrm{Lie}(G)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "torsors-and-cohomology": {
+        "title": "$G$-torsors and $H^1(X, G)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$G$-torsors and $H^1(X, G)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
   "hecke-operators": {
     "topic": "hecke-operators",
     "quizzes": {
@@ -12557,6 +13366,119 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "Placeholder quiz pending content authoring; the correct option points back to the in-page exposition. Replace with three substantive distractors when the concept is fully drafted.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      }
+    }
+  },
+  "intersection-theory-chow": {
+    "topic": "intersection-theory-chow",
+    "quizzes": {
+      "cycles-and-equivalence": {
+        "title": "Algebraic cycles and rational equivalence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Algebraic cycles and rational equivalence\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "chow-groups": {
+        "title": "Chow groups $A_*(X)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Chow groups $A_*(X)$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "intersection-product": {
+        "title": "Intersection product on smooth $X$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Intersection product on smooth $X$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "chow-ring-of-pn": {
+        "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "chern-classes": {
+        "title": "Chern classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Chern classes\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+            "hint": "Read the concept blurb at the top of the section."
+          }
+        ]
+      },
+      "riemann-roch-preview": {
+        "title": "Grothendieck–Riemann–Roch (preview)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the principal claim of \"Grothendieck–Riemann–Roch (preview)\"?",
+            "choices": [
+              "See the section above for the precise statement.",
+              "A trivial assertion with no content.",
+              "A claim equivalent to the law of excluded middle.",
+              "A claim that holds only in classical set theory."
+            ],
+            "answer": 0,
+            "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
             "hint": "Read the concept blurb at the top of the section."
           }
         ]

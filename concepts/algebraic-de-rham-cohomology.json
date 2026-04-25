@@ -1,0 +1,49 @@
+{
+  "topic": "algebraic-de-rham-cohomology",
+  "title": "Algebraic de Rham cohomology",
+  "page": "algebraic-de-rham-cohomology.html",
+  "concepts": [
+    {
+      "id": "kahler-differentials",
+      "title": "Kähler differentials $\\Omega^1_{X/k}$",
+      "anchor": "kahler-differentials",
+      "prereqs": [],
+      "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms."
+    },
+    {
+      "id": "de-rham-complex",
+      "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+      "anchor": "de-rham-complex",
+      "prereqs": ["kahler-differentials"],
+      "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant."
+    },
+    {
+      "id": "comparison-betti",
+      "title": "Comparison with Betti cohomology",
+      "anchor": "comparison-betti",
+      "prereqs": ["de-rham-complex"],
+      "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input."
+    },
+    {
+      "id": "hodge-filtration",
+      "title": "The Hodge filtration $F^\\bullet$",
+      "anchor": "hodge-filtration",
+      "prereqs": ["de-rham-complex"],
+      "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition."
+    },
+    {
+      "id": "hodge-numbers",
+      "title": "Hodge numbers $h^{p,q}(X)$",
+      "anchor": "hodge-numbers",
+      "prereqs": ["hodge-filtration"],
+      "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers."
+    },
+    {
+      "id": "de-rham-curves",
+      "title": "Worked example: de Rham of a smooth curve",
+      "anchor": "de-rham-curves",
+      "prereqs": ["hodge-filtration"],
+      "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
+    }
+  ]
+}

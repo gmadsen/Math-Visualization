@@ -1,0 +1,131 @@
+{
+  "topic": "derived-categories",
+  "quizzes": {
+    "homotopy-category-K": {
+      "title": "The homotopy category $K(\\mathcal{A})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The homotopy category $K(\\mathcal{A})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "quasi-isomorphisms": {
+      "title": "Quasi-isomorphisms and localization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Quasi-isomorphisms and localization\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "derived-category": {
+      "title": "The derived category $D(\\mathcal{A})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The derived category $D(\\mathcal{A})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "triangulated-structure": {
+      "title": "Triangulated structure and exact triangles",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Triangulated structure and exact triangles\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "t-structures": {
+      "title": "$t$-structures and hearts",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$t$-structures and hearts\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "examples-D-Coh": {
+      "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "derived-functors-triangulated": {
+      "title": "Derived functors $RF, LF$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Derived functors $RF, LF$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}

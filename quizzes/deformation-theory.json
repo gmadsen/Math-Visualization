@@ -1,0 +1,113 @@
+{
+  "topic": "deformation-theory",
+  "quizzes": {
+    "first-order-deformation": {
+      "title": "First-order deformations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"First-order deformations\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "tangent-space-of-moduli": {
+      "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Tangent space of moduli is $H^1(X_0, T_{X_0})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "obstructions-H2": {
+      "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Obstructions live in $H^2(X_0, T_{X_0})$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "deformation-functor": {
+      "title": "Deformation functors and Schlessinger's criteria",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Deformation functors and Schlessinger's criteria\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "cotangent-complex": {
+      "title": "The cotangent complex $L_{X/Y}$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"The cotangent complex $L_{X/Y}$\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    },
+    "deformation-of-a-curve": {
+      "title": "Worked example: deformations of a smooth curve",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the principal claim of \"Worked example: deformations of a smooth curve\"?",
+          "choices": [
+            "See the section above for the precise statement.",
+            "A trivial assertion with no content.",
+            "A claim equivalent to the law of excluded middle.",
+            "A claim that holds only in classical set theory."
+          ],
+          "answer": 0,
+          "explain": "Placeholder pending content authoring; refer back to the in-page exposition.",
+          "hint": "Read the concept blurb at the top of the section."
+        }
+      ]
+    }
+  }
+}
