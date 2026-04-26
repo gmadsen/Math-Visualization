@@ -9,8 +9,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="./css/theme-light.css">
 <script src="./js/theme-toggle.js"></script>
-<script src="./js/progress.js"></script>
-<script src="./concepts/bundle.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
 <script src="./js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -36,6 +36,21 @@
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
   }
   *{box-sizing:border-box}
+  /* Honour the OS / browser-level reduced-motion preference. The hero auto-
+     animation already gates itself in JS; this catches every other transform
+     and transition this page introduces (card hover lift, sticky-bar shadow,
+     mastery-ring stroke-dasharray, drawer slide, today/continue / pathway /
+     tag-card lifts). */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .card:hover,.featured-card:hover,.pathway-banner:hover,
+    .ru-card:hover,.tag-card:hover,.tag-card.active{transform:none}
+  }
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
     font-size:17px;line-height:1.6}
@@ -139,9 +154,12 @@
   .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
   .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
   @media (max-width:520px){
-    .section-jump{padding:0.65rem 0.7rem}
+    .section-jump{padding:0.65rem 0.7rem;
+      flex-wrap:nowrap;overflow-x:auto;
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
     .section-jump .sj-label{display:none}
-    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
+      flex-shrink:0;white-space:nowrap}
   }
   .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
@@ -283,8 +301,12 @@
   .mastery .m-v1{color:var(--green)}
   .mastery .m-hard{color:var(--violet)}
   .mastery .m-sep{color:var(--mute);opacity:0.55}
-  .mastery.m-zero .m-v1{color:var(--mute);opacity:0.7}
-  .mastery.m-zero .m-hard{color:var(--mute);opacity:0.55}
+  /* Cold-visitor mastery chip: drop the opacity stacks (which previously
+     multiplied --mute below WCAG AA contrast on --panel2) and use --ink at a
+     muted but legible value. Computes to roughly --ink at 70% blended with
+     --bg, hitting ~7:1 against --panel2. */
+  .mastery.m-zero .m-v1{color:color-mix(in srgb, var(--ink) 72%, var(--bg))}
+  .mastery.m-zero .m-hard{color:color-mix(in srgb, var(--ink) 60%, var(--bg))}
   .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
   .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
   .mastery .m-check{color:var(--green);font-weight:600}
@@ -957,7 +979,7 @@
       <div class="body">
         <div class="tt">Harmonic analysis &amp; Fourier theory</div>
         <div class="desc">Fourier series and transforms, Plancherel, convolution theorem, Schwartz space and tempered distributions, uncertainty, Poisson summation, the heat kernel.</div>
-        <span class="tag">Plancherel &middot; convolution &middot; uncertainty &middot; Poisson
+        <span class="tag">Plancherel &middot; convolution &middot; uncertainty &middot; Poisson</span>
       </div>
     </a>
 
@@ -2729,6 +2751,30 @@
     }
 
     var lastFocus = null;
+    // Background trees that get .inert while the modal drawer is open. Picked
+    // by walking <body>'s top-level children at open time and excluding the
+    // drawer itself + the backdrop. Reverse on close. inert is supported in
+    // every evergreen browser since 2023; older browsers gracefully ignore it
+    // and fall back to the existing aria-modal hint.
+    var inertedSiblings = [];
+    function setBackgroundInert(on){
+      if (on) {
+        inertedSiblings = [];
+        var kids = document.body.children;
+        for (var i = 0; i < kids.length; i++) {
+          var n = kids[i];
+          if (n === drawer || n === backdrop) continue;
+          if (n.inert) continue;
+          n.inert = true;
+          inertedSiblings.push(n);
+        }
+      } else {
+        for (var j = 0; j < inertedSiblings.length; j++) {
+          inertedSiblings[j].inert = false;
+        }
+        inertedSiblings = [];
+      }
+    }
     function openDrawer(btn, topicId, title, page){
       lastFocus = btn || null;
       populate(topicId, title, page);
@@ -2739,12 +2785,14 @@
       drawer.classList.add('open');
       backdrop.classList.add('open');
       drawer.setAttribute('aria-hidden', 'false');
+      setBackgroundInert(true);
       setTimeout(function(){ try { closeBtn.focus(); } catch(_){} }, 40);
     }
     function closeDrawer(){
       drawer.classList.remove('open');
       backdrop.classList.remove('open');
       drawer.setAttribute('aria-hidden', 'true');
+      setBackgroundInert(false);
       setTimeout(function(){
         drawer.hidden = true;
         backdrop.hidden = true;
@@ -2880,25 +2928,36 @@
     var phase = 0.6;
     function paint(value){
       path.setAttribute('d', pathFor(value, phase));
-      readout.textContent = snap(value);
+      var label = snap(value);
+      readout.textContent = label;
+      // Mirror the visible readout into aria-valuetext so screen readers
+      // announce "2 : 3" instead of the raw integer slider value (230).
+      slider.setAttribute('aria-valuetext', label);
     }
     slider.addEventListener('input', function(){ paint(slider.value); });
     paint(slider.value);
 
     // Brief auto-animation on first load: walk slider 230 → 280 → 230 over
-    // ~2.4s, then settle. Skipped if the reader is touching the slider.
+    // ~2.4s, then settle. Skipped if the reader is touching the slider —
+    // we cancel the pending rAF immediately on first input so the soft-
+    // cancel guard never has a chance to fire one extra "snap-back" frame
+    // after the user-driven paint.
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var start = performance.now(), userTouched = false;
-    slider.addEventListener('input', function(){ userTouched = true; });
+    var start = performance.now(), userTouched = false, rafId = null;
+    slider.addEventListener('input', function(){
+      userTouched = true;
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    });
     function animate(now){
-      if (userTouched) return;
+      if (userTouched) { rafId = null; return; }
       var t = Math.min(1, (now - start) / 2400);
       var sweep = 230 + 50 * Math.sin(t * Math.PI);
       slider.value = sweep;
       paint(sweep);
-      if (t < 1) requestAnimationFrame(animate);
+      if (t < 1) rafId = requestAnimationFrame(animate);
+      else rafId = null;
     }
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
@@ -2936,14 +2995,12 @@
     function isReady(c){
       if(P && P.isMastered(c.id, 'v1')) return false;
       var ps = c.prereqs || [];
+      // Cold visitors (no MVProgress) only see root concepts as ready.
+      if(!P) return ps.length === 0;
+      // Otherwise: every prereq must be v1-mastered.
       for(var i=0;i<ps.length;i++){
         var bare = ps[i].indexOf(':') >= 0 ? ps[i].split(':', 2)[1] : ps[i];
-        if(!P || !P.isMastered(bare, 'v1')){
-          // For cold visitors with no progress, root concepts (no prereqs)
-          // are "ready"; everything else stays locked. So: false here only
-          // if the concept actually has prereqs the user hasn't mastered.
-          return ps.length === 0;
-        }
+        if(!P.isMastered(bare, 'v1')) return false;
       }
       return true;
     }
@@ -2967,39 +3024,54 @@
     }
 
     var continueCard = document.getElementById('continue-card');
-    var recentId = mostRecentMasteredId();
-    if(recentId && byId[recentId]){
-      var owner = byId[recentId];
-      var mine = concepts.filter(function(c){ return c.topicId === owner.topicId; });
-      var mastered = mine.filter(function(c){ return P && P.isMastered(c.id, 'v1'); }).length;
-      continueCard.href = './' + owner.page;
-      document.getElementById('continue-title').textContent = owner.topicTitle;
-      document.getElementById('continue-blurb').textContent =
-        mastered + ' of ' + mine.length + ' concepts mastered. Last touched: "' + owner.title + '".';
-      document.getElementById('continue-stats').textContent = 'Resume reading';
-      continueCard.hidden = false;
-    } else {
-      // Cold-visitor fallback: a curated welcome.
-      document.getElementById('continue-eyebrow').textContent = 'New here?';
-      continueCard.href = './category-theory.html';
-      document.getElementById('continue-title').textContent = 'Start with category theory';
-      document.getElementById('continue-blurb').textContent =
-        'The flagship topic — cleanest pedagogy, the canonical style template, and a natural on-ramp into the rest of the notebook.';
-      document.getElementById('continue-stats').textContent = 'Or browse by theme via Themes ↗';
-      continueCard.hidden = false;
+    if(continueCard){
+      var recentId = mostRecentMasteredId();
+      if(recentId && byId[recentId]){
+        var owner = byId[recentId];
+        var mine = concepts.filter(function(c){ return c.topicId === owner.topicId; });
+        var mastered = mine.filter(function(c){ return P && P.isMastered(c.id, 'v1'); }).length;
+        continueCard.href = './' + owner.page;
+        document.getElementById('continue-title').textContent = owner.topicTitle;
+        document.getElementById('continue-blurb').textContent =
+          mastered + ' of ' + mine.length + ' concepts mastered. Last touched: "' + owner.title + '".';
+        document.getElementById('continue-stats').textContent = 'Resume reading';
+        continueCard.hidden = false;
+      } else {
+        // Cold-visitor fallback: a curated welcome.
+        document.getElementById('continue-eyebrow').textContent = 'New here?';
+        continueCard.href = './category-theory.html';
+        document.getElementById('continue-title').textContent = 'Start with category theory';
+        document.getElementById('continue-blurb').textContent =
+          'The flagship topic — cleanest pedagogy, the canonical style template, and a natural on-ramp into the rest of the notebook.';
+        document.getElementById('continue-stats').textContent = 'Or browse by theme via Themes ↗';
+        continueCard.hidden = false;
+      }
     }
 
-    if(!todayCard.hidden || !continueCard.hidden) rail.hidden = false;
+    var anyShown = (todayCard && !todayCard.hidden) || (continueCard && !continueCard.hidden);
+    if(anyShown) rail.hidden = false;
   }
   function mostRecentMasteredId(){
     try {
       var raw = JSON.parse(localStorage.getItem('mvnb.progress.v1') || '{}');
+      // Iterate own keys only (skip prototype properties); also accept legacy
+      // mastery records (boolean shorthand or {at:…}-only entries that
+      // MVProgress treats as v1-mastered) so returning users from older
+      // schema versions still get the "Continue where you left off" card.
       var bestId = null, bestAt = 0;
-      for(var id in raw){
+      var ids = Object.keys(raw);
+      for(var i=0;i<ids.length;i++){
+        var id = ids[i];
         var rec = raw[id];
-        if(rec && typeof rec === 'object' && rec.v1 && typeof rec.at === 'number' && rec.at > bestAt){
-          bestId = id; bestAt = rec.at;
+        var v1, at = 0;
+        if(rec === true){ v1 = true; at = 0; }                            // legacy boolean shorthand
+        else if(rec && typeof rec === 'object'){
+          // Legacy {at: …} form (no explicit tier flags) ⇒ v1 mastered.
+          v1 = ('v1' in rec || 'hard' in rec || 'expert' in rec) ? !!rec.v1 : true;
+          at = typeof rec.at === 'number' ? rec.at : 0;
         }
+        else continue;
+        if(v1 && at >= bestAt){ bestId = id; bestAt = at; }
       }
       return bestId;
     } catch(e){ return null; }

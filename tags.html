@@ -9,8 +9,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="./css/theme-light.css">
 <script src="./js/theme-toggle.js"></script>
-<script src="./js/progress.js"></script>
-<script src="./concepts/bundle.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -242,6 +242,9 @@
     const byTag = new Map();
     const allConcepts = [];           // flat list of all concepts for stats
     const untagged = [];               // concepts with no tags
+    // id -> raw concept (for masteryState's prereq lookup; replaces the
+    // previous O(topics x concepts) walk on every concept rendered).
+    const byConceptId = Object.create(null);
 
     const sectionOf = {};
     for (const s of (data.sections?.sections || [])) {
@@ -250,6 +253,7 @@
 
     for (const [topicId, topic] of Object.entries(data.topics || {})) {
       for (const c of (topic.concepts || [])) {
+        byConceptId[c.id] = c;
         const sec = sectionOf[topicId] || { id: 'unsorted', title: 'Unsorted' };
         const entry = {
           topicId, conceptId: c.id, title: c.title,
@@ -279,6 +283,9 @@
       + pctTagged + '%)</span>'
       + '<span class="stat"><strong>' + untagged.length + '</strong> untagged</span>';
 
+    // Bind masteryState to the byConceptId closure now that the map is built.
+    const masteryState = makeMasteryState(byConceptId);
+
     // Render tag cards in vocabulary order.
     grid.innerHTML = '';
     for (const t of data.tags.tags) {
@@ -287,6 +294,8 @@
       card.dataset.tag = t.id;
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-pressed', 'false');
+      card.setAttribute('aria-controls', 'tag-detail');
       const count = (byTag.get(t.id) || []).length;
       card.innerHTML = ''
         + '<h2>' + escapeHtml(t.title) + '<span class="count">' + count + '</span></h2>'
@@ -299,7 +308,11 @@
     }
 
     function selectTag(t){
-      [...grid.children].forEach(c => c.classList.toggle('active', c.dataset.tag === t.id));
+      [...grid.children].forEach(c => {
+        const active = c.dataset.tag === t.id;
+        c.classList.toggle('active', active);
+        c.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
       const concepts = byTag.get(t.id) || [];
       tdTitle.textContent = t.title;
       tdBlurb.textContent = t.blurb;
@@ -331,7 +344,7 @@
           const li = document.createElement('li');
           const a = document.createElement('a');
           a.href = './' + (e.page || (e.topicId + '.html')) + '#' + (e.anchor || '');
-          const state = masteryState(e.conceptId, data);
+          const state = masteryState(e.conceptId);
           a.innerHTML = '<span class="pip ' + state + '"></span>'
             + '<span class="ttl">' + escapeHtml(e.title) + '</span>'
             + '<span class="topic">' + escapeHtml(e.topicId) + '</span>';
@@ -346,6 +359,11 @@
       }
       detail.classList.add('shown');
       detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Move focus into the revealed detail panel so keyboard users continue
+      // reading from the new region instead of from the previous tag-card
+      // location. tdTitle is made focusable just for this hop.
+      tdTitle.setAttribute('tabindex', '-1');
+      try { tdTitle.focus({ preventScroll: true }); } catch(_){ tdTitle.focus(); }
     }
 
     tdClose.addEventListener('click', () => {
@@ -389,13 +407,16 @@
     applyHash();
   }
 
-  function masteryState(conceptId, data){
-    if (!window.MVProgress) return '';
-    if (window.MVProgress.isMastered(conceptId, 'v1')) return 'v1';
-    // Find concept's prereqs to decide ready vs locked.
-    for (const topic of Object.values(data.topics || {})) {
-      const c = (topic.concepts || []).find(x => x.id === conceptId);
-      if (!c) continue;
+  // Now uses an init-time `byConceptId` lookup (built inside init() and
+  // closed-over below). The previous implementation walked every topic
+  // running Array.find on its concepts for every link rendered, an
+  // O(topics x concepts) scan per concept that compounded on every tag click.
+  function makeMasteryState(byConceptId){
+    return function(conceptId){
+      if (!window.MVProgress) return '';
+      if (window.MVProgress.isMastered(conceptId, 'v1')) return 'v1';
+      const c = byConceptId[conceptId];
+      if (!c) return '';
       const ps = c.prereqs || [];
       if (ps.length === 0) return 'ready';
       const allMastered = ps.every(p => {
@@ -403,8 +424,7 @@
         return window.MVProgress.isMastered(bare, 'v1');
       });
       return allMastered ? 'ready' : 'locked';
-    }
-    return '';
+    };
   }
 
   function escapeHtml(s){

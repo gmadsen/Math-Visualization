@@ -98,7 +98,7 @@
             "$(u,v) = \\int u\\bar v - \\int \\nabla u\\cdot\\overline{\\nabla v}$"
           ],
           "answer": 2,
-          "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$. The pure-gradient form (option 2) is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself."
+          "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$ (option 2). Option 1, the pure-gradient form, is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself — without Poincaré, the constants form a non-trivial kernel."
         },
         {
           "type": "mcq",

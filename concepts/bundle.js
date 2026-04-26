@@ -3058,7 +3058,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sobolev-spaces-wkp"
           ],
-          "blurb": "On a bounded Lipschitz domain the restriction $u\\mapsto u|_{\\partial\\Omega}$ extends from $C^\\infty(\\overline\\Omega)$ to a bounded surjection $W^{1,p}(\\Omega)\\to W^{1-1/p,p}(\\partial\\Omega)$, losing exactly $1/p$ of a derivative; the kernel is $H^1_0$, the right space for Dirichlet conditions.",
+          "blurb": "On a bounded Lipschitz domain the restriction $u\\mapsto u|_{\\partial\\Omega}$ extends from $C^\\infty(\\overline\\Omega)$ to a bounded surjection $W^{1,p}(\\Omega)\\to W^{1-1/p,p}(\\partial\\Omega)$, losing exactly $1/p$ of a derivative; the kernel is $W^{1,p}_0$ (specialising to $H^1_0$ at $p=2$), the right space for Dirichlet conditions.",
           "tags": [
             "duality"
           ]
@@ -6906,8 +6906,7 @@ window.__MVConcepts = {
           "title": "Vector, graphic, uniform, transversal matroids",
           "anchor": "examples",
           "prereqs": [
-            "matroid-bases-rank",
-            "polynomial-rings-irreducibility"
+            "matroid-bases-rank"
           ],
           "blurb": "The four canonical families. Vector matroids capture linear independence over a field; graphic matroids capture forests of a graph; uniform matroids $U_{r,n}$ are the toy benchmark; transversal matroids encode systems of distinct representatives via Hall's theorem.",
           "tags": [
@@ -7952,7 +7951,7 @@ window.__MVConcepts = {
       "concepts": 121,
       "intra": 188,
       "crossOut": 15,
-      "crossIn": 37,
+      "crossIn": 36,
       "density": 0.12396694214876033
     },
     "Analysis": {
@@ -7993,9 +7992,9 @@ window.__MVConcepts = {
     "Combinatorics & graph theory": {
       "concepts": 33,
       "intra": 28,
-      "crossOut": 13,
+      "crossOut": 12,
       "crossIn": 0,
-      "density": 0.3939393939393939
+      "density": 0.36363636363636365
     }
   }
 };

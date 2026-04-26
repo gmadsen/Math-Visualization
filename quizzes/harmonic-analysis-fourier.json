@@ -134,7 +134,7 @@
             "$\\hat{}$ is undefined on $C_c^\\infty$"
           ],
           "answer": 2,
-          "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials, with the convenient duality $\\widehat{x^a f^{(b)}} = (2\\pi i)^{b-a}(-1)^a \\xi^b \\hat f^{(a)}$. Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
+          "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials. The two component identities $\\widehat{f^{(b)}}(\\xi)=(2\\pi i\\xi)^b\\hat f(\\xi)$ and $\\widehat{x^a g}(\\xi)=(2\\pi i)^{-a}(-1)^a\\hat g^{(a)}(\\xi)$ together let polynomial-times-derivative operators round-trip through $\\mathcal{S}$ (with Leibniz cross-terms when both $a,b>0$). Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
         },
         {
           "type": "mcq",

@@ -15495,7 +15495,7 @@ window.MVQuizBank = {
               "$\\hat{}$ is undefined on $C_c^\\infty$"
             ],
             "answer": 2,
-            "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials, with the convenient duality $\\widehat{x^a f^{(b)}} = (2\\pi i)^{b-a}(-1)^a \\xi^b \\hat f^{(a)}$. Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
+            "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials. The two component identities $\\widehat{f^{(b)}}(\\xi)=(2\\pi i\\xi)^b\\hat f(\\xi)$ and $\\widehat{x^a g}(\\xi)=(2\\pi i)^{-a}(-1)^a\\hat g^{(a)}(\\xi)$ together let polynomial-times-derivative operators round-trip through $\\mathcal{S}$ (with Leibniz cross-terms when both $a,b>0$). Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
           },
           {
             "type": "mcq",
@@ -33702,7 +33702,7 @@ window.MVQuizBank = {
               "$(u,v) = \\int u\\bar v - \\int \\nabla u\\cdot\\overline{\\nabla v}$"
             ],
             "answer": 2,
-            "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$. The pure-gradient form (option 2) is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself."
+            "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$ (option 2). Option 1, the pure-gradient form, is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself — without Poincaré, the constants form a non-trivial kernel."
           },
           {
             "type": "mcq",

@@ -29,8 +29,7 @@
       "title": "Vector, graphic, uniform, transversal matroids",
       "anchor": "examples",
       "prereqs": [
-        "matroid-bases-rank",
-        "polynomial-rings-irreducibility"
+        "matroid-bases-rank"
       ],
       "blurb": "The four canonical families. Vector matroids capture linear independence over a field; graphic matroids capture forests of a graph; uniform matroids $U_{r,n}$ are the toy benchmark; transversal matroids encode systems of distinct representatives via Hall's theorem.",
       "tags": [
