@@ -11416,18 +11416,238 @@ window.MVQuizBank = {
   "extremal-combinatorics": {
     "topic": "extremal-combinatorics",
     "quizzes": {
-      "extremal-combinatorics-intro": {
-        "title": "Intro",
+      "turan-theorem": {
+        "title": "Turán's theorem",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "What is the unique extremal graph for $\\mathrm{ex}(n, K_{r+1})$ when $r \\mid n$?",
             "choices": [
-              "A",
-              "B"
+              "The complete graph $K_n$",
+              "The complete bipartite graph $K_{n/2, n/2}$, regardless of $r$",
+              "The balanced complete $r$-partite graph $T(n, r)$",
+              "Any $K_{r+1}$-free graph achieves the bound"
             ],
-            "answer": 0,
-            "explain": "Placeholder."
+            "answer": 2,
+            "explain": "Turán's theorem identifies $T(n, r)$ — the complete $r$-partite graph with parts as equal as possible — as the unique edge-maximizer among $K_{r+1}$-free graphs."
+          },
+          {
+            "type": "numeric",
+            "q": "How many edges does the balanced Turán graph $T(6, 3)$ have?",
+            "answer": 12,
+            "tol": 0,
+            "explain": "$T(6,3)$ has three parts of size $2$. Edge count $= \\binom{6}{2} - 3\\binom{2}{2} = 15 - 3 = 12$, equivalently $(1 - 1/3) \\cdot 6^2/2 = 12$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the limiting Turán density $\\pi(K_4) = \\lim_{n\\to\\infty} \\mathrm{ex}(n, K_4) / \\binom{n}{2}$?",
+            "choices": [
+              "$1/2$",
+              "$2/3$",
+              "$3/4$",
+              "$1$"
+            ],
+            "answer": 1,
+            "explain": "$\\pi(K_{r+1}) = 1 - 1/r$. For $K_4 = K_{3+1}$, $r = 3$ and $\\pi(K_4) = 1 - 1/3 = 2/3$."
+          }
+        ]
+      },
+      "kovari-sos-turan": {
+        "title": "Kővári–Sós–Turán",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which best describes the asymptotic order of $\\mathrm{ex}(n, K_{s,t})$ from KST?",
+            "choices": [
+              "$\\Theta(n)$",
+              "$O(n^{2-1/s})$",
+              "$\\Theta(n^2/\\log n)$",
+              "$\\Theta(n^2)$"
+            ],
+            "answer": 1,
+            "explain": "KST gives $\\mathrm{ex}(n, K_{s,t}) \\le \\frac{1}{2}(t-1)^{1/s} n^{2-1/s} + O(n)$. The exponent $2 - 1/s$ is sharp for $s = 2$ (incidence-graph construction) and conjectured sharp in general."
+          },
+          {
+            "type": "mcq",
+            "q": "What construction shows $\\mathrm{ex}(n, K_{2,2}) = \\Theta(n^{3/2})$?",
+            "choices": [
+              "Random graph $G(n, 1/2)$",
+              "The Kneser graph",
+              "The point-line incidence graph of a projective plane $\\mathrm{PG}(2, q)$",
+              "A Cayley graph of $(\\mathbb{Z}/n\\mathbb{Z})^*$"
+            ],
+            "answer": 2,
+            "explain": "Erdős–Rényi: take vertices = points and lines of $\\mathrm{PG}(2, q)$, with $n \\approx 2(q^2 + q + 1)$ vertices. Incidence as edges gives a $C_4$-free graph with $\\Theta(n^{3/2})$ edges."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the proof of KST.",
+            "choices": [
+              "It double-counts pairs $(v, S)$ where $S \\subseteq N(v)$ has size $s$",
+              "It uses Jensen's (convexity) inequality on $\\sum_v \\binom{\\deg v}{s}$",
+              "It uses the fact that no $s$-subset has $\\ge t$ common neighbours, else $K_{s,t}$ appears",
+              "It relies on Szemerédi regularity"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The proof is a clean three-line counting argument: count cherries / common-neighbour patterns two ways and apply convexity. Regularity is overkill — KST predates it by 21 years."
+          }
+        ]
+      },
+      "erdos-stone-simonovits": {
+        "title": "Erdős–Stone–Simonovits",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "According to Erdős–Stone–Simonovits, the leading term of $\\mathrm{ex}(n, H)$ depends on which property of $H$?",
+            "choices": [
+              "The number of vertices of $H$",
+              "The number of edges of $H$",
+              "The chromatic number $\\chi(H)$",
+              "Whether $H$ is bipartite"
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{ex}(n, H) = (1 - 1/(\\chi(H)-1))\\,n^2/2 + o(n^2)$. The leading term sees only $\\chi(H)$ — neither vertex count nor edge count nor any finer structure."
+          },
+          {
+            "type": "mcq",
+            "q": "If $H$ is a graph with $\\chi(H) = 4$ (e.g. $K_4$), what is its Turán density $\\pi(H)$?",
+            "choices": [
+              "$1/3$",
+              "$1/2$",
+              "$2/3$",
+              "$3/4$"
+            ],
+            "answer": 2,
+            "explain": "By Erdős–Stone, $\\pi(H) = 1 - 1/(\\chi(H) - 1)$. For $\\chi(H) = 4$, $\\pi(H) = 1 - 1/3 = 2/3$. The asymptotic extremal example is $T(n, 3)$, the balanced tripartite graph."
+          },
+          {
+            "type": "mcq",
+            "q": "If $H$ is bipartite (i.e. $\\chi(H) = 2$), what does Erdős–Stone give for $\\mathrm{ex}(n, H)$?",
+            "choices": [
+              "$\\Theta(n^2)$",
+              "$o(n^2)$ — leading term vanishes",
+              "$\\Theta(n^{3/2})$ exactly",
+              "$\\Theta(n \\log n)$"
+            ],
+            "answer": 1,
+            "explain": "$1 - 1/(2-1) = 0$, so the leading $n^2$ coefficient vanishes. $\\mathrm{ex}(n, H) = o(n^2)$ — but Erdős–Stone gives no rate. Determining the rate (KST exponents, even-cycle bounds, the Sidorenko conjecture) is the bipartite extremal industry."
+          }
+        ]
+      },
+      "ramsey-numbers": {
+        "title": "Ramsey numbers",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the Ramsey number $R(3, 3)$?",
+            "answer": 6,
+            "tol": 0,
+            "explain": "$R(3,3) = 6$. Lower bound: the $5$-cycle $C_5$ together with its complement is triangle-free in both colours. Upper bound: pigeonhole at any vertex of $K_6$ — three of its five edges are the same colour, then either those endpoints form a monochromatic triangle or include the missing colour."
+          },
+          {
+            "type": "mcq",
+            "q": "Erdős's probabilistic argument shows what for the diagonal Ramsey number $R(k, k)$?",
+            "choices": [
+              "$R(k, k) = 2^k$ exactly",
+              "$R(k, k) \\le 4^k$ (upper bound)",
+              "$R(k, k) \\ge (1 + o(1))\\frac{k}{e\\sqrt{2}}\\, 2^{k/2}$ (lower bound)",
+              "$R(k, k) = O(k^2 / \\log k)$"
+            ],
+            "answer": 2,
+            "explain": "Random $2$-edge-coloring of $K_n$: expected monochromatic $K_k$ count is $\\binom{n}{k} 2^{1 - \\binom{k}{2}}$. Setting this $< 1$ yields the lower bound $\\sim 2^{k/2}$. The upper bound $4^k$ is from Erdős–Szekeres."
+          },
+          {
+            "type": "mcq",
+            "q": "Schur's theorem says: for every $r$ there is $S(r)$ such that any $r$-colouring of $\\{1, \\ldots, S(r)\\}$ contains a monochromatic solution to which equation?",
+            "choices": [
+              "$x \\cdot y = z$",
+              "$x + y = z$",
+              "$x^2 + y^2 = z^2$",
+              "$x + y + z = 0$"
+            ],
+            "answer": 1,
+            "explain": "Schur: every $r$-colouring of a long enough initial segment contains a monochromatic Schur triple $x + y = z$. The proof reduces to graph Ramsey on $K_n$ via colour-by-difference."
+          }
+        ]
+      },
+      "sperner-lym": {
+        "title": "Sperner's theorem and LYM",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the maximum size of an antichain in $2^{[5]}$?",
+            "answer": 10,
+            "tol": 0,
+            "explain": "Sperner: max size $= \\binom{n}{\\lfloor n/2 \\rfloor}$. For $n = 5$, this is $\\binom{5}{2} = \\binom{5}{3} = 10$, attained by either of the two middle layers."
+          },
+          {
+            "type": "mcq",
+            "q": "The LYM inequality states that for any antichain $\\mathcal{F} \\subseteq 2^{[n]}$:",
+            "choices": [
+              "$|\\mathcal{F}| \\le 2^n$",
+              "$\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|} \\le 1$",
+              "$|\\mathcal{F}| \\le n!$",
+              "$\\prod_{F\\in\\mathcal{F}} |F| \\le n^n$"
+            ],
+            "answer": 1,
+            "explain": "LYM (Lubell–Yamamoto–Meshalkin): the chain-counting bound $\\sum_F 1/\\binom{n}{|F|} \\le 1$. Sperner's theorem follows by bounding each summand below by $1/\\binom{n}{\\lfloor n/2\\rfloor}$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the proof technique behind LYM?",
+            "choices": [
+              "Random projection",
+              "Counting maximal chains in the Boolean lattice",
+              "Generating functions",
+              "Linear programming duality"
+            ],
+            "answer": 1,
+            "explain": "Each maximal chain $\\emptyset = C_0 \\subset \\cdots \\subset C_n = [n]$ is a permutation — there are $n!$ of them. A given $F$ with $|F|=k$ lies on $k!(n-k)! = n!/\\binom{n}{k}$ chains. An antichain meets each chain at most once, so $\\sum_F n!/\\binom{n}{|F|} \\le n!$."
+          }
+        ]
+      },
+      "triangle-removal-regularity": {
+        "title": "Triangle removal & regularity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The triangle removal lemma says: for every $\\varepsilon > 0$ there is $\\delta > 0$ such that...",
+            "choices": [
+              "Every triangle-free graph has at most $\\varepsilon n^2$ edges",
+              "Every graph with at most $\\delta n^3$ triangles can be made triangle-free by deleting at most $\\varepsilon n^2$ edges",
+              "Every graph contains at most $\\delta n^3$ triangles",
+              "Every dense graph contains a triangle"
+            ],
+            "answer": 1,
+            "explain": "Removal lemma: few triangles $\\Rightarrow$ few edges suffice to destroy them all. Equivalently (contrapositive): a graph that is robustly non-triangle-free is supersaturated with triangles."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical theorem follows from the triangle removal lemma?",
+            "choices": [
+              "Turán's theorem",
+              "Ramsey's theorem",
+              "Roth's theorem on $3$-term arithmetic progressions in $\\{1,\\ldots,N\\}$",
+              "The Erdős–Ko–Rado theorem"
+            ],
+            "answer": 2,
+            "explain": "Roth (1953): any $A \\subseteq \\{1,\\ldots,N\\}$ free of $3$-APs has $|A| = o(N)$. Proof via removal: build a tripartite graph whose triangles correspond to $3$-APs in $A$; trivial APs force supersaturation, so non-trivial ones must exist when $|A|/N$ is bounded below."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Szemerédi's regularity lemma assert about the partition size $K(\\varepsilon)$?",
+            "choices": [
+              "$K(\\varepsilon) = O(1/\\varepsilon)$",
+              "$K(\\varepsilon) = O(1/\\varepsilon^2)$",
+              "$K(\\varepsilon)$ is a tower of twos of height $\\varepsilon^{-O(1)}$",
+              "$K(\\varepsilon)$ depends linearly on $n$"
+            ],
+            "answer": 2,
+            "explain": "Szemerédi gives an explicit tower-type bound; Gowers (1997) showed it is essentially sharp — no polynomial in $1/\\varepsilon$ suffices. This is what makes regularity proofs ineffective in practice for small $\\varepsilon$."
           }
         ]
       }
@@ -23960,18 +24180,283 @@ window.MVQuizBank = {
   "probabilistic-method": {
     "topic": "probabilistic-method",
     "quizzes": {
-      "probabilistic-method-intro": {
-        "title": "Intro",
+      "existence-by-expectation": {
+        "title": "Existence by expectation",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Suppose $X$ is an integer-valued random variable on a finite sample space with $\\mathbb{E}[X] = 7.3$. Which conclusion is forced by the existence principle?",
             "choices": [
-              "A",
-              "B"
+              "$X \\ge 8$ almost surely",
+              "There exists a sample point at which $X \\ge 8$",
+              "The variance $\\operatorname{Var}(X) \\le 7.3$",
+              "$X = 7$ with probability at least $1/2$"
+            ],
+            "answer": 1,
+            "explain": "If every sample point had $X \\le 7$ then $\\mathbb{E}[X] \\le 7 < 7.3$. So at least one sample point gives $X \\ge 8$. Nothing is implied about variance or about the distribution of $X$ on other points."
+          },
+          {
+            "type": "numeric",
+            "q": "Random tournament on $n=6$ vertices: orient each of the $\\binom{6}{2}=15$ edges by an independent fair coin. What is the expected number of Hamilton paths?",
+            "answer": 22.5,
+            "tol": 0.01,
+            "explain": "There are $6! = 720$ permutations. For each, the probability all $5$ consecutive edges agree with the permutation's direction is $2^{-5} = 1/32$. Linearity gives $\\mathbb{E}[X] = 720/32 = 22.5$. The existence principle then forces some tournament on $6$ vertices to have $\\ge 23$ Hamilton paths."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the statements that follow purely from the existence principle (random object with positive probability of property $P$ implies a deterministic object with $P$).",
+            "choices": [
+              "There is a tournament on $n$ vertices with at least $\\lceil n!/2^{n-1}\\rceil$ Hamilton paths",
+              "Every tournament on $n$ vertices has at least $n!/2^{n-1}$ Hamilton paths",
+              "There exists a $2$-colouring of $K_n$ with no monochromatic $K_k$ whenever $\\binom{n}{k} 2^{1-\\binom{k}{2}} < 1$",
+              "There is a polynomial-time algorithm to construct the colouring of (3)"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Items 1 and 3 are direct existence-by-expectation/union-bound statements. Item 2 is wrong — the existence principle never says \\emph{every} object has the property, only that one does. Item 4 misreads existence as constructiveness; the probabilistic method gives no algorithm by itself."
+          }
+        ]
+      },
+      "ramsey-lower-bound": {
+        "title": "Ramsey lower bound",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Erdős's $R(k,k)$ argument, what is the probability that a fixed $k$-subset $S\\subseteq[n]$ is monochromatic under a uniformly random $2$-colouring of $K_n$?",
+            "choices": [
+              "$2^{-k}$",
+              "$2 \\cdot 2^{-\\binom{k}{2}}$",
+              "$\\binom{n}{k} 2^{-k}$",
+              "$1/k!$"
+            ],
+            "answer": 1,
+            "explain": "$S$ has $\\binom{k}{2}$ edges; the probability they all match a chosen colour is $2^{-\\binom{k}{2}}$, and there are $2$ colour choices. So $\\mathbb{P}(S\\text{ monochromatic}) = 2 \\cdot 2^{-\\binom{k}{2}} = 2^{1-\\binom{k}{2}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\binom{n}{k}\\,2^{1-\\binom{k}{2}} < 1$ imply $R(k,k) > n$?",
+            "choices": [
+              "It says a random colouring is monochromatic with probability $< 1$, hence sometimes not monochromatic",
+              "It bounds the expected number of monochromatic $K_k$'s by $< 1$, so by the union bound (or Markov) some colouring has zero such cliques — hence a $2$-colouring of $K_n$ avoids monochromatic $K_k$",
+              "It bounds the variance, forcing concentration",
+              "It's the same as $n < 2^{k/2}$ by the central limit theorem"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{E}[\\#\\text{mono }K_k] = \\binom{n}{k}\\,2^{1-\\binom{k}{2}}$ by linearity. If this is $<1$ the count is integer-valued with mean $<1$, so it equals $0$ on a positive-probability event. Such a colouring witnesses $R(k,k) > n$."
+          },
+          {
+            "type": "numeric",
+            "q": "Plug $k=4$, $n=8$ into Erdős's union bound: compute $\\binom{8}{4}\\,2^{1-\\binom{4}{2}}$.",
+            "answer": 2.1875,
+            "tol": 0.001,
+            "explain": "$\\binom{8}{4}=70$ and $2^{1-6}=2^{-5}=1/32$, so the bound is $70/32 = 2.1875$. Since this exceeds $1$, Erdős's argument is inconclusive at $(n,k)=(8,4)$ — and indeed $R(4,4)=18$, far above $8$. Trying larger $n$ inflates $\\binom{n}{4}$ further, so the union bound $R(k,k) > 2^{k/2}$ only kicks in for moderately large $k$."
+          }
+        ]
+      },
+      "linearity-of-expectation": {
+        "title": "Linearity of expectation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Linearity of expectation $\\mathbb{E}[X_1+\\cdots+X_m]=\\sum \\mathbb{E}[X_i]$ requires which hypothesis on the $X_i$?",
+            "choices": [
+              "Mutual independence",
+              "Pairwise independence",
+              "Identically distributed",
+              "Only that each $X_i$ is integrable"
+            ],
+            "answer": 3,
+            "explain": "Linearity of $\\mathbb{E}$ holds for any integrable random variables — independence is irrelevant. Independence is needed for $\\mathbb{E}[XY]=\\mathbb{E}[X]\\mathbb{E}[Y]$ and for variance to add."
+          },
+          {
+            "type": "numeric",
+            "q": "In $G(n,1/2)$ with $n=10$, what is the expected number of independent sets of size exactly $k=4$?",
+            "answer": 3.28125,
+            "tol": 0.001,
+            "explain": "$\\mathbb{E}[\\#\\{4\\text{-indep sets}\\}] = \\binom{10}{4}\\cdot 2^{-\\binom{4}{2}} = 210 \\cdot 2^{-6} = 210/64 = 3.28125$ — the count is non-zero in expectation, so the first-moment method is inconclusive at this $k$. Pushing $k$ up to $\\lceil 2\\log_2 10\\rceil = 7$ drives the expectation below $1$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these statements about linearity of expectation in $G(n,p)$ are correct?",
+            "choices": [
+              "$\\mathbb{E}[\\#\\text{triangles}] = \\binom{n}{3} p^3$ for any $p$",
+              "$\\mathbb{E}[\\#\\text{triangles}] = \\binom{n}{3} p^3$ only when triangles are independent (which they are not)",
+              "If a sum of indicators has expectation $< 1$, then with positive probability it equals $0$",
+              "If a sum of indicators has expectation $= 5$, then it equals $5$ on every sample point"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Linearity holds with no independence — item 1 is correct, item 2 is the trap. Item 3 is the first-moment principle. Item 4 confuses mean with deterministic value; the variable can fluctuate around $5$."
+          }
+        ]
+      },
+      "alteration-method": {
+        "title": "Alterations: the deletion method",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the structural idea of the alteration (deletion) method?",
+            "choices": [
+              "Resample bad events until none occur",
+              "Sample a random object that is almost good, then locally delete elements involved in each defect",
+              "Compute the variance and apply Chebyshev",
+              "Use the Lovász Local Lemma to skip defects"
+            ],
+            "answer": 1,
+            "explain": "The alteration method weakens the requirement that the random object outright satisfy property $P$ — instead it tolerates $\\beta$ expected defects, then surgically removes one element per defect. The cost is $\\beta$ in size; the gain is being able to use much denser random objects."
+          },
+          {
+            "type": "mcq",
+            "q": "In Erdős's high-girth high-chromatic-number proof, what is altered?",
+            "choices": [
+              "Each cycle of length $\\le g-1$ has one of its vertices deleted",
+              "Each clique has one of its edges deleted",
+              "The graph is replaced by its complement",
+              "The vertex set is enlarged to absorb defects"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "Sample $G\\sim G(n,p)$ with $p = n^{\\theta-1}$, count short cycles in expectation, then delete one vertex per short cycle. The remaining graph has girth $\\ge g$ and the independence number is unchanged or smaller (deletion is monotone), preserving the chromatic-number lower bound."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these statements about the alteration method are correct?",
+            "choices": [
+              "It is constructive in the sense that it produces an explicit algorithm to build the object",
+              "It is non-constructive: existence is proven, but no efficient construction is implied",
+              "It can give better bounds than the basic probabilistic method by tolerating a few defects",
+              "It is equivalent to the Lovász Local Lemma"
+            ],
+            "answer": [
+              1,
+              2
+            ],
+            "explain": "The deletion method is non-constructive (item 2): you know an object exists, but the proof gives no efficient construction. It often beats the basic method (item 3) because it works with denser/looser random objects. It is not equivalent to the LLL (item 4) — LLL handles many overlapping bad events without alteration; alteration handles few isolated ones."
+          }
+        ]
+      },
+      "lovasz-local-lemma": {
+        "title": "Lovász Local Lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The symmetric LLL states: if each bad event $A_i$ has probability $\\le p$ and depends on at most $d$ others, then $\\mathbb{P}(\\bigcap \\bar A_i) > 0$ provided…",
+            "choices": [
+              "$p\\,d \\le 1$",
+              "$p + d \\le 1$",
+              "$e\\,p\\,(d+1) \\le 1$",
+              "$p \\le 1/2$"
+            ],
+            "answer": 2,
+            "explain": "The symmetric LLL hypothesis is $e\\,p\\,(d+1)\\le 1$, where $e$ is Euler's constant. The factor of $e$ comes from the inductive proof's geometric sum bound."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the LLL gain over the union bound in $k$-SAT?",
+            "choices": [
+              "Both give the same bound but the LLL is faster",
+              "The union bound shows satisfiability when $m \\le 2^k$ clauses; the LLL shows it when each variable appears in $\\le 2^k/(ek)$ clauses regardless of total $m$",
+              "The LLL only works for $k = 2$",
+              "The LLL requires the $A_i$ to be mutually independent"
+            ],
+            "answer": 1,
+            "explain": "The union bound demands $\\sum \\mathbb{P}(A_i) = m\\,2^{-k} < 1$, useless for large $m$. The LLL trades the global sum for a local degree: dependence (sharing a variable) of bounded degree suffices. This is what makes LLL the right tool when bad events are sparse but not few."
+          },
+          {
+            "type": "numeric",
+            "q": "In $4$-SAT, the LLL guarantees satisfiability whenever each variable appears in at most $2^k/(ek)$ clauses with $k=4$. To the nearest integer, what is this threshold?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "$2^4/(e\\cdot 4) = 16/(4e) = 4/e \\approx 1.47$. Rounded down (the integer floor of the threshold), the LLL covers each variable appearing in at most $1$ clause — a weak bound at $k=4$, but the threshold $2^k/(ek)$ grows exponentially in $k$, dominating the union bound for moderate $k$."
+          }
+        ]
+      },
+      "random-graph-thresholds": {
+        "title": "Thresholds in $G(n,p)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $X_T$ count triangles in $G(n,p)$. The triangle threshold is at:",
+            "choices": [
+              "$p = 1/n^2$",
+              "$p = 1/n$",
+              "$p = (\\log n)/n$",
+              "$p = 1/\\sqrt n$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{E}[X_T] = \\binom{n}{3} p^3 \\sim n^3 p^3 / 6$. This stays bounded iff $p = \\Theta(1/n)$. For $p \\ll 1/n$ the first moment vanishes and there are no triangles a.a.s.; for $p \\gg 1/n$ the second moment shows triangles exist a.a.s."
+          },
+          {
+            "type": "mcq",
+            "q": "The second moment method shows $\\mathbb{P}(X = 0)$ is small whenever:",
+            "choices": [
+              "$\\mathbb{E}[X]\\to\\infty$ alone",
+              "$\\operatorname{Var}(X) = o(\\mathbb{E}[X]^2)$ and $\\mathbb{E}[X]\\to\\infty$",
+              "$\\mathbb{E}[X^2] \\le \\mathbb{E}[X]$",
+              "$X$ is independent of itself"
+            ],
+            "answer": 1,
+            "explain": "Chebyshev's inequality gives $\\mathbb{P}(X = 0)\\le \\mathbb{P}(|X-\\mathbb{E}[X]|\\ge\\mathbb{E}[X]) \\le \\operatorname{Var}(X)/\\mathbb{E}[X]^2$. So the variance must be $o(\\mathbb{E}[X]^2)$ on top of $\\mathbb{E}[X]\\to\\infty$ for this to vanish."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the statements about $G(n,p)$ thresholds that are correct.",
+            "choices": [
+              "At $p = c/n$ the number of triangles converges in distribution to $\\mathrm{Pois}(c^3/6)$",
+              "Connectivity has threshold $p = (\\log n)/n$",
+              "The giant component appears at $p = 1/n$",
+              "Every monotone graph property has its threshold at $p = 1/n$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Items 1, 2, 3 are foundational facts of Erdős–Rényi. Item 4 is wrong — connectivity ($\\log n/n$), triangle-containment ($1/n$), and Hamiltonicity ($\\log n/n$) all have different thresholds; the threshold depends on the property."
+          }
+        ]
+      },
+      "concentration-inequalities": {
+        "title": "Concentration inequalities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Markov's inequality $\\mathbb{P}(X \\ge a) \\le \\mathbb{E}[X]/a$ requires:",
+            "choices": [
+              "$X$ has finite variance",
+              "$X \\ge 0$",
+              "$X$ is independent of $a$",
+              "$X$ is integer-valued"
+            ],
+            "answer": 1,
+            "explain": "Markov's inequality is for non-negative $X$ — it is the most elementary tail bound and the foundation for Chebyshev (apply Markov to $(X-\\mu)^2$) and Chernoff (apply Markov to $e^{tX}$)."
+          },
+          {
+            "type": "mcq",
+            "q": "Hoeffding's inequality for $S_n = X_1 + \\cdots + X_n$ with $X_i \\in [0,1]$ independent gives:",
+            "choices": [
+              "$\\mathbb{P}(|S_n - \\mathbb{E}S_n| \\ge t) \\le \\sigma^2/t^2$",
+              "$\\mathbb{P}(|S_n - \\mathbb{E}S_n| \\ge t) \\le 2\\exp(-2t^2/n)$",
+              "$\\mathbb{P}(S_n \\ge t) \\le \\mathbb{E}S_n/t$",
+              "$\\mathbb{P}(S_n = \\mathbb{E}S_n) = 1$"
+            ],
+            "answer": 1,
+            "explain": "Hoeffding: independent bounded variables have a sub-Gaussian tail. Item 1 is Chebyshev (polynomial decay), item 3 is Markov, item 4 is the law of large numbers as a single point — all weaker than Hoeffding's exponential bound."
+          },
+          {
+            "type": "mcq",
+            "q": "In Shamir–Spencer's concentration for $\\chi(G(n,p))$, why does the vertex-exposure martingale have differences bounded by $1$?",
+            "choices": [
+              "Because $\\chi$ is monotone in $p$",
+              "Because revealing one new vertex's edges can change the chromatic number by at most $1$ — at worst the new vertex needs a fresh colour",
+              "Because $G(n,p)$ is connected with high probability",
+              "Because Hoeffding's constants are always $1$"
+            ],
+            "answer": 1,
+            "explain": "Adding a single vertex to an existing optimal colouring needs at most one extra colour, so $\\chi$ changes by $\\le 1$. The Doob/exposure martingale of $\\chi$ conditional on revealed edges thus has $|c_i| \\le 1$, and Azuma gives $\\mathbb{P}(|\\chi - \\mathbb{E}\\chi| \\ge t) \\le 2e^{-t^2/(2n)}$."
           }
         ]
       }

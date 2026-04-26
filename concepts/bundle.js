@@ -5494,11 +5494,73 @@ window.__MVConcepts = {
       "page": "probabilistic-method.html",
       "concepts": [
         {
-          "id": "probabilistic-method-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "existence-by-expectation",
+          "title": "Existence by expectation",
+          "anchor": "existence",
+          "prereqs": [
+            "expectation-moments"
+          ],
+          "blurb": "Erdős's principle: if a random object satisfies $\\mathbb{P}(P) > 0$ then a deterministic object with $P$ exists. Equivalently $\\exists\\,\\omega\\colon X(\\omega)\\ge\\mathbb{E}[X]$ — averaging trumps construction. Szele's tournament with $n!/2^{n-1}$ Hamilton paths was the first instance.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ramsey-lower-bound",
+          "title": "Ramsey lower bound $R(k,k)\\ge 2^{k/2}$",
+          "anchor": "ramsey",
+          "prereqs": [
+            "existence-by-expectation"
+          ],
+          "blurb": "A uniformly random $2$-edge-colouring of $K_n$ has expected number of monochromatic $K_k$ at most $\\binom{n}{k}\\,2^{1-\\binom{k}{2}}$. When this drops below $1$ a colouring with no monochromatic $K_k$ exists, giving $R(k,k) > \\lfloor 2^{k/2}\\rfloor$ — the gap to $4^k$ is wide open."
+        },
+        {
+          "id": "linearity-of-expectation",
+          "title": "Linearity of expectation",
+          "anchor": "linearity",
+          "prereqs": [
+            "existence-by-expectation",
+            "expectation-moments"
+          ],
+          "blurb": "$\\mathbb{E}[X_1+\\cdots+X_m]=\\mathbb{E}[X_1]+\\cdots+\\mathbb{E}[X_m]$ holds without independence. It bounds $\\alpha(G(n,1/2)) \\le 2\\log_2 n$ via $\\mathbb{E}[\\#\\{k\\text{-indep sets}\\}]=\\binom{n}{k}2^{-\\binom{k}{2}}$, and is the engine of Erdős's high-girth high-chromatic-number theorem."
+        },
+        {
+          "id": "alteration-method",
+          "title": "Alterations: the deletion method",
+          "anchor": "alterations",
+          "prereqs": [
+            "linearity-of-expectation"
+          ],
+          "blurb": "Sample a random object that is almost good, then locally repair. Delete one vertex per short cycle to force girth $\\ge g$ while preserving the chromatic-number bound; sample-then-delete recovers the Turán bound $\\alpha(G)\\ge \\sum 1/(d_v+1)$ from $\\mathbb{E}[|S|-e(S)]$."
+        },
+        {
+          "id": "lovasz-local-lemma",
+          "title": "Lovász Local Lemma",
+          "anchor": "lll",
+          "prereqs": [
+            "existence-by-expectation"
+          ],
+          "blurb": "If each bad event $A_i$ has probability $\\le p$ and depends on at most $d$ others, then $e\\,p\\,(d+1)\\le 1$ implies $\\mathbb{P}(\\bigcap \\bar A_i) > 0$ — exponentially better than the union bound. Yields $k$-CNF satisfiability up to $2^k/(ek)$ occurrences per variable; Moser–Tardos made the proof a polynomial-time algorithm."
+        },
+        {
+          "id": "random-graph-thresholds",
+          "title": "Thresholds in $G(n,p)$",
+          "anchor": "thresholds",
+          "prereqs": [
+            "linearity-of-expectation",
+            "expectation-moments"
+          ],
+          "blurb": "First-moment $\\mathbb{P}(X\\ge 1)\\le\\mathbb{E}[X]$ kills sub-structures below threshold; second-moment $\\mathbb{P}(X=0)\\le\\operatorname{Var}(X)/\\mathbb{E}[X]^2$ produces them above. Triangles appear at $p_c=1/n$ as $\\mathrm{Pois}((np)^3/6)$; connectivity and Hamiltonicity at $\\log n / n$."
+        },
+        {
+          "id": "concentration-inequalities",
+          "title": "Concentration: Markov, Chebyshev, Chernoff, Azuma",
+          "anchor": "concentration",
+          "prereqs": [
+            "expectation-moments",
+            "martingales"
+          ],
+          "blurb": "Tail bounds from one moment (Markov), two (Chebyshev), the MGF (Chernoff–Hoeffding), and martingale differences (Azuma). Shamir–Spencer: vertex-exposure martingale on $\\chi(G(n,p))$ has bounded differences $\\le 1$, giving $\\mathbb{P}(|\\chi-\\mathbb{E}\\chi|\\ge t)\\le 2e^{-t^2/(2n)}$."
         }
       ]
     },
@@ -5508,11 +5570,65 @@ window.__MVConcepts = {
       "page": "extremal-combinatorics.html",
       "concepts": [
         {
-          "id": "extremal-combinatorics-intro",
-          "title": "Intro",
-          "anchor": "intro",
+          "id": "turan-theorem",
+          "title": "Turán's theorem and the Turán graph",
+          "anchor": "turan",
           "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "blurb": "$\\mathrm{ex}(n, K_{r+1}) = (1 - 1/r)\\,n^2/2 - O(1)$, with the unique extremal graph the balanced complete $r$-partite Turán graph $T(n, r)$. Proof by Zykov symmetrization; the limiting Turán density $\\pi(K_{r+1}) = 1 - 1/r$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "kovari-sos-turan",
+          "title": "Kővári–Sós–Turán & the Zarankiewicz problem",
+          "anchor": "kst",
+          "prereqs": [
+            "turan-theorem"
+          ],
+          "blurb": "$\\mathrm{ex}(n, K_{s,t}) = O(n^{2-1/s})$ via a double-counting (cherries / Jensen) argument. The bipartite Zarankiewicz problem asks for $0/1$-matrices avoiding all-ones $s\\times t$ blocks; the Erdős–Rényi polarity construction matches KST up to constants for $s=t=2$."
+        },
+        {
+          "id": "erdos-stone-simonovits",
+          "title": "Erdős–Stone–Simonovits: the chromatic threshold",
+          "anchor": "erdos-stone",
+          "prereqs": [
+            "turan-theorem",
+            "kovari-sos-turan"
+          ],
+          "blurb": "$\\mathrm{ex}(n, H) = (1 - 1/(\\chi(H)-1))\\,n^2/2 + o(n^2)$. The Turán density of any non-bipartite $H$ depends only on its chromatic number; bipartite $H$ has density $0$, putting all the action into KST-style sub-quadratic exponents.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "ramsey-numbers",
+          "title": "Ramsey numbers",
+          "anchor": "ramsey",
+          "prereqs": [
+            "sample-spaces-events"
+          ],
+          "blurb": "$R(k,\\ell)$: smallest $n$ such that every $2$-edge-coloring of $K_n$ contains a monochromatic $K_k$ or $K_\\ell$. Pigeonhole gives $R(3,3)=6$; Erdős's probabilistic lower bound gives $R(k,k)\\ge \\sqrt{2}^k$, $4^k$ above. Schur's theorem on sum-free partitions is an arithmetic Ramsey corollary."
+        },
+        {
+          "id": "sperner-lym",
+          "title": "Sperner's theorem and the LYM inequality",
+          "anchor": "sperner",
+          "prereqs": [],
+          "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "triangle-removal-regularity",
+          "title": "Triangle removal lemma and Szemerédi regularity",
+          "anchor": "removal",
+          "prereqs": [
+            "erdos-stone-simonovits"
+          ],
+          "blurb": "Ruzsa–Szemerédi: a graph with $o(n^3)$ triangles can be made triangle-free by deleting $o(n^2)$ edges; equivalently, robust graphs are supersaturated. Szemerédi's regularity lemma decomposes any dense graph into $\\varepsilon$-regular pairs, with bounds tower-type in $\\varepsilon^{-1}$. Together these give Roth's theorem on $3$-APs."
         }
       ]
     },
@@ -6261,7 +6377,7 @@ window.__MVConcepts = {
       "concepts": 101,
       "intra": 144,
       "crossOut": 14,
-      "crossIn": 20,
+      "crossIn": 26,
       "density": 0.13861386138613863
     },
     "Geometry & topology": {
@@ -6293,11 +6409,11 @@ window.__MVConcepts = {
       "density": 0.3853211009174312
     },
     "Combinatorics & graph theory": {
-      "concepts": 17,
-      "intra": 14,
-      "crossOut": 3,
+      "concepts": 28,
+      "intra": 23,
+      "crossOut": 9,
       "crossIn": 0,
-      "density": 0.17647058823529413
+      "density": 0.32142857142857145
     }
   }
 };

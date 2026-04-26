@@ -13,12 +13,12 @@ reach into upstream foundations or stay within their own cluster.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 5 | 5 | 0 | 5 | 0.000 |
 | Algebra | 114 | 174 | 14 | 34 | 0.123 |
-| Analysis | 101 | 144 | 14 | 20 | 0.139 |
+| Analysis | 101 | 144 | 14 | 26 | 0.139 |
 | Geometry & topology | 49 | 58 | 6 | 43 | 0.122 |
 | Number theory | 57 | 71 | 15 | 15 | 0.263 |
 | Modular forms & L-functions | 71 | 92 | 40 | 5 | 0.563 |
 | Algebraic geometry | 109 | 137 | 42 | 12 | 0.385 |
-| Combinatorics & graph theory | 17 | 14 | 3 | 0 | 0.176 |
+| Combinatorics & graph theory | 28 | 23 | 9 | 0 | 0.321 |
 
 ## EMPTY — concepts with no prereqs (4)
 
@@ -30,8 +30,8 @@ at brand-new progress alongside genuine entry points like
 
 | topic | concept | title |
 |---|---|---|
-| extremal-combinatorics | `extremal-combinatorics-intro` | Intro |
-| probabilistic-method | `probabilistic-method-intro` | Intro |
+| extremal-combinatorics | `sperner-lym` | Sperner's theorem and the LYM inequality |
+| extremal-combinatorics | `turan-theorem` | Turán's theorem and the Turán graph |
 | simplicial-complexes-combinatorial | `simplicial-complexes-combinatorial-intro` | Intro |
 | spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 

@@ -27,7 +27,15 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#bases\">Matroid theory</a> · Bases, rank, and cryptomorphism</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#bases\">Matroid theory</a> · Bases, rank, and cryptomorphism</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -64,7 +72,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#closure\">Matroid theory</a> · Closure, flats, and the geometric lattice</div>\n    <div><a href=\"./matroid-theory.html#duality\">Matroid theory</a> · Matroid duality</div>\n    <div><a href=\"./matroid-theory.html#greedy\">Matroid theory</a> · The greedy algorithm</div>\n    <div><a href=\"./matroid-theory.html#examples\">Matroid theory</a> · Vector, graphic, uniform, transversal matroids</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#closure\">Matroid theory</a> · Closure, flats, and the geometric lattice</div>\n    <div><a href=\"./matroid-theory.html#duality\">Matroid theory</a> · Matroid duality</div>\n    <div><a href=\"./matroid-theory.html#greedy\">Matroid theory</a> · The greedy algorithm</div>\n    <div><a href=\"./matroid-theory.html#examples\">Matroid theory</a> · Vector, graphic, uniform, transversal matroids</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -92,7 +104,11 @@
         },
         {
           "type": "raw",
-          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#polyrings\">Polynomial rings and irreducibility</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#polyrings\">Polynomial rings and irreducibility</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -175,7 +191,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#tutte\">Matroid theory</a> · The Tutte polynomial</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#tutte\">Matroid theory</a> · The Tutte polynomial</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -212,7 +232,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#tutte\">Matroid theory</a> · The Tutte polynomial</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#tutte\">Matroid theory</a> · The Tutte polynomial</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/branching-proof-scrubber/schema.json",
+  "title": "branching-proof-scrubber widget params",
+  "description": "Tree-shaped sibling of `proof-scrubber`. Walks a proof whose middle is a fork — the reader picks a tactic (proof by contradiction vs. by construction, case A vs. case B vs. neither, induction vs. direct, etc.) and the consequent chain plays out. Renders the full proof as a top-down tree (one rounded rect per node) with the chosen path highlighted in the configured palette accent, dead branches greyed out with a red ✗, and untraversed branches dimmed. Below the tree sits a card showing the current node's prompt (KaTeX-rendered), prev/next step buttons, and at fork nodes a row of branch buttons labeled with each child's `branchLabel`. A breadcrumb traces the chosen path; a reset button returns to the root. Self-contained IIFE in renderScript — no page-global library dependency. Both exports are pure functions of params.",
+  "meta": {
+    "family": "branching-proof-scrubber",
+    "dimension": "2d",
+    "gesture": "branching-timeline",
+    "role": "guided"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "rootId", "nodes"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. All inner element ids are derived from this so multiple instances coexist on a page."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl. May contain $…$ LaTeX (rendered by the page's KaTeX auto-render pass)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint. Defaults to a generic 'click a node or pick a branch · use ←/→' string when omitted."
+    },
+    "rootId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "ID of the root node (the proof's starting point). Must match the `id` of an entry in `nodes`."
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Flat array of step objects keyed by `id`. Each node has a `kind` (step / fork / leaf), a `prompt` shown when the reader scrubs to it, and a `children` array referencing other node ids. Sequential `step` nodes have exactly one child; `fork` nodes have ≥2 children; `leaf` nodes have zero. The widget walks the implied tree via `rootId` + `children`.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "prompt", "children"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Kebab-case id, unique within this widget instance."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["step", "fork", "leaf"],
+            "description": "`step` = single-child sequential node. `fork` = multi-child decision point; the reader picks a child via labeled buttons. `leaf` = terminal node (QED, contradiction, or end of a case)."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "HTML body rendered in the readout when this node is the current step. Supports KaTeX delimiters ($…$, $$…$$, \\(…\\), \\[…\\]) — the widget re-typesets the readout after each step change."
+          },
+          "children": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+            "description": "Ordered list of child node ids. `step` requires length 1, `fork` requires length ≥2, `leaf` requires length 0. All ids must reference entries in `nodes`."
+          },
+          "branchLabel": {
+            "type": "string",
+            "description": "Short label (5-25 chars) shown on the branch picker button when this node is reached via a fork. Examples: 'by contradiction', 'case A: x ∈ S', 'try induction'. Required only on children of fork nodes; ignored elsewhere."
+          },
+          "dead": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, this node (and the subtree rooted at it) is a teaching dead-end — a branch that leads to a contradiction or fails to prove the claim. Renders with a red ✗ glyph and a muted color even when on the chosen path."
+          }
+        }
+      }
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 240,
+      "maximum": 960,
+      "default": 520,
+      "description": "SVG viewport width in user units. The CSS layer caps display at 100% of the container so this also controls layout density."
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 160,
+      "maximum": 640,
+      "default": 280,
+      "description": "SVG viewport height in user units. Increase when the tree is deep (>5 levels)."
+    },
+    "palette": {
+      "type": "string",
+      "enum": ["cyan", "violet", "yellow", "pink"],
+      "default": "cyan",
+      "description": "Project accent color used to highlight the chosen path through the tree. Resolved via `var(--<palette>)` at render time so the page theme governs the actual hue."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener."
+    }
+  }
+}

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **78**, concepts: **523**
-- Widgets: **577** (registry-driven: 563, inline: 14)
-- Quizzes: **2739** (v1: 1503, hard: 1223, expert: 13)
-- Quiz types: mcq: 1687, numeric: 860, multi-select: 74, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **103**
-- Concepts lacking a hard-tier quiz: **85**
+- Topics: **78**, concepts: **534**
+- Widgets: **590** (registry-driven: 563, inline: 27)
+- Quizzes: **2776** (v1: 1540, hard: 1223, expert: 13)
+- Quiz types: mcq: 1712, numeric: 867, multi-select: 79, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **101**
+- Concepts lacking a hard-tier quiz: **96**
 
 ## Per-slug registry adoption
 
@@ -153,6 +153,7 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
+| `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 0 | _(none — fixture-only)_ |
 | `julia-playground` | julia-playground | slider | 2d | 0 | _(none — fixture-only)_ |
 
 ## Per-subject
@@ -229,13 +230,13 @@ page has wired one in yet.
 
 ### Combinatorics & graph theory
 
-- Topics: **5**, concepts: **17**
-- Widgets: **14** (registry-driven: 0, inline: 14)
-  - by family: unknown: 14
-  - by dimension: unknown: 14
-  - by gesture: unknown: 14
-- Quizzes: **45** (v1: 45, hard: 0, expert: 0)
-  - by type: mcq: 33, numeric: 7, multi-select: 5
+- Topics: **5**, concepts: **28**
+- Widgets: **27** (registry-driven: 0, inline: 27)
+  - by family: unknown: 27
+  - by dimension: unknown: 27
+  - by gesture: unknown: 27
+- Quizzes: **82** (v1: 82, hard: 0, expert: 0)
+  - by type: mcq: 58, numeric: 14, multi-select: 10
 
 ## Per-topic
 
@@ -310,8 +311,8 @@ page has wired one in yet.
 - `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
 - `spectral-graph-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `probabilistic-method` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `extremal-combinatorics` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
