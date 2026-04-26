@@ -206,6 +206,12 @@ for (const topicId of topicIds) {
       if (directPrereqs.has(v.id)) continue;
       if (transitive.has(v.id)) continue; // already reachable
       if (seenTargets.has(v.id)) continue;
+      // Reverse-direction cycle suppression: if the target already depends
+      // (transitively) on the source, suggesting source → target would create
+      // a cycle. The phrase match in this case is the target name appearing
+      // in the source's prose because the source IS what the target depends on.
+      const targetClosure = transitivePrereqs(v.id);
+      if (targetClosure.has(conceptId)) continue;
 
       const re = new RegExp(v.regex.source, 'gi');
       let mm;

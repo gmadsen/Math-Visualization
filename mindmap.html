@@ -185,6 +185,27 @@
     outline:2px solid var(--yellow);outline-offset:1px;border-color:var(--yellow)}
   .gap-list ul li:focus-visible{outline:2px solid var(--yellow);outline-offset:-2px}
   .stage:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+  /* Mobile: a fixed 820px stage steals most of a phone viewport before the
+     toolbar fits. Switch to a viewport-relative stage height, soften the
+     toolbar to wrap rather than overflow, and let the legend drop below the
+     primary controls. Touch pan/zoom already works (touch-action:none on the
+     SVG); these rules only adjust layout. */
+  @media (max-width: 720px) {
+    main { padding: 0 .5rem }
+    .bar { gap:.35rem; padding:.5rem .55rem; flex-wrap:wrap }
+    .group { padding-right:.45rem; margin-right:0 }
+    .group:not(:last-of-type) { border-right:none }
+    #search { min-width:120px; max-width:none; flex:1 1 140px }
+    .match-info { min-width:0; flex-basis:100% }
+    input[type="range"] { width:70px }
+    .legend { margin-left:0; flex-basis:100%; row-gap:.25rem; font-size:.78rem }
+    .help-panel { right:auto; left:.4rem; min-width:0;
+      width:calc(100vw - 1.6rem); max-width:340px }
+    .stage { height:min(70vh, 560px); min-height:360px }
+    .focus-card { left:.5rem; right:.5rem; max-width:none; bottom:.5rem }
+    .gap-list { font-size:.85rem }
+    .stats-row { flex-wrap:wrap; gap:.4rem .9rem }
+  }
   /* Print: drop the toolbar, gap-list, and pan/zoom affordances. Show the
      full graph snapshot at its current view, with a caption derived from
      the stats line so the print is self-explanatory. */
