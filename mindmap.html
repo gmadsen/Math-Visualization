@@ -241,6 +241,10 @@
       <label for="depth">depth:</label>
       <input id="depth" type="range" min="1" max="5" value="2" aria-label="Focus neighborhood depth (1 to 5 hops)" />
       <span id="depth-val" class="match-info" style="min-width:32px" aria-live="polite">2</span>
+      <label style="margin-left:.4rem;display:inline-flex;align-items:center;gap:.3rem;cursor:pointer">
+        <input id="full-chain" type="checkbox" style="cursor:pointer" />
+        <span style="color:var(--mute);font-size:.85rem" title="Show every transitive prereq AND every transitive consumer of the focused node, regardless of depth">full chain</span>
+      </label>
     </div>
     <div class="group">
       <button id="reset-view">reset</button>
@@ -863,17 +867,41 @@
   // ---------- focus ----------
   let focusIdx = null;
   let focusDepth = 2;
+  // "Full chain" mode: focus shows every transitive prereq AND every
+  // transitive consumer of the focused node, regardless of `focusDepth`.
+  // Semantically distinct from k-hop undirected: the chain is a directed
+  // closure (in two directions), reflecting "to know this concept you
+  // implicitly know its prereqs, and what it's used for is downstream."
+  let useFullChain = false;
   const depthSlider = document.getElementById('depth');
   const depthVal = document.getElementById('depth-val');
+  const fullChainCheckbox = document.getElementById('full-chain');
   function onDepthChange(){
     focusDepth = parseInt(depthSlider.value, 10) || 2;
     depthVal.textContent = String(focusDepth);
+    if(focusIdx !== null) applyFocus();
+  }
+  function onFullChainChange(){
+    useFullChain = !!(fullChainCheckbox && fullChainCheckbox.checked);
+    // Visually grey out the depth slider while full-chain is active so the
+    // user knows the slider value isn't doing anything.
+    if(depthSlider){
+      depthSlider.disabled = useFullChain;
+      depthSlider.style.opacity = useFullChain ? '0.45' : '';
+    }
+    if(depthVal){
+      depthVal.style.opacity = useFullChain ? '0.45' : '';
+      depthVal.textContent = useFullChain ? '∞' : String(focusDepth);
+    }
     if(focusIdx !== null) applyFocus();
   }
   // Cover both `input` (live drag) and `change` (commit) — some browser/OS
   // combinations emit only one of the two reliably for <input type="range">.
   depthSlider.addEventListener('input', onDepthChange);
   depthSlider.addEventListener('change', onDepthChange);
+  if(fullChainCheckbox){
+    fullChainCheckbox.addEventListener('change', onFullChainChange);
+  }
 
   // Undirected k-hop BFS: walks the graph treating prereq direction as
   // bidirectional. The previous version did two independent directed walks
@@ -906,6 +934,34 @@
     return hop;
   }
 
+  // Full transitive closure: every prereq of the focused node (recursively
+  // upstream via inAdj) plus every consumer (recursively downstream via
+  // outAdj). The graph is a DAG so each direction terminates without a
+  // cycle guard beyond the visited set. Used by the "full chain" toggle —
+  // semantically distinct from k-hop undirected: "if you know this concept,
+  // you implicitly know every prereq it rests on AND every concept that
+  // rests on it." No depth limit.
+  function bfsFullChain(startIdx){
+    const set = new Map(); set.set(startIdx, 0);
+    const upQueue = [startIdx];
+    while(upQueue.length){
+      const u = upQueue.shift();
+      for(const v of inAdj[u]){
+        if(set.has(v)) continue;
+        set.set(v, 1); upQueue.push(v);
+      }
+    }
+    const downQueue = [startIdx];
+    while(downQueue.length){
+      const u = downQueue.shift();
+      for(const v of outAdj[u]){
+        if(set.has(v)) continue;
+        set.set(v, 1); downQueue.push(v);
+      }
+    }
+    return set;
+  }
+
   // Reflect the current focus into the URL so a focused state is shareable
   // and survives reloads. Skipped on file:// (history.replaceState throws
   // SecurityError there).
@@ -925,7 +981,9 @@
   }
 
   function applyFocus(){
-    const reachable = bfsUndirected(focusIdx, focusDepth);
+    const reachable = useFullChain
+      ? bfsFullChain(focusIdx)
+      : bfsUndirected(focusIdx, focusDepth);
     const keep = reachable; // Set-like via Map.has
 
     nodes.forEach((n, i) => {
@@ -975,7 +1033,7 @@
       <div class="fdeg">
         <span><b>${n.degIn}</b> prereqs</span>
         <span><b>${n.degOut}</b> consumers</span>
-        <span><b>${neighborhoodCount}</b> in ${focusDepth}-hop neighborhood</span>
+        <span><b>${neighborhoodCount}</b> in ${useFullChain ? 'full chain' : focusDepth + '-hop neighborhood'}</span>
       </div>
       <div class="factions">
         <a href="./${escHtml(n.topicPage)}#${escHtml(n.anchor)}" target="_blank" rel="noopener">open ↗</a>
