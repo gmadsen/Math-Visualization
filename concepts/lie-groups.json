@@ -11,7 +11,8 @@
         "smooth-manifold-definition",
         "algebraic-structures"
       ],
-      "blurb": "Lie groups combine smooth manifolds with group multiplication."
+      "blurb": "Lie groups combine smooth manifolds with group multiplication.",
+      "tags": ["foundation"]
     },
     {
       "id": "lie-algebra-tangent",
@@ -21,7 +22,8 @@
         "lie-group-definition",
         "tangent-space-manifolds"
       ],
-      "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$."
+      "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$.",
+      "tags": ["foundation"]
     },
     {
       "id": "lie-algebra-and-exp",
@@ -30,7 +32,8 @@
       "prereqs": [
         "lie-algebra-tangent"
       ],
-      "blurb": "The exponential map $\\exp:\\mathfrak{g}\\to G$ integrates each $X\\in\\mathfrak g$ to the one-parameter subgroup $t\\mapsto\\exp(tX)$, turning infinitesimal data into group elements."
+      "blurb": "The exponential map $\\exp:\\mathfrak{g}\\to G$ integrates each $X\\in\\mathfrak g$ to the one-parameter subgroup $t\\mapsto\\exp(tX)$, turning infinitesimal data into group elements.",
+      "tags": ["lifting"]
     },
     {
       "id": "lie-bracket-bch",
@@ -50,7 +53,8 @@
         "fundamental-group",
         "covering-spaces"
       ],
-      "blurb": "The simply-connected $\\mathrm{SU}(2)=S^3$ is the universal cover of $\\mathrm{SO}(3)=\\mathbb{RP}^3$ with kernel $\\{\\pm I\\}$ — the spinor sign that distinguishes fermions from bosons."
+      "blurb": "The simply-connected $\\mathrm{SU}(2)=S^3$ is the universal cover of $\\mathrm{SO}(3)=\\mathbb{RP}^3$ with kernel $\\{\\pm I\\}$ — the spinor sign that distinguishes fermions from bosons.",
+      "tags": ["fibration"]
     },
     {
       "id": "adjoint-representation-killing",
@@ -60,7 +64,8 @@
         "lie-bracket-bch",
         "group-representations"
       ],
-      "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity."
+      "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity.",
+      "tags": ["group-action"]
     },
     {
       "id": "adjoint-roots",
@@ -69,7 +74,8 @@
       "prereqs": [
         "adjoint-representation-killing"
       ],
-      "blurb": "Adjoint representations and root systems classify semisimple behavior."
+      "blurb": "Adjoint representations and root systems classify semisimple behavior.",
+      "tags": ["classification", "group-action"]
     }
   ]
 }

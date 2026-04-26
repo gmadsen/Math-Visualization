@@ -3340,6 +3340,305 @@ window.MVQuizBank = {
       }
     }
   },
+  "automorphic-forms-adelic": {
+    "topic": "automorphic-forms-adelic",
+    "quizzes": {
+      "gl2-adelic-group": {
+        "title": "$\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ as a restricted product",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which condition makes $g = (g_v)_v$ an element of $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ rather than the naïve product?",
+            "choices": [
+              "$g_v \\in \\mathrm{GL}_2(\\mathbb{Q}_v)$ for every place $v$.",
+              "$g_p \\in \\mathrm{GL}_2(\\mathbb{Z}_p)$ for all but finitely many primes $p$.",
+              "$\\det g_v = 1$ for every $v$.",
+              "$g_v$ is upper-triangular at every finite place."
+            ],
+            "answer": 1,
+            "explain": "The restricted-product constraint is membership in the compact open $\\mathrm{GL}_2(\\mathbb{Z}_p)$ at almost all $p$. Without it the topology would not be locally compact."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are open subgroups of $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$?",
+            "choices": [
+              "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}}) = \\prod_p \\mathrm{GL}_2(\\mathbb{Z}_p)$",
+              "$\\mathrm{GL}_2(\\mathbb{Q})$ (diagonal embedding)",
+              "$\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot \\mathrm{GL}_2(\\hat{\\mathbb{Z}})$",
+              "The principal congruence subgroup $\\Gamma(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open. $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete (not open), and a classical congruence subgroup is a subgroup of $\\mathrm{SL}_2(\\mathbb{Z})$, not of the adelic group."
+          },
+          {
+            "type": "mcq",
+            "q": "Which factorisation of $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ separates archimedean and finite-adelic data?",
+            "choices": [
+              "$\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$",
+              "$\\mathrm{GL}_2(\\mathbb{Q}) \\times \\mathrm{GL}_2(\\hat{\\mathbb{Z}})$",
+              "$\\mathrm{GL}_2(\\mathbb{Z}) \\times \\mathrm{GL}_2(\\mathbb{Q}_p)$ for some single $p$",
+              "$\\mathrm{SL}_2(\\mathbb{R}) \\times \\mathrm{SO}_2$"
+            ],
+            "answer": 0,
+            "explain": "The adèle ring splits as $\\mathbb{R} \\times \\mathbb{A}_f$, and applying $\\mathrm{GL}_2$ pointwise gives $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$."
+          }
+        ]
+      },
+      "strong-approximation-gl2": {
+        "title": "Strong approximation and $\\Gamma_0(N) \\backslash \\mathbb{H}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Strong approximation for $\\mathrm{GL}_2$ at level $N$ asserts $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q}) = \\,?$",
+            "choices": [
+              "$\\mathrm{GL}_2(\\mathbb{Q}) \\cdot (\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot K_0(N))$",
+              "$\\mathrm{GL}_2(\\mathbb{Q}) \\cdot \\mathrm{GL}_2(\\mathbb{Z})$",
+              "$\\mathrm{GL}_2(\\mathbb{R}) \\cdot K_0(N)$",
+              "$\\mathrm{GL}_2(\\mathbb{Q}_p) \\cdot K_0(N)$ for each $p$ separately"
+            ],
+            "answer": 0,
+            "explain": "The full adelic group is the product of the (discrete) global rationals with the (open) connected archimedean component times an open compact $K_f$. This is the form that translates double cosets into $Y_0(N)$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the resulting double-coset description of $Y_0(N)$?",
+            "choices": [
+              "$Y_0(N) = \\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}) / (Z(\\mathbb{R}) \\mathrm{O}_2(\\mathbb{R}) \\cdot K_0(N))$",
+              "$Y_0(N) = \\mathrm{SL}_2(\\mathbb{Z}) \\backslash \\mathbb{H}$",
+              "$Y_0(N) = \\mathrm{GL}_2(\\mathbb{A}_f) / K_0(N)$",
+              "$Y_0(N) = \\Gamma_0(N) \\backslash \\mathrm{GL}_2(\\mathbb{R})$"
+            ],
+            "answer": 0,
+            "explain": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right recovers $\\Gamma_0(N) \\backslash \\mathbb{H}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does strong approximation fail for the adelic group at $\\mathrm{GL}_1$ (i.e. for $\\mathbb{A}^\\times$)?",
+            "choices": [
+              "$\\mathbb{Q}^\\times$ is not discrete in $\\mathbb{A}^\\times$.",
+              "$\\mathrm{GL}_1$ has non-trivial idèle class group $\\mathbb{A}^\\times/\\mathbb{Q}^\\times$ — connected components of finite-adelic data don't all collapse.",
+              "$\\mathbb{Z}_p^\\times$ is not compact.",
+              "The product formula fails."
+            ],
+            "answer": 1,
+            "explain": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so $\\mathbb{A}^\\times \\ne \\mathbb{Q}^\\times \\cdot \\mathbb{R}^\\times \\cdot \\hat{\\mathbb{Z}}^\\times$ in a single double coset."
+          }
+        ]
+      },
+      "automorphic-form-definition": {
+        "title": "Adelic automorphic forms",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which conditions are required of an automorphic form $\\phi : \\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}) \\to \\mathbb{C}$?",
+            "choices": [
+              "Right $K$-finiteness under a maximal compact subgroup.",
+              "$\\mathfrak{z}$-finiteness (annihilated by a finite-codimension ideal of $Z(\\mathfrak{g})$).",
+              "Moderate (polynomial) growth.",
+              "Compact support on $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Compact support is too strong — it would rule out Eisenstein series. The three required conditions are right $K$-finiteness, $\\mathfrak{z}$-finiteness, and moderate growth."
+          },
+          {
+            "type": "mcq",
+            "q": "An automorphic form $\\phi$ is a cusp form when:",
+            "choices": [
+              "$\\phi$ is bounded.",
+              "$\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$ for all $g$, where $n_x$ runs over the upper-triangular unipotent.",
+              "$\\phi$ vanishes at $g = e$.",
+              "$\\phi$ is invariant under the centre."
+            ],
+            "answer": 1,
+            "explain": "The Whittaker / constant-term integral over the unipotent radical of the standard Borel must vanish; this is the adelic translation of \"$f$ vanishes at every cusp\"."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is left-$\\mathrm{GL}_2(\\mathbb{Q})$-invariance built into the definition?",
+            "choices": [
+              "Because the diagonal $\\mathrm{GL}_2(\\mathbb{Q})$ is dense in $\\mathrm{GL}_2(\\mathbb{A})$.",
+              "Because $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete and we want functions on the quotient.",
+              "Because $\\mathrm{GL}_2(\\mathbb{Q})$ is compact.",
+              "Because $\\phi$ must be a homomorphism."
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of $\\Gamma \\backslash G$ in the classical setting."
+          }
+        ]
+      },
+      "classical-to-adelic-dictionary": {
+        "title": "Classical-to-adelic dictionary",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given $f \\in M_k(\\Gamma_0(N))$ and the decomposition $g = \\gamma g_\\infty k_f$ from strong approximation, the adelic lift $\\phi_f$ is defined by:",
+            "choices": [
+              "$\\phi_f(g) = f(g_\\infty \\cdot i)$",
+              "$\\phi_f(g) = (f|_k g_\\infty)(i)$",
+              "$\\phi_f(g) = f(\\det g_\\infty)$",
+              "$\\phi_f(g) = \\sum_p f(g_p)$"
+            ],
+            "answer": 1,
+            "explain": "The slash-operator $f|_k g_\\infty$ accounts for the weight-$k$ automorphy factor; evaluating at $i \\in \\mathbb{H}$ projects to $\\mathbb{C}$. The decomposition is well-defined modulo the stabiliser of $i$ inside $K_\\infty K_f$."
+          },
+          {
+            "type": "mcq",
+            "q": "Under this dictionary, the right $K_0(N)$-invariant adelic forms of weight $k$ correspond to:",
+            "choices": [
+              "All functions on $\\mathbb{H}$.",
+              "Modular forms in $M_k(\\Gamma_0(N))$.",
+              "Eisenstein series only.",
+              "Hecke eigenforms only."
+            ],
+            "answer": 1,
+            "explain": "Right $K_0(N)$-invariance is exactly the level structure; combined with weight $k$ and the adelic transformation law, this carves out $M_k(\\Gamma_0(N))$ on the classical side."
+          },
+          {
+            "type": "mcq",
+            "q": "What corresponds adelically to a classical cusp form $f \\in S_k(\\Gamma_0(N))$?",
+            "choices": [
+              "A bounded automorphic form.",
+              "An automorphic form whose constant term along the upper-unipotent vanishes.",
+              "An automorphic function on $\\mathrm{GL}_1(\\mathbb{A})$.",
+              "A Hecke character."
+            ],
+            "answer": 1,
+            "explain": "Classical cuspidality (vanishing at all cusps) translates into the adelic constant-term condition $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$."
+          }
+        ]
+      },
+      "spherical-hecke-satake": {
+        "title": "Spherical Hecke algebra and Satake",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The spherical Hecke algebra $\\mathcal{H}_p = C_c(\\mathrm{GL}_2(\\mathbb{Z}_p) \\backslash \\mathrm{GL}_2(\\mathbb{Q}_p) / \\mathrm{GL}_2(\\mathbb{Z}_p))$ is, as an algebra:",
+            "choices": [
+              "Non-commutative.",
+              "Commutative, generated by the characteristic functions of $\\mathrm{GL}_2(\\mathbb{Z}_p) \\operatorname{diag}(p^a, p^b) \\mathrm{GL}_2(\\mathbb{Z}_p)$.",
+              "Always isomorphic to $\\mathbb{C}$.",
+              "A field."
+            ],
+            "answer": 1,
+            "explain": "The Cartan / Smith decomposition shows the double cosets are indexed by $a \\ge b$ in $\\mathbb{Z}$; convolution makes the algebra commutative — Gelfand pair argument."
+          },
+          {
+            "type": "mcq",
+            "q": "The Satake isomorphism identifies $\\mathcal{H}_p$ with:",
+            "choices": [
+              "$\\mathbb{C}[X^{\\pm 1}, Y^{\\pm 1}]^{S_2}$, symmetric Laurent polynomials in two variables.",
+              "$\\mathbb{C}[T]$, polynomials in one variable.",
+              "$M_2(\\mathbb{C})$.",
+              "The group ring $\\mathbb{C}[\\mathrm{GL}_2(\\mathbb{Z}_p)]$."
+            ],
+            "answer": 0,
+            "explain": "The Satake transform sends Hecke functions to symmetric polynomials in the Satake parameters; the Weyl group of $\\mathrm{GL}_2$ is $S_2$, hence the symmetrisation."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\pi_p$ is unramified with Satake parameters $(\\alpha, \\beta)$, the Hecke eigenvalue of $T_p$ on the new-vector is:",
+            "choices": [
+              "$\\alpha + \\beta$",
+              "$\\alpha \\beta$",
+              "$(\\alpha + \\beta) \\cdot p^{(k-1)/2}$ (in the classical normalisation, weight $k$)",
+              "$p$"
+            ],
+            "answer": 2,
+            "explain": "The classical Hecke eigenvalue $a_p$ relates to the Satake parameters by $a_p = (\\alpha + \\beta) p^{(k-1)/2}$ (or $\\alpha + \\beta$ in the unitary normalisation). Either form of the answer is acceptable; this option gives the classical weight-$k$ normalisation."
+          }
+        ]
+      },
+      "whittaker-newform": {
+        "title": "Whittaker model and the new-form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Whittaker functional on $\\pi_v$ is a linear $W$-functional satisfying $W(\\pi_v(n_x) v) = \\,?$",
+            "choices": [
+              "$W(v)$",
+              "$\\psi(x) W(v)$ for a fixed non-trivial additive character $\\psi$",
+              "$|x|_v W(v)$",
+              "$0$ for all $v$"
+            ],
+            "answer": 1,
+            "explain": "The defining $\\psi$-equivariance is what distinguishes a Whittaker functional and forces uniqueness (up to scalar) for generic representations — local multiplicity-one."
+          },
+          {
+            "type": "mcq",
+            "q": "Casselman's new-vector theorem says that for an irreducible admissible $\\pi_p$, there is a unique vector (up to scalar) fixed by:",
+            "choices": [
+              "$\\mathrm{GL}_2(\\mathbb{Z}_p)$ — always.",
+              "$K_0(p^{c_p})$ for the smallest $c_p \\ge 0$ admitting any fixed vector.",
+              "The whole $\\mathrm{GL}_2(\\mathbb{Q}_p)$.",
+              "The unipotent radical."
+            ],
+            "answer": 1,
+            "explain": "$c_p$ is the local conductor exponent. Smaller $c_p$ would give a fixed vector of even lower level, contradicting minimality; larger gives a multidimensional space. Multiplying these gives the global conductor $N = \\prod_p p^{c_p}$, which equals the classical level."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical theorem is the Whittaker / new-form story the adelic upgrade of?",
+            "choices": [
+              "Atkin–Lehner new-form theory inside $S_k(\\Gamma_0(N))$.",
+              "The Riemann–Roch theorem.",
+              "The valuative criterion.",
+              "Dirichlet's theorem on primes in arithmetic progressions."
+            ],
+            "answer": 0,
+            "explain": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the same statement, prime by prime, in the local Whittaker / Kirillov language."
+          }
+        ]
+      },
+      "automorphic-l-function": {
+        "title": "Automorphic $L$-functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For an unramified $\\pi_p$ with Satake parameters $(\\alpha, \\beta)$, the local $L$-factor is:",
+            "choices": [
+              "$(1 - \\alpha p^{-s})(1 - \\beta p^{-s})$",
+              "$(1 - \\alpha p^{-s})^{-1}(1 - \\beta p^{-s})^{-1}$",
+              "$(1 - (\\alpha + \\beta) p^{-s})^{-1}$",
+              "$(1 - p^{-s})^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "Each Satake parameter contributes a geometric series. The product of two such factors is the rank-2 Euler factor at $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "When $\\pi$ corresponds to a classical eigenform $f$ of weight $k$ and level $N$, the global automorphic $L$-function $L(s, \\pi) = \\prod_v L_v(s, \\pi_v)$ equals:",
+            "choices": [
+              "The Riemann zeta function $\\zeta(s)$.",
+              "The Dirichlet $L$-function $L(s, \\chi)$ of a character mod $N$.",
+              "The classical $L$-function $L(s, f)$ (up to a shift / archimedean factor).",
+              "The Selberg zeta function."
+            ],
+            "answer": 2,
+            "explain": "The unramified local factors reproduce the Hecke Euler factors of $f$; the archimedean factor is a shifted gamma. This is the dictionary that makes the adelic theory a true generalisation of the classical."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the adelic formulation necessary for higher rank $\\mathrm{GL}_n$ rather than just $\\mathrm{GL}_2$?",
+            "choices": [
+              "Because $\\mathbb{H}$ is only a symmetric space for $\\mathrm{SL}_2(\\mathbb{R})$.",
+              "Because higher-rank groups have more places of bad reduction than $\\mathrm{GL}_2$.",
+              "Because higher-rank symmetric spaces support no classical functions.",
+              "Because Dirichlet series have no analogue beyond $\\mathrm{GL}_1$."
+            ],
+            "answer": 0,
+            "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
+          }
+        ]
+      }
+    }
+  },
   "bezout": {
     "topic": "bezout",
     "quizzes": {

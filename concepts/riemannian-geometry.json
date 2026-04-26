@@ -11,7 +11,8 @@
         "smooth-manifold-definition",
         "tangent-space-manifolds"
       ],
-      "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
+      "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume.",
+      "tags": ["foundation"]
     },
     {
       "id": "levi-civita-connection",
@@ -20,7 +21,8 @@
       "prereqs": [
         "riemannian-metrics"
       ],
-      "blurb": "The unique torsion-free metric connection defines covariant differentiation and geodesic equations."
+      "blurb": "The unique torsion-free metric connection defines covariant differentiation and geodesic equations.",
+      "tags": ["universal-property"]
     },
     {
       "id": "riemann-curvature-tensor",

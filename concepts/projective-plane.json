@@ -10,7 +10,8 @@
       "prereqs": [
         "sets-functions"
       ],
-      "blurb": "P^2 extends affine geometry by homogeneous coordinates and points at infinity."
+      "blurb": "P^2 extends affine geometry by homogeneous coordinates and points at infinity.",
+      "tags": ["foundation"]
     },
     {
       "id": "homogeneous-coordinates",
@@ -28,7 +29,8 @@
       "prereqs": [
         "homogeneous-coordinates"
       ],
-      "blurb": "PGL actions describe coordinate changes preserving incidence."
+      "blurb": "PGL actions describe coordinate changes preserving incidence.",
+      "tags": ["group-action"]
     },
     {
       "id": "projective-duality",
@@ -38,7 +40,8 @@
         "projective-points-lines",
         "homogeneous-coordinates"
       ],
-      "blurb": "Points and lines of P^2 swap roles under the canonical isomorphism P^2 ≅ (P^2)*, turning every incidence theorem into its dual."
+      "blurb": "Points and lines of P^2 swap roles under the canonical isomorphism P^2 ≅ (P^2)*, turning every incidence theorem into its dual.",
+      "tags": ["duality"]
     },
     {
       "id": "cross-ratio",
@@ -48,7 +51,8 @@
         "projective-transformations",
         "field-extensions-basics"
       ],
-      "blurb": "The cross-ratio of four collinear points is the unique PGL-invariant of their configuration and classifies quadruples up to projective equivalence."
+      "blurb": "The cross-ratio of four collinear points is the unique PGL-invariant of their configuration and classifies quadruples up to projective equivalence.",
+      "tags": ["classification"]
     }
   ]
 }

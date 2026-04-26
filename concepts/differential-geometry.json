@@ -47,7 +47,8 @@
         "gauss-curvature-geodesics",
         "gauss-map"
       ],
-      "blurb": "Total Gaussian curvature of a closed oriented surface is 2πχ(S): curvature is pinned to topology, with a local version tying K, geodesic curvature, and exterior angles to 2π."
+      "blurb": "Total Gaussian curvature of a closed oriented surface is 2πχ(S): curvature is pinned to topology, with a local version tying K, geodesic curvature, and exterior angles to 2π.",
+      "tags": ["compactness"]
     }
   ]
 }

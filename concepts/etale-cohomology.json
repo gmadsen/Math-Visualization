@@ -11,7 +11,8 @@
         "scheme-morphisms",
         "presheaf-sheaf-axioms"
       ],
-      "blurb": "Étale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z↦z^n are ramified; those like t↦t^2 on G_m (char≠2) are étale."
+      "blurb": "Étale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z↦z^n are ramified; those like t↦t^2 on G_m (char≠2) are étale.",
+      "tags": ["foundation"]
     },
     {
       "id": "l-adic-cohomology",
@@ -21,7 +22,8 @@
         "etale-morphism",
         "derived-functor-cohomology"
       ],
-      "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
+      "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety.",
+      "tags": ["cohomology", "completion"]
     },
     {
       "id": "lefschetz-fixed-point",
@@ -31,7 +33,8 @@
         "l-adic-cohomology",
         "fiber-products"
       ],
-      "blurb": "For an endomorphism f whose graph meets the diagonal transversally, #Fix(f) = Σ(−1)^i Tr(f* | H^i_ét). Applied to q-power Frobenius it counts 𝔽_{q^m}-points — the engine behind rationality and the functional equation."
+      "blurb": "For an endomorphism f whose graph meets the diagonal transversally, #Fix(f) = Σ(−1)^i Tr(f* | H^i_ét). Applied to q-power Frobenius it counts 𝔽_{q^m}-points — the engine behind rationality and the functional equation.",
+      "tags": ["cohomology"]
     },
     {
       "id": "weil-frobenius-trace",
@@ -40,7 +43,8 @@
       "prereqs": [
         "lefschetz-fixed-point"
       ],
-      "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
+      "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne).",
+      "tags": ["cohomology", "group-action"]
     },
     {
       "id": "comparison-theorems-etale",
@@ -51,7 +55,8 @@
         "singular-homology",
         "stokes-derham"
       ],
-      "blurb": "Artin's theorem identifies H^i_ét(X_ℂ, ℚ_ℓ) with H^i_sing(X(ℂ), ℚ)⊗ℚ_ℓ; crystalline and p-adic Hodge theory (B_dR, B_cris) fill the ℓ=p gap, so étale, singular, de Rham, and crystalline are facets of one Weil cohomology."
+      "blurb": "Artin's theorem identifies H^i_ét(X_ℂ, ℚ_ℓ) with H^i_sing(X(ℂ), ℚ)⊗ℚ_ℓ; crystalline and p-adic Hodge theory (B_dR, B_cris) fill the ℓ=p gap, so étale, singular, de Rham, and crystalline are facets of one Weil cohomology.",
+      "tags": ["cohomology"]
     }
   ]
 }

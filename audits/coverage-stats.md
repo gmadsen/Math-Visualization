@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **82**, concepts: **568**
-- Widgets: **622** (registry-driven: 563, inline: 59)
-- Quizzes: **2880** (v1: 1644, hard: 1223, expert: 13)
-- Quiz types: mcq: 1796, numeric: 885, multi-select: 80, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Topics: **83**, concepts: **575**
+- Widgets: **629** (registry-driven: 563, inline: 66)
+- Quizzes: **2901** (v1: 1665, hard: 1223, expert: 13)
+- Quiz types: mcq: 1815, numeric: 885, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **103**
-- Concepts lacking a hard-tier quiz: **130**
+- Concepts lacking a hard-tier quiz: **137**
 
 ## Per-slug registry adoption
 
@@ -211,13 +211,13 @@ page has wired one in yet.
 
 ### Modular forms & L-functions
 
-- Topics: **14**, concepts: **71**
-- Widgets: **108** (registry-driven: 108, inline: 0)
-  - by family: button-stepper: 98, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 1
-  - by dimension: 2d: 108
-  - by gesture: click: 98, slider: 6, static: 4
-- Quizzes: **423** (v1: 213, hard: 210, expert: 0)
-  - by type: mcq: 271, numeric: 151, ordering: 1
+- Topics: **15**, concepts: **78**
+- Widgets: **115** (registry-driven: 108, inline: 7)
+  - by family: button-stepper: 98, unknown: 7, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 1
+  - by dimension: 2d: 108, unknown: 7
+  - by gesture: click: 98, unknown: 7, slider: 6, static: 4
+- Quizzes: **444** (v1: 234, hard: 210, expert: 0)
+  - by type: mcq: 290, numeric: 151, multi-select: 2, ordering: 1
 
 ### Algebraic geometry
 
@@ -296,6 +296,7 @@ page has wired one in yet.
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
+- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `projective-plane` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=8), quiz=60 (v1=30, hard=30, expert=0)

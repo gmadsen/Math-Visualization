@@ -60,6 +60,7 @@
     "L-functions",
     "galois-representations",
     "moonshine",
+    "automorphic-forms-adelic",
 
     "projective-plane",
     "bezout",
@@ -170,6 +171,7 @@
     "zeta-values": "standard",
     "L-functions": "standard",
     "galois-representations": "capstone",
+    "automorphic-forms-adelic": "advanced",
     "moonshine": "advanced",
 
     "projective-plane": "prereq",

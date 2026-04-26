@@ -28,7 +28,8 @@
       "prereqs": [
         "waring-problem-statement"
       ],
-      "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method."
+      "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method.",
+      "tags": ["finiteness"]
     },
     {
       "id": "circle-method-intro",

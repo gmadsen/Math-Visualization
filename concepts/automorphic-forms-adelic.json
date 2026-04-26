@@ -1,0 +1,85 @@
+{
+  "topic": "automorphic-forms-adelic",
+  "title": "Automorphic forms (adelic)",
+  "page": "automorphic-forms-adelic.html",
+  "concepts": [
+    {
+      "id": "gl2-adelic-group",
+      "title": "$\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ as a restricted product",
+      "anchor": "gl2-adelic",
+      "prereqs": [
+        "adele-ring",
+        "places-and-local-fields"
+      ],
+      "blurb": "The adelic group $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q}) = {\\prod_v}' \\mathrm{GL}_2(\\mathbb{Q}_v)$ is a restricted product over all places of $\\mathbb{Q}$, with the constraint that $g_p \\in \\mathrm{GL}_2(\\mathbb{Z}_p)$ for almost all primes $p$. Topologically it splits as $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$, separating the archimedean and finite-adelic factors.",
+      "tags": ["foundation", "completion"]
+    },
+    {
+      "id": "strong-approximation-gl2",
+      "title": "Strong approximation and $\\Gamma_0(N) \\backslash \\mathbb{H}$",
+      "anchor": "strong-approx",
+      "prereqs": [
+        "gl2-adelic-group",
+        "strong-approximation",
+        "sl2z-on-H"
+      ],
+      "blurb": "For an open compact $K_f \\subset \\mathrm{GL}_2(\\mathbb{A}_f)$ (e.g. $K_0(N) = \\{g \\in \\mathrm{GL}_2(\\hat{\\mathbb{Z}}) : c \\equiv 0 \\bmod N\\}$), strong approximation gives $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q}) = \\mathrm{GL}_2(\\mathbb{Q}) \\cdot (\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot K_f)$. Quotienting recovers the classical modular curve $Y_0(N) = \\Gamma_0(N) \\backslash \\mathbb{H}$ as a double-coset space.",
+      "tags": ["completion", "descent", "group-action"]
+    },
+    {
+      "id": "automorphic-form-definition",
+      "title": "Adelic automorphic forms",
+      "anchor": "auto-form",
+      "prereqs": [
+        "strong-approximation-gl2",
+        "modular-form-definition"
+      ],
+      "blurb": "An automorphic form is a function $\\phi : \\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}) \\to \\mathbb{C}$ that is right $K$-finite (under a maximal compact), $\\mathfrak{z}$-finite (annihilated by an ideal of finite codimension in the centre of the universal enveloping algebra), and of moderate growth. A cusp form additionally has vanishing constant term along the unipotent: $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\, dx = 0$ where $n_x$ is the upper-triangular unipotent.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "classical-to-adelic-dictionary",
+      "title": "Classical-to-adelic dictionary",
+      "anchor": "dictionary",
+      "prereqs": [
+        "automorphic-form-definition",
+        "q-expansions-mf"
+      ],
+      "blurb": "A classical modular form $f \\in M_k(\\Gamma_0(N))$ corresponds to an adelic function $\\phi_f$ via $\\phi_f(\\gamma g_\\infty k_f) = (f|_k g_\\infty)(i)$ for $\\gamma \\in \\mathrm{GL}_2(\\mathbb{Q})$, $g_\\infty \\in \\mathrm{GL}_2(\\mathbb{R})^+$, $k_f \\in K_0(N)$. The map is bijective onto right-$K_0(N)$-invariant automorphic forms of weight $k$, and cusp forms map to cusp forms.",
+      "tags": ["functoriality", "classification"]
+    },
+    {
+      "id": "spherical-hecke-satake",
+      "title": "Spherical Hecke algebra and Satake",
+      "anchor": "satake",
+      "prereqs": [
+        "automorphic-form-definition",
+        "hecke-algebra-commuting"
+      ],
+      "blurb": "At an unramified prime $p \\nmid N$, the local Hecke algebra $\\mathcal{H}_p = C_c(\\mathrm{GL}_2(\\mathbb{Z}_p) \\backslash \\mathrm{GL}_2(\\mathbb{Q}_p) / \\mathrm{GL}_2(\\mathbb{Z}_p))$ acts on the $\\mathrm{GL}_2(\\mathbb{Z}_p)$-fixed vectors of $\\pi_p$. The Satake isomorphism identifies $\\mathcal{H}_p$ with symmetric Laurent polynomials $\\mathbb{C}[X^{\\pm 1}, Y^{\\pm 1}]^{S_2}$, whose characters are the Satake parameters $(\\alpha_p, \\beta_p)$ — the local incarnation of the Hecke eigenvalue.",
+      "tags": ["group-action", "duality"]
+    },
+    {
+      "id": "whittaker-newform",
+      "title": "Whittaker model and the new-form",
+      "anchor": "whittaker",
+      "prereqs": [
+        "automorphic-form-definition"
+      ],
+      "blurb": "A generic irreducible admissible representation $\\pi_v$ of $\\mathrm{GL}_2(\\mathbb{Q}_v)$ has a unique Whittaker model — an embedding into functions $W : \\mathrm{GL}_2(\\mathbb{Q}_v) \\to \\mathbb{C}$ satisfying $W(n_x g) = \\psi(x) W(g)$ for the upper-triangular unipotent $n_x$. Casselman's theorem identifies a unique new-vector fixed by $K_0(p^{c_v})$ with $c_v$ minimal; the conductor $N = \\prod_p p^{c_p}$ matches the classical level.",
+      "tags": ["classification", "duality"]
+    },
+    {
+      "id": "automorphic-l-function",
+      "title": "Automorphic $L$-functions",
+      "anchor": "lfunction",
+      "prereqs": [
+        "spherical-hecke-satake",
+        "lfunction-prototype",
+        "classical-to-adelic-dictionary"
+      ],
+      "blurb": "To a cuspidal automorphic representation $\\pi = \\bigotimes_v \\pi_v$ one attaches $L(s, \\pi) = \\prod_v L_v(s, \\pi_v)$, where at unramified $p$ the local factor is $L_p(s, \\pi_p) = (1 - \\alpha_p p^{-s})^{-1}(1 - \\beta_p p^{-s})^{-1}$ and at $\\infty$ a gamma factor. For $\\pi$ corresponding to a classical eigenform $f$, this Euler product reproduces $L(s,f)$, generalising Dirichlet's $L(s,\\chi)$ to all of $\\mathrm{GL}_2$ and beyond.",
+      "tags": ["duality", "functoriality"]
+    }
+  ]
+}

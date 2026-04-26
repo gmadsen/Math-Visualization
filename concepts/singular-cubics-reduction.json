@@ -10,7 +10,8 @@
       "prereqs": [
         "elliptic-curve-definition"
       ],
-      "blurb": "Nodal and cuspidal degenerations control failures of smooth group laws."
+      "blurb": "Nodal and cuspidal degenerations control failures of smooth group laws.",
+      "tags": ["classification"]
     },
     {
       "id": "reduction-mod-p",
@@ -28,7 +29,8 @@
       "prereqs": [
         "reduction-mod-p"
       ],
-      "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity."
+      "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity.",
+      "tags": ["classification"]
     },
     {
       "id": "hasse-bound-point-counting",

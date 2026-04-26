@@ -10,7 +10,8 @@
       "prereqs": [
         "ideals-quotients-ca"
       ],
-      "blurb": "Spec R turns commutative rings into geometric spaces with generic points."
+      "blurb": "Spec R turns commutative rings into geometric spaces with generic points.",
+      "tags": ["foundation", "duality"]
     },
     {
       "id": "structure-sheaf-schemes",
@@ -20,7 +21,8 @@
         "spectrum-primes",
         "open-sets"
       ],
-      "blurb": "Attaching local rings to opens upgrades topological spaces to locally ringed spaces."
+      "blurb": "Attaching local rings to opens upgrades topological spaces to locally ringed spaces.",
+      "tags": ["foundation"]
     },
     {
       "id": "gluing-affines",
@@ -29,7 +31,8 @@
       "prereqs": [
         "structure-sheaf-schemes"
       ],
-      "blurb": "General schemes are built by gluing affine pieces along compatible overlaps."
+      "blurb": "General schemes are built by gluing affine pieces along compatible overlaps.",
+      "tags": ["descent"]
     },
     {
       "id": "generic-point",
@@ -48,7 +51,8 @@
         "spectrum-primes",
         "localization-ca"
       ],
-      "blurb": "Each prime carries a residue field $\\kappa(\\mathfrak p)$; an element of $R$ takes values in these fields, recovering evaluation without a fixed ground field."
+      "blurb": "Each prime carries a residue field $\\kappa(\\mathfrak p)$; an element of $R$ takes values in these fields, recovering evaluation without a fixed ground field.",
+      "tags": ["functoriality"]
     },
     {
       "id": "locally-ringed-space",
@@ -57,7 +61,8 @@
       "prereqs": [
         "structure-sheaf-schemes"
       ],
-      "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring."
+      "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring.",
+      "tags": ["foundation"]
     },
     {
       "id": "projective-scheme",
@@ -66,7 +71,8 @@
       "prereqs": [
         "gluing-affines"
       ],
-      "blurb": "The Proj construction glues standard affine pieces of a graded ring into a projective scheme, the scheme-theoretic home of projective varieties."
+      "blurb": "The Proj construction glues standard affine pieces of a graded ring into a projective scheme, the scheme-theoretic home of projective varieties.",
+      "tags": ["descent"]
     },
     {
       "id": "closed-subscheme",
@@ -96,7 +102,8 @@
         "residue-field-at-prime",
         "gluing-affines"
       ],
-      "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once."
+      "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once.",
+      "tags": ["fibration"]
     }
   ]
 }

@@ -8,7 +8,8 @@
       "title": "The multiplicative group (Z/p)×",
       "anchor": "multiplicative-group-mod-p",
       "prereqs": ["sets-functions"],
-      "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on."
+      "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on.",
+      "tags": ["foundation"]
     },
     {
       "id": "legendre-symbol",
@@ -36,7 +37,8 @@
       "title": "Quadratic reciprocity law",
       "anchor": "reciprocity",
       "prereqs": ["supplementary-laws-qr", "gauss-lemma-qr", "prime-ideals-factorization-ant", "frobenius-element", "splitting-types"],
-      "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
+      "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes.",
+      "tags": ["duality"]
     },
     {
       "id": "jacobi-symbol-generalization",

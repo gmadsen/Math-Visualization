@@ -8,14 +8,16 @@
       "title": "Real numbers",
       "anchor": "real-numbers",
       "prereqs": [],
-      "blurb": "The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn't enough."
+      "blurb": "The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn't enough.",
+      "tags": ["foundation", "completion"]
     },
     {
       "id": "real-continuity",
       "title": "Continuity on R",
       "anchor": "real-continuity",
       "prereqs": ["real-numbers", "compactness"],
-      "blurb": "ε–δ continuity, IVT, EVT, and the interaction between continuity and compactness on intervals."
+      "blurb": "ε–δ continuity, IVT, EVT, and the interaction between continuity and compactness on intervals.",
+      "tags": ["compactness", "foundation"]
     },
     {
       "id": "real-differentiation",
@@ -57,7 +59,8 @@
       "title": "Inverse & implicit function theorems",
       "anchor": "inverse-function-theorem",
       "prereqs": ["multivariable-differentiation"],
-      "blurb": "Local invertibility from invertible Jacobian; solving F(x,y)=0 for y locally when ∂F/∂y is invertible — the engine behind manifolds and submanifolds."
+      "blurb": "Local invertibility from invertible Jacobian; solving F(x,y)=0 for y locally when ∂F/∂y is invertible — the engine behind manifolds and submanifolds.",
+      "tags": ["lifting"]
     },
     {
       "id": "numeric-series",
@@ -78,7 +81,8 @@
       "title": "Metric completeness & Baire category",
       "anchor": "metric-completeness-baire",
       "prereqs": ["real-numbers", "metric-spaces"],
-      "blurb": "Cauchy-complete metric spaces, the unique completion, and Baire's theorem: a complete metric space is not a countable union of nowhere-dense sets."
+      "blurb": "Cauchy-complete metric spaces, the unique completion, and Baire's theorem: a complete metric space is not a countable union of nowhere-dense sets.",
+      "tags": ["completion", "foundation"]
     },
     {
       "id": "ftc-both-parts",
@@ -99,7 +103,8 @@
       "title": "C[a,b] & the Arzelà–Ascoli theorem",
       "anchor": "c-space-arzela",
       "prereqs": ["uniform-convergence"],
-      "blurb": "C[a,b] with the uniform norm is Banach; a family has uniformly convergent subsequences iff it is pointwise bounded and equicontinuous (Arzelà–Ascoli)."
+      "blurb": "C[a,b] with the uniform norm is Banach; a family has uniformly convergent subsequences iff it is pointwise bounded and equicontinuous (Arzelà–Ascoli).",
+      "tags": ["compactness"]
     }
   ]
 }

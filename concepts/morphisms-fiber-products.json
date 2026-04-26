@@ -10,7 +10,8 @@
       "prereqs": [
         "gluing-affines"
       ],
-      "blurb": "Scheme maps are local ring maps glued globally and tested on affines."
+      "blurb": "Scheme maps are local ring maps glued globally and tested on affines.",
+      "tags": ["foundation"]
     },
     {
       "id": "immersions-schemes",
@@ -28,7 +29,8 @@
       "prereqs": [
         "scheme-morphisms"
       ],
-      "blurb": "Fiber products represent pullback problems and define base-change geometry."
+      "blurb": "Fiber products represent pullback problems and define base-change geometry.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "geometric-fibers",
@@ -47,7 +49,8 @@
         "fiber-products",
         "immersions-schemes"
       ],
-      "blurb": "Separated means the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is a closed immersion (Hausdorff-like); proper means separated, of finite type, and universally closed — the valuative criterion makes this the scheme version of compact."
+      "blurb": "Separated means the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is a closed immersion (Hausdorff-like); proper means separated, of finite type, and universally closed — the valuative criterion makes this the scheme version of compact.",
+      "tags": ["compactness"]
     }
   ]
 }

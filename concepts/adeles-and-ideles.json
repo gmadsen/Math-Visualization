@@ -11,7 +11,8 @@
         "padic-norm-completion",
         "number-fields-integers"
       ],
-      "blurb": "A place of $\\mathbb{Q}$ is an equivalence class of absolute values: the archimedean place $v_\\infty$ giving $\\mathbb{R}$, and for each prime $p$ the $p$-adic place $v_p$ giving $\\mathbb{Q}_p$. Each completion is a local field — locally compact with a non-discrete topology."
+      "blurb": "A place of $\\mathbb{Q}$ is an equivalence class of absolute values: the archimedean place $v_\\infty$ giving $\\mathbb{R}$, and for each prime $p$ the $p$-adic place $v_p$ giving $\\mathbb{Q}_p$. Each completion is a local field — locally compact with a non-discrete topology.",
+      "tags": ["completion", "foundation"]
     },
     {
       "id": "adele-ring",
@@ -20,7 +21,8 @@
       "prereqs": [
         "places-and-local-fields"
       ],
-      "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times {\\prod_p}' \\mathbb{Q}_p$ is the restricted direct product over all places: tuples with $x_p \\in \\mathbb{Z}_p$ for almost all $p$. It is locally compact, and $\\mathbb{Q}$ embeds as a discrete cocompact subring."
+      "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times {\\prod_p}' \\mathbb{Q}_p$ is the restricted direct product over all places: tuples with $x_p \\in \\mathbb{Z}_p$ for almost all $p$. It is locally compact, and $\\mathbb{Q}$ embeds as a discrete cocompact subring.",
+      "tags": ["completion", "compactness"]
     },
     {
       "id": "idele-class-group",
@@ -38,7 +40,8 @@
       "prereqs": [
         "adele-ring"
       ],
-      "blurb": "Strong approximation: the diagonal image of $\\mathbb{Q}$ is dense in the finite adèles $\\mathbb{A}_\\mathbb{Q}^\\infty$, repackaging the Chinese Remainder Theorem and simultaneous Diophantine approximation as one topological density statement."
+      "blurb": "Strong approximation: the diagonal image of $\\mathbb{Q}$ is dense in the finite adèles $\\mathbb{A}_\\mathbb{Q}^\\infty$, repackaging the Chinese Remainder Theorem and simultaneous Diophantine approximation as one topological density statement.",
+      "tags": ["descent"]
     },
     {
       "id": "tate-thesis-sketch",
@@ -49,7 +52,8 @@
         "dirichlet-series-basics",
         "analytic-continuation"
       ],
-      "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry."
+      "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry.",
+      "tags": ["duality"]
     }
   ]
 }

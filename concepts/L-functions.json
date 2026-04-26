@@ -10,7 +10,8 @@
       "prereqs": [
         "dirichlet-characters-lseries"
       ],
-      "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
+      "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template.",
+      "tags": ["foundation"]
     },
     {
       "id": "functional-equation-completion",
@@ -19,7 +20,8 @@
       "prereqs": [
         "lfunction-prototype"
       ],
-      "blurb": "Gamma factors and conductor normalization yield symmetric functional equations."
+      "blurb": "Gamma factors and conductor normalization yield symmetric functional equations.",
+      "tags": ["duality"]
     },
     {
       "id": "arithmetic-data-lfunctions",

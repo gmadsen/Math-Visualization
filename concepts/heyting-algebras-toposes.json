@@ -8,7 +8,8 @@
       "title": "Heyting algebras",
       "anchor": "heyting-algebra",
       "prereqs": ["algebraic-structures"],
-      "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
+      "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras.",
+      "tags": ["foundation"]
     },
     {
       "id": "omega-as-heyting-algebra",
@@ -58,7 +59,8 @@
         "geometric-morphisms-intro",
         "internal-language"
       ],
-      "blurb": "Inverse image functors $f^*$ preserve finite limits and arbitrary colimits — exactly the connectives of geometric logic ($\\exists, \\wedge, \\bigvee$). This is why geometric formulas transport across geometric morphisms while implication and $\\forall$ generally do not."
+      "blurb": "Inverse image functors $f^*$ preserve finite limits and arbitrary colimits — exactly the connectives of geometric logic ($\\exists, \\wedge, \\bigvee$). This is why geometric formulas transport across geometric morphisms while implication and $\\forall$ generally do not.",
+      "tags": ["functoriality"]
     }
   ]
 }

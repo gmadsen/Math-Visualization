@@ -8,7 +8,8 @@
       "title": "The operator T_p",
       "anchor": "tp",
       "prereqs": ["q-expansions-mf"],
-      "blurb": "T_p averages index-p sublattices (or cosets) and acts linearly on spaces of modular forms."
+      "blurb": "T_p averages index-p sublattices (or cosets) and acts linearly on spaces of modular forms.",
+      "tags": ["group-action", "foundation"]
     },
     {
       "id": "hecke-q-expansion-action",
@@ -29,7 +30,8 @@
       "title": "Eigenforms and Euler factors",
       "anchor": "eigen",
       "prereqs": ["hecke-algebra-commuting"],
-      "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions."
+      "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions.",
+      "tags": ["classification"]
     },
     {
       "id": "hecke-self-adjointness",

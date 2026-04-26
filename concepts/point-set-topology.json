@@ -8,14 +8,16 @@
       "title": "Metric spaces",
       "anchor": "metric",
       "prereqs": [],
-      "blurb": "Distance axioms, open balls, ε-continuity, Cauchy sequences and completeness — the ε–δ archetype before topology gets abstracted."
+      "blurb": "Distance axioms, open balls, ε-continuity, Cauchy sequences and completeness — the ε–δ archetype before topology gets abstracted.",
+      "tags": ["foundation", "completion"]
     },
     {
       "id": "open-sets",
       "title": "Topological spaces",
       "anchor": "open",
       "prereqs": ["metric-spaces", "axiom-of-choice-intuition"],
-      "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, with closure and interior as duals."
+      "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, with closure and interior as duals.",
+      "tags": ["foundation"]
     },
     {
       "id": "continuity-topology",
@@ -29,7 +31,8 @@
       "title": "Compactness",
       "anchor": "compact",
       "prereqs": ["open-sets"],
-      "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category."
+      "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.",
+      "tags": ["compactness", "foundation"]
     },
     {
       "id": "connectedness",

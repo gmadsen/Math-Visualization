@@ -10,7 +10,8 @@
       "prereqs": [
         "inverse-function-theorem"
       ],
-      "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps."
+      "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps.",
+      "tags": ["foundation", "descent"]
     },
     {
       "id": "smooth-manifold-examples",
@@ -46,7 +47,8 @@
       "prereqs": [
         "tangent-space-manifolds"
       ],
-      "blurb": "TM assembles all tangent spaces into a rank-n vector bundle; smooth sections are vector fields and act as derivations on C^\u221e(M)."
+      "blurb": "TM assembles all tangent spaces into a rank-n vector bundle; smooth sections are vector fields and act as derivations on C^\u221e(M).",
+      "tags": ["fibration"]
     },
     {
       "id": "lie-bracket-fields",
@@ -64,7 +66,8 @@
       "prereqs": [
         "tangent-space-manifolds"
       ],
-      "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}."
+      "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}.",
+      "tags": ["classification"]
     },
     {
       "id": "vector-field-flows",
@@ -82,7 +85,8 @@
       "prereqs": [
         "smooth-manifold-definition"
       ],
-      "blurb": "Subordinate partitions of unity exist on any smooth manifold and are the standard device for gluing local constructions into global ones."
+      "blurb": "Subordinate partitions of unity exist on any smooth manifold and are the standard device for gluing local constructions into global ones.",
+      "tags": ["descent"]
     },
     {
       "id": "orientation",

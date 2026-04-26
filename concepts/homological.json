@@ -10,7 +10,8 @@
       "prereqs": [
         "ideals-quotients-ca"
       ],
-      "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness."
+      "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness.",
+      "tags": ["foundation"]
     },
     {
       "id": "exact-sequences",
@@ -19,7 +20,8 @@
       "prereqs": [
         "chain-complexes"
       ],
-      "blurb": "Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra."
+      "blurb": "Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.",
+      "tags": ["exact-sequence", "foundation"]
     },
     {
       "id": "snake-lemma",
@@ -28,7 +30,8 @@
       "prereqs": [
         "exact-sequences"
       ],
-      "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels."
+      "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels.",
+      "tags": ["exact-sequence"]
     },
     {
       "id": "five-lemma",
@@ -37,7 +40,8 @@
       "prereqs": [
         "snake-lemma"
       ],
-      "blurb": "In a commutative ladder of exact rows, if the four outer vertical maps are isomorphisms then so is the middle one — the workhorse diagram-chase for recognizing isomorphisms."
+      "blurb": "In a commutative ladder of exact rows, if the four outer vertical maps are isomorphisms then so is the middle one — the workhorse diagram-chase for recognizing isomorphisms.",
+      "tags": ["exact-sequence"]
     },
     {
       "id": "long-exact-sequence",
@@ -47,7 +51,8 @@
         "snake-lemma",
         "singular-homology"
       ],
-      "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree."
+      "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree.",
+      "tags": ["exact-sequence", "cohomology"]
     },
     {
       "id": "projective-modules",
@@ -56,7 +61,8 @@
       "prereqs": [
         "exact-sequences"
       ],
-      "blurb": "A module P is projective iff every surjection onto P splits; equivalently P is a direct summand of a free module and makes Hom(P,−) exact."
+      "blurb": "A module P is projective iff every surjection onto P splits; equivalently P is a direct summand of a free module and makes Hom(P,−) exact.",
+      "tags": ["lifting", "universal-property"]
     },
     {
       "id": "injective-modules",
@@ -65,7 +71,8 @@
       "prereqs": [
         "exact-sequences"
       ],
-      "blurb": "Dual to projective: I is injective iff every injection of I extends; Baer's criterion and divisibility characterize injectives over ℤ."
+      "blurb": "Dual to projective: I is injective iff every injection of I extends; Baer's criterion and divisibility characterize injectives over ℤ.",
+      "tags": ["duality", "lifting", "universal-property"]
     },
     {
       "id": "flat-modules",
@@ -85,7 +92,8 @@
         "projective-modules",
         "injective-modules"
       ],
-      "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants; the Ext/Tor tables pin down extensions and torsion."
+      "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants; the Ext/Tor tables pin down extensions and torsion.",
+      "tags": ["cohomology", "functoriality"]
     },
     {
       "id": "resolutions-ha",
@@ -105,7 +113,8 @@
         "exact-sequences",
         "categories-morphisms"
       ],
-      "blurb": "Abelian categories are the native habitat of homological algebra; triangulated categories encode long exact sequences as distinguished triangles."
+      "blurb": "Abelian categories are the native habitat of homological algebra; triangulated categories encode long exact sequences as distinguished triangles.",
+      "tags": ["foundation", "exact-sequence"]
     },
     {
       "id": "spectral-sequences-ha",
@@ -114,7 +123,8 @@
       "prereqs": [
         "derived-functors"
       ],
-      "blurb": "Spectral sequences stage difficult computations into successive approximation pages."
+      "blurb": "Spectral sequences stage difficult computations into successive approximation pages.",
+      "tags": ["cohomology", "exact-sequence"]
     }
   ]
 }

@@ -10,7 +10,8 @@
       "prereqs": [
         "projective-points-lines"
       ],
-      "blurb": "Counting intersections correctly requires multiplicity at each point."
+      "blurb": "Counting intersections correctly requires multiplicity at each point.",
+      "tags": ["foundation"]
     },
     {
       "id": "resultants-elimination",
@@ -28,7 +29,8 @@
       "prereqs": [
         "resultants-elimination"
       ],
-      "blurb": "Plane curves of degrees $m,n$ meet in $mn$ points counting multiplicity over algebraic closure."
+      "blurb": "Plane curves of degrees $m,n$ meet in $mn$ points counting multiplicity over algebraic closure.",
+      "tags": ["compactness"]
     },
     {
       "id": "cayley-bacharach",
@@ -47,7 +49,8 @@
       "prereqs": [
         "bezout-theorem-core"
       ],
-      "blurb": "For hypersurfaces of degrees $d_i$ meeting properly in $\\mathbb{P}^n$, the total intersection length is $d_1\\cdots d_n$, formalized as the Chow-ring product $[H_1]\\cdots[H_n]=d_1\\cdots d_n\\cdot[\\mathrm{pt}]$."
+      "blurb": "For hypersurfaces of degrees $d_i$ meeting properly in $\\mathbb{P}^n$, the total intersection length is $d_1\\cdots d_n$, formalized as the Chow-ring product $[H_1]\\cdots[H_n]=d_1\\cdots d_n\\cdot[\\mathrm{pt}]$.",
+      "tags": ["compactness"]
     }
   ]
 }

@@ -10,7 +10,8 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "Splitting fields and automorphism groups link polynomial equations to symmetry."
+      "blurb": "Splitting fields and automorphism groups link polynomial equations to symmetry.",
+      "tags": ["foundation", "group-action"]
     },
     {
       "id": "fundamental-theorem-galois",
@@ -19,7 +20,8 @@
       "prereqs": [
         "field-extensions-galois"
       ],
-      "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group."
+      "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
+      "tags": ["duality", "classification", "group-action"]
     },
     {
       "id": "solvability-by-radicals",
@@ -31,7 +33,8 @@
         "quotients-homomorphisms",
         "field-extensions-basics"
       ],
-      "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
+      "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas.",
+      "tags": ["classification"]
     },
     {
       "id": "normal-separable-extensions",

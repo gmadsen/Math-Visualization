@@ -22,7 +22,8 @@
         "eigenforms-and-euler-factors",
         "galois-rep-definition"
       ],
-      "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) handled the semistable case; BCDT (2001) extended to all $E/\\mathbb{Q}$."
+      "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) handled the semistable case; BCDT (2001) extended to all $E/\\mathbb{Q}$.",
+      "tags": ["classification"]
     },
     {
       "id": "ribet-level-lowering",
@@ -42,7 +43,8 @@
         "galois-rep-definition",
         "frobenius-traces"
       ],
-      "blurb": "Given a residual $\\overline\\rho\\colon G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ represents lifts to complete Noetherian local rings with prescribed ramification $\\Sigma$; it is the formal moduli of Galois deformations."
+      "blurb": "Given a residual $\\overline\\rho\\colon G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ represents lifts to complete Noetherian local rings with prescribed ramification $\\Sigma$; it is the formal moduli of Galois deformations.",
+      "tags": ["lifting", "moduli", "universal-property"]
     },
     {
       "id": "r-equals-t",
@@ -53,7 +55,8 @@
         "modularity-theorem",
         "hecke-algebra-commuting"
       ],
-      "blurb": "Wiles' lifting engine identifies $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ on weight-2 cusp forms; the Taylor–Wiles patching argument upgrades $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ to an isomorphism, so every deformation is modular."
+      "blurb": "Wiles' lifting engine identifies $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ on weight-2 cusp forms; the Taylor–Wiles patching argument upgrades $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ to an isomorphism, so every deformation is modular.",
+      "tags": ["lifting"]
     }
   ]
 }

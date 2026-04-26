@@ -10,7 +10,8 @@
       "prereqs": [
         "cayley-tables"
       ],
-      "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
+      "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra.",
+      "tags": ["foundation", "group-action"]
     },
     {
       "id": "tensor-and-dual-reps",
@@ -19,7 +20,8 @@
       "prereqs": [
         "group-representations"
       ],
-      "blurb": "The category $\\mathbf{Rep}(G)$ is closed under direct sum, tensor product, and duals; characters multiply under $\\otimes$, making $\\mathbf{Rep}(G)$ a rigid symmetric monoidal category."
+      "blurb": "The category $\\mathbf{Rep}(G)$ is closed under direct sum, tensor product, and duals; characters multiply under $\\otimes$, making $\\mathbf{Rep}(G)$ a rigid symmetric monoidal category.",
+      "tags": ["duality", "functoriality"]
     },
     {
       "id": "maschke-theorem",
@@ -28,7 +30,8 @@
       "prereqs": [
         "group-representations"
       ],
-      "blurb": "Over a field whose characteristic does not divide |G|, every finite-dimensional rep of a finite group is a direct sum of irreducibles; the averaging trick furnishes a G-stable complement to any subrep."
+      "blurb": "Over a field whose characteristic does not divide |G|, every finite-dimensional rep of a finite group is a direct sum of irreducibles; the averaging trick furnishes a G-stable complement to any subrep.",
+      "tags": ["classification"]
     },
     {
       "id": "schurs-lemma",
@@ -46,7 +49,8 @@
       "prereqs": [
         "schurs-lemma"
       ],
-      "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
+      "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas.",
+      "tags": ["duality"]
     },
     {
       "id": "character-tables",
@@ -55,7 +59,8 @@
       "prereqs": [
         "characters-orthogonality"
       ],
-      "blurb": "The $k\\times k$ square table of irreducible characters against conjugacy classes — rows orthonormal, columns weighted-orthonormal, completely determined by small-group data for $S_3$, $S_4$, $D_4$, $Q_8$, $A_5$."
+      "blurb": "The $k\\times k$ square table of irreducible characters against conjugacy classes — rows orthonormal, columns weighted-orthonormal, completely determined by small-group data for $S_3$, $S_4$, $D_4$, $Q_8$, $A_5$.",
+      "tags": ["classification", "duality"]
     },
     {
       "id": "orbit-stabilizer-rep",
@@ -64,7 +69,8 @@
       "prereqs": [
         "characters-orthogonality"
       ],
-      "blurb": "For a $G$-set $X$, the permutation rep $\\mathbb{C}[X]$ has character $\\chi(g)=\\#\\mathrm{Fix}(g)$; Burnside counts orbits and stabilizers govern isotypic components."
+      "blurb": "For a $G$-set $X$, the permutation rep $\\mathbb{C}[X]$ has character $\\chi(g)=\\#\\mathrm{Fix}(g)$; Burnside counts orbits and stabilizers govern isotypic components.",
+      "tags": ["group-action"]
     },
     {
       "id": "regular-rep-decomposition",
@@ -82,7 +88,8 @@
       "prereqs": [
         "characters-orthogonality"
       ],
-      "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations."
+      "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "induction-and-young",
@@ -91,7 +98,8 @@
       "prereqs": [
         "frobenius-reciprocity"
       ],
-      "blurb": "Irreps of $S_n$ are indexed by partitions $\\lambda\\vdash n$; Specht modules realize them and the hook-length formula gives $\\dim V_\\lambda = n!/\\prod h(c)$."
+      "blurb": "Irreps of $S_n$ are indexed by partitions $\\lambda\\vdash n$; Specht modules realize them and the hook-length formula gives $\\dim V_\\lambda = n!/\\prod h(c)$.",
+      "tags": ["classification"]
     },
     {
       "id": "peter-weyl-preview",
@@ -101,7 +109,8 @@
         "characters-orthogonality",
         "banach-hilbert-spaces"
       ],
-      "blurb": "For a compact group $G$ with Haar measure, $L^2(G) \\cong \\widehat{\\bigoplus}_{\\pi\\in\\widehat G}\\, V_\\pi\\otimes V_\\pi^*$ — matrix coefficients of irreducible unitary reps form a Hilbert basis."
+      "blurb": "For a compact group $G$ with Haar measure, $L^2(G) \\cong \\widehat{\\bigoplus}_{\\pi\\in\\widehat G}\\, V_\\pi\\otimes V_\\pi^*$ — matrix coefficients of irreducible unitary reps form a Hilbert basis.",
+      "tags": ["compactness", "duality", "classification"]
     },
     {
       "id": "highest-weight-theorem",
@@ -120,7 +129,8 @@
         "highest-weight-theorem",
         "lie-algebra-tangent"
       ],
-      "blurb": "Every finite-dimensional irrep of $\\mathfrak{sl}_2(\\mathbb{C})$ is determined by a highest weight $n \\ge 0$ and realized as $\\mathrm{Sym}^n$ of the standard rep, with weights $n, n-2, \\ldots, -n$ and Clebsch–Gordan decomposition $V_m \\otimes V_n = \\bigoplus V_{m+n-2k}$."
+      "blurb": "Every finite-dimensional irrep of $\\mathfrak{sl}_2(\\mathbb{C})$ is determined by a highest weight $n \\ge 0$ and realized as $\\mathrm{Sym}^n$ of the standard rep, with weights $n, n-2, \\ldots, -n$ and Clebsch–Gordan decomposition $V_m \\otimes V_n = \\bigoplus V_{m+n-2k}$.",
+      "tags": ["classification"]
     }
   ]
 }

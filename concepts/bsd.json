@@ -11,7 +11,8 @@
         "elliptic-group-law",
         "mordell-weil-ec"
       ],
-      "blurb": "E(Q) is finitely generated: E(Q) ≅ Z^r ⊕ E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur)."
+      "blurb": "E(Q) is finitely generated: E(Q) ≅ Z^r ⊕ E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur).",
+      "tags": ["finiteness"]
     },
     {
       "id": "point-counting-heuristic",
@@ -44,7 +45,8 @@
         "mordell-weil",
         "mordell-weil-ec"
       ],
-      "blurb": "The canonical height ĥ is a positive-definite quadratic form on E(Q)/tors; its Gram determinant on a basis is the regulator R, the volume of the Mordell–Weil lattice that enters the refined BSD formula."
+      "blurb": "The canonical height ĥ is a positive-definite quadratic form on E(Q)/tors; its Gram determinant on a basis is the regulator R, the volume of the Mordell–Weil lattice that enters the refined BSD formula.",
+      "tags": ["duality"]
     },
     {
       "id": "sha-tate-shafarevich",
@@ -54,7 +56,8 @@
         "bsd-rank-equality",
         "elliptic-group-law"
       ],
-      "blurb": "Ш(E/Q) measures the failure of the local-to-global principle for torsors under E. Conjecturally finite, its order enters the refined BSD formula as a multiplicative fudge factor."
+      "blurb": "Ш(E/Q) measures the failure of the local-to-global principle for torsors under E. Conjecturally finite, its order enters the refined BSD formula as a multiplicative fudge factor.",
+      "tags": ["descent", "cohomology", "finiteness"]
     }
   ]
 }

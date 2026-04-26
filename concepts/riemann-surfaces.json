@@ -11,7 +11,8 @@
         "holomorphic-function",
         "smooth-manifold-definition"
       ],
-      "blurb": "Complex one-manifolds support holomorphic charts and conformal geometry."
+      "blurb": "Complex one-manifolds support holomorphic charts and conformal geometry.",
+      "tags": ["foundation"]
     },
     {
       "id": "branched-covers-rs",
@@ -20,7 +21,8 @@
       "prereqs": [
         "riemann-surface-definition"
       ],
-      "blurb": "Holomorphic maps behave like branched coverings with controlled ramification."
+      "blurb": "Holomorphic maps behave like branched coverings with controlled ramification.",
+      "tags": ["fibration"]
     },
     {
       "id": "riemann-hurwitz-uniformization",
@@ -29,7 +31,8 @@
       "prereqs": [
         "branched-covers-rs"
       ],
-      "blurb": "Genus, ramification, and universal covering classify compact Riemann surfaces."
+      "blurb": "Genus, ramification, and universal covering classify compact Riemann surfaces.",
+      "tags": ["classification", "compactness"]
     },
     {
       "id": "genus-invariant",
@@ -40,7 +43,8 @@
         "branched-covers-rs",
         "fundamental-group"
       ],
-      "blurb": "The genus g of a compact Riemann surface controls Euler characteristic χ=2−2g, Betti numbers, and — via Riemann–Hurwitz — the only way branched covers can fit together."
+      "blurb": "The genus g of a compact Riemann surface controls Euler characteristic χ=2−2g, Betti numbers, and — via Riemann–Hurwitz — the only way branched covers can fit together.",
+      "tags": ["classification", "compactness"]
     },
     {
       "id": "riemann-roch",
@@ -50,7 +54,8 @@
         "riemann-hurwitz-uniformization",
         "holomorphic-function"
       ],
-      "blurb": "Riemann–Roch computes ℓ(D)−ℓ(K−D)=deg D−g+1, turning topology into dimensions of spaces of meromorphic functions and linking divisors to line bundles."
+      "blurb": "Riemann–Roch computes ℓ(D)−ℓ(K−D)=deg D−g+1, turning topology into dimensions of spaces of meromorphic functions and linking divisors to line bundles.",
+      "tags": ["duality"]
     }
   ]
 }

@@ -31,7 +31,8 @@
         "simply-connected",
         "fundamental-group"
       ],
-      "blurb": "If $U$ is simply connected and a germ continues along every path in $U$, the continuation is single-valued; on non-simply-connected domains, looping around a branch point produces monodromy (e.g. $\\log$ shifts by $2\\pi i$)."
+      "blurb": "If $U$ is simply connected and a germ continues along every path in $U$, the continuation is single-valued; on non-simply-connected domains, looping around a branch point produces monodromy (e.g. $\\log$ shifts by $2\\pi i$).",
+      "tags": ["lifting"]
     },
     {
       "id": "schwarz-reflection",
@@ -52,7 +53,8 @@
         "mellin-transform-dirichlet",
         "theta-transformation-law"
       ],
-      "blurb": "Splitting the Mellin integral $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty(\\theta(x)-1)x^{s/2-1}dx$ at $x=1$ and applying the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ produces the symmetry $\\xi(s)=\\xi(1-s)$ of the completed zeta function."
+      "blurb": "Splitting the Mellin integral $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty(\\theta(x)-1)x^{s/2-1}dx$ at $x=1$ and applying the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ produces the symmetry $\\xi(s)=\\xi(1-s)$ of the completed zeta function.",
+      "tags": ["duality"]
     }
   ]
 }

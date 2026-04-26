@@ -33,7 +33,8 @@
         "equidistribution-weyl",
         "legendre-symbol"
       ],
-      "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
+      "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ.",
+      "tags": ["foundation"]
     },
     {
       "id": "cm-vs-non-cm-sato-tate",
@@ -43,7 +44,8 @@
         "sato-tate-measure",
         "complex-multiplication"
       ],
-      "blurb": "CM curves equidistribute against the Haar measure of the normalizer of a torus in SU(2) — half the primes are supersingular and the rest fill [0,π] uniformly — while non-CM curves follow the full semicircle law."
+      "blurb": "CM curves equidistribute against the Haar measure of the normalizer of a torus in SU(2) — half the primes are supersingular and the rest fill [0,π] uniformly — while non-CM curves follow the full semicircle law.",
+      "tags": ["classification", "compactness"]
     },
     {
       "id": "symmetric-power-l-functions",
