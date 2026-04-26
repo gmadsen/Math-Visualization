@@ -160,6 +160,12 @@
   .error-banner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     flex-direction:column;gap:.6rem;color:var(--ink);font-size:.92rem;background:var(--panel);z-index:7;
     padding:2rem;text-align:center}
+  /* The class rule above sets display:flex so the banner lays out its children
+     correctly when shown. But it also overrode the user-agent [hidden] rule
+     ({display:none}), so the empty banner was sitting on top of the SVG with
+     z-index:7 and a solid panel background — hiding the entire mindmap. Force
+     [hidden] back to display:none. */
+  .error-banner[hidden]{display:none}
   .error-banner h2{color:var(--pink);margin:0;font-size:1.05rem;font-weight:600}
   .error-banner p{max-width:480px;color:var(--mute);margin:0;line-height:1.55}
   .error-banner code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
