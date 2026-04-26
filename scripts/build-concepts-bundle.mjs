@@ -34,6 +34,16 @@ for (const t of index.topics) {
 const capstones = JSON.parse(readFileSync(join(conceptsDir, 'capstones.json'), 'utf8'));
 const sections = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'utf8'));
 
+// Tag vocabulary for tags.html (cross-topic theme explorer). Shipped in the
+// bundle so the explorer can render under file:// without fetch().
+const tagsPath = join(conceptsDir, 'tags.json');
+let tags = { tags: [] };
+try {
+  tags = JSON.parse(readFileSync(tagsPath, 'utf8'));
+} catch {
+  // tags.json is optional; tags.html falls back to "no themes registered yet".
+}
+
 // Promote `levels` (topic-difficulty map) to a top-level field on the bundle
 // so consumers can do __MVConcepts.levels[topicId] without reaching into
 // __MVConcepts.index.levels. The map lives in concepts/index.json — this is
@@ -61,7 +71,7 @@ const { stats: sectionStats } = computeSectionStats({
   sectionOrder,
 });
 
-const payload = { index, topics, capstones, sections, levels, newArc, sectionStats };
+const payload = { index, topics, capstones, sections, tags, levels, newArc, sectionStats };
 const body = JSON.stringify(payload, null, 2);
 
 const js =

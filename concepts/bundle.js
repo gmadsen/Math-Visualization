@@ -5321,11 +5321,76 @@ window.__MVConcepts = {
       "page": "spectral-graph-theory.html",
       "concepts": [
         {
-          "id": "spectral-graph-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
+          "id": "adjacency-and-laplacian",
+          "title": "Adjacency, degree, and the Laplacian",
+          "anchor": "adjacency-laplacian",
           "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "kernel-and-components",
+          "title": "Kernel multiplicity = number of components",
+          "anchor": "kernel-components",
+          "prereqs": [
+            "adjacency-and-laplacian"
+          ],
+          "blurb": "The dimension of $\\ker L$ equals the number of connected components of $G$. Indicator vectors of components span the kernel; conversely $f^\\top L f = 0$ forces $f$ constant on each component."
+        },
+        {
+          "id": "algebraic-connectivity-fiedler",
+          "title": "Algebraic connectivity and the Fiedler vector",
+          "anchor": "fiedler",
+          "prereqs": [
+            "kernel-and-components"
+          ],
+          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
+        },
+        {
+          "id": "cheeger-inequality",
+          "title": "Cheeger's inequality",
+          "anchor": "cheeger",
+          "prereqs": [
+            "algebraic-connectivity-fiedler"
+          ],
+          "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut."
+        },
+        {
+          "id": "random-walks-mixing",
+          "title": "Random walks and the spectral gap",
+          "anchor": "random-walks",
+          "prereqs": [
+            "adjacency-and-laplacian",
+            "markov-chains"
+          ],
+          "blurb": "The walk's transition $P=D^{-1}A$ is similar to $I-\\mathcal{L}$ where $\\mathcal{L}=D^{-1/2}LD^{-1/2}$ is the normalised Laplacian. The spectral gap $\\gamma=\\min(\\nu_2,2-\\nu_n)$ controls mixing time: $t_{\\mathrm{mix}}\\le \\frac{1}{\\gamma}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "bipartite-and-expanders",
+          "title": "Bipartite graphs, expanders, and Ramanujan",
+          "anchor": "bipartite-expanders",
+          "prereqs": [
+            "random-walks-mixing"
+          ],
+          "blurb": "$G$ is bipartite iff the normalised Laplacian achieves $\\nu_n=2$. Expander families have a uniform spectral gap; Alon–Boppana gives $\\liminf \\lambda_2(A) \\ge 2\\sqrt{d-1}$, with Ramanujan graphs (LPS construction via Hecke eigenvalues) saturating it.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "spectral-clustering",
+          "title": "Spectral clustering",
+          "anchor": "spectral-clustering",
+          "prereqs": [
+            "algebraic-connectivity-fiedler",
+            "cheeger-inequality"
+          ],
+          "blurb": "Embed vertex $i\\mapsto (u_2(i),\\dots,u_{k+1}(i))\\in\\mathbb{R}^k$ via the bottom $k$ non-trivial Laplacian eigenvectors, then run $k$-means. Recovers cluster structure when the bottom-$k$ eigenvalues are nearly $0$."
         }
       ]
     },
@@ -5335,11 +5400,91 @@ window.__MVConcepts = {
       "page": "matroid-theory.html",
       "concepts": [
         {
-          "id": "matroid-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "matroid-independence-axioms",
+          "title": "Independence axioms",
+          "anchor": "axioms",
+          "prereqs": [
+            "algebraic-structures"
+          ],
+          "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "matroid-bases-rank",
+          "title": "Bases, rank, and cryptomorphism",
+          "anchor": "bases",
+          "prereqs": [
+            "matroid-independence-axioms"
+          ],
+          "blurb": "Maximal independent sets are bases (all of equal size); the rank function $r : 2^E \\to \\mathbb{Z}$ is monotone and submodular. Bases, rank, closure, and circuits each give an equivalent axiomatization — one matroid wears many costumes.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "matroid-examples",
+          "title": "Vector, graphic, uniform, transversal matroids",
+          "anchor": "examples",
+          "prereqs": [
+            "matroid-bases-rank",
+            "polynomial-rings-irreducibility"
+          ],
+          "blurb": "The four canonical families. Vector matroids capture linear independence over a field; graphic matroids capture forests of a graph; uniform matroids $U_{r,n}$ are the toy benchmark; transversal matroids encode systems of distinct representatives via Hall's theorem.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "matroid-closure-flats",
+          "title": "Closure, flats, and the geometric lattice",
+          "anchor": "closure",
+          "prereqs": [
+            "matroid-bases-rank"
+          ],
+          "blurb": "The closure operator $\\operatorname{cl}(S)$ collects elements that contribute nothing to the rank; closed sets (flats) form a graded, atomistic, semimodular lattice. Birkhoff: geometric lattices and simple matroids are the same data.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "matroid-duality",
+          "title": "Matroid duality",
+          "anchor": "duality",
+          "prereqs": [
+            "matroid-bases-rank"
+          ],
+          "blurb": "Every matroid $M$ has a dual $M^*$ on the same ground set whose bases are the complements of the bases of $M$. The construction is involutive; for planar graphs it recovers the planar-dual graph: $M(G)^* = M(G^*)$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "matroid-greedy",
+          "title": "The greedy algorithm",
+          "anchor": "greedy",
+          "prereqs": [
+            "matroid-bases-rank"
+          ],
+          "blurb": "Sort elements by decreasing weight and greedily add each if independence holds. Rado–Edmonds: a hereditary family is a matroid iff this greedy algorithm produces a maximum-weight independent set for every weight function.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "tutte-polynomial",
+          "title": "The Tutte polynomial",
+          "anchor": "tutte",
+          "prereqs": [
+            "matroid-duality",
+            "matroid-greedy"
+          ],
+          "blurb": "$T_M(x,y) = \\sum_{S} (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ — the deepest invariant of a matroid. Its specializations give the chromatic and flow polynomials, all-terminal reliability, and the random-cluster Potts partition function. Duality: $T_M(x,y) = T_{M^*}(y,x)$.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
         }
       ]
     },
@@ -5920,6 +6065,86 @@ window.__MVConcepts = {
       }
     ]
   },
+  "tags": {
+    "_description": "Controlled vocabulary for the optional `tags` array on each concept entry. Tags surface unifying themes that cut across topic boundaries (a concept may carry several). validate-concepts.mjs enforces tags ⊂ this vocabulary; tags.html is the reader-facing tag explorer. To add a new tag here, also bump the bundle (build-concepts-bundle.mjs) so the explorer can find it under file://.",
+    "tags": [
+      {
+        "id": "duality",
+        "title": "Duality",
+        "blurb": "A pairing that swaps roles — points & functions, objects & their representations, source & target. Pontryagin, Poincaré, Serre, derived, and Tannaka all live here."
+      },
+      {
+        "id": "compactness",
+        "title": "Compactness",
+        "blurb": "Finiteness made geometric: every cover has a finite refinement, every net has a convergent subnet, every proper morphism is well-behaved at infinity."
+      },
+      {
+        "id": "functoriality",
+        "title": "Functoriality",
+        "blurb": "A construction that respects morphisms — naturality, base change, change-of-rings. The grammar of category theory."
+      },
+      {
+        "id": "universal-property",
+        "title": "Universal property",
+        "blurb": "An object defined by what maps to (or from) it. Limits, colimits, free constructions, adjoints, representability."
+      },
+      {
+        "id": "exact-sequence",
+        "title": "Exact sequence",
+        "blurb": "A chain where each piece's kernel matches the previous piece's image. Snake lemma, long exact sequences, spectral degenerations."
+      },
+      {
+        "id": "cohomology",
+        "title": "Cohomology",
+        "blurb": "Derived functors, sheaf and Galois cohomology, group cohomology, étale and de Rham — invariants extracted from a complex."
+      },
+      {
+        "id": "fibration",
+        "title": "Fibration",
+        "blurb": "Maps with a homotopy / lifting property — Serre, Kan, Grothendieck, locally trivial bundles."
+      },
+      {
+        "id": "descent",
+        "title": "Descent",
+        "blurb": "Reconstruct a global object from local data plus gluing — Galois, faithfully flat, sites and stacks."
+      },
+      {
+        "id": "moduli",
+        "title": "Moduli",
+        "blurb": "Parameter spaces for isomorphism classes — moduli of curves, vector bundles, formal groups, principal bundles."
+      },
+      {
+        "id": "lifting",
+        "title": "Lifting",
+        "blurb": "Extending solutions across an infinitesimal or rigid obstruction — Hensel's lemma, deformation, smoothness, formal completion."
+      },
+      {
+        "id": "finiteness",
+        "title": "Finiteness",
+        "blurb": "Noetherian, finite type, finite presentation, finitely generated — the conditions that make abstract machinery actually compute."
+      },
+      {
+        "id": "group-action",
+        "title": "Group action",
+        "blurb": "Symmetry on a set, scheme, or category — Galois actions on étale sheaves, Lie group actions on manifolds, Hecke actions on modular forms."
+      },
+      {
+        "id": "completion",
+        "title": "Completion",
+        "blurb": "Filling in limits — p-adic, formal-power-series, metric, profinite. Trades discreteness for continuity."
+      },
+      {
+        "id": "classification",
+        "title": "Classification",
+        "blurb": "A list of canonical forms — simple Lie algebras, finite simple groups, surfaces by Kodaira dimension, semisimple algebras."
+      },
+      {
+        "id": "foundation",
+        "title": "Foundation",
+        "blurb": "Definitional bedrock that downstream concepts assume — the vocabulary entries you can't skip."
+      }
+    ]
+  },
   "levels": {
     "naive-set-theory": "prereq",
     "algebra": "prereq",
@@ -6029,14 +6254,14 @@ window.__MVConcepts = {
       "concepts": 114,
       "intra": 174,
       "crossOut": 14,
-      "crossIn": 32,
+      "crossIn": 34,
       "density": 0.12280701754385964
     },
     "Analysis": {
       "concepts": 101,
       "intra": 144,
       "crossOut": 14,
-      "crossIn": 19,
+      "crossIn": 20,
       "density": 0.13861386138613863
     },
     "Geometry & topology": {
@@ -6068,11 +6293,11 @@ window.__MVConcepts = {
       "density": 0.3853211009174312
     },
     "Combinatorics & graph theory": {
-      "concepts": 5,
-      "intra": 0,
-      "crossOut": 0,
+      "concepts": 17,
+      "intra": 14,
+      "crossOut": 3,
       "crossIn": 0,
-      "density": 0
+      "density": 0.17647058823529413
     }
   }
 };

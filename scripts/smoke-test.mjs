@@ -30,7 +30,7 @@ const repoRoot = resolve(dirname(__filename), '..');
 // Pages we don't smoke-test the same way (index is the landing grid, pathway is the DAG,
 // widgets is the catalog page populated at runtime from widgets/bundle.js,
 // mindmap is the free-explore concept-graph view).
-const SPECIAL = new Set(['index.html', 'pathway.html', 'widgets.html', 'mindmap.html']);
+const SPECIAL = new Set(['index.html', 'pathway.html', 'widgets.html', 'mindmap.html', 'tags.html', 'search.html']);
 
 const errors = []; // [{ page, msg }]
 const warnings = [];

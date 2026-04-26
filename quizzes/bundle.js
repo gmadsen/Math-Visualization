@@ -18193,18 +18193,292 @@ window.MVQuizBank = {
   "matroid-theory": {
     "topic": "matroid-theory",
     "quizzes": {
-      "matroid-theory-intro": {
-        "title": "Intro",
+      "matroid-independence-axioms": {
+        "title": "Independence axioms",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which axiom for $\\mathcal{I} \\subseteq 2^E$ distinguishes a matroid from an arbitrary simplicial complex (a downward-closed family containing $\\emptyset$)?",
             "choices": [
-              "A",
-              "B"
+              "(I1) $\\emptyset \\in \\mathcal{I}$",
+              "(I2) $J \\subseteq I \\in \\mathcal{I} \\implies J \\in \\mathcal{I}$",
+              "(I3) if $|I| < |J|$ for $I,J \\in \\mathcal{I}$ then some $e \\in J\\setminus I$ has $I\\cup\\{e\\} \\in \\mathcal{I}$",
+              "$|E|$ is finite"
+            ],
+            "answer": 2,
+            "explain": "(I1) and (I2) define a simplicial complex. (I3) — the exchange or augmentation axiom — is the matroid-specific content; it forces all maximal independent sets to have the same size.",
+            "hint": "A simplicial complex has a non-empty hereditary family by definition; what extra fact about sizes does a matroid demand?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Take $E = \\{a,b,c,d\\}$ and let $\\mathcal{I}$ contain $\\emptyset$, every singleton, and $\\{a,b\\}$, $\\{a,b,c\\}$. Which axioms FAIL?",
+            "choices": [
+              "(I1) $\\emptyset \\in \\mathcal{I}$",
+              "(I2) hereditary",
+              "(I3) exchange"
+            ],
+            "answer": [
+              2
+            ],
+            "explain": "(I1) holds and (I2) holds (every subset of $\\{a,b,c\\}$ that's listed is closed under taking subsets among the listed sets). (I3) fails: take $I=\\{c\\}$ and $J=\\{a,b\\}$ — $|I|<|J|$ but neither $\\{a,c\\}$ nor $\\{b,c\\}$ is in $\\mathcal{I}$, so no element of $J\\setminus I$ extends $I$ to an independent set.",
+            "hint": "Look for two independent sets of different sizes whose smaller one cannot be augmented."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does (I3) imply that all maximal independent sets in a matroid have the same cardinality?",
+            "choices": [
+              "Because $\\mathcal{I}$ is finite, so there's a unique largest size by definition",
+              "If $I, J$ are maximal with $|I| < |J|$, (I3) lets us extend $I$ — contradicting maximality",
+              "Because $\\emptyset \\in \\mathcal{I}$ and 0 is unique",
+              "Because the rank function is constant on maximal independent sets by definition"
+            ],
+            "answer": 1,
+            "explain": "Maximality means no element can be added without leaving $\\mathcal{I}$. If $|I| < |J|$ then (I3) supplies an $e \\in J \\setminus I$ with $I \\cup \\{e\\} \\in \\mathcal{I}$, contradicting $I$'s maximality. So all maxima have equal size — the rank.",
+            "hint": "Maximal means 'can't add anything'. (I3) says 'if you're smaller than someone, you can add something.'"
+          }
+        ]
+      },
+      "matroid-bases-rank": {
+        "title": "Bases and rank",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For the uniform matroid $U_{3,5}$ (ground set of size $5$, every $3$-subset is a basis), what is $r(\\{1,2,4,5\\})$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$r_{U_{r,n}}(S) = \\min(|S|, r)$. Here $|S|=4$ and $r=3$, so $r(S) = \\min(4,3) = 3$.",
+            "hint": "The rank of a subset in $U_{r,n}$ caps at $r$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of the rank function $r : 2^E \\to \\mathbb{Z}$ is the 'submodularity' inequality?",
+            "choices": [
+              "$0 \\le r(S) \\le |S|$",
+              "$S \\subseteq T \\implies r(S) \\le r(T)$",
+              "$r(S \\cup T) + r(S \\cap T) \\le r(S) + r(T)$",
+              "$r(S) = |S|$ iff $S$ is independent"
+            ],
+            "answer": 2,
+            "explain": "The first is the bounding axiom (R1), the second is monotonicity (R2), the third is submodularity (R3). The fourth is true (a definition) but not labelled 'submodularity'.",
+            "hint": "Submodularity always involves both $S \\cup T$ and $S \\cap T$ on one side."
+          },
+          {
+            "type": "mcq",
+            "q": "Two bases $B = \\{a,b,c\\}$ and $B' = \\{a,d,e\\}$ in some matroid. By basis exchange, swapping $b$ out of $B$, which element of $B' \\setminus B$ is GUARANTEED to give a basis $(B \\setminus \\{b\\}) \\cup \\{?\\}$?",
+            "choices": [
+              "$a$ — it is in $B'$",
+              "Either $d$ or $e$ — at least one of them works (basis exchange)",
+              "Both $d$ and $e$ always work",
+              "None of $B' \\setminus B$ is guaranteed; you need an explicit construction"
+            ],
+            "answer": 1,
+            "explain": "Basis exchange: for any $x \\in B \\setminus B'$, there EXISTS $y \\in B' \\setminus B$ with $(B \\setminus \\{x\\}) \\cup \\{y\\}$ a basis. Existence — not 'all'. Here $B \\setminus B' = \\{b,c\\}$ and $B' \\setminus B = \\{d,e\\}$; some specific $y \\in \\{d,e\\}$ works for the swap of $b$, but not both in general.",
+            "hint": "The axiom guarantees existence of a swap partner, not that every candidate works."
+          }
+        ]
+      },
+      "matroid-examples": {
+        "title": "Examples: vector, graphic, uniform, transversal",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many bases (= spanning trees) does the graphic matroid $M(K_4)$ have? (Cayley's formula: $K_n$ has $n^{n-2}$ spanning trees.)",
+            "answer": 16,
+            "tol": 0,
+            "explain": "$K_4$ has $4^{4-2} = 4^2 = 16$ spanning trees, so $M(K_4)$ has 16 bases.",
+            "hint": "$K_n$ has $n^{n-2}$ spanning trees by Cayley's formula."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is a vector matroid representation of $M(K_3)$ (the triangle, $3$ edges, rank $2$)?",
+            "choices": [
+              "Columns $e_1, e_2, e_3$ — the standard basis of $\\mathbb{R}^3$",
+              "Columns $e_1 - e_2$, $e_1 - e_3$, $e_2 - e_3$ in $\\mathbb{R}^3$",
+              "Columns $(1,0), (0,1), (1,1)$ in $\\mathbb{F}_2^2$",
+              "Columns $1, 2, 3$ in $\\mathbb{R}^1$"
+            ],
+            "answer": 1,
+            "explain": "The signed-incidence representation maps edge $\\{i,j\\}$ to $e_i - e_j$. The three vectors $e_1-e_2, e_1-e_3, e_2-e_3$ have rank $2$ (they sum to zero) and any two are linearly independent — exactly mirroring 'any two edges of $K_3$ form a forest, all three edges form a cycle.' The standard-basis option gives all-independent, which is $U_{3,3}$, not $M(K_3)$.",
+            "hint": "You want a configuration where any two columns are independent but all three columns are dependent — matching 'any two edges form a forest, all three form a triangle.'"
+          },
+          {
+            "type": "mcq",
+            "q": "The Vámos matroid $V_8$ on $8$ elements is famous because:",
+            "choices": [
+              "It has $V_8$ as a subgroup of automorphisms",
+              "It is not representable over any field",
+              "It is the smallest non-graphic matroid",
+              "It has the largest number of bases among rank-$4$ matroids on $8$ elements"
+            ],
+            "answer": 1,
+            "explain": "$V_8$ is the canonical example of a matroid that fails to be a vector matroid over any field — even with characteristic $0$ allowed. In contrast, $U_{2,4}$ is non-representable over $\\mathbb{F}_2$ but is fine over $\\mathbb{R}$.",
+            "hint": "The point of $V_8$ is what cannot be done with it as a vector matroid."
+          }
+        ]
+      },
+      "matroid-closure-flats": {
+        "title": "Closure and flats",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the graphic matroid $M(G)$, what is $\\operatorname{cl}(\\{e\\})$ for a single edge $e$ that is not a loop?",
+            "choices": [
+              "$\\{e\\}$ itself",
+              "All edges of $G$",
+              "All edges parallel to $e$ together with $e$ (i.e. all edges with the same endpoint pair)",
+              "All edges sharing a vertex with $e$"
+            ],
+            "answer": 2,
+            "explain": "$\\operatorname{cl}(\\{e\\})$ collects every $f$ with $r(\\{e,f\\}) = r(\\{e\\}) = 1$. That happens iff $\\{e,f\\}$ is dependent, iff $f$ has the same endpoints as $e$ — i.e. $f$ is parallel to $e$. So $\\operatorname{cl}(\\{e\\}) = \\{f : f$ parallel to $e\\}$ (including $e$).",
+            "hint": "$f \\in \\operatorname{cl}(\\{e\\})$ means adding $f$ to $\\{e\\}$ doesn't increase the rank — i.e. $\\{e,f\\}$ is already dependent."
+          },
+          {
+            "type": "mcq",
+            "q": "Mac Lane–Steinitz exchange in closure form says: if $y \\in \\operatorname{cl}(S \\cup \\{x\\}) \\setminus \\operatorname{cl}(S)$, then…",
+            "choices": [
+              "$y \\in \\operatorname{cl}(S)$",
+              "$x \\in \\operatorname{cl}(S \\cup \\{y\\})$",
+              "$\\{x, y\\} \\subseteq S$",
+              "$x = y$"
+            ],
+            "answer": 1,
+            "explain": "(C4): if adding $x$ to $S$ brings $y$ into the closure (and $y$ wasn't already there), then by symmetry adding $y$ to $S$ brings $x$ into the closure. This is the closure-side avatar of the exchange axiom — same content as (I3).",
+            "hint": "The axiom is a 'swap' between $x$ and $y$."
+          },
+          {
+            "type": "mcq",
+            "q": "Birkhoff's theorem (1935) identifies which two structures?",
+            "choices": [
+              "Lattices and Boolean algebras",
+              "Geometric lattices and simple matroids (i.e. matroids without loops or parallel elements)",
+              "Posets and topological spaces",
+              "Distributive lattices and partial orders"
+            ],
+            "answer": 1,
+            "explain": "Geometric lattices = graded, atomistic, semimodular lattices. Birkhoff showed these are exactly the lattices of flats of simple matroids — providing the third major cryptomorphism (alongside bases ↔ rank ↔ closure).",
+            "hint": "The result is matroid-specific; one option is about general posets, the rest are not."
+          }
+        ]
+      },
+      "matroid-duality": {
+        "title": "Matroid duality",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "The dual of the uniform matroid $U_{3,7}$ is $U_{?,7}$. What is the missing first index?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Bases of $U_{r,n}$ are the $r$-subsets; complementing each gives the $(n-r)$-subsets, which are the bases of $U_{n-r,n}$. So $(U_{3,7})^* = U_{4,7}$.",
+            "hint": "Replace each basis by its complement and read off the new basis size."
+          },
+          {
+            "type": "mcq",
+            "q": "If $M$ is a rank-$3$ matroid on a $7$-element ground set, what is $r(M^*)$?",
+            "choices": [
+              "3",
+              "4",
+              "7",
+              "10"
+            ],
+            "answer": 1,
+            "explain": "$r(M) + r(M^*) = |E|$. Here $3 + r(M^*) = 7$, so $r(M^*) = 4$.",
+            "hint": "There is a clean rank identity linking $r(M)$, $r(M^*)$, and $|E|$."
+          },
+          {
+            "type": "mcq",
+            "q": "Whitney's planarity theorem says: a graph $G$ is planar if and only if…",
+            "choices": [
+              "$M(G)^*$ is graphic — i.e. equals $M(G^*)$ for some graph $G^*$",
+              "$M(G)$ is binary",
+              "$G$ has no cycle of length 5",
+              "$M(G)$ has the largest possible number of bases among graphs on $|V(G)|$ vertices"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "Planarity is a matroid-theoretic statement about $M(G)$'s dual: $M(G)^*$ is graphic iff $G$ is planar, with the planar dual $G^*$ providing the witness graph. This subsumes Kuratowski's $K_5$/$K_{3,3}$ criterion.",
+            "hint": "The criterion is about whether the dual matroid is itself a graphic matroid."
+          }
+        ]
+      },
+      "matroid-greedy": {
+        "title": "The greedy algorithm",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Rado–Edmonds theorem says that for a non-empty hereditary family $\\mathcal{I}$ on a finite set, the greedy algorithm finds a maximum-weight member of $\\mathcal{I}$ for every non-negative weight function if and only if…",
+            "choices": [
+              "$\\mathcal{I}$ contains $\\emptyset$",
+              "$\\mathcal{I}$ has a unique maximum-cardinality member",
+              "$\\mathcal{I}$ satisfies the exchange axiom (I3) — i.e. is a matroid",
+              "All members of $\\mathcal{I}$ have the same cardinality"
+            ],
+            "answer": 2,
+            "explain": "Rado–Edmonds: the optimality of greedy for ALL weights is exactly equivalent to $(E, \\mathcal{I})$ being a matroid. So matroids are characterized by the success of the greedy algorithm.",
+            "hint": "The theorem gives an iff between greedy-correctness and one of the matroid axioms."
+          },
+          {
+            "type": "mcq",
+            "q": "Kruskal's algorithm computes a minimum-spanning-tree. Which matroid is it the greedy algorithm for?",
+            "choices": [
+              "$U_{|V|-1, |E|}$ (uniform of rank $|V|-1$)",
+              "The graphic matroid $M(G)$ with edge weights",
+              "The transversal matroid of the bipartite graph $V \\times E$",
+              "The dual matroid $M(G)^*$"
+            ],
+            "answer": 1,
+            "explain": "Kruskal sorts edges by weight (ascending — equivalent to greedy on $-w$) and adds each if it doesn't create a cycle, i.e. if independence in $M(G)$ is preserved. Output: a minimum spanning tree = a min-weight basis of $M(G)$.",
+            "hint": "Kruskal's 'add an edge if it doesn't form a cycle' is exactly an independence test in which matroid?"
+          },
+          {
+            "type": "mcq",
+            "q": "Edmonds' matroid intersection theorem (1970) shows polynomial-time algorithms for the maximum common independent set in TWO matroids on a shared ground set. What is the analogous problem for THREE matroids?",
+            "choices": [
+              "Solvable in $O(n)$ time",
+              "Equivalent to matroid duality, hence polynomial",
+              "NP-hard",
+              "Equivalent to two-matroid intersection"
+            ],
+            "answer": 2,
+            "explain": "Two-matroid intersection captures bipartite matching, arborescences, and more in polynomial time. Three-matroid intersection encodes 3-dimensional matching, an NP-complete problem. Two is the boundary of tractability.",
+            "hint": "Three-dimensional matching is NP-complete — and three-matroid intersection encodes it."
+          }
+        ]
+      },
+      "tutte-polynomial": {
+        "title": "The Tutte polynomial",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does $T_M(1,1)$ equal?",
+            "choices": [
+              "The number of independent sets of $M$",
+              "The number of bases of $M$",
+              "$2^{|E|}$",
+              "The chromatic polynomial of $G$ at $1$, when $M = M(G)$"
+            ],
+            "answer": 1,
+            "explain": "Substituting $x=y=1$ into $\\sum_S (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ kills every term except those with both exponents zero: $r(E)=r(S)$ and $|S|=r(S)$. The first means $S$ spans, the second means $S$ is independent — together, $S$ is a basis. So $T_M(1,1) = $ number of bases.",
+            "hint": "At $(1,1)$ both shift factors vanish unless their exponents are both $0$ — and that pins down which subsets contribute."
+          },
+          {
+            "type": "mcq",
+            "q": "The deletion–contraction recursion for $T_M$ at a non-loop, non-coloop element $e$ is:",
+            "choices": [
+              "$T_M(x,y) = T_{M\\setminus e}(x,y) \\cdot T_{M/e}(x,y)$",
+              "$T_M(x,y) = T_{M\\setminus e}(x,y) + T_{M/e}(x,y)$",
+              "$T_M(x,y) = x \\cdot T_{M\\setminus e}(x,y) + y \\cdot T_{M/e}(x,y)$",
+              "$T_M(x,y) = T_{M\\setminus e}(y,x) + T_{M/e}(y,x)$"
+            ],
+            "answer": 1,
+            "explain": "When $e$ is neither a loop nor a coloop, $T_M = T_{M \\setminus e} + T_{M/e}$ — additive. Loops give $T_M = y \\cdot T_{M \\setminus e}$ and coloops give $T_M = x \\cdot T_{M/e}$. The polynomial form is independent of the order in which elements are deleted/contracted.",
+            "hint": "It's an additive split — and the same template as the deletion–contraction for the chromatic polynomial."
+          },
+          {
+            "type": "numeric",
+            "q": "How many proper $3$-colorings does $K_3$ have? (Equivalently, evaluate the chromatic polynomial $P_{K_3}(k) = k(k-1)(k-2)$ — the Tutte specialization $k^{c(G)} (-1)^{r(M)} T_{M(G)}(1-k, 0)$ — at $k=3$.)",
+            "answer": 6,
+            "tol": 0,
+            "explain": "The chromatic polynomial of $K_3$ is $P_{K_3}(k) = k(k-1)(k-2)$: $k$ choices for vertex 1, $k-1$ for vertex 2, $k-2$ for vertex 3. At $k=3$ this gives $3 \\cdot 2 \\cdot 1 = 6$. As a Tutte specialization with $T_{M(K_3)}(x,y) = x^2 + x + y$, $r=2$, $c=1$: $P_{K_3}(k) = k(-1)^2 T(1-k, 0) = k[(1-k)^2 + (1-k)] = k(1-k)(2-k)$, and $P(3) = 3 \\cdot (-2) \\cdot (-1) = 6$. ✓",
+            "hint": "Number the vertices and pick colors in order: $k \\cdot (k-1) \\cdot (k-2)$."
           }
         ]
       }
@@ -31455,18 +31729,289 @@ window.MVQuizBank = {
   "spectral-graph-theory": {
     "topic": "spectral-graph-theory",
     "quizzes": {
-      "spectral-graph-theory-intro": {
-        "title": "Intro",
+      "adjacency-and-laplacian": {
+        "title": "Adjacency, degree, and the Laplacian",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Let $G$ be a finite simple graph with combinatorial Laplacian $L = D - A$. Which of the following is always true?",
             "choices": [
-              "A",
-              "B"
+              "$L$ is positive definite",
+              "$L$ is positive semidefinite, with $L\\mathbf{1} = 0$",
+              "$L$ is symmetric but indefinite in general",
+              "$L$ is positive semidefinite, but the constant vector is not always in $\\ker L$"
+            ],
+            "answer": 1,
+            "explain": "$L$ is real symmetric, and $f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2 \\ge 0$, so PSD. The constant vector $\\mathbf{1}$ has $L\\mathbf{1}=0$ regardless of the graph, since each row sum of $L$ is $d_i - d_i = 0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K_5$ be the complete graph on $5$ vertices. What is the largest eigenvalue of the combinatorial Laplacian $L$ of $K_5$?",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$). For $n=5$ the largest eigenvalue is $5$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all expressions that always equal the Dirichlet energy $f^\\top L f$ for any function $f\\colon V\\to\\mathbb{R}$.",
+            "choices": [
+              "$\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$",
+              "$\\sum_{i\\in V} d_i\\, f(i)^2$",
+              "$\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$",
+              "$\\langle f, Df\\rangle - \\langle f, Af\\rangle$"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. The unhalved sum (option 3) double-counts each edge."
+          }
+        ]
+      },
+      "kernel-and-components": {
+        "title": "Kernel of $L$ and connected components",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ have $n=12$ vertices, and suppose $L_G$ has eigenvalues with $0$ appearing with multiplicity $3$. How many connected components does $G$ have?",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "12"
+            ],
+            "answer": 2,
+            "explain": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components."
+          },
+          {
+            "type": "mcq",
+            "q": "If $f\\in\\mathbb{R}^V$ satisfies $f^\\top L f = 0$, what can be concluded about $f$?",
+            "choices": [
+              "$f$ is the zero vector",
+              "$f$ is constant on the whole graph",
+              "$f$ is constant on each connected component (possibly with different constants on different components)",
+              "$f$ is orthogonal to $\\mathbf{1}$"
+            ],
+            "answer": 2,
+            "explain": "$f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. Vanishing forces $f(i)=f(j)$ across every edge, so $f$ is constant on each component — but components are independent."
+          },
+          {
+            "type": "numeric",
+            "q": "A graph $G$ on $10$ vertices is the disjoint union of a triangle, a 4-cycle, and three isolated vertices. What is the multiplicity of $0$ as an eigenvalue of $L_G$?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "Components: 1 triangle + 1 cycle + 3 isolated vertices = $5$ components, so $\\dim\\ker L = 5$."
+          }
+        ]
+      },
+      "algebraic-connectivity-fiedler": {
+        "title": "Algebraic connectivity and the Fiedler vector",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the Courant–Fischer characterisation of $\\lambda_2$ (algebraic connectivity)?",
+            "choices": [
+              "$\\lambda_2 = \\max_{\\|f\\|=1} f^\\top L f$",
+              "$\\lambda_2 = \\min_{f\\perp \\mathbf{1},\\,\\|f\\|=1} f^\\top L f$",
+              "$\\lambda_2 = \\min_{\\|f\\|=1} f^\\top L f$",
+              "$\\lambda_2 = \\frac{1}{n}\\sum_i f(i)$ for the Fiedler vector $f$"
+            ],
+            "answer": 1,
+            "explain": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for connected $G$)."
+          },
+          {
+            "type": "mcq",
+            "q": "For which of these graphs is the algebraic connectivity $\\lambda_2$ strictly positive?",
+            "choices": [
+              "Two triangles with no edge between them",
+              "A path on $5$ vertices",
+              "Three isolated vertices",
+              "A cycle $C_4$ with one edge deleted, plus an isolated vertex"
+            ],
+            "answer": 1,
+            "explain": "$\\lambda_2 > 0 \\iff G$ is connected. The path $P_5$ is connected (so $\\lambda_2>0$); the others are disconnected, so $\\lambda_2 = 0$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the algebraic connectivity $\\lambda_2$ of the complete graph $K_4$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$). For $K_4$ the second-smallest eigenvalue is $4$."
+          }
+        ]
+      },
+      "cheeger-inequality": {
+        "title": "Cheeger's inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a $d$-regular connected graph, Cheeger's inequality reads:",
+            "choices": [
+              "$h(G)\\le \\lambda_2/2$ and $h(G)\\ge \\sqrt{2 d\\, \\lambda_2}$",
+              "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$",
+              "$\\lambda_2 \\le h(G) \\le 2\\sqrt{\\lambda_2}$",
+              "$h(G) = \\lambda_2$ exactly"
+            ],
+            "answer": 1,
+            "explain": "Cheeger gives the two-sided bound $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$. The lower bound is easy; the upper bound is the sweep-cut argument and is the source of all spectral approximation algorithms for sparsest cut."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Cheeger upper bound algorithmically useful?",
+            "choices": [
+              "It tells you exactly which subset $S$ achieves $h(G)$",
+              "It is constructive: sort vertices by the Fiedler vector, sweep through prefix cuts, and the best is within a factor $\\sqrt{2d/\\lambda_2}$ of optimal",
+              "It tells you that $h(G)$ can be computed in $O(n)$ time exactly",
+              "It implies $h(G)$ is always rational"
+            ],
+            "answer": 1,
+            "explain": "Computing $h(G)$ exactly is NP-hard. Cheeger's upper bound is constructive — the sweep-cut algorithm — and gives a polynomial-time approximation factor of $\\sqrt{2d/\\lambda_2}$, the prototype for spectral approximation."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the consequences that follow from Cheeger's inequality $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$.",
+            "choices": [
+              "$\\lambda_2 = 0 \\iff h(G) = 0$",
+              "Large $\\lambda_2$ implies large $h(G)$",
+              "Small $\\lambda_2$ implies small $h(G)$",
+              "$h(G)$ is always at least $\\sqrt{\\lambda_2}$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Both directions are equivalent characterisations of disconnection (item 1). Item 2 follows from the lower bound; item 3 from the upper bound. Item 4 is a wrong rearrangement: the lower bound is $\\lambda_2/2 \\le h(G)$, not $\\sqrt{\\lambda_2} \\le h(G)$."
+          }
+        ]
+      },
+      "random-walks-mixing": {
+        "title": "Random walks and the spectral gap",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a connected non-bipartite $d$-regular graph, what is the stationary distribution of the simple random walk?",
+            "choices": [
+              "Uniform: $\\pi_i = 1/n$",
+              "$\\pi_i = d_i / n$",
+              "$\\pi_i = 1/d_i$",
+              "Concentrated on the highest-degree vertex"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "For a $d$-regular graph all $d_i = d$, so $\\pi_i = d_i/(2|E|) = d/(nd) = 1/n$. The general formula is $\\pi_i = d_i/(2|E|)$, which specialises to uniform in the regular case."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the spectral gap controlling mixing on a non-bipartite graph, in terms of the normalised Laplacian eigenvalues $0=\\nu_1\\le\\nu_2\\le\\cdots\\le\\nu_n$?",
+            "choices": [
+              "$\\nu_2$",
+              "$\\nu_n - \\nu_1$",
+              "$\\min(\\nu_2,\\, 2 - \\nu_n)$",
+              "$\\nu_n / \\nu_2$"
+            ],
+            "answer": 2,
+            "explain": "The transition matrix $P$ has eigenvalues $1-\\nu_k\\in[-1,1]$. The slowest non-trivial decay is the largest of $|1-\\nu_2|=1-\\nu_2$ and $|1-\\nu_n|=\\nu_n-1$, so the spectral gap is $1$ minus that maximum, namely $\\min(\\nu_2,\\,2-\\nu_n)$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all reasons a random walk on a graph can mix slowly.",
+            "choices": [
+              "$\\nu_2$ is close to $0$ (graph nearly disconnects)",
+              "$\\nu_n$ is close to $2$ (graph is nearly bipartite)",
+              "The graph has many triangles",
+              "The graph has high maximum degree"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation). Triangle counts and degree alone do not dictate mixing speed."
+          }
+        ]
+      },
+      "bipartite-and-expanders": {
+        "title": "Bipartite graphs and expanders",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a connected graph $G$, the largest normalised Laplacian eigenvalue $\\nu_n$ equals $2$ if and only if:",
+            "choices": [
+              "$G$ is regular",
+              "$G$ is bipartite",
+              "$G$ has a triangle",
+              "$G$ is an expander"
+            ],
+            "answer": 1,
+            "explain": "$\\nu_n = 2 \\iff G$ is bipartite. The corresponding eigenvector is $D^{1/2}\\mathbf{1}_L - D^{1/2}\\mathbf{1}_R$ for the bipartition $V = L\\sqcup R$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Alon–Boppana bound say?",
+            "choices": [
+              "Every $d$-regular graph has $\\lambda_2(A) = 2\\sqrt{d-1}$",
+              "For any infinite family of $d$-regular graphs, $\\liminf \\lambda_2(A) \\ge 2\\sqrt{d-1}$",
+              "Every $d$-regular graph has $\\lambda_2(A) \\le 2\\sqrt{d-1}$",
+              "$\\lambda_2(A)$ can be made arbitrarily close to $0$ in a regular family"
+            ],
+            "answer": 1,
+            "explain": "Alon–Boppana: any infinite family of $d$-regular graphs has $\\liminf_n \\lambda_2(A_{G_n}) \\ge 2\\sqrt{d-1}$. Graphs that achieve $|\\lambda_2(A)| \\le 2\\sqrt{d-1}$ are called Ramanujan — they essentially saturate this bound."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are properties of an expander family $(G_n)$ of $d$-regular graphs?",
+            "choices": [
+              "Each $G_n$ is sparse: only $O(n)$ edges",
+              "$\\lambda_2(L_{G_n}) \\ge c$ for some $c > 0$ uniformly in $n$",
+              "Random walks mix in $O(\\log n)$ steps",
+              "The graph is a complete graph"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time. Complete graphs $K_n$ have great mixing but are not sparse — they are not expanders in the asymptotic sense."
+          }
+        ]
+      },
+      "spectral-clustering": {
+        "title": "Spectral clustering",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In spectral clustering with $k$ clusters, which eigenvectors of the (normalised) Laplacian are used as embedding coordinates?",
+            "choices": [
+              "The single eigenvector $u_2$",
+              "The eigenvectors $u_1, u_2, \\ldots, u_k$ for the $k$ smallest eigenvalues",
+              "The eigenvectors $u_{n-k+1}, \\ldots, u_n$ for the $k$ largest eigenvalues",
+              "All $n$ eigenvectors"
+            ],
+            "answer": 1,
+            "explain": "The standard recipe (Shi–Malik / Ng–Jordan–Weiss): take the eigenvectors at the bottom $k$ eigenvalues. Each row of the resulting $n\\times k$ matrix is a vertex's coordinates in $\\mathbb{R}^k$, then $k$-means is run on the rows."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does spectral clustering recover well-separated communities?",
+            "choices": [
+              "Eigenvectors of large eigenvalues capture noise",
+              "When $G$ is exactly $k$ disjoint components, the bottom-$k$ eigenspace is spanned by the indicator vectors of components; with weakly-coupled clusters the eigenvectors are a small perturbation thereof",
+              "$k$-means is the only clustering algorithm that works on graphs",
+              "Eigenvalues count cluster size"
+            ],
+            "answer": 1,
+            "explain": "When the graph is the disjoint union of $k$ components, $\\dim\\ker L = k$ and component indicators span the kernel. Adding a few cross-cluster edges perturbs these eigenvectors only slightly, so the embedding still maps each cluster to a tight blob — exactly what $k$-means picks up."
+          },
+          {
+            "type": "mcq",
+            "q": "What does a large eigengap $\\nu_{k+1} - \\nu_k$ in the normalised Laplacian heuristically suggest?",
+            "choices": [
+              "There is no clustering structure",
+              "The graph naturally has $k$ clusters",
+              "The graph is bipartite",
+              "The graph is regular"
+            ],
+            "answer": 1,
+            "explain": "The eigengap heuristic: a large gap after the $k$-th eigenvalue indicates that the bottom $k$ eigenvalues form a coherent group close to $0$, signalling a $k$-cluster structure. It is heuristic, not a theorem, but remarkably reliable."
           }
         ]
       }

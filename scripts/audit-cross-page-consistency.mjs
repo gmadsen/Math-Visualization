@@ -51,6 +51,7 @@ const SPECIAL = new Set([
   'review.html',
   'mindmap.html',
   'search.html',
+  'tags.html',
   'widgets.html',
   'capstone-bsd-story.html',
   'capstone-flt-story.html',

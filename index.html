@@ -136,6 +136,40 @@
   .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
   @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+
+  /* Featured rail: two-card row sitting between the pathway banner and the
+     section-jump nav. Left card surfaces a date-seeded ready-to-master
+     concept ("Today's concept"); right card surfaces the topic owning the
+     visitor's most recently mastered concept ("Continue where you left
+     off"), or a curated welcome card for cold visitors. Hidden by default
+     and revealed by the script block at the bottom of body once
+     __MVConcepts has populated and a useful pick is available. */
+  .featured-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 1.6rem}
+  .featured-card{display:flex;flex-direction:column;gap:6px;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem;text-decoration:none;color:inherit;
+    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease}
+  .featured-card:hover{transform:translateY(-3px);border-color:var(--violet);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .featured-card.fc-continue:hover{border-color:var(--green);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--green) 22%, transparent)}
+  .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
+  .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+    line-height:1.35}
+  .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
+    line-height:1.45;flex:1;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+    overflow:hidden}
+  .featured-card .fc-foot{display:flex;justify-content:space-between;
+    align-items:center;gap:0.5rem;margin-top:0.4rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .featured-card .fc-arrow{color:var(--violet);font-size:1.1rem;line-height:1}
+  .featured-card.fc-continue .fc-arrow{color:var(--green)}
+  @media (max-width:640px){
+    .featured-rail{grid-template-columns:1fr}
+  }
   h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
@@ -153,6 +187,18 @@
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
+  /* Right-aligned stats group: mastery donut + topic count. The donut's
+     stroke colour inherits via currentColor so it picks up the section's
+     accent (set by data-color on .sec); empty rings stay neutral via the
+     .ring-empty class. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  .sec .sec-ring{width:18px;height:18px;flex-shrink:0;display:block}
+  .sec .sec-ring circle{fill:none;stroke-width:2.6}
+  .sec .sec-ring .ring-track{stroke:var(--line)}
+  .sec .sec-ring .ring-fill{stroke:currentColor;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:center;
+    transition:stroke-dasharray 280ms ease}
+  .sec .sec-ring.ring-empty .ring-fill{stroke:var(--line)}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
      keeps matching. */
@@ -344,6 +390,7 @@
     <div class="nav-links">
       <a class="nav-link accent" href="./pathway.html">Pathway</a>
       <a class="nav-link" href="./mindmap.html">Mindmap</a>
+      <a class="nav-link" href="./tags.html">Themes</a>
       <a class="nav-link" href="./search.html">Search</a>
       <a class="nav-link" href="./latex-cheatsheet.html">LaTeX cheatsheet</a>
       <a class="nav-link" href="./progress.html">Your progress</a>
@@ -358,7 +405,7 @@
     <div class="hero-tagline" aria-label="Notebook scope">
       <span><span class="tg-num">78</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">511</span> concepts</span>
+      <span><span class="tg-num">523</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -372,6 +419,21 @@
     </div>
     <div class="pb-arrow">→</div>
   </a>
+
+  <section class="featured-rail" id="featured-rail" aria-label="Featured concepts" hidden>
+    <a class="featured-card fc-today" id="todays-card" href="#" hidden>
+      <div class="fc-eyebrow">Today's concept</div>
+      <div class="fc-title" id="todays-title">—</div>
+      <p class="fc-desc" id="todays-blurb"></p>
+      <div class="fc-foot"><span id="todays-topic"></span><span class="fc-arrow">→</span></div>
+    </a>
+    <a class="featured-card fc-continue" id="continue-card" href="#" hidden>
+      <div class="fc-eyebrow" id="continue-eyebrow">Continue where you left off</div>
+      <div class="fc-title" id="continue-title">—</div>
+      <p class="fc-desc" id="continue-blurb"></p>
+      <div class="fc-foot"><span id="continue-stats"></span><span class="fc-arrow">→</span></div>
+    </a>
+  </section>
 
   <div class="sj-sentinel" aria-hidden="true"></div>
   <nav class="section-jump" role="navigation" aria-label="Jump to section">
@@ -2105,19 +2167,63 @@
       }
       if(!sec.id) sec.id = meta.id;
       sec.setAttribute('data-color', meta.color);
-      // Append the topic count, pulled from the next .grid sibling.
+      // Append the stats group: mastery donut + topic count, pulled from the
+      // next .grid sibling. Reads MVProgress for v1-tier mastery; concept ids
+      // come from __MVConcepts.topics keyed off each card's href.
       var el = sec.nextElementSibling;
       while(el && !el.classList.contains('grid')) el = el.nextElementSibling;
       if(el){
-        var n = el.querySelectorAll(':scope > a.card').length;
+        var cards = el.querySelectorAll(':scope > a.card');
+        var n = cards.length;
         if(n > 0){
+          var stats = document.createElement('span');
+          stats.className = 'sec-stats';
+          var ring = makeRing(sec, cards);
+          if(ring) stats.appendChild(ring);
           var span = document.createElement('span');
           span.className = 'sec-count';
           span.textContent = n + (n === 1 ? ' topic' : ' topics');
-          sec.appendChild(span);
+          stats.appendChild(span);
+          sec.appendChild(stats);
         }
       }
     }
+  }
+  function makeRing(sec, cards){
+    var topics = (window.__MVConcepts && window.__MVConcepts.topics) || null;
+    if(!topics || !window.MVProgress) return null;
+    var total = 0, mastered = 0;
+    for(var i = 0; i < cards.length; i++){
+      var href = cards[i].getAttribute('href') || '';
+      var slug = href.replace(/^\.\//, '').replace(/\.html$/, '');
+      var topic = topics[slug];
+      if(!topic || !Array.isArray(topic.concepts)) continue;
+      for(var j = 0; j < topic.concepts.length; j++){
+        var cid = topic.concepts[j].id || topic.concepts[j];
+        total++;
+        if(window.MVProgress.isMastered(cid, 'v1')) mastered++;
+      }
+    }
+    if(total === 0) return null;
+    var pct = mastered / total;
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('class', 'sec-ring' + (mastered === 0 ? ' ring-empty' : ''));
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    var track = document.createElementNS(ns, 'circle');
+    track.setAttribute('cx', '12'); track.setAttribute('cy', '12'); track.setAttribute('r', '9');
+    track.setAttribute('class', 'ring-track');
+    svg.appendChild(track);
+    var fill = document.createElementNS(ns, 'circle');
+    fill.setAttribute('cx', '12'); fill.setAttribute('cy', '12'); fill.setAttribute('r', '9');
+    fill.setAttribute('class', 'ring-fill');
+    var circ = 2 * Math.PI * 9;
+    fill.setAttribute('stroke-dasharray', (pct * circ).toFixed(2) + ' ' + circ.toFixed(2));
+    svg.appendChild(fill);
+    sec.title = mastered + ' / ' + total + ' concept' + (total === 1 ? '' : 's') + ' mastered';
+    return svg;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
@@ -2544,6 +2650,116 @@
       }
     }, { threshold: [0, 1] });
     io.observe(sentinel);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<script>
+// Featured rail: today's concept (date-seeded ready-to-master pick) +
+// continue-where-you-left-off (most recent v1 mastery's owning topic, with a
+// curated welcome card as the cold-visitor fallback). Reads __MVConcepts +
+// MVProgress + the raw localStorage record (for the per-entry `at` timestamp
+// that MVProgress doesn't otherwise expose).
+(function(){
+  function init(){
+    var rail = document.getElementById('featured-rail');
+    var data = window.__MVConcepts;
+    if(!rail || !data || !data.topics) return;
+    var concepts = [];
+    for(var topicId in data.topics){
+      var topic = data.topics[topicId];
+      var arr = topic.concepts || [];
+      for(var i=0;i<arr.length;i++){
+        var c = arr[i];
+        concepts.push({
+          id: c.id, title: c.title, anchor: c.anchor, blurb: c.blurb || '',
+          prereqs: c.prereqs || [], topicId: topicId,
+          page: topic.page || (topicId + '.html'),
+          topicTitle: topic.title || topicId
+        });
+      }
+    }
+    var byId = Object.create(null);
+    for(var i=0;i<concepts.length;i++) byId[concepts[i].id] = concepts[i];
+
+    var P = window.MVProgress;
+    function isReady(c){
+      if(P && P.isMastered(c.id, 'v1')) return false;
+      var ps = c.prereqs || [];
+      for(var i=0;i<ps.length;i++){
+        var bare = ps[i].indexOf(':') >= 0 ? ps[i].split(':', 2)[1] : ps[i];
+        if(!P || !P.isMastered(bare, 'v1')){
+          // For cold visitors with no progress, root concepts (no prereqs)
+          // are "ready"; everything else stays locked. So: false here only
+          // if the concept actually has prereqs the user hasn't mastered.
+          return ps.length === 0;
+        }
+      }
+      return true;
+    }
+    var ready = concepts.filter(isReady);
+    if(ready.length === 0){
+      // Edge case: every concept is mastered or every concept has unsatisfied
+      // prereqs. Fall back to all root concepts so the card still surfaces.
+      ready = concepts.filter(function(c){ return (c.prereqs || []).length === 0; });
+    }
+
+    var todayCard = document.getElementById('todays-card');
+    if(ready.length > 0 && todayCard){
+      var d = new Date();
+      var seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+      var pick = ready[seed % ready.length];
+      todayCard.href = './' + pick.page + '#' + (pick.anchor || '');
+      document.getElementById('todays-title').textContent = pick.title;
+      document.getElementById('todays-blurb').textContent = stripKatex(pick.blurb);
+      document.getElementById('todays-topic').textContent = pick.topicTitle;
+      todayCard.hidden = false;
+    }
+
+    var continueCard = document.getElementById('continue-card');
+    var recentId = mostRecentMasteredId();
+    if(recentId && byId[recentId]){
+      var owner = byId[recentId];
+      var mine = concepts.filter(function(c){ return c.topicId === owner.topicId; });
+      var mastered = mine.filter(function(c){ return P && P.isMastered(c.id, 'v1'); }).length;
+      continueCard.href = './' + owner.page;
+      document.getElementById('continue-title').textContent = owner.topicTitle;
+      document.getElementById('continue-blurb').textContent =
+        mastered + ' of ' + mine.length + ' concepts mastered. Last touched: "' + owner.title + '".';
+      document.getElementById('continue-stats').textContent = 'Resume reading';
+      continueCard.hidden = false;
+    } else {
+      // Cold-visitor fallback: a curated welcome.
+      document.getElementById('continue-eyebrow').textContent = 'New here?';
+      continueCard.href = './category-theory.html';
+      document.getElementById('continue-title').textContent = 'Start with category theory';
+      document.getElementById('continue-blurb').textContent =
+        'The flagship topic — cleanest pedagogy, the canonical style template, and a natural on-ramp into the rest of the notebook.';
+      document.getElementById('continue-stats').textContent = 'Or browse by theme via Themes ↗';
+      continueCard.hidden = false;
+    }
+
+    if(!todayCard.hidden || !continueCard.hidden) rail.hidden = false;
+  }
+  function mostRecentMasteredId(){
+    try {
+      var raw = JSON.parse(localStorage.getItem('mvnb.progress.v1') || '{}');
+      var bestId = null, bestAt = 0;
+      for(var id in raw){
+        var rec = raw[id];
+        if(rec && typeof rec === 'object' && rec.v1 && typeof rec.at === 'number' && rec.at > bestAt){
+          bestId = id; bestAt = rec.at;
+        }
+      }
+      return bestId;
+    } catch(e){ return null; }
+  }
+  function stripKatex(s){
+    // Replace inline KaTeX with a marker so the blurb reads coherently as
+    // plain text in a 3-line clamp, since KaTeX hasn't auto-rendered yet
+    // when the rail populates.
+    return String(s).replace(/\$\$[\s\S]*?\$\$/g, '…').replace(/\$[^$]*\$/g, '…');
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

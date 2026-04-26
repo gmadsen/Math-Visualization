@@ -4,11 +4,56 @@
   "page": "spectral-graph-theory.html",
   "concepts": [
     {
-      "id": "spectral-graph-theory-intro",
-      "title": "Intro",
-      "anchor": "intro",
+      "id": "adjacency-and-laplacian",
+      "title": "Adjacency, degree, and the Laplacian",
+      "anchor": "adjacency-laplacian",
       "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "kernel-and-components",
+      "title": "Kernel multiplicity = number of components",
+      "anchor": "kernel-components",
+      "prereqs": ["adjacency-and-laplacian"],
+      "blurb": "The dimension of $\\ker L$ equals the number of connected components of $G$. Indicator vectors of components span the kernel; conversely $f^\\top L f = 0$ forces $f$ constant on each component."
+    },
+    {
+      "id": "algebraic-connectivity-fiedler",
+      "title": "Algebraic connectivity and the Fiedler vector",
+      "anchor": "fiedler",
+      "prereqs": ["kernel-and-components"],
+      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
+    },
+    {
+      "id": "cheeger-inequality",
+      "title": "Cheeger's inequality",
+      "anchor": "cheeger",
+      "prereqs": ["algebraic-connectivity-fiedler"],
+      "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut."
+    },
+    {
+      "id": "random-walks-mixing",
+      "title": "Random walks and the spectral gap",
+      "anchor": "random-walks",
+      "prereqs": ["adjacency-and-laplacian", "markov-chains"],
+      "blurb": "The walk's transition $P=D^{-1}A$ is similar to $I-\\mathcal{L}$ where $\\mathcal{L}=D^{-1/2}LD^{-1/2}$ is the normalised Laplacian. The spectral gap $\\gamma=\\min(\\nu_2,2-\\nu_n)$ controls mixing time: $t_{\\mathrm{mix}}\\le \\frac{1}{\\gamma}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$.",
+      "tags": ["group-action"]
+    },
+    {
+      "id": "bipartite-and-expanders",
+      "title": "Bipartite graphs, expanders, and Ramanujan",
+      "anchor": "bipartite-expanders",
+      "prereqs": ["random-walks-mixing"],
+      "blurb": "$G$ is bipartite iff the normalised Laplacian achieves $\\nu_n=2$. Expander families have a uniform spectral gap; Alon–Boppana gives $\\liminf \\lambda_2(A) \\ge 2\\sqrt{d-1}$, with Ramanujan graphs (LPS construction via Hecke eigenvalues) saturating it.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "spectral-clustering",
+      "title": "Spectral clustering",
+      "anchor": "spectral-clustering",
+      "prereqs": ["algebraic-connectivity-fiedler", "cheeger-inequality"],
+      "blurb": "Embed vertex $i\\mapsto (u_2(i),\\dots,u_{k+1}(i))\\in\\mathbb{R}^k$ via the bottom $k$ non-trivial Laplacian eigenvectors, then run $k$-means. Recovers cluster structure when the bottom-$k$ eigenvalues are nearly $0$."
     }
   ]
 }

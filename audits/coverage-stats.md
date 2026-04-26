@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **78**, concepts: **511**
-- Widgets: **563** (registry-driven: 563, inline: 0)
-- Quizzes: **2699** (v1: 1463, hard: 1223, expert: 13)
-- Quiz types: mcq: 1659, numeric: 853, multi-select: 69, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **105**
-- Concepts lacking a hard-tier quiz: **73**
+- Topics: **78**, concepts: **523**
+- Widgets: **577** (registry-driven: 563, inline: 14)
+- Quizzes: **2739** (v1: 1503, hard: 1223, expert: 13)
+- Quiz types: mcq: 1687, numeric: 860, multi-select: 74, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **103**
+- Concepts lacking a hard-tier quiz: **85**
 
 ## Per-slug registry adoption
 
@@ -153,6 +153,7 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
+| `julia-playground` | julia-playground | slider | 2d | 0 | _(none — fixture-only)_ |
 
 ## Per-subject
 
@@ -228,13 +229,13 @@ page has wired one in yet.
 
 ### Combinatorics & graph theory
 
-- Topics: **5**, concepts: **5**
-- Widgets: **0** (registry-driven: 0, inline: 0)
-  - by family: _(none)_
-  - by dimension: _(none)_
-  - by gesture: _(none)_
-- Quizzes: **5** (v1: 5, hard: 0, expert: 0)
-  - by type: mcq: 5
+- Topics: **5**, concepts: **17**
+- Widgets: **14** (registry-driven: 0, inline: 14)
+  - by family: unknown: 14
+  - by dimension: unknown: 14
+  - by gesture: unknown: 14
+- Quizzes: **45** (v1: 45, hard: 0, expert: 0)
+  - by type: mcq: 33, numeric: 7, multi-select: 5
 
 ## Per-topic
 
@@ -307,8 +308,8 @@ page has wired one in yet.
 - `group-schemes` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
 - `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
-- `spectral-graph-theory` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `matroid-theory` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `spectral-graph-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `probabilistic-method` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `extremal-combinatorics` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)

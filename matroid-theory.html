@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Matroid theory</title>
+<title>Matroid theory — independence, duality, and the greedy algorithm</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -155,7 +155,7 @@
   /* display-prefs-css-auto-end */
 </style>
 <!-- breadcrumb-head-auto-begin -->
-<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":null,"prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":null,"prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes combinatorial"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
@@ -229,8 +229,14 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#axioms">1&nbsp;Independence</a>
+  <a href="#bases">2&nbsp;Bases&nbsp;&amp;&nbsp;rank</a>
+  <a href="#examples">3&nbsp;Examples</a>
+  <a href="#closure">4&nbsp;Closure&nbsp;&amp;&nbsp;flats</a>
+  <a href="#duality">5&nbsp;Duality</a>
+  <a href="#greedy">6&nbsp;Greedy</a>
+  <a href="#tutte">7&nbsp;Tutte&nbsp;polynomial</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -240,14 +246,1105 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Matroid theory</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">A matroid is the combinatorial skeleton shared by linear independence and graph acyclicity. The data is sparse — a finite ground set $E$ together with a family of "independent" subsets — yet it is enough to make the greedy algorithm provably optimal, to define a duality that swaps every theorem with its partner, and to encode a polynomial whose specializations include the chromatic polynomial, network reliability, and the partition function of a Potts model. This page traces the cryptomorphic axiom systems and their interplay.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="matroid-theory-intro"></div>
+<section id="axioms">
+<h2>1. Independence axioms</h2>
+<p>Whitney's 1935 starting point. Fix a finite <strong>ground set</strong> $E$. A <strong>matroid</strong> on $E$ is a non-empty family $\mathcal{I} \subseteq 2^E$ of subsets called <em>independent sets</em>, satisfying:</p>
+<ul>
+  <li><strong>(I1) Non-triviality.</strong> $\emptyset \in \mathcal{I}$.</li>
+  <li><strong>(I2) Hereditary.</strong> If $I \in \mathcal{I}$ and $J \subseteq I$, then $J \in \mathcal{I}$.</li>
+  <li><strong>(I3) Exchange.</strong> If $I, J \in \mathcal{I}$ with $|I| < |J|$, there exists $e \in J \setminus I$ such that $I \cup \{e\} \in \mathcal{I}$.</li>
+</ul>
+<p>(I1) and (I2) alone define a <em>simplicial complex</em> — a downward-closed family. The novel content is (I3), the <strong>augmentation</strong> or <strong>exchange</strong> axiom: any smaller independent set can always be enlarged from any strictly larger one. It forces every maximal independent set to have the same size; without it, "independent" becomes a meaningless label.</p>
+
+<h3>Two motivating examples</h3>
+<p>Both examples below satisfy (I1)–(I3); the abstract definition is engineered to capture the common skeleton.</p>
+<ul>
+<li><strong>Vector matroid $M[A]$.</strong> Let $A$ be an $r \times n$ matrix over a field $k$, with columns indexed by $E = \{1,\ldots,n\}$. Set $\mathcal{I} = \{S \subseteq E : \text{columns}\ \{a_i : i \in S\}\ \text{are linearly independent}\}$. Hereditary is obvious; exchange is the Steinitz exchange lemma from linear algebra.</li>
+<li><strong>Graphic matroid $M(G)$.</strong> Let $G$ be a finite graph with edge set $E$. Set $\mathcal{I} = \{F \subseteq E : F\ \text{contains no cycle}\}$ — the <em>forests</em> of $G$. Hereditary because removing edges cannot create a cycle. Exchange: if $F, F'$ are forests with $|F| < |F'|$, then $F$ has more connected components than $F'$, so some edge of $F'$ joins two components of $F$ and can be added without forming a cycle.</li>
+</ul>
+
+<div class="note"><strong>Why the same axioms?</strong> The Steinitz exchange and the forest exchange feel like different facts. The matroid abstraction says they are not — both are instances of (I3). The dictionary then propagates: a basis (max independent), a circuit (min dependent), a dual matroid, a rank function, etc., all have parallel meanings on both sides. The pages on <a href="./algebra.html#extensions">field extensions</a> and <a href="./algebraic-topology.html#paths">cycles in algebraic topology</a> are downstream consumers of this skeleton.</div>
+
+<div class="widget" id="w-axioms">
+  <div class="hd"><div class="ttl">Independence-axiom checker</div><div class="hint">edit a family $\mathcal{I}$ and test (I1) (I2) (I3)</div></div>
+  <div class="row">
+    <label for="axioms-E">ground set</label>
+    <input type="text" id="axioms-E" value="a,b,c,d" style="min-width:140px">
+    <label for="axioms-I">independent sets (one per line)</label>
+  </div>
+  <div class="row">
+    <textarea id="axioms-I" rows="6" style="width:100%;background:#0b0f16;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:.4rem .55rem;font-family:ui-monospace,monospace;font-size:.92rem">{}
+{a}
+{b}
+{c}
+{d}
+{a,b}
+{a,c}
+{a,d}
+{b,c}
+{b,d}
+{c,d}</textarea>
+  </div>
+  <div class="row">
+    <button id="axioms-check">check axioms</button>
+    <button id="axioms-uniform">load $U_{2,4}$</button>
+    <button id="axioms-bad">load broken example</button>
+  </div>
+  <div class="readout" id="axioms-out">click "check axioms" to run (I1)/(I2)/(I3) against the family above…</div>
+  <div class="small">Sets are written as comma-separated elements between braces; whitespace is ignored. The default load is $U_{2,4}$ — the uniform matroid where every $\le 2$-subset of $\{a,b,c,d\}$ is independent.</div>
+</div>
+<div class="quiz" data-concept="matroid-independence-axioms"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#intro">Groups, rings, and fields</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./matroid-theory.html#bases">Matroid theory</a> · Bases, rank, and cryptomorphism</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
+
+<script>
+/* ============================ widget 1: axiom checker ============================ */
+(function(){
+  const Ein = $('#axioms-E'), Iin = $('#axioms-I'), out = $('#axioms-out');
+  const btnCheck = $('#axioms-check'), btnUni = $('#axioms-uniform'), btnBad = $('#axioms-bad');
+
+  function parseE(s){
+    return s.split(',').map(t=>t.trim()).filter(Boolean);
+  }
+  function parseI(s){
+    const lines = s.split('\n').map(t=>t.trim()).filter(Boolean);
+    const out = [];
+    for(const ln of lines){
+      const m = ln.match(/^\{(.*)\}$/);
+      if(!m) return null;
+      const inner = m[1].trim();
+      const els = inner ? inner.split(',').map(t=>t.trim()).filter(Boolean) : [];
+      out.push(new Set(els));
+    }
+    return out;
+  }
+  function setEq(a,b){ if(a.size!==b.size) return false; for(const x of a) if(!b.has(x)) return false; return true; }
+  function setIn(s, list){ return list.some(t=>setEq(s,t)); }
+  function subsetOf(a,b){ for(const x of a) if(!b.has(x)) return false; return true; }
+
+  function runCheck(){
+    const E = parseE(Ein.value);
+    const I = parseI(Iin.value);
+    if(!I){ out.textContent = 'parse error: each line must look like {a,b,c} or {}'; return; }
+    const lines = [];
+    // (I1)
+    const hasEmpty = I.some(s=>s.size===0);
+    lines.push((hasEmpty ? '✓' : '✗') + ' (I1) non-trivial: ' + (hasEmpty ? '∅ is independent' : '∅ is missing — fail'));
+    // (I2) hereditary
+    let heredOk = true; let heredWit = null;
+    for(const J of I){
+      // every subset of J should be in I
+      const els = [...J];
+      const n = els.length;
+      for(let mask=0; mask<(1<<n); mask++){
+        const sub = new Set();
+        for(let k=0;k<n;k++) if(mask&(1<<k)) sub.add(els[k]);
+        if(!setIn(sub,I)){ heredOk=false; heredWit = {sub, sup:J}; break; }
+      }
+      if(!heredOk) break;
+    }
+    if(heredOk){
+      lines.push('✓ (I2) hereditary: every subset of an independent set is independent');
+    } else {
+      const fmt = s => '{' + [...s].join(',') + '}';
+      lines.push('✗ (I2) hereditary fails: ' + fmt(heredWit.sub) + ' ⊂ ' + fmt(heredWit.sup) + ' but only the larger is listed');
+    }
+    // (I3) exchange
+    let exOk = true; let exWit = null;
+    for(const A of I) for(const B of I){
+      if(A.size >= B.size) continue;
+      // need some e in B\A with A∪{e} ∈ I
+      let found = false;
+      for(const e of B){
+        if(A.has(e)) continue;
+        const cand = new Set([...A, e]);
+        if(setIn(cand, I)){ found = true; break; }
+      }
+      if(!found){ exOk = false; exWit = {A,B}; break; }
+    }
+    if(exOk){
+      lines.push('✓ (I3) exchange: any smaller independent set can be augmented from a larger one');
+    } else {
+      const fmt = s => '{' + [...s].join(',') + '}';
+      lines.push('✗ (I3) exchange fails: from A=' + fmt(exWit.A) + ', no element of B=' + fmt(exWit.B) + '\\A produces a listed independent set');
+    }
+    const allOk = hasEmpty && heredOk && exOk;
+    lines.push('');
+    lines.push(allOk
+      ? 'verdict: this family IS a matroid on ground set {' + E.join(',') + '}.'
+      : 'verdict: NOT a matroid — fix the failing axiom above.');
+    out.textContent = lines.join('\n');
+  }
+  btnCheck.addEventListener('click', runCheck);
+  btnUni.addEventListener('click', ()=>{
+    Ein.value = 'a,b,c,d';
+    Iin.value = '{}\n{a}\n{b}\n{c}\n{d}\n{a,b}\n{a,c}\n{a,d}\n{b,c}\n{b,d}\n{c,d}';
+    runCheck();
+  });
+  btnBad.addEventListener('click', ()=>{
+    // hereditary holds, but exchange fails: bases of different sizes
+    Ein.value = 'a,b,c,d';
+    Iin.value = '{}\n{a}\n{b}\n{c}\n{d}\n{a,b}\n{a,b,c}';
+    runCheck();
+  });
+  runCheck();
+})();
+</script>
+
+<section id="bases">
+<h2>2. Bases, rank, and cryptomorphism</h2>
+<p>A maximal independent set is a <strong>basis</strong>. The exchange axiom (I3) forces all bases to have the same cardinality, called the <strong>rank</strong> $r(M)$. More generally, for any $S \subseteq E$ define
+$$r(S) \;=\; \max\{\,|I| : I \subseteq S,\ I \in \mathcal{I}\,\}.$$
+This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the second face of a matroid.</p>
+
+<h3>Basis exchange</h3>
+<p>From (I3) one extracts the cleaner symmetric statement: for any two bases $B, B'$ and any element $x \in B \setminus B'$, there exists $y \in B' \setminus B$ with $(B \setminus \{x\}) \cup \{y\}$ also a basis. You "swap one in, one out." This <em>basis-exchange axiom</em> is itself enough to recover the whole matroid — the family of bases determines $\mathcal{I}$ as $\{I : I \subseteq B\ \text{for some basis}\ B\}$.</p>
+
+<h3>Rank-function axioms</h3>
+<p>The rank function is characterized by three properties:</p>
+<ul>
+<li><strong>(R1)</strong> $0 \le r(S) \le |S|$.</li>
+<li><strong>(R2) Monotone:</strong> $S \subseteq T \implies r(S) \le r(T)$.</li>
+<li><strong>(R3) Submodular:</strong> $r(S \cup T) + r(S \cap T) \le r(S) + r(T)$.</li>
+</ul>
+<p>Conversely, any function $r$ satisfying (R1)–(R3) with integer values defines a matroid by $\mathcal{I} = \{S : r(S) = |S|\}$ — these are the sets where every element contributes one to the rank. The phenomenon that bases, independent sets, rank, closure, and circuits each give an equivalent axiomatization of the same object is called <strong>cryptomorphism</strong>; one matroid wears many costumes.</p>
+
+<div class="note"><strong>Submodularity is the heart.</strong> The inequality $r(S \cup T) + r(S \cap T) \le r(S) + r(T)$ is the combinatorial fingerprint that distinguishes matroids from arbitrary simplicial complexes. It says rank exhibits "diminishing returns": adding $T$ on top of $S$ gains less than adding $T$ to a smaller intersection. This is exactly why the greedy algorithm works (§ 6).</div>
+
+<div class="widget" id="w-bases">
+  <div class="hd"><div class="ttl">Bases &amp; rank explorer</div><div class="hint">pick a uniform $U_{r,n}$ and a subset; see all bases and the rank</div></div>
+  <div class="row">
+    <label for="bases-n">$n$</label>
+    <input type="range" id="bases-n" min="2" max="6" step="1" value="4">
+    <span id="bases-nv" class="readout" style="min-width:60px;flex:0 0 auto">n = 4</span>
+    <label for="bases-r">$r$</label>
+    <input type="range" id="bases-r" min="0" max="6" step="1" value="2">
+    <span id="bases-rv" class="readout" style="min-width:60px;flex:0 0 auto">r = 2</span>
+  </div>
+  <div class="row">
+    <label for="bases-S">test subset $S$ (subset of $\{1,\ldots,n\}$)</label>
+    <input type="text" id="bases-S" value="1,3" style="min-width:160px">
+    <button id="bases-render">update</button>
+  </div>
+  <svg id="bases-svg" viewBox="0 0 620 280" width="620" height="280"><title>Bases &amp; rank explorer</title></svg>
+  <div class="readout" id="bases-out"></div>
+  <div class="small">$U_{r,n}$ is the matroid where every $r$-subset of $\{1,\ldots,n\}$ is a basis. The rank $r(S) = \min(|S|, r)$. Submodularity: $r(S \cup T) + r(S \cap T) \le r(S) + r(T)$ for every pair.</div>
+</div>
+<div class="quiz" data-concept="matroid-bases-rank"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./matroid-theory.html#closure">Matroid theory</a> · Closure, flats, and the geometric lattice</div>
+    <div><a href="./matroid-theory.html#duality">Matroid theory</a> · Matroid duality</div>
+    <div><a href="./matroid-theory.html#greedy">Matroid theory</a> · The greedy algorithm</div>
+    <div><a href="./matroid-theory.html#examples">Matroid theory</a> · Vector, graphic, uniform, transversal matroids</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* ============================ widget 2: bases & rank ============================ */
+(function(){
+  const nIn = $('#bases-n'), rIn = $('#bases-r');
+  const nv = $('#bases-nv'), rv = $('#bases-rv');
+  const Sin = $('#bases-S'), btn = $('#bases-render');
+  const svg = $('#bases-svg'), out = $('#bases-out');
+
+  function combos(arr, k){
+    const res = [];
+    function go(i, cur){
+      if(cur.length===k){ res.push(cur.slice()); return; }
+      for(let j=i; j<arr.length; j++){ cur.push(arr[j]); go(j+1, cur); cur.pop(); }
+    }
+    go(0, []); return res;
+  }
+  function parseS(s, n){
+    const xs = s.split(',').map(t=>parseInt(t.trim(),10)).filter(x=>!Number.isNaN(x) && x>=1 && x<=n);
+    return [...new Set(xs)].sort((a,b)=>a-b);
+  }
+  function rankUniform(S, n, r){ return Math.min(S.length, r); }
+
+  function render(){
+    const n = parseInt(nIn.value,10);
+    const r = Math.min(parseInt(rIn.value,10), n);
+    rIn.max = String(n);
+    if(parseInt(rIn.value,10) > n){ rIn.value = String(n); }
+    nv.textContent = `n = ${n}`;
+    rv.textContent = `r = ${r}`;
+    const E = Array.from({length:n}, (_,i)=>i+1);
+    const S = parseS(Sin.value, n);
+    const bases = combos(E, r);
+
+    svg.innerHTML = '';
+    const W = 620, H = 280, pad = 22;
+    const colW = (W - 2*pad) / Math.max(1, bases.length);
+    const rowH = 18;
+    const top = pad + 26;
+
+    // legend / header
+    svg.appendChild(SVG('text', {x:pad, y:pad+10, 'font-size':12, fill:'var(--mute)'})).textContent = `${bases.length} bases of $U_{${r},${n}}$ (each column is a basis; yellow = element in basis)`;
+    svg.lastChild.textContent = `${bases.length} bases of U_{${r},${n}} — each column is one basis`;
+
+    for(let i=0;i<n;i++){
+      const t = SVG('text',{x:pad+4, y: top + i*rowH + rowH*0.7, 'font-size':11, fill:'var(--mute)','text-anchor':'start'});
+      t.textContent = String(i+1);
+      svg.appendChild(t);
+    }
+    for(let j=0;j<bases.length;j++){
+      const B = new Set(bases[j]);
+      const cx = pad + 18 + j*((W - 2*pad - 18) / Math.max(1, bases.length));
+      for(let i=0;i<n;i++){
+        const inB = B.has(i+1);
+        const inS = S.includes(i+1);
+        const rect = SVG('rect',{
+          x: cx, y: top + i*rowH,
+          width: Math.max(6, (W - 2*pad - 18) / Math.max(1, bases.length) - 2),
+          height: rowH-2,
+          fill: inB ? (inS ? 'var(--cyan)' : 'var(--yellow)') : (inS ? 'var(--violet)' : 'var(--panel2)'),
+          opacity: inB ? 0.9 : 0.35,
+          stroke: 'var(--line)'
+        });
+        svg.appendChild(rect);
+      }
+    }
+    // legend swatches at bottom
+    const legY = top + n*rowH + 16;
+    const swatches = [
+      ['var(--yellow)', 'in basis'],
+      ['var(--cyan)',   'in basis ∩ S'],
+      ['var(--violet)', 'in S, not in basis'],
+      ['var(--panel2)', 'in neither']
+    ];
+    let lx = pad;
+    for(const [c, lbl] of swatches){
+      svg.appendChild(SVG('rect',{x:lx, y:legY, width:10, height:10, fill:c, opacity:0.9}));
+      const t = SVG('text',{x:lx+14, y:legY+9, 'font-size':11, fill:'var(--ink)'});
+      t.textContent = lbl;
+      svg.appendChild(t);
+      lx += 8 + 14 + 8 + (lbl.length*6);
+    }
+
+    // rank readout: r(S), r(E\S), submodular check on (S, complement-half)
+    const E1 = new Set(E);
+    const Scomp = E.filter(x=>!S.includes(x));
+    const T = Scomp.slice(0, Math.ceil(Scomp.length/2));
+    const Sset = new Set(S), Tset = new Set(T);
+    const cup = new Set([...S, ...T]);
+    const cap = new Set(S.filter(x=>Tset.has(x)));
+    const rS = rankUniform(S, n, r);
+    const rT = rankUniform(T, n, r);
+    const rCup = rankUniform([...cup], n, r);
+    const rCap = rankUniform([...cap], n, r);
+    const lhs = rCup + rCap;
+    const rhs = rS + rT;
+
+    const fmt = a => '{' + a.join(',') + '}';
+    out.textContent =
+      `S = ${fmt(S)},  r(S) = ${rS}\n` +
+      `T = ${fmt(T)},  r(T) = ${rT}    (T chosen as first half of E\\S)\n` +
+      `r(S ∪ T) = ${rCup},  r(S ∩ T) = ${rCap}\n` +
+      `submodularity: r(S∪T)+r(S∩T) = ${lhs}  ≤  r(S)+r(T) = ${rhs}    ${lhs<=rhs?'✓':'✗'}\n` +
+      `rank of M:    r(M) = ${r}    (max basis size)`;
+  }
+
+  nIn.addEventListener('input', render);
+  rIn.addEventListener('input', render);
+  btn.addEventListener('click', render);
+  Sin.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="examples">
+<h2>3. Vector, graphic, uniform, transversal</h2>
+<p>The class of matroids is wide enough to be interesting and narrow enough to be tractable. Four canonical families:</p>
+
+<h3>Uniform matroid $U_{r,n}$</h3>
+<p>Ground set $\{1,\ldots,n\}$; independent sets are all subsets of size $\le r$. Every $r$-subset is a basis; the rank function is $r(S) = \min(|S|, r)$. The case $U_{n,n}$ is "everything is independent" (the <em>free matroid</em>); $U_{0,n}$ is the trivial matroid. $U_{2,4}$ is the smallest non-representable example over $\mathbb{F}_2$ — it cannot arise as a vector matroid over the two-element field — and is a useful sanity-check counterexample.</p>
+
+<h3>Vector matroid $M[A]$</h3>
+<p>Already seen. A matroid is <strong>$k$-representable</strong> if it equals $M[A]$ for some matrix $A$ over the field $k$. Not every matroid is representable — the smallest non-representable example is the <em>Vámos matroid</em> on $8$ elements, which fails to be a vector matroid over <em>any</em> field. Tutte (1958) gave an excluded-minor characterization of $\mathbb{F}_2$-representable matroids: $M$ is binary $\iff$ $U_{2,4}$ is not a minor of $M$.</p>
+
+<h3>Graphic matroid $M(G)$</h3>
+<p>Independent sets = forests of $G$. Bases = spanning forests; if $G$ is connected, bases = spanning trees. The rank is $r(M(G)) = |V(G)| - c(G)$ where $c$ counts connected components. Graphic matroids are always $\mathbb{F}_2$-representable (and in fact $\mathbb{F}_p$-representable for every $p$): take the signed incidence matrix.</p>
+
+<h3>Transversal matroid</h3>
+<p>Given a finite collection $\mathcal{A} = (A_1, \ldots, A_m)$ of subsets of $E$, declare $S \subseteq E$ independent if there is an injective <em>system of distinct representatives</em> — an injection $\phi : S \to \{1,\ldots,m\}$ with $s \in A_{\phi(s)}$ for all $s \in S$. Hall's marriage theorem shows this is a matroid; bases are maximum partial transversals. Transversal matroids are exactly the matroids of certain bipartite-graph matchings, and form the bridge between matroid theory and combinatorial optimization.</p>
+
+<table class="plain">
+  <thead><tr><th>family</th><th>independent sets</th><th>rank</th><th>example</th></tr></thead>
+  <tbody>
+    <tr><td>$U_{r,n}$</td><td>all $S$ with $|S| \le r$</td><td>$\min(|S|, r)$</td><td>"every $r$-subset is a basis"</td></tr>
+    <tr><td>$M[A]$</td><td>linearly independent column sets</td><td>column rank of $A|_S$</td><td>over $\mathbb{R}$, $\mathbb{F}_p$, etc.</td></tr>
+    <tr><td>$M(G)$</td><td>forests of $G$</td><td>$|V(S)| - c(S)$</td><td>$M(K_4)$ has $16$ spanning trees</td></tr>
+    <tr><td>transversal</td><td>partial transversals of $\mathcal{A}$</td><td>max-matching size</td><td>König's theorem</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><strong>$M(K_4)$ as a vector matroid.</strong> The complete graph $K_4$ on four vertices has six edges and rank $3$. Label the edges by the six $2$-subsets of a basis $\{e_1,e_2,e_3,e_4\}$ of $\mathbb{R}^4$: edge $\{i,j\} \mapsto e_i - e_j$. Forests of $K_4$ correspond exactly to linearly independent subsets of these difference vectors. So $M(K_4)$ is a vector matroid over <em>every</em> field, and in fact realises the rank-$3$ "$K_4$-geometry" used as a building block in finite geometry.</div>
+
+<div class="widget" id="w-graph">
+  <div class="hd"><div class="ttl">Graphic matroid: forests &amp; cycles</div><div class="hint">click an edge to add or remove it from $F$; the widget reports independence &amp; rank</div></div>
+  <svg id="graph-svg" viewBox="0 0 620 320" width="620" height="320"><title>Graphic matroid: forests and cycles</title></svg>
+  <div class="row">
+    <button id="graph-clear">clear $F$</button>
+    <button id="graph-spanning">find a spanning tree</button>
+  </div>
+  <div class="readout" id="graph-out">click an edge to begin…</div>
+  <div class="small">The graph is $K_4$ on four vertices: $6$ edges, $16$ spanning trees. $F$ is the user-selected edge set. Yellow = in $F$ &amp; safe (forest); pink = in $F$ but creates a cycle; grey = not selected.</div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#polyrings">Polynomial rings and irreducibility</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="matroid-examples"></div>
+</section>
+
+<script>
+/* ============================ widget 3: graphic matroid (K4) ============================ */
+(function(){
+  const svg = $('#graph-svg'), out = $('#graph-out');
+  const btnClear = $('#graph-clear'), btnSpan = $('#graph-spanning');
+
+  // K_4: vertices at corners of a square, all pairs connected.
+  const V = [
+    {id:0, x:160, y: 60},
+    {id:1, x:460, y: 60},
+    {id:2, x:160, y:260},
+    {id:3, x:460, y:260}
+  ];
+  const Eraw = [];
+  for(let i=0;i<V.length;i++) for(let j=i+1;j<V.length;j++) Eraw.push({u:i, v:j, id:`${i}-${j}`});
+
+  let F = new Set(); // selected edge ids
+
+  // union–find on V
+  function uf(){
+    const p = V.map((_,i)=>i);
+    function find(x){ while(p[x]!==x){ p[x]=p[p[x]]; x=p[x]; } return x; }
+    function union(x,y){ const rx=find(x), ry=find(y); if(rx!==ry){ p[rx]=ry; return true; } return false; }
+    return {find, union, p};
+  }
+
+  function analyze(){
+    const u = uf();
+    const safe = new Set(), cyc = new Set();
+    for(const e of Eraw){
+      if(!F.has(e.id)) continue;
+      if(u.union(e.u, e.v)) safe.add(e.id);
+      else cyc.add(e.id);
+    }
+    const comps = new Set();
+    for(let i=0;i<V.length;i++) comps.add(u.find(i));
+    const rank = V.length - comps.size;
+    return {safe, cyc, rank, comps:comps.size};
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    const {safe, cyc, rank, comps} = analyze();
+    // edges first
+    for(const e of Eraw){
+      const a = V[e.u], b = V[e.v];
+      let stroke = 'var(--line)', width = 2, opacity = 0.7;
+      if(safe.has(e.id)){ stroke = 'var(--yellow)'; width = 4; opacity = 1; }
+      else if(cyc.has(e.id)){ stroke = 'var(--pink)'; width = 4; opacity = 1; }
+      const path = SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y, stroke, 'stroke-width':width, opacity, 'data-edge':e.id, 'pointer-events':'stroke'});
+      path.style.cursor = 'pointer';
+      path.addEventListener('click', ()=>{
+        if(F.has(e.id)) F.delete(e.id); else F.add(e.id);
+        render();
+      });
+      // hit-area
+      const hit = SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y, stroke:'transparent','stroke-width':16, 'data-edge':e.id});
+      hit.style.cursor='pointer';
+      hit.addEventListener('click', ()=>{
+        if(F.has(e.id)) F.delete(e.id); else F.add(e.id);
+        render();
+      });
+      svg.appendChild(hit);
+      svg.appendChild(path);
+      // edge label at midpoint
+      const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+      const lbl = SVG('text',{x:mx + (e.u===0&&e.v===3?-8:0), y:my - 6, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      lbl.textContent = `e_{${e.u},${e.v}}`;
+      svg.appendChild(lbl);
+    }
+    // vertices
+    for(const v of V){
+      svg.appendChild(SVG('circle',{cx:v.x, cy:v.y, r:18, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.6}));
+      const t = SVG('text',{x:v.x, y:v.y+5, 'text-anchor':'middle', 'font-size':14, 'font-weight':600});
+      t.textContent = String(v.id+1);
+      svg.appendChild(t);
+    }
+    const total = F.size;
+    const lines = [];
+    lines.push(`|F| = ${total}`);
+    lines.push(`safe edges (forest part): ${safe.size}`);
+    lines.push(`cycle-creating edges:    ${cyc.size}    ${cyc.size>0?'⇒ F is dependent':'⇒ F is independent (a forest)'}`);
+    lines.push(`rank r(F) = ${rank}    (= |V| − components = 4 − ${comps})`);
+    if(rank===3 && cyc.size===0) lines.push('F is a basis (spanning tree).');
+    out.textContent = lines.join('\n');
+  }
+  btnClear.addEventListener('click', ()=>{ F.clear(); render(); });
+  btnSpan.addEventListener('click', ()=>{
+    F = new Set(['0-1','0-2','0-3']); // star at vertex 0 spans
+    render();
+  });
+  render();
+})();
+</script>
+
+<section id="closure">
+<h2>4. Closure, flats, and the geometric lattice</h2>
+<p>For $S \subseteq E$, the <strong>closure</strong> $\operatorname{cl}(S)$ is
+$$\operatorname{cl}(S) \;=\; \{\,e \in E : r(S \cup \{e\}) = r(S)\,\}.$$
+That is, $\operatorname{cl}(S)$ contains every element that contributes nothing extra to the rank — exactly the "linear span" intuition for the vector-matroid case. A subset $F \subseteq E$ is a <strong>flat</strong> (or <em>closed set</em>) if $F = \operatorname{cl}(F)$.</p>
+
+<h3>Closure axioms</h3>
+<p>The closure operator $\operatorname{cl}: 2^E \to 2^E$ satisfies:</p>
+<ul>
+<li><strong>(C1) Extensive:</strong> $S \subseteq \operatorname{cl}(S)$.</li>
+<li><strong>(C2) Monotone:</strong> $S \subseteq T \implies \operatorname{cl}(S) \subseteq \operatorname{cl}(T)$.</li>
+<li><strong>(C3) Idempotent:</strong> $\operatorname{cl}(\operatorname{cl}(S)) = \operatorname{cl}(S)$.</li>
+<li><strong>(C4) Mac Lane–Steinitz exchange:</strong> if $y \in \operatorname{cl}(S \cup \{x\}) \setminus \operatorname{cl}(S)$, then $x \in \operatorname{cl}(S \cup \{y\})$.</li>
+</ul>
+<p>(C1)–(C3) make $\operatorname{cl}$ a <em>closure operator</em> on a poset; the matroid content is (C4), which says "if $y$ depended on $S \cup \{x\}$ but not on $S$, then $x$ depended on $S \cup \{y\}$" — the closure-side avatar of the exchange axiom. Any operator satisfying (C1)–(C4) on $2^E$ is the closure of a unique matroid.</p>
+
+<h3>The lattice of flats</h3>
+<p>Order flats by inclusion. The result is a <strong>geometric lattice</strong>: graded (by rank), atomistic (every flat is the join of rank-$1$ flats, which are the singletons or "points"), and semimodular ($r(F \vee G) + r(F \wedge G) \le r(F) + r(G)$). Birkhoff's theorem (1935) says geometric lattices and simple matroids — those without loops or parallel elements — are the same data.</p>
+
+<div class="note"><strong>Projective planes are matroids.</strong> Take the points of $\mathrm{PG}(2,q)$ as the ground set; declare a $3$-subset independent unless its three points are collinear. The result is a rank-$3$ matroid whose flats are: $\emptyset$, the points, the lines, and $E$. The geometric-lattice structure recovers the incidence axioms of the projective plane. See <a href="./projective-plane.html#axioms">projective plane § axioms</a>.</div>
+
+<div class="widget" id="w-flats">
+  <div class="hd"><div class="ttl">Flats of $M(K_4)$</div><div class="hint">step through ranks 0–3 of the geometric lattice</div></div>
+  <div class="row">
+    <button id="flats-prev">prev</button>
+    <button id="flats-next">next</button>
+    <span id="flats-step" class="readout" style="min-width:120px;flex:0 0 auto">rank 0</span>
+  </div>
+  <svg id="flats-svg" viewBox="0 0 620 320" width="620" height="320"><title>Flats of $M(K_4)$</title></svg>
+  <div class="readout" id="flats-out"></div>
+  <div class="small">In the graphic matroid $M(G)$, flats correspond to edge sets closed under "complete-the-cycle." Rank-$0$ flat: $\emptyset$. Rank-$1$ flats: each single edge (a "point"). Rank-$2$ flats: the "triangles" — the three edges of any $K_3$ subgraph — plus the disjoint pairs of edges, all closed. Rank-$3$ flat: $E$ itself.</div>
+</div>
+<div class="quiz" data-concept="matroid-closure-flats"></div>
+</section>
+
+<script>
+/* ============================ widget 4: flats of M(K_4) ============================ */
+(function(){
+  const svg = $('#flats-svg'), out = $('#flats-out'), step = $('#flats-step');
+  const btnPrev = $('#flats-prev'), btnNext = $('#flats-next');
+
+  // K_4 vertex positions
+  const V = [
+    {x:120, y: 70},
+    {x:500, y: 70},
+    {x:120, y:250},
+    {x:500, y:250}
+  ];
+  // 6 edges as pairs of vertex indices
+  const E = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+
+  // closure on edge subset = edges of induced "rank-saturated" hull.
+  // For graphic matroid: cl(F) = F ∪ {edges e : r(F ∪ e) = r(F)} = F ∪ (edges whose endpoints lie in same component of F).
+  function rankF(F){
+    const p=[0,1,2,3];
+    function find(x){ while(p[x]!==x){ p[x]=p[p[x]]; x=p[x]; } return x; }
+    for(const i of F){ const [u,v]=E[i]; const ru=find(u),rv=find(v); if(ru!==rv) p[ru]=rv; }
+    const comps = new Set(); for(let i=0;i<4;i++) comps.add(find(i));
+    return 4 - comps.size;
+  }
+  function closure(F){
+    const r0 = rankF(F);
+    const out = new Set(F);
+    for(let i=0;i<6;i++){
+      if(out.has(i)) continue;
+      if(rankF([...F, i]) === r0) out.add(i);
+    }
+    return [...out].sort((a,b)=>a-b);
+  }
+
+  // enumerate all flats grouped by rank
+  function allFlats(){
+    const seen = new Set(); const result = [[],[],[],[]]; // ranks 0..3
+    for(let mask=0; mask<64; mask++){
+      const F = []; for(let i=0;i<6;i++) if(mask&(1<<i)) F.push(i);
+      const c = closure(F).join(',');
+      if(seen.has(c)) continue;
+      seen.add(c);
+      const r = rankF(F);
+      const key = c.split(',').filter(Boolean).map(Number);
+      result[r].push(key);
+    }
+    return result;
+  }
+  const flatsByRank = allFlats();
+  const ranks = [0,1,2,3];
+  let cur = 0;
+
+  function edgeName(i){ const [u,v]=E[i]; return `${u+1}${v+1}`; }
+  function fmtFlat(F){ return F.length ? '{' + F.map(edgeName).join(',') + '}' : '∅'; }
+
+  function render(){
+    svg.innerHTML = '';
+    const r = ranks[cur];
+    const flats = flatsByRank[r];
+    step.textContent = `rank ${r}, ${flats.length} flats`;
+
+    // draw graph backdrop
+    for(const [u,v] of E){
+      svg.appendChild(SVG('line',{x1:V[u].x, y1:V[u].y, x2:V[v].x, y2:V[v].y, stroke:'var(--line)', 'stroke-width':1.5, opacity:0.4}));
+    }
+    for(const v of V){
+      svg.appendChild(SVG('circle',{cx:v.x, cy:v.y, r:14, fill:'var(--panel2)', stroke:'var(--mute)', 'stroke-width':1.2}));
+    }
+    // overlay one representative flat (largest by cardinality)
+    if(flats.length){
+      const F = flats.reduce((a,b)=> b.length>a.length ? b : a, flats[0]);
+      for(const i of F){
+        const [u,v] = E[i];
+        svg.appendChild(SVG('line',{x1:V[u].x, y1:V[u].y, x2:V[v].x, y2:V[v].y, stroke:'var(--cyan)', 'stroke-width':4, opacity:0.95}));
+      }
+      const lbl = SVG('text',{x:310, y:300, 'text-anchor':'middle', 'font-size':12, fill:'var(--cyan)'});
+      lbl.textContent = `representative flat: ${fmtFlat(F)}    (rank ${r}, |F| = ${F.length})`;
+      svg.appendChild(lbl);
+    } else {
+      const lbl = SVG('text',{x:310, y:300, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      lbl.textContent = '(no flats at this rank — should not happen for K_4)';
+      svg.appendChild(lbl);
+    }
+
+    const lines = [`rank ${r}: ${flats.length} flats`];
+    for(const F of flats) lines.push('  ' + fmtFlat(F));
+    out.textContent = lines.join('\n');
+  }
+  btnPrev.addEventListener('click', ()=>{ cur = (cur+ranks.length-1) % ranks.length; render(); });
+  btnNext.addEventListener('click', ()=>{ cur = (cur+1) % ranks.length; render(); });
+  render();
+})();
+</script>
+
+<section id="duality">
+<h2>5. Matroid duality</h2>
+<p>Every matroid $M$ on ground set $E$ has a <strong>dual matroid</strong> $M^*$ on the same ground set, defined by
+$$\mathcal{B}(M^*) \;=\; \{\, E \setminus B : B \in \mathcal{B}(M)\,\}.$$
+The bases of $M^*$ are precisely the complements of the bases of $M$. Verifying this satisfies the basis-exchange axiom is a one-line consequence of the original exchange — and the construction is involutive: $(M^*)^* = M$.</p>
+
+<h3>Dual rank</h3>
+<p>The rank functions are linked by
+$$r_{M^*}(S) \;=\; |S| - r(M) + r(E \setminus S).$$
+In particular $r(M) + r(M^*) = |E|$. Loops of $M$ are coloops of $M^*$; circuits of $M^*$ are <strong>cocircuits</strong> of $M$, the minimal cuts that disconnect a basis.</p>
+
+<h3>The dual of a graphic matroid</h3>
+<p>Here is the punchline. If $G$ is a planar graph and $G^*$ is its planar dual (vertex per face, edge per shared boundary), then
+$$M(G)^* \;=\; M(G^*).$$
+Spanning trees of $G$ are in bijection with spanning trees of $G^*$ via edge-complement. For non-planar $G$, $M(G)^*$ exists as a matroid but is no longer graphic — Whitney's planarity criterion (1932) says $G$ is planar iff $M(G)^*$ is graphic, with the dual graph providing a witness. The same matroid-theoretic statement subsumes Kuratowski's $K_5$/$K_{3,3}$ criterion.</p>
+
+<div class="note"><strong>Every theorem has a co-theorem.</strong> A statement about matroids automatically has a dual: replace "basis" by "complement of basis", "circuit" by "cocircuit", "rank" by the dual formula. The greedy algorithm § 6 has a dual interpretation as a "reverse-greedy" deletion procedure. Tutte polynomial § 7 is symmetric under $T_M(x,y) = T_{M^*}(y,x)$. This duality is the matroid-theoretic shadow of the planar-graph face/vertex duality and of the linear-algebra duality between row space and column space.</div>
+
+<div class="widget" id="w-dual">
+  <div class="hd"><div class="ttl">Dual of $U_{r,n}$ and a graphic example</div><div class="hint">step the slider to inspect $M^*$ — bases, rank, cocircuits</div></div>
+  <div class="row">
+    <button id="dual-uni" class="active">$U_{2,4}$</button>
+    <button id="dual-k4mt">$M(K_4)$ minus an edge</button>
+  </div>
+  <svg id="dual-svg" viewBox="0 0 620 280" width="620" height="280"><title>Dual matroid explorer</title></svg>
+  <div class="readout" id="dual-out"></div>
+  <div class="small">For $U_{r,n}$ the dual is $U_{n-r,n}$ (uniform matroids are self-dual under "complement"). For graphic matroids the dual is graphic iff the underlying graph is planar.</div>
+</div>
+<div class="quiz" data-concept="matroid-duality"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./matroid-theory.html#tutte">Matroid theory</a> · The Tutte polynomial</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* ============================ widget 5: dual matroid ============================ */
+(function(){
+  const svg = $('#dual-svg'), out = $('#dual-out');
+  const btnU = $('#dual-uni'), btnG = $('#dual-k4mt');
+
+  function combos(arr, k){
+    const res = [];
+    function go(i, cur){
+      if(cur.length===k){ res.push(cur.slice()); return; }
+      for(let j=i;j<arr.length;j++){ cur.push(arr[j]); go(j+1, cur); cur.pop(); }
+    }
+    go(0, []); return res;
+  }
+
+  function showUniform(){
+    const n=4, r=2;
+    const E = [1,2,3,4];
+    const Bs = combos(E, r);
+    const Bs_dual = Bs.map(B => E.filter(x => !B.includes(x)));
+    svg.innerHTML = '';
+    const W=620, H=280, pad=20;
+    const colW = (W - 2*pad) / Math.max(Bs.length, 1);
+    const top = 40;
+    const bottom = 170;
+    // top label
+    const t = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--ink)'}); t.textContent = `M = U_{2,4}: ${Bs.length} bases   |   M* = U_{2,4}: ${Bs_dual.length} bases (= complements)`; svg.appendChild(t);
+    for(let j=0;j<Bs.length;j++){
+      const x = pad + 30 + j*((W - 2*pad - 30)/Math.max(Bs.length,1));
+      // M basis
+      const lblM = SVG('text',{x:x, y:top-6, 'text-anchor':'start','font-size':11, fill:'var(--yellow)'});
+      lblM.textContent = '{'+Bs[j].join(',')+'}'; svg.appendChild(lblM);
+      // M* basis
+      const lblD = SVG('text',{x:x, y:bottom-6, 'text-anchor':'start','font-size':11, fill:'var(--cyan)'});
+      lblD.textContent = '{'+Bs_dual[j].join(',')+'}'; svg.appendChild(lblD);
+      // arrow connecting
+      drawArrow(svg, [x+18, top+6], [x+18, bottom-22], {color:'var(--mute)', markerId:'arr-dual', curve:0, dash:'3,3'});
+    }
+    const lab1 = SVG('text',{x:pad, y:top, 'font-size':11, fill:'var(--mute)'}); lab1.textContent='M:'; svg.appendChild(lab1);
+    const lab2 = SVG('text',{x:pad, y:bottom, 'font-size':11, fill:'var(--mute)'}); lab2.textContent='M*:'; svg.appendChild(lab2);
+
+    out.textContent =
+      'M = U_{2,4}\n' +
+      '  ground set E = {1,2,3,4},  r(M) = 2,  bases = all 2-subsets (6 of them)\n' +
+      'M* defined by basis-complement:\n' +
+      '  bases of M* = E \\ B for each B ∈ B(M)\n' +
+      '  ⇒ B(M*) = all 2-subsets of E   ⇒   M* = U_{4-2,4} = U_{2,4}\n' +
+      '  U_{r,n} is self-dual when r = n−r, i.e. n = 2r.\n' +
+      'rank check: r(M) + r(M*) = 2 + 2 = 4 = |E| ✓';
+  }
+
+  function showGraphic(){
+    // K4 minus the edge {3,4}: 4 vertices, 5 edges. r = 3 (still spanning).
+    // Edges: e1={1,2}, e2={1,3}, e3={1,4}, e4={2,3}, e5={2,4}
+    // Number of spanning trees of K_4 minus an edge = 8.
+    const Vlist = [[120,80],[460,80],[120,260],[460,260]];
+    const Elist = [[0,1],[0,2],[0,3],[1,2],[1,3]]; // 5 edges
+    function rankF(F){
+      const p=[0,1,2,3];
+      function find(x){ while(p[x]!==x){ p[x]=p[p[x]]; x=p[x]; } return x; }
+      for(const i of F){ const [u,v]=Elist[i]; const ru=find(u),rv=find(v); if(ru!==rv) p[ru]=rv; }
+      const comps=new Set(); for(let i=0;i<4;i++) comps.add(find(i));
+      return 4 - comps.size;
+    }
+    const total = Elist.length;
+    const Bs = [], Bs_dual = [];
+    for(let mask=0; mask<(1<<total); mask++){
+      const F=[]; for(let i=0;i<total;i++) if(mask&(1<<i)) F.push(i);
+      if(F.length === 3 && rankF(F) === 3){ // basis
+        Bs.push(F);
+        const compl = []; for(let i=0;i<total;i++) if(!F.includes(i)) compl.push(i);
+        Bs_dual.push(compl);
+      }
+    }
+    svg.innerHTML = '';
+    // draw graph on left
+    for(let i=0;i<Elist.length;i++){
+      const [u,v]=Elist[i];
+      svg.appendChild(SVG('line',{x1:Vlist[u][0], y1:Vlist[u][1], x2:Vlist[v][0], y2:Vlist[v][1], stroke:'var(--line)', 'stroke-width':2}));
+      const mx=(Vlist[u][0]+Vlist[v][0])/2, my=(Vlist[u][1]+Vlist[v][1])/2;
+      const t = SVG('text',{x:mx, y:my-6, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+      t.textContent = `e_${i+1}`; svg.appendChild(t);
+    }
+    for(let i=0;i<Vlist.length;i++){
+      svg.appendChild(SVG('circle',{cx:Vlist[i][0], cy:Vlist[i][1], r:14, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.4}));
+      const t = SVG('text',{x:Vlist[i][0], y:Vlist[i][1]+4, 'text-anchor':'middle','font-size':12,'font-weight':600});
+      t.textContent = String(i+1); svg.appendChild(t);
+    }
+
+    const lines = [];
+    lines.push(`G = K_4 minus edge {3,4}.   |E| = 5,  r(M) = 3.`);
+    lines.push(`bases of M (spanning trees): ${Bs.length}`);
+    for(const B of Bs) lines.push('  {' + B.map(i=>`e_${i+1}`).join(',') + '}');
+    lines.push('');
+    lines.push(`bases of M* = complements:`);
+    for(const B of Bs_dual) lines.push('  {' + B.map(i=>`e_${i+1}`).join(',') + '}');
+    lines.push('');
+    lines.push(`rank check: r(M) + r(M*) = 3 + 2 = 5 = |E| ✓`);
+    lines.push(`G is planar ⇒ M* is graphic; cocircuits of M = bonds (minimal cuts) of G.`);
+    out.textContent = lines.join('\n');
+  }
+
+  let mode = 'uniform';
+  function render(){
+    btnU.classList.toggle('active', mode==='uniform');
+    btnG.classList.toggle('active', mode==='graphic');
+    if(mode==='uniform') showUniform(); else showGraphic();
+  }
+  btnU.addEventListener('click', ()=>{ mode='uniform'; render(); });
+  btnG.addEventListener('click', ()=>{ mode='graphic'; render(); });
+  render();
+})();
+</script>
+
+<section id="greedy">
+<h2>6. The greedy algorithm</h2>
+<p>Suppose each $e \in E$ has a non-negative weight $w(e)$, and we want a maximum-weight independent set. The <strong>greedy algorithm</strong>:</p>
+<ol>
+  <li>Sort the elements so that $w(e_1) \ge w(e_2) \ge \cdots \ge w(e_n)$.</li>
+  <li>Initialize $I \leftarrow \emptyset$.</li>
+  <li>For $i = 1, 2, \ldots, n$: if $I \cup \{e_i\} \in \mathcal{I}$, set $I \leftarrow I \cup \{e_i\}$.</li>
+</ol>
+<p>Output $I$. The cost is $O(n \log n)$ for the sort plus $n$ independence tests. The classic application is <em>Kruskal's minimum-spanning-tree algorithm</em>: take the graphic matroid, weights = edge weights, greedy = Kruskal.</p>
+
+<h3>Rado–Edmonds: matroids are exactly where greedy works</h3>
+<p>The deepest theorem of elementary matroid theory:</p>
+<div class="note"><strong>Theorem (Rado 1957, Edmonds 1971).</strong> Let $\mathcal{I}$ be a non-empty hereditary family on $E$. The greedy algorithm finds a maximum-weight independent set <em>for every</em> non-negative weight function $w$ if and only if $\mathcal{I}$ satisfies the exchange axiom (I3) — i.e. iff $(E, \mathcal{I})$ is a matroid.</div>
+<p>One direction ($\Leftarrow$): suppose $\mathcal{I}$ is a matroid and the greedy returns $I = \{e_{i_1}, \ldots, e_{i_k}\}$ with $w(e_{i_1}) \ge \cdots \ge w(e_{i_k})$. Suppose for contradiction some $J \in \mathcal{I}$ has strictly greater total weight, with $J = \{e_{j_1}, \ldots, e_{j_\ell}\}$ in decreasing order. Both $I$ and $J$ are independent and $|I|, |J| \le r(M)$. Apply (I3) to extend $I_{<i}$ from $J_{<i+1}$ at each step; you discover $w(e_{i_t}) \ge w(e_{j_t})$ for every $t$, contradicting $w(J) > w(I)$.</p>
+
+<p>The reverse direction ($\Rightarrow$) is more striking: hereditary plus "greedy is always optimal" forces the exchange axiom. So matroids are <em>characterized</em> by the optimality of greedy. Whenever a combinatorial-optimization problem on a hereditary family is solved by sort-and-take, the underlying structure is a matroid; whenever the greedy fails on some instance, you have built a non-matroid.</p>
+
+<h3>Matroid intersection (sketch)</h3>
+<p>Given two matroids $M_1, M_2$ on the same ground set, finding a maximum-cardinality common independent set $I \in \mathcal{I}_1 \cap \mathcal{I}_2$ is solvable in polynomial time (Edmonds 1970). The intersection captures <em>bipartite matching</em> ($M_1, M_2$ = partition matroids on the two sides), <em>arborescences</em> (graphic + partition), and many more. Three matroids' intersection is NP-hard; two is the boundary of tractability.</p>
+
+<div class="widget" id="w-greedy">
+  <div class="hd"><div class="ttl">Greedy on $M(K_4)$ vs. a non-matroid</div><div class="hint">drag weights; watch greedy succeed on the matroid and fail on the non-matroid</div></div>
+  <div class="row">
+    <label for="greedy-w1">$w(e_1)$</label>
+    <input type="range" id="greedy-w1" min="0" max="10" step="1" value="6">
+    <span id="greedy-w1v" class="small" style="min-width:36px">6</span>
+    <label for="greedy-w2">$w(e_2)$</label>
+    <input type="range" id="greedy-w2" min="0" max="10" step="1" value="5">
+    <span id="greedy-w2v" class="small" style="min-width:36px">5</span>
+    <label for="greedy-w3">$w(e_3)$</label>
+    <input type="range" id="greedy-w3" min="0" max="10" step="1" value="4">
+    <span id="greedy-w3v" class="small" style="min-width:36px">4</span>
+  </div>
+  <div class="row">
+    <label for="greedy-w4">$w(e_4)$</label>
+    <input type="range" id="greedy-w4" min="0" max="10" step="1" value="3">
+    <span id="greedy-w4v" class="small" style="min-width:36px">3</span>
+    <label for="greedy-w5">$w(e_5)$</label>
+    <input type="range" id="greedy-w5" min="0" max="10" step="1" value="2">
+    <span id="greedy-w5v" class="small" style="min-width:36px">2</span>
+    <label for="greedy-w6">$w(e_6)$</label>
+    <input type="range" id="greedy-w6" min="0" max="10" step="1" value="1">
+    <span id="greedy-w6v" class="small" style="min-width:36px">1</span>
+  </div>
+  <svg id="greedy-svg" viewBox="0 0 620 320" width="620" height="320"><title>Greedy on $M(K_4)$ vs. a non-matroid</title></svg>
+  <div class="readout" id="greedy-out"></div>
+  <div class="small">Left: greedy on the graphic matroid $M(K_4)$ — exhaustively searches all spanning trees and confirms greedy's choice equals the maximum. Right: the same greedy procedure run on the non-matroid family $\mathcal{F} = \{\emptyset, \{e_1\}, \{e_2\}, \{e_3\}, \{e_4\}, \{e_5\}, \{e_6\}, \{e_1,e_2\}, \{e_3,e_4,e_5\}\}$ — greedy commits early and misses the bigger triple.</div>
+</div>
+<div class="quiz" data-concept="matroid-greedy"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./matroid-theory.html#tutte">Matroid theory</a> · The Tutte polynomial</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* ============================ widget 6: greedy success/failure ============================ */
+(function(){
+  const out = $('#greedy-out'), svg = $('#greedy-svg');
+  const ws = [1,2,3,4,5,6].map(i => $('#greedy-w'+i));
+  const wsv = [1,2,3,4,5,6].map(i => $('#greedy-w'+i+'v'));
+
+  // K_4 edges in canonical order e1..e6.
+  // e1=12, e2=13, e3=14, e4=23, e5=24, e6=34
+  const Eedges = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+  const V = [[150,70],[150,250],[470,70],[470,250]];
+
+  function rankF(F){
+    const p=[0,1,2,3];
+    function find(x){ while(p[x]!==x){ p[x]=p[p[x]]; x=p[x]; } return x; }
+    for(const i of F){ const [u,v]=Eedges[i]; const ru=find(u),rv=find(v); if(ru!==rv) p[ru]=rv; }
+    const c=new Set(); for(let i=0;i<4;i++) c.add(find(i)); return 4-c.size;
+  }
+  function isMatroidIndep(F){ return rankF(F) === F.length; }
+
+  // Non-matroid family — explicitly listed.
+  const FAMILY = [
+    [],
+    [0],[1],[2],[3],[4],[5],
+    [0,1],
+    [2,3,4]
+  ];
+  function inFamily(S){
+    const sk = [...S].sort((a,b)=>a-b).join(',');
+    return FAMILY.some(F => F.slice().sort((a,b)=>a-b).join(',') === sk);
+  }
+
+  function greedyMatroid(weights){
+    const order = [0,1,2,3,4,5].sort((a,b)=>weights[b]-weights[a]);
+    const I = [];
+    for(const e of order){ if(isMatroidIndep([...I, e])) I.push(e); }
+    return {I, order, w: I.reduce((s,e)=>s+weights[e],0)};
+  }
+  function bestMatroid(weights){
+    let best=[]; let bw=-1;
+    for(let mask=0; mask<64; mask++){
+      const F=[]; for(let i=0;i<6;i++) if(mask&(1<<i)) F.push(i);
+      if(!isMatroidIndep(F)) continue;
+      const w = F.reduce((s,e)=>s+weights[e],0);
+      if(w>bw){ bw=w; best=F; }
+    }
+    return {best, w:bw};
+  }
+  function greedyNonMatroid(weights){
+    const order = [0,1,2,3,4,5].sort((a,b)=>weights[b]-weights[a]);
+    const I=[];
+    for(const e of order){ if(inFamily([...I, e])) I.push(e); }
+    return {I, order, w:I.reduce((s,e)=>s+weights[e],0)};
+  }
+  function bestNonMatroid(weights){
+    let best=[]; let bw=-1;
+    for(const F of FAMILY){
+      const w = F.reduce((s,e)=>s+weights[e],0);
+      if(w>bw){ bw=w; best=F; }
+    }
+    return {best, w:bw};
+  }
+
+  function render(){
+    const w = ws.map((s,i)=>{ wsv[i].textContent = s.value; return parseInt(s.value,10); });
+    svg.innerHTML = '';
+    // left: K_4 with greedy result highlighted
+    const W=620, H=320;
+    const Wgl = greedyMatroid(w), Bgl = bestMatroid(w);
+    const Wnm = greedyNonMatroid(w), Bnm = bestNonMatroid(w);
+
+    // graph
+    for(let i=0;i<Eedges.length;i++){
+      const [u,v]=Eedges[i];
+      const inG = Wgl.I.includes(i);
+      const inB = Bgl.best.includes(i);
+      let stroke='var(--line)', width=2, opacity=0.6;
+      if(inG && inB){ stroke='var(--green)'; width=4; opacity=1; }
+      else if(inG){ stroke='var(--pink)'; width=4; opacity=1; }
+      else if(inB){ stroke='var(--cyan)'; width=3; opacity=0.8; }
+      svg.appendChild(SVG('line',{x1:V[u][0], y1:V[u][1], x2:V[v][0], y2:V[v][1], stroke, 'stroke-width':width, opacity}));
+      const mx=(V[u][0]+V[v][0])/2, my=(V[u][1]+V[v][1])/2;
+      const t = SVG('text',{x:mx, y:my-8, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      t.textContent = `e_${i+1}=${w[i]}`;
+      svg.appendChild(t);
+    }
+    for(const v of V){
+      svg.appendChild(SVG('circle',{cx:v[0], cy:v[1], r:14, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.4}));
+    }
+    const lab = SVG('text',{x:310, y:298, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lab.textContent = 'green = greedy ∩ optimum   pink = greedy only   cyan = optimum only';
+    svg.appendChild(lab);
+
+    const lines = [];
+    const fmt = arr => '{' + arr.map(i=>`e_${i+1}`).join(',') + '}';
+    lines.push(`MATROID  M(K_4)`);
+    lines.push(`  greedy order: ` + Wgl.order.map(i=>`e_${i+1}`).join(', '));
+    lines.push(`  greedy picks ${fmt(Wgl.I)}, weight ${Wgl.w}`);
+    lines.push(`  best basis ${fmt(Bgl.best)}, weight ${Bgl.w}`);
+    lines.push(`  ${Wgl.w === Bgl.w ? '✓ greedy optimal (Rado–Edmonds)' : '✗ greedy not optimal — bug!'}`);
+    lines.push('');
+    lines.push(`NON-MATROID  F = {∅, {e_1},…,{e_6}, {e_1,e_2}, {e_3,e_4,e_5}}`);
+    lines.push(`  greedy order: ` + Wnm.order.map(i=>`e_${i+1}`).join(', '));
+    lines.push(`  greedy picks ${fmt(Wnm.I)}, weight ${Wnm.w}`);
+    lines.push(`  best member  ${fmt(Bnm.best)}, weight ${Bnm.w}`);
+    lines.push(`  ${Wnm.w === Bnm.w ? '✓ (greedy happens to be optimal here)' : '✗ greedy SUBOPTIMAL — F fails (I3)'}`);
+    out.textContent = lines.join('\n');
+  }
+  ws.forEach(s => s.addEventListener('input', render));
+  render();
+})();
+</script>
+
+<section id="tutte">
+<h2>7. The Tutte polynomial</h2>
+<p>The deepest invariant of a matroid is a two-variable polynomial whose specializations enumerate spanning trees, count colorings, compute reliability, and read out the partition function of statistical-mechanics models. Define the <strong>Tutte polynomial</strong> via corank–nullity:
+$$T_M(x,y) \;=\; \sum_{S \subseteq E} (x-1)^{r(E) - r(S)} \, (y-1)^{|S| - r(S)}.$$
+The exponent $r(E) - r(S)$ is the <em>corank</em> of $S$ (how far short of full rank); $|S| - r(S)$ is the <em>nullity</em> (how many cycles $S$ contains). Despite the strange shifts, $T_M(x,y) \in \mathbb{Z}_{\ge 0}[x,y]$ — every coefficient is a non-negative integer (Tutte 1947).</p>
+
+<h3>The deletion–contraction recursion</h3>
+<p>For an element $e \in E$ that is neither a loop nor a coloop:
+$$T_M(x,y) \;=\; T_{M \setminus e}(x,y) + T_{M / e}(x,y).$$
+Here $M \setminus e$ is the matroid <em>deletion</em> (remove $e$, restrict $\mathcal{I}$) and $M/e$ is the <em>contraction</em> (treat $e$ as committed; rank drops by $1$). Loops and coloops produce boundary cases: $T_M = y \cdot T_{M \setminus e}$ if $e$ is a loop, and $T_M = x \cdot T_{M / e}$ if $e$ is a coloop. The recursion plus the boundary identities computes $T_M$ from scratch in polynomial-time-per-leaf but exponentially-many-leaves recursion: deciding whether $T_M(x,y) = 0$ at a generic point is $\#P$-hard.</p>
+
+<h3>Specializations</h3>
+<table class="plain">
+  <thead><tr><th>evaluation</th><th>meaning</th></tr></thead>
+  <tbody>
+    <tr><td>$T_M(1,1)$</td><td>number of bases of $M$</td></tr>
+    <tr><td>$T_M(2,1)$</td><td>number of independent sets</td></tr>
+    <tr><td>$T_M(1,2)$</td><td>number of spanning sets (sets containing a basis)</td></tr>
+    <tr><td>$T_M(2,2)$</td><td>$2^{|E|}$ — every subset, weighted appropriately</td></tr>
+    <tr><td>$k^{c(G)} (-1)^{r(M)} T_{M(G)}(1-k,0)$</td><td>chromatic polynomial $P_G(k)$ of the graph $G$ ($c(G) =$ components)</td></tr>
+    <tr><td>$(-1)^{|E|-r(M)} T_{M(G)}(0, 1-k)$</td><td>flow polynomial of $G$</td></tr>
+    <tr><td>$T_{M(G)}(1, 1/(1-p))$</td><td>$($up to a factor$)$ all-terminal reliability of $G$ at edge-failure $p$</td></tr>
+    <tr><td>$T_M(x,y)$</td><td>partition function of the random-cluster Potts model</td></tr>
+  </tbody>
+</table>
+
+<p>Each row in this table is a separate combinatorial-or-physical theory. The Tutte polynomial unifies them: pick the right substitution and the answer falls out. The duality $T_M(x,y) = T_{M^*}(y,x)$ exchanges chromatic and flow specializations — explaining, on the matroid side, why coloring and flow are dual stories on planar graphs.</p>
+
+<div class="note"><strong>Whitney rank polynomial.</strong> Some authors use $R_M(u,v) = \sum_{S \subseteq E} u^{r(E)-r(S)} v^{|S|-r(S)} = T_M(u+1, v+1)$. The Tutte normalization shifts the variables so that $T_M(1,1)$ counts bases. Same polynomial; choose your conventions.</p></div>
+
+<div class="widget" id="w-tutte">
+  <div class="hd"><div class="ttl">Tutte polynomial calculator</div><div class="hint">pick a small matroid; compute $T_M(x,y)$ and selected evaluations</div></div>
+  <div class="row">
+    <button id="tutte-uni" class="active">$U_{2,4}$</button>
+    <button id="tutte-k3">$M(K_3)$ (triangle)</button>
+    <button id="tutte-k4">$M(K_4)$</button>
+  </div>
+  <div class="row">
+    <label for="tutte-x">$x$</label>
+    <input type="range" id="tutte-x" min="0" max="3" step="0.1" value="1">
+    <span id="tutte-xv" class="small" style="min-width:38px">1.0</span>
+    <label for="tutte-y">$y$</label>
+    <input type="range" id="tutte-y" min="0" max="3" step="0.1" value="1">
+    <span id="tutte-yv" class="small" style="min-width:38px">1.0</span>
+  </div>
+  <div class="readout" id="tutte-out"></div>
+  <div class="small">$T_M(x,y)$ is computed directly from $\sum_S (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ over all $2^{|E|}$ subsets. The slider evaluates at user-specified $(x,y)$; the table beneath lists the canonical evaluations.</div>
+</div>
+<div class="quiz" data-concept="tutte-polynomial"></div>
+</section>
+
+<script>
+/* ============================ widget 7: Tutte polynomial ============================ */
+(function(){
+  const out = $('#tutte-out');
+  const xIn = $('#tutte-x'), yIn = $('#tutte-y');
+  const xv = $('#tutte-xv'), yv = $('#tutte-yv');
+  const btnU = $('#tutte-uni'), btnK3 = $('#tutte-k3'), btnK4 = $('#tutte-k4');
+
+  // matroid descriptors: provide rank function on subsets given as bitmask of |E| elements.
+  const MS = {
+    'U_{2,4}': {
+      n: 4,
+      rank: F => Math.min(F.length, 2),
+      desc: 'uniform U_{2,4}: r(S) = min(|S|, 2),  r(E)=2,  |E|=4'
+    },
+    'M(K_3)': {
+      n: 3, // triangle on 3 vertices, 3 edges; rank 2
+      // edges e_1=12, e_2=13, e_3=23
+      Eedges:[[0,1],[0,2],[1,2]],
+      rank: function(F){
+        const p=[0,1,2];
+        function find(x){ while(p[x]!==x){ p[x]=p[p[x]]; x=p[x]; } return x; }
+        for(const i of F){ const [u,v]=this.Eedges[i]; const ru=find(u),rv=find(v); if(ru!==rv) p[ru]=rv; }
+        const c=new Set(); for(let i=0;i<3;i++) c.add(find(i));
+        return 3-c.size;
+      },
+      desc: 'graphic M(K_3): triangle.  |E|=3, r(E)=2.'
+    },
+    'M(K_4)': {
+      n: 6,
+      Eedges:[[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]],
+      rank: function(F){
+        const p=[0,1,2,3];
+        function find(x){ while(p[x]!==x){ p[x]=p[p[x]]; x=p[x]; } return x; }
+        for(const i of F){ const [u,v]=this.Eedges[i]; const ru=find(u),rv=find(v); if(ru!==rv) p[ru]=rv; }
+        const c=new Set(); for(let i=0;i<4;i++) c.add(find(i));
+        return 4-c.size;
+      },
+      desc: 'graphic M(K_4): complete graph.  |E|=6, r(E)=3.  16 spanning trees.'
+    }
+  };
+
+  function tutteCoeffs(M){
+    // returns array coeffs[i][j] = coeff of (x-1)^i (y-1)^j (i.e. of u^i v^j after substitution),
+    // grouped as flat coeffs in two-variable polynomial T(x,y) expressed in (x-1, y-1).
+    const n = M.n, R = M.rank.bind(M);
+    const coeffs = {};
+    const rE = R(Array.from({length:n},(_,k)=>k));
+    for(let mask=0; mask<(1<<n); mask++){
+      const F=[]; for(let i=0;i<n;i++) if(mask&(1<<i)) F.push(i);
+      const rF = R(F);
+      const i = rE - rF, j = F.length - rF;
+      const key = i+','+j;
+      coeffs[key] = (coeffs[key]||0) + 1;
+    }
+    return {coeffs, rE, n};
+  }
+  function evalT(M, x, y){
+    let s = 0;
+    const n = M.n, R = M.rank.bind(M);
+    const rE = R(Array.from({length:n},(_,k)=>k));
+    for(let mask=0; mask<(1<<n); mask++){
+      const F=[]; for(let i=0;i<n;i++) if(mask&(1<<i)) F.push(i);
+      const rF = R(F);
+      s += Math.pow(x-1, rE - rF) * Math.pow(y-1, F.length - rF);
+    }
+    return s;
+  }
+  function chrom(M, k){
+    // P_G(k) = k^{c(G)} (-1)^{r} T(1-k, 0).  c(G) = #components.
+    // For our connected graphs M(K_3), M(K_4): c = 1, but we compute mechanically.
+    const T = evalT(M, 1-k, 0);
+    const r = M.rank(Array.from({length:M.n},(_,i)=>i));
+    // |V| = r + c, so c = |V| - r.  M(K_3): |V|=3, r=2 ⇒ c=1.  M(K_4): |V|=4, r=3 ⇒ c=1.
+    const V = M.Eedges ? Math.max(...M.Eedges.flat()) + 1 : r + 1;
+    const c = V - r;
+    return Math.pow(k, c) * Math.pow(-1, r) * T;
+  }
+
+  function fmtPoly(coeffs){
+    // express T(x,y) in terms of (x-1)^i (y-1)^j as sum
+    const items = Object.entries(coeffs).map(([k,v])=>{
+      const [i,j] = k.split(',').map(Number);
+      const u = i===0 ? '' : (i===1 ? '(x−1)' : `(x−1)^${i}`);
+      const w = j===0 ? '' : (j===1 ? '(y−1)' : `(y−1)^${j}`);
+      const term = (u+w) || '1';
+      return v + '·' + term;
+    });
+    return items.join(' + ');
+  }
+
+  let cur = 'U_{2,4}';
+  function render(){
+    btnU.classList.toggle('active', cur==='U_{2,4}');
+    btnK3.classList.toggle('active', cur==='M(K_3)');
+    btnK4.classList.toggle('active', cur==='M(K_4)');
+    const M = MS[cur];
+    const x = parseFloat(xIn.value), y = parseFloat(yIn.value);
+    xv.textContent = x.toFixed(1);
+    yv.textContent = y.toFixed(1);
+    const {coeffs} = tutteCoeffs(M);
+
+    const lines = [];
+    lines.push(M.desc);
+    lines.push('');
+    lines.push('T_M(x,y) (in shifted variables (x−1, y−1) for compactness):');
+    lines.push('  T = ' + fmtPoly(coeffs));
+    lines.push('');
+    lines.push(`evaluation at (${x.toFixed(1)}, ${y.toFixed(1)}):`);
+    lines.push(`  T_M(${x.toFixed(1)}, ${y.toFixed(1)}) = ${evalT(M, x, y).toFixed(4)}`);
+    lines.push('');
+    lines.push('canonical evaluations:');
+    lines.push(`  T(1,1) = ${Math.round(evalT(M,1,1))}    (number of bases)`);
+    lines.push(`  T(2,1) = ${Math.round(evalT(M,2,1))}    (number of independent sets)`);
+    lines.push(`  T(1,2) = ${Math.round(evalT(M,1,2))}    (number of spanning sets)`);
+    lines.push(`  T(2,2) = ${Math.round(evalT(M,2,2))}    (= 2^{|E|} = ${Math.pow(2,M.n)})`);
+    if(cur !== 'U_{2,4}'){
+      lines.push('');
+      lines.push('chromatic polynomial of the graph (k = number of colors):');
+      for(const k of [2,3,4]){
+        lines.push(`  P_G(${k}) = ${Math.round(chrom(M, k))}`);
+      }
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  btnU.addEventListener('click', ()=>{ cur='U_{2,4}'; render(); });
+  btnK3.addEventListener('click', ()=>{ cur='M(K_3)'; render(); });
+  btnK4.addEventListener('click', ()=>{ cur='M(K_4)'; render(); });
+  xIn.addEventListener('input', render);
+  yIn.addEventListener('input', render);
+  render();
+})();
+</script>
 
 </main>
 

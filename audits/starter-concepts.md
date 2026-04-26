@@ -12,15 +12,15 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 5 | 5 | 0 | 5 | 0.000 |
-| Algebra | 114 | 174 | 14 | 32 | 0.123 |
-| Analysis | 101 | 144 | 14 | 19 | 0.139 |
+| Algebra | 114 | 174 | 14 | 34 | 0.123 |
+| Analysis | 101 | 144 | 14 | 20 | 0.139 |
 | Geometry & topology | 49 | 58 | 6 | 43 | 0.122 |
 | Number theory | 57 | 71 | 15 | 15 | 0.263 |
 | Modular forms & L-functions | 71 | 92 | 40 | 5 | 0.563 |
 | Algebraic geometry | 109 | 137 | 42 | 12 | 0.385 |
-| Combinatorics & graph theory | 5 | 0 | 0 | 0 | 0.000 |
+| Combinatorics & graph theory | 17 | 14 | 3 | 0 | 0.176 |
 
-## EMPTY — concepts with no prereqs (5)
+## EMPTY — concepts with no prereqs (4)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -31,10 +31,9 @@ at brand-new progress alongside genuine entry points like
 | topic | concept | title |
 |---|---|---|
 | extremal-combinatorics | `extremal-combinatorics-intro` | Intro |
-| matroid-theory | `matroid-theory-intro` | Intro |
 | probabilistic-method | `probabilistic-method-intro` | Intro |
 | simplicial-complexes-combinatorial | `simplicial-complexes-combinatorial-intro` | Intro |
-| spectral-graph-theory | `spectral-graph-theory-intro` | Intro |
+| spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

@@ -21,7 +21,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./group-schemes.html#hopf-algebra\">Group schemes</a> · Affine group schemes ↔ commutative Hopf algebras</div>\n    <div><a href=\"./heyting-algebras-toposes.html#heyting-algebra\">Heyting algebras and intuitionist logic in toposes</a> · Heyting algebras</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./group-schemes.html#hopf-algebra\">Group schemes</a> · Affine group schemes ↔ commutative Hopf algebras</div>\n    <div><a href=\"./heyting-algebras-toposes.html#heyting-algebra\">Heyting algebras and intuitionist logic in toposes</a> · Heyting algebras</div>\n    <div class=\"more\">… and 5 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -884,6 +884,10 @@
           "type": "quiz",
           "concept": "polynomial-rings-irreducibility",
           "html": "<div class=\"quiz\" data-concept=\"polynomial-rings-irreducibility\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./matroid-theory.html#examples\">Matroid theory</a> · Vector, graphic, uniform, transversal matroids</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
