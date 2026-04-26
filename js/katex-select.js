@@ -169,7 +169,17 @@
       popup.classList.add('ks-open');
       btn.setAttribute('aria-expanded', 'true');
       const cur = items[sel.selectedIndex] || items[0];
-      if(cur){ items.forEach(it => it.classList.remove('ks-active')); cur.classList.add('ks-active'); }
+      if(cur){
+        items.forEach(it => it.classList.remove('ks-active'));
+        cur.classList.add('ks-active');
+        // Make the active item programmatically focusable then move focus
+        // into the popup so ArrowDown/ArrowUp on the popup keydown handler
+        // works for keyboard-only users. Without this, opening with the
+        // keyboard left focus on the trigger button and the popup's
+        // keydown listener never fired (a11y review P2).
+        cur.tabIndex = 0;
+        try { cur.focus({ preventScroll: true }); } catch(_) { cur.focus(); }
+      }
     }
     function close(){
       popup.classList.remove('ks-open');
