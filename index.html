@@ -302,10 +302,16 @@
     display:inline-flex;align-items:center;justify-content:center;
     padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
     color:var(--mute);cursor:pointer;line-height:0;z-index:2;
-    transition:background 150ms ease, border-color 150ms ease, color 150ms ease}
+    opacity:0;
+    transition:opacity 150ms ease, background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .card:hover .progbtn{opacity:1}
+  .progbtn:focus-visible{opacity:1;outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
-  .progbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  /* Touch devices have no hover, so reveal the progbtn unconditionally there. */
+  @media (hover:none){
+    .progbtn{opacity:0.6}
+  }
   .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
     opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
   .mv-backdrop.open{opacity:1;pointer-events:auto}
@@ -2073,28 +2079,48 @@
 
     <a class="card g" href="./spectral-graph-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+        <line x1="22" y1="22" x2="50" y2="14" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="50" y1="14" x2="78" y2="22" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="22" y1="22" x2="50" y2="40" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="78" y1="22" x2="50" y2="40" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="50" y1="40" x2="22" y2="58" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="50" y1="40" x2="78" y2="58" stroke="var(--mute)" stroke-width="0.9"/>
+        <circle cx="22" cy="22" r="3.2" fill="var(--pink)"/>
+        <circle cx="50" cy="14" r="3.2" fill="var(--pink)"/>
+        <circle cx="78" cy="22" r="3.2" fill="var(--pink)"/>
+        <circle cx="50" cy="40" r="3.2" fill="var(--green)"/>
+        <circle cx="22" cy="58" r="3.2" fill="var(--green)"/>
+        <circle cx="78" cy="58" r="3.2" fill="var(--green)"/>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">Fiedler bisection of Kᴎ</text>
       </svg></div>
       <div class="body">
         <div class="tt">Spectral graph theory</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Combinatorics &amp; graph theory</span>
+        <div class="desc">Adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry where eigenvalues encode connectivity, mixing, and the cleanest bisection.</div>
+        <span class="tag">Laplacian &middot; Fiedler &middot; Cheeger &middot; expanders</span>
       </div>
     </a>
 
 
     <a class="card g" href="./matroid-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+        <line x1="22" y1="60" x2="78" y2="60" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <line x1="22" y1="44" x2="78" y2="44" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <line x1="22" y1="28" x2="78" y2="28" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <circle cx="32" cy="60" r="2.8" fill="var(--violet)"/>
+        <circle cx="50" cy="60" r="2.8" fill="var(--violet)"/>
+        <circle cx="68" cy="60" r="2.8" fill="var(--violet)"/>
+        <circle cx="32" cy="44" r="2.8" fill="var(--green)"/>
+        <circle cx="50" cy="44" r="2.8" fill="var(--green)"/>
+        <circle cx="50" cy="28" r="2.8" fill="var(--cyan)"/>
+        <text x="14" y="32" font-size="7" fill="var(--mute)">r=3</text>
+        <text x="14" y="48" font-size="7" fill="var(--mute)">r=2</text>
+        <text x="14" y="64" font-size="7" fill="var(--mute)">r=1</text>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">geometric lattice of flats</text>
       </svg></div>
       <div class="body">
         <div class="tt">Matroid theory</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Combinatorics &amp; graph theory</span>
+        <div class="desc">Whitney's combinatorial abstraction of linear independence — bases, rank, closure, duality. The greedy algorithm works exactly when your structure is a matroid.</div>
+        <span class="tag">independence &middot; rank &middot; duality &middot; Tutte</span>
       </div>
     </a>
 
