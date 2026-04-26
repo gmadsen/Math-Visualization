@@ -1,0 +1,14 @@
+{
+  "topic": "spectral-graph-theory",
+  "title": "Spectral graph theory",
+  "page": "spectral-graph-theory.html",
+  "concepts": [
+    {
+      "id": "spectral-graph-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

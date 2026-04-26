@@ -1,0 +1,17 @@
+{
+  "topic": "probabilistic-method",
+  "quizzes": {
+    "probabilistic-method-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder question — content forthcoming.",
+          "choices": ["A", "B"],
+          "answer": 0,
+          "explain": "Placeholder."
+        }
+      ]
+    }
+  }
+}

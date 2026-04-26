@@ -1,0 +1,17 @@
+{
+  "topic": "simplicial-complexes-combinatorial",
+  "quizzes": {
+    "simplicial-complexes-combinatorial-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder question — content forthcoming.",
+          "choices": ["A", "B"],
+          "answer": 0,
+          "explain": "Placeholder."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "matroid-theory",
+  "title": "Matroid theory",
+  "page": "matroid-theory.html",
+  "concepts": [
+    {
+      "id": "matroid-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

@@ -11413,6 +11413,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "extremal-combinatorics": {
+    "topic": "extremal-combinatorics",
+    "quizzes": {
+      "extremal-combinatorics-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "frobenius-and-reciprocity": {
     "topic": "frobenius-and-reciprocity",
     "quizzes": {
@@ -18170,6 +18190,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "matroid-theory": {
+    "topic": "matroid-theory",
+    "quizzes": {
+      "matroid-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "measure-theory": {
     "topic": "measure-theory",
     "quizzes": {
@@ -23638,6 +23678,26 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "The reflection $s\\leftrightarrow 1-s$ pairs zeros symmetrically.",
             "explain": "The functional equation $\\xi(s)=\\xi(1-s)$ directly implies zeros come in pairs $\\{\\rho, 1-\\rho\\}$ (and also $\\{\\bar\\rho, 1-\\bar\\rho\\}$ by the reflection principle). The Riemann Hypothesis — that all non-trivial zeros satisfy $\\operatorname{Re}(\\rho)=1/2$ — is a much deeper conjecture not derivable from the functional equation alone."
+          }
+        ]
+      }
+    }
+  },
+  "probabilistic-method": {
+    "topic": "probabilistic-method",
+    "quizzes": {
+      "probabilistic-method-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -30016,6 +30076,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "simplicial-complexes-combinatorial": {
+    "topic": "simplicial-complexes-combinatorial",
+    "quizzes": {
+      "simplicial-complexes-combinatorial-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "simplicial-sets-and-nerve": {
     "topic": "simplicial-sets-and-nerve",
     "quizzes": {
@@ -31367,6 +31447,26 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "The standard equivalence: $M$ is orientable iff $\\Lambda^n T^*M$ has a nowhere-zero smooth section, i.e. there is a volume form. Every smooth manifold admits a Riemannian metric (via partitions of unity), so (B) is not equivalent. Trivial $TM$ (parallelizability) is strictly stronger than orientability — e.g. $S^2$ is orientable but not parallelizable."
+          }
+        ]
+      }
+    }
+  },
+  "spectral-graph-theory": {
+    "topic": "spectral-graph-theory",
+    "quizzes": {
+      "spectral-graph-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }

@@ -562,13 +562,12 @@ describe('mindmap.html jsdom', () => {
       `expected ≥ 500 mindmap edges; got ${edgeCount}`,
     );
 
-    // Section-stats table populates with 7 rows (one per section in
-    // sections.json).
+    // Section-stats table populates with one row per section in sections.json.
     const statRows = doc.querySelectorAll('#section-stats-tbody tr');
     assert.equal(
       statRows.length,
-      7,
-      `expected 7 section-stats rows (one per section); got ${statRows.length}`,
+      8,
+      `expected 8 section-stats rows (one per section); got ${statRows.length}`,
     );
 
     // Gap-list panels populate. Orphan list should at least surface the two

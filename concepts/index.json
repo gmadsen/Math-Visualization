@@ -76,6 +76,12 @@
     "deformation-theory",
     "algebraic-de-rham-cohomology",
 
+    "spectral-graph-theory",
+    "matroid-theory",
+    "probabilistic-method",
+    "extremal-combinatorics",
+    "simplicial-complexes-combinatorial",
+
     "sato-tate",
     "bsd",
     "modularity-and-flt",
@@ -176,6 +182,12 @@
     "group-schemes": "standard",
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
+
+    "spectral-graph-theory": "standard",
+    "matroid-theory": "standard",
+    "probabilistic-method": "standard",
+    "extremal-combinatorics": "standard",
+    "simplicial-complexes-combinatorial": "standard",
 
     "sato-tate": "capstone",
     "bsd": "capstone",

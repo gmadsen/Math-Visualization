@@ -57,6 +57,7 @@ const SECTIONS = [
   'Number theory',
   'Modular forms & L-functions',
   'Algebraic geometry',
+  'Combinatorics & graph theory',
 ];
 
 // Per-section default card color palette for the placeholder thumb. The
@@ -73,6 +74,7 @@ const SECTION_PALETTE = new Map([
   ['Number theory',                { klass: 'y', cssVar: '--yellow' }],
   ['Modular forms & L-functions',  { klass: 'c', cssVar: '--cyan'   }],
   ['Algebraic geometry',           { klass: 'g', cssVar: '--green'  }],
+  ['Combinatorics & graph theory', { klass: 'g', cssVar: '--green'  }],
 ]);
 
 // Accept shorthand aliases for convenience. Map them to the canonical name.
@@ -91,6 +93,12 @@ const SECTION_ALIASES = new Map([
   ['modular forms & l-functions', 'Modular forms & L-functions'],
   ['algebraic-geometry', 'Algebraic geometry'],
   ['algebraic geometry', 'Algebraic geometry'],
+  ['combinatorics', 'Combinatorics & graph theory'],
+  ['combinatorics-graph-theory', 'Combinatorics & graph theory'],
+  ['combinatorics-and-graph-theory', 'Combinatorics & graph theory'],
+  ['combinatorics & graph theory', 'Combinatorics & graph theory'],
+  ['combinatorics and graph theory', 'Combinatorics & graph theory'],
+  ['graph-theory', 'Combinatorics & graph theory'],
 ]);
 
 // concepts/index.json layout: blank-line-separated groups. The first 7
@@ -100,7 +108,7 @@ const SECTION_ALIASES = new Map([
 // in one of the 7 regular sections, and if the topic is also a capstone the
 // authoring agent manually migrates it to the capstones group + adds an
 // entry to concepts/capstones.json.
-const CAPSTONES_GROUP_INDEX = 7; // 0-based, immediately after the 7 SECTIONS
+const CAPSTONES_GROUP_INDEX = 8; // 0-based, immediately after the 8 SECTIONS
 
 function usage() {
   console.error('usage: node scripts/new-topic.mjs <topic-slug> <section>');
@@ -284,11 +292,22 @@ function appendToIndexJson(raw, targetSection, newSlug) {
   if (bracketIdx === -1 || closeIdx === -1) throw new Error('malformed topics array');
 
   const inner = raw.slice(bracketIdx + 1, closeIdx);
-  // Split into "groups" on blank lines — these are the 7 sections in the
-  // declared order, same as SECTIONS.
+  // Split into "groups" on blank lines — these are the SECTIONS in declared
+  // order, followed by the capstones group.
   const groups = inner.split(/\n\s*\n/); // each group keeps its leading/trailing whitespace
-  // Expect 7 section groups + 1 trailing capstones group = 8.
   const EXPECTED = SECTIONS.length + 1;
+
+  // Bootstrap: when SECTIONS gains a new entry but no topic has landed there
+  // yet, split() collapses the empty trailing-section gap and we see fewer
+  // groups than EXPECTED. Insert empty placeholders just before the capstones
+  // group (always last) so positional sectionIdx still resolves.
+  if (groups.length < EXPECTED && groups.length >= 1) {
+    const numMissing = EXPECTED - groups.length;
+    const capstones = groups.pop();
+    for (let i = 0; i < numMissing; i++) groups.push('');
+    groups.push(capstones);
+  }
+
   if (groups.length !== EXPECTED) {
     throw new Error(
       `concepts/index.json has ${groups.length} section group(s); expected ${EXPECTED} ` +
@@ -304,24 +323,23 @@ function appendToIndexJson(raw, targetSection, newSlug) {
   // (four-space indent, trailing comma). We match that style exactly.
   const group = groups[sectionIdx];
 
-  // Strip trailing newline/whitespace off this group so we can cleanly append.
-  const trailingWsMatch = group.match(/\s*$/);
-  const trailing = trailingWsMatch ? trailingWsMatch[0] : '';
-  const groupContent = group.slice(0, group.length - trailing.length);
+  // Empty (bootstrapped) group: emit a single line; the array re-join with
+  // '\n\n' supplies the visual gap on either side.
+  if (group === '' || group.trim() === '') {
+    groups[sectionIdx] = `    "${newSlug}",`;
+  } else {
+    // Strip trailing newline/whitespace off this group so we can cleanly append.
+    const trailingWsMatch = group.match(/\s*$/);
+    const trailing = trailingWsMatch ? trailingWsMatch[0] : '';
+    const groupContent = group.slice(0, group.length - trailing.length);
 
-  // Each existing line is `    "slug",` (indent 4, trailing comma). The
-  // *last* slug in the array currently has no trailing comma — but since we
-  // always insert into a non-final group or add one inside an existing group,
-  // we just ensure the previous line ends with a comma before appending.
-  // However: the absolute last slug in the file (last group, last line) has
-  // no trailing comma. If we're appending to that last group, we need to add
-  // a comma to the current last line.
-  // All of the 7 section groups currently end with a trailing comma (because
-  // the capstones group follows them). So we always append with a trailing
-  // comma. The final capstones group is not a valid sectionIdx here.
-  const updatedGroup = groupContent + `\n    "${newSlug}",` + trailing;
+    // Each existing line is `    "slug",` (indent 4, trailing comma). All of
+    // the SECTION groups currently end with a trailing comma (because the
+    // capstones group follows them). The capstones group itself is not a
+    // valid sectionIdx here, so we always append with a trailing comma.
+    groups[sectionIdx] = groupContent + `\n    "${newSlug}",` + trailing;
+  }
 
-  groups[sectionIdx] = updatedGroup;
   const newInner = groups.join('\n\n');
   return raw.slice(0, bracketIdx + 1) + newInner + raw.slice(closeIdx);
 }

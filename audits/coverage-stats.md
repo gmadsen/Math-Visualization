@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **73**, concepts: **506**
+- Topics: **78**, concepts: **511**
 - Widgets: **563** (registry-driven: 563, inline: 0)
-- Quizzes: **2694** (v1: 1458, hard: 1223, expert: 13)
-- Quiz types: mcq: 1654, numeric: 853, multi-select: 69, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **100**
-- Concepts lacking a hard-tier quiz: **68**
+- Quizzes: **2699** (v1: 1463, hard: 1223, expert: 13)
+- Quiz types: mcq: 1659, numeric: 853, multi-select: 69, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **105**
+- Concepts lacking a hard-tier quiz: **73**
 
 ## Per-slug registry adoption
 
@@ -226,6 +226,16 @@ page has wired one in yet.
 - Quizzes: **572** (v1: 327, hard: 245, expert: 0)
   - by type: mcq: 347, numeric: 186, multi-select: 16, matching: 8, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
+### Combinatorics & graph theory
+
+- Topics: **5**, concepts: **5**
+- Widgets: **0** (registry-driven: 0, inline: 0)
+  - by family: _(none)_
+  - by dimension: _(none)_
+  - by gesture: _(none)_
+- Quizzes: **5** (v1: 5, hard: 0, expert: 0)
+  - by type: mcq: 5
+
 ## Per-topic
 
 - `naive-set-theory` (Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
@@ -297,6 +307,11 @@ page has wired one in yet.
 - `group-schemes` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
 - `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
+- `spectral-graph-theory` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `matroid-theory` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `probabilistic-method` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `extremal-combinatorics` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)

@@ -73,6 +73,11 @@ window.__MVConcepts = {
       "group-schemes",
       "deformation-theory",
       "algebraic-de-rham-cohomology",
+      "spectral-graph-theory",
+      "matroid-theory",
+      "probabilistic-method",
+      "extremal-combinatorics",
+      "simplicial-complexes-combinatorial",
       "sato-tate",
       "bsd",
       "modularity-and-flt",
@@ -167,6 +172,11 @@ window.__MVConcepts = {
       "group-schemes": "standard",
       "deformation-theory": "standard",
       "algebraic-de-rham-cohomology": "standard",
+      "spectral-graph-theory": "standard",
+      "matroid-theory": "standard",
+      "probabilistic-method": "standard",
+      "extremal-combinatorics": "standard",
+      "simplicial-complexes-combinatorial": "standard",
       "sato-tate": "capstone",
       "bsd": "capstone",
       "modularity-and-flt": "capstone",
@@ -5305,6 +5315,76 @@ window.__MVConcepts = {
         }
       ]
     },
+    "spectral-graph-theory": {
+      "topic": "spectral-graph-theory",
+      "title": "Spectral graph theory",
+      "page": "spectral-graph-theory.html",
+      "concepts": [
+        {
+          "id": "spectral-graph-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "matroid-theory": {
+      "topic": "matroid-theory",
+      "title": "Matroid theory",
+      "page": "matroid-theory.html",
+      "concepts": [
+        {
+          "id": "matroid-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "probabilistic-method": {
+      "topic": "probabilistic-method",
+      "title": "Probabilistic method",
+      "page": "probabilistic-method.html",
+      "concepts": [
+        {
+          "id": "probabilistic-method-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "extremal-combinatorics": {
+      "topic": "extremal-combinatorics",
+      "title": "Extremal combinatorics",
+      "page": "extremal-combinatorics.html",
+      "concepts": [
+        {
+          "id": "extremal-combinatorics-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "simplicial-complexes-combinatorial": {
+      "topic": "simplicial-complexes-combinatorial",
+      "title": "Simplicial complexes (combinatorial)",
+      "page": "simplicial-complexes-combinatorial.html",
+      "concepts": [
+        {
+          "id": "simplicial-complexes-combinatorial-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
     "sato-tate": {
       "topic": "sato-tate",
       "title": "Sato–Tate",
@@ -5826,6 +5906,17 @@ window.__MVConcepts = {
           "deformation-theory",
           "algebraic-de-rham-cohomology"
         ]
+      },
+      {
+        "id": "combinatorics-and-graph-theory",
+        "title": "Combinatorics & graph theory",
+        "topics": [
+          "spectral-graph-theory",
+          "matroid-theory",
+          "probabilistic-method",
+          "extremal-combinatorics",
+          "simplicial-complexes-combinatorial"
+        ]
       }
     ]
   },
@@ -5899,6 +5990,11 @@ window.__MVConcepts = {
     "group-schemes": "standard",
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
+    "spectral-graph-theory": "standard",
+    "matroid-theory": "standard",
+    "probabilistic-method": "standard",
+    "extremal-combinatorics": "standard",
+    "simplicial-complexes-combinatorial": "standard",
     "sato-tate": "capstone",
     "bsd": "capstone",
     "modularity-and-flt": "capstone",
@@ -5970,6 +6066,13 @@ window.__MVConcepts = {
       "crossOut": 42,
       "crossIn": 12,
       "density": 0.3853211009174312
+    },
+    "Combinatorics & graph theory": {
+      "concepts": 5,
+      "intra": 0,
+      "crossOut": 0,
+      "crossIn": 0,
+      "density": 0
     }
   }
 };

@@ -18,8 +18,9 @@ reach into upstream foundations or stay within their own cluster.
 | Number theory | 57 | 71 | 15 | 15 | 0.263 |
 | Modular forms & L-functions | 71 | 92 | 40 | 5 | 0.563 |
 | Algebraic geometry | 109 | 137 | 42 | 12 | 0.385 |
+| Combinatorics & graph theory | 5 | 0 | 0 | 0 | 0.000 |
 
-## EMPTY — concepts with no prereqs (0)
+## EMPTY — concepts with no prereqs (5)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -27,7 +28,13 @@ topic upstream wiring; pathway.html will surface the concept as "ready"
 at brand-new progress alongside genuine entry points like
 `sets-functions` and `algebraic-structures`.
 
-_Currently clean — no advanced concept lists `prereqs: []`._
+| topic | concept | title |
+|---|---|---|
+| extremal-combinatorics | `extremal-combinatorics-intro` | Intro |
+| matroid-theory | `matroid-theory-intro` | Intro |
+| probabilistic-method | `probabilistic-method-intro` | Intro |
+| simplicial-complexes-combinatorial | `simplicial-complexes-combinatorial-intro` | Intro |
+| spectral-graph-theory | `spectral-graph-theory-intro` | Intro |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

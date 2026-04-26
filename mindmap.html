@@ -524,27 +524,25 @@
   // fit its container; viewBox + preserveAspectRatio handle the scale.
   const STAGE_W = 2000, STAGE_H = 1200;
 
-  // Section anchors arranged in a heptagonal layout. Foundations (single topic)
-  // sits at top-center; the other six form a hexagon below it.
+  // Section anchors arranged in an octagonal layout. Foundations (single topic)
+  // sits at top-center; the other seven form a ring below it.
   const SECTION_ANCHOR = (() => {
     const cx = STAGE_W / 2, cy = STAGE_H / 2 + 20;
     const r = Math.min(STAGE_W, STAGE_H) * 0.34;
-    // Order chosen so subjects that share many cross-topic edges sit adjacent:
-    //   Foundations  (top-center, smaller orbit)
-    //   Algebra      (top-left)
-    //   Algebraic geometry (right of algebra → top-right)
-    //   Analysis     (right)
-    //   Geometry & topology (bottom-right)
-    //   Modular forms & L-functions (bottom-left)
-    //   Number theory (left)
+    // Order chosen so subjects that share many cross-topic edges sit adjacent.
+    // Combinatorics & graph theory is new — placed at bottom-center between
+    // Modular forms (bottom-left) and Geometry & topology (bottom-right) since
+    // its connections (simplicial complexes ↔ AT, graphs ↔ rep theory) span
+    // both halves of the ring.
     return {
-      'Foundations':                 { x: cx,            y: cy - r * 1.05 },
-      'Algebra':                     { x: cx - r * 0.95, y: cy - r * 0.55 },
-      'Algebraic geometry':          { x: cx + r * 0.95, y: cy - r * 0.55 },
-      'Analysis':                    { x: cx + r * 1.10, y: cy + r * 0.20 },
-      'Geometry & topology':         { x: cx + r * 0.55, y: cy + r * 0.85 },
-      'Modular forms & L-functions': { x: cx - r * 0.55, y: cy + r * 0.85 },
-      'Number theory':               { x: cx - r * 1.10, y: cy + r * 0.20 }
+      'Foundations':                  { x: cx,            y: cy - r * 1.05 },
+      'Algebra':                      { x: cx - r * 0.95, y: cy - r * 0.55 },
+      'Algebraic geometry':           { x: cx + r * 0.95, y: cy - r * 0.55 },
+      'Analysis':                     { x: cx + r * 1.10, y: cy + r * 0.20 },
+      'Geometry & topology':          { x: cx + r * 0.55, y: cy + r * 0.85 },
+      'Combinatorics & graph theory': { x: cx,            y: cy + r * 1.05 },
+      'Modular forms & L-functions':  { x: cx - r * 0.55, y: cy + r * 0.85 },
+      'Number theory':                { x: cx - r * 1.10, y: cy + r * 0.20 }
     };
   })();
 
