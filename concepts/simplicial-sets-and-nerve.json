@@ -7,7 +7,7 @@
       "id": "simplex-category",
       "title": "The simplex category $\\Delta$",
       "anchor": "simplex-category",
-      "prereqs": [],
+      "prereqs": ["categories-morphisms", "sets-functions"],
       "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
     },
     {

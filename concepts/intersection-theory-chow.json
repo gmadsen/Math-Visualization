@@ -7,7 +7,7 @@
       "id": "cycles-and-equivalence",
       "title": "Algebraic cycles and rational equivalence",
       "anchor": "cycles-and-equivalence",
-      "prereqs": [],
+      "prereqs": ["closed-subscheme"],
       "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
     },
     {

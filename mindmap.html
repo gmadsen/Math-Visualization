@@ -61,7 +61,7 @@
   .help-panel dd{margin:0;color:var(--ink)}
   .stage{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0;overflow:hidden;position:relative;cursor:grab;
-    user-select:none;-webkit-user-select:none;height:680px}
+    user-select:none;-webkit-user-select:none;height:820px}
   .stage.dragging{cursor:grabbing}
   svg.map{display:block;width:100%;height:100%;background:transparent;touch-action:none}
   .edge{stroke:var(--line);stroke-width:.7;fill:none;opacity:.55;pointer-events:none}
@@ -367,7 +367,10 @@
   }
 
   // ---------- layout ----------
-  const STAGE_W = 1280, STAGE_H = 680;
+  // Internal coordinate space — large enough that 505 force-clustered nodes
+  // can spread without bunching against viewport edges. CSS sizes the SVG to
+  // fit its container; viewBox + preserveAspectRatio handle the scale.
+  const STAGE_W = 2000, STAGE_H = 1200;
 
   // Section anchors arranged in a heptagonal layout. Foundations (single topic)
   // sits at top-center; the other six form a hexagon below it.
@@ -404,15 +407,18 @@
     return h.toString(16);
   }
   const layoutKey = (() => {
-    // Stable string: sorted node ids + edge endpoint pairs.
+    // Stable string: sorted node ids + edge endpoint pairs + viewport size
+    // (so a viewBox change invalidates cached positions, which were computed
+    // for the old space).
     const parts = [];
+    parts.push(`v=${STAGE_W}x${STAGE_H}`);
     parts.push(nodes.length.toString());
     parts.push(edges.length.toString());
     const sortedIds = nodes.map(n => n.id).slice().sort();
     for(const id of sortedIds) parts.push(id);
     const sortedEdges = edges.map(e => nodes[e.from].id + '>' + nodes[e.to].id).sort();
     for(const e of sortedEdges) parts.push(e);
-    return 'mvnb.mindmap.layout.v1.' + fnv1a(parts.join('|'));
+    return 'mvnb.mindmap.layout.v2.' + fnv1a(parts.join('|'));
   })();
 
   function loadCachedLayout(){
@@ -444,15 +450,14 @@
   //   - A per-node anchor pull holds each node near its section's home.
   async function forceLayout(progressCb){
     const STEPS = 260;
-    const REPEL_BASE = 1100;
-    const REPEL_CROSS = 1.6;     // cross-section pairs repel harder
+    const REPEL_BASE = 1400;
+    const REPEL_CROSS = 1.7;     // cross-section pairs repel harder
     const SPRING = 0.022;
-    const SPRING_LEN_INTRA = 26;
-    const SPRING_LEN_CROSS = 110;
-    const ANCHOR = 0.012;        // home-anchor pull; high = tighter clusters
-    const DAMP = 0.84;
-    const MAX_V = 8;
-    const MARGIN = 40;
+    const SPRING_LEN_INTRA = 32;
+    const SPRING_LEN_CROSS = 140;
+    const ANCHOR = 0.018;        // home-anchor pull; high = tighter clusters
+    const DAMP = 0.85;
+    const MAX_V = 9;
 
     // Initialize positions: spread inside section anchor regions.
     for(const n of nodes){
@@ -504,7 +509,11 @@
         n.vx += (a.x - n.x) * ANCHOR * cool;
         n.vy += (a.y - n.y) * ANCHOR * cool;
       }
-      // Integrate with velocity clamp + damping.
+      // Integrate with velocity clamp + damping. No hard viewport clamp —
+      // the previous version pinned nodes to a tight margin, which produced
+      // visible bunching of ~33% of nodes against the borders. The anchor
+      // force above keeps each node near its section center; users can pan
+      // and zoom to anything that lands outside the initial view.
       for(const n of nodes){
         if(n.vx > MAX_V) n.vx = MAX_V;
         if(n.vx < -MAX_V) n.vx = -MAX_V;
@@ -514,11 +523,6 @@
         n.y += n.vy;
         n.vx *= DAMP;
         n.vy *= DAMP;
-        // Soft viewport bounds.
-        if(n.x < MARGIN) n.x = MARGIN;
-        if(n.x > STAGE_W - MARGIN) n.x = STAGE_W - MARGIN;
-        if(n.y < MARGIN) n.y = MARGIN;
-        if(n.y > STAGE_H - MARGIN) n.y = STAGE_H - MARGIN;
       }
       // Yield to the event loop every ~60ms so the page doesn't freeze.
       if(progressCb && (performance.now() - lastYield) > 60){
@@ -685,11 +689,15 @@
   let focusDepth = 2;
   const depthSlider = document.getElementById('depth');
   const depthVal = document.getElementById('depth-val');
-  depthSlider.addEventListener('input', () => {
+  function onDepthChange(){
     focusDepth = parseInt(depthSlider.value, 10) || 2;
     depthVal.textContent = String(focusDepth);
     if(focusIdx !== null) applyFocus();
-  });
+  }
+  // Cover both `input` (live drag) and `change` (commit) — some browser/OS
+  // combinations emit only one of the two reliably for <input type="range">.
+  depthSlider.addEventListener('input', onDepthChange);
+  depthSlider.addEventListener('change', onDepthChange);
 
   function bfsHops(startIdx, adj, k){
     const hop = new Map(); hop.set(startIdx, 0);
@@ -1106,6 +1114,29 @@
     bar.appendChild(legend);
   }
 
+  // After force layout settles, recenter + scale-down (never up) the bbox so
+  // every node fits inside the viewBox with `pad` margin on each side. This
+  // replaces the previous hard margin-clamp inside the integrator that was
+  // pinning ~33% of nodes against a single edge.
+  function normalizePositions(){
+    let xMin=Infinity, xMax=-Infinity, yMin=Infinity, yMax=-Infinity;
+    for(const n of nodes){
+      if(n.x < xMin) xMin = n.x;
+      if(n.x > xMax) xMax = n.x;
+      if(n.y < yMin) yMin = n.y;
+      if(n.y > yMax) yMax = n.y;
+    }
+    const w = Math.max(1, xMax - xMin), h = Math.max(1, yMax - yMin);
+    const pad = 90;
+    const scale = Math.min((STAGE_W - pad*2) / w, (STAGE_H - pad*2) / h, 1.0);
+    const cxSrc = (xMin + xMax) / 2, cySrc = (yMin + yMax) / 2;
+    const cxDst = STAGE_W / 2,        cyDst = STAGE_H / 2;
+    for(const n of nodes){
+      n.x = (n.x - cxSrc) * scale + cxDst;
+      n.y = (n.y - cySrc) * scale + cyDst;
+    }
+  }
+
   // ---------- run ----------
   async function runLayout(forceRecompute){
     if(!forceRecompute){
@@ -1119,6 +1150,7 @@
     await forceLayout((p) => {
       if(lbar) lbar.style.width = (p * 100).toFixed(0) + '%';
     });
+    normalizePositions();
     saveCachedLayout();
   }
 

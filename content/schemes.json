@@ -881,6 +881,10 @@
           "html": "\n<p>The scheme-theoretic distinction is what lets you write \"the tangent space of $X$ at $p$ is $\\operatorname{Hom}_k(\\mathfrak m/\\mathfrak m^2, k)$\" or \"this curve meets this line with multiplicity 3\": both record information invisible to the underlying set.</p>\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#ideals\">Ideals and quotient rings</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./intersection-theory-chow.html#cycles-and-equivalence\">Intersection theory and Chow groups</a> · Algebraic cycles and rational equivalence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "closed-subscheme",
           "html": "<div class=\"quiz\" data-concept=\"closed-subscheme\"></div>"

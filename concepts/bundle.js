@@ -820,7 +820,9 @@ window.__MVConcepts = {
           "id": "heyting-algebra",
           "title": "Heyting algebras",
           "anchor": "heyting-algebra",
-          "prereqs": [],
+          "prereqs": [
+            "algebraic-structures"
+          ],
           "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
         },
         {
@@ -884,7 +886,10 @@ window.__MVConcepts = {
           "id": "sieves",
           "title": "Sieves",
           "anchor": "sieves",
-          "prereqs": [],
+          "prereqs": [
+            "categories-morphisms",
+            "presheaf-functor"
+          ],
           "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology."
         },
         {
@@ -945,7 +950,10 @@ window.__MVConcepts = {
           "id": "simplex-category",
           "title": "The simplex category $\\Delta$",
           "anchor": "simplex-category",
-          "prereqs": [],
+          "prereqs": [
+            "categories-morphisms",
+            "sets-functions"
+          ],
           "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
         },
         {
@@ -3046,7 +3054,9 @@ window.__MVConcepts = {
           "id": "faulhaber-formula",
           "title": "Faulhaber's formula for power sums",
           "anchor": "faulhaber",
-          "prereqs": [],
+          "prereqs": [
+            "algebraic-structures"
+          ],
           "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers."
         },
         {
@@ -3489,7 +3499,9 @@ window.__MVConcepts = {
           "id": "lattices-in-C",
           "title": "Lattices in C",
           "anchor": "lattices-in-C",
-          "prereqs": [],
+          "prereqs": [
+            "complex-numbers"
+          ],
           "blurb": "A lattice $\\Lambda \\subset \\mathbb{C}$ is a discrete subgroup of rank 2: $\\Lambda = \\mathbb{Z}\\omega_1 + \\mathbb{Z}\\omega_2$ with $\\omega_2/\\omega_1 \\notin \\mathbb{R}$. The same lattice has many bases — exactly the bases related by an $\\mathrm{SL}_2(\\mathbb{Z})$ change of coordinates — which is why modular forms are functions on lattices, or equivalently, $\\mathrm{SL}_2(\\mathbb{Z})$-equivariant functions of the basis ratio $\\tau = \\omega_2/\\omega_1 \\in \\mathbb{H}$."
         },
         {
@@ -3602,7 +3614,9 @@ window.__MVConcepts = {
           "id": "partition-function-pn",
           "title": "The partition function p(n)",
           "anchor": "pn",
-          "prereqs": [],
+          "prereqs": [
+            "algebraic-structures"
+          ],
           "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
         },
         {
@@ -4773,7 +4787,9 @@ window.__MVConcepts = {
           "id": "cycles-and-equivalence",
           "title": "Algebraic cycles and rational equivalence",
           "anchor": "cycles-and-equivalence",
-          "prereqs": [],
+          "prereqs": [
+            "closed-subscheme"
+          ],
           "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
         },
         {

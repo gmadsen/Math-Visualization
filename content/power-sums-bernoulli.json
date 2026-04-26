@@ -282,6 +282,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./power-sums-bernoulli.html#bernoulli\">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Bernoulli numbers and their generating function</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

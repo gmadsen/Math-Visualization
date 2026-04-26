@@ -30,7 +30,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./sheaves.html#sheaves\">Sheaves</a> · Presheaves and sheaf condition</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#sieves\">Grothendieck topologies and sites</a> · Sieves</div>\n    <div><a href=\"./sheaves.html#sheaves\">Sheaves</a> · Presheaves and sheaf condition</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

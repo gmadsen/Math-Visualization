@@ -129,7 +129,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#nat\">Category theory</a> · Functors and natural transformations</div>\n    <div><a href=\"./homological.html#abelian\">Homological algebra</a> · Abelian categories and triangulated preview</div>\n    <div><a href=\"./sheaves.html#presheaves\">Sheaves</a> · Presheaves on Open(X)</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#nat\">Category theory</a> · Functors and natural transformations</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#sieves\">Grothendieck topologies and sites</a> · Sieves</div>\n    <div><a href=\"./homological.html#abelian\">Homological algebra</a> · Abelian categories and triangulated preview</div>\n    <div><a href=\"./sheaves.html#presheaves\">Sheaves</a> · Presheaves on Open(X)</div>\n    <div><a href=\"./simplicial-sets-and-nerve.html#simplex-category\">Simplicial sets and the nerve</a> · The simplex category $\\Delta$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

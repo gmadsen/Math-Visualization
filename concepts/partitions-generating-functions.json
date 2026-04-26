@@ -7,7 +7,7 @@
       "id": "partition-function-pn",
       "title": "The partition function p(n)",
       "anchor": "pn",
-      "prereqs": [],
+      "prereqs": ["algebraic-structures"],
       "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
     },
     {
