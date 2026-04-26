@@ -14,11 +14,22 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - THIN-NEW count: 13 (down from 40 across the prereq passes)
 - Quiz tiers: v1 = 1454, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
-## Open on this branch (PR #33)
+## Open on this branch: creative-improvements arc
 
-Items still TODO before merge. Each is in scope by default; nothing here is pre-deferred.
+After PR #33 merged, the next initiative is a wide creative-improvements push spanning content, interaction, and home-page surface. Each item below is in scope by default; nothing here is pre-deferred. The work splits into three tiers (foundation → parallel authoring → home-page surface).
 
-_(no items currently flagged as TODO before merge)_
+- **Tier 0 / tag vocabulary** — `concepts/tags.json` introduces 15 cross-topic themes (duality, compactness, functoriality, universal-property, exact-sequence, cohomology, fibration, descent, moduli, lifting, finiteness, group-action, completion, classification, foundation). `validate-concepts.mjs` enforces `tags ⊂ vocabulary`.
+- **Tier 0 / home-page polish (CSS)** — card hover lift bumped to −4px with accent-tinted shadow per `.y/.b/.p/.g/.c/.v`; section-jump bar made `position:sticky` with an `IntersectionObserver`-driven `.stuck` accent.
+- **Tier 1 / Combinatorics & Graph Theory** — register section #8 in `concepts/sections.json` atomically with the first topic; author 5 anchors: `spectral-graph-theory`, `matroid-theory`, `probabilistic-method`, `extremal-combinatorics`, `simplicial-complexes-combinatorial`.
+- **Tier 1 / new widget-registry entries** — `branching-proof-scrubber` (proof tree with branch-pick gestures), `diagram-editor` (drag-arrows-and-watch-properties), `julia-playground` (zoomable parameter explorer). Adopt each in 1–2 topic pages after authoring.
+- **Tier 1 / filler topics in existing sections** — `heights-arithmetic-geometry`, `group-cohomology`, `sobolev-spaces-distributions`, `harmonic-analysis-fourier`, `automorphic-forms-adelic`.
+- **Tier 1 / tagging pass** — methodical single-agent sweep over the 76 existing `concepts/*.json`, drawing only from the controlled vocabulary; 70%+ coverage target, with no obligation to tag every concept.
+- **Tier 2 / hero live widget** — replace the static tagline on `index.html` with an interactive parametric curve or trimmed `julia-playground`; theme-aware, mobile-responsive, no extra HTTP.
+- **Tier 2 / "Today's concept" rail** — under the pathway banner, surface a date-seeded ready-to-master concept (mastered prereqs, not yet attempted) plus a "continue where you left off" pin from `MVProgress`. Curated default for cold visitors.
+- **Tier 2 / `tags.html` explorer page** — sister to `mindmap.html`; lists the vocabulary with concept counts and per-tag concept lists. Linked from the index hero ("Browse by theme").
+- **Tier 2 / remaining polish** — mastery rings on section headers, skeleton loaders for "recently updated", breadcrumb chip from anywhere, `.progbtn` reveal-on-hover.
+
+Parallelization protocol: cap at 3 concurrent agents, group by disjoint files (e.g. one agent per topic), commit checkpoint between batches. Branch will not open as a PR until the user confirms the surface is ready.
 
 ## Authoring polish — small
 
