@@ -37,7 +37,8 @@
       "title": "Étale, connected, and infinitesimal pieces",
       "anchor": "etale-vs-connected",
       "prereqs": [
-        "examples-Ga-Gm-mu-n"
+        "examples-Ga-Gm-mu-n",
+        "etale-morphism"
       ],
       "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$."
     },

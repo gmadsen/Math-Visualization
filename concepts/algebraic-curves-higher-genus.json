@@ -18,7 +18,8 @@
       "title": "Divisors on curves",
       "anchor": "divisors",
       "prereqs": [
-        "smooth-projective-curve"
+        "smooth-projective-curve",
+        "applications-picard-serre"
       ],
       "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$."
     },

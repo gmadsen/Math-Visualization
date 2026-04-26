@@ -165,6 +165,10 @@
           "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./etale-cohomology.html#etale-morphisms\">Étale morphisms</a></li>\n  </ul>\n</aside>\n\n"
         },
         {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./etale-cohomology.html#etale-morphisms\">Étale morphisms</a></li>\n    <li><a href=\"./etale-cohomology.html#etale\">Étale morphisms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "etale-vs-connected",
           "html": "<div class=\"quiz\" data-concept=\"etale-vs-connected\"></div>"

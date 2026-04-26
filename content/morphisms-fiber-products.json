@@ -20,7 +20,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-cohomology.html#etale\">Étale cohomology</a> · Étale morphisms</div>\n    <div><a href=\"./functor-of-points.html#reframe\">Functor of points</a> · Functor-of-points viewpoint</div>\n    <div><a href=\"./morphisms-fiber-products.html#fiber\">Morphisms and fiber products</a> · Fiber products and base change</div>\n    <div><a href=\"./morphisms-fiber-products.html#imm\">Morphisms and fiber products</a> · Open, closed, and locally closed immersions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-spaces.html#morphisms\">Algebraic spaces</a> · Morphisms of algebraic spaces</div>\n    <div><a href=\"./etale-cohomology.html#etale\">Étale cohomology</a> · Étale morphisms</div>\n    <div><a href=\"./functor-of-points.html#reframe\">Functor of points</a> · Functor-of-points viewpoint</div>\n    <div><a href=\"./morphisms-fiber-products.html#fiber\">Morphisms and fiber products</a> · Fiber products and base change</div>\n    <div><a href=\"./morphisms-fiber-products.html#imm\">Morphisms and fiber products</a> · Open, closed, and locally closed immersions</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -354,6 +354,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#divisors\">Algebraic curves: higher genus</a> · Divisors on curves</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-numbers\">Algebraic de Rham cohomology</a> · Hodge numbers $h^{p,q}(X)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]

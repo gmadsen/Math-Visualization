@@ -153,6 +153,10 @@
           "html": "\n"
         },
         {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./morphisms-fiber-products.html#morphism\">Morphisms of schemes</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "morphisms-of-algebraic-spaces",
           "html": "<div class=\"quiz\" data-concept=\"morphisms-of-algebraic-spaces\"></div>"

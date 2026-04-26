@@ -1013,7 +1013,8 @@ window.__MVConcepts = {
           "title": "Examples: small/large Zariski, étale, fpqc",
           "anchor": "examples-of-sites",
           "prereqs": [
-            "grothendieck-topology"
+            "grothendieck-topology",
+            "etale-morphism"
           ],
           "blurb": "The small Zariski site of a scheme has open immersions for covers; the étale site loosens to surjective étale maps; the fpqc site is even coarser. Each gives a different sheaf theory — Zariski-locally trivial $\\ne$ étale-locally trivial, the difference detecting Galois descent."
         },
@@ -4872,7 +4873,8 @@ window.__MVConcepts = {
           "title": "Morphisms of algebraic spaces",
           "anchor": "morphisms",
           "prereqs": [
-            "algebraic-space-definition"
+            "algebraic-space-definition",
+            "scheme-morphisms"
           ],
           "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
         },
@@ -5049,7 +5051,8 @@ window.__MVConcepts = {
           "title": "Divisors on curves",
           "anchor": "divisors",
           "prereqs": [
-            "smooth-projective-curve"
+            "smooth-projective-curve",
+            "applications-picard-serre"
           ],
           "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$."
         },
@@ -5134,7 +5137,8 @@ window.__MVConcepts = {
           "title": "Étale, connected, and infinitesimal pieces",
           "anchor": "etale-vs-connected",
           "prereqs": [
-            "examples-Ga-Gm-mu-n"
+            "examples-Ga-Gm-mu-n",
+            "etale-morphism"
           ],
           "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$."
         },
@@ -5278,7 +5282,8 @@ window.__MVConcepts = {
           "title": "Hodge numbers $h^{p,q}(X)$",
           "anchor": "hodge-numbers",
           "prereqs": [
-            "hodge-filtration"
+            "hodge-filtration",
+            "applications-picard-serre"
           ],
           "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers."
         },
@@ -5920,9 +5925,9 @@ window.__MVConcepts = {
     "Algebra": {
       "concepts": 114,
       "intra": 173,
-      "crossOut": 13,
+      "crossOut": 14,
       "crossIn": 31,
-      "density": 0.11403508771929824
+      "density": 0.12280701754385964
     },
     "Analysis": {
       "concepts": 101,
@@ -5954,9 +5959,9 @@ window.__MVConcepts = {
     },
     "Algebraic geometry": {
       "concepts": 109,
-      "intra": 132,
+      "intra": 136,
       "crossOut": 42,
-      "crossIn": 11,
+      "crossIn": 12,
       "density": 0.3853211009174312
     }
   }

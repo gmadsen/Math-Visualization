@@ -8,10 +8,10 @@ When something ships, delete its bullet here. The full step list of `rebuild.mjs
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 73 topics, 506 concepts, 800 prereq edges (303 cross-topic), 23 capstones
+- 73 topics, 506 concepts, 805 prereq edges (308 cross-topic), 23 capstones
 - Per-section density (cross-out per concept): Foundations 0.00, Algebra 0.115, Analysis 0.119, Geometry & topology 0.122, Number theory 0.263, Algebraic geometry 0.385, Modular forms & L-functions 0.549
 - 100 concepts lack a widget in their owning section
-- THIN-NEW count: 18 (down from 40 across the prereq passes)
+- THIN-NEW count: 13 (down from 40 across the prereq passes)
 - Quiz tiers: v1 = 1454, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
 ## Open on this branch (PR #33)
@@ -20,7 +20,7 @@ Items still TODO before merge. Each is in scope by default; nothing here is pre-
 
 - **Inline-widget topics.** The 15 topics from the migration use inline widgets rather than the `widgets/<slug>/` registry — no schema validation, no React-side rendering parity. Promote each inline widget to a registry entry.
 - **`audit-cross-topic-prereqs.mjs` heuristic refinement.** Reverse-direction cycle suppression landed; the surface-form matcher still emits "topological spaces" → `open-sets` style false positives where the target's title appears in the source's prose without an actual prereq relation. Augment with a lightweight semantic-similarity pass against concept titles, or a per-edge confidence score.
-- **THIN-NEW pass three.** 18 new-arc concepts whose prereqs all stay intra-topic. Sweep for the ~5 strongest direct cross-topic dependencies still missing.
+- **THIN-NEW pass four.** 13 new-arc concepts still have only intra-topic prereqs. Pass three landed 5 strongest direct cross-topic deps; remaining candidates have weaker section-prose backing.
 - **Section-stats density follow-up.** Algebra at 0.115 cross-out density; most legitimate cross-section deps are wired but `audit-cross-page-consistency` may surface real gaps worth wiring.
 
 ## Authoring polish — small

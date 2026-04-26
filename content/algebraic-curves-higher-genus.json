@@ -66,6 +66,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sheaves.html\">Line bundles &amp; the Picard group</a></li>\n    <li><a href=\"./elliptic-curves.html#complex\">$\\mathrm{Pic}^0(E) = E$ (genus 1)</a></li>\n    <li><a href=\"./moduli-spaces.html\">$\\mathrm{Jac}(C)$ as a moduli space</a></li>\n    <li><a href=\"./sheaf-cohomology.html#serre\">Picard groups and Serre duality signals</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#riemann-roch\">Algebraic curves: higher genus</a> · Riemann–Roch on curves</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

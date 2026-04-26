@@ -24,7 +24,8 @@
       "title": "Examples: small/large Zariski, étale, fpqc",
       "anchor": "examples-of-sites",
       "prereqs": [
-        "grothendieck-topology"
+        "grothendieck-topology",
+        "etale-morphism"
       ],
       "blurb": "The small Zariski site of a scheme has open immersions for covers; the étale site loosens to surjective étale maps; the fpqc site is even coarser. Each gives a different sheaf theory — Zariski-locally trivial $\\ne$ étale-locally trivial, the difference detecting Galois descent."
     },

@@ -48,7 +48,8 @@
       "title": "Hodge numbers $h^{p,q}(X)$",
       "anchor": "hodge-numbers",
       "prereqs": [
-        "hodge-filtration"
+        "hodge-filtration",
+        "applications-picard-serre"
       ],
       "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers."
     },

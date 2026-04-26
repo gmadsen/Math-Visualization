@@ -38,7 +38,8 @@
       "title": "Morphisms of algebraic spaces",
       "anchor": "morphisms",
       "prereqs": [
-        "algebraic-space-definition"
+        "algebraic-space-definition",
+        "scheme-morphisms"
       ],
       "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
     },

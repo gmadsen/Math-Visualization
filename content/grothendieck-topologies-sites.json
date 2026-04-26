@@ -101,6 +101,10 @@
           "html": "\n"
         },
         {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./schemes.html\">Schemes (Spec, structure sheaf)</a></li>\n    <li><a href=\"./etale-cohomology.html#etale-morphism\">Étale morphisms</a></li>\n    <li><a href=\"./etale-cohomology.html#etale\">Étale morphisms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "examples-of-sites",
           "html": "<div class=\"quiz\" data-concept=\"examples-of-sites\"></div>"
