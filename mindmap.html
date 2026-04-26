@@ -116,11 +116,19 @@
     padding:.7rem .9rem;margin-top:1rem;font-size:.88rem;color:var(--ink)}
   .gap-list h3{margin:0 0 .4rem;font-size:.9rem;color:var(--pink);
     letter-spacing:.04em;text-transform:uppercase;font-weight:600}
-  .gap-list ul{margin:0;padding-left:1.1rem;color:var(--mute)}
-  .gap-list ul li{margin:.18rem 0}
+  .gap-list ul{margin:0;padding:0;list-style:none;color:var(--mute)}
+  .gap-list ul li{margin:.18rem 0;padding:.32rem .55rem;border-radius:5px;
+    border:1px solid transparent;cursor:pointer;
+    transition:background 100ms ease, border-color 100ms ease}
+  .gap-list ul li:hover{background:var(--panel2);border-color:var(--line)}
+  .gap-list ul li.active{background:color-mix(in srgb, var(--yellow) 12%, transparent);
+    border-color:color-mix(in srgb, var(--yellow) 50%, transparent)}
   .gap-list ul li .gtopic{color:var(--ink);font-weight:500}
   .gap-list ul li code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
     font-size:.82rem;color:var(--violet)}
+  .gap-list ul li .gopen{color:var(--mute);text-decoration:none;
+    margin-left:.4rem;padding:.05rem .3rem;border-radius:3px;font-size:.78rem}
+  .gap-list ul li .gopen:hover{color:var(--yellow);background:var(--panel2)}
   .footer-note{color:var(--mute);font-size:.82rem;margin-top:1.2rem;line-height:1.6}
   .footer-note code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
     font-size:.82rem;background:var(--panel2);padding:.05rem .35rem;border-radius:3px}
@@ -662,6 +670,18 @@
     applyView();
   }
 
+  // Pan the viewport so a given node's position lands at viewport center.
+  // Doesn't change zoom — preserves the user's current scale.
+  // Used by the gap-list deep-links so clicking a flagged capstone visibly
+  // moves the camera to it.
+  function centerViewOn(idx){
+    const n = nodes[idx];
+    if(!n) return;
+    viewT.x = STAGE_W / 2 - n.x * viewT.k;
+    viewT.y = STAGE_H / 2 - n.y * viewT.k;
+    applyView();
+  }
+
   // ---------- mastery ----------
   // Read mastery from MVProgress; nodes update visual class only.
   function masteryClassFor(id){
@@ -1060,7 +1080,9 @@
         const tag = r.isPrereq
           ? '<span style="color:var(--mute);font-style:italic">(prereq topic — likely fine)</span>'
           : `<span style="color:var(--pink)">${r.conceptCount} concept${r.conceptCount === 1 ? '' : 's'} · no cross-topic edges</span>`;
-        return `<li><a href="./${escHtml(r.topic)}.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><span class="gtopic">${escHtml(r.title)}</span></a> — <span style="color:var(--mute)">${escHtml(r.section)}</span> · ${tag}</li>`;
+        // data-topic-search drives the click handler: searches by topic title
+        // so the mindmap highlights every concept of the topic.
+        return `<li data-topic-search="${escHtml(r.title)}" data-topic-page="${escHtml(r.topic)}.html"><span class="gtopic">${escHtml(r.title)}</span> — <span style="color:var(--mute)">${escHtml(r.section)}</span> · ${tag} <a class="gopen" href="./${escHtml(r.topic)}.html" target="_blank" rel="noopener" title="Open topic page in new tab">↗ page</a></li>`;
       }).join('');
       orphanUl.hidden = false; orphanH.hidden = false;
     }
@@ -1100,10 +1122,45 @@
     if(capDisplayed.length > 0){
       capUl.innerHTML = capDisplayed.map(r => {
         const n = nodes[r.idx];
-        return `<li><span class="gtopic">${escHtml(r.cap.title)}</span> <code>${escHtml(r.cap.goal)}</code> — <span style="color:var(--mute)">${escHtml(n.topicTitle)} · ${r.ancestorCount} ancestor${r.ancestorCount === 1 ? '' : 's'}, ${r.crossInClosure} cross-topic edge${r.crossInClosure === 1 ? '' : 's'} in closure</span></li>`;
+        return `<li data-focus-id="${escHtml(r.cap.goal)}"><span class="gtopic">${escHtml(r.cap.title)}</span> <code>${escHtml(r.cap.goal)}</code> — <span style="color:var(--mute)">${escHtml(n.topicTitle)} · ${r.ancestorCount} ancestor${r.ancestorCount === 1 ? '' : 's'}, ${r.crossInClosure} cross-topic edge${r.crossInClosure === 1 ? '' : 's'} in closure</span> <a class="gopen" href="./${escHtml(n.topicPage)}#${escHtml(n.anchor)}" target="_blank" rel="noopener" title="Open page at this concept">↗ page</a></li>`;
       }).join('');
       capUl.hidden = false; capH.hidden = false;
     }
+
+    // Wire click handlers for both gap-list panels. Clicking the title or
+    // the row body focuses the related concept on the mindmap (capstones)
+    // or filters by topic (orphan rows). The "↗ page" affordance opens the
+    // page in a new tab — its propagation is stopped so it doesn't double-
+    // trigger the row handler.
+    function activateRow(li){
+      [...document.querySelectorAll('#gap-list li.active')].forEach(el => el.classList.remove('active'));
+      li.classList.add('active');
+    }
+    document.getElementById('gap-list').addEventListener('click', (ev) => {
+      // Don't intercept the inner page link.
+      if(ev.target.closest('.gopen')){ ev.stopPropagation(); return; }
+      const li = ev.target.closest('li');
+      if(!li) return;
+      const focusId = li.dataset.focusId;
+      const topicSearch = li.dataset.topicSearch;
+      if(focusId){
+        const idx = nodeIndex.get(focusId);
+        if(idx == null) return;
+        focusIdx = idx;
+        applyFocus();
+        centerViewOn(idx);
+      } else if(topicSearch){
+        // Topic-level cluster: clearer to filter the whole topic via the
+        // search bar than to focus a single representative concept.
+        searchEl.value = topicSearch;
+        applySearch();
+        clearFocus();
+      } else {
+        return;
+      }
+      activateRow(li);
+      document.getElementById('stage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
 
     if(orphanRows.length === 0 && capDisplayed.length === 0){
       document.getElementById('gap-list').hidden = true;
