@@ -13,8 +13,7 @@
       ],
       "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
       "tags": [
-        "cohomology",
-        "foundation"
+        "cohomology"
       ]
     },
     {

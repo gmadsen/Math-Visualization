@@ -12,7 +12,9 @@
         "lp-spaces"
       ],
       "blurb": "Test functions are smooth and compactly supported; their continuous-dual $\\mathcal{D}'(\\Omega)$ — distributions — contains $L^1_{\\mathrm{loc}}$, the Dirac delta, and the principal-value $1/x$ as a single class.",
-      "tags": ["duality", "foundation"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "distributional-derivative",
@@ -23,7 +25,9 @@
         "real-differentiation"
       ],
       "blurb": "The pairing $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$ defines a derivative on every distribution; the Heaviside step has $H'=\\delta_0$, $(\\log|x|)'=\\mathrm{p.v.}\\,1/x$, and $|x|'=\\operatorname{sgn}(x)$.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "sobolev-spaces-wkp",
@@ -35,7 +39,9 @@
         "banach-hilbert-spaces"
       ],
       "blurb": "$W^{k,p}(\\Omega)$ collects $L^p$ functions whose distributional derivatives up to order $k$ all lie in $L^p$; $H^k=W^{k,2}$ is Hilbert, and the Fourier-multiplier definition extends the scale to fractional $H^s$.",
-      "tags": ["completion"]
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "sobolev-embeddings",
@@ -46,7 +52,9 @@
         "compactness"
       ],
       "blurb": "Three regimes by $kp$ vs $n$: subcritical $W^{k,p}\\hookrightarrow L^{p^*}$ with $p^*=np/(n-kp)$; supercritical $W^{k,p}\\hookrightarrow C^{0,\\gamma}$ (Morrey, Hölder); and the Rellich–Kondrachov upgrade to compact embeddings strictly below the critical exponent.",
-      "tags": ["compactness"]
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "trace-theorem",
@@ -56,7 +64,9 @@
         "sobolev-spaces-wkp"
       ],
       "blurb": "On a bounded Lipschitz domain the restriction $u\\mapsto u|_{\\partial\\Omega}$ extends from $C^\\infty(\\overline\\Omega)$ to a bounded surjection $W^{1,p}(\\Omega)\\to W^{1-1/p,p}(\\partial\\Omega)$, losing exactly $1/p$ of a derivative; the kernel is $H^1_0$, the right space for Dirichlet conditions.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "fundamental-solution",
@@ -66,7 +76,9 @@
         "distributional-derivative"
       ],
       "blurb": "On $\\mathbb{R}^3$, $E(x)=-1/(4\\pi|x|)$ satisfies $\\Delta E = \\delta_0$ as distributions; convolution with $E$ inverts $\\Delta$ on nice sources, the Newtonian/Coulomb potential of physics.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "variational-poisson",
@@ -78,7 +90,9 @@
         "riesz-representation"
       ],
       "blurb": "Multiplying $-\\Delta u=f$ by a test function and integrating by parts produces a coercive bilinear form on $H^1_0(\\Omega)$; Lax–Milgram (a non-symmetric Riesz) gives a unique weak solution, equivalently the minimiser of the Dirichlet energy.",
-      "tags": ["universal-property"]
+      "tags": [
+        "universal-property"
+      ]
     }
   ]
 }

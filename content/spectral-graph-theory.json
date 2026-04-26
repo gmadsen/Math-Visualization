@@ -27,7 +27,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#kernel-components\">Spectral graph theory</a> · Kernel multiplicity = number of components</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#kernel-components\">Spectral graph theory</a> · Kernel multiplicity = number of components</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -64,7 +68,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#fiedler\">Spectral graph theory</a> · Algebraic connectivity and the Fiedler vector</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#fiedler\">Spectral graph theory</a> · Algebraic connectivity and the Fiedler vector</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -101,7 +109,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#cheeger\">Spectral graph theory</a> · Cheeger's inequality</div>\n    <div><a href=\"./spectral-graph-theory.html#spectral-clustering\">Spectral graph theory</a> · Spectral clustering</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#cheeger\">Spectral graph theory</a> · Cheeger's inequality</div>\n    <div><a href=\"./spectral-graph-theory.html#spectral-clustering\">Spectral graph theory</a> · Spectral clustering</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -138,7 +150,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#spectral-clustering\">Spectral graph theory</a> · Spectral clustering</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#spectral-clustering\">Spectral graph theory</a> · Spectral clustering</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         },
         {
           "type": "widget-script",
@@ -166,7 +182,15 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#markov\">Markov chains</a> — stationary distributions, mixing in total variation, and the general apparatus that the random walk on a graph specialises.</li>\n    <li><a href=\"./functional-analysis.html#spectral\">Spectral theorem</a> — self-adjoint operators decompose by their eigenvalues; $\\mathcal{L}$ is a finite-dimensional instance.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#bipartite-expanders\">Spectral graph theory</a> · Bipartite graphs, expanders, and Ramanujan</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#markov\">Markov chains</a> — stationary distributions, mixing in total variation, and the general apparatus that the random walk on a graph specialises.</li>\n    <li><a href=\"./functional-analysis.html#spectral\">Spectral theorem</a> — self-adjoint operators decompose by their eigenvalues; $\\mathcal{L}$ is a finite-dimensional instance.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-graph-theory.html#bipartite-expanders\">Spectral graph theory</a> · Bipartite graphs, expanders, and Ramanujan</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

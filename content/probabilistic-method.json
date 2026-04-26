@@ -18,7 +18,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Drag the slider, redraw a few times: the random tournament's Hamilton-path count fluctuates around the theoretical mean $n!/2^{n-1}$. By the existence principle, there must exist a tournament beating that average — but the proof shows nothing about how to write it down.</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "\n\n<p>Drag the slider, redraw a few times: the random tournament's Hamilton-path count fluctuates around the theoretical mean $n!/2^{n-1}$. By the existence principle, there must exist a tournament beating that average — but the proof shows nothing about how to write it down.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -96,7 +100,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a> — linearity of $\\mathbb{E}$ holds for any integrable random variables; independence is needed only for variances and higher.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a> — linearity of $\\mathbb{E}$ holds for any integrable random variables; independence is needed only for variances and higher.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -211,7 +219,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a> — Chebyshev's inequality and the second-moment method are immediate consequences of $\\operatorname{Var}(X)/\\mathbb{E}[X]^2$ controlling the deviation.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a> — Chebyshev's inequality and the second-moment method are immediate consequences of $\\operatorname{Var}(X)/\\mathbb{E}[X]^2$ controlling the deviation.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -248,7 +260,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a> — Markov and Chebyshev are direct corollaries of the integration $\\mathbb{E}[\\mathbf{1}_{X\\ge a}\\cdot a] \\le \\mathbb{E}[X]$.</li>\n    <li><a href=\"./probability-theory.html#martingales\">Martingales</a> — the Azuma–Hoeffding inequality lives on top of $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a> — Markov and Chebyshev are direct corollaries of the integration $\\mathbb{E}[\\mathbf{1}_{X\\ge a}\\cdot a] \\le \\mathbb{E}[X]$.</li>\n    <li><a href=\"./probability-theory.html#martingales\">Martingales</a> — the Azuma–Hoeffding inequality lives on top of $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",

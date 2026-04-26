@@ -11,8 +11,7 @@
         "projective-scheme",
         "riemann-surface-definition"
       ],
-      "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$.",
-      "tags": ["foundation"]
+      "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
     },
     {
       "id": "divisors-on-curves",
@@ -23,7 +22,10 @@
         "applications-picard-serre"
       ],
       "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$.",
-      "tags": ["moduli", "classification"]
+      "tags": [
+        "moduli",
+        "classification"
+      ]
     },
     {
       "id": "riemann-roch-curves",
@@ -34,7 +36,9 @@
         "riemann-roch"
       ],
       "blurb": "For a divisor $D$ on a smooth projective curve of genus $g$, $h^0(D) - h^0(K - D) = \\deg D - g + 1$, where $K$ is the canonical divisor. Riemann–Roch is the curve-level explanation of why genus controls the dimension of linear systems.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "canonical-embedding",
@@ -55,7 +59,9 @@
         "branched-covers-rs"
       ],
       "blurb": "A curve of genus $g \\ge 2$ is hyperelliptic if it admits a degree-2 map to $\\mathbb{P}^1$. Equivalently, $|K|$ does not separate points. Hyperelliptic curves form a codimension-$(g-2)$ locus in $\\mathcal{M}_g$ — most curves of genus $\\ge 3$ are not hyperelliptic.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "moduli-of-curves-genus-g",
@@ -66,7 +72,10 @@
         "dm-stacks-coarse-space"
       ],
       "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary.",
-      "tags": ["moduli", "compactness"]
+      "tags": [
+        "moduli",
+        "compactness"
+      ]
     }
   ]
 }

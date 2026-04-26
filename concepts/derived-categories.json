@@ -10,8 +10,7 @@
       "prereqs": [
         "chain-complexes"
       ],
-      "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms.",
-      "tags": ["foundation"]
+      "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
     },
     {
       "id": "quasi-isomorphisms",
@@ -30,7 +29,10 @@
         "quasi-isomorphisms"
       ],
       "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes.",
-      "tags": ["universal-property", "cohomology"]
+      "tags": [
+        "universal-property",
+        "cohomology"
+      ]
     },
     {
       "id": "triangulated-structure",
@@ -42,7 +44,10 @@
         "abelian-categories"
       ],
       "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$.",
-      "tags": ["exact-sequence", "cohomology"]
+      "tags": [
+        "exact-sequence",
+        "cohomology"
+      ]
     },
     {
       "id": "derived-functors-triangulated",
@@ -54,7 +59,10 @@
         "resolutions-ha"
       ],
       "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$.",
-      "tags": ["cohomology", "functoriality"]
+      "tags": [
+        "cohomology",
+        "functoriality"
+      ]
     },
     {
       "id": "t-structures",
@@ -76,7 +84,10 @@
         "sheafification-and-qcoh"
       ],
       "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels.",
-      "tags": ["duality", "cohomology"]
+      "tags": [
+        "duality",
+        "cohomology"
+      ]
     }
   ]
 }

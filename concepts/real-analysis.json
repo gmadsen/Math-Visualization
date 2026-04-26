@@ -9,102 +9,145 @@
       "anchor": "real-numbers",
       "prereqs": [],
       "blurb": "The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn't enough.",
-      "tags": ["foundation", "completion"]
+      "tags": [
+        "foundation",
+        "completion"
+      ]
     },
     {
       "id": "real-continuity",
       "title": "Continuity on R",
       "anchor": "real-continuity",
-      "prereqs": ["real-numbers", "compactness"],
+      "prereqs": [
+        "real-numbers",
+        "compactness"
+      ],
       "blurb": "ε–δ continuity, IVT, EVT, and the interaction between continuity and compactness on intervals.",
-      "tags": ["compactness", "foundation"]
+      "tags": [
+        "compactness",
+        "foundation"
+      ]
     },
     {
       "id": "real-differentiation",
       "title": "Differentiation",
       "anchor": "real-differentiation",
-      "prereqs": ["real-continuity"],
+      "prereqs": [
+        "real-continuity"
+      ],
       "blurb": "The derivative as best linear approximation, chain rule, mean value theorem, and Taylor's theorem with remainder."
     },
     {
       "id": "uniform-convergence",
       "title": "Uniform convergence",
       "anchor": "uniform-convergence",
-      "prereqs": ["real-continuity"],
+      "prereqs": [
+        "real-continuity"
+      ],
       "blurb": "Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability."
     },
     {
       "id": "riemann-integral",
       "title": "Riemann integral",
       "anchor": "riemann-integral",
-      "prereqs": ["real-continuity"],
+      "prereqs": [
+        "real-continuity"
+      ],
       "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
     },
     {
       "id": "multivariable-differentiation",
       "title": "Multivariable differentiation",
       "anchor": "multivariable-differentiation",
-      "prereqs": ["real-differentiation"],
+      "prereqs": [
+        "real-differentiation"
+      ],
       "blurb": "Partial derivatives, total derivative as Jacobian, chain rule for vector-valued maps, gradients and directional derivatives."
     },
     {
       "id": "multivariable-integration",
       "title": "Multivariable integration",
       "anchor": "multivariable-integration",
-      "prereqs": ["riemann-integral", "multivariable-differentiation"],
+      "prereqs": [
+        "riemann-integral",
+        "multivariable-differentiation"
+      ],
       "blurb": "Iterated integrals, Fubini's theorem, Jacobian determinant and the change-of-variables formula on R^n."
     },
     {
       "id": "inverse-function-theorem",
       "title": "Inverse & implicit function theorems",
       "anchor": "inverse-function-theorem",
-      "prereqs": ["multivariable-differentiation"],
+      "prereqs": [
+        "multivariable-differentiation"
+      ],
       "blurb": "Local invertibility from invertible Jacobian; solving F(x,y)=0 for y locally when ∂F/∂y is invertible — the engine behind manifolds and submanifolds.",
-      "tags": ["lifting"]
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "numeric-series",
       "title": "Numeric series & convergence tests",
       "anchor": "numeric-series",
-      "prereqs": ["real-numbers"],
+      "prereqs": [
+        "real-numbers"
+      ],
       "blurb": "Absolute vs conditional convergence; ratio, root, comparison, and integral tests; Abel and Dirichlet criteria for conditional sums."
     },
     {
       "id": "power-series-real",
       "title": "Power series & radius of convergence",
       "anchor": "power-series-real",
-      "prereqs": ["numeric-series", "uniform-convergence"],
+      "prereqs": [
+        "numeric-series",
+        "uniform-convergence"
+      ],
       "blurb": "Cauchy–Hadamard 1/R = limsup |a_n|^{1/n}; uniform convergence on compact subsets of the disk; term-by-term differentiation and the bridge to real-analytic functions."
     },
     {
       "id": "metric-completeness-baire",
       "title": "Metric completeness & Baire category",
       "anchor": "metric-completeness-baire",
-      "prereqs": ["real-numbers", "metric-spaces"],
+      "prereqs": [
+        "real-numbers",
+        "metric-spaces"
+      ],
       "blurb": "Cauchy-complete metric spaces, the unique completion, and Baire's theorem: a complete metric space is not a countable union of nowhere-dense sets.",
-      "tags": ["completion", "foundation"]
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "ftc-both-parts",
       "title": "Fundamental theorem of calculus (both parts)",
       "anchor": "ftc-both-parts",
-      "prereqs": ["riemann-integral", "real-differentiation"],
+      "prereqs": [
+        "riemann-integral",
+        "real-differentiation"
+      ],
       "blurb": "Part I: F(x)=∫_a^x f gives F'=f when f is continuous. Part II: ∫_a^b F'=F(b)-F(a) for F differentiable with F' integrable; absolute continuity as the right class for Lebesgue."
     },
     {
       "id": "bump-functions",
       "title": "Bump functions & mollification",
       "anchor": "bump-functions",
-      "prereqs": ["real-differentiation"],
+      "prereqs": [
+        "real-differentiation"
+      ],
       "blurb": "The model bump exp(-1/(1-x^2)) is C^∞ with compact support; convolution with mollifiers smooths any locally integrable function and yields smooth partitions of unity."
     },
     {
       "id": "c-space-arzela",
       "title": "C[a,b] & the Arzelà–Ascoli theorem",
       "anchor": "c-space-arzela",
-      "prereqs": ["uniform-convergence"],
+      "prereqs": [
+        "uniform-convergence"
+      ],
       "blurb": "C[a,b] with the uniform norm is Banach; a family has uniformly convergent subsequences iff it is pointwise bounded and equicontinuous (Arzelà–Ascoli).",
-      "tags": ["compactness"]
+      "tags": [
+        "compactness"
+      ]
     }
   ]
 }

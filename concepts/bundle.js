@@ -218,7 +218,6 @@ window.__MVConcepts = {
           ],
           "blurb": "Products $A\\times B$, function spaces $B^A$, and the power set $\\mathcal{P}(A)\\cong\\{0,1\\}^A$ — the basic constructions behind tuples, graphs of functions, and indicator functions.",
           "tags": [
-            "foundation",
             "universal-property"
           ]
         },
@@ -231,7 +230,6 @@ window.__MVConcepts = {
           ],
           "blurb": "Equivalence relations partition sets; the quotient set X/∼ as the universal recipient of functions constant on classes.",
           "tags": [
-            "foundation",
             "universal-property"
           ]
         },
@@ -252,10 +250,7 @@ window.__MVConcepts = {
             "cartesian-product-powerset",
             "countability"
           ],
-          "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
         }
       ]
     },
@@ -302,10 +297,7 @@ window.__MVConcepts = {
           "prereqs": [
             "quotients-homomorphisms"
           ],
-          "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields."
         },
         {
           "id": "field-extensions-basics",
@@ -751,8 +743,7 @@ window.__MVConcepts = {
           ],
           "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes.",
           "tags": [
-            "duality",
-            "foundation"
+            "duality"
           ]
         },
         {
@@ -1018,7 +1009,6 @@ window.__MVConcepts = {
           ],
           "blurb": "Abelian categories are the native habitat of homological algebra; triangulated categories encode long exact sequences as distinguished triangles.",
           "tags": [
-            "foundation",
             "exact-sequence"
           ]
         },
@@ -1146,10 +1136,7 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
         },
         {
           "id": "omega-as-heyting-algebra",
@@ -1219,10 +1206,7 @@ window.__MVConcepts = {
             "categories-morphisms",
             "presheaf-functor"
           ],
-          "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology."
         },
         {
           "id": "grothendieck-topology",
@@ -1233,8 +1217,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A Grothendieck topology on $C$ assigns to each object $c$ a collection of \"covering\" sieves, satisfying maximality, stability under pullback, and a transitivity axiom. The data $(C, J)$ is called a site; sheaves on a site generalize sheaves on a topological space.",
           "tags": [
-            "descent",
-            "foundation"
+            "descent"
           ]
         },
         {
@@ -1306,10 +1289,7 @@ window.__MVConcepts = {
             "categories-morphisms",
             "sets-functions"
           ],
-          "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
         },
         {
           "id": "simplicial-set",
@@ -1571,10 +1551,7 @@ window.__MVConcepts = {
           "prereqs": [
             "chain-complexes"
           ],
-          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
         },
         {
           "id": "quasi-isomorphisms",
@@ -1770,8 +1747,7 @@ window.__MVConcepts = {
           ],
           "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
           "tags": [
-            "cohomology",
-            "foundation"
+            "cohomology"
           ]
         },
         {
@@ -1982,8 +1958,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Cauchy-complete metric spaces, the unique completion, and Baire's theorem: a complete metric space is not a countable union of nowhere-dense sets.",
           "tags": [
-            "completion",
-            "foundation"
+            "completion"
           ]
         },
         {
@@ -2197,10 +2172,7 @@ window.__MVConcepts = {
             "complex-numbers",
             "real-differentiation"
           ],
-          "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix."
         },
         {
           "id": "cauchy-riemann",
@@ -2209,10 +2181,7 @@ window.__MVConcepts = {
           "prereqs": [
             "amplitwist"
           ],
-          "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$."
         },
         {
           "id": "holomorphic-function",
@@ -3039,8 +3008,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Test functions are smooth and compactly supported; their continuous-dual $\\mathcal{D}'(\\Omega)$ — distributions — contains $L^1_{\\mathrm{loc}}$, the Dirac delta, and the principal-value $1/x$ as a single class.",
           "tags": [
-            "duality",
-            "foundation"
+            "duality"
           ]
         },
         {
@@ -3627,10 +3595,7 @@ window.__MVConcepts = {
             "smooth-manifold-definition",
             "tangent-space-manifolds"
           ],
-          "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
         },
         {
           "id": "levi-civita-connection",
@@ -3687,10 +3652,7 @@ window.__MVConcepts = {
             "smooth-manifold-definition",
             "algebraic-structures"
           ],
-          "blurb": "Lie groups combine smooth manifolds with group multiplication.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Lie groups combine smooth manifolds with group multiplication."
         },
         {
           "id": "lie-algebra-tangent",
@@ -3700,10 +3662,7 @@ window.__MVConcepts = {
             "lie-group-definition",
             "tangent-space-manifolds"
           ],
-          "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$."
         },
         {
           "id": "lie-algebra-and-exp",
@@ -3921,10 +3880,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sets-functions"
           ],
-          "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on."
         },
         {
           "id": "legendre-symbol",
@@ -3994,8 +3950,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A binary quadratic form ax²+bxy+cy² is characterized by its discriminant D=b²−4ac; GL₂(ℤ) acts by change of variables and equivalence classes are the core objects of study.",
           "tags": [
-            "group-action",
-            "foundation"
+            "group-action"
           ]
         },
         {
@@ -4371,8 +4326,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A place of $\\mathbb{Q}$ is an equivalence class of absolute values: the archimedean place $v_\\infty$ giving $\\mathbb{R}$, and for each prime $p$ the $p$-adic place $v_p$ giving $\\mathbb{Q}_p$. Each completion is a local field — locally compact with a non-discrete topology.",
           "tags": [
-            "completion",
-            "foundation"
+            "completion"
           ]
         },
         {
@@ -4505,10 +4459,7 @@ window.__MVConcepts = {
           "prereqs": [
             "artin-reciprocity-preview"
           ],
-          "blurb": "Idèle class groups package global and local arithmetic data in one object.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Idèle class groups package global and local arithmetic data in one object."
         },
         {
           "id": "hilbert-class-field",
@@ -4584,8 +4535,7 @@ window.__MVConcepts = {
           ],
           "blurb": "For a rational point $P=[x_0:\\dots:x_n]\\in\\mathbb{P}^n(\\mathbb{Q})$ with coprime integer coordinates, $H(P)=\\max_i|x_i|$ counts arithmetic complexity — roughly the digit-length needed to write the point down.",
           "tags": [
-            "finiteness",
-            "foundation"
+            "finiteness"
           ]
         },
         {
@@ -4610,8 +4560,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Each line bundle $L$ on a projective variety $X$ over a number field gives a height $h_{X,L}:X(\\bar K)\\to\\mathbb{R}$, well-defined up to bounded functions. Pulling $\\mathcal{O}(1)$ back along $X\\hookrightarrow\\mathbb{P}^n$ recovers the naive height; functoriality $h_{X,f^*L}=h_{Y,L}\\circ f+O(1)$ makes this the universal height machine.",
           "tags": [
-            "functoriality",
-            "foundation"
+            "functoriality"
           ]
         },
         {
@@ -4624,8 +4573,7 @@ window.__MVConcepts = {
           ],
           "blurb": "On an abelian variety with a symmetric ample $L$, Tate's averaging $\\hat h(P)=\\lim_{n\\to\\infty} h_L([n]P)/n^2$ converges to a quadratic form on $A(\\bar K)$ that vanishes exactly on torsion. Polarising gives the Néron–Tate pairing whose Gram determinant on a Mordell–Weil basis is the regulator $R$ of refined BSD.",
           "tags": [
-            "duality",
-            "foundation"
+            "duality"
           ]
         },
         {
@@ -4684,10 +4632,7 @@ window.__MVConcepts = {
             "complex-numbers",
             "continuity-topology"
           ],
-          "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms."
         },
         {
           "id": "hyperbolic-metric",
@@ -4749,7 +4694,6 @@ window.__MVConcepts = {
           ],
           "blurb": "A lattice $\\Lambda \\subset \\mathbb{C}$ is a discrete subgroup of rank 2: $\\Lambda = \\mathbb{Z}\\omega_1 + \\mathbb{Z}\\omega_2$ with $\\omega_2/\\omega_1 \\notin \\mathbb{R}$. The same lattice has many bases — exactly the bases related by an $\\mathrm{SL}_2(\\mathbb{Z})$ change of coordinates — which is why modular forms are functions on lattices, or equivalently, $\\mathrm{SL}_2(\\mathbb{Z})$-equivariant functions of the basis ratio $\\tau = \\omega_2/\\omega_1 \\in \\mathbb{H}$.",
           "tags": [
-            "foundation",
             "moduli"
           ]
         },
@@ -4876,10 +4820,7 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
         },
         {
           "id": "euler-partition-product",
@@ -4938,8 +4879,7 @@ window.__MVConcepts = {
           ],
           "blurb": "T_p averages index-p sublattices (or cosets) and acts linearly on spaces of modular forms.",
           "tags": [
-            "group-action",
-            "foundation"
+            "group-action"
           ]
         },
         {
@@ -5185,10 +5125,7 @@ window.__MVConcepts = {
           "prereqs": [
             "dirichlet-characters-lseries"
           ],
-          "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
         },
         {
           "id": "functional-equation-completion",
@@ -5375,7 +5312,6 @@ window.__MVConcepts = {
           ],
           "blurb": "The adelic group $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q}) = {\\prod_v}' \\mathrm{GL}_2(\\mathbb{Q}_v)$ is a restricted product over all places of $\\mathbb{Q}$, with the constraint that $g_p \\in \\mathrm{GL}_2(\\mathbb{Z}_p)$ for almost all primes $p$. Topologically it splits as $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$, separating the archimedean and finite-adelic factors.",
           "tags": [
-            "foundation",
             "completion"
           ]
         },
@@ -5544,10 +5480,7 @@ window.__MVConcepts = {
           "prereqs": [
             "projective-points-lines"
           ],
-          "blurb": "Counting intersections correctly requires multiplicity at each point.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Counting intersections correctly requires multiplicity at each point."
         },
         {
           "id": "resultants-elimination",
@@ -5666,10 +5599,7 @@ window.__MVConcepts = {
           "prereqs": [
             "structure-sheaf-schemes"
           ],
-          "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring."
         },
         {
           "id": "projective-scheme",
@@ -6088,8 +6018,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A moduli problem asks for a geometric space classifying objects in families.",
           "tags": [
-            "moduli",
-            "foundation"
+            "moduli"
           ]
         },
         {
@@ -6383,10 +6312,7 @@ window.__MVConcepts = {
           "prereqs": [
             "closed-subscheme"
           ],
-          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
         },
         {
           "id": "chow-groups",
@@ -6466,8 +6392,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A finite étale cover $Y \\to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\\mathrm{F\\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group.",
           "tags": [
-            "fibration",
-            "foundation"
+            "fibration"
           ]
         },
         {
@@ -6552,10 +6477,7 @@ window.__MVConcepts = {
             "projective-scheme",
             "riemann-surface-definition"
           ],
-          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
         },
         {
           "id": "divisors-on-curves",
@@ -6719,8 +6641,7 @@ window.__MVConcepts = {
           "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$.",
           "tags": [
             "lifting",
-            "moduli",
-            "foundation"
+            "moduli"
           ]
         },
         {
@@ -6822,8 +6743,7 @@ window.__MVConcepts = {
           ],
           "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant.",
           "tags": [
-            "cohomology",
-            "foundation"
+            "cohomology"
           ]
         },
         {
@@ -6889,10 +6809,7 @@ window.__MVConcepts = {
           "title": "Adjacency, degree, and the Laplacian",
           "anchor": "adjacency-laplacian",
           "prereqs": [],
-          "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
         },
         {
           "id": "kernel-and-components",
@@ -6970,10 +6887,7 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid."
         },
         {
           "id": "matroid-bases-rank",
@@ -7140,7 +7054,6 @@ window.__MVConcepts = {
           "prereqs": [],
           "blurb": "$\\mathrm{ex}(n, K_{r+1}) = (1 - 1/r)\\,n^2/2 - O(1)$, with the unique extremal graph the balanced complete $r$-partite Turán graph $T(n, r)$. Proof by Zykov symmetrization; the limiting Turán density $\\pi(K_{r+1}) = 1 - 1/r$.",
           "tags": [
-            "foundation",
             "classification"
           ]
         },
@@ -7180,10 +7093,7 @@ window.__MVConcepts = {
           "title": "Sperner's theorem and the LYM inequality",
           "anchor": "sperner",
           "prereqs": [],
-          "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains."
         },
         {
           "id": "triangle-removal-regularity",
@@ -7300,10 +7210,7 @@ window.__MVConcepts = {
             "equidistribution-weyl",
             "legendre-symbol"
           ],
-          "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
         },
         {
           "id": "cm-vs-non-cm-sato-tate",

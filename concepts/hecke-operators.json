@@ -7,37 +7,52 @@
       "id": "hecke-operator-tp",
       "title": "The operator T_p",
       "anchor": "tp",
-      "prereqs": ["q-expansions-mf"],
+      "prereqs": [
+        "q-expansions-mf"
+      ],
       "blurb": "T_p averages index-p sublattices (or cosets) and acts linearly on spaces of modular forms.",
-      "tags": ["group-action", "foundation"]
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "hecke-q-expansion-action",
       "title": "Action on q-expansions",
       "anchor": "qexp",
-      "prereqs": ["hecke-operator-tp"],
+      "prereqs": [
+        "hecke-operator-tp"
+      ],
       "blurb": "On coefficients, T_p obeys a'_n=a_{pn}+p^{k-1}a_{n/p}, giving a computable arithmetic rule."
     },
     {
       "id": "hecke-algebra-commuting",
       "title": "Commuting Hecke algebra",
       "anchor": "algebra",
-      "prereqs": ["hecke-q-expansion-action"],
+      "prereqs": [
+        "hecke-q-expansion-action"
+      ],
       "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
     },
     {
       "id": "eigenforms-and-euler-factors",
       "title": "Eigenforms and Euler factors",
       "anchor": "eigen",
-      "prereqs": ["hecke-algebra-commuting"],
+      "prereqs": [
+        "hecke-algebra-commuting"
+      ],
       "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "hecke-self-adjointness",
       "title": "Self-adjointness of $T_p$",
       "anchor": "petersson",
-      "prereqs": ["hecke-algebra-commuting", "petersson-inner-product"],
+      "prereqs": [
+        "hecke-algebra-commuting",
+        "petersson-inner-product"
+      ],
       "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$."
     }
   ]

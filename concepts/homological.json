@@ -11,7 +11,9 @@
         "ideals-quotients-ca"
       ],
       "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "exact-sequences",
@@ -21,7 +23,10 @@
         "chain-complexes"
       ],
       "blurb": "Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.",
-      "tags": ["exact-sequence", "foundation"]
+      "tags": [
+        "exact-sequence",
+        "foundation"
+      ]
     },
     {
       "id": "snake-lemma",
@@ -31,7 +36,9 @@
         "exact-sequences"
       ],
       "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels.",
-      "tags": ["exact-sequence"]
+      "tags": [
+        "exact-sequence"
+      ]
     },
     {
       "id": "five-lemma",
@@ -41,7 +48,9 @@
         "snake-lemma"
       ],
       "blurb": "In a commutative ladder of exact rows, if the four outer vertical maps are isomorphisms then so is the middle one — the workhorse diagram-chase for recognizing isomorphisms.",
-      "tags": ["exact-sequence"]
+      "tags": [
+        "exact-sequence"
+      ]
     },
     {
       "id": "long-exact-sequence",
@@ -52,7 +61,10 @@
         "singular-homology"
       ],
       "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree.",
-      "tags": ["exact-sequence", "cohomology"]
+      "tags": [
+        "exact-sequence",
+        "cohomology"
+      ]
     },
     {
       "id": "projective-modules",
@@ -62,7 +74,10 @@
         "exact-sequences"
       ],
       "blurb": "A module P is projective iff every surjection onto P splits; equivalently P is a direct summand of a free module and makes Hom(P,−) exact.",
-      "tags": ["lifting", "universal-property"]
+      "tags": [
+        "lifting",
+        "universal-property"
+      ]
     },
     {
       "id": "injective-modules",
@@ -72,7 +87,11 @@
         "exact-sequences"
       ],
       "blurb": "Dual to projective: I is injective iff every injection of I extends; Baer's criterion and divisibility characterize injectives over ℤ.",
-      "tags": ["duality", "lifting", "universal-property"]
+      "tags": [
+        "duality",
+        "lifting",
+        "universal-property"
+      ]
     },
     {
       "id": "flat-modules",
@@ -93,7 +112,10 @@
         "injective-modules"
       ],
       "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants; the Ext/Tor tables pin down extensions and torsion.",
-      "tags": ["cohomology", "functoriality"]
+      "tags": [
+        "cohomology",
+        "functoriality"
+      ]
     },
     {
       "id": "resolutions-ha",
@@ -114,7 +136,9 @@
         "categories-morphisms"
       ],
       "blurb": "Abelian categories are the native habitat of homological algebra; triangulated categories encode long exact sequences as distinguished triangles.",
-      "tags": ["foundation", "exact-sequence"]
+      "tags": [
+        "exact-sequence"
+      ]
     },
     {
       "id": "spectral-sequences-ha",
@@ -124,7 +148,10 @@
         "derived-functors"
       ],
       "blurb": "Spectral sequences stage difficult computations into successive approximation pages.",
-      "tags": ["cohomology", "exact-sequence"]
+      "tags": [
+        "cohomology",
+        "exact-sequence"
+      ]
     }
   ]
 }

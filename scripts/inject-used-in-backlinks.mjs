@@ -164,7 +164,11 @@ const RELATED_CSS = `  aside.related{
   aside.related a{color:inherit}`;
 
 // ----- Find section in HTML (audit-only) -----
-function findHtmlSection(html, anchor) {
+// `conceptAnchors` (optional) restricts the boundary scan to ids that are
+// real concept anchors. Without it, decorative <h3 id="..."> sub-headings
+// would prematurely truncate the section body and produce false-negative
+// "missing aside" reports when an aside is placed AFTER such a sub-heading.
+function findHtmlSection(html, anchor, conceptAnchors = null) {
   const idRe = new RegExp(
     `<([a-zA-Z][a-zA-Z0-9]*)([^>]*\\sid=["']${escapeRe(anchor)}["'][^>]*)>`,
     'i',
@@ -173,9 +177,18 @@ function findHtmlSection(html, anchor) {
   if (!m) return null;
   const innerStart = m.index + m[0].length;
 
-  const nextBoundaryRe = /<(?:section|h2|h3|h4)\b[^>]*\sid=["'][^"']+["']/gi;
+  // Walk subsequent boundary candidates in order; skip any whose id isn't a
+  // real concept anchor. We capture the id so the filter is cheap.
+  const nextBoundaryRe = /<(?:section|h2|h3|h4)\b[^>]*\sid=["']([^"']+)["']/gi;
   nextBoundaryRe.lastIndex = innerStart;
-  const nextBoundaryM = nextBoundaryRe.exec(html);
+  let nextBoundaryM = null;
+  let bm;
+  while ((bm = nextBoundaryRe.exec(html)) !== null) {
+    if (!conceptAnchors || conceptAnchors.has(bm[1])) {
+      nextBoundaryM = bm;
+      break;
+    }
+  }
 
   const nextCloseRe = /<\/section>/gi;
   nextCloseRe.lastIndex = innerStart;
@@ -352,6 +365,14 @@ for (const [hostTopic, d] of topicData) {
   }
 
   const jobs = [];
+  // Pre-build the registered-concept-anchor set so findHtmlSection can
+  // ignore decorative <h3 id="..."> sub-headings when picking section
+  // boundaries.
+  const conceptAnchors = new Set();
+  for (const c of d.concepts || []) {
+    if (c && c.anchor) conceptAnchors.add(c.anchor);
+  }
+
   for (const c of d.concepts || []) {
     if (!c.anchor) continue;
     const consumers = reverse.get(c.id);
@@ -367,7 +388,7 @@ for (const [hostTopic, d] of topicData) {
   const html = readFileSync(pagePath, 'utf8');
   const pageIssues = [];
   for (const job of jobs) {
-    const sec = findHtmlSection(html, job.anchor);
+    const sec = findHtmlSection(html, job.anchor, conceptAnchors);
     if (!sec) {
       pageIssues.push(`section #${job.anchor} (concept "${job.id}") not found`);
       continue;

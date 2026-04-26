@@ -10,8 +10,7 @@
       "prereqs": [
         "artin-reciprocity-preview"
       ],
-      "blurb": "Idèle class groups package global and local arithmetic data in one object.",
-      "tags": ["foundation"]
+      "blurb": "Idèle class groups package global and local arithmetic data in one object."
     },
     {
       "id": "hilbert-class-field",
@@ -22,7 +21,9 @@
         "class-group-units-ant"
       ],
       "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\operatorname{Gal}(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "artin-map-cft",
@@ -32,7 +33,9 @@
         "idele-class-groups"
       ],
       "blurb": "The Artin map identifies abelianized Galois groups with arithmetic quotient groups.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "local-global-cft",
@@ -52,7 +55,10 @@
         "artin-reciprocity-preview"
       ],
       "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection.",
-      "tags": ["classification", "duality"]
+      "tags": [
+        "classification",
+        "duality"
+      ]
     },
     {
       "id": "conductor-discriminant",

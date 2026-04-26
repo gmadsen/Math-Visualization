@@ -7,9 +7,11 @@
       "id": "simplex-category",
       "title": "The simplex category $\\Delta$",
       "anchor": "simplex-category",
-      "prereqs": ["categories-morphisms", "sets-functions"],
-      "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one.",
-      "tags": ["foundation"]
+      "prereqs": [
+        "categories-morphisms",
+        "sets-functions"
+      ],
+      "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
     },
     {
       "id": "simplicial-set",
@@ -30,7 +32,10 @@
         "open-sets"
       ],
       "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\"",
-      "tags": ["universal-property", "functoriality"]
+      "tags": [
+        "universal-property",
+        "functoriality"
+      ]
     },
     {
       "id": "nerve-of-category",
@@ -41,7 +46,9 @@
         "categories-morphisms"
       ],
       "blurb": "The nerve $N(C)_n$ is the set of length-$n$ composable strings of arrows in $C$. The face maps compose adjacent arrows; the degeneracies insert identities. The nerve is the bridge between category theory and homotopy theory.",
-      "tags": ["functoriality"]
+      "tags": [
+        "functoriality"
+      ]
     },
     {
       "id": "kan-complex",
@@ -51,7 +58,10 @@
         "simplicial-set"
       ],
       "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence).",
-      "tags": ["fibration", "lifting"]
+      "tags": [
+        "fibration",
+        "lifting"
+      ]
     },
     {
       "id": "horn-filling",
@@ -62,7 +72,10 @@
         "nerve-of-category"
       ],
       "blurb": "Demanding fillers only for *inner* horns $\\Lambda^n_k$ ($0 < k < n$) gives the Joyal model of $\\infty$-categories. The nerve of an ordinary category is exactly the simplicial set in which every inner horn has a *unique* filler.",
-      "tags": ["lifting", "fibration"]
+      "tags": [
+        "lifting",
+        "fibration"
+      ]
     }
   ]
 }

@@ -107,7 +107,7 @@ let existingCount = 0;
 // Uses the pre-parsed DOM from loadContentModel() to locate the anchor
 // element and the next boundary element, then derives byte offsets from
 // element `.range` metadata so downstream --fix splicing stays byte-exact.
-function findSection(topic, rawHtml, anchor) {
+function findSection(topic, rawHtml, anchor, conceptAnchors = null) {
   // 1. Resolve the element that carries id="anchor".
   let anchorEl = topic.sections.get(anchor) || null;
   if (!anchorEl && topic.html && typeof topic.html.getElementById === 'function') {
@@ -128,14 +128,33 @@ function findSection(topic, rawHtml, anchor) {
   //      same parent <section>, looking for the next heading-with-id or
   //      nested section-with-id.
   //    Fallback for both: end of enclosing <section> (just before </section>).
+  //
+  // When `conceptAnchors` is supplied, only nodes whose `id` is in that set
+  // count as boundaries — decorative <h3 id="..."> sub-headings (not
+  // registered as concept anchors) are skipped over. Without this filter,
+  // intra-section headings would prematurely truncate the body slice and
+  // cause false-negative "missing link" reports when a callback aside is
+  // placed AFTER such a sub-heading.
   const tag = (anchorEl.rawTagName || '').toLowerCase();
+  const isConceptBoundary = (n) => {
+    if (!n || n.nodeType !== 1 || !n.id || !n.range) return false;
+    const t = (n.rawTagName || '').toLowerCase();
+    if (t !== 'h2' && t !== 'h3' && t !== 'h4' && t !== 'section') return false;
+    if (conceptAnchors && !conceptAnchors.has(n.id)) return false;
+    return true;
+  };
   let boundaryStart = -1;
 
   if (tag === 'section') {
-    // First descendant heading-with-id or nested section-with-id.
-    const cand = anchorEl.querySelector('h2[id],h3[id],h4[id],section[id]');
-    if (cand && cand !== anchorEl && cand.range) {
+    // Walk descendants for the first boundary that's actually a registered
+    // concept anchor (when conceptAnchors is supplied) or any heading/section
+    // with id (legacy fallback). querySelectorAll preserves document order.
+    const cands = anchorEl.querySelectorAll('h2[id],h3[id],h4[id],section[id]');
+    for (const cand of cands) {
+      if (cand === anchorEl) continue;
+      if (!isConceptBoundary(cand)) continue;
       boundaryStart = cand.range[0];
+      break;
     }
   } else {
     // Heading anchor: scan following siblings for a concept-boundary.
@@ -145,12 +164,9 @@ function findSection(topic, rawHtml, anchor) {
       const idx = kids.indexOf(anchorEl);
       for (let i = idx + 1; i < kids.length; i++) {
         const n = kids[i];
-        if (!n || n.nodeType !== 1) continue;
-        const t = (n.rawTagName || '').toLowerCase();
-        if ((t === 'h2' || t === 'h3' || t === 'h4' || t === 'section') && n.id && n.range) {
-          boundaryStart = n.range[0];
-          break;
-        }
+        if (!isConceptBoundary(n)) continue;
+        boundaryStart = n.range[0];
+        break;
       }
     }
   }
@@ -325,7 +341,7 @@ function ensureCallbackCss(html) {
 //   - if a <div class="quiz" data-concept="..."> is present, insert BEFORE it
 //   - else, insert right before </section>
 function insertCallback(topic, html, anchor, links) {
-  const sec = findSection(topic, html, anchor);
+  const sec = findSection(topic, html, anchor, topic.conceptAnchors);
   if (!sec) return { html, note: `section #${anchor} not found` };
   const body = sec.body;
 
@@ -675,10 +691,10 @@ function applyJsonFix(doc, hostKeys) {
 // Compute missing links for each anchor. Returns:
 //   { anchor, id, missing: string[] | null }
 //   `missing` = null when the section element itself can't be found.
-function computeMissing(view, html, hostKeys) {
+function computeMissing(view, html, hostKeys, conceptAnchors = null) {
   const results = [];
   for (const { anchor, id, links } of hostKeys) {
-    const sec = findSection(view, html, anchor);
+    const sec = findSection(view, html, anchor, conceptAnchors || view.conceptAnchors);
     if (!sec) { results.push({ anchor, id, missing: null, links }); continue; }
     const presentHrefs = new Set();
     for (const hm of sec.body.matchAll(/<a[^>]+href=["']([^"']+)["']/g)) {
@@ -721,6 +737,17 @@ for (const topic of topics.values()) {
   // The HTML --fix path tolerates dups (it idempotently checks present
   // hrefs); the JSON --fix path mutates and would re-process the same
   // section repeatedly.  Dedupe by anchor up front.
+  // Pre-build the set of registered concept anchors for this topic so
+  // findSection can distinguish real concept-boundaries from decorative h3s.
+  // Mutated onto `topic` so insertCallback's later call paths pick it up
+  // without a separate plumb.
+  const conceptAnchors = new Set();
+  for (const conceptId of topic.conceptIds) {
+    const c = concepts.get(conceptId);
+    if (c && c.anchor) conceptAnchors.add(c.anchor);
+  }
+  topic.conceptAnchors = conceptAnchors;
+
   const hostKeys = [];
   const seenAnchors = new Set();
   for (const conceptId of topic.conceptIds) {
@@ -813,7 +840,8 @@ for (const topic of topics.values()) {
       }
       // Re-audit after fix.
       const afterView = html === origHtml ? topic : reparseTopicView(html);
-      for (const { anchor, id, missing } of computeMissing(afterView, html, hostKeys)) {
+      if (afterView !== topic) afterView.conceptAnchors = topic.conceptAnchors;
+      for (const { anchor, id, missing } of computeMissing(afterView, html, hostKeys, topic.conceptAnchors)) {
         if (missing === null) {
           missingReport.push(`${page}: section #${anchor} (concept "${id}") not found`);
           hadMissing = true;

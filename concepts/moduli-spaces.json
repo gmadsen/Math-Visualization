@@ -11,7 +11,9 @@
         "representability-criteria"
       ],
       "blurb": "A moduli problem asks for a geometric space classifying objects in families.",
-      "tags": ["moduli", "foundation"]
+      "tags": [
+        "moduli"
+      ]
     },
     {
       "id": "fine-vs-coarse-moduli",
@@ -21,7 +23,10 @@
         "moduli-problem"
       ],
       "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes.",
-      "tags": ["moduli", "universal-property"]
+      "tags": [
+        "moduli",
+        "universal-property"
+      ]
     },
     {
       "id": "automorphisms-obstruction",
@@ -31,7 +36,10 @@
         "fine-vs-coarse-moduli"
       ],
       "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$.",
-      "tags": ["moduli", "group-action"]
+      "tags": [
+        "moduli",
+        "group-action"
+      ]
     },
     {
       "id": "level-structures-moduli",
@@ -42,7 +50,9 @@
         "modular-form-definition"
       ],
       "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces.",
-      "tags": ["moduli"]
+      "tags": [
+        "moduli"
+      ]
     },
     {
       "id": "higher-genus-moduli",
@@ -53,7 +63,10 @@
         "riemann-roch"
       ],
       "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves.",
-      "tags": ["moduli", "compactness"]
+      "tags": [
+        "moduli",
+        "compactness"
+      ]
     }
   ]
 }

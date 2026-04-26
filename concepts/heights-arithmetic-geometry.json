@@ -12,8 +12,7 @@
       ],
       "blurb": "For a rational point $P=[x_0:\\dots:x_n]\\in\\mathbb{P}^n(\\mathbb{Q})$ with coprime integer coordinates, $H(P)=\\max_i|x_i|$ counts arithmetic complexity — roughly the digit-length needed to write the point down.",
       "tags": [
-        "finiteness",
-        "foundation"
+        "finiteness"
       ]
     },
     {
@@ -38,8 +37,7 @@
       ],
       "blurb": "Each line bundle $L$ on a projective variety $X$ over a number field gives a height $h_{X,L}:X(\\bar K)\\to\\mathbb{R}$, well-defined up to bounded functions. Pulling $\\mathcal{O}(1)$ back along $X\\hookrightarrow\\mathbb{P}^n$ recovers the naive height; functoriality $h_{X,f^*L}=h_{Y,L}\\circ f+O(1)$ makes this the universal height machine.",
       "tags": [
-        "functoriality",
-        "foundation"
+        "functoriality"
       ]
     },
     {
@@ -52,8 +50,7 @@
       ],
       "blurb": "On an abelian variety with a symmetric ample $L$, Tate's averaging $\\hat h(P)=\\lim_{n\\to\\infty} h_L([n]P)/n^2$ converges to a quadratic form on $A(\\bar K)$ that vanishes exactly on torsion. Polarising gives the Néron–Tate pairing whose Gram determinant on a Mordell–Weil basis is the regulator $R$ of refined BSD.",
       "tags": [
-        "duality",
-        "foundation"
+        "duality"
       ]
     },
     {

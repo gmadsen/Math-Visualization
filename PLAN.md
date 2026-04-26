@@ -18,9 +18,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 The creative-improvements arc shipped its full Tier 0 → Tier 2 plan; everything in the original scope landed. Open items below are post-arc polish that surfaced during integration but was deferred as low-leverage relative to the closeout.
 
-- **Audit-callbacks / inject-used-in-backlinks `findSection` boundary fix.** Both audit scripts use the next `<h3 id="…">` inside a `<section>` as the concept-boundary, which causes false-negative "missing link" reports when a sub-section heading carries an id but isn't itself a registered concept anchor. Worked around in this branch by stripping `id` attributes from purely decorative h3s in two agent-authored topics; the proper fix is to consult `concepts/<topic>.json` for the ground-truth concept-anchor set and only treat *those* as boundaries.
-- **Tier 1 tagging pass — coverage tail.** The tagging agent reached 62.8% (361 of 575 concepts) with quality > coverage. Roughly 200 untagged concepts remain — many genuinely unsuitable, but a follow-up pass focused on Modular forms / L-functions / capstones could close some real gaps. Also: the agent over-applied `foundation` (99 concepts vs the recommended ~30); a pruning pass would tighten the tag-explorer signal.
-- **Reverse-callback drift on probability-theory + adeles-and-ideles.** Several Tier 1 agents added cross-topic prereqs to these pages but `audit-callbacks` audit-mode disagrees with `--fix` mode for a couple of sections (false negatives in --no-fix). Same root cause as the first item.
+- **Tier 1 tagging pass — coverage tail.** The tagging agent reached 62.8% (361 of 575 concepts) with quality > coverage. Roughly 200 untagged concepts remain — many genuinely unsuitable, but a follow-up pass focused on Modular forms / L-functions / capstones could close some real gaps.
 
 ## Authoring polish — small
 

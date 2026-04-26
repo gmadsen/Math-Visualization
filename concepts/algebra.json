@@ -9,7 +9,9 @@
       "anchor": "intro",
       "prereqs": [],
       "blurb": "Core algebraic structures package operations with axioms and examples from symmetries to polynomial arithmetic.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "cayley-tables",
@@ -19,7 +21,9 @@
         "algebraic-structures"
       ],
       "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially. Reading the table by rows gives the regular action of $G$ on itself by left multiplication — the prototypical $G$-set, and Cayley's theorem realizes every finite group as a subgroup of $S_n$ via that action.",
-      "tags": ["group-action"]
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "quotients-homomorphisms",
@@ -37,8 +41,7 @@
       "prereqs": [
         "quotients-homomorphisms"
       ],
-      "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields.",
-      "tags": ["foundation"]
+      "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields."
     },
     {
       "id": "field-extensions-basics",
@@ -57,7 +60,9 @@
         "cayley-tables"
       ],
       "blurb": "Left cosets gH partition G into blocks all of size |H|, so |H| divides |G| and the index [G:H] counts how many cosets there are; normality is the equality of left and right coset partitions.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "quotient-groups-iso-theorems",
@@ -76,7 +81,10 @@
         "subgroups-cosets-lagrange"
       ],
       "blurb": "A group action splits a set into orbits whose sizes are indices of stabilizers (orbit-stabilizer); Burnside's lemma then counts orbits as the average number of fixed points across all group elements.",
-      "tags": ["group-action", "foundation"]
+      "tags": [
+        "group-action",
+        "foundation"
+      ]
     },
     {
       "id": "sylow-theorems",
@@ -87,7 +95,10 @@
         "subgroups-cosets-lagrange"
       ],
       "blurb": "For |G| = p^k m with p prime and gcd(p,m)=1, Sylow p-subgroups of order p^k always exist, are all conjugate, and their count n_p divides m and is congruent to 1 mod p — frequently forcing normality.",
-      "tags": ["classification", "group-action"]
+      "tags": [
+        "classification",
+        "group-action"
+      ]
     },
     {
       "id": "finite-abelian-classification",
@@ -97,7 +108,9 @@
         "quotient-groups-iso-theorems"
       ],
       "blurb": "Every finite abelian group is uniquely a direct sum of cyclic groups of prime-power order; the count of abelian groups of order n is a product over primes p | n of the number of partitions of v_p(n).",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "polynomial-rings-irreducibility",
@@ -117,7 +130,10 @@
         "group-actions-burnside"
       ],
       "blurb": "A split short exact sequence 1 → N → G → H → 1 reconstructs G as a semidirect product N ⋊_φ H, with the homomorphism φ: H → Aut(N) controlling how H twists N; φ trivial recovers the direct product.",
-      "tags": ["exact-sequence", "group-action"]
+      "tags": [
+        "exact-sequence",
+        "group-action"
+      ]
     }
   ]
 }
