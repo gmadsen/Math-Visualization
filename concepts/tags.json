@@ -1,0 +1,80 @@
+{
+  "_description": "Controlled vocabulary for the optional `tags` array on each concept entry. Tags surface unifying themes that cut across topic boundaries (a concept may carry several). validate-concepts.mjs enforces tags ⊂ this vocabulary; tags.html is the reader-facing tag explorer. To add a new tag here, also bump the bundle (build-concepts-bundle.mjs) so the explorer can find it under file://.",
+  "tags": [
+    {
+      "id": "duality",
+      "title": "Duality",
+      "blurb": "A pairing that swaps roles — points & functions, objects & their representations, source & target. Pontryagin, Poincaré, Serre, derived, and Tannaka all live here."
+    },
+    {
+      "id": "compactness",
+      "title": "Compactness",
+      "blurb": "Finiteness made geometric: every cover has a finite refinement, every net has a convergent subnet, every proper morphism is well-behaved at infinity."
+    },
+    {
+      "id": "functoriality",
+      "title": "Functoriality",
+      "blurb": "A construction that respects morphisms — naturality, base change, change-of-rings. The grammar of category theory."
+    },
+    {
+      "id": "universal-property",
+      "title": "Universal property",
+      "blurb": "An object defined by what maps to (or from) it. Limits, colimits, free constructions, adjoints, representability."
+    },
+    {
+      "id": "exact-sequence",
+      "title": "Exact sequence",
+      "blurb": "A chain where each piece's kernel matches the previous piece's image. Snake lemma, long exact sequences, spectral degenerations."
+    },
+    {
+      "id": "cohomology",
+      "title": "Cohomology",
+      "blurb": "Derived functors, sheaf and Galois cohomology, group cohomology, étale and de Rham — invariants extracted from a complex."
+    },
+    {
+      "id": "fibration",
+      "title": "Fibration",
+      "blurb": "Maps with a homotopy / lifting property — Serre, Kan, Grothendieck, locally trivial bundles."
+    },
+    {
+      "id": "descent",
+      "title": "Descent",
+      "blurb": "Reconstruct a global object from local data plus gluing — Galois, faithfully flat, sites and stacks."
+    },
+    {
+      "id": "moduli",
+      "title": "Moduli",
+      "blurb": "Parameter spaces for isomorphism classes — moduli of curves, vector bundles, formal groups, principal bundles."
+    },
+    {
+      "id": "lifting",
+      "title": "Lifting",
+      "blurb": "Extending solutions across an infinitesimal or rigid obstruction — Hensel's lemma, deformation, smoothness, formal completion."
+    },
+    {
+      "id": "finiteness",
+      "title": "Finiteness",
+      "blurb": "Noetherian, finite type, finite presentation, finitely generated — the conditions that make abstract machinery actually compute."
+    },
+    {
+      "id": "group-action",
+      "title": "Group action",
+      "blurb": "Symmetry on a set, scheme, or category — Galois actions on étale sheaves, Lie group actions on manifolds, Hecke actions on modular forms."
+    },
+    {
+      "id": "completion",
+      "title": "Completion",
+      "blurb": "Filling in limits — p-adic, formal-power-series, metric, profinite. Trades discreteness for continuity."
+    },
+    {
+      "id": "classification",
+      "title": "Classification",
+      "blurb": "A list of canonical forms — simple Lie algebras, finite simple groups, surfaces by Kodaira dimension, semisimple algebras."
+    },
+    {
+      "id": "foundation",
+      "title": "Foundation",
+      "blurb": "Definitional bedrock that downstream concepts assume — the vocabulary entries you can't skip."
+    }
+  ]
+}
