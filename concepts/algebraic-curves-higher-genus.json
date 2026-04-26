@@ -58,7 +58,7 @@
       "anchor": "moduli-of-curves-genus-g",
       "prereqs": [
         "smooth-projective-curve",
-        "groupoids-and-descent"
+        "dm-stacks-coarse-space"
       ],
       "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary."
     }

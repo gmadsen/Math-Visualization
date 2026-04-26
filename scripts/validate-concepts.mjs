@@ -112,6 +112,42 @@ for (const topic of onDiskTopicFiles) {
   }
 }
 
+// Levels-map drift detection. The `levels` field in concepts/index.json is
+// the single source of truth for topic difficulty (read by pathway.html and
+// audit-starter-concepts.mjs). Every registered topic must have an entry;
+// every entry must reference a registered topic; every value must be one
+// of the four valid level tokens.
+{
+  const indexPath = join(conceptsDir, 'index.json');
+  const r = readJson(indexPath);
+  if (r.ok && r.data && typeof r.data === 'object') {
+    const levels = r.data.levels;
+    if (levels === undefined) {
+      err(`concepts/index.json: missing required "levels" map (topic-difficulty classification)`);
+    } else if (!levels || typeof levels !== 'object' || Array.isArray(levels)) {
+      err(`concepts/index.json: "levels" must be an object mapping topic id → level`);
+    } else {
+      const VALID_LEVELS = new Set(['prereq', 'standard', 'advanced', 'capstone']);
+      const registeredSet = new Set(registeredTopics);
+      const levelKeys = Object.keys(levels);
+      for (const t of registeredTopics) {
+        if (!(t in levels)) {
+          err(`concepts/index.json: registered topic "${t}" has no entry in "levels"`);
+        }
+      }
+      for (const t of levelKeys) {
+        if (!registeredSet.has(t)) {
+          err(`concepts/index.json: "levels" references unregistered topic "${t}"`);
+        }
+        const v = levels[t];
+        if (typeof v !== 'string' || !VALID_LEVELS.has(v)) {
+          err(`concepts/index.json: "levels.${t}" = ${JSON.stringify(v)} (must be one of ${[...VALID_LEVELS].join(', ')})`);
+        }
+      }
+    }
+  }
+}
+
 // Build duplicate-aware conceptsById by walking each topic's raw JSON — the
 // model's first-writer-wins `concepts` map hides duplicates and the model
 // doesn't surface per-entry required-field gaps.

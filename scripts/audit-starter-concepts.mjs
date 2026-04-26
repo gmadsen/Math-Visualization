@@ -25,21 +25,28 @@ const repoRoot = resolve(dirname(__filename), '..');
 const conceptsDir = join(repoRoot, 'concepts');
 const auditsDir = join(repoRoot, 'audits');
 
+// Load every topic's concepts (and the canonical levels map).
+const indexJson = JSON.parse(readFileSync(join(conceptsDir, 'index.json'), 'utf8'));
+
 // Topics whose first concept legitimately has no prereqs — they're the
-// foundations the rest of the corpus rests on. Mirrors the TOPIC_LEVEL
-// "prereq" classification in pathway.html.
-const PREREQ_TOPICS = new Set([
-  'naive-set-theory',
-  'algebra',
-  'real-analysis',
-  'complex-analysis',
-  'point-set-topology',
-  'algebraic-topology',
-  'projective-plane',
-]);
+// foundations the rest of the corpus rests on. Derived from the canonical
+// `levels` map in concepts/index.json (single source of truth shared with
+// pathway.html). validate-concepts.mjs guards drift between `topics` and
+// `levels`, so any topic missing from `levels` surfaces in CI.
+const PREREQ_TOPICS = new Set(
+  Object.entries(indexJson.levels || {})
+    .filter(([, lvl]) => lvl === 'prereq')
+    .map(([t]) => t)
+);
 
 // Arc-of-new-topics (capstone arc + Stacks-Project arc + cocartesian-fibrations).
 // PLAN.md notes these were scaffolded with no cross-topic prereqs by design.
+// TODO: this set is heterogeneous (mixes capstone-level and standard-level
+// topics that share a "scaffolded recently, prereqs incomplete" property), so
+// it doesn't derive cleanly from `levels`. Promote to a `newArc` field on
+// concepts/index.json once the THIN-NEW backfill is far enough along that
+// the static list can shrink to zero entries instead of being maintained
+// in two places.
 const NEW_ARC_TOPICS = new Set([
   // capstone arc
   'elementary-topos-theory',
@@ -60,9 +67,6 @@ const NEW_ARC_TOPICS = new Set([
   // ∞-cats fill
   'cocartesian-fibrations',
 ]);
-
-// Load every topic's concepts.
-const indexJson = JSON.parse(readFileSync(join(conceptsDir, 'index.json'), 'utf8'));
 const topicData = new Map();
 for (const t of indexJson.topics) {
   const p = join(conceptsDir, `${t}.json`);

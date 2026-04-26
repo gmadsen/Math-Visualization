@@ -57,7 +57,7 @@
       "anchor": "g-set-topos",
       "prereqs": [
         "presheaf-topos",
-        "group-representations"
+        "cayley-tables"
       ],
       "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$."
     },

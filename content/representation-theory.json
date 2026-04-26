@@ -12,7 +12,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./elementary-topos-theory.html#g-set-topos\">Elementary topos theory</a> · The topos of $G$-sets</div>\n    <div><a href=\"./galois-representations.html#rep\">Galois representations</a> · Galois representations and examples</div>\n    <div><a href=\"./lie-groups.html#adjoint\">Lie groups</a> · Adjoint representation and Killing form</div>\n    <div><a href=\"./moonshine.html#monster\">Monstrous moonshine</a> · The Monster group and its irreducibles</div>\n    <div><a href=\"./representation-theory.html#maschke\">Representation theory</a> · Maschke's theorem</div>\n    <div><a href=\"./representation-theory.html#tensor-dual\">Representation theory</a> · Tensor products and dual representations</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois-representations.html#rep\">Galois representations</a> · Galois representations and examples</div>\n    <div><a href=\"./lie-groups.html#adjoint\">Lie groups</a> · Adjoint representation and Killing form</div>\n    <div><a href=\"./moonshine.html#monster\">Monstrous moonshine</a> · The Monster group and its irreducibles</div>\n    <div><a href=\"./representation-theory.html#maschke\">Representation theory</a> · Maschke's theorem</div>\n    <div><a href=\"./representation-theory.html#tensor-dual\">Representation theory</a> · Tensor products and dual representations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -335,13 +335,28 @@
   // the bundle fails to load (file:// without a fresh bundle, network
   // hiccup, etc.) so the page doesn't sit silently on "computing layout…"
   // forever.
-  function showError(title, body){
+  //
+  // Args are split so dynamic content can never reach innerHTML:
+  //   title          — plain string, rendered via textContent
+  //   bodyHtml       — trusted static HTML (caller controls; may contain <code>)
+  //   dynamicSuffix  — optional plain string (e.g. an Error.message),
+  //                    appended as a text node so any markup in it gets
+  //                    visibly escaped instead of corrupting the structure.
+  function showError(title, bodyHtml, dynamicSuffix){
     const loading = document.getElementById('loading');
     const banner  = document.getElementById('error-banner');
     if(loading) loading.style.display = 'none';
     if(!banner) return;
-    banner.innerHTML =
-      `<h2>${title}</h2><p>${body}</p>`;
+    while(banner.firstChild) banner.removeChild(banner.firstChild);
+    const h2 = document.createElement('h2');
+    h2.textContent = title;
+    const p = document.createElement('p');
+    p.innerHTML = bodyHtml;
+    if(dynamicSuffix){
+      p.appendChild(document.createTextNode(' ' + dynamicSuffix));
+    }
+    banner.appendChild(h2);
+    banner.appendChild(p);
     banner.hidden = false;
   }
 
@@ -365,8 +380,8 @@
         'Tried <code>./concepts/bundle.js</code> first, then live JSON fetch — both failed. ' +
         'If you opened this file via <code>file://</code>, regenerate the bundle with ' +
         '<code>node scripts/build-concepts-bundle.mjs</code> or serve the directory via ' +
-        '<code>python3 -m http.server</code>. Browser error: ' +
-        (e && e.message ? e.message : String(e))
+        '<code>python3 -m http.server</code>.',
+        'Browser error: ' + (e && e.message ? e.message : String(e))
       );
       throw e;
     }
@@ -964,7 +979,7 @@
         <span><b>${neighborhoodCount}</b> in ${focusDepth}-hop neighborhood</span>
       </div>
       <div class="factions">
-        <a href="./${n.topicPage}#${n.anchor}" target="_blank" rel="noopener">open ↗</a>
+        <a href="./${escHtml(n.topicPage)}#${escHtml(n.anchor)}" target="_blank" rel="noopener">open ↗</a>
         <button data-action="toggle-mastery">toggle v1 mastery</button>
         <button data-action="clear-focus">clear focus</button>
       </div>
@@ -1416,9 +1431,17 @@
       if(n.y < yMin) yMin = n.y;
       if(n.y > yMax) yMax = n.y;
     }
-    const w = Math.max(1, xMax - xMin), h = Math.max(1, yMax - yMin);
+    const w = xMax - xMin, h = yMax - yMin;
+    // Degenerate-input guard: if the force layout settled into a (near-)
+    // single point, the rescale below would translate every node to the
+    // viewport center and the graph would appear as a single dot. Bail
+    // out — the integrator's section-anchor pull makes this practically
+    // unreachable, but the safety net is cheap.
+    const EPS = 1;
+    if(w < EPS && h < EPS) return;
     const pad = 90;
-    const scale = Math.min((STAGE_W - pad*2) / w, (STAGE_H - pad*2) / h, 1.0);
+    const scale = Math.min((STAGE_W - pad*2) / Math.max(EPS, w),
+                           (STAGE_H - pad*2) / Math.max(EPS, h), 1.0);
     const cxSrc = (xMin + xMax) / 2, cySrc = (yMin + yMax) / 2;
     const cxDst = STAGE_W / 2,        cyDst = STAGE_H / 2;
     for(const n of nodes){

@@ -19,6 +19,7 @@ import {
   upsertFencedBlock,
   stripFencedBlock,
   ensureCss,
+  updateCss,
 } from './lib/json-block-writer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -343,6 +344,459 @@ console.log('test 6: position resolution');
     'before-section-end inserts as last block',
     tailBlocks[tailBlocks.length - 1].html.includes('tail-test-auto-begin'),
   );
+}
+
+// ----- Test 7: position resolution — before-fence:<other> symmetry -----
+
+console.log('test 7: before-fence:<other> position');
+{
+  const doc = deepClone(loadTopicContent(TOPIC, repoRoot));
+
+  // Seed a base fence so we have a target to position relative to.
+  upsertFencedBlock(doc, 'cat', 'sym-base', '<p>base</p>', {
+    position: 'before-quiz',
+  });
+
+  // Insert a sibling fence BEFORE the base fence using the symmetric form.
+  const r = upsertFencedBlock(doc, 'cat', 'sym-leader', '<p>leader</p>', {
+    position: 'before-fence:sym-base',
+  });
+  check('before-fence:<other> insert succeeds', r.action === 'inserted');
+
+  const blocks = findSection(doc, 'cat').section.blocks;
+  const baseIdx = blocks.findIndex(
+    (b) => b.type === 'raw' && b.html.includes('sym-base-auto-begin'),
+  );
+  check(
+    'before-fence sibling lands in the slot immediately before the target',
+    baseIdx >= 1 &&
+      blocks[baseIdx - 1] &&
+      blocks[baseIdx - 1].type === 'raw' &&
+      blocks[baseIdx - 1].html.includes('sym-leader-auto-begin'),
+    `baseIdx=${baseIdx}, prev=${JSON.stringify(blocks[baseIdx - 1])}`,
+  );
+}
+
+// ----- Test 8: throw paths -----
+//
+// Cover the validation throws that production callers rely on for fail-fast
+// behaviour:  unknown anchor, before-quiz with no quiz block, malformed
+// position, missing </style> in rawHead.
+
+console.log('test 8: throw paths');
+{
+  const doc = deepClone(loadTopicContent(TOPIC, repoRoot));
+
+  // Unknown anchor.
+  let threw = false;
+  let msg = '';
+  try {
+    upsertFencedBlock(doc, 'no-such-anchor-xyz', 'oops', '<p>x</p>', {
+      position: 'before-quiz',
+    });
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'upsertFencedBlock on unknown anchor throws',
+    threw && /no section with id/.test(msg),
+    msg,
+  );
+
+  // Section that genuinely lacks a quiz block (synthetic).
+  const noQuizDoc = deepClone(loadTopicContent(TOPIC, repoRoot));
+  const synthAnchor = '__test_no_quiz_section__';
+  noQuizDoc.sections.push({
+    id: synthAnchor,
+    blocks: [{ type: 'raw', html: '<p>just prose</p>' }],
+  });
+  threw = false;
+  msg = '';
+  try {
+    upsertFencedBlock(noQuizDoc, synthAnchor, 'oops', '<p>x</p>', {
+      position: 'before-quiz',
+    });
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'before-quiz on a section with no quiz block throws',
+    threw && /has no quiz block/.test(msg),
+    msg,
+  );
+
+  // Malformed position string (empty fence target).
+  threw = false;
+  msg = '';
+  try {
+    upsertFencedBlock(doc, 'cat', 'oops', '<p>x</p>', {
+      position: 'after-fence:',
+    });
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'after-fence: with empty target throws "malformed position"',
+    threw && /malformed position/.test(msg),
+    msg,
+  );
+
+  // Unknown position spec.
+  threw = false;
+  msg = '';
+  try {
+    upsertFencedBlock(doc, 'cat', 'oops', '<p>x</p>', {
+      position: 'middle-of-nowhere',
+    });
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'unknown position spec throws',
+    threw && /unknown position spec/.test(msg),
+    msg,
+  );
+
+  // Missing options.position.
+  threw = false;
+  try {
+    upsertFencedBlock(doc, 'cat', 'oops', '<p>x</p>', {});
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'missing options.position throws',
+    threw && /options\.position is required/.test(msg),
+    msg,
+  );
+
+  // ensureCss — missing </style> in rawHead.
+  const noStyleDoc = { rawHead: '<head><title>x</title></head>' };
+  threw = false;
+  msg = '';
+  try {
+    ensureCss(noStyleDoc, /aside\.x\s*\{/, 'aside.x{}');
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'ensureCss on rawHead with no </style> throws',
+    threw && /has no <\/style>/.test(msg),
+    msg,
+  );
+
+  // updateCss — missing </style> in rawHead, on the insert path (no fence).
+  threw = false;
+  msg = '';
+  try {
+    updateCss(noStyleDoc, 'no-style-fence', 'aside.x{}');
+  } catch (e) {
+    threw = true;
+    msg = e.message;
+  }
+  check(
+    'updateCss on rawHead with no </style> throws when fence absent',
+    threw && /has no <\/style>/.test(msg),
+    msg,
+  );
+}
+
+// ----- Test 9: existing un-fenced aside contract -----
+//
+// upsertFencedBlock targets a section that contains a hand-authored
+// (non-bracketed) <aside class="callback">.  The expected handover behaviour
+// is: the new fenced block is INSERTED alongside the un-fenced aside — the
+// un-fenced one is neither destroyed nor wrapped.
+
+console.log('test 9: un-fenced aside coexists with fenced upsert');
+{
+  const doc = deepClone(loadTopicContent(TOPIC, repoRoot));
+  const anchor = 'cat';
+  const section = findSection(doc, anchor).section;
+  const blocksBefore = section.blocks.length;
+
+  // Inject a hand-authored un-fenced aside as a fresh raw block.
+  const handAside =
+    '<aside class="callback"><p>hand-authored, not in a fence</p></aside>';
+  // Insert it just before the quiz so the section stays well-formed.
+  const quizIdx = section.blocks.findIndex((b) => b.type === 'quiz');
+  section.blocks.splice(quizIdx, 0, { type: 'raw', html: handAside });
+
+  // Now upsert a fenced block under a distinct fence name (so we're testing
+  // the fresh-insert contract, not the auto-explode of a preexisting fence).
+  const r = upsertFencedBlock(
+    doc,
+    anchor,
+    'unfenced-coexist-test',
+    '<aside class="callback"><p>fenced auto-generated</p></aside>',
+    { position: 'before-quiz' },
+  );
+  check(
+    'upsertFencedBlock inserts even when an un-fenced aside exists',
+    r.action === 'inserted' && r.changed === true,
+    JSON.stringify(r),
+  );
+
+  const after = findSection(doc, anchor).section.blocks;
+  const handAlive = after.some(
+    (b) => b.type === 'raw' && b.html === handAside,
+  );
+  const fencedAlive = after.some(
+    (b) =>
+      b.type === 'raw' &&
+      b.html.includes('unfenced-coexist-test-auto-begin') &&
+      b.html.includes('fenced auto-generated'),
+  );
+  check('un-fenced aside still present after upsert', handAlive);
+  check('fenced block also present after upsert', fencedAlive);
+  check(
+    'block count grew by exactly 2 (un-fenced + fenced)',
+    after.length === blocksBefore + 2,
+    `before=${blocksBefore} after=${after.length}`,
+  );
+}
+
+// ----- Test 10: auto-explode when fence is surrounded by other bytes -----
+//
+// Steady state for ~110 of 243 callback fences in the corpus: the fence sits
+// inside a host raw block that ALSO contains surrounding bytes (a `</section>`
+// close, an adjacent backlinks fence, inter-fence prose).  Naive wholesale
+// replacement would silently drop those surrounding bytes.  upsertFencedBlock
+// must auto-explode the host block, preserving every byte outside the fence
+// region.
+
+console.log('test 10: auto-explode preserves surrounding bytes');
+{
+  const doc = deepClone(loadTopicContent(TOPIC, repoRoot));
+  const anchor = 'cat';
+  const section = findSection(doc, anchor).section;
+
+  // Build a synthetic host raw block: fence wedged between a leading prose
+  // chunk and a trailing structural close.
+  const fenced =
+    '<!-- exp-test-auto-begin -->\n<aside class="callback"><p>old</p></aside>\n<!-- exp-test-auto-end -->';
+  const lead = '<p>leading prose that must survive</p>\n';
+  const tail = '\n<!-- backlinks-auto-begin -->\n<aside class="related"></aside>\n<!-- backlinks-auto-end -->\n</section>';
+  const host = lead + fenced + tail;
+
+  // Inject the host block before the quiz so the rest of the section parses.
+  const quizIdx = section.blocks.findIndex((b) => b.type === 'quiz');
+  section.blocks.splice(quizIdx, 0, { type: 'raw', html: host });
+  const blocksBefore = section.blocks.length;
+
+  // Upsert a fresh callback under the same fence name.
+  const r = upsertFencedBlock(
+    doc,
+    anchor,
+    'exp-test',
+    '<aside class="callback"><p>NEW content</p></aside>',
+    { position: 'before-quiz' },
+  );
+  check(
+    'auto-explode upsert returns action "replaced"',
+    r.action === 'replaced' && r.changed === true,
+    JSON.stringify(r),
+  );
+
+  const after = findSection(doc, anchor).section.blocks;
+  // Block count grew by 2: original host became { lead, fence, tail }.
+  check(
+    'host block exploded into 3 sibling raw blocks (count grew by 2)',
+    after.length === blocksBefore + 2,
+    `before=${blocksBefore} after=${after.length}`,
+  );
+
+  // The leading prose, the new fence content, and the trailing structural
+  // bytes all live on, in order.
+  const allHtml = after
+    .filter((b) => b.type === 'raw')
+    .map((b) => b.html)
+    .join('');
+  check(
+    'leading prose preserved',
+    allHtml.includes('leading prose that must survive'),
+  );
+  check(
+    'trailing </section> close preserved',
+    allHtml.includes('</section>'),
+  );
+  check(
+    'trailing backlinks fence preserved verbatim',
+    allHtml.includes('<!-- backlinks-auto-begin -->') &&
+      allHtml.includes('<!-- backlinks-auto-end -->'),
+  );
+  check(
+    'old fence content gone',
+    !allHtml.includes('<aside class="callback"><p>old</p></aside>'),
+  );
+  check(
+    'new fence content present',
+    allHtml.includes('<aside class="callback"><p>NEW content</p></aside>'),
+  );
+
+  // Re-running with the same content is idempotent (noop on the new
+  // standalone fence block).
+  const r2 = upsertFencedBlock(
+    doc,
+    anchor,
+    'exp-test',
+    '<aside class="callback"><p>NEW content</p></aside>',
+    { position: 'before-quiz' },
+  );
+  check(
+    'auto-exploded fence is idempotent on re-run',
+    r2.action === 'noop' && r2.changed === false,
+    JSON.stringify(r2),
+  );
+}
+
+// ----- Test 11: blockHasFence regex anchor (false-positive guard) -----
+//
+// A topic page that documents the fence syntax in a code example would
+// embed text like `&lt;!-- callback-auto-begin --&gt;` inside its HTML.
+// The old substring-based blockHasFence would treat that prose as a live
+// fence.  The regex-anchored version must NOT.
+
+console.log('test 11: blockHasFence regex anchors on HTML comment form');
+{
+  const doc = deepClone(loadTopicContent(TOPIC, repoRoot));
+  const anchor = 'cat';
+  const section = findSection(doc, anchor).section;
+
+  // A raw block with the fence token as escaped/encoded text content.  Use
+  // a fresh fence name (no preexisting live fence in the section) so we are
+  // testing the regex-anchor contract in isolation.
+  const escaped =
+    '<p>The fence token looks like <code>&lt;!-- regex-anchor-test-auto-begin --&gt;</code> in the source.</p>';
+  const quizIdx = section.blocks.findIndex((b) => b.type === 'quiz');
+  section.blocks.splice(quizIdx, 0, { type: 'raw', html: escaped });
+
+  // Now upsert a real fence under that name.  If blockHasFence false-positived
+  // on the escaped text, this would WHOLESALE-REPLACE the escaped block (or
+  // in the auto-explode world, mangle it) — destroying the prose.
+  const r = upsertFencedBlock(
+    doc,
+    anchor,
+    'regex-anchor-test',
+    '<aside class="callback"><p>real callback</p></aside>',
+    { position: 'before-quiz' },
+  );
+  check(
+    'upsert on a section with HTML-encoded fence prose acts as a fresh insert',
+    r.action === 'inserted' && r.changed === true,
+    JSON.stringify(r),
+  );
+
+  // The escaped prose block still exists verbatim.
+  const after = findSection(doc, anchor).section.blocks;
+  const escapedAlive = after.some(
+    (b) => b.type === 'raw' && b.html === escaped,
+  );
+  check('HTML-encoded fence prose left untouched', escapedAlive);
+}
+
+// ----- Test 12: updateCss — fenced CSS region -----
+
+console.log('test 12: updateCss');
+{
+  const doc = deepClone(loadTopicContent(TOPIC, repoRoot));
+
+  // Happy path: fence absent → insert.
+  const fenceName = 'jbw-test-css';
+  const r1 = updateCss(doc, fenceName, 'aside.jbw-test{display:none}');
+  check(
+    'updateCss insert path returns { changed: true, action: "inserted" }',
+    r1.changed === true && r1.action === 'inserted',
+    JSON.stringify(r1),
+  );
+  check(
+    'rawHead now contains the begin fence comment',
+    doc.rawHead.includes('/* jbw-test-css-auto-begin */'),
+  );
+  check(
+    'rawHead now contains the end fence comment',
+    doc.rawHead.includes('/* jbw-test-css-auto-end */'),
+  );
+  check(
+    'rawHead now contains the wrapped CSS body',
+    doc.rawHead.includes('aside.jbw-test{display:none}'),
+  );
+
+  // Idempotent re-run: same body → noop.
+  const r2 = updateCss(doc, fenceName, 'aside.jbw-test{display:none}');
+  check(
+    'updateCss re-run with same body returns { changed: false, action: "noop" }',
+    r2.changed === false && r2.action === 'noop',
+    JSON.stringify(r2),
+  );
+
+  // Update path: fence present, body changes → action "updated".
+  const r3 = updateCss(doc, fenceName, 'aside.jbw-test{display:block;color:red}');
+  check(
+    'updateCss with new body returns { changed: true, action: "updated" }',
+    r3.changed === true && r3.action === 'updated',
+    JSON.stringify(r3),
+  );
+  check(
+    'rawHead reflects the updated CSS body',
+    doc.rawHead.includes('aside.jbw-test{display:block;color:red}'),
+  );
+  check(
+    'rawHead no longer contains the previous CSS body',
+    !doc.rawHead.includes('aside.jbw-test{display:none}'),
+  );
+
+  // Re-run after update: noop.
+  const r4 = updateCss(doc, fenceName, 'aside.jbw-test{display:block;color:red}');
+  check(
+    'updateCss re-run after update is noop',
+    r4.changed === false && r4.action === 'noop',
+    JSON.stringify(r4),
+  );
+
+  // Confirm the fence appears exactly once (i.e. updates replace, not append).
+  const beginCount = (doc.rawHead.match(/jbw-test-css-auto-begin/g) || []).length;
+  const endCount = (doc.rawHead.match(/jbw-test-css-auto-end/g) || []).length;
+  check('fence begin token appears exactly once', beginCount === 1, `count=${beginCount}`);
+  check('fence end token appears exactly once', endCount === 1, `count=${endCount}`);
+
+  // Live disk untouched.
+  const reloaded = loadTopicContent(TOPIC, repoRoot);
+  check(
+    'live disk file rawHead untouched by updateCss',
+    !reloaded.rawHead.includes('jbw-test-css-auto-begin'),
+  );
+
+  // Throw on bad inputs.
+  let threw = false;
+  try {
+    updateCss(doc, '', 'foo');
+  } catch {
+    threw = true;
+  }
+  check('updateCss empty fenceName throws', threw);
+
+  threw = false;
+  try {
+    updateCss({ rawHead: 42 }, 'name', 'foo');
+  } catch {
+    threw = true;
+  }
+  check('updateCss non-string rawHead throws', threw);
+
+  threw = false;
+  try {
+    updateCss(doc, 'name', 42);
+  } catch {
+    threw = true;
+  }
+  check('updateCss non-string cssText throws', threw);
 }
 
 // ----- Done -----

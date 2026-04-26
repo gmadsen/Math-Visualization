@@ -195,7 +195,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g\">Algebraic curves: higher genus</a> · Moduli of higher-genus curves $\\mathcal{M}_g$</div>\n    <div><a href=\"./stacks.html#bg\">Stacks</a> · Classifying stacks BG</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stacks.html#bg\">Stacks</a> · Classifying stacks BG</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -777,7 +777,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-spaces.html#between-schemes-and-stacks\">Algebraic spaces</a> · Algebraic spaces sit between schemes and DM stacks</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g\">Algebraic curves: higher genus</a> · Moduli of higher-genus curves $\\mathcal{M}_g$</div>\n    <div><a href=\"./algebraic-spaces.html#between-schemes-and-stacks\">Algebraic spaces</a> · Algebraic spaces sit between schemes and DM stacks</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

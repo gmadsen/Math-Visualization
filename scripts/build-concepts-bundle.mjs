@@ -33,7 +33,14 @@ for (const t of index.topics) {
 const capstones = JSON.parse(readFileSync(join(conceptsDir, 'capstones.json'), 'utf8'));
 const sections = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'utf8'));
 
-const payload = { index, topics, capstones, sections };
+// Promote `levels` (topic-difficulty map) to a top-level field on the bundle
+// so consumers can do __MVConcepts.levels[topicId] without reaching into
+// __MVConcepts.index.levels. The map lives in concepts/index.json — this is
+// the single source of truth that pathway.html and audit-starter-concepts.mjs
+// both read from.
+const levels = index.levels || {};
+
+const payload = { index, topics, capstones, sections, levels };
 const body = JSON.stringify(payload, null, 2);
 
 const js =

@@ -490,26 +490,14 @@
     return TOPIC_SECTION[c.topicId] || 'Foundations';
   }
 
-  // ---------- topic → level mapping (mirrors index.html card level badges) ----------
-  // Only 22 of 54 cards carry an explicit <span class="level ...">. The rest
-  // are "standard" — mid-difficulty topics without a badge. Level filtering is
-  // therefore a partial heuristic; we surface all four buckets so the filter
-  // is still useful, and let individual capstone concepts override their
-  // topic's level (see levelFor below) so capstone goals always register
-  // as "capstone" regardless of the enclosing topic's badge.
-  const TOPIC_LEVEL = {
-    'naive-set-theory':'prereq','algebra':'prereq','real-analysis':'prereq',
-    'complex-analysis':'prereq','point-set-topology':'prereq',
-    'algebraic-topology':'prereq','projective-plane':'prereq',
-    'operator-algebras':'advanced','class-field-theory':'advanced',
-    'theta-functions':'advanced','hecke-operators':'advanced',
-    'moonshine':'advanced','singular-cubics-reduction':'advanced',
-    'moduli-spaces':'advanced','sheaf-cohomology':'advanced',
-    'galois-representations':'capstone','sato-tate':'capstone',
-    'bsd':'capstone','modularity-and-flt':'capstone',
-    'stacks':'capstone','etale-cohomology':'capstone'
-    // everything else is 'standard' by default
-  };
+  // ---------- topic → level mapping ----------
+  // Source of truth: concepts/index.json `levels` map, surfaced by
+  // build-concepts-bundle.mjs as window.__MVConcepts.levels. Every topic
+  // listed in concepts/index.json `topics` has an entry; validate-concepts.mjs
+  // flags drift in either direction. Valid values: prereq | standard |
+  // advanced | capstone. Capstone-goal concepts still override their topic's
+  // level via the CAPSTONE_GOAL_IDS branch in levelFor below.
+  const TOPIC_LEVEL = (window.__MVConcepts && window.__MVConcepts.levels) || {};
   const LEVEL_ORDER = ['prereq','standard','advanced','capstone'];
   // Set of concept ids that are capstone goals — lets a concept override its
   // topic's level with "capstone" when it's the actual goal of a capstone.

@@ -76,7 +76,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#finite\">Abstract algebra</a> · Quotients and finite fields</div>\n    <div><a href=\"./algebra.html#cosets\">Abstract algebra</a> · Subgroups, cosets, and Lagrange</div>\n    <div><a href=\"./representation-theory.html#def\">Representation theory</a> · Group representations</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#finite\">Abstract algebra</a> · Quotients and finite fields</div>\n    <div><a href=\"./algebra.html#cosets\">Abstract algebra</a> · Subgroups, cosets, and Lagrange</div>\n    <div><a href=\"./elementary-topos-theory.html#g-set-topos\">Elementary topos theory</a> · The topos of $G$-sets</div>\n    <div><a href=\"./representation-theory.html#def\">Representation theory</a> · Group representations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

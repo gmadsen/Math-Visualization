@@ -8,12 +8,15 @@
 // scripts a way to mutate the JSON instead, so their output survives the
 // round-trip.
 //
-// Scope.  Three idempotent JSON mutations:
+// Scope.  Four idempotent JSON mutations:
 //   - upsertFencedBlock  insert/replace a fenced raw-HTML block inside a
 //                        named section's blocks[]
 //   - stripFencedBlock   remove a fenced raw block by name
 //   - ensureCss          ensure a CSS rule lives inside doc.rawHead's
-//                        <style> block
+//                        <style> block (add-only — see updateCss for an
+//                        update-aware sibling)
+//   - updateCss          insert/replace a fenced CSS region inside
+//                        doc.rawHead's <style> block (rule-update aware)
 // Plus thin loaders/savers (`loadTopicContent`, `saveTopicContent`) that
 // match the on-disk byte format (`JSON.stringify(doc, null, 2) + '\n'`).
 //
@@ -89,6 +92,41 @@ function fenceEnd(name) {
   return `<!-- ${name}-auto-end -->`;
 }
 
+function escapeRe(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Compiled-once regex table per fence name — keeps the substring-vs-regex
+// behaviour predictable across calls.
+const fenceBeginReCache = new Map();
+function fenceBeginRe(name) {
+  let re = fenceBeginReCache.get(name);
+  if (!re) {
+    // Match the literal HTML-comment form only.  We deliberately do NOT
+    // match HTML-encoded variants (`&lt;!-- … --&gt;`) because those are
+    // text content (e.g. a topic page documenting the fence syntax), not
+    // active fences.
+    re = new RegExp('<!--\\s*' + escapeRe(name) + '-auto-begin\\s*-->');
+    fenceBeginReCache.set(name, re);
+  }
+  return re;
+}
+
+// Match the entire fenced region (begin token, body, end token) so callers
+// can locate the exact bytes the fence occupies inside a host raw block.
+const fenceRegionReCache = new Map();
+function fenceRegionRe(name) {
+  let re = fenceRegionReCache.get(name);
+  if (!re) {
+    re = new RegExp(
+      '<!--\\s*' + escapeRe(name) + '-auto-begin\\s*-->[\\s\\S]*?<!--\\s*' +
+        escapeRe(name) + '-auto-end\\s*-->',
+    );
+    fenceRegionReCache.set(name, re);
+  }
+  return re;
+}
+
 /**
  * Wrap `contentHtml` with the named fence:
  *   <!-- name-auto-begin -->
@@ -103,9 +141,13 @@ function wrapFence(name, contentHtml) {
   return `${fenceBegin(name)}\n${contentHtml}\n${fenceEnd(name)}`;
 }
 
+// Anchored on the actual HTML-comment form of the begin token.  Substring
+// matching here would false-positive on any prose that documents the fence
+// syntax (HTML-encoded `&lt;!-- callback-auto-begin --&gt;` text content
+// does NOT match — only a live HTML comment does).
 function blockHasFence(block, name) {
   return block && block.type === 'raw' && typeof block.html === 'string' &&
-    block.html.includes(fenceBegin(name));
+    fenceBeginRe(name).test(block.html);
 }
 
 // ---------------------------------------------------------------------------
@@ -170,6 +212,30 @@ function resolveInsertIndex(section, position) {
  * new fenced block.  Otherwise a new `raw` block is inserted at the
  * resolved position.
  *
+ * Auto-explode behaviour (Issue 1).  When the existing fence sits inside
+ * a host `raw` block alongside other bytes — the steady state for ~110 of
+ * 243 callback fences in the current corpus, where the fence shares a
+ * block with a neighbouring `</section>`, an adjacent backlinks fence, or
+ * inter-fence prose — naively replacing the whole host block's `html`
+ * would silently drop those surrounding bytes.  Instead, this function
+ * splits the host into up to three sibling `raw` blocks (before-fence /
+ * fence / after-fence), each carrying its own substring of the original
+ * `html`, and replaces only the middle one.
+ *
+ *   - Preserved: every byte outside the fence region (whitespace, prose,
+ *     adjacent fences, structural HTML).
+ *   - Lost: nothing — the byte concatenation of the three new blocks is
+ *     exactly the original host block's `html` minus the old fence region
+ *     plus the new wrapped fence region.
+ *   - When the fence already occupies the entire host block (no
+ *     surrounding bytes), no explosion happens; the `html` is updated in
+ *     place and the block count is unchanged.
+ *
+ * The same auto-explode pattern is used by the inject-used-in-backlinks
+ * consumer (`explodeFencedBacklinks`); centralising it here lets new
+ * callers reach for the obvious entry point without working around a
+ * footgun.
+ *
  * Args:
  *   doc          — content document (mutated in place)
  *   anchor       — section.id to target
@@ -213,7 +279,35 @@ export function upsertFencedBlock(doc, anchor, fenceName, contentHtml, options =
     if (existing.html === wrapped) {
       return { changed: false, action: 'noop' };
     }
-    section.blocks[existingIdx] = { ...existing, html: wrapped };
+
+    // Detect the surrounded-by-other-bytes case.  Locate the fence region
+    // inside `existing.html`; anything outside that region is host content
+    // we must preserve.
+    const regionRe = fenceRegionRe(fenceName);
+    const m = regionRe.exec(existing.html);
+    if (!m) {
+      // blockHasFence said yes but the full region didn't match — fence
+      // begin is present but end is missing or malformed.  Treat as a
+      // wholesale replace (the caller can repair the partial fence).
+      section.blocks[existingIdx] = { ...existing, html: wrapped };
+      return { changed: true, action: 'replaced' };
+    }
+    const before = existing.html.slice(0, m.index);
+    const after = existing.html.slice(m.index + m[0].length);
+
+    if (before.length === 0 && after.length === 0) {
+      // Fence occupies the whole host block — wholesale replace is safe.
+      section.blocks[existingIdx] = { ...existing, html: wrapped };
+      return { changed: true, action: 'replaced' };
+    }
+
+    // Auto-explode: split the host into up to three sibling raw blocks so
+    // the surrounding bytes survive intact.
+    const replacement = [];
+    if (before.length > 0) replacement.push({ type: 'raw', html: before });
+    replacement.push({ type: 'raw', html: wrapped });
+    if (after.length > 0) replacement.push({ type: 'raw', html: after });
+    section.blocks.splice(existingIdx, 1, ...replacement);
     return { changed: true, action: 'replaced' };
   }
 
@@ -259,6 +353,13 @@ export function stripFencedBlock(doc, anchor, fenceName) {
  * Otherwise splice `cssText` immediately before the first `</style>`,
  * followed by a single newline.  Mutates `doc.rawHead` in place.
  *
+ * **This is an add-only convenience.**  If the selector is already
+ * present, the existing rule's *content* is left alone — there is no way
+ * to update it through this API.  If you need the rule to track an
+ * authoritative source (i.e. updates should overwrite an existing rule,
+ * not silently no-op), use {@link updateCss} instead, which operates on
+ * a CSS-comment-fenced region.
+ *
  * Returns `{ changed }`.
  *
  * Throws if `doc.rawHead` is missing a `</style>` tag — that would be a
@@ -281,4 +382,88 @@ export function ensureCss(doc, selectorRegex, cssText) {
   doc.rawHead =
     doc.rawHead.slice(0, closeIdx) + cssText + '\n' + doc.rawHead.slice(closeIdx);
   return { changed: true };
+}
+
+// ---------------------------------------------------------------------------
+// Fenced CSS region — rule-update aware.
+// ---------------------------------------------------------------------------
+
+function cssFenceBegin(name) {
+  return `/* ${name}-auto-begin */`;
+}
+function cssFenceEnd(name) {
+  return `/* ${name}-auto-end */`;
+}
+
+const cssFenceRegionReCache = new Map();
+function cssFenceRegionRe(name) {
+  let re = cssFenceRegionReCache.get(name);
+  if (!re) {
+    re = new RegExp(
+      '/\\*\\s*' + escapeRe(name) + '-auto-begin\\s*\\*/[\\s\\S]*?/\\*\\s*' +
+        escapeRe(name) + '-auto-end\\s*\\*/',
+    );
+    cssFenceRegionReCache.set(name, re);
+  }
+  return re;
+}
+
+/**
+ * Insert or update a fenced CSS region inside `doc.rawHead`'s <style>
+ * block.  Mirrors {@link upsertFencedBlock} but uses CSS-comment fences
+ * (`/* fenceName-auto-begin *​/ … /* fenceName-auto-end *​/`) so the
+ * tokens are valid inside a `<style>` element.
+ *
+ * Behaviour:
+ *
+ *   - If the fenced region already exists in `doc.rawHead`, replace its
+ *     contents with `cssText` (wrapped between the begin/end fence
+ *     comments).  Returns action `'updated'` on byte change, `'noop'` on
+ *     idempotent re-run.
+ *   - If the fenced region is absent, splice the wrapped block in
+ *     immediately before the first `</style>`, followed by a newline.
+ *     Returns action `'inserted'`.
+ *
+ * Unlike {@link ensureCss}, callers do NOT pass a selector regex — the
+ * fence name itself is the identity, so the rule's selector list and
+ * body can change freely between runs without leaving the previous rule
+ * orphaned in the head.
+ *
+ * Returns `{ changed, action }` with `action ∈ 'inserted' | 'updated' |
+ * 'noop'` and `changed === false` iff `action === 'noop'`.
+ *
+ * Throws if `doc.rawHead` is not a string, `fenceName` is empty, or the
+ * insert path is taken and `doc.rawHead` has no `</style>` tag.
+ */
+export function updateCss(doc, fenceName, cssText) {
+  if (!doc || typeof doc.rawHead !== 'string') {
+    throw new Error('updateCss: doc.rawHead must be a string');
+  }
+  if (typeof fenceName !== 'string' || !fenceName) {
+    throw new Error('updateCss: fenceName must be a non-empty string');
+  }
+  if (typeof cssText !== 'string') {
+    throw new Error('updateCss: cssText must be a string');
+  }
+
+  const wrapped = `${cssFenceBegin(fenceName)}\n${cssText}\n${cssFenceEnd(fenceName)}`;
+
+  const regionRe = cssFenceRegionRe(fenceName);
+  const m = regionRe.exec(doc.rawHead);
+  if (m) {
+    if (m[0] === wrapped) {
+      return { changed: false, action: 'noop' };
+    }
+    doc.rawHead =
+      doc.rawHead.slice(0, m.index) + wrapped + doc.rawHead.slice(m.index + m[0].length);
+    return { changed: true, action: 'updated' };
+  }
+
+  const closeIdx = doc.rawHead.search(/<\/style>/i);
+  if (closeIdx < 0) {
+    throw new Error('updateCss: doc.rawHead has no </style>');
+  }
+  doc.rawHead =
+    doc.rawHead.slice(0, closeIdx) + wrapped + '\n' + doc.rawHead.slice(closeIdx);
+  return { changed: true, action: 'inserted' };
 }
