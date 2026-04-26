@@ -203,14 +203,67 @@ function reparseTopicView(rawHtml) {
   return { html: root, sections };
 }
 
-function buildCallbackHtml(links) {
-  const lis = links
-    .map((l) => `    <li><a href="./${l.page}#${l.anchor}">${l.title}</a></li>`)
-    .join('\n');
+// Extract every <li>...</li> from an existing callback aside, keyed by
+// the href in its first <a>. Used so the regenerator can re-emit them
+// verbatim — preserving both the link target AND any "— context" prose
+// authors typed in by hand.
+function extractCallbackLis(existingAside) {
+  const liByHref = new Map();
+  const liOrder = [];
+  if (!existingAside || typeof existingAside !== 'string') {
+    return { liByHref, liOrder };
+  }
+  // Capture every <li>...</li>, then on each, extract the first href.
+  const liRe = /<li>[\s\S]*?<\/li>/gi;
+  let m;
+  while ((m = liRe.exec(existingAside)) !== null) {
+    const liHtml = m[0].trim();
+    const hrefMatch = /<a\s+[^>]*href=["']([^"']+)["']/i.exec(liHtml);
+    if (!hrefMatch) continue;
+    const href = hrefMatch[1].trim();
+    if (!liByHref.has(href)) {
+      liByHref.set(href, liHtml);
+      liOrder.push(href);
+    }
+  }
+  return { liByHref, liOrder };
+}
+
+// Canonical-but-additive regenerator. Behavior:
+//   - If `existingAside` carries any <li> entries (prereq-derived OR
+//     hand-authored "See also" with prose), re-emit them verbatim
+//     in their original order. This preserves "Bézout's theorem — the
+//     prototype intersection-number computation, recovered in §4 from
+//     the Chow ring of P^2." style annotations and the hand-curated
+//     non-prereq cross-references that historically lived in callback
+//     asides alongside the prereq-derived links.
+//   - For every prereq link in `links` that doesn't already match an
+//     existing <li>'s href, append a bare `<li><a>title</a></li>` at
+//     the end of the list.
+//   - Match by both `./page.html#anchor` and the bare `page.html#anchor`
+//     forms so historic encodings are respected.
+//
+// Net: the aside grows monotonically. Prereq additions surface as new
+// <li>s; prereq removals are a no-op (the link stays — humans curate
+// removals). This was the source of the P0 prose-loss regression: the
+// previous version regenerated the aside from scratch, dropping every
+// hand-authored entry that wasn't backed by a prereq edge.
+function buildCallbackHtml(links, existingAside) {
+  const { liByHref, liOrder } = extractCallbackLis(existingAside);
+  // Helper: for a prereq link, produce both candidate href forms.
+  const hrefForms = (l) => [`./${l.page}#${l.anchor}`, `${l.page}#${l.anchor}`];
+  // Build indented <li>s in this order: existing first, then new.
+  const lines = [];
+  for (const href of liOrder) lines.push('    ' + liByHref.get(href));
+  for (const l of links) {
+    const [href1, href2] = hrefForms(l);
+    if (liByHref.has(href1) || liByHref.has(href2)) continue;
+    lines.push(`    <li><a href="${href1}">${l.title}</a></li>`);
+  }
   return `<aside class="callback">
   <div class="ttl">See also</div>
   <ul>
-${lis}
+${lines.join('\n')}
   </ul>
 </aside>`;
 }
@@ -365,6 +418,22 @@ function stripUnfencedAsides(section) {
   return { strips, anchorIndex };
 }
 
+// Find any existing <aside class="callback">…</aside> currently present in
+// the section's raw blocks (fenced or un-fenced), and return its HTML.
+// Used by the regenerator to harvest per-prereq prose annotations before
+// rebuilding the canonical aside, so hand-authored "— context" suffixes
+// on `<li>` items are preserved across `--fix` runs.
+function findExistingCallbackAsideHtml(section) {
+  if (!Array.isArray(section.blocks)) return null;
+  const asideRe = /<aside\s+class=["']callback["'][\s\S]*?<\/aside>/i;
+  for (const b of section.blocks) {
+    if (!b || b.type !== 'raw' || typeof b.html !== 'string') continue;
+    const m = asideRe.exec(b.html);
+    if (m) return m[0];
+  }
+  return null;
+}
+
 // Replace the FIRST un-fenced <aside class="callback"> ... </aside> inside
 // `section`'s raw blocks with `replacementHtml` (verbatim — caller is
 // responsible for fence wrapping).  Preserves byte position: the
@@ -480,7 +549,13 @@ function applyJsonFix(doc, hostKeys) {
       missingSections.push(anchor);
       continue;
     }
-    const fencedHtml = wrapCallbackFence(buildCallbackHtml(links));
+    // Harvest any existing callback aside (fenced or un-fenced) so
+    // hand-authored per-prereq prose annotations survive the canonical
+    // regeneration. Without this, regen produces bare
+    // `<li><a>title</a></li>` skeletons and any "— context here" suffix
+    // is lost forever.
+    const existingAside = findExistingCallbackAsideHtml(found.section);
+    const fencedHtml = wrapCallbackFence(buildCallbackHtml(links, existingAside));
 
     // Idempotency / in-place mutation: if the section already has a fenced
     // callback block (anywhere — including INLINE inside a larger raw

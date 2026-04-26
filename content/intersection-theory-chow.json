@@ -54,7 +54,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
+          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./bezout.html#bezout\">Bézout's theorem</a> — the prototype intersection-number computation, recovered in §4 from the Chow ring of $\\mathbb{P}^2$.</li>\n    <li><a href=\"./schemes.html\">Schemes</a> — every closed subvariety appearing here is the support of a closed subscheme; rational equivalence is most cleanly stated in scheme-theoretic language.</li>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
         },
         {
           "type": "raw",
@@ -126,7 +126,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./projective-plane.html#defn\">Projective points and lines</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
+          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./bezout.html#bezout\">Bézout's theorem</a> — the case $n = 2$, recovered as multiplication in $\\mathbb{Z}[h]/(h^3)$.</li>\n    <li><a href=\"./projective-plane.html#defn\">Projective points and lines</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
         },
         {
           "type": "quiz",
@@ -190,7 +190,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemann-surfaces.html#divisors\">Divisors and the Riemann–Roch theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
+          "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sheaves.html\">Sheaves</a> — coherent sheaves are the input data of $\\chi(X, \\mathcal{F})$.</li>\n    <li><a href=\"./schemes.html\">Schemes</a> — Riemann–Roch generalises to schemes via the same Chern-character / Todd-class machine.</li>\n    <li><a href=\"./riemann-surfaces.html#divisors\">Divisors and the Riemann–Roch theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
         },
         {
           "type": "quiz",

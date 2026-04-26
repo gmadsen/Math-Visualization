@@ -29,6 +29,7 @@ test_index.js
 .claude/worktrees
 .claude/worktree
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
 
 # examples/ build outputs
 examples/react-consumer/render.html

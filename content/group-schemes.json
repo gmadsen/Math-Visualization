@@ -64,7 +64,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\"><strong>Worked example.</strong> Over $\\bar{\\mathbb{F}_5}$, $|\\mu_4(\\bar{\\mathbb{F}_5})| = 4$ because $\\gcd(4,5) = 1$ and $t^4 - 1 = (t-1)(t-2)(t-3)(t-4)$ splits into distinct linear factors. Over $\\bar{\\mathbb{F}_2}$, $|\\mu_4(\\bar{\\mathbb{F}_2})| = 1$: the equation becomes $t^4 - 1 = (t-1)^4$ and there is only the root $t = 1$ (with multiplicity 4 — the nilpotent infinitesimal pieces survive at the scheme level).</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./schemes.html#intro\">Prime spectrum and Zariski topology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
+          "html": "\n\n<div class=\"note\"><strong>Worked example.</strong> Over $\\bar{\\mathbb{F}_5}$, $|\\mu_4(\\bar{\\mathbb{F}_5})| = 4$ because $\\gcd(4,5) = 1$ and $t^4 - 1 = (t-1)(t-2)(t-3)(t-4)$ splits into distinct linear factors. Over $\\bar{\\mathbb{F}_2}$, $|\\mu_4(\\bar{\\mathbb{F}_2})| = 1$: the equation becomes $t^4 - 1 = (t-1)^4$ and there is only the root $t = 1$ (with multiplicity 4 — the nilpotent infinitesimal pieces survive at the scheme level).</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./quadratic-reciprocity.html#multiplicative-group-mod-p\">$(\\mathbb{Z}/p)^\\times$ as a cyclic group</a></li>\n    <li><a href=\"./galois.html#cyclotomic\">Cyclotomic extensions and $\\mu_n$</a></li>\n    <li><a href=\"./schemes.html#intro\">Prime spectrum and Zariski topology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n"
         },
         {
           "type": "raw",
@@ -166,7 +166,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./smooth-manifolds.html#bracket\">Lie bracket of vector fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html\">Lie groups and their Lie algebras</a></li>\n    <li><a href=\"./smooth-manifolds.html#bracket\">Lie bracket of vector fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",
@@ -194,7 +194,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sheaf-cohomology.html#cech\">Čech cocycles and cohomology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./etale-cohomology.html\">Étale cohomology</a></li>\n    <li><a href=\"./class-field-theory.html\">Class field theory and Galois cohomology</a></li>\n    <li><a href=\"./sheaf-cohomology.html#cech\">Čech cocycles and cohomology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",

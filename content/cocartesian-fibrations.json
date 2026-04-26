@@ -18,7 +18,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./simplicial-sets-and-nerve.html#horn-filling\">Inner-horn filling and quasi-categorical nerves</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>Horn-filling and the simplex-by-simplex setup of fibrations: <a href=\"./simplicial-sets-and-nerve.html#horns\">simplicial sets &amp; the nerve · Horns and inner-horn filling</a>.</li>\n    <li>Inner fibrations between $\\infty$-categories: <a href=\"./infinity-categories.html#quasi-category\">$\\infty$-categories · Quasi-categories</a>.</li>\n    <li><a href=\"./simplicial-sets-and-nerve.html#horn-filling\">Inner-horn filling and quasi-categorical nerves</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",
@@ -162,7 +162,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./infinity-categories.html#infty-functors\">Functors and natural transformations $\\infty$-categorically</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>The $1$-categorical antecedent — pseudofunctors and Grothendieck (op-)fibrations: <a href=\"./category-theory.html#yoneda\">category theory · The Yoneda lemma</a> (Yoneda is the universal left fibration in the $\\infty$-version, §6).</li>\n    <li><a href=\"./infinity-categories.html#infty-functors\">Functors and natural transformations $\\infty$-categorically</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",
@@ -236,7 +236,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#covers\">Covering spaces</a></li>\n    <li><a href=\"./infinity-categories.html#quasi-category\">Quasi-categories</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+          "html": "\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>The classical $1$-categorical opfibration of modules: <a href=\"./commutative-algebra.html#modules\">commutative algebra · Modules</a> (where base change is the underived $S \\otimes_R -$).</li>\n    <li>$\\infty$-adjunctions packaged as biCartesian fibrations over $\\Delta^1$: <a href=\"./infinity-categories.html#infty-adjunctions\">$\\infty$-categories · Adjunctions</a>.</li>\n    <li><a href=\"./infinity-categories.html#quasi-category\">Quasi-categories</a></li>\n    <li><a href=\"./algebraic-topology.html#covers\">Covering spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",
