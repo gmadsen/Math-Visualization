@@ -285,13 +285,19 @@ for (const [hostTopic, d] of topicData) {
     function parentSectionIdFor(anchor) {
       if (!anchor) return null;
       if (sectionsBySectionId.has(anchor)) return anchor;
+      // Anchored regex match instead of substring `.includes('id="X"')` — the
+      // substring form would false-match `id="paths"` inside `id="paths-derived"`
+      // because there's no boundary check between the captured anchor and the
+      // closing quote. The regex form requires the matching quote character
+      // (single or double) to immediately follow `escapeRe(anchor)`, eliminating
+      // the latent collision risk flagged by PR review.
+      const idRe = new RegExp(`\\bid=("${escapeRe(anchor)}"|'${escapeRe(anchor)}')`);
       for (const section of doc.sections || []) {
         if (!Array.isArray(section.blocks)) continue;
-        const idLiteral = `id="${anchor}"`;
         for (const block of section.blocks) {
           if (
             block && block.type === 'raw' && typeof block.html === 'string' &&
-            block.html.includes(idLiteral)
+            idRe.test(block.html)
           ) {
             return section.id || null;
           }

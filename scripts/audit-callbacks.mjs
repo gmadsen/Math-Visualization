@@ -613,7 +613,29 @@ function applyJsonFix(doc, hostKeys) {
     }
   }
 
-  return { stripped, inserted, replaced, missingSections };
+  // Pass 4: stale-aside drift detection. Scan every section that's NOT in
+  // hostKeys (i.e. has no current cross-topic prereqs requiring a
+  // callback). If any of them carry an un-fenced or fenced
+  // <aside class="callback">, log a stderr warning so prereq removals
+  // surface as a drift signal instead of silently leaving stale links
+  // forever. We don't auto-strip — sub-anchor concepts (paths,
+  // simply-connected, discriminant) live inside a parent section whose
+  // id won't match any hostKey anchor, and their parent's un-fenced
+  // aside is still valid. The warning lets a human eyeball the diff.
+  const hostKeyAnchors = new Set(hostKeys.map((k) => k.anchor));
+  const staleHits = [];
+  for (const section of doc.sections || []) {
+    if (hostKeyAnchors.has(section.id)) continue;
+    if (!Array.isArray(section.blocks)) continue;
+    for (const b of section.blocks) {
+      if (!b || b.type !== 'raw' || typeof b.html !== 'string') continue;
+      if (/<aside\s+class=["']callback["']/i.test(b.html)) {
+        staleHits.push(section.id);
+        break;
+      }
+    }
+  }
+  return { stripped, inserted, replaced, missingSections, staleAsides: staleHits };
 }
 
 // Wrap a callback-aside HTML in the canonical fence comments.  Mirrors what
@@ -719,6 +741,14 @@ for (const topic of topics.values()) {
       // missing-link regressions, so CI's `rebuild --no-fix` is still strict.
       for (const anchor of result.missingSections) {
         console.warn(`  ⚠ ${page}: skipping sub-anchor #${anchor} — JSON has no matching section, existing HTML aside on parent section preserved`);
+      }
+      // Drift signal: section has a callback aside but its concept no
+      // longer requires one. Could be (a) a prereq edge was deleted but
+      // the aside wasn't cleaned up, (b) a sub-anchor concept whose
+      // parent section is rendering both — usually case (b) and
+      // ignorable. Don't auto-strip; just surface the list.
+      if (result.staleAsides && result.staleAsides.length > 0) {
+        console.warn(`  ⚠ ${page}: section(s) with callback aside but no current cross-topic prereqs: ${result.staleAsides.join(', ')} — review whether to remove`);
       }
       const wrote = saveTopicContent(topic.id, doc, repoRoot);
       if (wrote) {

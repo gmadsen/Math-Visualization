@@ -15,6 +15,7 @@
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { computeSectionStats, topicSectionFromSectionsJson } from './lib/section-stats.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -40,7 +41,21 @@ const sections = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'ut
 // both read from.
 const levels = index.levels || {};
 
-const payload = { index, topics, capstones, sections, levels };
+// Precompute per-section structural stats and embed them in the bundle.
+// Single source of truth: scripts/lib/section-stats.mjs. mindmap.html
+// reads __MVConcepts.sectionStats instead of recomputing — that's what
+// eliminates the duplicated-algorithm-with-subtle-divergence risk
+// flagged in PR review. audit-starter-concepts.mjs uses the same lib
+// for its `audits/starter-concepts.md` snapshot.
+const topicSection = topicSectionFromSectionsJson(sections);
+const sectionOrder = (sections.sections || []).map((s) => s.title);
+const { stats: sectionStats } = computeSectionStats({
+  topics,
+  topicSection,
+  sectionOrder,
+});
+
+const payload = { index, topics, capstones, sections, levels, sectionStats };
 const body = JSON.stringify(payload, null, 2);
 
 const js =

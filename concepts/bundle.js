@@ -5862,5 +5862,56 @@ window.__MVConcepts = {
     "bsd": "capstone",
     "modularity-and-flt": "capstone",
     "etale-cohomology": "capstone"
+  },
+  "sectionStats": {
+    "Foundations": {
+      "concepts": 5,
+      "intra": 5,
+      "crossOut": 0,
+      "crossIn": 5,
+      "density": 0
+    },
+    "Algebra": {
+      "concepts": 113,
+      "intra": 171,
+      "crossOut": 13,
+      "crossIn": 30,
+      "density": 0.11504424778761062
+    },
+    "Analysis": {
+      "concepts": 101,
+      "intra": 143,
+      "crossOut": 12,
+      "crossIn": 19,
+      "density": 0.1188118811881188
+    },
+    "Geometry & topology": {
+      "concepts": 49,
+      "intra": 58,
+      "crossOut": 6,
+      "crossIn": 42,
+      "density": 0.12244897959183673
+    },
+    "Number theory": {
+      "concepts": 57,
+      "intra": 70,
+      "crossOut": 15,
+      "crossIn": 14,
+      "density": 0.2631578947368421
+    },
+    "Modular forms & L-functions": {
+      "concepts": 71,
+      "intra": 92,
+      "crossOut": 39,
+      "crossIn": 5,
+      "density": 0.5492957746478874
+    },
+    "Algebraic geometry": {
+      "concepts": 109,
+      "intra": 132,
+      "crossOut": 41,
+      "crossIn": 11,
+      "density": 0.3761467889908257
+    }
   }
 };

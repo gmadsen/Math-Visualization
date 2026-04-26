@@ -1294,54 +1294,6 @@
       capUl.hidden = false; capH.hidden = false;
     }
 
-    // Wire click handlers for both gap-list panels. Clicking the title or
-    // the row body focuses the related concept on the mindmap (capstones)
-    // or filters by topic (orphan rows). The "↗ page" affordance opens the
-    // page in a new tab — its propagation is stopped so it doesn't double-
-    // trigger the row handler.
-    function activateRow(li){
-      [...document.querySelectorAll('#gap-list li.active')].forEach(el => el.classList.remove('active'));
-      li.classList.add('active');
-    }
-    function handleGapRowActivation(li){
-      const focusId = li.dataset.focusId;
-      const topicSearch = li.dataset.topicSearch;
-      if(focusId){
-        const idx = nodeIndex.get(focusId);
-        if(idx == null) return;
-        focusIdx = idx;
-        applyFocus();
-        centerViewOn(idx);
-      } else if(topicSearch){
-        // Topic-level cluster: clearer to filter the whole topic via the
-        // search bar than to focus a single representative concept.
-        searchEl.value = topicSearch;
-        applySearch();
-        clearFocus();
-      } else {
-        return;
-      }
-      activateRow(li);
-      document.getElementById('stage').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    const gapList = document.getElementById('gap-list');
-    gapList.addEventListener('click', (ev) => {
-      // Don't intercept the inner page link.
-      if(ev.target.closest('.gopen')){ ev.stopPropagation(); return; }
-      const li = ev.target.closest('li');
-      if(!li) return;
-      handleGapRowActivation(li);
-    });
-    // Keyboard activation — gap-list rows are role="button" tabindex=0.
-    // Enter / Space activate just like a click.
-    gapList.addEventListener('keydown', (ev) => {
-      if(ev.key !== 'Enter' && ev.key !== ' ') return;
-      const li = ev.target.closest('li');
-      if(!li || !gapList.contains(li)) return;
-      ev.preventDefault();
-      handleGapRowActivation(li);
-    });
-
     if(orphanRows.length === 0 && capDisplayed.length === 0){
       document.getElementById('gap-list').hidden = true;
       return;
@@ -1353,45 +1305,78 @@
     });
   }
 
+  // ---------- gap-list wiring ----------
+  // Click + Enter/Space activate a gap-list row; the "↗ page" affordance
+  // opens the topic page in a new tab. Bindings live at module scope so a
+  // future re-render of the gap-list (currently unreachable but defensive)
+  // doesn't stack listeners — the previous implementation re-bound on
+  // every buildGapList() call, flagged P3 in PR review.
+  function activateGapRow(li){
+    [...document.querySelectorAll('#gap-list li.active')].forEach(el => el.classList.remove('active'));
+    li.classList.add('active');
+  }
+  function handleGapRowActivation(li){
+    const focusId = li.dataset.focusId;
+    const topicSearch = li.dataset.topicSearch;
+    if(focusId){
+      const idx = nodeIndex.get(focusId);
+      if(idx == null) return;
+      focusIdx = idx;
+      applyFocus();
+      centerViewOn(idx);
+    } else if(topicSearch){
+      // Topic-level cluster: clearer to filter the whole topic via the
+      // search bar than to focus a single representative concept.
+      searchEl.value = topicSearch;
+      applySearch();
+      clearFocus();
+    } else {
+      return;
+    }
+    activateGapRow(li);
+    document.getElementById('stage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  (function wireGapListListeners(){
+    const gapList = document.getElementById('gap-list');
+    if(!gapList) return;
+    gapList.addEventListener('click', (ev) => {
+      if(ev.target.closest('.gopen')){ ev.stopPropagation(); return; }
+      const li = ev.target.closest('li');
+      if(!li) return;
+      handleGapRowActivation(li);
+    });
+    gapList.addEventListener('keydown', (ev) => {
+      if(ev.key !== 'Enter' && ev.key !== ' ') return;
+      const li = ev.target.closest('li');
+      if(!li || !gapList.contains(li)) return;
+      ev.preventDefault();
+      handleGapRowActivation(li);
+    });
+  })();
+
   // ---------- per-section structural stats ----------
-  // For each section, compute: concept count, intra-section prereq edges,
-  // cross-topic out-edges (this section → another), cross-topic in-edges
-  // (another section → this), and a per-concept density. Surfaces uneven
-  // structural connectivity — sections with a low cross-out density are
-  // candidates for the next prereq audit pass.
+  // Reads precomputed `__MVConcepts.sectionStats` (built by
+  // scripts/build-concepts-bundle.mjs via scripts/lib/section-stats.mjs).
+  // The browser does no recomputation here — eliminating the duplicated-
+  // algorithm-with-subtle-divergence risk flagged in PR review. The
+  // single source of truth is the lib; audit-starter-concepts.mjs reads
+  // the same lib for its CI snapshot.
   function buildSectionStats(){
-    const stats = new Map();
-    for(const sec of SECTION_ORDER){
-      stats.set(sec, { concepts: 0, intra: 0, crossOut: 0, crossIn: 0 });
-    }
-    for(const n of nodes){
-      stats.get(n.section).concepts++;
-    }
-    for(const e of edges){
-      const fromSec = nodes[e.from].section;
-      const toSec   = nodes[e.to].section;
-      if(fromSec === toSec){
-        stats.get(fromSec).intra++;
-      } else {
-        // edge is prereq → consumer; "cross out from prereq side", "cross in
-        // on consumer side". Density on the consumer side measures how much
-        // a section pulls from upstream foundations.
-        stats.get(fromSec).crossIn++;     // prereq's section receives the in-edge from a downstream section
-        stats.get(toSec).crossOut++;      // consumer's section is reaching out to a different section's prereq
-      }
-    }
-    // Normalize the wording: "cross out" = outbound prereq dependencies
-    // (this section depends on another), "cross in" = inbound consumers
-    // (other sections depend on this one). The accounting above is correct
-    // — flip per-edge naming for clarity.
     const tbody = document.getElementById('section-stats-tbody');
     if(!tbody) return;
-    // Find max crossOut for "high" highlighting threshold.
-    const allOut = SECTION_ORDER.map(s => stats.get(s).crossOut);
+    const precomputed = (window.__MVConcepts && window.__MVConcepts.sectionStats) || null;
+    if(!precomputed){
+      tbody.innerHTML =
+        '<tr><td colspan="6" style="color:var(--mute);font-style:italic">' +
+        'section stats unavailable — concepts/bundle.js is stale; run ' +
+        '<code>node scripts/build-concepts-bundle.mjs</code></td></tr>';
+      return;
+    }
+    const allOut = SECTION_ORDER.map(s => (precomputed[s]?.crossOut) || 0);
     const maxOut = Math.max(...allOut, 1);
     const rows = SECTION_ORDER.map(sec => {
-      const r = stats.get(sec);
-      const density = r.concepts > 0 ? (r.crossOut / r.concepts) : 0;
+      const r = precomputed[sec] || { concepts: 0, intra: 0, crossOut: 0, crossIn: 0, density: 0 };
+      const density = typeof r.density === 'number' ? r.density : (r.concepts > 0 ? r.crossOut / r.concepts : 0);
       const densityCls = density >= 0.5 ? 'high' : (density === 0 ? 'zero' : '');
       const outCls = r.crossOut === maxOut && maxOut > 5 ? 'high' : (r.crossOut === 0 ? 'zero' : '');
       return `<tr>

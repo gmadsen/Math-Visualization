@@ -19,6 +19,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { computeSectionStats, topicSectionFromSectionsJson } from './lib/section-stats.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -110,37 +111,40 @@ for (const [t, d] of topicData) {
 }
 
 // --- Per-section structural stats ---
-// Same logic as the mindmap's section-stats table — exposed in the audit
-// so density signal lives in CI / git history too. Sections in the order
-// they appear in concepts/sections.json.
+// Single source of truth: scripts/lib/section-stats.mjs. mindmap.html
+// reads the same numbers via __MVConcepts.sectionStats (precomputed at
+// bundle-build time using the same lib). This audit emits the table
+// into audits/starter-concepts.md.
 const sectionsJson = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'utf8'));
 const SECTION_ORDER = sectionsJson.sections.map((s) => s.title);
-const TOPIC_SECTION = {};
-for (const s of sectionsJson.sections) {
-  for (const t of s.topics) TOPIC_SECTION[t] = s.title;
+const TOPIC_SECTION = topicSectionFromSectionsJson(sectionsJson);
+
+// Drift detection: any topic in concepts/index.json that's missing from
+// concepts/sections.json contributes to its absence from the per-section
+// stats below — its concepts add to the global denominator (via
+// topicData) but not to any section's tally, silently skewing density.
+// Surface the orphans up-front so the corpus owner notices.
+{
+  const orphanTopics = [];
+  for (const t of indexJson.topics) {
+    if (!TOPIC_SECTION[t]) orphanTopics.push(t);
+  }
+  if (orphanTopics.length > 0) {
+    console.warn(
+      `audit-starter-concepts: ${orphanTopics.length} topic(s) in concepts/index.json missing from concepts/sections.json — these contribute to no section's stats: ${orphanTopics.join(', ')}`
+    );
+  }
 }
+const { stats: sectionStatsObj } = computeSectionStats({
+  topics: topicData,
+  topicSection: TOPIC_SECTION,
+  sectionOrder: SECTION_ORDER,
+});
+// Map shape used by the table renderer below.
 const sectionStats = new Map();
 for (const sec of SECTION_ORDER) {
-  sectionStats.set(sec, { concepts: 0, intra: 0, crossOut: 0, crossIn: 0 });
-}
-for (const [t, d] of topicData) {
-  const sec = TOPIC_SECTION[t];
-  if (!sec) continue;
-  for (const c of d.concepts || []) {
-    sectionStats.get(sec).concepts++;
-    for (const p of c.prereqs || []) {
-      const pTopic = ownerOf.get(p);
-      if (!pTopic) continue;
-      const pSec = TOPIC_SECTION[pTopic];
-      if (!pSec) continue;
-      if (pSec === sec) {
-        sectionStats.get(sec).intra++;
-      } else {
-        sectionStats.get(sec).crossOut++;
-        sectionStats.get(pSec).crossIn++;
-      }
-    }
-  }
+  const r = sectionStatsObj[sec] || { concepts: 0, intra: 0, crossOut: 0, crossIn: 0 };
+  sectionStats.set(sec, { concepts: r.concepts, intra: r.intra, crossOut: r.crossOut, crossIn: r.crossIn });
 }
 
 // --- Stdout report (kept for CLI usage) ---
