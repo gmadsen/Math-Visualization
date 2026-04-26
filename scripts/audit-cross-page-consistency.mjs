@@ -35,12 +35,26 @@ const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
 // Pages that are not topic pages — skip them.
+//
+// Topic pages follow a strict head/body contract (KaTeX delimiter config,
+// concepts/bundle.js, breadcrumb fence, data-section/data-level on <body>,
+// progress.js for quizzes). Non-topic pages legitimately deviate: meta
+// pages (index, pathway, mindmap, search, widgets, progress) don't have
+// per-topic breadcrumb context and don't need concept-graph data; capstone
+// story pages are stand-alone narratives that load their own KaTeX
+// (in-body) and skip the bundle/breadcrumb scaffolding by design.
 const SPECIAL = new Set([
   'index.html',
   'pathway.html',
   'progress.html',
   'latex-cheatsheet.html',
   'review.html',
+  'mindmap.html',
+  'search.html',
+  'widgets.html',
+  'capstone-bsd-story.html',
+  'capstone-flt-story.html',
+  'capstone-satotate-story.html',
 ]);
 
 // ---- Helpers ----------------------------------------------------------------

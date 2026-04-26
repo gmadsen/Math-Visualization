@@ -21,7 +21,6 @@ Items still TODO before merge. Each is in scope by default; nothing here is pre-
 - **Inline-widget topics.** The 15 topics from the migration use inline widgets rather than the `widgets/<slug>/` registry — no schema validation, no React-side rendering parity. Promote each inline widget to a registry entry.
 - **`audit-cross-topic-prereqs.mjs` heuristic refinement.** Reverse-direction cycle suppression landed; the surface-form matcher still emits "topological spaces" → `open-sets` style false positives where the target's title appears in the source's prose without an actual prereq relation. Augment with a lightweight semantic-similarity pass against concept titles, or a per-edge confidence score.
 - **THIN-NEW pass four.** 13 new-arc concepts still have only intra-topic prereqs. Pass three landed 5 strongest direct cross-topic deps; remaining candidates have weaker section-prose backing.
-- **Section-stats density follow-up.** Algebra at 0.115 cross-out density; most legitimate cross-section deps are wired but `audit-cross-page-consistency` may surface real gaps worth wiring.
 
 ## Authoring polish — small
 
