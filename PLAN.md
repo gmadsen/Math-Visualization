@@ -14,23 +14,20 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - THIN-NEW count: 18 (down from 40 across the prereq passes)
 - Quiz tiers: v1 = 1454, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
-## Architectural follow-ups
+## Open on this branch (PR #33)
 
-Substantial items that aren't blocking anything immediate but should land when their leverage moment arrives.
+Items still TODO before merge. Each is in scope by default; nothing here is pre-deferred.
 
-- **`audit-callbacks` consumer cleanup.** Now that `upsertFencedBlock` auto-explodes co-mingled fences (commit `8cf323c`), `audit-callbacks.replaceFencedCallbackInPlace` and `inject-used-in-backlinks.explodeFencedBacklinks` are redundant — both work around the prior wholesale-replace footgun. Migrating consumers to plain `upsertFencedBlock` simplifies the JSON-mutation paths and makes `audit-callbacks` Pass 2 a one-liner. Same applies to the hand-positioned CSS splice in `audit-callbacks` lines ~600-614 — should move to `updateCss(doc, 'callback-css', CALLBACK_CSS_RULE)` once a fence wraps the existing rule.
-- **`NEW_ARC_TOPICS` static list still hardcoded.** `concepts/index.json` `levels` is now the single source of truth for prereq/standard/advanced/capstone, but `NEW_ARC_TOPICS` is a separate "scaffolded recently with thin cross-topic prereqs" property that doesn't derive cleanly from `level`. Two paths: (a) add a `newArc: true` field per-topic in `index.json` once the THIN-NEW backfill is far enough along that the static set can shrink to zero, or (b) replace the THIN-NEW filter with an algorithmic threshold (e.g. cross-out density below 0.05). Decide once THIN-NEW count drops further (currently 18).
-- **`audit-callbacks` Pass-4 partial-drift detection.** The current stale-aside warning catches whole-section drift (every prereq for a section was removed) but not partial drift (a section's aside lists one stale href among several still-valid ones). Detecting partial requires walking each `<li>` href and cross-checking against the per-concept prereq set; substantial code that mostly catches drift the human curator already sees in the rebuild diff. Filing as future work.
-- **Author `artinian-local-ca` concept.** `deformation-functor`'s blurb requires an Artinian local ring concept that doesn't exist; the current prereq is `primes-maximals-ca` (which mentions Artinian in passing). A small dedicated concept under `commutative-algebra` would fit honestly. Same shape of issue exists elsewhere — when content review flags "right direction but wrong upstream concept," the right fix is sometimes to author the missing upstream rather than wire to an approximate one.
-- **`audit-doc-drift` heuristic noise.** The slug-name token-matching produces "shipped" false positives whenever a slug name appears in a commit subject. Either scope the matcher to titles only, or move to an explicit-checked-in-PR mechanism. Cosmetic for now — exits 0 either way.
-- **Inline-widget topics.** The 15 topics migrated this session use inline widgets rather than the `widgets/<slug>/` registry. They render fine but don't get schema validation or React-side rendering parity. Migration would mean adding a registry entry per inline widget; substantial but low-urgency.
-- **`audit-cross-topic-prereqs.mjs` heuristic.** Surface-form prose matching produces good leads but also false positives (e.g. "topological spaces" → `open-sets`). Could augment with a lightweight semantic-similarity pass against concept titles, or just move to a curated allow-list per topic.
-
-## Near-term tasks
-
-- **THIN-NEW pass three** — `audit-starter-concepts` flags 18 new-arc concepts whose prereqs all stay intra-topic. Most are transitively connected via siblings; a short focused sweep on the strongest candidates remains.
-- **Section-stats density follow-up** — Algebra is at 0.115 cross-out density, the lowest of any non-foundation section. Most legitimate cross-section deps are wired; pushing further would invent dependencies. The `audit-cross-page-consistency` audit may still surface real gaps worth wiring.
-- **Mindmap mobile** — fixed stage height (820px) and toolbar wrapping are unverified on small screens. Touch pan/zoom untested. Lower priority than this branch's a11y pass; not blocking the PR.
+- **`audit-callbacks` consumer cleanup.** `replaceFencedCallbackInPlace` and `inject-used-in-backlinks.explodeFencedBacklinks` work around the prior wholesale-replace footgun in `upsertFencedBlock`; auto-explode landed (`8cf323c`) so both are now redundant. Migrate consumers to plain `upsertFencedBlock`. The hand-positioned CSS splice in `audit-callbacks` lines ~600-614 should move to `updateCss(doc, 'callback-css', ...)` once a fence wraps the rule.
+- **`NEW_ARC_TOPICS` static list.** `concepts/index.json` `levels` is canonical for prereq/standard/advanced/capstone; `NEW_ARC_TOPICS` is a separate "scaffolded recently with thin cross-topic prereqs" property. Add a `newArc` field (or array) to `index.json` and derive at runtime so the audit list isn't hardcoded.
+- **`audit-callbacks` Pass-4 partial-drift detection.** Current scan catches whole-section drift; extend to per-href so a section that lists one stale href among valid ones gets flagged.
+- **Author `artinian-local-ca` concept.** `deformation-functor`'s blurb requires it; current prereq is `primes-maximals-ca` (mentions Artinian in passing). Small dedicated concept under `commutative-algebra`.
+- **`audit-doc-drift` heuristic.** Slug-name token-matching produces "shipped" false positives whenever a slug appears in any commit subject. Scope matcher to titles only or to checked-in-PR-state.
+- **Inline-widget topics.** The 15 topics from the migration use inline widgets rather than the `widgets/<slug>/` registry — no schema validation, no React-side rendering parity. Promote each inline widget to a registry entry.
+- **`audit-cross-topic-prereqs.mjs` heuristic refinement.** Surface-form prose matching false-positives "topological spaces" → `open-sets`. Augment with a lightweight semantic-similarity pass against concept titles.
+- **THIN-NEW pass three.** 18 new-arc concepts whose prereqs all stay intra-topic. Sweep for the ~5 strongest direct cross-topic dependencies still missing.
+- **Mindmap mobile.** Stage height fixed at 820px, toolbar wrapping untested on small screens, touch pan/zoom untested. (User signaled in earlier discussion that this is lower priority than a11y; keep visible here so it doesn't get lost.)
+- **Section-stats density follow-up.** Algebra at 0.115 cross-out density; most legitimate cross-section deps are wired but `audit-cross-page-consistency` may surface real gaps worth wiring.
 
 ## Authoring polish — small
 
