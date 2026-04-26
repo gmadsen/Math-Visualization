@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **79**, concepts: **546**
-- Widgets: **603** (registry-driven: 563, inline: 40)
-- Quizzes: **2814** (v1: 1578, hard: 1223, expert: 13)
-- Quiz types: mcq: 1744, numeric: 873, multi-select: 79, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **100**
-- Concepts lacking a hard-tier quiz: **108**
+- Topics: **82**, concepts: **568**
+- Widgets: **622** (registry-driven: 563, inline: 59)
+- Quizzes: **2880** (v1: 1644, hard: 1223, expert: 13)
+- Quiz types: mcq: 1796, numeric: 885, multi-select: 80, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **103**
+- Concepts lacking a hard-tier quiz: **130**
 
 ## Per-slug registry adoption
 
@@ -171,23 +171,23 @@ page has wired one in yet.
 
 ### Algebra
 
-- Topics: **13**, concepts: **114**
-- Widgets: **122** (registry-driven: 122, inline: 0)
-  - by family: button-stepper: 41, clickable-diagram: 35, declarative-host: 14, proof-scrubber: 10, parametric-plot: 9, naturality-square: 1, clickable-graph: 1, svg-illustration: 1, counterexample-explorer: 1, inline-code-cell: 1, cocartesian-fibrations-leftright-scrubber: 1, cocartesian-fibrations-edge-scrubber: 1, cocartesian-fibrations-fibration-clickable: 1, cocartesian-fibrations-transport-clickable: 1, cocartesian-fibrations-grothendieck-scrubber: 1, cocartesian-fibrations-universal-leftfib: 1, cocartesian-fibrations-grothendieck-codecell: 1, cocartesian-fibrations-examples-graph: 1
-  - by dimension: 2d: 122
-  - by gesture: click: 89, scrub: 10, select: 9, interact: 8, step: 2, slider+click: 1, interactive: 1, read: 1, edit: 1
-- Quizzes: **577** (v1: 343, hard: 234, expert: 0)
-  - by type: mcq: 368, numeric: 144, multi-select: 39, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
+- Topics: **14**, concepts: **121**
+- Widgets: **129** (registry-driven: 122, inline: 7)
+  - by family: button-stepper: 41, clickable-diagram: 35, declarative-host: 14, proof-scrubber: 10, parametric-plot: 9, unknown: 7, naturality-square: 1, clickable-graph: 1, svg-illustration: 1, counterexample-explorer: 1, inline-code-cell: 1, cocartesian-fibrations-leftright-scrubber: 1, cocartesian-fibrations-edge-scrubber: 1, cocartesian-fibrations-fibration-clickable: 1, cocartesian-fibrations-transport-clickable: 1, cocartesian-fibrations-grothendieck-scrubber: 1, cocartesian-fibrations-universal-leftfib: 1, cocartesian-fibrations-grothendieck-codecell: 1, cocartesian-fibrations-examples-graph: 1
+  - by dimension: 2d: 122, unknown: 7
+  - by gesture: click: 89, scrub: 10, select: 9, interact: 8, unknown: 7, step: 2, slider+click: 1, interactive: 1, read: 1, edit: 1
+- Quizzes: **598** (v1: 364, hard: 234, expert: 0)
+  - by type: mcq: 386, numeric: 146, multi-select: 40, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
 
 ### Analysis
 
-- Topics: **7**, concepts: **101**
-- Widgets: **80** (registry-driven: 80, inline: 0)
-  - by family: button-stepper: 47, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
-  - by dimension: 2d: 80
-  - by gesture: click: 78, slider: 2
-- Quizzes: **463** (v1: 241, hard: 209, expert: 13)
-  - by type: mcq: 259, numeric: 133, complex: 15, multi-select: 14, matching: 12, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
+- Topics: **9**, concepts: **116**
+- Widgets: **92** (registry-driven: 80, inline: 12)
+  - by family: button-stepper: 47, clickable-diagram: 31, unknown: 12, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
+  - by dimension: 2d: 80, unknown: 12
+  - by gesture: click: 78, unknown: 12, slider: 2
+- Quizzes: **508** (v1: 286, hard: 209, expert: 13)
+  - by type: mcq: 293, numeric: 143, complex: 15, multi-select: 14, matching: 13, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
 
 ### Geometry & topology
 
@@ -255,6 +255,7 @@ page has wired one in yet.
 - `infinity-topoi` (Algebra) — concepts=7, widgets=9 (slug=9), quiz=29 (v1=21, hard=8, expert=0)
 - `derived-categories` (Algebra) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `cocartesian-fibrations` (Algebra) — concepts=7, widgets=8 (slug=8), quiz=31 (v1=21, hard=10, expert=0)
+- `group-cohomology` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
@@ -262,6 +263,8 @@ page has wired one in yet.
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `dynamical-systems` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=39, hard=36, expert=0)
 - `probability-theory` (Analysis) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
+- `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=9), quiz=59 (v1=30, hard=29, expert=0)

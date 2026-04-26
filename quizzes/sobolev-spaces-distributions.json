@@ -1,0 +1,273 @@
+{
+  "topic": "sobolev-spaces-distributions",
+  "quizzes": {
+    "test-functions-distributions": {
+      "title": "Test functions and the space of distributions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of these is NOT a distribution on $\\mathbb{R}$?",
+          "choices": [
+            "$\\langle T,\\phi\\rangle = \\phi(0)$",
+            "$\\langle T,\\phi\\rangle = \\phi'(0)$",
+            "$\\langle T,\\phi\\rangle = \\sum_{k=1}^\\infty \\phi^{(k)}(0)$",
+            "$\\langle T,\\phi\\rangle = \\int_0^1 \\phi(x)\\,dx$"
+          ],
+          "answer": 2,
+          "explain": "An infinite sum of derivatives at a point is not a continuous functional on $\\mathcal{D}$: convergence in $\\mathcal{D}$ controls finitely many derivatives uniformly, but bounding $\\sum_k \\phi^{(k)}(0)$ would require all derivatives at once. The first three are $\\delta_0$, $-\\delta_0'$, and a regular distribution from $L^1$, all bona fide elements of $\\mathcal{D}'$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\langle\\delta_0,\\phi\\rangle$ when $\\phi(x) = e^{-x^2}\\mathbf{1}_{|x|<1}$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "By definition $\\langle\\delta_0,\\phi\\rangle = \\phi(0)$, and $\\phi(0) = e^0 \\cdot 1 = 1$. The Dirac delta is point-evaluation; the support and shape of $\\phi$ are otherwise irrelevant once $0\\in\\operatorname{supp}\\phi$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about $L^1_{\\mathrm{loc}}(\\Omega)$ embedding into $\\mathcal{D}'(\\Omega)$ is correct?",
+          "choices": [
+            "Two locally integrable functions $f,g$ define the same distribution iff $f=g$ everywhere",
+            "Two locally integrable functions define the same distribution iff $f=g$ almost everywhere",
+            "The map $f\\mapsto T_f$ is surjective onto $\\mathcal{D}'$",
+            "Only continuous functions induce distributions"
+          ],
+          "answer": 1,
+          "explain": "If $\\int(f-g)\\phi=0$ for every test $\\phi\\in C_c^\\infty$, the fundamental lemma of the calculus of variations gives $f=g$ a.e. (not pointwise — null sets are invisible). Surjectivity fails: $\\delta_0$ is not regular. Continuity is unnecessary; $L^1_{\\mathrm{loc}}$ suffices."
+        }
+      ]
+    },
+    "distributional-derivative": {
+      "title": "Distributional and weak derivatives",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the distributional derivative of the Heaviside step $H(x)=\\mathbf{1}_{x>0}$?",
+          "choices": [
+            "$0$ (since $H$ is constant on each side)",
+            "$\\delta_0$",
+            "$\\mathrm{p.v.}\\,1/x$",
+            "Undefined — $H$ has a jump"
+          ],
+          "answer": 1,
+          "explain": "$\\langle H',\\phi\\rangle = -\\langle H,\\phi'\\rangle = -\\int_0^\\infty\\phi' = \\phi(0) = \\langle\\delta_0,\\phi\\rangle$ by the fundamental theorem of calculus. The classical derivative is $0$ where defined, but the distributional one captures the jump as a unit point mass at the origin."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $T = \\delta_0''$ on $\\mathbb{R}$ and $\\phi(x) = x^2 e^{-x^2}\\mathbf{1}_{|x|<5}$. Compute $\\langle T,\\phi\\rangle$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "By the rule $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$, we get $\\langle\\delta_0'',\\phi\\rangle = (-1)^2\\langle\\delta_0,\\phi''\\rangle = \\phi''(0)$. Differentiating $\\phi = x^2 e^{-x^2}$: $\\phi' = (2x-2x^3)e^{-x^2}$, $\\phi'' = (2-10x^2+4x^4)e^{-x^2}$, so $\\phi''(0) = 2$."
+        },
+        {
+          "type": "mcq",
+          "q": "The function $u(x)=|x|$ on $\\mathbb{R}$ has weak derivative",
+          "choices": [
+            "Undefined (kink at 0)",
+            "$\\operatorname{sgn}(x)$",
+            "$\\operatorname{sgn}(x) + \\delta_0$",
+            "$2\\delta_0$"
+          ],
+          "answer": 1,
+          "explain": "$|x|$ is continuous (no jump), so no delta is produced. Away from $0$ the classical derivative is $\\operatorname{sgn}(x)$, which is bounded — hence locally integrable — so it serves as the weak derivative. Integration by parts: $\\int|x|\\phi' = \\int_0^\\infty x\\phi' - \\int_{-\\infty}^0 x\\phi' = -\\int_0^\\infty\\phi + \\int_{-\\infty}^0\\phi = -\\int\\operatorname{sgn}(x)\\phi$."
+        }
+      ]
+    },
+    "sobolev-spaces-wkp": {
+      "title": "Sobolev spaces $W^{k,p}$ and $H^s$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The function $u(x) = x^{1/2}$ on $(0,1)$ belongs to $W^{1,p}(0,1)$ for which $p$?",
+          "choices": [
+            "All $p\\ge 1$",
+            "Exactly $p<2$",
+            "Exactly $p\\ge 2$",
+            "No $p$ in $[1,\\infty)$"
+          ],
+          "answer": 1,
+          "explain": "$u\\in L^p$ for every $p$, but $u'(x)=\\tfrac12 x^{-1/2}$ has $\\int_0^1 |u'|^p\\,dx = (1/2)^p\\int_0^1 x^{-p/2}\\,dx$, which converges iff $-p/2>-1$, i.e. $p<2$. At $p=2$ the integral logarithmically diverges."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct Hilbert-space inner product on $H^1(\\Omega)$?",
+          "choices": [
+            "$(u,v) = \\int u\\bar v$",
+            "$(u,v) = \\int \\nabla u\\cdot\\overline{\\nabla v}$",
+            "$(u,v) = \\int u\\bar v + \\int \\nabla u\\cdot\\overline{\\nabla v}$",
+            "$(u,v) = \\int u\\bar v - \\int \\nabla u\\cdot\\overline{\\nabla v}$"
+          ],
+          "answer": 2,
+          "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$. The pure-gradient form (option 2) is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself."
+        },
+        {
+          "type": "mcq",
+          "q": "For non-negative integer $k$, why does the Fourier-multiplier definition $H^k(\\mathbb{R}^n) = \\{u : (1+|\\xi|^2)^{k/2}\\hat u\\in L^2\\}$ agree with the distributional-derivative definition?",
+          "choices": [
+            "By Plancherel, $\\|\\partial^\\alpha u\\|_{L^2}^2 = \\|\\xi^\\alpha \\hat u\\|_{L^2}^2$, so summing over $|\\alpha|\\le k$ gives a polynomial in $|\\xi|^2$ comparable to $(1+|\\xi|^2)^k$",
+            "Because the Fourier transform is bounded on $L^p$ for every $p$",
+            "Because $\\hat u$ is always smooth",
+            "It is a coincidence that holds only in dimension $1$"
+          ],
+          "answer": 0,
+          "explain": "Plancherel turns $\\partial^\\alpha$ into multiplication by $(i\\xi)^\\alpha$; summing $|\\xi^\\alpha|^2$ over all $|\\alpha|\\le k$ yields a polynomial bounded above and below by constants times $(1+|\\xi|^2)^k$, so the two norms are equivalent. The Fourier transform fails to be bounded on $L^p$ for $p\\ne 2$, and $\\hat u$ need not be smooth."
+        }
+      ]
+    },
+    "sobolev-embeddings": {
+      "title": "Sobolev–Morrey–Rellich embeddings",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{R}^3$ with $k=1$ and $p=2$, compute the Sobolev exponent $p^* = np/(n-kp)$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "Plug in: $p^* = (3\\cdot 2)/(3-1\\cdot 2) = 6/1 = 6$. So $H^1(\\mathbb{R}^3)\\hookrightarrow L^6(\\mathbb{R}^3)$ — the famous critical exponent that drives most 3-D variational problems."
+        },
+        {
+          "type": "mcq",
+          "q": "On a bounded Lipschitz $\\Omega\\subset\\mathbb{R}^3$, which embedding is GUARANTEED to be compact?",
+          "choices": [
+            "$H^1(\\Omega)\\hookrightarrow L^6(\\Omega)$",
+            "$H^1(\\Omega)\\hookrightarrow L^p(\\Omega)$ for $p<6$",
+            "$H^1(\\Omega)\\hookrightarrow C^0(\\overline\\Omega)$",
+            "$H^1(\\Omega)\\hookrightarrow L^\\infty(\\Omega)$"
+          ],
+          "answer": 1,
+          "explain": "Rellich–Kondrachov gives compactness exactly below the critical exponent: $H^1\\hookrightarrow L^p$ is compact for $p<6=p^*$ on a bounded domain. At $p=p^*=6$ the embedding is bounded but never compact (concentration / bubbling). $H^1\\not\\hookrightarrow L^\\infty$ on $\\mathbb{R}^3$ at all (the borderline regime is $kp=n$, requiring $p\\ge 3$)."
+        },
+        {
+          "type": "mcq",
+          "q": "On $\\Omega\\subset\\mathbb{R}^2$ bounded Lipschitz with $k=1, p=4$ (so $kp=4>2=n$), Morrey gives $W^{1,4}\\hookrightarrow C^{0,\\gamma}$ for which $\\gamma$?",
+          "choices": [
+            "$\\gamma = 1/4$",
+            "$\\gamma = 1/2$",
+            "$\\gamma = 1$",
+            "$\\gamma = 3/4$"
+          ],
+          "answer": 1,
+          "explain": "Morrey's exponent is $\\gamma = k - n/p = 1 - 2/4 = 1/2$ in the supercritical regime. So $W^{1,4}(\\Omega)$ functions are automatically Hölder-continuous of exponent $1/2$ — a regularity gain over the bare measurability of $L^p$."
+        }
+      ]
+    },
+    "trace-theorem": {
+      "title": "Trace theorem on the boundary",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a bounded Lipschitz $\\Omega\\subset\\mathbb{R}^n$, the trace operator gives a continuous map $H^1(\\Omega)\\to ?$",
+          "choices": [
+            "$H^1(\\partial\\Omega)$",
+            "$H^{1/2}(\\partial\\Omega)$",
+            "$L^2(\\partial\\Omega)$ but not better",
+            "$C^0(\\partial\\Omega)$"
+          ],
+          "answer": 1,
+          "explain": "The trace loses exactly $1/p = 1/2$ of a derivative: $H^1(\\Omega) = W^{1,2}(\\Omega) \\to W^{1-1/2,2}(\\partial\\Omega) = H^{1/2}(\\partial\\Omega)$, and the image is exactly $H^{1/2}$ (surjective). A bare $L^2$ statement is true but loses information; $H^1$ on the boundary is too strong."
+        },
+        {
+          "type": "mcq",
+          "q": "Which space is the natural setting for the homogeneous Dirichlet boundary condition $u=0$ on $\\partial\\Omega$?",
+          "choices": [
+            "$H^1(\\Omega)$ with the pointwise condition $u(\\partial\\Omega)=0$",
+            "$H^{1/2}(\\partial\\Omega)$",
+            "$H^1_0(\\Omega) = \\overline{C_c^\\infty(\\Omega)}^{H^1}$",
+            "$L^2(\\Omega)$"
+          ],
+          "answer": 2,
+          "explain": "$H^1_0(\\Omega)$ is by definition the closure of $C_c^\\infty(\\Omega)$ in $H^1$, and it equals $\\ker\\operatorname{Tr}$. Pointwise statements like '$u=0$ on $\\partial\\Omega$' are meaningless for general $H^1$ functions because $\\partial\\Omega$ has measure zero; the trace theorem makes the condition rigorous, and $H^1_0$ packages it cleanly."
+        },
+        {
+          "type": "mcq",
+          "q": "Which characterisation of $H^{1/2}(\\partial\\Omega)$ is correct in terms of half-space Fourier symbol?",
+          "choices": [
+            "$\\{u : (1+|\\xi'|^2)^{1/2}\\hat u\\in L^2\\}$",
+            "$\\{u : (1+|\\xi'|^2)^{1/4}\\hat u\\in L^2\\}$",
+            "$\\{u : \\hat u\\in L^2\\}$ with no weight",
+            "$\\{u : |\\xi'|\\hat u\\in L^\\infty\\}$"
+          ],
+          "answer": 1,
+          "explain": "$H^s$ on the boundary uses the Fourier multiplier $(1+|\\xi'|^2)^{s/2}$, so for $s=1/2$ the multiplier is $(1+|\\xi'|^2)^{1/4}$. The weight $(1+|\\xi'|^2)^{1/2}$ is the $H^1$ symbol, one full derivative."
+        }
+      ]
+    },
+    "fundamental-solution": {
+      "title": "Fundamental solution $\\Delta E = \\delta$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the constant $c$ in the fundamental solution $E_3(x) = c/|x|$ for the 3-D Laplacian (so that $\\Delta E_3 = \\delta_0$)?",
+          "answer": -0.07957747154594767,
+          "tol": 1e-4,
+          "tol_note": "Numerical value of $-1/(4\\pi)$.",
+          "explain": "$E_3(x) = -1/(4\\pi|x|)$, so $c = -1/(4\\pi)\\approx -0.07958$. The sign convention is $\\Delta = \\partial_1^2+\\partial_2^2+\\partial_3^2$, and the constant is fixed by Gauss's flux law: $\\nabla E_3$ has magnitude $1/(4\\pi r^2)$ on the sphere $|x|=r$ of area $4\\pi r^2$, so the radial flux equals $1$ — the unit point source at the origin."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $E_3(x) = -1/(4\\pi|x|)$ harmonic on $\\mathbb{R}^3\\setminus\\{0\\}$ but $\\Delta E_3 = \\delta_0$ as a distribution?",
+          "choices": [
+            "The classical Laplacian misses point masses concentrated at singular points",
+            "$E_3$ is not actually harmonic; the formula is wrong away from $0$",
+            "Distributions cannot be harmonic",
+            "The classical and distributional Laplacians always disagree"
+          ],
+          "answer": 0,
+          "explain": "Away from the origin, direct calculation gives $\\Delta(1/|x|)=0$. The classical operator only sees the smooth-piece behaviour and misses the singularity at $0$; the distributional Laplacian, defined by pairing with test functions, picks up the boundary contribution at $\\partial B_\\varepsilon$ as $\\varepsilon\\to 0$, which evaluates to $\\phi(0)$. The two agree on smooth-region behaviour and differ exactly at concentrated singularities."
+        },
+        {
+          "type": "mcq",
+          "q": "If $f\\in C_c^\\infty(\\mathbb{R}^3)$, the convolution $u = E_3 * f$ solves which equation?",
+          "choices": [
+            "$\\Delta u = f$",
+            "$-\\Delta u = f$",
+            "$\\Delta u = -f$ (sign of $f$ flipped)",
+            "$u = f$"
+          ],
+          "answer": 0,
+          "explain": "$\\Delta(E_3 * f) = (\\Delta E_3) * f = \\delta_0 * f = f$. So with $E_3 = -1/(4\\pi|x|)$, $u = E_3 * f$ solves $\\Delta u = f$, equivalently $-\\Delta(-u) = f$. The standard physicist sign $-\\Delta u = f$ uses $u = -E_3 * f = (1/(4\\pi))\\int f(y)/|x-y|\\,dy$, the Newtonian potential of the source $f$."
+        }
+      ]
+    },
+    "variational-poisson": {
+      "title": "Variational Poisson problem & Lax–Milgram",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The weak formulation of $-\\Delta u = f$ with zero Dirichlet data on a bounded $\\Omega$ asks: find $u\\in H^1_0(\\Omega)$ such that, for all $v\\in H^1_0(\\Omega)$,",
+          "choices": [
+            "$\\int u v = \\int f v$",
+            "$\\int \\nabla u\\cdot\\nabla v = \\int f v$",
+            "$\\int \\Delta u\\,v = \\int f v$",
+            "$\\int u\\,\\Delta v = -\\int f v$"
+          ],
+          "answer": 1,
+          "explain": "Multiply $-\\Delta u = f$ by $v\\in C_c^\\infty$, integrate by parts to move the gradient onto $v$, and the boundary term vanishes (compact support, then density to $H^1_0$). The bilinear form is $a(u,v)=\\int\\nabla u\\cdot\\nabla v$; the linear form is $L(v)=\\int fv$."
+        },
+        {
+          "type": "mcq",
+          "q": "Lax–Milgram applies to $a(u,v)=\\int\\nabla u\\cdot\\nabla v$ on $H^1_0$ because $a$ is",
+          "choices": [
+            "Linear and bounded",
+            "Bilinear, bounded, and coercive (i.e. $a(u,u)\\ge\\alpha\\|u\\|_{H^1}^2$)",
+            "Symmetric and positive — that alone is enough",
+            "Continuous in one argument only"
+          ],
+          "answer": 1,
+          "explain": "Lax–Milgram requires bilinearity, continuity, and coercivity. Coercivity here uses the Poincaré inequality on $H^1_0$: $\\|u\\|_{L^2}\\le C\\|\\nabla u\\|_{L^2}$, hence $a(u,u)=\\|\\nabla u\\|_{L^2}^2 \\ge (1+C^2)^{-1}\\|u\\|_{H^1}^2$. Symmetry is convenient (it lets you read off the energy minimisation) but not required."
+        },
+        {
+          "type": "mcq",
+          "q": "When $a$ is symmetric, the unique weak solution $u$ of $a(u,v)=L(v)$ is also",
+          "choices": [
+            "The maximiser of $J(v)=\\tfrac12 a(v,v)-L(v)$",
+            "The minimiser of $J(v)=\\tfrac12 a(v,v)-L(v)$ on $H^1_0$",
+            "Determined only up to an additive constant",
+            "Smooth, regardless of $f$"
+          ],
+          "answer": 1,
+          "explain": "For symmetric coercive $a$, the Euler–Lagrange equation of $J(v)=\\tfrac12 a(v,v)-L(v)$ is $a(u,\\cdot)=L$, and convexity makes the critical point a minimiser. The Dirichlet principle: '$u$ minimises $\\tfrac12\\int|\\nabla v|^2 - \\int fv$ over $H^1_0$.'  Smoothness of $u$ is a separate question (elliptic regularity), and uniqueness is global, not 'up to a constant'."
+        }
+      ]
+    }
+  }
+}

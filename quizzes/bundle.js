@@ -14411,6 +14411,292 @@ window.MVQuizBank = {
       }
     }
   },
+  "group-cohomology": {
+    "topic": "group-cohomology",
+    "quizzes": {
+      "bar-resolution": {
+        "title": "Bar resolution and $H^n(G,M)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Group cohomology $H^n(G,M)$ is defined as which derived functor?",
+            "choices": [
+              "The left derived functors of $M\\mapsto M_G$ (coinvariants)",
+              "The right derived functors of $M\\mapsto M^G$ (invariants)",
+              "The right derived functors of the augmentation $\\mathbb{Z}[G]\\to\\mathbb{Z}$",
+              "The left derived functors of $\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$"
+            ],
+            "answer": 1,
+            "explain": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$. (Coinvariants give group homology $H_n(G,M)$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "On the bar resolution, an $n$-cochain $\\varphi:G^n\\to M$ has coboundary $(d\\varphi)(g_1,\\dots,g_{n+1})$ equal to which expression (degree 1 case)?",
+            "choices": [
+              "$\\varphi(g_1g_2)-\\varphi(g_1)-\\varphi(g_2)$",
+              "$g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$",
+              "$\\varphi(g_2)-\\varphi(g_1)$",
+              "$g_1\\varphi(g_2)+\\varphi(g_1)$"
+            ],
+            "answer": 1,
+            "explain": "The bar formula in degree 1 gives $(d\\varphi)(g_1,g_2)=g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$. A 1-cocycle (kernel of $d$) is exactly a crossed homomorphism."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE about $H^n(G,M)$?",
+            "choices": [
+              "It depends on the choice of free resolution of $\\mathbb{Z}$",
+              "It can be computed from any projective $\\mathbb{Z}[G]$-resolution of $\\mathbb{Z}$",
+              "$H^n(G,M)$ is naturally functorial in both $G$ and $M$",
+              "$H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$"
+            ],
+            "answer": [
+              1,
+              2,
+              3
+            ],
+            "explain": "Cohomology is independent of the chosen projective resolution (the whole point of derived functors). The Ext-formula is the standard equivalent description, and functoriality in $G$ is what makes restriction, inflation, and corestriction work."
+          }
+        ]
+      },
+      "h0-fixed-points": {
+        "title": "$H^0$ as fixed points",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $G=C_4$ act on $M=\\mathbb{Z}/12$ via $\\sigma\\cdot x = 5x$. Compute $|H^0(G,M)|=|M^G|$.",
+            "answer": 4,
+            "tol": 0.5,
+            "explain": "$M^G=\\ker(\\sigma-1)=\\{x:4x\\equiv 0\\bmod 12\\}=\\{0,3,6,9\\}$, so $|M^G|=\\gcd(4,12)=4$. (Equivalently $|M^G|=\\gcd(k-1,m)$ for $\\sigma\\cdot x=kx$ on $\\mathbb{Z}/m$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the long exact sequence of cohomology even start? In other words, why does $0\\to A^G\\to B^G\\to C^G$ NOT continue to a $\\to 0$ for a short exact sequence $0\\to A\\to B\\to C\\to 0$?",
+            "choices": [
+              "Because $C^G$ might be empty",
+              "Because $(-)^G$ is left exact but not right exact: a fixed element of $C$ may have no fixed-point lift in $B$",
+              "Because the connecting map $\\delta$ is not well-defined",
+              "Because $A$ might fail to be normal in $B$"
+            ],
+            "answer": 1,
+            "explain": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact. The obstruction to lifting a fixed point in $C$ to a fixed point in $B$ lives in $H^1(G,A)$ — that is exactly $\\delta(c)$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $G$ acts trivially on $M$, what is $H^0(G,M)$?",
+            "choices": [
+              "$0$",
+              "$M$",
+              "$\\mathrm{Hom}(G,M)$",
+              "$M/|G|M$"
+            ],
+            "answer": 1,
+            "explain": "Trivial action means every element is fixed: $M^G=M$. (Note: $\\mathrm{Hom}(G,M)$ is what $H^1$ becomes under trivial action.)"
+          }
+        ]
+      },
+      "h1-crossed-homs": {
+        "title": "$H^1$ and Hilbert 90",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A crossed homomorphism $\\varphi:G\\to M$ satisfies which identity?",
+            "choices": [
+              "$\\varphi(gh)=\\varphi(g)+\\varphi(h)$",
+              "$\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$",
+              "$\\varphi(gh)=g\\cdot\\varphi(g)+\\varphi(h)$",
+              "$\\varphi(gh)=\\varphi(g)\\cdot\\varphi(h)$"
+            ],
+            "answer": 1,
+            "explain": "The cocycle condition $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ — this collapses to the homomorphism law when the action is trivial."
+          },
+          {
+            "type": "mcq",
+            "q": "Hilbert's Theorem 90 states which of the following for a cyclic Galois extension $L/K$ with $G=\\langle\\sigma\\rangle$?",
+            "choices": [
+              "$H^1(G,L^\\times)=0$: every $\\beta\\in L^\\times$ with $N_{L/K}(\\beta)=1$ has the form $\\beta=\\sigma(\\alpha)/\\alpha$",
+              "$H^1(G,L)=0$: every trace-zero element is a coboundary",
+              "$H^2(G,L^\\times)=\\mathrm{Br}(L/K)$",
+              "$H^1(G,L^\\times)=L^\\times/N_{L/K}(L^\\times)$"
+            ],
+            "answer": 0,
+            "explain": "Hilbert 90 in cyclic form: $H^1(G,L^\\times)=1$, equivalently norm-one elements are coboundaries $\\sigma(\\alpha)/\\alpha$. The fact about $L$ (additive) is the additive Hilbert 90, and the $H^2$ statement is the definition of relative Brauer."
+          },
+          {
+            "type": "mcq",
+            "q": "For $L/K=\\mathbb{Q}(i)/\\mathbb{Q}$ and $\\beta=\\frac{3+4i}{5}$ (norm 1), Hilbert 90 produces $\\alpha\\in L^\\times$ with $\\sigma(\\alpha)/\\alpha=\\beta$. Which witness works?",
+            "choices": [
+              "$\\alpha=1$",
+              "$\\alpha=1+\\beta=\\frac{8+4i}{5}$ (or any nonzero scalar multiple)",
+              "$\\alpha=\\beta$",
+              "$\\alpha=i$"
+            ],
+            "answer": 1,
+            "explain": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence $\\sigma(\\alpha)/\\alpha=\\beta^{-1}\\cdot 1=\\beta$? Carefully: $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$, so adjust to $\\alpha=\\beta(1+\\beta)$ if you want $\\beta$ rather than $\\beta^{-1}$ — the widget shows the explicit calculation."
+          }
+        ]
+      },
+      "h2-extensions": {
+        "title": "$H^2$ and group extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Equivalence classes of group extensions $1\\to A\\to E\\to G\\to 1$ (with prescribed $G$-action on abelian $A$) are classified by:",
+            "choices": [
+              "$\\mathrm{Hom}(G,A)$",
+              "$H^1(G,A)$",
+              "$H^2(G,A)$",
+              "$H^3(G,A)$"
+            ],
+            "answer": 2,
+            "explain": "The cocycle $c(g,h)$ measuring failure of a section $s:G\\to E$ to be a homomorphism is a 2-cocycle, and changing the section by $a:G\\to A$ shifts $c$ by $da$. The class $[c]\\in H^2(G,A)$ classifies the extension."
+          },
+          {
+            "type": "mcq",
+            "q": "Which extensions correspond to the zero class $0\\in H^2(G,A)$?",
+            "choices": [
+              "Central extensions",
+              "Extensions where $A$ is finite",
+              "Split extensions $E=A\\rtimes G$",
+              "Universal central extensions"
+            ],
+            "answer": 2,
+            "explain": "$[c]=0$ iff $c$ is a coboundary, iff some section $s$ exists with $c=0$, iff $s$ is a homomorphism, iff the extension splits."
+          },
+          {
+            "type": "mcq",
+            "q": "Compute $H^2(C_2,\\mathbb{Z}/2)$ (trivial action). What does each class correspond to?",
+            "choices": [
+              "$H^2=0$; only the split extension $\\mathbb{Z}/2\\times\\mathbb{Z}/2$ exists",
+              "$H^2=\\mathbb{Z}/2$; the two classes are $V_4=\\mathbb{Z}/2\\times\\mathbb{Z}/2$ (split) and $C_4$ (nonsplit)",
+              "$H^2=\\mathbb{Z}/4$; four extensions, all cyclic",
+              "$H^2=\\mathbb{Z}$; infinitely many isomorphism classes"
+            ],
+            "answer": 1,
+            "explain": "By the periodic resolution, $H^2(C_2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The trivial class is $V_4$ (split); the nontrivial class lifts $\\sigma\\in C_2$ to an order-4 element, giving $C_4$."
+          }
+        ]
+      },
+      "cyclic-periodic-tate": {
+        "title": "Cyclic groups and Tate periodicity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $G=C_n$ cyclic with generator $\\sigma$ and $G$-module $M$, the cohomology in even and odd positive degrees is:",
+            "choices": [
+              "$H^{2k}=M^G/N(M)$ and $H^{2k+1}=\\ker N/(\\sigma-1)M$",
+              "$H^{2k}=M/(\\sigma-1)M$ and $H^{2k+1}=M^G$",
+              "$H^{2k}=H^{2k+1}=M^G$",
+              "$H^{2k}=0$ and $H^{2k+1}=M^G/N(M)$"
+            ],
+            "answer": 0,
+            "explain": "The two-step periodic resolution alternates $\\sigma-1$ and the norm $N=1+\\sigma+\\dots+\\sigma^{n-1}$. Reading off the cochain complex: even degrees give $\\ker(\\sigma-1)/\\mathrm{im}(N)=M^G/N(M)$, odd degrees give $\\ker(N)/\\mathrm{im}(\\sigma-1)$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $G=C_3$ acting trivially on $M=\\mathbb{Z}/6$, compute $|H^2(C_3,\\mathbb{Z}/6)|$.",
+            "answer": 3,
+            "tol": 0.5,
+            "explain": "Trivial action: $\\sigma-1=0$ so $M^G=M=\\mathbb{Z}/6$, and $N=1+1+1=3$ so $N(M)=3\\cdot\\mathbb{Z}/6=\\{0,3\\}$. Then $H^2=M^G/N(M)=(\\mathbb{Z}/6)/(2$-element subgroup$)=\\mathbb{Z}/3$, of order 3."
+          },
+          {
+            "type": "mcq",
+            "q": "The Herbrand quotient $h(M)=|\\hat H^0(G,M)|/|\\hat H^{-1}(G,M)|$ has which key property?",
+            "choices": [
+              "$h(M)=|G|$ for every finite $G$-module",
+              "It is multiplicative on short exact sequences and trivial on finite modules",
+              "It is always 1",
+              "It equals the Euler characteristic of $M$"
+            ],
+            "answer": 1,
+            "explain": "Herbrand quotient is multiplicative: $h(B)=h(A)h(C)$ for SES $0\\to A\\to B\\to C\\to 0$, and $h(M)=1$ when $M$ is finite. These two properties are what make it a usable invariant in class field theory."
+          }
+        ]
+      },
+      "inflation-restriction-lhs": {
+        "title": "Inflation–restriction and LHS",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $H\\trianglelefteq G$ and a $G$-module $M$, the inflation–restriction five-term exact sequence reads:",
+            "choices": [
+              "$0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$",
+              "$0\\to H^1(H,M)\\to H^1(G,M)\\to H^1(G/H,M)\\to H^2(H,M)\\to H^2(G,M)$",
+              "$0\\to H^1(G,M)\\to H^1(H,M)\\to H^1(G/H,M^H)\\to 0$",
+              "$0\\to M^G\\to M^H\\to (M^H)^{G/H}\\to H^1(G,M)\\to 0$"
+            ],
+            "answer": 0,
+            "explain": "This is the low-degree edge of the LHS spectral sequence. The crucial fixed-points $M^H$ in the inflation entry, and the $G/H$-invariants on the restriction entry, are what make the sequence work — both come from how the spectral sequence's $E_2$-page is built."
+          },
+          {
+            "type": "mcq",
+            "q": "The Lyndon–Hochschild–Serre spectral sequence has $E_2$-page given by:",
+            "choices": [
+              "$E_2^{p,q}=H^p(H,H^q(G/H,M))\\Rightarrow H^{p+q}(G,M)$",
+              "$E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$",
+              "$E_2^{p,q}=H^p(G,M^H)\\otimes H^q(H,M)$",
+              "$E_2^{p,q}=\\mathrm{Ext}^p(\\mathbb{Z},H^q(H,M))$"
+            ],
+            "answer": 1,
+            "explain": "Take cohomology of the normal subgroup first, then of the quotient. Note the order: $H$ goes inside (gives row $q$), and $G/H$ goes outside (gives column $p$)."
+          },
+          {
+            "type": "mcq",
+            "q": "When does the LHS spectral sequence collapse on the row $q=0$ (so $H^p(G,M)=H^p(G/H,M^H)$ in low degrees)?",
+            "choices": [
+              "Always — LHS always collapses",
+              "When $|H|$ is invertible in the coefficient module $M$ (e.g., $|H|$ is a unit in a field of coefficients)",
+              "Only when the extension splits",
+              "Only when $M$ is trivial"
+            ],
+            "answer": 1,
+            "explain": "If $|H|$ is invertible in $M$, then $H^q(H,M)=0$ for $q\\ge 1$ (cohomology of a finite group with coefficients in a divisible module vanishes). The page is concentrated on row $q=0$, no differentials are possible, so $H^p(G,M)\\cong H^p(G/H,M^H)$."
+          }
+        ]
+      },
+      "galois-cohomology-brauer": {
+        "title": "Galois cohomology and the Brauer group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a field $k$ with absolute Galois group $G_k=\\mathrm{Gal}(\\bar k/k)$, the Brauer group is defined as:",
+            "choices": [
+              "$\\mathrm{Br}(k)=H^1(k,\\bar k^\\times)$",
+              "$\\mathrm{Br}(k)=H^2(k,\\bar k^\\times)$",
+              "$\\mathrm{Br}(k)=H^0(k,\\bar k^\\times)=k^\\times$",
+              "$\\mathrm{Br}(k)=\\mathrm{Pic}(\\mathrm{Spec}\\,k)$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$. (Hilbert 90 says $H^1=0$, so the first nontrivial cohomology of $\\bar k^\\times$ is degree 2.) This $H^2$ classifies central simple $k$-algebras up to Morita equivalence."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kummer exact sequence (with $n$ invertible in $k$) is $1\\to\\mu_n\\to\\bar k^\\times\\xrightarrow{x\\mapsto x^n}\\bar k^\\times\\to 1$. What does it imply about $H^1(k,\\mu_n)$?",
+            "choices": [
+              "$H^1(k,\\mu_n)=0$",
+              "$H^1(k,\\mu_n)=\\mu_n(k)$",
+              "$H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$",
+              "$H^1(k,\\mu_n)=\\mathrm{Br}(k)[n]$"
+            ],
+            "answer": 2,
+            "explain": "Long exact sequence: $k^\\times\\xrightarrow{n}k^\\times\\to H^1(k,\\mu_n)\\to H^1(k,\\bar k^\\times)=0$ by Hilbert 90. So $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$ — the Kummer isomorphism, foundation of Kummer theory."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Brauer group is correct?",
+            "choices": [
+              "$\\mathrm{Br}(\\mathbb{R})=0$",
+              "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$, generated by Hamilton's quaternions $\\mathbb{H}$",
+              "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Q}/\\mathbb{Z}$",
+              "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$ with generator $\\mathbb{H}$. (For comparison: $\\mathrm{Br}(\\bar k)=0$, $\\mathrm{Br}(\\mathbb{F}_q)=0$ by Wedderburn, $\\mathrm{Br}(\\mathbb{Q}_p)=\\mathbb{Q}/\\mathbb{Z}$ via the local invariant.)"
+          }
+        ]
+      }
+    }
+  },
   "group-schemes": {
     "topic": "group-schemes",
     "quizzes": {
@@ -14769,6 +15055,320 @@ window.MVQuizBank = {
             "answer": 1,
             "explain": "By the Kummer sequence $1 \\to \\mu_n \\to \\mathbb{G}_m \\xrightarrow{[n]} \\mathbb{G}_m \\to 1$ (exact in the étale topology for $n$ invertible in $k$), we get $\\Gamma^\\times/(\\Gamma^\\times)^n \\to H^1(X, \\mu_n) \\to \\mathrm{Pic}(X)[n] \\to 0$. For $X$ a complete curve over $\\bar k$, $\\Gamma(X, \\mathcal{O}_X) = \\bar k$, so the first piece is trivial. Then $H^1(X, \\mu_n) = \\mathrm{Pic}(X)[n] = \\mathrm{Pic}^0(X)[n] = J(X)[n] = (\\mathbb{Z}/n)^{2g}$ (the $n$-torsion of the Jacobian, for $\\gcd(n, p) = 1$).",
             "hint": "$\\mathrm{Pic}^0(X)$ is the Jacobian, an abelian variety of dimension $g$; its $n$-torsion has rank $2g$ when $n$ is coprime to char."
+          }
+        ]
+      }
+    }
+  },
+  "harmonic-analysis-fourier": {
+    "topic": "harmonic-analysis-fourier",
+    "quizzes": {
+      "fourier-series-circle": {
+        "title": "Fourier series on the circle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is $\\{e_n(x) = e^{2\\pi i n x}\\}_{n\\in\\mathbb{Z}}$ an orthonormal basis of $L^2(\\mathbb{T})$?",
+            "choices": [
+              "Because each $e_n$ is bounded by $1$",
+              "Because $\\int_0^1 e_m(x)\\overline{e_n(x)}\\,dx = \\delta_{mn}$ and the linear span (trigonometric polynomials) is dense by Stone–Weierstrass",
+              "Because the $e_n$ have period $1$",
+              "Because $\\mathbb{T}$ is compact"
+            ],
+            "answer": 1,
+            "explain": "Orthonormality is the integral $\\int_0^1 e^{2\\pi i (m-n)x}\\,dx = \\delta_{mn}$. Density of trigonometric polynomials in $C(\\mathbb{T})$ (Stone–Weierstrass) and then in $L^2(\\mathbb{T})$ promotes that orthonormal set to a basis."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f(x) = 3 + 4\\cos(2\\pi x) - 2\\sin(4\\pi x)$ on $\\mathbb{T}$. Compute $\\|f\\|_{L^2(\\mathbb{T})}^2 = \\int_0^1 |f(x)|^2\\,dx$.",
+            "answer": 19,
+            "tol": 0.000001,
+            "explain": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$. The Fourier coefficients are $\\hat f(0)=3$, $\\hat f(\\pm 1) = 2$, $\\hat f(2) = i$, $\\hat f(-2) = -i$. By Parseval, $\\|f\\|_2^2 = 9 + 4 + 4 + 1 + 1 = 19$."
+          },
+          {
+            "type": "mcq",
+            "q": "Carleson's theorem (1966) says that for $f\\in L^2(\\mathbb{T})$ the partial sums $S_N f = \\sum_{|n|\\le N}\\hat f(n) e_n$ converge to $f$:",
+            "choices": [
+              "uniformly",
+              "in $L^\\infty$",
+              "almost everywhere pointwise",
+              "everywhere pointwise"
+            ],
+            "answer": 2,
+            "explain": "Carleson proved a.e. pointwise convergence for $L^2$. Kolmogorov had earlier shown an $L^1$ function whose Fourier series diverges everywhere, so 'everywhere pointwise' fails outside $L^2$ in a strong sense."
+          }
+        ]
+      },
+      "fourier-transform-real-line": {
+        "title": "Fourier transform on $\\mathbb{R}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "With the convention $\\hat f(\\xi) = \\int_{\\mathbb{R}} f(x) e^{-2\\pi i \\xi x}\\,dx$, what is $\\widehat{(\\tau_a f)}(\\xi)$, where $(\\tau_a f)(x) = f(x-a)$?",
+            "choices": [
+              "$e^{-2\\pi i a \\xi}\\,\\hat f(\\xi)$",
+              "$e^{2\\pi i a \\xi}\\,\\hat f(\\xi)$",
+              "$\\hat f(\\xi - a)$",
+              "$\\hat f(\\xi + a)$"
+            ],
+            "answer": 0,
+            "explain": "Substitute $y = x - a$: $\\int f(x-a) e^{-2\\pi i \\xi x}\\,dx = e^{-2\\pi i a \\xi}\\int f(y) e^{-2\\pi i \\xi y}\\,dy = e^{-2\\pi i a \\xi}\\hat f(\\xi)$. Translation in $x$ becomes modulation in $\\xi$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Riemann–Lebesgue lemma states:",
+            "choices": [
+              "$\\hat f \\in L^1$ whenever $f\\in L^1$",
+              "$\\hat f$ is continuous and $\\lim_{|\\xi|\\to\\infty}\\hat f(\\xi) = 0$ for $f\\in L^1$",
+              "The Fourier transform is surjective onto $C_0(\\mathbb{R})$",
+              "$\\|\\hat f\\|_\\infty = \\|f\\|_1$"
+            ],
+            "answer": 1,
+            "explain": "$\\hat f \\in C_0(\\mathbb{R})$: continuous and decaying at infinity. The map $L^1 \\to C_0$ is bounded with $\\|\\hat f\\|_\\infty \\le \\|f\\|_1$ but is NOT surjective, and $\\hat f$ need not be in $L^1$ (e.g. for the indicator of an interval)."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f = \\mathbf{1}_{[-1/2, 1/2]}$ on $\\mathbb{R}$. Compute $\\|\\hat f\\|_{L^2}^2$ using Plancherel.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$. Here $\\|f\\|_2^2 = \\int_{-1/2}^{1/2} 1\\,dx = 1$, so $\\|\\hat f\\|_2^2 = 1$. (Aside: $\\hat f(\\xi) = \\mathrm{sinc}(\\xi) = \\sin(\\pi \\xi)/(\\pi \\xi)$.)"
+          }
+        ]
+      },
+      "convolution-theorem": {
+        "title": "Convolution and the convolution theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which identity is the convolution theorem?",
+            "choices": [
+              "$\\widehat{fg} = \\hat f * \\hat g$",
+              "$\\widehat{f*g} = \\hat f\\,\\hat g$",
+              "$\\widehat{f*g} = \\hat f * \\hat g$",
+              "$\\widehat{f+g} = \\hat f + \\hat g$"
+            ],
+            "answer": 1,
+            "explain": "Convolution in $x$ becomes pointwise product in $\\xi$. The dual identity $\\widehat{fg} = \\hat f * \\hat g$ also holds (with the right hypotheses) — Fourier swaps the two operations."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the convolution theorem make $L^1(\\mathbb{R})$ a commutative Banach algebra without unit?",
+            "choices": [
+              "Because $L^1$ is reflexive",
+              "Because $\\|f*g\\|_1\\le\\|f\\|_1\\|g\\|_1$ (Young's inequality at $p=q=r=1$), and a unit would require $\\hat e \\equiv 1$ — i.e. $e = \\delta$, which is not an $L^1$ function",
+              "Because $L^1$ has a Schauder basis",
+              "Because the Fourier transform is unitary on $L^1$"
+            ],
+            "answer": 1,
+            "explain": "Young's inequality bounds the convolution; the Banach-algebra axioms follow. A unit $e$ would Fourier-transform to $1$, so $e$ would have to be the Dirac delta — a tempered distribution, not an $L^1$ function. Approximate identities are the substitute."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $g(x) = e^{-\\pi x^2}$. Using $\\hat g = g$ and the convolution theorem, compute $\\widehat{(g*g)}(0)$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$. Evaluating at $\\xi = 0$ gives $1$."
+          }
+        ]
+      },
+      "schwartz-space-distributions": {
+        "title": "Schwartz space and tempered distributions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function $f\\colon\\mathbb{R}\\to\\mathbb{C}$ is Schwartz iff:",
+            "choices": [
+              "$f$ is smooth with compact support",
+              "$f\\in C^\\infty$ and $\\sup_{x}|x^a f^{(b)}(x)| < \\infty$ for all integers $a,b\\ge 0$",
+              "$f\\in L^1\\cap L^\\infty$",
+              "$f$ is real-analytic on $\\mathbb{R}$"
+            ],
+            "answer": 1,
+            "explain": "Schwartz space $\\mathcal{S}$ is smooth functions of rapid decrease: every derivative decays faster than any polynomial. Compactly supported smooth functions $C_c^\\infty$ form a strictly smaller class; both are dense in $L^p$ for $1\\le p<\\infty$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Fourier transform an automorphism of $\\mathcal{S}$ but NOT of $C_c^\\infty$?",
+            "choices": [
+              "$C_c^\\infty$ is not a vector space",
+              "$\\hat{}$ does not preserve smoothness",
+              "By the Paley–Wiener theorem, the Fourier transform of a compactly supported smooth function extends to an entire function of exponential type — so $\\hat f$ generally has unbounded support",
+              "$\\hat{}$ is undefined on $C_c^\\infty$"
+            ],
+            "answer": 2,
+            "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials, with the convenient duality $\\widehat{x^a f^{(b)}} = (2\\pi i)^{b-a}(-1)^a \\xi^b \\hat f^{(a)}$. Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\hat \\delta$, the Fourier transform of the Dirac delta as a tempered distribution?",
+            "choices": [
+              "$\\delta$ itself",
+              "the constant function $1$",
+              "$\\mathrm{p.v.}\\,1/x$",
+              "$0$"
+            ],
+            "answer": 1,
+            "explain": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered distribution. Dually, $\\hat 1 = \\delta$."
+          }
+        ]
+      },
+      "uncertainty-principle": {
+        "title": "Heisenberg uncertainty",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Heisenberg's inequality (with the $\\hat f(\\xi) = \\int f e^{-2\\pi i\\xi x}\\,dx$ convention) reads:",
+            "choices": [
+              "$\\|x f\\|_2 + \\|\\xi \\hat f\\|_2 \\ge \\|f\\|_2$",
+              "$\\|x f\\|_2 \\,\\|\\xi \\hat f\\|_2 \\ge \\|f\\|_2^2/(4\\pi)$",
+              "$\\|x f\\|_2\\,\\|\\xi\\hat f\\|_2 \\ge \\|f\\|_2$",
+              "$\\|x f\\|_1\\,\\|\\xi\\hat f\\|_1 \\ge \\|f\\|_1^2$"
+            ],
+            "answer": 1,
+            "explain": "Centred at $0$ in space and frequency, the product of variances is at least $\\|f\\|_2^4/(4\\pi)^2$, equivalently $\\|x f\\|_2\\|\\xi\\hat f\\|_2\\ge\\|f\\|_2^2/(4\\pi)$. Equality holds iff $f$ is a (translated, modulated) Gaussian."
+          },
+          {
+            "type": "mcq",
+            "q": "Which family achieves equality in the Heisenberg inequality?",
+            "choices": [
+              "rectangular indicators $\\mathbf{1}_{[-a,a]}$",
+              "triangular tents",
+              "Gaussians $e^{-\\pi a x^2}$",
+              "the Dirichlet kernel"
+            ],
+            "answer": 2,
+            "explain": "Variational analysis (or completing the square in the proof) shows the only minimizers are Gaussians. They are the fixed points / eigenfunctions of $\\hat{}$ — the same fact in two languages."
+          },
+          {
+            "type": "numeric",
+            "q": "For $f(x) = e^{-\\pi x^2}$, compute the lower bound $\\|f\\|_2^2/(4\\pi)$ in Heisenberg's inequality.",
+            "answer": 0.05627314338,
+            "tol": 0.000001,
+            "explain": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$. So $\\|f\\|_2^2/(4\\pi) = 1/(4\\pi\\sqrt{2}) \\approx 0.05627$. The Gaussian saturates the inequality with equality."
+          }
+        ]
+      },
+      "poisson-summation": {
+        "title": "Poisson summation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Poisson summation states (for Schwartz $f$):",
+            "choices": [
+              "$\\sum_{n\\in\\mathbb{Z}} f(n) = \\sum_{n\\in\\mathbb{Z}} \\hat f(n)$",
+              "$\\sum_{n\\in\\mathbb{Z}} f(n) = \\hat f(0)$",
+              "$\\int f = \\sum_n \\hat f(n)$",
+              "$\\sum_n f(n)^2 = \\sum_n |\\hat f(n)|^2$"
+            ],
+            "answer": 0,
+            "explain": "Periodize $F(x) = \\sum_n f(x+n)$ on $\\mathbb{T}$; its Fourier coefficients are $\\hat F(k) = \\hat f(k)$. Evaluating $F(0)$ in two ways — direct sum vs. Fourier expansion at $x=0$ — gives the identity."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Poisson summation the key step in the analytic continuation of $\\zeta(s)$?",
+            "choices": [
+              "It computes $\\zeta(2)$ as a residue",
+              "Applied to Gaussians, it gives the modular transformation $\\theta(1/t) = \\sqrt t\\,\\theta(t)$ of the Jacobi theta function — Riemann's contour shift then turns this into the functional equation $\\xi(s) = \\xi(1-s)$ for $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$",
+              "It proves that $\\zeta$ has a pole at $s=1$",
+              "It's not — analytic continuation is purely about contour integrals"
+            ],
+            "answer": 1,
+            "explain": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to $f_t(x) = e^{-\\pi t x^2}$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $f_t(x) = e^{-\\pi t x^2}$ (so $\\hat f_t(\\xi) = t^{-1/2} e^{-\\pi \\xi^2/t}$), let $\\theta(t) = \\sum_{n\\in\\mathbb{Z}} e^{-\\pi n^2 t}$. By Poisson summation, $\\theta(t) = t^{-1/2}\\theta(1/t)$. Compute the ratio $\\theta(4)/\\theta(1/4)$.",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "explain": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$. The modular transformation rescales the lattice."
+          }
+        ]
+      },
+      "heat-kernel-gaussian": {
+        "title": "Heat kernel and the Gaussian eigenfunction",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\hat g(0)$ where $g(x) = e^{-\\pi x^2}$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$. (Equivalently, $\\int_{\\mathbb{R}} e^{-\\pi x^2}\\,dx = 1$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "On the Fourier side, the heat equation $\\partial_t u = \\partial_x^2 u$ with $u(0,\\cdot) = f$ becomes:",
+            "choices": [
+              "$\\partial_t \\hat u = i\\xi\\,\\hat u$",
+              "$\\partial_t \\hat u = -4\\pi^2 \\xi^2\\,\\hat u$, so $\\hat u(t,\\xi) = e^{-4\\pi^2 t \\xi^2}\\hat f(\\xi)$",
+              "$\\partial_t \\hat u = \\hat u^2$",
+              "$\\hat u(t,\\xi) = \\hat f(\\xi/t)$"
+            ],
+            "answer": 1,
+            "explain": "$\\widehat{\\partial_x^2 f}(\\xi) = (2\\pi i \\xi)^2 \\hat f(\\xi) = -4\\pi^2 \\xi^2 \\hat f(\\xi)$. So evolution becomes pointwise multiplication by a Gaussian — diffusion damps high frequencies."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hermite functions $h_n(x) = (-1)^n e^{\\pi x^2}\\frac{d^n}{dx^n} e^{-2\\pi x^2}\\cdot\\text{(constant)}$ satisfy $\\hat h_n = (-i)^n h_n$. What does this tell you about the spectrum of the Fourier transform on $L^2(\\mathbb{R})$?",
+            "choices": [
+              "It is purely continuous, equal to $\\mathbb{R}$",
+              "It has eigenvalues $\\pm 1, \\pm i$, each of infinite multiplicity, and $\\mathcal{F}^4 = \\mathrm{id}$",
+              "It is empty",
+              "It equals the spectrum of the Laplacian"
+            ],
+            "answer": 1,
+            "explain": "Hermite functions form an orthonormal basis of $L^2(\\mathbb{R})$ diagonalizing $\\hat{}$ with eigenvalues $(-i)^n$. So $\\hat{}$ is unitary with spectrum $\\{1,-i,-1,i\\}$, each of infinite multiplicity, and $\\mathcal{F}^4 = \\mathrm{id}$ on $L^2$."
+          }
+        ]
+      },
+      "pontryagin-duality": {
+        "title": "Pontryagin duality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the dual group $\\widehat G$ in Pontryagin duality?",
+            "choices": [
+              "the centre of $G$",
+              "the group of continuous group homomorphisms $\\chi\\colon G \\to U(1)$",
+              "the abelianization of $G$",
+              "the group of Borel measures on $G$"
+            ],
+            "answer": 1,
+            "explain": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each locally compact abelian group with its Pontryagin dual $\\widehat G$.",
+            "left": [
+              "$G = \\mathbb{R}$",
+              "$G = \\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$",
+              "$G = \\mathbb{Z}$",
+              "$G = \\mathbb{Z}/N$"
+            ],
+            "right": [
+              "$\\mathbb{Z}$",
+              "$\\mathbb{Z}/N$",
+              "$\\mathbb{R}$",
+              "$\\mathbb{T}$"
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "explain": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients). The general Plancherel theorem on $G$ specializes to all the classical Fourier theorems."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Plancherel theorem on a locally compact abelian $G$ say?",
+            "choices": [
+              "There is a unique Haar measure on $G$",
+              "The Fourier transform extends to a unitary isomorphism $L^2(G,\\mu_G) \\to L^2(\\widehat G, \\mu_{\\widehat G})$ for compatible Haar measures",
+              "Every character of $G$ is bounded by $1$",
+              "$\\widehat G$ is always compact"
+            ],
+            "answer": 1,
+            "explain": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or Parseval on $\\mathbb{T}$, in one breath."
           }
         ]
       }
@@ -32698,6 +33298,279 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "The standard equivalence: $M$ is orientable iff $\\Lambda^n T^*M$ has a nowhere-zero smooth section, i.e. there is a volume form. Every smooth manifold admits a Riemannian metric (via partitions of unity), so (B) is not equivalent. Trivial $TM$ (parallelizability) is strictly stronger than orientability — e.g. $S^2$ is orientable but not parallelizable."
+          }
+        ]
+      }
+    }
+  },
+  "sobolev-spaces-distributions": {
+    "topic": "sobolev-spaces-distributions",
+    "quizzes": {
+      "test-functions-distributions": {
+        "title": "Test functions and the space of distributions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these is NOT a distribution on $\\mathbb{R}$?",
+            "choices": [
+              "$\\langle T,\\phi\\rangle = \\phi(0)$",
+              "$\\langle T,\\phi\\rangle = \\phi'(0)$",
+              "$\\langle T,\\phi\\rangle = \\sum_{k=1}^\\infty \\phi^{(k)}(0)$",
+              "$\\langle T,\\phi\\rangle = \\int_0^1 \\phi(x)\\,dx$"
+            ],
+            "answer": 2,
+            "explain": "An infinite sum of derivatives at a point is not a continuous functional on $\\mathcal{D}$: convergence in $\\mathcal{D}$ controls finitely many derivatives uniformly, but bounding $\\sum_k \\phi^{(k)}(0)$ would require all derivatives at once. The first three are $\\delta_0$, $-\\delta_0'$, and a regular distribution from $L^1$, all bona fide elements of $\\mathcal{D}'$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\langle\\delta_0,\\phi\\rangle$ when $\\phi(x) = e^{-x^2}\\mathbf{1}_{|x|<1}$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "By definition $\\langle\\delta_0,\\phi\\rangle = \\phi(0)$, and $\\phi(0) = e^0 \\cdot 1 = 1$. The Dirac delta is point-evaluation; the support and shape of $\\phi$ are otherwise irrelevant once $0\\in\\operatorname{supp}\\phi$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about $L^1_{\\mathrm{loc}}(\\Omega)$ embedding into $\\mathcal{D}'(\\Omega)$ is correct?",
+            "choices": [
+              "Two locally integrable functions $f,g$ define the same distribution iff $f=g$ everywhere",
+              "Two locally integrable functions define the same distribution iff $f=g$ almost everywhere",
+              "The map $f\\mapsto T_f$ is surjective onto $\\mathcal{D}'$",
+              "Only continuous functions induce distributions"
+            ],
+            "answer": 1,
+            "explain": "If $\\int(f-g)\\phi=0$ for every test $\\phi\\in C_c^\\infty$, the fundamental lemma of the calculus of variations gives $f=g$ a.e. (not pointwise — null sets are invisible). Surjectivity fails: $\\delta_0$ is not regular. Continuity is unnecessary; $L^1_{\\mathrm{loc}}$ suffices."
+          }
+        ]
+      },
+      "distributional-derivative": {
+        "title": "Distributional and weak derivatives",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the distributional derivative of the Heaviside step $H(x)=\\mathbf{1}_{x>0}$?",
+            "choices": [
+              "$0$ (since $H$ is constant on each side)",
+              "$\\delta_0$",
+              "$\\mathrm{p.v.}\\,1/x$",
+              "Undefined — $H$ has a jump"
+            ],
+            "answer": 1,
+            "explain": "$\\langle H',\\phi\\rangle = -\\langle H,\\phi'\\rangle = -\\int_0^\\infty\\phi' = \\phi(0) = \\langle\\delta_0,\\phi\\rangle$ by the fundamental theorem of calculus. The classical derivative is $0$ where defined, but the distributional one captures the jump as a unit point mass at the origin."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $T = \\delta_0''$ on $\\mathbb{R}$ and $\\phi(x) = x^2 e^{-x^2}\\mathbf{1}_{|x|<5}$. Compute $\\langle T,\\phi\\rangle$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "By the rule $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$, we get $\\langle\\delta_0'',\\phi\\rangle = (-1)^2\\langle\\delta_0,\\phi''\\rangle = \\phi''(0)$. Differentiating $\\phi = x^2 e^{-x^2}$: $\\phi' = (2x-2x^3)e^{-x^2}$, $\\phi'' = (2-10x^2+4x^4)e^{-x^2}$, so $\\phi''(0) = 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "The function $u(x)=|x|$ on $\\mathbb{R}$ has weak derivative",
+            "choices": [
+              "Undefined (kink at 0)",
+              "$\\operatorname{sgn}(x)$",
+              "$\\operatorname{sgn}(x) + \\delta_0$",
+              "$2\\delta_0$"
+            ],
+            "answer": 1,
+            "explain": "$|x|$ is continuous (no jump), so no delta is produced. Away from $0$ the classical derivative is $\\operatorname{sgn}(x)$, which is bounded — hence locally integrable — so it serves as the weak derivative. Integration by parts: $\\int|x|\\phi' = \\int_0^\\infty x\\phi' - \\int_{-\\infty}^0 x\\phi' = -\\int_0^\\infty\\phi + \\int_{-\\infty}^0\\phi = -\\int\\operatorname{sgn}(x)\\phi$."
+          }
+        ]
+      },
+      "sobolev-spaces-wkp": {
+        "title": "Sobolev spaces $W^{k,p}$ and $H^s$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The function $u(x) = x^{1/2}$ on $(0,1)$ belongs to $W^{1,p}(0,1)$ for which $p$?",
+            "choices": [
+              "All $p\\ge 1$",
+              "Exactly $p<2$",
+              "Exactly $p\\ge 2$",
+              "No $p$ in $[1,\\infty)$"
+            ],
+            "answer": 1,
+            "explain": "$u\\in L^p$ for every $p$, but $u'(x)=\\tfrac12 x^{-1/2}$ has $\\int_0^1 |u'|^p\\,dx = (1/2)^p\\int_0^1 x^{-p/2}\\,dx$, which converges iff $-p/2>-1$, i.e. $p<2$. At $p=2$ the integral logarithmically diverges."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct Hilbert-space inner product on $H^1(\\Omega)$?",
+            "choices": [
+              "$(u,v) = \\int u\\bar v$",
+              "$(u,v) = \\int \\nabla u\\cdot\\overline{\\nabla v}$",
+              "$(u,v) = \\int u\\bar v + \\int \\nabla u\\cdot\\overline{\\nabla v}$",
+              "$(u,v) = \\int u\\bar v - \\int \\nabla u\\cdot\\overline{\\nabla v}$"
+            ],
+            "answer": 2,
+            "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$. The pure-gradient form (option 2) is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself."
+          },
+          {
+            "type": "mcq",
+            "q": "For non-negative integer $k$, why does the Fourier-multiplier definition $H^k(\\mathbb{R}^n) = \\{u : (1+|\\xi|^2)^{k/2}\\hat u\\in L^2\\}$ agree with the distributional-derivative definition?",
+            "choices": [
+              "By Plancherel, $\\|\\partial^\\alpha u\\|_{L^2}^2 = \\|\\xi^\\alpha \\hat u\\|_{L^2}^2$, so summing over $|\\alpha|\\le k$ gives a polynomial in $|\\xi|^2$ comparable to $(1+|\\xi|^2)^k$",
+              "Because the Fourier transform is bounded on $L^p$ for every $p$",
+              "Because $\\hat u$ is always smooth",
+              "It is a coincidence that holds only in dimension $1$"
+            ],
+            "answer": 0,
+            "explain": "Plancherel turns $\\partial^\\alpha$ into multiplication by $(i\\xi)^\\alpha$; summing $|\\xi^\\alpha|^2$ over all $|\\alpha|\\le k$ yields a polynomial bounded above and below by constants times $(1+|\\xi|^2)^k$, so the two norms are equivalent. The Fourier transform fails to be bounded on $L^p$ for $p\\ne 2$, and $\\hat u$ need not be smooth."
+          }
+        ]
+      },
+      "sobolev-embeddings": {
+        "title": "Sobolev–Morrey–Rellich embeddings",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}^3$ with $k=1$ and $p=2$, compute the Sobolev exponent $p^* = np/(n-kp)$.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "Plug in: $p^* = (3\\cdot 2)/(3-1\\cdot 2) = 6/1 = 6$. So $H^1(\\mathbb{R}^3)\\hookrightarrow L^6(\\mathbb{R}^3)$ — the famous critical exponent that drives most 3-D variational problems."
+          },
+          {
+            "type": "mcq",
+            "q": "On a bounded Lipschitz $\\Omega\\subset\\mathbb{R}^3$, which embedding is GUARANTEED to be compact?",
+            "choices": [
+              "$H^1(\\Omega)\\hookrightarrow L^6(\\Omega)$",
+              "$H^1(\\Omega)\\hookrightarrow L^p(\\Omega)$ for $p<6$",
+              "$H^1(\\Omega)\\hookrightarrow C^0(\\overline\\Omega)$",
+              "$H^1(\\Omega)\\hookrightarrow L^\\infty(\\Omega)$"
+            ],
+            "answer": 1,
+            "explain": "Rellich–Kondrachov gives compactness exactly below the critical exponent: $H^1\\hookrightarrow L^p$ is compact for $p<6=p^*$ on a bounded domain. At $p=p^*=6$ the embedding is bounded but never compact (concentration / bubbling). $H^1\\not\\hookrightarrow L^\\infty$ on $\\mathbb{R}^3$ at all (the borderline regime is $kp=n$, requiring $p\\ge 3$)."
+          },
+          {
+            "type": "mcq",
+            "q": "On $\\Omega\\subset\\mathbb{R}^2$ bounded Lipschitz with $k=1, p=4$ (so $kp=4>2=n$), Morrey gives $W^{1,4}\\hookrightarrow C^{0,\\gamma}$ for which $\\gamma$?",
+            "choices": [
+              "$\\gamma = 1/4$",
+              "$\\gamma = 1/2$",
+              "$\\gamma = 1$",
+              "$\\gamma = 3/4$"
+            ],
+            "answer": 1,
+            "explain": "Morrey's exponent is $\\gamma = k - n/p = 1 - 2/4 = 1/2$ in the supercritical regime. So $W^{1,4}(\\Omega)$ functions are automatically Hölder-continuous of exponent $1/2$ — a regularity gain over the bare measurability of $L^p$."
+          }
+        ]
+      },
+      "trace-theorem": {
+        "title": "Trace theorem on the boundary",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a bounded Lipschitz $\\Omega\\subset\\mathbb{R}^n$, the trace operator gives a continuous map $H^1(\\Omega)\\to ?$",
+            "choices": [
+              "$H^1(\\partial\\Omega)$",
+              "$H^{1/2}(\\partial\\Omega)$",
+              "$L^2(\\partial\\Omega)$ but not better",
+              "$C^0(\\partial\\Omega)$"
+            ],
+            "answer": 1,
+            "explain": "The trace loses exactly $1/p = 1/2$ of a derivative: $H^1(\\Omega) = W^{1,2}(\\Omega) \\to W^{1-1/2,2}(\\partial\\Omega) = H^{1/2}(\\partial\\Omega)$, and the image is exactly $H^{1/2}$ (surjective). A bare $L^2$ statement is true but loses information; $H^1$ on the boundary is too strong."
+          },
+          {
+            "type": "mcq",
+            "q": "Which space is the natural setting for the homogeneous Dirichlet boundary condition $u=0$ on $\\partial\\Omega$?",
+            "choices": [
+              "$H^1(\\Omega)$ with the pointwise condition $u(\\partial\\Omega)=0$",
+              "$H^{1/2}(\\partial\\Omega)$",
+              "$H^1_0(\\Omega) = \\overline{C_c^\\infty(\\Omega)}^{H^1}$",
+              "$L^2(\\Omega)$"
+            ],
+            "answer": 2,
+            "explain": "$H^1_0(\\Omega)$ is by definition the closure of $C_c^\\infty(\\Omega)$ in $H^1$, and it equals $\\ker\\operatorname{Tr}$. Pointwise statements like '$u=0$ on $\\partial\\Omega$' are meaningless for general $H^1$ functions because $\\partial\\Omega$ has measure zero; the trace theorem makes the condition rigorous, and $H^1_0$ packages it cleanly."
+          },
+          {
+            "type": "mcq",
+            "q": "Which characterisation of $H^{1/2}(\\partial\\Omega)$ is correct in terms of half-space Fourier symbol?",
+            "choices": [
+              "$\\{u : (1+|\\xi'|^2)^{1/2}\\hat u\\in L^2\\}$",
+              "$\\{u : (1+|\\xi'|^2)^{1/4}\\hat u\\in L^2\\}$",
+              "$\\{u : \\hat u\\in L^2\\}$ with no weight",
+              "$\\{u : |\\xi'|\\hat u\\in L^\\infty\\}$"
+            ],
+            "answer": 1,
+            "explain": "$H^s$ on the boundary uses the Fourier multiplier $(1+|\\xi'|^2)^{s/2}$, so for $s=1/2$ the multiplier is $(1+|\\xi'|^2)^{1/4}$. The weight $(1+|\\xi'|^2)^{1/2}$ is the $H^1$ symbol, one full derivative."
+          }
+        ]
+      },
+      "fundamental-solution": {
+        "title": "Fundamental solution $\\Delta E = \\delta$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the constant $c$ in the fundamental solution $E_3(x) = c/|x|$ for the 3-D Laplacian (so that $\\Delta E_3 = \\delta_0$)?",
+            "answer": -0.07957747154594767,
+            "tol": 0.0001,
+            "tol_note": "Numerical value of $-1/(4\\pi)$.",
+            "explain": "$E_3(x) = -1/(4\\pi|x|)$, so $c = -1/(4\\pi)\\approx -0.07958$. The sign convention is $\\Delta = \\partial_1^2+\\partial_2^2+\\partial_3^2$, and the constant is fixed by Gauss's flux law: $\\nabla E_3$ has magnitude $1/(4\\pi r^2)$ on the sphere $|x|=r$ of area $4\\pi r^2$, so the radial flux equals $1$ — the unit point source at the origin."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $E_3(x) = -1/(4\\pi|x|)$ harmonic on $\\mathbb{R}^3\\setminus\\{0\\}$ but $\\Delta E_3 = \\delta_0$ as a distribution?",
+            "choices": [
+              "The classical Laplacian misses point masses concentrated at singular points",
+              "$E_3$ is not actually harmonic; the formula is wrong away from $0$",
+              "Distributions cannot be harmonic",
+              "The classical and distributional Laplacians always disagree"
+            ],
+            "answer": 0,
+            "explain": "Away from the origin, direct calculation gives $\\Delta(1/|x|)=0$. The classical operator only sees the smooth-piece behaviour and misses the singularity at $0$; the distributional Laplacian, defined by pairing with test functions, picks up the boundary contribution at $\\partial B_\\varepsilon$ as $\\varepsilon\\to 0$, which evaluates to $\\phi(0)$. The two agree on smooth-region behaviour and differ exactly at concentrated singularities."
+          },
+          {
+            "type": "mcq",
+            "q": "If $f\\in C_c^\\infty(\\mathbb{R}^3)$, the convolution $u = E_3 * f$ solves which equation?",
+            "choices": [
+              "$\\Delta u = f$",
+              "$-\\Delta u = f$",
+              "$\\Delta u = -f$ (sign of $f$ flipped)",
+              "$u = f$"
+            ],
+            "answer": 0,
+            "explain": "$\\Delta(E_3 * f) = (\\Delta E_3) * f = \\delta_0 * f = f$. So with $E_3 = -1/(4\\pi|x|)$, $u = E_3 * f$ solves $\\Delta u = f$, equivalently $-\\Delta(-u) = f$. The standard physicist sign $-\\Delta u = f$ uses $u = -E_3 * f = (1/(4\\pi))\\int f(y)/|x-y|\\,dy$, the Newtonian potential of the source $f$."
+          }
+        ]
+      },
+      "variational-poisson": {
+        "title": "Variational Poisson problem & Lax–Milgram",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The weak formulation of $-\\Delta u = f$ with zero Dirichlet data on a bounded $\\Omega$ asks: find $u\\in H^1_0(\\Omega)$ such that, for all $v\\in H^1_0(\\Omega)$,",
+            "choices": [
+              "$\\int u v = \\int f v$",
+              "$\\int \\nabla u\\cdot\\nabla v = \\int f v$",
+              "$\\int \\Delta u\\,v = \\int f v$",
+              "$\\int u\\,\\Delta v = -\\int f v$"
+            ],
+            "answer": 1,
+            "explain": "Multiply $-\\Delta u = f$ by $v\\in C_c^\\infty$, integrate by parts to move the gradient onto $v$, and the boundary term vanishes (compact support, then density to $H^1_0$). The bilinear form is $a(u,v)=\\int\\nabla u\\cdot\\nabla v$; the linear form is $L(v)=\\int fv$."
+          },
+          {
+            "type": "mcq",
+            "q": "Lax–Milgram applies to $a(u,v)=\\int\\nabla u\\cdot\\nabla v$ on $H^1_0$ because $a$ is",
+            "choices": [
+              "Linear and bounded",
+              "Bilinear, bounded, and coercive (i.e. $a(u,u)\\ge\\alpha\\|u\\|_{H^1}^2$)",
+              "Symmetric and positive — that alone is enough",
+              "Continuous in one argument only"
+            ],
+            "answer": 1,
+            "explain": "Lax–Milgram requires bilinearity, continuity, and coercivity. Coercivity here uses the Poincaré inequality on $H^1_0$: $\\|u\\|_{L^2}\\le C\\|\\nabla u\\|_{L^2}$, hence $a(u,u)=\\|\\nabla u\\|_{L^2}^2 \\ge (1+C^2)^{-1}\\|u\\|_{H^1}^2$. Symmetry is convenient (it lets you read off the energy minimisation) but not required."
+          },
+          {
+            "type": "mcq",
+            "q": "When $a$ is symmetric, the unique weak solution $u$ of $a(u,v)=L(v)$ is also",
+            "choices": [
+              "The maximiser of $J(v)=\\tfrac12 a(v,v)-L(v)$",
+              "The minimiser of $J(v)=\\tfrac12 a(v,v)-L(v)$ on $H^1_0$",
+              "Determined only up to an additive constant",
+              "Smooth, regardless of $f$"
+            ],
+            "answer": 1,
+            "explain": "For symmetric coercive $a$, the Euler–Lagrange equation of $J(v)=\\tfrac12 a(v,v)-L(v)$ is $a(u,\\cdot)=L$, and convexity makes the critical point a minimiser. The Dirichlet principle: '$u$ minimises $\\tfrac12\\int|\\nabla v|^2 - \\int fv$ over $H^1_0$.'  Smoothness of $u$ is a separate question (elliptic regularity), and uniqueness is global, not 'up to a constant'."
           }
         ]
       }

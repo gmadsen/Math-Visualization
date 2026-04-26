@@ -1,0 +1,108 @@
+{
+  "topic": "harmonic-analysis-fourier",
+  "title": "Harmonic analysis & Fourier theory",
+  "page": "harmonic-analysis-fourier.html",
+  "concepts": [
+    {
+      "id": "fourier-series-circle",
+      "title": "Fourier series on the circle",
+      "anchor": "fourier-series",
+      "prereqs": [
+        "lp-spaces",
+        "banach-hilbert-spaces"
+      ],
+      "tags": [
+        "duality",
+        "completion"
+      ],
+      "blurb": "On $\\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$, the exponentials $e_n(x) = e^{2\\pi i n x}$ form an orthonormal Hilbert basis of $L^2(\\mathbb{T})$. Parseval / Plancherel turns the integral $\\int|f|^2$ into the sum $\\sum|\\hat f(n)|^2$, and pointwise convergence is the deeper Carleson question."
+    },
+    {
+      "id": "fourier-transform-real-line",
+      "title": "Fourier transform on $\\mathbb{R}$",
+      "anchor": "fourier-transform",
+      "prereqs": [
+        "fourier-series-circle",
+        "lebesgue-integral",
+        "convergence-theorems"
+      ],
+      "tags": [
+        "duality"
+      ],
+      "blurb": "$\\hat f(\\xi) = \\int f(x) e^{-2\\pi i \\xi x}\\,dx$ for $f\\in L^1(\\mathbb{R})$, with Riemann–Lebesgue $\\hat f\\in C_0$. Inversion $f(x) = \\int \\hat f(\\xi) e^{2\\pi i \\xi x}\\,d\\xi$ holds under regularity, and Plancherel extends the transform to a unitary on $L^2$."
+    },
+    {
+      "id": "convolution-theorem",
+      "title": "Convolution and the convolution theorem",
+      "anchor": "convolution",
+      "prereqs": [
+        "fourier-transform-real-line"
+      ],
+      "tags": [
+        "functoriality"
+      ],
+      "blurb": "The convolution $(f*g)(x) = \\int f(y)g(x-y)\\,dy$ commutes with the Fourier transform: $\\widehat{f*g} = \\hat f\\,\\hat g$. Translation, modulation, and dilation each have clean Fourier shadows; approximate identities recover pointwise convergence."
+    },
+    {
+      "id": "schwartz-space-distributions",
+      "title": "Schwartz space and tempered distributions",
+      "anchor": "schwartz",
+      "prereqs": [
+        "fourier-transform-real-line",
+        "distributions"
+      ],
+      "tags": [
+        "duality",
+        "completion"
+      ],
+      "blurb": "Smooth rapidly-decreasing functions $\\mathcal{S}(\\mathbb{R}^n)$ form a Fréchet algebra closed under $\\hat{}$. The dual $\\mathcal{S}'$ — tempered distributions — extends $\\hat{}$ to objects like $\\delta$, $1$, the principal value $\\mathrm{p.v.}\\,1/x$, and polynomials, which have no $L^1$ Fourier transform."
+    },
+    {
+      "id": "uncertainty-principle",
+      "title": "Heisenberg uncertainty",
+      "anchor": "uncertainty",
+      "prereqs": [
+        "fourier-transform-real-line",
+        "schwartz-space-distributions"
+      ],
+      "blurb": "$\\|x f\\|_2\\,\\|\\xi\\hat f\\|_2 \\ge \\|f\\|_2^2/(4\\pi)$, with equality only for Gaussians. Localization in space and frequency are quantitatively incompatible — a hard constraint behind Plancherel theorems on locally compact abelian groups."
+    },
+    {
+      "id": "poisson-summation",
+      "title": "Poisson summation",
+      "anchor": "poisson",
+      "prereqs": [
+        "fourier-transform-real-line",
+        "schwartz-space-distributions"
+      ],
+      "tags": [
+        "duality"
+      ],
+      "blurb": "$\\sum_{n\\in\\mathbb{Z}} f(n) = \\sum_{n\\in\\mathbb{Z}} \\hat f(n)$ for Schwartz $f$. Specializing to a Gaussian gives the modular transformation of Jacobi's theta function — the analytic continuation of $\\zeta(s)$ rests on this identity."
+    },
+    {
+      "id": "heat-kernel-gaussian",
+      "title": "Heat kernel and the Gaussian eigenfunction",
+      "anchor": "heat",
+      "prereqs": [
+        "fourier-transform-real-line",
+        "convolution-theorem"
+      ],
+      "blurb": "$\\widehat{e^{-\\pi x^2}} = e^{-\\pi \\xi^2}$: the Gaussian is its own Fourier transform. Convolution with the heat kernel $K_t(x) = (4\\pi t)^{-1/2}e^{-x^2/4t}$ solves $\\partial_t u = \\partial_x^2 u$, and on the Fourier side this is multiplication by $e^{-4\\pi^2 t \\xi^2}$."
+    },
+    {
+      "id": "pontryagin-duality",
+      "title": "Pontryagin duality (teaser)",
+      "anchor": "pontryagin",
+      "prereqs": [
+        "fourier-transform-real-line",
+        "fourier-series-circle"
+      ],
+      "tags": [
+        "duality",
+        "group-action"
+      ],
+      "blurb": "Every locally compact abelian group $G$ has a dual group $\\widehat G$ of continuous characters, and the Fourier transform is a unitary $L^2(G) \\to L^2(\\widehat G)$. The cases $G = \\mathbb{T}$ (dual $\\mathbb{Z}$), $G = \\mathbb{R}$ (self-dual), $G = \\mathbb{Z}/N$ (self-dual finite) are the same theorem in three keys."
+    }
+  ]
+}

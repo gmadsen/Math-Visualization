@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Harmonic analysis & Fourier theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":"heights-arithmetic-geometry","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"group-cohomology","prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":null,"prev":"cocartesian-fibrations","section":"Algebra","title":"Group cohomology"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":null,"prev":"sobolev-spaces-distributions","section":"Analysis","title":"Harmonic analysis fourier"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":null,"prev":"class-field-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"harmonic-analysis-fourier","prev":"probability-theory","section":"Analysis","title":"Sobolev spaces distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="analysis" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#fourier-series">1&nbsp;Fourier&nbsp;series</a>
+  <a href="#fourier-transform">2&nbsp;Fourier&nbsp;transform</a>
+  <a href="#convolution">3&nbsp;Convolution</a>
+  <a href="#schwartz">4&nbsp;Schwartz&nbsp;&amp;&nbsp;distributions</a>
+  <a href="#uncertainty">5&nbsp;Uncertainty</a>
+  <a href="#poisson">6&nbsp;Poisson&nbsp;summation</a>
+  <a href="#heat">7&nbsp;Heat&nbsp;kernel</a>
+  <a href="#pontryagin">8&nbsp;Pontryagin&nbsp;duality</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Harmonic analysis &amp; Fourier theory</h1>
+  <p class="sub">Decompose a function into waves, watch what survives. From the Hilbert basis $\{e^{2\pi inx}\}$ on the circle to the self-dual Gaussian on $\mathbb{R}$, and onward to Schwartz distributions, the uncertainty principle, and Pontryagin duality on locally compact abelian groups.</p>
+</section>
+
+<section id="fourier-series">
+<h2>1. Fourier series on the circle</h2>
+
+<p>Let $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ be the circle of circumference $1$. The exponentials</p>
+$$e_n(x) := e^{2\pi i n x},\qquad n\in\mathbb{Z}$$
+<p>are continuous, periodic, and pairwise orthogonal in $L^2(\mathbb{T})$:</p>
+$$\langle e_m, e_n\rangle = \int_0^1 e^{2\pi i (m-n)x}\,dx = \delta_{mn}.$$
+<p>Stone–Weierstrass says trigonometric polynomials are dense in $C(\mathbb{T})$, hence in $L^2(\mathbb{T})$. So $\{e_n\}_{n\in\mathbb{Z}}$ is an <strong>orthonormal Hilbert basis</strong> of $L^2(\mathbb{T})$, and every $f\in L^2(\mathbb{T})$ has the expansion</p>
+$$f(x) \;=\; \sum_{n\in\mathbb{Z}} \hat f(n)\, e_n(x),\qquad \hat f(n) = \int_0^1 f(x)\, e^{-2\pi i n x}\,dx,$$
+<p>convergent in $L^2$. Pythagoras becomes <strong>Parseval / Plancherel</strong>:</p>
+$$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
+
+<h3>Widget — sliding partial sums</h3>
+<p>Pick a function and watch the partial sum $S_N f = \sum_{|n|\le N} \hat f(n) e_n$ approach $f$. Pay attention to the Gibbs overshoot near jumps of the square wave — about $9\%$ even as $N\to\infty$.</p>
+
+<div class="widget" id="w-fs">
+  <div class="hd"><div class="ttl">Partial Fourier sum $S_N f$</div><div class="hint">slide $N$, switch target</div></div>
+  <div class="row">
+    <label for="fs-fn">target $f$</label>
+    <select id="fs-fn">
+      <option value="square">square wave</option>
+      <option value="triangle" selected>triangle wave</option>
+      <option value="sawtooth">sawtooth</option>
+      <option value="bump">smooth bump</option>
+    </select>
+    <label for="fs-N">$N$</label>
+    <input type="range" id="fs-N" min="1" max="60" step="1" value="6">
+    <span class="readout" id="fs-N-out" style="min-width:54px;flex:0 0 auto">N = 6</span>
+  </div>
+  <svg id="fs-svg" viewBox="0 0 620 280" width="620" height="280"><title>Partial Fourier sum</title></svg>
+  <div class="readout" id="fs-note">Smooth bumps converge fast (exponentially in $N$). Discontinuous square wave shows the $\sim 9\%$ Gibbs overshoot regardless of $N$.</div>
+</div>
+
+<h3>Pointwise convergence is harder than $L^2$ convergence</h3>
+<p>For $f\in L^2(\mathbb{T})$, $S_N f \to f$ in $L^2$. The deeper question — <em>pointwise</em> a.e. — is the celebrated <strong>Carleson theorem</strong> (1966): for $f\in L^2(\mathbb{T})$, $S_N f(x) \to f(x)$ for almost every $x$. Hunt later extended this to $L^p$ for $p>1$. In sharp contrast Kolmogorov constructed an $f\in L^1(\mathbb{T})$ whose Fourier series diverges <em>everywhere</em> — the $L^1$ side of the dichotomy is genuinely worse.</p>
+
+<div class="note"><strong>Smoothness $\to$ decay.</strong> If $f\in C^k(\mathbb{T})$ then $\hat f(n) = O(|n|^{-k})$ — integration by parts $k$ times. Conversely, sufficiently fast decay of $\hat f(n)$ forces $f$ to have many derivatives. This is the prototype of the <em>Schwartz duality</em> we'll exploit on $\mathbb{R}$.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#hilbert">Banach and Hilbert spaces</a></li>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-analysis-fourier.html#fourier-transform">Harmonic analysis &amp; Fourier theory</a> · Fourier transform on $\mathbb{R}$</div>
+    <div><a href="./harmonic-analysis-fourier.html#pontryagin">Harmonic analysis &amp; Fourier theory</a> · Pontryagin duality (teaser)</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="fourier-series-circle"></div>
+</section>
+
+<script>
+/* =============================== §1 Fourier-series widget =============================== */
+(function(){
+  const svg = $('#fs-svg'), Nslider = $('#fs-N'), Nout = $('#fs-N-out'),
+        fnSel = $('#fs-fn'), note = $('#fs-note');
+  const W = 620, H = 280, padX = 28, padY = 22;
+  const x0 = padX, x1 = W - padX, midY = H/2;
+  const ampPx = (H/2 - padY);
+
+  const targets = {
+    square:   x => x < 0.5 ? 1 : -1,
+    triangle: x => 1 - 4*Math.abs(x - 0.5),
+    sawtooth: x => 2*x - 1,
+    bump:     x => Math.exp(-30*(x-0.5)*(x-0.5)) - 0.32465247
+  };
+  // Numerical Fourier coefficients for the chosen target on [0,1].
+  // For symmetric/antisymmetric simple waves the closed forms exist,
+  // but a single quadrature works uniformly for all targets in the demo.
+  function coeffs(fn, N){
+    const M = 4096;
+    const re = new Array(2*N+1).fill(0), im = new Array(2*N+1).fill(0);
+    for(let k=0;k<M;k++){
+      const xk = (k+0.5)/M;
+      const fk = fn(xk);
+      for(let n=-N;n<=N;n++){
+        const phase = 2*Math.PI*n*xk;
+        re[n+N] += fk*Math.cos(phase)/M;
+        im[n+N] += -fk*Math.sin(phase)/M;
+      }
+    }
+    return {re, im};
+  }
+  function partial(c, N, x){
+    let s = 0;
+    for(let n=-N;n<=N;n++){
+      const phase = 2*Math.PI*n*x;
+      s += c.re[n+N]*Math.cos(phase) - c.im[n+N]*Math.sin(phase);
+    }
+    return s;
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const N = parseInt(Nslider.value, 10);
+    const fnName = fnSel.value;
+    const fn = targets[fnName];
+    Nout.textContent = `N = ${N}`;
+    // axes
+    const ax = SVG('line',{x1:x0,y1:midY,x2:x1,y2:midY,stroke:'var(--line)','stroke-width':1});
+    const ay = SVG('line',{x1:x0,y1:padY,x2:x0,y2:H-padY,stroke:'var(--line)','stroke-width':1});
+    svg.appendChild(ax); svg.appendChild(ay);
+    // x labels
+    [0,0.5,1].forEach(xx => {
+      const tx = SVG('text',{x:x0+(x1-x0)*xx, y:midY+16, 'font-size':11, fill:'var(--mute)','text-anchor':'middle'});
+      tx.textContent = xx === 0 ? '0' : (xx === 0.5 ? '½' : '1');
+      svg.appendChild(tx);
+    });
+
+    // target (dashed pink)
+    const Mp = 600;
+    let dT = '';
+    for(let i=0;i<=Mp;i++){
+      const xi = i/Mp;
+      const yi = fn(xi);
+      const px = x0 + (x1-x0)*xi;
+      const py = midY - ampPx*yi*0.85;
+      dT += (i===0?'M':'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dT, fill:'none', stroke:'var(--pink)', 'stroke-width':1.4,
+      'stroke-dasharray':'4 3', opacity:'0.85'}));
+
+    // partial sum (yellow)
+    const c = coeffs(fn, N);
+    let dS = '';
+    for(let i=0;i<=Mp;i++){
+      const xi = i/Mp;
+      const yi = partial(c, N, xi);
+      const px = x0 + (x1-x0)*xi;
+      const py = midY - ampPx*yi*0.85;
+      dS += (i===0?'M':'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dS, fill:'none', stroke:'var(--yellow)', 'stroke-width':1.8}));
+
+    // legend
+    const lg1 = SVG('text',{x:x1-180,y:padY+12,'font-size':12,fill:'var(--pink)'});
+    lg1.textContent = '— f(x)  (target, dashed)';
+    const lg2 = SVG('text',{x:x1-180,y:padY+30,'font-size':12,fill:'var(--yellow)'});
+    lg2.textContent = `— S_${N} f(x)  (partial sum)`;
+    svg.appendChild(lg1); svg.appendChild(lg2);
+
+    // contextual note
+    if(fnName === 'square'){
+      note.textContent = `Square wave at N = ${N}: Gibbs overshoot near the jumps stays at ~9% even as N grows. Mean-square error → 0; pointwise at the jump = mean of the two limits.`;
+    } else if(fnName === 'triangle'){
+      note.textContent = `Triangle wave at N = ${N}: continuous & piecewise-linear, so |hat f(n)| = O(1/n²). Convergence is uniform.`;
+    } else if(fnName === 'sawtooth'){
+      note.textContent = `Sawtooth at N = ${N}: jumps once per period, |hat f(n)| = O(1/n). Pointwise convergence to mean at the jump (Dirichlet).`;
+    } else {
+      note.textContent = `Smooth bump at N = ${N}: f ∈ C^∞ ⇒ |hat f(n)| decays faster than any polynomial. Convergence is exponentially fast.`;
+    }
+  }
+  Nslider.addEventListener('input', render);
+  fnSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="fourier-transform">
+<h2>2. Fourier transform on $\mathbb{R}$</h2>
+
+<p>On the line we can no longer index by $\mathbb{Z}$ — the dual variable $\xi$ is itself continuous. With our chosen normalization (no extra $2\pi$ factors floating around), define</p>
+$$\hat f(\xi) \;:=\; \int_{\mathbb{R}} f(x)\, e^{-2\pi i \xi x}\,dx,\qquad f\in L^1(\mathbb{R}).$$
+<p>This integral converges absolutely; by dominated convergence, $\hat f$ is continuous. The <strong>Riemann–Lebesgue lemma</strong> adds that $\hat f(\xi)\to 0$ as $|\xi|\to\infty$. So the transform sends $L^1(\mathbb{R})$ continuously into $C_0(\mathbb{R})$, with $\|\hat f\|_\infty \le \|f\|_1$. (The image is dense but not all of $C_0$; surjectivity fails for subtle reasons.)</p>
+
+<h3>The big four properties</h3>
+<table class="plain">
+<thead><tr><th>operation in $x$</th><th>operation in $\xi$</th></tr></thead>
+<tbody>
+<tr><td>$\tau_a f(x) = f(x-a)$ (translation)</td><td>$e^{-2\pi i a \xi}\,\hat f(\xi)$ (modulation)</td></tr>
+<tr><td>$e^{2\pi i b x} f(x)$ (modulation)</td><td>$\hat f(\xi - b)$ (translation)</td></tr>
+<tr><td>$f(\lambda x)$, $\lambda > 0$ (dilation)</td><td>$\lambda^{-1}\hat f(\xi/\lambda)$</td></tr>
+<tr><td>$\overline{f(x)}$</td><td>$\overline{\hat f(-\xi)}$</td></tr>
+<tr><td>$f'(x)$</td><td>$2\pi i \xi\,\hat f(\xi)$</td></tr>
+<tr><td>$-2\pi i x f(x)$</td><td>$\hat f'(\xi)$</td></tr>
+</tbody>
+</table>
+<p>The "differentiation $\leftrightarrow$ multiplication by polynomial" interchange is the engine that turns linear constant-coefficient PDEs into algebraic equations on the Fourier side.</p>
+
+<h3>Inversion and Plancherel</h3>
+<p>If $f$ <em>and</em> $\hat f$ are both in $L^1$, the <strong>inversion formula</strong></p>
+$$f(x) \;=\; \int_{\mathbb{R}} \hat f(\xi)\, e^{2\pi i \xi x}\,d\xi$$
+<p>recovers $f$ from its transform. The harder content is <strong>Plancherel</strong>: although the Fourier transform is initially defined only on $L^1$, it extends uniquely to a unitary isomorphism</p>
+$$\mathcal{F}\colon L^2(\mathbb{R}) \xrightarrow{\;\sim\;} L^2(\mathbb{R}),\qquad \|\hat f\|_2 = \|f\|_2.$$
+<p>The route is to first prove this on $L^1\cap L^2$ — where both definitions agree — then density-extend. With Plancherel, $L^2(\mathbb{R})$ becomes the natural home for spectral analysis.</p>
+
+<h3>Widget — Fourier transform of a tent</h3>
+<p>The triangular tent $\Lambda(x) = \max(1-|x|, 0)$ has $\hat\Lambda(\xi) = \mathrm{sinc}^2(\xi)$, with $\mathrm{sinc}(\xi) = \sin(\pi\xi)/(\pi\xi)$. The widget overlays the tent and its transform; you can pull the width with a slider and watch the $\xi$-side widen and narrow inversely.</p>
+
+<div class="widget" id="w-ft">
+  <div class="hd"><div class="ttl">$f$ vs $\hat f$ for a scaled tent</div><div class="hint">drag width: narrower $f$ ⇒ wider $\hat f$</div></div>
+  <div class="row">
+    <label for="ft-w">width $a$</label>
+    <input type="range" id="ft-w" min="0.3" max="3.0" step="0.01" value="1.0">
+    <span class="readout" id="ft-w-out" style="min-width:64px;flex:0 0 auto">a = 1.00</span>
+  </div>
+  <svg id="ft-svg" viewBox="0 0 620 320" width="620" height="320"><title>Tent and its Fourier transform</title></svg>
+  <div class="readout" id="ft-note">Tent of half-width a (top) ↔ a · sinc²(a ξ) (bottom). Squeezing the tent stretches the transform — Heisenberg in miniature.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#convergence">Monotone and dominated convergence</a></li>
+    <li><a href="./measure-theory.html#integral">Lebesgue integral</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-analysis-fourier.html#convolution">Harmonic analysis &amp; Fourier theory</a> · Convolution and the convolution theorem</div>
+    <div><a href="./harmonic-analysis-fourier.html#heat">Harmonic analysis &amp; Fourier theory</a> · Heat kernel and the Gaussian eigenfunction</div>
+    <div><a href="./harmonic-analysis-fourier.html#uncertainty">Harmonic analysis &amp; Fourier theory</a> · Heisenberg uncertainty</div>
+    <div><a href="./harmonic-analysis-fourier.html#poisson">Harmonic analysis &amp; Fourier theory</a> · Poisson summation</div>
+    <div><a href="./harmonic-analysis-fourier.html#pontryagin">Harmonic analysis &amp; Fourier theory</a> · Pontryagin duality (teaser)</div>
+    <div><a href="./harmonic-analysis-fourier.html#schwartz">Harmonic analysis &amp; Fourier theory</a> · Schwartz space and tempered distributions</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="fourier-transform-real-line"></div>
+</section>
+
+<script>
+/* =============================== §2 Fourier-transform widget =============================== */
+(function(){
+  const svg = $('#ft-svg'), wSl = $('#ft-w'), wOut = $('#ft-w-out'), note = $('#ft-note');
+  const W=620, H=320, midX=W/2;
+  const yTop = 50, yMid1 = 130;     // panel 1: f
+  const yMid2 = 200, yBot = 280;    // panel 2: hat f
+  const xPadL = 28, xPadR = 28;
+  const xRange = 4;                 // domain in either direction (for both panels)
+
+  function xToPx(x){ return midX + (x/xRange) * (W/2 - xPadR); }
+  function clearAndDrawAxes(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // panel 1 axis (f)
+    svg.appendChild(SVG('line',{x1:xPadL, y1:yMid1, x2:W-xPadR, y2:yMid1, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:midX, y1:yTop, x2:midX, y2:yMid1+8, stroke:'var(--line)'}));
+    // panel 2 axis (hat f)
+    svg.appendChild(SVG('line',{x1:xPadL, y1:yBot, x2:W-xPadR, y2:yBot, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:midX, y1:yMid2, x2:midX, y2:yBot+8, stroke:'var(--line)'}));
+    // labels
+    const l1 = SVG('text',{x:xPadL+4, y:yTop+12,'font-size':12,fill:'var(--mute)'}); l1.textContent='f(x) — tent';
+    svg.appendChild(l1);
+    const l2 = SVG('text',{x:xPadL+4, y:yMid2+12,'font-size':12,fill:'var(--mute)'}); l2.textContent='hat f(ξ) — sinc²';
+    svg.appendChild(l2);
+    // x-axis tick labels at -2 and 2
+    [-2, 2].forEach(xx => {
+      const t = SVG('text',{x:xToPx(xx), y:yMid1+16,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});
+      t.textContent = String(xx);
+      svg.appendChild(t);
+      const t2 = SVG('text',{x:xToPx(xx), y:yBot+16,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});
+      t2.textContent = String(xx);
+      svg.appendChild(t2);
+    });
+  }
+
+  function plot(yFn, yMin, yMax, color, panelTop, panelBot){
+    // sample x in [-xRange, xRange], project to pixel
+    const N = 600;
+    const ampPx = (panelBot - panelTop) * 0.85;
+    let d = '';
+    for(let i=0;i<=N;i++){
+      const xi = -xRange + 2*xRange*(i/N);
+      const yi = yFn(xi);
+      const py = panelBot - ampPx * (yi - yMin)/(yMax - yMin);
+      const px = xToPx(xi);
+      d += (i===0?'M':'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:color, 'stroke-width':1.8}));
+  }
+
+  function tent(a){
+    return x => Math.max(0, 1 - Math.abs(x)/a);
+  }
+  function sinc2(a){
+    // F[Λ(x/a)·a] (continuous version) = a · sinc²(a ξ); we plot a · sinc²(a ξ)
+    return xi => {
+      const u = a*xi;
+      if(Math.abs(u) < 1e-9) return a;
+      const s = Math.sin(Math.PI*u)/(Math.PI*u);
+      return a * s * s;
+    };
+  }
+
+  function render(){
+    clearAndDrawAxes();
+    const a = parseFloat(wSl.value);
+    wOut.textContent = `a = ${a.toFixed(2)}`;
+    // top panel: tent goes from 0 to 1 in y
+    plot(tent(a), 0, 1.05, 'var(--yellow)', yTop, yMid1);
+    // bottom panel: sinc² goes from a small negative to a (max at xi=0)
+    plot(sinc2(a), -0.25, Math.max(1.05, 1.05*a), 'var(--cyan)', yMid2, yBot);
+    note.textContent = `Width a = ${a.toFixed(2)}: tent supported on [-${a.toFixed(2)}, ${a.toFixed(2)}], transform peaks at hat f(0) = ${a.toFixed(2)} with first zeros at ξ = ±${(1/a).toFixed(3)}.`;
+  }
+  wSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="convolution">
+<h2>3. Convolution and the convolution theorem</h2>
+
+<p>Define the <strong>convolution</strong> of $f, g\in L^1(\mathbb{R})$ by</p>
+$$(f*g)(x) \;=\; \int_{\mathbb{R}} f(y)\, g(x-y)\,dy.$$
+<p>By Fubini–Tonelli the integral converges a.e. and $\|f*g\|_1 \le \|f\|_1\,\|g\|_1$ (<strong>Young's inequality</strong> at the corner $p=q=r=1$). Convolution is commutative, associative, and bilinear; equipped with $*$, $L^1(\mathbb{R})$ becomes a commutative Banach algebra.</p>
+
+<p>The <strong>convolution theorem</strong> is the algebraic shadow of all this:</p>
+$$\widehat{f*g}(\xi) \;=\; \hat f(\xi)\,\hat g(\xi).$$
+<p>Proof: substitute and swap the order of integration (Fubini), then change variables $y\mapsto y$ and $x-y \mapsto z$. The dual identity $\widehat{fg} = \hat f * \hat g$ also holds (with appropriate hypotheses on $f, g$), so the Fourier transform <em>swaps</em> the two operations.</p>
+
+<h3>Why $L^1$ has no unit</h3>
+<p>If $L^1(\mathbb{R})$ had a unit $e$ for convolution, then $\hat e \cdot \hat f = \hat f$ for every $f$, forcing $\hat e \equiv 1$. But $\hat e \in C_0$ (Riemann–Lebesgue), so $\hat e \equiv 1$ is impossible. The convolution unit is morally the Dirac delta $\delta$ — a tempered distribution, not an $L^1$ function. We approximate it via <strong>approximate identities</strong>: families $\varphi_\varepsilon(x) = \varepsilon^{-1}\varphi(x/\varepsilon)$ with $\int\varphi = 1$ supported in shrinking neighborhoods, satisfying $\varphi_\varepsilon * f \to f$ in $L^p$ (and pointwise a.e.) as $\varepsilon\to 0^+$.</p>
+
+<div class="note"><strong>Two faces of multiplication.</strong> On the function side, multiplication $fg$ is pointwise. On the Fourier side, multiplication $\hat f\,\hat g$ is also pointwise — but it corresponds to <em>convolution</em> on the function side. So "what is multiplication?" depends on which world you are in. The Banach algebra $(L^1, *)$ and the algebra $C_0$ under pointwise product are intertwined by $\mathcal{F}$.</div>
+
+<h3>Widget — sliding box ★ box</h3>
+<p>The convolution of two indicator functions of intervals is a tent. Drag the right interval across the left; the readout traces $(\mathbf{1}_A * \mathbf{1}_B)(t)$ as a function of the shift $t$.</p>
+
+<div class="widget" id="w-conv">
+  <div class="hd"><div class="ttl">$\mathbf{1}_{[-1,1]} * \mathbf{1}_{[-1,1]}$</div><div class="hint">drag $t$ to slide the second box</div></div>
+  <div class="row">
+    <label for="conv-t">shift $t$</label>
+    <input type="range" id="conv-t" min="-3.0" max="3.0" step="0.01" value="0.7">
+    <span class="readout" id="conv-t-out" style="min-width:64px;flex:0 0 auto">t = 0.70</span>
+  </div>
+  <svg id="conv-svg" viewBox="0 0 620 320" width="620" height="320"><title>Convolution of two box functions</title></svg>
+  <div class="readout" id="conv-note">Top: f (cyan) and g shifted by t (yellow). Bottom: the convolution (f * g)(t) is the area of the overlap. The tent peaks at t=0 with value 2.</div>
+</div>
+
+<div class="quiz" data-concept="convolution-theorem"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-analysis-fourier.html#heat">Harmonic analysis &amp; Fourier theory</a> · Heat kernel and the Gaussian eigenfunction</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =============================== §3 Convolution widget =============================== */
+(function(){
+  const svg = $('#conv-svg'), tSl = $('#conv-t'), tOut = $('#conv-t-out'), note = $('#conv-note');
+  const W=620, H=320, midX=W/2;
+  const xRange = 4;
+  function xToPx(x){ return midX + (x/xRange) * (W/2 - 28); }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t = parseFloat(tSl.value);
+    tOut.textContent = `t = ${t.toFixed(2)}`;
+    const yTopBase = 100, yTopHi = 60;
+    const yBotBase = 280, yBotHi = 170;
+
+    // panel 1 axis
+    svg.appendChild(SVG('line',{x1:24, y1:yTopBase, x2:W-24, y2:yTopBase, stroke:'var(--line)'}));
+    // panel 2 axis
+    svg.appendChild(SVG('line',{x1:24, y1:yBotBase, x2:W-24, y2:yBotBase, stroke:'var(--line)'}));
+
+    // tick labels
+    [-3,-2,-1,0,1,2,3].forEach(xx => {
+      const t1 = SVG('text',{x:xToPx(xx), y:yTopBase+14,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      t1.textContent = String(xx); svg.appendChild(t1);
+      const t2 = SVG('text',{x:xToPx(xx), y:yBotBase+14,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      t2.textContent = String(xx); svg.appendChild(t2);
+    });
+
+    // overlap region: max(-1, t-1) <= x <= min(1, t+1)
+    const a = Math.max(-1, t-1), b = Math.min(1, t+1);
+    if(b > a){
+      const x1 = xToPx(a), x2 = xToPx(b);
+      svg.appendChild(SVG('rect',{x:x1, y:yTopHi, width:x2-x1, height:yTopBase-yTopHi,
+        fill:'var(--violet)', opacity:'0.32'}));
+    }
+
+    // f = 1 on [-1,1] in cyan
+    svg.appendChild(SVG('rect',{x:xToPx(-1), y:yTopHi, width:xToPx(1)-xToPx(-1), height:yTopBase-yTopHi,
+      fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));
+    // g shifted by t = 1 on [t-1, t+1] in yellow
+    svg.appendChild(SVG('rect',{x:xToPx(t-1), y:yTopHi, width:xToPx(t+1)-xToPx(t-1), height:yTopBase-yTopHi,
+      fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+
+    // labels for f, g(.-t)
+    const lblF = SVG('text',{x:xToPx(-1)+6, y:yTopHi-6,'font-size':11,fill:'var(--cyan)'});
+    lblF.textContent='f'; svg.appendChild(lblF);
+    const lblG = SVG('text',{x:xToPx(t+1)-6, y:yTopHi-6,'font-size':11,fill:'var(--yellow)','text-anchor':'end'});
+    lblG.textContent='g(·−t)'; svg.appendChild(lblG);
+
+    // bottom: tent  (f*g)(t) = max(0, 2 - |t|) on |t|<=2
+    let d = '';
+    const ampPx = yBotBase - yBotHi;
+    for(let i=0;i<=400;i++){
+      const ti = -3 + 6*(i/400);
+      const yi = Math.max(0, 2 - Math.abs(ti));
+      const py = yBotBase - ampPx * (yi/2.0);
+      const px = xToPx(ti);
+      d += (i===0?'M':'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--violet)', 'stroke-width':1.8}));
+
+    // marker at current t
+    const yT = Math.max(0, 2 - Math.abs(t));
+    const py = yBotBase - ampPx * (yT/2.0);
+    svg.appendChild(SVG('circle',{cx:xToPx(t), cy:py, r:5, fill:'var(--violet)'}));
+    const valLbl = SVG('text',{x:xToPx(t)+8, y:py-4,'font-size':12,fill:'var(--violet)'});
+    valLbl.textContent = `(f*g)(${t.toFixed(2)}) = ${yT.toFixed(2)}`;
+    svg.appendChild(valLbl);
+
+    note.textContent = `t = ${t.toFixed(2)}: overlap interval = [${a.toFixed(2)}, ${b.toFixed(2)}], length = ${Math.max(0, b-a).toFixed(2)} = (f*g)(t).`;
+  }
+  tSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="schwartz">
+<h2>4. Schwartz space and tempered distributions</h2>
+
+<p>The Fourier transform behaves cleanly on $L^1$ and $L^2$, but neither space is closed under both differentiation and multiplication by polynomials. We want a single space that <em>is</em>, and on which $\mathcal{F}$ is an automorphism. That space is <strong>Schwartz space</strong>:</p>
+$$\mathcal{S}(\mathbb{R}^n) \;=\; \{f\in C^\infty(\mathbb{R}^n) : \|f\|_{\alpha,\beta} := \sup_{x}|x^\alpha\,\partial^\beta f(x)| < \infty\quad\forall \alpha,\beta\}.$$
+<p>Smooth, with every derivative decaying faster than every polynomial. Examples: $e^{-\pi x^2}$ and any polynomial times a Gaussian; non-examples: $1/(1+x^2)$ (only $C^\infty$, but decays only like $x^{-2}$).</p>
+
+<p>The relations</p>
+$$\widehat{x^\alpha f} = \tfrac{1}{(-2\pi i)^{|\alpha|}}\partial^\alpha \hat f,\qquad \widehat{\partial^\beta f} = (2\pi i\xi)^\beta \hat f$$
+<p>show $\mathcal{F}$ maps each seminorm $\|\cdot\|_{\alpha,\beta}$ continuously to $\|\cdot\|_{\beta,\alpha}$. Combined with the inversion formula on $\mathcal{S}$, this gives:</p>
+
+<div class="ok"><strong>Theorem (Schwartz).</strong> $\mathcal{F}\colon \mathcal{S}(\mathbb{R}^n) \to \mathcal{S}(\mathbb{R}^n)$ is a topological isomorphism with $\mathcal{F}^4 = \mathrm{id}$.</div>
+
+<h3>Tempered distributions</h3>
+<p>The <strong>tempered distributions</strong> $\mathcal{S}'(\mathbb{R}^n)$ are continuous linear functionals on $\mathcal{S}$. Every $f\in L^1_{\mathrm{loc}}$ of polynomial growth defines a tempered distribution via $\langle f,\varphi\rangle = \int f\varphi$, but $\mathcal{S}'$ contains much more:</p>
+
+<table class="plain">
+<thead><tr><th>$T\in\mathcal{S}'(\mathbb{R})$</th><th>action on $\varphi$</th><th>$\hat T$</th></tr></thead>
+<tbody>
+<tr><td>$\delta$ (Dirac at $0$)</td><td>$\varphi(0)$</td><td>$\hat\delta = 1$ (constant function)</td></tr>
+<tr><td>$1$ (constant)</td><td>$\int\varphi$</td><td>$\hat 1 = \delta$</td></tr>
+<tr><td>$x$ (polynomial)</td><td>$\int x\,\varphi$</td><td>$\widehat{x} = \tfrac{1}{-2\pi i}\delta'$</td></tr>
+<tr><td>$\mathrm{p.v.}\,1/x$</td><td>$\lim_{\varepsilon\to 0}\int_{|x|>\varepsilon}\varphi(x)/x\,dx$</td><td>$-i\pi\,\mathrm{sgn}(\xi)$</td></tr>
+<tr><td>$e^{2\pi i b x}$ (constant magnitude)</td><td>$\int e^{2\pi i b x}\varphi(x)\,dx$</td><td>$\delta_{b}$</td></tr>
+</tbody>
+</table>
+
+<p>The Fourier transform extends to $\mathcal{S}'$ by duality:</p>
+$$\langle \hat T, \varphi\rangle \;:=\; \langle T, \hat\varphi\rangle.$$
+<p>This is the right setting for the inversion formula on $L^2$ (where $f$ may not be in $L^1$), for $\widehat{\partial^\alpha f} = (2\pi i \xi)^\alpha \hat f$ to hold for tempered distributions, and for Sobolev spaces $H^s = \{f\in\mathcal{S}': (1+|\xi|^2)^{s/2}\hat f \in L^2\}$ to make sense for any real $s$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#distributions">Distributions and test functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-analysis-fourier.html#uncertainty">Harmonic analysis &amp; Fourier theory</a> · Heisenberg uncertainty</div>
+    <div><a href="./harmonic-analysis-fourier.html#poisson">Harmonic analysis &amp; Fourier theory</a> · Poisson summation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="schwartz-space-distributions"></div>
+</section>
+
+<section id="uncertainty">
+<h2>5. Heisenberg uncertainty</h2>
+
+<p>You cannot simultaneously concentrate $f$ and $\hat f$. Any attempt to localize one spreads the other.</p>
+
+<div class="note"><strong>Heisenberg's inequality.</strong> For $f\in\mathcal{S}(\mathbb{R})$ with $\|f\|_2 = 1$,
+$$\Big(\int x^2|f(x)|^2\,dx\Big)^{1/2}\;\Big(\int \xi^2|\hat f(\xi)|^2\,d\xi\Big)^{1/2}\;\ge\;\frac{1}{4\pi}.$$
+Equality iff $f$ is a Gaussian $f(x) = c\,e^{-\pi a x^2}$ for some $a>0$.</div>
+
+<p>The proof is a one-line application of Cauchy–Schwarz to the operator identity</p>
+$$\left[\frac{d}{dx},\, x\right] = 1,\qquad\text{i.e.}\qquad \tfrac{d}{dx}(xf) - x f' = f,$$
+<p>integrated against $\bar f$ and combined with $\widehat{f'} = 2\pi i \xi \hat f$ and Plancherel. The constant $1/(4\pi)$ comes out of the $2\pi$ in the Fourier exponent — change conventions and you change the constant, but the inequality and its physical content stand.</p>
+
+<h3>Reading: position / momentum</h3>
+<p>Think of $|f(x)|^2$ as a position density and $|\hat f(\xi)|^2$ (which is also a probability density, by Plancherel and $\|f\|_2 = 1$) as a "momentum" density. Their standard deviations $\sigma_x$ and $\sigma_\xi$ satisfy</p>
+$$\sigma_x\,\sigma_\xi \;\ge\; \frac{1}{4\pi}.$$
+<p>Heisenberg's $\hbar/2$ in physics is the same statement under the convention $\hat f(p) = \int f(x) e^{-ipx/\hbar}\,dx/\sqrt{2\pi\hbar}$.</p>
+
+<h3>Widget — Gaussians saturate the bound</h3>
+<p>For the family $f_a(x) = (2a)^{1/4} e^{-\pi a x^2}$ (so $\|f_a\|_2 = 1$), the variances are explicit and the product is exactly $1/(4\pi)$.</p>
+
+<div class="widget" id="w-unc">
+  <div class="hd"><div class="ttl">Gaussian family $f_a$</div><div class="hint">slide $a$: $f$ narrows ⇒ $\hat f$ widens</div></div>
+  <div class="row">
+    <label for="unc-a">scale $a$</label>
+    <input type="range" id="unc-a" min="0.2" max="6.0" step="0.01" value="1.0">
+    <span class="readout" id="unc-a-out" style="min-width:60px;flex:0 0 auto">a = 1.00</span>
+  </div>
+  <div class="row">
+    <span class="readout" id="unc-stats" style="flex:1">σ_x = …, σ_ξ = …, product = …</span>
+  </div>
+  <svg id="unc-svg" viewBox="0 0 620 320" width="620" height="320"><title>Gaussian and its Fourier transform</title></svg>
+  <div class="readout" id="unc-note">σ_x · σ_ξ = 1/(4π) ≈ 0.0796 for every a > 0. Gaussians live exactly on the Heisenberg bound; nothing else does.</div>
+</div>
+
+<div class="quiz" data-concept="uncertainty-principle"></div>
+</section>
+
+<script>
+/* =============================== §5 Uncertainty widget =============================== */
+(function(){
+  const svg = $('#unc-svg'), aSl = $('#unc-a'), aOut = $('#unc-a-out'),
+        stats = $('#unc-stats'), note = $('#unc-note');
+  const W=620, H=320, midX=W/2;
+  const yTop=50, yMid1=140, yMid2=180, yBot=270;
+  function xToPx(x){ return midX + (x/3.0) * (W/2 - 28); }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const a = parseFloat(aSl.value);
+    aOut.textContent = `a = ${a.toFixed(2)}`;
+    // axes
+    svg.appendChild(SVG('line',{x1:24, y1:yMid1, x2:W-24, y2:yMid1, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:24, y1:yBot, x2:W-24, y2:yBot, stroke:'var(--line)'}));
+    [-3,-2,-1,0,1,2,3].forEach(xx => {
+      const t1 = SVG('text',{x:xToPx(xx), y:yMid1+14,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      t1.textContent = String(xx); svg.appendChild(t1);
+      const t2 = SVG('text',{x:xToPx(xx), y:yBot+14,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      t2.textContent = String(xx); svg.appendChild(t2);
+    });
+    // f_a(x) = (2a)^{1/4} e^{-π a x^2}
+    const Cx = Math.pow(2*a, 0.25);
+    function fA(x){ return Cx * Math.exp(-Math.PI*a*x*x); }
+    // hat f_a(ξ) = (2/a)^{1/4} e^{-π ξ^2 / a}
+    const Cxi = Math.pow(2/a, 0.25);
+    function fhat(xi){ return Cxi * Math.exp(-Math.PI*xi*xi/a); }
+
+    // peak heights to scale to panel
+    const peakF = Cx;
+    const peakG = Cxi;
+    function plot(fn, peak, color, top, bot){
+      const ampPx = bot - top - 6;
+      let d='';
+      const N=400;
+      for(let i=0;i<=N;i++){
+        const xi = -3 + 6*(i/N);
+        const yi = fn(xi);
+        const px = xToPx(xi);
+        const py = bot - ampPx * (yi / peak);
+        d += (i===0?'M':'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+      }
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:color, 'stroke-width':1.8}));
+    }
+    plot(fA, peakF, 'var(--yellow)', yTop, yMid1);
+    plot(fhat, peakG, 'var(--cyan)', yMid2, yBot);
+
+    // panel labels
+    const l1 = SVG('text',{x:24,y:yTop+10,'font-size':12,fill:'var(--yellow)'});
+    l1.textContent='f_a(x) = (2a)^{1/4} exp(−π a x²)'; svg.appendChild(l1);
+    const l2 = SVG('text',{x:24,y:yMid2+10,'font-size':12,fill:'var(--cyan)'});
+    l2.textContent='hat f_a(ξ) = (2/a)^{1/4} exp(−π ξ²/a)'; svg.appendChild(l2);
+
+    // variances:  ∫ x² |f_a|² dx for ‖f_a‖₂ = 1
+    //   = (2a)^{1/2} · ∫ x² exp(-2π a x²) dx
+    //   = (2a)^{1/2} · 1/(4 (2π a)^{3/2}) · √π · 2  ... we cheat to a clean form:
+    // For Gaussian f_a(x) = (2a)^{1/4} exp(-π a x²), σ_x² = 1/(4π a), σ_ξ² = a/(4π).
+    const sx = Math.sqrt(1/(4*Math.PI*a));
+    const sxi = Math.sqrt(a/(4*Math.PI));
+    const prod = sx*sxi;
+    stats.textContent = `σ_x = ${sx.toFixed(4)},  σ_ξ = ${sxi.toFixed(4)},  σ_x · σ_ξ = ${prod.toFixed(4)}  (Heisenberg bound = ${(1/(4*Math.PI)).toFixed(4)})`;
+    note.textContent = `Saturating Heisenberg with equality: σ_x · σ_ξ = 1/(4π) ≈ 0.0796 exactly, for every a. Increasing a sharpens f and broadens hat f.`;
+  }
+  aSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="poisson">
+<h2>6. Poisson summation</h2>
+
+<p>One identity binds Fourier series and the Fourier transform on $\mathbb{R}$ — and binds the function on $\mathbb{R}$ to its periodization on $\mathbb{T}$.</p>
+
+<div class="ok"><strong>Poisson summation.</strong> For Schwartz $f\in\mathcal{S}(\mathbb{R})$,
+$$\sum_{n\in\mathbb{Z}} f(n) \;=\; \sum_{n\in\mathbb{Z}} \hat f(n).$$
+More generally, $\sum_n f(x + n) = \sum_n \hat f(n)\,e^{2\pi i n x}$.</div>
+
+<p>Proof sketch: define $F(x) = \sum_n f(x+n)$ on $\mathbb{T}$. Schwartz decay makes the sum and all its derivatives uniformly convergent, so $F\in C^\infty(\mathbb{T})$. Compute its Fourier coefficient:</p>
+$$\hat F(k) = \int_0^1 F(x) e^{-2\pi i k x}\,dx = \int_{\mathbb{R}} f(x) e^{-2\pi i k x}\,dx = \hat f(k).$$
+<p>The Fourier expansion $F(x) = \sum_k \hat F(k) e^{2\pi i k x} = \sum_k \hat f(k) e^{2\pi i k x}$ is the second identity above; setting $x=0$ gives the first.</p>
+
+<h3>The theta function and $\zeta(s)$</h3>
+<p>Apply Poisson summation to $f_t(x) = e^{-\pi t x^2}$, which has $\hat f_t(\xi) = t^{-1/2} e^{-\pi \xi^2/t}$. The result is the <strong>modular transformation</strong> of Jacobi's theta function</p>
+$$\theta(t) := \sum_{n\in\mathbb{Z}} e^{-\pi n^2 t},\qquad \theta(1/t) \;=\; \sqrt t\, \theta(t),\quad t > 0.$$
+<p>Riemann's 1859 derivation of the functional equation $\xi(s) = \xi(1-s)$ for $\xi(s) = \pi^{-s/2}\Gamma(s/2)\zeta(s)$ uses exactly this. Poisson summation is the analytic seed of all such functional equations — see <a href="./dirichlet-series-euler-products.html">Dirichlet series &amp; Euler products</a> for the L-function story.</p>
+
+<h3>Sampling theorem</h3>
+<p>If $\hat f$ is supported in $[-W, W]$ (band-limited), Poisson summation on the dilated $f(x/2W)$ recovers the <strong>Shannon–Nyquist sampling theorem</strong>: $f$ is determined by its values on the lattice $\frac{1}{2W}\mathbb{Z}$, with explicit reconstruction</p>
+$$f(x) = \sum_{n\in\mathbb{Z}} f\!\left(\frac{n}{2W}\right) \mathrm{sinc}\big(2W x - n\big).$$
+<p>Lower the sampling rate and you get aliasing — the high frequencies fold back onto the lattice in exactly the Poisson-summation pattern.</p>
+
+<div class="quiz" data-concept="poisson-summation"></div>
+</section>
+
+<section id="heat">
+<h2>7. Heat kernel and the Gaussian eigenfunction</h2>
+
+<p>The Gaussian $g(x) = e^{-\pi x^2}$ is the most important function in Fourier analysis. It satisfies</p>
+$$\hat g \;=\; g.$$
+<p>The Gaussian is its own Fourier transform: an eigenfunction of $\mathcal{F}$ with eigenvalue $1$. (Proof: $g$ solves $g' + 2\pi x g = 0$; differentiating $\hat g$ via $\widehat{xf}$ gives $\hat g$ solving the same ODE, and matching values at $0$.) Together with translates, dilates, and Hermite polynomials, this seeds an orthonormal basis of $L^2(\mathbb{R})$ on which $\mathcal{F}$ has eigenvalues $\{1, -i, -1, i\}$ — and thus $\mathcal{F}^4 = \mathrm{id}$ globally on $L^2$.</p>
+
+<h3>Heat equation as multiplication on the Fourier side</h3>
+<p>Consider the <strong>heat equation</strong> on $\mathbb{R}$ with initial datum $u(0,\cdot) = f$:</p>
+$$\partial_t u \;=\; \partial_x^2 u,\qquad x\in\mathbb{R},\ t>0.$$
+<p>Apply $\mathcal{F}$ in $x$:</p>
+$$\partial_t \hat u(t,\xi) \;=\; -4\pi^2 \xi^2\, \hat u(t, \xi),\qquad \hat u(0,\xi) = \hat f(\xi).$$
+<p>This is a pointwise ODE in $\xi$. Solution: $\hat u(t,\xi) = e^{-4\pi^2 t \xi^2}\,\hat f(\xi)$. Inverting:</p>
+$$u(t, x) \;=\; (K_t * f)(x),\qquad K_t(x) = \frac{1}{\sqrt{4\pi t}}\, e^{-x^2/(4t)}.$$
+<p>$K_t$ is the <strong>heat kernel</strong>: a Gaussian of standard deviation $\sigma = \sqrt{2t}$, with mass $1$ for every $t>0$ and $K_t \to \delta$ as $t \to 0^+$. So the heat semigroup $e^{t\partial_x^2}$ is convolution with $K_t$, which on the Fourier side is multiplication by $e^{-4\pi^2 t \xi^2}$ — exponential damping of high frequencies.</p>
+
+<div class="note"><strong>Probability connection.</strong> The same kernel $K_t$ is the density of standard Brownian motion at time $2t$. Convolution with $K_t$ in PDE land is taking expectation over a Brownian step in probability land — see <a href="./probability-theory.html">probability theory</a> for the random-walk picture.</div>
+
+<h3>Widget — heat-equation evolution</h3>
+<p>Pick an initial profile and watch the solution at times $t = 0.05, 0.2, 1$. The high-frequency wiggles damp first; the bell broadens.</p>
+
+<div class="widget" id="w-heat">
+  <div class="hd"><div class="ttl">$u(t, x) = (K_t * f)(x)$</div><div class="hint">slide $t$ to evolve</div></div>
+  <div class="row">
+    <label for="heat-fn">initial $f$</label>
+    <select id="heat-fn">
+      <option value="bump" selected>centered Gaussian</option>
+      <option value="two">two bumps</option>
+      <option value="step">smoothed step</option>
+    </select>
+    <label for="heat-t">time $t$</label>
+    <input type="range" id="heat-t" min="0" max="2" step="0.005" value="0.1">
+    <span class="readout" id="heat-t-out" style="min-width:64px;flex:0 0 auto">t = 0.10</span>
+  </div>
+  <svg id="heat-svg" viewBox="0 0 620 280" width="620" height="280"><title>Heat equation solution</title></svg>
+  <div class="readout" id="heat-note">u(t, x) = K_t * f. As t grows, fine features wash out — high frequencies die first.</div>
+</div>
+
+<div class="quiz" data-concept="heat-kernel-gaussian"></div>
+</section>
+
+<script>
+/* =============================== §7 Heat-kernel widget =============================== */
+(function(){
+  const svg = $('#heat-svg'), tSl = $('#heat-t'), tOut = $('#heat-t-out'),
+        fnSel = $('#heat-fn'), note = $('#heat-note');
+  const W=620, H=280, midX=W/2, padY=18;
+  const xRange = 5;
+  function xToPx(x){ return midX + (x/xRange) * (W/2 - 24); }
+
+  const initials = {
+    bump: x => Math.exp(-(x*x)*4),
+    two:  x => Math.exp(-((x-1.2)*(x-1.2))*8) + 0.7*Math.exp(-((x+1.5)*(x+1.5))*6),
+    step: x => 0.5 + 0.5*Math.tanh(6*x),
+  };
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t = parseFloat(tSl.value);
+    tOut.textContent = `t = ${t.toFixed(2)}`;
+    const fn = initials[fnSel.value];
+
+    // axis
+    svg.appendChild(SVG('line',{x1:24, y1:H-padY, x2:W-24, y2:H-padY, stroke:'var(--line)'}));
+    [-4,-2,0,2,4].forEach(xx => {
+      const tx = SVG('text',{x:xToPx(xx), y:H-padY+14,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      tx.textContent = String(xx); svg.appendChild(tx);
+    });
+
+    // sample u(t,·) by direct convolution: u(t,x) = ∫ K_t(y) f(x-y) dy via discretization
+    const Mp = 240;       // plot resolution
+    const Mc = 600;       // convolution quadrature resolution
+    const yMin = 0, yMax = 1.2;
+    const ampPx = (H-padY) - 30;
+
+    // ranges and step sizes
+    const dy = 12.0/Mc;   // integrate y over [-6, 6]
+    const sigma2 = Math.max(t*4, 1e-7);   // since u_t = u_xx → variance = 2t in our convention
+                                          // actually with our PDE u_t = u_xx (no 4π factor) the
+                                          // kernel is K_t(x) = 1/√(4πt) exp(-x²/(4t)).
+
+    function uAt(x){
+      if(t < 1e-6) return fn(x);
+      let s = 0;
+      const C = 1.0/Math.sqrt(4*Math.PI*t);
+      for(let i=0;i<Mc;i++){
+        const yi = -6 + dy*(i+0.5);
+        s += C * Math.exp(-yi*yi/(4*t)) * fn(x-yi);
+      }
+      return s*dy;
+    }
+
+    let dInit='', dCur='';
+    for(let i=0;i<=Mp;i++){
+      const xi = -xRange + 2*xRange*(i/Mp);
+      const yiInit = fn(xi);
+      const yiCur  = uAt(xi);
+      const px = xToPx(xi);
+      const pyI = (H-padY) - ampPx*Math.max(0, Math.min(yiInit, yMax))/yMax;
+      const pyC = (H-padY) - ampPx*Math.max(0, Math.min(yiCur,  yMax))/yMax;
+      dInit += (i===0?'M':'L') + px.toFixed(1) + ' ' + pyI.toFixed(1) + ' ';
+      dCur  += (i===0?'M':'L') + px.toFixed(1) + ' ' + pyC.toFixed(1) + ' ';
+    }
+    // initial dashed
+    svg.appendChild(SVG('path',{d:dInit, fill:'none', stroke:'var(--mute)', 'stroke-width':1.2,
+      'stroke-dasharray':'4 3'}));
+    // current solid
+    svg.appendChild(SVG('path',{d:dCur,  fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));
+
+    // legend
+    const lg1 = SVG('text',{x:W-200,y:padY+10,'font-size':12,fill:'var(--mute)'});
+    lg1.textContent='— f(x)  (initial, dashed)'; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-200,y:padY+28,'font-size':12,fill:'var(--cyan)'});
+    lg2.textContent=`— u(t, x), t = ${t.toFixed(2)}`; svg.appendChild(lg2);
+
+    if(t < 1e-6){
+      note.textContent = 'At t = 0: u = f. Sliding t > 0 convolves with the heat kernel.';
+    } else {
+      note.textContent = `t = ${t.toFixed(2)}: kernel std deviation σ = √(2t) = ${Math.sqrt(2*t).toFixed(3)}. High frequencies damp by e^{-4π² t ξ²}.`;
+    }
+  }
+  tSl.addEventListener('input', render);
+  fnSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="pontryagin">
+<h2>8. Pontryagin duality (teaser)</h2>
+
+<p>Fourier series on $\mathbb{T}$ and the Fourier transform on $\mathbb{R}$ are not two theorems — they are <em>one</em> theorem in two key signatures. The unifying frame is <strong>Pontryagin duality</strong> on locally compact abelian (LCA) groups.</p>
+
+<p>For $G$ an LCA group, the <strong>dual group</strong> is</p>
+$$\widehat G \;=\; \mathrm{Hom}_{\mathrm{cts}}(G,\, U(1)) \;=\; \{\text{continuous group homomorphisms } \chi\colon G\to U(1)\}.$$
+<p>Endow $\widehat G$ with the compact-open topology. It is also LCA, and the canonical map $G\to\widehat{\widehat G}$, $g\mapsto (\chi\mapsto \chi(g))$, is a topological group isomorphism. The classical Fourier theorems are special cases:</p>
+
+<table class="plain">
+<thead><tr><th>$G$</th><th>$\widehat G$</th><th>"Fourier transform"</th></tr></thead>
+<tbody>
+<tr><td>$\mathbb{R}$</td><td>$\mathbb{R}$ (self-dual via $\chi_\xi(x) = e^{2\pi i \xi x}$)</td><td>continuous Fourier transform</td></tr>
+<tr><td>$\mathbb{T} = \mathbb{R}/\mathbb{Z}$</td><td>$\mathbb{Z}$ (via $\chi_n(x) = e^{2\pi i n x}$)</td><td>Fourier <em>series</em>: $\hat f \in \ell^2(\mathbb{Z})$</td></tr>
+<tr><td>$\mathbb{Z}$</td><td>$\mathbb{T}$</td><td>discrete-time Fourier transform</td></tr>
+<tr><td>$\mathbb{Z}/N$</td><td>$\mathbb{Z}/N$ (self-dual finite)</td><td>discrete Fourier transform (DFT)</td></tr>
+<tr><td>$\mathbb{Q}_p$</td><td>$\mathbb{Q}_p$ (self-dual via additive characters)</td><td>$p$-adic Fourier analysis</td></tr>
+<tr><td>$\mathbb{A}_K = \prod'_v K_v$ (adèles)</td><td>$\mathbb{A}_K$ (self-dual)</td><td>adelic harmonic analysis (Tate's thesis)</td></tr>
+</tbody>
+</table>
+
+<p>The <strong>Plancherel theorem</strong> says: with appropriately compatible Haar measures on $G$ and $\widehat G$, the Fourier transform $\mathcal{F}\colon L^1(G)\cap L^2(G) \to L^2(\widehat G)$ extends to a unitary isomorphism $L^2(G)\xrightarrow{\sim} L^2(\widehat G)$. Setting $G = \mathbb{R}$ recovers classical Plancherel; $G = \mathbb{T}$ recovers Parseval; $G = \mathbb{Z}/N$ is unitarity of the DFT matrix divided by $\sqrt N$.</p>
+
+<div class="note"><strong>Looking ahead.</strong> Tate (1950) used Pontryagin duality on the adèles $\mathbb{A}_K$ to give a unified, conceptual proof of the analytic continuation and functional equation of Hecke L-functions — the same Poisson-summation idea (§6) lifted to LCA groups. This is the bridge from harmonic analysis to modern automorphic forms.</div>
+
+<div class="quiz" data-concept="pontryagin-duality"></div>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('harmonic-analysis-fourier'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

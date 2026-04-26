@@ -15,6 +15,7 @@
     "infinity-topoi",
     "derived-categories",
     "cocartesian-fibrations",
+    "group-cohomology",
 
     "real-analysis",
     "measure-theory",
@@ -23,6 +24,8 @@
     "operator-algebras",
     "dynamical-systems",
     "probability-theory",
+    "sobolev-spaces-distributions",
+    "harmonic-analysis-fourier",
 
     "point-set-topology",
     "algebraic-topology",
@@ -123,6 +126,7 @@
     "infinity-topoi": "standard",
     "derived-categories": "standard",
     "cocartesian-fibrations": "standard",
+    "group-cohomology": "standard",
 
     "real-analysis": "prereq",
     "measure-theory": "standard",
@@ -131,6 +135,8 @@
     "operator-algebras": "advanced",
     "dynamical-systems": "standard",
     "probability-theory": "standard",
+    "harmonic-analysis-fourier": "standard",
+    "sobolev-spaces-distributions": "standard",
 
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",

@@ -18,6 +18,7 @@
         "commutative-algebra",
         "homological",
         "derived-categories",
+        "group-cohomology",
         "elementary-topos-theory",
         "heyting-algebras-toposes",
         "grothendieck-topologies-sites",
@@ -37,7 +38,9 @@
         "functional-analysis",
         "operator-algebras",
         "dynamical-systems",
-        "probability-theory"
+        "probability-theory",
+        "harmonic-analysis-fourier",
+        "sobolev-spaces-distributions"
       ]
     },
     {

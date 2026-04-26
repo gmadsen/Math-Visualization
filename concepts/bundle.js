@@ -18,6 +18,7 @@ window.__MVConcepts = {
       "infinity-topoi",
       "derived-categories",
       "cocartesian-fibrations",
+      "group-cohomology",
       "real-analysis",
       "measure-theory",
       "complex-analysis",
@@ -25,6 +26,8 @@ window.__MVConcepts = {
       "operator-algebras",
       "dynamical-systems",
       "probability-theory",
+      "sobolev-spaces-distributions",
+      "harmonic-analysis-fourier",
       "point-set-topology",
       "algebraic-topology",
       "smooth-manifolds",
@@ -118,6 +121,7 @@ window.__MVConcepts = {
       "infinity-topoi": "standard",
       "derived-categories": "standard",
       "cocartesian-fibrations": "standard",
+      "group-cohomology": "standard",
       "real-analysis": "prereq",
       "measure-theory": "standard",
       "complex-analysis": "prereq",
@@ -125,6 +129,8 @@ window.__MVConcepts = {
       "operator-algebras": "advanced",
       "dynamical-systems": "standard",
       "probability-theory": "standard",
+      "harmonic-analysis-fourier": "standard",
+      "sobolev-spaces-distributions": "standard",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
       "smooth-manifolds": "standard",
@@ -1427,6 +1433,116 @@ window.__MVConcepts = {
         }
       ]
     },
+    "group-cohomology": {
+      "topic": "group-cohomology",
+      "title": "Group cohomology",
+      "page": "group-cohomology.html",
+      "concepts": [
+        {
+          "id": "bar-resolution",
+          "title": "The bar resolution and $H^n(G,M)$",
+          "anchor": "bar",
+          "prereqs": [
+            "derived-functors",
+            "group-actions-burnside"
+          ],
+          "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
+          "tags": [
+            "cohomology",
+            "foundation"
+          ]
+        },
+        {
+          "id": "h0-fixed-points",
+          "title": "$H^0$ as $G$-fixed points",
+          "anchor": "h0",
+          "prereqs": [
+            "bar-resolution"
+          ],
+          "blurb": "Degree zero recovers the input: $H^0(G,M)=M^G$. Failure of right-exactness of $(-)^G$ is exactly what the higher $H^n$ correct, generating the long exact sequence $0\\to A^G\\to B^G\\to C^G\\xrightarrow{\\delta} H^1(G,A)\\to\\cdots$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "h1-crossed-homs",
+          "title": "$H^1$, crossed homomorphisms, and Hilbert 90",
+          "anchor": "h1",
+          "prereqs": [
+            "h0-fixed-points",
+            "exact-sequences"
+          ],
+          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "h2-extensions",
+          "title": "$H^2$ classifies group extensions",
+          "anchor": "h2",
+          "prereqs": [
+            "h1-crossed-homs",
+            "semidirect-products-ses"
+          ],
+          "blurb": "Equivalence classes of extensions $1\\to A\\to E\\to G\\to 1$ with prescribed $G$-action on abelian $A$ are in bijection with $H^2(G,A)$. Split extensions hit $0$; the nontrivial class assembles a section's failure-of-multiplicativity into the canonical 2-cocycle.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "cyclic-periodic-tate",
+          "title": "Cyclic groups, periodicity, and Tate cohomology",
+          "anchor": "cyclic",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions"
+          ],
+          "blurb": "For $G=C_n$ the alternating $\\sigma-1$/$N$-resolution gives a 2-periodic theory: $H^{2k}=M^G/N(M)$, $H^{2k+1}=\\ker N/(\\sigma-1)M$. Splicing in negative degrees defines Tate cohomology $\\hat H^*$; the Herbrand quotient is multiplicative and a workhorse in class field theory.",
+          "tags": [
+            "cohomology",
+            "finiteness",
+            "completion"
+          ]
+        },
+        {
+          "id": "inflation-restriction-lhs",
+          "title": "Inflation–restriction and Lyndon–Hochschild–Serre",
+          "anchor": "infres",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions",
+            "spectral-sequences-ha"
+          ],
+          "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "galois-cohomology-brauer",
+          "title": "Galois cohomology and the Brauer group",
+          "anchor": "galois-cohom",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions",
+            "field-extensions-galois"
+          ],
+          "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "classification"
+          ]
+        }
+      ]
+    },
     "real-analysis": {
       "topic": "real-analysis",
       "title": "Real analysis",
@@ -2440,6 +2556,213 @@ window.__MVConcepts = {
             "martingales"
           ],
           "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
+        }
+      ]
+    },
+    "sobolev-spaces-distributions": {
+      "topic": "sobolev-spaces-distributions",
+      "title": "Sobolev spaces & distributions",
+      "page": "sobolev-spaces-distributions.html",
+      "concepts": [
+        {
+          "id": "test-functions-distributions",
+          "title": "Test functions and the space of distributions",
+          "anchor": "test-functions",
+          "prereqs": [
+            "bump-functions",
+            "lp-spaces"
+          ],
+          "blurb": "Test functions are smooth and compactly supported; their continuous-dual $\\mathcal{D}'(\\Omega)$ — distributions — contains $L^1_{\\mathrm{loc}}$, the Dirac delta, and the principal-value $1/x$ as a single class.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "distributional-derivative",
+          "title": "Distributional and weak derivatives",
+          "anchor": "weak-derivative",
+          "prereqs": [
+            "test-functions-distributions",
+            "real-differentiation"
+          ],
+          "blurb": "The pairing $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$ defines a derivative on every distribution; the Heaviside step has $H'=\\delta_0$, $(\\log|x|)'=\\mathrm{p.v.}\\,1/x$, and $|x|'=\\operatorname{sgn}(x)$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "sobolev-spaces-wkp",
+          "title": "Sobolev spaces $W^{k,p}$ and $H^s$",
+          "anchor": "sobolev",
+          "prereqs": [
+            "distributional-derivative",
+            "lp-spaces",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "$W^{k,p}(\\Omega)$ collects $L^p$ functions whose distributional derivatives up to order $k$ all lie in $L^p$; $H^k=W^{k,2}$ is Hilbert, and the Fourier-multiplier definition extends the scale to fractional $H^s$.",
+          "tags": [
+            "completion"
+          ]
+        },
+        {
+          "id": "sobolev-embeddings",
+          "title": "Sobolev–Morrey–Rellich embeddings",
+          "anchor": "embeddings",
+          "prereqs": [
+            "sobolev-spaces-wkp",
+            "compactness"
+          ],
+          "blurb": "Three regimes by $kp$ vs $n$: subcritical $W^{k,p}\\hookrightarrow L^{p^*}$ with $p^*=np/(n-kp)$; supercritical $W^{k,p}\\hookrightarrow C^{0,\\gamma}$ (Morrey, Hölder); and the Rellich–Kondrachov upgrade to compact embeddings strictly below the critical exponent.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "trace-theorem",
+          "title": "Trace theorem on the boundary",
+          "anchor": "trace",
+          "prereqs": [
+            "sobolev-spaces-wkp"
+          ],
+          "blurb": "On a bounded Lipschitz domain the restriction $u\\mapsto u|_{\\partial\\Omega}$ extends from $C^\\infty(\\overline\\Omega)$ to a bounded surjection $W^{1,p}(\\Omega)\\to W^{1-1/p,p}(\\partial\\Omega)$, losing exactly $1/p$ of a derivative; the kernel is $H^1_0$, the right space for Dirichlet conditions.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "fundamental-solution",
+          "title": "Fundamental solution $\\Delta E = \\delta$",
+          "anchor": "fundamental",
+          "prereqs": [
+            "distributional-derivative"
+          ],
+          "blurb": "On $\\mathbb{R}^3$, $E(x)=-1/(4\\pi|x|)$ satisfies $\\Delta E = \\delta_0$ as distributions; convolution with $E$ inverts $\\Delta$ on nice sources, the Newtonian/Coulomb potential of physics.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "variational-poisson",
+          "title": "Variational Poisson problem & Lax–Milgram",
+          "anchor": "variational",
+          "prereqs": [
+            "sobolev-spaces-wkp",
+            "trace-theorem",
+            "riesz-representation"
+          ],
+          "blurb": "Multiplying $-\\Delta u=f$ by a test function and integrating by parts produces a coercive bilinear form on $H^1_0(\\Omega)$; Lax–Milgram (a non-symmetric Riesz) gives a unique weak solution, equivalently the minimiser of the Dirichlet energy.",
+          "tags": [
+            "universal-property"
+          ]
+        }
+      ]
+    },
+    "harmonic-analysis-fourier": {
+      "topic": "harmonic-analysis-fourier",
+      "title": "Harmonic analysis & Fourier theory",
+      "page": "harmonic-analysis-fourier.html",
+      "concepts": [
+        {
+          "id": "fourier-series-circle",
+          "title": "Fourier series on the circle",
+          "anchor": "fourier-series",
+          "prereqs": [
+            "lp-spaces",
+            "banach-hilbert-spaces"
+          ],
+          "tags": [
+            "duality",
+            "completion"
+          ],
+          "blurb": "On $\\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$, the exponentials $e_n(x) = e^{2\\pi i n x}$ form an orthonormal Hilbert basis of $L^2(\\mathbb{T})$. Parseval / Plancherel turns the integral $\\int|f|^2$ into the sum $\\sum|\\hat f(n)|^2$, and pointwise convergence is the deeper Carleson question."
+        },
+        {
+          "id": "fourier-transform-real-line",
+          "title": "Fourier transform on $\\mathbb{R}$",
+          "anchor": "fourier-transform",
+          "prereqs": [
+            "fourier-series-circle",
+            "lebesgue-integral",
+            "convergence-theorems"
+          ],
+          "tags": [
+            "duality"
+          ],
+          "blurb": "$\\hat f(\\xi) = \\int f(x) e^{-2\\pi i \\xi x}\\,dx$ for $f\\in L^1(\\mathbb{R})$, with Riemann–Lebesgue $\\hat f\\in C_0$. Inversion $f(x) = \\int \\hat f(\\xi) e^{2\\pi i \\xi x}\\,d\\xi$ holds under regularity, and Plancherel extends the transform to a unitary on $L^2$."
+        },
+        {
+          "id": "convolution-theorem",
+          "title": "Convolution and the convolution theorem",
+          "anchor": "convolution",
+          "prereqs": [
+            "fourier-transform-real-line"
+          ],
+          "tags": [
+            "functoriality"
+          ],
+          "blurb": "The convolution $(f*g)(x) = \\int f(y)g(x-y)\\,dy$ commutes with the Fourier transform: $\\widehat{f*g} = \\hat f\\,\\hat g$. Translation, modulation, and dilation each have clean Fourier shadows; approximate identities recover pointwise convergence."
+        },
+        {
+          "id": "schwartz-space-distributions",
+          "title": "Schwartz space and tempered distributions",
+          "anchor": "schwartz",
+          "prereqs": [
+            "fourier-transform-real-line",
+            "distributions"
+          ],
+          "tags": [
+            "duality",
+            "completion"
+          ],
+          "blurb": "Smooth rapidly-decreasing functions $\\mathcal{S}(\\mathbb{R}^n)$ form a Fréchet algebra closed under $\\hat{}$. The dual $\\mathcal{S}'$ — tempered distributions — extends $\\hat{}$ to objects like $\\delta$, $1$, the principal value $\\mathrm{p.v.}\\,1/x$, and polynomials, which have no $L^1$ Fourier transform."
+        },
+        {
+          "id": "uncertainty-principle",
+          "title": "Heisenberg uncertainty",
+          "anchor": "uncertainty",
+          "prereqs": [
+            "fourier-transform-real-line",
+            "schwartz-space-distributions"
+          ],
+          "blurb": "$\\|x f\\|_2\\,\\|\\xi\\hat f\\|_2 \\ge \\|f\\|_2^2/(4\\pi)$, with equality only for Gaussians. Localization in space and frequency are quantitatively incompatible — a hard constraint behind Plancherel theorems on locally compact abelian groups."
+        },
+        {
+          "id": "poisson-summation",
+          "title": "Poisson summation",
+          "anchor": "poisson",
+          "prereqs": [
+            "fourier-transform-real-line",
+            "schwartz-space-distributions"
+          ],
+          "tags": [
+            "duality"
+          ],
+          "blurb": "$\\sum_{n\\in\\mathbb{Z}} f(n) = \\sum_{n\\in\\mathbb{Z}} \\hat f(n)$ for Schwartz $f$. Specializing to a Gaussian gives the modular transformation of Jacobi's theta function — the analytic continuation of $\\zeta(s)$ rests on this identity."
+        },
+        {
+          "id": "heat-kernel-gaussian",
+          "title": "Heat kernel and the Gaussian eigenfunction",
+          "anchor": "heat",
+          "prereqs": [
+            "fourier-transform-real-line",
+            "convolution-theorem"
+          ],
+          "blurb": "$\\widehat{e^{-\\pi x^2}} = e^{-\\pi \\xi^2}$: the Gaussian is its own Fourier transform. Convolution with the heat kernel $K_t(x) = (4\\pi t)^{-1/2}e^{-x^2/4t}$ solves $\\partial_t u = \\partial_x^2 u$, and on the Fourier side this is multiplication by $e^{-4\\pi^2 t \\xi^2}$."
+        },
+        {
+          "id": "pontryagin-duality",
+          "title": "Pontryagin duality (teaser)",
+          "anchor": "pontryagin",
+          "prereqs": [
+            "fourier-transform-real-line",
+            "fourier-series-circle"
+          ],
+          "tags": [
+            "duality",
+            "group-action"
+          ],
+          "blurb": "Every locally compact abelian group $G$ has a dual group $\\widehat G$ of continuous characters, and the Fourier transform is a unitary $L^2(G) \\to L^2(\\widehat G)$. The cases $G = \\mathbb{T}$ (dual $\\mathbb{Z}$), $G = \\mathbb{R}$ (self-dual), $G = \\mathbb{Z}/N$ (self-dual finite) are the same theorem in three keys."
         }
       ]
     },
@@ -6228,6 +6551,7 @@ window.__MVConcepts = {
           "commutative-algebra",
           "homological",
           "derived-categories",
+          "group-cohomology",
           "elementary-topos-theory",
           "heyting-algebras-toposes",
           "grothendieck-topologies-sites",
@@ -6247,7 +6571,9 @@ window.__MVConcepts = {
           "functional-analysis",
           "operator-algebras",
           "dynamical-systems",
-          "probability-theory"
+          "probability-theory",
+          "harmonic-analysis-fourier",
+          "sobolev-spaces-distributions"
         ]
       },
       {
@@ -6435,6 +6761,7 @@ window.__MVConcepts = {
     "infinity-topoi": "standard",
     "derived-categories": "standard",
     "cocartesian-fibrations": "standard",
+    "group-cohomology": "standard",
     "real-analysis": "prereq",
     "measure-theory": "standard",
     "complex-analysis": "prereq",
@@ -6442,6 +6769,8 @@ window.__MVConcepts = {
     "operator-algebras": "advanced",
     "dynamical-systems": "standard",
     "probability-theory": "standard",
+    "harmonic-analysis-fourier": "standard",
+    "sobolev-spaces-distributions": "standard",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",
@@ -6527,31 +6856,31 @@ window.__MVConcepts = {
       "density": 0
     },
     "Algebra": {
-      "concepts": 114,
-      "intra": 174,
-      "crossOut": 14,
+      "concepts": 121,
+      "intra": 188,
+      "crossOut": 15,
       "crossIn": 37,
-      "density": 0.12280701754385964
+      "density": 0.12396694214876033
     },
     "Analysis": {
-      "concepts": 101,
-      "intra": 144,
-      "crossOut": 14,
+      "concepts": 116,
+      "intra": 173,
+      "crossOut": 15,
       "crossIn": 26,
-      "density": 0.13861386138613863
+      "density": 0.12931034482758622
     },
     "Geometry & topology": {
       "concepts": 49,
       "intra": 58,
       "crossOut": 6,
-      "crossIn": 44,
+      "crossIn": 45,
       "density": 0.12244897959183673
     },
     "Number theory": {
       "concepts": 64,
       "intra": 80,
       "crossOut": 17,
-      "crossIn": 15,
+      "crossIn": 16,
       "density": 0.265625
     },
     "Modular forms & L-functions": {
