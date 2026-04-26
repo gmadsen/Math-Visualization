@@ -81,6 +81,24 @@
     "modularity-and-flt",
     "etale-cohomology"
   ],
+  "_newArc_doc": "Topics scaffolded recently with thin / known-incomplete cross-topic prereqs (capstone arc + Stacks-Project arc + cocartesian-fibrations). Distinct from `levels` — the property here is 'just-scaffolded, prereqs-not-yet-wired', not the 'prereq/standard/advanced/capstone' difficulty axis. Read by audit-starter-concepts.mjs to drive its THIN-NEW pass (concepts whose prereqs all stay intra-topic, where cross-topic wiring is known-incomplete). This list is meant to *shrink to zero* as the THIN-NEW backfill completes; once empty, the field (and the THIN-NEW pass) can be removed entirely. validate-concepts.mjs guards drift: every entry must be a registered topic.",
+  "newArc": [
+    "elementary-topos-theory",
+    "heyting-algebras-toposes",
+    "grothendieck-topologies-sites",
+    "simplicial-sets-and-nerve",
+    "infinity-categories",
+    "infinity-topoi",
+    "derived-categories",
+    "algebraic-spaces",
+    "intersection-theory-chow",
+    "etale-fundamental-group",
+    "algebraic-curves-higher-genus",
+    "group-schemes",
+    "deformation-theory",
+    "algebraic-de-rham-cohomology",
+    "cocartesian-fibrations"
+  ],
   "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations whose first concept legitimately has empty prereqs), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (every concept on this page is at capstone tier — distinct from per-concept capstone-goal overrides driven by capstones.json's `goal` field; a topic can own a capstone goal without itself being level=capstone, e.g. complex-analysis owns four capstones but its level is 'prereq').",
   "levels": {
     "naive-set-theory": "prereq",

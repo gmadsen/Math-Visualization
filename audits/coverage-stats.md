@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **73**, concepts: **505**
-- Widgets: **562** (registry-driven: 457, inline: 105)
-- Quizzes: **2690** (v1: 1454, hard: 1223, expert: 13)
-- Quiz types: mcq: 1652, numeric: 852, multi-select: 68, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Topics: **73**, concepts: **506**
+- Widgets: **563** (registry-driven: 445, inline: 118)
+- Quizzes: **2694** (v1: 1458, hard: 1223, expert: 13)
+- Quiz types: mcq: 1654, numeric: 853, multi-select: 69, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
-- Concepts lacking a hard-tier quiz: **67**
+- Concepts lacking a hard-tier quiz: **68**
 
 ## Per-slug registry adoption
 
@@ -18,7 +18,7 @@ page has wired one in yet.
 
 | slug | family | gesture | dimension | instances | topics |
 |---|---|---|---|---:|---|
-| `button-stepper` | button-stepper | click | 2d | 349 | L-functions, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, commutative-algebra, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, power-sums-bernoulli, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, sums-of-squares, theta-functions, upper-half-plane-hyperbolic, waring, zeta-values |
+| `button-stepper` | button-stepper | click | 2d | 337 | L-functions, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, power-sums-bernoulli, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, sums-of-squares, theta-functions, upper-half-plane-hyperbolic, waring, zeta-values |
 | `clickable-diagram` | clickable-diagram | click | 2d | 69 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
@@ -50,13 +50,13 @@ page has wired one in yet.
 
 ### Algebra
 
-- Topics: **13**, concepts: **113**
-- Widgets: **121** (registry-driven: 65, inline: 56)
-  - by family: unknown: 56, button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
-  - by dimension: 2d: 65, unknown: 56
-  - by gesture: click: 63, unknown: 56, slider+click: 1, interactive: 1
-- Quizzes: **573** (v1: 339, hard: 234, expert: 0)
-  - by type: mcq: 366, numeric: 143, multi-select: 38, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
+- Topics: **13**, concepts: **114**
+- Widgets: **122** (registry-driven: 53, inline: 69)
+  - by family: unknown: 69, button-stepper: 38, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
+  - by dimension: unknown: 69, 2d: 53
+  - by gesture: unknown: 69, click: 51, slider+click: 1, interactive: 1
+- Quizzes: **577** (v1: 343, hard: 234, expert: 0)
+  - by type: mcq: 368, numeric: 144, multi-select: 39, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
 
 ### Analysis
 
@@ -114,7 +114,7 @@ page has wired one in yet.
 - `algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `category-theory` (Algebra) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
-- `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=71 (v1=36, hard=35, expert=0)
+- `commutative-algebra` (Algebra) — concepts=13, widgets=13 (slug=0), quiz=75 (v1=40, hard=35, expert=0)
 - `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
 - `elementary-topos-theory` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
 - `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
@@ -211,6 +211,7 @@ page has wired one in yet.
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `artinian-local-ca` (commutative-algebra)
 - `topos-definition` (elementary-topos-theory)
 - `characteristic-maps` (elementary-topos-theory)
 - `power-objects` (elementary-topos-theory)
@@ -230,4 +231,3 @@ page has wired one in yet.
 - `presheaf-infty-topos` (infinity-topoi)
 - `geometric-morphisms-infty` (infinity-topoi)
 - `etale-infty-topos-of-scheme` (infinity-topoi)
-- `homotopy-category-K` (derived-categories)

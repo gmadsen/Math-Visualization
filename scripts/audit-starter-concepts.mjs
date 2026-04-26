@@ -41,33 +41,14 @@ const PREREQ_TOPICS = new Set(
 );
 
 // Arc-of-new-topics (capstone arc + Stacks-Project arc + cocartesian-fibrations).
-// PLAN.md notes these were scaffolded with no cross-topic prereqs by design.
-// TODO: this set is heterogeneous (mixes capstone-level and standard-level
-// topics that share a "scaffolded recently, prereqs incomplete" property), so
-// it doesn't derive cleanly from `levels`. Promote to a `newArc` field on
-// concepts/index.json once the THIN-NEW backfill is far enough along that
-// the static list can shrink to zero entries instead of being maintained
-// in two places.
-const NEW_ARC_TOPICS = new Set([
-  // capstone arc
-  'elementary-topos-theory',
-  'heyting-algebras-toposes',
-  'grothendieck-topologies-sites',
-  'simplicial-sets-and-nerve',
-  'infinity-categories',
-  'infinity-topoi',
-  // Stacks-Project arc
-  'derived-categories',
-  'algebraic-spaces',
-  'intersection-theory-chow',
-  'etale-fundamental-group',
-  'algebraic-curves-higher-genus',
-  'group-schemes',
-  'deformation-theory',
-  'algebraic-de-rham-cohomology',
-  // ∞-cats fill
-  'cocartesian-fibrations',
-]);
+// Source of truth: concepts/index.json's `newArc` array, which is the
+// "scaffolded recently with thin cross-topic prereqs" property that is
+// orthogonal to the `levels` difficulty classification (the set mixes
+// capstone-level and standard-level topics). validate-concepts.mjs guards
+// drift: every entry in `newArc` must be a registered topic. The list is
+// meant to shrink to zero as the THIN-NEW backfill completes; once empty,
+// this audit's THIN-NEW pass becomes inert and the field can be removed.
+const NEW_ARC_TOPICS = new Set(indexJson.newArc || []);
 const topicData = new Map();
 for (const t of indexJson.topics) {
   const p = join(conceptsDir, `${t}.json`);

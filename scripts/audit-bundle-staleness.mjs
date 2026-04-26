@@ -184,6 +184,7 @@ function checkConceptsBundle() {
     return;
   }
   const levels = index.levels || {};
+  const newArc = Array.isArray(index.newArc) ? index.newArc.slice() : [];
   const topicSection = topicSectionFromSectionsJson(sections);
   const sectionOrder = (sections.sections || []).map((s) => s.title);
   const { stats: sectionStats } = computeSectionStats({
@@ -192,7 +193,7 @@ function checkConceptsBundle() {
     sectionOrder,
   });
 
-  const expected = { index, topics, capstones, sections, levels, sectionStats };
+  const expected = { index, topics, capstones, sections, levels, newArc, sectionStats };
 
   const bundlePath = join(conceptsDir, 'bundle.js');
   const extracted = extractBundlePayload(bundlePath, '__MVConcepts');
@@ -203,7 +204,7 @@ function checkConceptsBundle() {
   const actual = extracted.value;
 
   // Top-level keys.
-  for (const k of ['index', 'topics', 'capstones', 'sections', 'levels', 'sectionStats']) {
+  for (const k of ['index', 'topics', 'capstones', 'sections', 'levels', 'newArc', 'sectionStats']) {
     if (!(k in actual)) {
       problems.push(`concepts/bundle.js: missing top-level key '${k}'`);
     }
@@ -225,6 +226,10 @@ function checkConceptsBundle() {
   if (!deepEqual(actual.levels, expected.levels)) {
     const where = findFirstDiff(actual.levels, expected.levels) || '<root>';
     problems.push(`concepts/bundle.js: 'levels' differs from concepts/index.json's levels map at ${where}`);
+  }
+  if (!deepEqual(actual.newArc, expected.newArc)) {
+    const where = findFirstDiff(actual.newArc, expected.newArc) || '<root>';
+    problems.push(`concepts/bundle.js: 'newArc' differs from concepts/index.json's newArc array at ${where}`);
   }
   if (!deepEqual(actual.sectionStats, expected.sectionStats)) {
     const where = findFirstDiff(actual.sectionStats, expected.sectionStats) || '<root>';

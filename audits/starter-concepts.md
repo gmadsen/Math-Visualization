@@ -12,7 +12,7 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 5 | 5 | 0 | 5 | 0.000 |
-| Algebra | 113 | 171 | 13 | 31 | 0.115 |
+| Algebra | 114 | 173 | 13 | 31 | 0.114 |
 | Analysis | 101 | 143 | 12 | 19 | 0.119 |
 | Geometry & topology | 49 | 58 | 6 | 42 | 0.122 |
 | Number theory | 57 | 70 | 15 | 14 | 0.263 |

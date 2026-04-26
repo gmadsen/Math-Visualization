@@ -41,6 +41,12 @@ const sections = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'ut
 // both read from.
 const levels = index.levels || {};
 
+// Promote `newArc` similarly. The list lives in concepts/index.json and
+// drives audit-starter-concepts.mjs's THIN-NEW pass. Meant to shrink to zero
+// as the THIN-NEW backfill completes; once empty, the field can be removed
+// entirely (along with the THIN-NEW pass).
+const newArc = Array.isArray(index.newArc) ? index.newArc.slice() : [];
+
 // Precompute per-section structural stats and embed them in the bundle.
 // Single source of truth: scripts/lib/section-stats.mjs. mindmap.html
 // reads __MVConcepts.sectionStats instead of recomputing — that's what
@@ -55,7 +61,7 @@ const { stats: sectionStats } = computeSectionStats({
   sectionOrder,
 });
 
-const payload = { index, topics, capstones, sections, levels, sectionStats };
+const payload = { index, topics, capstones, sections, levels, newArc, sectionStats };
 const body = JSON.stringify(payload, null, 2);
 
 const js =

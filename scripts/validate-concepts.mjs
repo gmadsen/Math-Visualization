@@ -117,6 +117,11 @@ for (const topic of onDiskTopicFiles) {
 // audit-starter-concepts.mjs). Every registered topic must have an entry;
 // every entry must reference a registered topic; every value must be one
 // of the four valid level tokens.
+//
+// Also drift-checks the `newArc` array (read by audit-starter-concepts.mjs
+// for its THIN-NEW pass): every entry must reference a registered topic, and
+// the field must be an array of strings if present. The `newArc` field is
+// optional — when empty/absent, the THIN-NEW pass becomes inert.
 {
   const indexPath = join(conceptsDir, 'index.json');
   const r = readJson(indexPath);
@@ -142,6 +147,29 @@ for (const topic of onDiskTopicFiles) {
         const v = levels[t];
         if (typeof v !== 'string' || !VALID_LEVELS.has(v)) {
           err(`concepts/index.json: "levels.${t}" = ${JSON.stringify(v)} (must be one of ${[...VALID_LEVELS].join(', ')})`);
+        }
+      }
+    }
+
+    if ('newArc' in r.data) {
+      const newArc = r.data.newArc;
+      if (!Array.isArray(newArc)) {
+        err(`concepts/index.json: "newArc" must be an array of topic ids`);
+      } else {
+        const registeredSet = new Set(registeredTopics);
+        const seen = new Set();
+        for (const t of newArc) {
+          if (typeof t !== 'string' || !t) {
+            err(`concepts/index.json: "newArc" entry ${JSON.stringify(t)} is not a non-empty string`);
+            continue;
+          }
+          if (seen.has(t)) {
+            err(`concepts/index.json: "newArc" lists topic "${t}" more than once`);
+          }
+          seen.add(t);
+          if (!registeredSet.has(t)) {
+            err(`concepts/index.json: "newArc" references unregistered topic "${t}"`);
+          }
         }
       }
     }

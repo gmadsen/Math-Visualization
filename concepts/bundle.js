@@ -78,6 +78,24 @@ window.__MVConcepts = {
       "modularity-and-flt",
       "etale-cohomology"
     ],
+    "_newArc_doc": "Topics scaffolded recently with thin / known-incomplete cross-topic prereqs (capstone arc + Stacks-Project arc + cocartesian-fibrations). Distinct from `levels` — the property here is 'just-scaffolded, prereqs-not-yet-wired', not the 'prereq/standard/advanced/capstone' difficulty axis. Read by audit-starter-concepts.mjs to drive its THIN-NEW pass (concepts whose prereqs all stay intra-topic, where cross-topic wiring is known-incomplete). This list is meant to *shrink to zero* as the THIN-NEW backfill completes; once empty, the field (and the THIN-NEW pass) can be removed entirely. validate-concepts.mjs guards drift: every entry must be a registered topic.",
+    "newArc": [
+      "elementary-topos-theory",
+      "heyting-algebras-toposes",
+      "grothendieck-topologies-sites",
+      "simplicial-sets-and-nerve",
+      "infinity-categories",
+      "infinity-topoi",
+      "derived-categories",
+      "algebraic-spaces",
+      "intersection-theory-chow",
+      "etale-fundamental-group",
+      "algebraic-curves-higher-genus",
+      "group-schemes",
+      "deformation-theory",
+      "algebraic-de-rham-cohomology",
+      "cocartesian-fibrations"
+    ],
     "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations whose first concept legitimately has empty prereqs), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (every concept on this page is at capstone tier — distinct from per-concept capstone-goal overrides driven by capstones.json's `goal` field; a topic can own a capstone goal without itself being level=capstone, e.g. complex-analysis owns four capstones but its level is 'prereq').",
     "levels": {
       "naive-set-theory": "prereq",
@@ -627,6 +645,16 @@ window.__MVConcepts = {
             "modules-ca"
           ],
           "blurb": "A ring is Noetherian when every ascending chain of ideals stabilizes, equivalently every ideal is finitely generated. The Hilbert basis theorem propagates this to $A[x]$, so $k[x_1,\\dots,x_n]$ and every finitely generated $k$-algebra are Noetherian."
+        },
+        {
+          "id": "artinian-local-ca",
+          "title": "Artinian local rings",
+          "anchor": "artinian-local",
+          "prereqs": [
+            "noetherian-hilbert-ca",
+            "primes-maximals-ca"
+          ],
+          "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\mathrm{Spec}$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings."
         },
         {
           "id": "localization-ca",
@@ -5173,7 +5201,7 @@ window.__MVConcepts = {
           "anchor": "deformation-functor",
           "prereqs": [
             "first-order-deformation",
-            "primes-maximals-ca"
+            "artinian-local-ca"
           ],
           "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
         },
@@ -5864,6 +5892,23 @@ window.__MVConcepts = {
     "modularity-and-flt": "capstone",
     "etale-cohomology": "capstone"
   },
+  "newArc": [
+    "elementary-topos-theory",
+    "heyting-algebras-toposes",
+    "grothendieck-topologies-sites",
+    "simplicial-sets-and-nerve",
+    "infinity-categories",
+    "infinity-topoi",
+    "derived-categories",
+    "algebraic-spaces",
+    "intersection-theory-chow",
+    "etale-fundamental-group",
+    "algebraic-curves-higher-genus",
+    "group-schemes",
+    "deformation-theory",
+    "algebraic-de-rham-cohomology",
+    "cocartesian-fibrations"
+  ],
   "sectionStats": {
     "Foundations": {
       "concepts": 5,
@@ -5873,11 +5918,11 @@ window.__MVConcepts = {
       "density": 0
     },
     "Algebra": {
-      "concepts": 113,
-      "intra": 171,
+      "concepts": 114,
+      "intra": 173,
       "crossOut": 13,
       "crossIn": 31,
-      "density": 0.11504424778761062
+      "density": 0.11403508771929824
     },
     "Analysis": {
       "concepts": 101,
