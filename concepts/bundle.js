@@ -976,7 +976,7 @@ window.__MVConcepts = {
           "anchor": "geometric-realization",
           "prereqs": [
             "simplicial-set",
-            "metric-spaces"
+            "open-sets"
           ],
           "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
         },
@@ -995,8 +995,7 @@ window.__MVConcepts = {
           "title": "Kan complexes",
           "anchor": "kan-complex",
           "prereqs": [
-            "simplicial-set",
-            "paths"
+            "simplicial-set"
           ],
           "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence)."
         },
@@ -5097,8 +5096,7 @@ window.__MVConcepts = {
           "title": "Deformation functors and Schlessinger's criteria",
           "anchor": "deformation-functor",
           "prereqs": [
-            "first-order-deformation",
-            "noetherian-hilbert-ca"
+            "first-order-deformation"
           ],
           "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
         },

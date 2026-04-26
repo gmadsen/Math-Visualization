@@ -24,7 +24,7 @@
     font-size:16px;line-height:1.55}
   a{color:var(--blue)}
   main{max-width:1280px;margin:0 auto;padding:2rem 1.2rem 4rem}
-  h1{font-size:1.85rem;margin:0 0 .25rem;color:#fff;letter-spacing:-0.01em}
+  h1{font-size:1.85rem;margin:0 0 .25rem;color:var(--ink);letter-spacing:-0.01em}
   .sub{color:var(--mute);margin:0 0 1.2rem;max-width:880px}
   .back{display:inline-block;color:var(--mute);text-decoration:none;margin-bottom:1rem;font-size:.9rem}
   .back:hover{color:var(--yellow)}
@@ -89,12 +89,13 @@
   .stats-row .stat{padding:.05rem .1rem}
   .stats-row .gap{color:var(--pink)}
   .focus-card{position:absolute;top:.7rem;left:.7rem;max-width:340px;
-    background:rgba(22,27,36,.94);border:1px solid var(--line);border-radius:8px;
+    background:color-mix(in srgb, var(--panel) 94%, transparent);
+    border:1px solid var(--line);border-radius:8px;
     padding:.7rem .9rem;font-size:.88rem;color:var(--ink);
     backdrop-filter:blur(6px);z-index:5}
   .focus-card .fcap{color:var(--yellow);font-size:.74rem;letter-spacing:.14em;
     text-transform:uppercase;font-weight:600;margin-bottom:.25rem}
-  .focus-card h3{margin:0 0 .3rem;font-size:1rem;font-weight:600;color:#fff}
+  .focus-card h3{margin:0 0 .3rem;font-size:1rem;font-weight:600;color:var(--ink)}
   .focus-card .ftopic{color:var(--mute);font-size:.82rem;margin-bottom:.4rem}
   .focus-card .fblurb{color:var(--ink);font-size:.85rem;line-height:1.45;margin-bottom:.5rem}
   .focus-card .fdeg{display:flex;gap:.6rem;color:var(--mute);font-size:.78rem;margin-bottom:.4rem}
@@ -105,11 +106,12 @@
     padding:.25rem .55rem;border-radius:5px;font-size:.82rem;text-decoration:none;cursor:pointer}
   .focus-card .factions a:hover, .focus-card .factions button:hover{
     border-color:var(--yellow);color:var(--yellow)}
-  .tooltip{position:absolute;pointer-events:none;background:rgba(22,27,36,.96);
+  .tooltip{position:absolute;pointer-events:none;
+    background:color-mix(in srgb, var(--panel) 96%, transparent);
     border:1px solid var(--line);border-radius:6px;padding:.4rem .6rem;
     font-size:.82rem;color:var(--ink);z-index:8;max-width:280px;
     box-shadow:0 4px 12px rgba(0,0,0,.4);display:none}
-  .tooltip .ttitle{color:#fff;font-weight:600;margin-bottom:.15rem}
+  .tooltip .ttitle{color:var(--ink);font-weight:600;margin-bottom:.15rem}
   .tooltip .ttopic{color:var(--mute);font-size:.78rem;margin-bottom:.2rem}
   .tooltip .tdeg{color:var(--mute);font-size:.78rem}
   .gap-list{background:var(--panel);border:1px solid var(--line);border-radius:8px;
@@ -155,6 +157,12 @@
     padding:.05rem .35rem;font-size:.78rem;color:var(--ink)}
   .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     flex-direction:column;gap:.5rem;color:var(--mute);font-size:.9rem;background:var(--panel);z-index:6}
+  /* Same defense the .error-banner needed: a class rule with display:flex
+     beats the user-agent [hidden] { display:none } rule, so [hidden] would
+     leave the loading overlay laid out on top of the SVG. Force [hidden]
+     back to display:none. The runtime currently hides via style.display
+     so this is belt-and-suspenders, but cheap insurance. */
+  .loading[hidden]{display:none}
   .loading .bar-fill{width:200px;height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}
   .loading .bar-fill > div{height:100%;background:var(--yellow);width:0;transition:width 80ms linear}
   .error-banner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -818,6 +826,26 @@
     });
   }
 
+  // Single toggle entrypoint shared by ⌘-click on a node and the
+  // focus-card "toggle v1 mastery" button. Without the applyFilters()
+  // call, an active mastery dropdown filter would desync from the
+  // visible graph until the user touched another control (Codex
+  // review's P2 finding); the focus card also needs a refresh so its
+  // "ready / mastered / locked" badge stays in sync.
+  function toggleMasteryFor(idx){
+    if(!window.MVProgress || idx == null || idx < 0) return;
+    const id = nodes[idx].id;
+    const cur = MVProgress.isMastered(id, 'v1');
+    MVProgress.setMastered(id, 'v1', !cur);
+    applyMasteryClasses();
+    applyFilters();
+    if(focusIdx === idx){
+      // Re-derive the neighborhood-count and re-render the card.
+      const reachable = bfsUndirected(focusIdx, focusDepth);
+      showFocusCard(focusIdx, reachable.size - 1);
+    }
+  }
+
   // ---------- focus ----------
   let focusIdx = null;
   let focusDepth = 2;
@@ -951,12 +979,7 @@
     if(!btn) return;
     if(focusIdx === null) return;
     if(btn.dataset.action === 'toggle-mastery'){
-      if(!window.MVProgress) return;
-      const id = nodes[focusIdx].id;
-      const cur = MVProgress.isMastered(id, 'v1');
-      MVProgress.setMastered(id, 'v1', !cur);
-      applyMasteryClasses();
-      showFocusCard(focusIdx, /* neighborhoodCount unchanged */ 0);
+      toggleMasteryFor(focusIdx);
     } else if(btn.dataset.action === 'clear-focus'){
       clearFocus();
     }
@@ -1021,11 +1044,7 @@
     if(!g) return;
     const idx = parseInt(g.dataset.idx, 10);
     if(ev.metaKey || ev.ctrlKey){
-      if(!window.MVProgress) return;
-      const id = nodes[idx].id;
-      const cur = MVProgress.isMastered(id, 'v1');
-      MVProgress.setMastered(id, 'v1', !cur);
-      applyMasteryClasses();
+      toggleMasteryFor(idx);
       return;
     }
     if(focusIdx === idx){ clearFocus(); return; }
@@ -1215,7 +1234,7 @@
           : `<span style="color:var(--pink)">${r.conceptCount} concept${r.conceptCount === 1 ? '' : 's'} · no cross-topic edges</span>`;
         // data-topic-search drives the click handler: searches by topic title
         // so the mindmap highlights every concept of the topic.
-        return `<li data-topic-search="${escHtml(r.title)}" data-topic-page="${escHtml(r.topic)}.html"><span class="gtopic">${escHtml(r.title)}</span> — <span style="color:var(--mute)">${escHtml(r.section)}</span> · ${tag} <a class="gopen" href="./${escHtml(r.topic)}.html" target="_blank" rel="noopener" title="Open topic page in new tab">↗ page</a></li>`;
+        return `<li tabindex="0" role="button" aria-label="Filter mindmap by ${escHtml(r.title)}" data-topic-search="${escHtml(r.title)}" data-topic-page="${escHtml(r.topic)}.html"><span class="gtopic">${escHtml(r.title)}</span> — <span style="color:var(--mute)">${escHtml(r.section)}</span> · ${tag} <a class="gopen" href="./${escHtml(r.topic)}.html" target="_blank" rel="noopener" title="Open topic page in new tab">↗ page</a></li>`;
       }).join('');
       orphanUl.hidden = false; orphanH.hidden = false;
     }
@@ -1255,7 +1274,7 @@
     if(capDisplayed.length > 0){
       capUl.innerHTML = capDisplayed.map(r => {
         const n = nodes[r.idx];
-        return `<li data-focus-id="${escHtml(r.cap.goal)}"><span class="gtopic">${escHtml(r.cap.title)}</span> <code>${escHtml(r.cap.goal)}</code> — <span style="color:var(--mute)">${escHtml(n.topicTitle)} · ${r.ancestorCount} ancestor${r.ancestorCount === 1 ? '' : 's'}, ${r.crossInClosure} cross-topic edge${r.crossInClosure === 1 ? '' : 's'} in closure</span> <a class="gopen" href="./${escHtml(n.topicPage)}#${escHtml(n.anchor)}" target="_blank" rel="noopener" title="Open page at this concept">↗ page</a></li>`;
+        return `<li tabindex="0" role="button" aria-label="Focus ${escHtml(r.cap.title)} on the mindmap" data-focus-id="${escHtml(r.cap.goal)}"><span class="gtopic">${escHtml(r.cap.title)}</span> <code>${escHtml(r.cap.goal)}</code> — <span style="color:var(--mute)">${escHtml(n.topicTitle)} · ${r.ancestorCount} ancestor${r.ancestorCount === 1 ? '' : 's'}, ${r.crossInClosure} cross-topic edge${r.crossInClosure === 1 ? '' : 's'} in closure</span> <a class="gopen" href="./${escHtml(n.topicPage)}#${escHtml(n.anchor)}" target="_blank" rel="noopener" title="Open page at this concept">↗ page</a></li>`;
       }).join('');
       capUl.hidden = false; capH.hidden = false;
     }
@@ -1269,11 +1288,7 @@
       [...document.querySelectorAll('#gap-list li.active')].forEach(el => el.classList.remove('active'));
       li.classList.add('active');
     }
-    document.getElementById('gap-list').addEventListener('click', (ev) => {
-      // Don't intercept the inner page link.
-      if(ev.target.closest('.gopen')){ ev.stopPropagation(); return; }
-      const li = ev.target.closest('li');
-      if(!li) return;
+    function handleGapRowActivation(li){
       const focusId = li.dataset.focusId;
       const topicSearch = li.dataset.topicSearch;
       if(focusId){
@@ -1293,6 +1308,23 @@
       }
       activateRow(li);
       document.getElementById('stage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    const gapList = document.getElementById('gap-list');
+    gapList.addEventListener('click', (ev) => {
+      // Don't intercept the inner page link.
+      if(ev.target.closest('.gopen')){ ev.stopPropagation(); return; }
+      const li = ev.target.closest('li');
+      if(!li) return;
+      handleGapRowActivation(li);
+    });
+    // Keyboard activation — gap-list rows are role="button" tabindex=0.
+    // Enter / Space activate just like a click.
+    gapList.addEventListener('keydown', (ev) => {
+      if(ev.key !== 'Enter' && ev.key !== ' ') return;
+      const li = ev.target.closest('li');
+      if(!li || !gapList.contains(li)) return;
+      ev.preventDefault();
+      handleGapRowActivation(li);
     });
 
     if(orphanRows.length === 0 && capDisplayed.length === 0){

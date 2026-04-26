@@ -434,7 +434,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#integral\">Commutative algebra</a> · Integral extensions and Noether normalization</div>\n    <div><a href=\"./deformation-theory.html#deformation-functor\">Deformation theory</a> · Deformation functors and Schlessinger's criteria</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#integral\">Commutative algebra</a> · Integral extensions and Noether normalization</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
