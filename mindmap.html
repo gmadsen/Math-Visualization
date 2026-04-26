@@ -157,6 +157,34 @@
     flex-direction:column;gap:.5rem;color:var(--mute);font-size:.9rem;background:var(--panel);z-index:6}
   .loading .bar-fill{width:200px;height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}
   .loading .bar-fill > div{height:100%;background:var(--yellow);width:0;transition:width 80ms linear}
+  .error-banner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:.6rem;color:var(--ink);font-size:.92rem;background:var(--panel);z-index:7;
+    padding:2rem;text-align:center}
+  .error-banner h2{color:var(--pink);margin:0;font-size:1.05rem;font-weight:600}
+  .error-banner p{max-width:480px;color:var(--mute);margin:0;line-height:1.55}
+  .error-banner code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:.86rem;background:var(--panel2);padding:.05rem .35rem;border-radius:3px;color:var(--ink)}
+  /* Visible focus rings — the default browser outline gets overridden by
+     :focus-visible:not(:focus) on some controls; force a yellow ring on
+     keyboard focus so the toolbar is fully keyboard-navigable. */
+  button:focus-visible, select:focus-visible, input:focus-visible{
+    outline:2px solid var(--yellow);outline-offset:1px;border-color:var(--yellow)}
+  .gap-list ul li:focus-visible{outline:2px solid var(--yellow);outline-offset:-2px}
+  .stage:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+  /* Print: drop the toolbar, gap-list, and pan/zoom affordances. Show the
+     full graph snapshot at its current view, with a caption derived from
+     the stats line so the print is self-explanatory. */
+  @media print {
+    .bar, .help-panel, .focus-card, .tooltip, .footer-note, .gap-list,
+    .section-stats, .back, #help-btn, #reseed-layout, #reset-view { display:none !important; }
+    .stage { height:auto !important; max-height:none; cursor:default !important;
+      page-break-inside:avoid; border-color:#999 !important }
+    body { background:#fff !important; color:#000 !important }
+    h1, .stats-row { color:#000 !important }
+    .edge { opacity:.5 !important }
+    .edge.dim { opacity:.15 !important }
+    .node text.lbl { fill:#000 !important }
+  }
 </style>
 </head>
 <body>
@@ -167,18 +195,18 @@
     Every concept in the notebook (505 across 73 topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
   </p>
 
-  <div class="bar">
-    <div class="group">
-      <input id="search" type="text" placeholder="Search concept… (/)" autocomplete="off" />
-      <span class="match-info" id="match-info"></span>
+  <div class="bar" role="toolbar" aria-label="Mindmap controls">
+    <div class="group" role="search">
+      <input id="search" type="text" placeholder="Search concept… (/)" autocomplete="off" aria-label="Search concepts" />
+      <span class="match-info" id="match-info" aria-live="polite"></span>
     </div>
     <div class="group">
       <label for="section-filter">section:</label>
-      <select id="section-filter"><option value="">all</option></select>
+      <select id="section-filter" aria-label="Filter by section"><option value="">all</option></select>
     </div>
     <div class="group">
       <label for="level-filter">level:</label>
-      <select id="level-filter">
+      <select id="level-filter" aria-label="Filter by level">
         <option value="">all</option>
         <option value="prereq">prereq</option>
         <option value="standard">standard</option>
@@ -188,7 +216,7 @@
     </div>
     <div class="group">
       <label for="mastery-filter">mastery:</label>
-      <select id="mastery-filter">
+      <select id="mastery-filter" aria-label="Filter by mastery state">
         <option value="">all</option>
         <option value="locked">locked</option>
         <option value="ready">ready</option>
@@ -197,8 +225,8 @@
     </div>
     <div class="group">
       <label for="depth">depth:</label>
-      <input id="depth" type="range" min="1" max="5" value="2" />
-      <span id="depth-val" class="match-info" style="min-width:32px">2</span>
+      <input id="depth" type="range" min="1" max="5" value="2" aria-label="Focus neighborhood depth (1 to 5 hops)" />
+      <span id="depth-val" class="match-info" style="min-width:32px" aria-live="polite">2</span>
     </div>
     <div class="group">
       <button id="reset-view">reset</button>
@@ -222,10 +250,14 @@
 
   <div class="stats-row" id="stats-row"></div>
 
-  <div class="stage" id="stage">
-    <svg class="map" id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
-    <div class="focus-card" id="focus-card" hidden></div>
-    <div class="loading" id="loading"><div>computing layout…</div><div class="bar-fill"><div id="loading-bar"></div></div></div>
+  <div class="stage" id="stage" tabindex="0" role="application" aria-label="Concept-graph mindmap. Click a node to focus its neighborhood; pan with drag, zoom with mouse wheel.">
+    <svg class="map" id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mindmap-title mindmap-desc">
+      <title id="mindmap-title">Concept dependency graph</title>
+      <desc id="mindmap-desc">Force-clustered layout of all 505 concepts in the notebook, colored by section. Edges connect prereqs to consumers.</desc>
+    </svg>
+    <div class="focus-card" id="focus-card" hidden role="region" aria-label="Focused concept details" aria-live="polite"></div>
+    <div class="loading" id="loading" role="status" aria-live="polite"><div>computing layout…</div><div class="bar-fill"><div id="loading-bar"></div></div></div>
+    <div class="error-banner" id="error-banner" hidden role="alert"></div>
   </div>
 
   <div class="tooltip" id="tooltip"></div>
@@ -284,6 +316,21 @@
     }, 50);
   }
 
+  // ---------- friendly error helper ----------
+  // Replaces the loading state with a structured error banner. Used when
+  // the bundle fails to load (file:// without a fresh bundle, network
+  // hiccup, etc.) so the page doesn't sit silently on "computing layout…"
+  // forever.
+  function showError(title, body){
+    const loading = document.getElementById('loading');
+    const banner  = document.getElementById('error-banner');
+    if(loading) loading.style.display = 'none';
+    if(!banner) return;
+    banner.innerHTML =
+      `<h2>${title}</h2><p>${body}</p>`;
+    banner.hidden = false;
+  }
+
   // ---------- data load ----------
   let idx, topicsArr, capstones, sectionsData;
   if(window.__MVConcepts){
@@ -299,12 +346,25 @@
       capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
       sectionsData = await fetch('./concepts/sections.json').then(r=>r.json());
     } catch(e){
-      document.getElementById('stats-row').innerHTML =
-        '<span style="color:var(--pink)">Failed to load concept data: ' + e.message +
-        '. If you opened this file via <code>file://</code>, run <code>node scripts/build-concepts-bundle.mjs</code> ' +
-        'or serve via <code>python3 -m http.server</code>.</span>';
+      showError(
+        'Couldn\'t load the concept graph',
+        'Tried <code>./concepts/bundle.js</code> first, then live JSON fetch — both failed. ' +
+        'If you opened this file via <code>file://</code>, regenerate the bundle with ' +
+        '<code>node scripts/build-concepts-bundle.mjs</code> or serve the directory via ' +
+        '<code>python3 -m http.server</code>. Browser error: ' +
+        (e && e.message ? e.message : String(e))
+      );
       throw e;
     }
+  }
+  if(!topicsArr || topicsArr.length === 0){
+    showError(
+      'Concept graph is empty',
+      'The bundle loaded but contains zero topics. Check that ' +
+      '<code>concepts/index.json</code> lists topics and that ' +
+      '<code>build-concepts-bundle.mjs</code> ran without errors.'
+    );
+    return;
   }
 
   // ---------- build node + edge sets ----------
@@ -450,10 +510,22 @@
     }
     return h.toString(16);
   }
+  // Layout cache key.
+  //
+  // The cache is automatically invalidated when ANYTHING about the input
+  // graph changes — the hash includes:
+  //   - viewBox dimensions (so a stage-size bump recomputes positions)
+  //   - node count + edge count
+  //   - every concept id (so a new concept invalidates)
+  //   - every directed edge endpoint pair (so a new prereq invalidates)
+  //
+  // After a `rebuild --fix` that changes prereqs, the next page load
+  // sees a different hash, falls through to forceLayout(), and saves
+  // fresh positions. No manual reseed needed in the common case.
+  // The `reseed` button is for "I want a different random initialization
+  // even though the input didn't change" — useful when the layout settled
+  // into a visually awkward orientation.
   const layoutKey = (() => {
-    // Stable string: sorted node ids + edge endpoint pairs + viewport size
-    // (so a viewBox change invalidates cached positions, which were computed
-    // for the old space).
     const parts = [];
     parts.push(`v=${STAGE_W}x${STAGE_H}`);
     parts.push(nodes.length.toString());
@@ -786,6 +858,24 @@
     return hop;
   }
 
+  // Reflect the current focus into the URL so a focused state is shareable
+  // and survives reloads. Skipped on file:// (history.replaceState throws
+  // SecurityError there).
+  function syncFocusToUrl(){
+    if(location.protocol === 'file:') return;
+    try {
+      const params = new URLSearchParams(location.search);
+      if(focusIdx === null){
+        params.delete('focus');
+      } else {
+        params.set('focus', nodes[focusIdx].id);
+      }
+      const qs = params.toString();
+      const url = location.pathname + (qs ? '?' + qs : '') + location.hash;
+      history.replaceState(null, '', url);
+    } catch(_) { /* sandboxed iframe etc. — ignore */ }
+  }
+
   function applyFocus(){
     const reachable = bfsUndirected(focusIdx, focusDepth);
     const keep = reachable; // Set-like via Map.has
@@ -814,12 +904,14 @@
       }
     });
     showFocusCard(focusIdx, keep.size - 1);
+    syncFocusToUrl();
   }
   function clearFocus(){
     focusIdx = null;
     nodes.forEach((_, i) => nodeEls[i].classList.remove('focus','dim'));
-    edges.forEach((_, i) => edgeEls[i].classList.remove('focus','in','out','dim'));
+    edges.forEach((_, i) => edgeEls[i].classList.remove('focus','in','out','dim','near'));
     hideFocusCard();
+    syncFocusToUrl();
   }
 
   const focusCard = document.getElementById('focus-card');
@@ -1328,6 +1420,20 @@
   syncNodePositions();
   applyMasteryClasses();
   document.getElementById('loading').style.display = 'none';
+
+  // Restore focus from URL (?focus=<concept-id>) if present.
+  (function restoreFocusFromUrl(){
+    try {
+      const params = new URLSearchParams(location.search);
+      const initial = params.get('focus');
+      if(!initial) return;
+      const idx = nodeIndex.get(initial);
+      if(idx == null) return;
+      focusIdx = idx;
+      applyFocus();
+      centerViewOn(idx);
+    } catch(_) { /* ignore */ }
+  })();
 
   whenKatexReady(() => {
     renderKatex(document.querySelector('main'));

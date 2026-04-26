@@ -16,13 +16,14 @@
 // Advisory: always exits 0 (informational, not a CI gate). A future flag
 // could promote it to a hard check.
 
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 const conceptsDir = join(repoRoot, 'concepts');
+const auditsDir = join(repoRoot, 'audits');
 
 // Topics whose first concept legitimately has no prereqs — they're the
 // foundations the rest of the corpus rests on. Mirrors the TOPIC_LEVEL
@@ -104,7 +105,41 @@ for (const [t, d] of topicData) {
   }
 }
 
-// --- Report ---
+// --- Per-section structural stats ---
+// Same logic as the mindmap's section-stats table — exposed in the audit
+// so density signal lives in CI / git history too. Sections in the order
+// they appear in concepts/sections.json.
+const sectionsJson = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'utf8'));
+const SECTION_ORDER = sectionsJson.sections.map((s) => s.title);
+const TOPIC_SECTION = {};
+for (const s of sectionsJson.sections) {
+  for (const t of s.topics) TOPIC_SECTION[t] = s.title;
+}
+const sectionStats = new Map();
+for (const sec of SECTION_ORDER) {
+  sectionStats.set(sec, { concepts: 0, intra: 0, crossOut: 0, crossIn: 0 });
+}
+for (const [t, d] of topicData) {
+  const sec = TOPIC_SECTION[t];
+  if (!sec) continue;
+  for (const c of d.concepts || []) {
+    sectionStats.get(sec).concepts++;
+    for (const p of c.prereqs || []) {
+      const pTopic = ownerOf.get(p);
+      if (!pTopic) continue;
+      const pSec = TOPIC_SECTION[pTopic];
+      if (!pSec) continue;
+      if (pSec === sec) {
+        sectionStats.get(sec).intra++;
+      } else {
+        sectionStats.get(sec).crossOut++;
+        sectionStats.get(pSec).crossIn++;
+      }
+    }
+  }
+}
+
+// --- Stdout report (kept for CLI usage) ---
 console.log(`audit-starter-concepts: ${topicData.size} topic(s) scanned`);
 console.log('');
 
@@ -112,7 +147,6 @@ console.log(`EMPTY (${empties.length}) — concepts with no prereqs in non-found
 if (empties.length === 0) {
   console.log('  (none)');
 } else {
-  // Group by topic for readability.
   const byTopic = new Map();
   for (const e of empties) {
     if (!byTopic.has(e.topic)) byTopic.set(e.topic, []);
@@ -142,4 +176,76 @@ if (thin.length === 0) {
 console.log('');
 console.log(`Foundations excluded: ${[...PREREQ_TOPICS].sort().join(', ')}`);
 console.log(`(advisory; always exits 0)`);
+
+// --- Markdown snapshot for PR review ---
+function escapeMd(s) {
+  return String(s == null ? '' : s).replace(/\|/g, '\\|');
+}
+const lines = [];
+lines.push('# Concept-graph structural audit');
+lines.push('');
+lines.push('Snapshot from `scripts/audit-starter-concepts.mjs`. Updated on every');
+lines.push('`rebuild.mjs` run. Always advisory (does not gate CI).');
+lines.push('');
+lines.push('## Per-section structural stats');
+lines.push('');
+lines.push('Density = cross-topic out-edges per concept. Foundations should have 0');
+lines.push('out-edges (purely a source); other sections vary based on whether they');
+lines.push('reach into upstream foundations or stay within their own cluster.');
+lines.push('');
+lines.push('| section | concepts | intra edges | cross out | cross in | density |');
+lines.push('|---|---:|---:|---:|---:|---:|');
+for (const sec of SECTION_ORDER) {
+  const r = sectionStats.get(sec);
+  const density = r.concepts > 0 ? r.crossOut / r.concepts : 0;
+  lines.push(`| ${escapeMd(sec)} | ${r.concepts} | ${r.intra} | ${r.crossOut} | ${r.crossIn} | ${density.toFixed(3)} |`);
+}
+lines.push('');
+lines.push(`## EMPTY — concepts with no prereqs (${empties.length})`);
+lines.push('');
+lines.push('Concepts whose `prereqs` field is `[]` and whose owning topic is *not*');
+lines.push('a foundation/prereq topic. Almost always indicates a missing cross-');
+lines.push('topic upstream wiring; pathway.html will surface the concept as "ready"');
+lines.push('at brand-new progress alongside genuine entry points like');
+lines.push('`sets-functions` and `algebraic-structures`.');
+lines.push('');
+if (empties.length === 0) {
+  lines.push('_Currently clean — no advanced concept lists `prereqs: []`._');
+} else {
+  lines.push('| topic | concept | title |');
+  lines.push('|---|---|---|');
+  const sortedEmpty = empties.slice().sort((a, b) => a.topic.localeCompare(b.topic) || a.id.localeCompare(b.id));
+  for (const e of sortedEmpty) {
+    lines.push(`| ${escapeMd(e.topic)} | \`${escapeMd(e.id)}\` | ${escapeMd(e.title)} |`);
+  }
+}
+lines.push('');
+lines.push(`## THIN-NEW — new-arc concepts with intra-topic-only prereqs (${thin.length})`);
+lines.push('');
+lines.push('New-arc topics (capstone arc + Stacks-Project arc + cocartesian-fibrations)');
+lines.push('whose concepts list `prereqs` but every entry stays inside the same topic.');
+lines.push('Often transitively reachable from foundations via siblings, but the direct');
+lines.push('cross-topic dependencies should be wired in for clarity (audit-callbacks');
+lines.push('uses these to populate "See also" asides).');
+lines.push('');
+if (thin.length === 0) {
+  lines.push('_Currently clean — every new-arc concept lists at least one cross-topic prereq._');
+} else {
+  lines.push('| topic | concept | title | current prereqs |');
+  lines.push('|---|---|---|---|');
+  const sortedThin = thin.slice().sort((a, b) => a.topic.localeCompare(b.topic) || a.id.localeCompare(b.id));
+  for (const e of sortedThin) {
+    lines.push(`| ${escapeMd(e.topic)} | \`${escapeMd(e.id)}\` | ${escapeMd(e.title)} | ${e.prereqs.map((p) => `\`${escapeMd(p)}\``).join(', ')} |`);
+  }
+}
+lines.push('');
+lines.push(`Foundations excluded from the EMPTY check: ${[...PREREQ_TOPICS].sort().map((t) => `\`${t}\``).join(', ')}.`);
+lines.push('');
+
+mkdirSync(auditsDir, { recursive: true });
+const outPath = join(auditsDir, 'starter-concepts.md');
+writeFileSync(outPath, lines.join('\n'));
+console.log('');
+console.log(`wrote ${outPath}`);
+
 process.exit(0);
