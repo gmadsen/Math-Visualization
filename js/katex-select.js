@@ -215,8 +215,15 @@
       else if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setSelected(idx); close(); btn.focus(); return; }
       else if(e.key === 'Escape'){ e.preventDefault(); close(); btn.focus(); return; }
       else { return; }
-      items.forEach(it => it.classList.remove('ks-active'));
+      items.forEach(it => { it.classList.remove('ks-active'); it.tabIndex = -1; });
       items[idx].classList.add('ks-active');
+      items[idx].tabIndex = 0;
+      // Move actual DOM focus to the highlighted option so screen readers
+      // announce the new selection — the visual `.ks-active` class alone
+      // isn't an a11y signal. We re-fire focus on every arrow key; the
+      // role="option" + aria-selected state on `.ks-selected` already
+      // surfaces the hard "current value" to AT users.
+      try { items[idx].focus({ preventScroll: true }); } catch(_) { items[idx].focus(); }
       items[idx].scrollIntoView({ block: 'nearest' });
     });
 

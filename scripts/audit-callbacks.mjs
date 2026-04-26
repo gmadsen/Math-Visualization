@@ -210,8 +210,9 @@ function reparseTopicView(rawHtml) {
 function extractCallbackLis(existingAside) {
   const liByHref = new Map();
   const liOrder = [];
+  let warning = null;
   if (!existingAside || typeof existingAside !== 'string') {
-    return { liByHref, liOrder };
+    return { liByHref, liOrder, warning };
   }
   // Capture every <li>...</li>, then on each, extract the first href.
   const liRe = /<li>[\s\S]*?<\/li>/gi;
@@ -226,7 +227,23 @@ function extractCallbackLis(existingAside) {
       liOrder.push(href);
     }
   }
-  return { liByHref, liOrder };
+  // Fidelity check — count opening <li> tags vs matched closed-pair blocks.
+  // An unclosed `<li>` (typo, mid-edit save) would be silently dropped by
+  // the regex above, narrowing the very prose-loss the additive rebuild
+  // was meant to prevent. Surface the discrepancy so callers can warn.
+  const openCount = (existingAside.match(/<li[\s>]/gi) || []).length;
+  const matchedCount = liByHref.size + (liOrder.length - liByHref.size);
+  // matchedCount equals number of <li>...</li> pairs we processed (some
+  // may have been deduped by href; that's ok). openCount may legitimately
+  // be smaller too if the same <li> renders mixed-form content. We only
+  // flag when openings clearly exceed pairs — that's the unclosed case.
+  const pairCount = (existingAside.match(/<\/li>/gi) || []).length;
+  if (openCount > pairCount) {
+    warning =
+      `aside has ${openCount} <li> openings but only ${pairCount} </li> closes — ` +
+      `${openCount - pairCount} unclosed item(s) will be silently dropped from the regenerated aside`;
+  }
+  return { liByHref, liOrder, warning };
 }
 
 // Canonical-but-additive regenerator. Behavior:
@@ -248,8 +265,11 @@ function extractCallbackLis(existingAside) {
 // removals). This was the source of the P0 prose-loss regression: the
 // previous version regenerated the aside from scratch, dropping every
 // hand-authored entry that wasn't backed by a prereq edge.
-function buildCallbackHtml(links, existingAside) {
-  const { liByHref, liOrder } = extractCallbackLis(existingAside);
+function buildCallbackHtml(links, existingAside, warningSink) {
+  const { liByHref, liOrder, warning } = extractCallbackLis(existingAside);
+  if (warning && warningSink && typeof warningSink.push === 'function') {
+    warningSink.push(warning);
+  }
   // Helper: for a prereq link, produce both candidate href forms.
   const hrefForms = (l) => [`./${l.page}#${l.anchor}`, `${l.page}#${l.anchor}`];
   // Build indented <li>s in this order: existing first, then new.
@@ -543,6 +563,7 @@ function applyJsonFix(doc, hostKeys) {
   // IS still valid content) would have been wiped here.  Leaving stale
   // un-fenced asides on cross-edge-removed sections is acceptable: they
   // continue to render valid hrefs until a future fix-pass picks them up.
+  const fidelityWarnings = [];
   for (const { anchor, links } of hostKeys) {
     const found = findJsonSection(doc, anchor);
     if (!found) {
@@ -555,7 +576,11 @@ function applyJsonFix(doc, hostKeys) {
     // `<li><a>title</a></li>` skeletons and any "— context here" suffix
     // is lost forever.
     const existingAside = findExistingCallbackAsideHtml(found.section);
-    const fencedHtml = wrapCallbackFence(buildCallbackHtml(links, existingAside));
+    const sectionWarnings = [];
+    const fencedHtml = wrapCallbackFence(buildCallbackHtml(links, existingAside, sectionWarnings));
+    for (const w of sectionWarnings) {
+      fidelityWarnings.push(`#${anchor}: ${w}`);
+    }
 
     // Idempotency / in-place mutation: if the section already has a fenced
     // callback block (anywhere — including INLINE inside a larger raw
@@ -635,7 +660,7 @@ function applyJsonFix(doc, hostKeys) {
       }
     }
   }
-  return { stripped, inserted, replaced, missingSections, staleAsides: staleHits };
+  return { stripped, inserted, replaced, missingSections, staleAsides: staleHits, fidelityWarnings };
 }
 
 // Wrap a callback-aside HTML in the canonical fence comments.  Mirrors what
@@ -749,6 +774,11 @@ for (const topic of topics.values()) {
       // ignorable. Don't auto-strip; just surface the list.
       if (result.staleAsides && result.staleAsides.length > 0) {
         console.warn(`  ⚠ ${page}: section(s) with callback aside but no current cross-topic prereqs: ${result.staleAsides.join(', ')} — review whether to remove`);
+      }
+      if (result.fidelityWarnings && result.fidelityWarnings.length > 0) {
+        for (const w of result.fidelityWarnings) {
+          console.warn(`  ⚠ ${page} ${w}`);
+        }
       }
       const wrote = saveTopicContent(topic.id, doc, repoRoot);
       if (wrote) {

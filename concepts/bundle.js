@@ -78,7 +78,7 @@ window.__MVConcepts = {
       "modularity-and-flt",
       "etale-cohomology"
     ],
-    "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations the rest of the corpus rests on), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (terminal goals).",
+    "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations whose first concept legitimately has empty prereqs), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (every concept on this page is at capstone tier — distinct from per-concept capstone-goal overrides driven by capstones.json's `goal` field; a topic can own a capstone goal without itself being level=capstone, e.g. complex-analysis owns four capstones but its level is 'prereq').",
     "levels": {
       "naive-set-theory": "prereq",
       "algebra": "prereq",
@@ -226,7 +226,7 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially."
+          "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially. Reading the table by rows gives the regular action of $G$ on itself by left multiplication — the prototypical $G$-set, and Cayley's theorem realizes every finite group as a subgroup of $S_n$ via that action."
         },
         {
           "id": "quotients-homomorphisms",
@@ -5172,9 +5172,10 @@ window.__MVConcepts = {
           "title": "Deformation functors and Schlessinger's criteria",
           "anchor": "deformation-functor",
           "prereqs": [
-            "first-order-deformation"
+            "first-order-deformation",
+            "primes-maximals-ca"
           ],
-          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
+          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
         },
         {
           "id": "cotangent-complex",
@@ -5875,7 +5876,7 @@ window.__MVConcepts = {
       "concepts": 113,
       "intra": 171,
       "crossOut": 13,
-      "crossIn": 30,
+      "crossIn": 31,
       "density": 0.11504424778761062
     },
     "Analysis": {
@@ -5909,9 +5910,9 @@ window.__MVConcepts = {
     "Algebraic geometry": {
       "concepts": 109,
       "intra": 132,
-      "crossOut": 41,
+      "crossOut": 42,
       "crossIn": 11,
-      "density": 0.3761467889908257
+      "density": 0.3853211009174312
     }
   }
 };

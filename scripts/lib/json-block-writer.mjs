@@ -459,6 +459,19 @@ export function updateCss(doc, fenceName, cssText) {
     return { changed: true, action: 'updated' };
   }
 
+  // Detect a malformed/orphan fence: begin token present but no matching end.
+  // Without this guard, the function would silently fall through to the
+  // insert path below and splice a fresh fence pair, leaving the orphan
+  // begin behind — turning a malformed input into corrupt output.
+  // Surface it to the caller so the malformation is visible.
+  const beginRe = new RegExp(`\\/\\*\\s*${escapeRe(fenceName)}-auto-begin\\s*\\*\\/`);
+  const endRe = new RegExp(`\\/\\*\\s*${escapeRe(fenceName)}-auto-end\\s*\\*\\/`);
+  if (beginRe.test(doc.rawHead) || endRe.test(doc.rawHead)) {
+    throw new Error(
+      `updateCss: malformed fence — '${fenceName}' has a begin or end token but not both (or they're out of order). Refusing to write to avoid leaving the orphan token in place. Clean rawHead manually before calling updateCss.`
+    );
+  }
+
   const closeIdx = doc.rawHead.search(/<\/style>/i);
   if (closeIdx < 0) {
     throw new Error('updateCss: doc.rawHead has no </style>');

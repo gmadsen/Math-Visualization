@@ -17,7 +17,7 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially."
+      "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially. Reading the table by rows gives the regular action of $G$ on itself by left multiplication — the prototypical $G$-set, and Cayley's theorem realizes every finite group as a subgroup of $S_n$ via that action."
     },
     {
       "id": "quotients-homomorphisms",

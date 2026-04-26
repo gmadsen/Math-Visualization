@@ -81,7 +81,7 @@
     "modularity-and-flt",
     "etale-cohomology"
   ],
-  "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations the rest of the corpus rests on), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (terminal goals).",
+  "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations whose first concept legitimately has empty prereqs), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (every concept on this page is at capstone tier — distinct from per-concept capstone-goal overrides driven by capstones.json's `goal` field; a topic can own a capstone goal without itself being level=capstone, e.g. complex-analysis owns four capstones but its level is 'prereq').",
   "levels": {
     "naive-set-theory": "prereq",
 

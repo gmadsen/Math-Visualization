@@ -89,7 +89,7 @@
   .stats-row .stat{padding:.05rem .1rem}
   .stats-row .gap{color:var(--pink)}
   .focus-card{position:absolute;top:.7rem;left:.7rem;max-width:340px;
-    background:color-mix(in srgb, var(--panel) 94%, transparent);
+    background:color-mix(in srgb, var(--panel2) 96%, transparent);
     border:1px solid var(--line);border-radius:8px;
     padding:.7rem .9rem;font-size:.88rem;color:var(--ink);
     backdrop-filter:blur(6px);z-index:5}
@@ -107,7 +107,7 @@
   .focus-card .factions a:hover, .focus-card .factions button:hover{
     border-color:var(--yellow);color:var(--yellow)}
   .tooltip{position:absolute;pointer-events:none;
-    background:color-mix(in srgb, var(--panel) 96%, transparent);
+    background:color-mix(in srgb, var(--panel2) 96%, transparent);
     border:1px solid var(--line);border-radius:6px;padding:.4rem .6rem;
     font-size:.82rem;color:var(--ink);z-index:8;max-width:280px;
     box-shadow:0 4px 12px rgba(0,0,0,.4);display:none}
@@ -436,20 +436,14 @@
   // Capstone goals → tagged for special rendering.
   const CAPSTONE_GOAL_IDS = new Set(capstones.map(c => c.goal));
 
-  // Topic-level map (mirrors pathway.html). Concepts inherit their topic's
-  // level unless they're a capstone goal.
-  const TOPIC_LEVEL = {
-    'naive-set-theory':'prereq','algebra':'prereq','real-analysis':'prereq',
-    'complex-analysis':'prereq','point-set-topology':'prereq',
-    'algebraic-topology':'prereq','projective-plane':'prereq',
-    'operator-algebras':'advanced','class-field-theory':'advanced',
-    'theta-functions':'advanced','hecke-operators':'advanced',
-    'moonshine':'advanced','singular-cubics-reduction':'advanced',
-    'moduli-spaces':'advanced','sheaf-cohomology':'advanced',
-    'galois-representations':'capstone','sato-tate':'capstone',
-    'bsd':'capstone','modularity-and-flt':'capstone',
-    'stacks':'capstone','etale-cohomology':'capstone'
-  };
+  // Topic-level map: read from the bundle's canonical `levels` field
+  // (single source of truth shared with pathway.html and
+  // audit-starter-concepts.mjs — see concepts/index.json's `levels` map
+  // and `_levels_doc`). validate-concepts.mjs guards drift between
+  // `topics` and `levels`, so any new topic without a level entry fails
+  // CI before it lands. Concepts inherit their topic's level unless
+  // they're a capstone goal (per-concept override).
+  const TOPIC_LEVEL = (window.__MVConcepts && window.__MVConcepts.levels) || {};
   function levelOf(id){
     if(CAPSTONE_GOAL_IDS.has(id)) return 'capstone';
     const c = byId.get(id);
@@ -854,11 +848,16 @@
     MVProgress.setMastered(id, 'v1', !cur);
     applyMasteryClasses();
     applyFilters();
-    if(focusIdx === idx){
-      // Re-derive the neighborhood-count and re-render the card.
-      const reachable = bfsUndirected(focusIdx, focusDepth);
-      showFocusCard(focusIdx, reachable.size - 1);
+    // applyFilters can dim the focused node if its new mastery state no
+    // longer matches an active mastery dropdown — so re-apply the focus
+    // overlay AFTER filters so the focused node and its k-hop neighbors
+    // come back from `dim` to `focus`/`near`. Also refresh the focus card
+    // with a fresh neighborhood count.
+    if(focusIdx !== null){
+      applyFocus();
     }
+    // Refresh the corpus-wide "N mastered" pill in the stats row.
+    updateStats();
   }
 
   // ---------- focus ----------
@@ -1144,6 +1143,13 @@
     clearCachedLayout();
     document.getElementById('loading').style.display = 'flex';
     await runLayout(/* forceRecompute */ true);
+    // runLayout mutates n.x / n.y on every node; without these two calls the
+    // SVG keeps the old transforms and reseed visually does nothing until
+    // the next reload. Sync edge endpoints + node transforms with the
+    // freshly-settled positions, then drop the loading overlay.
+    syncEdgePositions();
+    syncNodePositions();
+    if(focusIdx !== null) centerViewOn(focusIdx);
     document.getElementById('loading').style.display = 'none';
   });
 
@@ -1163,13 +1169,24 @@
 
   // ---------- keyboard ----------
   document.addEventListener('keydown', (ev) => {
-    if(ev.key === '/' && document.activeElement !== searchEl){
+    // Don't intercept keystrokes the user is typing into a form control —
+    // typing `?` into the search box should produce a literal `?` in the
+    // value, not toggle the help panel. Same logic for `/` (vim-style
+    // focus into search), already excluded below.
+    const ae = document.activeElement;
+    const inEditable = ae && (
+      ae === searchEl ||
+      ae.tagName === 'INPUT' ||
+      ae.tagName === 'TEXTAREA' ||
+      ae.isContentEditable
+    );
+    if(ev.key === '/' && !inEditable){
       ev.preventDefault(); searchEl.focus();
     } else if(ev.key === 'Escape'){
       if(!helpPanel.hidden) toggleHelp(false);
       else clearFocus();
       searchEl.blur();
-    } else if(ev.key === '?'){
+    } else if(ev.key === '?' && !inEditable){
       toggleHelp();
     }
   });
