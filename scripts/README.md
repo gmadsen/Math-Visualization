@@ -147,7 +147,8 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 20. `test-roundtrip.mjs`
 21. `stats-coverage.mjs`
 22. `audit-draft-index-cards.mjs`
-23. `audit-doc-drift.mjs`
+23. `audit-starter-concepts.mjs`
+24. `audit-doc-drift.mjs`
 
 `--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `starter`, `doc-drift`.
 
