@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/infinity-categories-homotopy-2simplex/schema.json",
+  "title": "infinity-categories-homotopy-2simplex widget params",
+  "description": "Bespoke static SVG diagram of a 2-simplex $\\Delta^2$ exhibiting a homotopy $f \\circ g \\simeq h$ between 1-morphisms, used in infinity-categories.html §2 (#homotopy-category). No driving script.",
+  "meta": {
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "read",
+    "role": "illustrative"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyMarkup"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id of the widget host element. Must match the id baked into bodyMarkup."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim widget host bytes — the inline `<div class=\"widget\" id=\"...\">…</div>`. Carried through unchanged so the round-trip stays byte-identical."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT (optional). Verbatim driving script bytes; absent for purely declarative widgets with no driving IIFE."
+    }
+  }
+}

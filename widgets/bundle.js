@@ -1086,6 +1086,505 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "deformation-theory-cotangent-scrubber",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "deformation-theory-cotangent-scrubber widget params",
+    "description": "Bespoke proof-scrubber walking through the cotangent complex $L_{X/S}$ in degrees $0, -1, -2$, used in deformation-theory.html §5 (#cotangent-complex).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walking through the cotangent complex $L_{X/S}$ in degrees $0, -1, -2$, used in deformation-theory.html §5 (#cotangent-complex).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "deformation-theory-curve-sandbox",
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "deformation-theory-curve-sandbox widget params",
+    "description": "Bespoke sandbox visualizing first-order deformations of a fixed curve, used in deformation-theory.html §6 (#deformation-of-a-curve).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke sandbox visualizing first-order deformations of a fixed curve, used in deformation-theory.html §6 (#deformation-of-a-curve).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "deformation-theory-first-order-scrubber",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "deformation-theory-first-order-scrubber widget params",
+    "description": "Bespoke proof-scrubber walkthrough of how a first-order deformation $X \\to \\mathrm{Spec}\\,k[\\varepsilon]$ flattens into a Čech 1-cocycle, used in deformation-theory.html §1 (#first-order-deformation).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walkthrough of how a first-order deformation $X \\to \\mathrm{Spec}\\,k[\\varepsilon]$ flattens into a Čech 1-cocycle, used in deformation-theory.html §1 (#first-order-deformation).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "deformation-theory-genus-tangent",
+    "family": "parametric-plot",
+    "dimension": "2d",
+    "gesture": "slide",
+    "role": "exploratory",
+    "title": "deformation-theory-genus-tangent widget params",
+    "description": "Bespoke widget showing $\\dim_k \\mathrm{Def}_{C}(D) = 3g - 3$ as a function of curve genus $g$, used in deformation-theory.html §6 (#deformation-of-a-curve).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget showing $\\dim_k \\mathrm{Def}_{C}(D) = 3g - 3$ as a function of curve genus $g$, used in deformation-theory.html §6 (#deformation-of-a-curve).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "deformation-theory-obstruction-graph",
+    "family": "clickable-graph",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "deformation-theory-obstruction-graph widget params",
+    "description": "Bespoke clickable graph stepping through obstruction classes in $H^2(X_0, T_{X_0})$, used in deformation-theory.html §3 (#obstructions).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke clickable graph stepping through obstruction classes in $H^2(X_0, T_{X_0})$, used in deformation-theory.html §3 (#obstructions).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "deformation-theory-schlessinger-diagram",
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "read",
+    "role": "illustrative",
+    "title": "deformation-theory-schlessinger-diagram widget params",
+    "description": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "deformation-theory-tangent-clickable",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "deformation-theory-tangent-clickable widget params",
+    "description": "Bespoke clickable diagram showing the bijection $H^1(X_0, T_{X_0}) \\cong \\mathrm{Def}_{X_0}(D)$ on a 2-chart cover, used in deformation-theory.html §2 (#tangent-space).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke clickable diagram showing the bijection $H^1(X_0, T_{X_0}) \\cong \\mathrm{Def}_{X_0}(D)$ on a 2-chart cover, used in deformation-theory.html §2 (#tangent-space).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-chain-homotopy",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "derived-categories-chain-homotopy widget params",
+    "description": "Bespoke clickable widget displaying a chain homotopy $h: f \\simeq g$ between two chain maps, used in derived-categories.html §1 (#homotopy-category).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke clickable widget displaying a chain homotopy $h: f \\simeq g$ between two chain maps, used in derived-categories.html §1 (#homotopy-category).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-derived-functor-scrubber",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "derived-categories-derived-functor-scrubber widget params",
+    "description": "Bespoke proof-scrubber walking through the construction of total derived functors $\\mathrm{R}F$ on a triangulated category, used in derived-categories.html §5 (#derived-functors-triangulated).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walking through the construction of total derived functors $\\mathrm{R}F$ on a triangulated category, used in derived-categories.html §5 (#derived-functors-triangulated).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-fourier-mukai",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "derived-categories-fourier-mukai widget params",
+    "description": "Bespoke widget illustrating a Fourier–Mukai transform $\\Phi_K: D^b(X) \\to D^b(Y)$ via a kernel $K \\in D^b(X \\times Y)$, used in derived-categories.html §7 (#d-coh).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget illustrating a Fourier–Mukai transform $\\Phi_K: D^b(X) \\to D^b(Y)$ via a kernel $K \\in D^b(X \\times Y)$, used in derived-categories.html §7 (#d-coh).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-qis-scrubber",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "derived-categories-qis-scrubber widget params",
+    "description": "Bespoke proof-scrubber walking through how a quasi-isomorphism induces an isomorphism on cohomology, used in derived-categories.html §2 (#quasi-isomorphisms).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walking through how a quasi-isomorphism induces an isomorphism on cohomology, used in derived-categories.html §2 (#quasi-isomorphisms).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-roof",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "derived-categories-roof widget params",
+    "description": "Bespoke widget illustrating the roof / fraction calculus $X \\xleftarrow{\\sim} Z \\to Y$ in $D(\\mathcal{A})$, used in derived-categories.html §3 (#derived-category).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget illustrating the roof / fraction calculus $X \\xleftarrow{\\sim} Z \\to Y$ in $D(\\mathcal{A})$, used in derived-categories.html §3 (#derived-category).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-t-structure",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "derived-categories-t-structure widget params",
+    "description": "Bespoke widget for a t-structure $(D^{\\le 0}, D^{\\ge 0})$ with cohomology functors $H^n$, used in derived-categories.html §6 (#t-structures).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for a t-structure $(D^{\\le 0}, D^{\\ge 0})$ with cohomology functors $H^n$, used in derived-categories.html §6 (#t-structures).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "derived-categories-triangle",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "derived-categories-triangle widget params",
+    "description": "Bespoke widget for the distinguished triangle axioms (TR1)–(TR4) in a triangulated category, used in derived-categories.html §4 (#triangulated-structure).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the distinguished triangle axioms (TR1)–(TR4) in a triangulated category, used in derived-categories.html §4 (#triangulated-structure).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-axioms-scrub",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-axioms-scrub widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-chi-pullback",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-chi-pullback widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-geom-graph",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-geom-graph widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-gset-graph",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-gset-graph widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-omega-scrub",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-omega-scrub widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-power-scrub",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-power-scrub widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "elementary-topos-theory-sieves-graph",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "elementary-topos-theory-sieves-graph widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `elementary-topos-theory.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "etale-fundamental-group-cmp-square",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "etale-fundamental-group-cmp-square widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `etale-fundamental-group.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "etale-fundamental-group-fet-cover",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "etale-fundamental-group-fet-cover widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `etale-fundamental-group.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "etale-fundamental-group-fiber-functor",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "etale-fundamental-group-fiber-functor widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `etale-fundamental-group.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "etale-fundamental-group-frob-clock",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "etale-fundamental-group-frob-clock widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `etale-fundamental-group.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "etale-fundamental-group-galois-equiv",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "etale-fundamental-group-galois-equiv widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `etale-fundamental-group.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "etale-fundamental-group-pi1-construct",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "etale-fundamental-group-pi1-construct widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `etale-fundamental-group.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "galois-quintic-unsolvability",
     "family": "proof-scrubber",
     "dimension": "2d",
@@ -1098,6 +1597,114 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke proof-scrubber walkthrough used in `galois.html` §6 (`#quintic`). The widget mounts an empty host div, then the page-global `MVProofScrubber` library builds the slider / play / SVG diagram / readout chrome at runtime. Each of the seven proof steps is rendered by a closure over a shared `drawFrame(svg, opts)` helper; the closures emit live SVG nodes via a scoped `S(tag, attrs)` factory rather than dropping in static SVG-fragment strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "grothendieck-topologies-sites-axioms-scrub",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "grothendieck-topologies-sites-axioms-scrub widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `grothendieck-topologies-sites.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "grothendieck-topologies-sites-geom-comp",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "grothendieck-topologies-sites-geom-comp widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `grothendieck-topologies-sites.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "grothendieck-topologies-sites-giraud",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "grothendieck-topologies-sites-giraud widget params",
+    "description": "Bespoke registry entry for a script-less widget. Carries the widget's HTML body verbatim as an artifact string so the byte-identical round-trip gate passes. The topic JSON does not emit a paired widget-script block. A portable React/Three.js consumer would discard the artifact and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a script-less widget on `grothendieck-topologies-sites.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup verbatim as an artifact string so the byte-identical round-trip gate passes. There is no paired `<script>` driving the widget — the markup alone is the full payload.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "grothendieck-topologies-sites-sheaf-cases",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "grothendieck-topologies-sites-sheaf-cases widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `grothendieck-topologies-sites.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "grothendieck-topologies-sites-sieves-poset",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "grothendieck-topologies-sites-sieves-poset widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `grothendieck-topologies-sites.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "grothendieck-topologies-sites-sites-toggle",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "grothendieck-topologies-sites-sites-toggle widget params",
+    "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke registry entry for a widget on `grothendieck-topologies-sites.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -1359,6 +1966,138 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke registry entry for the `w-omega-heyting-scrub` widget on `heyting-algebras-toposes.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-adjunction-triangles",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "infinity-categories-adjunction-triangles widget params",
+    "description": "Bespoke widget showing the unit/counit triangle identities for an $\\infty$-adjunction $F \\dashv G$, used in infinity-categories.html §5 (#infty-adjunctions).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget showing the unit/counit triangle identities for an $\\infty$-adjunction $F \\dashv G$, used in infinity-categories.html §5 (#infty-adjunctions).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-cone",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "infinity-categories-cone widget params",
+    "description": "Bespoke widget for an $\\infty$-limit cone over a diagram $\\mathcal{K} \\to \\mathcal{C}$, used in infinity-categories.html §4 (#infty-limits).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for an $\\infty$-limit cone over a diagram $\\mathcal{K} \\to \\mathcal{C}$, used in infinity-categories.html §4 (#infty-limits).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-functor-levels",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "infinity-categories-functor-levels widget params",
+    "description": "Bespoke widget showing how a map of simplicial sets $\\mathcal{C} \\to \\mathcal{D}$ encodes the higher coherence data of an $\\infty$-functor, used in infinity-categories.html §3 (#infty-functors).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget showing how a map of simplicial sets $\\mathcal{C} \\to \\mathcal{D}$ encodes the higher coherence data of an $\\infty$-functor, used in infinity-categories.html §3 (#infty-functors).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-h-construction",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "infinity-categories-h-construction widget params",
+    "description": "Bespoke proof-scrubber walking through the homotopy-category construction $h\\mathcal{C}$ from a quasi-category, used in infinity-categories.html §2 (#homotopy-category).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walking through the homotopy-category construction $h\\mathcal{C}$ from a quasi-category, used in infinity-categories.html §2 (#homotopy-category).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-homotopy-2simplex",
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "read",
+    "role": "illustrative",
+    "title": "infinity-categories-homotopy-2simplex widget params",
+    "description": "Bespoke static SVG diagram of a 2-simplex $\\Delta^2$ exhibiting a homotopy $f \\circ g \\simeq h$ between 1-morphisms, used in infinity-categories.html §2 (#homotopy-category). No driving script.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke static SVG diagram of a 2-simplex $\\Delta^2$ exhibiting a homotopy $f \\circ g \\simeq h$ between 1-morphisms, used in infinity-categories.html §2 (#homotopy-category). No driving script.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-kan-pointwise",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "infinity-categories-kan-pointwise widget params",
+    "description": "Bespoke proof-scrubber walking through the pointwise formula for a left Kan extension $\\mathrm{Lan}_p F$, used in infinity-categories.html §6 (#kan-extension).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walking through the pointwise formula for a left Kan extension $\\mathrm{Lan}_p F$, used in infinity-categories.html §6 (#kan-extension).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "infinity-categories-quasi-category-build",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "infinity-categories-quasi-category-build widget params",
+    "description": "Bespoke proof-scrubber that constructs a quasi-category by filling inner horns $\\Lambda^n_k \\hookrightarrow \\Delta^n$ for $0 < k < n$, used in infinity-categories.html §1 (#quasi-category).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber that constructs a quasi-category by filling inner horns $\\Lambda^n_k \\hookrightarrow \\Delta^n$ for $0 < k < n$, used in infinity-categories.html §1 (#quasi-category).",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

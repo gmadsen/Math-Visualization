@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/deformation-theory-schlessinger-diagram/schema.json",
+  "title": "deformation-theory-schlessinger-diagram widget params",
+  "description": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
+  "meta": {
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "read",
+    "role": "illustrative"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyMarkup"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id of the widget host element. Must match the id baked into bodyMarkup."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim widget host bytes — the inline `<div class=\"widget\" id=\"...\">…</div>`. Carried through unchanged so the round-trip stays byte-identical."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT (optional). Verbatim driving script bytes; absent for purely declarative widgets with no driving IIFE."
+    }
+  }
+}
