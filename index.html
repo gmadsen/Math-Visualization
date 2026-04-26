@@ -83,7 +83,17 @@
      is visible without scrolling past a thousand lines of cards. */
   .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
     padding:0.75rem 0.9rem;margin:0 0 2rem;
-    background:var(--panel);border:1px solid var(--line);border-radius:10px}
+    border:1px solid var(--line);border-radius:10px;
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--panel) 88%, transparent);
+    transition:box-shadow 160ms ease, border-color 160ms ease}
+  .section-jump.stuck{box-shadow:0 6px 18px rgba(0,0,0,0.32);
+    border-color:color-mix(in srgb, var(--cyan) 30%, var(--line))}
+  /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
+     stuck. IntersectionObserver in the script block at the bottom of body adds
+     .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
+  .sj-sentinel{height:1px;margin-top:-1px}
   .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
     margin-right:0.5rem;white-space:nowrap}
@@ -161,10 +171,17 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
-    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
-  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+    transition:transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease}
+  .card:hover{transform:translateY(-4px);background:var(--panel2);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--mute) 18%, transparent)}
+  .card.y:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--yellow) 22%, transparent)}
+  .card.b:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--blue)   22%, transparent)}
+  .card.g:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--green)  22%, transparent)}
+  .card.p:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--pink)   22%, transparent)}
+  .card.v:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .card.c:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--cyan)   22%, transparent)}
   .card.coming{opacity:0.55;cursor:not-allowed}
-  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line);box-shadow:none}
   .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
     border:1px solid var(--line);border-radius:6px;
     display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -356,6 +373,7 @@
     <div class="pb-arrow">→</div>
   </a>
 
+  <div class="sj-sentinel" aria-hidden="true"></div>
   <nav class="section-jump" role="navigation" aria-label="Jump to section">
     <span class="sj-label">Jump to</span>
     <a class="sj-link s-b" href="#foundations"><span class="sj-dot"></span>Foundations</a>
@@ -2429,6 +2447,27 @@
       })(btn, id, title, topic.page || (id + '.html'));
       card.appendChild(btn);
     }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<script>
+// Sticky section-jump: toggle a .stuck class on the nav when the sentinel
+// just above it scrolls out of view. The sentinel is a 1px element inserted
+// in the markup; an IntersectionObserver fires when it crosses the top.
+// Falls back to a no-op when IntersectionObserver isn't available.
+(function(){
+  function init(){
+    var bar = document.querySelector('.section-jump');
+    var sentinel = document.querySelector('.sj-sentinel');
+    if(!bar || !sentinel || typeof IntersectionObserver !== 'function') return;
+    var io = new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        bar.classList.toggle('stuck', !entries[i].isIntersecting);
+      }
+    }, { threshold: [0, 1] });
+    io.observe(sentinel);
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
