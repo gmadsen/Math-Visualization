@@ -76,6 +76,7 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Adèles & idèles](./adeles-and-ideles.html) — restricted products, strong approximation, Tate's thesis sketch
 - [Frobenius & reciprocity](./frobenius-and-reciprocity.html) — splitting types, Frobenius classes, reciprocity dictionary
 - [Class field theory](./class-field-theory.html) — Artin reciprocity, ideles, abelian extensions
+- [Heights in arithmetic geometry](./heights-arithmetic-geometry.html) — naive & Weil heights, Northcott finiteness, Néron–Tate canonical $\hat h$, Mahler measure, Mordell–Faltings via heights
 
 ### Modular forms & L-functions
 - [Upper half-plane](./upper-half-plane-hyperbolic.html) — hyperbolic geometry and Möbius action
@@ -113,6 +114,13 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Group schemes](./group-schemes.html) — $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$, Hopf algebras, étale-vs-connected, $\mathrm{Lie}(G)$, torsors
 - [Deformation theory](./deformation-theory.html) — first-order $H^1(T)$, obstructions $H^2(T)$, Schlessinger, cotangent complex
 - [Algebraic de Rham cohomology](./algebraic-de-rham-cohomology.html) — Kähler differentials, $H^*_{dR}$, Hodge filtration, Hodge diamond
+
+### Combinatorics & graph theory
+- [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
+- [Matroid theory](./matroid-theory.html) — Whitney's combinatorial abstraction of independence; bases, rank, duality, the Tutte polynomial
+- [Probabilistic method](./probabilistic-method.html) — existence by expectation, Ramsey lower bounds, Lovász Local Lemma, $G(n,p)$ thresholds, concentration
+- [Extremal combinatorics](./extremal-combinatorics.html) — Turán's theorem, Kővári–Sós–Turán, Erdős–Stone, Ramsey numbers, Sperner & LYM, removal lemma
+- [Simplicial complexes (combinatorial)](./simplicial-complexes-combinatorial.html) — abstract complexes, $f$/$h$-vectors, Dehn–Sommerville, Stanley–Reisner ring, persistent homology
 
 ## Resetting progress
 

@@ -8,7 +8,8 @@
       "title": "Sample spaces, events, and probability measures",
       "anchor": "sample",
       "prereqs": ["sigma-algebras", "lebesgue-measure"],
-      "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$."
+      "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$.",
+      "tags": ["foundation"]
     },
     {
       "id": "conditional-bayes",
@@ -29,7 +30,8 @@
       "title": "Supports, distributions, and densities",
       "anchor": "supports",
       "prereqs": ["random-variables"],
-      "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo."
+      "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo.",
+      "tags": ["classification"]
     },
     {
       "id": "expectation-moments",
@@ -43,14 +45,16 @@
       "title": "Moment and characteristic functions",
       "anchor": "gen-fun",
       "prereqs": ["expectation-moments"],
-      "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents."
+      "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents.",
+      "tags": ["duality"]
     },
     {
       "id": "convergence-rv",
       "title": "Modes of convergence",
       "anchor": "conv",
       "prereqs": ["random-variables", "convergence-theorems"],
-      "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob."
+      "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob.",
+      "tags": ["classification"]
     },
     {
       "id": "law-of-large-numbers",

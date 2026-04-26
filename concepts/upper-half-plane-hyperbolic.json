@@ -7,36 +7,55 @@
       "id": "upper-half-plane-model",
       "title": "The upper half-plane model",
       "anchor": "H",
-      "prereqs": ["complex-numbers", "continuity-topology"],
+      "prereqs": [
+        "complex-numbers",
+        "continuity-topology"
+      ],
       "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms."
     },
     {
       "id": "hyperbolic-metric",
       "title": "The hyperbolic metric",
       "anchor": "metric",
-      "prereqs": ["upper-half-plane-model"],
+      "prereqs": [
+        "upper-half-plane-model"
+      ],
       "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away."
     },
     {
       "id": "geodesics-in-H",
       "title": "Geodesics in H",
       "anchor": "geod",
-      "prereqs": ["hyperbolic-metric"],
+      "prereqs": [
+        "hyperbolic-metric"
+      ],
       "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance."
     },
     {
       "id": "sl2r-action-on-H",
       "title": "SL2(R) action and modular preview",
       "anchor": "sl2z",
-      "prereqs": ["geodesics-in-H", "mobius-transformations"],
-      "blurb": "Fractional linear maps preserve H and its metric; restricting to SL2(Z) gives the modular tessellation story."
+      "prereqs": [
+        "geodesics-in-H",
+        "mobius-transformations"
+      ],
+      "blurb": "Fractional linear maps preserve H and its metric; restricting to SL2(Z) gives the modular tessellation story.",
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "isometry-group-psl2r",
       "title": "PSL2(R) and the isometry trichotomy",
       "anchor": "iso",
-      "prereqs": ["sl2r-action-on-H"],
-      "blurb": "PSL2(R) is the full orientation-preserving isometry group of H; its elements split by trace into elliptic, parabolic, and hyperbolic conjugacy classes."
+      "prereqs": [
+        "sl2r-action-on-H"
+      ],
+      "blurb": "PSL2(R) is the full orientation-preserving isometry group of H; its elements split by trace into elliptic, parabolic, and hyperbolic conjugacy classes.",
+      "tags": [
+        "classification",
+        "group-action"
+      ]
     }
   ]
 }

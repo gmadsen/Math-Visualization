@@ -1,0 +1,89 @@
+{
+  "widgetId": "w-branching-proof-example",
+  "title": "$\\sqrt{2}$ is irrational — pick a tactic",
+  "hint": "fork: try direct vs. by contradiction · ←/→ to scrub · click any visited node",
+  "rootId": "claim",
+  "width": 540,
+  "height": 280,
+  "palette": "cyan",
+  "nodes": [
+    {
+      "id": "claim",
+      "kind": "step",
+      "prompt": "<b>Claim.</b> $\\sqrt{2} \\notin \\mathbb{Q}$ — there is no pair of integers $p, q$ with $q \\ne 0$ such that $\\sqrt{2} = p/q$.",
+      "children": ["pick-tactic"]
+    },
+    {
+      "id": "pick-tactic",
+      "kind": "fork",
+      "prompt": "Two natural tactics. <b>Direct</b>: try to construct an explicit non-rational form for $\\sqrt{2}$. <b>By contradiction</b>: assume $\\sqrt{2} = p/q$ in lowest terms and derive a contradiction. Pick one.",
+      "children": ["direct-attempt", "assume-rational"]
+    },
+    {
+      "id": "direct-attempt",
+      "kind": "step",
+      "prompt": "Direct: write $\\sqrt{2} = a + b$ for some $a \\in \\mathbb{Q}$ and a non-rational remainder $b$. But to <i>show</i> $b$ is non-rational we'd need a separate proof of irrationality — the technique just punts the problem.",
+      "branchLabel": "try direct",
+      "dead": true,
+      "children": ["direct-stuck"]
+    },
+    {
+      "id": "direct-stuck",
+      "kind": "leaf",
+      "prompt": "<b>Stuck.</b> Direct construction begs the question: any candidate decomposition reduces to proving some <i>other</i> number irrational. This branch teaches us the right move is contradiction.",
+      "dead": true,
+      "children": []
+    },
+    {
+      "id": "assume-rational",
+      "kind": "step",
+      "prompt": "Suppose, for contradiction, $\\sqrt{2} = p/q$ with $\\gcd(p, q) = 1$ — i.e. the fraction is in lowest terms.",
+      "branchLabel": "by contradiction",
+      "children": ["square-both-sides"]
+    },
+    {
+      "id": "square-both-sides",
+      "kind": "step",
+      "prompt": "Squaring: $2 = p^2 / q^2$, so $p^2 = 2 q^2$. Hence $p^2$ is even, which forces $p$ to be even (the parity of $p^2$ matches the parity of $p$).",
+      "children": ["substitute-p"]
+    },
+    {
+      "id": "substitute-p",
+      "kind": "step",
+      "prompt": "Write $p = 2k$ for some integer $k$. Substitute back: $(2k)^2 = 2 q^2 \\Rightarrow 4 k^2 = 2 q^2 \\Rightarrow q^2 = 2 k^2$. So $q^2$ is even, and therefore $q$ is even.",
+      "children": ["case-on-shared-factor"]
+    },
+    {
+      "id": "case-on-shared-factor",
+      "kind": "fork",
+      "prompt": "We now know $2 \\mid p$ <em>and</em> $2 \\mid q$. Either we trust $\\gcd(p, q) = 1$ from the assumption, or we don't. Pick the move that produces the contradiction.",
+      "children": ["use-coprime", "ignore-coprime"]
+    },
+    {
+      "id": "use-coprime",
+      "kind": "step",
+      "prompt": "But the assumption was $\\gcd(p, q) = 1$, i.e. $p$ and $q$ share no common factor — yet we just showed $2$ divides both. <b>Contradiction.</b>",
+      "branchLabel": "use $\\gcd(p,q) = 1$",
+      "children": ["qed"]
+    },
+    {
+      "id": "ignore-coprime",
+      "kind": "step",
+      "prompt": "If we drop the coprimality assumption we can keep dividing $p$ and $q$ by $2$ forever, generating an infinite descending chain of positive integers — itself a contradiction (well-ordering of $\\mathbb{N}$). Slightly longer route, same destination.",
+      "branchLabel": "infinite descent",
+      "children": ["qed-descent"]
+    },
+    {
+      "id": "qed",
+      "kind": "leaf",
+      "prompt": "<b>QED.</b> The assumption $\\sqrt{2} = p/q$ in lowest terms led to $2 \\mid \\gcd(p, q)$, contradicting $\\gcd(p, q) = 1$. So no such pair $(p, q)$ exists, and $\\sqrt{2}$ is irrational. $\\blacksquare$",
+      "children": []
+    },
+    {
+      "id": "qed-descent",
+      "kind": "leaf",
+      "prompt": "<b>QED.</b> Iterating $p \\mapsto p/2$, $q \\mapsto q/2$ produces an infinite decreasing sequence of positive integers, contradicting the well-ordering of $\\mathbb{N}$. So $\\sqrt{2} \\notin \\mathbb{Q}$. $\\blacksquare$",
+      "children": []
+    }
+  ]
+}

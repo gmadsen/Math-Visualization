@@ -8,34 +8,52 @@
       "title": "Sets and functions",
       "anchor": "sets",
       "prereqs": [],
-      "blurb": "Sets, membership, subsets, unions/intersections, functions as single-valued relations, injections and surjections."
+      "blurb": "Sets, membership, subsets, unions/intersections, functions as single-valued relations, injections and surjections.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "cartesian-product-powerset",
       "title": "Cartesian products and power sets",
       "anchor": "products",
-      "prereqs": ["sets-functions"],
-      "blurb": "Products $A\\times B$, function spaces $B^A$, and the power set $\\mathcal{P}(A)\\cong\\{0,1\\}^A$ — the basic constructions behind tuples, graphs of functions, and indicator functions."
+      "prereqs": [
+        "sets-functions"
+      ],
+      "blurb": "Products $A\\times B$, function spaces $B^A$, and the power set $\\mathcal{P}(A)\\cong\\{0,1\\}^A$ — the basic constructions behind tuples, graphs of functions, and indicator functions.",
+      "tags": [
+        "universal-property"
+      ]
     },
     {
       "id": "equivalence-relations",
       "title": "Equivalence relations and quotients",
       "anchor": "equivalence",
-      "prereqs": ["sets-functions"],
-      "blurb": "Equivalence relations partition sets; the quotient set X/∼ as the universal recipient of functions constant on classes."
+      "prereqs": [
+        "sets-functions"
+      ],
+      "blurb": "Equivalence relations partition sets; the quotient set X/∼ as the universal recipient of functions constant on classes.",
+      "tags": [
+        "universal-property"
+      ]
     },
     {
       "id": "countability",
       "title": "Countability",
       "anchor": "countable",
-      "prereqs": ["sets-functions"],
+      "prereqs": [
+        "sets-functions"
+      ],
       "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|."
     },
     {
       "id": "axiom-of-choice-intuition",
       "title": "Axiom of choice",
       "anchor": "choice",
-      "prereqs": ["cartesian-product-powerset", "countability"],
+      "prereqs": [
+        "cartesian-product-powerset",
+        "countability"
+      ],
       "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
     }
   ]

@@ -108,6 +108,55 @@ function listJsonFiles(dir) {
     .sort();
 }
 
+// XSS-via-contributor-HTML lint helpers (used inside the per-block loop below).
+// Several widget renderers (branching-proof-scrubber, diagram-editor) accept
+// contributor-supplied HTML in params like `nodes[*].prompt` and pipe them
+// straight into innerHTML so authors can use <b>, <i>, <code>, KaTeX. Any
+// string-typed param is therefore a stored-XSS sink if a contributor PR slips
+// in a <script>, on*= handler, or javascript: URL. We refuse to validate any
+// params blob that contains those substrings — the realistic exposure is
+// contributor mistakes, not adversarial input.
+const FORBIDDEN_HTML_RE = /<\s*script\b|<[a-z][^>]*\son[a-z]+\s*=|javascript\s*:/i;
+function matchedPatternFor(s) {
+  if (/<\s*script\b/i.test(s)) return '<script tag';
+  if (/<[a-z][^>]*\son[a-z]+\s*=/i.test(s)) return 'inline event handler (on*=)';
+  if (/javascript\s*:/i.test(s)) return 'javascript: URL';
+  return 'unknown';
+}
+// Param keys that are documented passthrough escape-hatches: the legacy
+// passthrough widgets (extract-topic.mjs splits a topic's existing inline
+// markup + script into bodyMarkup + bodyScript artifact strings) intentionally
+// store opaque pre-extracted HTML and JS, so the lint would always trip on
+// them. They are produced from real topic HTML, not contributor-authored
+// fresh markup.
+const XSS_LINT_SKIP_KEYS = new Set([
+  'bodyMarkup', 'bodyScript', 'bodyTail',
+  'scriptBodyLiteral', 'markupBodyLiteral',
+]);
+
+function collectXssHits(value, pathParts = []) {
+  const hits = [];
+  if (typeof value === 'string') {
+    if (FORBIDDEN_HTML_RE.test(value)) {
+      hits.push({
+        path: pathParts.join('.') || '(root)',
+        pattern: matchedPatternFor(value),
+        value,
+      });
+    }
+  } else if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) {
+      hits.push(...collectXssHits(value[i], [...pathParts, String(i)]));
+    }
+  } else if (value && typeof value === 'object') {
+    for (const k of Object.keys(value)) {
+      if (XSS_LINT_SKIP_KEYS.has(k)) continue;
+      hits.push(...collectXssHits(value[k], [...pathParts, k]));
+    }
+  }
+  return hits;
+}
+
 const contentFiles = listJsonFiles(contentDir);
 const slugsSeen = new Set();
 let validations = 0;
@@ -147,6 +196,25 @@ for (const f of contentFiles) {
         for (const e of validator.errors || []) {
           err(formatBlockError(fileRel, sid, block, e));
         }
+      }
+      // XSS-via-contributor-HTML lint. Several widget renderers
+      // (branching-proof-scrubber, diagram-editor) intentionally accept
+      // contributor-supplied HTML in params like `prompt`, `nodes[*].prompt`,
+      // `arrows[*].label`, `relations[*].label`, etc. and pipe them straight
+      // into innerHTML so authors can use <b>, <i>, <code>, KaTeX. That makes
+      // any string-typed param a stored-XSS sink if a contributor PR slips in
+      // a <script>, on*= handler, or javascript: URL. We can't sanitize at
+      // render time without breaking the markup contract, but we can refuse
+      // to validate any params blob that contains those substrings — the
+      // realistic exposure is contributor mistakes, not adversarial input.
+      const xssHits = collectXssHits(params);
+      for (const hit of xssHits) {
+        err(
+          `${fileRel}: section[id=${sid}] block[type=${block.type},slug=${slug}] — ` +
+            `${hit.path}: contains a forbidden HTML pattern (${hit.pattern}) ` +
+            `— widget params flow to innerHTML; remove the markup or use a ` +
+            `safer alternative. value=${truncate(hit.value)}`,
+        );
       }
     }
   }

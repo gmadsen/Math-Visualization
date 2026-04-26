@@ -11,7 +11,8 @@
         "field-extensions-galois",
         "group-representations"
       ],
-      "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries."
+      "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries.",
+      "tags": ["foundation", "group-action"]
     },
     {
       "id": "semisimple-decomposition",
@@ -21,7 +22,8 @@
         "galois-rep-definition",
         "schurs-lemma"
       ],
-      "blurb": "Frobenius traces only see the semisimplification \u03c1^{ss}, the direct sum of Jordan\u2013H\u00f6lder factors; irreducibility is the generic case."
+      "blurb": "Frobenius traces only see the semisimplification \u03c1^{ss}, the direct sum of Jordan\u2013H\u00f6lder factors; irreducibility is the generic case.",
+      "tags": ["classification"]
     },
     {
       "id": "frobenius-traces",
@@ -51,7 +53,8 @@
         "frobenius-traces",
         "modularity-theorem"
       ],
-      "blurb": "Deformation theory and modularity transfer results connect Galois and automorphic worlds."
+      "blurb": "Deformation theory and modularity transfer results connect Galois and automorphic worlds.",
+      "tags": ["lifting", "moduli"]
     }
   ]
 }

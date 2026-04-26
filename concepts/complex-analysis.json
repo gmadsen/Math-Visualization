@@ -57,7 +57,10 @@
       "prereqs": [
         "cauchy-riemann"
       ],
-      "blurb": "Complex-differentiable on an open set; infinitely more rigid than real."
+      "blurb": "Complex-differentiable on an open set; infinitely more rigid than real.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "domain-coloring",
@@ -95,7 +98,10 @@
       "prereqs": [
         "cauchy-theorem"
       ],
-      "blurb": "$f(a) = \\tfrac{1}{2\\pi i}\\oint f(z)/(z-a)\\,dz$: boundary values determine interior values on a closed disk, and differentiation under the integral makes holomorphic functions $C^\\infty$."
+      "blurb": "$f(a) = \\tfrac{1}{2\\pi i}\\oint f(z)/(z-a)\\,dz$: boundary values determine interior values on a closed disk, and differentiation under the integral makes holomorphic functions $C^\\infty$.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "analyticity",
@@ -158,7 +164,10 @@
       "prereqs": [
         "laurent-series"
       ],
-      "blurb": "Removable, pole of order n, essential (Casorati–Weierstrass)."
+      "blurb": "Removable, pole of order n, essential (Casorati–Weierstrass).",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "residue-theorem",
@@ -168,7 +177,10 @@
         "singularity-classification",
         "cauchy-theorem"
       ],
-      "blurb": "∮ f dz = 2πi · Σ Res(f; z_k). Computes real integrals, sums series."
+      "blurb": "∮ f dz = 2πi · Σ Res(f; z_k). Computes real integrals, sums series.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "argument-principle",
@@ -205,7 +217,11 @@
         "schwarz-lemma",
         "mobius-transformations"
       ],
-      "blurb": "$\\mathrm{Aut}(\\mathbb{D})$ consists of the Blaschke factors $e^{i\\theta}(z-a)/(1-\\bar a z)$; this is the isometry group $\\mathrm{PSU}(1,1)$ of the hyperbolic Poincaré metric on the disk."
+      "blurb": "$\\mathrm{Aut}(\\mathbb{D})$ consists of the Blaschke factors $e^{i\\theta}(z-a)/(1-\\bar a z)$; this is the isometry group $\\mathrm{PSU}(1,1)$ of the hyperbolic Poincaré metric on the disk.",
+      "tags": [
+        "group-action",
+        "classification"
+      ]
     },
     {
       "id": "normal-families",
@@ -216,7 +232,10 @@
         "uniform-convergence",
         "compactness"
       ],
-      "blurb": "Montel: a locally bounded family of holomorphic functions is normal (every sequence has a locally uniformly convergent subsequence); compactness that powers the Riemann mapping theorem."
+      "blurb": "Montel: a locally bounded family of holomorphic functions is normal (every sequence has a locally uniformly convergent subsequence); compactness that powers the Riemann mapping theorem.",
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "riemann-mapping",
@@ -227,7 +246,10 @@
         "normal-families",
         "schwarz-lemma"
       ],
-      "blurb": "Any simply connected proper open U ⊂ C is conformally equivalent to D."
+      "blurb": "Any simply connected proper open U ⊂ C is conformally equivalent to D.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "harmonic-functions",
@@ -246,7 +268,10 @@
       "prereqs": [
         "analyticity"
       ],
-      "blurb": "The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\\log z$ or $\\sqrt z$ live naturally on a Riemann surface rather than $\\mathbb{C}\\setminus\\{0\\}$."
+      "blurb": "The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\\log z$ or $\\sqrt z$ live naturally on a Riemann surface rather than $\\mathbb{C}\\setminus\\{0\\}$.",
+      "tags": [
+        "lifting"
+      ]
     }
   ]
 }

@@ -7,7 +7,9 @@
       "id": "cycles-and-equivalence",
       "title": "Algebraic cycles and rational equivalence",
       "anchor": "cycles-and-equivalence",
-      "prereqs": ["closed-subscheme"],
+      "prereqs": [
+        "closed-subscheme"
+      ],
       "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
     },
     {
@@ -18,7 +20,10 @@
         "cycles-and-equivalence",
         "singular-homology"
       ],
-      "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles."
+      "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles.",
+      "tags": [
+        "cohomology"
+      ]
     },
     {
       "id": "intersection-product",
@@ -48,7 +53,11 @@
         "intersection-product",
         "exact-sequences"
       ],
-      "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences."
+      "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences.",
+      "tags": [
+        "cohomology",
+        "fibration"
+      ]
     },
     {
       "id": "riemann-roch-preview",
@@ -58,7 +67,11 @@
         "chern-classes",
         "riemann-roch"
       ],
-      "blurb": "GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \\otimes \\mathbb{Q}$ involving the Chern character $\\mathrm{ch}(E)$ and the Todd class $\\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement."
+      "blurb": "GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \\otimes \\mathbb{Q}$ involving the Chern character $\\mathrm{ch}(E)$ and the Todd class $\\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement.",
+      "tags": [
+        "functoriality",
+        "cohomology"
+      ]
     }
   ]
 }

@@ -1,0 +1,90 @@
+{
+  "topic": "matroid-theory",
+  "title": "Matroid theory",
+  "page": "matroid-theory.html",
+  "concepts": [
+    {
+      "id": "matroid-independence-axioms",
+      "title": "Independence axioms",
+      "anchor": "axioms",
+      "prereqs": [
+        "algebraic-structures"
+      ],
+      "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid."
+    },
+    {
+      "id": "matroid-bases-rank",
+      "title": "Bases, rank, and cryptomorphism",
+      "anchor": "bases",
+      "prereqs": [
+        "matroid-independence-axioms"
+      ],
+      "blurb": "Maximal independent sets are bases (all of equal size); the rank function $r : 2^E \\to \\mathbb{Z}$ is monotone and submodular. Bases, rank, closure, and circuits each give an equivalent axiomatization — one matroid wears many costumes.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "matroid-examples",
+      "title": "Vector, graphic, uniform, transversal matroids",
+      "anchor": "examples",
+      "prereqs": [
+        "matroid-bases-rank"
+      ],
+      "blurb": "The four canonical families. Vector matroids capture linear independence over a field; graphic matroids capture forests of a graph; uniform matroids $U_{r,n}$ are the toy benchmark; transversal matroids encode systems of distinct representatives via Hall's theorem.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "matroid-closure-flats",
+      "title": "Closure, flats, and the geometric lattice",
+      "anchor": "closure",
+      "prereqs": [
+        "matroid-bases-rank"
+      ],
+      "blurb": "The closure operator $\\operatorname{cl}(S)$ collects elements that contribute nothing to the rank; closed sets (flats) form a graded, atomistic, semimodular lattice. Birkhoff: geometric lattices and simple matroids are the same data.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "matroid-duality",
+      "title": "Matroid duality",
+      "anchor": "duality",
+      "prereqs": [
+        "matroid-bases-rank"
+      ],
+      "blurb": "Every matroid $M$ has a dual $M^*$ on the same ground set whose bases are the complements of the bases of $M$. The construction is involutive; for planar graphs it recovers the planar-dual graph: $M(G)^* = M(G^*)$.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "matroid-greedy",
+      "title": "The greedy algorithm",
+      "anchor": "greedy",
+      "prereqs": [
+        "matroid-bases-rank"
+      ],
+      "blurb": "Sort elements by decreasing weight and greedily add each if independence holds. Rado–Edmonds: a hereditary family is a matroid iff this greedy algorithm produces a maximum-weight independent set for every weight function.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "tutte-polynomial",
+      "title": "The Tutte polynomial",
+      "anchor": "tutte",
+      "prereqs": [
+        "matroid-duality",
+        "matroid-greedy"
+      ],
+      "blurb": "$T_M(x,y) = \\sum_{S} (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ — the deepest invariant of a matroid. Its specializations give the chromatic and flow polynomials, all-terminal reliability, and the random-cluster Potts partition function. Duality: $T_M(x,y) = T_{M^*}(y,x)$.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    }
+  ]
+}

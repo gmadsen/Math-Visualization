@@ -11,7 +11,8 @@
         "open-sets",
         "categories-morphisms"
       ],
-      "blurb": "A presheaf is a contravariant functor from the poset of open sets to Set, packaging restriction maps into the functor's action on inclusions."
+      "blurb": "A presheaf is a contravariant functor from the poset of open sets to Set, packaging restriction maps into the functor's action on inclusions.",
+      "tags": ["foundation", "functoriality"]
     },
     {
       "id": "presheaf-sheaf-axioms",
@@ -20,7 +21,8 @@
       "prereqs": [
         "presheaf-functor"
       ],
-      "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers: locality pins sections by their restrictions, gluing assembles compatible families."
+      "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers: locality pins sections by their restrictions, gluing assembles compatible families.",
+      "tags": ["descent", "foundation"]
     },
     {
       "id": "stalks-local-data",
@@ -39,7 +41,8 @@
         "stalks-local-data",
         "functors-natural-transformations"
       ],
-      "blurb": "Sheaf morphisms are natural transformations; injectivity and isomorphism are checkable on stalks, while stalkwise surjectivity is strictly weaker than global surjectivity — the seed of sheaf cohomology."
+      "blurb": "Sheaf morphisms are natural transformations; injectivity and isomorphism are checkable on stalks, while stalkwise surjectivity is strictly weaker than global surjectivity — the seed of sheaf cohomology.",
+      "tags": ["functoriality"]
     },
     {
       "id": "sheafification-functor",
@@ -48,7 +51,8 @@
       "prereqs": [
         "sheaf-morphisms-stalks"
       ],
-      "blurb": "Sheafification is the left adjoint to the inclusion Sh(X) into PSh(X); it preserves stalks and turns every presheaf into its universal sheaf approximation."
+      "blurb": "Sheafification is the left adjoint to the inclusion Sh(X) into PSh(X); it preserves stalks and turns every presheaf into its universal sheaf approximation.",
+      "tags": ["universal-property", "descent"]
     },
     {
       "id": "ox-modules",
@@ -70,7 +74,8 @@
         "ox-modules",
         "localization-ca"
       ],
-      "blurb": "The tilde functor $M \\mapsto \\widetilde{M}$ is an equivalence between $R$-modules and quasi-coherent sheaves on Spec R, globalizing module theory into algebraic geometry."
+      "blurb": "The tilde functor $M \\mapsto \\widetilde{M}$ is an equivalence between $R$-modules and quasi-coherent sheaves on Spec R, globalizing module theory into algebraic geometry.",
+      "tags": ["duality"]
     }
   ]
 }

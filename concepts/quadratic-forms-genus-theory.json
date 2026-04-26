@@ -7,35 +7,57 @@
       "id": "binary-forms-basics",
       "title": "Binary quadratic forms",
       "anchor": "binary-forms-basics",
-      "prereqs": ["legendre-symbol"],
-      "blurb": "A binary quadratic form ax²+bxy+cy² is characterized by its discriminant D=b²−4ac; GL₂(ℤ) acts by change of variables and equivalence classes are the core objects of study."
+      "prereqs": [
+        "legendre-symbol"
+      ],
+      "blurb": "A binary quadratic form ax²+bxy+cy² is characterized by its discriminant D=b²−4ac; GL₂(ℤ) acts by change of variables and equivalence classes are the core objects of study.",
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "reduction-theory",
       "title": "Reduction theory",
       "anchor": "reduction-theory",
-      "prereqs": ["binary-forms-basics"],
-      "blurb": "Gauss's reduction algorithm identifies a canonical reduced representative in each equivalence class of positive-definite forms, making the class number h(D) finite and computable."
+      "prereqs": [
+        "binary-forms-basics"
+      ],
+      "blurb": "Gauss's reduction algorithm identifies a canonical reduced representative in each equivalence class of positive-definite forms, making the class number h(D) finite and computable.",
+      "tags": [
+        "finiteness",
+        "classification"
+      ]
     },
     {
       "id": "form-class-group",
       "title": "Form class group",
       "anchor": "form-class-group",
-      "prereqs": ["reduction-theory"],
+      "prereqs": [
+        "reduction-theory"
+      ],
       "blurb": "Dirichlet composition equips the set of primitive form classes with a group structure; the resulting finite abelian group has order h(D), the class number of discriminant D."
     },
     {
       "id": "genus-theory",
       "title": "Genus theory",
       "anchor": "genus-theory",
-      "prereqs": ["form-class-group", "quadratic-reciprocity-law"],
-      "blurb": "Gauss partitions form classes into genera using Legendre-symbol characters; the principal genus is the subgroup of squares, and there are exactly 2^(t−1) genera where t counts prime discriminant divisors."
+      "prereqs": [
+        "form-class-group",
+        "quadratic-reciprocity-law"
+      ],
+      "blurb": "Gauss partitions form classes into genera using Legendre-symbol characters; the principal genus is the subgroup of squares, and there are exactly 2^(t−1) genera where t counts prime discriminant divisors.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "ideals-vs-forms",
       "title": "Forms and ideal classes",
       "anchor": "ideals-vs-forms",
-      "prereqs": ["genus-theory", "prime-ideals-factorization-ant"],
+      "prereqs": [
+        "genus-theory",
+        "prime-ideals-factorization-ant"
+      ],
       "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
     }
   ]

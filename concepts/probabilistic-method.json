@@ -1,0 +1,57 @@
+{
+  "topic": "probabilistic-method",
+  "title": "Probabilistic method",
+  "page": "probabilistic-method.html",
+  "concepts": [
+    {
+      "id": "existence-by-expectation",
+      "title": "Existence by expectation",
+      "anchor": "existence",
+      "prereqs": ["expectation-moments"],
+      "blurb": "Erdős's principle: if a random object satisfies $\\mathbb{P}(P) > 0$ then a deterministic object with $P$ exists. Equivalently $\\exists\\,\\omega\\colon X(\\omega)\\ge\\mathbb{E}[X]$ — averaging trumps construction. Szele's tournament with $n!/2^{n-1}$ Hamilton paths was the first instance.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "ramsey-lower-bound",
+      "title": "Ramsey lower bound $R(k,k)\\ge 2^{k/2}$",
+      "anchor": "ramsey",
+      "prereqs": ["existence-by-expectation"],
+      "blurb": "A uniformly random $2$-edge-colouring of $K_n$ has expected number of monochromatic $K_k$ at most $\\binom{n}{k}\\,2^{1-\\binom{k}{2}}$. When this drops below $1$ a colouring with no monochromatic $K_k$ exists, giving $R(k,k) > \\lfloor 2^{k/2}\\rfloor$ — the gap to $4^k$ is wide open."
+    },
+    {
+      "id": "linearity-of-expectation",
+      "title": "Linearity of expectation",
+      "anchor": "linearity",
+      "prereqs": ["existence-by-expectation", "expectation-moments"],
+      "blurb": "$\\mathbb{E}[X_1+\\cdots+X_m]=\\mathbb{E}[X_1]+\\cdots+\\mathbb{E}[X_m]$ holds without independence. It bounds $\\alpha(G(n,1/2)) \\le 2\\log_2 n$ via $\\mathbb{E}[\\#\\{k\\text{-indep sets}\\}]=\\binom{n}{k}2^{-\\binom{k}{2}}$, and is the engine of Erdős's high-girth high-chromatic-number theorem."
+    },
+    {
+      "id": "alteration-method",
+      "title": "Alterations: the deletion method",
+      "anchor": "alterations",
+      "prereqs": ["linearity-of-expectation"],
+      "blurb": "Sample a random object that is almost good, then locally repair. Delete one vertex per short cycle to force girth $\\ge g$ while preserving the chromatic-number bound; sample-then-delete recovers the Turán bound $\\alpha(G)\\ge \\sum 1/(d_v+1)$ from $\\mathbb{E}[|S|-e(S)]$."
+    },
+    {
+      "id": "lovasz-local-lemma",
+      "title": "Lovász Local Lemma",
+      "anchor": "lll",
+      "prereqs": ["existence-by-expectation"],
+      "blurb": "If each bad event $A_i$ has probability $\\le p$ and depends on at most $d$ others, then $e\\,p\\,(d+1)\\le 1$ implies $\\mathbb{P}(\\bigcap \\bar A_i) > 0$ — exponentially better than the union bound. Yields $k$-CNF satisfiability up to $2^k/(ek)$ occurrences per variable; Moser–Tardos made the proof a polynomial-time algorithm."
+    },
+    {
+      "id": "random-graph-thresholds",
+      "title": "Thresholds in $G(n,p)$",
+      "anchor": "thresholds",
+      "prereqs": ["linearity-of-expectation", "expectation-moments"],
+      "blurb": "First-moment $\\mathbb{P}(X\\ge 1)\\le\\mathbb{E}[X]$ kills sub-structures below threshold; second-moment $\\mathbb{P}(X=0)\\le\\operatorname{Var}(X)/\\mathbb{E}[X]^2$ produces them above. Triangles appear at $p_c=1/n$ as $\\mathrm{Pois}((np)^3/6)$; connectivity and Hamiltonicity at $\\log n / n$."
+    },
+    {
+      "id": "concentration-inequalities",
+      "title": "Concentration: Markov, Chebyshev, Chernoff, Azuma",
+      "anchor": "concentration",
+      "prereqs": ["expectation-moments", "martingales"],
+      "blurb": "Tail bounds from one moment (Markov), two (Chebyshev), the MGF (Chernoff–Hoeffding), and martingale differences (Azuma). Shamir–Spencer: vertex-exposure martingale on $\\chi(G(n,p))$ has bounded differences $\\le 1$, giving $\\mathbb{P}(|\\chi-\\mathbb{E}\\chi|\\ge t)\\le 2e^{-t^2/(2n)}$."
+    }
+  ]
+}

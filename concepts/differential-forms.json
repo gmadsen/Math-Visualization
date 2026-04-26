@@ -10,7 +10,8 @@
       "prereqs": [
         "tangent-space-manifolds"
       ],
-      "blurb": "Alternating multilinear forms package oriented area and volume data."
+      "blurb": "Alternating multilinear forms package oriented area and volume data.",
+      "tags": ["foundation"]
     },
     {
       "id": "exterior-derivative",
@@ -29,7 +30,8 @@
         "forms-and-wedge",
         "smooth-map"
       ],
-      "blurb": "A smooth map f:M→N contravariantly transports k-forms back, commuting with d and ∧ — this is why integration of forms is coordinate-invariant."
+      "blurb": "A smooth map f:M→N contravariantly transports k-forms back, commuting with d and ∧ — this is why integration of forms is coordinate-invariant.",
+      "tags": ["functoriality"]
     },
     {
       "id": "integration-on-chains",
@@ -49,7 +51,8 @@
         "exterior-derivative",
         "integration-on-chains"
       ],
-      "blurb": "Stokes unifies integration theorems and identifies topology via closed/exact forms."
+      "blurb": "Stokes unifies integration theorems and identifies topology via closed/exact forms.",
+      "tags": ["cohomology", "duality"]
     }
   ]
 }

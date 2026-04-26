@@ -11,7 +11,8 @@
         "riemann-integral",
         "analytic-continuation"
       ],
-      "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions."
+      "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions.",
+      "tags": ["foundation"]
     },
     {
       "id": "euler-product-structure",
@@ -41,7 +42,8 @@
         "contour-integral",
         "analytic-continuation"
       ],
-      "blurb": "The Mellin transform $\\int_0^\\infty f(x) x^{s-1}\\,dx$ turns a Dirichlet series into an integral against a theta-like kernel, the bridge Riemann uses for analytic continuation."
+      "blurb": "The Mellin transform $\\int_0^\\infty f(x) x^{s-1}\\,dx$ turns a Dirichlet series into an integral against a theta-like kernel, the bridge Riemann uses for analytic continuation.",
+      "tags": ["duality"]
     },
     {
       "id": "perron-formula",

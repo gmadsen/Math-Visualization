@@ -10,7 +10,8 @@
       "prereqs": [
         "sets-functions"
       ],
-      "blurb": "A category organizes objects and arrows with associative composition and identities."
+      "blurb": "A category organizes objects and arrows with associative composition and identities.",
+      "tags": ["foundation"]
     },
     {
       "id": "functors-natural-transformations",
@@ -19,7 +20,8 @@
       "prereqs": [
         "categories-morphisms"
       ],
-      "blurb": "Functors map structure between categories, and natural transformations compare functors componentwise."
+      "blurb": "Functors map structure between categories, and natural transformations compare functors componentwise.",
+      "tags": ["functoriality", "foundation"]
     },
     {
       "id": "yoneda-limits-adjunctions",
@@ -31,7 +33,8 @@
         "exact-sequences",
         "quotients-homomorphisms"
       ],
-      "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
+      "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "universal-properties",
@@ -40,7 +43,8 @@
       "prereqs": [
         "yoneda-limits-adjunctions"
       ],
-      "blurb": "A universal property pins an object down as the representing object of a Hom-functor; every standard construction (product, free group, limit, adjoint) is a universal property in disguise."
+      "blurb": "A universal property pins an object down as the representing object of a Hom-functor; every standard construction (product, free group, limit, adjoint) is a universal property in disguise.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "monoidal-categories",
@@ -58,7 +62,8 @@
       "prereqs": [
         "functors-natural-transformations"
       ],
-      "blurb": "$\\mathrm{Nat}(h_A,F)\\cong F(A)$: every natural transformation out of a representable is pinned by a single element, and every object is determined by its functor of points."
+      "blurb": "$\\mathrm{Nat}(h_A,F)\\cong F(A)$: every natural transformation out of a representable is pinned by a single element, and every object is determined by its functor of points.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "limits-colimits",
@@ -67,7 +72,8 @@
       "prereqs": [
         "functors-natural-transformations"
       ],
-      "blurb": "A (co)limit is the universal (co)cone on a diagram; products, equalizers, pullbacks and their duals are all special cases of the same representability problem."
+      "blurb": "A (co)limit is the universal (co)cone on a diagram; products, equalizers, pullbacks and their duals are all special cases of the same representability problem.",
+      "tags": ["universal-property"]
     },
     {
       "id": "adjunctions",
@@ -76,7 +82,8 @@
       "prereqs": [
         "yoneda-lemma"
       ],
-      "blurb": "An adjunction $F\\dashv G$ is a natural Hom-isomorphism, equivalently unit/counit satisfying the triangle identities; left adjoints preserve colimits, right adjoints preserve limits."
+      "blurb": "An adjunction $F\\dashv G$ is a natural Hom-isomorphism, equivalently unit/counit satisfying the triangle identities; left adjoints preserve colimits, right adjoints preserve limits.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "monads-algebras",
@@ -85,7 +92,8 @@
       "prereqs": [
         "adjunctions"
       ],
-      "blurb": "A monad $(T,\\mu,\\eta)$ is a monoid in endofunctors; Kleisli and Eilenberg–Moore categories recover the adjunction and classify its algebras."
+      "blurb": "A monad $(T,\\mu,\\eta)$ is a monoid in endofunctors; Kleisli and Eilenberg–Moore categories recover the adjunction and classify its algebras.",
+      "tags": ["functoriality"]
     },
     {
       "id": "kan-extensions",
@@ -95,7 +103,8 @@
         "limits-colimits",
         "adjunctions"
       ],
-      "blurb": "Left and right Kan extensions along a functor extend structure as freely (or cofreely) as possible; Mac Lane's aphorism ‘all concepts are Kan extensions’ is literally true."
+      "blurb": "Left and right Kan extensions along a functor extend structure as freely (or cofreely) as possible; Mac Lane's aphorism ‘all concepts are Kan extensions’ is literally true.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "two-categories",

@@ -10,7 +10,11 @@
       "prereqs": [
         "exact-sequences"
       ],
-      "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms."
+      "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms.",
+      "tags": [
+        "universal-property",
+        "foundation"
+      ]
     },
     {
       "id": "de-rham-complex",
@@ -21,7 +25,10 @@
         "exterior-derivative",
         "forms-and-wedge"
       ],
-      "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant."
+      "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant.",
+      "tags": [
+        "cohomology"
+      ]
     },
     {
       "id": "comparison-betti",
@@ -31,7 +38,10 @@
         "de-rham-complex",
         "singular-homology"
       ],
-      "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input."
+      "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input.",
+      "tags": [
+        "cohomology"
+      ]
     },
     {
       "id": "hodge-filtration",
@@ -41,7 +51,11 @@
         "de-rham-complex",
         "cech-cohomology"
       ],
-      "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition."
+      "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition.",
+      "tags": [
+        "cohomology",
+        "classification"
+      ]
     },
     {
       "id": "hodge-numbers",
@@ -51,7 +65,11 @@
         "hodge-filtration",
         "applications-picard-serre"
       ],
-      "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers."
+      "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers.",
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
     },
     {
       "id": "de-rham-curves",

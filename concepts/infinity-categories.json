@@ -11,7 +11,8 @@
         "horn-filling",
         "kan-complex"
       ],
-      "blurb": "A quasi-category is a simplicial set in which every inner horn has at least one filler. The 1-simplices are \"morphisms,\" 2-simplices are \"homotopies between composites,\" and so on; composition is well-defined only up to higher homotopy."
+      "blurb": "A quasi-category is a simplicial set in which every inner horn has at least one filler. The 1-simplices are \"morphisms,\" 2-simplices are \"homotopies between composites,\" and so on; composition is well-defined only up to higher homotopy.",
+      "tags": ["foundation", "lifting"]
     },
     {
       "id": "homotopy-category-of-infty",
@@ -31,7 +32,8 @@
         "quasi-category",
         "functors-natural-transformations"
       ],
-      "blurb": "An $\\infty$-functor $\\mathcal{C} \\to \\mathcal{D}$ is just a map of simplicial sets; natural transformations are 1-simplices in the mapping quasi-category. The Yoneda embedding lifts to $\\infty$-categories — and is again fully faithful."
+      "blurb": "An $\\infty$-functor $\\mathcal{C} \\to \\mathcal{D}$ is just a map of simplicial sets; natural transformations are 1-simplices in the mapping quasi-category. The Yoneda embedding lifts to $\\infty$-categories — and is again fully faithful.",
+      "tags": ["functoriality"]
     },
     {
       "id": "infty-limits",
@@ -41,7 +43,8 @@
         "infty-functors",
         "limits-colimits"
       ],
-      "blurb": "Limits and colimits in an $\\infty$-category are defined via terminal/initial objects in slice quasi-categories. They generalize 1-categorical limits in the same way derived functors generalize ordinary functors — the homotopy data is built in."
+      "blurb": "Limits and colimits in an $\\infty$-category are defined via terminal/initial objects in slice quasi-categories. They generalize 1-categorical limits in the same way derived functors generalize ordinary functors — the homotopy data is built in.",
+      "tags": ["universal-property"]
     },
     {
       "id": "infty-adjunctions",
@@ -52,7 +55,8 @@
         "infty-limits",
         "adjunctions"
       ],
-      "blurb": "An $\\infty$-adjunction $f \\dashv g$ is a unit/counit pair living in the mapping spaces, satisfying the triangle identities up to coherent higher homotopy. Adjoint functor theorems carry over to the $\\infty$-categorical setting with extra accessibility hypotheses."
+      "blurb": "An $\\infty$-adjunction $f \\dashv g$ is a unit/counit pair living in the mapping spaces, satisfying the triangle identities up to coherent higher homotopy. Adjoint functor theorems carry over to the $\\infty$-categorical setting with extra accessibility hypotheses.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "kan-extension",
@@ -63,7 +67,8 @@
         "infty-limits",
         "kan-extensions"
       ],
-      "blurb": "Left and right Kan extensions in $\\infty$-categories are pointwise computable as colimits/limits over comma quasi-categories. They are the engine of derived functors, ind-completion, and the universal property of the $\\infty$-category of presheaves."
+      "blurb": "Left and right Kan extensions in $\\infty$-categories are pointwise computable as colimits/limits over comma quasi-categories. They are the engine of derived functors, ind-completion, and the universal property of the $\\infty$-category of presheaves.",
+      "tags": ["universal-property", "functoriality"]
     }
   ]
 }

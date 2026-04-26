@@ -19,7 +19,8 @@
       "prereqs": [
         "two-squares-theorem"
       ],
-      "blurb": "Primes p≡1 mod 4 split in Z[i]; p≡3 mod 4 stay inert; p=2 ramifies — the structural reason behind Fermat's theorem."
+      "blurb": "Primes p≡1 mod 4 split in Z[i]; p≡3 mod 4 stay inert; p=2 ramifies — the structural reason behind Fermat's theorem.",
+      "tags": ["classification"]
     },
     {
       "id": "three-squares-theorem",
@@ -47,7 +48,8 @@
       "prereqs": [
         "four-squares-and-waring"
       ],
-      "blurb": "Hilbert's theorem guarantees finitely many k-th powers suffice; g(k) and G(k) sharpen the count asymptotically."
+      "blurb": "Hilbert's theorem guarantees finitely many k-th powers suffice; g(k) and G(k) sharpen the count asymptotically.",
+      "tags": ["finiteness"]
     }
   ]
 }

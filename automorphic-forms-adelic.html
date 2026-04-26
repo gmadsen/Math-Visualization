@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Automorphic forms (adelic) — from $\Gamma_0(N) \backslash \mathbb{H}$ to $\mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{A})$</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"automorphic-forms-adelic":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":"heights-arithmetic-geometry","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"group-cohomology","prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":null,"prev":"cocartesian-fibrations","section":"Algebra","title":"Group cohomology"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":null,"prev":"sobolev-spaces-distributions","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":null,"prev":"class-field-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"automorphic-forms-adelic","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"harmonic-analysis-fourier","prev":"probability-theory","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="modular-forms-and-l-functions" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#gl2-adelic">1&nbsp;$\mathrm{GL}_2(\mathbb{A})$</a>
+  <a href="#strong-approx">2&nbsp;Strong&nbsp;approximation</a>
+  <a href="#auto-form">3&nbsp;Automorphic&nbsp;forms</a>
+  <a href="#dictionary">4&nbsp;Dictionary</a>
+  <a href="#satake">5&nbsp;Satake</a>
+  <a href="#whittaker">6&nbsp;Whittaker</a>
+  <a href="#lfunction">7&nbsp;$L$-functions</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Automorphic forms, adelically</h1>
+  <p class="sub">A classical modular form $f \in M_k(\Gamma_0(N))$ is a function on $\mathbb{H}$ with an $\mathrm{SL}_2(\mathbb{Z})$-equivariance. Reading the same data on the adelic group $\mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$ unifies every prime $p$ and the archimedean place into a single object, makes the Hecke action local at each prime, and turns $L$-functions into a global Euler product over places. This is the entry door to the Langlands programme.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="gl2-adelic">
+<h2>1. $\mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$ as a restricted product</h2>
+
+<p>Recall that the <strong>adèle ring</strong> $\mathbb{A}_\mathbb{Q} = \mathbb{R} \times {\prod_p}' \mathbb{Q}_p$ is the restricted direct product over all places of $\mathbb{Q}$, with the restriction $x_p \in \mathbb{Z}_p$ for almost every prime. Apply the matrix-group functor $\mathrm{GL}_2$ pointwise:
+$$\mathrm{GL}_2(\mathbb{A}_\mathbb{Q}) \;=\; {\prod_v}' \mathrm{GL}_2(\mathbb{Q}_v) \;=\; \mathrm{GL}_2(\mathbb{R}) \times {\prod_p}' \mathrm{GL}_2(\mathbb{Q}_p).$$
+The restriction at each finite place is membership in the compact open subgroup $\mathrm{GL}_2(\mathbb{Z}_p) \subset \mathrm{GL}_2(\mathbb{Q}_p)$: $g_p \in \mathrm{GL}_2(\mathbb{Z}_p)$ for all but finitely many $p$. Equivalently, $g \in \mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$ if and only if $\det g \in \mathbb{A}_\mathbb{Q}^\times$ and $g_p$ has entries in $\mathbb{Z}_p$ with $|\det g_p|_p = 1$ for almost every $p$.</p>
+
+<div class="note">
+  <strong>Two factor split.</strong> A more practical decomposition for downstream use is
+  $$\mathrm{GL}_2(\mathbb{A}_\mathbb{Q}) \;=\; \mathrm{GL}_2(\mathbb{R}) \;\times\; \mathrm{GL}_2(\mathbb{A}_f), \qquad \mathbb{A}_f := {\prod_p}' \mathbb{Q}_p,$$
+  separating the archimedean factor from the <em>finite-adelic</em> factor. The classical theory lives entirely on the $\mathrm{GL}_2(\mathbb{R})$ side; the level / Hecke / arithmetic data lives on the $\mathrm{GL}_2(\mathbb{A}_f)$ side.
+</div>
+
+<h3>The standard maximal compact</h3>
+<p>The compact open subgroup
+$$K \;=\; \mathrm{O}_2(\mathbb{R}) \;\times\; \mathrm{GL}_2(\hat{\mathbb{Z}}) \;\subset\; \mathrm{GL}_2(\mathbb{A}_\mathbb{Q}), \qquad \hat{\mathbb{Z}} \;=\; \prod_p \mathbb{Z}_p,$$
+is the standard maximal compact. Inside the finite part, the relevant <strong>level-$N$ subgroup</strong> is
+$$K_0(N) \;=\; \Bigl\{\, g \in \mathrm{GL}_2(\hat{\mathbb{Z}}) \,:\, c \equiv 0 \pmod{N \hat{\mathbb{Z}}}\, \Bigr\}, \qquad g = \begin{pmatrix} a & b \\ c & d \end{pmatrix}.$$
+$K_0(N)$ depends only on the primes $p \mid N$: away from those primes it agrees with $\mathrm{GL}_2(\mathbb{Z}_p)$.</p>
+
+<div class="widget" id="w-restricted">
+  <div class="hd">
+    <div class="ttl">Restricted-product membership tester</div>
+    <div class="hint">choose entries at each place; the widget tells you whether $(g_v)_v \in \mathrm{GL}_2(\mathbb{A})$</div>
+  </div>
+  <div class="row">
+    <label for="rp-ainf">archimedean det:</label>
+    <input id="rp-ainf" type="number" value="1" step="1" style="width:5em">
+    <span class="small" style="color:var(--mute)">(any non-zero real)</span>
+  </div>
+  <div id="rp-primes"></div>
+  <div class="readout" id="rp-out">&nbsp;</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./adeles-and-ideles.html#adeles">The adèle ring</a></li>
+    <li><a href="./adeles-and-ideles.html#places">Places and local fields</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./automorphic-forms-adelic.html#strong-approx">Automorphic forms (adelic)</a> · Strong approximation and $\Gamma_0(N) \backslash \mathbb{H}$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gl2-adelic-group"></div>
+</section>
+
+<script>
+/* ===== Section 1: restricted-product membership widget ===== */
+(function(){
+  const primes = [2, 3, 5, 7, 11, 13];
+  const host = $('#rp-primes');
+  const out = $('#rp-out');
+  const ainf = $('#rp-ainf');
+
+  // each prime: a slider for "level" v_p(det g_p): 0 means in GL2(Z_p)^+, >0 means it is "ramified"
+  const state = {};
+  primes.forEach(p => {
+    state[p] = 0;
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = '<label style="min-width:5em">$p = ' + p + '$, $v_p(\\det g_p) = $</label>'
+      + '<input type="range" min="0" max="3" step="1" value="0" data-p="' + p + '">'
+      + '<span class="pill" id="rp-val-' + p + '">0</span>';
+    host.appendChild(row);
+  });
+
+  function recompute(){
+    const nonzero = primes.filter(p => state[p] !== 0);
+    const ok = nonzero.length < 4;  // arbitrary "almost-finitely-many" cutoff for the toy
+    const detinf = parseFloat(ainf.value) || 0;
+    const detinfOk = detinf !== 0;
+    let lines = [];
+    lines.push('Place    g_v in GL_2(Q_v)?    g_p in GL_2(Z_p)?');
+    lines.push('-----    ------------------    ------------------');
+    lines.push('  ∞       ' + (detinfOk ? 'yes (det ≠ 0)' : 'no — det = 0'));
+    primes.forEach(p => {
+      const k = state[p];
+      const inGL = 'yes';
+      const inZ = k === 0 ? 'yes' : 'no (det has v_p = ' + k + ')';
+      lines.push('  p=' + p + '     ' + inGL + '                  ' + inZ);
+    });
+    lines.push('');
+    if(!detinfOk){
+      lines.push('NOT in GL_2(A): archimedean det vanishes.');
+    } else if(!ok){
+      lines.push('NOT in GL_2(A): too many primes with non-unit det.');
+      lines.push('Restricted-product axiom: g_p ∈ GL_2(Z_p) for almost all p.');
+    } else {
+      lines.push('OK: g ∈ GL_2(A_Q). Non-unit-det primes shown: ' + (nonzero.length===0?'none':nonzero.join(', ')));
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  host.addEventListener('input', e => {
+    const p = parseInt(e.target.dataset.p, 10);
+    if(!p) return;
+    state[p] = parseInt(e.target.value, 10);
+    document.getElementById('rp-val-' + p).textContent = state[p];
+    recompute();
+  });
+  ainf.addEventListener('input', recompute);
+  recompute();
+})();
+</script>
+
+<!-- ======================================================= -->
+<section id="strong-approx">
+<h2>2. Strong approximation and $\Gamma_0(N) \backslash \mathbb{H}$</h2>
+
+<p>The classical modular curve $Y_0(N) = \Gamma_0(N) \backslash \mathbb{H}$ has a clean adelic description. The bridge is <strong>strong approximation</strong> for $\mathrm{SL}_2$:</p>
+
+<div class="note">
+  <strong>Strong approximation (one form).</strong> For any open compact $K_f \subset \mathrm{GL}_2(\mathbb{A}_f)$ that contains $\mathrm{SL}_2(\hat{\mathbb{Z}})$,
+  $$\mathrm{GL}_2(\mathbb{A}_\mathbb{Q}) \;=\; \mathrm{GL}_2(\mathbb{Q}) \cdot \bigl( \mathrm{GL}_2(\mathbb{R})^+ \cdot K_f \bigr),$$
+  where $\mathrm{GL}_2(\mathbb{R})^+$ is the connected component (positive determinant). The intersection $\mathrm{GL}_2(\mathbb{Q}) \cap \bigl( \mathrm{GL}_2(\mathbb{R})^+ \cdot K_f \bigr)$ is the classical congruence subgroup $\Gamma_f \subset \mathrm{SL}_2(\mathbb{Z})$.
+</div>
+
+<p>Take $K_f = K_0(N)$. Then $\Gamma_f = \Gamma_0(N)$, and the chain of identifications is:
+$$\mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{A}) / \bigl( Z(\mathbb{R}) \cdot \mathrm{O}_2(\mathbb{R}) \cdot K_0(N) \bigr) \;\cong\; \Gamma_0(N) \backslash \bigl( \mathrm{GL}_2(\mathbb{R})^+ / Z(\mathbb{R})^+ \mathrm{SO}_2(\mathbb{R}) \bigr) \;\cong\; \Gamma_0(N) \backslash \mathbb{H}.$$
+The classical curve is a single double-coset space inside the adelic group.</p>
+
+<div class="widget" id="w-strong">
+  <div class="hd">
+    <div class="ttl">Strong-approximation decomposition stepper</div>
+    <div class="hint">step through the factorisation of an adelic element</div>
+  </div>
+  <div class="row">
+    <button id="strong-prev">← prev</button>
+    <button id="strong-next">next →</button>
+    <button id="strong-reset" style="margin-left:auto">reset</button>
+  </div>
+  <svg id="strong-svg" viewBox="0 0 660 280" width="660" height="280"><title>Strong approximation factorisation</title></svg>
+  <div class="readout" id="strong-out">&nbsp;</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./adeles-and-ideles.html#strong-approx">Strong approximation</a></li>
+    <li><a href="./modular-forms.html#sl2z">SL2(Z) action on the upper half-plane</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./automorphic-forms-adelic.html#auto-form">Automorphic forms (adelic)</a> · Adelic automorphic forms</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="strong-approximation-gl2"></div>
+</section>
+
+<script>
+/* ===== Section 2: strong-approximation stepper ===== */
+(function(){
+  const svg = $('#strong-svg'), out = $('#strong-out');
+  const prev = $('#strong-prev'), next = $('#strong-next'), reset = $('#strong-reset');
+
+  const steps = [
+    {
+      title: 'Step 0: a generic g ∈ GL_2(A_Q)',
+      caption: 'g lives in the full adelic group — one matrix per place, with restricted-product condition.',
+      boxes: [{label:'g_∞', col:'var(--blue)', x:80, y:140}, {label:'g_2', col:'var(--violet)', x:200, y:140}, {label:'g_3', col:'var(--violet)', x:300, y:140}, {label:'g_5', col:'var(--violet)', x:400, y:140}, {label:'…', col:'var(--mute)', x:500, y:140}]
+    },
+    {
+      title: 'Step 1: factor g = γ · h with γ ∈ GL_2(Q)',
+      caption: 'Strong approximation says: there exists γ ∈ GL_2(Q) (diagonally embedded) and h with h_∞ ∈ GL_2(R)+ and h_p ∈ K_0(N) at every prime.',
+      boxes: [{label:'γ ∈ GL_2(Q)', col:'var(--yellow)', x:140, y:60, w:180}, {label:'h_∞ ∈ GL_2(R)+', col:'var(--cyan)', x:140, y:200, w:180}, {label:'h_f ∈ K_0(N)', col:'var(--green)', x:380, y:200, w:180}]
+    },
+    {
+      title: 'Step 2: project to the symmetric space',
+      caption: 'GL_2(R)+ / Z(R)+ SO_2(R) = H, so h_∞ projects to a point τ ∈ H.',
+      boxes: [{label:'γ ∈ GL_2(Q)', col:'var(--yellow)', x:140, y:60, w:180}, {label:'τ = h_∞ · i ∈ H', col:'var(--cyan)', x:140, y:200, w:180}, {label:'h_f ∈ K_0(N)', col:'var(--green)', x:380, y:200, w:180}]
+    },
+    {
+      title: 'Step 3: quotient on the right by K_0(N)',
+      caption: 'Right K_0(N)-coset of h_f is recorded; the remaining freedom is left multiplication by Γ_0(N) = GL_2(Q) ∩ (GL_2(R)+ · K_0(N)).',
+      boxes: [{label:'γ ∈ Γ_0(N)', col:'var(--yellow)', x:140, y:60, w:180}, {label:'τ ∈ H', col:'var(--cyan)', x:240, y:200, w:180}]
+    },
+    {
+      title: 'Step 4: classical Y_0(N) = Γ_0(N)\\H',
+      caption: 'The double coset GL_2(Q) \\ GL_2(A) / (Z(R) · O_2(R) · K_0(N)) collapses to Γ_0(N) \\ H.',
+      boxes: [{label:'Y_0(N) = Γ_0(N) \\ H', col:'var(--pink)', x:200, y:130, w:260}]
+    },
+  ];
+  let i = 0;
+
+  function draw(){
+    svg.innerHTML = '';
+    const s = steps[i];
+    // title bar
+    const t = SVG('text',{x:330, y:24, 'text-anchor':'middle','font-size':14, fill:'var(--ink)','font-weight':600});
+    t.textContent = s.title; svg.appendChild(t);
+    // boxes
+    s.boxes.forEach(b => {
+      const w = b.w || 80;
+      svg.appendChild(SVG('rect',{x:b.x, y:b.y - 18, width:w, height:36, rx:6, fill:'var(--panel2)', stroke:b.col, 'stroke-width':1.6}));
+      const tx = SVG('text',{x:b.x + w/2, y:b.y + 5, 'text-anchor':'middle','font-size':12, fill:b.col});
+      tx.textContent = b.label;
+      svg.appendChild(tx);
+    });
+    // caption
+    const cap = SVG('text',{x:330, y:262, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    cap.textContent = s.caption.slice(0, 110);
+    svg.appendChild(cap);
+    if(s.caption.length > 110){
+      const cap2 = SVG('text',{x:330, y:276, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      cap2.textContent = s.caption.slice(110, 210);
+      svg.appendChild(cap2);
+    }
+    out.textContent = 'Step ' + i + ' of ' + (steps.length - 1) + ' — use ← / → to walk through the factorisation.';
+  }
+
+  prev.addEventListener('click', ()=>{ i = Math.max(0, i-1); draw(); });
+  next.addEventListener('click', ()=>{ i = Math.min(steps.length-1, i+1); draw(); });
+  reset.addEventListener('click', ()=>{ i = 0; draw(); });
+  draw();
+})();
+</script>
+
+<!-- ======================================================= -->
+<section id="auto-form">
+<h2>3. Adelic automorphic forms</h2>
+
+<p>An <strong>automorphic form on $\mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$</strong> is a function
+$$\phi : \mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{A}_\mathbb{Q}) \longrightarrow \mathbb{C}$$
+satisfying three regularity conditions. Each is the natural adelic generalisation of a classical condition on $f \in M_k(\Gamma_0(N))$:</p>
+
+<table class="plain">
+  <thead><tr><th>condition</th><th>classical analogue</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Right $K$-finiteness:</strong> the right-translates $\{\phi(\cdot k) : k \in K\}$ span a finite-dimensional space.</td><td>Weight-$k$ modular forms transform by $(c\tau+d)^k$ — a finite-dimensional rep of $\mathrm{O}_2(\mathbb{R})$.</td></tr>
+    <tr><td><strong>$\mathfrak{z}$-finiteness:</strong> $\phi$ is annihilated by an ideal of finite codimension in $Z(\mathfrak{g}_\mathbb{C}) = $ centre of the universal enveloping algebra.</td><td>Holomorphy of $f$ is a Cauchy–Riemann eigen-condition for the Laplace–Beltrami operator on $\mathbb{H}$.</td></tr>
+    <tr><td><strong>Moderate growth:</strong> $|\phi(g)| \ll \|g\|^N$ for some $N$, $\|g\|$ a height function.</td><td>$f$ is holomorphic at the cusps (no $q^{-n}$ tail).</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <strong>Cusp form.</strong> $\phi$ is a <em>cusp form</em> iff its constant term along the upper-triangular unipotent vanishes:
+  $$\int_{\mathbb{Q} \backslash \mathbb{A}} \phi\!\left( \begin{pmatrix} 1 & x \\ 0 & 1 \end{pmatrix} g \right) dx \;=\; 0 \qquad \text{for every } g \in \mathrm{GL}_2(\mathbb{A}).$$
+  This is the adelic incarnation of "$f$ vanishes at every cusp of $\Gamma_0(N) \backslash \mathbb{H}$".
+</div>
+
+<p>The space $\mathcal{A}(\mathrm{GL}_2)$ of all such $\phi$ is a $(\mathfrak{g}_\infty, K_\infty) \times \mathrm{GL}_2(\mathbb{A}_f)$-module, and decomposes (as a unitary representation of $\mathrm{GL}_2(\mathbb{A})$ on $L^2$) as
+$$L^2_{\mathrm{disc}}\bigl( \mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{A}) \bigr) \;=\; \bigoplus_\pi m(\pi) \cdot \pi$$
+into a direct sum of irreducible <strong>automorphic representations</strong>. <em>Multiplicity one</em> for $\mathrm{GL}_2$ asserts $m(\pi) \in \{0, 1\}$ — and for cuspidal $\pi$ the multiplicity is exactly $1$.</p>
+
+<div class="widget" id="w-conditions">
+  <div class="hd">
+    <div class="ttl">Three conditions on $\phi$</div>
+    <div class="hint">click a row to highlight; the readout shows the consequence of dropping it</div>
+  </div>
+  <svg id="cond-svg" viewBox="0 0 660 200" width="660" height="200"><title>Three conditions on phi</title></svg>
+  <div class="readout" id="cond-out">Click a row above to see what fails when that condition is dropped.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./automorphic-forms-adelic.html#dictionary">Automorphic forms (adelic)</a> · Classical-to-adelic dictionary</div>
+    <div><a href="./automorphic-forms-adelic.html#satake">Automorphic forms (adelic)</a> · Spherical Hecke algebra and Satake</div>
+    <div><a href="./automorphic-forms-adelic.html#whittaker">Automorphic forms (adelic)</a> · Whittaker model and the new-form</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="automorphic-form-definition"></div>
+</section>
+
+<script>
+/* ===== Section 3: three-conditions clickable diagram ===== */
+(function(){
+  const svg = $('#cond-svg'), out = $('#cond-out');
+  const W = 660, H = 200;
+  const rows = [
+    { id:'kfin', label:'right K-finite', y:50, col:'var(--cyan)',
+      explain: 'Without K-finiteness, φ would carry an infinite-dimensional K-representation — too large to admit a sensible decomposition into automorphic representations.' },
+    { id:'zfin', label:'𝔷-finite', y:100, col:'var(--violet)',
+      explain: 'Without 𝔷-finiteness, no Casselman–Wallach moderate-growth theory; the eigen-condition that turns differential operators into finite-rank algebraic data is gone.' },
+    { id:'mod',  label:'moderate growth', y:150, col:'var(--yellow)',
+      explain: 'Without moderate growth, φ might blow up faster than any polynomial near the cusps. Cuspidal Eisenstein and discrete series are precisely the moderate-growth pieces.' },
+  ];
+  let active = null;
+
+  function draw(){
+    svg.innerHTML = '';
+    const phi = SVG('text',{x:80, y:H/2 + 6,'text-anchor':'middle','font-size':22, fill:'var(--yellow)','font-weight':700});
+    phi.textContent = 'φ'; svg.appendChild(phi);
+    const sub = SVG('text',{x:80, y:H/2 + 26,'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+    sub.textContent = 'GL_2(Q)\\GL_2(A) → C'; svg.appendChild(sub);
+    rows.forEach(r => {
+      const isActive = active === r.id;
+      svg.appendChild(SVG('line',{x1:130, y1:H/2, x2:240, y2:r.y, stroke:r.col, 'stroke-width':isActive?2.4:1.2, 'stroke-opacity':isActive?1:0.6}));
+      svg.appendChild(SVG('rect',{x:240, y:r.y - 16, width:300, height:32, rx:6, fill:isActive?'rgba(125,224,214,0.10)':'var(--panel2)', stroke:r.col, 'stroke-width':isActive?2:1.4, style:'cursor:pointer'}));
+      const t = SVG('text',{x:390, y:r.y + 5, 'text-anchor':'middle','font-size':14, fill:r.col, 'font-weight':600});
+      t.textContent = r.label; svg.appendChild(t);
+      const hit = SVG('rect',{x:240, y:r.y - 16, width:300, height:32, fill:'transparent', style:'cursor:pointer'});
+      hit.addEventListener('click', () => {
+        active = active === r.id ? null : r.id;
+        draw();
+        out.textContent = active ? r.explain : 'Click a row above to see what fails when that condition is dropped.';
+      });
+      svg.appendChild(hit);
+    });
+  }
+  draw();
+})();
+</script>
+
+<!-- ======================================================= -->
+<section id="dictionary">
+<h2>4. The classical-to-adelic dictionary</h2>
+
+<p>Section 2's strong-approximation decomposition says each $g \in \mathrm{GL}_2(\mathbb{A})$ has a (non-unique) factorisation $g = \gamma \cdot g_\infty \cdot k_f$ with $\gamma \in \mathrm{GL}_2(\mathbb{Q})$, $g_\infty \in \mathrm{GL}_2(\mathbb{R})^+$, and $k_f \in K_0(N)$. Given a classical modular form $f \in M_k(\Gamma_0(N))$, define
+$$\phi_f(g) \;:=\; (f \big|_k g_\infty)(i),$$
+where $f|_k g$ is the weight-$k$ slash operator $(f|_k g)(\tau) = (\det g)^{k/2} (c\tau + d)^{-k} f(g \cdot \tau)$ (and $\det g_\infty > 0$).</p>
+
+<p>The function $\phi_f$ is well-defined: the ambiguities in the strong-approximation factorisation are exactly the elements of $\Gamma_0(N) \subset \mathrm{GL}_2(\mathbb{Q})$, which act on $f$ by the modular automorphy factor — and on $i \in \mathbb{H}$ by an isometry of the maximal compact $\mathrm{SO}_2(\mathbb{R})$ — so the values agree.</p>
+
+<div class="note">
+  <strong>The dictionary, summarised.</strong>
+  <table class="plain" style="margin-top:.4rem">
+    <thead><tr><th>classical</th><th>adelic</th></tr></thead>
+    <tbody>
+      <tr><td>$f \in M_k(\Gamma_0(N))$</td><td>$\phi_f$ — automorphic form on $\mathrm{GL}_2(\mathbb{A})$, weight $k$, level $K_0(N)$</td></tr>
+      <tr><td>cusp form</td><td>vanishing constant term along the upper-unipotent</td></tr>
+      <tr><td>$T_p$ acts on $f$</td><td>local Hecke algebra $\mathcal{H}_p$ acts on $\phi_p$</td></tr>
+      <tr><td>$L(s, f) = \sum a_n n^{-s}$</td><td>$L(s, \pi) = \prod_v L_v(s, \pi_v)$</td></tr>
+      <tr><td>level $N$</td><td>conductor of $\pi$, $\prod_p p^{c_p}$</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="widget" id="w-dict">
+  <div class="hd">
+    <div class="ttl">Dictionary translator</div>
+    <div class="hint">pick a classical object and see its adelic counterpart</div>
+  </div>
+  <div class="row">
+    <label for="dict-sel">classical:</label>
+    <select id="dict-sel">
+      <option value="form">$f \in M_k(\Gamma_0(N))$</option>
+      <option value="cusp">cusp form $f \in S_k(\Gamma_0(N))$</option>
+      <option value="hecke">$T_p$ eigenvalue $a_p$</option>
+      <option value="level">level $N$</option>
+      <option value="lfn">$L(s, f)$</option>
+    </select>
+  </div>
+  <div class="readout" id="dict-out">&nbsp;</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#qexp">q-expansions and arithmetic data</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./automorphic-forms-adelic.html#lfunction">Automorphic forms (adelic)</a> · Automorphic $L$-functions</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="classical-to-adelic-dictionary"></div>
+</section>
+
+<script>
+/* ===== Section 4: dictionary translator ===== */
+(function(){
+  const sel = $('#dict-sel'), out = $('#dict-out');
+  const map = {
+    form: 'Adelic side: φ_f : GL_2(Q)\\GL_2(A) → C, defined by φ_f(γ · g_∞ · k_f) = (f |_k g_∞)(i).\nKey property: φ_f is right-K_0(N)-invariant, K_∞-finite (weight k), of moderate growth.',
+    cusp: 'Adelic side: cuspidal φ — the constant term ∫_{Q\\A} φ(n_x g) dx vanishes for all g, where n_x = ((1,x),(0,1)).\nThe adelic constant-term integral is the Whittaker-trivial Fourier coefficient.',
+    hecke: 'Adelic side: at p ∤ N, the local Hecke algebra H_p acts on the K_0(p)-fixed space.\na_p = (α_p + β_p)·p^((k-1)/2) where (α_p, β_p) are the Satake parameters of π_p.',
+    level: 'Adelic side: the conductor of π = ⊗ π_v.\nN = ∏_p p^{c_p}, where c_p is the smallest integer ≥ 0 with π_p^{K_0(p^{c_p})} ≠ 0 (Casselman).',
+    lfn: 'Adelic side: L(s, π) = ∏_v L_v(s, π_v).\nUnramified p: L_p = (1 - α_p p^{-s})^{-1}(1 - β_p p^{-s})^{-1}.\nArchimedean: a gamma factor depending on the weight.\nMatches the classical Mellin transform of f.',
+  };
+  function show(){
+    out.textContent = map[sel.value] || '';
+  }
+  sel.addEventListener('change', show);
+  show();
+})();
+</script>
+
+<!-- ======================================================= -->
+<section id="satake">
+<h2>5. The spherical Hecke algebra and the Satake isomorphism</h2>
+
+<p>Fix a prime $p \nmid N$, an unramified prime. The <strong>spherical Hecke algebra</strong> at $p$ is
+$$\mathcal{H}_p \;=\; C_c\bigl( \mathrm{GL}_2(\mathbb{Z}_p) \backslash \mathrm{GL}_2(\mathbb{Q}_p) / \mathrm{GL}_2(\mathbb{Z}_p) \bigr),$$
+the algebra (under convolution) of compactly supported, bi-$\mathrm{GL}_2(\mathbb{Z}_p)$-invariant functions on $\mathrm{GL}_2(\mathbb{Q}_p)$. By the Cartan decomposition, every element of $\mathrm{GL}_2(\mathbb{Q}_p)$ lies in a unique double coset
+$$\mathrm{GL}_2(\mathbb{Z}_p) \cdot \begin{pmatrix} p^a & 0 \\ 0 & p^b \end{pmatrix} \cdot \mathrm{GL}_2(\mathbb{Z}_p), \qquad a \ge b \in \mathbb{Z},$$
+so $\mathcal{H}_p$ has a basis $\{\mathbb{1}_{a,b}\}_{a \ge b}$.</p>
+
+<h3>Local-to-classical Hecke</h3>
+<p>The element $T_p^{\mathrm{loc}} := \mathbb{1}_{1,0} + \mathbb{1}_{0,1}$ acts on the unramified part of an automorphic form, and unwinds (via the dictionary) to the classical $T_p$. Crucially, $\mathcal{H}_p$ is <strong>commutative</strong>: $(\mathrm{GL}_2(\mathbb{Q}_p), \mathrm{GL}_2(\mathbb{Z}_p))$ is a Gelfand pair.</p>
+
+<div class="note">
+  <strong>Satake isomorphism.</strong> There is an algebra isomorphism
+  $$\mathcal{S} : \mathcal{H}_p \;\xrightarrow{\;\;\sim\;\;}\; \mathbb{C}\bigl[ X^{\pm 1}, Y^{\pm 1} \bigr]^{S_2}$$
+  onto the symmetric Laurent polynomials in two variables (the $S_2$ being swap of $X \leftrightarrow Y$, the Weyl group of $\mathrm{GL}_2$). Concretely, an unramified irreducible representation $\pi_p$ is determined by its <em>Satake parameters</em> $(\alpha_p, \beta_p) \in (\mathbb{C}^\times)^2 / S_2$; characters of $\mathcal{H}_p$ on the $\mathrm{GL}_2(\mathbb{Z}_p)$-fixed line of $\pi_p$ are
+  $$\mathcal{S}(T_p^{\mathrm{loc}})(\alpha_p, \beta_p) \;=\; p^{1/2}(\alpha_p + \beta_p).$$
+</div>
+
+<p>The Satake parameters are the local incarnation of the Hecke eigenvalue. The classical eigenvalue $a_p(f)$ on a weight-$k$ eigenform reads
+$$a_p \;=\; (\alpha_p + \beta_p) \cdot p^{(k-1)/2},$$
+and $\alpha_p \beta_p = p^{k-1}$ (or $1$ in the unitary normalisation), recovering the Euler factor $1 - a_p p^{-s} + p^{k-1-2s}$.</p>
+
+<div class="widget" id="w-satake">
+  <div class="hd">
+    <div class="ttl">Satake parameter explorer</div>
+    <div class="hint">slide $a_p$; see the (unique up to swap) parameters $(\alpha_p, \beta_p)$ on the unit circle</div>
+  </div>
+  <div class="row">
+    <label for="sat-p">$p$ =</label>
+    <select id="sat-p"><option>2</option><option>3</option><option selected>5</option><option>7</option><option>11</option><option>13</option></select>
+    <label for="sat-k">weight $k$ =</label>
+    <select id="sat-k"><option>2</option><option selected>4</option><option>6</option><option>12</option></select>
+    <label for="sat-ap">$a_p$ =</label>
+    <input id="sat-ap" type="range" min="-3" max="3" step="0.05" value="0">
+    <span class="pill" id="sat-ap-val">0.00</span>
+  </div>
+  <svg id="sat-svg" viewBox="0 0 660 280" width="660" height="280"><title>Satake parameter explorer</title></svg>
+  <div class="readout" id="sat-out">&nbsp;</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hecke-operators.html#algebra">Commuting Hecke algebra</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./automorphic-forms-adelic.html#lfunction">Automorphic forms (adelic)</a> · Automorphic $L$-functions</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="spherical-hecke-satake"></div>
+</section>
+
+<script>
+/* ===== Section 5: Satake parameter explorer ===== */
+(function(){
+  const pSel = $('#sat-p'), kSel = $('#sat-k'), ap = $('#sat-ap'), apVal = $('#sat-ap-val');
+  const svg = $('#sat-svg'), out = $('#sat-out');
+  const W = 660, H = 280;
+  const cx = W/2, cy = H/2 + 10, R = 90;
+
+  function ramAdjust(p){
+    const v = parseFloat(ap.value);
+    return Math.max(-2*Math.sqrt(p), Math.min(2*Math.sqrt(p), v * Math.sqrt(p)));
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const p = parseInt(pSel.value, 10);
+    const k = parseInt(kSel.value, 10);
+    const apv = parseFloat(ap.value);
+    apVal.textContent = apv.toFixed(2);
+
+    // Solve x^2 - (a_p / p^{(k-1)/2}) x + 1 = 0 for unitary Satake parameters on |x|=1
+    const apTilde = apv / Math.pow(p, (k-1)/2);
+    let alpha, beta, real;
+    const disc = apTilde*apTilde - 4;
+    if(disc < 0){
+      // complex conjugate pair on |x|=1 (Ramanujan-conforming)
+      const re = apTilde/2, im = Math.sqrt(-disc)/2;
+      alpha = {re, im}; beta = {re, im:-im}; real = false;
+    } else {
+      const r1 = (apTilde + Math.sqrt(disc))/2, r2 = (apTilde - Math.sqrt(disc))/2;
+      alpha = {re:r1, im:0}; beta = {re:r2, im:0}; real = true;
+    }
+
+    // unit circle (Ramanujan locus)
+    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--violet)','stroke-width':1.4,'stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('line',{x1:cx-R-30, y1:cy, x2:cx+R+30, y2:cy, stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-30, x2:cx, y2:cy+R+30, stroke:'var(--line)','stroke-width':1}));
+
+    // axis labels
+    const xa = SVG('text',{x:cx+R+38, y:cy+4,'font-size':11, fill:'var(--mute)'});
+    xa.textContent = 'Re'; svg.appendChild(xa);
+    const ya = SVG('text',{x:cx+5, y:cy-R-32,'font-size':11, fill:'var(--mute)'});
+    ya.textContent = 'Im'; svg.appendChild(ya);
+
+    function plot(z, col, name){
+      const x = cx + R*z.re, y = cy - R*z.im;
+      svg.appendChild(SVG('circle',{cx:x, cy:y, r:5, fill:col, stroke:'#000','stroke-width':0.5}));
+      const t = SVG('text',{x:x+8, y:y-6,'font-size':12, fill:col,'font-weight':600});
+      t.textContent = name; svg.appendChild(t);
+    }
+
+    plot(alpha, 'var(--cyan)', 'α_p');
+    plot(beta, 'var(--pink)', 'β_p');
+
+    // title
+    const t = SVG('text',{x:cx, y:24,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    t.textContent = 'Satake parameters live on the dashed unit circle when |a_p| ≤ 2 p^{(k-1)/2} (Ramanujan)';
+    svg.appendChild(t);
+
+    out.textContent =
+      'p = ' + p + ',  k = ' + k + ',  a_p = ' + apv.toFixed(3) + '\n' +
+      'Unitary Satake (α_p, β_p) on |z| = 1:\n' +
+      '  α_p = ' + alpha.re.toFixed(4) + (alpha.im >= 0 ? ' + ' : ' − ') + Math.abs(alpha.im).toFixed(4) + ' i\n' +
+      '  β_p = ' + beta.re.toFixed(4) + (beta.im >= 0 ? ' + ' : ' − ') + Math.abs(beta.im).toFixed(4) + ' i\n' +
+      'α + β = ' + (alpha.re + beta.re).toFixed(4) + ' = a_p / p^{(k-1)/2}\n' +
+      'α · β = 1  (unitary)\n' +
+      (real ? 'Outside Ramanujan window: real roots, parameters off the unit circle.' :
+              'Inside Ramanujan window: complex-conjugate pair on the unit circle.');
+  }
+
+  pSel.addEventListener('change', draw);
+  kSel.addEventListener('change', draw);
+  ap.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<!-- ======================================================= -->
+<section id="whittaker">
+<h2>6. Whittaker model and the new-form</h2>
+
+<p>Fix a non-trivial additive character $\psi : \mathbb{Q} \backslash \mathbb{A} \to \mathbb{C}^\times$. A <strong>Whittaker functional</strong> on a representation $\pi$ is a linear $\Lambda : \pi \to \mathbb{C}$ satisfying
+$$\Lambda\!\left( \pi(n_x) v \right) \;=\; \psi(x) \, \Lambda(v), \qquad n_x = \begin{pmatrix} 1 & x \\ 0 & 1 \end{pmatrix}.$$
+For an irreducible admissible $\pi_v$ that is <em>generic</em> (= admits any such $\Lambda \ne 0$), the space of Whittaker functionals is one-dimensional — <strong>local multiplicity one</strong>.</p>
+
+<p>Equivalently, the <strong>Whittaker model</strong> is the embedding $\pi \hookrightarrow \mathrm{Wh}_\psi$ that sends $v \mapsto W_v(g) := \Lambda(\pi(g) v)$. These functions $W_v : G \to \mathbb{C}$ are concrete, computable objects.</p>
+
+<h3>The new-vector</h3>
+<p>Casselman proved a remarkable structure theorem. Let $\pi_p$ be irreducible admissible, and let $c_p \ge 0$ be the smallest integer such that $\pi_p^{K_0(p^{c_p})} \ne 0$. Then:</p>
+
+<ul>
+  <li>$c_p$ is well-defined; called the <strong>local conductor exponent</strong>.</li>
+  <li>$\dim \pi_p^{K_0(p^{c_p})} = 1$ — there is a unique fixed vector up to scaling, the <em>local new-vector</em>.</li>
+  <li>For any $j \ge 0$, $\dim \pi_p^{K_0(p^{c_p + j})} = j + 1$.</li>
+</ul>
+
+<p>The global <strong>conductor</strong> of an automorphic representation $\pi$ is $N(\pi) = \prod_p p^{c_p}$. For $\pi$ corresponding to a classical $f \in S_k(\Gamma_0(N))$, this $N(\pi)$ matches $N$ — the level. Atkin–Lehner new-form theory and Casselman's local theorem are two sides of the same statement.</p>
+
+<div class="widget" id="w-newform">
+  <div class="hd">
+    <div class="ttl">Local conductor exponent ladder</div>
+    <div class="hint">click a level to see the dimension of $\pi_p^{K_0(p^j)}$</div>
+  </div>
+  <svg id="nf-svg" viewBox="0 0 660 240" width="660" height="240"><title>Local conductor exponent</title></svg>
+  <div class="readout" id="nf-out">&nbsp;</div>
+</div>
+
+<div class="quiz" data-concept="whittaker-newform"></div>
+</section>
+
+<script>
+/* ===== Section 6: local conductor ladder ===== */
+(function(){
+  const svg = $('#nf-svg'), out = $('#nf-out');
+  const W = 660, H = 240;
+  const cp = 2;  // toy local conductor exponent
+  const levels = [0, 1, 2, 3, 4, 5];
+  let active = cp;
+
+  function dim(j){
+    return j < cp ? 0 : (j - cp + 1);
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const baseY = 180, dx = 90;
+    levels.forEach((j, i) => {
+      const x = 60 + i*dx;
+      const d = dim(j);
+      const isActive = j === active;
+      // axis tick
+      svg.appendChild(SVG('line',{x1:x, y1:baseY, x2:x, y2:baseY+8, stroke:'var(--line)','stroke-width':1}));
+      const lab = SVG('text',{x, y:baseY+24,'text-anchor':'middle','font-size':12, fill:isActive?'var(--yellow)':'var(--mute)','font-weight':isActive?700:400});
+      lab.textContent = 'K_0(p^' + j + ')'; svg.appendChild(lab);
+      // bar height = dim
+      const barH = d * 24;
+      const col = j < cp ? 'var(--mute)' : (j === cp ? 'var(--cyan)' : 'var(--violet)');
+      svg.appendChild(SVG('rect',{x:x-22, y:baseY-barH, width:44, height:Math.max(barH,2), fill:col, opacity:isActive?1:0.7, rx:3}));
+      const dl = SVG('text',{x, y:baseY-barH-6,'text-anchor':'middle','font-size':12, fill:col,'font-weight':600});
+      dl.textContent = 'dim = ' + d; svg.appendChild(dl);
+      // hit
+      const hit = SVG('rect',{x:x-30, y:baseY-90, width:60, height:120, fill:'transparent', style:'cursor:pointer'});
+      hit.addEventListener('click', () => { active = j; draw(); update(); });
+      svg.appendChild(hit);
+    });
+    // baseline
+    svg.appendChild(SVG('line',{x1:30, y1:baseY, x2:W-20, y2:baseY, stroke:'var(--line)','stroke-width':1.5}));
+    // labels
+    const t = SVG('text',{x:W/2, y:30,'text-anchor':'middle','font-size':13, fill:'var(--ink)'});
+    t.textContent = 'dim π_p^{K_0(p^j)} for an irreducible admissible π_p (conductor exponent c_p = ' + cp + ')';
+    svg.appendChild(t);
+  }
+  function update(){
+    const d = dim(active);
+    out.textContent =
+      'Selected level: K_0(p^' + active + ')\n' +
+      'dim π_p^{K_0(p^' + active + ')} = ' + d +
+      (active < cp ? '   ←  no fixed vectors (level too small)' :
+       active === cp ? '   ←  the new-vector (unique up to scaling)' :
+                       '   ←  ' + d + '-dimensional (oldforms span)') +
+      '\n\nConductor exponent c_p = ' + cp + ' is the smallest j with non-zero fixed space.\n' +
+      'Globally, N(π) = ∏_p p^{c_p} matches the classical level.';
+  }
+  draw(); update();
+})();
+</script>
+
+<!-- ======================================================= -->
+<section id="lfunction">
+<h2>7. Automorphic $L$-functions</h2>
+
+<p>To a cuspidal automorphic representation $\pi = \bigotimes_v \pi_v$ of $\mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$ one attaches an <strong>$L$-function</strong>
+$$L(s, \pi) \;=\; \prod_v L_v(s, \pi_v),$$
+a product of local factors over all places. At an unramified $p$ with Satake parameters $(\alpha_p, \beta_p)$:
+$$L_p(s, \pi_p) \;=\; \det\!\bigl( I - \mathrm{diag}(\alpha_p, \beta_p) \cdot p^{-s} \bigr)^{-1} \;=\; (1 - \alpha_p p^{-s})^{-1} (1 - \beta_p p^{-s})^{-1}.$$
+At ramified primes $p \mid N$, the factor is $(1 - a_p p^{-s})^{-1}$ with $a_p$ a single Hecke eigenvalue or, in worse cases, $1$. At the archimedean place, $L_\infty(s, \pi_\infty)$ is a product of gamma factors determined by the weight.</p>
+
+<div class="note">
+  <strong>Match with the classical $L(s, f)$.</strong> For $\pi$ corresponding to a classical eigenform $f$, the unramified Euler factor unwinds to the classical Hecke factor:
+  $$\bigl(1 - a_p p^{-s} + p^{k-1-2s}\bigr)^{-1} \;=\; (1 - \alpha_p p^{-s})^{-1}(1 - \beta_p p^{-s})^{-1},$$
+  where $\alpha_p + \beta_p = a_p$ and $\alpha_p \beta_p = p^{k-1}$ (in the classical normalisation). The full identity reads $L(s, \pi) = L(s, f)$ up to gamma-factor convention.
+</div>
+
+<h3>Why the adelic packaging is necessary</h3>
+<p>The story so far concerned $\mathrm{GL}_2$. Beyond it, classical holomorphic modular forms <em>do not exist</em> in the same sense — the symmetric space for $\mathrm{GL}_n(\mathbb{R})$ at $n \ge 3$ is not a hermitian domain. The adelic formulation
+$$\phi : \mathrm{GL}_n(\mathbb{Q}) \backslash \mathrm{GL}_n(\mathbb{A}) \to \mathbb{C}$$
+makes sense for every $n$, with the same three regularity conditions and the same Euler-product $L$-function. This is the gateway to the <strong>Langlands programme</strong>: a conjectural correspondence between automorphic representations of $\mathrm{GL}_n$ and $n$-dimensional Galois representations, with matching $L$-functions on both sides.</p>
+
+<div class="widget" id="w-lfunc">
+  <div class="hd">
+    <div class="ttl">Local factor builder</div>
+    <div class="hint">build $L(s, \pi)$ place-by-place; toggle places to see partial Euler products</div>
+  </div>
+  <div class="row">
+    <label for="lf-s">$s$ =</label>
+    <input id="lf-s" type="range" min="0.6" max="3" step="0.02" value="1.5">
+    <span class="pill" id="lf-s-val">1.50</span>
+  </div>
+  <div class="row" id="lf-places"></div>
+  <div class="readout" id="lf-out">&nbsp;</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./L-functions.html#unified">Prototype L-functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="automorphic-l-function"></div>
+</section>
+
+<script>
+/* ===== Section 7: local-factor builder ===== */
+(function(){
+  const sEl = $('#lf-s'), sVal = $('#lf-s-val');
+  const placesHost = $('#lf-places');
+  const out = $('#lf-out');
+  // toy Satake parameters for a weight-2 form (matches Δ-like profile rescaled to k=2 for visualization).
+  // Use the actual Ramanujan Δ unitary parameters: α_p = e^{iθ_p}, β_p = e^{-iθ_p}, with τ(p)/2p^{11/2} = cos θ_p.
+  // For pedagogy we use a small fixed list:
+  const places = [
+    { id:'inf', label:'∞ (archimedean)', factor: (s) => {
+        // Γ_C(s) = 2(2π)^{-s} Γ(s)  — for weight-2 Δ-like.
+        // approximate Γ via Stirling for s>0
+        function gamma(x){
+          if(x < 1) return gamma(x+1)/x;
+          const c = [76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,1.208650973866179e-3,-5.395239384953e-6];
+          let y = x, t = x + 5.5; t -= (x + 0.5) * Math.log(t);
+          let ser = 1.000000000190015;
+          for(let j=0;j<6;j++){ y += 1; ser += c[j]/y; }
+          return Math.exp(-t + Math.log(2.5066282746310005 * ser / x));
+        }
+        return 2 * Math.pow(2*Math.PI, -s) * gamma(s);
+      }, default:true },
+    { id:'p2', label:'$p = 2$', factor: (s) => 1/((1 - 0.5*Math.pow(2,-s))*(1 - 0.5*Math.pow(2,-s))), default:true },
+    { id:'p3', label:'$p = 3$', factor: (s) => 1/((1 + 0.3*Math.pow(3,-s))*(1 + 0.3*Math.pow(3,-s))), default:true },
+    { id:'p5', label:'$p = 5$', factor: (s) => 1/((1 - 0.7*Math.pow(5,-s))*(1 + 0.7*Math.pow(5,-s))), default:false },
+    { id:'p7', label:'$p = 7$', factor: (s) => 1/((1 + 0.4*Math.pow(7,-s))*(1 + 0.4*Math.pow(7,-s))), default:false },
+  ];
+
+  const state = {};
+  places.forEach(pl => {
+    state[pl.id] = pl.default;
+    const btn = document.createElement('button');
+    btn.textContent = pl.label;
+    btn.className = pl.default ? 'active' : '';
+    btn.dataset.id = pl.id;
+    placesHost.appendChild(btn);
+  });
+
+  placesHost.addEventListener('click', e => {
+    if(e.target.tagName !== 'BUTTON') return;
+    const id = e.target.dataset.id;
+    state[id] = !state[id];
+    e.target.classList.toggle('active', state[id]);
+    update();
+  });
+  sEl.addEventListener('input', update);
+
+  function update(){
+    const s = parseFloat(sEl.value);
+    sVal.textContent = s.toFixed(2);
+    let prod = 1;
+    let lines = ['s = ' + s.toFixed(3), '', 'Place         L_v(s, π_v)        running product'];
+    places.forEach(pl => {
+      if(!state[pl.id]) return;
+      const v = pl.factor(s);
+      prod *= v;
+      lines.push('  ' + pl.label.replace(/\$/g,'').padEnd(14) + v.toFixed(5).padEnd(20) + prod.toFixed(5));
+    });
+    lines.push('');
+    lines.push('Partial Euler product L(s, π) ≈ ' + prod.toFixed(5));
+    lines.push('(toggle places above to grow the product)');
+    out.textContent = lines.join('\n');
+  }
+  update();
+})();
+</script>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('automorphic-forms-adelic'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

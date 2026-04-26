@@ -28,7 +28,8 @@
       "prereqs": [
         "theta-q-expansion"
       ],
-      "blurb": "Poisson summation drives modular transformation formulas for theta functions."
+      "blurb": "Poisson summation drives modular transformation formulas for theta functions.",
+      "tags": ["duality"]
     },
     {
       "id": "dedekind-eta-theta",

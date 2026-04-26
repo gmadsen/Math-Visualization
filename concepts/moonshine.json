@@ -19,7 +19,8 @@
       "prereqs": [
         "group-representations"
       ],
-      "blurb": "The Monster M is the largest sporadic finite simple group, of order ~8x10^53; its smallest faithful complex irreducibles have dimensions 1, 196883, 21296876, 842609326."
+      "blurb": "The Monster M is the largest sporadic finite simple group, of order ~8x10^53; its smallest faithful complex irreducibles have dimensions 1, 196883, 21296876, 842609326.",
+      "tags": ["classification"]
     },
     {
       "id": "mckay-observation",

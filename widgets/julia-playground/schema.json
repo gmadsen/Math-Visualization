@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/julia-playground/schema.json",
+  "title": "julia-playground widget params",
+  "description": "Renders the filled-in Julia set or the Mandelbrot set on an HTML5 <canvas> via escape-time iteration of z_{n+1} = z_n^2 + c. In `mandelbrot` mode the canvas plane is the c-plane and z_0 = 0; in `julia` mode the plane is the z-plane and a fixed parameter c is supplied (and is interactively adjustable via real/imag sliders, plus shift-click on the canvas to pin c). Bounded pan/zoom around the initial view; smooth-iteration coloring with a project-accent palette. The renderer is pure JS in renderScript and runs row-by-row yielded to the event loop so the page stays responsive on parameter changes.",
+  "meta": {
+    "family": "julia-playground",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. All inner element ids are derived from this so multiple julia-playground instances on the same page do not collide."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl. May contain $…$ LaTeX (rendered by the page's KaTeX auto-render)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["mandelbrot", "julia"],
+      "default": "mandelbrot",
+      "description": "Which set to render. 'mandelbrot' iterates from z_0 = 0 with c read per pixel; 'julia' iterates from z_0 read per pixel with c held fixed at (cReal, cImag)."
+    },
+    "cReal": {
+      "type": "number",
+      "default": -0.7,
+      "description": "Initial real part of c, only used when mode = 'julia'. The c slider lets the reader vary it at runtime."
+    },
+    "cImag": {
+      "type": "number",
+      "default": 0.27015,
+      "description": "Initial imaginary part of c, only used when mode = 'julia'."
+    },
+    "xmin": {
+      "type": "number",
+      "default": -2.2,
+      "description": "Initial complex-plane x window minimum."
+    },
+    "xmax": {
+      "type": "number",
+      "default": 1.0,
+      "description": "Initial complex-plane x window maximum."
+    },
+    "ymin": {
+      "type": "number",
+      "default": -1.4,
+      "description": "Initial complex-plane y window minimum."
+    },
+    "ymax": {
+      "type": "number",
+      "default": 1.4,
+      "description": "Initial complex-plane y window maximum."
+    },
+    "maxIterations": {
+      "type": "integer",
+      "minimum": 16,
+      "maximum": 400,
+      "default": 80,
+      "description": "Escape-time iteration cap. Higher = sharper boundary but slower render."
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 80,
+      "maximum": 800,
+      "default": 480,
+      "description": "Canvas width in CSS pixels (also the number of plane samples horizontally). The CSS layout caps the rendered size at 100% of the container, so this is also a quality knob."
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 80,
+      "maximum": 800,
+      "default": 320,
+      "description": "Canvas height in CSS pixels."
+    },
+    "palette": {
+      "type": "string",
+      "enum": ["cyan", "violet", "yellow", "pink"],
+      "default": "cyan",
+      "description": "Project accent color used as the warm end of the gradient. The palette is a smooth ramp from var(--bg) through var(--mute) to the chosen accent; interior points (no escape) are rendered in var(--ink)."
+    },
+    "minZoomSpan": {
+      "type": "number",
+      "minimum": 0.0001,
+      "default": 0.01,
+      "description": "Minimum allowed (xmax - xmin) span. Prevents zooming in past visual usefulness given the iteration cap."
+    },
+    "maxZoomSpan": {
+      "type": "number",
+      "minimum": 0.1,
+      "default": 8.0,
+      "description": "Maximum allowed (xmax - xmin) span. Prevents zooming out into pure black."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener."
+    }
+  }
+}

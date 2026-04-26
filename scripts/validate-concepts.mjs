@@ -53,7 +53,8 @@ try {
         f.endsWith('.json') &&
         f !== 'index.json' &&
         f !== 'sections.json' &&
-        f !== 'capstones.json'
+        f !== 'capstones.json' &&
+        f !== 'tags.json'
     )
     .map((f) => f.replace(/\.json$/, ''));
 } catch (e) {
@@ -222,6 +223,61 @@ for (const [id, entries] of conceptsById) {
     for (const field of ['title', 'anchor', 'blurb']) {
       if (typeof entry[field] !== 'string' || !entry[field]) {
         err(`concepts/${topic}.json: concept "${id}" missing "${field}"`);
+      }
+    }
+  }
+}
+
+// Tag vocabulary: optional `tags` array on each concept must draw from
+// concepts/tags.json. Untagged concepts are allowed; unknown tags are not.
+{
+  const tagsPath = join(conceptsDir, 'tags.json');
+  if (existsSync(tagsPath)) {
+    const r = readJson(tagsPath);
+    if (!r.ok) {
+      err(`concepts/tags.json: ${r.error}`);
+    } else if (!r.data || !Array.isArray(r.data.tags)) {
+      err(`concepts/tags.json: expected { "tags": [...] }`);
+    } else {
+      const vocab = new Set();
+      for (const t of r.data.tags) {
+        if (!t || typeof t !== 'object') continue;
+        if (typeof t.id !== 'string' || !t.id) {
+          err(`concepts/tags.json: tag entry missing string "id"`);
+          continue;
+        }
+        if (vocab.has(t.id)) {
+          err(`concepts/tags.json: duplicate tag id "${t.id}"`);
+        }
+        vocab.add(t.id);
+        for (const field of ['title', 'blurb']) {
+          if (typeof t[field] !== 'string' || !t[field]) {
+            err(`concepts/tags.json: tag "${t.id}" missing "${field}"`);
+          }
+        }
+      }
+      for (const [id, entries] of conceptsById) {
+        for (const { topic, entry } of entries) {
+          if (!('tags' in entry)) continue;
+          if (!Array.isArray(entry.tags)) {
+            err(`concepts/${topic}.json: concept "${id}" "tags" must be an array`);
+            continue;
+          }
+          const seen = new Set();
+          for (const tag of entry.tags) {
+            if (typeof tag !== 'string' || !tag) {
+              err(`concepts/${topic}.json: concept "${id}" has invalid tag entry ${JSON.stringify(tag)}`);
+              continue;
+            }
+            if (seen.has(tag)) {
+              err(`concepts/${topic}.json: concept "${id}" lists tag "${tag}" more than once`);
+            }
+            seen.add(tag);
+            if (!vocab.has(tag)) {
+              err(`concepts/${topic}.json: concept "${id}" uses unknown tag "${tag}" (not in concepts/tags.json)`);
+            }
+          }
+        }
       }
     }
   }

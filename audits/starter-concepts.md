@@ -12,14 +12,15 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 5 | 5 | 0 | 5 | 0.000 |
-| Algebra | 114 | 174 | 14 | 32 | 0.123 |
-| Analysis | 101 | 144 | 14 | 19 | 0.139 |
-| Geometry & topology | 49 | 58 | 6 | 43 | 0.122 |
-| Number theory | 57 | 71 | 15 | 15 | 0.263 |
-| Modular forms & L-functions | 71 | 92 | 40 | 5 | 0.563 |
-| Algebraic geometry | 109 | 137 | 42 | 12 | 0.385 |
+| Algebra | 121 | 188 | 15 | 36 | 0.124 |
+| Analysis | 116 | 173 | 15 | 26 | 0.129 |
+| Geometry & topology | 49 | 58 | 6 | 45 | 0.122 |
+| Number theory | 64 | 80 | 17 | 19 | 0.266 |
+| Modular forms & L-functions | 78 | 104 | 43 | 5 | 0.551 |
+| Algebraic geometry | 109 | 137 | 42 | 14 | 0.385 |
+| Combinatorics & graph theory | 33 | 28 | 12 | 0 | 0.364 |
 
-## EMPTY — concepts with no prereqs (0)
+## EMPTY — concepts with no prereqs (4)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -27,7 +28,12 @@ topic upstream wiring; pathway.html will surface the concept as "ready"
 at brand-new progress alongside genuine entry points like
 `sets-functions` and `algebraic-structures`.
 
-_Currently clean — no advanced concept lists `prereqs: []`._
+| topic | concept | title |
+|---|---|---|
+| extremal-combinatorics | `sperner-lym` | Sperner's theorem and the LYM inequality |
+| extremal-combinatorics | `turan-theorem` | Turán's theorem and the Turán graph |
+| simplicial-complexes-combinatorial | `abstract-simplicial-complex` | Abstract simplicial complexes |
+| spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

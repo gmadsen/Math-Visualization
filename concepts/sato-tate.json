@@ -43,7 +43,11 @@
         "sato-tate-measure",
         "complex-multiplication"
       ],
-      "blurb": "CM curves equidistribute against the Haar measure of the normalizer of a torus in SU(2) — half the primes are supersingular and the rest fill [0,π] uniformly — while non-CM curves follow the full semicircle law."
+      "blurb": "CM curves equidistribute against the Haar measure of the normalizer of a torus in SU(2) — half the primes are supersingular and the rest fill [0,π] uniformly — while non-CM curves follow the full semicircle law.",
+      "tags": [
+        "classification",
+        "compactness"
+      ]
     },
     {
       "id": "symmetric-power-l-functions",

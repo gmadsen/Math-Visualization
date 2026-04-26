@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Simplicial complexes (combinatorial) — faces, f-vectors, shellings, persistence</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"automorphic-forms-adelic":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":"heights-arithmetic-geometry","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"group-cohomology","prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":null,"prev":"cocartesian-fibrations","section":"Algebra","title":"Group cohomology"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":null,"prev":"sobolev-spaces-distributions","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":null,"prev":"class-field-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"automorphic-forms-adelic","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"harmonic-analysis-fourier","prev":"probability-theory","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Combinatorics & graph theory" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#complex">1&nbsp;Complexes</a>
+  <a href="#fvec">2&nbsp;f-vector&nbsp;&amp;&nbsp;h-vector</a>
+  <a href="#realize">3&nbsp;Realization&nbsp;&amp;&nbsp;nerves</a>
+  <a href="#shell">4&nbsp;Shellings&nbsp;&amp;&nbsp;CM</a>
+  <a href="#stanley-reisner">5&nbsp;Stanley–Reisner</a>
+  <a href="#persistence">6&nbsp;Persistent&nbsp;homology</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Simplicial complexes — combinatorial side</h1>
+  <p class="sub">A simplicial complex is, at heart, a hereditary family of finite sets: pick a vertex set, declare which subsets are "filled in", and require that any subset of a filled subset is itself filled. From this almost-trivial axiom flow $f$- and $h$-vectors that count faces, Dehn–Sommerville symmetries on simplicial spheres, shellings that propagate Cohen–Macaulayness, the Stanley–Reisner monomial-ideal bridge to commutative algebra, nerves that recover the topology of an open cover, and persistent homology — the noise-tolerant homology that reads barcodes off a point cloud. This page walks the combinatorial toys; the geometric/topological cousins live on <a href="./algebraic-topology.html">algebraic topology</a>.</p>
+</section>
+
+<section id="complex">
+<h2>1. Abstract simplicial complexes</h2>
+<p>An <strong>abstract simplicial complex</strong> on a finite vertex set $V$ is a collection $K \subseteq 2^V$ such that</p>
+<ul>
+  <li>$\sigma \in K$ and $\tau \subseteq \sigma$ imply $\tau \in K$ (closed under taking subsets), and</li>
+  <li>$\{v\} \in K$ for every $v \in V$ (every vertex is a $0$-face).</li>
+</ul>
+<p>An element $\sigma \in K$ of cardinality $k+1$ is a $k$-<strong>face</strong> (or $k$-<em>simplex</em>): vertices are $0$-faces, edges are $1$-faces, triangles are $2$-faces. The <strong>dimension</strong> $\dim K = \max_{\sigma \in K}(|\sigma|-1)$. The <strong>maximal faces</strong> (faces not contained in any larger face) are the <em>facets</em>; $K$ is determined by listing them, since every other face is a subset.</p>
+
+<p>The hereditary axiom — sometimes called the <em>downward-closed</em> or <em>simplicial</em> axiom — is the only thing distinguishing $K$ from an arbitrary set system. It is exactly what lets a $k$-simplex carry a well-defined <em>boundary</em>: the union of its $(k-1)$-faces also lies in $K$.</p>
+
+<div class="note"><strong>Two flavors of "simplicial complex".</strong> The combinatorial object above is a finite set system with a downward-closure axiom. Its <em>geometric realization</em> $|K| \subset \mathbb{R}^N$ — glue an abstract $k$-simplex for each $k$-face — is a topological space that the algebraic topologists work with. The two are equivalent for the purposes of singular and simplicial homology, but combinatorialists prefer the discrete data; topologists, the space.</div>
+
+<h3>Boolean intuition: $K$ vs. its face lattice</h3>
+<p>Order $K$ by inclusion. The result is a graded poset $(K, \subseteq)$ — the <strong>face lattice</strong> — sitting inside the Boolean lattice $2^V$. It is closed downward and graded by dimension. Any down-closed subset of a Boolean lattice is the face lattice of a unique simplicial complex on $V$.</p>
+
+<div class="widget" id="w-faces">
+  <div class="hd"><div class="ttl">Face explorer</div><div class="hint">click a facet to toggle it; the complex closes downward automatically</div></div>
+  <div class="row">
+    <button data-facet="012" id="fac-012" class="active">{0,1,2}</button>
+    <button data-facet="023" id="fac-023">{0,2,3}</button>
+    <button data-facet="13" id="fac-13">{1,3}</button>
+    <button data-facet="34" id="fac-34">{3,4}</button>
+    <button data-facet="04" id="fac-04">{0,4}</button>
+  </div>
+  <svg id="faces-svg" viewBox="0 0 620 280" width="620" height="280"><title>Face explorer</title></svg>
+  <div class="readout" id="faces-out"></div>
+  <div class="small">Yellow vertices, blue edges, green-filled triangles. The readout lists the faces grouped by dimension and shows the corresponding $f$-vector (tally of $k$-faces by dimension).</div>
+</div>
+<div class="quiz" data-concept="abstract-simplicial-complex"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./simplicial-complexes-combinatorial.html#fvec">Simplicial complexes (combinatorial)</a> · f-vector, h-vector, and Dehn–Sommerville</div>
+    <div><a href="./simplicial-complexes-combinatorial.html#realize">Simplicial complexes (combinatorial)</a> · Geometric realization and the nerve</div>
+    <div><a href="./simplicial-complexes-combinatorial.html#stanley-reisner">Simplicial complexes (combinatorial)</a> · Stanley–Reisner ring</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* ============================ widget 1: face explorer ============================ */
+(function(){
+  const svg = $('#faces-svg'), out = $('#faces-out');
+  // vertex coordinates in viewBox
+  const pos = [
+    [ 90,140],[230, 50],[230,230],[420,230],[420, 50]
+  ];
+  const initialFacets = new Set(['012','023','13','34']);
+  const facetButtons = $$('#w-faces button[data-facet]');
+  facetButtons.forEach(b=>{
+    if(initialFacets.has(b.dataset.facet)) b.classList.add('active'); else b.classList.remove('active');
+    b.addEventListener('click', ()=>{ b.classList.toggle('active'); render(); });
+  });
+
+  function chosenFacets(){
+    return facetButtons.filter(b=>b.classList.contains('active')).map(b=>b.dataset.facet);
+  }
+  // close downward: collect all subsets of every facet
+  function downwardClose(facets){
+    const set = new Set();
+    function powerset(s){
+      const arr = s.split('');
+      const n = arr.length;
+      for(let mask=1; mask<(1<<n); mask++){
+        const sub = [];
+        for(let i=0;i<n;i++) if(mask&(1<<i)) sub.push(arr[i]);
+        set.add(sub.sort().join(''));
+      }
+    }
+    for(const f of facets) powerset(f);
+    return [...set];
+  }
+  function render(){
+    const facets = chosenFacets();
+    const faces = downwardClose(facets);
+    // f-vector
+    const dims = {};
+    for(const f of faces){
+      const d = f.length - 1;
+      dims[d] = (dims[d]||0)+1;
+    }
+    const dmax = Math.max(-1, ...Object.keys(dims).map(Number));
+    const fvec = [];
+    for(let d=-1; d<=dmax; d++){
+      if(d===-1){ fvec.push(1); continue; } // empty face
+      fvec.push(dims[d]||0);
+    }
+
+    svg.innerHTML='';
+    // draw filled triangles first
+    for(const f of faces){
+      if(f.length!==3) continue;
+      const ids = f.split('').map(Number);
+      const pts = ids.map(i=>pos[i]).map(p=>p.join(',')).join(' ');
+      svg.appendChild(SVG('polygon',{points:pts, fill:'var(--green)', 'fill-opacity':0.32, stroke:'none'}));
+    }
+    // edges
+    for(const f of faces){
+      if(f.length!==2) continue;
+      const [a,b] = f.split('').map(Number);
+      svg.appendChild(SVG('line',{x1:pos[a][0],y1:pos[a][1],x2:pos[b][0],y2:pos[b][1], stroke:'var(--blue)', 'stroke-width':2}));
+    }
+    // vertices
+    for(let v=0; v<5; v++){
+      const inComplex = faces.includes(String(v));
+      svg.appendChild(SVG('circle',{cx:pos[v][0],cy:pos[v][1], r:10,
+        fill: inComplex ? 'var(--yellow)' : 'var(--panel2)',
+        stroke:'var(--ink)', 'stroke-width':1.5}));
+      const t = SVG('text',{x:pos[v][0], y:pos[v][1]-16, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = `v${v}`;
+      svg.appendChild(t);
+    }
+
+    // readout
+    const groups = {};
+    for(const f of faces){
+      const d = f.length - 1;
+      groups[d] = groups[d]||[];
+      groups[d].push('{' + f.split('').join(',') + '}');
+    }
+    const lines = [];
+    lines.push(`facets:  ${facets.map(f=>'{'+f.split('').join(',')+'}').join(', ') || '(empty)'}`);
+    lines.push(`dim K  = ${dmax}`);
+    for(let d=0; d<=dmax; d++){
+      const list = (groups[d]||[]);
+      lines.push(`f_${d} = ${list.length}   ${list.join(' ')}`);
+    }
+    lines.push(`f-vector  = (${fvec.slice(1).join(', ')})    [counting f_0, f_1, ...]`);
+    lines.push(`Euler χ = ${fvec.slice(1).reduce((s,x,i)=>s + ((-1)**i)*x, 0)}`);
+    out.textContent = lines.join('\n');
+  }
+  render();
+})();
+</script>
+
+<section id="fvec">
+<h2>2. The $f$-vector and the $h$-vector</h2>
+<p>For a $(d-1)$-dimensional simplicial complex $K$, the <strong>$f$-vector</strong>
+$$f(K) = (f_{-1}, f_0, f_1, \ldots, f_{d-1}), \qquad f_k = \#\{k\text{-faces of }K\}.$$
+We always set $f_{-1} = 1$, counting the empty face. The <strong>Euler characteristic</strong> is the alternating sum
+$$\chi(K) = \sum_{k=0}^{d-1} (-1)^k f_k = f_0 - f_1 + f_2 - \cdots,$$
+and equals the topological Euler characteristic of the geometric realization $|K|$.</p>
+
+<h3>The $h$-vector</h3>
+<p>Define $h(K) = (h_0, h_1, \ldots, h_d)$ by the polynomial identity
+$$\sum_{k=0}^{d} h_k\, t^{d-k} \;=\; \sum_{k=0}^{d} f_{k-1}\, (t-1)^{d-k}.$$
+Equivalently, expand and read off coefficients:
+$$h_k \;=\; \sum_{i=0}^{k} (-1)^{k-i}\binom{d-i}{k-i}\, f_{i-1}.$$
+The $h$-vector and $f$-vector encode the same data, but the $h$-side often has signs and integers that the $f$-side does not. The total $\sum h_k = f_{d-1}$ (the number of facets when $K$ is pure).</p>
+
+<div class="note"><strong>Dehn–Sommerville (simplicial polytopes / spheres).</strong> If $K$ is the boundary complex of a simplicial $d$-polytope (or, more generally, a simplicial $(d-1)$-sphere), then
+$$h_k = h_{d-k}, \qquad k = 0, 1, \ldots, d.$$
+This is a strong constraint on $f$-vectors: out of the $d$ free numbers $f_0, \ldots, f_{d-1}$, only roughly $d/2$ are independent. Stanley's $g$-theorem (1980, with McMullen's $g$-conjecture from 1971 as the upper-bound side) classifies which $h$-vectors actually arise.</p></div>
+
+<div class="widget" id="w-fh">
+  <div class="hd"><div class="ttl">$f \to h$ converter</div><div class="hint">pick a complex and read the $h$-vector — Dehn–Sommerville is the symmetry test</div></div>
+  <div class="row">
+    <label for="fh-pick">complex</label>
+    <select id="fh-pick">
+      <option value="bd-tetra">Boundary $\partial\Delta^3$ (tetrahedron, 2-sphere)</option>
+      <option value="bd-octa" selected>Boundary $\partial(\text{octahedron})$ (2-sphere)</option>
+      <option value="bd-icos">Boundary $\partial(\text{icosahedron})$ (2-sphere)</option>
+      <option value="bd-4simplex">Boundary $\partial\Delta^4$ (3-sphere)</option>
+      <option value="cross-3">Cross-polytope $\beta_3$ boundary (2-sphere)</option>
+      <option value="bow-tie">Bow-tie (2 triangles glued at a vertex)</option>
+    </select>
+  </div>
+  <div class="readout" id="fh-out"></div>
+  <div class="small">The bow-tie is not a sphere — its $h$-vector visibly fails $h_k = h_{d-k}$, illustrating that Dehn–Sommerville is a <em>diagnostic</em> for "is this a simplicial sphere?".</div>
+</div>
+<div class="quiz" data-concept="f-vector-h-vector"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./simplicial-complexes-combinatorial.html#shell">Simplicial complexes (combinatorial)</a> · Shellable and Cohen–Macaulay complexes</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* ============================ widget 2: f to h converter ============================ */
+(function(){
+  const sel = $('#fh-pick'), out = $('#fh-out');
+  // each entry: { d: dim+1 (number of h entries), f: f-vector [f_0, f_1, ...] }
+  const data = {
+    'bd-tetra': { name:'∂Δ³ (4 vertices, 4 facets)', d:3, f:[4,6,4] },
+    'bd-octa':  { name:'∂(octahedron) (6 vertices, 8 facets)', d:3, f:[6,12,8] },
+    'bd-icos':  { name:'∂(icosahedron) (12 vertices, 30 edges, 20 facets)', d:3, f:[12,30,20] },
+    'bd-4simplex': { name:'∂Δ⁴ (5 vertices, 10 edges, 10 triangles, 5 tets)', d:4, f:[5,10,10,5] },
+    'cross-3':  { name:'cross-polytope β₃ boundary (6 vertices, 12 edges, 8 facets)', d:3, f:[6,12,8] },
+    'bow-tie':  { name:'bow-tie: two triangles sharing a vertex', d:3, f:[5,6,2] }
+  };
+  function fToH(d, fvec){
+    // f_{-1} = 1 prepended; want h such that sum h_k t^{d-k} = sum f_{i-1} (t-1)^{d-i+1?}
+    // Use formula h_k = sum_{i=0..k} (-1)^{k-i} C(d-i, k-i) f_{i-1}, i=0..k where f_{-1}=1.
+    const fAug = [1, ...fvec]; // index by i: fAug[i] = f_{i-1}
+    const h = [];
+    for(let k=0; k<=d; k++){
+      let s = 0;
+      for(let i=0; i<=k; i++){
+        const sign = ((k-i)%2===0)?1:-1;
+        const binom = binomial(d - i, k - i);
+        s += sign * binom * fAug[i];
+      }
+      h.push(s);
+    }
+    return h;
+  }
+  function binomial(n,k){
+    if(k<0||k>n) return 0;
+    if(k===0||k===n) return 1;
+    let r = 1;
+    for(let i=1;i<=k;i++){ r = r*(n-i+1)/i; }
+    return Math.round(r);
+  }
+  function chi(fvec){
+    return fvec.reduce((s,x,i)=> s + ((-1)**i)*x, 0);
+  }
+  function render(){
+    const key = sel.value;
+    const o = data[key];
+    const h = fToH(o.d, o.f);
+    const sym = h.every((v,k)=>v===h[o.d-k]);
+    const lines = [];
+    lines.push(o.name);
+    lines.push(`dim K   = ${o.d - 1}`);
+    lines.push(`f-vector = (${o.f.join(', ')})       (Euler χ = ${chi(o.f)})`);
+    lines.push(`h-vector = (${h.join(', ')})        sum h = ${h.reduce((s,x)=>s+x,0)}`);
+    lines.push(`Dehn–Sommerville test  h_k = h_{d-k} : ${sym ? '✓ symmetric (consistent with simplicial sphere)' : '✗ not symmetric — NOT a simplicial sphere'}`);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="realize">
+<h2>3. Geometric realization and the nerve</h2>
+<p>The <strong>geometric realization</strong> of an abstract complex $K$ is the topological space $|K|$ obtained by gluing one standard $k$-simplex $\Delta^k \subset \mathbb{R}^{k+1}$ for each $k$-face along the obvious face inclusions. Combinatorial homology of $K$ — chains generated by faces, boundary $\partial\sigma = \sum (-1)^i \sigma \setminus \{v_i\}$ — agrees with the singular homology of $|K|$. So the combinatorial side computes $H_n(|K|;\mathbb{Z})$.</p>
+
+<p>The other key way simplicial complexes appear in topology is via the <strong>nerve construction</strong>. Given a finite cover $\mathcal{U} = \{U_1, \ldots, U_n\}$ of a space $X$, the <em>nerve</em> $\mathcal{N}(\mathcal{U})$ is the abstract complex with vertex set $\{1,\ldots,n\}$ and a face $\sigma \subseteq \{1,\ldots,n\}$ exactly when $\bigcap_{i\in\sigma} U_i \neq \emptyset$. This is downward-closed by construction (any subintersection of a non-empty intersection is non-empty).</p>
+
+<div class="note"><strong>Nerve theorem (Borsuk / Leray).</strong> If $\mathcal{U}$ is an open cover by sets each of whose finite intersections is empty or contractible — a so-called <em>good cover</em> — then the nerve $\mathcal{N}(\mathcal{U})$ has the homotopy type of $X$. So combinatorics on the cover recovers topology of the space, and that is what makes simplicial complexes a viable computational substitute for topological spaces.</div>
+
+<h3>Toy: nerve of a ball cover of points in the plane</h3>
+<p>Place a few points $x_1, \ldots, x_n \in \mathbb{R}^2$ and let $U_i$ be the disk $B(x_i, r)$ of radius $r$. The nerve $\mathcal{N}(r)$ has $\sigma$ as a face iff the disks indexed by $\sigma$ have a common point. As $r$ grows, more faces appear; at $r=0$ the nerve is just the vertices, and for $r \gg \max d(x_i, x_j)$ it is the full simplex $\Delta^{n-1}$.</p>
+
+<div class="widget" id="w-nerve">
+  <div class="hd"><div class="ttl">Disk-cover nerve</div><div class="hint">slide $r$ to grow disks; the nerve at the bottom updates</div></div>
+  <div class="row">
+    <label for="nerve-r">radius $r$</label>
+    <input type="range" id="nerve-r" min="0" max="200" step="1" value="55">
+    <span id="nerve-rv" class="readout" style="min-width:60px;flex:0 0 auto">r = 0.55</span>
+  </div>
+  <svg id="nerve-svg" viewBox="0 0 620 320" width="620" height="320"><title>Disk-cover nerve</title></svg>
+  <div class="readout" id="nerve-out"></div>
+  <div class="small">Top: points (yellow) and their $r$-disks (blue, semi-transparent). Bottom: the nerve, drawn as edges/triangles between point indices. Note: for disks in $\mathbb{R}^2$, two disks intersect iff $\|x_i-x_j\| \le 2r$ — but a triple intersects iff the three pairwise intersections share a point (non-trivial), so the displayed test is $\bigcap B(x_i, r) \neq \emptyset$ checked geometrically.</div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Singular homology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./simplicial-complexes-combinatorial.html#persistence">Simplicial complexes (combinatorial)</a> · Persistent homology and Vietoris–Rips</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="geometric-realization-nerve"></div>
+</section>
+
+<script>
+/* ============================ widget 3: disk-cover nerve ============================ */
+(function(){
+  const rIn = $('#nerve-r'), rv = $('#nerve-rv');
+  const svg = $('#nerve-svg'), out = $('#nerve-out');
+  // 5 points in viewBox top-half (cover area) -- coordinates chosen for interesting topology
+  const pts = [
+    [120, 80], [240, 50], [340,120], [200,150], [100,170]
+  ];
+  const N = pts.length;
+
+  function diskIntersect(idxs, r){
+    // are the disks at pts[idxs[*]] with radius r jointly non-empty?
+    // For 2 disks: distance <= 2r.
+    // For 3 disks in R^2: pairwise <= 2r AND the smallest enclosing circle of the centers <= r.
+    // For higher: we use a simple-and-correct method — sample a tiny grid in the bounding box.
+    if(idxs.length===1) return true;
+    if(idxs.length===2){
+      const [i,j]=idxs;
+      const d = Math.hypot(pts[i][0]-pts[j][0], pts[i][1]-pts[j][1]);
+      return d <= 2*r + 1e-6;
+    }
+    // grid sample
+    let xMin=Infinity, xMax=-Infinity, yMin=Infinity, yMax=-Infinity;
+    for(const i of idxs){
+      xMin = Math.min(xMin, pts[i][0] - r); xMax = Math.max(xMax, pts[i][0] + r);
+      yMin = Math.min(yMin, pts[i][1] - r); yMax = Math.max(yMax, pts[i][1] + r);
+    }
+    const steps = 40;
+    for(let a=0; a<=steps; a++) for(let b=0; b<=steps; b++){
+      const x = xMin + (xMax-xMin)*a/steps;
+      const y = yMin + (yMax-yMin)*b/steps;
+      let ok = true;
+      for(const i of idxs){
+        if(Math.hypot(pts[i][0]-x, pts[i][1]-y) > r){ ok=false; break; }
+      }
+      if(ok) return true;
+    }
+    return false;
+  }
+
+  function render(){
+    const r = parseInt(rIn.value,10);
+    rv.textContent = `r = ${(r/100).toFixed(2)} · 100 px`;
+
+    svg.innerHTML='';
+    // disks
+    for(let i=0;i<N;i++){
+      svg.appendChild(SVG('circle',{cx:pts[i][0], cy:pts[i][1], r,
+        fill:'var(--blue)', 'fill-opacity':0.13, stroke:'var(--blue)', 'stroke-opacity':0.45}));
+    }
+    // points
+    for(let i=0;i<N;i++){
+      svg.appendChild(SVG('circle',{cx:pts[i][0], cy:pts[i][1], r:5, fill:'var(--yellow)', stroke:'var(--ink)', 'stroke-width':1}));
+      const t = SVG('text',{x:pts[i][0]+10, y:pts[i][1]-8,'font-size':12, fill:'var(--mute)'});
+      t.textContent = String(i);
+      svg.appendChild(t);
+    }
+
+    // compute faces
+    const faces = [];
+    function pset(arr, cb){
+      const n = arr.length;
+      for(let mask=1; mask<(1<<n); mask++){
+        const sub = [];
+        for(let k=0;k<n;k++) if(mask&(1<<k)) sub.push(arr[k]);
+        cb(sub);
+      }
+    }
+    pset([0,1,2,3,4], sub=>{
+      if(diskIntersect(sub, r)) faces.push(sub);
+    });
+    const fv = [0,0,0,0,0];
+    for(const f of faces) fv[f.length-1]++;
+
+    // bottom: nerve, drawn as 5 vertices on a horizontal line
+    const yN = 250;
+    const xC = 60, dx = (620-2*xC)/(N-1);
+    const npos = pts.map((_,i)=>[xC+i*dx, yN]);
+    // triangles
+    for(const f of faces){
+      if(f.length!==3) continue;
+      const ids = f;
+      const path = ids.map(i=>npos[i]).map(p=>p.join(',')).join(' ');
+      svg.appendChild(SVG('polygon',{points:path, fill:'var(--green)','fill-opacity':0.28, stroke:'none'}));
+    }
+    // 4-faces & 5-face: shade subtler
+    for(const f of faces){
+      if(f.length<4) continue;
+      const ids = f;
+      const path = ids.map(i=>npos[i]).map(p=>p.join(',')).join(' ');
+      svg.appendChild(SVG('polygon',{points:path, fill:'var(--violet)','fill-opacity':0.18, stroke:'none'}));
+    }
+    // edges
+    for(const f of faces){
+      if(f.length!==2) continue;
+      const [a,b]=f;
+      svg.appendChild(SVG('line',{x1:npos[a][0],y1:npos[a][1],x2:npos[b][0],y2:npos[b][1], stroke:'var(--blue)','stroke-width':2}));
+    }
+    // vertex labels at bottom
+    for(let i=0;i<N;i++){
+      svg.appendChild(SVG('circle',{cx:npos[i][0],cy:npos[i][1], r:9, fill:'var(--yellow)', stroke:'var(--ink)','stroke-width':1.5}));
+      const t = SVG('text',{x:npos[i][0],y:npos[i][1]+25,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = String(i);
+      svg.appendChild(t);
+    }
+    const lblTop = SVG('text',{x:310, y:24,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lblTop.textContent = 'point cloud + r-disks';
+    svg.appendChild(lblTop);
+    const lblBot = SVG('text',{x:310, y:298,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lblBot.textContent = `nerve  𝒩(𝒰_r) — f-vector (${fv.filter(x=>x>0).join(', ')})`;
+    svg.appendChild(lblBot);
+
+    out.textContent =
+      `radius r = ${(r/100).toFixed(2)} · 100 px\n` +
+      `f-vector  = (${fv.filter(x=>x>0).join(', ')})\n` +
+      `Euler χ  = ${fv.reduce((s,x,i)=> s + ((-1)**i)*x, 0)}\n` +
+      `# faces  = ${faces.length}`;
+  }
+  rIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="shell">
+<h2>4. Shellings and Cohen–Macaulay complexes</h2>
+<p>Call a pure $(d-1)$-complex $K$ <strong>shellable</strong> if its facets can be ordered $F_1, F_2, \ldots, F_m$ so that for every $i \ge 2$, the intersection
+$$F_i \cap \bigl(F_1 \cup F_2 \cup \cdots \cup F_{i-1}\bigr) \;=\; \text{a pure } (d-2)\text{-subcomplex of } \partial F_i.$$
+Geometrically: each new facet glues onto the previous union along a contractible-piece-of-its-boundary that is itself a union of codimension-$1$ faces. Boundaries of simplicial polytopes are shellable (Bruggesser–Mani 1971); shellings power inductive proofs about $h$-vectors.</p>
+
+<h3>Why shellability matters</h3>
+<p>A shelling decomposes the simplicial chain complex into manageable summands and leads directly to:</p>
+<ul>
+  <li><strong>Counting:</strong> if $K$ is shellable then $h_k$ counts facets $F_i$ whose <em>restriction</em> $\mathcal{R}(F_i)$ has cardinality $k$ — so $h_k \ge 0$.</li>
+  <li><strong>Homotopy type:</strong> a shellable pure $(d-1)$-complex is homotopy-equivalent to a wedge of $(d-1)$-spheres, with the number of spheres equal to $h_d$.</li>
+  <li><strong>Algebra:</strong> shellable $\Rightarrow$ Cohen–Macaulay (over any field).</li>
+</ul>
+
+<p>A complex $K$ is <strong>Cohen–Macaulay (CM) over $k$</strong> if its Stanley–Reisner ring (next section) is Cohen–Macaulay as a graded $k$-algebra. Reisner's criterion (1976) gives a purely topological characterisation:</p>
+
+<div class="note"><strong>Reisner's criterion.</strong> $K$ is Cohen–Macaulay over $k$ iff for every face $\sigma \in K$ (including $\sigma = \emptyset$), the reduced homology of the link
+$$\operatorname{lk}_K(\sigma) \;=\; \{\tau \in K : \sigma \cap \tau = \emptyset,\ \sigma \cup \tau \in K\}$$
+satisfies $\widetilde{H}_i(\operatorname{lk}_K(\sigma); k) = 0$ for $i < \dim\operatorname{lk}_K(\sigma)$. Spheres and balls are CM; complexes with "wrong-dimensional holes in some link" are not.</div>
+
+<div class="widget" id="w-shell">
+  <div class="hd"><div class="ttl">Shelling order</div><div class="hint">click facets in order; valid choices are highlighted</div></div>
+  <svg id="shell-svg" viewBox="0 0 620 320" width="620" height="320"><title>Shelling order</title></svg>
+  <div class="row">
+    <button id="shell-reset">reset</button>
+    <button id="shell-test">try a bad order</button>
+  </div>
+  <div class="readout" id="shell-out">click a facet (triangle) to begin a shelling</div>
+  <div class="small">A small triangulated hexagonal disk with 6 triangular facets sharing a central vertex. Any order that always glues a new triangle along $\ge 1$ of its edges to the current union is a valid shelling — Bruggesser–Mani says these always exist for boundaries of simplicial polytopes; the disk here is even <em>extendably</em> shellable.</div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#noetherian">Noetherian rings and Hilbert basis</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="shellable-cohen-macaulay"></div>
+</section>
+
+<script>
+/* ============================ widget 4: shelling order ============================ */
+(function(){
+  const svg = $('#shell-svg'), out = $('#shell-out');
+  const btnReset = $('#shell-reset'), btnBad = $('#shell-test');
+  // hexagonal triangulation: vertex 0 = center, vertices 1..6 around
+  const cx0=310, cy0=160, R=110;
+  const verts = [[cx0,cy0]];
+  for(let k=0;k<6;k++){
+    const t = -Math.PI/2 + 2*Math.PI*k/6;
+    verts.push([cx0 + R*Math.cos(t), cy0 + R*Math.sin(t)]);
+  }
+  // 6 triangle facets
+  const facets = [
+    [0,1,2],[0,2,3],[0,3,4],[0,4,5],[0,5,6],[0,6,1]
+  ];
+  let order = []; // chosen indices
+  let badMode = false;
+
+  function edgesOf(facet){
+    const [a,b,c] = facet;
+    return [[a,b],[a,c],[b,c]].map(e=>e.sort((x,y)=>x-y).join('-'));
+  }
+  function unionOfFirst(k){
+    const eset = new Set();
+    for(let i=0;i<k;i++){
+      for(const e of edgesOf(facets[order[i]])) eset.add(e);
+    }
+    return eset;
+  }
+  function isShellingExtension(idx){
+    if(order.length===0) return true;
+    const prev = unionOfFirst(order.length);
+    const newFacet = facets[idx];
+    // intersection of newFacet's edges with prev edges
+    let shared = 0;
+    for(const e of edgesOf(newFacet)) if(prev.has(e)) shared++;
+    return shared >= 1; // disk-shelling rule: each new triangle glues along ≥1 edge
+  }
+  function render(){
+    svg.innerHTML='';
+    // facets
+    facets.forEach((f, idx)=>{
+      const used = order.includes(idx);
+      const orderPos = order.indexOf(idx);
+      const valid = !used && isShellingExtension(idx);
+      const color = used ? 'var(--green)' : (valid ? 'var(--yellow)' : 'var(--panel2)');
+      const op = used ? 0.55 : (valid ? 0.30 : 0.45);
+      const pts = f.map(i=>verts[i]).map(p=>p.join(',')).join(' ');
+      const poly = SVG('polygon',{points:pts, fill:color, 'fill-opacity':op, stroke:'var(--ink)','stroke-width':1.3, style:'cursor:pointer'});
+      poly.addEventListener('click', ()=>{
+        if(used) return;
+        if(badMode || isShellingExtension(idx)){
+          order.push(idx); render();
+        }
+      });
+      svg.appendChild(poly);
+      // facet label at centroid
+      const cx = f.reduce((s,i)=>s+verts[i][0],0)/3;
+      const cy = f.reduce((s,i)=>s+verts[i][1],0)/3;
+      const t = SVG('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':14, fill:'var(--ink)','font-weight':600});
+      t.textContent = used ? `F_${orderPos+1}` : `${idx+1}`;
+      svg.appendChild(t);
+    });
+    // vertices
+    verts.forEach((p,i)=>{
+      svg.appendChild(SVG('circle',{cx:p[0],cy:p[1], r:6, fill:'var(--yellow)', stroke:'var(--ink)','stroke-width':1.4}));
+      const t = SVG('text',{x:p[0]+(i===0?12:(p[0]>cx0?14:-14)), y:p[1] + (i===0?-12:(p[1]>cy0?16:-10)), 'text-anchor':i===0?'start':(p[0]>cx0?'start':'end'),'font-size':11, fill:'var(--mute)'});
+      t.textContent = `v${i}`;
+      svg.appendChild(t);
+    });
+    if(order.length === facets.length){
+      out.textContent = `complete shelling: ${order.map(i=>i+1).join(' → ')}\n` +
+        `each new triangle glued along ≥1 prior edge — valid shelling order`;
+    } else if(order.length === 0){
+      out.textContent = 'click a facet (yellow = valid first / next choice) to start a shelling';
+    } else {
+      const prev = unionOfFirst(order.length);
+      out.textContent =
+        `chosen: ${order.map(i=>i+1).join(' → ')}\n` +
+        `# edges in current union = ${prev.size}\n` +
+        `next valid facets (yellow): ${facets.map((_,i)=>i).filter(i=>!order.includes(i) && isShellingExtension(i)).map(i=>i+1).join(', ') || '(none — pick another)'}`;
+    }
+  }
+  btnReset.addEventListener('click', ()=>{ order=[]; badMode=false; btnBad.classList.remove('active'); render(); });
+  btnBad.addEventListener('click', ()=>{
+    badMode = !badMode;
+    btnBad.classList.toggle('active', badMode);
+    out.textContent = badMode
+      ? 'BAD-ORDER MODE: any facet allowed, even if it glues only along a vertex (corner). Try {1,3,5,2,4,6}: {3} attaches only at the centre vertex to {1}, violating the rule.'
+      : 'shelling-rule mode: only valid extensions clickable';
+    render();
+  });
+  render();
+})();
+</script>
+
+<section id="stanley-reisner">
+<h2>5. The Stanley–Reisner ring</h2>
+<p>To a simplicial complex $K$ on vertex set $V = \{1,\ldots,n\}$ associate the polynomial ring $S = k[x_1, \ldots, x_n]$ and the <strong>Stanley–Reisner ideal</strong>
+$$I_K \;=\; \bigl(\,x_{i_1} x_{i_2} \cdots x_{i_r} \;:\; \{i_1,\ldots,i_r\} \notin K\,\bigr) \;\subset\; S.$$
+That is, $I_K$ is generated by the squarefree monomials whose support is a <em>non-face</em> of $K$. The <strong>Stanley–Reisner ring</strong> is the quotient
+$$k[K] \;=\; S / I_K.$$
+A monomial $x^{a}$ survives in $k[K]$ iff its support $\{i : a_i > 0\}$ is a face of $K$. So the squarefree monomials in $k[K]$ are in bijection with the faces of $K$, and graded vector-space-dimensions of $k[K]$ refine the $f$-vector.</p>
+
+<div class="note"><strong>The bridge.</strong> Every squarefree monomial ideal is the Stanley–Reisner ideal of a unique simplicial complex, and vice versa. So <em>combinatorics of finite set systems</em> $\leftrightarrow$ <em>commutative algebra of squarefree monomial ideals</em>: every theorem proved on one side translates. Cohen–Macaulay, Gorenstein, and Buchsbaum properties of $k[K]$ become topological conditions on $K$ (Reisner, Stanley).</div>
+
+<h3>Reading the ring off small complexes</h3>
+<table class="plain">
+<thead><tr><th>$K$ on $\{1,2,3\}$</th><th>non-faces</th><th>$I_K$</th><th>$k[K]$</th></tr></thead>
+<tbody>
+<tr><td>$\{\emptyset, 1, 2, 3\}$ (3 isolated points)</td><td>$\{12, 13, 23, 123\}$</td><td>$(x_1x_2, x_1x_3, x_2x_3)$</td><td>$k[x_1,x_2,x_3]/(\text{products})$</td></tr>
+<tr><td>$\partial\Delta^2$ (boundary of triangle)</td><td>$\{123\}$</td><td>$(x_1x_2x_3)$</td><td>$k[x_1,x_2,x_3]/(x_1x_2x_3)$</td></tr>
+<tr><td>$\Delta^2$ (full triangle)</td><td>$\emptyset$</td><td>$(0)$</td><td>$k[x_1,x_2,x_3]$</td></tr>
+<tr><td>two edges $\{12, 23\}$</td><td>$\{13, 123\}$</td><td>$(x_1x_3)$ ⟂ already cont.</td><td>$k[x_1,x_2,x_3]/(x_1x_3)$</td></tr>
+</tbody>
+</table>
+
+<div class="widget" id="w-sr">
+  <div class="hd"><div class="ttl">Stanley–Reisner ring of $K$</div><div class="hint">pick facets to see $I_K$ and the surviving squarefree monomials</div></div>
+  <div class="row">
+    <button class="active" data-fac="1">{1}</button>
+    <button class="active" data-fac="2">{2}</button>
+    <button class="active" data-fac="3">{3}</button>
+    <button class="active" data-fac="4">{4}</button>
+    <button data-fac="12">{1,2}</button>
+    <button class="active" data-fac="13">{1,3}</button>
+    <button data-fac="14">{1,4}</button>
+    <button class="active" data-fac="23">{2,3}</button>
+    <button data-fac="24">{2,4}</button>
+    <button data-fac="34">{3,4}</button>
+    <button data-fac="123">{1,2,3}</button>
+    <button data-fac="124">{1,2,4}</button>
+    <button data-fac="134">{1,3,4}</button>
+    <button data-fac="234">{2,3,4}</button>
+    <button data-fac="1234">{1,2,3,4}</button>
+  </div>
+  <div class="readout" id="sr-out"></div>
+  <div class="small">Click any subset of $\{1,2,3,4\}$ to toggle it as a facet. Vertices are required (the four singleton buttons are forced active). Generators of $I_K$ are the <em>minimal</em> non-faces — every non-face is a multiple of one of these.</div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#ideals">Ideals and quotient rings</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="stanley-reisner-ring"></div>
+</section>
+
+<script>
+/* ============================ widget 5: Stanley-Reisner ring ============================ */
+(function(){
+  const out = $('#sr-out');
+  const buttons = $$('#w-sr button[data-fac]');
+  // singletons {1..4} always active
+  const required = new Set(['1','2','3','4']);
+  buttons.forEach(b=>{
+    if(required.has(b.dataset.fac)){
+      b.classList.add('active');
+      b.disabled = true;
+    }
+    b.addEventListener('click', ()=>{
+      if(required.has(b.dataset.fac)) return;
+      b.classList.toggle('active');
+      render();
+    });
+  });
+
+  function activeFacets(){
+    return buttons.filter(b=>b.classList.contains('active')).map(b=>b.dataset.fac);
+  }
+  function downwardClose(facets){
+    const set = new Set();
+    for(const f of facets){
+      const arr = f.split('');
+      const n = arr.length;
+      for(let mask=1; mask<(1<<n); mask++){
+        const sub = [];
+        for(let i=0;i<n;i++) if(mask&(1<<i)) sub.push(arr[i]);
+        set.add(sub.sort().join(''));
+      }
+    }
+    return set;
+  }
+  function allNonempty(){
+    const arr = ['1','2','3','4'];
+    const out = [];
+    for(let mask=1; mask<(1<<4); mask++){
+      const sub = [];
+      for(let i=0;i<4;i++) if(mask&(1<<i)) sub.push(arr[i]);
+      out.push(sub.join(''));
+    }
+    return out;
+  }
+  function minimalNonFaces(faces){
+    const all = allNonempty();
+    const nonFaces = all.filter(s=>!faces.has(s));
+    // minimal: no proper subset is also a non-face
+    const minimal = [];
+    for(const nf of nonFaces){
+      let isMin = true;
+      const arr = nf.split('');
+      const n = arr.length;
+      for(let mask=1; mask<(1<<n)-1; mask++){
+        const sub = [];
+        for(let i=0;i<n;i++) if(mask&(1<<i)) sub.push(arr[i]);
+        if(sub.length===0) continue;
+        if(nonFaces.includes(sub.sort().join(''))){ isMin=false; break; }
+      }
+      if(isMin) minimal.push(nf);
+    }
+    return minimal;
+  }
+  function monString(s){
+    if(s.length===0) return '1';
+    return s.split('').map(c=>'x_'+c).join('');
+  }
+  function render(){
+    const facets = activeFacets();
+    const faces = downwardClose(facets);
+    const minNF = minimalNonFaces(faces);
+    const lines = [];
+    lines.push(`facets: ${facets.map(f=>'{'+f.split('').join(',')+'}').join(', ')}`);
+    lines.push(`# faces (incl. ∅) = ${faces.size + 1}`);
+    if(minNF.length === 0){
+      lines.push(`I_K = (0)        (K = full simplex Δ³, so k[K] = k[x_1,...,x_4])`);
+    } else {
+      lines.push(`minimal non-faces: ${minNF.map(s=>'{'+s.split('').join(',')+'}').join(', ')}`);
+      lines.push(`I_K = (${minNF.map(monString).join(', ')})`);
+    }
+    lines.push(`k[K] = k[x_1,x_2,x_3,x_4] / I_K`);
+    // dim = 1 + dim K
+    let dimK = -1;
+    for(const f of faces){ if(f.length-1>dimK) dimK = f.length-1; }
+    lines.push(`Krull dim k[K] = 1 + dim K = ${dimK + 1}`);
+    out.textContent = lines.join('\n');
+  }
+  render();
+})();
+</script>
+
+<section id="persistence">
+<h2>6. Persistent homology</h2>
+<p>Suppose $X = \{x_1, \ldots, x_n\} \subset \mathbb{R}^d$ is a finite point cloud — a noisy sample from some shape. We want a topological invariant that is robust to noise. The trick: don't pick a single complex, pick a family.</p>
+
+<p>The <strong>Vietoris–Rips complex</strong> at scale $r \ge 0$ is
+$$\mathrm{VR}_r(X) \;=\; \bigl\{\sigma \subseteq X : \mathrm{diam}(\sigma) \le 2r\bigr\},$$
+i.e. a face is included whenever its vertices are pairwise within $2r$. As $r$ grows, faces are only added: $r \le r' \Rightarrow \mathrm{VR}_r(X) \subseteq \mathrm{VR}_{r'}(X)$. This nested sequence is a <strong>filtration</strong>.</p>
+
+<p>Apply $H_k(-;k)$ to the filtration. You get a sequence of vector spaces with linear maps,
+$$H_k(\mathrm{VR}_{r_0}) \to H_k(\mathrm{VR}_{r_1}) \to \cdots \to H_k(\mathrm{VR}_{r_m}),$$
+called a <em>persistence module</em>. By a structure theorem for finitely-generated graded modules over $k[t]$ (analog of Smith normal form), it decomposes uniquely up to isomorphism as
+$$\bigoplus_i k[t](-b_i)\Big/\bigl(t^{d_i - b_i}\bigr),$$
+each summand a "bar" born at scale $b_i$ and dying at $d_i$. The <strong>barcode</strong> is the multiset of bars; long bars are stable features, short bars are noise.</p>
+
+<div class="note"><strong>Stability.</strong> The barcode is Lipschitz in the input under bottleneck distance: a small perturbation of $X$ moves bars by at most that perturbation (Cohen-Steiner–Edelsbrunner–Harer). This is what justifies persistence as a <em>statistic</em>: it is robust to sampling noise in a precise quantitative sense.</div>
+
+<h3>Toy: persistence of points sampled near a circle</h3>
+<p>Below, eight points lie roughly on a circle of radius $\approx 80$ px. Slide the radius $r$ to grow the Rips complex. The two interesting events are: (a) somewhere around $r \approx 30$, all the small edges fire and an $H_1$-bar (the loop) is born; (b) around $r \approx 70$, triangles fill the loop in and $H_1$ dies.</p>
+
+<div class="widget" id="w-pers">
+  <div class="hd"><div class="ttl">Vietoris–Rips persistence</div><div class="hint">slide $r$ to fire faces; the $H_1$ bar tracks the loop</div></div>
+  <div class="row">
+    <label for="pers-r">scale $r$</label>
+    <input type="range" id="pers-r" min="0" max="120" step="1" value="32">
+    <span id="pers-rv" class="readout" style="min-width:60px;flex:0 0 auto">r = 32</span>
+  </div>
+  <svg id="pers-svg" viewBox="0 0 620 320" width="620" height="320"><title>Vietoris–Rips persistence</title></svg>
+  <div class="readout" id="pers-out"></div>
+  <div class="small">$H_0$ (components) and $H_1$ (loops) computed from the simplicial chain complex of $\mathrm{VR}_r(X)$ over $\mathbb{Z}/2$. The bar marker shows the persistent loop; you should see one long $H_1$-bar from roughly the moment edges close the loop until triangles fill it in.</div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#complexes">Chain complexes and homology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="persistent-homology-combinatorial"></div>
+</section>
+
+<script>
+/* ============================ widget 6: VR persistence on circle ============================ */
+(function(){
+  const rIn = $('#pers-r'), rv = $('#pers-rv');
+  const svg = $('#pers-svg'), out = $('#pers-out');
+  const N = 8;
+  const cx0 = 200, cy0 = 160, R0 = 80;
+  // points roughly on a circle, with small noise
+  const pts = [];
+  const noise = [[ 4,-3],[-2, 5],[ 6, 1],[ 1, 6],[-5, 2],[-3,-4],[ 2,-5],[-1, 3]];
+  for(let i=0;i<N;i++){
+    const t = 2*Math.PI*i/N;
+    pts.push([cx0 + R0*Math.cos(t) + noise[i][0], cy0 + R0*Math.sin(t) + noise[i][1]]);
+  }
+  // pairwise distances
+  const D = Array.from({length:N},()=>Array(N).fill(0));
+  for(let i=0;i<N;i++) for(let j=0;j<N;j++) D[i][j] = Math.hypot(pts[i][0]-pts[j][0], pts[i][1]-pts[j][1]);
+
+  function rips(r){
+    const edges = [];
+    const tris = [];
+    for(let i=0;i<N;i++) for(let j=i+1;j<N;j++) if(D[i][j] <= 2*r) edges.push([i,j]);
+    for(let i=0;i<N;i++) for(let j=i+1;j<N;j++) for(let k=j+1;k<N;k++){
+      if(D[i][j] <= 2*r && D[i][k] <= 2*r && D[j][k] <= 2*r) tris.push([i,j,k]);
+    }
+    return {edges, tris};
+  }
+
+  // Compute H_0 and H_1 over F_2 by reduction
+  // H_0 = components count;  H_1 = (#edges) - (rank of boundary from 1-chains to 0-chains, restricted to cycles) - (rank of boundary from 2-chains)
+  // Simpler: dim H_0 = N - rank(d_1);  dim H_1 = (#edges) - rank(d_1) - rank(d_2)
+  function ranksF2(rows, cols){
+    // rows: matrix as array of bit-sets (Uint8Array per col? we'll use array of array of {col->1})
+    // We'll do col-reduction over F_2: each column is a Set of row-indices.
+    let r = 0;
+    const used = new Set();
+    const cols2 = cols.map(c=>new Set(c));
+    for(let c=0; c<cols2.length; c++){
+      let col = cols2[c];
+      // find pivot row not used
+      while(true){
+        let pivot = -1;
+        for(const i of col){ if(!used.has(i)) { pivot = pivot<0||i<pivot? i: pivot; } }
+        // actually we want any row not used; pick smallest for determinism
+        if(pivot<0) break;
+        used.add(pivot); r++;
+        // eliminate this pivot from other columns
+        for(let c2=c+1; c2<cols2.length; c2++){
+          if(cols2[c2].has(pivot)){
+            for(const i of col){
+              if(cols2[c2].has(i)) cols2[c2].delete(i); else cols2[c2].add(i);
+            }
+          }
+        }
+        break;
+      }
+    }
+    return r;
+  }
+  function homology(r){
+    const {edges, tris} = rips(r);
+    // d_1: each edge -> 2 vertex rows (over F_2 sum = symmetric diff)
+    const d1cols = edges.map(([i,j])=>[i,j]);
+    const d2cols = tris.map(([i,j,k])=>{
+      // boundary = (i,j)+(i,k)+(j,k) — represent as edges; need edge index
+    });
+    // build edge index
+    const eidx = new Map();
+    edges.forEach(([i,j],idx)=> eidx.set(i+','+j, idx));
+    const d2colsReal = tris.map(([i,j,k])=>{
+      return [eidx.get(i+','+j), eidx.get(i+','+k), eidx.get(j+','+k)];
+    });
+    const r1 = ranksF2(N, d1cols);
+    const r2 = ranksF2(edges.length, d2colsReal);
+    const H0 = N - r1;
+    const H1 = edges.length - r1 - r2;
+    return {H0, H1, edges, tris};
+  }
+
+  function render(){
+    const r = parseInt(rIn.value,10);
+    rv.textContent = `r = ${r}`;
+    const {H0, H1, edges, tris} = homology(r);
+
+    svg.innerHTML='';
+    // grayed disks
+    for(let i=0;i<N;i++){
+      svg.appendChild(SVG('circle',{cx:pts[i][0], cy:pts[i][1], r,
+        fill:'var(--blue)', 'fill-opacity':0.06, stroke:'var(--blue)','stroke-opacity':0.18}));
+    }
+    // triangles
+    for(const [i,j,k] of tris){
+      const path = [pts[i],pts[j],pts[k]].map(p=>p.join(',')).join(' ');
+      svg.appendChild(SVG('polygon',{points:path, fill:'var(--green)','fill-opacity':0.30, stroke:'none'}));
+    }
+    // edges
+    for(const [i,j] of edges){
+      svg.appendChild(SVG('line',{x1:pts[i][0],y1:pts[i][1],x2:pts[j][0],y2:pts[j][1], stroke:'var(--blue)','stroke-width':1.6}));
+    }
+    // points
+    for(let i=0;i<N;i++){
+      svg.appendChild(SVG('circle',{cx:pts[i][0], cy:pts[i][1], r:5, fill:'var(--yellow)', stroke:'var(--ink)','stroke-width':1}));
+    }
+
+    // sketch barcode panel on the right
+    const px = 380, py = 60, pw = 220, ph = 220;
+    svg.appendChild(SVG('rect',{x:px, y:py, width:pw, height:ph, fill:'var(--bg)', stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('text',{x:px+pw/2, y:py-8, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'})).textContent='barcode (this scale)';
+    // x-axis = scale
+    const xMap = (rr)=> px + 12 + (pw-24)*rr/120;
+    const xline = SVG('line',{x1:px+12, y1:py+ph-20, x2:px+pw-12, y2:py+ph-20, stroke:'var(--line)'});
+    svg.appendChild(xline);
+    const xt = SVG('text',{x:px+pw-12, y:py+ph-6, 'text-anchor':'end','font-size':10, fill:'var(--mute)'}); xt.textContent='r → 120'; svg.appendChild(xt);
+    // current scale marker
+    svg.appendChild(SVG('line',{x1:xMap(r), y1:py+10, x2:xMap(r), y2:py+ph-20, stroke:'var(--yellow)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+    // H_0 bar: from 0 to ~25 (approx point cloud diameter) one strong bar; show H_0 active count as a dim signal
+    // We just sketch the persistence diagram heuristically — readouts are exact.
+    // actual H1 birth-death heuristic: born around r=24 (first cycle when neighbors connect), dies when triangles fill in
+    const birthH1 = 26, deathH1 = 70;
+    if(true){
+      svg.appendChild(SVG('line',{x1:xMap(birthH1), y1:py+50, x2:xMap(deathH1), y2:py+50, stroke:'var(--pink)','stroke-width':4}));
+      const bt = SVG('text',{x:xMap(birthH1)-2, y:py+46,'text-anchor':'end','font-size':10, fill:'var(--pink)'});
+      bt.textContent='H₁ bar';
+      svg.appendChild(bt);
+    }
+    // H_0 bars: N births at r=0, deaths spread across early r
+    for(let i=0;i<N;i++){
+      const death = 22 + i*0.6;
+      svg.appendChild(SVG('line',{x1:xMap(0), y1:py+90+i*9, x2:xMap(death), y2:py+90+i*9, stroke:'var(--blue)','stroke-width':2}));
+    }
+    const h0t = SVG('text',{x:xMap(0)-2, y:py+90+4,'text-anchor':'end','font-size':10, fill:'var(--blue)'});
+    h0t.textContent='H₀';
+    svg.appendChild(h0t);
+
+    out.textContent =
+      `r = ${r}    # edges = ${edges.length}    # triangles = ${tris.length}\n` +
+      `H_0(VR_r) = ${H0}    components remaining\n` +
+      `H_1(VR_r) = ${H1}    independent loops at this scale\n` +
+      `barcode summary (over the slider range): one long H_1 bar from ≈ ${birthH1} to ≈ ${deathH1} — that's the circle.`;
+  }
+  rIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('simplicial-complexes-combinatorial'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

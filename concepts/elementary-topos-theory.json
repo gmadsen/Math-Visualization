@@ -10,7 +10,8 @@
       "prereqs": [
         "limits-colimits"
       ],
-      "blurb": "An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\\Omega$. The three pieces — limits, exponentials, $\\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense."
+      "blurb": "An elementary topos is a finitely complete cartesian closed category with a subobject classifier $\\Omega$. The three pieces — limits, exponentials, $\\Omega$ — together let a category function as a universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense.",
+      "tags": ["foundation", "universal-property"]
     },
     {
       "id": "subobject-classifier",
@@ -20,7 +21,8 @@
         "topos-definition",
         "universal-properties"
       ],
-      "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function."
+      "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function.",
+      "tags": ["universal-property", "classification"]
     },
     {
       "id": "characteristic-maps",
@@ -38,7 +40,8 @@
       "prereqs": [
         "subobject-classifier"
       ],
-      "blurb": "The power object $P(A) = \\Omega^A$ represents subobjects of $A$ in the same sense $\\mathcal{P}(A)$ does in $\\mathbf{Set}$: maps $X \\to P(A)$ correspond to subobjects of $X \\times A$. Power objects make every topos a model of the basic comprehension principle."
+      "blurb": "The power object $P(A) = \\Omega^A$ represents subobjects of $A$ in the same sense $\\mathcal{P}(A)$ does in $\\mathbf{Set}$: maps $X \\to P(A)$ correspond to subobjects of $X \\times A$. Power objects make every topos a model of the basic comprehension principle.",
+      "tags": ["universal-property"]
     },
     {
       "id": "presheaf-topos",
@@ -49,7 +52,8 @@
         "functors-natural-transformations",
         "sieves"
       ],
-      "blurb": "For any small category $C$, the functor category $\\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\\mathbf{Set}$."
+      "blurb": "For any small category $C$, the functor category $\\hat{C}$ is a topos. Limits and exponentials are computed pointwise; $\\Omega(c)$ classifies sieves on $c$. Presheaf toposes are the source of most topos-theoretic intuition outside $\\mathbf{Set}$.",
+      "tags": ["functoriality"]
     },
     {
       "id": "g-set-topos",
@@ -59,7 +63,8 @@
         "presheaf-topos",
         "cayley-tables"
       ],
-      "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$."
+      "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$.",
+      "tags": ["group-action"]
     },
     {
       "id": "geometric-morphisms-intro",
@@ -70,7 +75,8 @@
         "presheaf-topos",
         "adjunctions"
       ],
-      "blurb": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact. They are the natural notion of \"map between toposes,\" generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction."
+      "blurb": "A geometric morphism $f\\colon \\mathcal{F} \\to \\mathcal{E}$ is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact. They are the natural notion of \"map between toposes,\" generalizing continuous maps between spaces and ring homomorphisms in the algebraic-geometric direction.",
+      "tags": ["functoriality", "universal-property"]
     }
   ]
 }

@@ -1,0 +1,98 @@
+{
+  "topic": "heights-arithmetic-geometry",
+  "title": "Heights in arithmetic geometry",
+  "page": "heights-arithmetic-geometry.html",
+  "concepts": [
+    {
+      "id": "naive-height-projective",
+      "title": "Naive height on projective space",
+      "anchor": "naive",
+      "prereqs": [
+        "homogeneous-coordinates"
+      ],
+      "blurb": "For a rational point $P=[x_0:\\dots:x_n]\\in\\mathbb{P}^n(\\mathbb{Q})$ with coprime integer coordinates, $H(P)=\\max_i|x_i|$ counts arithmetic complexity — roughly the digit-length needed to write the point down.",
+      "tags": [
+        "finiteness"
+      ]
+    },
+    {
+      "id": "logarithmic-height-northcott",
+      "title": "Logarithmic height and Northcott finiteness",
+      "anchor": "northcott",
+      "prereqs": [
+        "naive-height-projective",
+        "number-fields-integers"
+      ],
+      "blurb": "Pass to $h(P)=\\log H(P)$ to get an additive invariant. Northcott's theorem: for any $B,d\\ge 0$, there are only finitely many points of $\\mathbb{P}^n(\\bar{\\mathbb{Q}})$ with $h(P)\\le B$ and $[\\mathbb{Q}(P):\\mathbb{Q}]\\le d$. The first finiteness theorem of Diophantine geometry.",
+      "tags": [
+        "finiteness"
+      ]
+    },
+    {
+      "id": "weil-height-line-bundle",
+      "title": "Weil heights from line bundles",
+      "anchor": "weil",
+      "prereqs": [
+        "logarithmic-height-northcott"
+      ],
+      "blurb": "Each line bundle $L$ on a projective variety $X$ over a number field gives a height $h_{X,L}:X(\\bar K)\\to\\mathbb{R}$, well-defined up to bounded functions. Pulling $\\mathcal{O}(1)$ back along $X\\hookrightarrow\\mathbb{P}^n$ recovers the naive height; functoriality $h_{X,f^*L}=h_{Y,L}\\circ f+O(1)$ makes this the universal height machine.",
+      "tags": [
+        "functoriality"
+      ]
+    },
+    {
+      "id": "neron-tate-canonical-height",
+      "title": "Néron–Tate canonical height",
+      "anchor": "canonical",
+      "prereqs": [
+        "weil-height-line-bundle",
+        "mordell-weil-ec"
+      ],
+      "blurb": "On an abelian variety with a symmetric ample $L$, Tate's averaging $\\hat h(P)=\\lim_{n\\to\\infty} h_L([n]P)/n^2$ converges to a quadratic form on $A(\\bar K)$ that vanishes exactly on torsion. Polarising gives the Néron–Tate pairing whose Gram determinant on a Mordell–Weil basis is the regulator $R$ of refined BSD.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "mahler-measure-lehmer",
+      "title": "Mahler measure and Lehmer's problem",
+      "anchor": "mahler",
+      "prereqs": [
+        "naive-height-projective"
+      ],
+      "blurb": "For a polynomial $f(x)=a\\prod(x-\\alpha_i)\\in\\mathbb{Z}[x]$ the Mahler measure $M(f)=|a|\\prod\\max(1,|\\alpha_i|)$ is the height of $f$ as a point of projective space — and the height of any algebraic $\\alpha$ via its minimal polynomial. Lehmer's open question: is there a uniform gap between $M(f)=1$ (Kronecker: roots of unity) and the next-smallest non-cyclotomic value?",
+      "tags": [
+        "finiteness",
+        "classification"
+      ]
+    },
+    {
+      "id": "heights-mordell-faltings",
+      "title": "Heights and Mordell–Faltings",
+      "anchor": "mordell-faltings",
+      "prereqs": [
+        "neron-tate-canonical-height",
+        "logarithmic-height-northcott"
+      ],
+      "blurb": "Faltings' proof of Mordell's conjecture: a smooth projective curve of genus $\\ge 2$ over a number field has only finitely many rational points. Heights are central — both Faltings' height $h_F$ on the moduli space of abelian varieties and Vojta's later height-inequality proof. The bridge: Northcott bounds, height pairings, and a finiteness-of-isogeny-classes theorem.",
+      "tags": [
+        "finiteness",
+        "moduli"
+      ]
+    },
+    {
+      "id": "arakelov-heights-glimpse",
+      "title": "Arakelov heights — a glimpse",
+      "anchor": "arakelov",
+      "prereqs": [
+        "weil-height-line-bundle",
+        "neron-tate-canonical-height"
+      ],
+      "blurb": "Arakelov geometry compactifies $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
+      "tags": [
+        "duality",
+        "cohomology"
+      ]
+    }
+  ]
+}

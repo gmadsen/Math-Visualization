@@ -15,6 +15,7 @@
     "infinity-topoi",
     "derived-categories",
     "cocartesian-fibrations",
+    "group-cohomology",
 
     "real-analysis",
     "measure-theory",
@@ -23,6 +24,8 @@
     "operator-algebras",
     "dynamical-systems",
     "probability-theory",
+    "sobolev-spaces-distributions",
+    "harmonic-analysis-fourier",
 
     "point-set-topology",
     "algebraic-topology",
@@ -44,6 +47,7 @@
     "adeles-and-ideles",
     "frobenius-and-reciprocity",
     "class-field-theory",
+    "heights-arithmetic-geometry",
 
     "upper-half-plane-hyperbolic",
     "modular-forms",
@@ -56,6 +60,7 @@
     "L-functions",
     "galois-representations",
     "moonshine",
+    "automorphic-forms-adelic",
 
     "projective-plane",
     "bezout",
@@ -75,6 +80,12 @@
     "group-schemes",
     "deformation-theory",
     "algebraic-de-rham-cohomology",
+
+    "spectral-graph-theory",
+    "matroid-theory",
+    "probabilistic-method",
+    "extremal-combinatorics",
+    "simplicial-complexes-combinatorial",
 
     "sato-tate",
     "bsd",
@@ -116,6 +127,7 @@
     "infinity-topoi": "standard",
     "derived-categories": "standard",
     "cocartesian-fibrations": "standard",
+    "group-cohomology": "standard",
 
     "real-analysis": "prereq",
     "measure-theory": "standard",
@@ -124,6 +136,8 @@
     "operator-algebras": "advanced",
     "dynamical-systems": "standard",
     "probability-theory": "standard",
+    "harmonic-analysis-fourier": "standard",
+    "sobolev-spaces-distributions": "standard",
 
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
@@ -145,6 +159,7 @@
     "adeles-and-ideles": "standard",
     "frobenius-and-reciprocity": "standard",
     "class-field-theory": "advanced",
+    "heights-arithmetic-geometry": "standard",
 
     "upper-half-plane-hyperbolic": "standard",
     "modular-forms": "standard",
@@ -156,6 +171,7 @@
     "zeta-values": "standard",
     "L-functions": "standard",
     "galois-representations": "capstone",
+    "automorphic-forms-adelic": "advanced",
     "moonshine": "advanced",
 
     "projective-plane": "prereq",
@@ -176,6 +192,12 @@
     "group-schemes": "standard",
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
+
+    "spectral-graph-theory": "standard",
+    "matroid-theory": "standard",
+    "probabilistic-method": "standard",
+    "extremal-combinatorics": "standard",
+    "simplicial-complexes-combinatorial": "standard",
 
     "sato-tate": "capstone",
     "bsd": "capstone",

@@ -14,11 +14,11 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - THIN-NEW count: 13 (down from 40 across the prereq passes)
 - Quiz tiers: v1 = 1454, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
-## Open on this branch (PR #33)
+## Open on this branch
 
-Items still TODO before merge. Each is in scope by default; nothing here is pre-deferred.
+The creative-improvements arc shipped its full Tier 0 → Tier 2 plan; everything in the original scope landed. Open items below are post-arc polish that surfaced during integration but was deferred as low-leverage relative to the closeout.
 
-_(no items currently flagged as TODO before merge)_
+- **Tier 1 tagging pass — coverage tail.** The tagging agent reached 62.8% (361 of 575 concepts) with quality > coverage. Roughly 200 untagged concepts remain — many genuinely unsuitable, but a follow-up pass focused on Modular forms / L-functions / capstones could close some real gaps.
 
 ## Authoring polish — small
 

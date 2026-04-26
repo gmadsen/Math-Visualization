@@ -1,0 +1,236 @@
+{
+  "topic": "extremal-combinatorics",
+  "quizzes": {
+    "turan-theorem": {
+      "title": "Turán's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the unique extremal graph for $\\mathrm{ex}(n, K_{r+1})$ when $r \\mid n$?",
+          "choices": [
+            "The complete graph $K_n$",
+            "The complete bipartite graph $K_{n/2, n/2}$, regardless of $r$",
+            "The balanced complete $r$-partite graph $T(n, r)$",
+            "Any $K_{r+1}$-free graph achieves the bound"
+          ],
+          "answer": 2,
+          "explain": "Turán's theorem identifies $T(n, r)$ — the complete $r$-partite graph with parts as equal as possible — as the unique edge-maximizer among $K_{r+1}$-free graphs."
+        },
+        {
+          "type": "numeric",
+          "q": "How many edges does the balanced Turán graph $T(6, 3)$ have?",
+          "answer": 12,
+          "tol": 0,
+          "explain": "$T(6,3)$ has three parts of size $2$. Edge count $= \\binom{6}{2} - 3\\binom{2}{2} = 15 - 3 = 12$, equivalently $(1 - 1/3) \\cdot 6^2/2 = 12$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the limiting Turán density $\\pi(K_4) = \\lim_{n\\to\\infty} \\mathrm{ex}(n, K_4) / \\binom{n}{2}$?",
+          "choices": [
+            "$1/2$",
+            "$2/3$",
+            "$3/4$",
+            "$1$"
+          ],
+          "answer": 1,
+          "explain": "$\\pi(K_{r+1}) = 1 - 1/r$. For $K_4 = K_{3+1}$, $r = 3$ and $\\pi(K_4) = 1 - 1/3 = 2/3$."
+        }
+      ]
+    },
+    "kovari-sos-turan": {
+      "title": "Kővári–Sós–Turán",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which best describes the asymptotic order of $\\mathrm{ex}(n, K_{s,t})$ from KST?",
+          "choices": [
+            "$\\Theta(n)$",
+            "$O(n^{2-1/s})$",
+            "$\\Theta(n^2/\\log n)$",
+            "$\\Theta(n^2)$"
+          ],
+          "answer": 1,
+          "explain": "KST gives $\\mathrm{ex}(n, K_{s,t}) \\le \\frac{1}{2}(t-1)^{1/s} n^{2-1/s} + O(n)$. The exponent $2 - 1/s$ is sharp for $s = 2$ (incidence-graph construction) and conjectured sharp in general."
+        },
+        {
+          "type": "mcq",
+          "q": "What construction shows $\\mathrm{ex}(n, K_{2,2}) = \\Theta(n^{3/2})$?",
+          "choices": [
+            "Random graph $G(n, 1/2)$",
+            "The Kneser graph",
+            "The point-line incidence graph of a projective plane $\\mathrm{PG}(2, q)$",
+            "A Cayley graph of $(\\mathbb{Z}/n\\mathbb{Z})^*$"
+          ],
+          "answer": 2,
+          "explain": "Erdős–Rényi: take vertices = points and lines of $\\mathrm{PG}(2, q)$, with $n \\approx 2(q^2 + q + 1)$ vertices. Incidence as edges gives a $C_4$-free graph with $\\Theta(n^{3/2})$ edges."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all true statements about the proof of KST.",
+          "choices": [
+            "It double-counts pairs $(v, S)$ where $S \\subseteq N(v)$ has size $s$",
+            "It uses Jensen's (convexity) inequality on $\\sum_v \\binom{\\deg v}{s}$",
+            "It uses the fact that no $s$-subset has $\\ge t$ common neighbours, else $K_{s,t}$ appears",
+            "It relies on Szemerédi regularity"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "The proof is a clean three-line counting argument: count cherries / common-neighbour patterns two ways and apply convexity. Regularity is overkill — KST predates it by 21 years."
+        }
+      ]
+    },
+    "erdos-stone-simonovits": {
+      "title": "Erdős–Stone–Simonovits",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "According to Erdős–Stone–Simonovits, the leading term of $\\mathrm{ex}(n, H)$ depends on which property of $H$?",
+          "choices": [
+            "The number of vertices of $H$",
+            "The number of edges of $H$",
+            "The chromatic number $\\chi(H)$",
+            "Whether $H$ is bipartite"
+          ],
+          "answer": 2,
+          "explain": "$\\mathrm{ex}(n, H) = (1 - 1/(\\chi(H)-1))\\,n^2/2 + o(n^2)$. The leading term sees only $\\chi(H)$ — neither vertex count nor edge count nor any finer structure."
+        },
+        {
+          "type": "mcq",
+          "q": "If $H$ is a graph with $\\chi(H) = 4$ (e.g. $K_4$), what is its Turán density $\\pi(H)$?",
+          "choices": [
+            "$1/3$",
+            "$1/2$",
+            "$2/3$",
+            "$3/4$"
+          ],
+          "answer": 2,
+          "explain": "By Erdős–Stone, $\\pi(H) = 1 - 1/(\\chi(H) - 1)$. For $\\chi(H) = 4$, $\\pi(H) = 1 - 1/3 = 2/3$. The asymptotic extremal example is $T(n, 3)$, the balanced tripartite graph."
+        },
+        {
+          "type": "mcq",
+          "q": "If $H$ is bipartite (i.e. $\\chi(H) = 2$), what does Erdős–Stone give for $\\mathrm{ex}(n, H)$?",
+          "choices": [
+            "$\\Theta(n^2)$",
+            "$o(n^2)$ — leading term vanishes",
+            "$\\Theta(n^{3/2})$ exactly",
+            "$\\Theta(n \\log n)$"
+          ],
+          "answer": 1,
+          "explain": "$1 - 1/(2-1) = 0$, so the leading $n^2$ coefficient vanishes. $\\mathrm{ex}(n, H) = o(n^2)$ — but Erdős–Stone gives no rate. Determining the rate (KST exponents, even-cycle bounds, the Sidorenko conjecture) is the bipartite extremal industry."
+        }
+      ]
+    },
+    "ramsey-numbers": {
+      "title": "Ramsey numbers",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the Ramsey number $R(3, 3)$?",
+          "answer": 6,
+          "tol": 0,
+          "explain": "$R(3,3) = 6$. Lower bound: the $5$-cycle $C_5$ together with its complement is triangle-free in both colours. Upper bound: pigeonhole at any vertex of $K_6$ — three of its five edges are the same colour, then either those endpoints form a monochromatic triangle or include the missing colour."
+        },
+        {
+          "type": "mcq",
+          "q": "Erdős's probabilistic argument shows what for the diagonal Ramsey number $R(k, k)$?",
+          "choices": [
+            "$R(k, k) = 2^k$ exactly",
+            "$R(k, k) \\le 4^k$ (upper bound)",
+            "$R(k, k) \\ge (1 + o(1))\\frac{k}{e\\sqrt{2}}\\, 2^{k/2}$ (lower bound)",
+            "$R(k, k) = O(k^2 / \\log k)$"
+          ],
+          "answer": 2,
+          "explain": "Random $2$-edge-coloring of $K_n$: expected monochromatic $K_k$ count is $\\binom{n}{k} 2^{1 - \\binom{k}{2}}$. Setting this $< 1$ yields the lower bound $\\sim 2^{k/2}$. The upper bound $4^k$ is from Erdős–Szekeres."
+        },
+        {
+          "type": "mcq",
+          "q": "Schur's theorem says: for every $r$ there is $S(r)$ such that any $r$-colouring of $\\{1, \\ldots, S(r)\\}$ contains a monochromatic solution to which equation?",
+          "choices": [
+            "$x \\cdot y = z$",
+            "$x + y = z$",
+            "$x^2 + y^2 = z^2$",
+            "$x + y + z = 0$"
+          ],
+          "answer": 1,
+          "explain": "Schur: every $r$-colouring of a long enough initial segment contains a monochromatic Schur triple $x + y = z$. The proof reduces to graph Ramsey on $K_n$ via colour-by-difference."
+        }
+      ]
+    },
+    "sperner-lym": {
+      "title": "Sperner's theorem and LYM",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the maximum size of an antichain in $2^{[5]}$?",
+          "answer": 10,
+          "tol": 0,
+          "explain": "Sperner: max size $= \\binom{n}{\\lfloor n/2 \\rfloor}$. For $n = 5$, this is $\\binom{5}{2} = \\binom{5}{3} = 10$, attained by either of the two middle layers."
+        },
+        {
+          "type": "mcq",
+          "q": "The LYM inequality states that for any antichain $\\mathcal{F} \\subseteq 2^{[n]}$:",
+          "choices": [
+            "$|\\mathcal{F}| \\le 2^n$",
+            "$\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|} \\le 1$",
+            "$|\\mathcal{F}| \\le n!$",
+            "$\\prod_{F\\in\\mathcal{F}} |F| \\le n^n$"
+          ],
+          "answer": 1,
+          "explain": "LYM (Lubell–Yamamoto–Meshalkin): the chain-counting bound $\\sum_F 1/\\binom{n}{|F|} \\le 1$. Sperner's theorem follows by bounding each summand below by $1/\\binom{n}{\\lfloor n/2\\rfloor}$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the proof technique behind LYM?",
+          "choices": [
+            "Random projection",
+            "Counting maximal chains in the Boolean lattice",
+            "Generating functions",
+            "Linear programming duality"
+          ],
+          "answer": 1,
+          "explain": "Each maximal chain $\\emptyset = C_0 \\subset \\cdots \\subset C_n = [n]$ is a permutation — there are $n!$ of them. A given $F$ with $|F|=k$ lies on $k!(n-k)! = n!/\\binom{n}{k}$ chains. An antichain meets each chain at most once, so $\\sum_F n!/\\binom{n}{|F|} \\le n!$."
+        }
+      ]
+    },
+    "triangle-removal-regularity": {
+      "title": "Triangle removal & regularity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The triangle removal lemma says: for every $\\varepsilon > 0$ there is $\\delta > 0$ such that...",
+          "choices": [
+            "Every triangle-free graph has at most $\\varepsilon n^2$ edges",
+            "Every graph with at most $\\delta n^3$ triangles can be made triangle-free by deleting at most $\\varepsilon n^2$ edges",
+            "Every graph contains at most $\\delta n^3$ triangles",
+            "Every dense graph contains a triangle"
+          ],
+          "answer": 1,
+          "explain": "Removal lemma: few triangles $\\Rightarrow$ few edges suffice to destroy them all. Equivalently (contrapositive): a graph that is robustly non-triangle-free is supersaturated with triangles."
+        },
+        {
+          "type": "mcq",
+          "q": "Which classical theorem follows from the triangle removal lemma?",
+          "choices": [
+            "Turán's theorem",
+            "Ramsey's theorem",
+            "Roth's theorem on $3$-term arithmetic progressions in $\\{1,\\ldots,N\\}$",
+            "The Erdős–Ko–Rado theorem"
+          ],
+          "answer": 2,
+          "explain": "Roth (1953): any $A \\subseteq \\{1,\\ldots,N\\}$ free of $3$-APs has $|A| = o(N)$. Proof via removal: build a tripartite graph whose triangles correspond to $3$-APs in $A$; trivial APs force supersaturation, so non-trivial ones must exist when $|A|/N$ is bounded below."
+        },
+        {
+          "type": "mcq",
+          "q": "What does Szemerédi's regularity lemma assert about the partition size $K(\\varepsilon)$?",
+          "choices": [
+            "$K(\\varepsilon) = O(1/\\varepsilon)$",
+            "$K(\\varepsilon) = O(1/\\varepsilon^2)$",
+            "$K(\\varepsilon)$ is a tower of twos of height $\\varepsilon^{-O(1)}$",
+            "$K(\\varepsilon)$ depends linearly on $n$"
+          ],
+          "answer": 2,
+          "explain": "Szemerédi gives an explicit tower-type bound; Gowers (1997) showed it is essentially sharp — no polynomial in $1/\\varepsilon$ suffices. This is what makes regularity proofs ineffective in practice for small $\\varepsilon$."
+        }
+      ]
+    }
+  }
+}

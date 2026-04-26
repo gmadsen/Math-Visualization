@@ -10,7 +10,8 @@
       "prereqs": [
         "field-extensions-galois"
       ],
-      "blurb": "Finite extensions of Q carry arithmetic via algebraic integers."
+      "blurb": "Finite extensions of Q carry arithmetic via algebraic integers.",
+      "tags": ["foundation"]
     },
     {
       "id": "discriminant-ant",
@@ -29,7 +30,8 @@
         "number-fields-integers",
         "discriminant-ant"
       ],
-      "blurb": "Dedekind domains restore unique factorization at ideal level and track ramification."
+      "blurb": "Dedekind domains restore unique factorization at ideal level and track ramification.",
+      "tags": ["classification"]
     },
     {
       "id": "minkowski-bound",
@@ -39,7 +41,8 @@
         "prime-ideals-factorization-ant",
         "discriminant-ant"
       ],
-      "blurb": "Every ideal class has a representative of norm at most $M_K=(4/\\pi)^{r_2}(n!/n^n)\\sqrt{|\\Delta_K|}$, via Minkowski's convex-body theorem; this is what forces the class group to be finite."
+      "blurb": "Every ideal class has a representative of norm at most $M_K=(4/\\pi)^{r_2}(n!/n^n)\\sqrt{|\\Delta_K|}$, via Minkowski's convex-body theorem; this is what forces the class group to be finite.",
+      "tags": ["finiteness"]
     },
     {
       "id": "class-group-units-ant",
@@ -49,7 +52,8 @@
         "prime-ideals-factorization-ant",
         "minkowski-bound"
       ],
-      "blurb": "Class group and unit rank measure arithmetic failure and structure."
+      "blurb": "Class group and unit rank measure arithmetic failure and structure.",
+      "tags": ["finiteness", "classification"]
     }
   ]
 }

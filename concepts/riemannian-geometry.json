@@ -20,7 +20,10 @@
       "prereqs": [
         "riemannian-metrics"
       ],
-      "blurb": "The unique torsion-free metric connection defines covariant differentiation and geodesic equations."
+      "blurb": "The unique torsion-free metric connection defines covariant differentiation and geodesic equations.",
+      "tags": [
+        "universal-property"
+      ]
     },
     {
       "id": "riemann-curvature-tensor",

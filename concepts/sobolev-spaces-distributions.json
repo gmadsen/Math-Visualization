@@ -1,0 +1,98 @@
+{
+  "topic": "sobolev-spaces-distributions",
+  "title": "Sobolev spaces & distributions",
+  "page": "sobolev-spaces-distributions.html",
+  "concepts": [
+    {
+      "id": "test-functions-distributions",
+      "title": "Test functions and the space of distributions",
+      "anchor": "test-functions",
+      "prereqs": [
+        "bump-functions",
+        "lp-spaces"
+      ],
+      "blurb": "Test functions are smooth and compactly supported; their continuous-dual $\\mathcal{D}'(\\Omega)$ — distributions — contains $L^1_{\\mathrm{loc}}$, the Dirac delta, and the principal-value $1/x$ as a single class.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "distributional-derivative",
+      "title": "Distributional and weak derivatives",
+      "anchor": "weak-derivative",
+      "prereqs": [
+        "test-functions-distributions",
+        "real-differentiation"
+      ],
+      "blurb": "The pairing $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$ defines a derivative on every distribution; the Heaviside step has $H'=\\delta_0$, $(\\log|x|)'=\\mathrm{p.v.}\\,1/x$, and $|x|'=\\operatorname{sgn}(x)$.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "sobolev-spaces-wkp",
+      "title": "Sobolev spaces $W^{k,p}$ and $H^s$",
+      "anchor": "sobolev",
+      "prereqs": [
+        "distributional-derivative",
+        "lp-spaces",
+        "banach-hilbert-spaces"
+      ],
+      "blurb": "$W^{k,p}(\\Omega)$ collects $L^p$ functions whose distributional derivatives up to order $k$ all lie in $L^p$; $H^k=W^{k,2}$ is Hilbert, and the Fourier-multiplier definition extends the scale to fractional $H^s$.",
+      "tags": [
+        "completion"
+      ]
+    },
+    {
+      "id": "sobolev-embeddings",
+      "title": "Sobolev–Morrey–Rellich embeddings",
+      "anchor": "embeddings",
+      "prereqs": [
+        "sobolev-spaces-wkp",
+        "compactness"
+      ],
+      "blurb": "Three regimes by $kp$ vs $n$: subcritical $W^{k,p}\\hookrightarrow L^{p^*}$ with $p^*=np/(n-kp)$; supercritical $W^{k,p}\\hookrightarrow C^{0,\\gamma}$ (Morrey, Hölder); and the Rellich–Kondrachov upgrade to compact embeddings strictly below the critical exponent.",
+      "tags": [
+        "compactness"
+      ]
+    },
+    {
+      "id": "trace-theorem",
+      "title": "Trace theorem on the boundary",
+      "anchor": "trace",
+      "prereqs": [
+        "sobolev-spaces-wkp"
+      ],
+      "blurb": "On a bounded Lipschitz domain the restriction $u\\mapsto u|_{\\partial\\Omega}$ extends from $C^\\infty(\\overline\\Omega)$ to a bounded surjection $W^{1,p}(\\Omega)\\to W^{1-1/p,p}(\\partial\\Omega)$, losing exactly $1/p$ of a derivative; the kernel is $W^{1,p}_0$ (specialising to $H^1_0$ at $p=2$), the right space for Dirichlet conditions.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "fundamental-solution",
+      "title": "Fundamental solution $\\Delta E = \\delta$",
+      "anchor": "fundamental",
+      "prereqs": [
+        "distributional-derivative"
+      ],
+      "blurb": "On $\\mathbb{R}^3$, $E(x)=-1/(4\\pi|x|)$ satisfies $\\Delta E = \\delta_0$ as distributions; convolution with $E$ inverts $\\Delta$ on nice sources, the Newtonian/Coulomb potential of physics.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "variational-poisson",
+      "title": "Variational Poisson problem & Lax–Milgram",
+      "anchor": "variational",
+      "prereqs": [
+        "sobolev-spaces-wkp",
+        "trace-theorem",
+        "riesz-representation"
+      ],
+      "blurb": "Multiplying $-\\Delta u=f$ by a test function and integrating by parts produces a coercive bilinear form on $H^1_0(\\Omega)$; Lax–Milgram (a non-symmetric Riesz) gives a unique weak solution, equivalently the minimiser of the Dirichlet energy.",
+      "tags": [
+        "universal-property"
+      ]
+    }
+  ]
+}

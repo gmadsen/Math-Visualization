@@ -9,8 +9,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="./css/theme-light.css">
 <script src="./js/theme-toggle.js"></script>
-<script src="./js/progress.js"></script>
-<script src="./concepts/bundle.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
 <script src="./js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -36,6 +36,21 @@
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
   }
   *{box-sizing:border-box}
+  /* Honour the OS / browser-level reduced-motion preference. The hero auto-
+     animation already gates itself in JS; this catches every other transform
+     and transition this page introduces (card hover lift, sticky-bar shadow,
+     mastery-ring stroke-dasharray, drawer slide, today/continue / pathway /
+     tag-card lifts). */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .card:hover,.featured-card:hover,.pathway-banner:hover,
+    .ru-card:hover,.tag-card:hover,.tag-card.active{transform:none}
+  }
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
     font-size:17px;line-height:1.6}
@@ -77,13 +92,42 @@
     flex-wrap:wrap;justify-content:center;align-items:center}
   .hero-tagline .dot{color:var(--line)}
   .hero-tagline .tg-num{color:var(--cyan);font-weight:600}
+  /* Hero widget: a small Lissajous curve that morphs as you slide the
+     frequency ratio. Auto-animates a half-cycle on first load so the
+     reader sees the curves evolve before reaching for the slider. Pure
+     SVG, no extra deps. */
+  .hero-widget{margin:1.4rem auto 0;max-width:420px;padding:0.9rem 1.1rem 0.7rem;
+    background:color-mix(in srgb, var(--panel) 60%, transparent);
+    border:1px solid color-mix(in srgb, var(--cyan) 22%, var(--line));
+    border-radius:12px;display:flex;flex-direction:column;gap:0.4rem;
+    align-items:stretch;text-align:center}
+  .hero-widget svg{display:block;margin:0 auto;max-width:100%;height:auto}
+  .hero-widget .hw-row{display:flex;align-items:center;gap:0.7rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .hero-widget .hw-row label{flex-shrink:0;letter-spacing:0.06em}
+  .hero-widget .hw-row input[type="range"]{flex:1;accent-color:var(--cyan)}
+  .hero-widget .hw-readout{color:var(--cyan);font-weight:600;min-width:4ch;
+    text-align:right}
+  .hero-widget .hw-curve{stroke:var(--cyan);stroke-width:1.3;fill:none;
+    stroke-linecap:round}
+  .hero-widget .hw-frame{stroke:var(--line);stroke-width:0.8;fill:none}
   /* In-page section jump row: a compact horizontal strip of pill-links that
      scroll to the matching #section anchor on this same page. Sits between
      the pathway banner and Recently Updated so the whole seven-section map
      is visible without scrolling past a thousand lines of cards. */
   .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
     padding:0.75rem 0.9rem;margin:0 0 2rem;
-    background:var(--panel);border:1px solid var(--line);border-radius:10px}
+    border:1px solid var(--line);border-radius:10px;
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--panel) 88%, transparent);
+    transition:box-shadow 160ms ease, border-color 160ms ease}
+  .section-jump.stuck{box-shadow:0 6px 18px rgba(0,0,0,0.32);
+    border-color:color-mix(in srgb, var(--cyan) 30%, var(--line))}
+  /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
+     stuck. IntersectionObserver in the script block at the bottom of body adds
+     .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
+  .sj-sentinel{height:1px;margin-top:-1px}
   .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
     margin-right:0.5rem;white-space:nowrap}
@@ -110,9 +154,12 @@
   .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
   .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
   @media (max-width:520px){
-    .section-jump{padding:0.65rem 0.7rem}
+    .section-jump{padding:0.65rem 0.7rem;
+      flex-wrap:nowrap;overflow-x:auto;
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
     .section-jump .sj-label{display:none}
-    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
+      flex-shrink:0;white-space:nowrap}
   }
   .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
@@ -126,6 +173,40 @@
   .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
   @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+
+  /* Featured rail: two-card row sitting between the pathway banner and the
+     section-jump nav. Left card surfaces a date-seeded ready-to-master
+     concept ("Today's concept"); right card surfaces the topic owning the
+     visitor's most recently mastered concept ("Continue where you left
+     off"), or a curated welcome card for cold visitors. Hidden by default
+     and revealed by the script block at the bottom of body once
+     __MVConcepts has populated and a useful pick is available. */
+  .featured-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 1.6rem}
+  .featured-card{display:flex;flex-direction:column;gap:6px;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem;text-decoration:none;color:inherit;
+    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease}
+  .featured-card:hover{transform:translateY(-3px);border-color:var(--violet);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .featured-card.fc-continue:hover{border-color:var(--green);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--green) 22%, transparent)}
+  .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
+  .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+    line-height:1.35}
+  .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
+    line-height:1.45;flex:1;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+    overflow:hidden}
+  .featured-card .fc-foot{display:flex;justify-content:space-between;
+    align-items:center;gap:0.5rem;margin-top:0.4rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .featured-card .fc-arrow{color:var(--violet);font-size:1.1rem;line-height:1}
+  .featured-card.fc-continue .fc-arrow{color:var(--green)}
+  @media (max-width:640px){
+    .featured-rail{grid-template-columns:1fr}
+  }
   h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
@@ -143,6 +224,18 @@
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
+  /* Right-aligned stats group: mastery donut + topic count. The donut's
+     stroke colour inherits via currentColor so it picks up the section's
+     accent (set by data-color on .sec); empty rings stay neutral via the
+     .ring-empty class. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  .sec .sec-ring{width:18px;height:18px;flex-shrink:0;display:block}
+  .sec .sec-ring circle{fill:none;stroke-width:2.6}
+  .sec .sec-ring .ring-track{stroke:var(--line)}
+  .sec .sec-ring .ring-fill{stroke:currentColor;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:center;
+    transition:stroke-dasharray 280ms ease}
+  .sec .sec-ring.ring-empty .ring-fill{stroke:var(--line)}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
      keeps matching. */
@@ -161,10 +254,17 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
-    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
-  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+    transition:transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease}
+  .card:hover{transform:translateY(-4px);background:var(--panel2);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--mute) 18%, transparent)}
+  .card.y:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--yellow) 22%, transparent)}
+  .card.b:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--blue)   22%, transparent)}
+  .card.g:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--green)  22%, transparent)}
+  .card.p:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--pink)   22%, transparent)}
+  .card.v:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .card.c:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--cyan)   22%, transparent)}
   .card.coming{opacity:0.55;cursor:not-allowed}
-  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line);box-shadow:none}
   .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
     border:1px solid var(--line);border-radius:6px;
     display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -201,8 +301,12 @@
   .mastery .m-v1{color:var(--green)}
   .mastery .m-hard{color:var(--violet)}
   .mastery .m-sep{color:var(--mute);opacity:0.55}
-  .mastery.m-zero .m-v1{color:var(--mute);opacity:0.7}
-  .mastery.m-zero .m-hard{color:var(--mute);opacity:0.55}
+  /* Cold-visitor mastery chip: drop the opacity stacks (which previously
+     multiplied --mute below WCAG AA contrast on --panel2) and use --ink at a
+     muted but legible value. Computes to roughly --ink at 70% blended with
+     --bg, hitting ~7:1 against --panel2. */
+  .mastery.m-zero .m-v1{color:color-mix(in srgb, var(--ink) 72%, var(--bg))}
+  .mastery.m-zero .m-hard{color:color-mix(in srgb, var(--ink) 60%, var(--bg))}
   .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
   .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
   .mastery .m-check{color:var(--green);font-weight:600}
@@ -220,10 +324,16 @@
     display:inline-flex;align-items:center;justify-content:center;
     padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
     color:var(--mute);cursor:pointer;line-height:0;z-index:2;
-    transition:background 150ms ease, border-color 150ms ease, color 150ms ease}
+    opacity:0;
+    transition:opacity 150ms ease, background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .card:hover .progbtn{opacity:1}
+  .progbtn:focus-visible{opacity:1;outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
-  .progbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  /* Touch devices have no hover, so reveal the progbtn unconditionally there. */
+  @media (hover:none){
+    .progbtn{opacity:0.6}
+  }
   .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
     opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
   .mv-backdrop.open{opacity:1;pointer-events:auto}
@@ -327,6 +437,7 @@
     <div class="nav-links">
       <a class="nav-link accent" href="./pathway.html">Pathway</a>
       <a class="nav-link" href="./mindmap.html">Mindmap</a>
+      <a class="nav-link" href="./tags.html">Themes</a>
       <a class="nav-link" href="./search.html">Search</a>
       <a class="nav-link" href="./latex-cheatsheet.html">LaTeX cheatsheet</a>
       <a class="nav-link" href="./progress.html">Your progress</a>
@@ -339,11 +450,24 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">73</span> topics</span>
+      <span><span class="tg-num">83</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">506</span> concepts</span>
+      <span><span class="tg-num">575</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
+    </div>
+    <div class="hero-widget" aria-label="Lissajous curve preview">
+      <svg id="hero-svg" viewBox="0 0 240 140" width="280" height="160" role="img"
+           aria-label="Lissajous parametric curve, frequency ratio adjustable">
+        <rect class="hw-frame" x="20" y="10" width="200" height="120" rx="6"/>
+        <path id="hero-path" class="hw-curve"></path>
+      </svg>
+      <div class="hw-row">
+        <label for="hero-ratio">a&thinsp;:&thinsp;b</label>
+        <input id="hero-ratio" type="range" min="100" max="500" value="230" step="1"
+               aria-label="Lissajous frequency ratio">
+        <span class="hw-readout" id="hero-readout">2 : 3</span>
+      </div>
     </div>
   </section>
 
@@ -356,6 +480,24 @@
     <div class="pb-arrow">→</div>
   </a>
 
+  <section class="featured-rail" id="featured-rail" aria-label="Featured concepts" hidden>
+    <a class="featured-card fc-today" id="todays-card" href="#" hidden
+       aria-labelledby="todays-eyebrow todays-title" aria-describedby="todays-blurb">
+      <div class="fc-eyebrow" id="todays-eyebrow">Today's concept</div>
+      <div class="fc-title" id="todays-title">—</div>
+      <p class="fc-desc" id="todays-blurb"></p>
+      <div class="fc-foot"><span id="todays-topic"></span><span class="fc-arrow">→</span></div>
+    </a>
+    <a class="featured-card fc-continue" id="continue-card" href="#" hidden
+       aria-labelledby="continue-eyebrow continue-title" aria-describedby="continue-blurb">
+      <div class="fc-eyebrow" id="continue-eyebrow">Continue where you left off</div>
+      <div class="fc-title" id="continue-title">—</div>
+      <p class="fc-desc" id="continue-blurb"></p>
+      <div class="fc-foot"><span id="continue-stats"></span><span class="fc-arrow">→</span></div>
+    </a>
+  </section>
+
+  <div class="sj-sentinel" aria-hidden="true"></div>
   <nav class="section-jump" role="navigation" aria-label="Jump to section">
     <span class="sj-label">Jump to</span>
     <a class="sj-link s-b" href="#foundations"><span class="sj-dot"></span>Foundations</a>
@@ -365,6 +507,7 @@
     <a class="sj-link s-y" href="#number-theory"><span class="sj-dot"></span>Number theory</a>
     <a class="sj-link s-c" href="#modular-forms-and-l-functions"><span class="sj-dot"></span>Modular forms &amp; L-functions</a>
     <a class="sj-link s-g" href="#algebraic-geometry"><span class="sj-dot"></span>Algebraic geometry</a>
+    <a class="sj-link s-g" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
   </nav>
 
   <section id="recently-updated" aria-label="Recently updated topics">
@@ -643,6 +786,29 @@
       </div>
     </a>
 
+
+    <a class="card y" href="./group-cohomology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
+        <text x="22" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H⁰</text>
+        <text x="40" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H¹</text>
+        <text x="58" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H²</text>
+        <text x="76" y="34" font-size="9" fill="var(--mute)" font-family="ui-monospace,monospace">H³</text>
+        <line x1="34" y1="38" x2="38" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="52" y1="38" x2="56" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="70" y1="38" x2="74" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
+        <text x="22" y="48" font-size="6.5" fill="var(--mute)">M^G</text>
+        <text x="40" y="48" font-size="6.5" fill="var(--mute)">crossed</text>
+        <text x="58" y="48" font-size="6.5" fill="var(--mute)">extns</text>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">δ-functor → Hilbert 90 / Brauer</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Group cohomology</div>
+        <div class="desc">$H^n(G,M)$ via the bar resolution. $H^0 = M^G$, $H^1$ = crossed homs, $H^2$ classifies extensions; Galois cohomology gives Hilbert 90 and Brauer groups.</div>
+        <span class="tag">Algebra</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Analysis</div>
@@ -784,6 +950,38 @@
         <div class="tt">Probability theory <span class="level advanced">advanced</span></div>
         <div class="desc">Sample spaces, random variables, Bayes, expectation, convergence theorems, the law of large numbers and central limit theorem, Markov chains, martingales, and a glimpse of Brownian motion.</div>
         <span class="tag">σ · E · CLT · martingale</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./sobolev-spaces-distributions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="50" y1="20" x2="50" y2="62" stroke="var(--line)" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <path d="M 22 58 L 36 58 L 50 22 L 64 58 L 78 58" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="50" y="32" text-anchor="middle" font-size="9" fill="var(--pink)" font-family="serif">δ</text>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">Heaviside′ = δ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Sobolev spaces &amp; distributions</div>
+        <div class="desc">Test functions, $\mathcal D'$, weak derivatives, $W^{k,p}$ and the embedding zoo, trace theorems, fundamental solutions, and the variational form of $-\Delta u = f$.</div>
+        <span class="tag">distributions &middot; $W^{k,p}$ &middot; embeddings &middot; Lax–Milgram</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./harmonic-analysis-fourier.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="42" x2="80" y2="42" stroke="var(--mute)" stroke-width="0.5"/>
+        <path d="M 20 42 Q 30 18, 40 42 T 60 42 T 80 42" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <path d="M 20 42 Q 28 30, 36 42 Q 44 54, 52 42 Q 60 30, 68 42 Q 76 54, 80 42" fill="none" stroke="var(--cyan)" stroke-width="0.9" opacity="0.75"/>
+        <path d="M 20 42 Q 24 36, 28 42 Q 32 48, 36 42 Q 40 36, 44 42 Q 48 48, 52 42 Q 56 36, 60 42 Q 64 48, 68 42 Q 72 36, 76 42 Q 78 39, 80 42" fill="none" stroke="var(--violet)" stroke-width="0.7" opacity="0.6"/>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">harmonics: 1, 3, 5</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Harmonic analysis &amp; Fourier theory</div>
+        <div class="desc">Fourier series and transforms, Plancherel, convolution theorem, Schwartz space and tempered distributions, uncertainty, Poisson summation, the heat kernel.</div>
+        <span class="tag">Plancherel &middot; convolution &middot; uncertainty &middot; Poisson</span>
       </div>
     </a>
 
@@ -1245,6 +1443,27 @@
       </div>
     </a>
 
+
+    <a class="card y" href="./heights-arithmetic-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="64" x2="80" y2="64" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="20" y1="64" x2="20" y2="20" stroke="var(--mute)" stroke-width="0.7"/>
+        <circle cx="30" cy="58" r="2" fill="var(--yellow)"/>
+        <circle cx="38" cy="50" r="2.4" fill="var(--yellow)"/>
+        <circle cx="48" cy="44" r="2.6" fill="var(--yellow)"/>
+        <circle cx="56" cy="38" r="3" fill="var(--yellow)"/>
+        <circle cx="64" cy="28" r="3.2" fill="var(--yellow)"/>
+        <circle cx="72" cy="22" r="3.6" fill="var(--yellow)"/>
+        <text x="14" y="22" font-size="6.5" fill="var(--mute)">log H</text>
+        <text x="68" y="76" font-size="6.5" fill="var(--mute)">|x|→∞</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Heights in arithmetic geometry</div>
+        <div class="desc">Naive height $H(P)$, Northcott finiteness, Weil heights via line bundles, the Néron–Tate canonical $\hat h$ as a quadratic regulator on Mordell–Weil. Mahler measure and Lehmer's question.</div>
+        <span class="tag">Northcott &middot; Weil &middot; Néron–Tate &middot; Mahler</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Modular forms &amp; L-functions</div>
@@ -1531,6 +1750,30 @@
         <div class="tt">Modularity & FLT <span class="level capstone">capstone</span></div>
         <div class="desc">Frey + Ribet + Wiles: a solution to $a^p + b^p = c^p$ would give a newform of level $2$, but $S_2(\Gamma_0(2)) = 0$ — contradiction.</div>
         <span class="tag">Frey · Ribet · Taylor–Wiles</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="./automorphic-forms-adelic.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <text x="14" y="34" font-size="9" fill="var(--pink)" font-family="serif" font-style="italic">f</text>
+        <text x="22" y="34" font-size="9" fill="var(--mute)">∈</text>
+        <text x="32" y="34" font-size="9" fill="var(--mute)" font-family="serif">M_k(Γ)</text>
+        <path d="M 64 30 L 80 30" stroke="var(--cyan)" stroke-width="1" marker-end="url(#aforrowhead)"/>
+        <defs>
+          <marker id="aforrowhead" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M 0 0 L 6 3 L 0 6 z" fill="var(--cyan)"/>
+          </marker>
+        </defs>
+        <text x="14" y="60" font-size="9" fill="var(--cyan)" font-family="serif" font-style="italic">φ</text>
+        <text x="22" y="60" font-size="9" fill="var(--mute)">∈</text>
+        <text x="32" y="60" font-size="7.5" fill="var(--mute)" font-family="ui-monospace,monospace">L²(GL₂(ℚ)\GL₂(𝔸))</text>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">classical → adelic</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Automorphic forms (adelic) <span class="level advanced">advanced</span></div>
+        <div class="desc">From classical $f \in M_k(\Gamma)$ to adelic $\phi : \mathrm{GL}_2(\mathbb Q)\backslash\mathrm{GL}_2(\mathbb A) \to \mathbb C$. Strong approximation, Satake, Whittaker, $L$-functions as adelic Euler products.</div>
+        <span class="tag">strong approximation &middot; Satake &middot; Whittaker &middot; Euler product</span>
       </div>
     </a>
 
@@ -1954,6 +2197,117 @@
     </a>
 
   </div>
+
+  <div class="sec">Combinatorics &amp; graph theory</div>
+  <div class="grid">
+
+    <a class="card g" href="./spectral-graph-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="22" y1="22" x2="50" y2="14" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="50" y1="14" x2="78" y2="22" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="22" y1="22" x2="50" y2="40" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="78" y1="22" x2="50" y2="40" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="50" y1="40" x2="22" y2="58" stroke="var(--mute)" stroke-width="0.9"/>
+        <line x1="50" y1="40" x2="78" y2="58" stroke="var(--mute)" stroke-width="0.9"/>
+        <circle cx="22" cy="22" r="3.2" fill="var(--pink)"/>
+        <circle cx="50" cy="14" r="3.2" fill="var(--pink)"/>
+        <circle cx="78" cy="22" r="3.2" fill="var(--pink)"/>
+        <circle cx="50" cy="40" r="3.2" fill="var(--green)"/>
+        <circle cx="22" cy="58" r="3.2" fill="var(--green)"/>
+        <circle cx="78" cy="58" r="3.2" fill="var(--green)"/>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">Fiedler bisection of Kᴎ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Spectral graph theory</div>
+        <div class="desc">Adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry where eigenvalues encode connectivity, mixing, and the cleanest bisection.</div>
+        <span class="tag">Laplacian &middot; Fiedler &middot; Cheeger &middot; expanders</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./matroid-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="22" y1="60" x2="78" y2="60" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <line x1="22" y1="44" x2="78" y2="44" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <line x1="22" y1="28" x2="78" y2="28" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <circle cx="32" cy="60" r="2.8" fill="var(--violet)"/>
+        <circle cx="50" cy="60" r="2.8" fill="var(--violet)"/>
+        <circle cx="68" cy="60" r="2.8" fill="var(--violet)"/>
+        <circle cx="32" cy="44" r="2.8" fill="var(--green)"/>
+        <circle cx="50" cy="44" r="2.8" fill="var(--green)"/>
+        <circle cx="50" cy="28" r="2.8" fill="var(--cyan)"/>
+        <text x="14" y="32" font-size="7" fill="var(--mute)">r=3</text>
+        <text x="14" y="48" font-size="7" fill="var(--mute)">r=2</text>
+        <text x="14" y="64" font-size="7" fill="var(--mute)">r=1</text>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">geometric lattice of flats</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Matroid theory</div>
+        <div class="desc">Whitney's combinatorial abstraction of linear independence — bases, rank, closure, duality. The greedy algorithm works exactly when your structure is a matroid.</div>
+        <span class="tag">independence &middot; rank &middot; duality &middot; Tutte</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./probabilistic-method.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <rect x="18" y="14" width="64" height="48" rx="3" fill="none" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="18" y1="56" x2="82" y2="56" stroke="var(--line)" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <path d="M 22 56 L 30 50 L 38 36 L 46 22 L 54 24 L 62 32 L 70 44 L 78 54" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
+        <circle cx="46" cy="22" r="2.6" fill="var(--cyan)"/>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">𝔼[X] &gt; 0 ⇒ ∃ ω</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Probabilistic method</div>
+        <div class="desc">Erdős's existence-by-expectation: average over a random object and the deterministic witness falls out. Ramsey lower bound, Lovász Local Lemma, $G(n,p)$ thresholds, concentration.</div>
+        <span class="tag">Erdős &middot; LLL &middot; thresholds &middot; concentration</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./extremal-combinatorics.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="22" y1="22" x2="78" y2="22" stroke="var(--line)" stroke-width="0.7"/>
+        <line x1="22" y1="58" x2="78" y2="58" stroke="var(--line)" stroke-width="0.7"/>
+        <line x1="22" y1="22" x2="78" y2="58" stroke="var(--green)" stroke-width="0.7"/>
+        <line x1="78" y1="22" x2="22" y2="58" stroke="var(--green)" stroke-width="0.7"/>
+        <line x1="22" y1="22" x2="22" y2="58" stroke="var(--green)" stroke-width="0.7"/>
+        <line x1="78" y1="22" x2="78" y2="58" stroke="var(--green)" stroke-width="0.7"/>
+        <circle cx="22" cy="22" r="2.6" fill="var(--yellow)"/>
+        <circle cx="78" cy="22" r="2.6" fill="var(--yellow)"/>
+        <circle cx="22" cy="58" r="2.6" fill="var(--violet)"/>
+        <circle cx="78" cy="58" r="2.6" fill="var(--violet)"/>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">T(4,2) — Turán graph</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Extremal combinatorics</div>
+        <div class="desc">Turán's theorem and its descendants: how many edges can a graph have while avoiding $K_{r+1}$? Kővári–Sós–Turán, Erdős–Stone, Ramsey, Sperner, and a teaser of Szemerédi regularity.</div>
+        <span class="tag">Turán &middot; Ramsey &middot; Sperner &middot; regularity</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./simplicial-complexes-combinatorial.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <polygon points="32,18 68,18 50,46" fill="color-mix(in srgb, var(--green) 22%, transparent)" stroke="var(--green)" stroke-width="1.1"/>
+        <polygon points="32,18 50,46 22,52" fill="color-mix(in srgb, var(--cyan) 18%, transparent)" stroke="var(--cyan)" stroke-width="1.1"/>
+        <polygon points="68,18 78,52 50,46" fill="color-mix(in srgb, var(--violet) 18%, transparent)" stroke="var(--violet)" stroke-width="1.1"/>
+        <line x1="22" y1="52" x2="78" y2="52" stroke="var(--mute)" stroke-width="0.7"/>
+        <circle cx="32" cy="18" r="2.4" fill="var(--ink)"/>
+        <circle cx="68" cy="18" r="2.4" fill="var(--ink)"/>
+        <circle cx="50" cy="46" r="2.4" fill="var(--ink)"/>
+        <circle cx="22" cy="52" r="2.4" fill="var(--ink)"/>
+        <circle cx="78" cy="52" r="2.4" fill="var(--ink)"/>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">f-vector (5,7,3)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Simplicial complexes (combinatorial)</div>
+        <div class="desc">Abstract complexes, $f$- and $h$-vectors, Dehn–Sommerville, shellings and Cohen–Macaulay, the Stanley–Reisner ring, persistent homology and the Vietoris–Rips barcode.</div>
+        <span class="tag">f-vector &middot; nerve &middot; Stanley–Reisner &middot; persistence</span>
+      </div>
+    </a>
+
+  </div>
   <!-- section-links-auto-begin -->
   <div class="sec" style="margin-top:3rem">Sections</div>
   <p class="sub" style="text-align:left;font-size:0.92rem;margin:0 0 1rem">
@@ -1985,18 +2339,32 @@
 //   4. marks the bottom auto-generated "Sections" block with data-legacy so
 //      its compact eyebrow styling (font-size, uppercase) kicks in instead.
 (function(){
-  // Section name -> { id, color } map. Keep in sync with the top-of-main
-  // section-jump nav's href list; every jump target must have a matching id
-  // here. Colors echo the section's card palette from AGENTS.md.
-  var SECTION_META = {
-    'Foundations':                  { id: 'foundations',                    color: 'b' },
-    'Algebra':                      { id: 'algebra',                        color: 'y' },
-    'Analysis':                     { id: 'analysis',                       color: 'p' },
-    'Geometry & topology':          { id: 'geometry-and-topology',          color: 'v' },
-    'Number theory':                { id: 'number-theory',                  color: 'y' },
-    'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',  color: 'c' },
-    'Algebraic geometry':           { id: 'algebraic-geometry',             color: 'g' },
-  };
+  // Section name -> { id, color } map, derived at runtime from the bundle's
+  // sections.json (single source of truth for section id, title, and color).
+  // Falls back to the previous hardcoded map ONLY if the bundle is missing
+  // or shaped unexpectedly (defense-in-depth on the file:// double-click
+  // path; a broken bundle would otherwise leave every section uncoloured).
+  var SECTION_META = (function(){
+    var fromBundle = {};
+    try {
+      var src = (window.__MVConcepts && window.__MVConcepts.sections && window.__MVConcepts.sections.sections) || [];
+      for (var i = 0; i < src.length; i++) {
+        var s = src[i];
+        if (s && s.title && s.id) fromBundle[s.title] = { id: s.id, color: s.color || 'b' };
+      }
+    } catch(_){}
+    if (Object.keys(fromBundle).length > 0) return fromBundle;
+    return {
+      'Foundations':                  { id: 'foundations',                    color: 'b' },
+      'Algebra':                      { id: 'algebra',                        color: 'y' },
+      'Analysis':                     { id: 'analysis',                       color: 'p' },
+      'Geometry & topology':          { id: 'geometry-and-topology',          color: 'v' },
+      'Number theory':                { id: 'number-theory',                  color: 'y' },
+      'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',  color: 'c' },
+      'Algebraic geometry':           { id: 'algebraic-geometry',             color: 'g' },
+      'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory', color: 'g' },
+    };
+  })();
   function init(){
     var secs = document.querySelectorAll('main > .sec');
     for(var i=0;i<secs.length;i++){
@@ -2011,19 +2379,63 @@
       }
       if(!sec.id) sec.id = meta.id;
       sec.setAttribute('data-color', meta.color);
-      // Append the topic count, pulled from the next .grid sibling.
+      // Append the stats group: mastery donut + topic count, pulled from the
+      // next .grid sibling. Reads MVProgress for v1-tier mastery; concept ids
+      // come from __MVConcepts.topics keyed off each card's href.
       var el = sec.nextElementSibling;
       while(el && !el.classList.contains('grid')) el = el.nextElementSibling;
       if(el){
-        var n = el.querySelectorAll(':scope > a.card').length;
+        var cards = el.querySelectorAll(':scope > a.card');
+        var n = cards.length;
         if(n > 0){
+          var stats = document.createElement('span');
+          stats.className = 'sec-stats';
+          var ring = makeRing(sec, cards);
+          if(ring) stats.appendChild(ring);
           var span = document.createElement('span');
           span.className = 'sec-count';
           span.textContent = n + (n === 1 ? ' topic' : ' topics');
-          sec.appendChild(span);
+          stats.appendChild(span);
+          sec.appendChild(stats);
         }
       }
     }
+  }
+  function makeRing(sec, cards){
+    var topics = (window.__MVConcepts && window.__MVConcepts.topics) || null;
+    if(!topics || !window.MVProgress) return null;
+    var total = 0, mastered = 0;
+    for(var i = 0; i < cards.length; i++){
+      var href = cards[i].getAttribute('href') || '';
+      var slug = href.replace(/^\.\//, '').replace(/\.html$/, '');
+      var topic = topics[slug];
+      if(!topic || !Array.isArray(topic.concepts)) continue;
+      for(var j = 0; j < topic.concepts.length; j++){
+        var cid = topic.concepts[j].id || topic.concepts[j];
+        total++;
+        if(window.MVProgress.isMastered(cid, 'v1')) mastered++;
+      }
+    }
+    if(total === 0) return null;
+    var pct = mastered / total;
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('class', 'sec-ring' + (mastered === 0 ? ' ring-empty' : ''));
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    var track = document.createElementNS(ns, 'circle');
+    track.setAttribute('cx', '12'); track.setAttribute('cy', '12'); track.setAttribute('r', '9');
+    track.setAttribute('class', 'ring-track');
+    svg.appendChild(track);
+    var fill = document.createElementNS(ns, 'circle');
+    fill.setAttribute('cx', '12'); fill.setAttribute('cy', '12'); fill.setAttribute('r', '9');
+    fill.setAttribute('class', 'ring-fill');
+    var circ = 2 * Math.PI * 9;
+    fill.setAttribute('stroke-dasharray', (pct * circ).toFixed(2) + ' ' + circ.toFixed(2));
+    svg.appendChild(fill);
+    sec.title = mastered + ' / ' + total + ' concept' + (total === 1 ? '' : 's') + ' mastered';
+    return svg;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
@@ -2354,6 +2766,30 @@
     }
 
     var lastFocus = null;
+    // Background trees that get .inert while the modal drawer is open. Picked
+    // by walking <body>'s top-level children at open time and excluding the
+    // drawer itself + the backdrop. Reverse on close. inert is supported in
+    // every evergreen browser since 2023; older browsers gracefully ignore it
+    // and fall back to the existing aria-modal hint.
+    var inertedSiblings = [];
+    function setBackgroundInert(on){
+      if (on) {
+        inertedSiblings = [];
+        var kids = document.body.children;
+        for (var i = 0; i < kids.length; i++) {
+          var n = kids[i];
+          if (n === drawer || n === backdrop) continue;
+          if (n.inert) continue;
+          n.inert = true;
+          inertedSiblings.push(n);
+        }
+      } else {
+        for (var j = 0; j < inertedSiblings.length; j++) {
+          inertedSiblings[j].inert = false;
+        }
+        inertedSiblings = [];
+      }
+    }
     function openDrawer(btn, topicId, title, page){
       lastFocus = btn || null;
       populate(topicId, title, page);
@@ -2364,12 +2800,14 @@
       drawer.classList.add('open');
       backdrop.classList.add('open');
       drawer.setAttribute('aria-hidden', 'false');
+      setBackgroundInert(true);
       setTimeout(function(){ try { closeBtn.focus(); } catch(_){} }, 40);
     }
     function closeDrawer(){
       drawer.classList.remove('open');
       backdrop.classList.remove('open');
       drawer.setAttribute('aria-hidden', 'true');
+      setBackgroundInert(false);
       setTimeout(function(){
         drawer.hidden = true;
         backdrop.hidden = true;
@@ -2429,6 +2867,228 @@
       })(btn, id, title, topic.page || (id + '.html'));
       card.appendChild(btn);
     }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<script>
+// Sticky section-jump: toggle a .stuck class on the nav when the sentinel
+// just above it scrolls out of view. The sentinel is a 1px element inserted
+// in the markup; an IntersectionObserver fires when it crosses the top.
+// Falls back to a no-op when IntersectionObserver isn't available.
+(function(){
+  function init(){
+    var bar = document.querySelector('.section-jump');
+    var sentinel = document.querySelector('.sj-sentinel');
+    if(!bar || !sentinel || typeof IntersectionObserver !== 'function') return;
+    var io = new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        bar.classList.toggle('stuck', !entries[i].isIntersecting);
+      }
+    }, { threshold: [0, 1] });
+    io.observe(sentinel);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<script>
+// Hero widget: a Lissajous parametric curve $\gamma(t)=(\sin(at),\sin(bt+\phi))$
+// where the slider's value V/100 is the b/a ratio. Pretty rational ratios snap
+// the readout to a small fraction; in between they drift through dense almost-
+// closed curves. Auto-plays a brief intro animation on first paint so the reader
+// sees motion before deciding to engage.
+(function(){
+  function init(){
+    var path = document.getElementById('hero-path');
+    var slider = document.getElementById('hero-ratio');
+    var readout = document.getElementById('hero-readout');
+    if (!path || !slider || !readout) return;
+    var W = 200, H = 120, OX = 120, OY = 70, AX = 90, AY = 50;
+
+    function gcd(a, b){ while(b){ var t=b; b=a%b; a=t; } return a; }
+    function snap(value){
+      // Find the nearest p/q with q ≤ 7 within 0.04 of (value/100); otherwise show
+      // the decimal. Keeps the readout legible at "nice" stops.
+      var v = value / 100;
+      var best = null, bestErr = Infinity;
+      for (var q = 1; q <= 7; q++) {
+        for (var p = 1; p <= 7; p++) {
+          if (gcd(p, q) !== 1) continue;
+          var err = Math.abs(v - p / q);
+          if (err < bestErr) { bestErr = err; best = [p, q]; }
+        }
+      }
+      return bestErr < 0.04 ? (best[0] + ' : ' + best[1]) : v.toFixed(2);
+    }
+
+    function pathFor(value, phase){
+      var ratio = value / 100;
+      var N = 480;
+      var d = '';
+      var TAU = Math.PI * 2;
+      // Period long enough that the curve closes for any rational; for irrationals
+      // the path is dense — drawing more turns shows the full almost-closure.
+      var turns = ratio === Math.floor(ratio) ? 1 : 6;
+      for (var i = 0; i <= N; i++) {
+        var t = (i / N) * TAU * turns;
+        var x = OX + AX * Math.sin(t);
+        var y = OY + AY * Math.sin(ratio * t + phase);
+        d += (i === 0 ? 'M' : 'L') + x.toFixed(2) + ',' + y.toFixed(2);
+      }
+      return d;
+    }
+
+    var phase = 0.6;
+    function paint(value){
+      path.setAttribute('d', pathFor(value, phase));
+      var label = snap(value);
+      readout.textContent = label;
+      // Mirror the visible readout into aria-valuetext so screen readers
+      // announce "2 : 3" instead of the raw integer slider value (230).
+      slider.setAttribute('aria-valuetext', label);
+    }
+    slider.addEventListener('input', function(){ paint(slider.value); });
+    paint(slider.value);
+
+    // Brief auto-animation on first load: walk slider 230 → 280 → 230 over
+    // ~2.4s, then settle. Skipped if the reader is touching the slider —
+    // we cancel the pending rAF immediately on first input so the soft-
+    // cancel guard never has a chance to fire one extra "snap-back" frame
+    // after the user-driven paint.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var start = performance.now(), userTouched = false, rafId = null;
+    slider.addEventListener('input', function(){
+      userTouched = true;
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    });
+    function animate(now){
+      if (userTouched) { rafId = null; return; }
+      var t = Math.min(1, (now - start) / 2400);
+      var sweep = 230 + 50 * Math.sin(t * Math.PI);
+      slider.value = sweep;
+      paint(sweep);
+      if (t < 1) rafId = requestAnimationFrame(animate);
+      else rafId = null;
+    }
+    rafId = requestAnimationFrame(animate);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<script>
+// Featured rail: today's concept (date-seeded ready-to-master pick) +
+// continue-where-you-left-off (most recent v1 mastery's owning topic, with a
+// curated welcome card as the cold-visitor fallback). Reads __MVConcepts +
+// MVProgress + the raw localStorage record (for the per-entry `at` timestamp
+// that MVProgress doesn't otherwise expose).
+(function(){
+  function init(){
+    var rail = document.getElementById('featured-rail');
+    var data = window.__MVConcepts;
+    if(!rail || !data || !data.topics) return;
+    var concepts = [];
+    for(var topicId in data.topics){
+      var topic = data.topics[topicId];
+      var arr = topic.concepts || [];
+      for(var i=0;i<arr.length;i++){
+        var c = arr[i];
+        concepts.push({
+          id: c.id, title: c.title, anchor: c.anchor, blurb: c.blurb || '',
+          prereqs: c.prereqs || [], topicId: topicId,
+          page: topic.page || (topicId + '.html'),
+          topicTitle: topic.title || topicId
+        });
+      }
+    }
+    var byId = Object.create(null);
+    for(var i=0;i<concepts.length;i++) byId[concepts[i].id] = concepts[i];
+
+    var P = window.MVProgress;
+    function isReady(c){
+      if(P && P.isMastered(c.id, 'v1')) return false;
+      var ps = c.prereqs || [];
+      // Cold visitors (no MVProgress) only see root concepts as ready.
+      if(!P) return ps.length === 0;
+      // Otherwise: every prereq must be v1-mastered.
+      for(var i=0;i<ps.length;i++){
+        var bare = ps[i].indexOf(':') >= 0 ? ps[i].split(':', 2)[1] : ps[i];
+        if(!P.isMastered(bare, 'v1')) return false;
+      }
+      return true;
+    }
+    var ready = concepts.filter(isReady);
+    if(ready.length === 0){
+      // Edge case: every concept is mastered or every concept has unsatisfied
+      // prereqs. Fall back to all root concepts so the card still surfaces.
+      ready = concepts.filter(function(c){ return (c.prereqs || []).length === 0; });
+    }
+
+    var todayCard = document.getElementById('todays-card');
+    if(ready.length > 0 && todayCard){
+      var d = new Date();
+      var seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+      var pick = ready[seed % ready.length];
+      todayCard.href = './' + pick.page + '#' + (pick.anchor || '');
+      document.getElementById('todays-title').textContent = pick.title;
+      document.getElementById('todays-blurb').textContent = stripKatex(pick.blurb);
+      document.getElementById('todays-topic').textContent = pick.topicTitle;
+      todayCard.hidden = false;
+    }
+
+    var continueCard = document.getElementById('continue-card');
+    if(continueCard){
+      var recentId = mostRecentMasteredId();
+      if(recentId && byId[recentId]){
+        var owner = byId[recentId];
+        var mine = concepts.filter(function(c){ return c.topicId === owner.topicId; });
+        var mastered = mine.filter(function(c){ return P && P.isMastered(c.id, 'v1'); }).length;
+        continueCard.href = './' + owner.page;
+        document.getElementById('continue-title').textContent = owner.topicTitle;
+        document.getElementById('continue-blurb').textContent =
+          mastered + ' of ' + mine.length + ' concepts mastered. Last touched: "' + owner.title + '".';
+        document.getElementById('continue-stats').textContent = 'Resume reading';
+        continueCard.hidden = false;
+      } else {
+        // Cold-visitor fallback: a curated welcome.
+        document.getElementById('continue-eyebrow').textContent = 'New here?';
+        continueCard.href = './category-theory.html';
+        document.getElementById('continue-title').textContent = 'Start with category theory';
+        document.getElementById('continue-blurb').textContent =
+          'The flagship topic — cleanest pedagogy, the canonical style template, and a natural on-ramp into the rest of the notebook.';
+        document.getElementById('continue-stats').textContent = 'Or browse by theme via Themes ↗';
+        continueCard.hidden = false;
+      }
+    }
+
+    var anyShown = (todayCard && !todayCard.hidden) || (continueCard && !continueCard.hidden);
+    if(anyShown) rail.hidden = false;
+  }
+  function mostRecentMasteredId(){
+    try {
+      // Single source of truth — MVProgress.entries handles the localStorage
+      // parse, prototype-pollution-safe iteration, and legacy-shape coercion
+      // (boolean shorthand and {at:…}-only records both surface as v1-mastered
+      // through the shared coerce() path). Avoids the duplicate JSON.parse +
+      // for...in pattern this script used to carry.
+      var P = window.MVProgress;
+      if (!P || typeof P.entries !== 'function') return null;
+      var bestId = null, bestAt = 0;
+      var es = P.entries();
+      for(var i=0;i<es.length;i++){
+        var id = es[i][0], rec = es[i][1];
+        if (rec.v1 && rec.at >= bestAt) { bestId = id; bestAt = rec.at; }
+      }
+      return bestId;
+    } catch(e){ return null; }
+  }
+  function stripKatex(s){
+    // Replace inline KaTeX with a marker so the blurb reads coherently as
+    // plain text in a 3-line clamp, since KaTeX hasn't auto-rendered yet
+    // when the rail populates.
+    return String(s).replace(/\$\$[\s\S]*?\$\$/g, '…').replace(/\$[^$]*\$/g, '…');
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

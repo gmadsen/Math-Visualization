@@ -1,0 +1,109 @@
+{
+  "topic": "group-cohomology",
+  "title": "Group cohomology",
+  "page": "group-cohomology.html",
+  "concepts": [
+    {
+      "id": "bar-resolution",
+      "title": "The bar resolution and $H^n(G,M)$",
+      "anchor": "bar",
+      "prereqs": [
+        "derived-functors",
+        "group-actions-burnside"
+      ],
+      "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
+      "tags": [
+        "cohomology"
+      ]
+    },
+    {
+      "id": "h0-fixed-points",
+      "title": "$H^0$ as $G$-fixed points",
+      "anchor": "h0",
+      "prereqs": [
+        "bar-resolution"
+      ],
+      "blurb": "Degree zero recovers the input: $H^0(G,M)=M^G$. Failure of right-exactness of $(-)^G$ is exactly what the higher $H^n$ correct, generating the long exact sequence $0\\to A^G\\to B^G\\to C^G\\xrightarrow{\\delta} H^1(G,A)\\to\\cdots$.",
+      "tags": [
+        "cohomology",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "h1-crossed-homs",
+      "title": "$H^1$, crossed homomorphisms, and Hilbert 90",
+      "anchor": "h1",
+      "prereqs": [
+        "h0-fixed-points",
+        "exact-sequences"
+      ],
+      "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
+    },
+    {
+      "id": "h2-extensions",
+      "title": "$H^2$ classifies group extensions",
+      "anchor": "h2",
+      "prereqs": [
+        "h1-crossed-homs",
+        "semidirect-products-ses"
+      ],
+      "blurb": "Equivalence classes of extensions $1\\to A\\to E\\to G\\to 1$ with prescribed $G$-action on abelian $A$ are in bijection with $H^2(G,A)$. Split extensions hit $0$; the nontrivial class assembles a section's failure-of-multiplicativity into the canonical 2-cocycle.",
+      "tags": [
+        "cohomology",
+        "classification",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "cyclic-periodic-tate",
+      "title": "Cyclic groups, periodicity, and Tate cohomology",
+      "anchor": "cyclic",
+      "prereqs": [
+        "h1-crossed-homs",
+        "h2-extensions"
+      ],
+      "blurb": "For $G=C_n$ the alternating $\\sigma-1$/$N$-resolution gives a 2-periodic theory: $H^{2k}=M^G/N(M)$, $H^{2k+1}=\\ker N/(\\sigma-1)M$. Splicing in negative degrees defines Tate cohomology $\\hat H^*$; the Herbrand quotient is multiplicative and a workhorse in class field theory.",
+      "tags": [
+        "cohomology",
+        "finiteness",
+        "completion"
+      ]
+    },
+    {
+      "id": "inflation-restriction-lhs",
+      "title": "Inflation–restriction and Lyndon–Hochschild–Serre",
+      "anchor": "infres",
+      "prereqs": [
+        "h1-crossed-homs",
+        "h2-extensions",
+        "spectral-sequences-ha"
+      ],
+      "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
+      "tags": [
+        "cohomology",
+        "exact-sequence",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "galois-cohomology-brauer",
+      "title": "Galois cohomology and the Brauer group",
+      "anchor": "galois-cohom",
+      "prereqs": [
+        "h1-crossed-homs",
+        "h2-extensions",
+        "field-extensions-galois"
+      ],
+      "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+      "tags": [
+        "cohomology",
+        "duality",
+        "classification"
+      ]
+    }
+  ]
+}

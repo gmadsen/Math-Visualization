@@ -19,7 +19,10 @@
       "prereqs": [
         "lfunction-prototype"
       ],
-      "blurb": "Gamma factors and conductor normalization yield symmetric functional equations."
+      "blurb": "Gamma factors and conductor normalization yield symmetric functional equations.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "arithmetic-data-lfunctions",

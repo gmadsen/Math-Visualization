@@ -7,42 +7,61 @@
       "id": "multiplicative-group-mod-p",
       "title": "The multiplicative group (Z/p)×",
       "anchor": "multiplicative-group-mod-p",
-      "prereqs": ["sets-functions"],
+      "prereqs": [
+        "sets-functions"
+      ],
       "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on."
     },
     {
       "id": "legendre-symbol",
       "title": "The Legendre symbol",
       "anchor": "legendre",
-      "prereqs": ["multiplicative-group-mod-p"],
+      "prereqs": [
+        "multiplicative-group-mod-p"
+      ],
       "blurb": "For odd prime p, the symbol (a/p) detects whether a is a square mod p, taking values 1, -1, or 0."
     },
     {
       "id": "supplementary-laws-qr",
       "title": "Supplementary laws",
       "anchor": "supplementary",
-      "prereqs": ["legendre-symbol"],
+      "prereqs": [
+        "legendre-symbol"
+      ],
       "blurb": "Explicit formulas for (-1/p) and (2/p) via p mod 4 and p mod 8 reduce many residue checks to parity facts."
     },
     {
       "id": "gauss-lemma-qr",
       "title": "Gauss's lemma",
       "anchor": "gauss-lemma",
-      "prereqs": ["legendre-symbol"],
+      "prereqs": [
+        "legendre-symbol"
+      ],
       "blurb": "The sign in (a/p) can be computed by counting how many multiples a,2a,...,(p-1)a/2 land past p/2."
     },
     {
       "id": "quadratic-reciprocity-law",
       "title": "Quadratic reciprocity law",
       "anchor": "reciprocity",
-      "prereqs": ["supplementary-laws-qr", "gauss-lemma-qr", "prime-ideals-factorization-ant", "frobenius-element", "splitting-types"],
-      "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
+      "prereqs": [
+        "supplementary-laws-qr",
+        "gauss-lemma-qr",
+        "prime-ideals-factorization-ant",
+        "frobenius-element",
+        "splitting-types"
+      ],
+      "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "jacobi-symbol-generalization",
       "title": "The Jacobi symbol",
       "anchor": "jacobi",
-      "prereqs": ["quadratic-reciprocity-law"],
+      "prereqs": [
+        "quadratic-reciprocity-law"
+      ],
       "blurb": "Extend (a/p) multiplicatively to odd composite n: reciprocity and both supplements survive, yielding a gcd-style O(log n) algorithm with no factoring required."
     }
   ]

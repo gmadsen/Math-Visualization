@@ -1,0 +1,14 @@
+{
+  "widgetId": "w-julia-playground-example",
+  "title": "Mandelbrot set: $z_{n+1} = z_n^2 + c$",
+  "hint": "drag to pan · wheel to zoom · iterations slider sharpens the boundary",
+  "mode": "mandelbrot",
+  "xmin": -2.2,
+  "xmax": 1.0,
+  "ymin": -1.4,
+  "ymax": 1.4,
+  "maxIterations": 80,
+  "width": 480,
+  "height": 320,
+  "palette": "cyan"
+}

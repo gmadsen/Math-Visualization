@@ -10,7 +10,8 @@
       "prereqs": [
         "spectrum-primes"
       ],
-      "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes."
+      "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes.",
+      "tags": ["foundation"]
     },
     {
       "id": "examples-Ga-Gm-mu-n",
@@ -30,7 +31,8 @@
         "group-scheme-definition",
         "algebraic-structures"
       ],
-      "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps."
+      "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
+      "tags": ["duality"]
     },
     {
       "id": "etale-vs-connected",
@@ -40,7 +42,8 @@
         "examples-Ga-Gm-mu-n",
         "etale-morphism"
       ],
-      "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$."
+      "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$.",
+      "tags": ["classification"]
     },
     {
       "id": "lie-algebra-of-G",
@@ -60,7 +63,8 @@
         "group-scheme-definition",
         "cech-cohomology"
       ],
-      "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$)."
+      "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$).",
+      "tags": ["fibration", "cohomology", "group-action"]
     }
   ]
 }

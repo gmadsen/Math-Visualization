@@ -10,7 +10,10 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "Ideals control quotient constructions and algebraic geometry dictionaries."
+      "blurb": "Ideals control quotient constructions and algebraic geometry dictionaries.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "primes-maximals-ca",
@@ -29,7 +32,10 @@
         "primes-maximals-ca",
         "open-sets"
       ],
-      "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes."
+      "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "nilradical-jacobson-ca",
@@ -47,7 +53,10 @@
       "prereqs": [
         "ideals-quotients-ca"
       ],
-      "blurb": "Modules are linear algebra over a ring; submodules, quotients, direct sums, and tensor products assemble them into the abelian category $A\\mathbf{-Mod}$."
+      "blurb": "Modules are linear algebra over a ring; submodules, quotients, direct sums, and tensor products assemble them into the abelian category $A\\mathbf{-Mod}$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "noetherian-hilbert-ca",
@@ -57,7 +66,11 @@
         "ideals-quotients-ca",
         "modules-ca"
       ],
-      "blurb": "A ring is Noetherian when every ascending chain of ideals stabilizes, equivalently every ideal is finitely generated. The Hilbert basis theorem propagates this to $A[x]$, so $k[x_1,\\dots,x_n]$ and every finitely generated $k$-algebra are Noetherian."
+      "blurb": "A ring is Noetherian when every ascending chain of ideals stabilizes, equivalently every ideal is finitely generated. The Hilbert basis theorem propagates this to $A[x]$, so $k[x_1,\\dots,x_n]$ and every finitely generated $k$-algebra are Noetherian.",
+      "tags": [
+        "finiteness",
+        "foundation"
+      ]
     },
     {
       "id": "artinian-local-ca",
@@ -67,7 +80,11 @@
         "noetherian-hilbert-ca",
         "primes-maximals-ca"
       ],
-      "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\mathrm{Spec}$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings."
+      "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\mathrm{Spec}$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings.",
+      "tags": [
+        "finiteness",
+        "lifting"
+      ]
     },
     {
       "id": "localization-ca",
@@ -89,7 +106,10 @@
         "chain-complexes",
         "exact-sequences"
       ],
-      "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\mathrm{Spec}$ vary continuously — govern base change in families."
+      "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\mathrm{Spec}$ vary continuously — govern base change in families.",
+      "tags": [
+        "functoriality"
+      ]
     },
     {
       "id": "nakayama-lemma-ca",
@@ -99,7 +119,10 @@
         "localization-ca",
         "modules-ca"
       ],
-      "blurb": "Over a local ring, Nakayama reduces minimal generation of a finitely generated module to a vector-space count over the residue field; applied to the maximal ideal it produces the Zariski tangent space $\\mathfrak{m}/\\mathfrak{m}^2$."
+      "blurb": "Over a local ring, Nakayama reduces minimal generation of a finitely generated module to a vector-space count over the residue field; applied to the maximal ideal it produces the Zariski tangent space $\\mathfrak{m}/\\mathfrak{m}^2$.",
+      "tags": [
+        "finiteness"
+      ]
     },
     {
       "id": "integral-extensions-ca",
@@ -110,7 +133,10 @@
         "noetherian-hilbert-ca",
         "prime-ideals-factorization-ant"
       ],
-      "blurb": "An element is integral over $A$ when it satisfies a monic polynomial over $A$; integral extensions enjoy lying-over and going-up, and Noether normalization exhibits every finitely generated $k$-algebra as finite over a polynomial subring."
+      "blurb": "An element is integral over $A$ when it satisfies a monic polynomial over $A$; integral extensions enjoy lying-over and going-up, and Noether normalization exhibits every finitely generated $k$-algebra as finite over a polynomial subring.",
+      "tags": [
+        "finiteness"
+      ]
     },
     {
       "id": "krull-dimension-ca",

@@ -11,7 +11,8 @@
         "stacky-obstructions",
         "presheaf-sheaf-axioms"
       ],
-      "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers."
+      "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers.",
+      "tags": ["descent", "moduli", "fibration"]
     },
     {
       "id": "classifying-stacks",
@@ -20,7 +21,8 @@
       "prereqs": [
         "groupoids-and-descent"
       ],
-      "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object."
+      "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object.",
+      "tags": ["moduli", "group-action", "fibration"]
     },
     {
       "id": "quotient-stack",
@@ -29,7 +31,8 @@
       "prereqs": [
         "classifying-stacks"
       ],
-      "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point."
+      "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point.",
+      "tags": ["group-action", "moduli"]
     },
     {
       "id": "deligne-mumford-vs-artin",
@@ -38,7 +41,8 @@
       "prereqs": [
         "quotient-stack"
       ],
-      "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms."
+      "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms.",
+      "tags": ["classification"]
     },
     {
       "id": "dm-stacks-coarse-space",
@@ -47,7 +51,8 @@
       "prereqs": [
         "deligne-mumford-vs-artin"
       ],
-      "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps."
+      "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
+      "tags": ["moduli", "group-action"]
     }
   ]
 }

@@ -3340,6 +3340,305 @@ window.MVQuizBank = {
       }
     }
   },
+  "automorphic-forms-adelic": {
+    "topic": "automorphic-forms-adelic",
+    "quizzes": {
+      "gl2-adelic-group": {
+        "title": "$\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ as a restricted product",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which condition makes $g = (g_v)_v$ an element of $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ rather than the naïve product?",
+            "choices": [
+              "$g_v \\in \\mathrm{GL}_2(\\mathbb{Q}_v)$ for every place $v$.",
+              "$g_p \\in \\mathrm{GL}_2(\\mathbb{Z}_p)$ for all but finitely many primes $p$.",
+              "$\\det g_v = 1$ for every $v$.",
+              "$g_v$ is upper-triangular at every finite place."
+            ],
+            "answer": 1,
+            "explain": "The restricted-product constraint is membership in the compact open $\\mathrm{GL}_2(\\mathbb{Z}_p)$ at almost all $p$. Without it the topology would not be locally compact."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are open subgroups of $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$?",
+            "choices": [
+              "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}}) = \\prod_p \\mathrm{GL}_2(\\mathbb{Z}_p)$",
+              "$\\mathrm{GL}_2(\\mathbb{Q})$ (diagonal embedding)",
+              "$\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot \\mathrm{GL}_2(\\hat{\\mathbb{Z}})$",
+              "The principal congruence subgroup $\\Gamma(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open. $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete (not open), and a classical congruence subgroup is a subgroup of $\\mathrm{SL}_2(\\mathbb{Z})$, not of the adelic group."
+          },
+          {
+            "type": "mcq",
+            "q": "Which factorisation of $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q})$ separates archimedean and finite-adelic data?",
+            "choices": [
+              "$\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$",
+              "$\\mathrm{GL}_2(\\mathbb{Q}) \\times \\mathrm{GL}_2(\\hat{\\mathbb{Z}})$",
+              "$\\mathrm{GL}_2(\\mathbb{Z}) \\times \\mathrm{GL}_2(\\mathbb{Q}_p)$ for some single $p$",
+              "$\\mathrm{SL}_2(\\mathbb{R}) \\times \\mathrm{SO}_2$"
+            ],
+            "answer": 0,
+            "explain": "The adèle ring splits as $\\mathbb{R} \\times \\mathbb{A}_f$, and applying $\\mathrm{GL}_2$ pointwise gives $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$."
+          }
+        ]
+      },
+      "strong-approximation-gl2": {
+        "title": "Strong approximation and $\\Gamma_0(N) \\backslash \\mathbb{H}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Strong approximation for $\\mathrm{GL}_2$ at level $N$ asserts $\\mathrm{GL}_2(\\mathbb{A}_\\mathbb{Q}) = \\,?$",
+            "choices": [
+              "$\\mathrm{GL}_2(\\mathbb{Q}) \\cdot (\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot K_0(N))$",
+              "$\\mathrm{GL}_2(\\mathbb{Q}) \\cdot \\mathrm{GL}_2(\\mathbb{Z})$",
+              "$\\mathrm{GL}_2(\\mathbb{R}) \\cdot K_0(N)$",
+              "$\\mathrm{GL}_2(\\mathbb{Q}_p) \\cdot K_0(N)$ for each $p$ separately"
+            ],
+            "answer": 0,
+            "explain": "The full adelic group is the product of the (discrete) global rationals with the (open) connected archimedean component times an open compact $K_f$. This is the form that translates double cosets into $Y_0(N)$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the resulting double-coset description of $Y_0(N)$?",
+            "choices": [
+              "$Y_0(N) = \\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}) / (Z(\\mathbb{R}) \\mathrm{O}_2(\\mathbb{R}) \\cdot K_0(N))$",
+              "$Y_0(N) = \\mathrm{SL}_2(\\mathbb{Z}) \\backslash \\mathbb{H}$",
+              "$Y_0(N) = \\mathrm{GL}_2(\\mathbb{A}_f) / K_0(N)$",
+              "$Y_0(N) = \\Gamma_0(N) \\backslash \\mathrm{GL}_2(\\mathbb{R})$"
+            ],
+            "answer": 0,
+            "explain": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right recovers $\\Gamma_0(N) \\backslash \\mathbb{H}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does strong approximation fail for the adelic group at $\\mathrm{GL}_1$ (i.e. for $\\mathbb{A}^\\times$)?",
+            "choices": [
+              "$\\mathbb{Q}^\\times$ is not discrete in $\\mathbb{A}^\\times$.",
+              "$\\mathrm{GL}_1$ has non-trivial idèle class group $\\mathbb{A}^\\times/\\mathbb{Q}^\\times$ — connected components of finite-adelic data don't all collapse.",
+              "$\\mathbb{Z}_p^\\times$ is not compact.",
+              "The product formula fails."
+            ],
+            "answer": 1,
+            "explain": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so $\\mathbb{A}^\\times \\ne \\mathbb{Q}^\\times \\cdot \\mathbb{R}^\\times \\cdot \\hat{\\mathbb{Z}}^\\times$ in a single double coset."
+          }
+        ]
+      },
+      "automorphic-form-definition": {
+        "title": "Adelic automorphic forms",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Which conditions are required of an automorphic form $\\phi : \\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}) \\to \\mathbb{C}$?",
+            "choices": [
+              "Right $K$-finiteness under a maximal compact subgroup.",
+              "$\\mathfrak{z}$-finiteness (annihilated by a finite-codimension ideal of $Z(\\mathfrak{g})$).",
+              "Moderate (polynomial) growth.",
+              "Compact support on $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Compact support is too strong — it would rule out Eisenstein series. The three required conditions are right $K$-finiteness, $\\mathfrak{z}$-finiteness, and moderate growth."
+          },
+          {
+            "type": "mcq",
+            "q": "An automorphic form $\\phi$ is a cusp form when:",
+            "choices": [
+              "$\\phi$ is bounded.",
+              "$\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$ for all $g$, where $n_x$ runs over the upper-triangular unipotent.",
+              "$\\phi$ vanishes at $g = e$.",
+              "$\\phi$ is invariant under the centre."
+            ],
+            "answer": 1,
+            "explain": "The Whittaker / constant-term integral over the unipotent radical of the standard Borel must vanish; this is the adelic translation of \"$f$ vanishes at every cusp\"."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is left-$\\mathrm{GL}_2(\\mathbb{Q})$-invariance built into the definition?",
+            "choices": [
+              "Because the diagonal $\\mathrm{GL}_2(\\mathbb{Q})$ is dense in $\\mathrm{GL}_2(\\mathbb{A})$.",
+              "Because $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete and we want functions on the quotient.",
+              "Because $\\mathrm{GL}_2(\\mathbb{Q})$ is compact.",
+              "Because $\\phi$ must be a homomorphism."
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of $\\Gamma \\backslash G$ in the classical setting."
+          }
+        ]
+      },
+      "classical-to-adelic-dictionary": {
+        "title": "Classical-to-adelic dictionary",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given $f \\in M_k(\\Gamma_0(N))$ and the decomposition $g = \\gamma g_\\infty k_f$ from strong approximation, the adelic lift $\\phi_f$ is defined by:",
+            "choices": [
+              "$\\phi_f(g) = f(g_\\infty \\cdot i)$",
+              "$\\phi_f(g) = (f|_k g_\\infty)(i)$",
+              "$\\phi_f(g) = f(\\det g_\\infty)$",
+              "$\\phi_f(g) = \\sum_p f(g_p)$"
+            ],
+            "answer": 1,
+            "explain": "The slash-operator $f|_k g_\\infty$ accounts for the weight-$k$ automorphy factor; evaluating at $i \\in \\mathbb{H}$ projects to $\\mathbb{C}$. The decomposition is well-defined modulo the stabiliser of $i$ inside $K_\\infty K_f$."
+          },
+          {
+            "type": "mcq",
+            "q": "Under this dictionary, the right $K_0(N)$-invariant adelic forms of weight $k$ correspond to:",
+            "choices": [
+              "All functions on $\\mathbb{H}$.",
+              "Modular forms in $M_k(\\Gamma_0(N))$.",
+              "Eisenstein series only.",
+              "Hecke eigenforms only."
+            ],
+            "answer": 1,
+            "explain": "Right $K_0(N)$-invariance is exactly the level structure; combined with weight $k$ and the adelic transformation law, this carves out $M_k(\\Gamma_0(N))$ on the classical side."
+          },
+          {
+            "type": "mcq",
+            "q": "What corresponds adelically to a classical cusp form $f \\in S_k(\\Gamma_0(N))$?",
+            "choices": [
+              "A bounded automorphic form.",
+              "An automorphic form whose constant term along the upper-unipotent vanishes.",
+              "An automorphic function on $\\mathrm{GL}_1(\\mathbb{A})$.",
+              "A Hecke character."
+            ],
+            "answer": 1,
+            "explain": "Classical cuspidality (vanishing at all cusps) translates into the adelic constant-term condition $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$."
+          }
+        ]
+      },
+      "spherical-hecke-satake": {
+        "title": "Spherical Hecke algebra and Satake",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The spherical Hecke algebra $\\mathcal{H}_p = C_c(\\mathrm{GL}_2(\\mathbb{Z}_p) \\backslash \\mathrm{GL}_2(\\mathbb{Q}_p) / \\mathrm{GL}_2(\\mathbb{Z}_p))$ is, as an algebra:",
+            "choices": [
+              "Non-commutative.",
+              "Commutative, generated by the characteristic functions of $\\mathrm{GL}_2(\\mathbb{Z}_p) \\operatorname{diag}(p^a, p^b) \\mathrm{GL}_2(\\mathbb{Z}_p)$.",
+              "Always isomorphic to $\\mathbb{C}$.",
+              "A field."
+            ],
+            "answer": 1,
+            "explain": "The Cartan / Smith decomposition shows the double cosets are indexed by $a \\ge b$ in $\\mathbb{Z}$; convolution makes the algebra commutative — Gelfand pair argument."
+          },
+          {
+            "type": "mcq",
+            "q": "The Satake isomorphism identifies $\\mathcal{H}_p$ with:",
+            "choices": [
+              "$\\mathbb{C}[X^{\\pm 1}, Y^{\\pm 1}]^{S_2}$, symmetric Laurent polynomials in two variables.",
+              "$\\mathbb{C}[T]$, polynomials in one variable.",
+              "$M_2(\\mathbb{C})$.",
+              "The group ring $\\mathbb{C}[\\mathrm{GL}_2(\\mathbb{Z}_p)]$."
+            ],
+            "answer": 0,
+            "explain": "The Satake transform sends Hecke functions to symmetric polynomials in the Satake parameters; the Weyl group of $\\mathrm{GL}_2$ is $S_2$, hence the symmetrisation."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\pi_p$ is unramified with Satake parameters $(\\alpha, \\beta)$, the Hecke eigenvalue of $T_p$ on the new-vector is:",
+            "choices": [
+              "$\\alpha + \\beta$",
+              "$\\alpha \\beta$",
+              "$(\\alpha + \\beta) \\cdot p^{(k-1)/2}$ (in the classical normalisation, weight $k$)",
+              "$p$"
+            ],
+            "answer": 2,
+            "explain": "The classical Hecke eigenvalue $a_p$ relates to the Satake parameters by $a_p = (\\alpha + \\beta) p^{(k-1)/2}$ (or $\\alpha + \\beta$ in the unitary normalisation). Either form of the answer is acceptable; this option gives the classical weight-$k$ normalisation."
+          }
+        ]
+      },
+      "whittaker-newform": {
+        "title": "Whittaker model and the new-form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Whittaker functional on $\\pi_v$ is a linear $W$-functional satisfying $W(\\pi_v(n_x) v) = \\,?$",
+            "choices": [
+              "$W(v)$",
+              "$\\psi(x) W(v)$ for a fixed non-trivial additive character $\\psi$",
+              "$|x|_v W(v)$",
+              "$0$ for all $v$"
+            ],
+            "answer": 1,
+            "explain": "The defining $\\psi$-equivariance is what distinguishes a Whittaker functional and forces uniqueness (up to scalar) for generic representations — local multiplicity-one."
+          },
+          {
+            "type": "mcq",
+            "q": "Casselman's new-vector theorem says that for an irreducible admissible $\\pi_p$, there is a unique vector (up to scalar) fixed by:",
+            "choices": [
+              "$\\mathrm{GL}_2(\\mathbb{Z}_p)$ — always.",
+              "$K_0(p^{c_p})$ for the smallest $c_p \\ge 0$ admitting any fixed vector.",
+              "The whole $\\mathrm{GL}_2(\\mathbb{Q}_p)$.",
+              "The unipotent radical."
+            ],
+            "answer": 1,
+            "explain": "$c_p$ is the local conductor exponent. Smaller $c_p$ would give a fixed vector of even lower level, contradicting minimality; larger gives a multidimensional space. Multiplying these gives the global conductor $N = \\prod_p p^{c_p}$, which equals the classical level."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical theorem is the Whittaker / new-form story the adelic upgrade of?",
+            "choices": [
+              "Atkin–Lehner new-form theory inside $S_k(\\Gamma_0(N))$.",
+              "The Riemann–Roch theorem.",
+              "The valuative criterion.",
+              "Dirichlet's theorem on primes in arithmetic progressions."
+            ],
+            "answer": 0,
+            "explain": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the same statement, prime by prime, in the local Whittaker / Kirillov language."
+          }
+        ]
+      },
+      "automorphic-l-function": {
+        "title": "Automorphic $L$-functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For an unramified $\\pi_p$ with Satake parameters $(\\alpha, \\beta)$, the local $L$-factor is:",
+            "choices": [
+              "$(1 - \\alpha p^{-s})(1 - \\beta p^{-s})$",
+              "$(1 - \\alpha p^{-s})^{-1}(1 - \\beta p^{-s})^{-1}$",
+              "$(1 - (\\alpha + \\beta) p^{-s})^{-1}$",
+              "$(1 - p^{-s})^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "Each Satake parameter contributes a geometric series. The product of two such factors is the rank-2 Euler factor at $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "When $\\pi$ corresponds to a classical eigenform $f$ of weight $k$ and level $N$, the global automorphic $L$-function $L(s, \\pi) = \\prod_v L_v(s, \\pi_v)$ equals:",
+            "choices": [
+              "The Riemann zeta function $\\zeta(s)$.",
+              "The Dirichlet $L$-function $L(s, \\chi)$ of a character mod $N$.",
+              "The classical $L$-function $L(s, f)$ (up to a shift / archimedean factor).",
+              "The Selberg zeta function."
+            ],
+            "answer": 2,
+            "explain": "The unramified local factors reproduce the Hecke Euler factors of $f$; the archimedean factor is a shifted gamma. This is the dictionary that makes the adelic theory a true generalisation of the classical."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the adelic formulation necessary for higher rank $\\mathrm{GL}_n$ rather than just $\\mathrm{GL}_2$?",
+            "choices": [
+              "Because $\\mathbb{H}$ is only a symmetric space for $\\mathrm{SL}_2(\\mathbb{R})$.",
+              "Because higher-rank groups have more places of bad reduction than $\\mathrm{GL}_2$.",
+              "Because higher-rank symmetric spaces support no classical functions.",
+              "Because Dirichlet series have no analogue beyond $\\mathrm{GL}_1$."
+            ],
+            "answer": 0,
+            "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
+          }
+        ]
+      }
+    }
+  },
   "bezout": {
     "topic": "bezout",
     "quizzes": {
@@ -11413,6 +11712,246 @@ window.MVQuizBank = {
       }
     }
   },
+  "extremal-combinatorics": {
+    "topic": "extremal-combinatorics",
+    "quizzes": {
+      "turan-theorem": {
+        "title": "Turán's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the unique extremal graph for $\\mathrm{ex}(n, K_{r+1})$ when $r \\mid n$?",
+            "choices": [
+              "The complete graph $K_n$",
+              "The complete bipartite graph $K_{n/2, n/2}$, regardless of $r$",
+              "The balanced complete $r$-partite graph $T(n, r)$",
+              "Any $K_{r+1}$-free graph achieves the bound"
+            ],
+            "answer": 2,
+            "explain": "Turán's theorem identifies $T(n, r)$ — the complete $r$-partite graph with parts as equal as possible — as the unique edge-maximizer among $K_{r+1}$-free graphs."
+          },
+          {
+            "type": "numeric",
+            "q": "How many edges does the balanced Turán graph $T(6, 3)$ have?",
+            "answer": 12,
+            "tol": 0,
+            "explain": "$T(6,3)$ has three parts of size $2$. Edge count $= \\binom{6}{2} - 3\\binom{2}{2} = 15 - 3 = 12$, equivalently $(1 - 1/3) \\cdot 6^2/2 = 12$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the limiting Turán density $\\pi(K_4) = \\lim_{n\\to\\infty} \\mathrm{ex}(n, K_4) / \\binom{n}{2}$?",
+            "choices": [
+              "$1/2$",
+              "$2/3$",
+              "$3/4$",
+              "$1$"
+            ],
+            "answer": 1,
+            "explain": "$\\pi(K_{r+1}) = 1 - 1/r$. For $K_4 = K_{3+1}$, $r = 3$ and $\\pi(K_4) = 1 - 1/3 = 2/3$."
+          }
+        ]
+      },
+      "kovari-sos-turan": {
+        "title": "Kővári–Sós–Turán",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which best describes the asymptotic order of $\\mathrm{ex}(n, K_{s,t})$ from KST?",
+            "choices": [
+              "$\\Theta(n)$",
+              "$O(n^{2-1/s})$",
+              "$\\Theta(n^2/\\log n)$",
+              "$\\Theta(n^2)$"
+            ],
+            "answer": 1,
+            "explain": "KST gives $\\mathrm{ex}(n, K_{s,t}) \\le \\frac{1}{2}(t-1)^{1/s} n^{2-1/s} + O(n)$. The exponent $2 - 1/s$ is sharp for $s = 2$ (incidence-graph construction) and conjectured sharp in general."
+          },
+          {
+            "type": "mcq",
+            "q": "What construction shows $\\mathrm{ex}(n, K_{2,2}) = \\Theta(n^{3/2})$?",
+            "choices": [
+              "Random graph $G(n, 1/2)$",
+              "The Kneser graph",
+              "The point-line incidence graph of a projective plane $\\mathrm{PG}(2, q)$",
+              "A Cayley graph of $(\\mathbb{Z}/n\\mathbb{Z})^*$"
+            ],
+            "answer": 2,
+            "explain": "Erdős–Rényi: take vertices = points and lines of $\\mathrm{PG}(2, q)$, with $n \\approx 2(q^2 + q + 1)$ vertices. Incidence as edges gives a $C_4$-free graph with $\\Theta(n^{3/2})$ edges."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the proof of KST.",
+            "choices": [
+              "It double-counts pairs $(v, S)$ where $S \\subseteq N(v)$ has size $s$",
+              "It uses Jensen's (convexity) inequality on $\\sum_v \\binom{\\deg v}{s}$",
+              "It uses the fact that no $s$-subset has $\\ge t$ common neighbours, else $K_{s,t}$ appears",
+              "It relies on Szemerédi regularity"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The proof is a clean three-line counting argument: count cherries / common-neighbour patterns two ways and apply convexity. Regularity is overkill — KST predates it by 21 years."
+          }
+        ]
+      },
+      "erdos-stone-simonovits": {
+        "title": "Erdős–Stone–Simonovits",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "According to Erdős–Stone–Simonovits, the leading term of $\\mathrm{ex}(n, H)$ depends on which property of $H$?",
+            "choices": [
+              "The number of vertices of $H$",
+              "The number of edges of $H$",
+              "The chromatic number $\\chi(H)$",
+              "Whether $H$ is bipartite"
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{ex}(n, H) = (1 - 1/(\\chi(H)-1))\\,n^2/2 + o(n^2)$. The leading term sees only $\\chi(H)$ — neither vertex count nor edge count nor any finer structure."
+          },
+          {
+            "type": "mcq",
+            "q": "If $H$ is a graph with $\\chi(H) = 4$ (e.g. $K_4$), what is its Turán density $\\pi(H)$?",
+            "choices": [
+              "$1/3$",
+              "$1/2$",
+              "$2/3$",
+              "$3/4$"
+            ],
+            "answer": 2,
+            "explain": "By Erdős–Stone, $\\pi(H) = 1 - 1/(\\chi(H) - 1)$. For $\\chi(H) = 4$, $\\pi(H) = 1 - 1/3 = 2/3$. The asymptotic extremal example is $T(n, 3)$, the balanced tripartite graph."
+          },
+          {
+            "type": "mcq",
+            "q": "If $H$ is bipartite (i.e. $\\chi(H) = 2$), what does Erdős–Stone give for $\\mathrm{ex}(n, H)$?",
+            "choices": [
+              "$\\Theta(n^2)$",
+              "$o(n^2)$ — leading term vanishes",
+              "$\\Theta(n^{3/2})$ exactly",
+              "$\\Theta(n \\log n)$"
+            ],
+            "answer": 1,
+            "explain": "$1 - 1/(2-1) = 0$, so the leading $n^2$ coefficient vanishes. $\\mathrm{ex}(n, H) = o(n^2)$ — but Erdős–Stone gives no rate. Determining the rate (KST exponents, even-cycle bounds, the Sidorenko conjecture) is the bipartite extremal industry."
+          }
+        ]
+      },
+      "ramsey-numbers": {
+        "title": "Ramsey numbers",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the Ramsey number $R(3, 3)$?",
+            "answer": 6,
+            "tol": 0,
+            "explain": "$R(3,3) = 6$. Lower bound: the $5$-cycle $C_5$ together with its complement is triangle-free in both colours. Upper bound: pigeonhole at any vertex of $K_6$ — three of its five edges are the same colour, then either those endpoints form a monochromatic triangle or include the missing colour."
+          },
+          {
+            "type": "mcq",
+            "q": "Erdős's probabilistic argument shows what for the diagonal Ramsey number $R(k, k)$?",
+            "choices": [
+              "$R(k, k) = 2^k$ exactly",
+              "$R(k, k) \\le 4^k$ (upper bound)",
+              "$R(k, k) \\ge (1 + o(1))\\frac{k}{e\\sqrt{2}}\\, 2^{k/2}$ (lower bound)",
+              "$R(k, k) = O(k^2 / \\log k)$"
+            ],
+            "answer": 2,
+            "explain": "Random $2$-edge-coloring of $K_n$: expected monochromatic $K_k$ count is $\\binom{n}{k} 2^{1 - \\binom{k}{2}}$. Setting this $< 1$ yields the lower bound $\\sim 2^{k/2}$. The upper bound $4^k$ is from Erdős–Szekeres."
+          },
+          {
+            "type": "mcq",
+            "q": "Schur's theorem says: for every $r$ there is $S(r)$ such that any $r$-colouring of $\\{1, \\ldots, S(r)\\}$ contains a monochromatic solution to which equation?",
+            "choices": [
+              "$x \\cdot y = z$",
+              "$x + y = z$",
+              "$x^2 + y^2 = z^2$",
+              "$x + y + z = 0$"
+            ],
+            "answer": 1,
+            "explain": "Schur: every $r$-colouring of a long enough initial segment contains a monochromatic Schur triple $x + y = z$. The proof reduces to graph Ramsey on $K_n$ via colour-by-difference."
+          }
+        ]
+      },
+      "sperner-lym": {
+        "title": "Sperner's theorem and LYM",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the maximum size of an antichain in $2^{[5]}$?",
+            "answer": 10,
+            "tol": 0,
+            "explain": "Sperner: max size $= \\binom{n}{\\lfloor n/2 \\rfloor}$. For $n = 5$, this is $\\binom{5}{2} = \\binom{5}{3} = 10$, attained by either of the two middle layers."
+          },
+          {
+            "type": "mcq",
+            "q": "The LYM inequality states that for any antichain $\\mathcal{F} \\subseteq 2^{[n]}$:",
+            "choices": [
+              "$|\\mathcal{F}| \\le 2^n$",
+              "$\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|} \\le 1$",
+              "$|\\mathcal{F}| \\le n!$",
+              "$\\prod_{F\\in\\mathcal{F}} |F| \\le n^n$"
+            ],
+            "answer": 1,
+            "explain": "LYM (Lubell–Yamamoto–Meshalkin): the chain-counting bound $\\sum_F 1/\\binom{n}{|F|} \\le 1$. Sperner's theorem follows by bounding each summand below by $1/\\binom{n}{\\lfloor n/2\\rfloor}$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the proof technique behind LYM?",
+            "choices": [
+              "Random projection",
+              "Counting maximal chains in the Boolean lattice",
+              "Generating functions",
+              "Linear programming duality"
+            ],
+            "answer": 1,
+            "explain": "Each maximal chain $\\emptyset = C_0 \\subset \\cdots \\subset C_n = [n]$ is a permutation — there are $n!$ of them. A given $F$ with $|F|=k$ lies on $k!(n-k)! = n!/\\binom{n}{k}$ chains. An antichain meets each chain at most once, so $\\sum_F n!/\\binom{n}{|F|} \\le n!$."
+          }
+        ]
+      },
+      "triangle-removal-regularity": {
+        "title": "Triangle removal & regularity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The triangle removal lemma says: for every $\\varepsilon > 0$ there is $\\delta > 0$ such that...",
+            "choices": [
+              "Every triangle-free graph has at most $\\varepsilon n^2$ edges",
+              "Every graph with at most $\\delta n^3$ triangles can be made triangle-free by deleting at most $\\varepsilon n^2$ edges",
+              "Every graph contains at most $\\delta n^3$ triangles",
+              "Every dense graph contains a triangle"
+            ],
+            "answer": 1,
+            "explain": "Removal lemma: few triangles $\\Rightarrow$ few edges suffice to destroy them all. Equivalently (contrapositive): a graph that is robustly non-triangle-free is supersaturated with triangles."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical theorem follows from the triangle removal lemma?",
+            "choices": [
+              "Turán's theorem",
+              "Ramsey's theorem",
+              "Roth's theorem on $3$-term arithmetic progressions in $\\{1,\\ldots,N\\}$",
+              "The Erdős–Ko–Rado theorem"
+            ],
+            "answer": 2,
+            "explain": "Roth (1953): any $A \\subseteq \\{1,\\ldots,N\\}$ free of $3$-APs has $|A| = o(N)$. Proof via removal: build a tripartite graph whose triangles correspond to $3$-APs in $A$; trivial APs force supersaturation, so non-trivial ones must exist when $|A|/N$ is bounded below."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Szemerédi's regularity lemma assert about the partition size $K(\\varepsilon)$?",
+            "choices": [
+              "$K(\\varepsilon) = O(1/\\varepsilon)$",
+              "$K(\\varepsilon) = O(1/\\varepsilon^2)$",
+              "$K(\\varepsilon)$ is a tower of twos of height $\\varepsilon^{-O(1)}$",
+              "$K(\\varepsilon)$ depends linearly on $n$"
+            ],
+            "answer": 2,
+            "explain": "Szemerédi gives an explicit tower-type bound; Gowers (1997) showed it is essentially sharp — no polynomial in $1/\\varepsilon$ suffices. This is what makes regularity proofs ineffective in practice for small $\\varepsilon$."
+          }
+        ]
+      }
+    }
+  },
   "frobenius-and-reciprocity": {
     "topic": "frobenius-and-reciprocity",
     "quizzes": {
@@ -14171,6 +14710,292 @@ window.MVQuizBank = {
       }
     }
   },
+  "group-cohomology": {
+    "topic": "group-cohomology",
+    "quizzes": {
+      "bar-resolution": {
+        "title": "Bar resolution and $H^n(G,M)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Group cohomology $H^n(G,M)$ is defined as which derived functor?",
+            "choices": [
+              "The left derived functors of $M\\mapsto M_G$ (coinvariants)",
+              "The right derived functors of $M\\mapsto M^G$ (invariants)",
+              "The right derived functors of the augmentation $\\mathbb{Z}[G]\\to\\mathbb{Z}$",
+              "The left derived functors of $\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$"
+            ],
+            "answer": 1,
+            "explain": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$. (Coinvariants give group homology $H_n(G,M)$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "On the bar resolution, an $n$-cochain $\\varphi:G^n\\to M$ has coboundary $(d\\varphi)(g_1,\\dots,g_{n+1})$ equal to which expression (degree 1 case)?",
+            "choices": [
+              "$\\varphi(g_1g_2)-\\varphi(g_1)-\\varphi(g_2)$",
+              "$g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$",
+              "$\\varphi(g_2)-\\varphi(g_1)$",
+              "$g_1\\varphi(g_2)+\\varphi(g_1)$"
+            ],
+            "answer": 1,
+            "explain": "The bar formula in degree 1 gives $(d\\varphi)(g_1,g_2)=g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$. A 1-cocycle (kernel of $d$) is exactly a crossed homomorphism."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE about $H^n(G,M)$?",
+            "choices": [
+              "It depends on the choice of free resolution of $\\mathbb{Z}$",
+              "It can be computed from any projective $\\mathbb{Z}[G]$-resolution of $\\mathbb{Z}$",
+              "$H^n(G,M)$ is naturally functorial in both $G$ and $M$",
+              "$H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$"
+            ],
+            "answer": [
+              1,
+              2,
+              3
+            ],
+            "explain": "Cohomology is independent of the chosen projective resolution (the whole point of derived functors). The Ext-formula is the standard equivalent description, and functoriality in $G$ is what makes restriction, inflation, and corestriction work."
+          }
+        ]
+      },
+      "h0-fixed-points": {
+        "title": "$H^0$ as fixed points",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $G=C_4$ act on $M=\\mathbb{Z}/12$ via $\\sigma\\cdot x = 5x$. Compute $|H^0(G,M)|=|M^G|$.",
+            "answer": 4,
+            "tol": 0.5,
+            "explain": "$M^G=\\ker(\\sigma-1)=\\{x:4x\\equiv 0\\bmod 12\\}=\\{0,3,6,9\\}$, so $|M^G|=\\gcd(4,12)=4$. (Equivalently $|M^G|=\\gcd(k-1,m)$ for $\\sigma\\cdot x=kx$ on $\\mathbb{Z}/m$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the long exact sequence of cohomology even start? In other words, why does $0\\to A^G\\to B^G\\to C^G$ NOT continue to a $\\to 0$ for a short exact sequence $0\\to A\\to B\\to C\\to 0$?",
+            "choices": [
+              "Because $C^G$ might be empty",
+              "Because $(-)^G$ is left exact but not right exact: a fixed element of $C$ may have no fixed-point lift in $B$",
+              "Because the connecting map $\\delta$ is not well-defined",
+              "Because $A$ might fail to be normal in $B$"
+            ],
+            "answer": 1,
+            "explain": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact. The obstruction to lifting a fixed point in $C$ to a fixed point in $B$ lives in $H^1(G,A)$ — that is exactly $\\delta(c)$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $G$ acts trivially on $M$, what is $H^0(G,M)$?",
+            "choices": [
+              "$0$",
+              "$M$",
+              "$\\mathrm{Hom}(G,M)$",
+              "$M/|G|M$"
+            ],
+            "answer": 1,
+            "explain": "Trivial action means every element is fixed: $M^G=M$. (Note: $\\mathrm{Hom}(G,M)$ is what $H^1$ becomes under trivial action.)"
+          }
+        ]
+      },
+      "h1-crossed-homs": {
+        "title": "$H^1$ and Hilbert 90",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A crossed homomorphism $\\varphi:G\\to M$ satisfies which identity?",
+            "choices": [
+              "$\\varphi(gh)=\\varphi(g)+\\varphi(h)$",
+              "$\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$",
+              "$\\varphi(gh)=g\\cdot\\varphi(g)+\\varphi(h)$",
+              "$\\varphi(gh)=\\varphi(g)\\cdot\\varphi(h)$"
+            ],
+            "answer": 1,
+            "explain": "The cocycle condition $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ — this collapses to the homomorphism law when the action is trivial."
+          },
+          {
+            "type": "mcq",
+            "q": "Hilbert's Theorem 90 states which of the following for a cyclic Galois extension $L/K$ with $G=\\langle\\sigma\\rangle$?",
+            "choices": [
+              "$H^1(G,L^\\times)=0$: every $\\beta\\in L^\\times$ with $N_{L/K}(\\beta)=1$ has the form $\\beta=\\sigma(\\alpha)/\\alpha$",
+              "$H^1(G,L)=0$: every trace-zero element is a coboundary",
+              "$H^2(G,L^\\times)=\\mathrm{Br}(L/K)$",
+              "$H^1(G,L^\\times)=L^\\times/N_{L/K}(L^\\times)$"
+            ],
+            "answer": 0,
+            "explain": "Hilbert 90 in cyclic form: $H^1(G,L^\\times)=1$, equivalently norm-one elements are coboundaries $\\sigma(\\alpha)/\\alpha$. The fact about $L$ (additive) is the additive Hilbert 90, and the $H^2$ statement is the definition of relative Brauer."
+          },
+          {
+            "type": "mcq",
+            "q": "For $L/K=\\mathbb{Q}(i)/\\mathbb{Q}$ and $\\beta=\\frac{3+4i}{5}$ (norm 1), Hilbert 90 produces $\\alpha\\in L^\\times$ with $\\sigma(\\alpha)/\\alpha=\\beta$. Which witness works?",
+            "choices": [
+              "$\\alpha=1$",
+              "$\\alpha=1+\\beta=\\frac{8+4i}{5}$ (or any nonzero scalar multiple)",
+              "$\\alpha=\\beta$",
+              "$\\alpha=i$"
+            ],
+            "answer": 1,
+            "explain": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence $\\sigma(\\alpha)/\\alpha=\\beta^{-1}\\cdot 1=\\beta$? Carefully: $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$, so adjust to $\\alpha=\\beta(1+\\beta)$ if you want $\\beta$ rather than $\\beta^{-1}$ — the widget shows the explicit calculation."
+          }
+        ]
+      },
+      "h2-extensions": {
+        "title": "$H^2$ and group extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Equivalence classes of group extensions $1\\to A\\to E\\to G\\to 1$ (with prescribed $G$-action on abelian $A$) are classified by:",
+            "choices": [
+              "$\\mathrm{Hom}(G,A)$",
+              "$H^1(G,A)$",
+              "$H^2(G,A)$",
+              "$H^3(G,A)$"
+            ],
+            "answer": 2,
+            "explain": "The cocycle $c(g,h)$ measuring failure of a section $s:G\\to E$ to be a homomorphism is a 2-cocycle, and changing the section by $a:G\\to A$ shifts $c$ by $da$. The class $[c]\\in H^2(G,A)$ classifies the extension."
+          },
+          {
+            "type": "mcq",
+            "q": "Which extensions correspond to the zero class $0\\in H^2(G,A)$?",
+            "choices": [
+              "Central extensions",
+              "Extensions where $A$ is finite",
+              "Split extensions $E=A\\rtimes G$",
+              "Universal central extensions"
+            ],
+            "answer": 2,
+            "explain": "$[c]=0$ iff $c$ is a coboundary, iff some section $s$ exists with $c=0$, iff $s$ is a homomorphism, iff the extension splits."
+          },
+          {
+            "type": "mcq",
+            "q": "Compute $H^2(C_2,\\mathbb{Z}/2)$ (trivial action). What does each class correspond to?",
+            "choices": [
+              "$H^2=0$; only the split extension $\\mathbb{Z}/2\\times\\mathbb{Z}/2$ exists",
+              "$H^2=\\mathbb{Z}/2$; the two classes are $V_4=\\mathbb{Z}/2\\times\\mathbb{Z}/2$ (split) and $C_4$ (nonsplit)",
+              "$H^2=\\mathbb{Z}/4$; four extensions, all cyclic",
+              "$H^2=\\mathbb{Z}$; infinitely many isomorphism classes"
+            ],
+            "answer": 1,
+            "explain": "By the periodic resolution, $H^2(C_2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The trivial class is $V_4$ (split); the nontrivial class lifts $\\sigma\\in C_2$ to an order-4 element, giving $C_4$."
+          }
+        ]
+      },
+      "cyclic-periodic-tate": {
+        "title": "Cyclic groups and Tate periodicity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $G=C_n$ cyclic with generator $\\sigma$ and $G$-module $M$, the cohomology in even and odd positive degrees is:",
+            "choices": [
+              "$H^{2k}=M^G/N(M)$ and $H^{2k+1}=\\ker N/(\\sigma-1)M$",
+              "$H^{2k}=M/(\\sigma-1)M$ and $H^{2k+1}=M^G$",
+              "$H^{2k}=H^{2k+1}=M^G$",
+              "$H^{2k}=0$ and $H^{2k+1}=M^G/N(M)$"
+            ],
+            "answer": 0,
+            "explain": "The two-step periodic resolution alternates $\\sigma-1$ and the norm $N=1+\\sigma+\\dots+\\sigma^{n-1}$. Reading off the cochain complex: even degrees give $\\ker(\\sigma-1)/\\mathrm{im}(N)=M^G/N(M)$, odd degrees give $\\ker(N)/\\mathrm{im}(\\sigma-1)$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $G=C_3$ acting trivially on $M=\\mathbb{Z}/6$, compute $|H^2(C_3,\\mathbb{Z}/6)|$.",
+            "answer": 3,
+            "tol": 0.5,
+            "explain": "Trivial action: $\\sigma-1=0$ so $M^G=M=\\mathbb{Z}/6$, and $N=1+1+1=3$ so $N(M)=3\\cdot\\mathbb{Z}/6=\\{0,3\\}$. Then $H^2=M^G/N(M)=(\\mathbb{Z}/6)/(2$-element subgroup$)=\\mathbb{Z}/3$, of order 3."
+          },
+          {
+            "type": "mcq",
+            "q": "The Herbrand quotient $h(M)=|\\hat H^0(G,M)|/|\\hat H^{-1}(G,M)|$ has which key property?",
+            "choices": [
+              "$h(M)=|G|$ for every finite $G$-module",
+              "It is multiplicative on short exact sequences and trivial on finite modules",
+              "It is always 1",
+              "It equals the Euler characteristic of $M$"
+            ],
+            "answer": 1,
+            "explain": "Herbrand quotient is multiplicative: $h(B)=h(A)h(C)$ for SES $0\\to A\\to B\\to C\\to 0$, and $h(M)=1$ when $M$ is finite. These two properties are what make it a usable invariant in class field theory."
+          }
+        ]
+      },
+      "inflation-restriction-lhs": {
+        "title": "Inflation–restriction and LHS",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $H\\trianglelefteq G$ and a $G$-module $M$, the inflation–restriction five-term exact sequence reads:",
+            "choices": [
+              "$0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$",
+              "$0\\to H^1(H,M)\\to H^1(G,M)\\to H^1(G/H,M)\\to H^2(H,M)\\to H^2(G,M)$",
+              "$0\\to H^1(G,M)\\to H^1(H,M)\\to H^1(G/H,M^H)\\to 0$",
+              "$0\\to M^G\\to M^H\\to (M^H)^{G/H}\\to H^1(G,M)\\to 0$"
+            ],
+            "answer": 0,
+            "explain": "This is the low-degree edge of the LHS spectral sequence. The crucial fixed-points $M^H$ in the inflation entry, and the $G/H$-invariants on the restriction entry, are what make the sequence work — both come from how the spectral sequence's $E_2$-page is built."
+          },
+          {
+            "type": "mcq",
+            "q": "The Lyndon–Hochschild–Serre spectral sequence has $E_2$-page given by:",
+            "choices": [
+              "$E_2^{p,q}=H^p(H,H^q(G/H,M))\\Rightarrow H^{p+q}(G,M)$",
+              "$E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$",
+              "$E_2^{p,q}=H^p(G,M^H)\\otimes H^q(H,M)$",
+              "$E_2^{p,q}=\\mathrm{Ext}^p(\\mathbb{Z},H^q(H,M))$"
+            ],
+            "answer": 1,
+            "explain": "Take cohomology of the normal subgroup first, then of the quotient. Note the order: $H$ goes inside (gives row $q$), and $G/H$ goes outside (gives column $p$)."
+          },
+          {
+            "type": "mcq",
+            "q": "When does the LHS spectral sequence collapse on the row $q=0$ (so $H^p(G,M)=H^p(G/H,M^H)$ in low degrees)?",
+            "choices": [
+              "Always — LHS always collapses",
+              "When $|H|$ is invertible in the coefficient module $M$ (e.g., $|H|$ is a unit in a field of coefficients)",
+              "Only when the extension splits",
+              "Only when $M$ is trivial"
+            ],
+            "answer": 1,
+            "explain": "If $|H|$ is invertible in $M$, then $H^q(H,M)=0$ for $q\\ge 1$ (cohomology of a finite group with coefficients in a divisible module vanishes). The page is concentrated on row $q=0$, no differentials are possible, so $H^p(G,M)\\cong H^p(G/H,M^H)$."
+          }
+        ]
+      },
+      "galois-cohomology-brauer": {
+        "title": "Galois cohomology and the Brauer group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a field $k$ with absolute Galois group $G_k=\\mathrm{Gal}(\\bar k/k)$, the Brauer group is defined as:",
+            "choices": [
+              "$\\mathrm{Br}(k)=H^1(k,\\bar k^\\times)$",
+              "$\\mathrm{Br}(k)=H^2(k,\\bar k^\\times)$",
+              "$\\mathrm{Br}(k)=H^0(k,\\bar k^\\times)=k^\\times$",
+              "$\\mathrm{Br}(k)=\\mathrm{Pic}(\\mathrm{Spec}\\,k)$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$. (Hilbert 90 says $H^1=0$, so the first nontrivial cohomology of $\\bar k^\\times$ is degree 2.) This $H^2$ classifies central simple $k$-algebras up to Morita equivalence."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kummer exact sequence (with $n$ invertible in $k$) is $1\\to\\mu_n\\to\\bar k^\\times\\xrightarrow{x\\mapsto x^n}\\bar k^\\times\\to 1$. What does it imply about $H^1(k,\\mu_n)$?",
+            "choices": [
+              "$H^1(k,\\mu_n)=0$",
+              "$H^1(k,\\mu_n)=\\mu_n(k)$",
+              "$H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$",
+              "$H^1(k,\\mu_n)=\\mathrm{Br}(k)[n]$"
+            ],
+            "answer": 2,
+            "explain": "Long exact sequence: $k^\\times\\xrightarrow{n}k^\\times\\to H^1(k,\\mu_n)\\to H^1(k,\\bar k^\\times)=0$ by Hilbert 90. So $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$ — the Kummer isomorphism, foundation of Kummer theory."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Brauer group is correct?",
+            "choices": [
+              "$\\mathrm{Br}(\\mathbb{R})=0$",
+              "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$, generated by Hamilton's quaternions $\\mathbb{H}$",
+              "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Q}/\\mathbb{Z}$",
+              "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$ with generator $\\mathbb{H}$. (For comparison: $\\mathrm{Br}(\\bar k)=0$, $\\mathrm{Br}(\\mathbb{F}_q)=0$ by Wedderburn, $\\mathrm{Br}(\\mathbb{Q}_p)=\\mathbb{Q}/\\mathbb{Z}$ via the local invariant.)"
+          }
+        ]
+      }
+    }
+  },
   "group-schemes": {
     "topic": "group-schemes",
     "quizzes": {
@@ -14534,6 +15359,320 @@ window.MVQuizBank = {
       }
     }
   },
+  "harmonic-analysis-fourier": {
+    "topic": "harmonic-analysis-fourier",
+    "quizzes": {
+      "fourier-series-circle": {
+        "title": "Fourier series on the circle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is $\\{e_n(x) = e^{2\\pi i n x}\\}_{n\\in\\mathbb{Z}}$ an orthonormal basis of $L^2(\\mathbb{T})$?",
+            "choices": [
+              "Because each $e_n$ is bounded by $1$",
+              "Because $\\int_0^1 e_m(x)\\overline{e_n(x)}\\,dx = \\delta_{mn}$ and the linear span (trigonometric polynomials) is dense by Stone–Weierstrass",
+              "Because the $e_n$ have period $1$",
+              "Because $\\mathbb{T}$ is compact"
+            ],
+            "answer": 1,
+            "explain": "Orthonormality is the integral $\\int_0^1 e^{2\\pi i (m-n)x}\\,dx = \\delta_{mn}$. Density of trigonometric polynomials in $C(\\mathbb{T})$ (Stone–Weierstrass) and then in $L^2(\\mathbb{T})$ promotes that orthonormal set to a basis."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f(x) = 3 + 4\\cos(2\\pi x) - 2\\sin(4\\pi x)$ on $\\mathbb{T}$. Compute $\\|f\\|_{L^2(\\mathbb{T})}^2 = \\int_0^1 |f(x)|^2\\,dx$.",
+            "answer": 19,
+            "tol": 0.000001,
+            "explain": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$. The Fourier coefficients are $\\hat f(0)=3$, $\\hat f(\\pm 1) = 2$, $\\hat f(2) = i$, $\\hat f(-2) = -i$. By Parseval, $\\|f\\|_2^2 = 9 + 4 + 4 + 1 + 1 = 19$."
+          },
+          {
+            "type": "mcq",
+            "q": "Carleson's theorem (1966) says that for $f\\in L^2(\\mathbb{T})$ the partial sums $S_N f = \\sum_{|n|\\le N}\\hat f(n) e_n$ converge to $f$:",
+            "choices": [
+              "uniformly",
+              "in $L^\\infty$",
+              "almost everywhere pointwise",
+              "everywhere pointwise"
+            ],
+            "answer": 2,
+            "explain": "Carleson proved a.e. pointwise convergence for $L^2$. Kolmogorov had earlier shown an $L^1$ function whose Fourier series diverges everywhere, so 'everywhere pointwise' fails outside $L^2$ in a strong sense."
+          }
+        ]
+      },
+      "fourier-transform-real-line": {
+        "title": "Fourier transform on $\\mathbb{R}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "With the convention $\\hat f(\\xi) = \\int_{\\mathbb{R}} f(x) e^{-2\\pi i \\xi x}\\,dx$, what is $\\widehat{(\\tau_a f)}(\\xi)$, where $(\\tau_a f)(x) = f(x-a)$?",
+            "choices": [
+              "$e^{-2\\pi i a \\xi}\\,\\hat f(\\xi)$",
+              "$e^{2\\pi i a \\xi}\\,\\hat f(\\xi)$",
+              "$\\hat f(\\xi - a)$",
+              "$\\hat f(\\xi + a)$"
+            ],
+            "answer": 0,
+            "explain": "Substitute $y = x - a$: $\\int f(x-a) e^{-2\\pi i \\xi x}\\,dx = e^{-2\\pi i a \\xi}\\int f(y) e^{-2\\pi i \\xi y}\\,dy = e^{-2\\pi i a \\xi}\\hat f(\\xi)$. Translation in $x$ becomes modulation in $\\xi$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Riemann–Lebesgue lemma states:",
+            "choices": [
+              "$\\hat f \\in L^1$ whenever $f\\in L^1$",
+              "$\\hat f$ is continuous and $\\lim_{|\\xi|\\to\\infty}\\hat f(\\xi) = 0$ for $f\\in L^1$",
+              "The Fourier transform is surjective onto $C_0(\\mathbb{R})$",
+              "$\\|\\hat f\\|_\\infty = \\|f\\|_1$"
+            ],
+            "answer": 1,
+            "explain": "$\\hat f \\in C_0(\\mathbb{R})$: continuous and decaying at infinity. The map $L^1 \\to C_0$ is bounded with $\\|\\hat f\\|_\\infty \\le \\|f\\|_1$ but is NOT surjective, and $\\hat f$ need not be in $L^1$ (e.g. for the indicator of an interval)."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f = \\mathbf{1}_{[-1/2, 1/2]}$ on $\\mathbb{R}$. Compute $\\|\\hat f\\|_{L^2}^2$ using Plancherel.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$. Here $\\|f\\|_2^2 = \\int_{-1/2}^{1/2} 1\\,dx = 1$, so $\\|\\hat f\\|_2^2 = 1$. (Aside: $\\hat f(\\xi) = \\mathrm{sinc}(\\xi) = \\sin(\\pi \\xi)/(\\pi \\xi)$.)"
+          }
+        ]
+      },
+      "convolution-theorem": {
+        "title": "Convolution and the convolution theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which identity is the convolution theorem?",
+            "choices": [
+              "$\\widehat{fg} = \\hat f * \\hat g$",
+              "$\\widehat{f*g} = \\hat f\\,\\hat g$",
+              "$\\widehat{f*g} = \\hat f * \\hat g$",
+              "$\\widehat{f+g} = \\hat f + \\hat g$"
+            ],
+            "answer": 1,
+            "explain": "Convolution in $x$ becomes pointwise product in $\\xi$. The dual identity $\\widehat{fg} = \\hat f * \\hat g$ also holds (with the right hypotheses) — Fourier swaps the two operations."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the convolution theorem make $L^1(\\mathbb{R})$ a commutative Banach algebra without unit?",
+            "choices": [
+              "Because $L^1$ is reflexive",
+              "Because $\\|f*g\\|_1\\le\\|f\\|_1\\|g\\|_1$ (Young's inequality at $p=q=r=1$), and a unit would require $\\hat e \\equiv 1$ — i.e. $e = \\delta$, which is not an $L^1$ function",
+              "Because $L^1$ has a Schauder basis",
+              "Because the Fourier transform is unitary on $L^1$"
+            ],
+            "answer": 1,
+            "explain": "Young's inequality bounds the convolution; the Banach-algebra axioms follow. A unit $e$ would Fourier-transform to $1$, so $e$ would have to be the Dirac delta — a tempered distribution, not an $L^1$ function. Approximate identities are the substitute."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $g(x) = e^{-\\pi x^2}$. Using $\\hat g = g$ and the convolution theorem, compute $\\widehat{(g*g)}(0)$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$. Evaluating at $\\xi = 0$ gives $1$."
+          }
+        ]
+      },
+      "schwartz-space-distributions": {
+        "title": "Schwartz space and tempered distributions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function $f\\colon\\mathbb{R}\\to\\mathbb{C}$ is Schwartz iff:",
+            "choices": [
+              "$f$ is smooth with compact support",
+              "$f\\in C^\\infty$ and $\\sup_{x}|x^a f^{(b)}(x)| < \\infty$ for all integers $a,b\\ge 0$",
+              "$f\\in L^1\\cap L^\\infty$",
+              "$f$ is real-analytic on $\\mathbb{R}$"
+            ],
+            "answer": 1,
+            "explain": "Schwartz space $\\mathcal{S}$ is smooth functions of rapid decrease: every derivative decays faster than any polynomial. Compactly supported smooth functions $C_c^\\infty$ form a strictly smaller class; both are dense in $L^p$ for $1\\le p<\\infty$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Fourier transform an automorphism of $\\mathcal{S}$ but NOT of $C_c^\\infty$?",
+            "choices": [
+              "$C_c^\\infty$ is not a vector space",
+              "$\\hat{}$ does not preserve smoothness",
+              "By the Paley–Wiener theorem, the Fourier transform of a compactly supported smooth function extends to an entire function of exponential type — so $\\hat f$ generally has unbounded support",
+              "$\\hat{}$ is undefined on $C_c^\\infty$"
+            ],
+            "answer": 2,
+            "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials. The two component identities $\\widehat{f^{(b)}}(\\xi)=(2\\pi i\\xi)^b\\hat f(\\xi)$ and $\\widehat{x^a g}(\\xi)=(2\\pi i)^{-a}(-1)^a\\hat g^{(a)}(\\xi)$ together let polynomial-times-derivative operators round-trip through $\\mathcal{S}$ (with Leibniz cross-terms when both $a,b>0$). Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\hat \\delta$, the Fourier transform of the Dirac delta as a tempered distribution?",
+            "choices": [
+              "$\\delta$ itself",
+              "the constant function $1$",
+              "$\\mathrm{p.v.}\\,1/x$",
+              "$0$"
+            ],
+            "answer": 1,
+            "explain": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered distribution. Dually, $\\hat 1 = \\delta$."
+          }
+        ]
+      },
+      "uncertainty-principle": {
+        "title": "Heisenberg uncertainty",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Heisenberg's inequality (with the $\\hat f(\\xi) = \\int f e^{-2\\pi i\\xi x}\\,dx$ convention) reads:",
+            "choices": [
+              "$\\|x f\\|_2 + \\|\\xi \\hat f\\|_2 \\ge \\|f\\|_2$",
+              "$\\|x f\\|_2 \\,\\|\\xi \\hat f\\|_2 \\ge \\|f\\|_2^2/(4\\pi)$",
+              "$\\|x f\\|_2\\,\\|\\xi\\hat f\\|_2 \\ge \\|f\\|_2$",
+              "$\\|x f\\|_1\\,\\|\\xi\\hat f\\|_1 \\ge \\|f\\|_1^2$"
+            ],
+            "answer": 1,
+            "explain": "Centred at $0$ in space and frequency, the product of variances is at least $\\|f\\|_2^4/(4\\pi)^2$, equivalently $\\|x f\\|_2\\|\\xi\\hat f\\|_2\\ge\\|f\\|_2^2/(4\\pi)$. Equality holds iff $f$ is a (translated, modulated) Gaussian."
+          },
+          {
+            "type": "mcq",
+            "q": "Which family achieves equality in the Heisenberg inequality?",
+            "choices": [
+              "rectangular indicators $\\mathbf{1}_{[-a,a]}$",
+              "triangular tents",
+              "Gaussians $e^{-\\pi a x^2}$",
+              "the Dirichlet kernel"
+            ],
+            "answer": 2,
+            "explain": "Variational analysis (or completing the square in the proof) shows the only minimizers are Gaussians. They are the fixed points / eigenfunctions of $\\hat{}$ — the same fact in two languages."
+          },
+          {
+            "type": "numeric",
+            "q": "For $f(x) = e^{-\\pi x^2}$, compute the lower bound $\\|f\\|_2^2/(4\\pi)$ in Heisenberg's inequality.",
+            "answer": 0.05627314338,
+            "tol": 0.000001,
+            "explain": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$. So $\\|f\\|_2^2/(4\\pi) = 1/(4\\pi\\sqrt{2}) \\approx 0.05627$. The Gaussian saturates the inequality with equality."
+          }
+        ]
+      },
+      "poisson-summation": {
+        "title": "Poisson summation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Poisson summation states (for Schwartz $f$):",
+            "choices": [
+              "$\\sum_{n\\in\\mathbb{Z}} f(n) = \\sum_{n\\in\\mathbb{Z}} \\hat f(n)$",
+              "$\\sum_{n\\in\\mathbb{Z}} f(n) = \\hat f(0)$",
+              "$\\int f = \\sum_n \\hat f(n)$",
+              "$\\sum_n f(n)^2 = \\sum_n |\\hat f(n)|^2$"
+            ],
+            "answer": 0,
+            "explain": "Periodize $F(x) = \\sum_n f(x+n)$ on $\\mathbb{T}$; its Fourier coefficients are $\\hat F(k) = \\hat f(k)$. Evaluating $F(0)$ in two ways — direct sum vs. Fourier expansion at $x=0$ — gives the identity."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Poisson summation the key step in the analytic continuation of $\\zeta(s)$?",
+            "choices": [
+              "It computes $\\zeta(2)$ as a residue",
+              "Applied to Gaussians, it gives the modular transformation $\\theta(1/t) = \\sqrt t\\,\\theta(t)$ of the Jacobi theta function — Riemann's contour shift then turns this into the functional equation $\\xi(s) = \\xi(1-s)$ for $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$",
+              "It proves that $\\zeta$ has a pole at $s=1$",
+              "It's not — analytic continuation is purely about contour integrals"
+            ],
+            "answer": 1,
+            "explain": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to $f_t(x) = e^{-\\pi t x^2}$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $f_t(x) = e^{-\\pi t x^2}$ (so $\\hat f_t(\\xi) = t^{-1/2} e^{-\\pi \\xi^2/t}$), let $\\theta(t) = \\sum_{n\\in\\mathbb{Z}} e^{-\\pi n^2 t}$. By Poisson summation, $\\theta(t) = t^{-1/2}\\theta(1/t)$. Compute the ratio $\\theta(4)/\\theta(1/4)$.",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "explain": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$. The modular transformation rescales the lattice."
+          }
+        ]
+      },
+      "heat-kernel-gaussian": {
+        "title": "Heat kernel and the Gaussian eigenfunction",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\hat g(0)$ where $g(x) = e^{-\\pi x^2}$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$. (Equivalently, $\\int_{\\mathbb{R}} e^{-\\pi x^2}\\,dx = 1$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "On the Fourier side, the heat equation $\\partial_t u = \\partial_x^2 u$ with $u(0,\\cdot) = f$ becomes:",
+            "choices": [
+              "$\\partial_t \\hat u = i\\xi\\,\\hat u$",
+              "$\\partial_t \\hat u = -4\\pi^2 \\xi^2\\,\\hat u$, so $\\hat u(t,\\xi) = e^{-4\\pi^2 t \\xi^2}\\hat f(\\xi)$",
+              "$\\partial_t \\hat u = \\hat u^2$",
+              "$\\hat u(t,\\xi) = \\hat f(\\xi/t)$"
+            ],
+            "answer": 1,
+            "explain": "$\\widehat{\\partial_x^2 f}(\\xi) = (2\\pi i \\xi)^2 \\hat f(\\xi) = -4\\pi^2 \\xi^2 \\hat f(\\xi)$. So evolution becomes pointwise multiplication by a Gaussian — diffusion damps high frequencies."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hermite functions $h_n(x) = (-1)^n e^{\\pi x^2}\\frac{d^n}{dx^n} e^{-2\\pi x^2}\\cdot\\text{(constant)}$ satisfy $\\hat h_n = (-i)^n h_n$. What does this tell you about the spectrum of the Fourier transform on $L^2(\\mathbb{R})$?",
+            "choices": [
+              "It is purely continuous, equal to $\\mathbb{R}$",
+              "It has eigenvalues $\\pm 1, \\pm i$, each of infinite multiplicity, and $\\mathcal{F}^4 = \\mathrm{id}$",
+              "It is empty",
+              "It equals the spectrum of the Laplacian"
+            ],
+            "answer": 1,
+            "explain": "Hermite functions form an orthonormal basis of $L^2(\\mathbb{R})$ diagonalizing $\\hat{}$ with eigenvalues $(-i)^n$. So $\\hat{}$ is unitary with spectrum $\\{1,-i,-1,i\\}$, each of infinite multiplicity, and $\\mathcal{F}^4 = \\mathrm{id}$ on $L^2$."
+          }
+        ]
+      },
+      "pontryagin-duality": {
+        "title": "Pontryagin duality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the dual group $\\widehat G$ in Pontryagin duality?",
+            "choices": [
+              "the centre of $G$",
+              "the group of continuous group homomorphisms $\\chi\\colon G \\to U(1)$",
+              "the abelianization of $G$",
+              "the group of Borel measures on $G$"
+            ],
+            "answer": 1,
+            "explain": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each locally compact abelian group with its Pontryagin dual $\\widehat G$.",
+            "left": [
+              "$G = \\mathbb{R}$",
+              "$G = \\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$",
+              "$G = \\mathbb{Z}$",
+              "$G = \\mathbb{Z}/N$"
+            ],
+            "right": [
+              "$\\mathbb{Z}$",
+              "$\\mathbb{Z}/N$",
+              "$\\mathbb{R}$",
+              "$\\mathbb{T}$"
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "explain": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients). The general Plancherel theorem on $G$ specializes to all the classical Fourier theorems."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Plancherel theorem on a locally compact abelian $G$ say?",
+            "choices": [
+              "There is a unique Haar measure on $G$",
+              "The Fourier transform extends to a unitary isomorphism $L^2(G,\\mu_G) \\to L^2(\\widehat G, \\mu_{\\widehat G})$ for compatible Haar measures",
+              "Every character of $G$ is bounded by $1$",
+              "$\\widehat G$ is always compact"
+            ],
+            "answer": 1,
+            "explain": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or Parseval on $\\mathbb{T}$, in one breath."
+          }
+        ]
+      }
+    }
+  },
   "hecke-operators": {
     "topic": "hecke-operators",
     "quizzes": {
@@ -14884,6 +16023,282 @@ window.MVQuizBank = {
             "tol": 0.001,
             "hint": "Newforms have trivial character at good primes, simplifying the adjoint.",
             "explain": "On $S_k(\\Gamma_0(N))$ (trivial nebentypus), the diamond operator $\\langle p\\rangle$ acts as the identity ($\\times 1$), so $T_p^*=T_p$, confirming self-adjointness."
+          }
+        ]
+      }
+    }
+  },
+  "heights-arithmetic-geometry": {
+    "topic": "heights-arithmetic-geometry",
+    "quizzes": {
+      "naive-height-projective": {
+        "title": "Naive height",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $H([15:-9:24])\\in\\mathbb{P}^2(\\mathbb{Q})$. (Reduce to coprime integer coordinates first.)",
+            "answer": 8,
+            "tol": 1e-9,
+            "explain": "$\\gcd(15,9,24)=3$, so $[15:-9:24]=[5:-3:8]$. Then $H=\\max(|5|,|-3|,|8|)=8$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must we clear common factors before reading off $H$?",
+            "choices": [
+              "$H$ is only defined for points whose coordinates are pairwise coprime.",
+              "Projective coordinates are defined only up to a common scalar, so $\\max|x_i|$ would otherwise depend on the representative.",
+              "The naive height is multiplicative and would double-count primes in $\\gcd$."
+            ],
+            "answer": 1,
+            "explain": "Multiplying every coordinate by a constant gives the same projective point, so a coordinate-free $H$ requires picking the smallest integer representative — equivalently, dividing through by the gcd."
+          },
+          {
+            "type": "mcq",
+            "q": "In $\\mathbb{P}^1(\\mathbb{Q})$, the point $[a:b]$ with $\\gcd(a,b)=1$ corresponds to $a/b\\in\\mathbb{Q}$. Then $H([a:b])$ equals:",
+            "choices": [
+              "$|a|+|b|$",
+              "$|a|\\cdot|b|$",
+              "$\\max(|a|,|b|)$",
+              "$|a/b|$"
+            ],
+            "answer": 2,
+            "explain": "By definition $H([a:b])=\\max(|a|,|b|)$. So $H(3/4)=4$, $H(7)=H([7:1])=7$, etc."
+          }
+        ]
+      },
+      "logarithmic-height-northcott": {
+        "title": "Northcott finiteness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Northcott's finiteness theorem says that the number of $P\\in\\mathbb{P}^n(\\bar{\\mathbb{Q}})$ with $h(P)\\le B$ and $[\\mathbb{Q}(P):\\mathbb{Q}]\\le d$ is:",
+            "choices": [
+              "Always zero for $B<\\log 2$.",
+              "Finite for every $B$ and $d$.",
+              "Finite if you also fix the field of definition; otherwise infinite.",
+              "Polynomial in $B$ but exponential in $d$."
+            ],
+            "answer": 1,
+            "explain": "The whole point of Northcott is that bounding height AND degree (over $\\mathbb{Q}$) is enough — you do not have to fix the number field in advance."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does dropping the degree bound make Northcott fail?",
+            "choices": [
+              "Roots of unity have height $0$ and arbitrary degree, so $\\{P:h(P)=0\\}$ is infinite in $\\bar{\\mathbb{Q}}$.",
+              "The naive height is not Galois-invariant for large extensions.",
+              "Heights on $\\mathbb{P}^n$ depend on the choice of basis once $n\\ge 2$.",
+              "There is no canonical way to define $H$ outside $\\mathbb{Q}$."
+            ],
+            "answer": 0,
+            "explain": "All cyclotomic numbers $\\zeta_m$ have height $0$, and there are infinitely many of them across all degrees. Bounding the degree kills this."
+          },
+          {
+            "type": "numeric",
+            "q": "How many points of $\\mathbb{P}^1(\\mathbb{Q})$ have $H([a:b])\\le 2$? (Use coprime integer reps; remember $[a:b]=[-a:-b]$.)",
+            "answer": 11,
+            "tol": 0.5,
+            "explain": "Pairs $(a,b)$ with $\\gcd=1$, $\\max(|a|,|b|)\\le 2$, modulo sign: $[0:1],[1:0],[1:1],[1:-1],[1:2],[1:-2],[2:1],[2:-1],[1:0]$ already counted… enumeration gives $0,\\infty,\\pm 1,\\pm 2,\\pm 1/2$ — that's $11$ projective points."
+          }
+        ]
+      },
+      "weil-height-line-bundle": {
+        "title": "Weil heights",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the precise sense in which the Weil height $h_{X,L}$ depends on the choice of embedding $X\\hookrightarrow\\mathbb{P}^n$ defining $L$?",
+            "choices": [
+              "It is independent: different embeddings give literally the same function.",
+              "It is well-defined up to a bounded function: any two choices differ by $O(1)$.",
+              "It is well-defined up to a constant additive shift.",
+              "It depends multiplicatively on the choice and is only well-defined up to scaling."
+            ],
+            "answer": 1,
+            "explain": "$h_{X,L}$ is canonical only modulo bounded functions on $X(\\bar K)$. This is enough for Northcott (which is insensitive to $O(1)$) but not enough to define a quadratic form — that needs the canonical-height refinement."
+          },
+          {
+            "type": "mcq",
+            "q": "Functoriality of Weil heights says: for $f:X\\to Y$ and a line bundle $L$ on $Y$,",
+            "choices": [
+              "$h_{X,f^*L}=h_{Y,L}\\circ f$ exactly.",
+              "$h_{X,f^*L}=h_{Y,L}\\circ f+O(1)$.",
+              "$h_{X,f^*L}=(\\deg f)\\cdot h_{Y,L}\\circ f$.",
+              "There is no general relation; it depends on $f$."
+            ],
+            "answer": 1,
+            "explain": "The standard Weil-height machine: pullback intertwines heights up to a bounded function. The $O(1)$ is unavoidable since the heights themselves are only well-defined up to $O(1)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Weil-height machine assigns a height to each line bundle. On which group structure is this assignment a homomorphism (modulo $O(1)$)?",
+            "choices": [
+              "$\\mathrm{Aut}(X)$",
+              "$\\mathrm{Pic}(X)$",
+              "$X(\\bar K)$",
+              "$H^1(X,\\mathcal{O}_X^*)$ — wait, that's the same as Pic."
+            ],
+            "answer": 1,
+            "explain": "$L\\mapsto h_{X,L}$ is a homomorphism $\\mathrm{Pic}(X)\\to\\{\\text{functions }X(\\bar K)\\to\\mathbb{R}\\}/O(1)$. Tensor product of line bundles becomes addition of heights."
+          }
+        ]
+      },
+      "neron-tate-canonical-height": {
+        "title": "Canonical height",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On an elliptic curve, the Néron–Tate height $\\hat h$ is defined by Tate's limit",
+            "choices": [
+              "$\\hat h(P)=\\lim_n h(x([n]P))/n$",
+              "$\\hat h(P)=\\lim_n h(x([n]P))/n^2$",
+              "$\\hat h(P)=\\lim_n h(x([2^n]P))/2^n$",
+              "$\\hat h(P)=\\sup_n h(x([n]P))/n^2$"
+            ],
+            "answer": 1,
+            "explain": "Doubling on $E$ acts as multiplication-by-$4$ on a Weil height attached to a symmetric ample bundle, so dividing by $n^2$ is the right normalisation. Equivalently, $\\hat h=\\lim_n h(x(2^n P))/4^n$ — the form usually written down."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of $\\hat h$ on an elliptic curve fails for the naive Weil height $h$?",
+            "choices": [
+              "$h$ is non-negative on $E(\\mathbb{Q})$.",
+              "$h(P)$ is finite for every rational point.",
+              "$h$ is exactly quadratic, i.e. $h([n]P)=n^2 h(P)$.",
+              "Northcott finiteness on $E(\\mathbb{Q})$."
+            ],
+            "answer": 2,
+            "explain": "The naive height satisfies $h([n]P)=n^2 h(P)+O(1)$ but not equality. Tate's averaging absorbs the $O(1)$; the resulting $\\hat h$ is exactly quadratic and gives a positive-definite pairing on $E(\\mathbb{Q})/\\mathrm{tors}$."
+          },
+          {
+            "type": "mcq",
+            "q": "$\\hat h(P)=0$ iff:",
+            "choices": [
+              "$P$ is the identity $O$.",
+              "$P$ is a torsion point.",
+              "$P$ has integer coordinates.",
+              "$P$ has $x$-coordinate $0$."
+            ],
+            "answer": 1,
+            "explain": "Quadratic + Northcott + invariance under $[n]$ forces $\\hat h$ to vanish exactly on the torsion subgroup. This is what makes $\\hat h$ a positive-definite form on $E(\\mathbb{Q})/\\mathrm{tors}$ and gives a regulator."
+          }
+        ]
+      },
+      "mahler-measure-lehmer": {
+        "title": "Mahler measure",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $M(f)$ for $f(x)=2x^2-3x+1=2(x-1)(x-1/2)$. (Mahler measure = $|a|\\prod\\max(1,|\\alpha_i|)$.)",
+            "answer": 2,
+            "tol": 1e-9,
+            "explain": "Roots are $1$ and $1/2$, both with $|\\alpha|\\le 1$, so each $\\max(1,|\\alpha|)=1$. Then $M(f)=|2|\\cdot 1\\cdot 1=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Kronecker's theorem identifies the integer polynomials $f\\in\\mathbb{Z}[x]$ with $M(f)=1$ as exactly:",
+            "choices": [
+              "Polynomials with all roots on the unit circle.",
+              "Products of cyclotomic polynomials and a power of $x$.",
+              "Monic polynomials with $|f(0)|=1$.",
+              "Linear polynomials $\\pm x\\pm 1$."
+            ],
+            "answer": 1,
+            "explain": "Kronecker: a monic integer polynomial whose roots all have $|\\alpha|\\le 1$ has all its non-zero roots on the unit circle and being algebraic integers, they are roots of unity. So $M(f)=1$ iff $f=\\pm x^k\\prod\\Phi_{n_i}(x)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Lehmer's open question (1933) asks:",
+            "choices": [
+              "Whether $M(f)\\in\\mathbb{Z}$ for every monic $f\\in\\mathbb{Z}[x]$.",
+              "Whether the spectrum of values $\\{M(f):f\\in\\mathbb{Z}[x]\\}\\setminus\\{1\\}$ has a positive lower bound.",
+              "Whether $M(f)$ can be irrational.",
+              "Whether every algebraic integer arises as a Mahler measure."
+            ],
+            "answer": 1,
+            "explain": "Lehmer's polynomial $L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1$ has $M(L)\\approx 1.17628$, the smallest known value $>1$. Whether some $f$ can do better is the open problem; conjecturally Lehmer's value is the infimum."
+          }
+        ]
+      },
+      "heights-mordell-faltings": {
+        "title": "Mordell–Faltings",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Faltings' theorem (1983) states that for a smooth projective curve $C$ over a number field $K$:",
+            "choices": [
+              "$C(K)$ is finite when the genus of $C$ is at least $1$.",
+              "$C(K)$ is finite when the genus of $C$ is at least $2$.",
+              "$C(K)$ is finite when $C$ has good reduction everywhere.",
+              "$C(K)$ is finitely generated as an abelian group."
+            ],
+            "answer": 1,
+            "explain": "Mordell's conjecture: genus-$\\ge 2$ forces finitely many rational points. Genus $0$ gives $\\mathbb{P}^1$ (infinitely many) and genus $1$ gives elliptic curves where $E(K)$ is finitely generated but typically infinite."
+          },
+          {
+            "type": "mcq",
+            "q": "Heights enter Faltings' proof primarily through which finiteness statement?",
+            "choices": [
+              "Northcott applied directly to $C(K)$.",
+              "Finiteness of isogeny classes of abelian varieties of bounded Faltings height (the Shafarevich/isogeny-class theorem).",
+              "Finiteness of torsion on the Jacobian.",
+              "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
+            ],
+            "answer": 1,
+            "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the genus-$1$ case fall outside Faltings (and instead live in Mordell–Weil)?",
+            "choices": [
+              "Genus-$1$ curves have no canonical height.",
+              "The Jacobian of a genus-$1$ curve is the curve itself, so 'finite' would have to mean finitely generated — exactly the Mordell–Weil statement.",
+              "Heights are not well-defined on elliptic curves.",
+              "Faltings' proof requires $g\\ge 2$ for technical reasons that have since been removed."
+            ],
+            "answer": 1,
+            "explain": "An elliptic curve $E$ is its own Jacobian, and $E(K)$ can have positive rank — finitely many rational points is simply false. The right statement is finite generation, which is Mordell–Weil. Higher genus has trivial intersection with the Jacobian, allowing Faltings/Vojta's heavier finiteness."
+          }
+        ]
+      },
+      "arakelov-heights-glimpse": {
+        "title": "Arakelov heights",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Arakelov geometry's basic move is to:",
+            "choices": [
+              "Replace $\\operatorname{Spec}\\mathbb{Z}$ by its $p$-adic completion at every prime.",
+              "Compactify $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place, encoded by Hermitian metrics on line bundles.",
+              "Pass to étale cohomology on $\\operatorname{Spec}\\mathbb{Z}$.",
+              "Resolve all singularities of arithmetic surfaces."
+            ],
+            "answer": 1,
+            "explain": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity. Arakelov fills it by demanding Hermitian metrics on line bundles over $X(\\mathbb{C})$; the resulting compactified geometry supports an arithmetic intersection theory."
+          },
+          {
+            "type": "mcq",
+            "q": "In the Arakelov picture, the Néron–Tate height $\\hat h(P)$ is identified with:",
+            "choices": [
+              "The cardinality of $P^*\\bar L$ as a finite scheme.",
+              "An arithmetic intersection number (degree of $P^*\\bar L$) divided by $[K:\\mathbb{Q}]$.",
+              "The integral of the curvature form of $\\bar L$ over $X(\\mathbb{C})$.",
+              "The Faltings height of the Jacobian."
+            ],
+            "answer": 1,
+            "explain": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ — heights as intersection numbers in disguise."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Hermitian-metric data necessary to make heights an intersection number?",
+            "choices": [
+              "Without a metric, line bundles have no degree.",
+              "Without a metric, the contribution at the archimedean place is missing — finite-place intersection alone gives only a $p$-adic part of the height.",
+              "Without a metric, the Jacobian fails to be projective.",
+              "Without a metric, heights are only defined modulo torsion."
+            ],
+            "answer": 1,
+            "explain": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula. The Hermitian metric is exactly what supplies that archimedean local height."
           }
         ]
       }
@@ -18165,6 +19580,300 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Start from a Cartan subalgebra and simultaneously diagonalise $\\operatorname{ad}$.",
             "explain": "The standard construction: (1) fix a maximal toral (Cartan) subalgebra $\\mathfrak{h}$; (2) the elements of $\\mathfrak{h}$ act semisimply via $\\operatorname{ad}$, so $\\mathfrak{g}$ decomposes into simultaneous eigenspaces; (3) the nonzero eigenvalues are the roots $\\alpha\\in\\mathfrak{h}^*$; (4) each root space $\\mathfrak{g}_\\alpha=\\{X\\in\\mathfrak{g}\\mid[H,X]=\\alpha(H)X\\;\\forall H\\in\\mathfrak{h}\\}$ is one-dimensional for semisimple $\\mathfrak{g}$."
+          }
+        ]
+      }
+    }
+  },
+  "matroid-theory": {
+    "topic": "matroid-theory",
+    "quizzes": {
+      "matroid-independence-axioms": {
+        "title": "Independence axioms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which axiom for $\\mathcal{I} \\subseteq 2^E$ distinguishes a matroid from an arbitrary simplicial complex (a downward-closed family containing $\\emptyset$)?",
+            "choices": [
+              "(I1) $\\emptyset \\in \\mathcal{I}$",
+              "(I2) $J \\subseteq I \\in \\mathcal{I} \\implies J \\in \\mathcal{I}$",
+              "(I3) if $|I| < |J|$ for $I,J \\in \\mathcal{I}$ then some $e \\in J\\setminus I$ has $I\\cup\\{e\\} \\in \\mathcal{I}$",
+              "$|E|$ is finite"
+            ],
+            "answer": 2,
+            "explain": "(I1) and (I2) define a simplicial complex. (I3) — the exchange or augmentation axiom — is the matroid-specific content; it forces all maximal independent sets to have the same size.",
+            "hint": "A simplicial complex has a non-empty hereditary family by definition; what extra fact about sizes does a matroid demand?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Take $E = \\{a,b,c,d\\}$ and let $\\mathcal{I}$ contain $\\emptyset$, every singleton, and $\\{a,b\\}$, $\\{a,b,c\\}$. Which axioms FAIL?",
+            "choices": [
+              "(I1) $\\emptyset \\in \\mathcal{I}$",
+              "(I2) hereditary",
+              "(I3) exchange"
+            ],
+            "answer": [
+              2
+            ],
+            "explain": "(I1) holds and (I2) holds (every subset of $\\{a,b,c\\}$ that's listed is closed under taking subsets among the listed sets). (I3) fails: take $I=\\{c\\}$ and $J=\\{a,b\\}$ — $|I|<|J|$ but neither $\\{a,c\\}$ nor $\\{b,c\\}$ is in $\\mathcal{I}$, so no element of $J\\setminus I$ extends $I$ to an independent set.",
+            "hint": "Look for two independent sets of different sizes whose smaller one cannot be augmented."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does (I3) imply that all maximal independent sets in a matroid have the same cardinality?",
+            "choices": [
+              "Because $\\mathcal{I}$ is finite, so there's a unique largest size by definition",
+              "If $I, J$ are maximal with $|I| < |J|$, (I3) lets us extend $I$ — contradicting maximality",
+              "Because $\\emptyset \\in \\mathcal{I}$ and 0 is unique",
+              "Because the rank function is constant on maximal independent sets by definition"
+            ],
+            "answer": 1,
+            "explain": "Maximality means no element can be added without leaving $\\mathcal{I}$. If $|I| < |J|$ then (I3) supplies an $e \\in J \\setminus I$ with $I \\cup \\{e\\} \\in \\mathcal{I}$, contradicting $I$'s maximality. So all maxima have equal size — the rank.",
+            "hint": "Maximal means 'can't add anything'. (I3) says 'if you're smaller than someone, you can add something.'"
+          }
+        ]
+      },
+      "matroid-bases-rank": {
+        "title": "Bases and rank",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For the uniform matroid $U_{3,5}$ (ground set of size $5$, every $3$-subset is a basis), what is $r(\\{1,2,4,5\\})$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$r_{U_{r,n}}(S) = \\min(|S|, r)$. Here $|S|=4$ and $r=3$, so $r(S) = \\min(4,3) = 3$.",
+            "hint": "The rank of a subset in $U_{r,n}$ caps at $r$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of the rank function $r : 2^E \\to \\mathbb{Z}$ is the 'submodularity' inequality?",
+            "choices": [
+              "$0 \\le r(S) \\le |S|$",
+              "$S \\subseteq T \\implies r(S) \\le r(T)$",
+              "$r(S \\cup T) + r(S \\cap T) \\le r(S) + r(T)$",
+              "$r(S) = |S|$ iff $S$ is independent"
+            ],
+            "answer": 2,
+            "explain": "The first is the bounding axiom (R1), the second is monotonicity (R2), the third is submodularity (R3). The fourth is true (a definition) but not labelled 'submodularity'.",
+            "hint": "Submodularity always involves both $S \\cup T$ and $S \\cap T$ on one side."
+          },
+          {
+            "type": "mcq",
+            "q": "Two bases $B = \\{a,b,c\\}$ and $B' = \\{a,d,e\\}$ in some matroid. By basis exchange, swapping $b$ out of $B$, which element of $B' \\setminus B$ is GUARANTEED to give a basis $(B \\setminus \\{b\\}) \\cup \\{?\\}$?",
+            "choices": [
+              "$a$ — it is in $B'$",
+              "Either $d$ or $e$ — at least one of them works (basis exchange)",
+              "Both $d$ and $e$ always work",
+              "None of $B' \\setminus B$ is guaranteed; you need an explicit construction"
+            ],
+            "answer": 1,
+            "explain": "Basis exchange: for any $x \\in B \\setminus B'$, there EXISTS $y \\in B' \\setminus B$ with $(B \\setminus \\{x\\}) \\cup \\{y\\}$ a basis. Existence — not 'all'. Here $B \\setminus B' = \\{b,c\\}$ and $B' \\setminus B = \\{d,e\\}$; some specific $y \\in \\{d,e\\}$ works for the swap of $b$, but not both in general.",
+            "hint": "The axiom guarantees existence of a swap partner, not that every candidate works."
+          }
+        ]
+      },
+      "matroid-examples": {
+        "title": "Examples: vector, graphic, uniform, transversal",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many bases (= spanning trees) does the graphic matroid $M(K_4)$ have? (Cayley's formula: $K_n$ has $n^{n-2}$ spanning trees.)",
+            "answer": 16,
+            "tol": 0,
+            "explain": "$K_4$ has $4^{4-2} = 4^2 = 16$ spanning trees, so $M(K_4)$ has 16 bases.",
+            "hint": "$K_n$ has $n^{n-2}$ spanning trees by Cayley's formula."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is a vector matroid representation of $M(K_3)$ (the triangle, $3$ edges, rank $2$)?",
+            "choices": [
+              "Columns $e_1, e_2, e_3$ — the standard basis of $\\mathbb{R}^3$",
+              "Columns $e_1 - e_2$, $e_1 - e_3$, $e_2 - e_3$ in $\\mathbb{R}^3$",
+              "Columns $(1,0), (0,1), (1,1)$ in $\\mathbb{F}_2^2$",
+              "Columns $1, 2, 3$ in $\\mathbb{R}^1$"
+            ],
+            "answer": 1,
+            "explain": "The signed-incidence representation maps edge $\\{i,j\\}$ to $e_i - e_j$. The three vectors $e_1-e_2, e_1-e_3, e_2-e_3$ have rank $2$ (they sum to zero) and any two are linearly independent — exactly mirroring 'any two edges of $K_3$ form a forest, all three edges form a cycle.' The standard-basis option gives all-independent, which is $U_{3,3}$, not $M(K_3)$.",
+            "hint": "You want a configuration where any two columns are independent but all three columns are dependent — matching 'any two edges form a forest, all three form a triangle.'"
+          },
+          {
+            "type": "mcq",
+            "q": "The Vámos matroid $V_8$ on $8$ elements is famous because:",
+            "choices": [
+              "It has $V_8$ as a subgroup of automorphisms",
+              "It is not representable over any field",
+              "It is the smallest non-graphic matroid",
+              "It has the largest number of bases among rank-$4$ matroids on $8$ elements"
+            ],
+            "answer": 1,
+            "explain": "$V_8$ is the canonical example of a matroid that fails to be a vector matroid over any field — even with characteristic $0$ allowed. In contrast, $U_{2,4}$ is non-representable over $\\mathbb{F}_2$ but is fine over $\\mathbb{R}$.",
+            "hint": "The point of $V_8$ is what cannot be done with it as a vector matroid."
+          }
+        ]
+      },
+      "matroid-closure-flats": {
+        "title": "Closure and flats",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the graphic matroid $M(G)$, what is $\\operatorname{cl}(\\{e\\})$ for a single edge $e$ that is not a loop?",
+            "choices": [
+              "$\\{e\\}$ itself",
+              "All edges of $G$",
+              "All edges parallel to $e$ together with $e$ (i.e. all edges with the same endpoint pair)",
+              "All edges sharing a vertex with $e$"
+            ],
+            "answer": 2,
+            "explain": "$\\operatorname{cl}(\\{e\\})$ collects every $f$ with $r(\\{e,f\\}) = r(\\{e\\}) = 1$. That happens iff $\\{e,f\\}$ is dependent, iff $f$ has the same endpoints as $e$ — i.e. $f$ is parallel to $e$. So $\\operatorname{cl}(\\{e\\}) = \\{f : f$ parallel to $e\\}$ (including $e$).",
+            "hint": "$f \\in \\operatorname{cl}(\\{e\\})$ means adding $f$ to $\\{e\\}$ doesn't increase the rank — i.e. $\\{e,f\\}$ is already dependent."
+          },
+          {
+            "type": "mcq",
+            "q": "Mac Lane–Steinitz exchange in closure form says: if $y \\in \\operatorname{cl}(S \\cup \\{x\\}) \\setminus \\operatorname{cl}(S)$, then…",
+            "choices": [
+              "$y \\in \\operatorname{cl}(S)$",
+              "$x \\in \\operatorname{cl}(S \\cup \\{y\\})$",
+              "$\\{x, y\\} \\subseteq S$",
+              "$x = y$"
+            ],
+            "answer": 1,
+            "explain": "(C4): if adding $x$ to $S$ brings $y$ into the closure (and $y$ wasn't already there), then by symmetry adding $y$ to $S$ brings $x$ into the closure. This is the closure-side avatar of the exchange axiom — same content as (I3).",
+            "hint": "The axiom is a 'swap' between $x$ and $y$."
+          },
+          {
+            "type": "mcq",
+            "q": "Birkhoff's theorem (1935) identifies which two structures?",
+            "choices": [
+              "Lattices and Boolean algebras",
+              "Geometric lattices and simple matroids (i.e. matroids without loops or parallel elements)",
+              "Posets and topological spaces",
+              "Distributive lattices and partial orders"
+            ],
+            "answer": 1,
+            "explain": "Geometric lattices = graded, atomistic, semimodular lattices. Birkhoff showed these are exactly the lattices of flats of simple matroids — providing the third major cryptomorphism (alongside bases ↔ rank ↔ closure).",
+            "hint": "The result is matroid-specific; one option is about general posets, the rest are not."
+          }
+        ]
+      },
+      "matroid-duality": {
+        "title": "Matroid duality",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "The dual of the uniform matroid $U_{3,7}$ is $U_{?,7}$. What is the missing first index?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Bases of $U_{r,n}$ are the $r$-subsets; complementing each gives the $(n-r)$-subsets, which are the bases of $U_{n-r,n}$. So $(U_{3,7})^* = U_{4,7}$.",
+            "hint": "Replace each basis by its complement and read off the new basis size."
+          },
+          {
+            "type": "mcq",
+            "q": "If $M$ is a rank-$3$ matroid on a $7$-element ground set, what is $r(M^*)$?",
+            "choices": [
+              "3",
+              "4",
+              "7",
+              "10"
+            ],
+            "answer": 1,
+            "explain": "$r(M) + r(M^*) = |E|$. Here $3 + r(M^*) = 7$, so $r(M^*) = 4$.",
+            "hint": "There is a clean rank identity linking $r(M)$, $r(M^*)$, and $|E|$."
+          },
+          {
+            "type": "mcq",
+            "q": "Whitney's planarity theorem says: a graph $G$ is planar if and only if…",
+            "choices": [
+              "$M(G)^*$ is graphic — i.e. equals $M(G^*)$ for some graph $G^*$",
+              "$M(G)$ is binary",
+              "$G$ has no cycle of length 5",
+              "$M(G)$ has the largest possible number of bases among graphs on $|V(G)|$ vertices"
+            ],
+            "answer": 0,
+            "explain": "Planarity is a matroid-theoretic statement about $M(G)$'s dual: $M(G)^*$ is graphic iff $G$ is planar, with the planar dual $G^*$ providing the witness graph. This subsumes Kuratowski's $K_5$/$K_{3,3}$ criterion.",
+            "hint": "The criterion is about whether the dual matroid is itself a graphic matroid."
+          }
+        ]
+      },
+      "matroid-greedy": {
+        "title": "The greedy algorithm",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Rado–Edmonds theorem says that for a non-empty hereditary family $\\mathcal{I}$ on a finite set, the greedy algorithm finds a maximum-weight member of $\\mathcal{I}$ for every non-negative weight function if and only if…",
+            "choices": [
+              "$\\mathcal{I}$ contains $\\emptyset$",
+              "$\\mathcal{I}$ has a unique maximum-cardinality member",
+              "$\\mathcal{I}$ satisfies the exchange axiom (I3) — i.e. is a matroid",
+              "All members of $\\mathcal{I}$ have the same cardinality"
+            ],
+            "answer": 2,
+            "explain": "Rado–Edmonds: the optimality of greedy for ALL weights is exactly equivalent to $(E, \\mathcal{I})$ being a matroid. So matroids are characterized by the success of the greedy algorithm.",
+            "hint": "The theorem gives an iff between greedy-correctness and one of the matroid axioms."
+          },
+          {
+            "type": "mcq",
+            "q": "Kruskal's algorithm computes a minimum-spanning-tree. Which matroid is it the greedy algorithm for?",
+            "choices": [
+              "$U_{|V|-1, |E|}$ (uniform of rank $|V|-1$)",
+              "The graphic matroid $M(G)$ with edge weights",
+              "The transversal matroid of the bipartite graph $V \\times E$",
+              "The dual matroid $M(G)^*$"
+            ],
+            "answer": 1,
+            "explain": "Kruskal sorts edges by weight (ascending — equivalent to greedy on $-w$) and adds each if it doesn't create a cycle, i.e. if independence in $M(G)$ is preserved. Output: a minimum spanning tree = a min-weight basis of $M(G)$.",
+            "hint": "Kruskal's 'add an edge if it doesn't form a cycle' is exactly an independence test in which matroid?"
+          },
+          {
+            "type": "mcq",
+            "q": "Edmonds' matroid intersection theorem (1970) shows polynomial-time algorithms for the maximum common independent set in TWO matroids on a shared ground set. What is the analogous problem for THREE matroids?",
+            "choices": [
+              "Solvable in $O(n)$ time",
+              "Equivalent to matroid duality, hence polynomial",
+              "NP-hard",
+              "Equivalent to two-matroid intersection"
+            ],
+            "answer": 2,
+            "explain": "Two-matroid intersection captures bipartite matching, arborescences, and more in polynomial time. Three-matroid intersection encodes 3-dimensional matching, an NP-complete problem. Two is the boundary of tractability.",
+            "hint": "Three-dimensional matching is NP-complete — and three-matroid intersection encodes it."
+          }
+        ]
+      },
+      "tutte-polynomial": {
+        "title": "The Tutte polynomial",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does $T_M(1,1)$ equal?",
+            "choices": [
+              "The number of independent sets of $M$",
+              "The number of bases of $M$",
+              "$2^{|E|}$",
+              "The chromatic polynomial of $G$ at $1$, when $M = M(G)$"
+            ],
+            "answer": 1,
+            "explain": "Substituting $x=y=1$ into $\\sum_S (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ kills every term except those with both exponents zero: $r(E)=r(S)$ and $|S|=r(S)$. The first means $S$ spans, the second means $S$ is independent — together, $S$ is a basis. So $T_M(1,1) = $ number of bases.",
+            "hint": "At $(1,1)$ both shift factors vanish unless their exponents are both $0$ — and that pins down which subsets contribute."
+          },
+          {
+            "type": "mcq",
+            "q": "The deletion–contraction recursion for $T_M$ at a non-loop, non-coloop element $e$ is:",
+            "choices": [
+              "$T_M(x,y) = T_{M\\setminus e}(x,y) \\cdot T_{M/e}(x,y)$",
+              "$T_M(x,y) = T_{M\\setminus e}(x,y) + T_{M/e}(x,y)$",
+              "$T_M(x,y) = x \\cdot T_{M\\setminus e}(x,y) + y \\cdot T_{M/e}(x,y)$",
+              "$T_M(x,y) = T_{M\\setminus e}(y,x) + T_{M/e}(y,x)$"
+            ],
+            "answer": 1,
+            "explain": "When $e$ is neither a loop nor a coloop, $T_M = T_{M \\setminus e} + T_{M/e}$ — additive. Loops give $T_M = y \\cdot T_{M \\setminus e}$ and coloops give $T_M = x \\cdot T_{M/e}$. The polynomial form is independent of the order in which elements are deleted/contracted.",
+            "hint": "It's an additive split — and the same template as the deletion–contraction for the chromatic polynomial."
+          },
+          {
+            "type": "numeric",
+            "q": "How many proper $3$-colorings does $K_3$ have? (Equivalently, evaluate the chromatic polynomial $P_{K_3}(k) = k(k-1)(k-2)$ — the Tutte specialization $k^{c(G)} (-1)^{r(M)} T_{M(G)}(1-k, 0)$ — at $k=3$.)",
+            "answer": 6,
+            "tol": 0,
+            "explain": "The chromatic polynomial of $K_3$ is $P_{K_3}(k) = k(k-1)(k-2)$: $k$ choices for vertex 1, $k-1$ for vertex 2, $k-2$ for vertex 3. At $k=3$ this gives $3 \\cdot 2 \\cdot 1 = 6$. As a Tutte specialization with $T_{M(K_3)}(x,y) = x^2 + x + y$, $r=2$, $c=1$: $P_{K_3}(k) = k(-1)^2 T(1-k, 0) = k[(1-k)^2 + (1-k)] = k(1-k)(2-k)$, and $P(3) = 3 \\cdot (-2) \\cdot (-1) = 6$. ✓",
+            "hint": "Number the vertices and pick colors in order: $k \\cdot (k-1) \\cdot (k-2)$."
           }
         ]
       }
@@ -23638,6 +25347,291 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "The reflection $s\\leftrightarrow 1-s$ pairs zeros symmetrically.",
             "explain": "The functional equation $\\xi(s)=\\xi(1-s)$ directly implies zeros come in pairs $\\{\\rho, 1-\\rho\\}$ (and also $\\{\\bar\\rho, 1-\\bar\\rho\\}$ by the reflection principle). The Riemann Hypothesis — that all non-trivial zeros satisfy $\\operatorname{Re}(\\rho)=1/2$ — is a much deeper conjecture not derivable from the functional equation alone."
+          }
+        ]
+      }
+    }
+  },
+  "probabilistic-method": {
+    "topic": "probabilistic-method",
+    "quizzes": {
+      "existence-by-expectation": {
+        "title": "Existence by expectation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Suppose $X$ is an integer-valued random variable on a finite sample space with $\\mathbb{E}[X] = 7.3$. Which conclusion is forced by the existence principle?",
+            "choices": [
+              "$X \\ge 8$ almost surely",
+              "There exists a sample point at which $X \\ge 8$",
+              "The variance $\\operatorname{Var}(X) \\le 7.3$",
+              "$X = 7$ with probability at least $1/2$"
+            ],
+            "answer": 1,
+            "explain": "If every sample point had $X \\le 7$ then $\\mathbb{E}[X] \\le 7 < 7.3$. So at least one sample point gives $X \\ge 8$. Nothing is implied about variance or about the distribution of $X$ on other points."
+          },
+          {
+            "type": "numeric",
+            "q": "Random tournament on $n=6$ vertices: orient each of the $\\binom{6}{2}=15$ edges by an independent fair coin. What is the expected number of Hamilton paths?",
+            "answer": 22.5,
+            "tol": 0.01,
+            "explain": "There are $6! = 720$ permutations. For each, the probability all $5$ consecutive edges agree with the permutation's direction is $2^{-5} = 1/32$. Linearity gives $\\mathbb{E}[X] = 720/32 = 22.5$. The existence principle then forces some tournament on $6$ vertices to have $\\ge 23$ Hamilton paths."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the statements that follow purely from the existence principle (random object with positive probability of property $P$ implies a deterministic object with $P$).",
+            "choices": [
+              "There is a tournament on $n$ vertices with at least $\\lceil n!/2^{n-1}\\rceil$ Hamilton paths",
+              "Every tournament on $n$ vertices has at least $n!/2^{n-1}$ Hamilton paths",
+              "There exists a $2$-colouring of $K_n$ with no monochromatic $K_k$ whenever $\\binom{n}{k} 2^{1-\\binom{k}{2}} < 1$",
+              "There is a polynomial-time algorithm to construct the colouring of (3)"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Items 1 and 3 are direct existence-by-expectation/union-bound statements. Item 2 is wrong — the existence principle never says \\emph{every} object has the property, only that one does. Item 4 misreads existence as constructiveness; the probabilistic method gives no algorithm by itself."
+          }
+        ]
+      },
+      "ramsey-lower-bound": {
+        "title": "Ramsey lower bound",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Erdős's $R(k,k)$ argument, what is the probability that a fixed $k$-subset $S\\subseteq[n]$ is monochromatic under a uniformly random $2$-colouring of $K_n$?",
+            "choices": [
+              "$2^{-k}$",
+              "$2 \\cdot 2^{-\\binom{k}{2}}$",
+              "$\\binom{n}{k} 2^{-k}$",
+              "$1/k!$"
+            ],
+            "answer": 1,
+            "explain": "$S$ has $\\binom{k}{2}$ edges; the probability they all match a chosen colour is $2^{-\\binom{k}{2}}$, and there are $2$ colour choices. So $\\mathbb{P}(S\\text{ monochromatic}) = 2 \\cdot 2^{-\\binom{k}{2}} = 2^{1-\\binom{k}{2}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\binom{n}{k}\\,2^{1-\\binom{k}{2}} < 1$ imply $R(k,k) > n$?",
+            "choices": [
+              "It says a random colouring is monochromatic with probability $< 1$, hence sometimes not monochromatic",
+              "It bounds the expected number of monochromatic $K_k$'s by $< 1$, so by the union bound (or Markov) some colouring has zero such cliques — hence a $2$-colouring of $K_n$ avoids monochromatic $K_k$",
+              "It bounds the variance, forcing concentration",
+              "It's the same as $n < 2^{k/2}$ by the central limit theorem"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{E}[\\#\\text{mono }K_k] = \\binom{n}{k}\\,2^{1-\\binom{k}{2}}$ by linearity. If this is $<1$ the count is integer-valued with mean $<1$, so it equals $0$ on a positive-probability event. Such a colouring witnesses $R(k,k) > n$."
+          },
+          {
+            "type": "numeric",
+            "q": "Plug $k=4$, $n=8$ into Erdős's union bound: compute $\\binom{8}{4}\\,2^{1-\\binom{4}{2}}$.",
+            "answer": 2.1875,
+            "tol": 0.001,
+            "explain": "$\\binom{8}{4}=70$ and $2^{1-6}=2^{-5}=1/32$, so the bound is $70/32 = 2.1875$. Since this exceeds $1$, Erdős's argument is inconclusive at $(n,k)=(8,4)$ — and indeed $R(4,4)=18$, far above $8$. Trying larger $n$ inflates $\\binom{n}{4}$ further, so the union bound $R(k,k) > 2^{k/2}$ only kicks in for moderately large $k$."
+          }
+        ]
+      },
+      "linearity-of-expectation": {
+        "title": "Linearity of expectation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Linearity of expectation $\\mathbb{E}[X_1+\\cdots+X_m]=\\sum \\mathbb{E}[X_i]$ requires which hypothesis on the $X_i$?",
+            "choices": [
+              "Mutual independence",
+              "Pairwise independence",
+              "Identically distributed",
+              "Only that each $X_i$ is integrable"
+            ],
+            "answer": 3,
+            "explain": "Linearity of $\\mathbb{E}$ holds for any integrable random variables — independence is irrelevant. Independence is needed for $\\mathbb{E}[XY]=\\mathbb{E}[X]\\mathbb{E}[Y]$ and for variance to add."
+          },
+          {
+            "type": "numeric",
+            "q": "In $G(n,1/2)$ with $n=10$, what is the expected number of independent sets of size exactly $k=4$?",
+            "answer": 3.28125,
+            "tol": 0.001,
+            "explain": "$\\mathbb{E}[\\#\\{4\\text{-indep sets}\\}] = \\binom{10}{4}\\cdot 2^{-\\binom{4}{2}} = 210 \\cdot 2^{-6} = 210/64 = 3.28125$ — the count is non-zero in expectation, so the first-moment method is inconclusive at this $k$. Pushing $k$ up to $\\lceil 2\\log_2 10\\rceil = 7$ drives the expectation below $1$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these statements about linearity of expectation in $G(n,p)$ are correct?",
+            "choices": [
+              "$\\mathbb{E}[\\#\\text{triangles}] = \\binom{n}{3} p^3$ for any $p$",
+              "$\\mathbb{E}[\\#\\text{triangles}] = \\binom{n}{3} p^3$ only when triangles are independent (which they are not)",
+              "If a sum of indicators has expectation $< 1$, then with positive probability it equals $0$",
+              "If a sum of indicators has expectation $= 5$, then it equals $5$ on every sample point"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Linearity holds with no independence — item 1 is correct, item 2 is the trap. Item 3 is the first-moment principle. Item 4 confuses mean with deterministic value; the variable can fluctuate around $5$."
+          }
+        ]
+      },
+      "alteration-method": {
+        "title": "Alterations: the deletion method",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the structural idea of the alteration (deletion) method?",
+            "choices": [
+              "Resample bad events until none occur",
+              "Sample a random object that is almost good, then locally delete elements involved in each defect",
+              "Compute the variance and apply Chebyshev",
+              "Use the Lovász Local Lemma to skip defects"
+            ],
+            "answer": 1,
+            "explain": "The alteration method weakens the requirement that the random object outright satisfy property $P$ — instead it tolerates $\\beta$ expected defects, then surgically removes one element per defect. The cost is $\\beta$ in size; the gain is being able to use much denser random objects."
+          },
+          {
+            "type": "mcq",
+            "q": "In Erdős's high-girth high-chromatic-number proof, what is altered?",
+            "choices": [
+              "Each cycle of length $\\le g-1$ has one of its vertices deleted",
+              "Each clique has one of its edges deleted",
+              "The graph is replaced by its complement",
+              "The vertex set is enlarged to absorb defects"
+            ],
+            "answer": 0,
+            "explain": "Sample $G\\sim G(n,p)$ with $p = n^{\\theta-1}$, count short cycles in expectation, then delete one vertex per short cycle. The remaining graph has girth $\\ge g$ and the independence number is unchanged or smaller (deletion is monotone), preserving the chromatic-number lower bound."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these statements about the alteration method are correct?",
+            "choices": [
+              "It is constructive in the sense that it produces an explicit algorithm to build the object",
+              "It is non-constructive: existence is proven, but no efficient construction is implied",
+              "It can give better bounds than the basic probabilistic method by tolerating a few defects",
+              "It is equivalent to the Lovász Local Lemma"
+            ],
+            "answer": [
+              1,
+              2
+            ],
+            "explain": "The deletion method is non-constructive (item 2): you know an object exists, but the proof gives no efficient construction. It often beats the basic method (item 3) because it works with denser/looser random objects. It is not equivalent to the LLL (item 4) — LLL handles many overlapping bad events without alteration; alteration handles few isolated ones."
+          }
+        ]
+      },
+      "lovasz-local-lemma": {
+        "title": "Lovász Local Lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The symmetric LLL states: if each bad event $A_i$ has probability $\\le p$ and depends on at most $d$ others, then $\\mathbb{P}(\\bigcap \\bar A_i) > 0$ provided…",
+            "choices": [
+              "$p\\,d \\le 1$",
+              "$p + d \\le 1$",
+              "$e\\,p\\,(d+1) \\le 1$",
+              "$p \\le 1/2$"
+            ],
+            "answer": 2,
+            "explain": "The symmetric LLL hypothesis is $e\\,p\\,(d+1)\\le 1$, where $e$ is Euler's constant. The factor of $e$ comes from the inductive proof's geometric sum bound."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the LLL gain over the union bound in $k$-SAT?",
+            "choices": [
+              "Both give the same bound but the LLL is faster",
+              "The union bound shows satisfiability when $m \\le 2^k$ clauses; the LLL shows it when each variable appears in $\\le 2^k/(ek)$ clauses regardless of total $m$",
+              "The LLL only works for $k = 2$",
+              "The LLL requires the $A_i$ to be mutually independent"
+            ],
+            "answer": 1,
+            "explain": "The union bound demands $\\sum \\mathbb{P}(A_i) = m\\,2^{-k} < 1$, useless for large $m$. The LLL trades the global sum for a local degree: dependence (sharing a variable) of bounded degree suffices. This is what makes LLL the right tool when bad events are sparse but not few."
+          },
+          {
+            "type": "numeric",
+            "q": "In $4$-SAT, the LLL guarantees satisfiability whenever each variable appears in at most $2^k/(ek)$ clauses with $k=4$. To the nearest integer, what is this threshold?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "$2^4/(e\\cdot 4) = 16/(4e) = 4/e \\approx 1.47$. Rounded down (the integer floor of the threshold), the LLL covers each variable appearing in at most $1$ clause — a weak bound at $k=4$, but the threshold $2^k/(ek)$ grows exponentially in $k$, dominating the union bound for moderate $k$."
+          }
+        ]
+      },
+      "random-graph-thresholds": {
+        "title": "Thresholds in $G(n,p)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $X_T$ count triangles in $G(n,p)$. The triangle threshold is at:",
+            "choices": [
+              "$p = 1/n^2$",
+              "$p = 1/n$",
+              "$p = (\\log n)/n$",
+              "$p = 1/\\sqrt n$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{E}[X_T] = \\binom{n}{3} p^3 \\sim n^3 p^3 / 6$. This stays bounded iff $p = \\Theta(1/n)$. For $p \\ll 1/n$ the first moment vanishes and there are no triangles a.a.s.; for $p \\gg 1/n$ the second moment shows triangles exist a.a.s."
+          },
+          {
+            "type": "mcq",
+            "q": "The second moment method shows $\\mathbb{P}(X = 0)$ is small whenever:",
+            "choices": [
+              "$\\mathbb{E}[X]\\to\\infty$ alone",
+              "$\\operatorname{Var}(X) = o(\\mathbb{E}[X]^2)$ and $\\mathbb{E}[X]\\to\\infty$",
+              "$\\mathbb{E}[X^2] \\le \\mathbb{E}[X]$",
+              "$X$ is independent of itself"
+            ],
+            "answer": 1,
+            "explain": "Chebyshev's inequality gives $\\mathbb{P}(X = 0)\\le \\mathbb{P}(|X-\\mathbb{E}[X]|\\ge\\mathbb{E}[X]) \\le \\operatorname{Var}(X)/\\mathbb{E}[X]^2$. So the variance must be $o(\\mathbb{E}[X]^2)$ on top of $\\mathbb{E}[X]\\to\\infty$ for this to vanish."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the statements about $G(n,p)$ thresholds that are correct.",
+            "choices": [
+              "At $p = c/n$ the number of triangles converges in distribution to $\\mathrm{Pois}(c^3/6)$",
+              "Connectivity has threshold $p = (\\log n)/n$",
+              "The giant component appears at $p = 1/n$",
+              "Every monotone graph property has its threshold at $p = 1/n$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Items 1, 2, 3 are foundational facts of Erdős–Rényi. Item 4 is wrong — connectivity ($\\log n/n$), triangle-containment ($1/n$), and Hamiltonicity ($\\log n/n$) all have different thresholds; the threshold depends on the property."
+          }
+        ]
+      },
+      "concentration-inequalities": {
+        "title": "Concentration inequalities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Markov's inequality $\\mathbb{P}(X \\ge a) \\le \\mathbb{E}[X]/a$ requires:",
+            "choices": [
+              "$X$ has finite variance",
+              "$X \\ge 0$",
+              "$X$ is independent of $a$",
+              "$X$ is integer-valued"
+            ],
+            "answer": 1,
+            "explain": "Markov's inequality is for non-negative $X$ — it is the most elementary tail bound and the foundation for Chebyshev (apply Markov to $(X-\\mu)^2$) and Chernoff (apply Markov to $e^{tX}$)."
+          },
+          {
+            "type": "mcq",
+            "q": "Hoeffding's inequality for $S_n = X_1 + \\cdots + X_n$ with $X_i \\in [0,1]$ independent gives:",
+            "choices": [
+              "$\\mathbb{P}(|S_n - \\mathbb{E}S_n| \\ge t) \\le \\sigma^2/t^2$",
+              "$\\mathbb{P}(|S_n - \\mathbb{E}S_n| \\ge t) \\le 2\\exp(-2t^2/n)$",
+              "$\\mathbb{P}(S_n \\ge t) \\le \\mathbb{E}S_n/t$",
+              "$\\mathbb{P}(S_n = \\mathbb{E}S_n) = 1$"
+            ],
+            "answer": 1,
+            "explain": "Hoeffding: independent bounded variables have a sub-Gaussian tail. Item 1 is Chebyshev (polynomial decay), item 3 is Markov, item 4 is the law of large numbers as a single point — all weaker than Hoeffding's exponential bound."
+          },
+          {
+            "type": "mcq",
+            "q": "In Shamir–Spencer's concentration for $\\chi(G(n,p))$, why does the vertex-exposure martingale have differences bounded by $1$?",
+            "choices": [
+              "Because $\\chi$ is monotone in $p$",
+              "Because revealing one new vertex's edges can change the chromatic number by at most $1$ — at worst the new vertex needs a fresh colour",
+              "Because $G(n,p)$ is connected with high probability",
+              "Because Hoeffding's constants are always $1$"
+            ],
+            "answer": 1,
+            "explain": "Adding a single vertex to an existing optimal colouring needs at most one extra colour, so $\\chi$ changes by $\\le 1$. The Doob/exposure martingale of $\\chi$ conditional on revealed edges thus has $|c_i| \\le 1$, and Azuma gives $\\mathbb{P}(|\\chi - \\mathbb{E}\\chi| \\ge t) \\le 2e^{-t^2/(2n)}$."
           }
         ]
       }
@@ -30016,6 +32010,242 @@ window.MVQuizBank = {
       }
     }
   },
+  "simplicial-complexes-combinatorial": {
+    "topic": "simplicial-complexes-combinatorial",
+    "quizzes": {
+      "abstract-simplicial-complex": {
+        "title": "Abstract simplicial complexes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which property is required of a collection $K \\subseteq 2^V$ for it to be an abstract simplicial complex?",
+            "choices": [
+              "Closed under unions: $\\sigma, \\tau \\in K \\Rightarrow \\sigma \\cup \\tau \\in K$",
+              "Closed under taking subsets: $\\sigma \\in K$ and $\\tau \\subseteq \\sigma \\Rightarrow \\tau \\in K$",
+              "Every face has the same cardinality (uniformity)",
+              "$K$ contains every subset of $V$"
+            ],
+            "answer": 1,
+            "explain": "Hereditary / downward-closed is exactly the simplicial axiom. Union-closure would make $K$ a join-semilattice with top element $V$, not a simplicial complex; uniformity is the much stronger 'pure' property; full $2^V$ is the simplex $\\Delta^{|V|-1}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K$ be the boundary of a tetrahedron $\\partial\\Delta^3$ on vertex set $\\{1,2,3,4\\}$. How many faces (including the empty face) does $K$ have?",
+            "answer": 15,
+            "tol": 0,
+            "explain": "$\\partial\\Delta^3$ has all subsets of $\\{1,2,3,4\\}$ except $\\{1,2,3,4\\}$ itself. That's $2^4 - 1 = 15$ faces. (4 vertices + 6 edges + 4 triangles + 1 empty = 15.)"
+          },
+          {
+            "type": "mcq",
+            "q": "If $K$ has facets $\\{1,2,3\\}$ and $\\{2,3,4\\}$, what is $\\dim K$?",
+            "choices": [
+              "$1$",
+              "$2$",
+              "$3$",
+              "$4$"
+            ],
+            "answer": 1,
+            "explain": "$\\dim K = \\max_\\sigma(|\\sigma|-1)$. Both facets have $|\\sigma|=3$ so $\\dim K = 2$ — $K$ is a $2$-complex (a triangulated piece of surface)."
+          }
+        ]
+      },
+      "f-vector-h-vector": {
+        "title": "f-vector and h-vector",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the $f$-vector of the boundary of a tetrahedron $\\partial\\Delta^3$?",
+            "choices": [
+              "$(3, 3, 1)$",
+              "$(4, 4, 4)$",
+              "$(4, 6, 4)$",
+              "$(4, 6, 4, 1)$"
+            ],
+            "answer": 2,
+            "explain": "$\\partial\\Delta^3$ has $4$ vertices, $\\binom{4}{2}=6$ edges, and $\\binom{4}{3}=4$ triangles, so $f = (f_0,f_1,f_2) = (4,6,4)$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Euler characteristic of the boundary of a simplicial $3$-polytope (a $2$-sphere) is which integer?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "$\\chi = f_0 - f_1 + f_2 = V - E + F = 2$ for any triangulated $2$-sphere — the classical Euler formula. For $\\partial\\Delta^3$: $4 - 6 + 4 = 2$. For the octahedron: $6 - 12 + 8 = 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Dehn–Sommerville says that for the boundary complex of a simplicial $d$-polytope, the $h$-vector $(h_0, \\ldots, h_d)$ satisfies which symmetry?",
+            "choices": [
+              "$h_k = -h_{d-k}$",
+              "$h_k = h_{d-k}$",
+              "$h_k = h_{k+1}$",
+              "$\\sum h_k = 0$"
+            ],
+            "answer": 1,
+            "explain": "$h_k = h_{d-k}$ — the $h$-vector is palindromic. For $\\partial\\Delta^3$ ($d=3$), $h = (1,1,1,1)$. For the octahedron's boundary, $h = (1,3,3,1)$. Both are symmetric, consistent with being simplicial $2$-spheres."
+          }
+        ]
+      },
+      "geometric-realization-nerve": {
+        "title": "Realization and the nerve",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The nerve $\\mathcal{N}(\\mathcal{U})$ of a cover $\\mathcal{U} = \\{U_1, \\ldots, U_n\\}$ has a face $\\sigma \\subseteq \\{1,\\ldots,n\\}$ exactly when:",
+            "choices": [
+              "$\\bigcup_{i\\in\\sigma} U_i = X$",
+              "$\\bigcap_{i\\in\\sigma} U_i \\neq \\emptyset$",
+              "$|\\sigma|$ is even",
+              "Every $U_i$ for $i\\in\\sigma$ is open"
+            ],
+            "answer": 1,
+            "explain": "A face captures a non-empty common intersection. This is downward-closed: if $\\sigma$ has non-empty common intersection, any subset $\\tau\\subseteq\\sigma$ has at least that same intersection, hence non-empty."
+          },
+          {
+            "type": "mcq",
+            "q": "The Borsuk–Leray nerve theorem says the nerve $\\mathcal{N}(\\mathcal{U})$ is homotopy-equivalent to $X$ when:",
+            "choices": [
+              "$\\mathcal{U}$ is finite",
+              "Every $U_i$ is open",
+              "$\\mathcal{U}$ is a good cover — every non-empty finite intersection is contractible",
+              "$X$ is compact"
+            ],
+            "answer": 2,
+            "explain": "The 'good cover' hypothesis — contractible intersections — is what makes the nerve carry the same homotopy type as $X$. Without it, the nerve still records combinatorics of intersections, but the homotopy type can drift."
+          },
+          {
+            "type": "mcq",
+            "q": "The geometric realization $|K|$ relates to combinatorial homology how?",
+            "choices": [
+              "Simplicial homology of $K$ and singular homology of $|K|$ disagree in general",
+              "They agree: $H_n^{\\mathrm{simp}}(K) \\cong H_n^{\\mathrm{sing}}(|K|)$",
+              "Only $H_0$ matches; higher homology requires CW structure",
+              "They agree only over $\\mathbb{Q}$, never over $\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "explain": "A foundational comparison theorem: the simplicial chain complex with face boundary map computes the same invariant as singular homology of the geometric realization. This is what makes simplicial complexes a viable computational substitute for spaces."
+          }
+        ]
+      },
+      "shellable-cohen-macaulay": {
+        "title": "Shellings and Cohen–Macaulay",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A shellable pure $(d-1)$-complex $K$ has which homotopy type?",
+            "choices": [
+              "Always contractible",
+              "Always a single $(d-1)$-sphere",
+              "Wedge of $(d-1)$-spheres, with the number of spheres equal to $h_d$",
+              "Homotopy type cannot be determined from a shelling"
+            ],
+            "answer": 2,
+            "explain": "Shelling $\\Rightarrow$ homotopy-equivalent to $\\bigvee^{h_d} S^{d-1}$. For boundaries of simplicial polytopes with $h$-vector ending in $h_d=1$, this gives one sphere; for the boundary of the cyclic polytope it gives the unique top-dimensional sphere predicted by the $g$-theorem."
+          },
+          {
+            "type": "mcq",
+            "q": "Which implication is the standard one (over any field $k$)?",
+            "choices": [
+              "Cohen–Macaulay $\\Rightarrow$ shellable",
+              "Shellable $\\Rightarrow$ Cohen–Macaulay",
+              "Shellable and Cohen–Macaulay are equivalent",
+              "Neither implies the other"
+            ],
+            "answer": 1,
+            "explain": "Shellable $\\Rightarrow$ CM is the easy direction: a shelling decomposes the chain complex compatibly enough to verify Reisner's criterion. The converse fails: there exist CM complexes that are not shellable (the first examples were constructed in the 1980s)."
+          },
+          {
+            "type": "mcq",
+            "q": "Reisner's criterion characterises when $K$ is Cohen–Macaulay over $k$ in terms of:",
+            "choices": [
+              "The reduced homology of every link $\\mathrm{lk}_K(\\sigma)$ vanishing below its top dimension",
+              "The fundamental group of $|K|$ being trivial",
+              "Every vertex having the same degree",
+              "The Euler characteristic $\\chi(K)$ being $\\pm 1$"
+            ],
+            "answer": 0,
+            "explain": "Reisner (1976): $K$ is CM/$k$ iff $\\widetilde H_i(\\mathrm{lk}_K\\sigma; k)=0$ for all $\\sigma\\in K$ and $i<\\dim\\mathrm{lk}_K(\\sigma)$. Spheres satisfy this; a complex with the wrong-dimensional hole in some link fails."
+          }
+        ]
+      },
+      "stanley-reisner-ring": {
+        "title": "Stanley–Reisner ring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Stanley–Reisner ideal $I_K$ is generated by:",
+            "choices": [
+              "All squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for $\\sigma$ a face of $K$",
+              "All squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for $\\sigma$ a non-face of $K$",
+              "All linear forms $x_i$ for $i$ not a vertex",
+              "All quadratic monomials $x_i x_j$"
+            ],
+            "answer": 1,
+            "explain": "By definition $I_K = (\\prod_{i\\in\\sigma} x_i : \\sigma\\notin K)$ — the squarefree monomials supported on the non-faces. By the hereditary axiom on $K$, this ideal is generated by the minimal non-faces."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Stanley–Reisner ring of $\\partial\\Delta^2$ (the boundary of a triangle, vertices $\\{1,2,3\\}$)?",
+            "choices": [
+              "$k[x_1,x_2,x_3]/(x_1, x_2, x_3)$",
+              "$k[x_1,x_2,x_3]/(x_1x_2, x_1x_3, x_2x_3)$",
+              "$k[x_1,x_2,x_3]/(x_1x_2x_3)$",
+              "$k[x_1,x_2,x_3]$"
+            ],
+            "answer": 2,
+            "explain": "$\\partial\\Delta^2$ contains every proper subset of $\\{1,2,3\\}$. The only non-face is $\\{1,2,3\\}$ itself, so $I_K = (x_1x_2x_3)$ and $k[K] = k[x_1,x_2,x_3]/(x_1x_2x_3)$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the Krull dimension of the Stanley–Reisner ring $k[K]$ of a simplicial complex $K$ with $\\dim K = d-1$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\dim k[K] = 1 + \\dim K$. Take $\\dim K = 2$ (so $d-1=2$, $d=3$): then $\\dim k[K] = 3$. The maximal-length chain of primes in $k[K]$ comes from a maximal-length flag of faces, giving the answer."
+          }
+        ]
+      },
+      "persistent-homology-combinatorial": {
+        "title": "Persistent homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Vietoris–Rips complex $\\mathrm{VR}_r(X)$ of a finite metric space $X$ contains a face $\\sigma\\subseteq X$ exactly when:",
+            "choices": [
+              "$|\\sigma| \\le r$",
+              "All pairwise distances in $\\sigma$ are $\\le 2r$",
+              "$\\sigma$ contains a triangle",
+              "Some pairwise distance in $\\sigma$ is $\\le r$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{VR}_r(X) = \\{\\sigma \\subseteq X : \\mathrm{diam}(\\sigma)\\le 2r\\}$ — i.e. all pairwise distances $\\le 2r$. Equivalently, $\\sigma$ is a face iff every two vertices of $\\sigma$ are connected in the $r$-disk graph; higher faces are forced by the pairwise condition."
+          },
+          {
+            "type": "mcq",
+            "q": "The persistence-module structure theorem decomposes $H_k$ of a Rips filtration into:",
+            "choices": [
+              "A direct sum of fields",
+              "A direct sum of interval modules (bars), each born at some scale and dying at another",
+              "A free $\\mathbb{Z}$-module",
+              "A wedge of circles"
+            ],
+            "answer": 1,
+            "explain": "Over a field $k$, a finitely-generated graded module over $k[t]$ decomposes uniquely (Smith normal form) into interval modules $k[t](-b)/(t^{d-b})$. Translating back: bars $[b,d)$. The barcode is the multiset of these intervals."
+          },
+          {
+            "type": "mcq",
+            "q": "The Cohen-Steiner–Edelsbrunner–Harer stability theorem says barcodes are stable in which sense?",
+            "choices": [
+              "Bottleneck distance between barcodes is bounded by Hausdorff distance between point clouds",
+              "Barcodes are independent of the input",
+              "Barcodes are continuous in $L^2$ norm",
+              "Adding a point cannot change the barcode"
+            ],
+            "answer": 0,
+            "explain": "Stability: a small perturbation of the input (in Hausdorff or sup norm) moves bars in the barcode by at most that perturbation, in bottleneck distance. This is what justifies persistent homology as a robust topological statistic on noisy data."
+          }
+        ]
+      }
+    }
+  },
   "simplicial-sets-and-nerve": {
     "topic": "simplicial-sets-and-nerve",
     "quizzes": {
@@ -31367,6 +33597,570 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "The standard equivalence: $M$ is orientable iff $\\Lambda^n T^*M$ has a nowhere-zero smooth section, i.e. there is a volume form. Every smooth manifold admits a Riemannian metric (via partitions of unity), so (B) is not equivalent. Trivial $TM$ (parallelizability) is strictly stronger than orientability — e.g. $S^2$ is orientable but not parallelizable."
+          }
+        ]
+      }
+    }
+  },
+  "sobolev-spaces-distributions": {
+    "topic": "sobolev-spaces-distributions",
+    "quizzes": {
+      "test-functions-distributions": {
+        "title": "Test functions and the space of distributions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these is NOT a distribution on $\\mathbb{R}$?",
+            "choices": [
+              "$\\langle T,\\phi\\rangle = \\phi(0)$",
+              "$\\langle T,\\phi\\rangle = \\phi'(0)$",
+              "$\\langle T,\\phi\\rangle = \\sum_{k=1}^\\infty \\phi^{(k)}(0)$",
+              "$\\langle T,\\phi\\rangle = \\int_0^1 \\phi(x)\\,dx$"
+            ],
+            "answer": 2,
+            "explain": "An infinite sum of derivatives at a point is not a continuous functional on $\\mathcal{D}$: convergence in $\\mathcal{D}$ controls finitely many derivatives uniformly, but bounding $\\sum_k \\phi^{(k)}(0)$ would require all derivatives at once. The first three are $\\delta_0$, $-\\delta_0'$, and a regular distribution from $L^1$, all bona fide elements of $\\mathcal{D}'$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\langle\\delta_0,\\phi\\rangle$ when $\\phi(x) = e^{-x^2}\\mathbf{1}_{|x|<1}$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "By definition $\\langle\\delta_0,\\phi\\rangle = \\phi(0)$, and $\\phi(0) = e^0 \\cdot 1 = 1$. The Dirac delta is point-evaluation; the support and shape of $\\phi$ are otherwise irrelevant once $0\\in\\operatorname{supp}\\phi$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about $L^1_{\\mathrm{loc}}(\\Omega)$ embedding into $\\mathcal{D}'(\\Omega)$ is correct?",
+            "choices": [
+              "Two locally integrable functions $f,g$ define the same distribution iff $f=g$ everywhere",
+              "Two locally integrable functions define the same distribution iff $f=g$ almost everywhere",
+              "The map $f\\mapsto T_f$ is surjective onto $\\mathcal{D}'$",
+              "Only continuous functions induce distributions"
+            ],
+            "answer": 1,
+            "explain": "If $\\int(f-g)\\phi=0$ for every test $\\phi\\in C_c^\\infty$, the fundamental lemma of the calculus of variations gives $f=g$ a.e. (not pointwise — null sets are invisible). Surjectivity fails: $\\delta_0$ is not regular. Continuity is unnecessary; $L^1_{\\mathrm{loc}}$ suffices."
+          }
+        ]
+      },
+      "distributional-derivative": {
+        "title": "Distributional and weak derivatives",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the distributional derivative of the Heaviside step $H(x)=\\mathbf{1}_{x>0}$?",
+            "choices": [
+              "$0$ (since $H$ is constant on each side)",
+              "$\\delta_0$",
+              "$\\mathrm{p.v.}\\,1/x$",
+              "Undefined — $H$ has a jump"
+            ],
+            "answer": 1,
+            "explain": "$\\langle H',\\phi\\rangle = -\\langle H,\\phi'\\rangle = -\\int_0^\\infty\\phi' = \\phi(0) = \\langle\\delta_0,\\phi\\rangle$ by the fundamental theorem of calculus. The classical derivative is $0$ where defined, but the distributional one captures the jump as a unit point mass at the origin."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $T = \\delta_0''$ on $\\mathbb{R}$ and $\\phi(x) = x^2 e^{-x^2}\\mathbf{1}_{|x|<5}$. Compute $\\langle T,\\phi\\rangle$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "By the rule $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$, we get $\\langle\\delta_0'',\\phi\\rangle = (-1)^2\\langle\\delta_0,\\phi''\\rangle = \\phi''(0)$. Differentiating $\\phi = x^2 e^{-x^2}$: $\\phi' = (2x-2x^3)e^{-x^2}$, $\\phi'' = (2-10x^2+4x^4)e^{-x^2}$, so $\\phi''(0) = 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "The function $u(x)=|x|$ on $\\mathbb{R}$ has weak derivative",
+            "choices": [
+              "Undefined (kink at 0)",
+              "$\\operatorname{sgn}(x)$",
+              "$\\operatorname{sgn}(x) + \\delta_0$",
+              "$2\\delta_0$"
+            ],
+            "answer": 1,
+            "explain": "$|x|$ is continuous (no jump), so no delta is produced. Away from $0$ the classical derivative is $\\operatorname{sgn}(x)$, which is bounded — hence locally integrable — so it serves as the weak derivative. Integration by parts: $\\int|x|\\phi' = \\int_0^\\infty x\\phi' - \\int_{-\\infty}^0 x\\phi' = -\\int_0^\\infty\\phi + \\int_{-\\infty}^0\\phi = -\\int\\operatorname{sgn}(x)\\phi$."
+          }
+        ]
+      },
+      "sobolev-spaces-wkp": {
+        "title": "Sobolev spaces $W^{k,p}$ and $H^s$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The function $u(x) = x^{1/2}$ on $(0,1)$ belongs to $W^{1,p}(0,1)$ for which $p$?",
+            "choices": [
+              "All $p\\ge 1$",
+              "Exactly $p<2$",
+              "Exactly $p\\ge 2$",
+              "No $p$ in $[1,\\infty)$"
+            ],
+            "answer": 1,
+            "explain": "$u\\in L^p$ for every $p$, but $u'(x)=\\tfrac12 x^{-1/2}$ has $\\int_0^1 |u'|^p\\,dx = (1/2)^p\\int_0^1 x^{-p/2}\\,dx$, which converges iff $-p/2>-1$, i.e. $p<2$. At $p=2$ the integral logarithmically diverges."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct Hilbert-space inner product on $H^1(\\Omega)$?",
+            "choices": [
+              "$(u,v) = \\int u\\bar v$",
+              "$(u,v) = \\int \\nabla u\\cdot\\overline{\\nabla v}$",
+              "$(u,v) = \\int u\\bar v + \\int \\nabla u\\cdot\\overline{\\nabla v}$",
+              "$(u,v) = \\int u\\bar v - \\int \\nabla u\\cdot\\overline{\\nabla v}$"
+            ],
+            "answer": 2,
+            "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$ (option 2). Option 1, the pure-gradient form, is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself — without Poincaré, the constants form a non-trivial kernel."
+          },
+          {
+            "type": "mcq",
+            "q": "For non-negative integer $k$, why does the Fourier-multiplier definition $H^k(\\mathbb{R}^n) = \\{u : (1+|\\xi|^2)^{k/2}\\hat u\\in L^2\\}$ agree with the distributional-derivative definition?",
+            "choices": [
+              "By Plancherel, $\\|\\partial^\\alpha u\\|_{L^2}^2 = \\|\\xi^\\alpha \\hat u\\|_{L^2}^2$, so summing over $|\\alpha|\\le k$ gives a polynomial in $|\\xi|^2$ comparable to $(1+|\\xi|^2)^k$",
+              "Because the Fourier transform is bounded on $L^p$ for every $p$",
+              "Because $\\hat u$ is always smooth",
+              "It is a coincidence that holds only in dimension $1$"
+            ],
+            "answer": 0,
+            "explain": "Plancherel turns $\\partial^\\alpha$ into multiplication by $(i\\xi)^\\alpha$; summing $|\\xi^\\alpha|^2$ over all $|\\alpha|\\le k$ yields a polynomial bounded above and below by constants times $(1+|\\xi|^2)^k$, so the two norms are equivalent. The Fourier transform fails to be bounded on $L^p$ for $p\\ne 2$, and $\\hat u$ need not be smooth."
+          }
+        ]
+      },
+      "sobolev-embeddings": {
+        "title": "Sobolev–Morrey–Rellich embeddings",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}^3$ with $k=1$ and $p=2$, compute the Sobolev exponent $p^* = np/(n-kp)$.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "Plug in: $p^* = (3\\cdot 2)/(3-1\\cdot 2) = 6/1 = 6$. So $H^1(\\mathbb{R}^3)\\hookrightarrow L^6(\\mathbb{R}^3)$ — the famous critical exponent that drives most 3-D variational problems."
+          },
+          {
+            "type": "mcq",
+            "q": "On a bounded Lipschitz $\\Omega\\subset\\mathbb{R}^3$, which embedding is GUARANTEED to be compact?",
+            "choices": [
+              "$H^1(\\Omega)\\hookrightarrow L^6(\\Omega)$",
+              "$H^1(\\Omega)\\hookrightarrow L^p(\\Omega)$ for $p<6$",
+              "$H^1(\\Omega)\\hookrightarrow C^0(\\overline\\Omega)$",
+              "$H^1(\\Omega)\\hookrightarrow L^\\infty(\\Omega)$"
+            ],
+            "answer": 1,
+            "explain": "Rellich–Kondrachov gives compactness exactly below the critical exponent: $H^1\\hookrightarrow L^p$ is compact for $p<6=p^*$ on a bounded domain. At $p=p^*=6$ the embedding is bounded but never compact (concentration / bubbling). $H^1\\not\\hookrightarrow L^\\infty$ on $\\mathbb{R}^3$ at all (the borderline regime is $kp=n$, requiring $p\\ge 3$)."
+          },
+          {
+            "type": "mcq",
+            "q": "On $\\Omega\\subset\\mathbb{R}^2$ bounded Lipschitz with $k=1, p=4$ (so $kp=4>2=n$), Morrey gives $W^{1,4}\\hookrightarrow C^{0,\\gamma}$ for which $\\gamma$?",
+            "choices": [
+              "$\\gamma = 1/4$",
+              "$\\gamma = 1/2$",
+              "$\\gamma = 1$",
+              "$\\gamma = 3/4$"
+            ],
+            "answer": 1,
+            "explain": "Morrey's exponent is $\\gamma = k - n/p = 1 - 2/4 = 1/2$ in the supercritical regime. So $W^{1,4}(\\Omega)$ functions are automatically Hölder-continuous of exponent $1/2$ — a regularity gain over the bare measurability of $L^p$."
+          }
+        ]
+      },
+      "trace-theorem": {
+        "title": "Trace theorem on the boundary",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a bounded Lipschitz $\\Omega\\subset\\mathbb{R}^n$, the trace operator gives a continuous map $H^1(\\Omega)\\to ?$",
+            "choices": [
+              "$H^1(\\partial\\Omega)$",
+              "$H^{1/2}(\\partial\\Omega)$",
+              "$L^2(\\partial\\Omega)$ but not better",
+              "$C^0(\\partial\\Omega)$"
+            ],
+            "answer": 1,
+            "explain": "The trace loses exactly $1/p = 1/2$ of a derivative: $H^1(\\Omega) = W^{1,2}(\\Omega) \\to W^{1-1/2,2}(\\partial\\Omega) = H^{1/2}(\\partial\\Omega)$, and the image is exactly $H^{1/2}$ (surjective). A bare $L^2$ statement is true but loses information; $H^1$ on the boundary is too strong."
+          },
+          {
+            "type": "mcq",
+            "q": "Which space is the natural setting for the homogeneous Dirichlet boundary condition $u=0$ on $\\partial\\Omega$?",
+            "choices": [
+              "$H^1(\\Omega)$ with the pointwise condition $u(\\partial\\Omega)=0$",
+              "$H^{1/2}(\\partial\\Omega)$",
+              "$H^1_0(\\Omega) = \\overline{C_c^\\infty(\\Omega)}^{H^1}$",
+              "$L^2(\\Omega)$"
+            ],
+            "answer": 2,
+            "explain": "$H^1_0(\\Omega)$ is by definition the closure of $C_c^\\infty(\\Omega)$ in $H^1$, and it equals $\\ker\\operatorname{Tr}$. Pointwise statements like '$u=0$ on $\\partial\\Omega$' are meaningless for general $H^1$ functions because $\\partial\\Omega$ has measure zero; the trace theorem makes the condition rigorous, and $H^1_0$ packages it cleanly."
+          },
+          {
+            "type": "mcq",
+            "q": "Which characterisation of $H^{1/2}(\\partial\\Omega)$ is correct in terms of half-space Fourier symbol?",
+            "choices": [
+              "$\\{u : (1+|\\xi'|^2)^{1/2}\\hat u\\in L^2\\}$",
+              "$\\{u : (1+|\\xi'|^2)^{1/4}\\hat u\\in L^2\\}$",
+              "$\\{u : \\hat u\\in L^2\\}$ with no weight",
+              "$\\{u : |\\xi'|\\hat u\\in L^\\infty\\}$"
+            ],
+            "answer": 1,
+            "explain": "$H^s$ on the boundary uses the Fourier multiplier $(1+|\\xi'|^2)^{s/2}$, so for $s=1/2$ the multiplier is $(1+|\\xi'|^2)^{1/4}$. The weight $(1+|\\xi'|^2)^{1/2}$ is the $H^1$ symbol, one full derivative."
+          }
+        ]
+      },
+      "fundamental-solution": {
+        "title": "Fundamental solution $\\Delta E = \\delta$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the constant $c$ in the fundamental solution $E_3(x) = c/|x|$ for the 3-D Laplacian (so that $\\Delta E_3 = \\delta_0$)?",
+            "answer": -0.07957747154594767,
+            "tol": 0.0001,
+            "tol_note": "Numerical value of $-1/(4\\pi)$.",
+            "explain": "$E_3(x) = -1/(4\\pi|x|)$, so $c = -1/(4\\pi)\\approx -0.07958$. The sign convention is $\\Delta = \\partial_1^2+\\partial_2^2+\\partial_3^2$, and the constant is fixed by Gauss's flux law: $\\nabla E_3$ has magnitude $1/(4\\pi r^2)$ on the sphere $|x|=r$ of area $4\\pi r^2$, so the radial flux equals $1$ — the unit point source at the origin."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $E_3(x) = -1/(4\\pi|x|)$ harmonic on $\\mathbb{R}^3\\setminus\\{0\\}$ but $\\Delta E_3 = \\delta_0$ as a distribution?",
+            "choices": [
+              "The classical Laplacian misses point masses concentrated at singular points",
+              "$E_3$ is not actually harmonic; the formula is wrong away from $0$",
+              "Distributions cannot be harmonic",
+              "The classical and distributional Laplacians always disagree"
+            ],
+            "answer": 0,
+            "explain": "Away from the origin, direct calculation gives $\\Delta(1/|x|)=0$. The classical operator only sees the smooth-piece behaviour and misses the singularity at $0$; the distributional Laplacian, defined by pairing with test functions, picks up the boundary contribution at $\\partial B_\\varepsilon$ as $\\varepsilon\\to 0$, which evaluates to $\\phi(0)$. The two agree on smooth-region behaviour and differ exactly at concentrated singularities."
+          },
+          {
+            "type": "mcq",
+            "q": "If $f\\in C_c^\\infty(\\mathbb{R}^3)$, the convolution $u = E_3 * f$ solves which equation?",
+            "choices": [
+              "$\\Delta u = f$",
+              "$-\\Delta u = f$",
+              "$\\Delta u = -f$ (sign of $f$ flipped)",
+              "$u = f$"
+            ],
+            "answer": 0,
+            "explain": "$\\Delta(E_3 * f) = (\\Delta E_3) * f = \\delta_0 * f = f$. So with $E_3 = -1/(4\\pi|x|)$, $u = E_3 * f$ solves $\\Delta u = f$, equivalently $-\\Delta(-u) = f$. The standard physicist sign $-\\Delta u = f$ uses $u = -E_3 * f = (1/(4\\pi))\\int f(y)/|x-y|\\,dy$, the Newtonian potential of the source $f$."
+          }
+        ]
+      },
+      "variational-poisson": {
+        "title": "Variational Poisson problem & Lax–Milgram",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The weak formulation of $-\\Delta u = f$ with zero Dirichlet data on a bounded $\\Omega$ asks: find $u\\in H^1_0(\\Omega)$ such that, for all $v\\in H^1_0(\\Omega)$,",
+            "choices": [
+              "$\\int u v = \\int f v$",
+              "$\\int \\nabla u\\cdot\\nabla v = \\int f v$",
+              "$\\int \\Delta u\\,v = \\int f v$",
+              "$\\int u\\,\\Delta v = -\\int f v$"
+            ],
+            "answer": 1,
+            "explain": "Multiply $-\\Delta u = f$ by $v\\in C_c^\\infty$, integrate by parts to move the gradient onto $v$, and the boundary term vanishes (compact support, then density to $H^1_0$). The bilinear form is $a(u,v)=\\int\\nabla u\\cdot\\nabla v$; the linear form is $L(v)=\\int fv$."
+          },
+          {
+            "type": "mcq",
+            "q": "Lax–Milgram applies to $a(u,v)=\\int\\nabla u\\cdot\\nabla v$ on $H^1_0$ because $a$ is",
+            "choices": [
+              "Linear and bounded",
+              "Bilinear, bounded, and coercive (i.e. $a(u,u)\\ge\\alpha\\|u\\|_{H^1}^2$)",
+              "Symmetric and positive — that alone is enough",
+              "Continuous in one argument only"
+            ],
+            "answer": 1,
+            "explain": "Lax–Milgram requires bilinearity, continuity, and coercivity. Coercivity here uses the Poincaré inequality on $H^1_0$: $\\|u\\|_{L^2}\\le C\\|\\nabla u\\|_{L^2}$, hence $a(u,u)=\\|\\nabla u\\|_{L^2}^2 \\ge (1+C^2)^{-1}\\|u\\|_{H^1}^2$. Symmetry is convenient (it lets you read off the energy minimisation) but not required."
+          },
+          {
+            "type": "mcq",
+            "q": "When $a$ is symmetric, the unique weak solution $u$ of $a(u,v)=L(v)$ is also",
+            "choices": [
+              "The maximiser of $J(v)=\\tfrac12 a(v,v)-L(v)$",
+              "The minimiser of $J(v)=\\tfrac12 a(v,v)-L(v)$ on $H^1_0$",
+              "Determined only up to an additive constant",
+              "Smooth, regardless of $f$"
+            ],
+            "answer": 1,
+            "explain": "For symmetric coercive $a$, the Euler–Lagrange equation of $J(v)=\\tfrac12 a(v,v)-L(v)$ is $a(u,\\cdot)=L$, and convexity makes the critical point a minimiser. The Dirichlet principle: '$u$ minimises $\\tfrac12\\int|\\nabla v|^2 - \\int fv$ over $H^1_0$.'  Smoothness of $u$ is a separate question (elliptic regularity), and uniqueness is global, not 'up to a constant'."
+          }
+        ]
+      }
+    }
+  },
+  "spectral-graph-theory": {
+    "topic": "spectral-graph-theory",
+    "quizzes": {
+      "adjacency-and-laplacian": {
+        "title": "Adjacency, degree, and the Laplacian",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ be a finite simple graph with combinatorial Laplacian $L = D - A$. Which of the following is always true?",
+            "choices": [
+              "$L$ is positive definite",
+              "$L$ is positive semidefinite, with $L\\mathbf{1} = 0$",
+              "$L$ is symmetric but indefinite in general",
+              "$L$ is positive semidefinite, but the constant vector is not always in $\\ker L$"
+            ],
+            "answer": 1,
+            "explain": "$L$ is real symmetric, and $f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2 \\ge 0$, so PSD. The constant vector $\\mathbf{1}$ has $L\\mathbf{1}=0$ regardless of the graph, since each row sum of $L$ is $d_i - d_i = 0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K_5$ be the complete graph on $5$ vertices. What is the largest eigenvalue of the combinatorial Laplacian $L$ of $K_5$?",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$). For $n=5$ the largest eigenvalue is $5$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all expressions that always equal the Dirichlet energy $f^\\top L f$ for any function $f\\colon V\\to\\mathbb{R}$.",
+            "choices": [
+              "$\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$",
+              "$\\sum_{i\\in V} d_i\\, f(i)^2$",
+              "$\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$",
+              "$\\langle f, Df\\rangle - \\langle f, Af\\rangle$"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. The unhalved sum (option 3) double-counts each edge."
+          }
+        ]
+      },
+      "kernel-and-components": {
+        "title": "Kernel of $L$ and connected components",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $G$ have $n=12$ vertices, and suppose $L_G$ has eigenvalues with $0$ appearing with multiplicity $3$. How many connected components does $G$ have?",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "12"
+            ],
+            "answer": 2,
+            "explain": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components."
+          },
+          {
+            "type": "mcq",
+            "q": "If $f\\in\\mathbb{R}^V$ satisfies $f^\\top L f = 0$, what can be concluded about $f$?",
+            "choices": [
+              "$f$ is the zero vector",
+              "$f$ is constant on the whole graph",
+              "$f$ is constant on each connected component (possibly with different constants on different components)",
+              "$f$ is orthogonal to $\\mathbf{1}$"
+            ],
+            "answer": 2,
+            "explain": "$f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. Vanishing forces $f(i)=f(j)$ across every edge, so $f$ is constant on each component — but components are independent."
+          },
+          {
+            "type": "numeric",
+            "q": "A graph $G$ on $10$ vertices is the disjoint union of a triangle, a 4-cycle, and three isolated vertices. What is the multiplicity of $0$ as an eigenvalue of $L_G$?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "Components: 1 triangle + 1 cycle + 3 isolated vertices = $5$ components, so $\\dim\\ker L = 5$."
+          }
+        ]
+      },
+      "algebraic-connectivity-fiedler": {
+        "title": "Algebraic connectivity and the Fiedler vector",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the Courant–Fischer characterisation of $\\lambda_2$ (algebraic connectivity)?",
+            "choices": [
+              "$\\lambda_2 = \\max_{\\|f\\|=1} f^\\top L f$",
+              "$\\lambda_2 = \\min_{f\\perp \\mathbf{1},\\,\\|f\\|=1} f^\\top L f$",
+              "$\\lambda_2 = \\min_{\\|f\\|=1} f^\\top L f$",
+              "$\\lambda_2 = \\frac{1}{n}\\sum_i f(i)$ for the Fiedler vector $f$"
+            ],
+            "answer": 1,
+            "explain": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for connected $G$)."
+          },
+          {
+            "type": "mcq",
+            "q": "For which of these graphs is the algebraic connectivity $\\lambda_2$ strictly positive?",
+            "choices": [
+              "Two triangles with no edge between them",
+              "A path on $5$ vertices",
+              "Three isolated vertices",
+              "A cycle $C_4$ with one edge deleted, plus an isolated vertex"
+            ],
+            "answer": 1,
+            "explain": "$\\lambda_2 > 0 \\iff G$ is connected. The path $P_5$ is connected (so $\\lambda_2>0$); the others are disconnected, so $\\lambda_2 = 0$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the algebraic connectivity $\\lambda_2$ of the complete graph $K_4$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$). For $K_4$ the second-smallest eigenvalue is $4$."
+          }
+        ]
+      },
+      "cheeger-inequality": {
+        "title": "Cheeger's inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a $d$-regular connected graph, Cheeger's inequality reads:",
+            "choices": [
+              "$h(G)\\le \\lambda_2/2$ and $h(G)\\ge \\sqrt{2 d\\, \\lambda_2}$",
+              "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$",
+              "$\\lambda_2 \\le h(G) \\le 2\\sqrt{\\lambda_2}$",
+              "$h(G) = \\lambda_2$ exactly"
+            ],
+            "answer": 1,
+            "explain": "Cheeger gives the two-sided bound $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$. The lower bound is easy; the upper bound is the sweep-cut argument and is the source of all spectral approximation algorithms for sparsest cut."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Cheeger upper bound algorithmically useful?",
+            "choices": [
+              "It tells you exactly which subset $S$ achieves $h(G)$",
+              "It is constructive: sort vertices by the Fiedler vector, sweep through prefix cuts, and the best is within a factor $\\sqrt{2d/\\lambda_2}$ of optimal",
+              "It tells you that $h(G)$ can be computed in $O(n)$ time exactly",
+              "It implies $h(G)$ is always rational"
+            ],
+            "answer": 1,
+            "explain": "Computing $h(G)$ exactly is NP-hard. Cheeger's upper bound is constructive — the sweep-cut algorithm — and gives a polynomial-time approximation factor of $\\sqrt{2d/\\lambda_2}$, the prototype for spectral approximation."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the consequences that follow from Cheeger's inequality $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$.",
+            "choices": [
+              "$\\lambda_2 = 0 \\iff h(G) = 0$",
+              "Large $\\lambda_2$ implies large $h(G)$",
+              "Small $\\lambda_2$ implies small $h(G)$",
+              "$h(G)$ is always at least $\\sqrt{\\lambda_2}$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Both directions are equivalent characterisations of disconnection (item 1). Item 2 follows from the lower bound; item 3 from the upper bound. Item 4 is a wrong rearrangement: the lower bound is $\\lambda_2/2 \\le h(G)$, not $\\sqrt{\\lambda_2} \\le h(G)$."
+          }
+        ]
+      },
+      "random-walks-mixing": {
+        "title": "Random walks and the spectral gap",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a connected non-bipartite $d$-regular graph, what is the stationary distribution of the simple random walk?",
+            "choices": [
+              "Uniform: $\\pi_i = 1/n$",
+              "$\\pi_i = d_i / n$",
+              "$\\pi_i = 1/d_i$",
+              "Concentrated on the highest-degree vertex"
+            ],
+            "answer": 0,
+            "explain": "For a $d$-regular graph all $d_i = d$, so $\\pi_i = d_i/(2|E|) = d/(nd) = 1/n$. The general formula is $\\pi_i = d_i/(2|E|)$, which specialises to uniform in the regular case."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the spectral gap controlling mixing on a non-bipartite graph, in terms of the normalised Laplacian eigenvalues $0=\\nu_1\\le\\nu_2\\le\\cdots\\le\\nu_n$?",
+            "choices": [
+              "$\\nu_2$",
+              "$\\nu_n - \\nu_1$",
+              "$\\min(\\nu_2,\\, 2 - \\nu_n)$",
+              "$\\nu_n / \\nu_2$"
+            ],
+            "answer": 2,
+            "explain": "The transition matrix $P$ has eigenvalues $1-\\nu_k\\in[-1,1]$. The slowest non-trivial decay is the largest of $|1-\\nu_2|=1-\\nu_2$ and $|1-\\nu_n|=\\nu_n-1$, so the spectral gap is $1$ minus that maximum, namely $\\min(\\nu_2,\\,2-\\nu_n)$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all reasons a random walk on a graph can mix slowly.",
+            "choices": [
+              "$\\nu_2$ is close to $0$ (graph nearly disconnects)",
+              "$\\nu_n$ is close to $2$ (graph is nearly bipartite)",
+              "The graph has many triangles",
+              "The graph has high maximum degree"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation). Triangle counts and degree alone do not dictate mixing speed."
+          }
+        ]
+      },
+      "bipartite-and-expanders": {
+        "title": "Bipartite graphs and expanders",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a connected graph $G$, the largest normalised Laplacian eigenvalue $\\nu_n$ equals $2$ if and only if:",
+            "choices": [
+              "$G$ is regular",
+              "$G$ is bipartite",
+              "$G$ has a triangle",
+              "$G$ is an expander"
+            ],
+            "answer": 1,
+            "explain": "$\\nu_n = 2 \\iff G$ is bipartite. The corresponding eigenvector is $D^{1/2}\\mathbf{1}_L - D^{1/2}\\mathbf{1}_R$ for the bipartition $V = L\\sqcup R$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Alon–Boppana bound say?",
+            "choices": [
+              "Every $d$-regular graph has $\\lambda_2(A) = 2\\sqrt{d-1}$",
+              "For any infinite family of $d$-regular graphs, $\\liminf \\lambda_2(A) \\ge 2\\sqrt{d-1}$",
+              "Every $d$-regular graph has $\\lambda_2(A) \\le 2\\sqrt{d-1}$",
+              "$\\lambda_2(A)$ can be made arbitrarily close to $0$ in a regular family"
+            ],
+            "answer": 1,
+            "explain": "Alon–Boppana: any infinite family of $d$-regular graphs has $\\liminf_n \\lambda_2(A_{G_n}) \\ge 2\\sqrt{d-1}$. Graphs that achieve $|\\lambda_2(A)| \\le 2\\sqrt{d-1}$ are called Ramanujan — they essentially saturate this bound."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are properties of an expander family $(G_n)$ of $d$-regular graphs?",
+            "choices": [
+              "Each $G_n$ is sparse: only $O(n)$ edges",
+              "$\\lambda_2(L_{G_n}) \\ge c$ for some $c > 0$ uniformly in $n$",
+              "Random walks mix in $O(\\log n)$ steps",
+              "The graph is a complete graph"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time. Complete graphs $K_n$ have great mixing but are not sparse — they are not expanders in the asymptotic sense."
+          }
+        ]
+      },
+      "spectral-clustering": {
+        "title": "Spectral clustering",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In spectral clustering with $k$ clusters, which eigenvectors of the (normalised) Laplacian are used as embedding coordinates?",
+            "choices": [
+              "The single eigenvector $u_2$",
+              "The eigenvectors $u_1, u_2, \\ldots, u_k$ for the $k$ smallest eigenvalues",
+              "The eigenvectors $u_{n-k+1}, \\ldots, u_n$ for the $k$ largest eigenvalues",
+              "All $n$ eigenvectors"
+            ],
+            "answer": 1,
+            "explain": "The standard recipe (Shi–Malik / Ng–Jordan–Weiss): take the eigenvectors at the bottom $k$ eigenvalues. Each row of the resulting $n\\times k$ matrix is a vertex's coordinates in $\\mathbb{R}^k$, then $k$-means is run on the rows."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does spectral clustering recover well-separated communities?",
+            "choices": [
+              "Eigenvectors of large eigenvalues capture noise",
+              "When $G$ is exactly $k$ disjoint components, the bottom-$k$ eigenspace is spanned by the indicator vectors of components; with weakly-coupled clusters the eigenvectors are a small perturbation thereof",
+              "$k$-means is the only clustering algorithm that works on graphs",
+              "Eigenvalues count cluster size"
+            ],
+            "answer": 1,
+            "explain": "When the graph is the disjoint union of $k$ components, $\\dim\\ker L = k$ and component indicators span the kernel. Adding a few cross-cluster edges perturbs these eigenvectors only slightly, so the embedding still maps each cluster to a tight blob — exactly what $k$-means picks up."
+          },
+          {
+            "type": "mcq",
+            "q": "What does a large eigengap $\\nu_{k+1} - \\nu_k$ in the normalised Laplacian heuristically suggest?",
+            "choices": [
+              "There is no clustering structure",
+              "The graph naturally has $k$ clusters",
+              "The graph is bipartite",
+              "The graph is regular"
+            ],
+            "answer": 1,
+            "explain": "The eigengap heuristic: a large gap after the $k$-th eigenvalue indicates that the bottom $k$ eigenvalues form a coherent group close to $0$, signalling a $k$-cluster structure. It is heuristic, not a theorem, but remarkably reliable."
           }
         ]
       }

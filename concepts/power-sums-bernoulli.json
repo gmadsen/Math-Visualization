@@ -22,7 +22,8 @@
       "title": "Euler's formula for $\\zeta(2n)$",
       "anchor": "zeta",
       "prereqs": ["bernoulli-generating-function", "dirichlet-series-basics"],
-      "blurb": "Euler expressed $\\zeta(2n)$ in closed form using Bernoulli numbers; the negative-integer values $\\zeta(-n)=-B_{n+1}/(n+1)$ are the shadow seen through the functional equation."
+      "blurb": "Euler expressed $\\zeta(2n)$ in closed form using Bernoulli numbers; the negative-integer values $\\zeta(-n)=-B_{n+1}/(n+1)$ are the shadow seen through the functional equation.",
+      "tags": ["duality"]
     },
     {
       "id": "euler-maclaurin",
@@ -36,7 +37,8 @@
       "title": "Functional equation preview via Mellin",
       "anchor": "func-eq",
       "prereqs": ["zeta-special-values", "mellin-transform-dirichlet"],
-      "blurb": "The completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s)=\\xi(1-s)$; the Bernoulli-number values on both sides are the first consistency check of the reflection."
+      "blurb": "The completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s)=\\xi(1-s)$; the Bernoulli-number values on both sides are the first consistency check of the reflection.",
+      "tags": ["duality"]
     }
   ]
 }

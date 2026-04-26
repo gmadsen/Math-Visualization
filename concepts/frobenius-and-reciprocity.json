@@ -10,7 +10,8 @@
       "prereqs": [
         "prime-ideals-factorization-ant"
       ],
-      "blurb": "Unramified primes define conjugacy classes in Galois groups via Frobenius action."
+      "blurb": "Unramified primes define conjugacy classes in Galois groups via Frobenius action.",
+      "tags": ["group-action", "foundation"]
     },
     {
       "id": "splitting-types",
@@ -20,7 +21,8 @@
         "frobenius-element",
         "prime-ideals-factorization-ant"
       ],
-      "blurb": "Unramified primes in a Galois extension come in a small zoo of splitting behaviours — completely split, inert, or partially split — each recorded by a cycle shape of Frobenius."
+      "blurb": "Unramified primes in a Galois extension come in a small zoo of splitting behaviours — completely split, inert, or partially split — each recorded by a cycle shape of Frobenius.",
+      "tags": ["classification"]
     },
     {
       "id": "decomposition-group",
@@ -31,7 +33,8 @@
         "prime-ideals-factorization-ant",
         "fundamental-theorem-galois"
       ],
-      "blurb": "The stabiliser of a prime above p is its decomposition group; its kernel onto the residue-field Galois group is the inertia subgroup, and Frobenius is the generator of the quotient."
+      "blurb": "The stabiliser of a prime above p is its decomposition group; its kernel onto the residue-field Galois group is the inertia subgroup, and Frobenius is the generator of the quotient.",
+      "tags": ["group-action"]
     },
     {
       "id": "chebotarev-density",
@@ -49,7 +52,8 @@
       "prereqs": [
         "chebotarev-density"
       ],
-      "blurb": "Global reciprocity reframes splitting laws as characters of idèle-like class groups."
+      "blurb": "Global reciprocity reframes splitting laws as characters of idèle-like class groups.",
+      "tags": ["duality"]
     }
   ]
 }

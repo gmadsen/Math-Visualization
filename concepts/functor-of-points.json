@@ -11,7 +11,8 @@
         "yoneda-limits-adjunctions",
         "scheme-morphisms"
       ],
-      "blurb": "A space is studied through all maps into it, turning geometry into a representable functor problem."
+      "blurb": "A space is studied through all maps into it, turning geometry into a representable functor problem.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "representability-criteria",
@@ -20,7 +21,8 @@
       "prereqs": [
         "yoneda-functor-points"
       ],
-      "blurb": "Representable functors correspond to genuine geometric objects."
+      "blurb": "Representable functors correspond to genuine geometric objects.",
+      "tags": ["universal-property", "moduli"]
     },
     {
       "id": "stacky-obstructions",
@@ -29,7 +31,8 @@
       "prereqs": [
         "representability-criteria"
       ],
-      "blurb": "Automorphisms obstruct representability by schemes and motivate stack language."
+      "blurb": "Automorphisms obstruct representability by schemes and motivate stack language.",
+      "tags": ["moduli"]
     },
     {
       "id": "yoneda-embedding-ag",
@@ -39,7 +42,8 @@
         "yoneda-functor-points",
         "universal-properties"
       ],
-      "blurb": "The assignment $X \\mapsto h_X$ is a fully faithful embedding of schemes into presheaves on rings, so a scheme is determined by — and can be constructed from — its functor of points."
+      "blurb": "The assignment $X \\mapsto h_X$ is a fully faithful embedding of schemes into presheaves on rings, so a scheme is determined by — and can be constructed from — its functor of points.",
+      "tags": ["universal-property", "functoriality"]
     },
     {
       "id": "base-change-interpretation",
@@ -49,7 +53,8 @@
         "yoneda-functor-points",
         "fiber-products"
       ],
-      "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent."
+      "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
+      "tags": ["functoriality"]
     }
   ]
 }
