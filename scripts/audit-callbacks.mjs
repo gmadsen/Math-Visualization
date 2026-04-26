@@ -44,6 +44,7 @@ import {
   loadTopicContent,
   saveTopicContent,
   upsertFencedBlock,
+  updateCss,
   findSection as findJsonSection,
 } from './lib/json-block-writer.mjs';
 
@@ -289,10 +290,17 @@ ${lines.join('\n')}
 }
 
 // CSS rule injected once per page into <style> block.
+//
+// Note: the border-left color uses `color-mix(in srgb, var(--cyan) 45%,
+// transparent)` rather than the older `rgba(88,196,221,0.55)` literal.
+// 69 of 73 topics already store this form in their JSON rawHead; the four
+// outliers (algebra, naive-set-theory, point-set-topology, real-analysis)
+// get normalized to this canonical form on the first --fix run after the
+// CSS-fence migration.
 const CALLBACK_CSS = `  aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -454,67 +462,19 @@ function findExistingCallbackAsideHtml(section) {
   return null;
 }
 
-// Replace the FIRST un-fenced <aside class="callback"> ... </aside> inside
-// `section`'s raw blocks with `replacementHtml` (verbatim — caller is
-// responsible for fence wrapping).  Preserves byte position: the
-// replacement lands exactly where the historic aside lived, including the
-// surrounding leading/trailing newlines that the regex captures.
-//
-// Returns:
-//   { replaced, blockIndex }   — replaced=true on success
-//   { replaced: false }        — no un-fenced aside was found
-function replaceFirstUnfencedAsideInPlace(section, replacementHtml) {
-  if (!Array.isArray(section.blocks)) return { replaced: false };
-  for (let i = 0; i < section.blocks.length; i++) {
-    const b = section.blocks[i];
-    if (!b || b.type !== 'raw' || typeof b.html !== 'string') continue;
-    if (b.html.includes('callback-auto-begin')) continue;
-    const m = UNFENCED_CALLBACK_RE.exec(b.html);
-    if (!m) continue;
-    // Splice the replacement in.  Preserve one leading / one trailing
-    // newline so the rendered output looks like the historic version.
-    const before = b.html.slice(0, m.index);
-    const after = b.html.slice(m.index + m[0].length);
-    const lead = m[0].startsWith('\n') ? '\n' : '';
-    const trail = m[0].endsWith('\n') ? '\n' : '';
-    b.html = before + lead + replacementHtml + trail + after;
-    return { replaced: true, blockIndex: i };
-  }
-  return { replaced: false };
-}
-
-// Replace an EXISTING fenced callback block in-place, regardless of whether
-// it lives inside its own raw block or is co-mingled with other content
-// (the latter happens when the first --fix run did an in-place replacement
-// of an un-fenced aside that sat next to the backlinks fence + section
-// close).  Preserves the surrounding bytes of the host raw block exactly.
-//
-// Returns:
-//   { replaced: true, changed: bool }   when an existing fenced block was
-//                                       found.  changed=false on byte-equal
-//                                       no-op (idempotent re-run).
-//   { replaced: false }                 when no fenced callback block exists
-function replaceFencedCallbackInPlace(section, fencedReplacement) {
-  if (!Array.isArray(section.blocks)) return { replaced: false };
-  const fencedRe =
-    /<!--\s*callback-auto-begin\s*-->[\s\S]*?<!--\s*callback-auto-end\s*-->/;
-  for (let i = 0; i < section.blocks.length; i++) {
-    const b = section.blocks[i];
-    if (!b || b.type !== 'raw' || typeof b.html !== 'string') continue;
-    const m = fencedRe.exec(b.html);
-    if (!m) continue;
-    if (m[0] === fencedReplacement) {
-      return { replaced: true, changed: false };
-    }
-    b.html = b.html.slice(0, m.index) + fencedReplacement + b.html.slice(m.index + m[0].length);
-    return { replaced: true, changed: true };
-  }
-  return { replaced: false };
-}
-
 // CSS that lives in rawHead's <style> block.  Same bytes as the HTML path so
 // the two write paths produce equivalent styling.
 const CALLBACK_CSS_RULE = CALLBACK_CSS;
+
+// Migration regex (one-shot, first --fix run only).  Matches the canonical
+// un-fenced `aside.callback` block previously emitted by this script — i.e.
+// the rule body that runs from `aside.callback { … }` through the
+// `aside.callback a{color:inherit}` terminator.  After the migration each
+// page's rawHead carries the rule wrapped in a `/* callback-css-auto-begin
+// */ … /* callback-css-auto-end */` fence, after which `updateCss` becomes
+// the source of truth and the migration regex no longer matches anything.
+const UNFENCED_CALLBACK_CSS_RE =
+  /aside\.callback\s*\{[\s\S]*?\}\s*aside\.callback a\{color:inherit\}/;
 
 // Mutate `doc` (in place) to apply the canonical fenced-callback regeneration
 // for `hostKeys`. `hostKeys` is the same shape as the HTML path:
@@ -533,22 +493,23 @@ const CALLBACK_CSS_RULE = CALLBACK_CSS;
 //            so stale links don't outlive the prereq edge that warranted
 //            them.
 //
-//   Pass 2.  For sections that still need callbacks, prefer in-place
-//            replacement of an existing un-fenced aside by the new fenced
-//            equivalent.  This is BYTE-EXACT in the rendered HTML region
-//            the aside used to occupy — important for the handful of pages
-//            where a nested <script> closes the <section> element early at
-//            parse time (e.g. category-theory#cat, dirichlet-series#perron),
-//            otherwise the audit's HTML-side parser would not see the new
-//            callback inside the parsed section boundary.
+//   Pass 2.  For sections that still need callbacks, run a single
+//            upsertFencedBlock with the canonical position picker
+//            (before-fence:backlinks if backlinks live in their own block,
+//            else before-quiz, else before-section-end).  upsertFencedBlock
+//            now auto-explodes any host raw block whose fenced callback is
+//            co-mingled with surrounding bytes (commit 8cf323c), so the
+//            cascade through replaceFencedCallbackInPlace and
+//            replaceFirstUnfencedAsideInPlace that this pass used to need
+//            is no longer required — the writer preserves every surrounding
+//            byte (backlinks fence, </section>, prose) verbatim.
 //
-//            If no un-fenced aside exists, fall back to upsertFencedBlock
-//            with the canonical position picker (before-fence:backlinks if
-//            backlinks live in their own block, else before-quiz, else
-//            before-section-end).  Idempotent re-runs land in this branch
-//            (no un-fenced aside left) and upsertFencedBlock returns 'noop'.
-//
-//   Pass 3.  ensureCss for the aside.callback rule.
+//   Pass 3.  updateCss('callback-css', CALLBACK_CSS_RULE) — wraps the
+//            aside.callback rule in a CSS-comment fence and idempotently
+//            maintains it.  On the first --fix run, a one-shot migration
+//            detects the canonical un-fenced rule previously written by
+//            this script and replaces it in-place with the fenced form so
+//            updateCss has something to update.
 function applyJsonFix(doc, hostKeys) {
   let stripped = 0;
   let inserted = 0;
@@ -577,33 +538,15 @@ function applyJsonFix(doc, hostKeys) {
     // is lost forever.
     const existingAside = findExistingCallbackAsideHtml(found.section);
     const sectionWarnings = [];
-    const fencedHtml = wrapCallbackFence(buildCallbackHtml(links, existingAside, sectionWarnings));
+    const inner = buildCallbackHtml(links, existingAside, sectionWarnings);
     for (const w of sectionWarnings) {
       fidelityWarnings.push(`#${anchor}: ${w}`);
     }
 
-    // Idempotency / in-place mutation: if the section already has a fenced
-    // callback block (anywhere — including INLINE inside a larger raw
-    // block, the steady state after the first --fix that did an in-place
-    // replacement of a co-mingled un-fenced aside), do a substring replace.
-    // upsertFencedBlock would wholesale-replace the host raw block here,
-    // losing surrounding backlinks-fence and </section> bytes.
-    const fencedReplace = replaceFencedCallbackInPlace(found.section, fencedHtml);
-    if (fencedReplace.replaced) {
-      if (fencedReplace.changed) replaced++;
-      continue;
-    }
-
-    // No fenced callback block — try in-place replacement of an existing
-    // un-fenced aside (the historic state coming out of pre-flip JSON
-    // extracts).
-    const inPlace = replaceFirstUnfencedAsideInPlace(found.section, fencedHtml);
-    if (inPlace.replaced) {
-      replaced++;
-      continue;
-    }
-
-    // No aside at all — pick a position and insert a new block.
+    // Position picker — only consulted when no fenced callback block
+    // currently exists in the section.  upsertFencedBlock auto-explodes a
+    // host raw block whose fenced callback is co-mingled with surrounding
+    // bytes, so the legacy in-place replace cascade is no longer required.
     const blocks = found.section.blocks;
     const backlinksOwnBlock = blocks.findIndex(
       (b) => b && b.type === 'raw' && typeof b.html === 'string' &&
@@ -615,38 +558,69 @@ function applyJsonFix(doc, hostKeys) {
     else if (hasQuiz) position = 'before-quiz';
     else position = 'before-section-end';
 
-    const r = upsertFencedBlock(doc, anchor, 'callback', buildCallbackHtml(links), {
-      position,
-    });
+    const r = upsertFencedBlock(doc, anchor, 'callback', inner, { position });
     if (r.action === 'inserted') inserted++;
     else if (r.action === 'replaced') replaced++;
   }
 
-  // Pass 3: ensure the aside.callback CSS rule lives in rawHead.  We don't
-  // use the generic ensureCss writer here because the display-prefs
-  // injector requires its fenced CSS to be the LAST rule before </style>;
-  // ensureCss would splice ours after that region and trigger a permanent
-  // ping-pong between the two injectors.  Instead, splice IN FRONT OF the
-  // display-prefs fence when present, otherwise before </style>.
-  if (typeof doc.rawHead === 'string' && !/aside\.callback\s*\{/.test(doc.rawHead)) {
-    const head = doc.rawHead;
-    const dpFence = '/* display-prefs-css-auto-begin */';
-    let insertAt = head.indexOf(dpFence);
-    if (insertAt < 0) insertAt = head.search(/<\/style>/i);
-    if (insertAt >= 0) {
-      doc.rawHead = head.slice(0, insertAt) + CALLBACK_CSS_RULE + '\n  ' + head.slice(insertAt);
+  // Pass 3: maintain the aside.callback CSS rule inside a CSS-comment
+  // fence in `doc.rawHead`.  Two-stage:
+  //
+  //   3a. One-shot migration.  If the rule is currently un-fenced (the
+  //       canonical block previously emitted by this script), replace
+  //       it in-place with the fenced equivalent so updateCss can target
+  //       it.  This preserves the rule's existing position relative to
+  //       the display-prefs CSS fence (which the display-prefs injector
+  //       requires to remain the LAST rule before </style>); without
+  //       this in-place migration step, updateCss would splice a fresh
+  //       fence at the </style> boundary, triggering a permanent
+  //       ping-pong between the two injectors.
+  //   3b. updateCss('callback-css', CALLBACK_CSS_RULE).  Idempotent on
+  //       subsequent runs — the fence already exists in the spot 3a
+  //       chose, and updateCss replaces only the inner CSS body.
+  if (typeof doc.rawHead === 'string') {
+    const cssFenceBegin = '/* callback-css-auto-begin */';
+    const m = UNFENCED_CALLBACK_CSS_RE.exec(doc.rawHead);
+    const alreadyFenced = doc.rawHead.indexOf(cssFenceBegin) >= 0;
+    if (m && !alreadyFenced) {
+      // 3a: wrap-in-place. Build the same byte sequence updateCss would
+      // produce so step 3b is a no-op on the same run.
+      const wrapped =
+        `${cssFenceBegin}\n${CALLBACK_CSS_RULE}\n/* callback-css-auto-end */`;
+      doc.rawHead =
+        doc.rawHead.slice(0, m.index) + wrapped +
+        doc.rawHead.slice(m.index + m[0].length);
+    }
+    // 3b: idempotent maintenance.  Skip when rawHead has neither a fence
+    // nor an un-fenced rule (e.g. the rare topic with no aside.callback
+    // CSS at all) so we don't spuriously splice it before </style>.
+    if (
+      doc.rawHead.indexOf(cssFenceBegin) >= 0 ||
+      UNFENCED_CALLBACK_CSS_RE.test(doc.rawHead)
+    ) {
+      updateCss(doc, 'callback-css', CALLBACK_CSS_RULE);
     }
   }
 
-  // Pass 4: stale-aside drift detection. Scan every section that's NOT in
-  // hostKeys (i.e. has no current cross-topic prereqs requiring a
-  // callback). If any of them carry an un-fenced or fenced
-  // <aside class="callback">, log a stderr warning so prereq removals
-  // surface as a drift signal instead of silently leaving stale links
-  // forever. We don't auto-strip — sub-anchor concepts (paths,
-  // simply-connected, discriminant) live inside a parent section whose
-  // id won't match any hostKey anchor, and their parent's un-fenced
-  // aside is still valid. The warning lets a human eyeball the diff.
+  // Pass 4: stale-aside drift detection.
+  //
+  //   4a. Whole-section drift — sections NOT in hostKeys (no current
+  //       cross-topic prereqs requiring a callback) that nonetheless
+  //       carry an <aside class="callback">.  Possible causes: a prereq
+  //       edge was deleted but the aside wasn't cleaned up, or a
+  //       sub-anchor concept (paths, simply-connected, discriminant)
+  //       lives inside a parent section whose id won't match any
+  //       hostKey anchor — usually the latter and ignorable.
+  //   4b. Per-href drift — sections that DO have a hostKey entry but
+  //       whose existing callback aside still carries `<li>` items
+  //       linking to hrefs that aren't in the current prereq set.
+  //       Heuristic: a `<li><a href="…">title</a></li>` with no prose
+  //       suffix after `</a>` is prereq-derived; one with prose after
+  //       `</a>` is hand-authored "See also" and stays.
+  //
+  //   Neither is auto-stripped: the additive `buildCallbackHtml`
+  //   preserves stale `<li>`s by design.  The point is the WARNING so a
+  //   human can clean up.
   const hostKeyAnchors = new Set(hostKeys.map((k) => k.anchor));
   const staleHits = [];
   for (const section of doc.sections || []) {
@@ -660,14 +634,42 @@ function applyJsonFix(doc, hostKeys) {
       }
     }
   }
+  // 4b: per-href drift inside live hostKey sections.
+  for (const { anchor, links } of hostKeys) {
+    const found = findJsonSection(doc, anchor);
+    if (!found) continue;
+    const asideHtml = findExistingCallbackAsideHtml(found.section);
+    if (!asideHtml) continue;
+    // Build the set of current prereq hrefs (both `./page.html#anchor` and
+    // bare `page.html#anchor` forms) so the comparison is encoding-agnostic.
+    const currentHrefs = new Set();
+    for (const l of links) {
+      currentHrefs.add(`./${l.page}#${l.anchor}`);
+      currentHrefs.add(`${l.page}#${l.anchor}`);
+    }
+    const staleHrefs = [];
+    const liRe = /<li>([\s\S]*?)<\/li>/gi;
+    let m;
+    while ((m = liRe.exec(asideHtml)) !== null) {
+      const liInner = m[1].trim();
+      // Match the first <a href="…">…</a> in the <li>.
+      const aMatch = /^<a\s+[^>]*href=["']([^"']+)["'][^>]*>[\s\S]*?<\/a>(.*)$/i.exec(liInner);
+      if (!aMatch) continue;
+      const href = aMatch[1].trim();
+      const tail = aMatch[2].trim();
+      // Bare prereq link: nothing after </a>.  Hand-authored "See also":
+      // prose suffix (e.g. "— context here") follows the </a>.
+      if (tail.length > 0) continue;
+      if (currentHrefs.has(href)) continue;
+      staleHrefs.push(href);
+    }
+    if (staleHrefs.length > 0) {
+      fidelityWarnings.push(
+        `#${anchor}: ${staleHrefs.length} stale <li> link(s) (no longer in prereqs): ${staleHrefs.join(', ')}`,
+      );
+    }
+  }
   return { stripped, inserted, replaced, missingSections, staleAsides: staleHits, fidelityWarnings };
-}
-
-// Wrap a callback-aside HTML in the canonical fence comments.  Mirrors what
-// upsertFencedBlock would write so the in-place replacement path produces
-// the exact same bytes.
-function wrapCallbackFence(asideHtml) {
-  return `<!-- callback-auto-begin -->\n${asideHtml}\n<!-- callback-auto-end -->`;
 }
 
 // Compute missing links for each anchor. Returns:

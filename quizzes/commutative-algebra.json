@@ -412,6 +412,55 @@
         }
       ]
     },
+    "artinian-local-ca": {
+      "title": "Artinian local rings",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Akizuki–Hopkins says a commutative ring is Artinian iff it is:",
+          "choices": [
+            "a field",
+            "Noetherian and zero-dimensional (every prime is maximal)",
+            "a finite product of fields",
+            "a local ring with finitely generated maximal ideal"
+          ],
+          "answer": 1,
+          "explain": "Artinian = DCC on ideals = Noetherian + Krull dimension $0$. Reduced Artinian rings are products of fields, but the unreduced cases like $k[\\epsilon]/(\\epsilon^2)$ are also Artinian and are the deformation-theoretic point."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the length $\\ell_k(A)$ (equivalently $\\dim_k A$) of $A = k[x,y]/(x,y)^3$ as a $k$-vector space?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "Basis $\\{1, x, y, x^2, xy, y^2\\}$. Length grows as $1 + 2 + 3 = 6 = \\binom{3+1}{2}$. In general $\\dim_k k[x_1,\\dots,x_d]/(x_1,\\dots,x_d)^n = \\binom{n+d-1}{d}$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all rings that are Artinian local with residue field $k$ (so live in $\\mathrm{Art}_k$).",
+          "choices": [
+            "$k[\\epsilon]/(\\epsilon^2)$",
+            "$k[x]$",
+            "$k[x,y]/(x^2, xy, y^2)$",
+            "$k \\times k$",
+            "$k[x]/(x^5)$"
+          ],
+          "answer": [0, 2, 4],
+          "explain": "$k[\\epsilon]/(\\epsilon^2)$, $k[x,y]/(x^2,xy,y^2)$, and $k[x]/(x^5)$ are Artinian local with residue field $k$ — finite-dimensional over $k$ with a single maximal ideal that is nilpotent. $k[x]$ is not Artinian (infinite-dimensional, dim $1$). $k\\times k$ is Artinian but not local — it has two maximal ideals."
+        },
+        {
+          "type": "mcq",
+          "q": "Which Artinian local $k$-algebra is the universal first-order thickening — the test ring for first-order deformations of $\\mathrm{Spec}\\,k$?",
+          "choices": [
+            "$k$ itself",
+            "$k[\\epsilon]/(\\epsilon^2)$",
+            "$k[x,y]/(x,y)^2$",
+            "$k[\\epsilon]/(\\epsilon^3)$"
+          ],
+          "answer": 1,
+          "explain": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$. A morphism $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) \\to X_0$ is exactly a $k$-point together with a tangent vector; flat lifts of $X_0$ to $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2)$ are first-order deformations."
+        }
+      ]
+    },
     "localization-ca": {
       "title": "Localization and local algebra",
       "questions": [

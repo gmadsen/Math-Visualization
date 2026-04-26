@@ -193,58 +193,13 @@ function findHtmlSection(html, anchor) {
   return { innerStart, innerEnd, body: html.slice(innerStart, innerEnd) };
 }
 
-// ----- JSON pre-pass: extract embedded fenced backlinks blocks -----
-//
-// Existing content/<topic>.json files were extracted from HTML before this
-// refactor existed, so the fenced backlinks region currently lives INSIDE a
-// raw block whose other bytes (callback aside, <p>, </section>, surrounding
-// whitespace) belong to the section, not the fence. upsertFencedBlock /
-// stripFencedBlock work on whole `raw` blocks — they cannot surgically
-// rewrite a slice of one. Pre-splitting moves every existing fenced
-// backlinks region into its own dedicated raw block, after which the writer
-// helpers can replace/strip it cleanly.
-//
-// The split is byte-stable: render-topic.mjs concatenates raw block html
-// fields with no separator, so splitting "ABC<!-- begin -->X<!-- end -->DE"
-// into ["ABC", "<!-- begin -->X<!-- end -->", "DE"] reproduces the same
-// bytes when rendered.
-const BACKLINKS_RE =
-  /<!--\s*backlinks-auto-begin\s*-->[\s\S]*?<!--\s*backlinks-auto-end\s*-->/;
-
-function explodeFencedBacklinks(doc) {
-  if (!Array.isArray(doc.sections)) return;
-  for (const section of doc.sections) {
-    if (!Array.isArray(section.blocks)) continue;
-    const newBlocks = [];
-    for (const block of section.blocks) {
-      if (
-        block && block.type === 'raw' && typeof block.html === 'string' &&
-        BACKLINKS_RE.test(block.html)
-      ) {
-        const m = BACKLINKS_RE.exec(block.html);
-        const before = block.html.slice(0, m.index);
-        const fence = m[0];
-        const after = block.html.slice(m.index + fence.length);
-        // Only split when the fence is mixed with other bytes; a pure fence
-        // block is left as-is.
-        if (before.length === 0 && after.length === 0) {
-          newBlocks.push(block);
-          continue;
-        }
-        if (before.length > 0) {
-          newBlocks.push({ type: 'raw', html: before });
-        }
-        newBlocks.push({ type: 'raw', html: fence });
-        if (after.length > 0) {
-          newBlocks.push({ type: 'raw', html: after });
-        }
-      } else {
-        newBlocks.push(block);
-      }
-    }
-    section.blocks = newBlocks;
-  }
-}
+// Note: a previous version of this script ran an `explodeFencedBacklinks`
+// pre-pass to split co-mingled fenced backlinks regions out of their host
+// raw blocks before calling upsertFencedBlock.  That workaround is no
+// longer required — `upsertFencedBlock` (in lib/json-block-writer.mjs)
+// auto-explodes a host block whose fence is surrounded by other bytes
+// (commit 8cf323c).  Existing un-exploded fences are handled in-place on
+// the next --fix run by the writer's auto-explode path.
 
 // ----- Main pass -----
 let pagesTouched = 0;
@@ -268,11 +223,6 @@ for (const [hostTopic, d] of topicData) {
     }
 
     const doc = loadTopicContent(hostTopic, repoRoot);
-
-    // Pre-split any existing fenced regions out into dedicated raw blocks
-    // so upsertFencedBlock / stripFencedBlock can target them precisely.
-    // (Byte-stable by construction; render-topic concatenates raw blocks.)
-    explodeFencedBacklinks(doc);
 
     // Map each concept's anchor to its parent section's id. For 408/411
     // concepts the anchor IS the section.id; for the few <h3>-anchored
