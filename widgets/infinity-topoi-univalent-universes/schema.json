@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/infinity-topoi-univalent-universes/schema.json",
+  "title": "infinity-topoi-univalent-universes widget params",
+  "description": "Clickable diagram of universe hierarchy + univalence axiom in homotopy type theory, used in §6 of infinity-topoi.html (#internal-logic). Click a piece (universe, type former, identity type, univalence) to reveal its meaning. The widget body is bespoke (per-widget closures, narrative strings, custom hit geometry) so it is carried verbatim as the bodyScript ARTIFACT.",
+  "meta": {
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte."
+    }
+  }
+}

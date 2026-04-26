@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/algebraic-spaces-why-scrubber/schema.json",
+  "title": "algebraic-spaces-why-scrubber widget params",
+  "description": "Bespoke proof-scrubber walkthrough motivating the move from schemes to algebraic spaces — examples that fail to be schemes but should be — used in §1 of algebraic-spaces.html (#why-algebraic-spaces). The widget body is bespoke (per-widget closures, narrative strings, custom hit geometry) so it is carried verbatim as the bodyScript ARTIFACT.",
+  "meta": {
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/algebraic-spaces-hironaka-scrubber/schema.json",
+  "title": "algebraic-spaces-hironaka-scrubber widget params",
+  "description": "Bespoke proof-scrubber walkthrough of Hironaka's example: a smooth proper threefold that is an algebraic space but is not a scheme, used in §5 of algebraic-spaces.html (#examples). The widget body is bespoke (per-widget closures, narrative strings, custom hit geometry) so it is carried verbatim as the bodyScript ARTIFACT.",
+  "meta": {
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte."
+    }
+  }
+}

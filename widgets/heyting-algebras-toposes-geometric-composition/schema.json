@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/heyting-algebras-toposes-geometric-composition/schema.json",
+  "title": "heyting-algebras-toposes-geometric-composition widget params",
+  "description": "Bespoke registry entry. Carries the widget's HTML body and driving script verbatim as artifact strings so the byte-identical round-trip gate passes. A portable React/Three.js consumer would discard the artifacts and re-implement the widget in its own renderer.",
+  "meta": {
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id of the widget's outer wrapper. Mirrored inside bodyMarkup; carried separately for auditing and alternate-frontend portability."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim widget HTML — the entire <div class=\"widget\" id=\"…\">…</div> bytes. Preserved byte-for-byte."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim driving-script bytes (typically a <script>…</script> tag, may include a leading newline). Preserved byte-for-byte."
+    }
+  }
+}

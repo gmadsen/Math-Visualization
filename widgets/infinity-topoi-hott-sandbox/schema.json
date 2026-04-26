@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/infinity-topoi-hott-sandbox/schema.json",
+  "title": "infinity-topoi-hott-sandbox widget params",
+  "description": "JavaScript sandbox modelling a tiny fragment of homotopy type theory — types as JS values, dependent product/sum, and the canonical $\\beta\\eta$ rules — used in §6 of infinity-topoi.html (#internal-logic). The widget body is bespoke (per-widget closures, narrative strings, custom hit geometry) so it is carried verbatim as the bodyScript ARTIFACT.",
+  "meta": {
+    "family": "inline-code-cell",
+    "dimension": "2d",
+    "gesture": "edit",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte."
+    }
+  }
+}
