@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/diagram-editor/schema.json",
+  "title": "diagram-editor widget params",
+  "description": "An interactive commutative-diagram editor. Readers DRAG nodes to rearrange the layout (free / snap-to-grid) and TOGGLE individual arrows on/off; the widget re-evaluates declared `relations` (commutative squares, exact sequences) on every change and reports which paths are equal, which would-be paths fail, and where exactness is violated. Where `clickable-diagram` shows a fixed picture and `composition-explorer` walks a static composition table, this widget puts the diagram itself under the reader's hand: rearranging makes a square's commutativity visually obvious, toggling an arrow makes the consequence of removing it immediate. The driving IIFE is self-contained (no page-global library dependency) and theme-aware via a MutationObserver on `data-theme`. Both exports are pure functions of params; a React / SSR / any-frontend consumer can ignore renderScript and drive its own renderer from the schema alone (nodes + arrows + relations is the full data model).",
+  "meta": {
+    "family": "diagram-editor",
+    "dimension": "2d",
+    "gesture": "drag-and-toggle",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "nodes", "arrows"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. All inner element ids derive from this so multiple instances coexist on a page."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl. May contain $...$ LaTeX (rendered by the page's KaTeX auto-render pass)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint. Defaults to a generic gesture string when omitted."
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 240,
+      "maximum": 960,
+      "default": 480,
+      "description": "SVG viewport width in user units. CSS layer caps display at 100% of container."
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 160,
+      "maximum": 640,
+      "default": 280,
+      "description": "SVG viewport height in user units. Increase when many nodes / arrows would otherwise crowd."
+    },
+    "palette": {
+      "type": "string",
+      "enum": ["cyan", "violet", "yellow", "pink"],
+      "default": "violet",
+      "description": "Project accent color used for selected/active arrows and the satisfied-relation glyph. Resolved at render time via var(--<palette>) so the page theme governs hue."
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["free", "snap-grid", "fixed"],
+      "default": "snap-grid",
+      "description": "Layout-edit mode. `free` lets nodes be dragged to any pixel; `snap-grid` snaps to a 6x4 grid (so a square stays square as the reader drags); `fixed` disables drag entirely (only the arrow toggles + relation evaluation remain)."
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Diagram objects. `x` / `y` are RATIOS in [0, 1] of the SVG viewport — width-independent so the same data renders sensibly at any size. `label` may carry $...$ LaTeX.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "x", "y"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]*$",
+            "description": "Unique node id within this widget instance."
+          },
+          "label": {
+            "type": "string",
+            "description": "Visible label. KaTeX delimiters allowed."
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Initial x position as a ratio of the viewBox width."
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Initial y position as a ratio of the viewBox height."
+          },
+          "color": {
+            "type": "string",
+            "enum": ["ink", "blue", "yellow", "green", "pink", "violet", "cyan"],
+            "default": "ink",
+            "description": "Node label / outline accent. Resolved via var(--<color>) (or var(--ink) for `ink`)."
+          }
+        }
+      }
+    },
+    "arrows": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Diagram morphisms. `from` / `to` reference node ids. `kind` controls the rendered glyph: `morphism` (plain →), `mono` (↪), `epi` (↠), `iso` (≅), `dotted` (dashed →, used for derived/induced morphisms). `togglable` arrows render with a small switch in the controls row; non-togglable arrows are always present.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "from", "to"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]*$",
+            "description": "Unique arrow id within this widget instance — referenced by `relations`."
+          },
+          "from": {
+            "type": "string",
+            "description": "Source node id (must reference an entry in `nodes`)."
+          },
+          "to": {
+            "type": "string",
+            "description": "Target node id (must reference an entry in `nodes`)."
+          },
+          "label": {
+            "type": "string",
+            "description": "Optional arrow label. KaTeX delimiters allowed."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["morphism", "mono", "epi", "iso", "dotted"],
+            "default": "morphism",
+            "description": "Arrow style: `morphism` plain, `mono` hooked tail (↪), `epi` double-headed (↠), `iso` ≅ glyph above, `dotted` dashed (induced)."
+          },
+          "curve": {
+            "type": "number",
+            "default": 0,
+            "description": "Curve offset perpendicular to the (from, to) line; positive curves outward (above for left-to-right). Useful when two arrows share endpoints (forward/back, or two parallel maps)."
+          },
+          "togglable": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, the controls row gets a checkbox for this arrow; unchecking removes the arrow from the diagram and from any relation evaluation."
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "default": [],
+      "description": "Declared relations the widget evaluates on every drag-end / toggle. Each relation carries a `kind` and the relevant arrow / node ids. The widget reports each relation's status as ✓ (satisfied), ✗ (violated), or ? (some referenced arrow is toggled off — indeterminate).",
+      "items": {
+        "type": "object",
+        "required": ["kind"],
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "required": ["kind", "lhs", "rhs"],
+            "properties": {
+              "kind": { "const": "commute" },
+              "lhs": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" },
+                "description": "Composition path (left-to-right read order: arrow ids applied in sequence). Both lhs and rhs must share start node and end node."
+              },
+              "rhs": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" },
+                "description": "The other path. The relation says `lhs == rhs` as morphisms — when curated, the widget reports ✓ if all referenced arrows are present (commutativity is asserted, not solved); ✗ if endpoints disagree; ? if any arrow is toggled off."
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional human-readable name (e.g. 'top-right square'). Defaults to a generated description."
+              }
+            }
+          },
+          {
+            "additionalProperties": false,
+            "required": ["kind", "lhs", "rhs", "at"],
+            "properties": {
+              "kind": { "const": "exact" },
+              "lhs": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" },
+                "description": "Incoming chain (arrow ids), composing into node `at`."
+              },
+              "rhs": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" },
+                "description": "Outgoing chain (arrow ids), composing out of node `at`. Exactness asserts image(lhs) = ker(rhs) — curated, reported ✓ when both chains are present and the diagram still resolves to `at`; ✗ if endpoints fail; ? if any arrow is missing."
+              },
+              "at": {
+                "type": "string",
+                "description": "Node id where the sequence is exact (the joint endpoint of lhs and start of rhs)."
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional human-readable name (e.g. 'exact at $B$')."
+              }
+            }
+          }
+        ]
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener."
+    }
+  }
+}

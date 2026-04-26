@@ -1,0 +1,29 @@
+{
+  "widgetId": "w-diagram-editor-example",
+  "title": "Commutative square — drag, toggle, watch the relation",
+  "hint": "drag any vertex · toggle an arrow off to break the square · watch the ✓/✗/?",
+  "width": 480,
+  "height": 280,
+  "palette": "violet",
+  "mode": "snap-grid",
+  "nodes": [
+    { "id": "A", "label": "$A$", "x": 0.20, "y": 0.25, "color": "violet" },
+    { "id": "B", "label": "$B$", "x": 0.80, "y": 0.25, "color": "violet" },
+    { "id": "C", "label": "$C$", "x": 0.20, "y": 0.80, "color": "violet" },
+    { "id": "D", "label": "$D$", "x": 0.80, "y": 0.80, "color": "violet" }
+  ],
+  "arrows": [
+    { "id": "f", "from": "A", "to": "B", "label": "$f$", "kind": "morphism", "togglable": true },
+    { "id": "g", "from": "A", "to": "C", "label": "$g$", "kind": "morphism", "togglable": true },
+    { "id": "h", "from": "B", "to": "D", "label": "$h$", "kind": "morphism", "togglable": true },
+    { "id": "k", "from": "C", "to": "D", "label": "$k$", "kind": "morphism", "togglable": true }
+  ],
+  "relations": [
+    {
+      "kind": "commute",
+      "lhs": ["f", "h"],
+      "rhs": ["g", "k"],
+      "label": "$h \\circ f = k \\circ g$ (square commutes)"
+    }
+  ]
+}

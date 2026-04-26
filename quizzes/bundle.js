@@ -15129,6 +15129,282 @@ window.MVQuizBank = {
       }
     }
   },
+  "heights-arithmetic-geometry": {
+    "topic": "heights-arithmetic-geometry",
+    "quizzes": {
+      "naive-height-projective": {
+        "title": "Naive height",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $H([15:-9:24])\\in\\mathbb{P}^2(\\mathbb{Q})$. (Reduce to coprime integer coordinates first.)",
+            "answer": 8,
+            "tol": 1e-9,
+            "explain": "$\\gcd(15,9,24)=3$, so $[15:-9:24]=[5:-3:8]$. Then $H=\\max(|5|,|-3|,|8|)=8$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must we clear common factors before reading off $H$?",
+            "choices": [
+              "$H$ is only defined for points whose coordinates are pairwise coprime.",
+              "Projective coordinates are defined only up to a common scalar, so $\\max|x_i|$ would otherwise depend on the representative.",
+              "The naive height is multiplicative and would double-count primes in $\\gcd$."
+            ],
+            "answer": 1,
+            "explain": "Multiplying every coordinate by a constant gives the same projective point, so a coordinate-free $H$ requires picking the smallest integer representative — equivalently, dividing through by the gcd."
+          },
+          {
+            "type": "mcq",
+            "q": "In $\\mathbb{P}^1(\\mathbb{Q})$, the point $[a:b]$ with $\\gcd(a,b)=1$ corresponds to $a/b\\in\\mathbb{Q}$. Then $H([a:b])$ equals:",
+            "choices": [
+              "$|a|+|b|$",
+              "$|a|\\cdot|b|$",
+              "$\\max(|a|,|b|)$",
+              "$|a/b|$"
+            ],
+            "answer": 2,
+            "explain": "By definition $H([a:b])=\\max(|a|,|b|)$. So $H(3/4)=4$, $H(7)=H([7:1])=7$, etc."
+          }
+        ]
+      },
+      "logarithmic-height-northcott": {
+        "title": "Northcott finiteness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Northcott's finiteness theorem says that the number of $P\\in\\mathbb{P}^n(\\bar{\\mathbb{Q}})$ with $h(P)\\le B$ and $[\\mathbb{Q}(P):\\mathbb{Q}]\\le d$ is:",
+            "choices": [
+              "Always zero for $B<\\log 2$.",
+              "Finite for every $B$ and $d$.",
+              "Finite if you also fix the field of definition; otherwise infinite.",
+              "Polynomial in $B$ but exponential in $d$."
+            ],
+            "answer": 1,
+            "explain": "The whole point of Northcott is that bounding height AND degree (over $\\mathbb{Q}$) is enough — you do not have to fix the number field in advance."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does dropping the degree bound make Northcott fail?",
+            "choices": [
+              "Roots of unity have height $0$ and arbitrary degree, so $\\{P:h(P)=0\\}$ is infinite in $\\bar{\\mathbb{Q}}$.",
+              "The naive height is not Galois-invariant for large extensions.",
+              "Heights on $\\mathbb{P}^n$ depend on the choice of basis once $n\\ge 2$.",
+              "There is no canonical way to define $H$ outside $\\mathbb{Q}$."
+            ],
+            "answer": 0,
+            "explain": "All cyclotomic numbers $\\zeta_m$ have height $0$, and there are infinitely many of them across all degrees. Bounding the degree kills this."
+          },
+          {
+            "type": "numeric",
+            "q": "How many points of $\\mathbb{P}^1(\\mathbb{Q})$ have $H([a:b])\\le 2$? (Use coprime integer reps; remember $[a:b]=[-a:-b]$.)",
+            "answer": 11,
+            "tol": 0.5,
+            "explain": "Pairs $(a,b)$ with $\\gcd=1$, $\\max(|a|,|b|)\\le 2$, modulo sign: $[0:1],[1:0],[1:1],[1:-1],[1:2],[1:-2],[2:1],[2:-1],[1:0]$ already counted… enumeration gives $0,\\infty,\\pm 1,\\pm 2,\\pm 1/2$ — that's $11$ projective points."
+          }
+        ]
+      },
+      "weil-height-line-bundle": {
+        "title": "Weil heights",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the precise sense in which the Weil height $h_{X,L}$ depends on the choice of embedding $X\\hookrightarrow\\mathbb{P}^n$ defining $L$?",
+            "choices": [
+              "It is independent: different embeddings give literally the same function.",
+              "It is well-defined up to a bounded function: any two choices differ by $O(1)$.",
+              "It is well-defined up to a constant additive shift.",
+              "It depends multiplicatively on the choice and is only well-defined up to scaling."
+            ],
+            "answer": 1,
+            "explain": "$h_{X,L}$ is canonical only modulo bounded functions on $X(\\bar K)$. This is enough for Northcott (which is insensitive to $O(1)$) but not enough to define a quadratic form — that needs the canonical-height refinement."
+          },
+          {
+            "type": "mcq",
+            "q": "Functoriality of Weil heights says: for $f:X\\to Y$ and a line bundle $L$ on $Y$,",
+            "choices": [
+              "$h_{X,f^*L}=h_{Y,L}\\circ f$ exactly.",
+              "$h_{X,f^*L}=h_{Y,L}\\circ f+O(1)$.",
+              "$h_{X,f^*L}=(\\deg f)\\cdot h_{Y,L}\\circ f$.",
+              "There is no general relation; it depends on $f$."
+            ],
+            "answer": 1,
+            "explain": "The standard Weil-height machine: pullback intertwines heights up to a bounded function. The $O(1)$ is unavoidable since the heights themselves are only well-defined up to $O(1)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Weil-height machine assigns a height to each line bundle. On which group structure is this assignment a homomorphism (modulo $O(1)$)?",
+            "choices": [
+              "$\\mathrm{Aut}(X)$",
+              "$\\mathrm{Pic}(X)$",
+              "$X(\\bar K)$",
+              "$H^1(X,\\mathcal{O}_X^*)$ — wait, that's the same as Pic."
+            ],
+            "answer": 1,
+            "explain": "$L\\mapsto h_{X,L}$ is a homomorphism $\\mathrm{Pic}(X)\\to\\{\\text{functions }X(\\bar K)\\to\\mathbb{R}\\}/O(1)$. Tensor product of line bundles becomes addition of heights."
+          }
+        ]
+      },
+      "neron-tate-canonical-height": {
+        "title": "Canonical height",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On an elliptic curve, the Néron–Tate height $\\hat h$ is defined by Tate's limit",
+            "choices": [
+              "$\\hat h(P)=\\lim_n h(x([n]P))/n$",
+              "$\\hat h(P)=\\lim_n h(x([n]P))/n^2$",
+              "$\\hat h(P)=\\lim_n h(x([2^n]P))/2^n$",
+              "$\\hat h(P)=\\sup_n h(x([n]P))/n^2$"
+            ],
+            "answer": 1,
+            "explain": "Doubling on $E$ acts as multiplication-by-$4$ on a Weil height attached to a symmetric ample bundle, so dividing by $n^2$ is the right normalisation. Equivalently, $\\hat h=\\lim_n h(x(2^n P))/4^n$ — the form usually written down."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of $\\hat h$ on an elliptic curve fails for the naive Weil height $h$?",
+            "choices": [
+              "$h$ is non-negative on $E(\\mathbb{Q})$.",
+              "$h(P)$ is finite for every rational point.",
+              "$h$ is exactly quadratic, i.e. $h([n]P)=n^2 h(P)$.",
+              "Northcott finiteness on $E(\\mathbb{Q})$."
+            ],
+            "answer": 2,
+            "explain": "The naive height satisfies $h([n]P)=n^2 h(P)+O(1)$ but not equality. Tate's averaging absorbs the $O(1)$; the resulting $\\hat h$ is exactly quadratic and gives a positive-definite pairing on $E(\\mathbb{Q})/\\mathrm{tors}$."
+          },
+          {
+            "type": "mcq",
+            "q": "$\\hat h(P)=0$ iff:",
+            "choices": [
+              "$P$ is the identity $O$.",
+              "$P$ is a torsion point.",
+              "$P$ has integer coordinates.",
+              "$P$ has $x$-coordinate $0$."
+            ],
+            "answer": 1,
+            "explain": "Quadratic + Northcott + invariance under $[n]$ forces $\\hat h$ to vanish exactly on the torsion subgroup. This is what makes $\\hat h$ a positive-definite form on $E(\\mathbb{Q})/\\mathrm{tors}$ and gives a regulator."
+          }
+        ]
+      },
+      "mahler-measure-lehmer": {
+        "title": "Mahler measure",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $M(f)$ for $f(x)=2x^2-3x+1=2(x-1)(x-1/2)$. (Mahler measure = $|a|\\prod\\max(1,|\\alpha_i|)$.)",
+            "answer": 2,
+            "tol": 1e-9,
+            "explain": "Roots are $1$ and $1/2$, both with $|\\alpha|\\le 1$, so each $\\max(1,|\\alpha|)=1$. Then $M(f)=|2|\\cdot 1\\cdot 1=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Kronecker's theorem identifies the integer polynomials $f\\in\\mathbb{Z}[x]$ with $M(f)=1$ as exactly:",
+            "choices": [
+              "Polynomials with all roots on the unit circle.",
+              "Products of cyclotomic polynomials and a power of $x$.",
+              "Monic polynomials with $|f(0)|=1$.",
+              "Linear polynomials $\\pm x\\pm 1$."
+            ],
+            "answer": 1,
+            "explain": "Kronecker: a monic integer polynomial whose roots all have $|\\alpha|\\le 1$ has all its non-zero roots on the unit circle and being algebraic integers, they are roots of unity. So $M(f)=1$ iff $f=\\pm x^k\\prod\\Phi_{n_i}(x)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Lehmer's open question (1933) asks:",
+            "choices": [
+              "Whether $M(f)\\in\\mathbb{Z}$ for every monic $f\\in\\mathbb{Z}[x]$.",
+              "Whether the spectrum of values $\\{M(f):f\\in\\mathbb{Z}[x]\\}\\setminus\\{1\\}$ has a positive lower bound.",
+              "Whether $M(f)$ can be irrational.",
+              "Whether every algebraic integer arises as a Mahler measure."
+            ],
+            "answer": 1,
+            "explain": "Lehmer's polynomial $L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1$ has $M(L)\\approx 1.17628$, the smallest known value $>1$. Whether some $f$ can do better is the open problem; conjecturally Lehmer's value is the infimum."
+          }
+        ]
+      },
+      "heights-mordell-faltings": {
+        "title": "Mordell–Faltings",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Faltings' theorem (1983) states that for a smooth projective curve $C$ over a number field $K$:",
+            "choices": [
+              "$C(K)$ is finite when the genus of $C$ is at least $1$.",
+              "$C(K)$ is finite when the genus of $C$ is at least $2$.",
+              "$C(K)$ is finite when $C$ has good reduction everywhere.",
+              "$C(K)$ is finitely generated as an abelian group."
+            ],
+            "answer": 1,
+            "explain": "Mordell's conjecture: genus-$\\ge 2$ forces finitely many rational points. Genus $0$ gives $\\mathbb{P}^1$ (infinitely many) and genus $1$ gives elliptic curves where $E(K)$ is finitely generated but typically infinite."
+          },
+          {
+            "type": "mcq",
+            "q": "Heights enter Faltings' proof primarily through which finiteness statement?",
+            "choices": [
+              "Northcott applied directly to $C(K)$.",
+              "Finiteness of isogeny classes of abelian varieties of bounded Faltings height (the Shafarevich/isogeny-class theorem).",
+              "Finiteness of torsion on the Jacobian.",
+              "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
+            ],
+            "answer": 1,
+            "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the genus-$1$ case fall outside Faltings (and instead live in Mordell–Weil)?",
+            "choices": [
+              "Genus-$1$ curves have no canonical height.",
+              "The Jacobian of a genus-$1$ curve is the curve itself, so 'finite' would have to mean finitely generated — exactly the Mordell–Weil statement.",
+              "Heights are not well-defined on elliptic curves.",
+              "Faltings' proof requires $g\\ge 2$ for technical reasons that have since been removed."
+            ],
+            "answer": 1,
+            "explain": "An elliptic curve $E$ is its own Jacobian, and $E(K)$ can have positive rank — finitely many rational points is simply false. The right statement is finite generation, which is Mordell–Weil. Higher genus has trivial intersection with the Jacobian, allowing Faltings/Vojta's heavier finiteness."
+          }
+        ]
+      },
+      "arakelov-heights-glimpse": {
+        "title": "Arakelov heights",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Arakelov geometry's basic move is to:",
+            "choices": [
+              "Replace $\\operatorname{Spec}\\mathbb{Z}$ by its $p$-adic completion at every prime.",
+              "Compactify $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place, encoded by Hermitian metrics on line bundles.",
+              "Pass to étale cohomology on $\\operatorname{Spec}\\mathbb{Z}$.",
+              "Resolve all singularities of arithmetic surfaces."
+            ],
+            "answer": 1,
+            "explain": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity. Arakelov fills it by demanding Hermitian metrics on line bundles over $X(\\mathbb{C})$; the resulting compactified geometry supports an arithmetic intersection theory."
+          },
+          {
+            "type": "mcq",
+            "q": "In the Arakelov picture, the Néron–Tate height $\\hat h(P)$ is identified with:",
+            "choices": [
+              "The cardinality of $P^*\\bar L$ as a finite scheme.",
+              "An arithmetic intersection number (degree of $P^*\\bar L$) divided by $[K:\\mathbb{Q}]$.",
+              "The integral of the curvature form of $\\bar L$ over $X(\\mathbb{C})$.",
+              "The Faltings height of the Jacobian."
+            ],
+            "answer": 1,
+            "explain": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ — heights as intersection numbers in disguise."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Hermitian-metric data necessary to make heights an intersection number?",
+            "choices": [
+              "Without a metric, line bundles have no degree.",
+              "Without a metric, the contribution at the archimedean place is missing — finite-place intersection alone gives only a $p$-adic part of the height.",
+              "Without a metric, the Jacobian fails to be projective.",
+              "Without a metric, heights are only defined modulo torsion."
+            ],
+            "answer": 1,
+            "explain": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula. The Hermitian metric is exactly what supplies that archimedean local height."
+          }
+        ]
+      }
+    }
+  },
   "heyting-algebras-toposes": {
     "topic": "heyting-algebras-toposes",
     "quizzes": {
@@ -30838,18 +31114,234 @@ window.MVQuizBank = {
   "simplicial-complexes-combinatorial": {
     "topic": "simplicial-complexes-combinatorial",
     "quizzes": {
-      "simplicial-complexes-combinatorial-intro": {
-        "title": "Intro",
+      "abstract-simplicial-complex": {
+        "title": "Abstract simplicial complexes",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which property is required of a collection $K \\subseteq 2^V$ for it to be an abstract simplicial complex?",
             "choices": [
-              "A",
-              "B"
+              "Closed under unions: $\\sigma, \\tau \\in K \\Rightarrow \\sigma \\cup \\tau \\in K$",
+              "Closed under taking subsets: $\\sigma \\in K$ and $\\tau \\subseteq \\sigma \\Rightarrow \\tau \\in K$",
+              "Every face has the same cardinality (uniformity)",
+              "$K$ contains every subset of $V$"
+            ],
+            "answer": 1,
+            "explain": "Hereditary / downward-closed is exactly the simplicial axiom. Union-closure would make $K$ a join-semilattice with top element $V$, not a simplicial complex; uniformity is the much stronger 'pure' property; full $2^V$ is the simplex $\\Delta^{|V|-1}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K$ be the boundary of a tetrahedron $\\partial\\Delta^3$ on vertex set $\\{1,2,3,4\\}$. How many faces (including the empty face) does $K$ have?",
+            "answer": 15,
+            "tol": 0,
+            "explain": "$\\partial\\Delta^3$ has all subsets of $\\{1,2,3,4\\}$ except $\\{1,2,3,4\\}$ itself. That's $2^4 - 1 = 15$ faces. (4 vertices + 6 edges + 4 triangles + 1 empty = 15.)"
+          },
+          {
+            "type": "mcq",
+            "q": "If $K$ has facets $\\{1,2,3\\}$ and $\\{2,3,4\\}$, what is $\\dim K$?",
+            "choices": [
+              "$1$",
+              "$2$",
+              "$3$",
+              "$4$"
+            ],
+            "answer": 1,
+            "explain": "$\\dim K = \\max_\\sigma(|\\sigma|-1)$. Both facets have $|\\sigma|=3$ so $\\dim K = 2$ — $K$ is a $2$-complex (a triangulated piece of surface)."
+          }
+        ]
+      },
+      "f-vector-h-vector": {
+        "title": "f-vector and h-vector",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the $f$-vector of the boundary of a tetrahedron $\\partial\\Delta^3$?",
+            "choices": [
+              "$(3, 3, 1)$",
+              "$(4, 4, 4)$",
+              "$(4, 6, 4)$",
+              "$(4, 6, 4, 1)$"
+            ],
+            "answer": 2,
+            "explain": "$\\partial\\Delta^3$ has $4$ vertices, $\\binom{4}{2}=6$ edges, and $\\binom{4}{3}=4$ triangles, so $f = (f_0,f_1,f_2) = (4,6,4)$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Euler characteristic of the boundary of a simplicial $3$-polytope (a $2$-sphere) is which integer?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "$\\chi = f_0 - f_1 + f_2 = V - E + F = 2$ for any triangulated $2$-sphere — the classical Euler formula. For $\\partial\\Delta^3$: $4 - 6 + 4 = 2$. For the octahedron: $6 - 12 + 8 = 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Dehn–Sommerville says that for the boundary complex of a simplicial $d$-polytope, the $h$-vector $(h_0, \\ldots, h_d)$ satisfies which symmetry?",
+            "choices": [
+              "$h_k = -h_{d-k}$",
+              "$h_k = h_{d-k}$",
+              "$h_k = h_{k+1}$",
+              "$\\sum h_k = 0$"
+            ],
+            "answer": 1,
+            "explain": "$h_k = h_{d-k}$ — the $h$-vector is palindromic. For $\\partial\\Delta^3$ ($d=3$), $h = (1,1,1,1)$. For the octahedron's boundary, $h = (1,3,3,1)$. Both are symmetric, consistent with being simplicial $2$-spheres."
+          }
+        ]
+      },
+      "geometric-realization-nerve": {
+        "title": "Realization and the nerve",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The nerve $\\mathcal{N}(\\mathcal{U})$ of a cover $\\mathcal{U} = \\{U_1, \\ldots, U_n\\}$ has a face $\\sigma \\subseteq \\{1,\\ldots,n\\}$ exactly when:",
+            "choices": [
+              "$\\bigcup_{i\\in\\sigma} U_i = X$",
+              "$\\bigcap_{i\\in\\sigma} U_i \\neq \\emptyset$",
+              "$|\\sigma|$ is even",
+              "Every $U_i$ for $i\\in\\sigma$ is open"
+            ],
+            "answer": 1,
+            "explain": "A face captures a non-empty common intersection. This is downward-closed: if $\\sigma$ has non-empty common intersection, any subset $\\tau\\subseteq\\sigma$ has at least that same intersection, hence non-empty."
+          },
+          {
+            "type": "mcq",
+            "q": "The Borsuk–Leray nerve theorem says the nerve $\\mathcal{N}(\\mathcal{U})$ is homotopy-equivalent to $X$ when:",
+            "choices": [
+              "$\\mathcal{U}$ is finite",
+              "Every $U_i$ is open",
+              "$\\mathcal{U}$ is a good cover — every non-empty finite intersection is contractible",
+              "$X$ is compact"
+            ],
+            "answer": 2,
+            "explain": "The 'good cover' hypothesis — contractible intersections — is what makes the nerve carry the same homotopy type as $X$. Without it, the nerve still records combinatorics of intersections, but the homotopy type can drift."
+          },
+          {
+            "type": "mcq",
+            "q": "The geometric realization $|K|$ relates to combinatorial homology how?",
+            "choices": [
+              "Simplicial homology of $K$ and singular homology of $|K|$ disagree in general",
+              "They agree: $H_n^{\\mathrm{simp}}(K) \\cong H_n^{\\mathrm{sing}}(|K|)$",
+              "Only $H_0$ matches; higher homology requires CW structure",
+              "They agree only over $\\mathbb{Q}$, never over $\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "explain": "A foundational comparison theorem: the simplicial chain complex with face boundary map computes the same invariant as singular homology of the geometric realization. This is what makes simplicial complexes a viable computational substitute for spaces."
+          }
+        ]
+      },
+      "shellable-cohen-macaulay": {
+        "title": "Shellings and Cohen–Macaulay",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A shellable pure $(d-1)$-complex $K$ has which homotopy type?",
+            "choices": [
+              "Always contractible",
+              "Always a single $(d-1)$-sphere",
+              "Wedge of $(d-1)$-spheres, with the number of spheres equal to $h_d$",
+              "Homotopy type cannot be determined from a shelling"
+            ],
+            "answer": 2,
+            "explain": "Shelling $\\Rightarrow$ homotopy-equivalent to $\\bigvee^{h_d} S^{d-1}$. For boundaries of simplicial polytopes with $h$-vector ending in $h_d=1$, this gives one sphere; for the boundary of the cyclic polytope it gives the unique top-dimensional sphere predicted by the $g$-theorem."
+          },
+          {
+            "type": "mcq",
+            "q": "Which implication is the standard one (over any field $k$)?",
+            "choices": [
+              "Cohen–Macaulay $\\Rightarrow$ shellable",
+              "Shellable $\\Rightarrow$ Cohen–Macaulay",
+              "Shellable and Cohen–Macaulay are equivalent",
+              "Neither implies the other"
+            ],
+            "answer": 1,
+            "explain": "Shellable $\\Rightarrow$ CM is the easy direction: a shelling decomposes the chain complex compatibly enough to verify Reisner's criterion. The converse fails: there exist CM complexes that are not shellable (the first examples were constructed in the 1980s)."
+          },
+          {
+            "type": "mcq",
+            "q": "Reisner's criterion characterises when $K$ is Cohen–Macaulay over $k$ in terms of:",
+            "choices": [
+              "The reduced homology of every link $\\mathrm{lk}_K(\\sigma)$ vanishing below its top dimension",
+              "The fundamental group of $|K|$ being trivial",
+              "Every vertex having the same degree",
+              "The Euler characteristic $\\chi(K)$ being $\\pm 1$"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "Reisner (1976): $K$ is CM/$k$ iff $\\widetilde H_i(\\mathrm{lk}_K\\sigma; k)=0$ for all $\\sigma\\in K$ and $i<\\dim\\mathrm{lk}_K(\\sigma)$. Spheres satisfy this; a complex with the wrong-dimensional hole in some link fails."
+          }
+        ]
+      },
+      "stanley-reisner-ring": {
+        "title": "Stanley–Reisner ring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Stanley–Reisner ideal $I_K$ is generated by:",
+            "choices": [
+              "All squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for $\\sigma$ a face of $K$",
+              "All squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for $\\sigma$ a non-face of $K$",
+              "All linear forms $x_i$ for $i$ not a vertex",
+              "All quadratic monomials $x_i x_j$"
+            ],
+            "answer": 1,
+            "explain": "By definition $I_K = (\\prod_{i\\in\\sigma} x_i : \\sigma\\notin K)$ — the squarefree monomials supported on the non-faces. By the hereditary axiom on $K$, this ideal is generated by the minimal non-faces."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Stanley–Reisner ring of $\\partial\\Delta^2$ (the boundary of a triangle, vertices $\\{1,2,3\\}$)?",
+            "choices": [
+              "$k[x_1,x_2,x_3]/(x_1, x_2, x_3)$",
+              "$k[x_1,x_2,x_3]/(x_1x_2, x_1x_3, x_2x_3)$",
+              "$k[x_1,x_2,x_3]/(x_1x_2x_3)$",
+              "$k[x_1,x_2,x_3]$"
+            ],
+            "answer": 2,
+            "explain": "$\\partial\\Delta^2$ contains every proper subset of $\\{1,2,3\\}$. The only non-face is $\\{1,2,3\\}$ itself, so $I_K = (x_1x_2x_3)$ and $k[K] = k[x_1,x_2,x_3]/(x_1x_2x_3)$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the Krull dimension of the Stanley–Reisner ring $k[K]$ of a simplicial complex $K$ with $\\dim K = d-1$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\dim k[K] = 1 + \\dim K$. Take $\\dim K = 2$ (so $d-1=2$, $d=3$): then $\\dim k[K] = 3$. The maximal-length chain of primes in $k[K]$ comes from a maximal-length flag of faces, giving the answer."
+          }
+        ]
+      },
+      "persistent-homology-combinatorial": {
+        "title": "Persistent homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Vietoris–Rips complex $\\mathrm{VR}_r(X)$ of a finite metric space $X$ contains a face $\\sigma\\subseteq X$ exactly when:",
+            "choices": [
+              "$|\\sigma| \\le r$",
+              "All pairwise distances in $\\sigma$ are $\\le 2r$",
+              "$\\sigma$ contains a triangle",
+              "Some pairwise distance in $\\sigma$ is $\\le r$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{VR}_r(X) = \\{\\sigma \\subseteq X : \\mathrm{diam}(\\sigma)\\le 2r\\}$ — i.e. all pairwise distances $\\le 2r$. Equivalently, $\\sigma$ is a face iff every two vertices of $\\sigma$ are connected in the $r$-disk graph; higher faces are forced by the pairwise condition."
+          },
+          {
+            "type": "mcq",
+            "q": "The persistence-module structure theorem decomposes $H_k$ of a Rips filtration into:",
+            "choices": [
+              "A direct sum of fields",
+              "A direct sum of interval modules (bars), each born at some scale and dying at another",
+              "A free $\\mathbb{Z}$-module",
+              "A wedge of circles"
+            ],
+            "answer": 1,
+            "explain": "Over a field $k$, a finitely-generated graded module over $k[t]$ decomposes uniquely (Smith normal form) into interval modules $k[t](-b)/(t^{d-b})$. Translating back: bars $[b,d)$. The barcode is the multiset of these intervals."
+          },
+          {
+            "type": "mcq",
+            "q": "The Cohen-Steiner–Edelsbrunner–Harer stability theorem says barcodes are stable in which sense?",
+            "choices": [
+              "Bottleneck distance between barcodes is bounded by Hausdorff distance between point clouds",
+              "Barcodes are independent of the input",
+              "Barcodes are continuous in $L^2$ norm",
+              "Adding a point cannot change the barcode"
+            ],
+            "answer": 0,
+            "explain": "Stability: a small perturbation of the input (in Hausdorff or sup norm) moves bars in the barcode by at most that perturbation, in bottleneck distance. This is what justifies persistent homology as a robust topological statistic on noisy data."
           }
         ]
       }

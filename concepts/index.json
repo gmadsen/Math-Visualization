@@ -44,6 +44,7 @@
     "adeles-and-ideles",
     "frobenius-and-reciprocity",
     "class-field-theory",
+    "heights-arithmetic-geometry",
 
     "upper-half-plane-hyperbolic",
     "modular-forms",
@@ -151,6 +152,7 @@
     "adeles-and-ideles": "standard",
     "frobenius-and-reciprocity": "standard",
     "class-field-theory": "advanced",
+    "heights-arithmetic-geometry": "standard",
 
     "upper-half-plane-hyperbolic": "standard",
     "modular-forms": "standard",

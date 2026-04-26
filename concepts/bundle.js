@@ -44,6 +44,7 @@ window.__MVConcepts = {
       "adeles-and-ideles",
       "frobenius-and-reciprocity",
       "class-field-theory",
+      "heights-arithmetic-geometry",
       "upper-half-plane-hyperbolic",
       "modular-forms",
       "theta-functions",
@@ -143,6 +144,7 @@ window.__MVConcepts = {
       "adeles-and-ideles": "standard",
       "frobenius-and-reciprocity": "standard",
       "class-field-theory": "advanced",
+      "heights-arithmetic-geometry": "standard",
       "upper-half-plane-hyperbolic": "standard",
       "modular-forms": "standard",
       "theta-functions": "advanced",
@@ -3571,6 +3573,107 @@ window.__MVConcepts = {
         }
       ]
     },
+    "heights-arithmetic-geometry": {
+      "topic": "heights-arithmetic-geometry",
+      "title": "Heights in arithmetic geometry",
+      "page": "heights-arithmetic-geometry.html",
+      "concepts": [
+        {
+          "id": "naive-height-projective",
+          "title": "Naive height on projective space",
+          "anchor": "naive",
+          "prereqs": [
+            "homogeneous-coordinates"
+          ],
+          "blurb": "For a rational point $P=[x_0:\\dots:x_n]\\in\\mathbb{P}^n(\\mathbb{Q})$ with coprime integer coordinates, $H(P)=\\max_i|x_i|$ counts arithmetic complexity — roughly the digit-length needed to write the point down.",
+          "tags": [
+            "finiteness",
+            "foundation"
+          ]
+        },
+        {
+          "id": "logarithmic-height-northcott",
+          "title": "Logarithmic height and Northcott finiteness",
+          "anchor": "northcott",
+          "prereqs": [
+            "naive-height-projective",
+            "number-fields-integers"
+          ],
+          "blurb": "Pass to $h(P)=\\log H(P)$ to get an additive invariant. Northcott's theorem: for any $B,d\\ge 0$, there are only finitely many points of $\\mathbb{P}^n(\\bar{\\mathbb{Q}})$ with $h(P)\\le B$ and $[\\mathbb{Q}(P):\\mathbb{Q}]\\le d$. The first finiteness theorem of Diophantine geometry.",
+          "tags": [
+            "finiteness"
+          ]
+        },
+        {
+          "id": "weil-height-line-bundle",
+          "title": "Weil heights from line bundles",
+          "anchor": "weil",
+          "prereqs": [
+            "logarithmic-height-northcott"
+          ],
+          "blurb": "Each line bundle $L$ on a projective variety $X$ over a number field gives a height $h_{X,L}:X(\\bar K)\\to\\mathbb{R}$, well-defined up to bounded functions. Pulling $\\mathcal{O}(1)$ back along $X\\hookrightarrow\\mathbb{P}^n$ recovers the naive height; functoriality $h_{X,f^*L}=h_{Y,L}\\circ f+O(1)$ makes this the universal height machine.",
+          "tags": [
+            "functoriality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "neron-tate-canonical-height",
+          "title": "Néron–Tate canonical height",
+          "anchor": "canonical",
+          "prereqs": [
+            "weil-height-line-bundle",
+            "mordell-weil-ec"
+          ],
+          "blurb": "On an abelian variety with a symmetric ample $L$, Tate's averaging $\\hat h(P)=\\lim_{n\\to\\infty} h_L([n]P)/n^2$ converges to a quadratic form on $A(\\bar K)$ that vanishes exactly on torsion. Polarising gives the Néron–Tate pairing whose Gram determinant on a Mordell–Weil basis is the regulator $R$ of refined BSD.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mahler-measure-lehmer",
+          "title": "Mahler measure and Lehmer's problem",
+          "anchor": "mahler",
+          "prereqs": [
+            "naive-height-projective"
+          ],
+          "blurb": "For a polynomial $f(x)=a\\prod(x-\\alpha_i)\\in\\mathbb{Z}[x]$ the Mahler measure $M(f)=|a|\\prod\\max(1,|\\alpha_i|)$ is the height of $f$ as a point of projective space — and the height of any algebraic $\\alpha$ via its minimal polynomial. Lehmer's open question: is there a uniform gap between $M(f)=1$ (Kronecker: roots of unity) and the next-smallest non-cyclotomic value?",
+          "tags": [
+            "finiteness",
+            "classification"
+          ]
+        },
+        {
+          "id": "heights-mordell-faltings",
+          "title": "Heights and Mordell–Faltings",
+          "anchor": "mordell-faltings",
+          "prereqs": [
+            "neron-tate-canonical-height",
+            "logarithmic-height-northcott"
+          ],
+          "blurb": "Faltings' proof of Mordell's conjecture: a smooth projective curve of genus $\\ge 2$ over a number field has only finitely many rational points. Heights are central — both Faltings' height $h_F$ on the moduli space of abelian varieties and Vojta's later height-inequality proof. The bridge: Northcott bounds, height pairings, and a finiteness-of-isogeny-classes theorem.",
+          "tags": [
+            "finiteness",
+            "moduli"
+          ]
+        },
+        {
+          "id": "arakelov-heights-glimpse",
+          "title": "Arakelov heights — a glimpse",
+          "anchor": "arakelov",
+          "prereqs": [
+            "weil-height-line-bundle",
+            "neron-tate-canonical-height"
+          ],
+          "blurb": "Arakelov geometry compactifies $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        }
+      ]
+    },
     "upper-half-plane-hyperbolic": {
       "topic": "upper-half-plane-hyperbolic",
       "title": "Upper half-plane and hyperbolic geometry",
@@ -5638,11 +5741,66 @@ window.__MVConcepts = {
       "page": "simplicial-complexes-combinatorial.html",
       "concepts": [
         {
-          "id": "simplicial-complexes-combinatorial-intro",
-          "title": "Intro",
-          "anchor": "intro",
+          "id": "abstract-simplicial-complex",
+          "title": "Abstract simplicial complexes",
+          "anchor": "complex",
           "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "blurb": "A finite set system $K \\subseteq 2^V$ closed under taking subsets, with every singleton in $K$. Faces are members of $K$; dimension is one less than the largest face size; facets are inclusion-maximal faces. The face lattice $(K,\\subseteq)$ is a graded down-closed sub-poset of $2^V$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "f-vector-h-vector",
+          "title": "f-vector, h-vector, and Dehn–Sommerville",
+          "anchor": "fvec",
+          "prereqs": [
+            "abstract-simplicial-complex"
+          ],
+          "blurb": "$f_k = \\#\\{k\\text{-faces}\\}$ and the $h$-vector defined by $\\sum h_k t^{d-k} = \\sum f_{k-1}(t-1)^{d-k}$ encode the same data. For a simplicial $(d-1)$-sphere (Dehn–Sommerville), $h_k = h_{d-k}$. Stanley's $g$-theorem classifies $h$-vectors of simplicial polytope boundaries.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "geometric-realization-nerve",
+          "title": "Geometric realization and the nerve",
+          "anchor": "realize",
+          "prereqs": [
+            "abstract-simplicial-complex",
+            "singular-homology"
+          ],
+          "blurb": "$|K|$ glues a standard $k$-simplex per $k$-face; simplicial homology of $K$ equals singular homology of $|K|$. The nerve $\\mathcal{N}(\\mathcal{U})$ of a cover has a face per non-empty finite intersection; the Borsuk–Leray nerve theorem says good covers recover homotopy type."
+        },
+        {
+          "id": "shellable-cohen-macaulay",
+          "title": "Shellable and Cohen–Macaulay complexes",
+          "anchor": "shell",
+          "prereqs": [
+            "f-vector-h-vector",
+            "noetherian-hilbert-ca"
+          ],
+          "blurb": "A pure complex is shellable when its facets can be ordered so each new facet meets the previous union along a pure codim-$1$ subcomplex of its boundary; shellable $\\Rightarrow$ Cohen–Macaulay. Reisner's criterion: $K$ is CM/$k$ iff $\\widetilde{H}_i(\\mathrm{lk}_K(\\sigma);k)=0$ for $i<\\dim\\mathrm{lk}_K(\\sigma)$, every $\\sigma$."
+        },
+        {
+          "id": "stanley-reisner-ring",
+          "title": "Stanley–Reisner ring",
+          "anchor": "stanley-reisner",
+          "prereqs": [
+            "abstract-simplicial-complex",
+            "ideals-quotients-ca"
+          ],
+          "blurb": "$k[K] = k[x_1,\\dots,x_n]/I_K$ where $I_K$ is generated by squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for the minimal non-faces $\\sigma\\notin K$. Squarefree monomial ideals $\\leftrightarrow$ simplicial complexes is a bijection; CM, Gorenstein, Buchsbaum properties of $k[K]$ become topological conditions on $K$."
+        },
+        {
+          "id": "persistent-homology-combinatorial",
+          "title": "Persistent homology and Vietoris–Rips",
+          "anchor": "persistence",
+          "prereqs": [
+            "geometric-realization-nerve",
+            "chain-complexes"
+          ],
+          "blurb": "Filter a point cloud by Vietoris–Rips complexes $\\mathrm{VR}_r(X) = \\{\\sigma : \\mathrm{diam}(\\sigma)\\le 2r\\}$. The induced sequence of homologies decomposes uniquely into bars $[b_i, d_i)$ — the barcode. Cohen-Steiner–Edelsbrunner–Harer stability bounds bottleneck distance by Hausdorff distance, making barcodes a robust statistic."
         }
       ]
     },
@@ -6120,7 +6278,8 @@ window.__MVConcepts = {
           "p-adic-numbers",
           "adeles-and-ideles",
           "frobenius-and-reciprocity",
-          "class-field-theory"
+          "class-field-theory",
+          "heights-arithmetic-geometry"
         ]
       },
       {
@@ -6302,6 +6461,7 @@ window.__MVConcepts = {
     "adeles-and-ideles": "standard",
     "frobenius-and-reciprocity": "standard",
     "class-field-theory": "advanced",
+    "heights-arithmetic-geometry": "standard",
     "upper-half-plane-hyperbolic": "standard",
     "modular-forms": "standard",
     "theta-functions": "advanced",
@@ -6370,7 +6530,7 @@ window.__MVConcepts = {
       "concepts": 114,
       "intra": 174,
       "crossOut": 14,
-      "crossIn": 34,
+      "crossIn": 37,
       "density": 0.12280701754385964
     },
     "Analysis": {
@@ -6384,15 +6544,15 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 58,
       "crossOut": 6,
-      "crossIn": 43,
+      "crossIn": 44,
       "density": 0.12244897959183673
     },
     "Number theory": {
-      "concepts": 57,
-      "intra": 71,
-      "crossOut": 15,
+      "concepts": 64,
+      "intra": 80,
+      "crossOut": 17,
       "crossIn": 15,
-      "density": 0.2631578947368421
+      "density": 0.265625
     },
     "Modular forms & L-functions": {
       "concepts": 71,
@@ -6405,15 +6565,15 @@ window.__MVConcepts = {
       "concepts": 109,
       "intra": 137,
       "crossOut": 42,
-      "crossIn": 12,
+      "crossIn": 14,
       "density": 0.3853211009174312
     },
     "Combinatorics & graph theory": {
-      "concepts": 28,
-      "intra": 23,
-      "crossOut": 9,
+      "concepts": 33,
+      "intra": 28,
+      "crossOut": 13,
       "crossIn": 0,
-      "density": 0.32142857142857145
+      "density": 0.3939393939393939
     }
   }
 };

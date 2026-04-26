@@ -12,13 +12,13 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 5 | 5 | 0 | 5 | 0.000 |
-| Algebra | 114 | 174 | 14 | 34 | 0.123 |
+| Algebra | 114 | 174 | 14 | 37 | 0.123 |
 | Analysis | 101 | 144 | 14 | 26 | 0.139 |
-| Geometry & topology | 49 | 58 | 6 | 43 | 0.122 |
-| Number theory | 57 | 71 | 15 | 15 | 0.263 |
+| Geometry & topology | 49 | 58 | 6 | 44 | 0.122 |
+| Number theory | 64 | 80 | 17 | 15 | 0.266 |
 | Modular forms & L-functions | 71 | 92 | 40 | 5 | 0.563 |
-| Algebraic geometry | 109 | 137 | 42 | 12 | 0.385 |
-| Combinatorics & graph theory | 28 | 23 | 9 | 0 | 0.321 |
+| Algebraic geometry | 109 | 137 | 42 | 14 | 0.385 |
+| Combinatorics & graph theory | 33 | 28 | 13 | 0 | 0.394 |
 
 ## EMPTY — concepts with no prereqs (4)
 
@@ -32,7 +32,7 @@ at brand-new progress alongside genuine entry points like
 |---|---|---|
 | extremal-combinatorics | `sperner-lym` | Sperner's theorem and the LYM inequality |
 | extremal-combinatorics | `turan-theorem` | Turán's theorem and the Turán graph |
-| simplicial-complexes-combinatorial | `simplicial-complexes-combinatorial-intro` | Intro |
+| simplicial-complexes-combinatorial | `abstract-simplicial-complex` | Abstract simplicial complexes |
 | spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)

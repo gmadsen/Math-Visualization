@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **78**, concepts: **534**
-- Widgets: **590** (registry-driven: 563, inline: 27)
-- Quizzes: **2776** (v1: 1540, hard: 1223, expert: 13)
-- Quiz types: mcq: 1712, numeric: 867, multi-select: 79, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **101**
-- Concepts lacking a hard-tier quiz: **96**
+- Topics: **79**, concepts: **546**
+- Widgets: **603** (registry-driven: 563, inline: 40)
+- Quizzes: **2814** (v1: 1578, hard: 1223, expert: 13)
+- Quiz types: mcq: 1744, numeric: 873, multi-select: 79, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **100**
+- Concepts lacking a hard-tier quiz: **108**
 
 ## Per-slug registry adoption
 
@@ -154,6 +154,7 @@ page has wired one in yet.
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
 | `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 0 | _(none — fixture-only)_ |
+| `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 0 | _(none — fixture-only)_ |
 | `julia-playground` | julia-playground | slider | 2d | 0 | _(none — fixture-only)_ |
 
 ## Per-subject
@@ -200,13 +201,13 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **11**, concepts: **57**
-- Widgets: **73** (registry-driven: 73, inline: 0)
-  - by family: button-stepper: 58, clickable-diagram: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
-  - by dimension: 2d: 73
-  - by gesture: click: 63, input: 4, interactive: 2, scrub: 1, slider: 1, edit: 1, read: 1
-- Quizzes: **340** (v1: 172, hard: 168, expert: 0)
-  - by type: mcq: 220, numeric: 116, complex: 3, guess-my-rule: 1
+- Topics: **12**, concepts: **64**
+- Widgets: **80** (registry-driven: 73, inline: 7)
+  - by family: button-stepper: 58, unknown: 7, clickable-diagram: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
+  - by dimension: 2d: 73, unknown: 7
+  - by gesture: click: 63, unknown: 7, input: 4, interactive: 2, scrub: 1, slider: 1, edit: 1, read: 1
+- Quizzes: **361** (v1: 193, hard: 168, expert: 0)
+  - by type: mcq: 238, numeric: 119, complex: 3, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -230,13 +231,13 @@ page has wired one in yet.
 
 ### Combinatorics & graph theory
 
-- Topics: **5**, concepts: **28**
-- Widgets: **27** (registry-driven: 0, inline: 27)
-  - by family: unknown: 27
-  - by dimension: unknown: 27
-  - by gesture: unknown: 27
-- Quizzes: **82** (v1: 82, hard: 0, expert: 0)
-  - by type: mcq: 58, numeric: 14, multi-select: 10
+- Topics: **5**, concepts: **33**
+- Widgets: **33** (registry-driven: 0, inline: 33)
+  - by family: unknown: 33
+  - by dimension: unknown: 33
+  - by gesture: unknown: 33
+- Quizzes: **99** (v1: 99, hard: 0, expert: 0)
+  - by type: mcq: 72, numeric: 17, multi-select: 10
 
 ## Per-topic
 
@@ -280,6 +281,7 @@ page has wired one in yet.
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
+- `heights-arithmetic-geometry` (Number theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
@@ -313,7 +315,7 @@ page has wired one in yet.
 - `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
