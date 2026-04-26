@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **73**, concepts: **505**
-- Widgets: **459** (registry-driven: 457, inline: 2)
+- Widgets: **562** (registry-driven: 457, inline: 105)
 - Quizzes: **2690** (v1: 1454, hard: 1223, expert: 13)
 - Quiz types: mcq: 1652, numeric: 852, multi-select: 68, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **194**
+- Concepts lacking a widget in their section: **100**
 - Concepts lacking a hard-tier quiz: **67**
 
 ## Per-slug registry adoption
@@ -51,10 +51,10 @@ page has wired one in yet.
 ### Algebra
 
 - Topics: **13**, concepts: **113**
-- Widgets: **65** (registry-driven: 65, inline: 0)
-  - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
-  - by dimension: 2d: 65
-  - by gesture: click: 63, slider+click: 1, interactive: 1
+- Widgets: **121** (registry-driven: 65, inline: 56)
+  - by family: unknown: 56, button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
+  - by dimension: 2d: 65, unknown: 56
+  - by gesture: click: 63, unknown: 56, slider+click: 1, interactive: 1
 - Quizzes: **573** (v1: 339, hard: 234, expert: 0)
   - by type: mcq: 366, numeric: 143, multi-select: 38, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
 
@@ -101,10 +101,10 @@ page has wired one in yet.
 ### Algebraic geometry
 
 - Topics: **19**, concepts: **109**
-- Widgets: **79** (registry-driven: 79, inline: 0)
-  - by family: button-stepper: 61, clickable-diagram: 15, clickable-graph: 3
-  - by dimension: 2d: 79
-  - by gesture: click: 79
+- Widgets: **126** (registry-driven: 79, inline: 47)
+  - by family: button-stepper: 61, unknown: 47, clickable-diagram: 15, clickable-graph: 3
+  - by dimension: 2d: 79, unknown: 47
+  - by gesture: click: 79, unknown: 47
 - Quizzes: **572** (v1: 327, hard: 245, expert: 0)
   - by type: mcq: 347, numeric: 186, multi-select: 16, matching: 8, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
@@ -116,14 +116,14 @@ page has wired one in yet.
 - `representation-theory` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
 - `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=71 (v1=36, hard=35, expert=0)
 - `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
-- `elementary-topos-theory` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
-- `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `infinity-categories` (Algebra) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `infinity-topoi` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=29 (v1=21, hard=8, expert=0)
-- `derived-categories` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
-- `cocartesian-fibrations` (Algebra) — concepts=7, widgets=0 (slug=0), quiz=31 (v1=21, hard=10, expert=0)
+- `elementary-topos-theory` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
+- `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `infinity-categories` (Algebra) — concepts=6, widgets=7 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `infinity-topoi` (Algebra) — concepts=7, widgets=9 (slug=0), quiz=29 (v1=21, hard=8, expert=0)
+- `derived-categories` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
+- `cocartesian-fibrations` (Algebra) — concepts=7, widgets=8 (slug=0), quiz=31 (v1=21, hard=10, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
@@ -172,13 +172,13 @@ page has wired one in yet.
 - `moduli-spaces` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `sheaf-cohomology` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `stacks` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `algebraic-spaces` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `intersection-theory-chow` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
-- `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
-- `group-schemes` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `deformation-theory` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `algebraic-spaces` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `intersection-theory-chow` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
+- `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=25 (v1=18, hard=7, expert=0)
+- `group-schemes` (Algebraic geometry) — concepts=6, widgets=8 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `deformation-theory` (Algebraic geometry) — concepts=6, widgets=7 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=8 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
@@ -196,18 +196,18 @@ page has wired one in yet.
 - `group-representations` (representation-theory)
 - `characters-orthogonality` (representation-theory)
 - `long-exact-sequence` (homological)
-- `topos-definition` (elementary-topos-theory)
-- `subobject-classifier` (elementary-topos-theory)
-- `characteristic-maps` (elementary-topos-theory)
-- `power-objects` (elementary-topos-theory)
-- `presheaf-topos` (elementary-topos-theory)
-- `g-set-topos` (elementary-topos-theory)
-- `geometric-morphisms-intro` (elementary-topos-theory)
-- `heyting-algebra` (heyting-algebras-toposes)
-- `omega-as-heyting-algebra` (heyting-algebras-toposes)
-- `internal-language` (heyting-algebras-toposes)
-- `kripke-joyal-semantics` (heyting-algebras-toposes)
-- `lem-failure` (heyting-algebras-toposes)
+- `sigma-algebras` (measure-theory)
+- `riemann-sphere` (complex-analysis)
+- `mobius-transformations` (complex-analysis)
+- `cauchy-riemann` (complex-analysis)
+- `holomorphic-function` (complex-analysis)
+- `domain-coloring` (complex-analysis)
+- `cauchy-theorem` (complex-analysis)
+- `cauchy-integral-formula` (complex-analysis)
+- `liouville` (complex-analysis)
+- `fta` (complex-analysis)
+- `maximum-modulus` (complex-analysis)
+- `schwarz-lemma` (complex-analysis)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
