@@ -465,7 +465,8 @@ window.__MVConcepts = {
           "title": "Compact groups and Peter–Weyl",
           "anchor": "peter-weyl",
           "prereqs": [
-            "characters-orthogonality"
+            "characters-orthogonality",
+            "banach-hilbert-spaces"
           ],
           "blurb": "For a compact group $G$ with Haar measure, $L^2(G) \\cong \\widehat{\\bigoplus}_{\\pi\\in\\widehat G}\\, V_\\pi\\otimes V_\\pi^*$ — matrix coefficients of irreducible unitary reps form a Hilbert basis."
         },
@@ -518,7 +519,8 @@ window.__MVConcepts = {
           "title": "Spec and Zariski topology",
           "anchor": "zariski",
           "prereqs": [
-            "primes-maximals-ca"
+            "primes-maximals-ca",
+            "open-sets"
           ],
           "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes."
         },
@@ -973,7 +975,8 @@ window.__MVConcepts = {
           "title": "Geometric realization $|X|$",
           "anchor": "geometric-realization",
           "prereqs": [
-            "simplicial-set"
+            "simplicial-set",
+            "metric-spaces"
           ],
           "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
         },
@@ -992,7 +995,8 @@ window.__MVConcepts = {
           "title": "Kan complexes",
           "anchor": "kan-complex",
           "prereqs": [
-            "simplicial-set"
+            "simplicial-set",
+            "paths"
           ],
           "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence)."
         },
@@ -1299,7 +1303,8 @@ window.__MVConcepts = {
           "prereqs": [
             "cocartesian-fibration",
             "grothendieck-construction",
-            "quasi-category"
+            "quasi-category",
+            "covering-spaces"
           ],
           "blurb": "The source map $\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ of the arrow $\\infty$-category is a cocartesian fibration whose fibers are slice categories. The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ is a cocartesian fibration whose transport is base change. The classifying space $BG$-fibration over a point recovers a $G$-action on its fiber."
         }

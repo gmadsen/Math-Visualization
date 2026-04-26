@@ -635,7 +635,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">\n<strong>Beyond compact:</strong> for locally compact groups (like $\\mathrm{SL}_2(\\mathbb{R})$ or $\\mathrm{GL}_n(\\mathbb{Q}_p)$), Peter–Weyl partially generalizes to the <em>Plancherel theorem</em>: $L^2(G)$ decomposes as a direct integral of irreducible unitary reps against the Plancherel measure on the unitary dual $\\widehat G$. Non-discrete irreps then contribute to the <em>continuous spectrum</em>, giving rise to the \"tempered representations\" at the heart of the Langlands program.\n</div>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#so3su2\">SU(2), SO(3), and the double cover</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<div class=\"note\">\n<strong>Beyond compact:</strong> for locally compact groups (like $\\mathrm{SL}_2(\\mathbb{R})$ or $\\mathrm{GL}_n(\\mathbb{Q}_p)$), Peter–Weyl partially generalizes to the <em>Plancherel theorem</em>: $L^2(G)$ decomposes as a direct integral of irreducible unitary reps against the Plancherel measure on the unitary dual $\\widehat G$. Non-discrete irreps then contribute to the <em>continuous spectrum</em>, giving rise to the \"tempered representations\" at the heart of the Langlands program.\n</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#hilbert\">Banach and Hilbert spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",

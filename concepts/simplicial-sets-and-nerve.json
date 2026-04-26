@@ -25,7 +25,8 @@
       "title": "Geometric realization $|X|$",
       "anchor": "geometric-realization",
       "prereqs": [
-        "simplicial-set"
+        "simplicial-set",
+        "metric-spaces"
       ],
       "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
     },
@@ -44,7 +45,8 @@
       "title": "Kan complexes",
       "anchor": "kan-complex",
       "prereqs": [
-        "simplicial-set"
+        "simplicial-set",
+        "paths"
       ],
       "blurb": "A simplicial set is a Kan complex if every horn $\\Lambda^n_k$ extends to a $\\Delta^n$. Kan complexes are the simplicial-set models of $\\infty$-groupoids; their geometric realizations are exactly the spaces (up to weak equivalence)."
     },

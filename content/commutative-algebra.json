@@ -175,6 +175,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#open\">Topological spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#dim\">Commutative algebra</a> · Krull dimension and depth heuristics</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

@@ -26,7 +26,8 @@
       "title": "Spec and Zariski topology",
       "anchor": "zariski",
       "prereqs": [
-        "primes-maximals-ca"
+        "primes-maximals-ca",
+        "open-sets"
       ],
       "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes."
     },
