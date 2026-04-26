@@ -83,6 +83,19 @@ const NAV  = makeFence('breadcrumb-nav');
 const LINEAGE_FENCE = makeFence('lineage-mount', 'html');
 
 // ----------------------------------------------------------------------------
+// HTML entity decoder for short plain-text strings (section labels and
+// card titles). The hand-authored index.html only uses the four core
+// entities plus &#39;; this handles all of them. Anything richer (named
+// entities, decimal/hex codepoints) would need a real HTML parser.
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"');
+}
+
 // 1. Parse index.html → section map.
 // ----------------------------------------------------------------------------
 
@@ -103,13 +116,7 @@ function parseIndexSections(html) {
   let sm;
   while ((sm = secRe.exec(html))) {
     const labelRaw = sm[1].trim();
-    // decode a couple of common entities; labels are short plain text anyway.
-    const label = labelRaw
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&#39;/g, "'")
-      .replace(/&quot;/g, '"');
+    const label = decodeEntities(labelRaw);
     secPositions.push({
       label,
       startIdx: sm.index,
@@ -135,8 +142,13 @@ function parseIndexSections(html) {
       const ttm = cm[2].match(ttRe);
       let title = slug;
       if (ttm) {
-        // strip inner <span>…</span> (level badges) and tags.
-        title = ttm[1].replace(/<span[\s\S]*?<\/span>/gi, '').replace(/<[^>]+>/g, '').trim();
+        // strip inner <span>…</span> (level badges) and tags, then decode
+        // entities so a card titled "Adèles &amp; idèles" stores as
+        // "Adèles & idèles" (breadcrumb.js uses textContent which would
+        // otherwise render the literal "&amp;").
+        title = decodeEntities(
+          ttm[1].replace(/<span[\s\S]*?<\/span>/gi, '').replace(/<[^>]+>/g, '').trim()
+        );
         if (!title) title = slug;
       }
       cards.push({ slug, title });
