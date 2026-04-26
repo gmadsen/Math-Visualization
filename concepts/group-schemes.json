@@ -27,7 +27,8 @@
       "title": "Affine group schemes ↔ commutative Hopf algebras",
       "anchor": "hopf-algebra",
       "prereqs": [
-        "group-scheme-definition"
+        "group-scheme-definition",
+        "algebraic-structures"
       ],
       "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps."
     },

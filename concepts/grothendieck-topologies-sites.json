@@ -33,7 +33,8 @@
       "title": "Sheaves and sheafification",
       "anchor": "sheaves-on-a-site",
       "prereqs": [
-        "grothendieck-topology"
+        "grothendieck-topology",
+        "sheafification-functor"
       ],
       "blurb": "A sheaf on $(C, J)$ is a presheaf $F$ such that for every covering sieve $S$ of $c$, $F(c)$ is the limit of $F$ over $S$. The sheafification functor is the left adjoint of the inclusion of sheaves into presheaves; it averages a presheaf over all covering sieves."
     },

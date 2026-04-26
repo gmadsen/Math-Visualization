@@ -431,11 +431,12 @@
   // Prefer the pre-built bundle (loaded via <script src>), which works from
   // file:// — browsers block fetch() of local JSON there. Fall back to fetch
   // when the bundle isn't present (e.g. running off a dev server).
-  let idx, topics, capstones;
+  let idx, topics, capstones, sectionsData;
   if(window.__MVConcepts){
     idx = window.__MVConcepts.index;
     topics = idx.topics.map(t => window.__MVConcepts.topics[t]);
     capstones = window.__MVConcepts.capstones.capstones;
+    sectionsData = window.__MVConcepts.sections;
   } else {
     try {
       idx = await fetch('./concepts/index.json').then(r=>r.json());
@@ -443,6 +444,7 @@
         fetch(`./concepts/${t}.json`).then(r=>r.json())
       ));
       capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
+      sectionsData = await fetch('./concepts/sections.json').then(r=>r.json());
     } catch(e) {
       document.getElementById('stats').innerHTML =
         '<span style="color:var(--pink)">Failed to load concept data: ' + e.message +
@@ -460,48 +462,19 @@
     }
   }
 
-  // ---------- topic → section mapping (mirrors index.html sections) ----------
-  const TOPIC_SECTION = {
-    // Foundations
-    'naive-set-theory': 'Foundations',
-    // Algebra
-    'algebra':'Algebra','category-theory':'Algebra','representation-theory':'Algebra',
-    'commutative-algebra':'Algebra','homological':'Algebra',
-    // Analysis
-    'real-analysis':'Analysis','measure-theory':'Analysis','complex-analysis':'Analysis',
-    'functional-analysis':'Analysis','operator-algebras':'Analysis',
-    // Geometry & topology
-    'point-set-topology':'Geometry & topology','algebraic-topology':'Geometry & topology',
-    'smooth-manifolds':'Geometry & topology','differential-forms':'Geometry & topology',
-    'differential-geometry':'Geometry & topology','riemannian-geometry':'Geometry & topology',
-    'lie-groups':'Geometry & topology','riemann-surfaces':'Geometry & topology',
-    // Number theory
-    'galois':'Number theory','quadratic-reciprocity':'Number theory',
-    'sums-of-squares':'Number theory','power-sums-bernoulli':'Number theory',
-    'waring':'Number theory','algebraic-number-theory':'Number theory',
-    'p-adic-numbers':'Number theory','frobenius-and-reciprocity':'Number theory',
-    'class-field-theory':'Number theory',
-    // Modular forms & L-functions
-    'upper-half-plane-hyperbolic':'Modular forms & L-functions',
-    'modular-forms':'Modular forms & L-functions','theta-functions':'Modular forms & L-functions',
-    'partitions-generating-functions':'Modular forms & L-functions',
-    'hecke-operators':'Modular forms & L-functions',
-    'dirichlet-series-euler-products':'Modular forms & L-functions',
-    'analytic-continuation':'Modular forms & L-functions',
-    'L-functions':'Modular forms & L-functions',
-    'galois-representations':'Modular forms & L-functions',
-    'moonshine':'Modular forms & L-functions',
-    'sato-tate':'Modular forms & L-functions',
-    'bsd':'Modular forms & L-functions',
-    'modularity-and-flt':'Modular forms & L-functions',
-    // Algebraic geometry
-    'projective-plane':'Algebraic geometry','bezout':'Algebraic geometry',
-    'schemes':'Algebraic geometry','sheaves':'Algebraic geometry',
-    'morphisms-fiber-products':'Algebraic geometry','functor-of-points':'Algebraic geometry',
-    'elliptic-curves':'Algebraic geometry','singular-cubics-reduction':'Algebraic geometry',
-    'moduli-spaces':'Algebraic geometry','sheaf-cohomology':'Algebraic geometry',
-    'stacks':'Algebraic geometry','etale-cohomology':'Algebraic geometry'
-  };
+  // ---------- topic → section mapping (built from concepts/sections.json) ----------
+  // Bundled into __MVConcepts.sections by scripts/build-concepts-bundle.mjs.
+  // Previously this map was hand-maintained inline and drifted — at one
+  // point it covered ~30 topics while the corpus had 73, sending every new
+  // arc topic to the "Foundations" fallback bucket.
+  const TOPIC_SECTION = {};
+  const SECTION_ORDER = sectionsData.sections.map(s => s.title);
+  for(const s of sectionsData.sections){
+    for(const t of s.topics) TOPIC_SECTION[t] = s.title;
+  }
+  // SECTION_COLOR is curated and stays inline — these are the section's
+  // assigned palette accents, picked to harmonize with each section's card
+  // colors on index.html.
   const SECTION_COLOR = {
     'Foundations':                  'var(--mute)',
     'Algebra':                      'var(--yellow)',
@@ -511,8 +484,6 @@
     'Modular forms & L-functions':  'var(--pink)',
     'Algebraic geometry':           'var(--violet)'
   };
-  const SECTION_ORDER = ['Foundations','Algebra','Analysis','Geometry & topology',
-    'Number theory','Modular forms & L-functions','Algebraic geometry'];
   function sectionFor(id){
     const c = byId.get(id);
     if(!c) return 'Foundations';

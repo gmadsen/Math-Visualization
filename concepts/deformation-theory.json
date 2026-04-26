@@ -38,7 +38,8 @@
       "title": "Deformation functors and Schlessinger's criteria",
       "anchor": "deformation-functor",
       "prereqs": [
-        "first-order-deformation"
+        "first-order-deformation",
+        "noetherian-hilbert-ca"
       ],
       "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable."
     },

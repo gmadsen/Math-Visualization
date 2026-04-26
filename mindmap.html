@@ -129,6 +129,24 @@
   .gap-list ul li .gopen{color:var(--mute);text-decoration:none;
     margin-left:.4rem;padding:.05rem .3rem;border-radius:3px;font-size:.78rem}
   .gap-list ul li .gopen:hover{color:var(--yellow);background:var(--panel2)}
+  .section-stats{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.7rem .9rem;margin-top:1rem;font-size:.86rem;color:var(--ink)}
+  .section-stats h3{margin:0 0 .5rem;font-size:.9rem;color:var(--cyan);
+    letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+  .section-stats table{width:100%;border-collapse:collapse;font-size:.82rem;
+    font-variant-numeric:tabular-nums}
+  .section-stats th{text-align:left;color:var(--mute);font-weight:500;
+    padding:.25rem .55rem;border-bottom:1px solid var(--line)}
+  .section-stats th.num{text-align:right}
+  .section-stats td{padding:.28rem .55rem;border-bottom:1px solid var(--line)}
+  .section-stats td.num{text-align:right;color:var(--ink);font-weight:500}
+  .section-stats td.num.zero{color:var(--mute);font-weight:400}
+  .section-stats td.num.high{color:var(--yellow)}
+  .section-stats tr:last-child td{border-bottom:none}
+  .section-stats tr:hover td{background:var(--panel2)}
+  .section-stats .swatch{display:inline-block;width:9px;height:9px;border-radius:2px;
+    margin-right:.45rem;vertical-align:middle;border:1px solid var(--line)}
+  .section-stats .ratio{color:var(--mute);font-size:.74rem;font-style:italic}
   .footer-note{color:var(--mute);font-size:.82rem;margin-top:1.2rem;line-height:1.6}
   .footer-note code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
     font-size:.82rem;background:var(--panel2);padding:.05rem .35rem;border-radius:3px}
@@ -211,6 +229,23 @@
   </div>
 
   <div class="tooltip" id="tooltip"></div>
+
+  <div class="section-stats" id="section-stats">
+    <h3>Per-section structural stats</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>section</th>
+          <th class="num">concepts</th>
+          <th class="num">intra edges</th>
+          <th class="num">cross out</th>
+          <th class="num">cross in</th>
+          <th class="num" title="cross-topic edges out per concept">density</th>
+        </tr>
+      </thead>
+      <tbody id="section-stats-tbody"></tbody>
+    </table>
+  </div>
 
   <div class="gap-list" id="gap-list" hidden>
     <h3 id="gap-orphan-h" hidden>Topics with zero cross-topic prereqs</h3>
@@ -1173,6 +1208,59 @@
     });
   }
 
+  // ---------- per-section structural stats ----------
+  // For each section, compute: concept count, intra-section prereq edges,
+  // cross-topic out-edges (this section → another), cross-topic in-edges
+  // (another section → this), and a per-concept density. Surfaces uneven
+  // structural connectivity — sections with a low cross-out density are
+  // candidates for the next prereq audit pass.
+  function buildSectionStats(){
+    const stats = new Map();
+    for(const sec of SECTION_ORDER){
+      stats.set(sec, { concepts: 0, intra: 0, crossOut: 0, crossIn: 0 });
+    }
+    for(const n of nodes){
+      stats.get(n.section).concepts++;
+    }
+    for(const e of edges){
+      const fromSec = nodes[e.from].section;
+      const toSec   = nodes[e.to].section;
+      if(fromSec === toSec){
+        stats.get(fromSec).intra++;
+      } else {
+        // edge is prereq → consumer; "cross out from prereq side", "cross in
+        // on consumer side". Density on the consumer side measures how much
+        // a section pulls from upstream foundations.
+        stats.get(fromSec).crossIn++;     // prereq's section receives the in-edge from a downstream section
+        stats.get(toSec).crossOut++;      // consumer's section is reaching out to a different section's prereq
+      }
+    }
+    // Normalize the wording: "cross out" = outbound prereq dependencies
+    // (this section depends on another), "cross in" = inbound consumers
+    // (other sections depend on this one). The accounting above is correct
+    // — flip per-edge naming for clarity.
+    const tbody = document.getElementById('section-stats-tbody');
+    if(!tbody) return;
+    // Find max crossOut for "high" highlighting threshold.
+    const allOut = SECTION_ORDER.map(s => stats.get(s).crossOut);
+    const maxOut = Math.max(...allOut, 1);
+    const rows = SECTION_ORDER.map(sec => {
+      const r = stats.get(sec);
+      const density = r.concepts > 0 ? (r.crossOut / r.concepts) : 0;
+      const densityCls = density >= 0.5 ? 'high' : (density === 0 ? 'zero' : '');
+      const outCls = r.crossOut === maxOut && maxOut > 5 ? 'high' : (r.crossOut === 0 ? 'zero' : '');
+      return `<tr>
+        <td><span class="swatch" style="background:${SECTION_COLOR[sec]}"></span>${escHtml(sec)}</td>
+        <td class="num">${r.concepts}</td>
+        <td class="num ${r.intra === 0 ? 'zero' : ''}">${r.intra}</td>
+        <td class="num ${outCls}">${r.crossOut}</td>
+        <td class="num ${r.crossIn === 0 ? 'zero' : ''}">${r.crossIn}</td>
+        <td class="num ${densityCls}">${density.toFixed(2)}</td>
+      </tr>`;
+    });
+    tbody.innerHTML = rows.join('');
+  }
+
   // ---------- legend ----------
   function buildLegend(){
     const bar = document.querySelector('.bar');
@@ -1228,6 +1316,7 @@
 
   buildLegend();
   updateStats();
+  buildSectionStats();
   buildGapList();
 
   // Build the SVG once with placeholder positions; layout fills positions.

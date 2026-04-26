@@ -28,7 +28,8 @@
       "title": "$\\infty$-Giraud axioms",
       "anchor": "giraud-infty",
       "prereqs": [
-        "infty-topos-definition"
+        "infty-topos-definition",
+        "topos-of-sheaves"
       ],
       "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form."
     },

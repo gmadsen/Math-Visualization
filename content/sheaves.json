@@ -561,7 +561,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./sheaves.html#qcoh\">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#sheaves-on-a-site\">Grothendieck topologies and sites</a> · Sheaves and sheafification</div>\n    <div><a href=\"./sheaves.html#qcoh\">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

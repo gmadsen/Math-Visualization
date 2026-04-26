@@ -18,7 +18,8 @@
       "title": "The homotopy category $h(\\mathcal{C})$",
       "anchor": "homotopy-category",
       "prereqs": [
-        "quasi-category"
+        "quasi-category",
+        "categories-morphisms"
       ],
       "blurb": "Quotienting a quasi-category $\\mathcal{C}$ by the equivalence relation \"there is a 2-simplex from $f$ to $g$\" gives an ordinary 1-category $h(\\mathcal{C})$. This is the shadow of $\\mathcal{C}$ visible to non-homotopical eyes."
     },
