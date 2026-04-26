@@ -243,7 +243,7 @@
       <span id="depth-val" class="match-info" style="min-width:32px" aria-live="polite">2</span>
       <label style="margin-left:.4rem;display:inline-flex;align-items:center;gap:.3rem;cursor:pointer">
         <input id="full-chain" type="checkbox" style="cursor:pointer" />
-        <span style="color:var(--mute);font-size:.85rem" title="Show every transitive prereq AND every transitive consumer of the focused node, regardless of depth">full chain</span>
+        <span style="color:var(--mute);font-size:.85rem" title="Show every transitive prerequisite of the focused node — the full upstream chain you'd need to know. Consumers (downstream) are not included; they're a separate direction.">full chain</span>
       </label>
     </div>
     <div class="group">
@@ -934,29 +934,24 @@
     return hop;
   }
 
-  // Full transitive closure: every prereq of the focused node (recursively
-  // upstream via inAdj) plus every consumer (recursively downstream via
-  // outAdj). The graph is a DAG so each direction terminates without a
-  // cycle guard beyond the visited set. Used by the "full chain" toggle —
-  // semantically distinct from k-hop undirected: "if you know this concept,
-  // you implicitly know every prereq it rests on AND every concept that
-  // rests on it." No depth limit.
+  // Full upstream dependency chain: every prereq of the focused node,
+  // recursively upstream via inAdj. No depth limit. The graph is a DAG
+  // so the BFS terminates without a cycle guard beyond the visited set.
+  //
+  // Strictly UPSTREAM. Consumers (concepts that depend on the focused
+  // node) are NOT part of "the dependency chain" — they're the reverse
+  // direction. "If you know this concept, you implicitly know every
+  // prereq it rests on" — that's what this returns. What this concept
+  // is USED for is a separate question, surfaced via the
+  // {focus-card.degOut} count and ↗ page link.
   function bfsFullChain(startIdx){
     const set = new Map(); set.set(startIdx, 0);
-    const upQueue = [startIdx];
-    while(upQueue.length){
-      const u = upQueue.shift();
+    const queue = [startIdx];
+    while(queue.length){
+      const u = queue.shift();
       for(const v of inAdj[u]){
         if(set.has(v)) continue;
-        set.set(v, 1); upQueue.push(v);
-      }
-    }
-    const downQueue = [startIdx];
-    while(downQueue.length){
-      const u = downQueue.shift();
-      for(const v of outAdj[u]){
-        if(set.has(v)) continue;
-        set.set(v, 1); downQueue.push(v);
+        set.set(v, 1); queue.push(v);
       }
     }
     return set;
