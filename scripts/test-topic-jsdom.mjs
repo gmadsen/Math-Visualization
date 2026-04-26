@@ -51,6 +51,7 @@ const { JSDOM, VirtualConsole } = await import(
 const SKIP = new Set([
   'index.html',
   'pathway.html',
+  'mindmap.html',
   'widgets.html',
   'review.html',
   'search.html',
@@ -470,6 +471,139 @@ describe('pathway.html jsdom', () => {
       `expected renderMathInElement to be called for cap-summary/bytopic/nodes ` +
         `(≥ 2 times); got ${calls}`,
     );
+
+    dom.window.close();
+  });
+});
+
+// ---------- mindmap.html ----------
+//
+// mindmap.html is a free-explore counterpart to pathway.html: section-clustered
+// force-directed layout of all 505 concepts. Like pathway it has its own
+// structural shape (no sidetoc, no <section>s, no quizzes) so the generic
+// topic boot test would mis-fire. Targeted regression checks:
+//   - boots without script errors
+//   - all 505 nodes render
+//   - per-section stats table populates with 7 section rows
+//   - gap-list orphan + capstone panels populate
+//   - depth slider's input/change events update focusDepth (it must be live
+//     before the user clicks anything, since clicking with depth=2 vs depth=4
+//     should produce different keep-set sizes)
+describe('mindmap.html jsdom', () => {
+  test('boots, layout completes, section-stats and gap-list populate', async () => {
+    const file = 'mindmap.html';
+    const abs = join(repoRoot, file);
+    if (!existsSync(abs)) return;
+    const html = readFileSync(abs, 'utf8');
+    const inlined = inlineLocalScripts(html);
+
+    const errors = [];
+    const vc = new VirtualConsole();
+    vc.on('jsdomError', (e) =>
+      errors.push(`jsdomError: ${e && (e.stack || e.message || e)}`),
+    );
+    vc.on('error', (e) => errors.push(`error: ${e && (e.message || e)}`));
+
+    const dom = new JSDOM(inlined, {
+      runScripts: 'dangerously',
+      pretendToBeVisual: true,
+      virtualConsole: vc,
+      url: `file://${abs}`,
+      beforeParse(window) {
+        window.katex = { render: () => {}, renderToString: () => '' };
+        window.renderMathInElement = () => {};
+        try { window.localStorage.clear(); } catch {}
+        // Suppress focus-card auto-pan in tests — getBoundingClientRect on
+        // jsdom returns zeros, which produces NaN in centerViewOn. The
+        // centerViewOn function gates on viewT.k > 0 so it's safe, but the
+        // test doesn't exercise pan anyway.
+      },
+    });
+
+    // forceLayout yields to the event loop ~every 60ms; with 260 steps and
+    // 505 nodes the inner repulsion loop dominates wall-time. 5s is generous.
+    const startWait = Date.now();
+    while (Date.now() - startWait < 5000) {
+      const loadingEl = dom.window.document.getElementById('loading');
+      if (loadingEl && loadingEl.style.display === 'none') break;
+      await new Promise((r) => setTimeout(r, 100));
+    }
+
+    const w = dom.window;
+    const doc = w.document;
+
+    assert.deepEqual(
+      errors,
+      [],
+      `script execution surfaced errors:\n${errors.slice(0, 5).join('\n')}` +
+        (errors.length > 5 ? `\n…(${errors.length - 5} more)` : ''),
+    );
+
+    // Layout finished — error banner should not be showing.
+    const errorBanner = doc.getElementById('error-banner');
+    assert.ok(
+      errorBanner && errorBanner.hidden,
+      'error banner unexpectedly visible — concept bundle failed to load?',
+    );
+
+    // 505 nodes rendered. (The exact count is the live corpus size; if a
+    // topic gets added the test failure points at this assertion. Adjust the
+    // bound rather than freezing the literal.)
+    const nodeCount = doc.querySelectorAll('#nodes .node').length;
+    assert.ok(
+      nodeCount >= 500,
+      `expected ≥ 500 mindmap nodes; got ${nodeCount}`,
+    );
+
+    // Edges render too — should be in the hundreds (corpus has ~770 prereqs).
+    const edgeCount = doc.querySelectorAll('#edges .edge').length;
+    assert.ok(
+      edgeCount >= 500,
+      `expected ≥ 500 mindmap edges; got ${edgeCount}`,
+    );
+
+    // Section-stats table populates with 7 rows (one per section in
+    // sections.json).
+    const statRows = doc.querySelectorAll('#section-stats-tbody tr');
+    assert.equal(
+      statRows.length,
+      7,
+      `expected 7 section-stats rows (one per section); got ${statRows.length}`,
+    );
+
+    // Gap-list panels populate. Orphan list should at least surface the two
+    // legitimate prereq topics (algebra, naive-set-theory). Smallest-capstone
+    // list should always have entries (capstones never get to 0).
+    const orphanRows = doc.querySelectorAll('#gap-orphan-ul li');
+    const capRows = doc.querySelectorAll('#gap-cap-ul li');
+    assert.ok(
+      orphanRows.length >= 2,
+      `expected ≥ 2 orphan rows (the legit prereq foundations); got ${orphanRows.length}`,
+    );
+    assert.ok(
+      capRows.length > 0,
+      `expected smallest-capstone list to have entries; got ${capRows.length}`,
+    );
+
+    // Depth slider has both input and change listeners (verified by setting
+    // value + dispatching events and watching focusIdx-tied state — but we
+    // can simpler-assert: the readout updates).
+    const slider = doc.getElementById('depth');
+    const depthVal = doc.getElementById('depth-val');
+    assert.ok(slider && depthVal, 'depth slider or readout missing from DOM');
+    slider.value = '4';
+    slider.dispatchEvent(new w.Event('input', { bubbles: true }));
+    assert.equal(
+      depthVal.textContent,
+      '4',
+      `depth slider input event did not update readout; got "${depthVal.textContent}"`,
+    );
+
+    // A11y: SVG carries title + desc, stage is keyboard-focusable.
+    const svgTitle = doc.querySelector('#map title');
+    const stage = doc.getElementById('stage');
+    assert.ok(svgTitle && svgTitle.textContent.length > 0, 'SVG <title> missing');
+    assert.equal(stage.tabIndex, 0, 'stage is not keyboard-focusable');
 
     dom.window.close();
   });

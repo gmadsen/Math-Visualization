@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/cocartesian-fibrations-universal-leftfib/schema.json",
+  "title": "cocartesian-fibrations-universal-leftfib widget params",
+  "description": "Static SVG illustrating the equivalence between left fibrations and presheaves. Used in cocartesian-fibrations.html §6.",
+  "meta": {
+    "family": "cocartesian-fibrations-universal-leftfib",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyMarkup"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the widget host element. Must match the id baked into bodyMarkup."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim widget host bytes (the inline `<div class=\"widget\" id=\"...\"></div>`). Carried through unchanged so the round-trip stays byte-identical."
+    }
+  }
+}

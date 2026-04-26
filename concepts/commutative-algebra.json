@@ -26,7 +26,8 @@
       "title": "Spec and Zariski topology",
       "anchor": "zariski",
       "prereqs": [
-        "primes-maximals-ca"
+        "primes-maximals-ca",
+        "open-sets"
       ],
       "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes."
     },
@@ -57,6 +58,16 @@
         "modules-ca"
       ],
       "blurb": "A ring is Noetherian when every ascending chain of ideals stabilizes, equivalently every ideal is finitely generated. The Hilbert basis theorem propagates this to $A[x]$, so $k[x_1,\\dots,x_n]$ and every finitely generated $k$-algebra are Noetherian."
+    },
+    {
+      "id": "artinian-local-ca",
+      "title": "Artinian local rings",
+      "anchor": "artinian-local",
+      "prereqs": [
+        "noetherian-hilbert-ca",
+        "primes-maximals-ca"
+      ],
+      "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\mathrm{Spec}$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings."
     },
     {
       "id": "localization-ca",

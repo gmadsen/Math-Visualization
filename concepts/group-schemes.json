@@ -7,42 +7,59 @@
       "id": "group-scheme-definition",
       "title": "What is a group scheme?",
       "anchor": "group-scheme-definition",
-      "prereqs": [],
+      "prereqs": [
+        "spectrum-primes"
+      ],
       "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes."
     },
     {
       "id": "examples-Ga-Gm-mu-n",
       "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
       "anchor": "examples-Ga-Gm",
-      "prereqs": ["group-scheme-definition"],
+      "prereqs": [
+        "group-scheme-definition",
+        "spectrum-primes"
+      ],
       "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
     },
     {
       "id": "hopf-algebra",
       "title": "Affine group schemes ↔ commutative Hopf algebras",
       "anchor": "hopf-algebra",
-      "prereqs": ["group-scheme-definition"],
+      "prereqs": [
+        "group-scheme-definition",
+        "algebraic-structures"
+      ],
       "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps."
     },
     {
       "id": "etale-vs-connected",
       "title": "Étale, connected, and infinitesimal pieces",
       "anchor": "etale-vs-connected",
-      "prereqs": ["examples-Ga-Gm-mu-n"],
+      "prereqs": [
+        "examples-Ga-Gm-mu-n",
+        "etale-morphism"
+      ],
       "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$."
     },
     {
       "id": "lie-algebra-of-G",
       "title": "Lie algebra $\\mathrm{Lie}(G)$",
       "anchor": "lie-algebra",
-      "prereqs": ["group-scheme-definition"],
+      "prereqs": [
+        "group-scheme-definition",
+        "lie-bracket-fields"
+      ],
       "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
     },
     {
       "id": "torsors-and-cohomology",
       "title": "$G$-torsors and $H^1(X, G)$",
       "anchor": "torsors",
-      "prereqs": ["group-scheme-definition"],
+      "prereqs": [
+        "group-scheme-definition",
+        "cech-cohomology"
+      ],
       "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$)."
     }
   ]

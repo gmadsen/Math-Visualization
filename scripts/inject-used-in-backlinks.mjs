@@ -11,41 +11,43 @@
 //   - If the reverse set is empty, omit the block entirely.
 //   - Cap the list at 6 items; show "… and N more." when overflowing.
 //
-// Placement:
-//   1. After an existing <aside class="callback"> (the established forward
-//      block), if present.
-//   2. Otherwise after the section's <div class="quiz" data-concept=…>
-//      placeholder, if present.
-//   3. Otherwise just before the section's closing </section>.
+// Placement (when inserting fresh):
+//   1. Immediately after an existing fenced callback block, if present.
+//   2. Otherwise after the section's quiz block, if present.
+//   3. Otherwise as the last block in the section.
+//
+//   When the section already carries a fenced backlinks block, the new
+//   content replaces the old in-place — placement rules are not consulted.
+//
+// Source-of-truth split:
+//   - Audit mode (no flag) reads <topic>.html and verifies presence.
+//   - --fix mode mutates content/<topic>.json (the JSON SoT) so test-
+//     roundtrip.mjs --fix can propagate to <topic>.html. Direct HTML
+//     mutation is intentionally avoided — the rebuild chain would clobber
+//     it via `test-roundtrip --fix`.
 //
 // Idempotency: inserted blocks are wrapped in a comment fence
 //   <!-- backlinks-auto-begin -->…<!-- backlinks-auto-end -->
-// so re-running strips the old block and re-inserts fresh content. Any
-// hand-edited <aside class="related"> without the fence is left alone on
-// audit, but the fix mode rewrites any fenced block in place.
-//
-// Modes:
-//   default      Audit-only. Prints a per-page report, exits 1 if any
-//                page is missing an expected backlink aside.
-//   --fix        Insert/update <aside class="related"> blocks in place.
-//                Exit 0 on success.
-//   --dry-run    Alias for default.
+// inside a dedicated `raw` block. Re-running --fix is a no-op when nothing
+// has changed.
 //
 // Zero external dependencies.
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  makeFence,
-  stripFence,
+  loadTopicContent,
+  saveTopicContent,
+  upsertFencedBlock,
+  stripFencedBlock,
   ensureCss,
-  writeIfChanged,
-} from './lib/html-injector.mjs';
+} from './lib/json-block-writer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 const conceptsDir = join(repoRoot, 'concepts');
+const contentDir = join(repoRoot, 'content');
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
@@ -121,11 +123,51 @@ function escHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
-// Find the block owned by a concept anchor. Same logic as audit-callbacks.mjs.
-function findSection(html, anchor) {
+// ----- Inner-content builder (used by --fix mode) -----
+//
+// Returns just the inner HTML — the fence wrap is added by upsertFencedBlock.
+function renderRelatedInner(consumers) {
+  const shown = consumers.slice(0, MAX_ITEMS);
+  const overflow = consumers.length - shown.length;
+  const lines = shown.map((c) => {
+    const href = `./${c.page}#${c.anchor}`;
+    const topicT = escHtml(topicTitle.get(c.topic) || c.topic);
+    const conceptT = escHtml(c.title);
+    return `    <div><a href="${href}">${topicT}</a> · ${conceptT}</div>`;
+  });
+  if (overflow > 0) {
+    lines.push(`    <div class="more">… and ${overflow} more.</div>`);
+  }
+  return (
+    `<aside class="related">\n` +
+    `  <div class="ttl">Used in</div>\n` +
+    lines.join('\n') + '\n' +
+    `</aside>`
+  );
+}
+
+// CSS rule injected once per page if absent. Uses --mute via color-mix so it
+// sits visually beside aside.callback (which is cyan) without colliding.
+const RELATED_CSS = `  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}`;
+
+// ----- Find section in HTML (audit-only) -----
+function findHtmlSection(html, anchor) {
   const idRe = new RegExp(
     `<([a-zA-Z][a-zA-Z0-9]*)([^>]*\\sid=["']${escapeRe(anchor)}["'][^>]*)>`,
-    'i'
+    'i',
   );
   const m = idRe.exec(html);
   if (!m) return null;
@@ -151,112 +193,164 @@ function findSection(html, anchor) {
   return { innerStart, innerEnd, body: html.slice(innerStart, innerEnd) };
 }
 
-const BACKLINKS_FENCE = makeFence('backlinks');
-
-function buildRelatedBlock(consumers) {
-  const shown = consumers.slice(0, MAX_ITEMS);
-  const overflow = consumers.length - shown.length;
-  const lines = shown.map((c) => {
-    const href = `./${c.page}#${c.anchor}`;
-    const topicT = escHtml(topicTitle.get(c.topic) || c.topic);
-    const conceptT = escHtml(c.title);
-    return `    <div><a href="${href}">${topicT}</a> · ${conceptT}</div>`;
-  });
-  if (overflow > 0) {
-    lines.push(`    <div class="more">… and ${overflow} more.</div>`);
-  }
-  return (
-    `${BACKLINKS_FENCE.begin}\n` +
-    `<aside class="related">\n` +
-    `  <div class="ttl">Used in</div>\n` +
-    lines.join('\n') + '\n' +
-    `</aside>\n` +
-    `${BACKLINKS_FENCE.end}`
-  );
-}
-
-// CSS rule injected once per page if absent. Uses --mute via color-mix so it
-// sits visually beside aside.callback (which is cyan) without colliding.
-const RELATED_CSS = `  aside.related{
-    margin:1.2rem 0;padding:.7rem 1rem;
-    background:color-mix(in srgb, var(--mute) 6%, transparent);
-    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
-    border-radius:0 6px 6px 0;
-    font-size:.93rem;
-  }
-  aside.related .ttl{
-    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
-  }
-  aside.related > div{margin:.15rem 0}
-  aside.related .more{color:var(--mute);font-style:italic}
-  aside.related a{color:inherit}`;
-
-function ensureRelatedCss(html) {
-  return ensureCss(html, /aside\.related\s*\{/, RELATED_CSS);
-}
-
-// Strip any existing fenced backlinks block inside [innerStart, innerEnd).
-// Consumes the single leading newline we inject (so re-runs don't add blank-
-// line drift) plus any trailing blank lines directly after the fence.
-function stripFencedBlock(html, innerStart, innerEnd) {
-  const body = html.slice(innerStart, innerEnd);
-  const { html: newBody, removed } = stripFence(body, 'backlinks', {
-    trim: {
-      leadingNewline: true,
-      leadingIndent: true,
-      trailingInlineWs: true,
-      trailingNewline: true,
-    },
-  });
-  if (removed === 0) return { html, removedCount: 0, delta: 0 };
-  const newHtml = html.slice(0, innerStart) + newBody + html.slice(innerEnd);
-  return { html: newHtml, removedCount: removed, delta: newBody.length - body.length };
-}
-
-// Decide insertion offset inside the (post-strip) section body.
-// Returns an absolute offset into `html`.
-function pickInsertOffset(html, anchor) {
-  const sec = findSection(html, anchor);
-  if (!sec) return null;
-  const body = sec.body;
-
-  // 1. After existing <aside class="callback">…</aside>
-  const cbRe = /<aside\s+class=["']callback["'][^>]*>[\s\S]*?<\/aside>/i;
-  const cbM = body.match(cbRe);
-  if (cbM) {
-    return { sec, at: sec.innerStart + cbM.index + cbM[0].length };
-  }
-
-  // 2. After the section's quiz placeholder
-  const quizRe =
-    /<div[^>]*class=["'][^"']*\bquiz\b[^"']*["'][^>]*\bdata-concept=["'][^"']+["'][^>]*>[^<]*<\/div>/;
-  const qM = body.match(quizRe);
-  if (qM) {
-    return { sec, at: sec.innerStart + qM.index + qM[0].length };
-  }
-
-  // 3. End of section (before </section>)
-  return { sec, at: sec.innerEnd };
-}
+// Note: a previous version of this script ran an `explodeFencedBacklinks`
+// pre-pass to split co-mingled fenced backlinks regions out of their host
+// raw blocks before calling upsertFencedBlock.  That workaround is no
+// longer required — `upsertFencedBlock` (in lib/json-block-writer.mjs)
+// auto-explodes a host block whose fence is surrounded by other bytes
+// (commit 8cf323c).  Existing un-exploded fences are handled in-place on
+// the next --fix run by the writer's auto-explode path.
 
 // ----- Main pass -----
 let pagesTouched = 0;
 let pagesSkipped = 0; // pages with no concepts that have downstream consumers
 let backlinksInserted = 0;
 let sectionsUpdated = 0;
+let sectionsStripped = 0;
 const missingReport = [];
 const pagesWithIssues = new Set();
 
 for (const [hostTopic, d] of topicData) {
   const page = d.page || `${hostTopic}.html`;
   const pagePath = join(repoRoot, page);
+
+  if (FIX) {
+    // ---- JSON-side fix path ----
+    const jsonPath = join(contentDir, `${hostTopic}.json`);
+    if (!existsSync(jsonPath)) {
+      missingReport.push(`content/${hostTopic}.json: file missing`);
+      continue;
+    }
+
+    const doc = loadTopicContent(hostTopic, repoRoot);
+
+    // Map each concept's anchor to its parent section's id. For 408/411
+    // concepts the anchor IS the section.id; for the few <h3>-anchored
+    // ones we walk blocks and find the section whose raw blocks contain
+    // the literal `id="<anchor>"` string.
+    const sectionsBySectionId = new Map();
+    for (const section of doc.sections || []) {
+      if (section && section.id) sectionsBySectionId.set(section.id, section);
+    }
+    function parentSectionIdFor(anchor) {
+      if (!anchor) return null;
+      if (sectionsBySectionId.has(anchor)) return anchor;
+      // Anchored regex match instead of substring `.includes('id="X"')` — the
+      // substring form would false-match `id="paths"` inside `id="paths-derived"`
+      // because there's no boundary check between the captured anchor and the
+      // closing quote. The regex form requires the matching quote character
+      // (single or double) to immediately follow `escapeRe(anchor)`, eliminating
+      // the latent collision risk flagged by PR review.
+      const idRe = new RegExp(`\\bid=("${escapeRe(anchor)}"|'${escapeRe(anchor)}')`);
+      for (const section of doc.sections || []) {
+        if (!Array.isArray(section.blocks)) continue;
+        for (const block of section.blocks) {
+          if (
+            block && block.type === 'raw' && typeof block.html === 'string' &&
+            idRe.test(block.html)
+          ) {
+            return section.id || null;
+          }
+        }
+      }
+      return null;
+    }
+
+    let pageHadJobs = false;
+    const handledSectionIds = new Set();
+
+    // Iterate concepts in JSON order. For shared section anchors, the
+    // last writer wins — matching the legacy HTML script's behaviour for
+    // sections like complex-analysis#sphere where multiple concepts share
+    // a parent section but only one fenced backlinks block is rendered.
+    for (const c of d.concepts || []) {
+      if (!c.anchor) continue;
+      const consumers = reverse.get(c.id);
+      if (!consumers || consumers.length === 0) continue;
+
+      pageHadJobs = true;
+      const parentId = parentSectionIdFor(c.anchor);
+      if (!parentId) {
+        missingReport.push(
+          `content/${hostTopic}.json: concept "${c.id}" anchor "${c.anchor}" — no parent section in JSON; skipping`,
+        );
+        continue;
+      }
+
+      const section = sectionsBySectionId.get(parentId);
+      // Pick a position only used when no fence currently exists.
+      // Precedence:
+      //   1. after the fenced callback block (sibling agent A's writes)
+      //   2. after the quiz block
+      //   3. before the section's last block (i.e. before </section>)
+      // A non-fenced <aside class="callback"> in the JSON is treated as
+      // not-found here — the writer cannot anchor against it. The
+      // round-trip flip is in progress; anchoring on the quiz is a stable
+      // fallback while agent A's fences propagate.
+      const hasCallbackFence = (section.blocks || []).some(
+        (b) =>
+          b && b.type === 'raw' && typeof b.html === 'string' &&
+          b.html.includes('<!-- callback-auto-begin -->'),
+      );
+      const hasQuiz = (section.blocks || []).some(
+        (b) => b && b.type === 'quiz',
+      );
+      const position = hasCallbackFence
+        ? 'after-fence:callback'
+        : hasQuiz
+          ? 'after-quiz'
+          : 'before-section-end';
+
+      const inner = renderRelatedInner(consumers);
+      const result = upsertFencedBlock(doc, parentId, 'backlinks', inner, {
+        position,
+      });
+      handledSectionIds.add(parentId);
+      if (result.changed) {
+        if (result.action === 'inserted' || result.action === 'replaced') {
+          sectionsUpdated++;
+          backlinksInserted += Math.min(consumers.length, MAX_ITEMS);
+        }
+      }
+    }
+
+    // Strip stale fenced blocks from any section we didn't touch this pass
+    // (i.e. no concept in that section has downstream consumers any more).
+    for (const section of doc.sections || []) {
+      if (!section || !section.id) continue;
+      if (handledSectionIds.has(section.id)) continue;
+      const stripResult = stripFencedBlock(doc, section.id, 'backlinks');
+      if (stripResult.changed) sectionsStripped++;
+    }
+
+    if (!pageHadJobs) pagesSkipped++;
+
+    // Ensure aside.related CSS lives in rawHead, but only when the page
+    // currently carries at least one fenced block.
+    const pageHasRelated = (doc.sections || []).some(
+      (s) =>
+        (s.blocks || []).some(
+          (b) =>
+            b && b.type === 'raw' && typeof b.html === 'string' &&
+            b.html.includes('<!-- backlinks-auto-begin -->'),
+        ),
+    );
+    if (pageHasRelated) {
+      ensureCss(doc, /aside\.related\s*\{/, RELATED_CSS);
+    }
+
+    // saveTopicContent byte-compares before writing.
+    const wrote = saveTopicContent(hostTopic, doc, repoRoot);
+    if (wrote) pagesTouched++;
+    continue;
+  }
+
+  // ---- Audit mode (HTML-side, unchanged behaviour) ----
   if (!existsSync(pagePath)) {
     missingReport.push(`${page}: file missing`);
     continue;
   }
 
-  // Sections on this page that should host a backlink aside.
   const jobs = [];
   for (const c of d.concepts || []) {
     if (!c.anchor) continue;
@@ -270,83 +364,45 @@ for (const [hostTopic, d] of topicData) {
     continue;
   }
 
-  let html = readFileSync(pagePath, 'utf8');
-  const origHtml = html;
-
-  if (FIX) {
-    // Ensure CSS present.
-    html = ensureRelatedCss(html);
-
-    // Process in reverse document order so earlier offsets aren't shifted.
-    const orderedJobs = jobs
-      .map((j) => {
-        const sec = findSection(html, j.anchor);
-        return { ...j, secStart: sec ? sec.innerStart : -1 };
-      })
-      .filter((j) => j.secStart >= 0)
-      .sort((a, b) => b.secStart - a.secStart);
-
-    for (const job of orderedJobs) {
-      // Strip existing fenced block from this section (if any).
-      const sec0 = findSection(html, job.anchor);
-      if (!sec0) continue;
-      const stripped = stripFencedBlock(html, sec0.innerStart, sec0.innerEnd);
-      html = stripped.html;
-
-      // Recompute insertion point.
-      const picked = pickInsertOffset(html, job.anchor);
-      if (!picked) continue;
-
-      const block = buildRelatedBlock(job.consumers);
-      html =
-        html.slice(0, picked.at) + '\n' + block + '\n' + html.slice(picked.at);
-      backlinksInserted += Math.min(job.consumers.length, MAX_ITEMS);
-      sectionsUpdated++;
+  const html = readFileSync(pagePath, 'utf8');
+  const pageIssues = [];
+  for (const job of jobs) {
+    const sec = findHtmlSection(html, job.anchor);
+    if (!sec) {
+      pageIssues.push(`section #${job.anchor} (concept "${job.id}") not found`);
+      continue;
     }
-
-    if (writeIfChanged(pagePath, origHtml, html)) {
-      pagesTouched++;
-    }
-  } else {
-    // Audit: check each section carries a (current) backlinks-auto block.
-    const pageIssues = [];
-    for (const job of jobs) {
-      const sec = findSection(html, job.anchor);
-      if (!sec) {
-        pageIssues.push(`section #${job.anchor} (concept "${job.id}") not found`);
-        continue;
-      }
-      const body = sec.body;
-      // Accept either a fenced block or a hand-written aside.related.
-      const hasFenced = /<!--\s*backlinks-auto-begin\s*-->[\s\S]*?<aside\s+class=["']related["'][\s\S]*?<!--\s*backlinks-auto-end\s*-->/.test(
-        body
+    const body = sec.body;
+    const hasFenced =
+      /<!--\s*backlinks-auto-begin\s*-->[\s\S]*?<aside\s+class=["']related["'][\s\S]*?<!--\s*backlinks-auto-end\s*-->/.test(
+        body,
       );
-      const hasPlain = /<aside\s+class=["']related["'][^>]*>/i.test(body);
-      if (!hasFenced && !hasPlain) {
-        pageIssues.push(
-          `section #${job.anchor} (concept "${job.id}") missing <aside class="related"> (expected ${job.consumers.length} downstream consumer(s))`
-        );
-      }
+    const hasPlain = /<aside\s+class=["']related["'][^>]*>/i.test(body);
+    if (!hasFenced && !hasPlain) {
+      pageIssues.push(
+        `section #${job.anchor} (concept "${job.id}") missing <aside class="related"> (expected ${job.consumers.length} downstream consumer(s))`,
+      );
     }
-    if (pageIssues.length > 0) {
-      pagesWithIssues.add(page);
-      missingReport.push(`${page}:\n  ${pageIssues.join('\n  ')}`);
-    }
+  }
+  if (pageIssues.length > 0) {
+    pagesWithIssues.add(page);
+    missingReport.push(`${page}:\n  ${pageIssues.join('\n  ')}`);
   }
 }
 
 // ----- Report -----
 const totalDownstreamPairs = [...reverse.entries()].reduce(
   (n, [, arr]) => n + arr.length,
-  0
+  0,
 );
 console.log(
-  `inject-used-in-backlinks: ${topicData.size} topic(s), ${reverse.size} concept(s) with downstream consumers, ${totalDownstreamPairs} edge(s) total`
+  `inject-used-in-backlinks: ${topicData.size} topic(s), ${reverse.size} concept(s) with downstream consumers, ${totalDownstreamPairs} edge(s) total`,
 );
 
 if (FIX) {
   console.log(`  pages touched:        ${pagesTouched}`);
   console.log(`  sections updated:     ${sectionsUpdated}`);
+  console.log(`  sections stripped:    ${sectionsStripped}`);
   console.log(`  backlinks inserted:   ${backlinksInserted}`);
   console.log(`  pages skipped (leaf): ${pagesSkipped}`);
   if (missingReport.length > 0) {
@@ -364,7 +420,7 @@ console.log(`  pages skipped (leaf): ${pagesSkipped}`);
 console.log('');
 if (missingReport.length === 0) {
   console.log(
-    'OK: every concept with downstream consumers carries an <aside class="related"> block.'
+    'OK: every concept with downstream consumers carries an <aside class="related"> block.',
   );
   process.exit(0);
 }
@@ -373,6 +429,6 @@ console.log(`MISSING (${pagesWithIssues.size} page(s)):`);
 for (const line of missingReport) console.log(`  - ${line}`);
 console.log('');
 console.log(
-  `FAIL: ${pagesWithIssues.size} page(s) missing backlink asides. Re-run with --fix to insert.`
+  `FAIL: ${pagesWithIssues.size} page(s) missing backlink asides. Re-run with --fix to insert.`,
 );
 process.exit(1);

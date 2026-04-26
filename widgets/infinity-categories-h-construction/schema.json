@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/infinity-categories-h-construction/schema.json",
+  "title": "infinity-categories-h-construction widget params",
+  "description": "Bespoke proof-scrubber walking through the homotopy-category construction $h\\mathcal{C}$ from a quasi-category, used in infinity-categories.html §2 (#homotopy-category).",
+  "meta": {
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id of the widget host element. Must match the id baked into bodyMarkup."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim widget host bytes — the inline `<div class=\"widget\" id=\"...\">…</div>`. Carried through unchanged so the round-trip stays byte-identical."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim driving script bytes including the leading newline + `<script>` tag and trailing `</script>`. Carries the IIFE that wires up the widget; preserved byte-for-byte."
+    }
+  }
+}

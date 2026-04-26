@@ -56,7 +56,8 @@
       "anchor": "omod",
       "prereqs": [
         "sheaf-morphisms-stalks",
-        "structure-sheaf-schemes"
+        "structure-sheaf-schemes",
+        "locally-ringed-space"
       ],
       "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise."
     },

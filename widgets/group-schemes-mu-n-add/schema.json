@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/group-schemes-mu-n-add/schema.json",
+  "title": "group-schemes-mu-n-add widget params",
+  "description": "Companion clock widget visualizing $\\mathbb{Z}/n\\mathbb{Z}$ under addition (the constant group scheme analogue), used in §2 of group-schemes.html (#examples-Ga-Gm) alongside the multiplicative $\\mu_n$ widget. The widget body is bespoke (per-widget closures, narrative strings, custom hit geometry) so it is carried verbatim as the bodyScript ARTIFACT.",
+  "meta": {
+    "family": "modular-arithmetic-clock",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte."
+    }
+  }
+}

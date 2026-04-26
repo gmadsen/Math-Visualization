@@ -6,65 +6,73 @@ When something ships, delete its bullet here. The full step list of `rebuild.mjs
 
 ## Corpus snapshot (2026-04-25)
 
-From `audits/coverage-stats.md`:
+From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 73 topics, 505 concepts, 459 widgets, 2690 quizzes
-- Registry-driven widgets: 457 / 459 (99.6%)
-- Quiz tiers: v1 = 1454, hard = 1223, **expert = 13** (still barely populated)
-- 194 concepts lack a widget in their owning section
-- 67 concepts lack a hard-tier quiz
+- 73 topics, 506 concepts, 812 prereq edges (315 cross-topic), 23 capstones
+- Per-section density (cross-out per concept): Foundations 0.00, Algebra 0.115, Analysis 0.119, Geometry & topology 0.122, Number theory 0.263, Algebraic geometry 0.385, Modular forms & L-functions 0.549
+- 100 concepts lack a widget in their owning section
+- THIN-NEW count: 13 (down from 40 across the prereq passes)
+- Quiz tiers: v1 = 1454, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
-The Algebra section grew from 5 → 13 topics this session (capstone arc + Kerodon Ch 5 fill); Algebraic geometry grew from 12 → 19 (Stacks-Project arc). 15 newly-authored topics still sit outside the source-of-truth flip — see "Architectural follow-ups" below.
+## Open on this branch (PR #33)
 
-## Architectural follow-ups (deferred but real)
+Items still TODO before merge. Each is in scope by default; nothing here is pre-deferred.
 
-These are blocking better authoring ergonomics; pick them up in the next non-content sprint.
-
-- **`inject-*` ↔ JSON gap.** `inject-breadcrumb.mjs`, `inject-used-in-backlinks.mjs`, and `audit-callbacks.mjs --fix` write to HTML directly. Under the source-of-truth flip (2026-04-24), `test-roundtrip.mjs --fix` then overwrites HTML from JSON, clobbering whatever the injectors wrote. We mass-patched `__MV_SECTION_MAP` in 58 content/*.json three times this session (capstone scaffold, Stacks-Project scaffold, cocartesian-fibrations scaffold). The proper fix is to teach those injectors to update JSON's `rawHead` / `raw` blocks instead of HTML. Substantial refactor — touches each `inject-*` script.
-- **`content/<slug>.json` migration for the 15 new topics.** They're HTML-only; `test-roundtrip.mjs` skips them. Run `node scripts/extract-topic.mjs <slug>` per topic to migrate. Memory: per-topic only, never wholesale (the corpus-wide form wipes slug substitutions). Each new topic uses inline widgets rather than the registry, so extraction is straightforward.
-- **Cross-topic prereqs for the 15 new topics.** Intentionally empty in scaffolding because of the JSON-injection gap above. Each new concept whose prereq lives in another topic needs both the prereq edge AND the matching callback / backlink aside in the upstream/downstream JSONs. Worth doing once `inject-*` writes JSON natively.
-- **Architectural fix: `inject-page-metadata.mjs`** has the same problem — writes HTML, not JSON. Same shape of fix.
-- **`audit-doc-drift` heuristic noise.** The slug-name token-matching produces "shipped" false positives whenever a slug name appears in a commit subject (which is always, when adopting). Either scope the matcher to titles only, or move to an explicit-checked-in-PR mechanism.
-
-## Near-term tasks
-
-- **Hard-tier quiz pass over the 15 new topics.** 67 concepts corpus-wide lack hard tier; most are in the new topics where deep-author agents only covered the 2–4 deepest concepts per page.
-- **Expert-tier authoring round.** Corpus has only 13 expert-tier questions total. One focused pass picking the 2 deepest concepts per topic would meaningfully grow this.
-- **Migrate the 15 new topics to `content/<slug>.json`** via `extract-topic.mjs`, one topic at a time (memory: never wholesale).
-- **Fix the `inject-*` ↔ JSON gap** so future scaffolds don't need the manual `__MV_SECTION_MAP` mass-patch (see Architectural follow-ups below).
+_(no items currently flagged as TODO before merge)_
 
 ## Authoring polish — small
 
-- **`new-topic.mjs` should also append a README.md bullet** under the matching section. Currently a manual step (just done by hand for 15 topics; the scaffolder skipped this). Could also auto-update sections.json (currently scaffolder relies on user to add to sections.json).
-- **`new-concept` scaffold** — adding a concept to an existing topic still means editing `concepts/<topic>.json`, the section in `<topic>.html`, the quiz bank, and re-extracting `content/<topic>.json`. A scaffold could do all four (`new-topic.mjs` and `new-widget.mjs` are the templates).
-- **Index-card thumb art.** New-topic.mjs leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
+- **`new-topic.mjs` should also append a README.md bullet** under the matching section. Currently manual.
+- **`new-concept` scaffold** — adding a concept to an existing topic still means editing `concepts/<topic>.json`, the section in `<topic>.html`, the quiz bank, and re-extracting `content/<topic>.json`. A scaffold could do all four.
+- **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
+- **`read-prose <topic> [<concept-id>]` CLI.** Quality-pass tooling: returns just the `raw` blocks for a topic (or one concept's section), stripping widget SVG/script and quiz placeholders. ~50 lines on top of `loadContentModel`. Companion: split `extract-topic.mjs` `raw` blocks on `<h2>`/`<p>` boundaries for paragraph-level Edit targets without full-file reads. Lever for cross-topic style/notation passes where SVG/script bytes are noise.
 
-## Content debt
+## Three.js / Pyodide / alt frontends (long-running)
 
-- **67 concepts lack a hard-tier quiz** — most of them in the 15 new topics, where deep-author agents added hard tier only on the 2-4 deepest concepts per page. A focused pass to cover the rest is straightforward.
-- **Expert tier at 13 across the entire corpus** — no new topic adds expert questions. Single dedicated round of "for each topic, pick its 2 deepest concepts and write expert-tier questions" would be high-value.
-- **Cross-topic prereq edges** — once the architectural fix lands, the 15 new topics need real prereq wiring back into category-theory / schemes / etale-cohomology / homological / etc.
-
-## Three.js / Pyodide / lighter prose-block authoring (long-running)
-
-- **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 17 slugs should work since `renderMarkup` / `renderScript` are pure string functions.
+- **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. Now that all 73 topics are JSON-source-of-truth, this becomes a clean target.
 - **Three.js adoption decision.** `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics. Would converge with `surface-viewer`. Requires AGENTS.md amendment on dependency policy.
-- **Lighter prose-block authoring.** Now that `content/<topic>.json` is source of truth, prose blocks could move from raw HTML to mdx-lite. Needs reversibility for round-trip.
 - **Inline code cells for live examples.** `inline-code-cell` is a Web Worker JS sandbox; could be extended to Pyodide for sieves / sympy demos at the cost of a ~10MB CDN load.
 
 ## Script audit — overlap to assess
 
-47 scripts in `scripts/` (was 46 + `test-widget-renderers.mjs`). Non-consolidated ones still worth reviewing:
+50 scripts in `scripts/` after this session. Items still worth reviewing:
 
 - **Candidates to merge or drop:** `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`; `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage, confirm signal value.
-- **Consolidation candidates:** `validate-concepts.mjs`, `audit-widget-interactivity.mjs`, `audit-cross-page-consistency.mjs` all re-implement concept/topic loading. Could import `loadContentModel()`.
+- **Consolidation candidates:** `validate-concepts.mjs`, `audit-widget-interactivity.mjs`, `audit-cross-page-consistency.mjs` all re-implement concept/topic loading. Could import `loadContentModel()`. Note `validate-concepts` reads `index.json` directly because the validator is the gate before the loader runs — circular dependency that's intentional.
 
 ## NPM packages — candidates worth evaluating
 
 - **`cheerio`** over `node-html-parser` — richer for DOM manipulation in `inject-*`/`fix-*` scripts.
 - **`katex` as a dependency** — would let `validate-katex.mjs` do real rendering instead of heuristic checks.
-- **`remark` + `rehype`** — if prose blocks ever convert to Markdown, the standard ecosystem.
+
+## Out of scope
+
+Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
+
+- **Hard-tier quiz authoring** (67 concepts lack hard tier).
+- **Expert-tier authoring** (13 questions corpus-wide).
+
+These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.
 
 ## Shipped recently
 
-Don't enumerate — see `git log --oneline -50`. The major arcs that landed this session: the widget unit-test framework + 7 novel widget slugs; 7 widget topic adoptions; 4 widget-promotion-to-dedicated-concepts; the capstone arc (6 topics: elementary-topos-theory through infinity-topoi); the Stacks-Project mini-arc + full arc (8 topics: derived-categories through algebraic-de-rham-cohomology); the Kerodon Ch 5 fill (cocartesian-fibrations); jsdom hydration + topic-boot tests + concept-LaTeX audit + pathway KaTeX rendering fix; browser verification of all 15 new topics + 7 widget-adopting topics on PR #32 (chrome MCP, all clean).
+Don't enumerate — see `git log --oneline -50`. Major arcs landed in the current branch (`feat/concept-graph-improvements`):
+
+- **100% widget registry adoption.** 118 inline (slug-less) widgets across 18 topics promoted to bespoke `widgets/<slug>/` directories — schema + index.mjs + README per slug. Corpus is now 563 widget blocks / 135 unique slugs / 1104 AJV-validated params, 0 inline. Pattern: passthrough `renderMarkup` / `renderScript` over opaque `bodyMarkup` / `bodyScript` artifact strings (mirroring surface-viewer's `bare` interaction). Future passes can refine specific widgets toward structured params where data shape is regular.
+- **Mindmap** (`mindmap.html`): force-clustered concept-graph view of all 506 concepts with per-section stats, focus mode (k-hop undirected by default; "full chain" toggle for the upstream transitive closure), gap-list with click + keyboard activation, URL-persisted focus, a11y, jsdom test, print stylesheet, friendly error banner, light-theme overlays, mobile responsiveness (`@media (max-width:720px)` switches stage to viewport-relative height, lets toolbar wrap).
+- **`json-block-writer`**: source-of-truth-respecting equivalent of `html-injector`. Phase-2b refactor: `audit-callbacks --fix`, `inject-used-in-backlinks --fix`, `inject-breadcrumb --fix`, `inject-page-metadata --fix` all write to `content/<topic>.json` instead of HTML. Hardening: `upsertFencedBlock` auto-explodes co-mingled host blocks instead of silent wholesale-replace; `blockHasFence` uses an anchored regex; `updateCss(doc, fenceName, cssText)` for fenced CSS rule updates with malformed-fence detection. 68-assertion test suite (was 31).
+- **All 73 topics now JSON-source-of-truth** (15-topic migration via `extract-topic.mjs`).
+- **80+ cross-topic prereq edges added** across multiple passes. Cross-topic edge count: 224 → 315. EMPTY-prereq advanced concepts: 7 → 0. THIN-NEW: 40 → 13.
+- **`audit-callbacks` consumer cleanup + Pass-4 partial drift.** `replaceFencedCallbackInPlace` and `inject-used-in-backlinks.explodeFencedBacklinks` removed (auto-explode in `upsertFencedBlock` covers the same case). Pass 4b detects per-href stale callback links a section carries among valid ones. CSS-fence migration: the `aside.callback` rule moved into a fenced `callback-css-auto` block managed by `updateCss`. 73 topics one-shot migrated; subsequent runs idempotent.
+- **`audit-callbacks` additive regenerator** (earlier pass): existing aside `<li>` items (prereq-derived OR hand-authored "See also" prose) preserved verbatim across canonical regen. Stale-aside + per-section fidelity warnings on malformed `<li>`.
+- **`audit-cross-topic-prereqs` confidence scoring.** Suggestions now carry `high` / `medium` / `low` labels. HIGH = matched phrase in source's blurb OR in a sentence with dependency-defining verb. `--min-confidence` flag filters output. `EXPLICIT_REJECTS` map records 10 semantic FPs where the surface match is misleading (Liouville's theorem in dynamics ≠ in complex analysis; etc.). Plus reverse-direction cycle suppression: if target depends on source transitively, don't suggest source → target. Output banded by tier.
+- **`audit-doc-drift` verbatim-substring heuristic.** Old slug-name token-matching produced 8 false positives. New rule scans PLAN.md "Shipped recently" for the *exact* commit subject line. 0 false positives.
+- **`audit-starter-concepts.mjs`**: new advisory step in rebuild's chain. Surfaces empty-prereq regressions, writes per-section density snapshot to `audits/starter-concepts.md`, warns on topics missing from sections.json.
+- **`scripts/lib/section-stats.mjs`**: single source of truth for per-section concept/intra/cross-out/cross-in/density. mindmap.html reads precomputed `__MVConcepts.sectionStats`; audit-starter-concepts and audit-bundle-staleness use the lib directly.
+- **`concepts/index.json`: data-driven `levels` + `newArc`.** Topic-difficulty as data (`prereq` / `standard` / `advanced` / `capstone`). `newArc` lists topics scaffolded recently with thin / known-incomplete cross-topic prereqs (drives audit-starter-concepts' THIN-NEW pass; meant to shrink to zero). Both live in the bundle; `validate-concepts.mjs` enforces drift detection in either direction; `audit-bundle-staleness.mjs` verifies `levels` + `newArc` + `sectionStats` + `sections` keys match.
+- **`audit-cross-page-consistency` SPECIAL extension.** Six gaps were false positives for pages that legitimately deviate from the topic-page contract (mindmap, search, widgets, capstone story pages). SPECIAL set extended to skip them; 0 gaps now.
+- **`pathway.html` / mindmap section coloring** now derived from bundled `concepts/sections.json` instead of inline maps that drifted from the corpus.
+- **`artinian-local-ca` concept** authored under commutative-algebra (Akizuki–Hopkins, Artinian-local structure theorem, dual-numbers / fat-point / non-curvilinear test rings). `deformation-functor.prereqs`: `primes-maximals-ca` → `artinian-local-ca`.
+- **Display-prefs icons** (`js/display-prefs.js`): replaced `🔧/❓/🌳` emoji glyphs with inline SVGs (the deciduous tree wasn't rendering on systems without a color emoji font; theme-aware via `currentColor`).
+- **Bug fixes**: `katex-select` optgroup preservation + popup keyboard nav (real DOM focus, not just visual class) + light-theme overlays no longer invisible on white panel; breadcrumb HTML-entity decoding (`Adèles &amp; idèles` → `Adèles & idèles`); README ∞ unicode in two link texts where GitHub MathJax-in-link-text fails; `inject-used-in-backlinks.parentSectionIdFor` regex anchoring (no `id="paths"` ↔ `id="paths-derived"` collision); error-banner `[hidden]` rule preventing the SVG from being covered.
+- **Two reviewer-batch passes**: 39 line-comment threads (25 first-pass + 14 second-pass) all addressed and resolved on the PR; ~5 acknowledged-with-rationale (architectural items deferred with explicit follow-up plans).

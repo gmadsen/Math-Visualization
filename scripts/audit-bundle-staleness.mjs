@@ -16,6 +16,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { computeSectionStats, topicSectionFromSectionsJson } from './lib/section-stats.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -172,7 +173,27 @@ function checkConceptsBundle() {
     }
   }
 
-  const expected = { index, topics, capstones };
+  // Read sections.json (now also bundled) and re-derive sectionStats with
+  // the same lib build-concepts-bundle uses, so we can verify the bundled
+  // copy matches the source-of-truth precomputation.
+  let sections;
+  try {
+    sections = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'utf8'));
+  } catch (e) {
+    problems.push(`concepts: cannot read/parse sections.json: ${e.message}`);
+    return;
+  }
+  const levels = index.levels || {};
+  const newArc = Array.isArray(index.newArc) ? index.newArc.slice() : [];
+  const topicSection = topicSectionFromSectionsJson(sections);
+  const sectionOrder = (sections.sections || []).map((s) => s.title);
+  const { stats: sectionStats } = computeSectionStats({
+    topics,
+    topicSection,
+    sectionOrder,
+  });
+
+  const expected = { index, topics, capstones, sections, levels, newArc, sectionStats };
 
   const bundlePath = join(conceptsDir, 'bundle.js');
   const extracted = extractBundlePayload(bundlePath, '__MVConcepts');
@@ -183,7 +204,7 @@ function checkConceptsBundle() {
   const actual = extracted.value;
 
   // Top-level keys.
-  for (const k of ['index', 'topics', 'capstones']) {
+  for (const k of ['index', 'topics', 'capstones', 'sections', 'levels', 'newArc', 'sectionStats']) {
     if (!(k in actual)) {
       problems.push(`concepts/bundle.js: missing top-level key '${k}'`);
     }
@@ -197,6 +218,22 @@ function checkConceptsBundle() {
   if (!deepEqual(actual.capstones, expected.capstones)) {
     const where = findFirstDiff(actual.capstones, expected.capstones) || '<root>';
     problems.push(`concepts/bundle.js: 'capstones' differs from concepts/capstones.json at ${where}`);
+  }
+  if (!deepEqual(actual.sections, expected.sections)) {
+    const where = findFirstDiff(actual.sections, expected.sections) || '<root>';
+    problems.push(`concepts/bundle.js: 'sections' differs from concepts/sections.json at ${where}`);
+  }
+  if (!deepEqual(actual.levels, expected.levels)) {
+    const where = findFirstDiff(actual.levels, expected.levels) || '<root>';
+    problems.push(`concepts/bundle.js: 'levels' differs from concepts/index.json's levels map at ${where}`);
+  }
+  if (!deepEqual(actual.newArc, expected.newArc)) {
+    const where = findFirstDiff(actual.newArc, expected.newArc) || '<root>';
+    problems.push(`concepts/bundle.js: 'newArc' differs from concepts/index.json's newArc array at ${where}`);
+  }
+  if (!deepEqual(actual.sectionStats, expected.sectionStats)) {
+    const where = findFirstDiff(actual.sectionStats, expected.sectionStats) || '<root>';
+    problems.push(`concepts/bundle.js: 'sectionStats' is stale (precomputed from concepts/*.json + sections.json via scripts/lib/section-stats.mjs) — diff at ${where}; regenerate via 'node scripts/build-concepts-bundle.mjs'`);
   }
 
   // Topic-by-topic diff so we can name the offender.

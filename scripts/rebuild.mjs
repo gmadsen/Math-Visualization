@@ -25,7 +25,7 @@
 //   --no-fix          Run the two audits in audit-only mode (drop --fix).
 //                     Useful for CI-style local checks.
 //   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, widgets-bundle, search, schema, widget-params, validate, katex, callbacks, backlinks, breadcrumb, display-prefs, a11y, smoke, roundtrip, stats
+//                       concepts, quizzes, widgets-bundle, search, schema, widget-params, validate, katex, callbacks, backlinks, breadcrumb, display-prefs, a11y, smoke, roundtrip, stats, starter
 //
 // Zero dependencies.
 
@@ -81,6 +81,7 @@ const STEPS = [
   { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
   { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
+  { name: 'starter',    script: 'audit-starter-concepts.mjs',   fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 

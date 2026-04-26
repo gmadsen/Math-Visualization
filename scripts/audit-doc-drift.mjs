@@ -9,12 +9,27 @@
 //
 // Checks:
 //
-//   1. PLAN.md "Near-term tasks" vs. recent git log.
-//      Parse the `## Near-term tasks` checklist, match each `- [ ] **Title.**`
-//      item against `git log --oneline -100`. A title whose keyword fragments
-//      appear in a recent commit message is flagged as "unchecked but likely
-//      shipped". A `[x]` item with zero recent commit evidence is flagged as
-//      "possibly stale completion".
+//   1. PLAN.md "open" tasks vs. its own "Shipped recently" section.
+//      Parse the `## Near-term tasks` (or `## Open on this branch …`) bullet
+//      list, then check whether any open item's title also appears in the
+//      hand-curated `## Shipped recently` section below it. A title that
+//      shows up in *both* places is the genuine drift case: someone shipped
+//      the work and listed it under "Shipped recently" but forgot to delete
+//      the matching open bullet.
+//
+//      Why not match against `git log` token-overlap? Because a slug name
+//      ("audit-callbacks", "mindmap", etc.) appears in *every* commit subject
+//      that touches that area — fix-up commits, refactors, follow-ups — so
+//      every open item with a slug in its title gets flagged as "shipped"
+//      regardless of whether it actually shipped. The `## Shipped recently`
+//      section is hand-curated and only contains things the author has
+//      explicitly declared done, which is the signal that actually matters.
+//
+//      Decision (2026-04-25, PR #33 review item B2): switched from token-
+//      overlap-against-git-log to verbatim-substring-match-against-Shipped-
+//      recently. This drops false-positive volume to zero on the current
+//      PLAN.md (vs. 8 false positives under the old heuristic) while still
+//      catching the genuine drift case.
 //
 //   2. AGENTS.md script references vs. scripts/.
 //      Every .mjs name AGENTS.md mentions should exist on disk. (The reverse
@@ -48,7 +63,6 @@
 // Zero external dependencies. Falls back gracefully if `git` is unavailable.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { spawnSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -75,123 +89,77 @@ function listScripts() {
   return readdirSync(scriptsDir).filter((f) => f.endsWith('.mjs')).sort();
 }
 
-function gitLog() {
-  const r = spawnSync('git', ['log', '--oneline', '-100'], {
-    cwd: repoRoot,
-    encoding: 'utf8',
-  });
-  if (r.error || r.status !== 0) return null;
-  return r.stdout
-    .split('\n')
-    .filter(Boolean)
-    .map((line) => {
-      const m = line.match(/^([0-9a-f]+)\s+(.*)$/);
-      return m ? { hash: m[1], subject: m[2] } : null;
-    })
-    .filter(Boolean);
-}
-
 // ─────────────────────────────────────────────────────────────────────────
-// Check 1: PLAN.md near-term tasks vs git log.
-
-// Drop common English stopwords when keyword-matching task titles to commit
-// subjects; also drop 1–3 char tokens (too ambiguous).
-const STOP = new Set([
-  'the', 'and', 'for', 'with', 'from', 'into', 'that', 'this',
-  'are', 'its', 'their', 'them', 'a', 'an', 'of', 'to', 'in',
-  'on', 'at', 'by', 'or', 'as', 'is', 'be', 'has', 'have',
-  'new', 'add', 'added', 'adds', 'use', 'used', 'using',
-  'per', 'not', 'all', 'any', 'but', 'via', 'each',
-]);
-
-function tokensOf(s) {
-  // Split on whitespace AND hyphens so "third-tier" → ["third", "tier"].
-  // Keep tokens of length ≥ 4 that aren't English stopwords.
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9\- ]+/g, ' ')
-    .split(/[\s\-]+/)
-    .filter((t) => t.length >= 4 && !STOP.has(t));
-}
+// Check 1: PLAN.md open tasks vs PLAN.md "Shipped recently" section.
 
 function checkPlanVsGit() {
   const plan = readOrNull(join(repoRoot, 'PLAN.md'));
   if (!plan) {
-    push('PLAN.md', 'warn', 'PLAN.md not found — skipping near-term-tasks check');
+    push('PLAN.md', 'warn', 'PLAN.md not found — skipping open-vs-shipped check');
     return;
   }
 
-  // Slice out the "## Near-term tasks" section (up to the next ## heading).
-  const near = plan.match(/##\s+Near-term tasks\s*\n([\s\S]*?)(?=\n##\s|$)/);
-  if (!near) {
-    push('PLAN.md', 'warn', 'no "## Near-term tasks" section found');
+  // Slice out the "open tasks" section. Historical heading was
+  // "## Near-term tasks"; current convention is "## Open on this branch (PR #N)".
+  // Accept either; abort gracefully if neither is present.
+  const open = plan.match(
+    /##\s+(Near-term tasks|Open on this branch[^\n]*)\s*\n([\s\S]*?)(?=\n##\s|$)/
+  );
+  if (!open) {
+    push(
+      'PLAN.md',
+      'warn',
+      'no "## Near-term tasks" or "## Open on this branch …" section found'
+    );
     return;
   }
-  const body = near[1];
+  const openHeading = open[1];
+  const openBody = open[2];
 
-  // Parse checklist lines — historically `- [ ] **Title.** body...`. In 2026
-  // PLAN.md moved to bullet form without checkboxes (per its own "no
-  // checkboxes — delete when shipped" convention), so accept both:
-  //   - [ ] **Title.** body
-  //   - [x] **Title.** body
-  //   - **Title.** body
-  // Items matched by the bullet-only form are treated as unchecked (not yet
-  // shipped) for the commit-keyword heuristic.
+  // Slice out "## Shipped recently". This is the hand-curated list of things
+  // the author has explicitly declared done. Drift = a title appearing in
+  // *both* the open list and the shipped list.
+  const shipped = plan.match(/##\s+Shipped recently\s*\n([\s\S]*?)(?=\n##\s|$)/);
+  if (!shipped) {
+    push(
+      'PLAN.md',
+      'warn',
+      'no "## Shipped recently" section found — cannot cross-check open items'
+    );
+    return;
+  }
+  const shippedBody = shipped[1];
+
+  // Parse open-list bullets. Historically `- [ ] **Title.** body`; current
+  // convention is bullet-only `- **Title.** body`. Accept both.
   const lineRe = /^-\s+(?:\[([ xX])\]\s+)?\*\*([^*]+?)\*\*\s*([^\n]*)$/gm;
   const items = [];
   let m;
-  while ((m = lineRe.exec(body))) {
+  while ((m = lineRe.exec(openBody))) {
     const checked = m[1] && m[1].toLowerCase() === 'x';
     const title = m[2].replace(/\.$/, '').trim();
-    const rest = m[3].trim();
-    items.push({ checked, title, rest });
+    items.push({ checked, title });
   }
   if (items.length === 0) {
-    push('PLAN.md', 'warn', 'found "Near-term tasks" section but no checklist items');
+    push('PLAN.md', 'warn', `found "${openHeading}" section but no bullet items`);
     return;
   }
 
-  const log = gitLog();
-  if (!log) {
-    push('PLAN.md', 'warn', 'git log unavailable — skipping commit-match check');
-    return;
-  }
+  // Drift detection: an open item whose title appears verbatim (case-
+  // insensitive) inside the Shipped recently section is the genuine "claimed
+  // shipped but not removed from open list" case. Strip backticks so
+  // `audit-callbacks` matches "audit-callbacks" in shipped prose.
+  const shippedLower = shippedBody.toLowerCase();
+  const stripBackticks = (s) => s.replace(/`/g, '').trim();
 
-  // Heuristic: for each unchecked item, collect ≥4-char keyword tokens from the
-  // title (+ first words of rest). A commit whose subject contains ≥ 2 of them
-  // (or 1 if there's only 1 in the title) counts as a likely match.
   for (const item of items) {
-    const keyTokens = tokensOf(item.title + ' ' + item.rest.split('.')[0]);
-    if (keyTokens.length === 0) continue;
-    const threshold = keyTokens.length >= 3 ? 2 : 1;
-
-    const matches = [];
-    for (const { hash, subject } of log) {
-      const subjTokens = new Set(tokensOf(subject));
-      const hits = keyTokens.filter((t) => subjTokens.has(t));
-      if (hits.length >= threshold) {
-        matches.push({ hash, subject, hits });
-      }
-    }
-
-    if (!item.checked && matches.length > 0) {
-      const top = matches[0];
+    const needle = stripBackticks(item.title).toLowerCase();
+    if (needle.length < 4) continue; // too short to be a meaningful match
+    if (shippedLower.includes(needle)) {
       push(
         'PLAN.md',
         'warn',
-        `unchecked but likely shipped: "${item.title}" — commit ${top.hash}`,
-        VERBOSE
-          ? `matched tokens [${top.hits.join(', ')}] in "${top.subject}"` +
-            (matches.length > 1 ? `\n        + ${matches.length - 1} more commit(s)` : '')
-          : null,
-      );
-    }
-    if (item.checked && matches.length === 0) {
-      push(
-        'PLAN.md',
-        'warn',
-        `checked but no recent commit evidence: "${item.title}" (possibly stale completion)`,
-        VERBOSE ? `keywords searched: [${keyTokens.join(', ')}]` : null,
+        `open item also listed under "Shipped recently": "${item.title}" (delete from open list or move out of shipped)`,
       );
     }
   }

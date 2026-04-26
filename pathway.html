@@ -313,7 +313,7 @@
   <a class="back" href="./index.html">← Notebook</a>
   <span class="mv-theme-slot" style="margin-left:.6rem"></span>
   <h1>Concept pathways</h1>
-  <p class="sub">Pick a capstone goal. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery; hover a node for a quick blurb. Use <b>filters</b> to slice by section, state, or level, and <kbd>/</kbd> to search.</p>
+  <p class="sub">Pick a capstone goal. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery; hover a node for a quick blurb. Use <b>filters</b> to slice by section, state, or level, and <kbd>/</kbd> to search. For free exploration of the whole concept graph (no goal), see <a href="./mindmap.html">mindmap</a>.</p>
 
   <div class="bar">
     <label>Goal:</label>
@@ -431,11 +431,12 @@
   // Prefer the pre-built bundle (loaded via <script src>), which works from
   // file:// — browsers block fetch() of local JSON there. Fall back to fetch
   // when the bundle isn't present (e.g. running off a dev server).
-  let idx, topics, capstones;
+  let idx, topics, capstones, sectionsData;
   if(window.__MVConcepts){
     idx = window.__MVConcepts.index;
     topics = idx.topics.map(t => window.__MVConcepts.topics[t]);
     capstones = window.__MVConcepts.capstones.capstones;
+    sectionsData = window.__MVConcepts.sections;
   } else {
     try {
       idx = await fetch('./concepts/index.json').then(r=>r.json());
@@ -443,6 +444,7 @@
         fetch(`./concepts/${t}.json`).then(r=>r.json())
       ));
       capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
+      sectionsData = await fetch('./concepts/sections.json').then(r=>r.json());
     } catch(e) {
       document.getElementById('stats').innerHTML =
         '<span style="color:var(--pink)">Failed to load concept data: ' + e.message +
@@ -460,48 +462,19 @@
     }
   }
 
-  // ---------- topic → section mapping (mirrors index.html sections) ----------
-  const TOPIC_SECTION = {
-    // Foundations
-    'naive-set-theory': 'Foundations',
-    // Algebra
-    'algebra':'Algebra','category-theory':'Algebra','representation-theory':'Algebra',
-    'commutative-algebra':'Algebra','homological':'Algebra',
-    // Analysis
-    'real-analysis':'Analysis','measure-theory':'Analysis','complex-analysis':'Analysis',
-    'functional-analysis':'Analysis','operator-algebras':'Analysis',
-    // Geometry & topology
-    'point-set-topology':'Geometry & topology','algebraic-topology':'Geometry & topology',
-    'smooth-manifolds':'Geometry & topology','differential-forms':'Geometry & topology',
-    'differential-geometry':'Geometry & topology','riemannian-geometry':'Geometry & topology',
-    'lie-groups':'Geometry & topology','riemann-surfaces':'Geometry & topology',
-    // Number theory
-    'galois':'Number theory','quadratic-reciprocity':'Number theory',
-    'sums-of-squares':'Number theory','power-sums-bernoulli':'Number theory',
-    'waring':'Number theory','algebraic-number-theory':'Number theory',
-    'p-adic-numbers':'Number theory','frobenius-and-reciprocity':'Number theory',
-    'class-field-theory':'Number theory',
-    // Modular forms & L-functions
-    'upper-half-plane-hyperbolic':'Modular forms & L-functions',
-    'modular-forms':'Modular forms & L-functions','theta-functions':'Modular forms & L-functions',
-    'partitions-generating-functions':'Modular forms & L-functions',
-    'hecke-operators':'Modular forms & L-functions',
-    'dirichlet-series-euler-products':'Modular forms & L-functions',
-    'analytic-continuation':'Modular forms & L-functions',
-    'L-functions':'Modular forms & L-functions',
-    'galois-representations':'Modular forms & L-functions',
-    'moonshine':'Modular forms & L-functions',
-    'sato-tate':'Modular forms & L-functions',
-    'bsd':'Modular forms & L-functions',
-    'modularity-and-flt':'Modular forms & L-functions',
-    // Algebraic geometry
-    'projective-plane':'Algebraic geometry','bezout':'Algebraic geometry',
-    'schemes':'Algebraic geometry','sheaves':'Algebraic geometry',
-    'morphisms-fiber-products':'Algebraic geometry','functor-of-points':'Algebraic geometry',
-    'elliptic-curves':'Algebraic geometry','singular-cubics-reduction':'Algebraic geometry',
-    'moduli-spaces':'Algebraic geometry','sheaf-cohomology':'Algebraic geometry',
-    'stacks':'Algebraic geometry','etale-cohomology':'Algebraic geometry'
-  };
+  // ---------- topic → section mapping (built from concepts/sections.json) ----------
+  // Bundled into __MVConcepts.sections by scripts/build-concepts-bundle.mjs.
+  // Previously this map was hand-maintained inline and drifted — at one
+  // point it covered ~30 topics while the corpus had 73, sending every new
+  // arc topic to the "Foundations" fallback bucket.
+  const TOPIC_SECTION = {};
+  const SECTION_ORDER = sectionsData.sections.map(s => s.title);
+  for(const s of sectionsData.sections){
+    for(const t of s.topics) TOPIC_SECTION[t] = s.title;
+  }
+  // SECTION_COLOR is curated and stays inline — these are the section's
+  // assigned palette accents, picked to harmonize with each section's card
+  // colors on index.html.
   const SECTION_COLOR = {
     'Foundations':                  'var(--mute)',
     'Algebra':                      'var(--yellow)',
@@ -511,34 +484,20 @@
     'Modular forms & L-functions':  'var(--pink)',
     'Algebraic geometry':           'var(--violet)'
   };
-  const SECTION_ORDER = ['Foundations','Algebra','Analysis','Geometry & topology',
-    'Number theory','Modular forms & L-functions','Algebraic geometry'];
   function sectionFor(id){
     const c = byId.get(id);
     if(!c) return 'Foundations';
     return TOPIC_SECTION[c.topicId] || 'Foundations';
   }
 
-  // ---------- topic → level mapping (mirrors index.html card level badges) ----------
-  // Only 22 of 54 cards carry an explicit <span class="level ...">. The rest
-  // are "standard" — mid-difficulty topics without a badge. Level filtering is
-  // therefore a partial heuristic; we surface all four buckets so the filter
-  // is still useful, and let individual capstone concepts override their
-  // topic's level (see levelFor below) so capstone goals always register
-  // as "capstone" regardless of the enclosing topic's badge.
-  const TOPIC_LEVEL = {
-    'naive-set-theory':'prereq','algebra':'prereq','real-analysis':'prereq',
-    'complex-analysis':'prereq','point-set-topology':'prereq',
-    'algebraic-topology':'prereq','projective-plane':'prereq',
-    'operator-algebras':'advanced','class-field-theory':'advanced',
-    'theta-functions':'advanced','hecke-operators':'advanced',
-    'moonshine':'advanced','singular-cubics-reduction':'advanced',
-    'moduli-spaces':'advanced','sheaf-cohomology':'advanced',
-    'galois-representations':'capstone','sato-tate':'capstone',
-    'bsd':'capstone','modularity-and-flt':'capstone',
-    'stacks':'capstone','etale-cohomology':'capstone'
-    // everything else is 'standard' by default
-  };
+  // ---------- topic → level mapping ----------
+  // Source of truth: concepts/index.json `levels` map, surfaced by
+  // build-concepts-bundle.mjs as window.__MVConcepts.levels. Every topic
+  // listed in concepts/index.json `topics` has an entry; validate-concepts.mjs
+  // flags drift in either direction. Valid values: prereq | standard |
+  // advanced | capstone. Capstone-goal concepts still override their topic's
+  // level via the CAPSTONE_GOAL_IDS branch in levelFor below.
+  const TOPIC_LEVEL = (window.__MVConcepts && window.__MVConcepts.levels) || {};
   const LEVEL_ORDER = ['prereq','standard','advanced','capstone'];
   // Set of concept ids that are capstone goals — lets a concept override its
   // topic's level with "capstone" when it's the actual goal of a capstone.

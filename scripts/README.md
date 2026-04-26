@@ -70,6 +70,8 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`smoke-test.mjs`](./smoke-test.mjs) | Per-page scaffolding: sidebar, nav, quiz wiring, anchors, changelog, callback/backlink invariants. |
 | [`test-topic-jsdom.mjs`](./test-topic-jsdom.mjs) | jsdom DOM-execution boot per topic page: inlines local scripts, stubs CDN KaTeX + browser-only globals, runs the page, asserts no script errors and that sidetoc / widgets / quiz headers actually populated. Filter via `--only <slug,…>` or `TOPIC_JSDOM_ONLY`. |
 | [`test-roundtrip.mjs`](./test-roundtrip.mjs) | `render-topic.mjs` output byte-identical to on-disk HTML for every `content/<topic>.json`. `--fix` mode (used by `rebuild.mjs`) writes rendered HTML to disk on drift — `content/*.json` is source of truth. `--no-fix` (CI) fails on drift. |
+| [`test-json-block-writer.mjs`](./test-json-block-writer.mjs) | Unit tests for `lib/json-block-writer.mjs` (the JSON-source-of-truth equivalent of `lib/html-injector.mjs`). Round-trip neutrality, fence upsert/strip idempotency, position resolution (`before-quiz`/`after-quiz`/`before-section-end`/`after-fence:<other>`), `ensureCss` no-op behavior. |
+| [`audit-starter-concepts.mjs`](./audit-starter-concepts.mjs) | Advisory audit: lists concepts with empty `prereqs` outside the foundation/prereq topic set (`naive-set-theory`, `algebra`, `real-analysis`, `complex-analysis`, `point-set-topology`, `algebraic-topology`, `projective-plane`) plus new-arc concepts whose prereqs all stay intra-topic. Both signal incomplete cross-topic upstream wiring. Always exits 0. |
 | [`audit-callbacks.mjs`](./audit-callbacks.mjs) | Cross-topic prereqs surface as `<aside class="callback">`. |
 
 ## Advisory audits (exit 0; write to `audits/`)
@@ -145,8 +147,9 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 20. `test-roundtrip.mjs`
 21. `stats-coverage.mjs`
 22. `audit-draft-index-cards.mjs`
-23. `audit-doc-drift.mjs`
+23. `audit-starter-concepts.mjs`
+24. `audit-doc-drift.mjs`
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `starter`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

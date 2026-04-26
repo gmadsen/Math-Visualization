@@ -130,11 +130,42 @@
       ' — click to toggle · esc: show all';
   }
 
-  // Three glyphs: widget wrench, question bubble, lineage tree.
-  // When a kind is hidden, its button gets .mv-display-toggle--off.
-  var WIDGETS_GLYPH = '🔧';
-  var QUIZZES_GLYPH = '❓';
-  var LINEAGE_GLYPH = '🌳';
+  // Inline SVG icons. Previously these were the 🔧/❓/🌳 emoji as
+  // textContent, but the deciduous-tree emoji 🌳 (U+1F333) isn't in the
+  // basic monochrome emoji set shipped on every system — Linux without
+  // a color emoji font and several headless / server-side Chromes
+  // rendered it as a tofu-box "missing-glyph" rectangle. The wrench and
+  // question-mark are in older Unicode fallback fonts, so they happen
+  // to render, but consistency demands all three be SVG. Using
+  // currentColor for stroke means the icon respects light/dark theme
+  // and the .mv-display-toggle--off opacity:0.35 rule.
+  var ICON_BASE_ATTRS =
+    'viewBox="0 0 24 24" width="18" height="18" fill="none" ' +
+    'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" ' +
+    'stroke-linejoin="round" aria-hidden="true"';
+  // Wrench: same metaphor as the 🔧 emoji.
+  var WIDGETS_SVG =
+    '<svg ' + ICON_BASE_ATTRS + '>' +
+    '<path d="M16 4 a4 4 0 0 0-4 6 L4 18 a2 2 0 0 0 2.83 2.83 L15 13 a4 4 0 0 0 6-4 l-3 1.5 -2-2 z"/>' +
+    '</svg>';
+  // Question bubble: round speech-bubble with a centered "?".
+  var QUIZZES_SVG =
+    '<svg ' + ICON_BASE_ATTRS + '>' +
+    '<circle cx="12" cy="12" r="9.5"/>' +
+    '<path d="M9 9.5 a3 3 0 0 1 6 0 c0 1.7 -3 2.5 -3 4.5"/>' +
+    '<line x1="12" y1="17" x2="12" y2="17.2"/>' +
+    '</svg>';
+  // Mini-DAG: 3 nodes (two parents, one child) representing prereq
+  // lineage. More legible than a tree silhouette and matches the page
+  // concept (the column-strip is "Prereqs / This / Consumers").
+  var LINEAGE_SVG =
+    '<svg ' + ICON_BASE_ATTRS + '>' +
+    '<circle cx="6" cy="6" r="2.5" fill="currentColor"/>' +
+    '<circle cx="18" cy="6" r="2.5" fill="currentColor"/>' +
+    '<circle cx="12" cy="18" r="2.5" fill="currentColor"/>' +
+    '<line x1="7.5" y1="8" x2="11" y2="15.5"/>' +
+    '<line x1="16.5" y1="8" x2="13" y2="15.5"/>' +
+    '</svg>';
 
   function createWidgetToggle(opts) {
     opts = opts || {};
@@ -143,7 +174,7 @@
     btn.className = 'mv-display-toggle mv-display-toggle--widgets';
     if (opts.className) btn.className += ' ' + opts.className;
     btn.setAttribute('aria-label', 'Toggle widgets visibility');
-    btn.textContent = WIDGETS_GLYPH;
+    btn.innerHTML = WIDGETS_SVG;
     var s = current();
     btn.title = titleForWidgets(s);
     if (s.widgetsHidden) btn.classList.add('mv-display-toggle--off');
@@ -166,7 +197,7 @@
     btn.className = 'mv-display-toggle mv-display-toggle--quizzes';
     if (opts.className) btn.className += ' ' + opts.className;
     btn.setAttribute('aria-label', 'Toggle quizzes visibility');
-    btn.textContent = QUIZZES_GLYPH;
+    btn.innerHTML = QUIZZES_SVG;
     var s = current();
     btn.title = titleForQuizzes(s);
     if (s.quizzesHidden) btn.classList.add('mv-display-toggle--off');
@@ -189,7 +220,7 @@
     btn.className = 'mv-display-toggle mv-display-toggle--lineage';
     if (opts.className) btn.className += ' ' + opts.className;
     btn.setAttribute('aria-label', 'Toggle prereq lineage visibility');
-    btn.textContent = LINEAGE_GLYPH;
+    btn.innerHTML = LINEAGE_SVG;
     var s = current();
     btn.title = titleForLineage(s);
     if (s.lineageHidden) btn.classList.add('mv-display-toggle--off');

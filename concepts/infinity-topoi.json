@@ -28,7 +28,8 @@
       "title": "$\\infty$-Giraud axioms",
       "anchor": "giraud-infty",
       "prereqs": [
-        "infty-topos-definition"
+        "infty-topos-definition",
+        "topos-of-sheaves"
       ],
       "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form."
     },
@@ -38,7 +39,8 @@
       "anchor": "geometric-morphisms-infty",
       "prereqs": [
         "infty-topos-definition",
-        "infty-adjunctions"
+        "infty-adjunctions",
+        "geometric-morphisms-intro"
       ],
       "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers."
     },

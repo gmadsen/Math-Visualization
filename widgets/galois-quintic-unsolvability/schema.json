@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/galois-quintic-unsolvability/schema.json",
+  "title": "galois-quintic-unsolvability widget params",
+  "description": "Bespoke proof-scrubber-style walkthrough of the unsolvability argument for the general quintic, used in galois.html (#quintic). The widget mounts an empty host div and lets the page-global MVProofScrubber library build chrome (slider, play/pause, step chips, readout, SVG diagram) at init time. Steps render the subgroup-chain S_5 - A_5 - {e} with per-step highlights using closures over a shared drawFrame helper, so the script body is irreducibly idiosyncratic and is carried verbatim as the bodyScript ARTIFACT.",
+  "meta": {
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "bodyScript"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the empty host <div class=\"widget\">. The library reads this selector and builds chrome inside it."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Holds the IIFE that builds the SVG helper, NODES/EDGES tables, the per-step render(svg) closures, keyboard wiring, and the MVProofScrubber.init call. Preserved byte-for-byte so the round-trip gate passes."
+    }
+  }
+}

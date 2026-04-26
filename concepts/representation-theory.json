@@ -98,7 +98,8 @@
       "title": "Compact groups and Peter–Weyl",
       "anchor": "peter-weyl",
       "prereqs": [
-        "characters-orthogonality"
+        "characters-orthogonality",
+        "banach-hilbert-spaces"
       ],
       "blurb": "For a compact group $G$ with Haar measure, $L^2(G) \\cong \\widehat{\\bigoplus}_{\\pi\\in\\widehat G}\\, V_\\pi\\otimes V_\\pi^*$ — matrix coefficients of irreducible unitary reps form a Hilbert basis."
     },

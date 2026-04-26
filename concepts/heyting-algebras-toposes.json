@@ -7,7 +7,7 @@
       "id": "heyting-algebra",
       "title": "Heyting algebras",
       "anchor": "heyting-algebra",
-      "prereqs": [],
+      "prereqs": ["algebraic-structures"],
       "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
     },
     {

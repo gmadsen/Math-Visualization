@@ -40,6 +40,11 @@
       .ks-option.ks-selected{background:color-mix(in srgb, var(--cyan,#7de0d6) 18%, transparent);
         border-left-color:var(--cyan,#7de0d6)}
       .ks-option .katex{font-size:1em}
+      .ks-optgroup{padding:8px 10px 4px;font-size:0.74em;letter-spacing:0.12em;
+        text-transform:uppercase;color:var(--mute,#9aa4b2);font-weight:600;
+        border-top:1px solid var(--line,#2a3242);margin-top:4px;cursor:default;
+        user-select:none}
+      .ks-optgroup:first-child{border-top:none;margin-top:0}
     `;
     const s = document.createElement('style');
     s.id = STYLE_ID;
@@ -113,18 +118,44 @@
     popup.className = 'ks-popup';
     popup.setAttribute('role', 'listbox');
 
+    // Walk the <select>'s children so <optgroup> boundaries become visible
+    // section headers in the custom popup. The native <select> treats
+    // optgroups as labelled separators; the previous flat-list rendering
+    // dropped them entirely, which lost the capstone-by-section grouping
+    // on pathway.html. `items[]` only holds clickable option divs so the
+    // keyboard-navigation logic below can stay index-based against
+    // `sel.options[i]`.
     const items = [];
-    Array.from(sel.options).forEach((o, i) => {
+    let optIdx = 0;
+    function appendOptionDiv(o){
       const item = document.createElement('div');
       item.className = 'ks-option';
       item.setAttribute('role', 'option');
-      item.dataset.idx = String(i);
+      item.dataset.idx = String(optIdx);
       item.tabIndex = -1;
       renderMixed(item, o.innerHTML);
-      if(i === sel.selectedIndex) item.classList.add('ks-selected');
+      if(optIdx === sel.selectedIndex) item.classList.add('ks-selected');
       items.push(item);
       popup.appendChild(item);
-    });
+      optIdx++;
+    }
+    for(const child of Array.from(sel.children)){
+      const tag = child.tagName;
+      if(tag === 'OPTGROUP'){
+        const header = document.createElement('div');
+        header.className = 'ks-optgroup';
+        header.setAttribute('role', 'presentation');
+        // Optgroup labels are plain text per HTML spec — no math allowed —
+        // so textContent is safe.
+        header.textContent = child.label || '';
+        popup.appendChild(header);
+        for(const opt of Array.from(child.children)){
+          if(opt.tagName === 'OPTION') appendOptionDiv(opt);
+        }
+      } else if(tag === 'OPTION'){
+        appendOptionDiv(child);
+      }
+    }
 
     function setSelected(i){
       if(i < 0 || i >= items.length) return;
@@ -138,7 +169,17 @@
       popup.classList.add('ks-open');
       btn.setAttribute('aria-expanded', 'true');
       const cur = items[sel.selectedIndex] || items[0];
-      if(cur){ items.forEach(it => it.classList.remove('ks-active')); cur.classList.add('ks-active'); }
+      if(cur){
+        items.forEach(it => it.classList.remove('ks-active'));
+        cur.classList.add('ks-active');
+        // Make the active item programmatically focusable then move focus
+        // into the popup so ArrowDown/ArrowUp on the popup keydown handler
+        // works for keyboard-only users. Without this, opening with the
+        // keyboard left focus on the trigger button and the popup's
+        // keydown listener never fired (a11y review P2).
+        cur.tabIndex = 0;
+        try { cur.focus({ preventScroll: true }); } catch(_) { cur.focus(); }
+      }
     }
     function close(){
       popup.classList.remove('ks-open');
@@ -174,8 +215,15 @@
       else if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setSelected(idx); close(); btn.focus(); return; }
       else if(e.key === 'Escape'){ e.preventDefault(); close(); btn.focus(); return; }
       else { return; }
-      items.forEach(it => it.classList.remove('ks-active'));
+      items.forEach(it => { it.classList.remove('ks-active'); it.tabIndex = -1; });
       items[idx].classList.add('ks-active');
+      items[idx].tabIndex = 0;
+      // Move actual DOM focus to the highlighted option so screen readers
+      // announce the new selection — the visual `.ks-active` class alone
+      // isn't an a11y signal. We re-fire focus on every arrow key; the
+      // role="option" + aria-selected state on `.ks-selected` already
+      // surfaces the hard "current value" to AT users.
+      try { items[idx].focus({ preventScroll: true }); } catch(_) { items[idx].focus(); }
       items[idx].scrollIntoView({ block: 'nearest' });
     });
 

@@ -23,7 +23,9 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals. Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v1). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 23 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 505-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the seven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+
+Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v1). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
 ## Contents
 
@@ -41,9 +43,9 @@ Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for c
 - [Heyting algebras & intuitionist logic in toposes](./heyting-algebras-toposes.html) — internal language, Kripke–Joyal forcing, double-negation
 - [Grothendieck topologies & sites](./grothendieck-topologies-sites.html) — sieves, sheafification, Giraud
 - [Simplicial sets & the nerve](./simplicial-sets-and-nerve.html) — $\Delta$, geometric realization, nerve $N(C)$, Kan complexes, inner-horn filling
-- [$\infty$-categories (quasi-categories)](./infinity-categories.html) — Joyal's model, $h(\mathcal{C})$, $\infty$-functors / limits / adjunctions / Kan extensions
+- [∞-categories (quasi-categories)](./infinity-categories.html) — Joyal's model, $h(\mathcal{C})$, ∞-functors / limits / adjunctions / Kan extensions
 - [Cocartesian fibrations & the Grothendieck construction](./cocartesian-fibrations.html) — left/right/cocartesian fibrations, straightening ↔ functors $\mathcal{B} \to \mathrm{Cat}_\infty$
-- [$\infty$-topoi (Lurie)](./infinity-topoi.html) — accessible left-exact localization, $\infty$-Giraud, hypercompletion, internal HoTT — capstone
+- [∞-topoi (Lurie)](./infinity-topoi.html) — accessible left-exact localization, ∞-Giraud, hypercompletion, internal HoTT — capstone
 
 ### Analysis
 - [Real analysis](./real-analysis.html) — completeness of $\mathbb{R}$, $\varepsilon$–$\delta$ continuity, differentiation, uniform convergence, Riemann integration, multivariable diff/int, inverse function theorem

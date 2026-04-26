@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 // Inject data-section / data-level attributes onto each topic page's <body> tag.
 //
-// Source of truth:
+// Source-of-truth flip: this script now mutates `content/<topic>.json`, not
+// `<topic>.html`.  The <body> opening tag lives at the start of
+// `doc.rawBodyPrefix`.  After this script rewrites the JSON,
+// `test-roundtrip.mjs --fix` propagates the change to the HTML.
+//
+// Source for the section/level lookup:
 //   - `index.html` at repo root. Each `.sec` div names a section ("Number theory",
 //     "Modular forms & L-functions", ...). The sibling `.grid` contains `a.card`
 //     entries whose `href` points to a topic page and whose `.tt` optionally
@@ -11,10 +16,11 @@
 // For each slug in `concepts/index.json`, we:
 //   1. Look up its section + level from the `index.html` map (kebab-cased
 //      section, lowercase level, default `intermediate` if no badge).
-//   2. Read `<slug>.html`, locate the `<body ...>` opening tag, and set
-//      `data-section` / `data-level` attributes, replacing existing values if
-//      present and preserving any other attributes. Idempotent.
-//   3. Write back only if content changed.
+//   2. Load `content/<slug>.json`, locate the `<body ...>` opening tag in
+//      `rawBodyPrefix`, and set `data-section` / `data-level` attributes,
+//      replacing existing values if present and preserving any other
+//      attributes. Idempotent.
+//   3. Save back via `saveTopicContent` (write-if-changed).
 //
 // Flags:
 //   --dry-run   Print what would change, don't write.
@@ -28,7 +34,10 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { writeIfChanged } from './lib/html-injector.mjs';
+import {
+  loadTopicContent,
+  saveTopicContent,
+} from './lib/json-block-writer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -112,11 +121,11 @@ if (!existsSync(topicsPath)) {
 }
 const topics = JSON.parse(readFileSync(topicsPath, 'utf8')).topics;
 
-// ----- Inject attributes on each topic page -----
-function setBodyAttrs(html, section, level) {
+// ----- Inject attributes on each topic JSON's rawBodyPrefix -----
+function setBodyAttrs(rawBodyPrefix, section, level) {
   const bodyRe = /<body\b([^>]*)>/i;
-  const match = bodyRe.exec(html);
-  if (!match) return { html, changed: false, error: 'no <body> tag found' };
+  const match = bodyRe.exec(rawBodyPrefix);
+  if (!match) return { rawBodyPrefix, changed: false, error: 'no <body> tag found' };
 
   let attrs = match[1]; // e.g. ' data-section="foo" data-level="bar"' or ''
 
@@ -126,12 +135,12 @@ function setBodyAttrs(html, section, level) {
   attrs = attrs.replace(/\s+data-level\s*=\s*"[^"]*"/gi, '');
   attrs = attrs.replace(/\s+data-level\s*=\s*'[^']*'/gi, '');
 
-  // Normalize whitespace in remaining attrs
+  // Normalize trailing whitespace in remaining attrs.
   attrs = attrs.replace(/\s+$/, '');
 
   const newOpen = `<body${attrs} data-section="${section}" data-level="${level}">`;
-  const newHtml = html.slice(0, match.index) + newOpen + html.slice(match.index + match[0].length);
-  return { html: newHtml, changed: newHtml !== html };
+  const newPrefix = rawBodyPrefix.slice(0, match.index) + newOpen + rawBodyPrefix.slice(match.index + match[0].length);
+  return { rawBodyPrefix: newPrefix, changed: newPrefix !== rawBodyPrefix };
 }
 
 let touched = 0;
@@ -141,9 +150,9 @@ const warnings = [];
 const byLevel = { prereq: 0, intermediate: 0, advanced: 0, capstone: 0 };
 
 for (const slug of topics) {
-  const pagePath = join(repoRoot, `${slug}.html`);
-  if (!existsSync(pagePath)) {
-    warnings.push(`page missing: ${slug}.html`);
+  const jsonPath = join(repoRoot, 'content', `${slug}.json`);
+  if (!existsSync(jsonPath)) {
+    warnings.push(`content JSON missing: content/${slug}.json`);
     continue;
   }
   const meta = slugMeta.get(slug);
@@ -154,14 +163,17 @@ for (const slug of topics) {
   }
   byLevel[meta.level] = (byLevel[meta.level] || 0) + 1;
 
-  const html = readFileSync(pagePath, 'utf8');
-  const result = setBodyAttrs(html, meta.section, meta.level);
+  const doc = loadTopicContent(slug, repoRoot);
+  const result = setBodyAttrs(doc.rawBodyPrefix, meta.section, meta.level);
   if (result.error) {
-    warnings.push(`${slug}.html: ${result.error}`);
+    warnings.push(`content/${slug}.json: ${result.error}`);
     continue;
   }
   if (result.changed) {
-    if (!DRY_RUN) writeIfChanged(pagePath, html, result.html);
+    if (!DRY_RUN) {
+      doc.rawBodyPrefix = result.rawBodyPrefix;
+      saveTopicContent(slug, doc, repoRoot);
+    }
     touched++;
   } else {
     skipped++;
@@ -170,9 +182,9 @@ for (const slug of topics) {
 
 // ----- Report -----
 console.log(`inject-page-metadata: ${topics.length} topic(s) processed${DRY_RUN ? ' (dry-run)' : ''}`);
-console.log(`  pages touched: ${touched}`);
-console.log(`  pages skipped (no change): ${skipped}`);
-console.log(`  pages missing from index.html: ${missingFromIndex.length}`);
+console.log(`  topic JSONs touched: ${touched}`);
+console.log(`  topic JSONs skipped (no change): ${skipped}`);
+console.log(`  topics missing from index.html: ${missingFromIndex.length}`);
 if (missingFromIndex.length) {
   for (const s of missingFromIndex) console.log(`    - ${s}`);
 }

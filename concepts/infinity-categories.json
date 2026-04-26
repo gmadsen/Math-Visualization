@@ -18,7 +18,8 @@
       "title": "The homotopy category $h(\\mathcal{C})$",
       "anchor": "homotopy-category",
       "prereqs": [
-        "quasi-category"
+        "quasi-category",
+        "categories-morphisms"
       ],
       "blurb": "Quotienting a quasi-category $\\mathcal{C}$ by the equivalence relation \"there is a 2-simplex from $f$ to $g$\" gives an ordinary 1-category $h(\\mathcal{C})$. This is the shadow of $\\mathcal{C}$ visible to non-homotopical eyes."
     },
@@ -27,7 +28,8 @@
       "title": "Functors and natural transformations $\\infty$-categorically",
       "anchor": "infty-functors",
       "prereqs": [
-        "quasi-category"
+        "quasi-category",
+        "functors-natural-transformations"
       ],
       "blurb": "An $\\infty$-functor $\\mathcal{C} \\to \\mathcal{D}$ is just a map of simplicial sets; natural transformations are 1-simplices in the mapping quasi-category. The Yoneda embedding lifts to $\\infty$-categories — and is again fully faithful."
     },
@@ -36,7 +38,8 @@
       "title": "$\\infty$-categorical (co)limits",
       "anchor": "infty-limits",
       "prereqs": [
-        "infty-functors"
+        "infty-functors",
+        "limits-colimits"
       ],
       "blurb": "Limits and colimits in an $\\infty$-category are defined via terminal/initial objects in slice quasi-categories. They generalize 1-categorical limits in the same way derived functors generalize ordinary functors — the homotopy data is built in."
     },
@@ -46,7 +49,8 @@
       "anchor": "infty-adjunctions",
       "prereqs": [
         "infty-functors",
-        "infty-limits"
+        "infty-limits",
+        "adjunctions"
       ],
       "blurb": "An $\\infty$-adjunction $f \\dashv g$ is a unit/counit pair living in the mapping spaces, satisfying the triangle identities up to coherent higher homotopy. Adjoint functor theorems carry over to the $\\infty$-categorical setting with extra accessibility hypotheses."
     },
@@ -56,7 +60,8 @@
       "anchor": "kan-extension",
       "prereqs": [
         "infty-functors",
-        "infty-limits"
+        "infty-limits",
+        "kan-extensions"
       ],
       "blurb": "Left and right Kan extensions in $\\infty$-categories are pointwise computable as colimits/limits over comma quasi-categories. They are the engine of derived functors, ind-completion, and the universal property of the $\\infty$-category of presheaves."
     }

@@ -7,7 +7,7 @@
       "id": "simplex-category",
       "title": "The simplex category $\\Delta$",
       "anchor": "simplex-category",
-      "prereqs": [],
+      "prereqs": ["categories-morphisms", "sets-functions"],
       "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
     },
     {
@@ -25,7 +25,8 @@
       "title": "Geometric realization $|X|$",
       "anchor": "geometric-realization",
       "prereqs": [
-        "simplicial-set"
+        "simplicial-set",
+        "open-sets"
       ],
       "blurb": "Geometric realization is the left adjoint to the singular-set functor $S\\colon \\mathbf{Top} \\to \\mathbf{sSet}$. It glues topological simplices according to the combinatorial data of $X_\\bullet$ — the standard model for \"the space presented by $X$.\""
     },
@@ -34,7 +35,8 @@
       "title": "The nerve $N(C)$ of a category",
       "anchor": "nerve-of-category",
       "prereqs": [
-        "simplicial-set"
+        "simplicial-set",
+        "categories-morphisms"
       ],
       "blurb": "The nerve $N(C)_n$ is the set of length-$n$ composable strings of arrows in $C$. The face maps compose adjacent arrows; the degeneracies insert identities. The nerve is the bridge between category theory and homotopy theory."
     },
