@@ -62,6 +62,37 @@
     return coerce(load()[id]);
   }
 
+  // recordOf(id) -> { v1, hard, expert, at } or null when no record exists.
+  // Reads through the same coerce() compatibility path as isMastered, plus
+  // surfaces the raw `at` timestamp consumers like the home-page "Continue
+  // where you left off" picker want for ordering. Returns null on absent
+  // ids so callers can distinguish "no record" from "record with at=0".
+  function recordOf(id){
+    const all = load();
+    if (!Object.prototype.hasOwnProperty.call(all, id)) return null;
+    const raw = all[id];
+    const tiers = coerce(raw);
+    let at = 0;
+    if (raw && typeof raw === 'object' && typeof raw.at === 'number') at = raw.at;
+    return { v1: tiers.v1, hard: tiers.hard, expert: tiers.expert, at };
+  }
+
+  // entries() -> [[id, recordOf(id)], …] for every id in the store. Lets
+  // callers iterate without re-parsing localStorage or walking inherited
+  // properties (load() already returns Object.create-rooted-or-equivalent
+  // own-property bag of records, but the helper keeps the surface explicit).
+  function entries(){
+    const all = load();
+    const out = [];
+    const keys = Object.keys(all);
+    for (let i = 0; i < keys.length; i++) {
+      const id = keys[i];
+      const rec = recordOf(id);
+      if (rec) out.push([id, rec]);
+    }
+    return out;
+  }
+
   // isMastered(id)             -> v1 mastery (back-compat)
   // isMastered(id, 'v1')       -> v1 mastery
   // isMastered(id, 'hard')     -> hard mastery
@@ -135,5 +166,5 @@
     return { state, v1: r.v1, hard: r.hard, expert: r.expert };
   }
 
-  global.MVProgress = { load, save, isMastered, setMastered, clearAll, stateOf };
+  global.MVProgress = { load, save, isMastered, setMastered, clearAll, stateOf, recordOf, entries };
 })(window);

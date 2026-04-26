@@ -148,6 +148,10 @@
   .untagged summary:hover{color:var(--ink)}
   .untagged .ut-list{margin-top:0.7rem;padding-left:1.5rem;color:var(--mute);
     font-size:0.88rem;line-height:1.6;column-count:2;column-gap:1.5rem}
+  .untagged .ut-list a{color:var(--ink);text-decoration:none;
+    display:block;padding:2px 0}
+  .untagged .ut-list a .topic{color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;font-size:0.78rem}
   @media (max-width:560px){
     .untagged .ut-list{column-count:1}
   }
@@ -162,13 +166,17 @@
 <body data-page="tags">
 <main>
   <nav class="top-nav">
-    <div class="brand">Math · <strong>Visualization</strong></div>
+    <div class="brand"><strong>MV</strong> &middot; Notebook</div>
     <div class="nav-links">
       <a class="nav-link" href="./index.html">← Notebook</a>
-      <a class="nav-link" href="./mindmap.html">Mindmap</a>
       <a class="nav-link" href="./pathway.html">Pathway</a>
-      <a class="nav-link" href="./search.html">Search</a>
+      <a class="nav-link" href="./mindmap.html">Mindmap</a>
       <a class="nav-link accent" href="./tags.html">Themes</a>
+      <a class="nav-link" href="./search.html">Search</a>
+      <a class="nav-link" href="./latex-cheatsheet.html">LaTeX cheatsheet</a>
+      <a class="nav-link" href="./progress.html">Your progress</a>
+      <a class="nav-link" href="./review.html">Review</a>
+      <span class="mv-theme-slot"></span>
     </div>
   </nav>
 
@@ -210,16 +218,10 @@
 // MVProgress decorates each concept link with a state pip (locked/ready/v1).
 // All inline; no fetch.
 (function(){
-  const SECTION_META = {
-    'foundations':                    { color: 'b' },
-    'algebra':                        { color: 'y' },
-    'analysis':                       { color: 'p' },
-    'geometry-and-topology':          { color: 'v' },
-    'number-theory':                  { color: 'y' },
-    'modular-forms-and-l-functions':  { color: 'c' },
-    'algebraic-geometry':             { color: 'g' },
-    'combinatorics-and-graph-theory': { color: 'g' },
-  };
+  // Section id -> { color } map, derived at init time from the bundle's
+  // sections.json (single source of truth — same lookup index.html uses).
+  // Built once and closed-over below.
+  let SECTION_META = null;
 
   function init(){
     const data = window.__MVConcepts;
@@ -285,6 +287,12 @@
 
     // Bind masteryState to the byConceptId closure now that the map is built.
     const masteryState = makeMasteryState(byConceptId);
+
+    // Build SECTION_META from the bundle now that `data` is in scope.
+    SECTION_META = Object.create(null);
+    for (const s of (data.sections?.sections || [])) {
+      if (s && s.id) SECTION_META[s.id] = { color: s.color || 'b' };
+    }
 
     // Render tag cards in vocabulary order.
     grid.innerHTML = '';
@@ -383,12 +391,7 @@
     for (const e of untagged) {
       const a = document.createElement('a');
       a.href = './' + (e.page || (e.topicId + '.html')) + '#' + (e.anchor || '');
-      a.style.color = 'var(--ink)';
-      a.style.textDecoration = 'none';
-      a.style.display = 'block';
-      a.style.padding = '2px 0';
-      a.innerHTML = '<span style="color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-size:0.78rem">'
-        + escapeHtml(e.topicId) + '</span> · ' + escapeHtml(e.title);
+      a.innerHTML = '<span class="topic">' + escapeHtml(e.topicId) + '</span> · ' + escapeHtml(e.title);
       utList.appendChild(a);
     }
     if (untagged.length === 0) {

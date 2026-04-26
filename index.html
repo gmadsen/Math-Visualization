@@ -481,13 +481,15 @@
   </a>
 
   <section class="featured-rail" id="featured-rail" aria-label="Featured concepts" hidden>
-    <a class="featured-card fc-today" id="todays-card" href="#" hidden>
-      <div class="fc-eyebrow">Today's concept</div>
+    <a class="featured-card fc-today" id="todays-card" href="#" hidden
+       aria-labelledby="todays-eyebrow todays-title" aria-describedby="todays-blurb">
+      <div class="fc-eyebrow" id="todays-eyebrow">Today's concept</div>
       <div class="fc-title" id="todays-title">—</div>
       <p class="fc-desc" id="todays-blurb"></p>
       <div class="fc-foot"><span id="todays-topic"></span><span class="fc-arrow">→</span></div>
     </a>
-    <a class="featured-card fc-continue" id="continue-card" href="#" hidden>
+    <a class="featured-card fc-continue" id="continue-card" href="#" hidden
+       aria-labelledby="continue-eyebrow continue-title" aria-describedby="continue-blurb">
       <div class="fc-eyebrow" id="continue-eyebrow">Continue where you left off</div>
       <div class="fc-title" id="continue-title">—</div>
       <p class="fc-desc" id="continue-blurb"></p>
@@ -2337,19 +2339,32 @@
 //   4. marks the bottom auto-generated "Sections" block with data-legacy so
 //      its compact eyebrow styling (font-size, uppercase) kicks in instead.
 (function(){
-  // Section name -> { id, color } map. Keep in sync with the top-of-main
-  // section-jump nav's href list; every jump target must have a matching id
-  // here. Colors echo the section's card palette from AGENTS.md.
-  var SECTION_META = {
-    'Foundations':                  { id: 'foundations',                    color: 'b' },
-    'Algebra':                      { id: 'algebra',                        color: 'y' },
-    'Analysis':                     { id: 'analysis',                       color: 'p' },
-    'Geometry & topology':          { id: 'geometry-and-topology',          color: 'v' },
-    'Number theory':                { id: 'number-theory',                  color: 'y' },
-    'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',  color: 'c' },
-    'Algebraic geometry':           { id: 'algebraic-geometry',             color: 'g' },
-    'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory',  color: 'g' },
-  };
+  // Section name -> { id, color } map, derived at runtime from the bundle's
+  // sections.json (single source of truth for section id, title, and color).
+  // Falls back to the previous hardcoded map ONLY if the bundle is missing
+  // or shaped unexpectedly (defense-in-depth on the file:// double-click
+  // path; a broken bundle would otherwise leave every section uncoloured).
+  var SECTION_META = (function(){
+    var fromBundle = {};
+    try {
+      var src = (window.__MVConcepts && window.__MVConcepts.sections && window.__MVConcepts.sections.sections) || [];
+      for (var i = 0; i < src.length; i++) {
+        var s = src[i];
+        if (s && s.title && s.id) fromBundle[s.title] = { id: s.id, color: s.color || 'b' };
+      }
+    } catch(_){}
+    if (Object.keys(fromBundle).length > 0) return fromBundle;
+    return {
+      'Foundations':                  { id: 'foundations',                    color: 'b' },
+      'Algebra':                      { id: 'algebra',                        color: 'y' },
+      'Analysis':                     { id: 'analysis',                       color: 'p' },
+      'Geometry & topology':          { id: 'geometry-and-topology',          color: 'v' },
+      'Number theory':                { id: 'number-theory',                  color: 'y' },
+      'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',  color: 'c' },
+      'Algebraic geometry':           { id: 'algebraic-geometry',             color: 'g' },
+      'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory', color: 'g' },
+    };
+  })();
   function init(){
     var secs = document.querySelectorAll('main > .sec');
     for(var i=0;i<secs.length;i++){
@@ -3053,25 +3068,18 @@
   }
   function mostRecentMasteredId(){
     try {
-      var raw = JSON.parse(localStorage.getItem('mvnb.progress.v1') || '{}');
-      // Iterate own keys only (skip prototype properties); also accept legacy
-      // mastery records (boolean shorthand or {at:…}-only entries that
-      // MVProgress treats as v1-mastered) so returning users from older
-      // schema versions still get the "Continue where you left off" card.
+      // Single source of truth — MVProgress.entries handles the localStorage
+      // parse, prototype-pollution-safe iteration, and legacy-shape coercion
+      // (boolean shorthand and {at:…}-only records both surface as v1-mastered
+      // through the shared coerce() path). Avoids the duplicate JSON.parse +
+      // for...in pattern this script used to carry.
+      var P = window.MVProgress;
+      if (!P || typeof P.entries !== 'function') return null;
       var bestId = null, bestAt = 0;
-      var ids = Object.keys(raw);
-      for(var i=0;i<ids.length;i++){
-        var id = ids[i];
-        var rec = raw[id];
-        var v1, at = 0;
-        if(rec === true){ v1 = true; at = 0; }                            // legacy boolean shorthand
-        else if(rec && typeof rec === 'object'){
-          // Legacy {at: …} form (no explicit tier flags) ⇒ v1 mastered.
-          v1 = ('v1' in rec || 'hard' in rec || 'expert' in rec) ? !!rec.v1 : true;
-          at = typeof rec.at === 'number' ? rec.at : 0;
-        }
-        else continue;
-        if(v1 && at >= bestAt){ bestId = id; bestAt = at; }
+      var es = P.entries();
+      for(var i=0;i<es.length;i++){
+        var id = es[i][0], rec = es[i][1];
+        if (rec.v1 && rec.at >= bestAt) { bestId = id; bestAt = rec.at; }
       }
       return bestId;
     } catch(e){ return null; }

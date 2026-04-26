@@ -7622,14 +7622,15 @@ window.__MVConcepts = {
     ]
   },
   "sections": {
-    "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
+    "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
     "sections": [
       {
         "id": "foundations",
         "title": "Foundations",
         "topics": [
           "naive-set-theory"
-        ]
+        ],
+        "color": "b"
       },
       {
         "id": "algebra",
@@ -7649,7 +7650,8 @@ window.__MVConcepts = {
           "infinity-categories",
           "cocartesian-fibrations",
           "infinity-topoi"
-        ]
+        ],
+        "color": "y"
       },
       {
         "id": "analysis",
@@ -7664,7 +7666,8 @@ window.__MVConcepts = {
           "probability-theory",
           "harmonic-analysis-fourier",
           "sobolev-spaces-distributions"
-        ]
+        ],
+        "color": "p"
       },
       {
         "id": "geometry-and-topology",
@@ -7678,7 +7681,8 @@ window.__MVConcepts = {
           "riemannian-geometry",
           "lie-groups",
           "riemann-surfaces"
-        ]
+        ],
+        "color": "v"
       },
       {
         "id": "number-theory",
@@ -7696,7 +7700,8 @@ window.__MVConcepts = {
           "frobenius-and-reciprocity",
           "class-field-theory",
           "heights-arithmetic-geometry"
-        ]
+        ],
+        "color": "y"
       },
       {
         "id": "modular-forms-and-l-functions",
@@ -7717,7 +7722,8 @@ window.__MVConcepts = {
           "sato-tate",
           "bsd",
           "modularity-and-flt"
-        ]
+        ],
+        "color": "c"
       },
       {
         "id": "algebraic-geometry",
@@ -7742,7 +7748,8 @@ window.__MVConcepts = {
           "group-schemes",
           "deformation-theory",
           "algebraic-de-rham-cohomology"
-        ]
+        ],
+        "color": "g"
       },
       {
         "id": "combinatorics-and-graph-theory",
@@ -7753,7 +7760,8 @@ window.__MVConcepts = {
           "probabilistic-method",
           "extremal-combinatorics",
           "simplicial-complexes-combinatorial"
-        ]
+        ],
+        "color": "g"
       }
     ]
   },

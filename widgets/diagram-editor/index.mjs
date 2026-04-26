@@ -545,14 +545,24 @@ export function renderScript(params) {
     `      if (svg.setPointerCapture) try { svg.setPointerCapture(e.pointerId); } catch (_) {}\n` +
     `      e.preventDefault();\n` +
     `    });\n` +
+    `    // rAF-coalesce live-drag re-renders. At display refresh rate (60-120 Hz)\n` +
+    `    // raw pointermove fires faster than the full renderAll (which rebuilds\n` +
+    `    // every node + arrow + KaTeX label) can finish. Without coalescing, drag\n` +
+    `    // queues rebuilds that supersede each other before pixels appear. With\n` +
+    `    // coalescing, at most one rebuild per frame.\n` +
+    `    var dragRafQueued = false;\n` +
+    `    function scheduleDragRender(){\n` +
+    `      if (dragRafQueued) return;\n` +
+    `      dragRafQueued = true;\n` +
+    `      requestAnimationFrame(function(){ dragRafQueued = false; renderAll(); });\n` +
+    `    }\n` +
     `    svg.addEventListener('pointermove', function(e){\n` +
     `      if (!dragNodeId) return;\n` +
     `      var pt = svgPointFromEvent(e);\n` +
     `      var nx = clamp(pt.x - dragOffset.x, 28, CFG.width - 28);\n` +
     `      var ny = clamp(pt.y - dragOffset.y, 22, CFG.height - 22);\n` +
     `      positions[dragNodeId] = { x: nx, y: ny };\n` +
-    `      // Live redraw — relations re-evaluate too.\n` +
-    `      renderAll();\n` +
+    `      scheduleDragRender();\n` +
     `    });\n` +
     `    function endDrag() {\n` +
     `      if (!dragNodeId) return;\n` +

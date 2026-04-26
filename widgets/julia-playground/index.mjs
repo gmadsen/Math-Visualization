@@ -221,13 +221,30 @@ export function renderScript(params) {
     `    return -1;\n` +
     `  }\n` +
     `\n` +
+    `  // ---- palette cache ------------------------------------------------\n` +
+    `  // Resolve the project accent vars once at init; refresh on theme flip\n` +
+    `  // (MutationObserver below). Saves four getComputedStyle(:root) calls\n` +
+    `  // per slider tick during a drag (60-120 Hz).\n` +
+    `  var pal = paletteRGB();\n` +
+    `\n` +
+    `  // ---- render scheduling --------------------------------------------\n` +
+    `  // Slider/wheel/pan all want a fresh render. Coalesce back-to-back\n` +
+    `  // events into a single rAF — the renderToken cancellation already\n` +
+    `  // handles the race, this just stops kicking off renders that will be\n` +
+    `  // immediately superseded.\n` +
+    `  var renderQueued = false;\n` +
+    `  function queueRender() {\n` +
+    `    if (renderQueued) return;\n` +
+    `    renderQueued = true;\n` +
+    `    requestAnimationFrame(function() { renderQueued = false; startRender(); });\n` +
+    `  }\n` +
+    `\n` +
     `  // ---- render loop --------------------------------------------------\n` +
     `  function startRender() {\n` +
     `    renderToken++;\n` +
     `    var token = renderToken;\n` +
     `    var W = CFG.width, H = CFG.height;\n` +
     `    if (!img || img.width !== W || img.height !== H) img = ctx.createImageData(W, H);\n` +
-    `    var pal = paletteRGB();\n` +
     `    var data = img.data;\n` +
     `    var dx = (view.xmax - view.xmin) / W;\n` +
     `    var dy = (view.ymax - view.ymin) / H;\n` +
@@ -327,7 +344,7 @@ export function renderScript(params) {
     `      if (cROut) cROut.textContent = fmt(cR);\n` +
     `      if (cIOut) cIOut.textContent = fmt(cI);\n` +
     `      updateReadout();\n` +
-    `      startRender();\n` +
+    `      queueRender();\n` +
     `      return;\n` +
     `    }\n` +
     `    dragging = true; dragMoved = false;\n` +
@@ -345,7 +362,7 @@ export function renderScript(params) {
     `    lastX = e.clientX; lastY = e.clientY;\n` +
     `    clampSpan();\n` +
     `    updateReadout();\n` +
-    `    startRender();\n` +
+    `    queueRender();\n` +
     `  });\n` +
     `  function endDrag() { dragging = false; }\n` +
     `  canvas.addEventListener('pointerup', endDrag);\n` +
@@ -362,26 +379,26 @@ export function renderScript(params) {
     `    view.ymax = p.y + (view.ymax - p.y) * k;\n` +
     `    clampSpan();\n` +
     `    updateReadout();\n` +
-    `    startRender();\n` +
+    `    queueRender();\n` +
     `  }, { passive: false });\n` +
     `\n` +
     `  if (cRIn) cRIn.addEventListener('input', function() {\n` +
     `    cR = parseFloat(cRIn.value);\n` +
     `    if (cROut) cROut.textContent = fmt(cR);\n` +
     `    updateReadout();\n` +
-    `    startRender();\n` +
+    `    queueRender();\n` +
     `  });\n` +
     `  if (cIIn) cIIn.addEventListener('input', function() {\n` +
     `    cI = parseFloat(cIIn.value);\n` +
     `    if (cIOut) cIOut.textContent = fmt(cI);\n` +
     `    updateReadout();\n` +
-    `    startRender();\n` +
+    `    queueRender();\n` +
     `  });\n` +
     `  if (iterIn) iterIn.addEventListener('input', function() {\n` +
     `    iterMax = parseInt(iterIn.value, 10);\n` +
     `    if (iterOut) iterOut.textContent = String(iterMax);\n` +
     `    updateReadout();\n` +
-    `    startRender();\n` +
+    `    queueRender();\n` +
     `  });\n` +
     `  if (resetBtn) resetBtn.addEventListener('click', function() {\n` +
     `    view.xmin = CFG.xmin; view.xmax = CFG.xmax;\n` +
@@ -399,7 +416,8 @@ export function renderScript(params) {
     `  });\n` +
     `\n` +
     `  // Repaint on theme change so the palette tracks --bg / --ink / accent.\n` +
-    `  var themeObserver = new MutationObserver(function() { startRender(); });\n` +
+    `  // Refresh the cached pal first, then kick a render.\n` +
+    `  var themeObserver = new MutationObserver(function() { pal = paletteRGB(); startRender(); });\n` +
     `  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });\n` +
     `\n` +
     `  updateReadout();\n` +
