@@ -377,12 +377,16 @@
       utList.innerHTML = '<em>Every concept carries at least one theme.</em>';
     }
 
-    // URL-driven initial selection (e.g. tags.html#duality).
-    if (location.hash && location.hash.length > 1) {
-      const want = location.hash.slice(1);
-      const found = data.tags.tags.find(t => t.id === want);
+    // URL-driven selection (e.g. tags.html#duality). Initial pass + listener
+    // so navigating via in-page anchor / browser back/forward also re-selects.
+    function applyHash(){
+      const h = (location.hash || '').replace(/^#/, '');
+      if (!h) return;
+      const found = data.tags.tags.find(t => t.id === h);
       if (found) selectTag(found);
     }
+    window.addEventListener('hashchange', applyHash);
+    applyHash();
   }
 
   function masteryState(conceptId, data){
