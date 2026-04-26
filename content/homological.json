@@ -418,7 +418,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./homological.html#derived\">Homological algebra</a> · Derived functors and Ext/Tor</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./homological.html#derived\">Homological algebra</a> · Derived functors and Ext/Tor</div>\n    <div><a href=\"./operator-algebras.html#ncg\">Operator algebras</a> · Noncommutative dictionary</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

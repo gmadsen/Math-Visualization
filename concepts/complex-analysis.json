@@ -234,7 +234,8 @@
       "title": "Harmonic functions",
       "anchor": "coda",
       "prereqs": [
-        "cauchy-riemann"
+        "cauchy-riemann",
+        "simply-connected"
       ],
       "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
     },

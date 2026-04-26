@@ -116,7 +116,8 @@
       "anchor": "distributions",
       "prereqs": [
         "banach-hilbert-spaces",
-        "uniform-convergence"
+        "uniform-convergence",
+        "real-differentiation"
       ],
       "blurb": "The dual of Cc^∞ is the space of distributions — delta, principal value, tempered — extending differentiation and Fourier analysis beyond functions."
     }

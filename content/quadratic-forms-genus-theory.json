@@ -310,7 +310,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./quadratic-forms-genus-theory.html#ideals-vs-forms\">Quadratic forms &amp; genus theory</a> · Forms and ideal classes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./quadratic-forms-genus-theory.html#ideals-vs-forms\">Quadratic forms &amp; genus theory</a> · Forms and ideal classes</div>\n    <div><a href=\"./sums-of-squares.html#three\">Sums of squares</a> · Legendre three-square theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -13,13 +13,17 @@
 //
 // CLI:
 //   node scripts/audit-cross-topic-prereqs.mjs
-//       Scan every concept in every topic file; print grouped suggestions.
+//       Scan every concept in every topic file; print grouped suggestions
+//       with confidence labels (high / medium / low).
 //
 //   node scripts/audit-cross-topic-prereqs.mjs --limit N
 //       Cap the number of suggestions printed (after sorting by source concept).
 //
 //   node scripts/audit-cross-topic-prereqs.mjs --topic <id>
 //       Restrict to one concept file (topic id, e.g. `modular-forms`).
+//
+//   node scripts/audit-cross-topic-prereqs.mjs --min-confidence high|medium|low
+//       Filter by confidence floor (default `low` shows everything).
 //
 // Design notes:
 //   - Concept-title matching reuses the guardrails from audit-inline-links.mjs:
@@ -50,6 +54,8 @@ import {
 const argv = process.argv.slice(2);
 let LIMIT = null;
 let TOPIC_FILTER = null;
+const CONFIDENCE_RANK = { low: 0, medium: 1, high: 2 };
+let MIN_CONFIDENCE = 'low';
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
   if (a === '--limit') {
@@ -65,8 +71,14 @@ for (let i = 0; i < argv.length; i++) {
       console.error('audit-cross-topic-prereqs: --topic requires a topic id');
       process.exit(2);
     }
+  } else if (a === '--min-confidence') {
+    MIN_CONFIDENCE = argv[++i];
+    if (!(MIN_CONFIDENCE in CONFIDENCE_RANK)) {
+      console.error('audit-cross-topic-prereqs: --min-confidence must be one of high|medium|low');
+      process.exit(2);
+    }
   } else if (a === '--help' || a === '-h') {
-    console.log('Usage: node scripts/audit-cross-topic-prereqs.mjs [--limit N] [--topic <id>]');
+    console.log('Usage: node scripts/audit-cross-topic-prereqs.mjs [--limit N] [--topic <id>] [--min-confidence high|medium|low]');
     process.exit(0);
   } else {
     console.error(`audit-cross-topic-prereqs: unknown argument "${a}"`);
@@ -167,7 +179,7 @@ function extractSectionProse(sectionEl) {
 // ─────────────────────────────────────────────────────────────────────────
 // Scan.
 
-const suggestions = []; // { sourceId, sourceTopic, targetId, targetTopic, phrase }
+const suggestions = []; // { sourceId, sourceTopic, targetId, targetTopic, phrase, confidence }
 
 // Known wrong-direction false positives (the phrase match in blurb/prose
 // actually describes the target depending on the source, not vice versa).
@@ -175,6 +187,72 @@ const suggestions = []; // { sourceId, sourceTopic, targetId, targetTopic, phras
 const KNOWN_WRONG_DIRECTION = new Set([
   'gluing-affines|scheme-morphisms', // scheme-morphisms depends on gluing-affines
 ]);
+
+// Known false positives that survive the structural checks but fail on
+// semantic grounds: the matched phrase happens to share surface form with a
+// concept whose actual content is different (e.g. "Liouville's theorem" in
+// dynamics ≠ "Liouville's theorem" in complex analysis), or the term is too
+// generic to indicate a real prereq dependency. Each entry has a one-line
+// rationale; new entries should explain why the surface match is misleading.
+const EXPLICIT_REJECTS = new Map([
+  ['giraud-infty|reflexivity', '"reflexivity" in ∞-cat universal property ≠ Banach reflexivity'],
+  ['sheaf-morphisms-stalks|monoidal-categories', 'monoidal cats mentioned in passing, not as prereq'],
+  ['weil-frobenius-trace|complex-numbers', 'too generic — complex numbers are corpus-foundational'],
+  ['adjoint-hilbert|complex-numbers', 'too generic — Hilbert spaces over C, not a prereq edge'],
+  ['dyn-conservative-dissipative|liouville', "Liouville's theorem in dynamics ≠ Liouville in complex analysis"],
+  ['bump-functions|partition-of-unity', 'reverse: partitions-of-unity are built FROM bump functions'],
+  ['kahler-differentials|partition-of-unity', 'algebraic Kähler ≠ smooth-manifolds Kähler'],
+  ['comparison-topological|analytic-continuation', 'analytic continuation appears as analogy, not prereq'],
+  ['polynomial-rings-irreducibility|gauss-lemma-qr', "Gauss's lemma in poly rings (primitive polys) ≠ Gauss's lemma in QR (Legendre symbols)"],
+  ['reflexivity|canonical-embedding', '"canonical embedding" in Banach (J: V → V**) ≠ canonical embedding of curves'],
+]);
+
+// Phrase-frequency + sentence-context scoring.
+//
+// HIGH:   the matched phrase appears in the source's blurb (concentrated
+//         signal — blurbs are ~150 chars and only name what the concept
+//         actually depends on) OR appears inside a sentence containing a
+//         dependency-defining verb ("uses", "depends on", "via", "based on",
+//         "needs", "requires", "follows from", "by the").
+// MEDIUM: the matched phrase appears at least twice in section prose (more
+//         than a passing reference, but no explicit dependency-defining cue).
+// LOW:    a single mention in section prose with no surrounding cues.
+
+const DEPENDENCY_VERBS = /\b(?:uses?|depends?|via|based\s+on|needs?|relies\s+on|requires?|follows?\s+from|by\s+the\b|using\s+the)\b/i;
+const SENTENCE_BOUNDS = /[.!?]/;
+
+function scoreSuggestion({ blurb, sectionText, phrase }) {
+  const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const phraseRe = new RegExp(`\\b${escaped}\\b`, 'gi');
+  const blurbHits = ((blurb || '').match(phraseRe) || []).length;
+  if (blurbHits > 0) return 'high';
+
+  const sectionHits = ((sectionText || '').match(phraseRe) || []).length;
+  if (sectionHits === 0) return 'low'; // shouldn't happen, but be defensive
+
+  // Look for dependency-defining verbs near the matched phrase. Slice out
+  // the sentence(s) around each match and check for a dependency verb in
+  // that local window.
+  let inDependencyContext = false;
+  const text = sectionText || '';
+  let m;
+  const localPhraseRe = new RegExp(`\\b${escaped}\\b`, 'gi');
+  while ((m = localPhraseRe.exec(text))) {
+    // Take ~120 chars on either side, clamped at sentence boundaries.
+    const start = Math.max(0, m.index - 120);
+    const end = Math.min(text.length, m.index + m[0].length + 120);
+    const window = text.slice(start, end);
+    // Find the nearest sentence boundaries to the match within the window.
+    const local = window.split(SENTENCE_BOUNDS).find((s) => phraseRe.test(s));
+    if (local && DEPENDENCY_VERBS.test(local)) {
+      inDependencyContext = true;
+      break;
+    }
+  }
+  if (inDependencyContext) return 'high';
+  if (sectionHits >= 2) return 'medium';
+  return 'low';
+}
 
 for (const topicId of topicIds) {
   if (TOPIC_FILTER && topicId !== TOPIC_FILTER) continue;
@@ -239,6 +317,14 @@ for (const topicId of topicIds) {
       seenTargets.add(v.id);
 
       if (KNOWN_WRONG_DIRECTION.has(`${conceptId}|${v.id}`)) continue;
+      if (EXPLICIT_REJECTS.has(`${conceptId}|${v.id}`)) continue;
+
+      const confidence = scoreSuggestion({
+        blurb: src.blurb || '',
+        sectionText,
+        phrase: found.phrase,
+      });
+      if (CONFIDENCE_RANK[confidence] < CONFIDENCE_RANK[MIN_CONFIDENCE]) continue;
 
       suggestions.push({
         sourceId: conceptId,
@@ -246,6 +332,7 @@ for (const topicId of topicIds) {
         targetId: v.id,
         targetTopic: v.topic,
         phrase: found.phrase,
+        confidence,
       });
     }
   }
@@ -254,9 +341,11 @@ for (const topicId of topicIds) {
 // ─────────────────────────────────────────────────────────────────────────
 // Report.
 
-// Stable order: group by source topic, then by source concept id, then by
-// target id.
+// Stable order: by confidence (high → medium → low), then by source topic /
+// id / target id within each band.
 suggestions.sort((a, b) => {
+  const cdiff = CONFIDENCE_RANK[b.confidence] - CONFIDENCE_RANK[a.confidence];
+  if (cdiff !== 0) return cdiff;
   if (a.sourceTopic !== b.sourceTopic) return a.sourceTopic.localeCompare(b.sourceTopic);
   if (a.sourceId !== b.sourceId) return a.sourceId.localeCompare(b.sourceId);
   return a.targetId.localeCompare(b.targetId);
@@ -264,27 +353,36 @@ suggestions.sort((a, b) => {
 
 const shown = LIMIT ? suggestions.slice(0, LIMIT) : suggestions;
 
-// Group for pretty printing.
-const bySource = new Map();
-for (const s of shown) {
-  if (!bySource.has(s.sourceId)) bySource.set(s.sourceId, []);
-  bySource.get(s.sourceId).push(s);
-}
+// Group for pretty printing: confidence-band header, then source concepts.
+const buckets = { high: [], medium: [], low: [] };
+for (const s of shown) buckets[s.confidence].push(s);
 
-for (const [sourceId, list] of bySource) {
-  const src = concepts.get(sourceId);
-  const srcTopic = src ? src.topic : '?';
-  console.log(`${sourceId} (${srcTopic})`);
-  for (const s of list) {
-    console.log(
-      `  → suggested prereq: ${s.targetId} (${s.targetTopic}) — matched phrase "${s.phrase}"`
-    );
+for (const tier of ['high', 'medium', 'low']) {
+  const tierList = buckets[tier];
+  if (tierList.length === 0) continue;
+  console.log(`── ${tier} confidence (${tierList.length}) ──────────────────────`);
+  const bySource = new Map();
+  for (const s of tierList) {
+    if (!bySource.has(s.sourceId)) bySource.set(s.sourceId, []);
+    bySource.get(s.sourceId).push(s);
   }
+  for (const [sourceId, list] of bySource) {
+    const src = concepts.get(sourceId);
+    const srcTopic = src ? src.topic : '?';
+    console.log(`${sourceId} (${srcTopic})`);
+    for (const s of list) {
+      console.log(
+        `  → suggested prereq: ${s.targetId} (${s.targetTopic}) — matched phrase "${s.phrase}"`
+      );
+    }
+  }
+  console.log('');
 }
 
-console.log('');
+const counts = `high: ${buckets.high.length}, medium: ${buckets.medium.length}, low: ${buckets.low.length}`;
 console.log(
-  `audit-cross-topic-prereqs: ${suggestions.length} suggestion(s) across ${bySource.size} source concept(s)` +
+  `audit-cross-topic-prereqs: ${suggestions.length} suggestion(s) (${counts})` +
+    (MIN_CONFIDENCE !== 'low' ? ` [min-confidence ${MIN_CONFIDENCE}]` : '') +
     (LIMIT && suggestions.length > shown.length
       ? ` (showing first ${shown.length})`
       : '')

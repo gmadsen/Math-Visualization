@@ -49,7 +49,8 @@
       "anchor": "ncg",
       "prereqs": [
         "cstar-basics",
-        "gelfand-duality-oa"
+        "gelfand-duality-oa",
+        "projective-modules"
       ],
       "blurb": "Noncommutative $C^*$-algebras model noncommutative spaces: points become pure states, measures become states, bundles become projective modules. The irrational rotation algebra $A_\\theta$ is the canonical tutorial."
     },

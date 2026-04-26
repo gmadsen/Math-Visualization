@@ -1395,7 +1395,12 @@ function mod(a,n){return ((a%n)+n)%n}
 <p>Every scheme is a locally ringed space: on $\operatorname{Spec}R$ the stalk at the prime $\mathfrak p$ is the localization $R_{\mathfrak p}$, which is local by construction, with maximal ideal $\mathfrak p R_{\mathfrak p}$. Conversely, a <strong>scheme</strong> is defined as a locally ringed space that is locally isomorphic to $\operatorname{Spec}$ of a ring — this is the invariant definition that doesn't depend on a choice of open cover.</p>
 <p>The "locally ringed" part is doing real work. A morphism of ringed spaces $f\colon (X,\mathcal O_X)\to (Y,\mathcal O_Y)$ is a continuous map plus a pullback $f^\sharp\colon \mathcal O_Y \to f_*\mathcal O_X$. A morphism of <em>locally ringed</em> spaces also requires that the induced map on stalks $\mathcal O_{Y,f(x)}\to \mathcal O_{X,x}$ is <em>local</em>: it sends the maximal ideal into the maximal ideal. Without that condition, maps between schemes would not correspond to ring homomorphisms; with it, $\operatorname{Spec}$ becomes a fully faithful contravariant functor from commutative rings to locally ringed spaces.</p>
 <p>In short: "sheaf of rings whose stalks detect a unique point of vanishing" is precisely the structure needed to glue $\operatorname{Spec}$'s into a category of honest geometric objects.</p>
-<div class="quiz" data-concept="locally-ringed-space"></div>
+<div class="quiz" data-concept="locally-ringed-space"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaves.html#omod">Sheaves</a> · Ringed spaces and $\mathcal{O}_X$-modules</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="projective-scheme">

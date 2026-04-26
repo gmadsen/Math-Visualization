@@ -26,7 +26,8 @@
       "title": "Legendre three-square theorem",
       "anchor": "three",
       "prereqs": [
-        "gaussian-integer-splitting"
+        "gaussian-integer-splitting",
+        "genus-theory"
       ],
       "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
     },

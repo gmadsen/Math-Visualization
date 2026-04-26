@@ -39,7 +39,8 @@
       "anchor": "geometric-morphisms-infty",
       "prereqs": [
         "infty-topos-definition",
-        "infty-adjunctions"
+        "infty-adjunctions",
+        "geometric-morphisms-intro"
       ],
       "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers."
     },

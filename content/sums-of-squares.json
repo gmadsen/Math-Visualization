@@ -403,6 +403,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./quadratic-forms-genus-theory.html#genus-theory\">Genus theory</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./sums-of-squares.html#four\">Sums of squares</a> · Four squares and Waring perspective</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

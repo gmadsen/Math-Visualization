@@ -30,7 +30,8 @@
       "prereqs": [
         "hasse-bound-angle",
         "chebotarev-density",
-        "equidistribution-weyl"
+        "equidistribution-weyl",
+        "legendre-symbol"
       ],
       "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
     },

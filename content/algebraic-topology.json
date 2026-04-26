@@ -12,7 +12,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-continuation.html#mono\">Analytic continuation</a> · Monodromy theorem</div>\n    <div><a href=\"./complex-analysis.html#contour\">Complex Analysis</a> · Cauchy's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-continuation.html#mono\">Analytic continuation</a> · Monodromy theorem</div>\n    <div><a href=\"./complex-analysis.html#contour\">Complex Analysis</a> · Cauchy's theorem</div>\n    <div><a href=\"./complex-analysis.html#coda\">Complex Analysis</a> · Harmonic functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

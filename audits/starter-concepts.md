@@ -12,12 +12,12 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 5 | 5 | 0 | 5 | 0.000 |
-| Algebra | 114 | 173 | 14 | 31 | 0.123 |
-| Analysis | 101 | 143 | 12 | 19 | 0.119 |
-| Geometry & topology | 49 | 58 | 6 | 42 | 0.122 |
-| Number theory | 57 | 70 | 15 | 14 | 0.263 |
-| Modular forms & L-functions | 71 | 92 | 39 | 5 | 0.549 |
-| Algebraic geometry | 109 | 136 | 42 | 12 | 0.385 |
+| Algebra | 114 | 174 | 14 | 32 | 0.123 |
+| Analysis | 101 | 144 | 14 | 19 | 0.139 |
+| Geometry & topology | 49 | 58 | 6 | 43 | 0.122 |
+| Number theory | 57 | 71 | 15 | 15 | 0.263 |
+| Modular forms & L-functions | 71 | 92 | 40 | 5 | 0.563 |
+| Algebraic geometry | 109 | 137 | 42 | 12 | 0.385 |
 
 ## EMPTY — concepts with no prereqs (0)
 

@@ -1226,7 +1226,8 @@ window.__MVConcepts = {
           "anchor": "geometric-morphisms-infty",
           "prereqs": [
             "infty-topos-definition",
-            "infty-adjunctions"
+            "infty-adjunctions",
+            "geometric-morphisms-intro"
           ],
           "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers."
         },
@@ -1906,7 +1907,8 @@ window.__MVConcepts = {
           "title": "Harmonic functions",
           "anchor": "coda",
           "prereqs": [
-            "cauchy-riemann"
+            "cauchy-riemann",
+            "simply-connected"
           ],
           "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
         },
@@ -2039,7 +2041,8 @@ window.__MVConcepts = {
           "anchor": "distributions",
           "prereqs": [
             "banach-hilbert-spaces",
-            "uniform-convergence"
+            "uniform-convergence",
+            "real-differentiation"
           ],
           "blurb": "The dual of Cc^∞ is the space of distributions — delta, principal value, tempered — extending differentiation and Fourier analysis beyond functions."
         }
@@ -2096,7 +2099,8 @@ window.__MVConcepts = {
           "anchor": "ncg",
           "prereqs": [
             "cstar-basics",
-            "gelfand-duality-oa"
+            "gelfand-duality-oa",
+            "projective-modules"
           ],
           "blurb": "Noncommutative $C^*$-algebras model noncommutative spaces: points become pure states, measures become states, bundles become projective modules. The irrational rotation algebra $A_\\theta$ is the canonical tutorial."
         },
@@ -3141,7 +3145,8 @@ window.__MVConcepts = {
           "title": "Legendre three-square theorem",
           "anchor": "three",
           "prereqs": [
-            "gaussian-integer-splitting"
+            "gaussian-integer-splitting",
+            "genus-theory"
           ],
           "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
         },
@@ -4440,7 +4445,8 @@ window.__MVConcepts = {
           "anchor": "omod",
           "prereqs": [
             "sheaf-morphisms-stalks",
-            "structure-sheaf-schemes"
+            "structure-sheaf-schemes",
+            "locally-ringed-space"
           ],
           "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise."
         },
@@ -5331,7 +5337,8 @@ window.__MVConcepts = {
           "prereqs": [
             "hasse-bound-angle",
             "chebotarev-density",
-            "equidistribution-weyl"
+            "equidistribution-weyl",
+            "legendre-symbol"
           ],
           "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
         },
@@ -5924,42 +5931,42 @@ window.__MVConcepts = {
     },
     "Algebra": {
       "concepts": 114,
-      "intra": 173,
+      "intra": 174,
       "crossOut": 14,
-      "crossIn": 31,
+      "crossIn": 32,
       "density": 0.12280701754385964
     },
     "Analysis": {
       "concepts": 101,
-      "intra": 143,
-      "crossOut": 12,
+      "intra": 144,
+      "crossOut": 14,
       "crossIn": 19,
-      "density": 0.1188118811881188
+      "density": 0.13861386138613863
     },
     "Geometry & topology": {
       "concepts": 49,
       "intra": 58,
       "crossOut": 6,
-      "crossIn": 42,
+      "crossIn": 43,
       "density": 0.12244897959183673
     },
     "Number theory": {
       "concepts": 57,
-      "intra": 70,
+      "intra": 71,
       "crossOut": 15,
-      "crossIn": 14,
+      "crossIn": 15,
       "density": 0.2631578947368421
     },
     "Modular forms & L-functions": {
       "concepts": 71,
       "intra": 92,
-      "crossOut": 39,
+      "crossOut": 40,
       "crossIn": 5,
-      "density": 0.5492957746478874
+      "density": 0.5633802816901409
     },
     "Algebraic geometry": {
       "concepts": 109,
-      "intra": 136,
+      "intra": 137,
       "crossOut": 42,
       "crossIn": 12,
       "density": 0.3853211009174312
