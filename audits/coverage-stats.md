@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **73**, concepts: **506**
-- Widgets: **563** (registry-driven: 445, inline: 118)
+- Widgets: **563** (registry-driven: 453, inline: 110)
 - Quizzes: **2694** (v1: 1458, hard: 1223, expert: 13)
 - Quiz types: mcq: 1654, numeric: 853, multi-select: 69, matching: 29, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
@@ -26,15 +26,23 @@ page has wired one in yet.
 | `parametric-plot` | parametric-plot | slider | 2d | 5 | analytic-continuation |
 | `input-form` | input-form | input | 2d | 4 | sums-of-squares |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | category-theory, power-sums-bernoulli |
+| `class-field-theory-reciprocity-dictionary` | svg-illustration | read | 2d | 1 | class-field-theory |
 | `composition-explorer` | clickable-diagram | click | 2d | 1 | category-theory |
 | `constraint-bifurcation-explorer` | constraint-bifurcation-explorer | slider | 2d | 1 | real-analysis |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 1 | point-set-topology |
+| `galois-quintic-unsolvability` | proof-scrubber | scrub | 2d | 1 | galois |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 1 | p-adic-numbers |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 1 | modular-forms |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 1 | quadratic-reciprocity |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 1 | algebraic-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
+| `simplicial-sets-delta-generators` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
+| `simplicial-sets-faces-degeneracies` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
+| `simplicial-sets-horns-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
+| `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
+| `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
+| `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
 
 ## Per-subject
 
@@ -51,10 +59,10 @@ page has wired one in yet.
 ### Algebra
 
 - Topics: **13**, concepts: **114**
-- Widgets: **122** (registry-driven: 53, inline: 69)
-  - by family: unknown: 69, button-stepper: 38, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
-  - by dimension: unknown: 69, 2d: 53
-  - by gesture: unknown: 69, click: 51, slider+click: 1, interactive: 1
+- Widgets: **122** (registry-driven: 59, inline: 63)
+  - by family: unknown: 63, button-stepper: 41, clickable-diagram: 16, naturality-square: 1, declarative-host: 1
+  - by dimension: unknown: 63, 2d: 59
+  - by gesture: unknown: 63, click: 55, step: 2, slider+click: 1, interactive: 1
 - Quizzes: **577** (v1: 343, hard: 234, expert: 0)
   - by type: mcq: 368, numeric: 144, multi-select: 39, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
 
@@ -81,10 +89,10 @@ page has wired one in yet.
 ### Number theory
 
 - Topics: **11**, concepts: **57**
-- Widgets: **73** (registry-driven: 71, inline: 2)
-  - by family: button-stepper: 58, clickable-diagram: 4, input-form: 4, unknown: 2, declarative-host: 2, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1
-  - by dimension: 2d: 71, unknown: 2
-  - by gesture: click: 63, input: 4, unknown: 2, interactive: 2, slider: 1, edit: 1
+- Widgets: **73** (registry-driven: 73, inline: 0)
+  - by family: button-stepper: 58, clickable-diagram: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
+  - by dimension: 2d: 73
+  - by gesture: click: 63, input: 4, interactive: 2, scrub: 1, slider: 1, edit: 1, read: 1
 - Quizzes: **340** (v1: 172, hard: 168, expert: 0)
   - by type: mcq: 220, numeric: 116, complex: 3, guess-my-rule: 1
 
@@ -119,7 +127,7 @@ page has wired one in yet.
 - `elementary-topos-theory` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
 - `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
-- `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=6 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
+- `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
 - `infinity-categories` (Algebra) — concepts=6, widgets=7 (slug=0), quiz=24 (v1=18, hard=6, expert=0)
 - `infinity-topoi` (Algebra) — concepts=7, widgets=9 (slug=0), quiz=29 (v1=21, hard=8, expert=0)
 - `derived-categories` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=27 (v1=21, hard=6, expert=0)
@@ -139,7 +147,7 @@ page has wired one in yet.
 - `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `galois` (Number theory) — concepts=5, widgets=6 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
+- `galois` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `sums-of-squares` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
@@ -149,7 +157,7 @@ page has wired one in yet.
 - `p-adic-numbers` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
+- `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)

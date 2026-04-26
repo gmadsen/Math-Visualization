@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/class-field-theory-reciprocity-dictionary/schema.json",
+  "title": "class-field-theory-reciprocity-dictionary widget params",
+  "description": "Bespoke static-grid display used in class-field-theory.html (#beyond) — a two-column dictionary mapping the arithmetic side (Galois extensions / representations) to the analytic / automorphic side (Hecke characters / automorphic forms) for both the abelian (CFT) and non-abelian (Langlands) cases. No driving script — the whole widget is a static figure, and the inner table cells include KaTeX inline math and small footnote text. Carried via a bodyMarkup ARTIFACT to preserve the exact byte layout (table rows, color highlights, footnote span) without re-implementing a generic dictionary renderer.",
+  "meta": {
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "read",
+    "role": "reference"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "bodyMarkup"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "ARTIFACT. Verbatim inner HTML for the widget body — the .hd header, the .dict grid (entries paired left/right), and the trailing .small footnote. Preserved byte-for-byte so the round-trip gate passes."
+    }
+  }
+}

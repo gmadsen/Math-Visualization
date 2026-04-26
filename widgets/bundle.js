@@ -23,6 +23,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "class-field-theory-reciprocity-dictionary",
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "read",
+    "role": "reference",
+    "title": "class-field-theory-reciprocity-dictionary widget params",
+    "description": "Bespoke static-grid display used in class-field-theory.html (#beyond) — a two-column dictionary mapping the arithmetic side (Galois extensions / representations) to the analytic / automorphic side (Hecke characters / automorphic forms) for both the abelian (CFT) and non-abelian (Langlands) cases. No driving script — the whole widget is a static figure, and the inner table cells include KaTeX inline math and small footnote text. Carried via a bodyMarkup ARTIFACT to preserve the exact byte layout (table rows, color highlights, footnote span) without re-implementing a generic dictionary renderer.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup"
+    ],
+    "readmeExcerpt": "Bespoke static-grid display used in `class-field-theory.html` §9 (`#beyond`) — a two-column \"reciprocity dictionary\" pairing the arithmetic side (Galois extensions / representations) with the analytic / automorphic side (Hecke characters / automorphic forms) for both the abelian (CFT) and non-abelian (Langlands) cases.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "clickable-diagram",
     "family": "clickable-diagram",
     "dimension": "2d",
@@ -286,6 +304,24 @@ window.__MVWidgets = [
       "config"
     ],
     "readmeExcerpt": "Shared renderer for widgets that ship as an **empty host div** (`<div class=\"widget\" id=\"…\"></div>`) plus a self-contained `<script>` that calls a page-global library's `init(selector, config)` method. The library does everything — header, SVG/DOM construction, event wiring, KaTeX pass. The widget contributes no per-widget script body beyond that single init call, so the `config` object is the entire declarative surface.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "galois-quintic-unsolvability",
+    "family": "proof-scrubber",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "exploratory",
+    "title": "galois-quintic-unsolvability widget params",
+    "description": "Bespoke proof-scrubber-style walkthrough of the unsolvability argument for the general quintic, used in galois.html (#quintic). The widget mounts an empty host div and lets the page-global MVProofScrubber library build chrome (slider, play/pause, step chips, readout, SVG diagram) at init time. Steps render the subgroup-chain S_5 - A_5 - {e} with per-step highlights using closures over a shared drawFrame helper, so the script body is irreducibly idiosyncratic and is carried verbatim as the bodyScript ARTIFACT.",
+    "requiredParams": [
+      "widgetId",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke proof-scrubber walkthrough used in `galois.html` §6 (`#quintic`). The widget mounts an empty host div, then the page-global `MVProofScrubber` library builds the slider / play / SVG diagram / readout chrome at runtime. Each of the seven proof steps is rendered by a closure over a shared `drawFrame(svg, opts)` helper; the closures emit live SVG nodes via a scoped `S(tag, attrs)` factory rather than dropping in static SVG-fragment strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -575,6 +611,120 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-logistic-map-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVRecurrencePlotter) return;\n  MVRecurrencePlotter.init('#w-logistic-map-example', {\n    kind: \"logistic\",\n    title: \"Logistic map: x_{n+1} = r·x_n·(1 − x_n)\",\n    hint: \"drag r through the period-doubling cascade · cobweb on left · trajectory on right\",\n    viewBox: \"0 0 480 220\",\n    params: {\"r\":3.5,\"x0\":0.4,\"n\":80},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "simplicial-sets-delta-generators",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-sets-delta-generators widget params",
+    "description": "Bespoke clickable diagram for §1 of simplicial-sets-and-nerve.html (#simplex-category) — four columns of vertices labelled [0],[1],[2],[3] with cofaces (blue) and codegeneracies (green) drawn as labelled arrows between adjacent columns. Clicking an arrow highlights it yellow and explains its action on vertices. The script body is irreducibly idiosyncratic (column/vertex/arrow tables, hit-rect overlays, KaTeX-free explanation strings) so it is carried verbatim as the bodyScript ARTIFACT alongside the bodyMarkup ARTIFACT for the widget body (header + svg + reset row + readout).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Clickable diagram of cofaces dⁱ (inject, miss i) and codegeneracies sⁱ (surject, double i) between four columns [0],[1],[2],[3]. Used in §1 of simplicial-sets-and-nerve.html.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-sets-faces-degeneracies",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-sets-faces-degeneracies widget params",
+    "description": "Bespoke clickable diagram for §2 of simplicial-sets-and-nerve.html (#simplicial-set) — the standard 2-simplex Δ² drawn as a triangle with three vertices, three edges, and an interior 2-simplex. Clicking any face produces an explanation of its faces and degeneracies. The script body is irreducibly idiosyncratic so it is carried verbatim as the bodyScript ARTIFACT alongside the bodyMarkup ARTIFACT for the widget body (header + svg + readout).",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Clickable Δ² diagram showing faces and degeneracies of vertices, edges, and the unique non-degenerate 2-simplex. Used in §2 of simplicial-sets-and-nerve.html.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-sets-horns-stepper",
+    "family": "button-stepper",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "simplicial-sets-horns-stepper widget params",
+    "description": "Bespoke 3-step button-stepper for §5 of simplicial-sets-and-nerve.html (#kan-complex) — cycles through the three horns Λ²_0, Λ²_1, Λ²_2 of the 2-simplex showing which two edges each horn contains and what filler data the missing edge demands. Each step has a curated draw closure (arrow + missing-edge label + caption), so the script body is carried verbatim as bodyScript ARTIFACT.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Prev/next walkthrough of the three horns of Δ² and what each one extends to. Used in §5 of simplicial-sets-and-nerve.html.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-sets-inner-horn-filler",
+    "family": "button-stepper",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-sets-inner-horn-filler widget params",
+    "description": "Bespoke fill-the-horn animation for §6 of simplicial-sets-and-nerve.html (#horn-filling) — clicking \"fill\" inserts the missing edge h = g∘f and shades the 2-simplex green, illustrating that inner horns Λ²₁ have unique fillers in any 1-category. Script body is irreducibly idiosyncratic so it is carried verbatim as bodyScript ARTIFACT.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Click-to-fill animation for the inner horn Λ²₁ in N(C). Used in §6 of simplicial-sets-and-nerve.html.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-sets-nerve-2simplex",
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-sets-nerve-2simplex widget params",
+    "description": "Bespoke clickable diagram for §4 of simplicial-sets-and-nerve.html (#nerve-of-category) — three objects A,B,C with three labelled arrows f,g,h=g∘f. Clicking arrows lets the reader form composable pairs and see the resulting 2-simplex of N(C) shaded into the triangle. Script body is irreducibly idiosyncratic so it is carried verbatim as bodyScript ARTIFACT.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Clickable 3-object category showing how composable pairs assemble 2-simplices in N(C). Used in §4 of simplicial-sets-and-nerve.html.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-sets-realization-stepper",
+    "family": "button-stepper",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "simplicial-sets-realization-stepper widget params",
+    "description": "Bespoke 5-step button-stepper used in §3 of simplicial-sets-and-nerve.html (#geometric-realization) — walks through the construction of |Δ²| (and |∂Δ²|) starting from the disjoint coproduct of cells, gluing along face maps, attaching the 2-cell, and noting that degenerate simplices contribute nothing new. Each step has a curated draw closure rather than a static SVG fragment, so the script body is carried verbatim as the bodyScript ARTIFACT.",
+    "requiredParams": [
+      "widgetId",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Five-step prev/next walkthrough of the geometric realization |Δ²|. Used in §3 of simplicial-sets-and-nerve.html.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   },
   {
     "slug": "surface-viewer",
