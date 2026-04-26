@@ -68,7 +68,8 @@
       "anchor": "d-coh",
       "prereqs": [
         "derived-category",
-        "derived-functors-triangulated"
+        "derived-functors-triangulated",
+        "sheafification-and-qcoh"
       ],
       "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels."
     }

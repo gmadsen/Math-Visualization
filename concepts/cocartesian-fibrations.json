@@ -66,7 +66,8 @@
       "anchor": "examples",
       "prereqs": [
         "cocartesian-fibration",
-        "grothendieck-construction"
+        "grothendieck-construction",
+        "quasi-category"
       ],
       "blurb": "The source map $\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ of the arrow $\\infty$-category is a cocartesian fibration whose fibers are slice categories. The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ is a cocartesian fibration whose transport is base change. The classifying space $BG$-fibration over a point recovers a $G$-action on its fiber."
     }

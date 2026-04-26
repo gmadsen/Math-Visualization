@@ -17,7 +17,8 @@
       "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
       "anchor": "examples-Ga-Gm",
       "prereqs": [
-        "group-scheme-definition"
+        "group-scheme-definition",
+        "spectrum-primes"
       ],
       "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
     },

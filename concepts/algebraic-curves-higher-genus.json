@@ -27,7 +27,8 @@
       "title": "Riemann–Roch on curves",
       "anchor": "riemann-roch",
       "prereqs": [
-        "divisors-on-curves"
+        "divisors-on-curves",
+        "riemann-roch"
       ],
       "blurb": "For a divisor $D$ on a smooth projective curve of genus $g$, $h^0(D) - h^0(K - D) = \\deg D - g + 1$, where $K$ is the canonical divisor. Riemann–Roch is the curve-level explanation of why genus controls the dimension of linear systems."
     },
@@ -46,7 +47,8 @@
       "title": "Hyperelliptic curves",
       "anchor": "hyperelliptic",
       "prereqs": [
-        "riemann-roch-curves"
+        "riemann-roch-curves",
+        "branched-covers-rs"
       ],
       "blurb": "A curve of genus $g \\ge 2$ is hyperelliptic if it admits a degree-2 map to $\\mathbb{P}^1$. Equivalently, $|K|$ does not separate points. Hyperelliptic curves form a codimension-$(g-2)$ locus in $\\mathcal{M}_g$ — most curves of genus $\\ge 3$ are not hyperelliptic."
     },

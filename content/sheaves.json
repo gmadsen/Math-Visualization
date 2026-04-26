@@ -652,6 +652,10 @@
           "html": "\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#localize\">Localization and local algebra</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./derived-categories.html#d-coh\">Derived categories</a> · $D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "sheafification-and-qcoh",
           "html": "<div class=\"quiz\" data-concept=\"sheafification-and-qcoh\"></div>"

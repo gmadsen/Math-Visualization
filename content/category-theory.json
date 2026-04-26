@@ -129,7 +129,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#nat\">Category theory</a> · Functors and natural transformations</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#sieves\">Grothendieck topologies and sites</a> · Sieves</div>\n    <div><a href=\"./homological.html#abelian\">Homological algebra</a> · Abelian categories and triangulated preview</div>\n    <div><a href=\"./sheaves.html#presheaves\">Sheaves</a> · Presheaves on Open(X)</div>\n    <div><a href=\"./simplicial-sets-and-nerve.html#simplex-category\">Simplicial sets and the nerve</a> · The simplex category $\\Delta$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#nat\">Category theory</a> · Functors and natural transformations</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#sieves\">Grothendieck topologies and sites</a> · Sieves</div>\n    <div><a href=\"./homological.html#abelian\">Homological algebra</a> · Abelian categories and triangulated preview</div>\n    <div><a href=\"./sheaves.html#presheaves\">Sheaves</a> · Presheaves on Open(X)</div>\n    <div><a href=\"./simplicial-sets-and-nerve.html#nerve-of-category\">Simplicial sets and the nerve</a> · The nerve $N(C)$ of a category</div>\n    <div><a href=\"./simplicial-sets-and-nerve.html#simplex-category\">Simplicial sets and the nerve</a> · The simplex category $\\Delta$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -442,7 +442,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#twocat\">Category theory</a> · 2-categories preview</div>\n    <div><a href=\"./category-theory.html#lim-deep\">Category theory</a> · Limits and colimits</div>\n    <div><a href=\"./category-theory.html#mon\">Category theory</a> · Monoidal categories</div>\n    <div><a href=\"./category-theory.html#yoneda-deep\">Category theory</a> · The Yoneda lemma</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./elementary-topos-theory.html#presheaf-topos\">Elementary topos theory</a> · Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#twocat\">Category theory</a> · 2-categories preview</div>\n    <div><a href=\"./category-theory.html#lim-deep\">Category theory</a> · Limits and colimits</div>\n    <div><a href=\"./category-theory.html#mon\">Category theory</a> · Monoidal categories</div>\n    <div><a href=\"./category-theory.html#yoneda-deep\">Category theory</a> · The Yoneda lemma</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./elementary-topos-theory.html#presheaf-topos\">Elementary topos theory</a> · Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -2025,7 +2025,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./elementary-topos-theory.html#definition\">Elementary topos theory</a> · What is a topos?</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./elementary-topos-theory.html#definition\">Elementary topos theory</a> · What is a topos?</div>\n    <div><a href=\"./infinity-categories.html#infty-limits\">$\\infty$-categories (quasi-categories)</a> · $\\infty$-categorical (co)limits</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -2118,7 +2118,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./category-theory.html#mon-ad\">Category theory</a> · Monads and their algebras</div>\n    <div><a href=\"./elementary-topos-theory.html#geometric-morphisms\">Elementary topos theory</a> · Geometric morphisms</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#kan\">Category theory</a> · Kan extensions</div>\n    <div><a href=\"./category-theory.html#mon-ad\">Category theory</a> · Monads and their algebras</div>\n    <div><a href=\"./elementary-topos-theory.html#geometric-morphisms\">Elementary topos theory</a> · Geometric morphisms</div>\n    <div><a href=\"./infinity-categories.html#infty-adjunctions\">$\\infty$-categories (quasi-categories)</a> · Adjunctions $\\infty$-categorically</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -2288,6 +2288,10 @@
           "type": "quiz",
           "concept": "kan-extensions",
           "html": "<div class=\"quiz\" data-concept=\"kan-extensions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./infinity-categories.html#kan-extension\">$\\infty$-categories (quasi-categories)</a> · $\\infty$-categorical Kan extensions</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

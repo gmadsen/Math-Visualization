@@ -168,7 +168,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./riemann-surfaces.html#rh\">Riemann surfaces</a> · Genus as the universal invariant</div>\n    <div><a href=\"./riemann-surfaces.html#uniform\">Riemann surfaces</a> · Riemann–Hurwitz and uniformization</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#hyperelliptic\">Algebraic curves: higher genus</a> · Hyperelliptic curves</div>\n    <div><a href=\"./riemann-surfaces.html#rh\">Riemann surfaces</a> · Genus as the universal invariant</div>\n    <div><a href=\"./riemann-surfaces.html#uniform\">Riemann surfaces</a> · Riemann–Hurwitz and uniformization</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -383,7 +383,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./moduli-spaces.html#higher\">Moduli spaces</a> · Higher-genus moduli and stable curves</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#riemann-roch\">Algebraic curves: higher genus</a> · Riemann–Roch on curves</div>\n    <div><a href=\"./intersection-theory-chow.html#riemann-roch-preview\">Intersection theory and Chow groups</a> · Grothendieck–Riemann–Roch (preview)</div>\n    <div><a href=\"./moduli-spaces.html#higher\">Moduli spaces</a> · Higher-genus moduli and stable curves</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

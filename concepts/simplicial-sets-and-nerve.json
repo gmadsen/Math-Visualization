@@ -34,7 +34,8 @@
       "title": "The nerve $N(C)$ of a category",
       "anchor": "nerve-of-category",
       "prereqs": [
-        "simplicial-set"
+        "simplicial-set",
+        "categories-morphisms"
       ],
       "blurb": "The nerve $N(C)_n$ is the set of length-$n$ composable strings of arrows in $C$. The face maps compose adjacent arrows; the degeneracies insert identities. The nerve is the bridge between category theory and homotopy theory."
     },

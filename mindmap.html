@@ -67,6 +67,7 @@
   .edge{stroke:var(--line);stroke-width:.7;fill:none;opacity:.55;pointer-events:none}
   .edge.cross{stroke:var(--mute);stroke-width:.9;opacity:.65}
   .edge.dim{opacity:.07}
+  .edge.near{stroke:var(--cyan);stroke-width:1.0;opacity:.55}
   .edge.focus{stroke:var(--yellow);stroke-width:1.4;opacity:.95}
   .edge.focus.in{stroke:var(--blue)}
   .edge.focus.out{stroke:var(--pink)}
@@ -699,13 +700,27 @@
   depthSlider.addEventListener('input', onDepthChange);
   depthSlider.addEventListener('change', onDepthChange);
 
-  function bfsHops(startIdx, adj, k){
+  // Undirected k-hop BFS: walks the graph treating prereq direction as
+  // bidirectional. The previous version did two independent directed walks
+  // (inAdj-only and outAdj-only) and unioned the keep sets, which made
+  // "depth implies connection" technically true (focus is an articulation
+  // point) but visually wrong: kept nodes from the upstream half had no
+  // rendered edges to kept nodes from the downstream half, so the
+  // neighborhood appeared as discontinuous dust at depth 3+.
+  //
+  // Undirected expansion gives a single connected component whose every
+  // visible edge can be traced back to focus through the kept set.
+  function bfsUndirected(startIdx, k){
     const hop = new Map(); hop.set(startIdx, 0);
     let frontier = [startIdx];
     for(let d = 1; d <= k; d++){
       const next = [];
       for(const u of frontier){
-        for(const v of adj[u]){
+        for(const v of inAdj[u]){
+          if(hop.has(v)) continue;
+          hop.set(v, d); next.push(v);
+        }
+        for(const v of outAdj[u]){
           if(hop.has(v)) continue;
           hop.set(v, d); next.push(v);
         }
@@ -717,9 +732,8 @@
   }
 
   function applyFocus(){
-    const ins = bfsHops(focusIdx, inAdj, focusDepth);
-    const outs = bfsHops(focusIdx, outAdj, focusDepth);
-    const keep = new Set([...ins.keys(), ...outs.keys()]);
+    const reachable = bfsUndirected(focusIdx, focusDepth);
+    const keep = reachable; // Set-like via Map.has
 
     nodes.forEach((n, i) => {
       const el = nodeEls[i];
@@ -729,16 +743,17 @@
     });
     edges.forEach((e, i) => {
       const ln = edgeEls[i];
-      ln.classList.remove('focus','in','out','dim');
-      const inIn = ins.has(e.from) && ins.has(e.to);
-      const inOut = outs.has(e.from) && outs.has(e.to);
-      if(e.to === focusIdx && ins.has(e.from)){
+      ln.classList.remove('focus','in','out','dim','near');
+      const fromKept = keep.has(e.from);
+      const toKept = keep.has(e.to);
+      if(e.to === focusIdx && fromKept){
         ln.classList.add('focus','in');
-      } else if(e.from === focusIdx && outs.has(e.to)){
+      } else if(e.from === focusIdx && toKept){
         ln.classList.add('focus','out');
-      } else if(inIn || inOut){
-        // both endpoints in the kept set, but not direct neighbors of focus
-        // — keep them visible (no dim) but no special tint.
+      } else if(fromKept && toKept){
+        // Internal neighborhood edge — visible at moderate strength so the
+        // depth-N reach renders as a connected region, not a dust cloud.
+        ln.classList.add('near');
       } else {
         ln.classList.add('dim');
       }

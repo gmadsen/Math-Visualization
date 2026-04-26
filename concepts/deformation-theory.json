@@ -58,7 +58,8 @@
       "anchor": "deformation-of-a-curve",
       "prereqs": [
         "tangent-space-of-moduli",
-        "obstructions-H2"
+        "obstructions-H2",
+        "riemann-roch-curves"
       ],
       "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
     }
