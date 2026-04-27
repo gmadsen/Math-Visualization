@@ -5,6 +5,13 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "naive-set-theory",
+      "first-order-logic-and-completeness",
+      "zfc-and-ordinals",
+      "model-theory-basics",
+      "computability-and-decidability",
+      "complexity-theory",
+      "type-theory-and-hott",
+      "forcing-and-independence",
       "algebra",
       "category-theory",
       "representation-theory",
@@ -12,6 +19,8 @@ window.__MVConcepts = {
       "homological",
       "derived-categories",
       "group-cohomology",
+      "lie-algebras",
+      "galois-cohomology-and-brauer",
       "elementary-topos-theory",
       "heyting-algebras-toposes",
       "grothendieck-topologies-sites",
@@ -27,7 +36,15 @@ window.__MVConcepts = {
       "dynamical-systems",
       "sobolev-spaces-distributions",
       "harmonic-analysis-fourier",
+      "partial-differential-equations",
+      "harmonic-functions",
+      "spectral-theory",
       "probability-theory",
+      "stochastic-processes-and-martingales",
+      "stochastic-calculus",
+      "random-walks-and-mixing",
+      "information-theory",
+      "large-deviations",
       "point-set-topology",
       "algebraic-topology",
       "smooth-manifolds",
@@ -36,6 +53,8 @@ window.__MVConcepts = {
       "riemannian-geometry",
       "lie-groups",
       "riemann-surfaces",
+      "characteristic-classes",
+      "morse-theory",
       "galois",
       "quadratic-reciprocity",
       "quadratic-forms-genus-theory",
@@ -48,6 +67,7 @@ window.__MVConcepts = {
       "frobenius-and-reciprocity",
       "class-field-theory",
       "heights-arithmetic-geometry",
+      "analytic-number-theory",
       "upper-half-plane-hyperbolic",
       "modular-forms",
       "theta-functions",
@@ -60,6 +80,7 @@ window.__MVConcepts = {
       "galois-representations",
       "moonshine",
       "automorphic-forms-adelic",
+      "modular-curves",
       "projective-plane",
       "bezout",
       "schemes",
@@ -83,6 +104,7 @@ window.__MVConcepts = {
       "probabilistic-method",
       "extremal-combinatorics",
       "simplicial-complexes-combinatorial",
+      "enumerative-combinatorics",
       "sato-tate",
       "bsd",
       "modularity-and-flt",
@@ -190,7 +212,29 @@ window.__MVConcepts = {
       "sato-tate": "capstone",
       "bsd": "capstone",
       "modularity-and-flt": "capstone",
-      "etale-cohomology": "capstone"
+      "etale-cohomology": "capstone",
+      "first-order-logic-and-completeness": "standard",
+      "zfc-and-ordinals": "standard",
+      "model-theory-basics": "standard",
+      "computability-and-decidability": "standard",
+      "complexity-theory": "standard",
+      "type-theory-and-hott": "advanced",
+      "forcing-and-independence": "advanced",
+      "lie-algebras": "standard",
+      "galois-cohomology-and-brauer": "advanced",
+      "partial-differential-equations": "standard",
+      "harmonic-functions": "standard",
+      "spectral-theory": "advanced",
+      "stochastic-processes-and-martingales": "standard",
+      "stochastic-calculus": "advanced",
+      "random-walks-and-mixing": "standard",
+      "information-theory": "standard",
+      "large-deviations": "advanced",
+      "characteristic-classes": "advanced",
+      "morse-theory": "standard",
+      "analytic-number-theory": "standard",
+      "modular-curves": "advanced",
+      "enumerative-combinatorics": "standard"
     }
   },
   "topics": {
@@ -251,6 +295,104 @@ window.__MVConcepts = {
             "countability"
           ],
           "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
+        }
+      ]
+    },
+    "first-order-logic-and-completeness": {
+      "topic": "first-order-logic-and-completeness",
+      "title": "First-order logic and completeness",
+      "page": "first-order-logic-and-completeness.html",
+      "concepts": [
+        {
+          "id": "first-order-logic-and-completeness-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "zfc-and-ordinals": {
+      "topic": "zfc-and-ordinals",
+      "title": "ZFC and ordinals",
+      "page": "zfc-and-ordinals.html",
+      "concepts": [
+        {
+          "id": "zfc-and-ordinals-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "model-theory-basics": {
+      "topic": "model-theory-basics",
+      "title": "Model theory",
+      "page": "model-theory-basics.html",
+      "concepts": [
+        {
+          "id": "model-theory-basics-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "computability-and-decidability": {
+      "topic": "computability-and-decidability",
+      "title": "Computability and decidability",
+      "page": "computability-and-decidability.html",
+      "concepts": [
+        {
+          "id": "computability-and-decidability-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "complexity-theory": {
+      "topic": "complexity-theory",
+      "title": "Complexity theory",
+      "page": "complexity-theory.html",
+      "concepts": [
+        {
+          "id": "complexity-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "type-theory-and-hott": {
+      "topic": "type-theory-and-hott",
+      "title": "Type theory and HoTT",
+      "page": "type-theory-and-hott.html",
+      "concepts": [
+        {
+          "id": "type-theory-and-hott-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "forcing-and-independence": {
+      "topic": "forcing-and-independence",
+      "title": "Forcing and independence",
+      "page": "forcing-and-independence.html",
+      "concepts": [
+        {
+          "id": "forcing-and-independence-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
         }
       ]
     },
@@ -1226,6 +1368,34 @@ window.__MVConcepts = {
             "duality",
             "classification"
           ]
+        }
+      ]
+    },
+    "lie-algebras": {
+      "topic": "lie-algebras",
+      "title": "Lie algebras",
+      "page": "lie-algebras.html",
+      "concepts": [
+        {
+          "id": "lie-algebras-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "galois-cohomology-and-brauer": {
+      "topic": "galois-cohomology-and-brauer",
+      "title": "Galois cohomology and Brauer groups",
+      "page": "galois-cohomology-and-brauer.html",
+      "concepts": [
+        {
+          "id": "galois-cohomology-and-brauer-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
         }
       ]
     },
@@ -3062,6 +3232,48 @@ window.__MVConcepts = {
         }
       ]
     },
+    "partial-differential-equations": {
+      "topic": "partial-differential-equations",
+      "title": "Partial differential equations",
+      "page": "partial-differential-equations.html",
+      "concepts": [
+        {
+          "id": "partial-differential-equations-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "harmonic-functions": {
+      "topic": "harmonic-functions",
+      "title": "Harmonic functions",
+      "page": "harmonic-functions.html",
+      "concepts": [
+        {
+          "id": "harmonic-functions-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "spectral-theory": {
+      "topic": "spectral-theory",
+      "title": "Spectral theory",
+      "page": "spectral-theory.html",
+      "concepts": [
+        {
+          "id": "spectral-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
     "probability-theory": {
       "topic": "probability-theory",
       "title": "Probability theory",
@@ -3196,6 +3408,76 @@ window.__MVConcepts = {
             "martingales"
           ],
           "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
+        }
+      ]
+    },
+    "stochastic-processes-and-martingales": {
+      "topic": "stochastic-processes-and-martingales",
+      "title": "Stochastic processes and martingales",
+      "page": "stochastic-processes-and-martingales.html",
+      "concepts": [
+        {
+          "id": "stochastic-processes-and-martingales-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "stochastic-calculus": {
+      "topic": "stochastic-calculus",
+      "title": "Stochastic calculus",
+      "page": "stochastic-calculus.html",
+      "concepts": [
+        {
+          "id": "stochastic-calculus-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "random-walks-and-mixing": {
+      "topic": "random-walks-and-mixing",
+      "title": "Random walks and mixing",
+      "page": "random-walks-and-mixing.html",
+      "concepts": [
+        {
+          "id": "random-walks-and-mixing-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "information-theory": {
+      "topic": "information-theory",
+      "title": "Information theory",
+      "page": "information-theory.html",
+      "concepts": [
+        {
+          "id": "information-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "large-deviations": {
+      "topic": "large-deviations",
+      "title": "Large deviations",
+      "page": "large-deviations.html",
+      "concepts": [
+        {
+          "id": "large-deviations-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
         }
       ]
     },
@@ -3797,6 +4079,34 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        }
+      ]
+    },
+    "characteristic-classes": {
+      "topic": "characteristic-classes",
+      "title": "Characteristic classes",
+      "page": "characteristic-classes.html",
+      "concepts": [
+        {
+          "id": "characteristic-classes-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "morse-theory": {
+      "topic": "morse-theory",
+      "title": "Morse theory",
+      "page": "morse-theory.html",
+      "concepts": [
+        {
+          "id": "morse-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
         }
       ]
     },
@@ -4619,6 +4929,20 @@ window.__MVConcepts = {
         }
       ]
     },
+    "analytic-number-theory": {
+      "topic": "analytic-number-theory",
+      "title": "Analytic number theory",
+      "page": "analytic-number-theory.html",
+      "concepts": [
+        {
+          "id": "analytic-number-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
     "upper-half-plane-hyperbolic": {
       "topic": "upper-half-plane-hyperbolic",
       "title": "Upper half-plane and hyperbolic geometry",
@@ -5399,6 +5723,20 @@ window.__MVConcepts = {
             "duality",
             "functoriality"
           ]
+        }
+      ]
+    },
+    "modular-curves": {
+      "topic": "modular-curves",
+      "title": "Modular curves",
+      "page": "modular-curves.html",
+      "concepts": [
+        {
+          "id": "modular-curves-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
         }
       ]
     },
@@ -7174,6 +7512,20 @@ window.__MVConcepts = {
         }
       ]
     },
+    "enumerative-combinatorics": {
+      "topic": "enumerative-combinatorics",
+      "title": "Enumerative combinatorics",
+      "page": "enumerative-combinatorics.html",
+      "concepts": [
+        {
+          "id": "enumerative-combinatorics-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
     "sato-tate": {
       "topic": "sato-tate",
       "title": "Sato–Tate",
@@ -7628,7 +7980,14 @@ window.__MVConcepts = {
         "id": "logic-and-foundations",
         "title": "Logic & Foundations",
         "topics": [
-          "naive-set-theory"
+          "naive-set-theory",
+          "first-order-logic-and-completeness",
+          "zfc-and-ordinals",
+          "model-theory-basics",
+          "computability-and-decidability",
+          "complexity-theory",
+          "type-theory-and-hott",
+          "forcing-and-independence"
         ],
         "color": "b"
       },
@@ -7642,7 +8001,9 @@ window.__MVConcepts = {
           "commutative-algebra",
           "homological",
           "derived-categories",
-          "group-cohomology"
+          "group-cohomology",
+          "lie-algebras",
+          "galois-cohomology-and-brauer"
         ],
         "color": "y"
       },
@@ -7671,7 +8032,10 @@ window.__MVConcepts = {
           "operator-algebras",
           "dynamical-systems",
           "harmonic-analysis-fourier",
-          "sobolev-spaces-distributions"
+          "sobolev-spaces-distributions",
+          "partial-differential-equations",
+          "harmonic-functions",
+          "spectral-theory"
         ],
         "color": "p"
       },
@@ -7679,7 +8043,12 @@ window.__MVConcepts = {
         "id": "probability-and-statistics",
         "title": "Probability & statistics",
         "topics": [
-          "probability-theory"
+          "probability-theory",
+          "stochastic-processes-and-martingales",
+          "stochastic-calculus",
+          "random-walks-and-mixing",
+          "information-theory",
+          "large-deviations"
         ],
         "color": "g"
       },
@@ -7694,7 +8063,9 @@ window.__MVConcepts = {
           "differential-geometry",
           "riemannian-geometry",
           "lie-groups",
-          "riemann-surfaces"
+          "riemann-surfaces",
+          "characteristic-classes",
+          "morse-theory"
         ],
         "color": "v"
       },
@@ -7714,7 +8085,8 @@ window.__MVConcepts = {
           "frobenius-and-reciprocity",
           "class-field-theory",
           "galois-representations",
-          "heights-arithmetic-geometry"
+          "heights-arithmetic-geometry",
+          "analytic-number-theory"
         ],
         "color": "y"
       },
@@ -7735,7 +8107,8 @@ window.__MVConcepts = {
           "moonshine",
           "sato-tate",
           "bsd",
-          "modularity-and-flt"
+          "modularity-and-flt",
+          "modular-curves"
         ],
         "color": "c"
       },
@@ -7773,7 +8146,8 @@ window.__MVConcepts = {
           "matroid-theory",
           "probabilistic-method",
           "extremal-combinatorics",
-          "simplicial-complexes-combinatorial"
+          "simplicial-complexes-combinatorial",
+          "enumerative-combinatorics"
         ],
         "color": "v"
       }
@@ -7942,7 +8316,29 @@ window.__MVConcepts = {
     "sato-tate": "capstone",
     "bsd": "capstone",
     "modularity-and-flt": "capstone",
-    "etale-cohomology": "capstone"
+    "etale-cohomology": "capstone",
+    "first-order-logic-and-completeness": "standard",
+    "zfc-and-ordinals": "standard",
+    "model-theory-basics": "standard",
+    "computability-and-decidability": "standard",
+    "complexity-theory": "standard",
+    "type-theory-and-hott": "advanced",
+    "forcing-and-independence": "advanced",
+    "lie-algebras": "standard",
+    "galois-cohomology-and-brauer": "advanced",
+    "partial-differential-equations": "standard",
+    "harmonic-functions": "standard",
+    "spectral-theory": "advanced",
+    "stochastic-processes-and-martingales": "standard",
+    "stochastic-calculus": "advanced",
+    "random-walks-and-mixing": "standard",
+    "information-theory": "standard",
+    "large-deviations": "advanced",
+    "characteristic-classes": "advanced",
+    "morse-theory": "standard",
+    "analytic-number-theory": "standard",
+    "modular-curves": "advanced",
+    "enumerative-combinatorics": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -7963,18 +8359,18 @@ window.__MVConcepts = {
   ],
   "sectionStats": {
     "Logic & Foundations": {
-      "concepts": 5,
+      "concepts": 12,
       "intra": 5,
       "crossOut": 0,
       "crossIn": 5,
       "density": 0
     },
     "Algebra & homological": {
-      "concepts": 76,
+      "concepts": 78,
       "intra": 107,
       "crossOut": 9,
       "crossIn": 50,
-      "density": 0.11842105263157894
+      "density": 0.11538461538461539
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -7984,39 +8380,39 @@ window.__MVConcepts = {
       "density": 0.4666666666666667
     },
     "Analysis": {
-      "concepts": 104,
+      "concepts": 107,
       "intra": 152,
       "crossOut": 14,
       "crossIn": 25,
-      "density": 0.1346153846153846
+      "density": 0.1308411214953271
     },
     "Probability & statistics": {
-      "concepts": 12,
+      "concepts": 17,
       "intra": 15,
       "crossOut": 7,
       "crossIn": 7,
-      "density": 0.5833333333333334
+      "density": 0.4117647058823529
     },
     "Geometry & topology": {
-      "concepts": 49,
+      "concepts": 51,
       "intra": 58,
       "crossOut": 6,
       "crossIn": 45,
-      "density": 0.12244897959183673
+      "density": 0.11764705882352941
     },
     "Number theory": {
-      "concepts": 69,
+      "concepts": 70,
       "intra": 87,
       "crossOut": 20,
       "crossIn": 21,
-      "density": 0.2898550724637681
+      "density": 0.2857142857142857
     },
     "Modular forms & L-functions": {
-      "concepts": 73,
+      "concepts": 74,
       "intra": 94,
       "crossOut": 43,
       "crossIn": 6,
-      "density": 0.589041095890411
+      "density": 0.581081081081081
     },
     "Algebraic geometry": {
       "concepts": 109,
@@ -8026,11 +8422,11 @@ window.__MVConcepts = {
       "density": 0.3853211009174312
     },
     "Combinatorics & graph theory": {
-      "concepts": 33,
+      "concepts": 34,
       "intra": 28,
       "crossOut": 12,
       "crossIn": 0,
-      "density": 0.36363636363636365
+      "density": 0.35294117647058826
     }
   }
 };

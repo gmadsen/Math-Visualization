@@ -1,0 +1,14 @@
+{
+  "topic": "morse-theory",
+  "title": "Morse theory",
+  "page": "morse-theory.html",
+  "concepts": [
+    {
+      "id": "morse-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

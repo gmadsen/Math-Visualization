@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **83**, concepts: **575**
+- Topics: **105**, concepts: **597**
 - Widgets: **629** (registry-driven: 563, inline: 66)
-- Quizzes: **2901** (v1: 1665, hard: 1223, expert: 13)
-- Quiz types: mcq: 1815, numeric: 885, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **103**
-- Concepts lacking a hard-tier quiz: **137**
+- Quizzes: **2923** (v1: 1687, hard: 1223, expert: 13)
+- Quiz types: mcq: 1837, numeric: 885, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **125**
+- Concepts lacking a hard-tier quiz: **159**
 
 ## Per-slug registry adoption
 
@@ -161,23 +161,23 @@ page has wired one in yet.
 
 ### Logic & Foundations
 
-- Topics: **1**, concepts: **5**
+- Topics: **8**, concepts: **12**
 - Widgets: **4** (registry-driven: 4, inline: 0)
   - by family: clickable-diagram: 3, button-stepper: 1
   - by dimension: 2d: 4
   - by gesture: click: 4
-- Quizzes: **30** (v1: 15, hard: 15, expert: 0)
-  - by type: mcq: 19, numeric: 11
+- Quizzes: **37** (v1: 22, hard: 15, expert: 0)
+  - by type: mcq: 26, numeric: 11
 
 ### Algebra & homological
 
-- Topics: **7**, concepts: **76**
+- Topics: **9**, concepts: **78**
 - Widgets: **80** (registry-driven: 73, inline: 7)
   - by family: button-stepper: 38, clickable-diagram: 21, parametric-plot: 9, unknown: 7, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1
   - by dimension: 2d: 73, unknown: 7
   - by gesture: click: 60, select: 9, unknown: 7, scrub: 2, slider+click: 1, interactive: 1
-- Quizzes: **415** (v1: 229, hard: 186, expert: 0)
-  - by type: mcq: 247, numeric: 138, multi-select: 16, ordering: 4, spot-the-error: 4, matching: 3, proof-completion: 2, complex: 1
+- Quizzes: **417** (v1: 231, hard: 186, expert: 0)
+  - by type: mcq: 249, numeric: 138, multi-select: 16, ordering: 4, spot-the-error: 4, matching: 3, proof-completion: 2, complex: 1
 
 ### Higher categories & toposes
 
@@ -191,53 +191,53 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **8**, concepts: **104**
+- Topics: **11**, concepts: **107**
 - Widgets: **82** (registry-driven: 70, inline: 12)
   - by family: button-stepper: 37, clickable-diagram: 31, unknown: 12, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
   - by dimension: 2d: 70, unknown: 12
   - by gesture: click: 68, unknown: 12, slider: 2
-- Quizzes: **435** (v1: 250, hard: 185, expert: 0)
-  - by type: mcq: 250, numeric: 123, complex: 14, multi-select: 12, matching: 11, ordering: 10, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+- Quizzes: **438** (v1: 253, hard: 185, expert: 0)
+  - by type: mcq: 253, numeric: 123, complex: 14, multi-select: 12, matching: 11, ordering: 10, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
-- Topics: **1**, concepts: **12**
+- Topics: **6**, concepts: **17**
 - Widgets: **10** (registry-driven: 10, inline: 0)
   - by family: button-stepper: 10
   - by dimension: 2d: 10
   - by gesture: click: 10
-- Quizzes: **73** (v1: 36, hard: 24, expert: 13)
-  - by type: mcq: 43, numeric: 20, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
+- Quizzes: **78** (v1: 41, hard: 24, expert: 13)
+  - by type: mcq: 48, numeric: 20, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
 ### Geometry & topology
 
-- Topics: **8**, concepts: **49**
+- Topics: **10**, concepts: **51**
 - Widgets: **50** (registry-driven: 50, inline: 0)
   - by family: button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1
   - by dimension: 2d: 44, 3d: 6
   - by gesture: click: 40, drag: 6, static: 2, select: 1, timeline: 1
-- Quizzes: **289** (v1: 147, hard: 142, expert: 0)
-  - by type: mcq: 170, numeric: 112, complex: 7
+- Quizzes: **291** (v1: 149, hard: 142, expert: 0)
+  - by type: mcq: 172, numeric: 112, complex: 7
 
 ### Number theory
 
-- Topics: **13**, concepts: **69**
+- Topics: **14**, concepts: **70**
 - Widgets: **89** (registry-driven: 82, inline: 7)
   - by family: button-stepper: 67, unknown: 7, clickable-diagram: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
   - by dimension: 2d: 82, unknown: 7
   - by gesture: click: 72, unknown: 7, input: 4, interactive: 2, scrub: 1, slider: 1, edit: 1, read: 1
-- Quizzes: **391** (v1: 208, hard: 183, expert: 0)
-  - by type: mcq: 257, numeric: 130, complex: 3, guess-my-rule: 1
+- Quizzes: **392** (v1: 209, hard: 183, expert: 0)
+  - by type: mcq: 258, numeric: 130, complex: 3, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
-- Topics: **14**, concepts: **73**
+- Topics: **15**, concepts: **74**
 - Widgets: **106** (registry-driven: 99, inline: 7)
   - by family: button-stepper: 89, unknown: 7, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 1
   - by dimension: 2d: 99, unknown: 7
   - by gesture: click: 89, unknown: 7, slider: 6, static: 4
-- Quizzes: **414** (v1: 219, hard: 195, expert: 0)
-  - by type: mcq: 271, numeric: 140, multi-select: 2, ordering: 1
+- Quizzes: **415** (v1: 220, hard: 195, expert: 0)
+  - by type: mcq: 272, numeric: 140, multi-select: 2, ordering: 1
 
 ### Algebraic geometry
 
@@ -251,17 +251,24 @@ page has wired one in yet.
 
 ### Combinatorics & graph theory
 
-- Topics: **5**, concepts: **33**
+- Topics: **6**, concepts: **34**
 - Widgets: **33** (registry-driven: 0, inline: 33)
   - by family: unknown: 33
   - by dimension: unknown: 33
   - by gesture: unknown: 33
-- Quizzes: **99** (v1: 99, hard: 0, expert: 0)
-  - by type: mcq: 72, numeric: 17, multi-select: 10
+- Quizzes: **100** (v1: 100, hard: 0, expert: 0)
+  - by type: mcq: 73, numeric: 17, multi-select: 10
 
 ## Per-topic
 
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
+- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `zfc-and-ordinals` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `model-theory-basics` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `computability-and-decidability` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `complexity-theory` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `type-theory-and-hott` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `forcing-and-independence` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `algebra` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
@@ -269,6 +276,8 @@ page has wired one in yet.
 - `homological` (Algebra & homological) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `lie-algebras` (Algebra & homological) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `galois-cohomology-and-brauer` (Algebra & homological) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `elementary-topos-theory` (Higher categories & toposes) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `heyting-algebras-toposes` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
 - `grothendieck-topologies-sites` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
@@ -284,7 +293,15 @@ page has wired one in yet.
 - `dynamical-systems` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=39, hard=36, expert=0)
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `partial-differential-equations` (Analysis) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `harmonic-functions` (Analysis) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `spectral-theory` (Analysis) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
+- `stochastic-processes-and-martingales` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `stochastic-calculus` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `random-walks-and-mixing` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `information-theory` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `large-deviations` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=9), quiz=59 (v1=30, hard=29, expert=0)
@@ -293,6 +310,8 @@ page has wired one in yet.
 - `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
+- `characteristic-classes` (Geometry & topology) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `morse-theory` (Geometry & topology) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `galois` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
@@ -305,6 +324,7 @@ page has wired one in yet.
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
 - `heights-arithmetic-geometry` (Number theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `analytic-number-theory` (Number theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
@@ -317,6 +337,7 @@ page has wired one in yet.
 - `galois-representations` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `modular-curves` (Modular forms & L-functions) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `projective-plane` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=8), quiz=60 (v1=30, hard=30, expert=0)
@@ -340,6 +361,7 @@ page has wired one in yet.
 - `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `enumerative-combinatorics` (Combinatorics & graph theory) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
@@ -351,27 +373,34 @@ page has wired one in yet.
 
 - `cartesian-product-powerset` (naive-set-theory)
 - `axiom-of-choice-intuition` (naive-set-theory)
+- `first-order-logic-and-completeness-intro` (first-order-logic-and-completeness)
+- `zfc-and-ordinals-intro` (zfc-and-ordinals)
+- `model-theory-basics-intro` (model-theory-basics)
+- `computability-and-decidability-intro` (computability-and-decidability)
+- `complexity-theory-intro` (complexity-theory)
+- `type-theory-and-hott-intro` (type-theory-and-hott)
+- `forcing-and-independence-intro` (forcing-and-independence)
 - `algebraic-structures` (algebra)
 - `ring-ideals` (algebra)
 - `field-extensions-basics` (algebra)
 - `group-representations` (representation-theory)
 - `characters-orthogonality` (representation-theory)
 - `long-exact-sequence` (homological)
+- `lie-algebras-intro` (lie-algebras)
+- `galois-cohomology-and-brauer-intro` (galois-cohomology-and-brauer)
 - `sigma-algebras` (measure-theory)
 - `riemann-sphere` (complex-analysis)
 - `mobius-transformations` (complex-analysis)
-- `cauchy-riemann` (complex-analysis)
-- `holomorphic-function` (complex-analysis)
-- `domain-coloring` (complex-analysis)
-- `cauchy-theorem` (complex-analysis)
-- `cauchy-integral-formula` (complex-analysis)
-- `liouville` (complex-analysis)
-- `fta` (complex-analysis)
-- `maximum-modulus` (complex-analysis)
-- `schwarz-lemma` (complex-analysis)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `first-order-logic-and-completeness-intro` (first-order-logic-and-completeness)
+- `zfc-and-ordinals-intro` (zfc-and-ordinals)
+- `model-theory-basics-intro` (model-theory-basics)
+- `computability-and-decidability-intro` (computability-and-decidability)
+- `complexity-theory-intro` (complexity-theory)
+- `type-theory-and-hott-intro` (type-theory-and-hott)
+- `forcing-and-independence-intro` (forcing-and-independence)
 - `artinian-local-ca` (commutative-algebra)
 - `homotopy-category-K` (derived-categories)
 - `t-structures` (derived-categories)
@@ -383,12 +412,5 @@ page has wired one in yet.
 - `cyclic-periodic-tate` (group-cohomology)
 - `inflation-restriction-lhs` (group-cohomology)
 - `galois-cohomology-brauer` (group-cohomology)
-- `topos-definition` (elementary-topos-theory)
-- `characteristic-maps` (elementary-topos-theory)
-- `power-objects` (elementary-topos-theory)
-- `g-set-topos` (elementary-topos-theory)
-- `heyting-algebra` (heyting-algebras-toposes)
-- `internal-language` (heyting-algebras-toposes)
-- `geometric-morphisms-logic` (heyting-algebras-toposes)
-- `sieves` (grothendieck-topologies-sites)
-- `examples-of-sites` (grothendieck-topologies-sites)
+- `lie-algebras-intro` (lie-algebras)
+- `galois-cohomology-and-brauer-intro` (galois-cohomology-and-brauer)

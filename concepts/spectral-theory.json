@@ -1,0 +1,14 @@
+{
+  "topic": "spectral-theory",
+  "title": "Spectral theory",
+  "page": "spectral-theory.html",
+  "concepts": [
+    {
+      "id": "spectral-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

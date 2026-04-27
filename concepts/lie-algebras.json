@@ -1,0 +1,14 @@
+{
+  "topic": "lie-algebras",
+  "title": "Lie algebras",
+  "page": "lie-algebras.html",
+  "concepts": [
+    {
+      "id": "lie-algebras-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

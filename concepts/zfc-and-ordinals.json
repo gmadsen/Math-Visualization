@@ -1,0 +1,14 @@
+{
+  "topic": "zfc-and-ordinals",
+  "title": "ZFC and ordinals",
+  "page": "zfc-and-ordinals.html",
+  "concepts": [
+    {
+      "id": "zfc-and-ordinals-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

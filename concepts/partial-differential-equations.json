@@ -1,0 +1,14 @@
+{
+  "topic": "partial-differential-equations",
+  "title": "Partial differential equations",
+  "page": "partial-differential-equations.html",
+  "concepts": [
+    {
+      "id": "partial-differential-equations-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

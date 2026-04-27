@@ -1,0 +1,14 @@
+{
+  "topic": "model-theory-basics",
+  "title": "Model theory",
+  "page": "model-theory-basics.html",
+  "concepts": [
+    {
+      "id": "model-theory-basics-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

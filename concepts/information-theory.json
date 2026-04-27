@@ -1,0 +1,14 @@
+{
+  "topic": "information-theory",
+  "title": "Information theory",
+  "page": "information-theory.html",
+  "concepts": [
+    {
+      "id": "information-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "topic": "computability-and-decidability",
+  "quizzes": {
+    "computability-and-decidability-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder question — content forthcoming.",
+          "choices": [
+            "A",
+            "B"
+          ],
+          "answer": 0,
+          "explain": "Placeholder."
+        }
+      ]
+    }
+  }
+}

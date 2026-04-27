@@ -1,7 +1,13 @@
 {
   "topics": [
     "naive-set-theory",
-
+    "first-order-logic-and-completeness",
+    "zfc-and-ordinals",
+    "model-theory-basics",
+    "computability-and-decidability",
+    "complexity-theory",
+    "type-theory-and-hott",
+    "forcing-and-independence",
     "algebra",
     "category-theory",
     "representation-theory",
@@ -9,7 +15,8 @@
     "homological",
     "derived-categories",
     "group-cohomology",
-
+    "lie-algebras",
+    "galois-cohomology-and-brauer",
     "elementary-topos-theory",
     "heyting-algebras-toposes",
     "grothendieck-topologies-sites",
@@ -17,7 +24,6 @@
     "infinity-categories",
     "cocartesian-fibrations",
     "infinity-topoi",
-
     "real-analysis",
     "measure-theory",
     "complex-analysis",
@@ -26,9 +32,15 @@
     "dynamical-systems",
     "sobolev-spaces-distributions",
     "harmonic-analysis-fourier",
-
+    "partial-differential-equations",
+    "harmonic-functions",
+    "spectral-theory",
     "probability-theory",
-
+    "stochastic-processes-and-martingales",
+    "stochastic-calculus",
+    "random-walks-and-mixing",
+    "information-theory",
+    "large-deviations",
     "point-set-topology",
     "algebraic-topology",
     "smooth-manifolds",
@@ -37,7 +49,8 @@
     "riemannian-geometry",
     "lie-groups",
     "riemann-surfaces",
-
+    "characteristic-classes",
+    "morse-theory",
     "galois",
     "quadratic-reciprocity",
     "quadratic-forms-genus-theory",
@@ -50,7 +63,7 @@
     "frobenius-and-reciprocity",
     "class-field-theory",
     "heights-arithmetic-geometry",
-
+    "analytic-number-theory",
     "upper-half-plane-hyperbolic",
     "modular-forms",
     "theta-functions",
@@ -63,7 +76,7 @@
     "galois-representations",
     "moonshine",
     "automorphic-forms-adelic",
-
+    "modular-curves",
     "projective-plane",
     "bezout",
     "schemes",
@@ -82,13 +95,12 @@
     "group-schemes",
     "etale-fundamental-group",
     "deformation-theory",
-
     "spectral-graph-theory",
     "matroid-theory",
     "probabilistic-method",
     "extremal-combinatorics",
     "simplicial-complexes-combinatorial",
-
+    "enumerative-combinatorics",
     "sato-tate",
     "bsd",
     "modularity-and-flt",
@@ -115,7 +127,6 @@
   "_levels_doc": "Topic-difficulty classification used by pathway.html (node fill/halo) and audit-starter-concepts.mjs (filtering empty-prereq concepts). Every topic in `topics` must have an entry here; validate-concepts.mjs flags drift in either direction. Valid values: 'prereq' (foundations whose first concept legitimately has empty prereqs), 'standard' (default tier), 'advanced' (deep results below the capstones), 'capstone' (every concept on this page is at capstone tier — distinct from per-concept capstone-goal overrides driven by capstones.json's `goal` field; a topic can own a capstone goal without itself being level=capstone, e.g. complex-analysis owns four capstones but its level is 'prereq').",
   "levels": {
     "naive-set-theory": "prereq",
-
     "algebra": "prereq",
     "category-theory": "standard",
     "representation-theory": "standard",
@@ -130,7 +141,6 @@
     "derived-categories": "standard",
     "cocartesian-fibrations": "standard",
     "group-cohomology": "standard",
-
     "real-analysis": "prereq",
     "measure-theory": "standard",
     "complex-analysis": "prereq",
@@ -140,7 +150,6 @@
     "probability-theory": "standard",
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
-
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",
@@ -149,7 +158,6 @@
     "riemannian-geometry": "standard",
     "lie-groups": "standard",
     "riemann-surfaces": "standard",
-
     "galois": "standard",
     "quadratic-reciprocity": "standard",
     "quadratic-forms-genus-theory": "standard",
@@ -163,7 +171,6 @@
     "class-field-theory": "advanced",
     "galois-representations": "advanced",
     "heights-arithmetic-geometry": "standard",
-
     "upper-half-plane-hyperbolic": "standard",
     "modular-forms": "standard",
     "theta-functions": "advanced",
@@ -175,7 +182,6 @@
     "L-functions": "standard",
     "automorphic-forms-adelic": "advanced",
     "moonshine": "advanced",
-
     "projective-plane": "prereq",
     "bezout": "standard",
     "schemes": "standard",
@@ -194,16 +200,36 @@
     "group-schemes": "standard",
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
-
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
     "extremal-combinatorics": "standard",
     "simplicial-complexes-combinatorial": "standard",
-
     "sato-tate": "capstone",
     "bsd": "capstone",
     "modularity-and-flt": "capstone",
-    "etale-cohomology": "capstone"
+    "etale-cohomology": "capstone",
+    "first-order-logic-and-completeness": "standard",
+    "zfc-and-ordinals": "standard",
+    "model-theory-basics": "standard",
+    "computability-and-decidability": "standard",
+    "complexity-theory": "standard",
+    "type-theory-and-hott": "advanced",
+    "forcing-and-independence": "advanced",
+    "lie-algebras": "standard",
+    "galois-cohomology-and-brauer": "advanced",
+    "partial-differential-equations": "standard",
+    "harmonic-functions": "standard",
+    "spectral-theory": "advanced",
+    "stochastic-processes-and-martingales": "standard",
+    "stochastic-calculus": "advanced",
+    "random-walks-and-mixing": "standard",
+    "information-theory": "standard",
+    "large-deviations": "advanced",
+    "characteristic-classes": "advanced",
+    "morse-theory": "standard",
+    "analytic-number-theory": "standard",
+    "modular-curves": "advanced",
+    "enumerative-combinatorics": "standard"
   }
 }

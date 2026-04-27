@@ -1,0 +1,14 @@
+{
+  "topic": "modular-curves",
+  "title": "Modular curves",
+  "page": "modular-curves.html",
+  "concepts": [
+    {
+      "id": "modular-curves-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

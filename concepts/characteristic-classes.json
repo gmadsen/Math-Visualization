@@ -1,0 +1,14 @@
+{
+  "topic": "characteristic-classes",
+  "title": "Characteristic classes",
+  "page": "characteristic-classes.html",
+  "concepts": [
+    {
+      "id": "characteristic-classes-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

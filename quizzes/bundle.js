@@ -3340,6 +3340,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "analytic-number-theory": {
+    "topic": "analytic-number-theory",
+    "quizzes": {
+      "analytic-number-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "automorphic-forms-adelic": {
     "topic": "automorphic-forms-adelic",
     "quizzes": {
@@ -5209,6 +5229,26 @@ window.MVQuizBank = {
             "answer": 5,
             "tol": 0.000001,
             "explain": "The composition in the enriched category gives $d(A,C)\\le d(A,B)+d(B,C)=2+3=5$."
+          }
+        ]
+      }
+    }
+  },
+  "characteristic-classes": {
+    "topic": "characteristic-classes",
+    "quizzes": {
+      "characteristic-classes-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -7377,6 +7417,46 @@ window.MVQuizBank = {
             ],
             "hint": "Think of the workflow: classify singularities first, build the contour, estimate the arc, invoke the theorem, then extract the real answer.",
             "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
+          }
+        ]
+      }
+    }
+  },
+  "complexity-theory": {
+    "topic": "complexity-theory",
+    "quizzes": {
+      "complexity-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
+  "computability-and-decidability": {
+    "topic": "computability-and-decidability",
+    "quizzes": {
+      "computability-and-decidability-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -10956,6 +11036,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "enumerative-combinatorics": {
+    "topic": "enumerative-combinatorics",
+    "quizzes": {
+      "enumerative-combinatorics-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "etale-cohomology": {
     "topic": "etale-cohomology",
     "quizzes": {
@@ -11947,6 +12047,46 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "explain": "Szemerédi gives an explicit tower-type bound; Gowers (1997) showed it is essentially sharp — no polynomial in $1/\\varepsilon$ suffices. This is what makes regularity proofs ineffective in practice for small $\\varepsilon$."
+          }
+        ]
+      }
+    }
+  },
+  "first-order-logic-and-completeness": {
+    "topic": "first-order-logic-and-completeness",
+    "quizzes": {
+      "first-order-logic-and-completeness-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
+  "forcing-and-independence": {
+    "topic": "forcing-and-independence",
+    "quizzes": {
+      "forcing-and-independence-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -13608,6 +13748,26 @@ window.MVQuizBank = {
             "tol": 0.000001,
             "hint": "Count ring maps to each of the factors.",
             "explain": "$X(\\mathbb{F}_5) = \\{2,3\\}$ (solutions to $a^2\\equiv -1\\pmod 5$), so $|X(\\mathbb{F}_5)|=2$. Similarly $|Y(\\mathbb{F}_5)|=2$. The fiber-product formula gives $|X(\\mathbb{F}_5)|\\times|Y(\\mathbb{F}_5)| = 2\\times 2 = 4$."
+          }
+        ]
+      }
+    }
+  },
+  "galois-cohomology-and-brauer": {
+    "topic": "galois-cohomology-and-brauer",
+    "quizzes": {
+      "galois-cohomology-and-brauer-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -15668,6 +15828,26 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or Parseval on $\\mathbb{T}$, in one breath."
+          }
+        ]
+      }
+    }
+  },
+  "harmonic-functions": {
+    "topic": "harmonic-functions",
+    "quizzes": {
+      "harmonic-functions-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -18411,6 +18591,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "information-theory": {
+    "topic": "information-theory",
+    "quizzes": {
+      "information-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "intersection-theory-chow": {
     "topic": "intersection-theory-chow",
     "quizzes": {
@@ -19095,6 +19295,46 @@ window.MVQuizBank = {
             "tol": 1e-9,
             "hint": "The leading term mixes regulator, Sha, torsion, and Tamagawa numbers.",
             "explain": "When the rank is $1$, the Mordell–Weil group modulo torsion is generated by a single point $P$ of infinite order. The regulator $R=\\hat{h}(P)$ is the canonical height of that generator — one generator, one point of infinite order."
+          }
+        ]
+      }
+    }
+  },
+  "large-deviations": {
+    "topic": "large-deviations",
+    "quizzes": {
+      "large-deviations-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
+  "lie-algebras": {
+    "topic": "lie-algebras",
+    "quizzes": {
+      "lie-algebras-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -20698,6 +20938,46 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "$\\mathcal{H}^1([a,b])=b-a$ because optimal covers by small intervals have diameter-sum approaching $b-a$. Both $\\mathcal{H}^1$ and $m$ are translation-invariant, $\\sigma$-finite, and agree on a generating ring of intervals, so Carathéodory uniqueness forces $\\mathcal{H}^1=m$ on $\\mathcal{B}(\\mathbb{R})$."
+          }
+        ]
+      }
+    }
+  },
+  "model-theory-basics": {
+    "topic": "model-theory-basics",
+    "quizzes": {
+      "model-theory-basics-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
+  "modular-curves": {
+    "topic": "modular-curves",
+    "quizzes": {
+      "modular-curves-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -22537,6 +22817,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "morse-theory": {
+    "topic": "morse-theory",
+    "quizzes": {
+      "morse-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "naive-set-theory": {
     "topic": "naive-set-theory",
     "quizzes": {
@@ -24169,6 +24469,26 @@ window.MVQuizBank = {
             "answer": 0,
             "hint": "Adèlic points package every completion simultaneously.",
             "explain": "The adèlic Hasse principle: $V$ satisfies the Hasse principle if $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset\\Rightarrow V(\\mathbb{Q})\\ne\\emptyset$. Having adèlic points means having points over every completion $\\mathbb{Q}_v$ (all $\\mathbb{Q}_p$ and $\\mathbb{R}$). Failure of the Hasse principle means $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset$ yet $V(\\mathbb{Q})=\\emptyset$; the Brauer-Manin obstruction is one systematic source of such failures."
+          }
+        ]
+      }
+    }
+  },
+  "partial-differential-equations": {
+    "topic": "partial-differential-equations",
+    "quizzes": {
+      "partial-differential-equations-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -27672,6 +27992,26 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "The Jacobi extension drops primality in exchange for coprimality.",
             "explain": "The Jacobi reciprocity law holds for any two odd coprime positive integers — neither needs to be prime. This is what powers the Euclidean reduction algorithm: one can swap and reduce without ever testing primality, since the law applies at every step."
+          }
+        ]
+      }
+    }
+  },
+  "random-walks-and-mixing": {
+    "topic": "random-walks-and-mixing",
+    "quizzes": {
+      "random-walks-and-mixing-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -34166,6 +34506,26 @@ window.MVQuizBank = {
       }
     }
   },
+  "spectral-theory": {
+    "topic": "spectral-theory",
+    "quizzes": {
+      "spectral-theory-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
   "stacks": {
     "topic": "stacks",
     "quizzes": {
@@ -34521,6 +34881,46 @@ window.MVQuizBank = {
             "tol": 0.000001,
             "hint": "The coarse map is degree one but ramifies at the origin.",
             "explain": "The stacky point $0\\in[\\mathbb{A}^1/\\mu_n]$ has automorphism group $\\mu_n$, contributing a local $\\mathrm{Pic}\\cong\\widehat{\\mu_n}\\cong\\mathbb{Z}/n\\mathbb{Z}$. For $n=4$ this has order $4$."
+          }
+        ]
+      }
+    }
+  },
+  "stochastic-calculus": {
+    "topic": "stochastic-calculus",
+    "quizzes": {
+      "stochastic-calculus-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
+          }
+        ]
+      }
+    }
+  },
+  "stochastic-processes-and-martingales": {
+    "topic": "stochastic-processes-and-martingales",
+    "quizzes": {
+      "stochastic-processes-and-martingales-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -35214,6 +35614,26 @@ window.MVQuizBank = {
             "answer": 0,
             "hint": "The functional equation pins the ratio; then match at $q = 0$.",
             "explain": "The key steps are: (1) verify the functional equation $P(qz,q)=z^{-1}q^{-1/2}P(z,q)$ from the product form; (2) deduce that $c_n(q)=c_0(q)q^{n^2/2}$; (3) fix $c_0$ by a special value (e.g. $z=i$ or $z=1$ combined with Jacobi's identity), completing the proof."
+          }
+        ]
+      }
+    }
+  },
+  "type-theory-and-hott": {
+    "topic": "type-theory-and-hott",
+    "quizzes": {
+      "type-theory-and-hott-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }
@@ -36289,6 +36709,26 @@ window.MVQuizBank = {
             "tol": 0.000005,
             "hint": "Apply the reflection formula carefully, reading off $\\zeta(-3)$.",
             "explain": "$\\zeta(-3)=2(2\\pi)^{-4}\\cdot 1\\cdot 6\\cdot\\pi^4/90=2\\cdot 6\\pi^4/(90\\cdot 16\\pi^4)=12/1440=1/120\\approx 0.008333$."
+          }
+        ]
+      }
+    }
+  },
+  "zfc-and-ordinals": {
+    "topic": "zfc-and-ordinals",
+    "quizzes": {
+      "zfc-and-ordinals-intro": {
+        "title": "Intro",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Placeholder question — content forthcoming.",
+            "choices": [
+              "A",
+              "B"
+            ],
+            "answer": 0,
+            "explain": "Placeholder."
           }
         ]
       }

@@ -1,0 +1,14 @@
+{
+  "topic": "complexity-theory",
+  "title": "Complexity theory",
+  "page": "complexity-theory.html",
+  "concepts": [
+    {
+      "id": "complexity-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "enumerative-combinatorics",
+  "title": "Enumerative combinatorics",
+  "page": "enumerative-combinatorics.html",
+  "concepts": [
+    {
+      "id": "enumerative-combinatorics-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

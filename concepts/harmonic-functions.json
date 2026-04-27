@@ -1,0 +1,14 @@
+{
+  "topic": "harmonic-functions",
+  "title": "Harmonic functions",
+  "page": "harmonic-functions.html",
+  "concepts": [
+    {
+      "id": "harmonic-functions-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "stochastic-calculus",
+  "title": "Stochastic calculus",
+  "page": "stochastic-calculus.html",
+  "concepts": [
+    {
+      "id": "stochastic-calculus-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

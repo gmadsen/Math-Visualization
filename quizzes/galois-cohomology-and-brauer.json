@@ -1,0 +1,20 @@
+{
+  "topic": "galois-cohomology-and-brauer",
+  "quizzes": {
+    "galois-cohomology-and-brauer-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder question — content forthcoming.",
+          "choices": [
+            "A",
+            "B"
+          ],
+          "answer": 0,
+          "explain": "Placeholder."
+        }
+      ]
+    }
+  }
+}

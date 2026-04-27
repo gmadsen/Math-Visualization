@@ -1,0 +1,20 @@
+{
+  "topic": "stochastic-processes-and-martingales",
+  "quizzes": {
+    "stochastic-processes-and-martingales-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder question — content forthcoming.",
+          "choices": [
+            "A",
+            "B"
+          ],
+          "answer": 0,
+          "explain": "Placeholder."
+        }
+      ]
+    }
+  }
+}

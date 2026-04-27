@@ -1,0 +1,14 @@
+{
+  "topic": "type-theory-and-hott",
+  "title": "Type theory and HoTT",
+  "page": "type-theory-and-hott.html",
+  "concepts": [
+    {
+      "id": "type-theory-and-hott-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}
