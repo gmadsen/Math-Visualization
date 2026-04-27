@@ -1,4 +1,22 @@
 {
   "topic": "resolution-of-singularities",
-  "quizzes": {}
+  "quizzes": {
+    "resolution-of-singularities-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder — page is a stub awaiting authoring.",
+          "choices": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "answer": 0,
+          "explain": "Stub."
+        }
+      ]
+    }
+  }
 }

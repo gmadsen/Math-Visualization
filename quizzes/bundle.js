@@ -5995,6 +5995,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "calabi-yau-manifolds": {
+    "topic": "calabi-yau-manifolds",
+    "quizzes": {}
+  },
   "category-theory": {
     "topic": "category-theory",
     "quizzes": {
@@ -9855,6 +9859,232 @@ window.MVQuizBank = {
       }
     }
   },
+  "computational-number-theory": {
+    "topic": "computational-number-theory",
+    "quizzes": {
+      "cnt-primality": {
+        "title": "Primality testing",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is Fermat's little theorem alone insufficient as a primality test?",
+            "choices": [
+              "It is too slow to compute $a^{n-1} \\bmod n$.",
+              "Carmichael numbers like $561$ satisfy $a^{n-1}\\equiv 1\\pmod n$ for every $a$ coprime to $n$ yet are composite.",
+              "It only works when $n$ is even.",
+              "It requires factoring $n-1$ in advance."
+            ],
+            "answer": 1,
+            "explain": "Carmichael numbers are composite Fermat liars for every base coprime to $n$. Miller–Rabin strengthens the test by also checking square roots of $1$, ruling these out."
+          },
+          {
+            "type": "numeric",
+            "q": "Run a single Miller–Rabin round on $n=15$ with base $a=2$. Write $n-1 = 14 = 2 \\cdot 7$, so $d=7,\\ s=1$. Compute $2^7 \\bmod 15$.",
+            "answer": 8,
+            "tol": 0.5,
+            "explain": "$2^7 = 128 = 8\\cdot 15 + 8$, so $2^7 \\equiv 8 \\pmod{15}$. Since $8 \\not\\equiv \\pm 1$ and $s=1$ leaves no further squarings, $a=2$ is a Miller–Rabin witness — $15$ is composite."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the asymptotic running time of the AKS deterministic primality test in $\\log n$?",
+            "choices": [
+              "$O((\\log n)^{1/2})$",
+              "Exponential in $\\log n$",
+              "$O((\\log n)^{6+\\epsilon})$ — polynomial in $\\log n$",
+              "Subexponential, $L_n[1/3,c]$"
+            ],
+            "answer": 2,
+            "explain": "AKS (2002) was the first deterministic, unconditional, polynomial-time primality test. Tighter analyses bring the exponent down toward $6$; Miller–Rabin remains faster in practice but is probabilistic."
+          }
+        ]
+      },
+      "cnt-factoring": {
+        "title": "Integer factoring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Pollard's $\\rho$ method for factoring $n$ iterates $x \\mapsto x^2 + c \\bmod n$ and looks for a collision. Why does it work?",
+            "choices": [
+              "By the birthday paradox, two iterates coincide modulo a prime factor $p$ in roughly $\\sqrt{p}$ steps; their difference shares a factor with $n$.",
+              "Because $x^2+c$ has no real roots when $c>0$.",
+              "Because every quadratic polynomial is irreducible modulo a prime.",
+              "Because the iteration enumerates all residues mod $n$ in order."
+            ],
+            "answer": 0,
+            "explain": "The sequence reduced mod $p$ is shorter than mod $n$, so a cycle appears in $O(\\sqrt p)$ steps. Floyd's tortoise–hare detector finds two iterates with $x_i \\equiv x_j \\pmod p$ but $x_i \\not\\equiv x_j \\pmod n$, so $\\gcd(x_i-x_j, n)$ is a nontrivial factor."
+          },
+          {
+            "type": "mcq",
+            "q": "The general number-field sieve runs in time approximately:",
+            "choices": [
+              "$\\exp\\!\\big((\\log n)^{1/2}\\big)$",
+              "$L_n[1/3, (64/9)^{1/3}]$ (subexponential)",
+              "Polynomial in $\\log n$",
+              "$\\exp(n)$"
+            ],
+            "answer": 1,
+            "explain": "GNFS achieves $L_n[1/3, c]$ with $c=(64/9)^{1/3}\\approx 1.923$ for general integers. This is the current asymptotic record; no polynomial-time classical factoring algorithm is known."
+          },
+          {
+            "type": "numeric",
+            "q": "Run Pollard's $\\rho$ with $f(x)=x^2+1$, $x_0=2$ on $n=91$. After two steps the sequence is $x_1=5, x_2=26$. Compute $\\gcd(x_2-x_1,\\ 91)$.",
+            "answer": 7,
+            "tol": 0.5,
+            "explain": "$x_2 - x_1 = 21$, and $\\gcd(21, 91) = 7$. So $91 = 7 \\cdot 13$."
+          }
+        ]
+      },
+      "cnt-lattice-reduction": {
+        "title": "LLL & lattice reduction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does LLL guarantee about its output basis $b_1, \\dots, b_n$?",
+            "choices": [
+              "$b_1$ is the shortest vector in the lattice.",
+              "$\\|b_1\\| \\le 2^{(n-1)/2}\\, \\lambda_1(L)$ where $\\lambda_1$ is the shortest-vector length, and the algorithm runs in polynomial time.",
+              "All $b_i$ are pairwise orthogonal.",
+              "$\\|b_1\\| \\le \\log n \\cdot \\lambda_1(L)$."
+            ],
+            "answer": 1,
+            "explain": "LLL trades exact shortness for polynomial-time computability: the first basis vector is within a factor $2^{(n-1)/2}$ of optimal — exponentially loose, but enough to break many cryptosystems and find integer relations."
+          },
+          {
+            "type": "mcq",
+            "q": "Coppersmith's theorem uses LLL to find:",
+            "choices": [
+              "Eigenvalues of integer matrices.",
+              "Small roots of a polynomial $f(x)$ modulo $N$ when $|x| < N^{1/d}$, where $d=\\deg f$.",
+              "The factorization of $N$ given just $N$.",
+              "Discrete logarithms in finite fields."
+            ],
+            "answer": 1,
+            "explain": "Coppersmith builds a lattice from shifted multiples of $f$ and applies LLL; a short vector encodes a polynomial with the same small roots over $\\mathbb{Z}$, which are then findable. Used in stereotyped-message attacks on low-exponent RSA."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is NOT a standard application of LLL?",
+            "choices": [
+              "Detecting integer relations among real numbers (e.g. $\\zeta(3)$ vs powers of $\\pi$).",
+              "Cryptanalysis of knapsack cryptosystems.",
+              "Polynomial-time integer factoring.",
+              "Reducing the lattice of relations in Buchmann's class-group algorithm."
+            ],
+            "answer": 2,
+            "explain": "LLL accelerates many sub-routines in factoring (Coppersmith) but no polynomial-time factoring algorithm is known — the other three are textbook applications."
+          }
+        ]
+      },
+      "cnt-modular-arithmetic-algorithms": {
+        "title": "Modular arithmetic algorithms",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $7^{13} \\bmod 11$ by repeated squaring. (Binary: $13 = 1101_2$.)",
+            "answer": 2,
+            "tol": 0.5,
+            "explain": "$7^2\\equiv 5$, $7^4\\equiv 25\\equiv 3$, $7^8\\equiv 9$. So $7^{13}=7^8\\cdot 7^4\\cdot 7^1 \\equiv 9\\cdot 3\\cdot 7 = 189 \\equiv 2\\pmod{11}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Tonelli–Shanks computes $\\sqrt{a} \\bmod p$ when $\\left(\\tfrac{a}{p}\\right)=1$. The simple case $p\\equiv 3\\pmod 4$ has the closed form:",
+            "choices": [
+              "$a^{(p-1)/2} \\bmod p$",
+              "$a^{(p+1)/4} \\bmod p$",
+              "$a^{p} \\bmod p$",
+              "$a^{(p-1)/4} \\bmod p$"
+            ],
+            "answer": 1,
+            "explain": "If $p\\equiv 3\\pmod 4$, set $r = a^{(p+1)/4}$. Then $r^2 = a^{(p+1)/2} = a\\cdot a^{(p-1)/2} \\equiv a$ since $a$ is a QR. The general algorithm handles $p\\equiv 1\\pmod 4$ with extra work."
+          },
+          {
+            "type": "numeric",
+            "q": "Solve $x \\equiv 2 \\pmod 3,\\ x \\equiv 3 \\pmod 5,\\ x \\equiv 2 \\pmod 7$ via CRT. Give the smallest non-negative $x$.",
+            "answer": 23,
+            "tol": 0.5,
+            "explain": "Modulus $3\\cdot 5\\cdot 7=105$. $x=23$ satisfies all three: $23=7\\cdot 3+2$, $23=4\\cdot 5+3$, $23=3\\cdot 7+2$."
+          }
+        ]
+      },
+      "cnt-elliptic-curves-computation": {
+        "title": "Schoof & point counting",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Schoof's algorithm computes $\\#E(\\mathbb{F}_p)=p+1-t$ by determining $t \\bmod \\ell$ for several small primes $\\ell$. Why does this suffice?",
+            "choices": [
+              "Because $t$ is always a small prime.",
+              "By Hasse's bound $|t|\\le 2\\sqrt p$, so $t$ is recovered via CRT once $\\prod \\ell > 4\\sqrt p$.",
+              "Because Frobenius has order $\\ell$ on every torsion subgroup.",
+              "Because $t = p+1$ always."
+            ],
+            "answer": 1,
+            "explain": "Hasse bounds $t$ to a window of width $4\\sqrt p$. Combining residues mod enough small $\\ell$ via CRT pins $t$ down uniquely; the resulting algorithm is polynomial in $\\log p$."
+          },
+          {
+            "type": "mcq",
+            "q": "On what does Schoof compute the action of Frobenius $\\phi_p:(x,y)\\mapsto(x^p,y^p)$?",
+            "choices": [
+              "The full curve $E$ — infeasible.",
+              "The $\\ell$-torsion subgroup $E[\\ell]$, represented by the $\\ell$-th division polynomial.",
+              "The $\\ell$-adic completion of $E$.",
+              "Only the identity element $\\mathcal O$."
+            ],
+            "answer": 1,
+            "explain": "Computing in $\\mathbb{F}_p[x,y]/(\\psi_\\ell, E)$ where $\\psi_\\ell$ is the $\\ell$-th division polynomial keeps everything finite-dimensional. Schoof then matches $\\phi_p^2 - t\\phi_p + p \\equiv 0$ on $E[\\ell]$ to extract $t \\bmod \\ell$."
+          },
+          {
+            "type": "mcq",
+            "q": "The SEA improvement to Schoof exploits:",
+            "choices": [
+              "Faster matrix inversion.",
+              "Modular polynomials $\\Phi_\\ell(X,Y)$ to work on a kernel subgroup of $E[\\ell]$ rather than all of $E[\\ell]$, when $\\ell$ is an Elkies prime.",
+              "Quantum computation.",
+              "Replacing $\\mathbb{F}_p$ by $\\mathbb R$."
+            ],
+            "answer": 1,
+            "explain": "Schoof–Elkies–Atkin uses the modular polynomial $\\Phi_\\ell$ to detect when Frobenius has rational eigenvectors on $E[\\ell]$ (Elkies primes), reducing the work from degree $\\ell^2-1$ to roughly $\\ell$."
+          }
+        ]
+      },
+      "cnt-class-group-computation": {
+        "title": "Class & unit group computation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Buchmann's algorithm computes the class group of a number field $K$ in subexponential time, but only conditionally. On what?",
+            "choices": [
+              "The Riemann hypothesis for $\\zeta$.",
+              "The generalized Riemann hypothesis (GRH) for Hecke $L$-functions of $K$.",
+              "$P=NP$.",
+              "The Birch–Swinnerton-Dyer conjecture."
+            ],
+            "answer": 1,
+            "explain": "GRH is needed to bound the size of generators of the class group: under GRH, prime ideals up to $(\\log |\\Delta_K|)^{2}$ generate $\\mathrm{Cl}(K)$, making the factor-base relation method provably correct in subexponential time."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does LLL enter Buchmann's algorithm?",
+            "choices": [
+              "It is used to test primality of the discriminant.",
+              "It reduces the lattice of relations among factor-base ideals to extract the Smith normal form, recovering both the class group structure and the regulator.",
+              "It computes the Galois group of $K$.",
+              "It evaluates the zeta function at $s=1$."
+            ],
+            "answer": 1,
+            "explain": "Each relation among factor-base prime ideals lives in $\\mathbb{Z}^{|S|}$ together with a logarithm vector for units. LLL reduces this combined lattice; its Smith normal form yields the class group invariants and a basis of fundamental units (hence the regulator)."
+          },
+          {
+            "type": "numeric",
+            "q": "The class number of $\\mathbb{Q}(\\sqrt{-5})$ is:",
+            "answer": 2,
+            "tol": 0.5,
+            "explain": "The ring of integers $\\mathbb{Z}[\\sqrt{-5}]$ is the canonical example of a non-PID: $6 = 2\\cdot 3 = (1+\\sqrt{-5})(1-\\sqrt{-5})$ are two essentially different factorizations. The class group is $\\mathbb{Z}/2\\mathbb{Z}$, so $h=2$."
+          }
+        ]
+      }
+    }
+  },
   "deformation-theory": {
     "topic": "deformation-theory",
     "quizzes": {
@@ -10593,6 +10823,10 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "designs": {
+    "topic": "designs",
+    "quizzes": {}
   },
   "differential-forms": {
     "topic": "differential-forms",
@@ -14414,6 +14648,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "expanders": {
+    "topic": "expanders",
+    "quizzes": {}
+  },
   "extremal-combinatorics": {
     "topic": "extremal-combinatorics",
     "quizzes": {
@@ -14908,6 +15146,242 @@ window.MVQuizBank = {
             "answer": 1,
             "tol": 0,
             "explain": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$. Exactly $1$ countable model up to isomorphism."
+          }
+        ]
+      }
+    }
+  },
+  "fixed-point-theorems": {
+    "topic": "fixed-point-theorems",
+    "quizzes": {
+      "fpt-banach": {
+        "title": "Banach contraction principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which hypothesis is essential for the Banach contraction principle to guarantee a unique fixed point?",
+            "choices": [
+              "the metric space is bounded",
+              "the metric space is complete and the map has Lipschitz constant $L<1$",
+              "the map is continuous and the space is connected",
+              "the map is differentiable on a compact set"
+            ],
+            "answer": 1,
+            "explain": "Completeness is needed for the Cauchy iteration $x_{n+1}=f(x_n)$ to have a limit; the strict contraction $L<1$ forces uniqueness and geometric convergence at rate $L$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f(x)=\\tfrac{1}{2}x+1$ on $\\mathbb{R}$. What is the unique fixed point?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Solve $x=\\tfrac{1}{2}x+1$, giving $x=2$. The Lipschitz constant is $1/2<1$, so Picard iteration from any starting point converges to $2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Define $f\\colon\\mathbb{R}\\to\\mathbb{R}$ by $f(x)=x+e^{-x}$. Why does Banach's theorem fail to apply, even though $|f'(x)|<1$ for all $x$?",
+            "choices": [
+              "$f$ is not continuous",
+              "$\\mathbb{R}$ is not complete",
+              "there is no global Lipschitz constant $L<1$, only $|f'(x)|<1$ pointwise",
+              "$f$ has no fixed point"
+            ],
+            "answer": 2,
+            "explain": "Banach demands a uniform $L<1$, not merely $|f'(x)|<1$ at each point. Here $f'(x)=1-e^{-x}\\to 1$ as $x\\to\\infty$, so $\\sup|f'|=1$. Indeed $f(x)>x$ everywhere, so $f$ has no fixed point."
+          }
+        ]
+      },
+      "fpt-brouwer": {
+        "title": "Brouwer fixed-point theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following spaces does NOT satisfy the Brouwer fixed-point property?",
+            "choices": [
+              "the closed disk $D^2$",
+              "the closed cube $[0,1]^n$",
+              "the circle $S^1$",
+              "any non-empty compact convex subset of $\\mathbb{R}^n$"
+            ],
+            "answer": 2,
+            "explain": "$S^1$ admits the antipodal map $x\\mapsto -x$, which is continuous and fixed-point-free. Brouwer requires a contractible (or just convex compact) domain; circles are not contractible."
+          },
+          {
+            "type": "mcq",
+            "q": "The standard proof of Brouwer reduces to which auxiliary statement?",
+            "choices": [
+              "the Hairy Ball theorem",
+              "no retraction $D^n\\to S^{n-1}$ extends the identity on $S^{n-1}$",
+              "every polynomial has a root",
+              "the unit ball of $\\ell^2$ is compact"
+            ],
+            "answer": 1,
+            "explain": "If $f\\colon D^n\\to D^n$ had no fixed point, the ray from $f(x)$ through $x$ defines a retraction $D^n\\to S^{n-1}$, contradicting the no-retraction lemma. The latter is proved by computing $H_{n-1}$ or the degree."
+          },
+          {
+            "type": "numeric",
+            "q": "For the constant map $f\\colon D^2\\to D^2$, $f(x)=(0,0)$, how many fixed points does $f$ have?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$x=(0,0)$ is the unique fixed point. Brouwer guarantees at least one; this map shows the count can be exactly one (and the degree of $\\mathrm{id}-f$ is $1$)."
+          }
+        ]
+      },
+      "fpt-schauder": {
+        "title": "Schauder fixed-point theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the role of compactness in Schauder's theorem that distinguishes it from Brouwer's?",
+            "choices": [
+              "compactness is automatic in any Banach space",
+              "in infinite dimensions the closed unit ball is not compact, so one assumes either a compact convex domain or that the operator is compact on a bounded set",
+              "compactness replaces continuity",
+              "no compactness is needed; convexity suffices"
+            ],
+            "answer": 1,
+            "explain": "In $\\mathbb{R}^n$ closed-bounded equals compact, so Brouwer needs no extra hypothesis. In a Banach space the unit ball is non-compact (Riesz's lemma), so Schauder demands the convex set be compact, or that $T$ be a compact operator on a closed bounded convex set."
+          },
+          {
+            "type": "mcq",
+            "q": "Schauder is typically applied to PDEs and integral equations because:",
+            "choices": [
+              "linear operators are always compact",
+              "integral operators with continuous kernels on $C[a,b]$ are compact (Arzelà–Ascoli), making the Schauder hypotheses easy to verify",
+              "PDE solutions live in finite-dimensional spaces",
+              "the spectral theorem implies a fixed point"
+            ],
+            "answer": 1,
+            "explain": "Compact operators arise everywhere in analysis — Volterra, Fredholm, Green's functions. Arzelà–Ascoli guarantees the image of a bounded set is precompact, so $T$ maps a closed bounded convex set into a compact convex set."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is convexity of the domain essential in Schauder's theorem?",
+            "choices": [
+              "only convex sets are compact",
+              "convexity is needed to approximate by finite-dimensional Brouwer applications via convex combinations",
+              "convexity replaces completeness",
+              "non-convex sets fail to be metric spaces"
+            ],
+            "answer": 1,
+            "explain": "Schauder's proof uses finite $\\varepsilon$-nets and Brouwer on their convex hulls. Without convexity the convex-hull retraction step fails, and indeed an annulus admits a fixed-point-free rotation."
+          }
+        ]
+      },
+      "fpt-lefschetz": {
+        "title": "Lefschetz fixed-point theorem",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For the identity map $\\mathrm{id}\\colon T^2\\to T^2$ on the 2-torus, the homology Betti numbers are $b_0=1,\\,b_1=2,\\,b_2=1$. Compute the Lefschetz number $\\Lambda(\\mathrm{id})$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$\\Lambda(\\mathrm{id})=\\sum(-1)^k b_k=1-2+1=0$, the Euler characteristic of the torus. Lefschetz gives no obstruction: indeed a non-trivial translation has no fixed points."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Brouwer-type theorem does Lefschetz recover when applied to a contractible space?",
+            "choices": [
+              "Brouwer fixed-point: contractible $\\Rightarrow$ $H_0=\\mathbb{Z}$, $H_k=0$ for $k>0$, so $\\Lambda(f)=1\\ne 0$",
+              "Schauder",
+              "Banach contraction",
+              "Kakutani"
+            ],
+            "answer": 0,
+            "explain": "On a contractible space all higher homology vanishes and $f_*\\colon H_0\\to H_0$ is the identity, so $\\Lambda(f)=1$. Non-zero Lefschetz number forces a fixed point — exactly Brouwer."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\Lambda(f)\\ne 0$ tell you, and what does $\\Lambda(f)=0$ tell you?",
+            "choices": [
+              "$\\Lambda(f)\\ne 0$ implies $f$ has a fixed point; $\\Lambda(f)=0$ is inconclusive",
+              "$\\Lambda(f)=0$ implies $f$ has no fixed point",
+              "$\\Lambda(f)$ counts fixed points exactly",
+              "$\\Lambda(f)$ is always non-negative"
+            ],
+            "answer": 0,
+            "explain": "Lefschetz is one-directional: non-zero trace forces a fixed point. A zero Lefschetz number is silent — a torus rotation has $\\Lambda=0$ and no fixed points; the identity also has $\\Lambda=\\chi$, often zero, yet fixes everything."
+          }
+        ]
+      },
+      "fpt-kakutani": {
+        "title": "Kakutani fixed-point theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does Kakutani's theorem add to Brouwer's?",
+            "choices": [
+              "it works in infinite dimensions",
+              "it allows set-valued maps $\\varphi(x)$ with non-empty closed convex values, requiring $x\\in\\varphi(x)$ at the fixed point",
+              "it removes the convexity requirement",
+              "it replaces compactness with completeness"
+            ],
+            "answer": 1,
+            "explain": "Kakutani upgrades single-valued continuous maps to upper-hemicontinuous correspondences with non-empty compact convex images. The fixed-point condition becomes membership: $x\\in\\varphi(x)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Kakutani — not Brouwer — the right tool for Nash equilibrium?",
+            "choices": [
+              "best-response maps are typically multi-valued (ties produce sets of best responses), and Nash needs a fixed point of this correspondence",
+              "Brouwer requires linearity",
+              "Brouwer gives uniqueness, which Nash forbids",
+              "Nash equilibria are always pure strategies"
+            ],
+            "answer": 0,
+            "explain": "Each player's best-response set $B_i(\\sigma_{-i})$ is a non-empty compact convex subset of their mixed-strategy simplex, but generally not a singleton. Kakutani applied to $\\sigma\\mapsto\\prod_i B_i(\\sigma_{-i})$ produces a Nash equilibrium."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property must $\\varphi$ satisfy beyond non-empty closed convex values?",
+            "choices": [
+              "Lipschitz continuity",
+              "upper hemicontinuity (closed graph in the compact case)",
+              "differentiability",
+              "linearity"
+            ],
+            "answer": 1,
+            "explain": "Upper hemicontinuity — equivalently, closed graph when the codomain is compact — is the analogue of continuity for set-valued maps and is exactly the regularity Kakutani requires."
+          }
+        ]
+      },
+      "fpt-applications": {
+        "title": "Applications: ODEs, IVT, Nash, Markov chains",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Picard–Lindelöf existence and uniqueness for $\\dot{x}=f(t,x)$ rests on which fixed-point theorem?",
+            "choices": [
+              "Brouwer",
+              "Banach contraction (applied to the Picard integral operator on $C([t_0-h,t_0+h])$)",
+              "Schauder",
+              "Lefschetz"
+            ],
+            "answer": 1,
+            "explain": "The integral operator $T(\\varphi)(t)=x_0+\\int_{t_0}^t f(s,\\varphi(s))\\,ds$ is a contraction on a small enough interval when $f$ is Lipschitz in $x$, giving the unique solution as its fixed point."
+          },
+          {
+            "type": "mcq",
+            "q": "A finite-state Markov chain with stochastic matrix $P$ has a stationary distribution because:",
+            "choices": [
+              "$P$ has a unique eigenvalue",
+              "the simplex $\\Delta$ is non-empty compact convex and $\\pi\\mapsto\\pi P$ is continuous, so Brouwer gives $\\pi^*\\in\\Delta$ with $\\pi^*P=\\pi^*$",
+              "$P$ is symmetric",
+              "every Markov chain is reversible"
+            ],
+            "answer": 1,
+            "explain": "Brouwer applied to the simplex $\\Delta=\\{\\pi\\ge 0:\\sum\\pi_i=1\\}$ under $\\pi\\mapsto\\pi P$ produces a stationary distribution — no irreducibility or symmetry needed."
+          },
+          {
+            "type": "mcq",
+            "q": "The implicit function theorem can be derived from which fixed-point principle?",
+            "choices": [
+              "Lefschetz",
+              "Banach contraction (the Newton-style operator $y\\mapsto y-A^{-1}F(x,y)$ is a contraction near the base point)",
+              "Kakutani",
+              "Schauder"
+            ],
+            "answer": 1,
+            "explain": "Linearizing $F(x,y)=0$ at the base point and applying Banach contraction to a Newton-iteration operator on a small ball yields the implicit function $y=g(x)$ with the desired smoothness."
           }
         ]
       }
@@ -17851,6 +18325,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "general-relativity": {
+    "topic": "general-relativity",
+    "quizzes": {}
+  },
   "geometric-and-combinatorial-group-theory": {
     "topic": "geometric-and-combinatorial-group-theory",
     "quizzes": {
@@ -19125,6 +19603,10 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "hamiltonians-classical-mechanics": {
+    "topic": "hamiltonians-classical-mechanics",
+    "quizzes": {}
   },
   "harmonic-analysis-fourier": {
     "topic": "harmonic-analysis-fourier",
@@ -20717,6 +21199,10 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "high-dimensional-geometry": {
+    "topic": "high-dimensional-geometry",
+    "quizzes": {}
   },
   "homological": {
     "topic": "homological",
@@ -24807,6 +25293,222 @@ window.MVQuizBank = {
       }
     }
   },
+  "mathematical-statistics": {
+    "topic": "mathematical-statistics",
+    "quizzes": {
+      "ms-estimators": {
+        "title": "Point estimators: bias, consistency, MSE, sufficiency",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $X_1,\\ldots,X_n$ be i.i.d. with mean $\\mu$ and variance $\\sigma^2$. Which estimator of $\\sigma^2$ is unbiased?",
+            "choices": [
+              "$\\hat\\sigma^2_{\\text{MLE}}=\\tfrac{1}{n}\\sum (X_i-\\bar X)^2$",
+              "$S^2=\\tfrac{1}{n-1}\\sum (X_i-\\bar X)^2$",
+              "$\\tfrac{1}{n}\\sum X_i^2$",
+              "$\\bar X^2$"
+            ],
+            "answer": 1,
+            "explain": "The Bessel-corrected sample variance $S^2=\\tfrac{1}{n-1}\\sum(X_i-\\bar X)^2$ has $\\mathbb{E}[S^2]=\\sigma^2$. The $1/n$ MLE version is biased downward by a factor $(n-1)/n$ because $\\bar X$ already absorbed one degree of freedom."
+          },
+          {
+            "type": "numeric",
+            "q": "Estimator $\\hat\\theta$ has bias $0.2$ and variance $0.09$ at the true parameter. What is its MSE?",
+            "answer": 0.13,
+            "tol": 0.0001,
+            "explain": "$\\mathrm{MSE}=\\mathrm{bias}^2+\\mathrm{var}=0.04+0.09=0.13$. The bias-variance decomposition is the basic accounting identity for risk under squared loss."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Fisher–Neyman factorisation theorem, $T(X)$ is sufficient for $\\theta$ iff the joint density factors as:",
+            "choices": [
+              "$f(x;\\theta)=g(T(x);\\theta)\\,h(x)$",
+              "$f(x;\\theta)=g(x)\\,h(\\theta)$",
+              "$f(x;\\theta)=\\sum_t g(t;\\theta)\\mathbf{1}_{T(x)=t}$",
+              "$f(x;\\theta)=g(T(x))\\,h(\\theta)$"
+            ],
+            "answer": 0,
+            "explain": "Fisher–Neyman: $T$ is sufficient iff $f(x;\\theta)$ splits as a piece $g$ that depends on the data only through $T(x)$ times a $\\theta$-free piece $h(x)$. Equivalently, the conditional law of $X$ given $T$ is free of $\\theta$."
+          }
+        ]
+      },
+      "ms-mle": {
+        "title": "Maximum likelihood and the score equation",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For i.i.d. $X_i\\sim\\mathrm{Exp}(\\lambda)$ (density $\\lambda e^{-\\lambda x}$, $x>0$), compute the MLE of $\\lambda$ when $n=5$ and $\\sum X_i=10$.",
+            "answer": 0.5,
+            "tol": 0.0001,
+            "explain": "$\\ell(\\lambda)=n\\log\\lambda-\\lambda\\sum X_i$; setting $\\ell'=n/\\lambda-\\sum X_i=0$ gives $\\hat\\lambda=n/\\sum X_i=5/10=0.5$. The MLE for an exponential rate is the reciprocal of the sample mean."
+          },
+          {
+            "type": "numeric",
+            "q": "For $X_i\\sim\\mathcal{N}(\\theta,1)$, the Fisher information per sample is $I(\\theta)=$?",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$\\log f=-\\tfrac{1}{2}(x-\\theta)^2+\\text{const}$, so $\\partial_\\theta\\log f=x-\\theta$ and $I(\\theta)=\\mathbb{E}[(X-\\theta)^2]=\\sigma^2=1$. Asymptotic variance of $\\hat\\theta_{\\mathrm{MLE}}=\\bar X$ is $1/(nI)=1/n$, matching $\\mathrm{Var}(\\bar X)$ exactly."
+          },
+          {
+            "type": "mcq",
+            "q": "MLE corresponds to minimising which divergence between the empirical distribution $\\hat p_n$ and the model family $\\{p_\\theta\\}$?",
+            "choices": [
+              "Total variation $\\|\\hat p_n-p_\\theta\\|_{\\mathrm{TV}}$",
+              "Hellinger distance",
+              "Kullback–Leibler $D(\\hat p_n\\,\\|\\,p_\\theta)$",
+              "Wasserstein-2 distance"
+            ],
+            "answer": 2,
+            "explain": "$D(\\hat p_n\\,\\|\\,p_\\theta)=-\\tfrac{1}{n}\\sum\\log p_\\theta(X_i)+\\text{const}(\\hat p_n)$, so minimising KL in $\\theta$ maximises $\\sum\\log p_\\theta(X_i)$ — the log-likelihood. This is exactly why MLE inherits Sanov-style asymptotics."
+          }
+        ]
+      },
+      "ms-cramer-rao": {
+        "title": "Cramér–Rao, UMVU, Rao–Blackwell",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For i.i.d. $X_i\\sim\\mathcal{N}(\\mu,\\sigma^2)$ with $\\sigma^2$ known, the Cramér–Rao lower bound on $\\mathrm{Var}(\\hat\\mu)$ for unbiased $\\hat\\mu$ from $n$ samples equals $\\sigma^2/(cn)$. What is $c$?",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$I(\\mu)=1/\\sigma^2$ per observation, so the CRLB is $1/(nI)=\\sigma^2/n$, i.e. $c=1$. The sample mean $\\bar X$ achieves it — $\\bar X$ is UMVU for $\\mu$."
+          },
+          {
+            "type": "mcq",
+            "q": "Rao–Blackwell says: given an unbiased estimator $W$ and a sufficient statistic $T$, the estimator $W^*=\\mathbb{E}[W\\mid T]$:",
+            "choices": [
+              "Is biased but lower variance",
+              "Is unbiased with variance $\\le$ that of $W$",
+              "Equals $W$ exactly",
+              "Has variance $0$"
+            ],
+            "answer": 1,
+            "explain": "By tower, $\\mathbb{E}[W^*]=\\mathbb{E}[W]=\\theta$ (still unbiased). Conditional Jensen / law of total variance gives $\\mathrm{Var}(W^*)\\le\\mathrm{Var}(W)$, with equality iff $W$ was already a function of $T$. Combined with completeness (Lehmann–Scheffé), this gives UMVU."
+          },
+          {
+            "type": "mcq",
+            "q": "Which estimator achieves the Cramér–Rao bound?",
+            "choices": [
+              "Any consistent estimator",
+              "Any unbiased estimator with finite variance",
+              "An efficient estimator (typically the MLE in regular models, asymptotically)",
+              "The method-of-moments estimator"
+            ],
+            "answer": 2,
+            "explain": "An estimator hitting the CRLB is called efficient. Generically, only special unbiased estimators (e.g. $\\bar X$ for Gaussian mean) hit it exactly; the MLE achieves it asymptotically — $\\sqrt n(\\hat\\theta_{\\mathrm{MLE}}-\\theta)\\to\\mathcal{N}(0,1/I(\\theta))$."
+          }
+        ]
+      },
+      "ms-hypothesis-testing": {
+        "title": "Hypothesis testing, Neyman–Pearson, likelihood ratios",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For testing $H_0:\\theta=\\theta_0$ vs $H_1:\\theta=\\theta_1$ (both simple), the Neyman–Pearson lemma says the most powerful level-$\\alpha$ test rejects when:",
+            "choices": [
+              "$|X-\\theta_0|$ is large",
+              "$L(\\theta_1;x)/L(\\theta_0;x)>k$ for an $\\alpha$-calibrated $k$",
+              "$\\hat\\theta_{\\mathrm{MLE}}$ is closer to $\\theta_1$ than $\\theta_0$",
+              "The $p$-value under $H_0$ is $<\\alpha$, regardless of the form of the rejection set"
+            ],
+            "answer": 1,
+            "explain": "Neyman–Pearson is constructive: fix $\\alpha=\\mathbb{P}_{\\theta_0}(\\Lambda>k)$, then rejection region $\\{\\Lambda>k\\}$ is the most powerful at level $\\alpha$ — every other size-$\\alpha$ test has power $\\le 1-\\beta_{\\text{NP}}$."
+          },
+          {
+            "type": "numeric",
+            "q": "A z-test of $H_0:\\mu=0$ vs $H_1:\\mu>0$ (one-sided, known $\\sigma=1$, $n=25$ samples) rejects at level $\\alpha=0.05$ when $\\bar X>1.645/\\sqrt{25}$. What is the threshold on $\\bar X$? (Round to 4 decimals.)",
+            "answer": 0.329,
+            "tol": 0.001,
+            "explain": "Under $H_0$, $\\bar X\\sim\\mathcal{N}(0,1/n)$. The $0.95$ quantile of $\\mathcal{N}(0,1/n)$ is $z_{0.95}/\\sqrt n=1.645/5=0.329$. Reject when $\\bar X>0.329$."
+          },
+          {
+            "type": "mcq",
+            "q": "The $p$-value of an observation $x_{\\text{obs}}$ is best described as:",
+            "choices": [
+              "The probability that $H_0$ is true given the data",
+              "The probability of observing data at least as extreme as $x_{\\text{obs}}$ assuming $H_0$",
+              "Type-II error probability",
+              "$1$ minus the power of the test"
+            ],
+            "answer": 1,
+            "explain": "$p=\\mathbb{P}_{H_0}(T(X)\\ge T(x_{\\text{obs}}))$ — a probability under the null, not a posterior on $H_0$. Confusing the two is the canonical frequentist–Bayesian fallacy."
+          }
+        ]
+      },
+      "ms-bayesian": {
+        "title": "Bayesian inference: posteriors, conjugates, credible intervals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Beta–Binomial conjugacy: with $\\theta\\sim\\mathrm{Beta}(\\alpha,\\beta)$ prior and $X\\sim\\mathrm{Binom}(n,\\theta)$ data, the posterior is:",
+            "choices": [
+              "$\\mathrm{Beta}(\\alpha+x,\\beta+n-x)$",
+              "$\\mathrm{Beta}(\\alpha+n,\\beta+n)$",
+              "$\\mathrm{Beta}(\\alpha x,\\beta(n-x))$",
+              "$\\mathrm{Normal}(x/n,\\,x(n-x)/n^3)$"
+            ],
+            "answer": 0,
+            "explain": "Posterior $\\propto\\theta^{\\alpha-1}(1-\\theta)^{\\beta-1}\\cdot\\theta^x(1-\\theta)^{n-x}=\\theta^{\\alpha+x-1}(1-\\theta)^{\\beta+n-x-1}$ — a $\\mathrm{Beta}(\\alpha+x,\\beta+n-x)$. Conjugate priors are exactly the families closed under this update."
+          },
+          {
+            "type": "numeric",
+            "q": "Flat prior $\\theta\\sim\\mathrm{Beta}(1,1)$ on a coin's heads-probability; observe $7$ heads in $10$ flips. The posterior is $\\mathrm{Beta}(8,4)$. Compute the posterior mean.",
+            "answer": 0.6666666667,
+            "tol": 0.001,
+            "explain": "$\\mathbb{E}[\\theta\\mid x]=\\alpha'/(\\alpha'+\\beta')=8/12=2/3\\approx 0.667$. The MLE was $7/10=0.7$; the prior pulls the estimate slightly toward $1/2$."
+          },
+          {
+            "type": "mcq",
+            "q": "MAP and posterior mean coincide when:",
+            "choices": [
+              "The likelihood is Gaussian",
+              "The posterior is symmetric and unimodal (e.g. Gaussian, symmetric Beta)",
+              "Always",
+              "The prior is flat"
+            ],
+            "answer": 1,
+            "explain": "For symmetric unimodal posteriors, mode = mean. Asymmetric posteriors (e.g. $\\mathrm{Beta}(2,5)$) have mode $\\neq$ mean. MAP minimises a $0$–$1$ loss; posterior mean minimises squared-error loss."
+          }
+        ]
+      },
+      "ms-asymptotics": {
+        "title": "Asymptotics: delta method, Slutsky, Wilks",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Apply the delta method: if $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,1)$ and $g(\\theta)=\\theta^2$ with $\\theta=3$, then $\\sqrt n(g(\\hat\\theta_n)-g(\\theta))\\xrightarrow{d}\\mathcal{N}(0,v)$. Compute $v$.",
+            "answer": 36,
+            "tol": 0.0001,
+            "explain": "Delta method: $v=g'(\\theta)^2\\sigma^2=(2\\theta)^2\\cdot 1=4\\theta^2=4\\cdot 9=36$. The Jacobian of $g$ stretches the asymptotic variance by $g'(\\theta)^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Wilks' theorem says that under $H_0$, the LRT statistic $-2\\log\\Lambda_n$ converges in distribution to:",
+            "choices": [
+              "$\\mathcal{N}(0,1)$",
+              "$\\chi^2_r$ where $r=\\dim\\Theta-\\dim\\Theta_0$",
+              "$F$-distribution",
+              "$\\mathrm{Exp}(1)$"
+            ],
+            "answer": 1,
+            "explain": "$-2\\log\\Lambda_n\\xrightarrow{d}\\chi^2_r$ with $r$ the difference in dimensions. This is what calibrates LRT-based confidence regions: $\\{\\theta:-2\\log\\Lambda(\\theta)<\\chi^2_{r,1-\\alpha}\\}$ has asymptotic coverage $1-\\alpha$."
+          },
+          {
+            "type": "mcq",
+            "q": "Slutsky's theorem says: if $X_n\\xrightarrow{d}X$ and $Y_n\\xrightarrow{p}c$ (constant), then:",
+            "choices": [
+              "$X_n+Y_n\\xrightarrow{d}X+c$ and $X_nY_n\\xrightarrow{d}cX$",
+              "$X_n+Y_n\\xrightarrow{p}X+c$",
+              "$Y_nX_n\\xrightarrow{d}\\mathcal{N}(c,1)$",
+              "Convergence fails unless $X$ is Gaussian"
+            ],
+            "answer": 0,
+            "explain": "Slutsky lets you replace a consistent nuisance estimate by its limit inside a converging-in-distribution sequence. Used constantly: $\\sqrt n(\\bar X-\\mu)/S\\xrightarrow{d}\\mathcal{N}(0,1)$ because $S\\xrightarrow{p}\\sigma$."
+          }
+        ]
+      }
+    }
+  },
   "mathematics-and-cryptography": {
     "topic": "mathematics-and-cryptography",
     "quizzes": {
@@ -26204,6 +26906,10 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "mirror-symmetry": {
+    "topic": "mirror-symmetry",
+    "quizzes": {}
   },
   "model-theory-basics": {
     "topic": "model-theory-basics",
@@ -28805,6 +29511,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "mostow-rigidity": {
+    "topic": "mostow-rigidity",
+    "quizzes": {}
+  },
   "naive-set-theory": {
     "topic": "naive-set-theory",
     "quizzes": {
@@ -29146,6 +29856,237 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "The Vitali set $V$ is built by picking exactly one element from each equivalence class of $x\\sim y\\iff x-y\\in\\mathbb{Q}$ restricted to $[0,1]$. There are uncountably many classes and no canonical choice; AC is invoked to guarantee a simultaneous selection. Assuming $V$ is measurable then leads to a contradiction with countable additivity."
+          }
+        ]
+      }
+    }
+  },
+  "numerical-analysis": {
+    "topic": "numerical-analysis",
+    "quizzes": {
+      "na-floating-point": {
+        "title": "Floating-point arithmetic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In IEEE 754 double precision, machine epsilon $\\varepsilon_M$ is closest to which value?",
+            "choices": [
+              "$1.19\\times 10^{-7}$",
+              "$2.22\\times 10^{-16}$",
+              "$1.0\\times 10^{-300}$",
+              "$5.96\\times 10^{-8}$"
+            ],
+            "answer": 1,
+            "explain": "Doubles use a 52-bit mantissa, so $\\varepsilon_M = 2^{-52}\\approx 2.22\\times 10^{-16}$. Single precision (24-bit) gives $2^{-23}\\approx 1.19\\times 10^{-7}$; the other values are unrelated to the format."
+          },
+          {
+            "type": "mcq",
+            "q": "A problem is ill-conditioned but the algorithm is backward-stable. What can you conclude about the computed result?",
+            "choices": [
+              "It will be accurate to machine precision",
+              "It is the exact solution to a slightly perturbed problem; accuracy depends on the condition number",
+              "It is unusable — backward stability is meaningless without forward stability",
+              "It is exactly the true solution, since the algorithm is stable"
+            ],
+            "answer": 1,
+            "explain": "Backward stability means $\\hat{y}=f(x+\\delta x)$ with $\\delta x$ small. The forward error is then bounded by $\\kappa(\\text{problem})\\cdot \\|\\delta x\\|$: a stable algorithm on an ill-conditioned problem still loses digits, and that's not the algorithm's fault."
+          },
+          {
+            "type": "numeric",
+            "q": "If the relative roundoff per operation is $\\varepsilon_M$ and you sum $n=10^6$ floats naively, the worst-case relative error is bounded by approximately $n\\varepsilon_M$. With $\\varepsilon_M=2^{-52}\\approx 2.22\\times 10^{-16}$, what is $n\\varepsilon_M$?",
+            "answer": 2.22e-10,
+            "tol": 1e-11,
+            "explain": "$10^6 \\times 2.22\\times 10^{-16} = 2.22\\times 10^{-10}$. Kahan summation tightens this to $O(\\varepsilon_M)$ regardless of $n$ by carrying a running compensation term."
+          }
+        ]
+      },
+      "na-rootfinding": {
+        "title": "Rootfinding",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Newton's method applied to $f(x)=x^2-2$ starting from $x_0=1$. What is $x_2$?",
+            "choices": [
+              "$1.5$",
+              "$1.41666\\ldots$",
+              "$1.41421356\\ldots$",
+              "$2.0$"
+            ],
+            "answer": 1,
+            "explain": "Newton: $x_{n+1}=x_n - (x_n^2-2)/(2x_n) = (x_n+2/x_n)/2$. From $x_0=1$: $x_1=(1+2)/2=1.5$, then $x_2=(1.5+4/3)/2=17/12\\approx 1.41667$. Quadratic convergence — three iterations get you to machine precision."
+          },
+          {
+            "type": "mcq",
+            "q": "Bisection on $[0,1]$ with tolerance $10^{-6}$ requires roughly how many iterations?",
+            "choices": [
+              "$6$",
+              "$10$",
+              "$20$",
+              "$60$"
+            ],
+            "answer": 2,
+            "explain": "After $n$ steps the interval length is $2^{-n}$. We need $2^{-n}<10^{-6}$, i.e. $n > \\log_2(10^6)\\approx 19.93$, so $n=20$. Bisection's linear convergence with rate $1/2$ means each step buys exactly one bit."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the order of convergence of the secant method near a simple root?",
+            "choices": [
+              "Linear ($p=1$)",
+              "Golden ratio ($p=(1+\\sqrt5)/2\\approx 1.618$)",
+              "Quadratic ($p=2$)",
+              "Cubic ($p=3$)"
+            ],
+            "answer": 1,
+            "explain": "The secant error recursion $e_{n+1}\\sim C e_n e_{n-1}$ leads to $p^2 = p+1$, whose positive root is the golden ratio $\\phi=(1+\\sqrt 5)/2\\approx 1.618$. It's slower than Newton's $p=2$ but trades the derivative evaluation for cheaper iterations."
+          }
+        ]
+      },
+      "na-quadrature": {
+        "title": "Quadrature",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Composite trapezoid rule on $n$ panels has error scaling as $h^2$ where $h=(b-a)/n$. If doubling $n$ shrinks the error by what factor?",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "Halving $h$ shrinks $h^2$ by $4$. So each doubling of $n$ buys two bits of accuracy. Simpson's $O(h^4)$ buys four bits per doubling."
+          },
+          {
+            "type": "mcq",
+            "q": "Gauss–Legendre quadrature with $n$ nodes integrates polynomials of degree $\\le ?$ exactly.",
+            "choices": [
+              "$n-1$",
+              "$n$",
+              "$2n-1$",
+              "$2n$"
+            ],
+            "answer": 2,
+            "explain": "Choosing the $n$ nodes as zeros of the $n$-th Legendre polynomial buys an extra $n$ degrees of exactness over a generic $n$-point quadrature, giving exactness up to degree $2n-1$. This is optimal: no $n$-point rule integrates all polynomials of degree $2n$ exactly."
+          },
+          {
+            "type": "mcq",
+            "q": "Simpson's rule is exact for polynomials of degree up to:",
+            "choices": [
+              "$1$",
+              "$2$",
+              "$3$",
+              "$4$"
+            ],
+            "answer": 2,
+            "explain": "By construction Simpson's rule integrates parabolas exactly, but a symmetry argument bumps the exactness to cubics: the cubic remainder is odd about the midpoint and integrates to zero. The error term is $-(b-a)h^4 f^{(4)}(\\xi)/180$."
+          }
+        ]
+      },
+      "na-linear-systems": {
+        "title": "Linear systems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $A$ is symmetric positive definite, which factorization is the natural choice and what is its leading cost?",
+            "choices": [
+              "LU at $O(n^3)$",
+              "QR at $O(n^3)$",
+              "Cholesky $A=LL^\\top$ at $\\tfrac12 n^3$ flops",
+              "SVD at $O(n^3)$"
+            ],
+            "answer": 2,
+            "explain": "Cholesky exploits SPD structure to halve LU's cost and avoid pivoting. It also fails fast: a non-positive pivot signals that $A$ is not SPD, useful as a numerical SPD test."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\kappa(A)=10^8$ and you solve $Ax=b$ in IEEE double precision ($\\varepsilon_M\\approx 10^{-16}$), the relative error in $x$ is bounded by roughly $\\kappa(A)\\varepsilon_M$. Enter this bound (a number).",
+            "answer": 1e-8,
+            "tol": 1e-9,
+            "explain": "$\\kappa(A)\\,\\varepsilon_M = 10^8\\cdot 10^{-16}=10^{-8}$. Rule of thumb: you lose $\\log_{10}\\kappa(A)$ digits of accuracy. Conjugate gradient sees a related but weaker dependence: convergence rate $\\sim (\\sqrt\\kappa-1)/(\\sqrt\\kappa+1)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Conjugate gradient on an SPD system with condition number $\\kappa$ converges in roughly how many iterations to a fixed tolerance?",
+            "choices": [
+              "$O(\\kappa)$",
+              "$O(\\sqrt{\\kappa})$",
+              "$O(\\log\\kappa)$",
+              "$O(n)$ regardless of $\\kappa$"
+            ],
+            "answer": 1,
+            "explain": "The CG error decays as $((\\sqrt\\kappa-1)/(\\sqrt\\kappa+1))^k$, so reducing the error by a fixed factor needs $O(\\sqrt\\kappa)$ steps. This is exponentially better than Jacobi/Gauss–Seidel's $O(\\kappa)$ — preconditioning is the standard way to shrink $\\kappa$."
+          }
+        ]
+      },
+      "na-finite-differences": {
+        "title": "Finite differences and stability",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which finite difference approximates $f'(x)$ with error $O(h^2)$ rather than $O(h)$?",
+            "choices": [
+              "Forward: $(f(x+h)-f(x))/h$",
+              "Backward: $(f(x)-f(x-h))/h$",
+              "Central: $(f(x+h)-f(x-h))/(2h)$",
+              "Scaled forward: $(f(x+2h)-f(x))/(2h)$"
+            ],
+            "answer": 2,
+            "explain": "Taylor expansion: $f(x\\pm h)=f(x)\\pm h f'(x) + \\tfrac{h^2}{2}f''(x)\\pm\\tfrac{h^3}{6}f'''(x)+\\cdots$. The central difference cancels the $f''$ term, leaving $f'(x)+\\tfrac{h^2}{6}f'''(x)+\\cdots$. The other one-sided differences keep the $f''(x)h/2$ leading error."
+          },
+          {
+            "type": "mcq",
+            "q": "An explicit FD scheme for the heat equation $u_t=u_{xx}$ is stable when:",
+            "choices": [
+              "$\\Delta t\\le \\Delta x$",
+              "$\\Delta t\\le \\tfrac12(\\Delta x)^2$",
+              "$\\Delta t\\le (\\Delta x)^4$",
+              "Always — explicit schemes are unconditionally stable"
+            ],
+            "answer": 1,
+            "explain": "Von Neumann analysis on $u^{n+1}_j=u^n_j + (\\Delta t/\\Delta x^2)(u^n_{j+1}-2u^n_j+u^n_{j-1})$ gives an amplification factor whose modulus stays $\\le 1$ iff $\\Delta t/\\Delta x^2\\le 1/2$. Cross that and tiny errors blow up exponentially. Implicit (Crank–Nicolson) schemes lift the restriction at the cost of a linear solve per step."
+          },
+          {
+            "type": "numeric",
+            "q": "For the wave equation $u_{tt}=c^2 u_{xx}$ with $c=2$ and $\\Delta x=0.1$, the CFL condition $c\\Delta t/\\Delta x\\le 1$ caps $\\Delta t$. What is the largest stable $\\Delta t$?",
+            "answer": 0.05,
+            "tol": 0.000001,
+            "explain": "$\\Delta t\\le \\Delta x/c = 0.1/2 = 0.05$. The condition encodes that the numerical domain of dependence must contain the analytic one (the cone with slope $1/c$); otherwise information that should reach a node is missed by the stencil."
+          }
+        ]
+      },
+      "na-finite-elements": {
+        "title": "Finite elements",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the FEM Galerkin formulation for $-\\Delta u=f$ on $\\Omega$ with $u=0$ on $\\partial\\Omega$, the stiffness matrix entry $K_{ij}$ equals:",
+            "choices": [
+              "$\\int_\\Omega \\varphi_i\\varphi_j$",
+              "$\\int_\\Omega \\nabla\\varphi_i\\cdot\\nabla\\varphi_j$",
+              "$\\int_\\Omega f\\varphi_i\\varphi_j$",
+              "$\\varphi_i(x_j)$"
+            ],
+            "answer": 1,
+            "explain": "Multiply $-\\Delta u=f$ by $\\varphi_j$ and integrate by parts: $\\int\\nabla u\\cdot\\nabla\\varphi_j = \\int f\\varphi_j$. Substituting $u=\\sum c_i\\varphi_i$ produces $K_{ij}=\\int\\nabla\\varphi_i\\cdot\\nabla\\varphi_j$ and the load vector $b_j=\\int f\\varphi_j$. The first option $\\int\\varphi_i\\varphi_j$ is the mass matrix, used for time-dependent problems."
+          },
+          {
+            "type": "mcq",
+            "q": "With piecewise-linear hat basis on a mesh of size $h$, Céa's lemma gives the a priori estimate $\\|u-u_h\\|_{H^1}\\le ?$",
+            "choices": [
+              "$C h^2 \\|u\\|_{H^2}$",
+              "$C h \\|u\\|_{H^2}$",
+              "$C \\|u\\|_{L^2}$",
+              "$C h^{-1} \\|f\\|_{L^2}$"
+            ],
+            "answer": 1,
+            "explain": "Céa's lemma + linear interpolation error in $H^1$ gives $\\|u-u_h\\|_{H^1}\\le Ch\\|u\\|_{H^2}$. The $L^2$ estimate is one order better: $\\|u-u_h\\|_{L^2}\\le Ch^2\\|u\\|_{H^2}$ via Aubin–Nitsche duality. Higher-order ($P^k$) elements scale as $h^k$ in $H^1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of the FEM stiffness matrix $K$ for $-\\Delta$ with Dirichlet BCs makes conjugate gradient an excellent solver?",
+            "choices": [
+              "$K$ is dense and unitary",
+              "$K$ is sparse, symmetric, and positive definite",
+              "$K$ is upper triangular",
+              "$K$ has constant entries on diagonals"
+            ],
+            "answer": 1,
+            "explain": "Each $\\varphi_i$ has compact support, so $K_{ij}\\ne 0$ only when supports overlap — sparse. Symmetry is immediate from the symmetric bilinear form. Positivity: $v^\\top K v=\\int|\\nabla(\\sum v_i\\varphi_i)|^2\\ge 0$ with equality only at $v=0$ (Poincaré on $H^1_0$). SPD + sparse is exactly the regime where CG with multigrid preconditioning shines."
           }
         ]
       }
@@ -36311,6 +37252,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "resolution-of-singularities": {
+    "topic": "resolution-of-singularities",
+    "quizzes": {}
+  },
   "ricci-flow": {
     "topic": "ricci-flow",
     "quizzes": {
@@ -43414,6 +44359,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "three-body-problem": {
+    "topic": "three-body-problem",
+    "quizzes": {}
+  },
   "type-theory-and-hott": {
     "topic": "type-theory-and-hott",
     "quizzes": {
@@ -43995,6 +44944,242 @@ window.MVQuizBank = {
             "answer": 0,
             "hint": "Diagonalize over $\\mathbb{C}$ and then descend to $SO(2)$.",
             "explain": "Any elliptic $g$ has a unique fixed point $p\\in\\mathbb{H}$. Choose $h\\in PSL_2(\\mathbb{R})$ with $h(p)=i$; then $hgh^{-1}$ fixes $i$. The stabiliser of $i$ consists of matrices with $a=d, b=-c, a^2+b^2=1$, i.e., rotations $SO(2)$ mod $\\pm I$."
+          }
+        ]
+      }
+    }
+  },
+  "variational-methods": {
+    "topic": "variational-methods",
+    "quizzes": {
+      "vm-functional-derivative": {
+        "title": "Functional derivative",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $J(u)=\\tfrac12\\int_0^1 (u'(x))^2\\,dx$ on $H^1_0(0,1)$. The Gateaux derivative $\\langle J'(u),h\\rangle$ equals which expression?",
+            "choices": [
+              "$\\int_0^1 u(x)\\,h(x)\\,dx$",
+              "$\\int_0^1 u'(x)\\,h'(x)\\,dx$",
+              "$\\int_0^1 (u'(x))^2\\,h(x)\\,dx$",
+              "$u(1)\\,h(1) - u(0)\\,h(0)$"
+            ],
+            "answer": 1,
+            "explain": "Expand $J(u+\\varepsilon h)=\\tfrac12\\int(u'+\\varepsilon h')^2 = J(u)+\\varepsilon\\int u'h' + O(\\varepsilon^2)$. The linear coefficient is the Gateaux derivative. After integrating by parts and using $h\\in H^1_0$, this also equals $-\\int u''h$, which is how the Euler-Lagrange equation $-u''=0$ pops out."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct distinction between Gateaux and Fréchet derivatives?",
+            "choices": [
+              "Gateaux requires linearity in $h$; Fréchet does not",
+              "Fréchet additionally requires the remainder to be $o(\\|h\\|)$ uniformly in the direction",
+              "Fréchet works only in finite dimensions",
+              "They coincide on every Banach space"
+            ],
+            "answer": 1,
+            "explain": "Gateaux differentiability gives a directional derivative for each fixed $h$ but allows the remainder to depend non-uniformly on direction. Fréchet upgrades this: $J(u+h)=J(u)+\\langle J'(u),h\\rangle+o(\\|h\\|)$ uniformly in $h$, recovering classical differential calculus and chain rule."
+          },
+          {
+            "type": "numeric",
+            "q": "For $J(u)=\\int_0^1 u(x)^3\\,dx$, compute $\\langle J'(u),h\\rangle / \\int_0^1 h\\,dx$ when $u\\equiv 2$ and $h$ is any test function with $\\int h = 1$.",
+            "answer": 12,
+            "tol": 0.0001,
+            "explain": "$\\delta J/\\delta u = 3u^2$, so at $u=2$ the functional derivative is the constant $12$. Hence $\\langle J'(u),h\\rangle = \\int 12\\,h = 12\\int h$, and the ratio is $12$."
+          }
+        ]
+      },
+      "vm-euler-lagrange": {
+        "title": "Euler–Lagrange equations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Euler–Lagrange equation for the brachistochrone Lagrangian $L = \\sqrt{1+(y')^2}/\\sqrt{2gy}$ has which conserved quantity?",
+            "choices": [
+              "$L$ itself",
+              "$y'\\,\\partial_{y'}L - L$ (the Hamiltonian / Beltrami identity)",
+              "$\\partial_x L$",
+              "Nothing — no symmetry available"
+            ],
+            "answer": 1,
+            "explain": "Because $L$ does not depend on $x$ explicitly, the Beltrami identity $L - y'\\partial_{y'}L = C$ (a first integral) holds. Solving it for the brachistochrone gives the cycloid $x = r(\\theta-\\sin\\theta)$, $y=r(1-\\cos\\theta)$ — Bernoulli's celebrated 1697 answer."
+          },
+          {
+            "type": "mcq",
+            "q": "For $J(u)=\\int_a^b L(x,u,u')\\,dx$ with $u(a),u(b)$ fixed, the Euler–Lagrange equation is",
+            "choices": [
+              "$\\partial_u L = 0$",
+              "$\\partial_{u'} L = 0$",
+              "$\\frac{d}{dx}\\partial_{u'}L = \\partial_u L$",
+              "$\\partial_u L + \\partial_{u'} L = 0$"
+            ],
+            "answer": 2,
+            "explain": "Setting $\\frac{d}{d\\varepsilon}J(u+\\varepsilon h)|_{\\varepsilon=0}=0$ for every $h$ vanishing at the endpoints, integrating $\\partial_{u'}L\\cdot h'$ by parts (boundary terms drop because $h(a)=h(b)=0$), and applying the fundamental lemma of the calculus of variations yields the Euler–Lagrange equation."
+          },
+          {
+            "type": "numeric",
+            "q": "Minimise $J(u)=\\int_0^1 ((u')^2 + u^2)\\,dx$ with $u(0)=0,\\,u(1)=1$. The Euler–Lagrange equation is $u''=u$. Compute $u(1/2)$ to 3 decimals.",
+            "answer": 0.443,
+            "tol": 0.005,
+            "explain": "$u''=u$ with $u(0)=0$, $u(1)=1$ has solution $u(x)=\\sinh(x)/\\sinh(1)$. Then $u(1/2)=\\sinh(0.5)/\\sinh(1) \\approx 0.5211/1.1752 \\approx 0.443$. Strictly less than the linear interpolant $0.5$ — the quadratic penalty $\\int u^2$ pulls the curve down toward zero."
+          }
+        ]
+      },
+      "vm-direct-method": {
+        "title": "Direct method (Tonelli)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The direct method requires three ingredients on the energy $J\\colon X\\to\\mathbb{R}$. Which is NOT one of them?",
+            "choices": [
+              "Coercivity: $J(u)\\to\\infty$ as $\\|u\\|\\to\\infty$",
+              "Reflexivity of $X$ (so weak compactness applies)",
+              "Weak lower-semicontinuity: $u_k\\rightharpoonup u\\Rightarrow J(u)\\le\\liminf J(u_k)$",
+              "Strict convexity (so the minimiser is unique)"
+            ],
+            "answer": 3,
+            "explain": "Strict convexity gives uniqueness, but Tonelli's existence proof needs only coercivity (to bound a minimising sequence), reflexivity (Banach–Alaoglu gives a weakly convergent subsequence), and weak lower-semicontinuity (so the weak limit attains the infimum)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does coercivity fail for $J(u)=\\int_0^1 (u'(x))^2\\,dx$ on the full $H^1(0,1)$ without boundary conditions?",
+            "choices": [
+              "$J$ is not bounded below",
+              "Constants $u\\equiv c$ have $J(c)=0$ but $\\|c\\|_{H^1}\\to\\infty$ as $|c|\\to\\infty$",
+              "$J$ is not convex",
+              "Weak limits don't exist in $H^1$"
+            ],
+            "answer": 1,
+            "explain": "Adding an arbitrary constant doesn't change $u'$, so $J$ is invariant under $u\\mapsto u+c$. The norm $\\|u\\|_{H^1}^2 = \\|u\\|_{L^2}^2 + \\|u'\\|_{L^2}^2$ blows up while $J$ stays put — hence not coercive. Imposing $u(0)=0$ (the Poincaré inequality) restores coercivity."
+          },
+          {
+            "type": "mcq",
+            "q": "Which functional FAILS to be weakly lower-semicontinuous on $H^1(0,1)$?",
+            "choices": [
+              "$J(u)=\\int (u')^2$",
+              "$J(u)=\\int u^2$",
+              "$J(u)=-\\int (u')^2$",
+              "$J(u)=\\int (1+(u')^2)^{1/2}$ (length functional)"
+            ],
+            "answer": 2,
+            "explain": "Convex continuous functionals on a reflexive space are automatically weakly lower-semicontinuous. The first two are convex; the fourth is convex (concave-up integrand in $u'$). The third is concave in $u'$, hence its negative is convex — so $-\\int(u')^2$ is weakly upper-semicontinuous, the wrong direction."
+          }
+        ]
+      },
+      "vm-mountain-pass": {
+        "title": "Mountain-pass theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The mountain-pass geometry requires that $J$ has a local min at $0$, AND",
+            "choices": [
+              "$J$ is bounded below",
+              "There exists $u_*\\ne 0$ with $J(u_*)\\le J(0)$",
+              "$J$ is convex",
+              "$J$ is everywhere differentiable"
+            ],
+            "answer": 1,
+            "explain": "The picture: $0$ is a valley, $u_*$ is a far point at or below the valley floor. Any path from $0$ to $u_*$ must climb over a ridge; the lowest such ridge-height is the mountain-pass critical value. Without the second valley there's no mountain to cross."
+          },
+          {
+            "type": "mcq",
+            "q": "The Palais–Smale compactness condition $(PS)$ says that every sequence with $J(u_k)$ bounded and $J'(u_k)\\to 0$",
+            "choices": [
+              "Is bounded in norm",
+              "Converges weakly",
+              "Has a strongly convergent subsequence",
+              "Has a Cauchy subsequence in the metric of $J$"
+            ],
+            "answer": 2,
+            "explain": "(PS) demands strong convergence of a subsequence — this is what lets you pass from approximate critical points to genuine ones. On bounded domains with subcritical growth (Sobolev embedding compact) this is standard; at the critical Sobolev exponent, $(PS)$ can fail and concentration-compactness must replace it."
+          },
+          {
+            "type": "mcq",
+            "q": "The mountain-pass theorem produces a critical point at the saddle-height. This critical point",
+            "choices": [
+              "Is necessarily a minimum",
+              "Is necessarily a maximum",
+              "Is a saddle (Morse index $\\ge 1$)",
+              "Need not be a critical point at all"
+            ],
+            "answer": 2,
+            "explain": "By construction the critical value $c = \\inf_\\gamma\\max_t J(\\gamma(t))$ exceeds $J(0)$ but is bounded above on connecting paths — neither a global minimum nor a maximum. The Morse-theoretic interpretation: the topology of sublevel sets changes at $c$, forcing a critical point of index at least $1$."
+          }
+        ]
+      },
+      "vm-isoperimetric": {
+        "title": "Isoperimetric inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The classical planar isoperimetric inequality reads",
+            "choices": [
+              "$L \\le 2\\pi A$",
+              "$4\\pi A \\le L^2$",
+              "$A \\le L^2$",
+              "$A^2 \\le \\pi L$"
+            ],
+            "answer": 1,
+            "explain": "Among simple closed curves in the plane bounding area $A$ with perimeter $L$, $4\\pi A \\le L^2$ with equality iff the curve is a circle. Equivalently, fixing $L$ maximises $A$ at $L^2/(4\\pi)$ — the disk — and fixing $A$ minimises $L$ at $2\\sqrt{\\pi A}$."
+          },
+          {
+            "type": "numeric",
+            "q": "A region in the plane has perimeter $L=10$. What is the maximum possible area?",
+            "answer": 7.9577,
+            "tol": 0.005,
+            "explain": "By isoperimetry the disk maximises: $A_{\\max} = L^2/(4\\pi) = 100/(4\\pi) \\approx 7.958$. The maximiser is realised by the disk of circumference $10$, radius $r=10/(2\\pi)\\approx 1.59$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Euler–Lagrange equation for the isoperimetric problem (maximise area at fixed perimeter) $\\kappa = \\text{const}$?",
+            "choices": [
+              "The Lagrange multiplier $\\lambda$ for the perimeter constraint forces constant geodesic curvature",
+              "Because $\\partial_x L = 0$",
+              "By Noether's theorem applied to rotations",
+              "It's the Bonnet–Myers theorem"
+            ],
+            "answer": 0,
+            "explain": "Constrained variation: at a critical point of $A$ subject to fixed $L$, $\\delta A = \\lambda\\,\\delta L$. The first variation of area is $\\int h\\,ds$ along normal perturbation $h$; the first variation of length is $\\int \\kappa\\, h\\,ds$. Equality for all $h$ forces $\\kappa\\equiv\\lambda$ — constant curvature, hence a circle."
+          }
+        ]
+      },
+      "vm-applications": {
+        "title": "Applications: geodesics, minimal surfaces, gauge theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A geodesic on a Riemannian manifold satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$. This is the Euler–Lagrange equation for which functional?",
+            "choices": [
+              "Energy $E(\\gamma)=\\tfrac12\\int g(\\dot\\gamma,\\dot\\gamma)\\,dt$",
+              "Volume $V(\\gamma)=\\int 1\\,dt$",
+              "Curvature $K(\\gamma)=\\int|\\nabla_{\\dot\\gamma}\\dot\\gamma|^2\\,dt$",
+              "Mean curvature $H(\\gamma)$"
+            ],
+            "answer": 0,
+            "explain": "Critical points of the energy functional (with parametrisation fixed) are exactly geodesics. The arc-length functional $L(\\gamma)=\\int|\\dot\\gamma|\\,dt$ has the same minimisers but is reparametrisation-invariant — using $E$ instead pins the parametrisation to constant speed and avoids the degeneracy."
+          },
+          {
+            "type": "mcq",
+            "q": "Plateau's problem asks for a surface of least area spanning a given closed curve in $\\mathbb{R}^3$. The Euler–Lagrange equation is",
+            "choices": [
+              "Gauss curvature $K=0$",
+              "Mean curvature $H=0$ (the minimal-surface equation)",
+              "Constant scalar curvature",
+              "$\\Delta f = 0$ for the height function"
+            ],
+            "answer": 1,
+            "explain": "Stationarity of area against normal variations forces $H=0$ pointwise — the trace of the second fundamental form vanishes. Locally over a graph $z=f(x,y)$ this is $\\nabla\\cdot(\\nabla f/\\sqrt{1+|\\nabla f|^2})=0$, the minimal-surface equation. Soap films model this physically."
+          },
+          {
+            "type": "mcq",
+            "q": "The Yang–Mills functional is $YM(A) = \\int_M |F_A|^2\\,d\\mathrm{vol}$. Its critical points satisfy",
+            "choices": [
+              "$dA = 0$",
+              "$d^*F_A = 0$ (the Yang–Mills equation)",
+              "$F_A = 0$ (flat connection)",
+              "$\\nabla A = 0$"
+            ],
+            "answer": 1,
+            "explain": "Computing the first variation in the connection $A$ gives $\\delta YM = 2\\int\\langle F_A, d_A(\\delta A)\\rangle = 2\\int\\langle d_A^* F_A,\\delta A\\rangle$ (Bianchi gives $d_A F_A = 0$ automatically). Stationarity is $d_A^* F_A = 0$. Self-dual instantons $F_A = *F_A$ are a privileged class of solutions — the bridge to Donaldson theory."
           }
         ]
       }

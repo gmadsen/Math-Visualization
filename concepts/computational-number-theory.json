@@ -4,11 +4,52 @@
   "page": "computational-number-theory.html",
   "concepts": [
     {
-      "id": "computational-number-theory-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "cnt-primality",
+      "title": "Primality testing",
+      "anchor": "primality",
+      "prereqs": ["crypto-modular-arithmetic", "cx-time-complexity"],
+      "tags": ["finiteness"],
+      "blurb": "Fermat's little theorem, the Miller–Rabin probabilistic test, and the AKS deterministic polynomial-time algorithm. Composite witnesses turn $a^{n-1}\\not\\equiv 1\\pmod n$ into a verifiable proof of compositeness; AKS removes randomness at the cost of a higher polynomial."
+    },
+    {
+      "id": "cnt-factoring",
+      "title": "Integer factoring",
+      "anchor": "factoring",
+      "prereqs": ["cnt-primality", "crypto-rsa", "cx-p-and-np"],
+      "tags": [],
+      "blurb": "Trial division, Pollard's $\\rho$ method (Floyd cycle detection on $x \\mapsto x^2+1 \\bmod n$), Pollard's $p-1$ method, the quadratic sieve, and the general number-field sieve. Subexponential complexity $L_n[1/3,c]$ is the current frontier — no polynomial-time classical algorithm is known."
+    },
+    {
+      "id": "cnt-lattice-reduction",
+      "title": "LLL & lattice reduction",
+      "anchor": "lll",
+      "prereqs": ["cx-time-complexity", "crypto-lattice-based"],
+      "tags": ["classification"],
+      "blurb": "The Lenstra–Lenstra–Lovász algorithm finds a basis whose first vector is at most $2^{(n-1)/2}$ times the shortest in polynomial time. Applications: integer-relation detection (PSLQ-style), Coppersmith's small-roots attack on RSA, knapsack cryptanalysis, and post-quantum lattice schemes."
+    },
+    {
+      "id": "cnt-modular-arithmetic-algorithms",
+      "title": "Modular arithmetic algorithms",
+      "anchor": "mod-arith",
+      "prereqs": ["crypto-modular-arithmetic"],
+      "tags": ["foundation"],
+      "blurb": "Fast modular exponentiation by repeated squaring ($O(\\log n)$ multiplies), Tonelli–Shanks for square roots modulo $p$ when $\\left(\\tfrac{a}{p}\\right)=1$, and the Chinese remainder theorem implemented as Garner's algorithm. The arithmetic primitives every higher-level routine assumes."
+    },
+    {
+      "id": "cnt-elliptic-curves-computation",
+      "title": "Schoof & point counting",
+      "anchor": "ec-comp",
+      "prereqs": ["cnt-modular-arithmetic-algorithms"],
+      "tags": ["finiteness"],
+      "blurb": "Schoof's algorithm computes $\\#E(\\mathbb{F}_p) = p+1-t$ in time polynomial in $\\log p$ by determining $t \\bmod \\ell$ for many small primes $\\ell$ via the action of Frobenius on $\\ell$-torsion, then reconstructing $t$ via CRT. Schoof–Elkies–Atkin (SEA) speeds this up using modular polynomials."
+    },
+    {
+      "id": "cnt-class-group-computation",
+      "title": "Class & unit group computation",
+      "anchor": "class-group",
+      "prereqs": ["prime-ideals-factorization-ant", "class-group-units-ant", "cnt-lattice-reduction"],
+      "tags": ["finiteness"],
+      "blurb": "Buchmann's subexponential algorithm (under GRH) computes the class number, regulator, and a system of fundamental units of a number field by relation-collection in a factor base of small prime ideals plus LLL reduction of the relation lattice. The algorithm's correctness assumes the generalized Riemann hypothesis for Hecke L-functions."
     }
   ]
 }
