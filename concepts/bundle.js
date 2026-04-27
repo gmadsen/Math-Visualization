@@ -68,16 +68,16 @@ window.__MVConcepts = {
       "functor-of-points",
       "elliptic-curves",
       "singular-cubics-reduction",
-      "moduli-spaces",
-      "sheaf-cohomology",
-      "stacks",
-      "algebraic-spaces",
-      "intersection-theory-chow",
-      "etale-fundamental-group",
       "algebraic-curves-higher-genus",
-      "group-schemes",
-      "deformation-theory",
+      "sheaf-cohomology",
       "algebraic-de-rham-cohomology",
+      "moduli-spaces",
+      "algebraic-spaces",
+      "stacks",
+      "intersection-theory-chow",
+      "group-schemes",
+      "etale-fundamental-group",
+      "deformation-theory",
       "spectral-graph-theory",
       "matroid-theory",
       "probabilistic-method",
@@ -151,6 +151,7 @@ window.__MVConcepts = {
       "adeles-and-ideles": "standard",
       "frobenius-and-reciprocity": "standard",
       "class-field-theory": "advanced",
+      "galois-representations": "advanced",
       "heights-arithmetic-geometry": "standard",
       "upper-half-plane-hyperbolic": "standard",
       "modular-forms": "standard",
@@ -161,7 +162,6 @@ window.__MVConcepts = {
       "analytic-continuation": "standard",
       "zeta-values": "standard",
       "L-functions": "standard",
-      "galois-representations": "capstone",
       "automorphic-forms-adelic": "advanced",
       "moonshine": "advanced",
       "projective-plane": "prereq",
@@ -1126,7 +1126,7 @@ window.__MVConcepts = {
     },
     "heyting-algebras-toposes": {
       "topic": "heyting-algebras-toposes",
-      "title": "Heyting algebras and intuitionist logic in toposes",
+      "title": "Heyting algebras and toposes",
       "page": "heyting-algebras-toposes.html",
       "concepts": [
         {
@@ -6004,71 +6004,80 @@ window.__MVConcepts = {
         }
       ]
     },
-    "moduli-spaces": {
-      "topic": "moduli-spaces",
-      "title": "Moduli spaces",
-      "page": "moduli-spaces.html",
+    "algebraic-curves-higher-genus": {
+      "topic": "algebraic-curves-higher-genus",
+      "title": "Algebraic curves: higher genus",
+      "page": "algebraic-curves-higher-genus.html",
       "concepts": [
         {
-          "id": "moduli-problem",
-          "title": "Moduli problems and parameters",
-          "anchor": "what",
+          "id": "smooth-projective-curve",
+          "title": "Smooth projective curves and their genus",
+          "anchor": "smooth-projective-curve",
           "prereqs": [
-            "representability-criteria"
+            "projective-scheme",
+            "riemann-surface-definition"
           ],
-          "blurb": "A moduli problem asks for a geometric space classifying objects in families.",
-          "tags": [
-            "moduli"
-          ]
+          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
         },
         {
-          "id": "fine-vs-coarse-moduli",
-          "title": "Fine versus coarse moduli",
-          "anchor": "finecoarse",
+          "id": "divisors-on-curves",
+          "title": "Divisors on curves",
+          "anchor": "divisors",
           "prereqs": [
-            "moduli-problem"
+            "smooth-projective-curve",
+            "applications-picard-serre"
           ],
-          "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes.",
-          "tags": [
-            "moduli",
-            "universal-property"
-          ]
-        },
-        {
-          "id": "automorphisms-obstruction",
-          "title": "Automorphisms obstruct fine moduli",
-          "anchor": "whyfail",
-          "prereqs": [
-            "fine-vs-coarse-moduli"
-          ],
-          "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$.",
+          "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$.",
           "tags": [
             "moduli",
-            "group-action"
+            "classification"
           ]
         },
         {
-          "id": "level-structures-moduli",
-          "title": "Level structure and compactification ideas",
-          "anchor": "level",
+          "id": "riemann-roch-curves",
+          "title": "Riemann–Roch on curves",
+          "anchor": "riemann-roch",
           "prereqs": [
-            "automorphisms-obstruction",
-            "modular-form-definition"
-          ],
-          "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces.",
-          "tags": [
-            "moduli"
-          ]
-        },
-        {
-          "id": "higher-genus-moduli",
-          "title": "Higher-genus moduli and stable curves",
-          "anchor": "higher",
-          "prereqs": [
-            "fine-vs-coarse-moduli",
+            "divisors-on-curves",
             "riemann-roch"
           ],
-          "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves.",
+          "blurb": "For a divisor $D$ on a smooth projective curve of genus $g$, $h^0(D) - h^0(K - D) = \\deg D - g + 1$, where $K$ is the canonical divisor. Riemann–Roch is the curve-level explanation of why genus controls the dimension of linear systems.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "canonical-embedding",
+          "title": "The canonical embedding",
+          "anchor": "canonical-embedding",
+          "prereqs": [
+            "riemann-roch-curves",
+            "kahler-differentials"
+          ],
+          "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
+        },
+        {
+          "id": "hyperelliptic-curves",
+          "title": "Hyperelliptic curves",
+          "anchor": "hyperelliptic",
+          "prereqs": [
+            "riemann-roch-curves",
+            "branched-covers-rs"
+          ],
+          "blurb": "A curve of genus $g \\ge 2$ is hyperelliptic if it admits a degree-2 map to $\\mathbb{P}^1$. Equivalently, $|K|$ does not separate points. Hyperelliptic curves form a codimension-$(g-2)$ locus in $\\mathcal{M}_g$ — most curves of genus $\\ge 3$ are not hyperelliptic.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "moduli-of-curves-genus-g",
+          "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
+          "anchor": "moduli-of-curves-genus-g",
+          "prereqs": [
+            "smooth-projective-curve",
+            "dm-stacks-coarse-space"
+          ],
+          "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary.",
           "tags": [
             "moduli",
             "compactness"
@@ -6150,76 +6159,159 @@ window.__MVConcepts = {
         }
       ]
     },
-    "stacks": {
-      "topic": "stacks",
-      "title": "Stacks",
-      "page": "stacks.html",
+    "algebraic-de-rham-cohomology": {
+      "topic": "algebraic-de-rham-cohomology",
+      "title": "Algebraic de Rham cohomology",
+      "page": "algebraic-de-rham-cohomology.html",
       "concepts": [
         {
-          "id": "groupoids-and-descent",
-          "title": "Groupoids, fibered categories, descent",
-          "anchor": "fib",
+          "id": "kahler-differentials",
+          "title": "Kähler differentials $\\Omega^1_{X/k}$",
+          "anchor": "kahler-differentials",
           "prereqs": [
-            "stacky-obstructions",
-            "presheaf-sheaf-axioms"
+            "exact-sequences"
           ],
-          "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers.",
+          "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms.",
           "tags": [
-            "descent",
-            "moduli",
-            "fibration"
+            "universal-property",
+            "foundation"
           ]
         },
         {
-          "id": "classifying-stacks",
-          "title": "Classifying stacks BG",
-          "anchor": "bg",
+          "id": "de-rham-complex",
+          "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
+          "anchor": "de-rham-complex",
           "prereqs": [
-            "groupoids-and-descent"
+            "kahler-differentials",
+            "exterior-derivative",
+            "forms-and-wedge"
           ],
-          "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object.",
+          "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant.",
           "tags": [
-            "moduli",
-            "group-action",
-            "fibration"
+            "cohomology"
           ]
         },
         {
-          "id": "quotient-stack",
-          "title": "Quotient stack [X/G]",
-          "anchor": "quotient",
+          "id": "comparison-betti",
+          "title": "Comparison with Betti cohomology",
+          "anchor": "comparison-betti",
           "prereqs": [
-            "classifying-stacks"
+            "de-rham-complex",
+            "singular-homology"
           ],
-          "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point.",
+          "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input.",
           "tags": [
-            "group-action",
-            "moduli"
+            "cohomology"
           ]
         },
         {
-          "id": "deligne-mumford-vs-artin",
-          "title": "Deligne–Mumford vs. Artin stacks",
-          "anchor": "artin",
+          "id": "hodge-filtration",
+          "title": "The Hodge filtration $F^\\bullet$",
+          "anchor": "hodge-filtration",
           "prereqs": [
-            "quotient-stack"
+            "de-rham-complex",
+            "cech-cohomology"
           ],
-          "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms.",
+          "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition.",
           "tags": [
+            "cohomology",
             "classification"
           ]
         },
         {
-          "id": "dm-stacks-coarse-space",
-          "title": "Deligne–Mumford stacks and coarse spaces",
-          "anchor": "coarse",
+          "id": "hodge-numbers",
+          "title": "Hodge numbers $h^{p,q}(X)$",
+          "anchor": "hodge-numbers",
           "prereqs": [
-            "deligne-mumford-vs-artin"
+            "hodge-filtration",
+            "applications-picard-serre"
           ],
-          "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
+          "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "de-rham-curves",
+          "title": "Worked example: de Rham of a smooth curve",
+          "anchor": "de-rham-curves",
+          "prereqs": [
+            "hodge-filtration",
+            "stokes-derham"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
+        }
+      ]
+    },
+    "moduli-spaces": {
+      "topic": "moduli-spaces",
+      "title": "Moduli spaces",
+      "page": "moduli-spaces.html",
+      "concepts": [
+        {
+          "id": "moduli-problem",
+          "title": "Moduli problems and parameters",
+          "anchor": "what",
+          "prereqs": [
+            "representability-criteria"
+          ],
+          "blurb": "A moduli problem asks for a geometric space classifying objects in families.",
+          "tags": [
+            "moduli"
+          ]
+        },
+        {
+          "id": "fine-vs-coarse-moduli",
+          "title": "Fine versus coarse moduli",
+          "anchor": "finecoarse",
+          "prereqs": [
+            "moduli-problem"
+          ],
+          "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes.",
+          "tags": [
+            "moduli",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "automorphisms-obstruction",
+          "title": "Automorphisms obstruct fine moduli",
+          "anchor": "whyfail",
+          "prereqs": [
+            "fine-vs-coarse-moduli"
+          ],
+          "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$.",
           "tags": [
             "moduli",
             "group-action"
+          ]
+        },
+        {
+          "id": "level-structures-moduli",
+          "title": "Level structure and compactification ideas",
+          "anchor": "level",
+          "prereqs": [
+            "automorphisms-obstruction",
+            "modular-form-definition"
+          ],
+          "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces.",
+          "tags": [
+            "moduli"
+          ]
+        },
+        {
+          "id": "higher-genus-moduli",
+          "title": "Higher-genus moduli and stable curves",
+          "anchor": "higher",
+          "prereqs": [
+            "fine-vs-coarse-moduli",
+            "riemann-roch"
+          ],
+          "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves.",
+          "tags": [
+            "moduli",
+            "compactness"
           ]
         }
       ]
@@ -6300,6 +6392,80 @@ window.__MVConcepts = {
         }
       ]
     },
+    "stacks": {
+      "topic": "stacks",
+      "title": "Stacks",
+      "page": "stacks.html",
+      "concepts": [
+        {
+          "id": "groupoids-and-descent",
+          "title": "Groupoids, fibered categories, descent",
+          "anchor": "fib",
+          "prereqs": [
+            "stacky-obstructions",
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers.",
+          "tags": [
+            "descent",
+            "moduli",
+            "fibration"
+          ]
+        },
+        {
+          "id": "classifying-stacks",
+          "title": "Classifying stacks BG",
+          "anchor": "bg",
+          "prereqs": [
+            "groupoids-and-descent"
+          ],
+          "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object.",
+          "tags": [
+            "moduli",
+            "group-action",
+            "fibration"
+          ]
+        },
+        {
+          "id": "quotient-stack",
+          "title": "Quotient stack [X/G]",
+          "anchor": "quotient",
+          "prereqs": [
+            "classifying-stacks"
+          ],
+          "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point.",
+          "tags": [
+            "group-action",
+            "moduli"
+          ]
+        },
+        {
+          "id": "deligne-mumford-vs-artin",
+          "title": "Deligne–Mumford vs. Artin stacks",
+          "anchor": "artin",
+          "prereqs": [
+            "quotient-stack"
+          ],
+          "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "dm-stacks-coarse-space",
+          "title": "Deligne–Mumford stacks and coarse spaces",
+          "anchor": "coarse",
+          "prereqs": [
+            "deligne-mumford-vs-artin"
+          ],
+          "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
+          "tags": [
+            "moduli",
+            "group-action"
+          ]
+        }
+      ]
+    },
     "intersection-theory-chow": {
       "topic": "intersection-theory-chow",
       "title": "Intersection theory and Chow groups",
@@ -6373,6 +6539,86 @@ window.__MVConcepts = {
           "tags": [
             "functoriality",
             "cohomology"
+          ]
+        }
+      ]
+    },
+    "group-schemes": {
+      "topic": "group-schemes",
+      "title": "Group schemes",
+      "page": "group-schemes.html",
+      "concepts": [
+        {
+          "id": "group-scheme-definition",
+          "title": "What is a group scheme?",
+          "anchor": "group-scheme-definition",
+          "prereqs": [
+            "spectrum-primes"
+          ],
+          "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "examples-Ga-Gm-mu-n",
+          "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+          "anchor": "examples-Ga-Gm",
+          "prereqs": [
+            "group-scheme-definition",
+            "spectrum-primes"
+          ],
+          "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
+        },
+        {
+          "id": "hopf-algebra",
+          "title": "Affine group schemes ↔ commutative Hopf algebras",
+          "anchor": "hopf-algebra",
+          "prereqs": [
+            "group-scheme-definition",
+            "algebraic-structures"
+          ],
+          "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "etale-vs-connected",
+          "title": "Étale, connected, and infinitesimal pieces",
+          "anchor": "etale-vs-connected",
+          "prereqs": [
+            "examples-Ga-Gm-mu-n",
+            "etale-morphism"
+          ],
+          "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "lie-algebra-of-G",
+          "title": "Lie algebra $\\mathrm{Lie}(G)$",
+          "anchor": "lie-algebra",
+          "prereqs": [
+            "group-scheme-definition",
+            "lie-bracket-fields"
+          ],
+          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
+        },
+        {
+          "id": "torsors-and-cohomology",
+          "title": "$G$-torsors and $H^1(X, G)$",
+          "anchor": "torsors",
+          "prereqs": [
+            "group-scheme-definition",
+            "cech-cohomology"
+          ],
+          "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$).",
+          "tags": [
+            "fibration",
+            "cohomology",
+            "group-action"
           ]
         }
       ]
@@ -6464,167 +6710,6 @@ window.__MVConcepts = {
         }
       ]
     },
-    "algebraic-curves-higher-genus": {
-      "topic": "algebraic-curves-higher-genus",
-      "title": "Algebraic curves: higher genus",
-      "page": "algebraic-curves-higher-genus.html",
-      "concepts": [
-        {
-          "id": "smooth-projective-curve",
-          "title": "Smooth projective curves and their genus",
-          "anchor": "smooth-projective-curve",
-          "prereqs": [
-            "projective-scheme",
-            "riemann-surface-definition"
-          ],
-          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
-        },
-        {
-          "id": "divisors-on-curves",
-          "title": "Divisors on curves",
-          "anchor": "divisors",
-          "prereqs": [
-            "smooth-projective-curve",
-            "applications-picard-serre"
-          ],
-          "blurb": "A divisor $D = \\sum n_p [p]$ is a finite formal $\\mathbb{Z}$-sum of points. The degree is $\\deg D = \\sum n_p$, and $\\mathrm{Pic}^d(C)$ classifies linear-equivalence classes of degree-$d$ divisors. $\\mathrm{Pic}^0(C)$ is the Jacobian — an abelian variety of dimension $g$.",
-          "tags": [
-            "moduli",
-            "classification"
-          ]
-        },
-        {
-          "id": "riemann-roch-curves",
-          "title": "Riemann–Roch on curves",
-          "anchor": "riemann-roch",
-          "prereqs": [
-            "divisors-on-curves",
-            "riemann-roch"
-          ],
-          "blurb": "For a divisor $D$ on a smooth projective curve of genus $g$, $h^0(D) - h^0(K - D) = \\deg D - g + 1$, where $K$ is the canonical divisor. Riemann–Roch is the curve-level explanation of why genus controls the dimension of linear systems.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "canonical-embedding",
-          "title": "The canonical embedding",
-          "anchor": "canonical-embedding",
-          "prereqs": [
-            "riemann-roch-curves",
-            "kahler-differentials"
-          ],
-          "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
-        },
-        {
-          "id": "hyperelliptic-curves",
-          "title": "Hyperelliptic curves",
-          "anchor": "hyperelliptic",
-          "prereqs": [
-            "riemann-roch-curves",
-            "branched-covers-rs"
-          ],
-          "blurb": "A curve of genus $g \\ge 2$ is hyperelliptic if it admits a degree-2 map to $\\mathbb{P}^1$. Equivalently, $|K|$ does not separate points. Hyperelliptic curves form a codimension-$(g-2)$ locus in $\\mathcal{M}_g$ — most curves of genus $\\ge 3$ are not hyperelliptic.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "moduli-of-curves-genus-g",
-          "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
-          "anchor": "moduli-of-curves-genus-g",
-          "prereqs": [
-            "smooth-projective-curve",
-            "dm-stacks-coarse-space"
-          ],
-          "blurb": "$\\mathcal{M}_g$ is the moduli space (DM stack) of smooth projective curves of genus $g$. For $g \\ge 2$ it has dimension $3g - 3$; the Deligne–Mumford compactification $\\overline{\\mathcal{M}}_g$ adds stable nodal curves at the boundary.",
-          "tags": [
-            "moduli",
-            "compactness"
-          ]
-        }
-      ]
-    },
-    "group-schemes": {
-      "topic": "group-schemes",
-      "title": "Group schemes",
-      "page": "group-schemes.html",
-      "concepts": [
-        {
-          "id": "group-scheme-definition",
-          "title": "What is a group scheme?",
-          "anchor": "group-scheme-definition",
-          "prereqs": [
-            "spectrum-primes"
-          ],
-          "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes.",
-          "tags": [
-            "foundation"
-          ]
-        },
-        {
-          "id": "examples-Ga-Gm-mu-n",
-          "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
-          "anchor": "examples-Ga-Gm",
-          "prereqs": [
-            "group-scheme-definition",
-            "spectrum-primes"
-          ],
-          "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
-        },
-        {
-          "id": "hopf-algebra",
-          "title": "Affine group schemes ↔ commutative Hopf algebras",
-          "anchor": "hopf-algebra",
-          "prereqs": [
-            "group-scheme-definition",
-            "algebraic-structures"
-          ],
-          "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "etale-vs-connected",
-          "title": "Étale, connected, and infinitesimal pieces",
-          "anchor": "etale-vs-connected",
-          "prereqs": [
-            "examples-Ga-Gm-mu-n",
-            "etale-morphism"
-          ],
-          "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "lie-algebra-of-G",
-          "title": "Lie algebra $\\mathrm{Lie}(G)$",
-          "anchor": "lie-algebra",
-          "prereqs": [
-            "group-scheme-definition",
-            "lie-bracket-fields"
-          ],
-          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
-        },
-        {
-          "id": "torsors-and-cohomology",
-          "title": "$G$-torsors and $H^1(X, G)$",
-          "anchor": "torsors",
-          "prereqs": [
-            "group-scheme-definition",
-            "cech-cohomology"
-          ],
-          "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$).",
-          "tags": [
-            "fibration",
-            "cohomology",
-            "group-action"
-          ]
-        }
-      ]
-    },
     "deformation-theory": {
       "topic": "deformation-theory",
       "title": "Deformation theory",
@@ -6711,91 +6796,6 @@ window.__MVConcepts = {
             "riemann-roch-curves"
           ],
           "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
-        }
-      ]
-    },
-    "algebraic-de-rham-cohomology": {
-      "topic": "algebraic-de-rham-cohomology",
-      "title": "Algebraic de Rham cohomology",
-      "page": "algebraic-de-rham-cohomology.html",
-      "concepts": [
-        {
-          "id": "kahler-differentials",
-          "title": "Kähler differentials $\\Omega^1_{X/k}$",
-          "anchor": "kahler-differentials",
-          "prereqs": [
-            "exact-sequences"
-          ],
-          "blurb": "$\\Omega^1_{X/k}$ is the universal recipient of $k$-derivations — algebraic 1-forms on $X$. For $X$ smooth of dimension $n$, $\\Omega^1_{X/k}$ is locally free of rank $n$ and $\\Omega^p_{X/k} := \\bigwedge^p \\Omega^1_{X/k}$ encodes algebraic $p$-forms.",
-          "tags": [
-            "universal-property",
-            "foundation"
-          ]
-        },
-        {
-          "id": "de-rham-complex",
-          "title": "The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$",
-          "anchor": "de-rham-complex",
-          "prereqs": [
-            "kahler-differentials",
-            "exterior-derivative",
-            "forms-and-wedge"
-          ],
-          "blurb": "The complex $\\Omega^0_{X/k} \\xrightarrow{d} \\Omega^1_{X/k} \\xrightarrow{d} \\Omega^2_{X/k} \\to \\cdots$ has differential given by exterior derivative. Its hypercohomology is the algebraic de Rham cohomology $H^*_{dR}(X/k)$ — a purely algebraic invariant.",
-          "tags": [
-            "cohomology"
-          ]
-        },
-        {
-          "id": "comparison-betti",
-          "title": "Comparison with Betti cohomology",
-          "anchor": "comparison-betti",
-          "prereqs": [
-            "de-rham-complex",
-            "singular-homology"
-          ],
-          "blurb": "For a smooth complex variety $X$, Grothendieck's comparison theorem identifies $H^*_{dR}(X/\\mathbb{C})$ with the singular cohomology $H^*(X(\\mathbb{C}), \\mathbb{C})$. The algebraic side computes the same invariant — without any analytic input.",
-          "tags": [
-            "cohomology"
-          ]
-        },
-        {
-          "id": "hodge-filtration",
-          "title": "The Hodge filtration $F^\\bullet$",
-          "anchor": "hodge-filtration",
-          "prereqs": [
-            "de-rham-complex",
-            "cech-cohomology"
-          ],
-          "blurb": "$F^p H^n_{dR}(X) = \\mathrm{im}\\,H^n(\\sigma^{\\ge p} \\Omega^\\bullet_{X/k})$ is the decreasing filtration coming from the trivial truncation of the de Rham complex. For $X$ smooth projective over $\\mathbb{C}$, the associated graded is $\\bigoplus_p H^{n-p}(X, \\Omega^p_X)$ — the Hodge decomposition.",
-          "tags": [
-            "cohomology",
-            "classification"
-          ]
-        },
-        {
-          "id": "hodge-numbers",
-          "title": "Hodge numbers $h^{p,q}(X)$",
-          "anchor": "hodge-numbers",
-          "prereqs": [
-            "hodge-filtration",
-            "applications-picard-serre"
-          ],
-          "blurb": "$h^{p,q}(X) = \\dim H^q(X, \\Omega^p_X)$ is a sheaf-cohomology dimension — but for $X$ smooth projective over $\\mathbb{C}$ they assemble into a Hodge diamond reflecting Serre duality and complex conjugation symmetry. Topological data refining the Betti numbers.",
-          "tags": [
-            "cohomology",
-            "duality"
-          ]
-        },
-        {
-          "id": "de-rham-curves",
-          "title": "Worked example: de Rham of a smooth curve",
-          "anchor": "de-rham-curves",
-          "prereqs": [
-            "hodge-filtration",
-            "stokes-derham"
-          ],
-          "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
         }
       ]
     },
@@ -7699,6 +7699,7 @@ window.__MVConcepts = {
           "adeles-and-ideles",
           "frobenius-and-reciprocity",
           "class-field-theory",
+          "galois-representations",
           "heights-arithmetic-geometry"
         ],
         "color": "y"
@@ -7716,7 +7717,6 @@ window.__MVConcepts = {
           "analytic-continuation",
           "zeta-values",
           "L-functions",
-          "galois-representations",
           "automorphic-forms-adelic",
           "moonshine",
           "sato-tate",
@@ -7737,17 +7737,17 @@ window.__MVConcepts = {
           "functor-of-points",
           "elliptic-curves",
           "singular-cubics-reduction",
-          "moduli-spaces",
-          "sheaf-cohomology",
-          "stacks",
-          "etale-cohomology",
-          "algebraic-spaces",
-          "intersection-theory-chow",
-          "etale-fundamental-group",
           "algebraic-curves-higher-genus",
+          "sheaf-cohomology",
+          "algebraic-de-rham-cohomology",
+          "moduli-spaces",
+          "algebraic-spaces",
+          "stacks",
+          "intersection-theory-chow",
           "group-schemes",
+          "etale-fundamental-group",
           "deformation-theory",
-          "algebraic-de-rham-cohomology"
+          "etale-cohomology"
         ],
         "color": "g"
       },
@@ -7761,7 +7761,7 @@ window.__MVConcepts = {
           "extremal-combinatorics",
           "simplicial-complexes-combinatorial"
         ],
-        "color": "g"
+        "color": "v"
       }
     ]
   },
@@ -7889,6 +7889,7 @@ window.__MVConcepts = {
     "adeles-and-ideles": "standard",
     "frobenius-and-reciprocity": "standard",
     "class-field-theory": "advanced",
+    "galois-representations": "advanced",
     "heights-arithmetic-geometry": "standard",
     "upper-half-plane-hyperbolic": "standard",
     "modular-forms": "standard",
@@ -7899,7 +7900,6 @@ window.__MVConcepts = {
     "analytic-continuation": "standard",
     "zeta-values": "standard",
     "L-functions": "standard",
-    "galois-representations": "capstone",
     "automorphic-forms-adelic": "advanced",
     "moonshine": "advanced",
     "projective-plane": "prereq",
@@ -7977,18 +7977,18 @@ window.__MVConcepts = {
       "density": 0.12244897959183673
     },
     "Number theory": {
-      "concepts": 64,
-      "intra": 80,
-      "crossOut": 17,
-      "crossIn": 19,
-      "density": 0.265625
+      "concepts": 69,
+      "intra": 87,
+      "crossOut": 20,
+      "crossIn": 21,
+      "density": 0.2898550724637681
     },
     "Modular forms & L-functions": {
-      "concepts": 78,
-      "intra": 104,
+      "concepts": 73,
+      "intra": 94,
       "crossOut": 43,
-      "crossIn": 5,
-      "density": 0.5512820512820513
+      "crossIn": 6,
+      "density": 0.589041095890411
     },
     "Algebraic geometry": {
       "concepts": 109,

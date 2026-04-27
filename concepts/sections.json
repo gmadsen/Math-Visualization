@@ -76,6 +76,7 @@
         "adeles-and-ideles",
         "frobenius-and-reciprocity",
         "class-field-theory",
+        "galois-representations",
         "heights-arithmetic-geometry"
       ],
       "color": "y"
@@ -93,7 +94,6 @@
         "analytic-continuation",
         "zeta-values",
         "L-functions",
-        "galois-representations",
         "automorphic-forms-adelic",
         "moonshine",
         "sato-tate",
@@ -114,17 +114,17 @@
         "functor-of-points",
         "elliptic-curves",
         "singular-cubics-reduction",
-        "moduli-spaces",
-        "sheaf-cohomology",
-        "stacks",
-        "etale-cohomology",
-        "algebraic-spaces",
-        "intersection-theory-chow",
-        "etale-fundamental-group",
         "algebraic-curves-higher-genus",
+        "sheaf-cohomology",
+        "algebraic-de-rham-cohomology",
+        "moduli-spaces",
+        "algebraic-spaces",
+        "stacks",
+        "intersection-theory-chow",
         "group-schemes",
+        "etale-fundamental-group",
         "deformation-theory",
-        "algebraic-de-rham-cohomology"
+        "etale-cohomology"
       ],
       "color": "g"
     },
@@ -138,7 +138,7 @@
         "extremal-combinatorics",
         "simplicial-complexes-combinatorial"
       ],
-      "color": "g"
+      "color": "v"
     }
   ]
 }
