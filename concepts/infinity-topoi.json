@@ -74,7 +74,8 @@
       "prereqs": [
         "infty-topos-definition",
         "internal-language",
-        "tt-higher-inductive-types"
+        "tt-higher-inductive-types",
+        "tt-univalence"
       ],
       "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
     },

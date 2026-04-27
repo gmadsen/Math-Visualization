@@ -51,7 +51,8 @@
       "title": "Riemann integral",
       "anchor": "riemann-integral",
       "prereqs": [
-        "real-continuity"
+        "real-continuity",
+        "real-differentiation"
       ],
       "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
     },

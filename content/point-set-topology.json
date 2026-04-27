@@ -122,7 +122,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./p-adic-numbers.html#abs\">p-adic numbers</a> · p-adic norm and completion</div>\n    <div><a href=\"./p-adic-numbers.html#ultra\">p-adic numbers</a> · Ultrametric topology</div>\n    <div><a href=\"./point-set-topology.html#open\">Point-set topology</a> · Topological spaces</div>\n    <div><a href=\"./real-analysis.html#metric-completeness-baire\">Real analysis</a> · Metric completeness &amp; Baire category</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./p-adic-numbers.html#abs\">p-adic numbers</a> · p-adic norm and completion</div>\n    <div><a href=\"./p-adic-numbers.html#ultra\">p-adic numbers</a> · Ultrametric topology</div>\n    <div><a href=\"./point-set-topology.html#compact\">Point-set topology</a> · Compactness</div>\n    <div><a href=\"./point-set-topology.html#continuity\">Point-set topology</a> · Continuity &amp; homeomorphism</div>\n    <div><a href=\"./point-set-topology.html#open\">Point-set topology</a> · Topological spaces</div>\n    <div><a href=\"./real-analysis.html#metric-completeness-baire\">Real analysis</a> · Metric completeness &amp; Baire category</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -341,7 +341,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#zariski\">Commutative algebra</a> · Spec and Zariski topology</div>\n    <div><a href=\"./measure-theory.html#sigma\">Measure theory</a> · σ-algebras and measures</div>\n    <div><a href=\"./point-set-topology.html#compact\">Point-set topology</a> · Compactness</div>\n    <div><a href=\"./point-set-topology.html#connected\">Point-set topology</a> · Connectedness</div>\n    <div><a href=\"./point-set-topology.html#continuity\">Point-set topology</a> · Continuity &amp; homeomorphism</div>\n    <div><a href=\"./point-set-topology.html#separation\">Point-set topology</a> · Separation &amp; countability</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#zariski\">Commutative algebra</a> · Spec and Zariski topology</div>\n    <div><a href=\"./measure-theory.html#sigma\">Measure theory</a> · σ-algebras and measures</div>\n    <div><a href=\"./point-set-topology.html#compact\">Point-set topology</a> · Compactness</div>\n    <div><a href=\"./point-set-topology.html#connected\">Point-set topology</a> · Connectedness</div>\n    <div><a href=\"./point-set-topology.html#continuity\">Point-set topology</a> · Continuity &amp; homeomorphism</div>\n    <div><a href=\"./point-set-topology.html#separation\">Point-set topology</a> · Separation &amp; countability</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -718,7 +718,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#conf\">Complex Analysis</a> · Normal families (Montel)</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#compactness\">First-order logic and completeness</a> · Compactness and non-standard models</div>\n    <div><a href=\"./functional-analysis.html#compact\">Functional analysis</a> · Compact operators and Fredholm alternative</div>\n    <div><a href=\"./functional-analysis.html#weak\">Functional analysis</a> · Weak and weak-* topologies</div>\n    <div><a href=\"./measure-theory.html#riesz-measure\">Measure theory</a> · Riesz representation (measure form)</div>\n    <div><a href=\"./real-analysis.html#real-continuity\">Real analysis</a> · Continuity on R</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#conf\">Complex Analysis</a> · Normal families (Montel)</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#compactness\">First-order logic and completeness</a> · Compactness and non-standard models</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#lowenheim-skolem\">First-order logic and completeness</a> · Löwenheim–Skolem and Skolem's paradox</div>\n    <div><a href=\"./functional-analysis.html#compact\">Functional analysis</a> · Compact operators and Fredholm alternative</div>\n    <div><a href=\"./functional-analysis.html#weak\">Functional analysis</a> · Weak and weak-* topologies</div>\n    <div><a href=\"./measure-theory.html#riesz-measure\">Measure theory</a> · Riesz representation (measure form)</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

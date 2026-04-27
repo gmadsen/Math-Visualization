@@ -14,20 +14,23 @@
             "a vector space equipped with a bilinear bracket"
           ],
           "answer": 1,
+          "hint": "A Lie group is simultaneously a smooth manifold and a group, where the multiplication $\\mu:G\\times G\\to G$ and inversion $\\iota:G\\to G$ are smooth maps.",
           "explain": "A Lie group is simultaneously a smooth manifold and a group, where the multiplication $\\mu:G\\times G\\to G$ and inversion $\\iota:G\\to G$ are smooth maps."
         },
         {
           "type": "numeric",
           "q": "What is the real dimension of $\\mathrm{SU}(2)$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\mathrm{SU}(n)$ has real dimension $n^2-1$.",
           "explain": "$\\mathrm{SU}(n)$ has real dimension $n^2-1$. For $n=2$ this gives $3$, consistent with $\\mathrm{SU}(2)\\cong S^3$."
         },
         {
           "type": "numeric",
           "q": "What is the real dimension of $\\mathrm{SO}(n)$ for $n=4$?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\dim\\mathrm{SO}(n)=\\binom{n}{2}=\\frac{n(n-1)}{2}$.",
           "explain": "$\\dim\\mathrm{SO}(n)=\\binom{n}{2}=\\frac{n(n-1)}{2}$. For $n=4$: $\\binom{4}{2}=6$."
         }
       ],
@@ -49,7 +52,7 @@
           "type": "numeric",
           "q": "What is the real dimension of $\\mathrm{U}(n)$ for $n=3$?",
           "answer": 9,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Real dimension of $\\mathrm{U}(n)$ is $n^2$.",
           "explain": "$\\mathrm{U}(n)$ has real dimension $n^2$. For $n=3$: $3^2=9$. This follows because a unitary matrix satisfies $U^\\dagger U=I$, giving $n^2$ real constraints on $2n^2$ real parameters, leaving $n^2$ free dimensions."
         },
@@ -81,20 +84,23 @@
             "the quotient $\\mathrm{GL}_n(\\mathbb{R})/G$"
           ],
           "answer": 1,
+          "hint": "By definition $\\mathfrak{g}=T_eG$ is the space of velocity vectors at the identity.",
           "explain": "By definition $\\mathfrak{g}=T_eG$ is the space of velocity vectors at the identity. Concretely, differentiate a curve through $I$ lying in $G$ and collect all such tangent vectors. This recovers $\\mathfrak{sl}_n$ (trace zero), $\\mathfrak{so}(n)$ (skew-symmetric), etc."
         },
         {
           "type": "numeric",
           "q": "Differentiating $A(t)^\\top A(t)=I$ at $t=0$ with $A(0)=I$ gives which equation on $X=A'(0)$? Enter the answer as the value of $(X^\\top+X)_{1,1}$ when $X$ satisfies this equation.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Differentiation yields $X^\\top+X=0$, i.e.",
           "explain": "Differentiation yields $X^\\top+X=0$, i.e. $X$ is skew-symmetric, so every diagonal entry vanishes. In particular $(X^\\top+X)_{1,1}=2X_{1,1}=0$."
         },
         {
           "type": "numeric",
           "q": "What is the real dimension of $\\mathfrak{sl}_3(\\mathbb{R})$ (the traceless $3\\times 3$ real matrices)?",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$.",
           "explain": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$: $9-1=8$."
         }
       ],
@@ -116,7 +122,7 @@
           "type": "numeric",
           "q": "Let $\\mathfrak{g}=\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$ (the cross product). Compute the second component of $[E_1,E_2]+[E_2,E_3]+[E_3,E_1]$ in the $E_1,E_2,E_3$ basis.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use $\\varepsilon_{ijk}$ directly; don't confuse with Jacobi.",
           "explain": "$[E_1,E_2]=E_3$, $[E_2,E_3]=E_1$, $[E_3,E_1]=E_2$. Sum is $E_1+E_2+E_3$, whose second component (coefficient of $E_2$) is $1$. Notice this is NOT zero — Jacobi $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ applies to triple brackets, not iterated pairwise brackets."
         },
@@ -148,20 +154,23 @@
             "the Frobenius inner product $\\mathrm{tr}(X^\\top Y)$"
           ],
           "answer": 1,
+          "hint": "For matrix groups the Lie bracket on $\\mathfrak{g}$ is the matrix commutator $[X,Y]=XY-YX$, which is automatically antisymmetric and satisfies the Jacobi identity.",
           "explain": "For matrix groups the Lie bracket on $\\mathfrak{g}$ is the matrix commutator $[X,Y]=XY-YX$, which is automatically antisymmetric and satisfies the Jacobi identity."
         },
         {
           "type": "numeric",
           "q": "Let $X=\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}\\in\\mathfrak{so}(2)$ with $\\theta=\\pi$. Compute the $(1,1)$ entry of $\\exp(X)$.",
           "answer": -1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\exp\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$.",
           "explain": "$\\exp\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. At $\\theta=\\pi$ the $(1,1)$ entry is $\\cos\\pi=-1$."
         },
         {
           "type": "numeric",
           "q": "If $X\\in\\mathfrak{sl}_n(\\mathbb{R})$ has $\\operatorname{tr}(X)=0$, what is $\\det(\\exp X)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix.",
           "explain": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix. With $\\operatorname{tr} X=0$ we get $\\det(\\exp X)=e^0=1$, confirming $\\exp$ maps $\\mathfrak{sl}_n$ into $\\mathrm{SL}_n$."
         }
       ],
@@ -183,7 +192,7 @@
           "type": "numeric",
           "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}\\in\\mathfrak{gl}_2(\\mathbb{R})$. Compute the $(1,2)$ entry of $\\exp(X)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "This $X$ is nilpotent with $X^2=0$.",
           "explain": "$X^2=0$, so $\\exp(X)=I+X=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$. The $(1,2)$ entry is $1$."
         },
@@ -222,14 +231,16 @@
           "type": "numeric",
           "q": "In $\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$, compute the coefficient of $E_2$ in $[E_1,[E_2,E_3]]+[E_2,[E_3,E_1]]+[E_3,[E_1,E_2]]$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The Jacobi identity forces this sum to be zero, so every coefficient — including that of $E_2$ — vanishes.",
           "explain": "The Jacobi identity forces this sum to be zero, so every coefficient — including that of $E_2$ — vanishes. Concretely: $[E_2,E_3]=E_1$ so $[E_1,E_1]=0$; $[E_3,E_1]=E_2$ so $[E_2,E_2]=0$; $[E_1,E_2]=E_3$ so $[E_3,E_3]=0$. Sum $=0$."
         },
         {
           "type": "numeric",
           "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$ and $Y=\\begin{pmatrix}0&0\\\\1&0\\end{pmatrix}$ in $\\mathfrak{sl}_2$. Compute the $(1,1)$ entry of $[X,Y]$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$XY=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $YX=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$, so $[X,Y]=XY-YX=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=h$.",
           "explain": "$XY=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $YX=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$, so $[X,Y]=XY-YX=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=h$. The $(1,1)$ entry is $1$ — this recovers the $\\mathfrak{sl}_2$ relation $[e,f]=h$."
         }
       ],
@@ -251,7 +262,7 @@
           "type": "numeric",
           "q": "In $\\mathfrak{sl}_2$ with standard basis $h,e,f$ and relations $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute the coefficient of $e$ in the BCH term $\\tfrac{1}{12}\\big([X,[X,Y]]+[Y,[Y,X]]\\big)$ when $X=h$ and $Y=e$.",
           "answer": 0.3333333333333333,
-          "tol": 1e-4,
+          "tol": 0.0001,
           "hint": "Compute the two nested brackets, then multiply by $1/12$.",
           "explain": "$[h,e]=2e$, so $[h,[h,e]]=[h,2e]=4e$. $[e,[e,h]]=[e,-2e]=0$. Sum is $4e+0=4e$. Multiplying by $\\tfrac{1}{12}$: $\\tfrac{4}{12}e=\\tfrac{1}{3}e$. Coefficient $=1/3\\approx0.3333$."
         },
@@ -283,13 +294,15 @@
             "$\\mathbb{Z}/4$"
           ],
           "answer": 1,
+          "hint": "The quaternion action $q\\cdot\\vec v=q\\vec v q^{-1}$ on imaginary quaternions is an element of $\\mathrm{SO}(3)$, and $\\pm q$ act identically because the action is conjugation.",
           "explain": "The quaternion action $q\\cdot\\vec v=q\\vec v q^{-1}$ on imaginary quaternions is an element of $\\mathrm{SO}(3)$, and $\\pm q$ act identically because the action is conjugation. Hence $\\ker\\pi=\\{\\pm I\\}\\cong\\mathbb{Z}/2$."
         },
         {
           "type": "numeric",
           "q": "Let $q=\\cos(\\theta/2)+\\sin(\\theta/2)\\,\\mathbf{i}$ be the unit quaternion implementing rotation by $\\theta$ about the $x$-axis. At what value of $\\theta$ (in radians) does $q$ first equal $-1$?",
           "answer": 6.283185307179586,
-          "tol": 1e-5,
+          "tol": 0.00001,
+          "hint": "Set $\\cos(\\theta/2)=-1$: minimal solution is $\\theta/2=\\pi$, i.e.",
           "explain": "Set $\\cos(\\theta/2)=-1$: minimal solution is $\\theta/2=\\pi$, i.e. $\\theta=2\\pi$. A single $360°$ rotation in $\\mathrm{SO}(3)$ lifts to the path $I\\to -I$ in $\\mathrm{SU}(2)$ — the spinor sign."
         },
         {
@@ -302,6 +315,7 @@
             "Both groups are simply connected"
           ],
           "answer": 1,
+          "hint": "$\\mathrm{SU}(2)\\cong S^3$ is simply connected.",
           "explain": "$\\mathrm{SU}(2)\\cong S^3$ is simply connected. The antipodal quotient $S^3/\\{\\pm1\\}=\\mathbb{RP}^3\\cong\\mathrm{SO}(3)$ has $\\pi_1=\\mathbb{Z}/2$; this non-trivial loop is the famous \"belt trick.\""
         }
       ],
@@ -323,7 +337,7 @@
           "type": "numeric",
           "q": "A spin-$\\tfrac12$ representation of $\\mathrm{SU}(2)$ does not descend to $\\mathrm{SO}(3)$ because $-I\\in\\ker\\pi$ acts by what scalar on the spin-$\\tfrac12$ space?",
           "answer": -1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Half-integer spin picks up a sign under the $-I$ covering element.",
           "explain": "The spin-$\\tfrac12$ rep is the defining rep on $\\mathbb{C}^2$: $-I\\cdot v=-v$. For descent to $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ we would need $-I$ to act trivially (scalar $+1$), but it acts by $-1$. Only integer-spin reps descend; half-integer spin lives on $\\mathrm{SU}(2)$ only — this is the spinor/fermion distinction."
         },
@@ -355,6 +369,7 @@
             "the commutator: $\\mathrm{Ad}_g(X)=gX-Xg$"
           ],
           "answer": 1,
+          "hint": "$\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is conjugation, $\\mathrm{Ad}_g(X)=gXg^{-1}$ for matrix groups.",
           "explain": "$\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is conjugation, $\\mathrm{Ad}_g(X)=gXg^{-1}$ for matrix groups. It is a homomorphism because $\\mathrm{Ad}_{gh}=\\mathrm{Ad}_g\\mathrm{Ad}_h$."
         },
         {
@@ -367,13 +382,15 @@
             "$\\operatorname{ad}_X(Y)=X+Y$"
           ],
           "answer": 1,
+          "hint": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$.",
           "explain": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$. So the differential of $\\mathrm{Ad}$ at $e$ is the adjoint action $\\operatorname{ad}_X=[X,\\cdot]$ on the algebra."
         },
         {
           "type": "numeric",
           "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute $B(h,h)=\\operatorname{tr}(\\operatorname{ad}_h\\circ\\operatorname{ad}_h)$ (the Killing form value).",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$.",
           "explain": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$. Hence $\\operatorname{ad}_h^2$ has eigenvalues $0,4,4$, and the trace is $0+4+4=8$."
         }
       ],
@@ -408,7 +425,7 @@
           "type": "numeric",
           "q": "Let $\\mathfrak{g}=\\mathfrak{sl}_2$ with basis $h,e,f$ as above. The adjoint orbit of $h$ under $\\mathrm{SL}_2$ consists of all matrices with the same Jordan type as $h$. What is the dimension of this orbit?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Orbit dimension equals $\\dim G$ minus stabiliser dimension.",
           "explain": "The stabiliser of $h$ is the diagonal torus $\\{\\operatorname{diag}(a,a^{-1})\\}$, which is $1$-dimensional. Hence $\\dim(\\mathrm{Ad}\\text{-orbit})=\\dim\\mathrm{SL}_2-\\dim\\mathrm{stab}=3-1=2$. Geometrically it is the one-sheeted hyperboloid $\\{X\\in\\mathfrak{sl}_2:\\det X=-1\\}$."
         }
@@ -427,20 +444,23 @@
             "$\\mathrm{Ad}(g)X=\\exp(X)g$"
           ],
           "answer": 1,
+          "hint": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups.",
           "explain": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups. Its differential at $e$ is $\\operatorname{ad}_X(Y)=[X,Y]$."
         },
         {
           "type": "numeric",
           "q": "How many roots does the root system $A_2$ (that is, $\\mathfrak{sl}_3(\\mathbb{C})$) have?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The roots of $A_n$ are $\\varepsilon_i-\\varepsilon_j$ for $i\\ne j$ in $\\{1,\\dots,n+1\\}$, giving $(n+1)n$ roots.",
           "explain": "The roots of $A_n$ are $\\varepsilon_i-\\varepsilon_j$ for $i\\ne j$ in $\\{1,\\dots,n+1\\}$, giving $(n+1)n$ roots. For $A_2$: $3\\cdot 2=6$."
         },
         {
           "type": "numeric",
           "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ satisfying $[h,e]=2e$, what is the eigenvalue of $\\operatorname{ad}_h$ on $e$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$.",
           "explain": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$. This eigenvalue is the root $\\alpha(h)=2$ for $A_1$."
         }
       ],
@@ -462,7 +482,7 @@
           "type": "numeric",
           "q": "How many positive roots does the root system $B_2$ (equivalently $\\mathfrak{so}(5)$ or $\\mathfrak{sp}(4)$) have?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Half of $n^2$ roots are positive in $B_n$.",
           "explain": "$B_2$ has $8$ roots in total ($4$ positive, $4$ negative). The positive roots are $\\varepsilon_1,\\varepsilon_2,\\varepsilon_1-\\varepsilon_2,\\varepsilon_1+\\varepsilon_2$. In general $B_n$ has $n^2$ roots, giving $4$ for $n=2$, so $4$ positive roots."
         },

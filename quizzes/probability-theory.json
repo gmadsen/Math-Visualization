@@ -14,13 +14,15 @@
             "$\\mathbb{P}(A)>0$ for every $A\\in\\mathcal{F}\\setminus\\{\\varnothing\\}$"
           ],
           "answer": 3,
+          "hint": "A probability measure may assign $0$ to non-empty events; e.g.",
           "explain": "A probability measure may assign $0$ to non-empty events; e.g. $\\mathbb{P}(\\{x\\})=0$ for every singleton under Lebesgue measure on $[0,1]$. The first three are the defining axioms."
         },
         {
           "type": "numeric",
           "q": "Let $\\mathbb{P}$ be the uniform law on $\\Omega=\\{1,\\ldots,10\\}$. Compute $\\mathbb{P}(\\{\\text{odd}\\}\\cup\\{\\text{prime}\\})$ where prime = $\\{2,3,5,7\\}$.",
           "answer": 0.6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Odd $=\\{1,3,5,7,9\\}$; prime $=\\{2,3,5,7\\}$; union $=\\{1,2,3,5,7,9\\}$, size $6$, probability $6/10=0.6$.",
           "explain": "Odd $=\\{1,3,5,7,9\\}$; prime $=\\{2,3,5,7\\}$; union $=\\{1,2,3,5,7,9\\}$, size $6$, probability $6/10=0.6$."
         },
         {
@@ -32,7 +34,12 @@
             "$\\{\\varnothing,\\{a\\},\\{b\\},\\Omega\\}$",
             "$\\mathcal{P}(\\Omega)$"
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "hint": "Option 2 fails: $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is not included, so the collection is not closed under unions.",
           "explain": "Option 2 fails: $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is not included, so the collection is not closed under unions. The other three are all valid $\\sigma$-algebras."
         }
       ],
@@ -54,7 +61,7 @@
           "type": "numeric",
           "q": "Let $A_n\\downarrow A$ be a decreasing sequence of events with $\\mathbb{P}(A_1)<\\infty$. If $\\mathbb{P}(A_n)=1/n$, what is $\\mathbb{P}(A)$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use continuity of measure from above.",
           "explain": "Continuity from above: $\\mathbb{P}(A)=\\lim\\mathbb{P}(A_n)=\\lim 1/n=0$."
         }
@@ -73,6 +80,7 @@
             "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(B\\mid A)$"
           ],
           "answer": 1,
+          "hint": "Independence is exactly the product-factorization $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$, which is equivalent to $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A)$ when $\\mathbb{P}(B)>0$.",
           "explain": "Independence is exactly the product-factorization $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$, which is equivalent to $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A)$ when $\\mathbb{P}(B)>0$."
         },
         {
@@ -80,6 +88,7 @@
           "q": "A test detects a disease with $99\\%$ sensitivity and $95\\%$ specificity. Prior prevalence is $1\\%$. Given a positive test, what is the posterior probability of disease? Report to 3 decimals.",
           "answer": 0.167,
           "tol": 0.005,
+          "hint": "By Bayes: $\\mathbb{P}(D\\mid+)=\\frac{0.99\\cdot 0.01}{0.99\\cdot 0.01+0.05\\cdot 0.99}=\\frac{0.0099}{0.0099+0.0495}\\approx 0.1667$.",
           "explain": "By Bayes: $\\mathbb{P}(D\\mid+)=\\frac{0.99\\cdot 0.01}{0.99\\cdot 0.01+0.05\\cdot 0.99}=\\frac{0.0099}{0.0099+0.0495}\\approx 0.1667$."
         },
         {
@@ -95,7 +104,12 @@
             "Independence",
             "Law of total probability"
           ],
-          "answer": [1, 0, 2],
+          "answer": [
+            1,
+            0,
+            2
+          ],
+          "hint": "Law of total probability is the partition sum; Bayes flips conditioning; independence is the product rule.",
           "explain": "Law of total probability is the partition sum; Bayes flips conditioning; independence is the product rule."
         }
       ],
@@ -136,13 +150,15 @@
             "invertible"
           ],
           "answer": 2,
+          "hint": "By definition, a random variable is a measurable function into $(\\mathbb{R},\\mathcal{B}(\\mathbb{R}))$; continuity, boundedness, and invertibility are extra hypotheses not required.",
           "explain": "By definition, a random variable is a measurable function into $(\\mathbb{R},\\mathcal{B}(\\mathbb{R}))$; continuity, boundedness, and invertibility are extra hypotheses not required."
         },
         {
           "type": "numeric",
           "q": "Let $X$ be Bernoulli with $\\mathbb{P}(X=1)=0.3$. What is $\\mathbb{P}_X(\\{1\\})$, the push-forward measure of the singleton?",
           "answer": 0.3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The law is $\\mathbb{P}_X(B)=\\mathbb{P}(X\\in B)$, so $\\mathbb{P}_X(\\{1\\})=\\mathbb{P}(X=1)=0.3$.",
           "explain": "The law is $\\mathbb{P}_X(B)=\\mathbb{P}(X\\in B)$, so $\\mathbb{P}_X(\\{1\\})=\\mathbb{P}(X=1)=0.3$."
         },
         {
@@ -155,6 +171,7 @@
             "Neither — measurability fails under arithmetic"
           ],
           "answer": 0,
+          "hint": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in…",
           "explain": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in fact continuous)."
         }
       ],
@@ -195,6 +212,7 @@
             "$f(x)=\\lambda e^{-\\lambda x}$ for $x>0$"
           ],
           "answer": 1,
+          "hint": "Poisson PMF is $e^{-\\lambda}\\lambda^k/k!$ on the non-negative integers; choice 0 is binomial, choice 3 is exponential (PDF, not PMF).",
           "explain": "Poisson PMF is $e^{-\\lambda}\\lambda^k/k!$ on the non-negative integers; choice 0 is binomial, choice 3 is exponential (PDF, not PMF)."
         },
         {
@@ -202,6 +220,7 @@
           "q": "For $X\\sim\\text{Exp}(\\lambda=2)$, compute $\\mathbb{P}(X>1)$.",
           "answer": 0.1353,
           "tol": 0.005,
+          "hint": "Exponential tail: $\\mathbb{P}(X>t)=e^{-\\lambda t}=e^{-2}\\approx 0.1353$.",
           "explain": "Exponential tail: $\\mathbb{P}(X>t)=e^{-\\lambda t}=e^{-2}\\approx 0.1353$."
         },
         {
@@ -219,7 +238,13 @@
             "Exponential$(\\lambda)$",
             "Gaussian$(\\mu,\\sigma^2)$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Binomial is supported on $\\{0,\\ldots,n\\}$; Poisson on non-negative integers; Exponential on $[0,\\infty)$; Gaussian on $\\mathbb{R}$.",
           "explain": "Binomial is supported on $\\{0,\\ldots,n\\}$; Poisson on non-negative integers; Exponential on $[0,\\infty)$; Gaussian on $\\mathbb{R}$."
         }
       ],
@@ -240,9 +265,17 @@
         {
           "type": "construction",
           "q": "Click where the mode of a $\\text{Gamma}(k=3,\\theta=1)$ density $f(x)=x^2 e^{-x}/2$ lies. (Mode is $(k-1)\\theta$ for $k\\ge 1$; x-axis is labelled 0..10.)",
-          "target": { "kind": "point", "x": 20, "y": 50, "tolerance": 8 },
+          "target": {
+            "kind": "point",
+            "x": 20,
+            "y": 50,
+            "tolerance": 8
+          },
           "viewBox": "0 0 100 100",
-          "start": { "x": 50, "y": 50 },
+          "start": {
+            "x": 50,
+            "y": 50
+          },
           "explain": "Setting $f'(x)=0$ gives $x=k-1=2$; at $x/5=20$ in the viewBox. The Gamma$(k,\\theta)$ mode is $(k-1)\\theta$ for $k\\ge 1$."
         }
       ]
@@ -260,6 +293,7 @@
             "the Stieltjes integral only"
           ],
           "answer": 1,
+          "hint": "Expectation is defined as the Lebesgue integral of $X$ against the probability measure $\\mathbb{P}$; finite by definition when $X\\in L^1(\\Omega,\\mathcal{F},\\mathbb{P})$.",
           "explain": "Expectation is defined as the Lebesgue integral of $X$ against the probability measure $\\mathbb{P}$; finite by definition when $X\\in L^1(\\Omega,\\mathcal{F},\\mathbb{P})$."
         },
         {
@@ -267,13 +301,15 @@
           "q": "Let $X$ be uniform on $\\{1,2,3,4,5,6\\}$. Compute $\\mathbb{E}[X^2]$.",
           "answer": 15.1667,
           "tol": 0.01,
+          "hint": "$\\mathbb{E}[X^2]=(1+4+9+16+25+36)/6=91/6\\approx 15.1667$.",
           "explain": "$\\mathbb{E}[X^2]=(1+4+9+16+25+36)/6=91/6\\approx 15.1667$."
         },
         {
           "type": "numeric",
           "q": "For $X$ with $\\mathbb{E}[X]=2$ and $\\mathbb{E}[X^2]=5$, compute $\\text{Var}(X)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Variance shortcut: $\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2=5-4=1$.",
           "explain": "Variance shortcut: $\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2=5-4=1$."
         }
       ],
@@ -346,6 +382,7 @@
             "$F_X(x)=\\mathbb{P}(X\\le x)$"
           ],
           "answer": 0,
+          "hint": "$\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ is the characteristic function.",
           "explain": "$\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ is the characteristic function. The others are the MGF, the PGF, and the CDF, respectively."
         },
         {
@@ -353,13 +390,18 @@
           "q": "For $X\\sim\\mathcal{N}(0,1)$, compute $M_X(1)=\\mathbb{E}[e^{X}]$ to 4 decimals.",
           "answer": 1.6487,
           "tol": 0.005,
+          "hint": "Gaussian MGF: $M_X(t)=e^{t^2/2}$, so $M_X(1)=e^{1/2}\\approx 1.6487$.",
           "explain": "Gaussian MGF: $M_X(t)=e^{t^2/2}$, so $M_X(1)=e^{1/2}\\approx 1.6487$."
         },
         {
           "type": "complex",
           "q": "For $X\\sim\\mathcal{N}(0,1)$, compute $\\varphi_X(1)$ as $a+bi$.",
-          "answer": [0.6065, 0],
+          "answer": [
+            0.6065,
+            0
+          ],
           "tol": 0.01,
+          "hint": "Gaussian characteristic function: $\\varphi_X(t)=e^{-t^2/2}$, so $\\varphi_X(1)=e^{-1/2}\\approx 0.6065$ (real).",
           "explain": "Gaussian characteristic function: $\\varphi_X(t)=e^{-t^2/2}$, so $\\varphi_X(1)=e^{-1/2}\\approx 0.6065$ (real)."
         }
       ],
@@ -420,6 +462,7 @@
             "$X_n\\xrightarrow{L^1}X$ implies $X_n\\xrightarrow{a.s.}X$"
           ],
           "answer": 1,
+          "hint": "a.s.",
           "explain": "a.s. implies in-probability by a standard subsequence argument. The reverse implications fail: in-probability doesn't give a.s. (typewriter sequence), and convergence in distribution is weakest."
         },
         {
@@ -427,6 +470,7 @@
           "q": "Let $X_n=n\\cdot\\mathbf{1}_{A_n}$ where $\\mathbb{P}(A_n)=1/n^2$. Does $X_n\\to 0$ almost surely? Report $1$ for yes, $0$ for no.",
           "answer": 1,
           "tol": 0.01,
+          "hint": "By Borel-Cantelli, $\\sum\\mathbb{P}(A_n)=\\sum 1/n^2<\\infty$, so $\\mathbb{P}(A_n\\text{ i.o.})=0$.",
           "explain": "By Borel-Cantelli, $\\sum\\mathbb{P}(A_n)=\\sum 1/n^2<\\infty$, so $\\mathbb{P}(A_n\\text{ i.o.})=0$. Thus $X_n=0$ for all sufficiently large $n$ a.s., so $X_n\\to 0$ a.s."
         },
         {
@@ -437,7 +481,12 @@
             "almost surely",
             "in probability"
           ],
-          "answer": [1, 2, 0],
+          "answer": [
+            1,
+            2,
+            0
+          ],
+          "hint": "a.s.",
           "explain": "a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist. The chain is strict: each reverse implication fails in general."
         }
       ],
@@ -451,7 +500,11 @@
             "convergence in distribution",
             "almost-sure convergence of a subsequence"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "hint": "a.s. implies in-probability; what does NOT imply a.s. back?",
           "explain": "a.s. $\\Rightarrow$ in prob. (strictly); a.s. $\\not\\Leftrightarrow L^1$ (neither implies the other without extra hypotheses, but both are strictly weaker in that a.s. does not imply $L^1$ without UI, and $L^1$ does not imply a.s.); in dist. is weakest. Subsequential a.s. convergence is a consequence of convergence in probability, not strictly weaker."
         },
@@ -497,6 +550,7 @@
             "uniformly"
           ],
           "answer": 2,
+          "hint": "WLLN concludes convergence in probability; SLLN (Kolmogorov) strengthens this to a.s.\\ convergence, and requires only $\\mathbb{E}|X_1|<\\infty$.",
           "explain": "WLLN concludes convergence in probability; SLLN (Kolmogorov) strengthens this to a.s.\\ convergence, and requires only $\\mathbb{E}|X_1|<\\infty$."
         },
         {
@@ -504,6 +558,7 @@
           "q": "Flip a fair coin $10{,}000$ times. By LLN, the sample mean of indicators is approximately $0.5$. What does Chebyshev's inequality bound $\\mathbb{P}(|\\bar X-0.5|\\ge 0.05)$ by?",
           "answer": 0.01,
           "tol": 0.001,
+          "hint": "$\\text{Var}(\\bar X)=0.25/10000=2.5\\times 10^{-5}$.",
           "explain": "$\\text{Var}(\\bar X)=0.25/10000=2.5\\times 10^{-5}$. Chebyshev: $\\mathbb{P}(|\\bar X-\\mu|\\ge 0.05)\\le\\sigma^2/(\\epsilon^2)=2.5\\times 10^{-5}/0.0025=0.01$."
         },
         {
@@ -516,6 +571,7 @@
             "a finite moment-generating function"
           ],
           "answer": 1,
+          "hint": "Kolmogorov's SLLN requires only that $X_1,X_2,\\ldots$ are i.i.d.\\ and $\\mathbb{E}|X_1|<\\infty$; integrability suffices.",
           "explain": "Kolmogorov's SLLN requires only that $X_1,X_2,\\ldots$ are i.i.d.\\ and $\\mathbb{E}|X_1|<\\infty$; integrability suffices. Finite variance is enough but not necessary."
         }
       ],
@@ -589,6 +645,7 @@
             "uniformly to $\\mathcal{N}(0,1)$"
           ],
           "answer": 2,
+          "hint": "The CLT gives convergence in distribution, not almost-sure or in probability.",
           "explain": "The CLT gives convergence in distribution, not almost-sure or in probability. Almost-sure convergence to a non-degenerate Gaussian would be paradoxical — the sample mean does not converge a.s.\\ to a random limit."
         },
         {
@@ -596,6 +653,7 @@
           "q": "For $S_{100}=\\sum_{i=1}^{100}X_i$ with $X_i$ i.i.d.\\ Bernoulli$(0.5)$, approximate $\\mathbb{P}(S_{100}\\ge 60)$ using the Gaussian approximation. Report to 3 decimals.",
           "answer": 0.023,
           "tol": 0.01,
+          "hint": "$\\mathbb{E}[S_{100}]=50$, $\\text{Var}(S_{100})=25$.",
           "explain": "$\\mathbb{E}[S_{100}]=50$, $\\text{Var}(S_{100})=25$. $Z=(60-50)/5=2$. $\\mathbb{P}(Z\\ge 2)\\approx 0.0228$."
         },
         {
@@ -608,6 +666,7 @@
             "The Berry-Esseen quantitative CLT"
           ],
           "answer": 1,
+          "hint": "When $\\text{Var}(X_i)=\\infty$ but tails are regularly varying, suitably normalized sums converge to a non-Gaussian stable distribution.",
           "explain": "When $\\text{Var}(X_i)=\\infty$ but tails are regularly varying, suitably normalized sums converge to a non-Gaussian stable distribution. Lindeberg, Lyapunov, and Berry-Esseen all require finite variance."
         }
       ],
@@ -681,6 +740,7 @@
             "The expectation $\\mathbb{E}[X_{n+1}]=\\mathbb{E}[X_n]$"
           ],
           "answer": 0,
+          "hint": "Markov property: the future depends on the past only through the present.",
           "explain": "Markov property: the future depends on the past only through the present. Independence of present from past (choice 1) is too strong; choice 2 is independence of future from present."
         },
         {
@@ -688,6 +748,7 @@
           "q": "A two-state chain with transition matrix $P=\\begin{pmatrix}0.7&0.3\\\\0.4&0.6\\end{pmatrix}$ has stationary distribution $\\pi$ with $\\pi P=\\pi$. What is $\\pi_1$ (mass on state 1)?",
           "answer": 0.5714,
           "tol": 0.005,
+          "hint": "Solve $0.7\\pi_1+0.4(1-\\pi_1)=\\pi_1$, giving $0.4=0.7\\pi_1$, so $\\pi_1=4/7\\approx 0.5714$.",
           "explain": "Solve $0.7\\pi_1+0.4(1-\\pi_1)=\\pi_1$, giving $0.4=0.7\\pi_1$, so $\\pi_1=4/7\\approx 0.5714$. Check: $\\pi_2=3/7$."
         },
         {
@@ -700,6 +761,7 @@
             "$\\pi$ is the uniform distribution"
           ],
           "answer": 1,
+          "hint": "For finite-state irreducible aperiodic chains, $P^n\\to\\Pi$ with $\\Pi_{ij}=\\pi_j$ (every starting state converges to $\\pi$).",
           "explain": "For finite-state irreducible aperiodic chains, $P^n\\to\\Pi$ with $\\Pi_{ij}=\\pi_j$ (every starting state converges to $\\pi$). This is the ergodic theorem for Markov chains."
         }
       ],
@@ -720,7 +782,7 @@
         {
           "type": "numeric",
           "q": "A random walk on $\\mathbb{Z}$ with equal steps $\\pm 1$ is recurrent. For a simple random walk on $\\mathbb{Z}^3$ (Pólya's theorem), what is $\\mathbb{P}(\\text{return to origin})\\approx$? Report to 3 decimals.",
-          "answer": 0.340,
+          "answer": 0.34,
           "tol": 0.02,
           "hint": "$\\mathbb{Z}^3$ random walks are transient; return probability is $\\approx 0.34$.",
           "explain": "Pólya's theorem: random walks on $\\mathbb{Z}$ and $\\mathbb{Z}^2$ are recurrent (return probability $1$); on $\\mathbb{Z}^d$ for $d\\ge 3$ they are transient. The return probability for $\\mathbb{Z}^3$ is approximately $0.3405$ (Watson's integrals)."
@@ -755,13 +817,15 @@
             "$\\text{Var}(M_n)$ is constant"
           ],
           "answer": 0,
+          "hint": "Martingale definition: adapted, $L^1$, and the conditional expectation of the future given the past equals the present.",
           "explain": "Martingale definition: adapted, $L^1$, and the conditional expectation of the future given the past equals the present. This captures 'fair game' gambling intuition."
         },
         {
           "type": "numeric",
           "q": "$S_n=\\sum_{i=1}^n X_i$ where $X_i$ are i.i.d.\\ with $\\mathbb{E}[X_i]=0$. What is $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]-S_5$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "By independence: $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]=S_5+\\mathbb{E}[X_6+\\cdots+X_{10}\\mid\\mathcal{F}_5]=S_5+0=S_5$.",
           "explain": "By independence: $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]=S_5+\\mathbb{E}[X_6+\\cdots+X_{10}\\mid\\mathcal{F}_5]=S_5+0=S_5$. So the difference is $0$: random walk is a martingale."
         },
         {
@@ -774,6 +838,7 @@
             "No conditions are needed"
           ],
           "answer": 0,
+          "hint": "At least one of these conditions is required; otherwise optional-stopping fails (e.g.\\ simple random walk stopped at $+1$ has $\\mathbb{E}[M_\\tau]=1\\ne 0=\\mathbb{E}[M_0]$).",
           "explain": "At least one of these conditions is required; otherwise optional-stopping fails (e.g.\\ simple random walk stopped at $+1$ has $\\mathbb{E}[M_\\tau]=1\\ne 0=\\mathbb{E}[M_0]$)."
         }
       ],
@@ -846,6 +911,7 @@
             "bounded variation on compact intervals"
           ],
           "answer": 0,
+          "hint": "Brownian motion is the Gaussian process with these three properties; its paths are continuous but nowhere differentiable and of unbounded variation on every interval.",
           "explain": "Brownian motion is the Gaussian process with these three properties; its paths are continuous but nowhere differentiable and of unbounded variation on every interval."
         },
         {
@@ -853,6 +919,7 @@
           "q": "Compute $\\mathbb{P}(W_1>1.96)$ where $W_1\\sim\\mathcal{N}(0,1)$. Report to 3 decimals.",
           "answer": 0.025,
           "tol": 0.005,
+          "hint": "Standard Gaussian tail: $\\mathbb{P}(Z>1.96)\\approx 0.025$ (the two-tail $5\\%$ critical value).",
           "explain": "Standard Gaussian tail: $\\mathbb{P}(Z>1.96)\\approx 0.025$ (the two-tail $5\\%$ critical value)."
         },
         {
@@ -865,6 +932,7 @@
             "$t^2$"
           ],
           "answer": 0,
+          "hint": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability (and a.s.\\ along dyadic refinements) as the mesh shrinks.",
           "explain": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability (and a.s.\\ along dyadic refinements) as the mesh shrinks. Infinite variation but finite quadratic variation is the signature of Brownian motion."
         }
       ],

@@ -52,7 +52,8 @@
       "anchor": "existence",
       "prereqs": [
         "local-global-cft",
-        "artin-reciprocity-preview"
+        "artin-reciprocity-preview",
+        "idele-class-group"
       ],
       "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection.",
       "tags": [

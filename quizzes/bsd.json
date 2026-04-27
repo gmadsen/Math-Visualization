@@ -2,20 +2,20 @@
   "topic": "bsd",
   "quizzes": {
     "mordell-weil": {
-      "title": "Mordell\u2013Weil",
+      "title": "Mordell–Weil",
       "hard": [
         {
           "type": "mcq",
-          "q": "Weak Mordell\u2013Weil shows $E(\\mathbb{Q})/nE(\\mathbb{Q})$ is finite. Which tool reduces the infinite group $E(\\mathbb{Q})$ to a finite computation from this fact?",
+          "q": "Weak Mordell–Weil shows $E(\\mathbb{Q})/nE(\\mathbb{Q})$ is finite. Which tool reduces the infinite group $E(\\mathbb{Q})$ to a finite computation from this fact?",
           "choices": [
             "The Riemann hypothesis for curves",
             "A height function satisfying $\\hat h(nP) = n^2\\hat h(P)$ plus a bound on the number of points of bounded height",
             "The Weil conjectures for $E/\\mathbb{F}_p$",
-            "Minkowski\u2019s geometry of numbers applied to $E(\\mathbb{C})$"
+            "Minkowski’s geometry of numbers applied to $E(\\mathbb{C})$"
           ],
           "answer": 1,
           "hint": "You need a size function that behaves predictably under doubling.",
-          "explain": "Tate\u2019s canonical height $\\hat h$ is quadratic: $\\hat h(nP)=n^2\\hat h(P)$. Finiteness of $E(\\mathbb{Q})/nE(\\mathbb{Q})$ plus the fact that $\\{P : \\hat h(P)\\le B\\}$ is finite for every $B$ lets one descend an arbitrary point to a coset representative, proving finite generation."
+          "explain": "Tate’s canonical height $\\hat h$ is quadratic: $\\hat h(nP)=n^2\\hat h(P)$. Finiteness of $E(\\mathbb{Q})/nE(\\mathbb{Q})$ plus the fact that $\\{P : \\hat h(P)\\le B\\}$ is finite for every $B$ lets one descend an arbitrary point to a coset representative, proving finite generation."
         },
         {
           "type": "mcq",
@@ -33,14 +33,14 @@
           "type": "numeric",
           "q": "The free part of $E(\\mathbb{Q})$ for a rank-$3$ curve has a Gram matrix (height pairing) with diagonal entries $(2, 3, 5)$ and all off-diagonal entries $0$. Compute the regulator $R$.",
           "answer": 30,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "With a diagonal Gram matrix $\\operatorname{diag}(2,3,5)$, the determinant is $2\\cdot 3\\cdot 5 = 30$. Orthogonality of the basis means each generator contributes independently to the lattice covolume."
         }
       ],
       "questions": [
         {
           "type": "mcq",
-          "q": "Mordell\u2013Weil says that for an elliptic curve $E/\\mathbb{Q}$, the group $E(\\mathbb{Q})$ is:",
+          "q": "Mordell–Weil says that for an elliptic curve $E/\\mathbb{Q}$, the group $E(\\mathbb{Q})$ is:",
           "choices": [
             "always finite",
             "always isomorphic to $\\mathbb{Z}$",
@@ -48,6 +48,7 @@
             "always uncountable"
           ],
           "answer": 2,
+          "hint": "The theorem gives a decomposition $E(\\mathbb{Q}) \\cong \\mathbb{Z}^r \\oplus T$ where $T$ is a finite torsion group and $r \\ge 0$ is the rank.",
           "explain": "The theorem gives a decomposition $E(\\mathbb{Q}) \\cong \\mathbb{Z}^r \\oplus T$ where $T$ is a finite torsion group and $r \\ge 0$ is the rank."
         },
         {
@@ -55,6 +56,7 @@
           "q": "By Mazur's theorem, how many isomorphism classes of torsion subgroups $E(\\mathbb{Q})_{\\text{tors}}$ are possible?",
           "answer": 15,
           "tol": 0.5,
+          "hint": "Mazur (1977): the torsion is one of $\\mathbb{Z}/n$ for $n\\in\\{1,\\ldots,10,12\\}$ (11 groups) or $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2n$ for $n\\in\\{1,2,3,4\\}$ (4 groups), total 15.",
           "explain": "Mazur (1977): the torsion is one of $\\mathbb{Z}/n$ for $n\\in\\{1,\\ldots,10,12\\}$ (11 groups) or $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2n$ for $n\\in\\{1,2,3,4\\}$ (4 groups), total 15."
         },
         {
@@ -67,6 +69,7 @@
             "infinitely many"
           ],
           "answer": 2,
+          "hint": "$(\\mathbb{Z}/2)^2$ has order $4$; the non-identity $2$-torsion points are $(0,0), (5,0), (-5,0)$ plus the identity at infinity.",
           "explain": "$(\\mathbb{Z}/2)^2$ has order $4$; the non-identity $2$-torsion points are $(0,0), (5,0), (-5,0)$ plus the identity at infinity."
         }
       ]
@@ -95,7 +98,7 @@
         },
         {
           "type": "mcq",
-          "q": "The Sato\u2013Tate conjecture (now theorem) describes the distribution of $a_p/(2\\sqrt{p})$ as $p\\to\\infty$. What is that distribution?",
+          "q": "The Sato–Tate conjecture (now theorem) describes the distribution of $a_p/(2\\sqrt{p})$ as $p\\to\\infty$. What is that distribution?",
           "choices": [
             "Uniform on $[-1,1]$",
             "The semicircular measure $\\frac{2}{\\pi}\\sqrt{1-t^2}\\,dt$ on $[-1,1]$",
@@ -103,7 +106,7 @@
             "Bernoulli $\\pm 1$ with equal probability"
           ],
           "answer": 1,
-          "explain": "Sato\u2013Tate (proved by Taylor et al., 2011): for a non-CM elliptic curve over $\\mathbb{Q}$ the angles $\\theta_p$ with $a_p = 2\\sqrt{p}\\cos\\theta_p$ equidistribute with respect to the Haar measure $\\frac{2}{\\pi}\\sin^2\\theta\\,d\\theta$, which translates to the semicircle on $[-1,1]$."
+          "explain": "Sato–Tate (proved by Taylor et al., 2011): for a non-CM elliptic curve over $\\mathbb{Q}$ the angles $\\theta_p$ with $a_p = 2\\sqrt{p}\\cos\\theta_p$ equidistribute with respect to the Haar measure $\\frac{2}{\\pi}\\sin^2\\theta\\,d\\theta$, which translates to the semicircle on $[-1,1]$."
         }
       ],
       "questions": [
@@ -117,6 +120,7 @@
             "it stays bounded"
           ],
           "answer": 1,
+          "hint": "Birch and Swinnerton-Dyer observed on EDSAC that the product grows like $c\\cdot(\\log X)^r$, where $r$ is the rank of $E(\\mathbb{Q})$.",
           "explain": "Birch and Swinnerton-Dyer observed on EDSAC that the product grows like $c\\cdot(\\log X)^r$, where $r$ is the rank of $E(\\mathbb{Q})$."
         },
         {
@@ -129,6 +133,7 @@
             "no points at all for most $p$"
           ],
           "answer": 2,
+          "hint": "Heuristically, lots of rational points forces many points modulo $p$.",
           "explain": "Heuristically, lots of rational points forces many points modulo $p$. This bias in $a_p = p+1-N_p$ (systematically negative in some average sense) is the statistical shadow of positive rank."
         },
         {
@@ -136,6 +141,7 @@
           "q": "By Hasse's bound, $|a_p| \\le 2\\sqrt{p}$. For $p = 25$ this would give $|a_p| \\le ?$ (take $p$ as a real number here, ignoring that $25$ is not prime).",
           "answer": 10,
           "tol": 0.001,
+          "hint": "$2\\sqrt{25} = 10$.",
           "explain": "$2\\sqrt{25} = 10$. The Hasse bound controls each factor $N_p/p = 1 - a_p/p + 1/p$ so it lies in $[1 - 2/\\sqrt{p} + 1/p,\\ 1 + 2/\\sqrt{p} + 1/p]$."
         }
       ]
@@ -145,7 +151,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Gross\u2013Zagier (1986) relates $L'(E,1)$ (when analytic rank $=1$) to what explicit algebraic object?",
+          "q": "Gross–Zagier (1986) relates $L'(E,1)$ (when analytic rank $=1$) to what explicit algebraic object?",
           "choices": [
             "The conductor $N$ of $E$",
             "The canonical height of a Heegner point $y_K \\in E(K)$ for an imaginary quadratic field $K$",
@@ -153,11 +159,11 @@
             "The order of $E(\\mathbb{F}_p)$ for the smallest good prime $p$"
           ],
           "answer": 1,
-          "explain": "Gross\u2013Zagier: $L'(E,1) = \\frac{\\Omega\\cdot c}{\\sqrt{|\\Delta_K|}}\\cdot\\hat h(y_K)$ for a Heegner point $y_K$ on $E(K)$. Combined with Kolyvagin\u2019s Euler systems this proves BSD for analytic rank $1$."
+          "explain": "Gross–Zagier: $L'(E,1) = \\frac{\\Omega\\cdot c}{\\sqrt{|\\Delta_K|}}\\cdot\\hat h(y_K)$ for a Heegner point $y_K$ on $E(K)$. Combined with Kolyvagin’s Euler systems this proves BSD for analytic rank $1$."
         },
         {
           "type": "mcq",
-          "q": "Kolyvagin\u2019s theorem (1989) establishes BSD in which cases?",
+          "q": "Kolyvagin’s theorem (1989) establishes BSD in which cases?",
           "choices": [
             "All elliptic curves over $\\mathbb{Q}$, unconditionally",
             "Curves with complex multiplication only",
@@ -169,7 +175,7 @@
         },
         {
           "type": "mcq",
-          "q": "Order the following steps in the proof strategy for BSD rank $=1$: (A) Use Gross\u2013Zagier to show $\\hat h(y_K) \\ne 0$ from $L'(E,1) \\ne 0$. (B) Apply Kolyvagin\u2019s Euler system to deduce $\\operatorname{rank}E(\\mathbb{Q})=1$. (C) Verify analytic rank $= 1$ via $L(E,1)=0$, $L'(E,1)\\ne 0$. What is the correct order?",
+          "q": "Order the following steps in the proof strategy for BSD rank $=1$: (A) Use Gross–Zagier to show $\\hat h(y_K) \\ne 0$ from $L'(E,1) \\ne 0$. (B) Apply Kolyvagin’s Euler system to deduce $\\operatorname{rank}E(\\mathbb{Q})=1$. (C) Verify analytic rank $= 1$ via $L(E,1)=0$, $L'(E,1)\\ne 0$. What is the correct order?",
           "choices": [
             "A, B, C",
             "C, A, B",
@@ -178,13 +184,13 @@
           ],
           "answer": 1,
           "hint": "Analytic data comes first; then convert it to a non-torsion point; then use Euler systems.",
-          "explain": "First establish the analytic data $L(E,1)=0$, $L'(E,1)\\ne 0$ (step C). Then Gross\u2013Zagier converts $L'(E,1)\\ne 0$ into $\\hat h(y_K)\\ne 0$, so the Heegner point is non-torsion (step A). Finally Kolyvagin\u2019s machinery propagates this to algebraic rank exactly $1$ (step B)."
+          "explain": "First establish the analytic data $L(E,1)=0$, $L'(E,1)\\ne 0$ (step C). Then Gross–Zagier converts $L'(E,1)\\ne 0$ into $\\hat h(y_K)\\ne 0$, so the Heegner point is non-torsion (step A). Finally Kolyvagin’s machinery propagates this to algebraic rank exactly $1$ (step B)."
         }
       ],
       "questions": [
         {
           "type": "mcq",
-          "q": "The (weak) Birch\u2013Swinnerton-Dyer conjecture asserts:",
+          "q": "The (weak) Birch–Swinnerton-Dyer conjecture asserts:",
           "choices": [
             "$L(E,1) = \\text{rank}\\, E(\\mathbb{Q})$",
             "$\\operatorname{ord}_{s=1} L(E, s) = \\text{rank}\\, E(\\mathbb{Q})$",
@@ -192,13 +198,15 @@
             "$E(\\mathbb{Q})$ is always infinite"
           ],
           "answer": 1,
-          "explain": "BSD equates the analytic rank (order of vanishing of $L(E,s)$ at $s=1$) with the algebraic rank of the Mordell\u2013Weil group."
+          "hint": "BSD equates the analytic rank (order of vanishing of $L(E,s)$ at $s=1$) with the algebraic rank of the Mordell–Weil group.",
+          "explain": "BSD equates the analytic rank (order of vanishing of $L(E,s)$ at $s=1$) with the algebraic rank of the Mordell–Weil group."
         },
         {
           "type": "numeric",
           "q": "For a rank-$0$ elliptic curve, BSD predicts that $L(E, 1)$ equals zero ($\\to$ enter $0$) or is nonzero ($\\to$ enter $1$)?",
           "answer": 1,
           "tol": 0.001,
+          "hint": "Rank $0$ means $\\operatorname{ord}_{s=1} L(E,s) = 0$, i.e.",
           "explain": "Rank $0$ means $\\operatorname{ord}_{s=1} L(E,s) = 0$, i.e. $L(E,1) \\ne 0$. Kolyvagin's theorem proves the BSD implication in this direction for modular $E$."
         },
         {
@@ -227,7 +235,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which property distinguishes the N\u00e9ron\u2013Tate canonical height $\\hat h$ from the naive Weil height $h$ of the $x$-coordinate?",
+          "q": "Which property distinguishes the Néron–Tate canonical height $\\hat h$ from the naive Weil height $h$ of the $x$-coordinate?",
           "choices": [
             "$\\hat h$ is defined only on torsion points",
             "$\\hat h$ is exactly quadratic and vanishes precisely on torsion, while $h$ satisfies these only up to $O(1)$ errors",
@@ -235,20 +243,20 @@
             "$\\hat h$ is integer-valued, while $h$ takes real values"
           ],
           "answer": 1,
-          "explain": "The Weil height $h(P)$ satisfies $h(nP) = n^2 h(P) + O(1)$. Tate\u2019s limiting process $\\hat h(P) = \\lim_{n\\to\\infty} h(2^n P)/4^n$ removes the $O(1)$ error, making $\\hat h$ exactly quadratic. Crucially, $\\hat h(P)=0$ iff $P$ is torsion."
+          "explain": "The Weil height $h(P)$ satisfies $h(nP) = n^2 h(P) + O(1)$. Tate’s limiting process $\\hat h(P) = \\lim_{n\\to\\infty} h(2^n P)/4^n$ removes the $O(1)$ error, making $\\hat h$ exactly quadratic. Crucially, $\\hat h(P)=0$ iff $P$ is torsion."
         },
         {
           "type": "numeric",
           "q": "A rank-$2$ curve has height-pairing matrix $\\begin{pmatrix}4 & 2\\\\ 2 & 4\\end{pmatrix}$. Is this matrix positive definite? (Enter $1$ for yes, $0$ for no.)",
           "answer": 1,
           "tol": 0.5,
-          "explain": "Check: $\\det = 4\\cdot 4 - 2\\cdot 2 = 12 > 0$ and the leading entry $4 > 0$, so Sylvester\u2019s criterion confirms positive definiteness. The canonical height pairing on the free part is always positive definite."
+          "explain": "Check: $\\det = 4\\cdot 4 - 2\\cdot 2 = 12 > 0$ and the leading entry $4 > 0$, so Sylvester’s criterion confirms positive definiteness. The canonical height pairing on the free part is always positive definite."
         }
       ],
       "questions": [
         {
           "type": "mcq",
-          "q": "The N\u00e9ron\u2013Tate canonical height $\\hat h$ satisfies which scaling law?",
+          "q": "The Néron–Tate canonical height $\\hat h$ satisfies which scaling law?",
           "choices": [
             "$\\hat h(nP) = n\\,\\hat h(P)$",
             "$\\hat h(nP) = n^2\\,\\hat h(P)$",
@@ -256,13 +264,15 @@
             "$\\hat h(nP) = \\hat h(P)$"
           ],
           "answer": 1,
+          "hint": "Tate's limiting construction makes $\\hat h$ exactly quadratic, so $\\hat h(nP)=n^2\\hat h(P)$.",
           "explain": "Tate's limiting construction makes $\\hat h$ exactly quadratic, so $\\hat h(nP)=n^2\\hat h(P)$. Equivalently, $\\langle P,Q\\rangle = \\tfrac12(\\hat h(P+Q)-\\hat h(P)-\\hat h(Q))$ is bilinear."
         },
         {
           "type": "numeric",
           "q": "Let $E(\\mathbb{Q})$ have rank $2$ with height-pairing Gram matrix $\\begin{pmatrix}2 & 1\\\\ 1 & 3\\end{pmatrix}$ on a basis. Compute the regulator $R=\\det G$.",
           "answer": 5,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$R = 2\\cdot 3 - 1\\cdot 1 = 5$.",
           "explain": "$R = 2\\cdot 3 - 1\\cdot 1 = 5$. Positive-definiteness (so the pairing is a genuine inner product) requires $\\det G > 0$, which holds here."
         },
         {
@@ -275,16 +285,17 @@
             "undefined"
           ],
           "answer": 2,
+          "hint": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$.",
           "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\Sha|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
         }
       ]
     },
     "sha-tate-shafarevich": {
-      "title": "Tate\u2013Shafarevich group",
+      "title": "Tate–Shafarevich group",
       "hard": [
         {
           "type": "mcq",
-          "q": "The Cassels\u2013Tate pairing on $\\Sha(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\Sha$ is finite). Which of the following is the correct logical chain forcing $|\\Sha|$ to be a perfect square?",
+          "q": "The Cassels–Tate pairing on $\\Sha(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\Sha$ is finite). Which of the following is the correct logical chain forcing $|\\Sha|$ to be a perfect square?",
           "choices": [
             "An alternating non-degenerate pairing on a finite group $A$ pairs each element with itself to $0$, so $A \\cong B \\oplus B$ for some $B$, giving $|A| = |B|^2$",
             "The Weil pairing on $E[n]$ forces $|\\Sha[n]|^2 = n^2$",
@@ -292,7 +303,7 @@
             "Perfect squares are the only integers appearing as orders of abelian groups"
           ],
           "answer": 0,
-          "hint": "An alternating form pairs every element with itself to zero \u2014 what does that force on the group?",
+          "hint": "An alternating form pairs every element with itself to zero — what does that force on the group?",
           "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\Sha| = |B|^2$."
         },
         {
@@ -326,11 +337,12 @@
             "a prime of bad reduction"
           ],
           "answer": 2,
-          "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial \u2014 failures of the Hasse principle."
+          "hint": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of…",
+          "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
         },
         {
           "type": "mcq",
-          "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, the Cassels\u2013Tate pairing forces $|\\Sha|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\Sha$?",
+          "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, the Cassels–Tate pairing forces $|\\Sha|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\Sha$?",
           "choices": [
             "$1$",
             "$4$",
@@ -340,7 +352,7 @@
           ],
           "answer": 2,
           "hint": "Which of the options isn't a perfect square?",
-          "explain": "Cassels\u2013Tate gives $\\Sha(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
+          "explain": "Cassels–Tate gives $\\Sha(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
         },
         {
           "type": "mcq",
@@ -352,6 +364,7 @@
             "cannot be determined"
           ],
           "answer": 0,
+          "hint": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$.",
           "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
         }
       ]

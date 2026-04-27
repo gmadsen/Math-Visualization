@@ -18,6 +18,7 @@ window.MVQuizBank = {
               "Uncountably many"
             ],
             "answer": 2,
+            "hint": "By Ostrowski's theorem, every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to either the usual archimedean $|\\cdot|_\\infty$ or a $p$-adic absolute value $|\\cdot|_p$ for some prime $p$.",
             "explain": "By Ostrowski's theorem, every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to either the usual archimedean $|\\cdot|_\\infty$ or a $p$-adic absolute value $|\\cdot|_p$ for some prime $p$. Since there are infinitely many primes, $\\mathbb{Q}$ has countably infinitely many places."
           },
           {
@@ -25,6 +26,7 @@ window.MVQuizBank = {
             "q": "Compute $|12|_3$ (the $3$-adic absolute value of $12$). Note $12 = 3 \\cdot 4 = 3^1 \\cdot 4$.",
             "answer": 0.3333333333,
             "tol": 0.0001,
+            "hint": "$v_3(12) = v_3(3^1 \\cdot 4) = 1$, so $|12|_3 = 3^{-1} = 1/3 \\approx 0.333$.",
             "explain": "$v_3(12) = v_3(3^1 \\cdot 4) = 1$, so $|12|_3 = 3^{-1} = 1/3 \\approx 0.333$."
           },
           {
@@ -37,6 +39,7 @@ window.MVQuizBank = {
               "It vanishes only at zero"
             ],
             "answer": 1,
+            "hint": "A non-archimedean absolute value satisfies the stronger ultrametric (strong triangle) inequality $|x+y| \\le \\max(|x|,|y|)$.",
             "explain": "A non-archimedean absolute value satisfies the stronger ultrametric (strong triangle) inequality $|x+y| \\le \\max(|x|,|y|)$. Archimedean absolute values also satisfy the ordinary triangle inequality but not the ultrametric one in general."
           }
         ],
@@ -90,6 +93,7 @@ window.MVQuizBank = {
               "The full product is uncountable"
             ],
             "answer": 1,
+            "hint": "Local compactness is the key property.",
             "explain": "Local compactness is the key property. In the restricted product, a basic open set requires the $p$-adic component to lie in $\\mathbb{Z}_p$ for all but finitely many primes; this forces local compactness by Tychonoff applied to the compact $\\mathbb{Z}_p$ factors."
           },
           {
@@ -102,6 +106,7 @@ window.MVQuizBank = {
               "Because the archimedean component is always an integer"
             ],
             "answer": 1,
+            "hint": "For $q = a/b$ (lowest terms), $|q|_p < 1$ iff $p \\mid b$.",
             "explain": "For $q = a/b$ (lowest terms), $|q|_p < 1$ iff $p \\mid b$. Since $b$ has finitely many prime divisors, $q \\in \\mathbb{Z}_p$ for all but finitely many $p$, exactly the admissibility condition."
           },
           {
@@ -114,6 +119,7 @@ window.MVQuizBank = {
               "$\\hat{\\mathbb{Z}}$ is a local ring"
             ],
             "answer": 1,
+            "hint": "Each $\\mathbb{Z}_p$ is compact, so the full product $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ is compact by Tychonoff.",
             "explain": "Each $\\mathbb{Z}_p$ is compact, so the full product $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ is compact by Tychonoff. It equals the inverse limit $\\varprojlim \\mathbb{Z}/n\\mathbb{Z}$, which is the profinite completion of $\\mathbb{Z}$. It is not a field (e.g. $2 \\in \\hat{\\mathbb{Z}}$ is not invertible in $\\hat{\\mathbb{Z}}$ since $2 \\notin \\mathbb{Z}_2^\\times$)."
           }
         ],
@@ -167,6 +173,7 @@ window.MVQuizBank = {
               "The archimedean component must be positive"
             ],
             "answer": 0,
+            "hint": "An adele $(x_v)$ is an idele iff $(x_v^{-1})$ is also an admissible adele, meaning $x_v \\in \\mathbb{Z}_p^\\times$ for all but finitely many $p$.",
             "explain": "An adele $(x_v)$ is an idele iff $(x_v^{-1})$ is also an admissible adele, meaning $x_v \\in \\mathbb{Z}_p^\\times$ for all but finitely many $p$. The restricted product topology on ideles is strictly finer than the subspace topology from $\\mathbb{A}_\\mathbb{Q}$."
           },
           {
@@ -179,6 +186,7 @@ window.MVQuizBank = {
               "It says $C_\\mathbb{Q}$ is trivial"
             ],
             "answer": 1,
+            "hint": "The content (or idelic norm) is $\\|x\\| = \\prod_v |x_v|_v$.",
             "explain": "The content (or idelic norm) is $\\|x\\| = \\prod_v |x_v|_v$. The product formula $\\prod_v |q|_v = 1$ says the diagonal embedding lands in $\\ker(\\|\\cdot\\|)$. The quotient $C_\\mathbb{Q}^1 = \\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ is compact, a key structural fact."
           },
           {
@@ -191,6 +199,7 @@ window.MVQuizBank = {
               "The absolute Galois group $\\operatorname{Gal}(\\bar{\\mathbb{Q}}/\\mathbb{Q})$"
             ],
             "answer": 1,
+            "hint": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$.",
             "explain": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$. For $\\mathbb{Q}$ this recovers the Kronecker-Weber theorem: every abelian extension is cyclotomic."
           }
         ],
@@ -249,6 +258,7 @@ window.MVQuizBank = {
               "Both (B) and (C) are correct"
             ],
             "answer": 3,
+            "hint": "Both statements are correct: $\\mathbb{Q}$ is dense in the finite adeles $\\mathbb{A}^\\infty$ (strong approximation), and $\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}}$ (its profinite completion).",
             "explain": "Both statements are correct: $\\mathbb{Q}$ is dense in the finite adeles $\\mathbb{A}^\\infty$ (strong approximation), and $\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}}$ (its profinite completion). Statement (A) is also true but $\\mathbb{Q}$ is not dense in the full $\\mathbb{A}_\\mathbb{Q}$ because $\\mathbb{Q}$ is discrete as a cocompact subgroup."
           },
           {
@@ -261,6 +271,7 @@ window.MVQuizBank = {
               "It replaces integers with rational numbers"
             ],
             "answer": 1,
+            "hint": "Strong approximation says: given any finite set $S$ of primes and elements $a_p \\in \\mathbb{Q}_p$ for $p \\in S$, there exists $q \\in \\mathbb{Q}$ with $|q - a_p|_p < \\varepsilon$ for all $p \\in S$.",
             "explain": "Strong approximation says: given any finite set $S$ of primes and elements $a_p \\in \\mathbb{Q}_p$ for $p \\in S$, there exists $q \\in \\mathbb{Q}$ with $|q - a_p|_p < \\varepsilon$ for all $p \\in S$. This is CRT in the limit: infinitely many simultaneous approximations, but only finitely many non-trivial ones at a time."
           },
           {
@@ -268,6 +279,7 @@ window.MVQuizBank = {
             "q": "By strong approximation (or CRT), there exists an integer $n$ with $n \\equiv 1 \\pmod{5}$ and $n \\equiv 0 \\pmod{7}$. The smallest positive such $n$ is?",
             "answer": 21,
             "tol": 0.5,
+            "hint": "We need $n \\equiv 0 \\pmod{7}$, so $n = 7k$.",
             "explain": "We need $n \\equiv 0 \\pmod{7}$, so $n = 7k$. Then $7k \\equiv 1 \\pmod{5}$ means $2k \\equiv 1 \\pmod{5}$, so $k \\equiv 3 \\pmod{5}$ (since $2 \\cdot 3 = 6 \\equiv 1$). The smallest positive $k = 3$, giving $n = 21$."
           }
         ],
@@ -321,6 +333,7 @@ window.MVQuizBank = {
               "A polynomial function on $\\mathbb{A}_\\mathbb{Q}$"
             ],
             "answer": 1,
+            "hint": "The Schwartz-Bruhat space on $\\mathbb{A}_\\mathbb{Q}$ consists of finite linear combinations of pure tensors $f_\\infty \\otimes \\prod_p f_p$ where $f_\\infty \\in \\mathcal{S}(\\mathbb{R})$, each $f_p$ is…",
             "explain": "The Schwartz-Bruhat space on $\\mathbb{A}_\\mathbb{Q}$ consists of finite linear combinations of pure tensors $f_\\infty \\otimes \\prod_p f_p$ where $f_\\infty \\in \\mathcal{S}(\\mathbb{R})$, each $f_p$ is locally constant and compactly supported on $\\mathbb{Q}_p$, and $f_p = \\mathbf{1}_{\\mathbb{Z}_p}$ for all but finitely many $p$."
           },
           {
@@ -333,6 +346,7 @@ window.MVQuizBank = {
               "Strong approximation"
             ],
             "answer": 1,
+            "hint": "Poisson summation on $\\mathbb{A}_\\mathbb{Q}$ (with $\\mathbb{Q}$ as the discrete cocompact subgroup) gives $\\sum_{q \\in \\mathbb{Q}} f(q) = \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q)$.",
             "explain": "Poisson summation on $\\mathbb{A}_\\mathbb{Q}$ (with $\\mathbb{Q}$ as the discrete cocompact subgroup) gives $\\sum_{q \\in \\mathbb{Q}} f(q) = \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q)$. Applied inside the global zeta integral, this swaps $s \\leftrightarrow 1-s$ and $f \\leftrightarrow \\hat{f}$, yielding the functional equation."
           },
           {
@@ -345,6 +359,7 @@ window.MVQuizBank = {
               "$(1 - p^{-s})^{-1}$"
             ],
             "answer": 1,
+            "hint": "With $f_\\infty(x) = e^{-\\pi x^2}$, the local archimedean integral is $\\int_{\\mathbb{R}^\\times} e^{-\\pi x^2} |x|^s \\frac{dx}{|x|} = 2\\int_0^\\infty e^{-\\pi t^2} t^{s-1} dt = \\pi^{-s/2} \\Gamma(s/2)$.",
             "explain": "With $f_\\infty(x) = e^{-\\pi x^2}$, the local archimedean integral is $\\int_{\\mathbb{R}^\\times} e^{-\\pi x^2} |x|^s \\frac{dx}{|x|} = 2\\int_0^\\infty e^{-\\pi t^2} t^{s-1} dt = \\pi^{-s/2} \\Gamma(s/2)$. This is exactly the gamma factor appearing in the completed zeta function $\\xi(s)$."
           }
         ],
@@ -403,6 +418,7 @@ window.MVQuizBank = {
               "Additive inverses are optional."
             ],
             "answer": 0,
+            "hint": "A field requires that $F^{\\times}=F\\setminus\\{0\\}$ is a group under multiplication, so each nonzero element is invertible.",
             "explain": "A field requires that $F^{\\times}=F\\setminus\\{0\\}$ is a group under multiplication, so each nonzero element is invertible."
           },
           {
@@ -410,6 +426,7 @@ window.MVQuizBank = {
             "q": "In the additive group $(\\mathbb{Z}/12\\mathbb{Z},+)$, what is the order of the element $4$?",
             "answer": 3,
             "tol": 1e-9,
+            "hint": "The order is $12/\\gcd(12,4)=3$, since $3\\cdot4\\equiv0\\pmod{12}$.",
             "explain": "The order is $12/\\gcd(12,4)=3$, since $3\\cdot4\\equiv0\\pmod{12}$."
           },
           {
@@ -421,6 +438,7 @@ window.MVQuizBank = {
               "Field"
             ],
             "answer": 0,
+            "hint": "Symmetries compose and invert, exactly the group axioms.",
             "explain": "Symmetries compose and invert, exactly the group axioms."
           }
         ],
@@ -489,6 +507,7 @@ window.MVQuizBank = {
               "Having prime order"
             ],
             "answer": 0,
+            "hint": "For fixed $g$, the map $h\\mapsto gh$ is bijective with inverse $h\\mapsto g^{-1}h$, so each row lists each element once.",
             "explain": "For fixed $g$, the map $h\\mapsto gh$ is bijective with inverse $h\\mapsto g^{-1}h$, so each row lists each element once."
           },
           {
@@ -496,6 +515,7 @@ window.MVQuizBank = {
             "q": "If $|G|=24$ and $|H|=6$, how many left cosets does $H$ have in $G$?",
             "answer": 4,
             "tol": 1e-9,
+            "hint": "By Lagrange, the index is $[G:H]=|G|/|H|=24/6=4$.",
             "explain": "By Lagrange, the index is $[G:H]=|G|/|H|=24/6=4$."
           },
           {
@@ -508,6 +528,7 @@ window.MVQuizBank = {
               "$H$ contains every involution in $G$"
             ],
             "answer": 0,
+            "hint": "Normality means left and right cosets coincide for every group element.",
             "explain": "Normality means left and right cosets coincide for every group element."
           }
         ],
@@ -561,6 +582,7 @@ window.MVQuizBank = {
               "$G\\cong H$ always"
             ],
             "answer": 0,
+            "hint": "Quotienting by the kernel identifies exactly elements with equal image.",
             "explain": "Quotienting by the kernel identifies exactly elements with equal image."
           },
           {
@@ -568,6 +590,7 @@ window.MVQuizBank = {
             "q": "How many elements does $\\mathbb{F}_{3^2}$ have?",
             "answer": 9,
             "tol": 1e-9,
+            "hint": "A finite field $\\mathbb{F}_{p^n}$ has exactly $p^n$ elements.",
             "explain": "A finite field $\\mathbb{F}_{p^n}$ has exactly $p^n$ elements."
           },
           {
@@ -580,6 +603,7 @@ window.MVQuizBank = {
               "$x\\mapsto x^{-1}$"
             ],
             "answer": 0,
+            "hint": "The Frobenius endomorphism raises each element to the $p$th power.",
             "explain": "The Frobenius endomorphism raises each element to the $p$th power."
           }
         ],
@@ -630,6 +654,7 @@ window.MVQuizBank = {
               "$\\mathfrak{m}$ contains every zero divisor"
             ],
             "answer": 0,
+            "hint": "By the correspondence theorem, ideals of $R/\\mathfrak{m}$ correspond to ideals of $R$ containing $\\mathfrak{m}$.",
             "explain": "By the correspondence theorem, ideals of $R/\\mathfrak{m}$ correspond to ideals of $R$ containing $\\mathfrak{m}$. Maximality means the only such ideals are $\\mathfrak{m}$ and $R$, i.e. $R/\\mathfrak{m}$ has only $(0)$ and itself as ideals — which is exactly the field condition."
           },
           {
@@ -637,6 +662,7 @@ window.MVQuizBank = {
             "q": "In $\\mathbb{Z}$, how many maximal ideals contain the ideal $(30)$?",
             "answer": 3,
             "tol": 1e-9,
+            "hint": "Maximal ideals of $\\mathbb{Z}$ are $(p)$ for $p$ prime.",
             "explain": "Maximal ideals of $\\mathbb{Z}$ are $(p)$ for $p$ prime. $(30)\\subseteq(p)$ iff $p\\mid 30$, so $p\\in\\{2,3,5\\}$ — three of them."
           },
           {
@@ -649,6 +675,7 @@ window.MVQuizBank = {
               "$\\mathbb{Q}[x]$"
             ],
             "answer": 0,
+            "hint": "In $\\mathbb{Z}/6\\mathbb{Z}$, $\\overline{2}\\cdot\\overline{3}=\\overline{0}$ with neither factor zero, so $(6)$ is not prime.",
             "explain": "In $\\mathbb{Z}/6\\mathbb{Z}$, $\\overline{2}\\cdot\\overline{3}=\\overline{0}$ with neither factor zero, so $(6)$ is not prime. The other three are domains."
           }
         ],
@@ -695,6 +722,7 @@ window.MVQuizBank = {
             "q": "What is $[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]$?",
             "answer": 4,
             "tol": 1e-9,
+            "hint": "$[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$ (minimal poly $x^2-2$), and $\\sqrt{3}\\notin\\mathbb{Q}(\\sqrt{2})$, so $[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}(\\sqrt{2})]=2$.",
             "explain": "$[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$ (minimal poly $x^2-2$), and $\\sqrt{3}\\notin\\mathbb{Q}(\\sqrt{2})$, so $[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}(\\sqrt{2})]=2$. The Tower Law gives $2\\cdot 2=4$."
           },
           {
@@ -707,6 +735,7 @@ window.MVQuizBank = {
               "the product of all polynomials vanishing on $\\alpha$"
             ],
             "answer": 0,
+            "hint": "The ideal $\\{p\\in F[x]:p(\\alpha)=0\\}$ is principal in the PID $F[x]$, generated by a unique monic irreducible — that generator is the minimal polynomial.",
             "explain": "The ideal $\\{p\\in F[x]:p(\\alpha)=0\\}$ is principal in the PID $F[x]$, generated by a unique monic irreducible — that generator is the minimal polynomial."
           },
           {
@@ -714,6 +743,7 @@ window.MVQuizBank = {
             "q": "Let $\\alpha=\\sqrt[3]{2}$. What is $[\\mathbb{Q}(\\alpha):\\mathbb{Q}]$?",
             "answer": 3,
             "tol": 1e-9,
+            "hint": "The minimal polynomial of $\\sqrt[3]{2}$ over $\\mathbb{Q}$ is $x^3-2$, irreducible by Eisenstein at $p=2$.",
             "explain": "The minimal polynomial of $\\sqrt[3]{2}$ over $\\mathbb{Q}$ is $x^3-2$, irreducible by Eisenstein at $p=2$. Its degree $3$ is the extension degree."
           }
         ],
@@ -760,6 +790,7 @@ window.MVQuizBank = {
             "q": "If $|G|=60$ and $H\\le G$ with $|H|=12$, how many left cosets $gH$ does $H$ have in $G$?",
             "answer": 5,
             "tol": 1e-9,
+            "hint": "By Lagrange, $[G:H]=|G|/|H|=60/12=5$.",
             "explain": "By Lagrange, $[G:H]=|G|/|H|=60/12=5$."
           },
           {
@@ -772,6 +803,7 @@ window.MVQuizBank = {
               "$gH$ contains the identity $e$"
             ],
             "answer": 0,
+            "hint": "Left multiplication by $g$ is a bijection of $G$, so it sends $H$ to a set of the same cardinality.",
             "explain": "Left multiplication by $g$ is a bijection of $G$, so it sends $H$ to a set of the same cardinality. Cosets are not subgroups unless $g\\in H$ (then $gH=H$ contains $e$); left and right cosets coincide only when $H$ is normal."
           },
           {
@@ -842,6 +874,7 @@ window.MVQuizBank = {
               "Only when $N$ is the trivial subgroup"
             ],
             "answer": 0,
+            "hint": "The product of cosets is independent of representatives iff $aN=Na$ for all $a$, which is the defining property of a normal subgroup.",
             "explain": "The product of cosets is independent of representatives iff $aN=Na$ for all $a$, which is the defining property of a normal subgroup."
           },
           {
@@ -849,6 +882,7 @@ window.MVQuizBank = {
             "q": "What is $|G/N|$ when $|G|=24$ and $|N|=6$ (with $N\\trianglelefteq G$)?",
             "answer": 4,
             "tol": 1e-9,
+            "hint": "$|G/N|=[G:N]=|G|/|N|=24/6=4$.",
             "explain": "$|G/N|=[G:N]=|G|/|N|=24/6=4$."
           },
           {
@@ -861,6 +895,7 @@ window.MVQuizBank = {
               "$G\\cong H\\oplus\\ker\\varphi$"
             ],
             "answer": 0,
+            "hint": "Quotienting by the kernel identifies exactly those pairs that $\\varphi$ sends to the same element, so $G/\\ker\\varphi\\to\\mathrm{im}\\,\\varphi=H$ is an isomorphism.",
             "explain": "Quotienting by the kernel identifies exactly those pairs that $\\varphi$ sends to the same element, so $G/\\ker\\varphi\\to\\mathrm{im}\\,\\varphi=H$ is an isomorphism."
           }
         ],
@@ -908,6 +943,7 @@ window.MVQuizBank = {
             "q": "Let $G=S_4$ act on the set $X=\\{1,2,3,4\\}$ by permutation. The orbit of $1\\in X$ has size $4$, so by orbit-stabilizer, $|\\mathrm{Stab}(1)|=|G|/4=?$",
             "answer": 6,
             "tol": 1e-9,
+            "hint": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$.",
             "explain": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$. The stabilizer of $1$ is the subgroup of permutations fixing $1$, isomorphic to $S_3$ on $\\{2,3,4\\}$ — of order $6$."
           },
           {
@@ -920,6 +956,7 @@ window.MVQuizBank = {
               "$\\max_{g\\in G}|\\mathrm{Fix}(g)|$"
             ],
             "answer": 0,
+            "hint": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements.",
             "explain": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements."
           },
           {
@@ -927,6 +964,7 @@ window.MVQuizBank = {
             "q": "Apply Burnside to $G=\\mathbb{Z}/3\\mathbb{Z}$ acting on $2$-colorings of a $3$-bead necklace by rotation. There are $2^3=8$ colorings. The identity fixes all $8$; each nontrivial rotation fixes $2$ (constant colorings). The orbit count is $(8+2+2)/3=?$",
             "answer": 4,
             "tol": 1e-9,
+            "hint": "$(8+2+2)/3=12/3=4$.",
             "explain": "$(8+2+2)/3=12/3=4$. The four orbits correspond to distinct necklaces up to rotation."
           }
         ],
@@ -974,6 +1012,7 @@ window.MVQuizBank = {
               "$n_3=15$"
             ],
             "answer": 0,
+            "hint": "Divisors of $5$ are $1,5$.",
             "explain": "Divisors of $5$ are $1,5$. Only $1\\equiv 1\\pmod 3$, so $n_3=1$ — a unique Sylow $3$-subgroup, hence normal. Similarly $n_5=1$, and $G\\cong\\mathbb{Z}/15\\mathbb{Z}$."
           },
           {
@@ -981,6 +1020,7 @@ window.MVQuizBank = {
             "q": "For $|G|=56=2^3\\cdot 7$, what is the maximal possible order of a Sylow $2$-subgroup?",
             "answer": 8,
             "tol": 1e-9,
+            "hint": "A Sylow $p$-subgroup of a group of order $p^k m$ with $\\gcd(p,m)=1$ has order exactly $p^k$.",
             "explain": "A Sylow $p$-subgroup of a group of order $p^k m$ with $\\gcd(p,m)=1$ has order exactly $p^k$. Here $p=2$, $k=3$, so order $2^3=8$."
           },
           {
@@ -1000,6 +1040,7 @@ window.MVQuizBank = {
               3,
               4
             ],
+            "hint": "All five are part of the Sylow theorems.",
             "explain": "All five are part of the Sylow theorems. Existence gives order $p^k$; Sylow II gives conjugacy; Sylow III gives the divisibility and congruence on $n_p$; a unique Sylow subgroup is necessarily closed under conjugation, hence normal."
           }
         ],
@@ -1048,6 +1089,7 @@ window.MVQuizBank = {
             "q": "How many abelian groups of order $8$ are there, up to isomorphism?",
             "answer": 3,
             "tol": 1e-9,
+            "hint": "The partitions of $3$ (the $2$-adic valuation) are $3$, $2+1$, $1+1+1$, giving $\\mathbb{Z}/8$, $\\mathbb{Z}/4\\oplus\\mathbb{Z}/2$, and $(\\mathbb{Z}/2)^3$ — three groups.",
             "explain": "The partitions of $3$ (the $2$-adic valuation) are $3$, $2+1$, $1+1+1$, giving $\\mathbb{Z}/8$, $\\mathbb{Z}/4\\oplus\\mathbb{Z}/2$, and $(\\mathbb{Z}/2)^3$ — three groups."
           },
           {
@@ -1055,6 +1097,7 @@ window.MVQuizBank = {
             "q": "How many abelian groups of order $12$ are there?",
             "answer": 2,
             "tol": 1e-9,
+            "hint": "$12=2^2\\cdot 3$.",
             "explain": "$12=2^2\\cdot 3$. Partitions of $2$ (for $p=2$): $2$ or $1+1$; partitions of $1$ (for $p=3$): $1$. Product: $2\\cdot 1=2$ groups — $\\mathbb{Z}/12\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$ and $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$."
           },
           {
@@ -1067,6 +1110,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}/3\\oplus\\mathbb{Z}/8$"
             ],
             "answer": 0,
+            "hint": "Decompose into prime-power parts: $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$.",
             "explain": "Decompose into prime-power parts: $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$. Recombine as invariant factors $d_1\\mid d_2$: pair smaller prime powers into $\\mathbb{Z}/2$, and larger into $\\mathbb{Z}/4\\oplus\\mathbb{Z}/3\\cong\\mathbb{Z}/12$. So $\\mathbb{Z}/2\\oplus\\mathbb{Z}/12$."
           }
         ],
@@ -1119,6 +1163,7 @@ window.MVQuizBank = {
               "$f$ factors as $(x+1)(x^2-x+3)$"
             ],
             "answer": 0,
+            "hint": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$.",
             "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
           },
           {
@@ -1131,6 +1176,7 @@ window.MVQuizBank = {
               "Only irrational roots"
             ],
             "answer": 0,
+            "hint": "Candidates are $\\pm(\\text{divisors of }a_0)/(\\text{divisors of }a_n)=\\pm(1)/\\pm(1,2)=\\pm 1, \\pm\\tfrac{1}{2}$.",
             "explain": "Candidates are $\\pm(\\text{divisors of }a_0)/(\\text{divisors of }a_n)=\\pm(1)/\\pm(1,2)=\\pm 1, \\pm\\tfrac{1}{2}$. Testing: $f(-1)=0$ and $f(-\\tfrac{1}{2})=0$, so $f=(2x+1)(x+1)$."
           },
           {
@@ -1138,6 +1184,7 @@ window.MVQuizBank = {
             "q": "If $f\\in k[x]$ has degree $5$ and $g\\in k[x]$ has degree $3$, what is $\\deg(fg)$?",
             "answer": 8,
             "tol": 1e-9,
+            "hint": "In a polynomial ring over a field (or any integral domain), $\\deg(fg)=\\deg f+\\deg g=5+3=8$.",
             "explain": "In a polynomial ring over a field (or any integral domain), $\\deg(fg)=\\deg f+\\deg g=5+3=8$."
           }
         ],
@@ -1186,6 +1233,7 @@ window.MVQuizBank = {
             "q": "For a semidirect product $G=N\\rtimes_\\varphi H$ with $|N|=8$ and $|H|=3$, what is $|G|$?",
             "answer": 24,
             "tol": 1e-9,
+            "hint": "$|G|=|N|\\cdot|H|=8\\cdot 3=24$, independent of $\\varphi$.",
             "explain": "$|G|=|N|\\cdot|H|=8\\cdot 3=24$, independent of $\\varphi$."
           },
           {
@@ -1198,6 +1246,7 @@ window.MVQuizBank = {
               "$S_n$, the symmetric group"
             ],
             "answer": 0,
+            "hint": "By construction $D_n=\\langle r,s\\mid r^n=s^2=e,\\,srs=r^{-1}\\rangle$; with $N=\\langle r\\rangle\\cong\\mathbb{Z}/n$ and $H=\\langle s\\rangle\\cong\\mathbb{Z}/2$ and $\\varphi(s)=$ inversion, the twisted…",
             "explain": "By construction $D_n=\\langle r,s\\mid r^n=s^2=e,\\,srs=r^{-1}\\rangle$; with $N=\\langle r\\rangle\\cong\\mathbb{Z}/n$ and $H=\\langle s\\rangle\\cong\\mathbb{Z}/2$ and $\\varphi(s)=$ inversion, the twisted product reproduces the dihedral relations exactly."
           },
           {
@@ -1210,6 +1259,7 @@ window.MVQuizBank = {
               "$|H|$ divides $|N|$"
             ],
             "answer": 0,
+            "hint": "Splitting means the quotient map has a homomorphism section.",
             "explain": "Splitting means the quotient map has a homomorphism section. Equivalently, $G$ is isomorphic to a semidirect product $N\\rtimes H$."
           }
         ],
@@ -1328,6 +1378,7 @@ window.MVQuizBank = {
               "they define isomorphic algebraic curves."
             ],
             "answer": 2,
+            "hint": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e.",
             "explain": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e. the divisor of some rational function. This is the equivalence relation defining $\\mathrm{Pic}(C)$."
           }
         ]
@@ -1348,6 +1399,7 @@ window.MVQuizBank = {
             "q": "On a curve of genus $g = 2$, $D = K_C$ (the canonical divisor). Compute $h^0(D)$.",
             "answer": 2,
             "tol": 0,
+            "hint": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$.",
             "explain": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$."
           },
           {
@@ -1390,6 +1442,7 @@ window.MVQuizBank = {
             "q": "On a smooth projective curve of genus $g = 5$, what is $\\deg K_C$?",
             "answer": 8,
             "tol": 0,
+            "hint": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$.",
             "explain": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$."
           },
           {
@@ -1410,6 +1463,7 @@ window.MVQuizBank = {
               "$C$ has trivial automorphism group."
             ],
             "answer": 2,
+            "hint": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$).",
             "explain": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$). For hyperelliptic $C$, $\\varphi_K$ factors through the $2:1$ map to $\\mathbb{P}^1$ followed by the rational normal curve."
           }
         ],
@@ -1892,6 +1946,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}[d]$"
             ],
             "answer": 1,
+            "hint": "The element $\\tfrac{1+\\sqrt{d}}{2}$ is an algebraic integer precisely when $d\\equiv 1\\pmod 4$ (its minimal polynomial $x^2-x+\\tfrac{1-d}{4}$ then has integer coefficients).",
             "explain": "The element $\\tfrac{1+\\sqrt{d}}{2}$ is an algebraic integer precisely when $d\\equiv 1\\pmod 4$ (its minimal polynomial $x^2-x+\\tfrac{1-d}{4}$ then has integer coefficients)."
           },
           {
@@ -1899,6 +1954,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}(\\sqrt{-5})$, the discriminant is $\\Delta_K=4d=4(-5)=-20$. Compute $|\\Delta_K|$.",
             "answer": 20,
             "tol": 0.000001,
+            "hint": "Since $-5\\equiv 3\\pmod 4$, $\\Delta_K=4d=-20$, hence $|\\Delta_K|=20$.",
             "explain": "Since $-5\\equiv 3\\pmod 4$, $\\Delta_K=4d=-20$, hence $|\\Delta_K|=20$."
           },
           {
@@ -1909,6 +1965,7 @@ window.MVQuizBank = {
               -1
             ],
             "tol": 0.000001,
+            "hint": "$(2+i)(1-i)=2-2i+i-i^2=2-i+1=3-i$.",
             "explain": "$(2+i)(1-i)=2-2i+i-i^2=2-i+1=3-i$."
           }
         ],
@@ -1962,6 +2019,7 @@ window.MVQuizBank = {
               "every prime ramifies in every number field"
             ],
             "answer": 1,
+            "hint": "The discriminant exactly records ramification: $p$ ramifies in $\\mathcal{O}_K$ iff $p\\mid\\Delta_K$.",
             "explain": "The discriminant exactly records ramification: $p$ ramifies in $\\mathcal{O}_K$ iff $p\\mid\\Delta_K$. In particular only finitely many primes ramify."
           },
           {
@@ -1969,6 +2027,7 @@ window.MVQuizBank = {
             "q": "Compute $\\Delta_K$ for $K=\\mathbb{Q}(\\sqrt{13})$. (Use that $13\\equiv 1\\pmod 4$.)",
             "answer": 13,
             "tol": 0.000001,
+            "hint": "For squarefree $d\\equiv 1\\pmod 4$, $\\Delta_K=d$.",
             "explain": "For squarefree $d\\equiv 1\\pmod 4$, $\\Delta_K=d$. Here $d=13$, so $\\Delta_K=13$."
           },
           {
@@ -1976,6 +2035,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}(\\zeta_5)$, the cyclotomic discriminant is $\\Delta_K=(-1)^{(5-1)/2}\\cdot 5^{5-2}$. Compute $|\\Delta_K|$.",
             "answer": 125,
             "tol": 0.000001,
+            "hint": "$|\\Delta_{\\mathbb{Q}(\\zeta_p)}|=p^{p-2}$ for an odd prime $p$; for $p=5$, that is $5^3=125$.",
             "explain": "$|\\Delta_{\\mathbb{Q}(\\zeta_p)}|=p^{p-2}$ for an odd prime $p$; for $p=5$, that is $5^3=125$. (Only the prime $5$ ramifies, as expected.)"
           }
         ],
@@ -2029,6 +2089,7 @@ window.MVQuizBank = {
               "$\\prod_i e_i f_i = n$"
             ],
             "answer": 2,
+            "hint": "The fundamental equality $\\sum_{i=1}^g e_i f_i = n$ comes from dimension-counting $\\mathcal{O}_K/p\\mathcal{O}_K$ as an $\\mathbb{F}_p$-vector space.",
             "explain": "The fundamental equality $\\sum_{i=1}^g e_i f_i = n$ comes from dimension-counting $\\mathcal{O}_K/p\\mathcal{O}_K$ as an $\\mathbb{F}_p$-vector space."
           },
           {
@@ -2041,6 +2102,7 @@ window.MVQuizBank = {
               "$p=2$"
             ],
             "answer": 1,
+            "hint": "If $(d/p)=-1$ then $x^2-d$ is irreducible mod $p$, so $p\\mathcal{O}_K$ stays prime: $e=1$, $f=2$, $g=1$.",
             "explain": "If $(d/p)=-1$ then $x^2-d$ is irreducible mod $p$, so $p\\mathcal{O}_K$ stays prime: $e=1$, $f=2$, $g=1$."
           },
           {
@@ -2048,6 +2110,7 @@ window.MVQuizBank = {
             "q": "In $\\mathcal{O}_K=\\mathbb{Z}[\\sqrt{-5}]$ the prime $p=2$ ramifies as $(2)=\\mathfrak{p}^2$. What is the ramification index $e$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "When $p\\mid\\Delta_K$ (here $\\Delta_K=-20$), the prime ramifies; in the quadratic case the exponent on the unique prime above is $e=2$.",
             "explain": "When $p\\mid\\Delta_K$ (here $\\Delta_K=-20$), the prime ramifies; in the quadratic case the exponent on the unique prime above is $e=2$."
           }
         ],
@@ -2101,6 +2164,7 @@ window.MVQuizBank = {
               "$S$ is compact"
             ],
             "answer": 1,
+            "hint": "The sharp threshold is $2^n\\operatorname{covol}(\\Lambda)$: translating $\\tfrac12 S$ by $\\Lambda$ forces two translates to overlap, producing a nonzero lattice point in $S$.",
             "explain": "The sharp threshold is $2^n\\operatorname{covol}(\\Lambda)$: translating $\\tfrac12 S$ by $\\Lambda$ forces two translates to overlap, producing a nonzero lattice point in $S$."
           },
           {
@@ -2108,6 +2172,7 @@ window.MVQuizBank = {
             "q": "Compute the Minkowski bound $M_K=(4/\\pi)^{r_2}(n!/n^n)\\sqrt{|\\Delta_K|}$ for $K=\\mathbb{Q}(\\sqrt{-5})$ (so $n=2$, $r_2=1$, $|\\Delta_K|=20$). Answer to 4 decimal places.",
             "answer": 2.8471,
             "tol": 0.001,
+            "hint": "$M_K=(4/\\pi)^1\\cdot(2!/2^2)\\cdot\\sqrt{20}=(4/\\pi)\\cdot(1/2)\\cdot 2\\sqrt{5}=\\tfrac{4\\sqrt{5}}{\\pi}\\approx 2.8471$.",
             "explain": "$M_K=(4/\\pi)^1\\cdot(2!/2^2)\\cdot\\sqrt{20}=(4/\\pi)\\cdot(1/2)\\cdot 2\\sqrt{5}=\\tfrac{4\\sqrt{5}}{\\pi}\\approx 2.8471$. Enumerating primes of norm $\\le 2$ reduces the class group to $\\langle[\\mathfrak{p}_2]\\rangle$, giving $h=2$."
           },
           {
@@ -2120,6 +2185,7 @@ window.MVQuizBank = {
               "because it bounds $|\\Delta_K|$ below"
             ],
             "answer": 1,
+            "hint": "Every class contains a representative $I$ with $N(I)\\le M_K$, and for any bound $B$ only finitely many integral ideals satisfy $N(I)\\le B$ (each such ideal lies above a rational prime $p\\le B$).",
             "explain": "Every class contains a representative $I$ with $N(I)\\le M_K$, and for any bound $B$ only finitely many integral ideals satisfy $N(I)\\le B$ (each such ideal lies above a rational prime $p\\le B$)."
           }
         ],
@@ -2173,6 +2239,7 @@ window.MVQuizBank = {
               "$\\mathcal{O}_K^\\times\\cong\\mathbb{Z}^{r_1}\\times\\mathbb{Z}/2r_2\\mathbb{Z}$"
             ],
             "answer": 1,
+            "hint": "Dirichlet: $\\mathcal{O}_K^\\times\\cong\\mu_K\\times\\mathbb{Z}^{r_1+r_2-1}$, where $\\mu_K$ is the finite group of roots of unity in $K$.",
             "explain": "Dirichlet: $\\mathcal{O}_K^\\times\\cong\\mu_K\\times\\mathbb{Z}^{r_1+r_2-1}$, where $\\mu_K$ is the finite group of roots of unity in $K$."
           },
           {
@@ -2180,6 +2247,7 @@ window.MVQuizBank = {
             "q": "What is the unit rank of $K=\\mathbb{Q}(\\sqrt{7})$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Real quadratic fields have signature $(r_1,r_2)=(2,0)$, so the unit rank is $r_1+r_2-1=2+0-1=1$.",
             "explain": "Real quadratic fields have signature $(r_1,r_2)=(2,0)$, so the unit rank is $r_1+r_2-1=2+0-1=1$."
           },
           {
@@ -2187,6 +2255,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}(\\sqrt{-5})$, the ideal class group has order $h_K=2$. Since the class group is trivial iff $\\mathcal{O}_K$ is a PID, enter $0$ if $\\mathbb{Z}[\\sqrt{-5}]$ is a PID and $1$ if it is not.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "With $h_K=2$, $\\mathbb{Z}[\\sqrt{-5}]$ is not a PID — the classical failure of unique factorization, $6=2\\cdot 3=(1+\\sqrt{-5})(1-\\sqrt{-5})$.",
             "explain": "With $h_K=2$, $\\mathbb{Z}[\\sqrt{-5}]$ is not a PID — the classical failure of unique factorization, $6=2\\cdot 3=(1+\\sqrt{-5})(1-\\sqrt{-5})$."
           }
         ],
@@ -2245,6 +2314,7 @@ window.MVQuizBank = {
               "Because $\\mathbb{A}^1$ is not proper."
             ],
             "answer": 2,
+            "hint": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$.",
             "explain": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$. For $X$ to be a scheme, $\\Delta_X$ would need to be quasi-compact (in fact, locally closed); but $R$ is an infinite disjoint union of $\\mathbb{A}^1$'s and so not quasi-compact. The action <em>is</em> free; finiteness of the group is irrelevant; properness of $\\mathbb{A}^1$ is unrelated."
           },
           {
@@ -2261,6 +2331,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal…",
             "explain": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal pullback $R = \\mathbb{Z}\\times\\mathbb{A}^1$ being a scheme, $X$ is an algebraic space. It is <em>not</em> quasi-separated, because $\\Delta_X$ is not quasi-compact."
           },
           {
@@ -2274,6 +2345,7 @@ window.MVQuizBank = {
               "QED."
             ],
             "answer": 2,
+            "hint": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective.",
             "explain": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective. GAGA does not produce schemes from étale quotient sheaves, and a free étale action on a scheme need not produce a scheme quotient (e.g. $\\mathbb{A}^1/\\mathbb{Z}$ itself). The correct conclusion is only that the quotient is an algebraic space."
           }
         ]
@@ -2291,6 +2363,7 @@ window.MVQuizBank = {
               "$R \\subset \\mathbb{A}^1 \\times \\mathbb{A}^1$ defined by $\\{(x, y) : y = x + 1\\}$ alone."
             ],
             "answer": 3,
+            "hint": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e.",
             "explain": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e. $\\pi_0$ collapses to a point). Choice D fails transitivity — $x \\sim x+1$ and $x+1 \\sim x+2$ should imply $x \\sim x+2$, but $(x, x+2) \\not\\in R$. To make this an equivalence relation you would need $R = \\bigcup_{n \\in \\mathbb{Z}} \\{(x, x+n)\\} = \\mathbb{Z} \\times \\mathbb{A}^1$ — the relation generating $\\mathbb{A}^1/\\mathbb{Z}$."
           },
           {
@@ -2314,6 +2387,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "Reflexivity = diagonal factors through $R$.",
             "explain": "Reflexivity = diagonal factors through $R$. Symmetry = swap restricts. Transitivity = the fibre product $R \\times_U R$ (composing equivalences) lands in $R$. Étale projections is the topology condition that makes the quotient an <em>algebraic space</em> rather than just any sheaf."
           },
           {
@@ -2326,6 +2400,7 @@ window.MVQuizBank = {
               "$|G|$ is invertible on $U$."
             ],
             "answer": 1,
+            "hint": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free.",
             "explain": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free. Each projection $G \\times U \\to U$ is a disjoint union of $|G|$ copies of $U$, which is étale exactly when the source is reduced and the action is free in the geometric sense. Abelian-ness, quasi-projectivity, and invertibility of $|G|$ are unrelated to whether the relation is étale; they affect properties of the quotient (e.g. tameness) but not the equivalence-relation structure itself."
           }
         ]
@@ -2343,6 +2418,7 @@ window.MVQuizBank = {
               "A locally ringed space with a covering by spectra of commutative rings."
             ],
             "answer": 1,
+            "hint": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas.",
             "explain": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas. Choice A is the definition of (a quasi-affine) scheme. Choice C describes DM stacks. Choice D is the classical definition of a scheme."
           },
           {
@@ -2360,6 +2436,7 @@ window.MVQuizBank = {
               1,
               0
             ],
+            "hint": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme;…",
             "explain": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme; and finally the existence of an étale surjective $U \\twoheadrightarrow X$ closes the definition. (Some textbooks phrase it as $X = U/R$ for an étale equivalence relation; that's the equivalent étale-quotient form.)"
           },
           {
@@ -2372,6 +2449,7 @@ window.MVQuizBank = {
               "The same as $X$ — there is no extra information."
             ],
             "answer": 1,
+            "hint": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$.",
             "explain": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$. This is the étale equivalence relation, and $X = U/R$ as étale sheaves. It is generally <em>not</em> $\\Delta_U$ (that would force the atlas to be an isomorphism) and only equals $U \\sqcup U$ in trivial cases."
           }
         ],
@@ -2416,6 +2494,7 @@ window.MVQuizBank = {
               "locally of finite presentation"
             ],
             "answer": 2,
+            "hint": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does.",
             "explain": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does. Separatedness is more subtle: it is the condition that $\\Delta_f \\colon X \\to X \\times_Y X$ is a closed immersion, which involves the relation $R \\rightrightarrows U$ and is <em>not</em> determined by $\\tilde f$ alone."
           },
           {
@@ -2436,6 +2515,7 @@ window.MVQuizBank = {
               4,
               5
             ],
+            "hint": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target.",
             "explain": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target. Separated is the exception — it is a condition on the diagonal $\\Delta_f$ rather than on $f$ itself, and depends on the equivalence relation in the algebraic-space presentation."
           },
           {
@@ -2448,6 +2528,7 @@ window.MVQuizBank = {
               "A morphism of locally ringed spaces, but only up to étale localisation."
             ],
             "answer": 1,
+            "hint": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too.",
             "explain": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too. So a morphism between two schemes-as-algebraic-spaces is exactly a morphism of schemes — no extra data, no quotient by anything."
           }
         ]
@@ -2465,6 +2546,7 @@ window.MVQuizBank = {
               "Because $\\mathbb{A}^1$ is not affine."
             ],
             "answer": 2,
+            "hint": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact.",
             "explain": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact. But the diagonal of $\\mathbb{A}^1/\\mathbb{Z}$ pulls back along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X\\times X$ to $\\mathbb{Z}\\times\\mathbb{A}^1$ — an infinite disjoint union, not quasi-compact. The other choices are either false ($\\mathbb{A}^1$ <em>is</em> affine and one would expect properness to be unrelated to schemehood of a quotient) or red herrings."
           },
           {
@@ -2477,6 +2559,7 @@ window.MVQuizBank = {
               "The space has dimension 0."
             ],
             "answer": 1,
+            "hint": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero.",
             "explain": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero. This forbids the existence of an ample line bundle, hence projectivity, hence (for proper smooth 3-folds over $\\mathbb{C}$) schemehood. The space is reduced, separated, and 3-dimensional."
           },
           {
@@ -2493,6 +2576,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes.",
             "explain": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
           }
         ],
@@ -2537,6 +2621,7 @@ window.MVQuizBank = {
               "The stack is quasi-compact."
             ],
             "answer": 1,
+            "hint": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism.",
             "explain": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism. Choice A characterises DM stacks; choice C is necessary but not sufficient (DM stacks also have étale atlases by schemes, e.g. $B(\\mathbb{Z}/2)$ has the trivial étale cover from a point times $\\mathbb{Z}/2$); choice D is unrelated."
           },
           {
@@ -2560,6 +2645,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM)…",
             "explain": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM) $\\Rightarrow$ representable (Artin). Each weakening corresponds to allowing more structure in the geometric stabilisers (none, none, finite étale, any algebraic group)."
           },
           {
@@ -2572,6 +2658,7 @@ window.MVQuizBank = {
               "An Artin stack but not a DM stack."
             ],
             "answer": 2,
+            "hint": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$.",
             "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\operatorname{Spec} k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
           }
         ],
@@ -2625,6 +2712,7 @@ window.MVQuizBank = {
               "they have equal winding number in every space"
             ],
             "answer": 1,
+            "hint": "Homotopy rel endpoints is exactly a continuous deformation $H$ through paths with endpoints fixed for all deformation times.",
             "explain": "Homotopy rel endpoints is exactly a continuous deformation $H$ through paths with endpoints fixed for all deformation times."
           },
           {
@@ -2632,6 +2720,7 @@ window.MVQuizBank = {
             "q": "How many boundary points does the interval $[0,1]$ have?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points.",
             "explain": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points."
           },
           {
@@ -2642,6 +2731,7 @@ window.MVQuizBank = {
               1
             ],
             "tol": 0.000001,
+            "hint": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$.",
             "explain": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$."
           }
         ],
@@ -2692,6 +2782,7 @@ window.MVQuizBank = {
               "the torus $T^2$"
             ],
             "answer": 2,
+            "hint": "$\\mathbb{R}^2$ has trivial fundamental group.",
             "explain": "$\\mathbb{R}^2$ has trivial fundamental group. The other listed spaces have nontrivial loops that cannot be contracted."
           },
           {
@@ -2699,6 +2790,7 @@ window.MVQuizBank = {
             "q": "What is the rank of $\\pi_1(\\mathbb{R}^2)$ as an abelian group?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$.",
             "explain": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$."
           },
           {
@@ -2709,6 +2801,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$.",
             "explain": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$."
           }
         ],
@@ -2760,6 +2853,7 @@ window.MVQuizBank = {
               "$\\pi_1(S^1)$ is not a group"
             ],
             "answer": 1,
+            "hint": "Loops on $S^1$ are classified by winding number, giving an isomorphism with $\\mathbb{Z}$.",
             "explain": "Loops on $S^1$ are classified by winding number, giving an isomorphism with $\\mathbb{Z}$."
           },
           {
@@ -2767,6 +2861,7 @@ window.MVQuizBank = {
             "q": "If a loop winds $-3$ times around $S^1$, what integer does it represent in $\\pi_1(S^1)\\cong\\mathbb{Z}$?",
             "answer": -3,
             "tol": 0.000001,
+            "hint": "The winding number itself is the class in $\\mathbb{Z}$.",
             "explain": "The winding number itself is the class in $\\mathbb{Z}$."
           },
           {
@@ -2777,6 +2872,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$.",
             "explain": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$."
           }
         ],
@@ -2827,6 +2923,7 @@ window.MVQuizBank = {
               "$\\mathbb{Q}$"
             ],
             "answer": 1,
+            "hint": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover.",
             "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover."
           },
           {
@@ -2834,6 +2931,7 @@ window.MVQuizBank = {
             "q": "Lift the loop $\\gamma(t)=e^{4\\pi i t}$ to a path in $\\mathbb{R}$ starting at $0$. What integer winding number $\\tilde\\gamma(1)$ do you get?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$.",
             "explain": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$. Its endpoint is $\\tilde\\gamma(1)=2$, so the loop winds twice."
           },
           {
@@ -2864,6 +2962,7 @@ window.MVQuizBank = {
               "empty"
             ],
             "answer": 1,
+            "hint": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$.",
             "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$."
           },
           {
@@ -2871,6 +2970,7 @@ window.MVQuizBank = {
             "q": "For $p_n:S^1\\to S^1$, $p_n(z)=z^n$, how many points lie over a generic point of the target circle when $n=5$?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points.",
             "explain": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points."
           },
           {
@@ -2881,6 +2981,7 @@ window.MVQuizBank = {
               -1
             ],
             "tol": 0.000001,
+            "hint": "Solutions to $z^2=-1$ are $\\pm i$.",
             "explain": "Solutions to $z^2=-1$ are $\\pm i$. If one is $i$, the other is $-i$."
           }
         ],
@@ -2931,6 +3032,7 @@ window.MVQuizBank = {
               "$\\partial_n$ is invertible"
             ],
             "answer": 1,
+            "hint": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$.",
             "explain": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$. This ensures $\\operatorname{im}\\partial_n\\subseteq\\ker\\partial_{n-1}$."
           },
           {
@@ -2938,6 +3040,7 @@ window.MVQuizBank = {
             "q": "Using reduced homology ranks for a torus $T^2$ ($\\beta_0,\\beta_1,\\beta_2)=(1,2,1)$, compute $\\chi(T^2)=\\beta_0-\\beta_1+\\beta_2$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$\\chi(T^2)=1-2+1=0$.",
             "explain": "$\\chi(T^2)=1-2+1=0$."
           },
           {
@@ -2948,6 +3051,7 @@ window.MVQuizBank = {
               1
             ],
             "tol": 0.000001,
+            "hint": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$.",
             "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
           }
         ],
@@ -2986,6 +3090,7 @@ window.MVQuizBank = {
             "q": "What is the radius of convergence of $\\sum_{n\\ge 0} z^n/(2^n\\,n)$? (Hint: root test or ratio test.)",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$|c_n|^{1/n} = (1/(2^n n))^{1/n} = (1/2)\\cdot n^{-1/n} \\to 1/2$, so $R = 1/\\limsup|c_n|^{1/n} = 2$.",
             "explain": "$|c_n|^{1/n} = (1/(2^n n))^{1/n} = (1/2)\\cdot n^{-1/n} \\to 1/2$, so $R = 1/\\limsup|c_n|^{1/n} = 2$."
           },
           {
@@ -2998,6 +3103,7 @@ window.MVQuizBank = {
               "nothing; countable agreement is not enough"
             ],
             "answer": 2,
+            "hint": "The identity theorem: if a holomorphic function on a connected open set vanishes on a set with an accumulation point in $U$, it vanishes identically.",
             "explain": "The identity theorem: if a holomorphic function on a connected open set vanishes on a set with an accumulation point in $U$, it vanishes identically. Apply to $f-g$."
           },
           {
@@ -3010,6 +3116,7 @@ window.MVQuizBank = {
               "a matter of convention only"
             ],
             "answer": 1,
+            "hint": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem—hence uniqueness.",
             "explain": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem—hence uniqueness."
           }
         ],
@@ -3063,6 +3170,7 @@ window.MVQuizBank = {
               "$2\\pi i$"
             ],
             "answer": 1,
+            "hint": "$\\log z = \\ln|z| + i\\arg z$; along the upper arc $\\arg$ moves continuously from $0$ to $\\pi$.",
             "explain": "$\\log z = \\ln|z| + i\\arg z$; along the upper arc $\\arg$ moves continuously from $0$ to $\\pi$. So you arrive at $\\ln 1 + i\\pi = i\\pi$."
           },
           {
@@ -3075,6 +3183,7 @@ window.MVQuizBank = {
               "nothing beyond continuity is required"
             ],
             "answer": 2,
+            "hint": "Re-expanding $f$ in powers of $(z-b)$ gives a series with radius of convergence at least $r-d$ (the distance from $b$ to the boundary of $D(a,r)$); the germs agree on the nonempty intersection, so…",
             "explain": "Re-expanding $f$ in powers of $(z-b)$ gives a series with radius of convergence at least $r-d$ (the distance from $b$ to the boundary of $D(a,r)$); the germs agree on the nonempty intersection, so the chain step is legitimate."
           },
           {
@@ -3082,6 +3191,7 @@ window.MVQuizBank = {
             "q": "Starting from the principal branch of $\\sqrt{z}$ near $z=1$, continue along the circle $|z|=1$ once counter-clockwise back to $z=1$. The new value at $1$ is $(-1)^k$ for $k = $?",
             "answer": 1,
             "tol": 0.0001,
+            "hint": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$.",
             "explain": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$."
           }
         ],
@@ -3135,6 +3245,7 @@ window.MVQuizBank = {
               "$U$ has trivial homology in every degree"
             ],
             "answer": 0,
+            "hint": "Simply connected means any two paths with the same endpoints are homotopic; the continuation is a locally constant function of the homotopy class of the path.",
             "explain": "Simply connected means any two paths with the same endpoints are homotopic; the continuation is a locally constant function of the homotopy class of the path."
           },
           {
@@ -3142,6 +3253,7 @@ window.MVQuizBank = {
             "q": "Continue the principal branch of $\\log z$ along the loop $\\gamma(t)=e^{2\\pi i t}$, $t\\in[0,1]$. By how much does $\\log z$ change after one loop? Enter the imaginary part divided by $\\pi$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\log$ picks up $2\\pi i$ per full loop around $0$; imaginary part / $\\pi = 2$.",
             "explain": "$\\log$ picks up $2\\pi i$ per full loop around $0$; imaginary part / $\\pi = 2$. This is the monodromy generator of $\\pi_1(\\mathbb{C}^*)\\cong\\mathbb{Z}$."
           },
           {
@@ -3154,6 +3266,7 @@ window.MVQuizBank = {
               "because of analytic continuation around $z=-1$"
             ],
             "answer": 0,
+            "hint": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued.",
             "explain": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued. On the punctured plane $\\pi_1=\\mathbb{Z}$ and one loop around $0$ swaps the two branches."
           }
         ],
@@ -3207,6 +3320,7 @@ window.MVQuizBank = {
               "$-f(\\bar z)$"
             ],
             "answer": 1,
+            "hint": "Define $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$.",
             "explain": "Define $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$. This is holomorphic there (the composition of two antiholomorphic maps is holomorphic) and matches $f$ on the real boundary because $f$ is real there."
           },
           {
@@ -3219,6 +3333,7 @@ window.MVQuizBank = {
               "$f$ purely imaginary on a real segment"
             ],
             "answer": 2,
+            "hint": "Schwarz reflection needs continuous boundary values mapping onto a real-analytic arc (line, circle, or general analytic curve after a Möbius twist).",
             "explain": "Schwarz reflection needs continuous boundary values mapping onto a real-analytic arc (line, circle, or general analytic curve after a Möbius twist). Essential singularities do not extend continuously to the boundary, so the principle fails."
           },
           {
@@ -3226,6 +3341,7 @@ window.MVQuizBank = {
             "q": "If $f$ is holomorphic on $D^+$, continuous on its closure, and takes real values on $(-1,1)$, and $f(i/2)=3+4i$, then the extension satisfies $\\tilde f(-i/2) = a+bi$ with $b = $?",
             "answer": -4,
             "tol": 0.000001,
+            "hint": "$\\tilde f(z) = \\overline{f(\\bar z)}$.",
             "explain": "$\\tilde f(z) = \\overline{f(\\bar z)}$. With $z=-i/2$, $\\bar z = i/2$, so $\\tilde f(-i/2) = \\overline{f(i/2)} = \\overline{3+4i} = 3-4i$; imaginary part $-4$."
           }
         ],
@@ -3279,6 +3395,7 @@ window.MVQuizBank = {
               "applying the residue theorem to the Mellin kernel"
             ],
             "answer": 1,
+            "hint": "Split $\\int_0^1 + \\int_1^\\infty$, change variable $x\\to 1/x$ on $(0,1)$, and use $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$.",
             "explain": "Split $\\int_0^1 + \\int_1^\\infty$, change variable $x\\to 1/x$ on $(0,1)$, and use $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$. The $\\int_1^\\infty$ piece converges for ALL $s$, and the explicit $1/s(s-1)$ poles show up as boundary terms."
           },
           {
@@ -3291,6 +3408,7 @@ window.MVQuizBank = {
               "$\\xi(s)\\xi(1-s) = 1$"
             ],
             "answer": 1,
+            "hint": "The Riemann integral is visibly symmetric under $s\\mapsto 1-s$ after the theta-transformation step; the factor $s(s-1)$ clears the two poles.",
             "explain": "The Riemann integral is visibly symmetric under $s\\mapsto 1-s$ after the theta-transformation step; the factor $s(s-1)$ clears the two poles. Result: $\\xi(s)=\\xi(1-s)$."
           },
           {
@@ -3298,6 +3416,7 @@ window.MVQuizBank = {
             "q": "Use $\\xi(s)=\\xi(1-s)$ and $\\zeta(2)=\\pi^2/6$ to compute $\\zeta(-1)$. (Hint: $\\Gamma(1/2)=\\sqrt\\pi$, $\\Gamma(-1/2)=-2\\sqrt\\pi$.) Enter a decimal.",
             "answer": -0.0833333333,
             "tol": 0.0001,
+            "hint": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$.",
             "explain": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$. Plugging in, $\\pi^{-1}\\cdot\\pi^2/6 = \\pi^{1/2}\\cdot(-2\\sqrt\\pi)\\zeta(-1) = -2\\pi\\,\\zeta(-1)$, so $\\zeta(-1) = -\\pi/(6)\\cdot 1/(2\\pi) = -1/12$."
           }
         ],
@@ -3354,6 +3473,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -3376,6 +3496,7 @@ window.MVQuizBank = {
               "$g_v$ is upper-triangular at every finite place."
             ],
             "answer": 1,
+            "hint": "The restricted-product constraint is membership in the compact open $\\mathrm{GL}_2(\\mathbb{Z}_p)$ at almost all $p$.",
             "explain": "The restricted-product constraint is membership in the compact open $\\mathrm{GL}_2(\\mathbb{Z}_p)$ at almost all $p$. Without it the topology would not be locally compact."
           },
           {
@@ -3391,6 +3512,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open.",
             "explain": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open. $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete (not open), and a classical congruence subgroup is a subgroup of $\\mathrm{SL}_2(\\mathbb{Z})$, not of the adelic group."
           },
           {
@@ -3403,6 +3525,7 @@ window.MVQuizBank = {
               "$\\mathrm{SL}_2(\\mathbb{R}) \\times \\mathrm{SO}_2$"
             ],
             "answer": 0,
+            "hint": "The adèle ring splits as $\\mathbb{R} \\times \\mathbb{A}_f$, and applying $\\mathrm{GL}_2$ pointwise gives $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$.",
             "explain": "The adèle ring splits as $\\mathbb{R} \\times \\mathbb{A}_f$, and applying $\\mathrm{GL}_2$ pointwise gives $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$."
           }
         ]
@@ -3420,6 +3543,7 @@ window.MVQuizBank = {
               "$\\mathrm{GL}_2(\\mathbb{Q}_p) \\cdot K_0(N)$ for each $p$ separately"
             ],
             "answer": 0,
+            "hint": "The full adelic group is the product of the (discrete) global rationals with the (open) connected archimedean component times an open compact $K_f$.",
             "explain": "The full adelic group is the product of the (discrete) global rationals with the (open) connected archimedean component times an open compact $K_f$. This is the form that translates double cosets into $Y_0(N)$."
           },
           {
@@ -3432,6 +3556,7 @@ window.MVQuizBank = {
               "$Y_0(N) = \\Gamma_0(N) \\backslash \\mathrm{GL}_2(\\mathbb{R})$"
             ],
             "answer": 0,
+            "hint": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right…",
             "explain": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right recovers $\\Gamma_0(N) \\backslash \\mathbb{H}$."
           },
           {
@@ -3444,6 +3569,7 @@ window.MVQuizBank = {
               "The product formula fails."
             ],
             "answer": 1,
+            "hint": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so…",
             "explain": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so $\\mathbb{A}^\\times \\ne \\mathbb{Q}^\\times \\cdot \\mathbb{R}^\\times \\cdot \\hat{\\mathbb{Z}}^\\times$ in a single double coset."
           }
         ]
@@ -3465,6 +3591,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "Compact support is too strong — it would rule out Eisenstein series.",
             "explain": "Compact support is too strong — it would rule out Eisenstein series. The three required conditions are right $K$-finiteness, $\\mathfrak{z}$-finiteness, and moderate growth."
           },
           {
@@ -3477,6 +3604,7 @@ window.MVQuizBank = {
               "$\\phi$ is invariant under the centre."
             ],
             "answer": 1,
+            "hint": "The Whittaker / constant-term integral over the unipotent radical of the standard Borel must vanish; this is the adelic translation of \"$f$ vanishes at every cusp\".",
             "explain": "The Whittaker / constant-term integral over the unipotent radical of the standard Borel must vanish; this is the adelic translation of \"$f$ vanishes at every cusp\"."
           },
           {
@@ -3489,6 +3617,7 @@ window.MVQuizBank = {
               "Because $\\phi$ must be a homomorphism."
             ],
             "answer": 1,
+            "hint": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of…",
             "explain": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of $\\Gamma \\backslash G$ in the classical setting."
           }
         ]
@@ -3506,6 +3635,7 @@ window.MVQuizBank = {
               "$\\phi_f(g) = \\sum_p f(g_p)$"
             ],
             "answer": 1,
+            "hint": "The slash-operator $f|_k g_\\infty$ accounts for the weight-$k$ automorphy factor; evaluating at $i \\in \\mathbb{H}$ projects to $\\mathbb{C}$.",
             "explain": "The slash-operator $f|_k g_\\infty$ accounts for the weight-$k$ automorphy factor; evaluating at $i \\in \\mathbb{H}$ projects to $\\mathbb{C}$. The decomposition is well-defined modulo the stabiliser of $i$ inside $K_\\infty K_f$."
           },
           {
@@ -3518,6 +3648,7 @@ window.MVQuizBank = {
               "Hecke eigenforms only."
             ],
             "answer": 1,
+            "hint": "Right $K_0(N)$-invariance is exactly the level structure; combined with weight $k$ and the adelic transformation law, this carves out $M_k(\\Gamma_0(N))$ on the classical side.",
             "explain": "Right $K_0(N)$-invariance is exactly the level structure; combined with weight $k$ and the adelic transformation law, this carves out $M_k(\\Gamma_0(N))$ on the classical side."
           },
           {
@@ -3530,6 +3661,7 @@ window.MVQuizBank = {
               "A Hecke character."
             ],
             "answer": 1,
+            "hint": "Classical cuspidality (vanishing at all cusps) translates into the adelic constant-term condition $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$.",
             "explain": "Classical cuspidality (vanishing at all cusps) translates into the adelic constant-term condition $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$."
           }
         ]
@@ -3547,6 +3679,7 @@ window.MVQuizBank = {
               "A field."
             ],
             "answer": 1,
+            "hint": "The Cartan / Smith decomposition shows the double cosets are indexed by $a \\ge b$ in $\\mathbb{Z}$; convolution makes the algebra commutative — Gelfand pair argument.",
             "explain": "The Cartan / Smith decomposition shows the double cosets are indexed by $a \\ge b$ in $\\mathbb{Z}$; convolution makes the algebra commutative — Gelfand pair argument."
           },
           {
@@ -3559,6 +3692,7 @@ window.MVQuizBank = {
               "The group ring $\\mathbb{C}[\\mathrm{GL}_2(\\mathbb{Z}_p)]$."
             ],
             "answer": 0,
+            "hint": "The Satake transform sends Hecke functions to symmetric polynomials in the Satake parameters; the Weyl group of $\\mathrm{GL}_2$ is $S_2$, hence the symmetrisation.",
             "explain": "The Satake transform sends Hecke functions to symmetric polynomials in the Satake parameters; the Weyl group of $\\mathrm{GL}_2$ is $S_2$, hence the symmetrisation."
           },
           {
@@ -3571,6 +3705,7 @@ window.MVQuizBank = {
               "$p$"
             ],
             "answer": 2,
+            "hint": "The classical Hecke eigenvalue $a_p$ relates to the Satake parameters by $a_p = (\\alpha + \\beta) p^{(k-1)/2}$ (or $\\alpha + \\beta$ in the unitary normalisation).",
             "explain": "The classical Hecke eigenvalue $a_p$ relates to the Satake parameters by $a_p = (\\alpha + \\beta) p^{(k-1)/2}$ (or $\\alpha + \\beta$ in the unitary normalisation). Either form of the answer is acceptable; this option gives the classical weight-$k$ normalisation."
           }
         ]
@@ -3588,6 +3723,7 @@ window.MVQuizBank = {
               "$0$ for all $v$"
             ],
             "answer": 1,
+            "hint": "The defining $\\psi$-equivariance is what distinguishes a Whittaker functional and forces uniqueness (up to scalar) for generic representations — local multiplicity-one.",
             "explain": "The defining $\\psi$-equivariance is what distinguishes a Whittaker functional and forces uniqueness (up to scalar) for generic representations — local multiplicity-one."
           },
           {
@@ -3600,6 +3736,7 @@ window.MVQuizBank = {
               "The unipotent radical."
             ],
             "answer": 1,
+            "hint": "$c_p$ is the local conductor exponent.",
             "explain": "$c_p$ is the local conductor exponent. Smaller $c_p$ would give a fixed vector of even lower level, contradicting minimality; larger gives a multidimensional space. Multiplying these gives the global conductor $N = \\prod_p p^{c_p}$, which equals the classical level."
           },
           {
@@ -3612,6 +3749,7 @@ window.MVQuizBank = {
               "Dirichlet's theorem on primes in arithmetic progressions."
             ],
             "answer": 0,
+            "hint": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the…",
             "explain": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the same statement, prime by prime, in the local Whittaker / Kirillov language."
           }
         ]
@@ -3629,6 +3767,7 @@ window.MVQuizBank = {
               "$(1 - p^{-s})^{-1}$"
             ],
             "answer": 1,
+            "hint": "Each Satake parameter contributes a geometric series.",
             "explain": "Each Satake parameter contributes a geometric series. The product of two such factors is the rank-2 Euler factor at $p$."
           },
           {
@@ -3641,6 +3780,7 @@ window.MVQuizBank = {
               "The Selberg zeta function."
             ],
             "answer": 2,
+            "hint": "The unramified local factors reproduce the Hecke Euler factors of $f$; the archimedean factor is a shifted gamma.",
             "explain": "The unramified local factors reproduce the Hecke Euler factors of $f$; the archimedean factor is a shifted gamma. This is the dictionary that makes the adelic theory a true generalisation of the classical."
           },
           {
@@ -3653,6 +3793,7 @@ window.MVQuizBank = {
               "Because Dirichlet series have no analogue beyond $\\mathrm{GL}_1$."
             ],
             "answer": 0,
+            "hint": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the…",
             "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
           }
         ]
@@ -3675,6 +3816,7 @@ window.MVQuizBank = {
               "the order of vanishing of $f$ at $P$"
             ],
             "answer": 1,
+            "hint": "The algebraic definition is $I_P(f,g)=\\dim_k\\bigl(\\mathcal{O}_{P,\\mathbb{A}^2}/(f,g)\\bigr)$ — the $k$-vector space dimension of the local-ring quotient.",
             "explain": "The algebraic definition is $I_P(f,g)=\\dim_k\\bigl(\\mathcal{O}_{P,\\mathbb{A}^2}/(f,g)\\bigr)$ — the $k$-vector space dimension of the local-ring quotient. It captures fatness of the intersection, not just its set-theoretic size."
           },
           {
@@ -3682,6 +3824,7 @@ window.MVQuizBank = {
             "q": "Compute $I_{(0,0)}(x, y)$ for the two coordinate axes meeting transversely at the origin.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\mathcal{O}_{(0,0)}/(x,y)=k$, which has $k$-dimension $1$.",
             "explain": "$\\mathcal{O}_{(0,0)}/(x,y)=k$, which has $k$-dimension $1$. Transverse smooth crossings always contribute multiplicity $1$."
           },
           {
@@ -3689,6 +3832,7 @@ window.MVQuizBank = {
             "q": "Compute $I_{(0,0)}(y, y-x^2)$ — the $x$-axis and a parabola tangent to it at the origin.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "In $\\mathcal{O}_{(0,0)}$ the ideal $(y, y-x^2)=(y, x^2)$, and $\\mathcal{O}/(y,x^2)$ has basis $\\{1, x\\}$ over $k$, so the dimension is $2$.",
             "explain": "In $\\mathcal{O}_{(0,0)}$ the ideal $(y, y-x^2)=(y, x^2)$, and $\\mathcal{O}/(y,x^2)$ has basis $\\{1, x\\}$ over $k$, so the dimension is $2$. A simple tangency contributes multiplicity $2$."
           }
         ],
@@ -3737,6 +3881,7 @@ window.MVQuizBank = {
               "$f$ or $g$ is identically zero"
             ],
             "answer": 1,
+            "hint": "The resultant vanishes exactly when $f,g$ have a common root over the algebraic closure, or when their leading coefficients both vanish (roots at infinity).",
             "explain": "The resultant vanishes exactly when $f,g$ have a common root over the algebraic closure, or when their leading coefficients both vanish (roots at infinity). This is the core fact underlying elimination."
           },
           {
@@ -3744,6 +3889,7 @@ window.MVQuizBank = {
             "q": "Compute $\\mathrm{Res}_Y(Y-1, Y-2)$ for the two linear polynomials $f=Y-1, g=Y-2$.",
             "answer": -1,
             "tol": 0.000001,
+            "hint": "For two monic linear polynomials $Y-\\alpha, Y-\\beta$, the resultant is $\\alpha-\\beta$.",
             "explain": "For two monic linear polynomials $Y-\\alpha, Y-\\beta$, the resultant is $\\alpha-\\beta$. Here $\\alpha=1,\\beta=2$, so $\\mathrm{Res}=1-2=-1$. It is nonzero because $1\\neq 2$."
           },
           {
@@ -3751,6 +3897,7 @@ window.MVQuizBank = {
             "q": "If $C$ and $D$ are projective plane curves of degrees $d=3$ and $e=4$ with no common component, what is $\\deg \\mathrm{Res}_Y(F,G)(X,Z)$ as a form in $(X,Z)$?",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "The degree of the resultant as a form in the remaining variables is $de=3\\cdot 4 = 12$, which is precisely why Bézout's count gives $de$ intersections.",
             "explain": "The degree of the resultant as a form in the remaining variables is $de=3\\cdot 4 = 12$, which is precisely why Bézout's count gives $de$ intersections."
           }
         ],
@@ -3804,6 +3951,7 @@ window.MVQuizBank = {
               "$C\\cap D$ is always empty"
             ],
             "answer": 1,
+            "hint": "The theorem: $\\sum_{P\\in C\\cap D} I_P(C,D) = de$.",
             "explain": "The theorem: $\\sum_{P\\in C\\cap D} I_P(C,D) = de$. The three essential ingredients are working in $\\mathbb{P}^2$, over $\\overline{k}$, and counting with multiplicity."
           },
           {
@@ -3811,6 +3959,7 @@ window.MVQuizBank = {
             "q": "Two smooth conics in $\\mathbb{P}^2_{\\mathbb{C}}$ with no common component meet in how many points, counted with multiplicity?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$d=e=2$, so Bézout gives $de=4$.",
             "explain": "$d=e=2$, so Bézout gives $de=4$. Real pictures can show 0, 1, 2, 3, or 4 real points, but over $\\mathbb{C}$ and with multiplicity the count is always $4$."
           },
           {
@@ -3821,6 +3970,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.001,
+            "hint": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$.",
             "explain": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$. The positive solution is $1/\\sqrt{2}\\approx 0.7071$, purely real. Bézout's count $1\\cdot 2 = 2$ matches."
           }
         ],
@@ -3864,6 +4014,7 @@ window.MVQuizBank = {
             "q": "Two smooth cubics in $\\mathbb{P}^2$ with no common component meet in how many points, counted with multiplicity?",
             "answer": 9,
             "tol": 0.000001,
+            "hint": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$.",
             "explain": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$. Cayley–Bacharach says those nine points are so rigid that any cubic through eight of them passes through the ninth."
           },
           {
@@ -3871,6 +4022,7 @@ window.MVQuizBank = {
             "q": "The projective space of plane cubics $\\{[F]\\ :\\ F \\text{ homogeneous degree }3\\}$ has projective dimension $\\binom{3+2}{2}-1$. Compute this number.",
             "answer": 9,
             "tol": 0.000001,
+            "hint": "$\\binom{5}{2}-1 = 10-1 = 9$.",
             "explain": "$\\binom{5}{2}-1 = 10-1 = 9$. Eight points generically impose eight independent linear conditions, leaving a $\\mathbb{P}^1$-pencil of cubics through them — inside which the Bézout ninth point lies automatically."
           },
           {
@@ -3883,6 +4035,7 @@ window.MVQuizBank = {
               "Because projective space is compact"
             ],
             "answer": 1,
+            "hint": "The chord–tangent construction builds $P+Q$ as the third intersection of line $\\overline{PQ}$ with $E$, reflected through $O$.",
             "explain": "The chord–tangent construction builds $P+Q$ as the third intersection of line $\\overline{PQ}$ with $E$, reflected through $O$. Associativity becomes an equality of two points computable from two triples of lines — nine points total, eight already constrained, and Cayley–Bacharach supplies the ninth."
           }
         ],
@@ -3931,6 +4084,7 @@ window.MVQuizBank = {
             "q": "Three generic quadric surfaces in $\\mathbb{P}^3_{\\mathbb{C}}$ meet in how many points, counted with multiplicity?",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$.",
             "explain": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$."
           },
           {
@@ -3938,6 +4092,7 @@ window.MVQuizBank = {
             "q": "Four generic hypersurfaces of degrees $2,3,3,5$ in $\\mathbb{P}^4$ meet in how many points?",
             "answer": 90,
             "tol": 0.000001,
+            "hint": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$.",
             "explain": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$. The Chow-ring computation $(2H)(3H)(3H)(5H) = 90 H^4 = 90\\cdot[\\mathrm{pt}]$ in $A^{\\ast}(\\mathbb{P}^4)=\\mathbb{Z}[H]/(H^5)$."
           },
           {
@@ -3950,6 +4105,7 @@ window.MVQuizBank = {
               "the hypersurfaces being smooth"
             ],
             "answer": 1,
+            "hint": "If any two hypersurfaces share a positive-dimensional component, $\\sum \\mathrm{length}$ is infinite.",
             "explain": "If any two hypersurfaces share a positive-dimensional component, $\\sum \\mathrm{length}$ is infinite. 'Proper intersection' / 'zero-dimensional intersection' is the substantive hypothesis in $\\mathbb{P}^n$ for $n\\ge 3$. Fulton–MacPherson intersection theory handles the non-proper case via excess intersection."
           }
         ],
@@ -4037,6 +4193,7 @@ window.MVQuizBank = {
               "always uncountable"
             ],
             "answer": 2,
+            "hint": "The theorem gives a decomposition $E(\\mathbb{Q}) \\cong \\mathbb{Z}^r \\oplus T$ where $T$ is a finite torsion group and $r \\ge 0$ is the rank.",
             "explain": "The theorem gives a decomposition $E(\\mathbb{Q}) \\cong \\mathbb{Z}^r \\oplus T$ where $T$ is a finite torsion group and $r \\ge 0$ is the rank."
           },
           {
@@ -4044,6 +4201,7 @@ window.MVQuizBank = {
             "q": "By Mazur's theorem, how many isomorphism classes of torsion subgroups $E(\\mathbb{Q})_{\\text{tors}}$ are possible?",
             "answer": 15,
             "tol": 0.5,
+            "hint": "Mazur (1977): the torsion is one of $\\mathbb{Z}/n$ for $n\\in\\{1,\\ldots,10,12\\}$ (11 groups) or $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2n$ for $n\\in\\{1,2,3,4\\}$ (4 groups), total 15.",
             "explain": "Mazur (1977): the torsion is one of $\\mathbb{Z}/n$ for $n\\in\\{1,\\ldots,10,12\\}$ (11 groups) or $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2n$ for $n\\in\\{1,2,3,4\\}$ (4 groups), total 15."
           },
           {
@@ -4056,6 +4214,7 @@ window.MVQuizBank = {
               "infinitely many"
             ],
             "answer": 2,
+            "hint": "$(\\mathbb{Z}/2)^2$ has order $4$; the non-identity $2$-torsion points are $(0,0), (5,0), (-5,0)$ plus the identity at infinity.",
             "explain": "$(\\mathbb{Z}/2)^2$ has order $4$; the non-identity $2$-torsion points are $(0,0), (5,0), (-5,0)$ plus the identity at infinity."
           }
         ]
@@ -4106,6 +4265,7 @@ window.MVQuizBank = {
               "it stays bounded"
             ],
             "answer": 1,
+            "hint": "Birch and Swinnerton-Dyer observed on EDSAC that the product grows like $c\\cdot(\\log X)^r$, where $r$ is the rank of $E(\\mathbb{Q})$.",
             "explain": "Birch and Swinnerton-Dyer observed on EDSAC that the product grows like $c\\cdot(\\log X)^r$, where $r$ is the rank of $E(\\mathbb{Q})$."
           },
           {
@@ -4118,6 +4278,7 @@ window.MVQuizBank = {
               "no points at all for most $p$"
             ],
             "answer": 2,
+            "hint": "Heuristically, lots of rational points forces many points modulo $p$.",
             "explain": "Heuristically, lots of rational points forces many points modulo $p$. This bias in $a_p = p+1-N_p$ (systematically negative in some average sense) is the statistical shadow of positive rank."
           },
           {
@@ -4125,6 +4286,7 @@ window.MVQuizBank = {
             "q": "By Hasse's bound, $|a_p| \\le 2\\sqrt{p}$. For $p = 25$ this would give $|a_p| \\le ?$ (take $p$ as a real number here, ignoring that $25$ is not prime).",
             "answer": 10,
             "tol": 0.001,
+            "hint": "$2\\sqrt{25} = 10$.",
             "explain": "$2\\sqrt{25} = 10$. The Hasse bound controls each factor $N_p/p = 1 - a_p/p + 1/p$ so it lies in $[1 - 2/\\sqrt{p} + 1/p,\\ 1 + 2/\\sqrt{p} + 1/p]$."
           }
         ]
@@ -4181,6 +4343,7 @@ window.MVQuizBank = {
               "$E(\\mathbb{Q})$ is always infinite"
             ],
             "answer": 1,
+            "hint": "BSD equates the analytic rank (order of vanishing of $L(E,s)$ at $s=1$) with the algebraic rank of the Mordell–Weil group.",
             "explain": "BSD equates the analytic rank (order of vanishing of $L(E,s)$ at $s=1$) with the algebraic rank of the Mordell–Weil group."
           },
           {
@@ -4188,6 +4351,7 @@ window.MVQuizBank = {
             "q": "For a rank-$0$ elliptic curve, BSD predicts that $L(E, 1)$ equals zero ($\\to$ enter $0$) or is nonzero ($\\to$ enter $1$)?",
             "answer": 1,
             "tol": 0.001,
+            "hint": "Rank $0$ means $\\operatorname{ord}_{s=1} L(E,s) = 0$, i.e.",
             "explain": "Rank $0$ means $\\operatorname{ord}_{s=1} L(E,s) = 0$, i.e. $L(E,1) \\ne 0$. Kolyvagin's theorem proves the BSD implication in this direction for modular $E$."
           },
           {
@@ -4245,6 +4409,7 @@ window.MVQuizBank = {
               "$\\hat h(nP) = \\hat h(P)$"
             ],
             "answer": 1,
+            "hint": "Tate's limiting construction makes $\\hat h$ exactly quadratic, so $\\hat h(nP)=n^2\\hat h(P)$.",
             "explain": "Tate's limiting construction makes $\\hat h$ exactly quadratic, so $\\hat h(nP)=n^2\\hat h(P)$. Equivalently, $\\langle P,Q\\rangle = \\tfrac12(\\hat h(P+Q)-\\hat h(P)-\\hat h(Q))$ is bilinear."
           },
           {
@@ -4252,6 +4417,7 @@ window.MVQuizBank = {
             "q": "Let $E(\\mathbb{Q})$ have rank $2$ with height-pairing Gram matrix $\\begin{pmatrix}2 & 1\\\\ 1 & 3\\end{pmatrix}$ on a basis. Compute the regulator $R=\\det G$.",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "$R = 2\\cdot 3 - 1\\cdot 1 = 5$.",
             "explain": "$R = 2\\cdot 3 - 1\\cdot 1 = 5$. Positive-definiteness (so the pairing is a genuine inner product) requires $\\det G > 0$, which holds here."
           },
           {
@@ -4264,6 +4430,7 @@ window.MVQuizBank = {
               "undefined"
             ],
             "answer": 2,
+            "hint": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$.",
             "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\Sha|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
           }
         ]
@@ -4315,6 +4482,7 @@ window.MVQuizBank = {
               "a prime of bad reduction"
             ],
             "answer": 2,
+            "hint": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of…",
             "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
           },
           {
@@ -4341,6 +4509,7 @@ window.MVQuizBank = {
               "cannot be determined"
             ],
             "answer": 0,
+            "hint": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$.",
             "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
           }
         ]
@@ -4363,6 +4532,7 @@ window.MVQuizBank = {
               "$g\\circ f = f\\circ g$ whenever both composites are defined"
             ],
             "answer": 3,
+            "hint": "Composition in a category is associative and unital, but not commutative.",
             "explain": "Composition in a category is associative and unital, but not commutative. In $\\mathsf{Set}$ already, $g\\circ f\\ne f\\circ g$ in general."
           },
           {
@@ -4375,6 +4545,7 @@ window.MVQuizBank = {
               "$f$ has a left inverse in $\\mathcal{C}$"
             ],
             "answer": 1,
+            "hint": "Isomorphism is a categorical notion: a morphism with a two-sided inverse.",
             "explain": "Isomorphism is a categorical notion: a morphism with a two-sided inverse. Only in $\\mathsf{Set}$ does this specialize to bijection."
           },
           {
@@ -4382,6 +4553,7 @@ window.MVQuizBank = {
             "q": "How many morphisms does the category $\\mathbf{2}=(\\bullet\\xrightarrow{f}\\bullet)$ with two objects and one non-identity arrow have in total (including identities)?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Two identities $\\mathrm{id}_0,\\mathrm{id}_1$ plus the single arrow $f$ gives $3$ morphisms.",
             "explain": "Two identities $\\mathrm{id}_0,\\mathrm{id}_1$ plus the single arrow $f$ gives $3$ morphisms."
           }
         ],
@@ -4432,6 +4604,7 @@ window.MVQuizBank = {
               "$F$ need not respect composition — only objects"
             ],
             "answer": 1,
+            "hint": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$.",
             "explain": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$. Contravariant functors reverse it — those are functors out of $\\mathcal{C}^{\\mathrm{op}}$."
           },
           {
@@ -4444,6 +4617,7 @@ window.MVQuizBank = {
               "$\\eta_A\\circ F(f) = F(f)\\circ\\eta_A$"
             ],
             "answer": 1,
+            "hint": "The naturality square: $G(f)\\circ\\eta_A=\\eta_B\\circ F(f)$.",
             "explain": "The naturality square: $G(f)\\circ\\eta_A=\\eta_B\\circ F(f)$. The transformation commutes with the action of $f$ on both sides."
           },
           {
@@ -4451,6 +4625,7 @@ window.MVQuizBank = {
             "q": "How many functors are there from the terminal category $\\mathbf{1}$ (one object, only identity) to a category $\\mathcal{C}$ with exactly $5$ objects?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "A functor $\\mathbf{1}\\to\\mathcal{C}$ just picks an object of $\\mathcal{C}$, so the count is $|\\mathrm{Ob}(\\mathcal{C})|=5$.",
             "explain": "A functor $\\mathbf{1}\\to\\mathcal{C}$ just picks an object of $\\mathcal{C}$, so the count is $|\\mathrm{Ob}(\\mathcal{C})|=5$."
           }
         ],
@@ -4502,6 +4677,7 @@ window.MVQuizBank = {
               "isomorphism classes of objects of $\\mathcal{C}$"
             ],
             "answer": 0,
+            "hint": "Yoneda: $\\mathrm{Nat}(h_X,F)\\cong F(X)$ naturally in $X$ and $F$.",
             "explain": "Yoneda: $\\mathrm{Nat}(h_X,F)\\cong F(X)$ naturally in $X$ and $F$. Evaluating at $\\mathrm{id}_X$ recovers the element, and any $x\\in F(X)$ determines the transformation $f\\mapsto F(f)(x)$."
           },
           {
@@ -4514,6 +4690,7 @@ window.MVQuizBank = {
               "Neither preserves limits or colimits"
             ],
             "answer": 1,
+            "hint": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL).",
             "explain": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL). The adjunction $\\operatorname{Hom}(F(-),-)\\cong\\operatorname{Hom}(-,G(-))$ together with Yoneda makes this immediate."
           },
           {
@@ -4521,6 +4698,7 @@ window.MVQuizBank = {
             "q": "In $\\mathsf{Set}$, the product (= categorical limit of the discrete two-object diagram) of $\\{a,b,c\\}$ and $\\{0,1\\}$ has how many elements?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "The product in $\\mathsf{Set}$ is the Cartesian product, so $|A\\times B|=|A|\\cdot|B|=3\\cdot 2=6$.",
             "explain": "The product in $\\mathsf{Set}$ is the Cartesian product, so $|A\\times B|=|A|\\cdot|B|=3\\cdot 2=6$."
           }
         ],
@@ -4572,6 +4750,7 @@ window.MVQuizBank = {
               "$F$ has a left adjoint"
             ],
             "answer": 0,
+            "hint": "Representability means $F\\cong h_X$ for some object $X$; by Yoneda this $X$ is unique up to unique iso.",
             "explain": "Representability means $F\\cong h_X$ for some object $X$; by Yoneda this $X$ is unique up to unique iso."
           },
           {
@@ -4591,6 +4770,7 @@ window.MVQuizBank = {
             "q": "By Yoneda, how many objects (up to isomorphism) satisfy the universal property of the product $A\\times B$ in a given category (assuming at least one exists)?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Representing objects are unique up to unique isomorphism — exactly $1$ isomorphism class.",
             "explain": "Representing objects are unique up to unique isomorphism — exactly $1$ isomorphism class."
           }
         ],
@@ -4647,6 +4827,7 @@ window.MVQuizBank = {
               "a module"
             ],
             "answer": 1,
+            "hint": "An abelian group $R$ together with a $\\mathbb Z$-bilinear multiplication $R\\otimes_{\\mathbb Z} R\\to R$ (associative) and a unit $\\mathbb Z\\to R$ is exactly the data of a unital ring.",
             "explain": "An abelian group $R$ together with a $\\mathbb Z$-bilinear multiplication $R\\otimes_{\\mathbb Z} R\\to R$ (associative) and a unit $\\mathbb Z\\to R$ is exactly the data of a unital ring."
           },
           {
@@ -4659,6 +4840,7 @@ window.MVQuizBank = {
               "the pushout square"
             ],
             "answer": 1,
+            "hint": "Mac Lane's pentagon is one of the two required coherence diagrams (the other is the triangle).",
             "explain": "Mac Lane's pentagon is one of the two required coherence diagrams (the other is the triangle). The hexagon/naturality of $\\sigma$ are extra data for braided/symmetric monoidal categories."
           },
           {
@@ -4666,6 +4848,7 @@ window.MVQuizBank = {
             "q": "How many distinct bracketings of a fourfold tensor product $A\\otimes B\\otimes C\\otimes D$ are there (Catalan number $C_3$)?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves — $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$.",
             "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves — $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
           }
         ],
@@ -4716,6 +4899,7 @@ window.MVQuizBank = {
               "the natural transformation itself, coerced to a set"
             ],
             "answer": 0,
+            "hint": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\mathrm{Hom}(A,A)$.",
             "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\mathrm{Hom}(A,A)$. That single value determines every other component via naturality."
           },
           {
@@ -4732,6 +4916,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ — full faithfulness.",
             "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
           },
           {
@@ -4739,6 +4924,7 @@ window.MVQuizBank = {
             "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\mathrm{Hom}(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Yoneda: $\\mathrm{Nat}(h_1,F)\\cong F(1)$, so the count is $|F(1)|=4$.",
             "explain": "Yoneda: $\\mathrm{Nat}(h_1,F)\\cong F(1)$, so the count is $|F(1)|=4$."
           }
         ],
@@ -4805,6 +4991,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "Each limit is the universal cone on the corresponding shape: empty → terminal, two-point discrete → product, parallel pair → equalizer, cospan → pullback.",
             "explain": "Each limit is the universal cone on the corresponding shape: empty → terminal, two-point discrete → product, parallel pair → equalizer, cospan → pullback."
           },
           {
@@ -4817,6 +5004,7 @@ window.MVQuizBank = {
               "$\\{(x,y)\\in X\\times Y\\mid f(x)\\ne g(y)\\}$"
             ],
             "answer": 2,
+            "hint": "The pullback is the set of pairs that agree in $Z$ — exactly the universal cone over the cospan.",
             "explain": "The pullback is the set of pairs that agree in $Z$ — exactly the universal cone over the cospan."
           },
           {
@@ -4824,6 +5012,7 @@ window.MVQuizBank = {
             "q": "Let $X=\\{1,2,3,4\\}$, $Y=\\{a,b\\}$, $Z=\\{0,1\\}$, with $f\\colon X\\to Z$ defined $f(1)=f(2)=0$, $f(3)=f(4)=1$, and $g\\colon Y\\to Z$ defined $g(a)=0$, $g(b)=1$. Compute $|X\\times_Z Y|$.",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Fiber over $0$: $\\{1,2\\}\\times\\{a\\}$ gives $2$ pairs; fiber over $1$: $\\{3,4\\}\\times\\{b\\}$ gives $2$ pairs.",
             "explain": "Fiber over $0$: $\\{1,2\\}\\times\\{a\\}$ gives $2$ pairs; fiber over $1$: $\\{3,4\\}\\times\\{b\\}$ gives $2$ pairs. Total: $4$."
           }
         ],
@@ -4880,6 +5069,7 @@ window.MVQuizBank = {
               "$G\\circ F\\cong\\mathrm{id}_{\\mathcal{C}}$"
             ],
             "answer": 1,
+            "hint": "The defining Hom-isomorphism: mapping out of $F(A)$ in $\\mathcal{D}$ is the same data as mapping into $G(B)$ in $\\mathcal{C}$.",
             "explain": "The defining Hom-isomorphism: mapping out of $F(A)$ in $\\mathcal{D}$ is the same data as mapping into $G(B)$ in $\\mathcal{C}$."
           },
           {
@@ -4896,6 +5086,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "The first three are textbook adjunctions.",
             "explain": "The first three are textbook adjunctions. $(-)^{**}$ on $\\mathsf{Grp}$ isn't even functorial in an obvious way — and there's certainly no natural Hom-isomorphism with the identity."
           },
           {
@@ -4903,6 +5094,7 @@ window.MVQuizBank = {
             "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "By the Hom-iso, $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\mathrm{Hom}_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$.",
             "explain": "By the Hom-iso, $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\mathrm{Hom}_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
           }
         ],
@@ -4954,6 +5146,7 @@ window.MVQuizBank = {
               "$\\eta$ is an isomorphism"
             ],
             "answer": 0,
+            "hint": "Associativity of multiplication and the left/right unit laws — the 'monoid-in-endofunctors' axioms.",
             "explain": "Associativity of multiplication and the left/right unit laws — the 'monoid-in-endofunctors' axioms."
           },
           {
@@ -4966,6 +5159,7 @@ window.MVQuizBank = {
               "undefined without a strict monad structure"
             ],
             "answer": 1,
+            "hint": "Kleisli composition is 'bind then map': unwrap the option from $f$, run $g$ on success, propagate $\\bot$ on failure.",
             "explain": "Kleisli composition is 'bind then map': unwrap the option from $f$, run $g$ on success, propagate $\\bot$ on failure. This is exactly $\\mu_Z\\circ\\mathrm{Maybe}(g)\\circ f$."
           },
           {
@@ -4973,6 +5167,7 @@ window.MVQuizBank = {
             "q": "Every adjunction $F\\dashv U$ induces a monad $T=UF$ on the source category. For $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Mon}$ (free monoid / underlying set), what is $|T(\\{a\\})|$ restricted to words of length $\\le 3$ (including the empty word)?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Words in $\\{a\\}$ of length $0,1,2,3$ are $\\varepsilon, a, aa, aaa$ — exactly $4$ elements.",
             "explain": "Words in $\\{a\\}$ of length $0,1,2,3$ are $\\varepsilon, a, aa, aaa$ — exactly $4$ elements."
           }
         ],
@@ -5024,6 +5219,7 @@ window.MVQuizBank = {
               "any extension of $F$ to $\\mathcal{B}$"
             ],
             "answer": 0,
+            "hint": "The left Kan extension is the left adjoint (up to iso) to precomposition with $K$: $(-)\\circ K\\colon\\mathsf{Fun}(\\mathcal{B},\\mathcal{C})\\to\\mathsf{Fun}(\\mathcal{A},\\mathcal{C})$.",
             "explain": "The left Kan extension is the left adjoint (up to iso) to precomposition with $K$: $(-)\\circ K\\colon\\mathsf{Fun}(\\mathcal{B},\\mathcal{C})\\to\\mathsf{Fun}(\\mathcal{A},\\mathcal{C})$."
           },
           {
@@ -5044,6 +5240,7 @@ window.MVQuizBank = {
             "q": "Let $K\\colon\\mathbf{1}\\to\\mathcal{J}$ be the inclusion of the one-object category into a diagram shape $\\mathcal{J}$ with $3$ objects and only identity arrows. For $F\\colon\\mathbf{1}\\to\\mathsf{Set}$ picking a $2$-element set, how many objects does $\\mathrm{Lan}_K F\\colon\\mathcal{J}\\to\\mathsf{Set}$ assign, counted as the sum $\\sum_{j\\in\\mathcal{J}}|\\mathrm{Lan}_K F(j)|$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$K$ hits one of the three objects; $\\mathrm{Lan}_K F$ at that object is $F(\\ast)$ (size $2$), and the initial (empty) colimit at the other two — so the total is $2+0+0=2$.",
             "explain": "$K$ hits one of the three objects; $\\mathrm{Lan}_K F$ at that object is $F(\\ast)$ (size $2$), and the initial (empty) colimit at the other two — so the total is $2+0+0=2$."
           }
         ],
@@ -5095,6 +5292,7 @@ window.MVQuizBank = {
               "Any discrete category on objects alone"
             ],
             "answer": 1,
+            "hint": "$\\mathsf{Cat}$ is the archetypal 2-category; the 2-cells are natural transformations and the two composition laws (vertical and horizontal) are the two ways of composing natural transformations.",
             "explain": "$\\mathsf{Cat}$ is the archetypal 2-category; the 2-cells are natural transformations and the two composition laws (vertical and horizontal) are the two ways of composing natural transformations."
           },
           {
@@ -5107,6 +5305,7 @@ window.MVQuizBank = {
               "horizontal composition is strictly associative but vertical is only up to 3-cell"
             ],
             "answer": 1,
+            "hint": "Interchange: the two ways of reading a 'grid' of 2-cells — all-vertical-then-horizontal vs.",
             "explain": "Interchange: the two ways of reading a 'grid' of 2-cells — all-vertical-then-horizontal vs. all-horizontal-then-vertical — agree. This is the defining coherence of a (strict) 2-category."
           },
           {
@@ -5114,6 +5313,7 @@ window.MVQuizBank = {
             "q": "In $\\mathsf{Cat}$ viewed as a 2-category, how many 2-cells are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself, when $\\mathcal{C}$ is a discrete category on $5$ objects?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "A natural transformation $\\mathrm{id}\\Rightarrow\\mathrm{id}$ is a family $\\eta_A\\colon A\\to A$; in a discrete category the only such choice is $\\mathrm{id}_A$ at every object.",
             "explain": "A natural transformation $\\mathrm{id}\\Rightarrow\\mathrm{id}$ is a family $\\eta_A\\colon A\\to A$; in a discrete category the only such choice is $\\mathrm{id}_A$ at every object. So exactly $1$ 2-cell."
           }
         ],
@@ -5164,6 +5364,7 @@ window.MVQuizBank = {
               "not needed; enriched categories have no identities"
             ],
             "answer": 0,
+            "hint": "The identity 1-morphism at $A$ is a 'point' of the Hom-object, i.e.",
             "explain": "The identity 1-morphism at $A$ is a 'point' of the Hom-object, i.e. an arrow out of the monoidal unit $I$."
           },
           {
@@ -5187,6 +5388,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle…",
             "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
           },
           {
@@ -5194,6 +5396,7 @@ window.MVQuizBank = {
             "q": "In a Lawvere metric space (an enriched category over $[0,\\infty]$), the 'identity at $A$' is a morphism $0\\ge d(A,A)$, i.e. $d(A,A)\\le 0$. Combined with $d\\ge 0$ this forces $d(A,A)=$ which value?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$0\\le d(A,A)\\le 0$, so $d(A,A)=0$ — the reflexivity axiom of a pseudo-metric.",
             "explain": "$0\\le d(A,A)\\le 0$, so $d(A,A)=0$ — the reflexivity axiom of a pseudo-metric."
           }
         ],
@@ -5248,6 +5451,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -5270,6 +5474,7 @@ window.MVQuizBank = {
               "the additive adele ring $\\mathbb{A}_K$"
             ],
             "answer": 1,
+            "hint": "The idèle group is the restricted product of the local multiplicative groups $K_v^\\times$ with respect to the compact subgroups $\\mathcal{O}_v^\\times$ — almost every component must be a local unit.",
             "explain": "The idèle group is the restricted product of the local multiplicative groups $K_v^\\times$ with respect to the compact subgroups $\\mathcal{O}_v^\\times$ — almost every component must be a local unit."
           },
           {
@@ -5282,6 +5487,7 @@ window.MVQuizBank = {
               "$C_K = \\widehat{\\mathbb{Z}}^\\times$"
             ],
             "answer": 0,
+            "hint": "By definition $C_K = \\mathbb{A}_K^\\times / K^\\times$, the quotient of the idèles by the diagonally embedded global units $K^\\times$.",
             "explain": "By definition $C_K = \\mathbb{A}_K^\\times / K^\\times$, the quotient of the idèles by the diagonally embedded global units $K^\\times$."
           },
           {
@@ -5289,6 +5495,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}(\\sqrt{-5})$, the class number is $h_K=2$. What is the order of $\\operatorname{Cl}(K)$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The order of the ideal class group is exactly the class number, so $|\\operatorname{Cl}(K)|=h_K=2$.",
             "explain": "The order of the ideal class group is exactly the class number, so $|\\operatorname{Cl}(K)|=h_K=2$."
           }
         ],
@@ -5342,6 +5549,7 @@ window.MVQuizBank = {
               "the compositum of all cyclotomic extensions of $K$"
             ],
             "answer": 1,
+            "hint": "By definition $H$ is the maximal abelian extension of $K$ in which every prime (finite and infinite) is unramified.",
             "explain": "By definition $H$ is the maximal abelian extension of $K$ in which every prime (finite and infinite) is unramified. The Artin map then gives $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$."
           },
           {
@@ -5349,6 +5557,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}(\\sqrt{-14})$, which has class number $h_K=4$, what is the degree $[H:K]$ of the Hilbert class field over $K$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "The Artin isomorphism $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$ forces $[H:K]=|\\operatorname{Cl}(K)|=h_K$.",
             "explain": "The Artin isomorphism $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$ forces $[H:K]=|\\operatorname{Cl}(K)|=h_K$. Here $h_K=4$, so $[H:K]=4$."
           },
           {
@@ -5361,6 +5570,7 @@ window.MVQuizBank = {
               "$\\mathfrak{a}$ ramifies in $H/K$"
             ],
             "answer": 1,
+            "hint": "Furtwängler's principal ideal theorem: every ideal of $\\mathcal{O}_K$ becomes principal when lifted to $\\mathcal{O}_H$.",
             "explain": "Furtwängler's principal ideal theorem: every ideal of $\\mathcal{O}_K$ becomes principal when lifted to $\\mathcal{O}_H$. Ideal classes of $K$ capitulate in the Hilbert class field."
           }
         ],
@@ -5414,6 +5624,7 @@ window.MVQuizBank = {
               "the identity, always"
             ],
             "answer": 1,
+            "hint": "Cyclotomic reciprocity: $\\operatorname{Frob}_p(\\zeta_n)=\\zeta_n^p$ for $p\\nmid n$.",
             "explain": "Cyclotomic reciprocity: $\\operatorname{Frob}_p(\\zeta_n)=\\zeta_n^p$ for $p\\nmid n$. This identifies $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q})$ with $(\\mathbb{Z}/n)^\\times$ via $\\sigma_p\\leftrightarrow p\\bmod n$."
           },
           {
@@ -5421,6 +5632,7 @@ window.MVQuizBank = {
             "q": "Take $L=\\mathbb{Q}(\\zeta_{12})/\\mathbb{Q}$, so $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/12)^\\times$. The Frobenius at $p=13$ corresponds to $13\\bmod 12$. Enter that residue.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$13 = 12+1$, so $13\\equiv 1\\pmod{12}$.",
             "explain": "$13 = 12+1$, so $13\\equiv 1\\pmod{12}$. The Frobenius at $p=13$ is the identity, reflecting that $13$ splits completely in $\\mathbb{Q}(\\zeta_{12})$."
           },
           {
@@ -5433,6 +5645,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}\\twoheadrightarrow\\operatorname{Gal}(L/K)$"
             ],
             "answer": 0,
+            "hint": "The main theorem: the Artin map factors through the ray class group $\\operatorname{Cl}_\\mathfrak{m}(K)$ and is surjective onto $\\operatorname{Gal}(L/K)$, with kernel generated by the classes of…",
             "explain": "The main theorem: the Artin map factors through the ray class group $\\operatorname{Cl}_\\mathfrak{m}(K)$ and is surjective onto $\\operatorname{Gal}(L/K)$, with kernel generated by the classes of primes splitting completely in $L$."
           }
         ],
@@ -5486,6 +5699,7 @@ window.MVQuizBank = {
               "the Hilbert class field of $\\mathbb{Q}$"
             ],
             "answer": 2,
+            "hint": "Kronecker–Weber in class-field-theoretic form: the ray class field of $\\mathbb{Q}$ with conductor $n\\cdot\\infty$ is exactly $\\mathbb{Q}(\\zeta_n)$, and…",
             "explain": "Kronecker–Weber in class-field-theoretic form: the ray class field of $\\mathbb{Q}$ with conductor $n\\cdot\\infty$ is exactly $\\mathbb{Q}(\\zeta_n)$, and $\\operatorname{Cl}_{n\\infty}(\\mathbb{Q})=(\\mathbb{Z}/n)^\\times\\cong\\operatorname{Gal}(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q})$."
           },
           {
@@ -5493,6 +5707,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}$, the order of the ray class group $\\operatorname{Cl}_{12\\infty}(\\mathbb{Q})=(\\mathbb{Z}/12)^\\times$ is:",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$\\varphi(12)=\\varphi(4)\\varphi(3)=2\\cdot 2=4$, so $(\\mathbb{Z}/12)^\\times$ has order $4$.",
             "explain": "$\\varphi(12)=\\varphi(4)\\varphi(3)=2\\cdot 2=4$, so $(\\mathbb{Z}/12)^\\times$ has order $4$. Equivalently $[\\mathbb{Q}(\\zeta_{12}):\\mathbb{Q}]=4$."
           },
           {
@@ -5505,6 +5720,7 @@ window.MVQuizBank = {
               "kernel equal to $K^\\times$"
             ],
             "answer": 1,
+            "hint": "The kernel of the global reciprocity map is exactly the connected component of $1$ in $C_K$; finite abelian extensions $L/K$ correspond to finite-index open subgroups of $C_K$ containing this…",
             "explain": "The kernel of the global reciprocity map is exactly the connected component of $1$ in $C_K$; finite abelian extensions $L/K$ correspond to finite-index open subgroups of $C_K$ containing this connected component."
           }
         ],
@@ -5558,6 +5774,7 @@ window.MVQuizBank = {
               "finite subgroups of $\\operatorname{Gal}(\\overline{K}/K)$"
             ],
             "answer": 1,
+            "hint": "Every finite-index open subgroup $N\\subset C_K$ is the kernel of the Artin map for a unique finite abelian extension $L/K$, and vice versa.",
             "explain": "Every finite-index open subgroup $N\\subset C_K$ is the kernel of the Artin map for a unique finite abelian extension $L/K$, and vice versa. This is the class-field bijection."
           },
           {
@@ -5570,6 +5787,7 @@ window.MVQuizBank = {
               "$N_L\\cdot N_{L'}=C_K$"
             ],
             "answer": 1,
+            "hint": "The correspondence is order-reversing: a bigger field $L'$ has a smaller kernel $N_{L'}$.",
             "explain": "The correspondence is order-reversing: a bigger field $L'$ has a smaller kernel $N_{L'}$. Equivalently, $L=(K^{\\mathrm{ab}})^{N_L}$, so inclusions of fields flip to reverse inclusions of subgroups."
           },
           {
@@ -5577,6 +5795,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}$, Kronecker–Weber plus Takagi existence says every finite abelian $L/\\mathbb{Q}$ sits in some $\\mathbb{Q}(\\zeta_n)$. Take $L=\\mathbb{Q}(i,\\sqrt{5})$. The smallest $n$ for which $L\\subseteq\\mathbb{Q}(\\zeta_n)$ is $n = ?$",
             "answer": 20,
             "tol": 0.000001,
+            "hint": "The conductor of $\\mathbb{Q}(i)$ is $4$ and of $\\mathbb{Q}(\\sqrt{5})$ is $5$; by the conductor-discriminant/Takagi existence correspondence the conductor of their compositum is…",
             "explain": "The conductor of $\\mathbb{Q}(i)$ is $4$ and of $\\mathbb{Q}(\\sqrt{5})$ is $5$; by the conductor-discriminant/Takagi existence correspondence the conductor of their compositum is $\\operatorname{lcm}(4,5)=20$, so $\\mathbb{Q}(i,\\sqrt{5})\\subset\\mathbb{Q}(\\zeta_{20})$ and no smaller $n$ works."
           }
         ],
@@ -5630,6 +5849,7 @@ window.MVQuizBank = {
               "$\\mathfrak{d}_{L/K}=\\mathcal{O}_K$ whenever $L/K$ is abelian"
             ],
             "answer": 1,
+            "hint": "Hasse's Führerdiskriminantenproduktformel: the relative discriminant of an abelian $L/K$ factors as the product of the Artin conductors of its 1-dimensional characters.",
             "explain": "Hasse's Führerdiskriminantenproduktformel: the relative discriminant of an abelian $L/K$ factors as the product of the Artin conductors of its 1-dimensional characters."
           },
           {
@@ -5637,6 +5857,7 @@ window.MVQuizBank = {
             "q": "For $L=\\mathbb{Q}(\\zeta_5)/\\mathbb{Q}$, the four characters of $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/5)^\\times$ have conductors $1,5,5,5$ (the trivial character has conductor $1$; the three non-trivial characters all have conductor $5$). Compute the absolute discriminant $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))|=1\\cdot 5\\cdot 5\\cdot 5$.",
             "answer": 125,
             "tol": 0.000001,
+            "hint": "By the conductor-discriminant formula $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))|=\\prod_\\chi \\mathfrak{f}(\\chi)=1\\cdot 5\\cdot 5\\cdot 5 = 125$, matching the classical value…",
             "explain": "By the conductor-discriminant formula $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))|=\\prod_\\chi \\mathfrak{f}(\\chi)=1\\cdot 5\\cdot 5\\cdot 5 = 125$, matching the classical value $\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))=5^3$."
           },
           {
@@ -5649,6 +5870,7 @@ window.MVQuizBank = {
               "$\\chi(\\operatorname{Frob}_\\mathfrak{p})=1$ for every $\\chi$"
             ],
             "answer": 1,
+            "hint": "A prime ramifies in $L$ iff some character $\\chi$ of $\\operatorname{Gal}(L/K)$ is non-trivial on its inertia subgroup, iff $\\mathfrak{p}\\mid\\mathfrak{f}(\\chi)$ for some non-trivial $\\chi$.",
             "explain": "A prime ramifies in $L$ iff some character $\\chi$ of $\\operatorname{Gal}(L/K)$ is non-trivial on its inertia subgroup, iff $\\mathfrak{p}\\mid\\mathfrak{f}(\\chi)$ for some non-trivial $\\chi$. Unramified primes appear in no conductor and hence contribute nothing to the discriminant."
           }
         ],
@@ -5795,6 +6017,7 @@ window.MVQuizBank = {
               "Therefore $e$ is $p$-cocartesian for every such fibration $p$."
             ],
             "answer": 3,
+            "hint": "Step 4 confuses 'fiberwise lifting' with the cocartesian condition.",
             "explain": "Step 4 confuses 'fiberwise lifting' with the cocartesian condition. The cocartesian property concerns horns whose base extends <em>off</em> the fiber — i.e. into edges of $\\mathcal{B}$ starting from $\\bar{x}$. A fiber-internal edge is cocartesian iff it is an <em>equivalence</em> in the fiber $\\mathcal{E}_{\\bar{x}}$ (HTT 2.4.1.5). A non-equivalence in the fiber is a perfectly valid edge over $\\mathrm{id}_{\\bar{x}}$ and is not cocartesian."
           },
           {
@@ -5807,6 +6030,7 @@ window.MVQuizBank = {
               "They become equal after passing to the homotopy category $h(\\mathcal{E})$."
             ],
             "answer": 1,
+            "hint": "Cocartesian lifts are unique up to a <em>contractible</em> space of choices, so any two cocartesian lifts of $\\bar{e}$ starting at $x$ are linked by an equivalence between their endpoints — and that…",
             "explain": "Cocartesian lifts are unique up to a <em>contractible</em> space of choices, so any two cocartesian lifts of $\\bar{e}$ starting at $x$ are linked by an equivalence between their endpoints — and that equivalence sits in the fiber $\\mathcal{E}_{\\bar{y}}$ (since both endpoints live there). Equality on the nose is far too strong; the homotopy-category quotient is too coarse."
           }
         ]
@@ -5936,6 +6160,7 @@ window.MVQuizBank = {
               "Defined only up to a non-trivial 2-cell, not as a functor."
             ],
             "answer": 1,
+            "hint": "Functoriality of transport sends equivalences in $\\mathcal{B}$ to equivalences in $\\mathrm{Cat}_\\infty$, so $\\bar{e}_!$ is itself an equivalence with inverse $\\bar{e}^{-1}_!$.",
             "explain": "Functoriality of transport sends equivalences in $\\mathcal{B}$ to equivalences in $\\mathrm{Cat}_\\infty$, so $\\bar{e}_!$ is itself an equivalence with inverse $\\bar{e}^{-1}_!$. Identifying it with the literal identity requires choosing a path between $\\bar{x}$ and $\\bar{y}$ — the equivalence depends on the chosen lift."
           }
         ],
@@ -5993,6 +6218,7 @@ window.MVQuizBank = {
               "The Quillen equivalence between simplicial sets and topological spaces."
             ],
             "answer": 1,
+            "hint": "Restricting both sides to nerves of ordinary categories recovers the classical statement (Grothendieck SGA 1, Exp.",
             "explain": "Restricting both sides to nerves of ordinary categories recovers the classical statement (Grothendieck SGA 1, Exp. VI): Grothendieck (op-)fibrations over $\\mathcal{C}$ = pseudofunctors $\\mathcal{C} \\to \\mathrm{Cat}$. The $\\infty$-version is its homotopy-coherent generalization with strict pseudofunctoriality replaced by coherence-up-to-higher-simplices."
           },
           {
@@ -6076,6 +6302,7 @@ window.MVQuizBank = {
               "Base $\\mathcal{B}$ is a Kan complex."
             ],
             "answer": 0,
+            "hint": "A cocartesian fibration with $\\mathcal{S}$-valued fibers — equivalently, all fibers being Kan complexes — is exactly a left fibration.",
             "explain": "A cocartesian fibration with $\\mathcal{S}$-valued fibers — equivalently, all fibers being Kan complexes — is exactly a left fibration. The straightening lands in $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$ rather than $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$ when this happens (HTT 2.1.1.2)."
           }
         ],
@@ -6131,6 +6358,7 @@ window.MVQuizBank = {
               0,
               1
             ],
+            "hint": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3).",
             "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
           },
           {
@@ -6160,6 +6388,7 @@ window.MVQuizBank = {
               "Base change is computed using $\\mathrm{Tor}$, but the fibration only sees its $0$th cohomology."
             ],
             "answer": 1,
+            "hint": "The cocartesian-fibration formalism is intrinsically homotopy-coherent: cocartesian lifts are unique only up to (a contractible space of) higher homotopy, so the corresponding base-change functor is…",
             "explain": "The cocartesian-fibration formalism is intrinsically homotopy-coherent: cocartesian lifts are unique only up to (a contractible space of) higher homotopy, so the corresponding base-change functor is the derived (= $\\mathbb{L}$-tensor) one. Plain $\\otimes_R$ would be the wrong functor on $\\mathrm{Mod}_R$ at the chain-level, breaking homotopy invariance and failing to give a cocartesian fibration."
           }
         ]
@@ -6182,6 +6411,7 @@ window.MVQuizBank = {
               "$\\mathfrak{p}$ is generated by a single element"
             ],
             "answer": 1,
+            "hint": "$\\mathfrak{p}$ is prime iff the quotient $A/\\mathfrak{p}$ has no zero divisors, i.e.",
             "explain": "$\\mathfrak{p}$ is prime iff the quotient $A/\\mathfrak{p}$ has no zero divisors, i.e. is an integral domain. Maximal corresponds to the stronger condition $A/\\mathfrak{p}$ a field."
           },
           {
@@ -6189,6 +6419,7 @@ window.MVQuizBank = {
             "q": "How many ideals does $\\mathbb{Z}/12\\mathbb{Z}$ have?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "Ideals of $\\mathbb{Z}/n$ correspond to divisors of $n$.",
             "explain": "Ideals of $\\mathbb{Z}/n$ correspond to divisors of $n$. Divisors of $12$: $1,2,3,4,6,12$, so $6$ ideals."
           },
           {
@@ -6201,6 +6432,7 @@ window.MVQuizBank = {
               "$(0)$"
             ],
             "answer": 0,
+            "hint": "$V(I)=\\{\\mathfrak{p}:I\\subseteq\\mathfrak{p}\\}$.",
             "explain": "$V(I)=\\{\\mathfrak{p}:I\\subseteq\\mathfrak{p}\\}$. In $\\mathbb{Z}$, $(30)\\subseteq (p)$ iff $p\\in\\{2,3,5\\}$, so $V((30))=\\{(2),(3),(5)\\}$."
           }
         ],
@@ -6241,6 +6473,7 @@ window.MVQuizBank = {
               "$k[x]$ itself"
             ],
             "answer": 1,
+            "hint": "In a PID, maximal ideals are $(f)$ with $f$ irreducible.",
             "explain": "In a PID, maximal ideals are $(f)$ with $f$ irreducible. $x^2+1$ is irreducible over $\\mathbb{R}$; $x^2-1=(x-1)(x+1)$ is not. $(0)$ is prime but not maximal."
           },
           {
@@ -6248,6 +6481,7 @@ window.MVQuizBank = {
             "q": "How many maximal ideals does $\\mathbb{Z}/30\\mathbb{Z}$ have?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "In an Artinian ring every prime is maximal.",
             "explain": "In an Artinian ring every prime is maximal. Primes of $\\mathbb{Z}/30$ correspond to primes dividing $30=2\\cdot 3\\cdot 5$, giving $(2),(3),(5)$: $3$ maximal ideals."
           },
           {
@@ -6264,6 +6498,7 @@ window.MVQuizBank = {
               3,
               4
             ],
+            "hint": "$\\dim\\mathbb{Z}[x]=2$, so maximal ideals have height $2$.",
             "explain": "$\\dim\\mathbb{Z}[x]=2$, so maximal ideals have height $2$. $(0)$ is generic (height $0$); $(2),(x)$ are height $1$ (quotient is a domain but not a field). $(2,x)$ and $(3,x^2+1)$ are height-$2$ with residue field $\\mathbb{F}_2$ and $\\mathbb{F}_9$ respectively."
           }
         ],
@@ -6316,6 +6551,7 @@ window.MVQuizBank = {
               "the empty set"
             ],
             "answer": 1,
+            "hint": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$.",
             "explain": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$. Since $(0)\\subseteq\\mathfrak{q}$ for all primes, $\\overline{\\{(0)\\}}=\\mathrm{Spec}(\\mathbb{Z})$: the generic point is dense."
           },
           {
@@ -6323,6 +6559,7 @@ window.MVQuizBank = {
             "q": "How many points does the distinguished open set $D(6) = \\{\\mathfrak{p}:6\\notin\\mathfrak{p}\\} \\subset \\mathrm{Spec}(\\mathbb{Z}/30)$ contain?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Primes of $\\mathbb{Z}/30$ are $(2),(3),(5)$.",
             "explain": "Primes of $\\mathbb{Z}/30$ are $(2),(3),(5)$. $D(6)$ excludes primes containing $6$, i.e. containing $2$ or $3$, so it excludes $(2)$ and $(3)$, leaving $\\{(5)\\}$: $1$ point."
           },
           {
@@ -6335,6 +6572,7 @@ window.MVQuizBank = {
               "$\\emptyset$"
             ],
             "answer": 1,
+            "hint": "Closed sets are $V(I)$ for ideals $I$.",
             "explain": "Closed sets are $V(I)$ for ideals $I$. $\\{(2),(3)\\}=V((6))$ is closed; $\\mathrm{Spec}=V((0))$; $\\emptyset=V((1))$. But $\\{(0)\\}$ would be $V(I)$ only if $I=(0)$, and $V((0))=\\mathrm{Spec}$, not $\\{(0)\\}$. The generic point $(0)$ is not closed."
           }
         ],
@@ -6390,6 +6628,7 @@ window.MVQuizBank = {
               "the set of units"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{nil}(A) = \\{x : x^n = 0\\text{ some }n\\}$.",
             "explain": "$\\mathrm{nil}(A) = \\{x : x^n = 0\\text{ some }n\\}$. A classical theorem: this equals $\\bigcap\\mathfrak{p}$ over all primes. The intersection over minimal primes also works (it's the same set)."
           },
           {
@@ -6397,6 +6636,7 @@ window.MVQuizBank = {
             "q": "What is the nilradical of $\\mathbb{Z}/72\\mathbb{Z}$? (Give its smallest nonnegative generator.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$72 = 2^3\\cdot 3^2$.",
             "explain": "$72 = 2^3\\cdot 3^2$. Nilradical = $(\\mathrm{rad}(72)) = (2\\cdot 3) = (6)$. An element is nilpotent iff it's divisible by every prime dividing $72$, i.e. by $6$."
           },
           {
@@ -6409,6 +6649,7 @@ window.MVQuizBank = {
               "$x$ is a zero divisor"
             ],
             "answer": 1,
+            "hint": "Characterization: $x\\in\\mathrm{Jac}(A) \\Leftrightarrow 1-xy \\in A^\\times$ for all $y$.",
             "explain": "Characterization: $x\\in\\mathrm{Jac}(A) \\Leftrightarrow 1-xy \\in A^\\times$ for all $y$. In a local ring this says $x$ is in the maximal ideal; more generally $\\mathrm{Jac}(A) = \\bigcap\\mathfrak{m}$."
           }
         ],
@@ -6464,6 +6705,7 @@ window.MVQuizBank = {
               "$0$"
             ],
             "answer": 2,
+            "hint": "$\\mathbb{Z}/m\\otimes_\\mathbb{Z}\\mathbb{Z}/n \\cong \\mathbb{Z}/\\gcd(m,n)$.",
             "explain": "$\\mathbb{Z}/m\\otimes_\\mathbb{Z}\\mathbb{Z}/n \\cong \\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(4,6)=2$."
           },
           {
@@ -6471,6 +6713,7 @@ window.MVQuizBank = {
             "q": "How many $\\mathbb{Z}$-submodules does $\\mathbb{Z}/6\\mathbb{Z}$ have?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Submodules of $\\mathbb{Z}/6$ correspond to divisors of $6$: $1,2,3,6$, giving $4$ submodules: $0,\\;2\\mathbb{Z}/6,\\;3\\mathbb{Z}/6,\\;\\mathbb{Z}/6$ itself.",
             "explain": "Submodules of $\\mathbb{Z}/6$ correspond to divisors of $6$: $1,2,3,6$, giving $4$ submodules: $0,\\;2\\mathbb{Z}/6,\\;3\\mathbb{Z}/6,\\;\\mathbb{Z}/6$ itself."
           },
           {
@@ -6483,6 +6726,7 @@ window.MVQuizBank = {
               "$0\\to\\mathbb{Z}/3\\to\\mathbb{Z}/6\\to\\mathbb{Z}/2\\to 0$"
             ],
             "answer": 0,
+            "hint": "Tensoring the first sequence with $\\mathbb{Z}/2$ gives $\\mathbb{Z}/2 \\xrightarrow{2=0}\\mathbb{Z}/2$, so injectivity fails.",
             "explain": "Tensoring the first sequence with $\\mathbb{Z}/2$ gives $\\mathbb{Z}/2 \\xrightarrow{2=0}\\mathbb{Z}/2$, so injectivity fails. The other sequences either split or are tensored with a coprime factor."
           }
         ],
@@ -6539,6 +6783,7 @@ window.MVQuizBank = {
               "$A$ is finitely generated as a $\\mathbb{Z}$-algebra"
             ],
             "answer": 1,
+            "hint": "The ascending chain condition is the defining property; equivalently, every ideal is finitely generated.",
             "explain": "The ascending chain condition is the defining property; equivalently, every ideal is finitely generated. Principal ideal domains are stronger; finite prime count fails for $\\mathbb{Z}$ (which is Noetherian)."
           },
           {
@@ -6554,6 +6799,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "$\\mathbb{Z}$ is a PID (Noetherian).",
             "explain": "$\\mathbb{Z}$ is a PID (Noetherian). $k[x,y]/(xy)$ is a quotient of the Noetherian $k[x,y]$. $k[x_1,x_2,\\dots]$ has the non-stabilizing chain $(x_1)\\subsetneq(x_1,x_2)\\subsetneq\\cdots$. $C(\\mathbb{R})$ has chains of vanishing ideals that don't stabilize."
           },
           {
@@ -6561,6 +6807,7 @@ window.MVQuizBank = {
             "q": "The Hilbert basis theorem says: if $A$ is Noetherian then so is $A[x]$. Applying this repeatedly, $k[x_1,\\dots,x_n]$ is Noetherian over any field $k$. How many generators does the ideal $(x^5, x^3 y, y^7)\\subset k[x,y]$ need, minimally?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "In a monomial ideal, minimal generators are the monomials not divisible by other monomials in the generating set.",
             "explain": "In a monomial ideal, minimal generators are the monomials not divisible by other monomials in the generating set. $x^5, x^3y, y^7$: none divides another, so all three are needed. $3$ generators."
           }
         ],
@@ -6619,6 +6866,7 @@ window.MVQuizBank = {
               "a local ring with finitely generated maximal ideal"
             ],
             "answer": 1,
+            "hint": "Artinian = DCC on ideals = Noetherian + Krull dimension $0$.",
             "explain": "Artinian = DCC on ideals = Noetherian + Krull dimension $0$. Reduced Artinian rings are products of fields, but the unreduced cases like $k[\\epsilon]/(\\epsilon^2)$ are also Artinian and are the deformation-theoretic point."
           },
           {
@@ -6626,6 +6874,7 @@ window.MVQuizBank = {
             "q": "What is the length $\\ell_k(A)$ (equivalently $\\dim_k A$) of $A = k[x,y]/(x,y)^3$ as a $k$-vector space?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "Basis $\\{1, x, y, x^2, xy, y^2\\}$.",
             "explain": "Basis $\\{1, x, y, x^2, xy, y^2\\}$. Length grows as $1 + 2 + 3 = 6 = \\binom{3+1}{2}$. In general $\\dim_k k[x_1,\\dots,x_d]/(x_1,\\dots,x_d)^n = \\binom{n+d-1}{d}$."
           },
           {
@@ -6643,6 +6892,7 @@ window.MVQuizBank = {
               2,
               4
             ],
+            "hint": "$k[\\epsilon]/(\\epsilon^2)$, $k[x,y]/(x^2,xy,y^2)$, and $k[x]/(x^5)$ are Artinian local with residue field $k$ — finite-dimensional over $k$ with a single maximal ideal that is nilpotent.",
             "explain": "$k[\\epsilon]/(\\epsilon^2)$, $k[x,y]/(x^2,xy,y^2)$, and $k[x]/(x^5)$ are Artinian local with residue field $k$ — finite-dimensional over $k$ with a single maximal ideal that is nilpotent. $k[x]$ is not Artinian (infinite-dimensional, dim $1$). $k\\times k$ is Artinian but not local — it has two maximal ideals."
           },
           {
@@ -6655,6 +6905,7 @@ window.MVQuizBank = {
               "$k[\\epsilon]/(\\epsilon^3)$"
             ],
             "answer": 1,
+            "hint": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$.",
             "explain": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$. A morphism $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) \\to X_0$ is exactly a $k$-point together with a tangent vector; flat lifts of $X_0$ to $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2)$ are first-order deformations."
           }
         ]
@@ -6672,6 +6923,7 @@ window.MVQuizBank = {
               "$(p^2)\\mathbb{Z}_{(p)}$"
             ],
             "answer": 1,
+            "hint": "A localization at a prime is a local ring; its maximal ideal is the extension of that prime.",
             "explain": "A localization at a prime is a local ring; its maximal ideal is the extension of that prime. Elements of $\\mathbb{Z}_{(p)}$ are fractions $a/b$ with $p\\nmid b$, and the non-units are exactly the numerators divisible by $p$."
           },
           {
@@ -6679,6 +6931,7 @@ window.MVQuizBank = {
             "q": "How many primes less than $100$ survive in $\\mathbb{Z}[1/2]$ (i.e. remain non-unit primes)?",
             "answer": 24,
             "tol": 0.000001,
+            "hint": "Primes of $S^{-1}A$ correspond to primes of $A$ disjoint from $S$.",
             "explain": "Primes of $S^{-1}A$ correspond to primes of $A$ disjoint from $S$. Inverting $2$ kills $(2)$, leaving odd primes $<100$: $3,5,7,11,\\dots,97$, which is $24$ primes."
           },
           {
@@ -6691,6 +6944,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}$ always"
             ],
             "answer": 1,
+            "hint": "Modding $A_{\\mathfrak{p}}$ by its maximal ideal yields the fraction field of $A/\\mathfrak{p}$.",
             "explain": "Modding $A_{\\mathfrak{p}}$ by its maximal ideal yields the fraction field of $A/\\mathfrak{p}$. For $A=\\mathbb{Z}$, $\\mathfrak{p}=(p)$: residue field $\\mathbb{F}_p=\\mathrm{Frac}(\\mathbb{Z}/p)$."
           }
         ],
@@ -6742,6 +6996,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}^{\\oplus 5}$"
             ],
             "answer": 2,
+            "hint": "Over a PID, flat = torsion-free.",
             "explain": "Over a PID, flat = torsion-free. $\\mathbb{Z}/3$ has torsion."
           },
           {
@@ -6749,6 +7004,7 @@ window.MVQuizBank = {
             "q": "Compute $\\dim_{\\mathbb{F}_2}\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/2,\\mathbb{Z}/2)$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Resolve $\\mathbb{Z}/2$ via $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, tensor with $\\mathbb{Z}/2$: $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, kernel $\\mathbb{Z}/2$.",
             "explain": "Resolve $\\mathbb{Z}/2$ via $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, tensor with $\\mathbb{Z}/2$: $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, kernel $\\mathbb{Z}/2$."
           },
           {
@@ -6761,6 +7017,7 @@ window.MVQuizBank = {
               "$\\mathrm{Tor}_1^A(M,A/\\mathfrak{m})$ is finitely generated"
             ],
             "answer": 1,
+            "hint": "Over a Noetherian local ring, f.g.",
             "explain": "Over a Noetherian local ring, f.g. flat = free (local criterion plus Nakayama)."
           }
         ],
@@ -6812,6 +7069,7 @@ window.MVQuizBank = {
               "$M$ is free of rank $r$"
             ],
             "answer": 1,
+            "hint": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$.",
             "explain": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$."
           },
           {
@@ -6819,6 +7077,7 @@ window.MVQuizBank = {
             "q": "For the nodal cubic $y^2=x^3+x^2$ at the origin $p$, compute $\\dim_k(\\mathfrak{m}/\\mathfrak{m}^2)$ of the local ring at $p$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Both partials of $y^2-x^3-x^2$ vanish at origin; Jacobian zero.",
             "explain": "Both partials of $y^2-x^3-x^2$ vanish at origin; Jacobian zero. Zariski tangent space has dimension $2$ while the curve is $1$-dim: singular."
           },
           {
@@ -6831,6 +7090,7 @@ window.MVQuizBank = {
               "$A$ is a UFD"
             ],
             "answer": 1,
+            "hint": "Regularity: embedding dimension = Krull dimension.",
             "explain": "Regularity: embedding dimension = Krull dimension. $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, equality iff regular."
           }
         ],
@@ -6882,6 +7142,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}\\subseteq\\mathbb{Q}$"
             ],
             "answer": 2,
+            "hint": "$\\sqrt{-5}$ satisfies $t^2+5=0$, monic over $\\mathbb{Z}$.",
             "explain": "$\\sqrt{-5}$ satisfies $t^2+5=0$, monic over $\\mathbb{Z}$."
           },
           {
@@ -6889,6 +7150,7 @@ window.MVQuizBank = {
             "q": "By Noether normalization, $B=k[x,y]/(xy-1)$ is finite over $k[z]$ for some $z$. Minimum $[B:k[z]]$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Choose $z=x+y$: $x,y$ satisfy $t^2-zt+1=0$, so $B$ is free of rank $2$ over $k[z]$.",
             "explain": "Choose $z=x+y$: $x,y$ satisfy $t^2-zt+1=0$, so $B$ is free of rank $2$ over $k[z]$."
           },
           {
@@ -6901,6 +7163,7 @@ window.MVQuizBank = {
               "$B$ is a finitely generated $A$-module"
             ],
             "answer": 3,
+            "hint": "$\\overline{\\mathbb{Q}}$ is integral over $\\mathbb{Z}$ but not f.g.",
             "explain": "$\\overline{\\mathbb{Q}}$ is integral over $\\mathbb{Z}$ but not f.g."
           }
         ],
@@ -6947,6 +7210,7 @@ window.MVQuizBank = {
             "q": "Krull dimension of $k[x_1,x_2,x_3,x_4]$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$\\dim k[x_1,\\dots,x_n]=n$; chain $(0)\\subsetneq(x_1)\\subsetneq\\cdots\\subsetneq(x_1,\\dots,x_4)$.",
             "explain": "$\\dim k[x_1,\\dots,x_n]=n$; chain $(0)\\subsetneq(x_1)\\subsetneq\\cdots\\subsetneq(x_1,\\dots,x_4)$."
           },
           {
@@ -6959,6 +7223,7 @@ window.MVQuizBank = {
               "$\\infty$"
             ],
             "answer": 1,
+            "hint": "Two coordinate axes; longest chain is (generic of one axis) $\\subsetneq$ (origin): dim $1$.",
             "explain": "Two coordinate axes; longest chain is (generic of one axis) $\\subsetneq$ (origin): dim $1$."
           },
           {
@@ -6966,6 +7231,7 @@ window.MVQuizBank = {
             "q": "$\\dim\\mathbb{Z}[x]$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\dim A[x]=\\dim A+1$ for Noetherian $A$.",
             "explain": "$\\dim A[x]=\\dim A+1$ for Noetherian $A$. $\\dim\\mathbb{Z}=1$, so $\\dim\\mathbb{Z}[x]=2$. Chain: $(0)\\subsetneq(p)\\subsetneq(p,x)$."
           }
         ],
@@ -7011,6 +7277,7 @@ window.MVQuizBank = {
               "$\\infty$"
             ],
             "answer": 2,
+            "hint": "$\\{x,y\\}$ is algebraically independent over $k$, so $\\mathrm{tr.deg}=2$.",
             "explain": "$\\{x,y\\}$ is algebraically independent over $k$, so $\\mathrm{tr.deg}=2$. This is the same as the Krull dimension of $k[x,y]$."
           },
           {
@@ -7018,6 +7285,7 @@ window.MVQuizBank = {
             "q": "Let $B = k[x,y,z]/(z - xy)$. Compute $\\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The relation $z=xy$ makes $z$ algebraically dependent on $x,y$.",
             "explain": "The relation $z=xy$ makes $z$ algebraically dependent on $x,y$. $\\mathrm{Frac}(B)=k(x,y)$, with tr.deg $2$. (Matches $\\dim B = 2$.)"
           },
           {
@@ -7030,6 +7298,7 @@ window.MVQuizBank = {
               "Going-down theorem"
             ],
             "answer": 1,
+            "hint": "Noether normalization gives a finite map $B\\twoheadleftarrow k[y_1,\\dots,y_d]$ with $d=\\mathrm{tr.deg}$; going-up preserves dimension; $\\dim k[y_1,\\dots,y_d]=d$.",
             "explain": "Noether normalization gives a finite map $B\\twoheadleftarrow k[y_1,\\dots,y_d]$ with $d=\\mathrm{tr.deg}$; going-up preserves dimension; $\\dim k[y_1,\\dots,y_d]=d$."
           }
         ],
@@ -7081,6 +7350,7 @@ window.MVQuizBank = {
             "q": "Compute $|3 + 4i|$.",
             "answer": 5,
             "tol": 0.001,
+            "hint": "$|a+bi| = \\sqrt{a^2 + b^2} = \\sqrt{9+16} = 5$.",
             "explain": "$|a+bi| = \\sqrt{a^2 + b^2} = \\sqrt{9+16} = 5$."
           },
           {
@@ -7091,6 +7361,7 @@ window.MVQuizBank = {
               1
             ],
             "tol": 0.001,
+            "hint": "$(1+i)(2-i) = 2 - i + 2i - i^2 = 2 + i + 1 = 3 + i$.",
             "explain": "$(1+i)(2-i) = 2 - i + 2i - i^2 = 2 + i + 1 = 3 + i$."
           },
           {
@@ -7103,6 +7374,7 @@ window.MVQuizBank = {
               "$-3\\pi/4$"
             ],
             "answer": 3,
+            "hint": "$-1-i$ lies in the third quadrant.",
             "explain": "$-1-i$ lies in the third quadrant. Its modulus is $\\sqrt{2}$ and its angle from the positive real axis (measured in $(-\\pi,\\pi]$) is $-3\\pi/4$."
           },
           {
@@ -7162,6 +7434,7 @@ window.MVQuizBank = {
               "always infinitely many"
             ],
             "answer": 2,
+            "hint": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$.",
             "explain": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$. Always exactly two roots in $\\hat{\\mathbb{C}}$ counted with multiplicity."
           },
           {
@@ -7172,6 +7445,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.001,
+            "hint": "$T(0) = (0-1)/(0+1) = -1$.",
             "explain": "$T(0) = (0-1)/(0+1) = -1$."
           },
           {
@@ -7179,6 +7453,7 @@ window.MVQuizBank = {
             "q": "How many distinct points must you specify the image of in order to uniquely determine a Möbius transformation?",
             "answer": 3,
             "tol": 0.0001,
+            "hint": "Möbius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation.",
             "explain": "Möbius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation."
           }
         ],
@@ -7245,6 +7520,7 @@ window.MVQuizBank = {
               "identity (no rotation, no scaling)"
             ],
             "answer": 1,
+            "hint": "$f'(z) = 2z$ so $f'(1+i) = 2 + 2i$.",
             "explain": "$f'(z) = 2z$ so $f'(1+i) = 2 + 2i$. Then $|f'(z_0)| = 2\\sqrt{2}$ and $\\arg f'(z_0) = \\pi/4$."
           },
           {
@@ -7255,6 +7531,7 @@ window.MVQuizBank = {
               "no — angles get multiplied by the order of vanishing"
             ],
             "answer": 1,
+            "hint": "Where $f'(z_0)=0$, $f$ is not a similarity at first order; if $f$ vanishes to order $n$ at $z_0$, angles between curves through $z_0$ get multiplied by $n$.",
             "explain": "Where $f'(z_0)=0$, $f$ is not a similarity at first order; if $f$ vanishes to order $n$ at $z_0$, angles between curves through $z_0$ get multiplied by $n$."
           },
           {
@@ -7262,6 +7539,7 @@ window.MVQuizBank = {
             "q": "For $f(z) = z^3$ at $z_0 = i$, what is $|f'(z_0)|$?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "$f'(z) = 3z^2$, so $f'(i) = 3i^2 = -3$ and $|-3| = 3$.",
             "explain": "$f'(z) = 3z^2$, so $f'(i) = 3i^2 = -3$ and $|-3| = 3$."
           }
         ],
@@ -7300,6 +7578,7 @@ window.MVQuizBank = {
               "$f(z) = z^2 + 1$"
             ],
             "answer": 3,
+            "hint": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations.",
             "explain": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations. Polynomials in $z$ alone are entire."
           },
           {
@@ -7307,6 +7586,7 @@ window.MVQuizBank = {
             "q": "Let $u(x,y) = x^2 - y^2$. Find the unique harmonic conjugate $v$ with $v(0,0) = 0$ such that $f = u + iv$ is holomorphic, and compute $v(1, 2)$.",
             "answer": 4,
             "tol": 0.001,
+            "hint": "From $v_y = u_x = 2x$ we get $v = 2xy + g(x)$; then $-v_x = u_y = -2y$ forces $g'(x) = 0$, so $v = 2xy$.",
             "explain": "From $v_y = u_x = 2x$ we get $v = 2xy + g(x)$; then $-v_x = u_y = -2y$ forces $g'(x) = 0$, so $v = 2xy$. Thus $f = z^2$ and $v(1,2) = 4$."
           },
           {
@@ -7319,6 +7599,7 @@ window.MVQuizBank = {
               "$u_x + u_y = 0, \\quad v_x + v_y = 0$"
             ],
             "answer": 0,
+            "hint": "Equivalently: $\\partial_{\\bar z} f = 0$, where $\\partial_{\\bar z} = \\tfrac12(\\partial_x + i\\partial_y)$.",
             "explain": "Equivalently: $\\partial_{\\bar z} f = 0$, where $\\partial_{\\bar z} = \\tfrac12(\\partial_x + i\\partial_y)$."
           }
         ],
@@ -7359,6 +7640,7 @@ window.MVQuizBank = {
               -0.5
             ],
             "tol": 0.001,
+            "hint": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$.",
             "explain": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$."
           },
           {
@@ -7366,6 +7648,7 @@ window.MVQuizBank = {
             "q": "Compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$.",
             "answer": 0,
             "tol": 0.001,
+            "hint": "Both poles $\\pm i$ are inside the contour.",
             "explain": "Both poles $\\pm i$ are inside the contour. $\\operatorname{Res}(\\cdot;i) = -i/2$, $\\operatorname{Res}(\\cdot;-i) = i/2$, sum $0$. So the integral is $2\\pi i \\cdot 0 = 0$."
           },
           {
@@ -7373,6 +7656,7 @@ window.MVQuizBank = {
             "q": "For $f(z) = \\dfrac{1}{z^2(z-1)}$, compute $\\operatorname{Res}(f; 0)$.",
             "answer": -1,
             "tol": 0.001,
+            "hint": "Pole of order 2 at $0$.",
             "explain": "Pole of order 2 at $0$. $\\operatorname{Res}(f;0) = \\lim_{z\\to 0}\\frac{d}{dz}\\!\\left[z^2 f(z)\\right] = \\frac{d}{dz}\\!\\left[\\frac{1}{z-1}\\right]_{z=0} = -\\frac{1}{(0-1)^2} = -1$."
           }
         ],
@@ -7425,18 +7709,262 @@ window.MVQuizBank = {
   "complexity-theory": {
     "topic": "complexity-theory",
     "quizzes": {
-      "complexity-theory-intro": {
-        "title": "Intro",
+      "cx-time-complexity": {
+        "title": "Time complexity",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which statement about big-O notation is correct?",
             "choices": [
-              "A",
-              "B"
+              "$f(n)=O(g(n))$ means $f(n)\\le g(n)$ for all $n\\ge 0$.",
+              "$f(n)=O(g(n))$ means there exist $c>0$ and $n_0$ with $f(n)\\le c\\,g(n)$ for $n\\ge n_0$.",
+              "$f(n)=O(g(n))$ requires $\\lim_{n\\to\\infty} f(n)/g(n)$ to exist.",
+              "$f(n)=O(g(n))$ implies $g(n)=O(f(n))$."
+            ],
+            "answer": 1,
+            "hint": "Big-O hides multiplicative constants and lower-order behaviour: only an asymptotic upper bound, up to a constant factor, beyond some $n_0$.",
+            "explain": "Big-O hides multiplicative constants and lower-order behaviour: only an asymptotic upper bound, up to a constant factor, beyond some $n_0$. The other three are stronger (and false in general)."
+          },
+          {
+            "type": "mcq",
+            "q": "Sort the following growth rates from slowest to fastest (asymptotically).",
+            "choices": [
+              "$\\log n,\\;n,\\;n\\log n,\\;n^2,\\;2^n$",
+              "$n,\\;\\log n,\\;n\\log n,\\;n^2,\\;2^n$",
+              "$\\log n,\\;n^2,\\;n\\log n,\\;n,\\;2^n$",
+              "$\\log n,\\;n,\\;n^2,\\;n\\log n,\\;2^n$"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "hint": "$\\log n \\ll n \\ll n\\log n \\ll n^2 \\ll 2^n$ — each grows strictly faster than the previous.",
+            "explain": "$\\log n \\ll n \\ll n\\log n \\ll n^2 \\ll 2^n$ — each grows strictly faster than the previous. The exponential gap from polynomial to $2^n$ is the divide between $\\mathsf{P}$ and the exponential-time problems."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose an algorithm runs in time $T(n)=3n^2+50n+100$. What is the smallest non-negative integer $k$ such that $T(n)=O(n^k)$?",
+            "answer": 2,
+            "tol": 0,
+            "hint": "The dominant term is $3n^2$, so $T(n)=O(n^2)$.",
+            "explain": "The dominant term is $3n^2$, so $T(n)=O(n^2)$. We cannot do $k=1$ because $n^2$ outpaces any constant times $n$. Big-O ignores the coefficient $3$ and the lower-order $50n+100$."
+          }
+        ]
+      },
+      "cx-p-and-np": {
+        "title": "P and NP",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The verifier definition of NP says $L\\in\\mathsf{NP}$ iff:",
+            "choices": [
+              "There is a polynomial-time algorithm that decides $L$.",
+              "There is a polynomial-time $V(x,w)$ and a polynomial $p$ with $x\\in L\\iff\\exists w,|w|\\le p(|x|),V(x,w)=1$.",
+              "$L$ is decidable by some Turing machine.",
+              "$L$ is in $\\mathrm{DTIME}(2^{n})$."
+            ],
+            "answer": 1,
+            "hint": "NP = problems with a short, polynomially-checkable certificate.",
+            "explain": "NP = problems with a short, polynomially-checkable certificate. The witness $w$ for SAT is a satisfying assignment; for HAM-CYC a Hamiltonian cycle; for CLIQUE a clique. The other options describe $\\mathsf{P}$, computability, and a much weaker time bound."
+          },
+          {
+            "type": "mcq",
+            "q": "Which inclusion is currently <em>known</em> (not just conjectured)?",
+            "choices": [
+              "$\\mathsf{P}\\subsetneq\\mathsf{NP}$",
+              "$\\mathsf{NP}\\subsetneq\\mathsf{PSPACE}$",
+              "$\\mathsf{P}\\subseteq\\mathsf{NP}$",
+              "$\\mathsf{NP}=\\mathsf{coNP}$"
+            ],
+            "answer": 2,
+            "hint": "$\\mathsf{P}\\subseteq\\mathsf{NP}$ is trivial: a deterministic decider becomes a verifier that ignores the witness.",
+            "explain": "$\\mathsf{P}\\subseteq\\mathsf{NP}$ is trivial: a deterministic decider becomes a verifier that ignores the witness. The strict separation $\\mathsf{P}\\subsetneq\\mathsf{NP}$, $\\mathsf{NP}\\subsetneq\\mathsf{PSPACE}$, and $\\mathsf{NP}=\\mathsf{coNP}$ are all open."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\mathsf{P}=\\mathsf{NP}$, which is a true consequence?",
+            "choices": [
+              "Every NP-complete problem is solvable in polynomial time.",
+              "The halting problem becomes decidable.",
+              "$\\mathsf{PSPACE}=\\mathsf{P}$.",
+              "Every undecidable problem becomes decidable."
+            ],
+            "answer": 0,
+            "hint": "NP-complete problems are exactly the hardest in $\\mathsf{NP}$ under Karp reductions.",
+            "explain": "NP-complete problems are exactly the hardest in $\\mathsf{NP}$ under Karp reductions. If $\\mathsf{P}=\\mathsf{NP}$ then every problem in $\\mathsf{NP}$ — including SAT, CLIQUE, HAM-CYC — is in $\\mathsf{P}$. Halting and other undecidable problems lie outside $\\mathsf{NP}$ entirely; PSPACE collapse is a separate (still-open) question."
+          }
+        ]
+      },
+      "cx-np-completeness": {
+        "title": "NP-completeness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the Cook–Levin theorem assert?",
+            "choices": [
+              "SAT is in $\\mathsf{P}$.",
+              "SAT is NP-complete.",
+              "Every problem in $\\mathsf{NP}$ has a polynomial-time algorithm.",
+              "SAT is undecidable."
+            ],
+            "answer": 1,
+            "hint": "Cook (1971) and independently Levin (1973) showed that the boolean satisfiability problem is NP-complete: in $\\mathsf{NP}$, and every $\\mathsf{NP}$ problem reduces to it in polynomial time.",
+            "explain": "Cook (1971) and independently Levin (1973) showed that the boolean satisfiability problem is NP-complete: in $\\mathsf{NP}$, and every $\\mathsf{NP}$ problem reduces to it in polynomial time. The proof encodes the run of a polynomial-time NP machine as a boolean formula."
+          },
+          {
+            "type": "mcq",
+            "q": "$L$ is <strong>NP-hard</strong> means:",
+            "choices": [
+              "$L\\in\\mathsf{NP}$.",
+              "Every $A\\in\\mathsf{NP}$ has a polynomial-time many-one reduction $A\\le_p L$.",
+              "$L$ is undecidable.",
+              "$L$ is decidable in polynomial space."
+            ],
+            "answer": 1,
+            "hint": "NP-hard captures \"at least as hard as everything in $\\mathsf{NP}$\".",
+            "explain": "NP-hard captures \"at least as hard as everything in $\\mathsf{NP}$\". An NP-hard problem need not be in $\\mathsf{NP}$ (TQBF is PSPACE-complete and so NP-hard but probably not in $\\mathsf{NP}$). NP-complete = NP-hard $\\cap$ $\\mathsf{NP}$."
+          },
+          {
+            "type": "mcq",
+            "q": "If a polynomial-time algorithm for SAT were found, what would follow?",
+            "choices": [
+              "$\\mathsf{P}=\\mathsf{NP}$.",
+              "$\\mathsf{NP}=\\mathsf{PSPACE}$.",
+              "Halting becomes decidable.",
+              "Nothing — SAT is not connected to other NP problems."
+            ],
+            "answer": 0,
+            "hint": "SAT is NP-complete, so a polynomial-time decider for SAT, composed with the Karp reduction $A\\le_p\\mathrm{SAT}$ for any $A\\in\\mathsf{NP}$, yields a polynomial-time decider for $A$.",
+            "explain": "SAT is NP-complete, so a polynomial-time decider for SAT, composed with the Karp reduction $A\\le_p\\mathrm{SAT}$ for any $A\\in\\mathsf{NP}$, yields a polynomial-time decider for $A$. Hence $\\mathsf{NP}\\subseteq\\mathsf{P}$, and combined with $\\mathsf{P}\\subseteq\\mathsf{NP}$ we get equality."
+          }
+        ]
+      },
+      "cx-reductions": {
+        "title": "Karp reductions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$A\\le_p B$ means:",
+            "choices": [
+              "$A\\subseteq B$.",
+              "There is a polynomial-time computable $f$ with $x\\in A\\iff f(x)\\in B$.",
+              "$|A|\\le|B|$.",
+              "$A$ and $B$ have the same time complexity."
+            ],
+            "answer": 1,
+            "hint": "A Karp (polynomial-time many-one) reduction is a polynomial-time function $f$ that maps yes-instances of $A$ to yes-instances of $B$ and no-instances to no-instances.",
+            "explain": "A Karp (polynomial-time many-one) reduction is a polynomial-time function $f$ that maps yes-instances of $A$ to yes-instances of $B$ and no-instances to no-instances. Hardness then transfers: a polynomial-time decider for $B$ gives one for $A$ via $f$."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose 3-SAT $\\le_p$ CLIQUE and CLIQUE $\\le_p$ INDEPENDENT-SET. What can you conclude?",
+            "choices": [
+              "INDEPENDENT-SET is in $\\mathsf{P}$.",
+              "3-SAT $\\le_p$ INDEPENDENT-SET.",
+              "INDEPENDENT-SET is undecidable.",
+              "CLIQUE is easier than 3-SAT."
+            ],
+            "answer": 1,
+            "hint": "$\\le_p$ is transitive: composing two polynomial-time reductions stays polynomial.",
+            "explain": "$\\le_p$ is transitive: composing two polynomial-time reductions stays polynomial. So 3-SAT reduces to INDEPENDENT-SET via the composition. Since 3-SAT is NP-hard, so is INDEPENDENT-SET — but we cannot conclude $\\mathsf{P}$-membership or undecidability from these reductions alone."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT one of Karp's original 21 NP-complete problems (or a standard immediate corollary)?",
+            "choices": [
+              "VERTEX-COVER",
+              "SUBSET-SUM",
+              "HAMILTONIAN-CYCLE",
+              "PRIMALITY"
+            ],
+            "answer": 3,
+            "hint": "PRIMALITY (\"is $n$ prime?\") is in $\\mathsf{P}$ by AKS (2002), and was suspected to be in $\\mathsf{P}$ long before.",
+            "explain": "PRIMALITY (\"is $n$ prime?\") is in $\\mathsf{P}$ by AKS (2002), and was suspected to be in $\\mathsf{P}$ long before. The other three are classical NP-complete problems on Karp's 1972 list."
+          }
+        ]
+      },
+      "cx-space-complexity": {
+        "title": "Space and PSPACE",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Savitch's theorem says:",
+            "choices": [
+              "$\\mathrm{NSPACE}(f)\\subseteq\\mathrm{DSPACE}(f^2)$ for $f\\ge\\log n$.",
+              "$\\mathrm{NTIME}(f)\\subseteq\\mathrm{DTIME}(f^2)$.",
+              "$\\mathsf{NP}=\\mathsf{P}$.",
+              "Every nondeterministic TM has a deterministic equivalent in linear space."
+            ],
+            "answer": 0,
+            "hint": "Savitch (1970) shows nondeterminism only costs a square in space: simulate by recursive mid-point search through the configuration graph (depth $\\log\\,$\\#configs $= O(f)$, each level uses $O(f)$…",
+            "explain": "Savitch (1970) shows nondeterminism only costs a square in space: simulate by recursive mid-point search through the configuration graph (depth $\\log\\,$\\#configs $= O(f)$, each level uses $O(f)$ space). The corollary $\\mathsf{PSPACE}=\\mathsf{NPSPACE}$ is the space analogue of the open $\\mathsf{P}$ vs $\\mathsf{NP}$ question."
+          },
+          {
+            "type": "mcq",
+            "q": "Which inclusion chain is currently known to hold?",
+            "choices": [
+              "$\\mathsf{L}\\subseteq\\mathsf{NL}\\subseteq\\mathsf{P}\\subseteq\\mathsf{NP}\\subseteq\\mathsf{PSPACE}\\subseteq\\mathsf{EXP}$.",
+              "$\\mathsf{P}\\subseteq\\mathsf{L}\\subseteq\\mathsf{NL}\\subseteq\\mathsf{NP}$.",
+              "$\\mathsf{PSPACE}\\subseteq\\mathsf{NP}$.",
+              "$\\mathsf{NP}\\subseteq\\mathsf{P}$."
+            ],
+            "answer": 0,
+            "hint": "All these inclusions are proved (the first by simulation: a $f(n)$-space machine has at most $2^{O(f(n))}$ configurations, hence runs in exponential time; conversely a $T(n)$-time machine uses at…",
+            "explain": "All these inclusions are proved (the first by simulation: a $f(n)$-space machine has at most $2^{O(f(n))}$ configurations, hence runs in exponential time; conversely a $T(n)$-time machine uses at most $T(n)$ space). Whether any of them are strict is open except for $\\mathsf{L}\\subsetneq\\mathsf{PSPACE}$ and $\\mathsf{P}\\subsetneq\\mathsf{EXP}$ (hierarchy theorems)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which problem is PSPACE-complete?",
+            "choices": [
+              "SAT (boolean satisfiability).",
+              "TQBF (truth of fully quantified boolean formulas).",
+              "PRIMALITY.",
+              "Reachability in a directed graph."
+            ],
+            "answer": 1,
+            "hint": "TQBF — given $\\forall x_1\\exists x_2\\cdots\\,\\varphi$, is it true?",
+            "explain": "TQBF — given $\\forall x_1\\exists x_2\\cdots\\,\\varphi$, is it true? — is the canonical PSPACE-complete problem; the alternation matches polynomial-space alternating computation. SAT is NP-complete, PRIMALITY is in $\\mathsf{P}$, and graph reachability is NL-complete."
+          }
+        ]
+      },
+      "cx-hierarchy-theorems": {
+        "title": "Hierarchy theorems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The time hierarchy theorem implies which strict inclusion?",
+            "choices": [
+              "$\\mathsf{P}\\subsetneq\\mathsf{NP}$.",
+              "$\\mathsf{P}\\subsetneq\\mathsf{EXP}$.",
+              "$\\mathsf{NP}\\subsetneq\\mathsf{PSPACE}$.",
+              "$\\mathsf{L}\\subsetneq\\mathsf{NL}$."
+            ],
+            "answer": 1,
+            "hint": "Hartmanis–Stearns gives $\\mathrm{DTIME}(n^k)\\subsetneq\\mathrm{DTIME}(2^n)$ since $n^k\\log n^k=o(2^n)$.",
+            "explain": "Hartmanis–Stearns gives $\\mathrm{DTIME}(n^k)\\subsetneq\\mathrm{DTIME}(2^n)$ since $n^k\\log n^k=o(2^n)$. Taking the union over $k$: $\\mathsf{P}=\\bigcup_k\\mathrm{DTIME}(n^k)\\subsetneq\\mathrm{DTIME}(2^n)\\subseteq\\mathsf{EXP}$. The other separations remain open."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the role of \"time-constructibility\" in the time hierarchy theorem?",
+            "choices": [
+              "It guarantees the time bound is computable.",
+              "It lets the diagonalising machine count its own steps within the budget.",
+              "It is purely a technical convenience — any function works.",
+              "It ensures the function is polynomial."
+            ],
+            "answer": 1,
+            "hint": "$g$ is time-constructible if there is a TM that, given $1^n$, computes $g(n)$ in time $O(g(n))$.",
+            "explain": "$g$ is time-constructible if there is a TM that, given $1^n$, computes $g(n)$ in time $O(g(n))$. The diagonal machine simulates the $i$-th machine but must <em>stop itself</em> after $g(n)$ steps to stay in $\\mathrm{DTIME}(g)$ — and that requires running its own clock alongside the simulation."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the space hierarchy theorem cleaner than the time one (no $\\log$ factor)?",
+            "choices": [
+              "Space is bounded by time, so the $\\log$ is absorbed.",
+              "Universal simulation incurs constant space overhead, not logarithmic.",
+              "Space-constructible functions are smaller.",
+              "Space is always polynomial."
+            ],
+            "answer": 1,
+            "hint": "A universal TM simulating another in space $f$ uses $O(f)$ tape cells (encode the simulated tape on the universal one with constant overhead).",
+            "explain": "A universal TM simulating another in space $f$ uses $O(f)$ tape cells (encode the simulated tape on the universal one with constant overhead). Time simulation, by contrast, costs an extra $\\log f$ factor for tape-management bookkeeping — that is the $f\\log f=o(g)$ in the time theorem."
           }
         ]
       }
@@ -7458,6 +7986,7 @@ window.MVQuizBank = {
               "(start state, accept state, reject state)"
             ],
             "answer": 1,
+            "hint": "A snapshot of a running TM is exactly (current state, full tape contents, head index).",
             "explain": "A snapshot of a running TM is exactly (current state, full tape contents, head index). The transition function and the alphabets are part of the machine's static description, not its runtime configuration."
           },
           {
@@ -7470,6 +7999,7 @@ window.MVQuizBank = {
               "They are restricted to deterministic transitions."
             ],
             "answer": 1,
+            "hint": "Encode $k$ tapes as $k$ tracks of one tape, plus marker symbols for each head.",
             "explain": "Encode $k$ tapes as $k$ tracks of one tape, plus marker symbols for each head. One step of the multitape machine becomes a sweep across the simulated tape — quadratic overhead, but still computable."
           },
           {
@@ -7477,6 +8007,7 @@ window.MVQuizBank = {
             "q": "A binary-alphabet TM has $|Q|=4$ states (including accept and reject) and tape alphabet $\\{0,1,\\sqcup\\}$. How many distinct $(q,a)$ input pairs does its transition function $\\delta$ need to specify?",
             "answer": 12,
             "tol": 0,
+            "hint": "$|Q|\\times|\\Gamma| = 4\\times 3 = 12$.",
             "explain": "$|Q|\\times|\\Gamma| = 4\\times 3 = 12$. Each pair $(q,a)$ gets one row in the transition table."
           }
         ]
@@ -7494,6 +8025,7 @@ window.MVQuizBank = {
               "Projection"
             ],
             "answer": 2,
+            "hint": "Composition, primitive recursion, and the basic functions yield the primitive-recursive class — every member is total.",
             "explain": "Composition, primitive recursion, and the basic functions yield the primitive-recursive class — every member is total. Adding the $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$, possibly undefined) produces partiality and matches Turing-computability."
           },
           {
@@ -7506,6 +8038,7 @@ window.MVQuizBank = {
               "Ackermann's function is not Turing-computable."
             ],
             "answer": 0,
+            "hint": "Ackermann diagonalises against any fixed level of nested recursion, so its growth rate dominates every primitive-recursive function.",
             "explain": "Ackermann diagonalises against any fixed level of nested recursion, so its growth rate dominates every primitive-recursive function. It is still computable — by a Turing machine, or equivalently a $\\mu$-recursive scheme — confirming the proper inclusion PR ⊊ partial-recursive."
           },
           {
@@ -7513,6 +8046,7 @@ window.MVQuizBank = {
             "q": "Define $f$ by primitive recursion: $f(0)=2$, $f(n+1)=f(n)+3$. Compute $f(4)$.",
             "answer": 14,
             "tol": 0,
+            "hint": "$f$ is the arithmetic progression $2,5,8,11,14,\\ldots$, so $f(4)=2+4\\cdot 3=14$.",
             "explain": "$f$ is the arithmetic progression $2,5,8,11,14,\\ldots$, so $f(4)=2+4\\cdot 3=14$. Primitive recursion is exactly this kind of step-by-step build-up from a base case."
           }
         ]
@@ -7530,6 +8064,7 @@ window.MVQuizBank = {
               "Counts the states of $M$ and halts iff that count is even."
             ],
             "answer": 1,
+            "hint": "If $h(\\langle M,\\langle M\\rangle\\rangle)=$ \"halts\", $D$ enters an infinite loop; otherwise $D$ halts.",
             "explain": "If $h(\\langle M,\\langle M\\rangle\\rangle)=$ \"halts\", $D$ enters an infinite loop; otherwise $D$ halts. Running $D$ on its own code yields the contradiction \"$D$ halts iff $D$ doesn't halt\"."
           },
           {
@@ -7542,6 +8077,7 @@ window.MVQuizBank = {
               "It ensures every TM halts on a countable input."
             ],
             "answer": 1,
+            "hint": "Each TM has a finite description, so the set of TMs is countable.",
             "explain": "Each TM has a finite description, so the set of TMs is countable. Cantor's diagonal construction of $D$ depends on enumerating the candidates and disagreeing with each at one diagonal coordinate."
           },
           {
@@ -7554,6 +8090,7 @@ window.MVQuizBank = {
               "Deciding whether the input length of a TM is even."
             ],
             "answer": 2,
+            "hint": "TM-equivalence is undecidable — Rice's theorem and a direct halting reduction both show it.",
             "explain": "TM-equivalence is undecidable — Rice's theorem and a direct halting reduction both show it. The other three options are decidable: state count is computable, DFA emptiness is graph reachability, parity of input length is trivial."
           }
         ]
@@ -7571,6 +8108,7 @@ window.MVQuizBank = {
               "$A$ is the language of some non-deterministic TM."
             ],
             "answer": 1,
+            "hint": "If $A$ and $\\mathbb{N}\\setminus A$ both have semi-deciders, run them in parallel — exactly one halts on each input, giving a decider for $A$.",
             "explain": "If $A$ and $\\mathbb{N}\\setminus A$ both have semi-deciders, run them in parallel — exactly one halts on each input, giving a decider for $A$. Conversely a decider trivially yields semi-deciders for both."
           },
           {
@@ -7583,6 +8121,7 @@ window.MVQuizBank = {
               "Co-r.e. but not r.e."
             ],
             "answer": 1,
+            "hint": "Simulating $M$ on $w$ is a semi-decider for $H$ (halt iff $M$ halts), so $H$ is r.e.",
             "explain": "Simulating $M$ on $w$ is a semi-decider for $H$ (halt iff $M$ halts), so $H$ is r.e. The diagonal proof rules out a decider, so $H$ is not recursive. Its complement is not r.e. — that's a separate diagonal."
           },
           {
@@ -7595,6 +8134,7 @@ window.MVQuizBank = {
               "The set of even natural numbers."
             ],
             "answer": 2,
+            "hint": "Dovetail $M$ on $0,1,2,\\ldots$; if any branch accepts, halt.",
             "explain": "Dovetail $M$ on $0,1,2,\\ldots$; if any branch accepts, halt. That's a semi-decider. By Rice's theorem the property is undecidable, so it is r.e. but not recursive. The other three are recursive (decided by inspecting the description or input directly)."
           }
         ]
@@ -7612,6 +8152,7 @@ window.MVQuizBank = {
               "Every TM for $B$ also decides $A$."
             ],
             "answer": 1,
+            "hint": "Many-one reduction wraps each instance of $A$ as an instance of $B$ via a total computable map $f$.",
             "explain": "Many-one reduction wraps each instance of $A$ as an instance of $B$ via a total computable map $f$. A decider for $B$ then composes with $f$ to decide $A$ — so undecidability of $A$ propagates upward to $B$."
           },
           {
@@ -7624,6 +8165,7 @@ window.MVQuizBank = {
               "No TM can simulate another."
             ],
             "answer": 1,
+            "hint": "Rice rules out semantic decidability — anything that depends only on $L(M)$, that is non-trivial (some TM has it, some doesn't), is undecidable.",
             "explain": "Rice rules out semantic decidability — anything that depends only on $L(M)$, that is non-trivial (some TM has it, some doesn't), is undecidable. Syntactic properties of the description (\"has 7 states\") are unaffected."
           },
           {
@@ -7636,6 +8178,7 @@ window.MVQuizBank = {
               "$B$ is r.e. but not recursive."
             ],
             "answer": 1,
+            "hint": "Reductions transfer hardness upward.",
             "explain": "Reductions transfer hardness upward. If $B$ were decidable, composition with the reduction would decide halting — a contradiction. We can't conclude anything sharper without more information about $B$."
           }
         ]
@@ -7653,6 +8196,7 @@ window.MVQuizBank = {
               "Every TM has a Gödel number, so every theorem is provable."
             ],
             "answer": 1,
+            "hint": "\"$M$ halts on $w$\" is $\\Sigma_1$, so a complete sound recursive $T$ would let us search for proofs of either it or its negation, deciding halting.",
             "explain": "\"$M$ halts on $w$\" is $\\Sigma_1$, so a complete sound recursive $T$ would let us search for proofs of either it or its negation, deciding halting. Halting is undecidable, hence $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable."
           },
           {
@@ -7665,6 +8209,7 @@ window.MVQuizBank = {
               "It eliminates the need for Gödel numbering."
             ],
             "answer": 0,
+            "hint": "Gödel's original proof needed $\\omega$-consistency; Rosser's modified self-referential sentence (\"for every proof of me there is a shorter refutation\") only needs $T$ to be consistent.",
             "explain": "Gödel's original proof needed $\\omega$-consistency; Rosser's modified self-referential sentence (\"for every proof of me there is a shorter refutation\") only needs $T$ to be consistent."
           },
           {
@@ -7677,6 +8222,7 @@ window.MVQuizBank = {
               "Halting is provable in PA."
             ],
             "answer": 1,
+            "hint": "Formalise the first-theorem proof inside $T$: from $\\mathrm{Con}(T)$, $T$ derives the unprovability of its Gödel sentence $G$, hence $G$ itself — contradicting $T\\not\\vdash G$.",
             "explain": "Formalise the first-theorem proof inside $T$: from $\\mathrm{Con}(T)$, $T$ derives the unprovability of its Gödel sentence $G$, hence $G$ itself — contradicting $T\\not\\vdash G$. So $T\\not\\vdash\\mathrm{Con}(T)$."
           }
         ]
@@ -7703,6 +8249,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "A first-order deformation must (i) be flat over $D$, (ii) restrict to $X_0$ modulo $\\epsilon$.",
             "explain": "A first-order deformation must (i) be flat over $D$, (ii) restrict to $X_0$ modulo $\\epsilon$. Choices 0 and 1 both restrict to $xy = 0$ and are flat (the second is the smoothing direction). Choice 2 collapses to the trivial deformation since $\\epsilon^2 = 0$. Choice 3 restricts to $x^2 = 0$, not $xy = 0$, so its special fibre is wrong."
           },
           {
@@ -7715,6 +8262,7 @@ window.MVQuizBank = {
               "$\\mathbb{A}^1_k$ (the affine line over $k$)"
             ],
             "answer": 0,
+            "hint": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point.",
             "explain": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
           },
           {
@@ -7727,6 +8275,7 @@ window.MVQuizBank = {
               "There is any $k$-isomorphism $X \\to X'$"
             ],
             "answer": 0,
+            "hint": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes.",
             "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\mathrm{Spec}$ of a 4-dimensional $k$-vector space)."
           }
         ]
@@ -7760,6 +8309,7 @@ window.MVQuizBank = {
               "$g = 1$ — but the formula $3g - 3 = 0$, contradicting itself"
             ],
             "answer": 1,
+            "hint": "$T_E$ is trivial on an elliptic curve (the tangent bundle of an abelian variety is trivial), so $H^1(E, T_E) = H^1(E, \\mathcal{O}_E) \\cong k$.",
             "explain": "$T_E$ is trivial on an elliptic curve (the tangent bundle of an abelian variety is trivial), so $H^1(E, T_E) = H^1(E, \\mathcal{O}_E) \\cong k$. The formula $3g - 3$ specifically applies for $g \\ge 2$; the genus-$1$ case is $1$, giving the moduli space of elliptic curves a 1-parameter $j$-line."
           }
         ],
@@ -7800,6 +8350,7 @@ window.MVQuizBank = {
               "When $H^i(X_0, T_{X_0}) = 0$ for all $i$"
             ],
             "answer": 2,
+            "hint": "Unobstructedness is precisely the statement that every obstruction class — which lives in $H^2(X_0, T_{X_0})$ — is forced to vanish.",
             "explain": "Unobstructedness is precisely the statement that every obstruction class — which lives in $H^2(X_0, T_{X_0})$ — is forced to vanish. So $H^2 = 0$ is sufficient (and the cleanest sufficient condition). Vanishing of $H^1$ would mean no deformations at all (rigid), and $H^0$ controls infinitesimal automorphisms, not obstructions."
           },
           {
@@ -7815,6 +8366,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "$\\mathbb{P}^n$ has $H^1(T) = 0$ via the Euler sequence.",
             "explain": "$\\mathbb{P}^n$ has $H^1(T) = 0$ via the Euler sequence. The smooth quadric $\\mathbb{P}^1 \\times \\mathbb{P}^1$ also has $H^1(T) = 0$ (both factors are rigid and the product preserves this). Elliptic curves have $\\dim H^1(T_E) = 1$ (the $j$-line). A genus-$4$ curve has $\\dim H^1(T_C) = 3(4) - 3 = 9$, very much non-rigid."
           },
           {
@@ -7827,6 +8379,7 @@ window.MVQuizBank = {
               "$X_1$ has more than one second-order extension"
             ],
             "answer": 1,
+            "hint": "Obstruction is exactly the (provably zero or non-zero) class $\\mathrm{ob}_1(X_1) \\in H^2(X_0, T_{X_0})$ which controls whether a 2nd-order lift extending $X_1$ exists.",
             "explain": "Obstruction is exactly the (provably zero or non-zero) class $\\mathrm{ob}_1(X_1) \\in H^2(X_0, T_{X_0})$ which controls whether a 2nd-order lift extending $X_1$ exists. Non-zero obstruction = no extension; this is what 'obstructed deformation' means."
           }
         ],
@@ -7876,6 +8429,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "(H1) is the surjectivity condition; (H2) the bijectivity in the special-extension case; the finite-dimensional-tangent condition in choice 3 is (H3).",
             "explain": "(H1) is the surjectivity condition; (H2) the bijectivity in the special-extension case; the finite-dimensional-tangent condition in choice 3 is (H3). Choice 2 is wrong: $F$ does not need to take values in finite sets — only the tangent-space condition is required."
           },
           {
@@ -7888,6 +8442,7 @@ window.MVQuizBank = {
               "Iff $H^2(X_0, T_{X_0}) = 0$"
             ],
             "answer": 1,
+            "hint": "Schlessinger's theorem: $\\mathrm{Def}_{X_0}$ has a hull iff (H1)–(H3) hold; it is pro-representable iff (H1)–(H4) all hold.",
             "explain": "Schlessinger's theorem: $\\mathrm{Def}_{X_0}$ has a hull iff (H1)–(H3) hold; it is pro-representable iff (H1)–(H4) all hold. (H4) is the bijectivity strengthening of (H1)."
           },
           {
@@ -7900,6 +8455,7 @@ window.MVQuizBank = {
               "The étale fundamental group $\\pi_1(X_0)$"
             ],
             "answer": 1,
+            "hint": "By definition, $\\mathrm{Def}_{X_0}(D)$ is the set of equivalence classes of flat $D$-deformations.",
             "explain": "By definition, $\\mathrm{Def}_{X_0}(D)$ is the set of equivalence classes of flat $D$-deformations. This <em>is</em> the tangent space to the (pro-)moduli problem at $X_0$, and equals $H^1(X_0, T_{X_0})$ when $X_0$ is smooth."
           }
         ]
@@ -7917,6 +8473,7 @@ window.MVQuizBank = {
               "Always zero"
             ],
             "answer": 0,
+            "hint": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so…",
             "explain": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so $L_{X/Y} = \\Omega^1_{X/Y}[0]$ — no higher derived corrections needed."
           },
           {
@@ -7929,6 +8486,7 @@ window.MVQuizBank = {
               "Global sections of $\\Omega^1_{X/Y}$"
             ],
             "answer": 1,
+            "hint": "The fundamental Illusie identification: $\\mathrm{Ext}^1(L_{X/Y}, \\mathcal{O}_X)$ is the tangent space of $\\mathrm{Def}_{X/Y}$, and $\\mathrm{Ext}^2(L_{X/Y}, \\mathcal{O}_X)$ holds the obstructions.",
             "explain": "The fundamental Illusie identification: $\\mathrm{Ext}^1(L_{X/Y}, \\mathcal{O}_X)$ is the tangent space of $\\mathrm{Def}_{X/Y}$, and $\\mathrm{Ext}^2(L_{X/Y}, \\mathcal{O}_X)$ holds the obstructions. For $X/Y$ smooth this recovers $H^1(T_{X/Y})$ and $H^2(T_{X/Y})$."
           },
           {
@@ -7941,6 +8499,7 @@ window.MVQuizBank = {
               "Degrees $0, -1, \\ldots, -r$"
             ],
             "answer": 1,
+            "hint": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$…",
             "explain": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$ (the conormal sheaf). For higher singularities one gets cohomology in deeper negative degrees."
           }
         ],
@@ -7981,6 +8540,7 @@ window.MVQuizBank = {
             "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for a smooth projective curve $C$ of genus $g = 2$.",
             "answer": 3,
             "tol": 1e-9,
+            "hint": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 3$ for $g = 2$.",
             "explain": "$\\dim T_{[C]} \\mathcal{M}_g = \\dim H^1(C, T_C) = 3g - 3 = 3$ for $g = 2$. So $\\mathcal{M}_2$ is a smooth $3$-dimensional variety."
           },
           {
@@ -7988,6 +8548,7 @@ window.MVQuizBank = {
             "q": "Compute $\\dim T_{[C]} \\mathcal{M}_g$ for $g = 3$.",
             "answer": 6,
             "tol": 1e-9,
+            "hint": "$3g - 3 = 6$ for $g = 3$.",
             "explain": "$3g - 3 = 6$ for $g = 3$. $\\mathcal{M}_3$ is smooth of dimension $6$; its open dense locus is parametrised by smooth plane quartics (the canonical embedding of a non-hyperelliptic genus-$3$ curve)."
           },
           {
@@ -8000,6 +8561,7 @@ window.MVQuizBank = {
               "Curves embed in projective space"
             ],
             "answer": 1,
+            "hint": "Grothendieck's vanishing theorem: on a Noetherian space of dimension $n$, $H^i(\\mathcal{F}) = 0$ for $i > n$.",
             "explain": "Grothendieck's vanishing theorem: on a Noetherian space of dimension $n$, $H^i(\\mathcal{F}) = 0$ for $i > n$. Hence $H^2(C, T_C) = 0$ on any curve, and the obstruction-class space is $0$. This is the structural reason $\\mathcal{M}_g$ is smooth — not a coincidence of Riemann–Roch."
           }
         ]
@@ -8038,6 +8600,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "Chain-homotopic maps induce equal maps on cohomology (so (1) holds) and become equal in $K(\\mathcal{A})$ by definition (so (3) holds).",
             "explain": "Chain-homotopic maps induce equal maps on cohomology (so (1) holds) and become equal in $K(\\mathcal{A})$ by definition (so (3) holds). They generally differ as set maps (a chain homotopy is a witness, not a triviality), and there is no reason for them to differ by an iso of $X$."
           },
           {
@@ -8087,6 +8650,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "First descend to $K$ (item index 2), then check Ore conditions there (index 0), then build $D$ via the roof calculus (index 1), then state the universal property (index 3).",
             "explain": "First descend to $K$ (item index 2), then check Ore conditions there (index 0), then build $D$ via the roof calculus (index 1), then state the universal property (index 3)."
           },
           {
@@ -8145,6 +8709,7 @@ window.MVQuizBank = {
               "$0$ unless $i = 0$"
             ],
             "answer": 2,
+            "hint": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$.",
             "explain": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$. Tor would appear via $\\otimes^L$, not Hom. For $i = 0$ this gives ordinary Hom; for $i > 0$ we get the higher Ext groups."
           },
           {
@@ -8157,6 +8722,7 @@ window.MVQuizBank = {
               "Complexes whose total cohomology $\\bigoplus H^i$ is finite-dimensional."
             ],
             "answer": 1,
+            "hint": "$D^b = D^+ \\cap D^-$, complexes bounded in both directions.",
             "explain": "$D^b = D^+ \\cap D^-$, complexes bounded in both directions. Note: \"bounded\" can be interpreted strictly (the complex itself has $X^n = 0$ outside a range) or weakly via cohomology — for nice $\\mathcal{A}$ the two agree up to quasi-iso."
           },
           {
@@ -8180,6 +8746,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "$RF$ requires injective resolutions, which exist for bounded-below complexes ($D^+$).",
             "explain": "$RF$ requires injective resolutions, which exist for bounded-below complexes ($D^+$). $LF$ dually wants projective resolutions, hence $D^-$. Bounded cohomology is the data of $D^b$. The heart of the standard $t$-structure is $\\mathcal{A}$ shifted to degree $0$."
           }
         ],
@@ -8212,6 +8779,7 @@ window.MVQuizBank = {
               "$\\mathrm{Cone}(f)^n = Y^n / f(X^n)$, the quotient"
             ],
             "answer": 1,
+            "hint": "The cone shifts $X$ up by one and adjoins $Y$ in the same degree, with a twisted differential mixing $d_X, d_Y$, and $f$.",
             "explain": "The cone shifts $X$ up by one and adjoins $Y$ in the same degree, with a twisted differential mixing $d_X, d_Y$, and $f$. The minus sign on $d_X$ is forced by $d^2 = 0$ together with the chain-map condition."
           },
           {
@@ -8342,6 +8910,7 @@ window.MVQuizBank = {
               "The trivial category $0$"
             ],
             "answer": 1,
+            "hint": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$…",
             "explain": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$ shifted to degree $0$. So $\\heartsuit \\simeq \\mathcal{A}$."
           },
           {
@@ -8354,6 +8923,7 @@ window.MVQuizBank = {
               "Distinguished only when $\\mathcal{A}$ has finite cohomological dimension."
             ],
             "answer": 1,
+            "hint": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle.",
             "explain": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle. Splitting is the special case when $\\mathrm{Hom}(\\tau_{\\ge 1} X, \\tau_{\\le 0} X[1]) = 0$, which is RARE — the connecting map carries the gluing data."
           },
           {
@@ -8370,6 +8940,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "(a), (b) are theorems.",
             "explain": "(a), (b) are theorems. (d) is the whole point of perverse $t$-structures: $D^b_c(X)$ has both standard and perverse $t$-structures, with hearts $\\mathrm{Sh}_c(X)$ vs perverse sheaves — different abelian categories! (c) is FALSE — $t$-structures are extra data, not unique."
           }
         ]
@@ -8400,6 +8971,7 @@ window.MVQuizBank = {
               "$\\mathcal{E} \\otimes \\mathcal{P}$ (no projections)"
             ],
             "answer": 0,
+            "hint": "The standard formula: pull back to the product, twist by the kernel, derived push forward.",
             "explain": "The standard formula: pull back to the product, twist by the kernel, derived push forward. Its analogy with the classical Fourier transform $\\hat f(\\xi) = \\int f(x) e^{-2\\pi i x \\xi}\\,dx$ explains the name."
           },
           {
@@ -8435,6 +9007,7 @@ window.MVQuizBank = {
               "$\\alpha\\wedge\\beta = \\alpha + \\beta$"
             ],
             "answer": 1,
+            "hint": "The wedge of $1$-forms is antisymmetric: $\\alpha\\wedge\\beta = -\\beta\\wedge\\alpha$.",
             "explain": "The wedge of $1$-forms is antisymmetric: $\\alpha\\wedge\\beta = -\\beta\\wedge\\alpha$. In particular $\\alpha\\wedge\\alpha = 0$, which is exactly the alternating/oriented-area property."
           },
           {
@@ -8442,6 +9015,7 @@ window.MVQuizBank = {
             "q": "What is $\\dim \\Omega^2(\\mathbb{R}^4)$ over $C^\\infty(\\mathbb{R}^4)$? (Equivalently, $\\binom{4}{2}$.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "A basis of $\\Omega^k(\\mathbb{R}^n)$ is $\\{dx^{i_1}\\wedge\\cdots\\wedge dx^{i_k}\\}$ with strictly increasing indices, so the dimension is $\\binom{n}{k}=\\binom{4}{2}=6$.",
             "explain": "A basis of $\\Omega^k(\\mathbb{R}^n)$ is $\\{dx^{i_1}\\wedge\\cdots\\wedge dx^{i_k}\\}$ with strictly increasing indices, so the dimension is $\\binom{n}{k}=\\binom{4}{2}=6$."
           },
           {
@@ -8449,6 +9023,7 @@ window.MVQuizBank = {
             "q": "Let $v=(2,1)$ and $w=(1,3)$ in $\\mathbb{R}^2$. Compute $(dx\\wedge dy)(v,w) = v_1 w_2 - v_2 w_1$.",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "$(dx\\wedge dy)(v,w)=\\det\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}=2\\cdot 3-1\\cdot 1=5$.",
             "explain": "$(dx\\wedge dy)(v,w)=\\det\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}=2\\cdot 3-1\\cdot 1=5$."
           }
         ],
@@ -8494,6 +9069,7 @@ window.MVQuizBank = {
               "$d(\\alpha\\wedge\\beta) = d\\alpha\\wedge d\\beta$"
             ],
             "answer": 2,
+            "hint": "The defining axioms are: $df$ is the usual differential on $0$-forms, $d$ is a graded derivation, and $d^2=0$.",
             "explain": "The defining axioms are: $df$ is the usual differential on $0$-forms, $d$ is a graded derivation, and $d^2=0$. The last is dual to $\\partial\\partial=0$ for chains."
           },
           {
@@ -8501,6 +9077,7 @@ window.MVQuizBank = {
             "q": "For $\\omega = x\\,dy - y\\,dx$ on $\\mathbb{R}^2$, compute the coefficient of $dx\\wedge dy$ in $d\\omega$ (i.e. $Q_x - P_y$ where $\\omega = P\\,dx + Q\\,dy$).",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Here $P=-y$, $Q=x$, so $Q_x-P_y = 1-(-1)=2$.",
             "explain": "Here $P=-y$, $Q=x$, so $Q_x-P_y = 1-(-1)=2$. Thus $d\\omega = 2\\,dx\\wedge dy$."
           },
           {
@@ -8513,6 +9090,7 @@ window.MVQuizBank = {
               "$\\nabla\\cdot X = \\nabla\\times X$"
             ],
             "answer": 1,
+            "hint": "Via $f\\leftrightarrow 0$-form, $X\\leftrightarrow 1$-form, and $\\star$ to get $2$-forms, $d^2=0$ becomes $\\nabla\\times(\\nabla f)=0$ and $\\nabla\\cdot(\\nabla\\times X)=0$ — two classical identities, one…",
             "explain": "Via $f\\leftrightarrow 0$-form, $X\\leftrightarrow 1$-form, and $\\star$ to get $2$-forms, $d^2=0$ becomes $\\nabla\\times(\\nabla f)=0$ and $\\nabla\\cdot(\\nabla\\times X)=0$ — two classical identities, one proof."
           }
         ],
@@ -8563,6 +9141,7 @@ window.MVQuizBank = {
               "$f^*$ is only defined on $0$-forms"
             ],
             "answer": 0,
+            "hint": "Pullback is an algebra homomorphism that commutes with $d$: $f^*(\\alpha\\wedge\\beta)=f^*\\alpha\\wedge f^*\\beta$ and $f^*\\circ d = d\\circ f^*$.",
             "explain": "Pullback is an algebra homomorphism that commutes with $d$: $f^*(\\alpha\\wedge\\beta)=f^*\\alpha\\wedge f^*\\beta$ and $f^*\\circ d = d\\circ f^*$. These two facts are what make differential forms natural."
           },
           {
@@ -8570,6 +9149,7 @@ window.MVQuizBank = {
             "q": "Let $f(u,v) = (u+v,\\ uv)$ from $\\mathbb{R}^2$ to $\\mathbb{R}^2$ with target coordinates $(x,y)$. Compute the coefficient of $du\\wedge dv$ in $f^*(dx\\wedge dy)$ at $(u,v)=(3,1)$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$f^*dx = du+dv$ and $f^*dy = v\\,du+u\\,dv$, so $f^*(dx\\wedge dy) = (du+dv)\\wedge(v\\,du+u\\,dv) = (u-v)\\,du\\wedge dv$.",
             "explain": "$f^*dx = du+dv$ and $f^*dy = v\\,du+u\\,dv$, so $f^*(dx\\wedge dy) = (du+dv)\\wedge(v\\,du+u\\,dv) = (u-v)\\,du\\wedge dv$. At $(3,1)$ the coefficient is $3-1=2$. (Equivalently, the Jacobian determinant $\\det Df = u-v$.)"
           },
           {
@@ -8582,6 +9162,7 @@ window.MVQuizBank = {
               "$\\cos\\theta\\,d\\theta$"
             ],
             "answer": 1,
+            "hint": "On $S^1$, $x=\\cos\\theta$, $y=\\sin\\theta$, $x^2+y^2=1$, $dx=-\\sin\\theta\\,d\\theta$, $dy=\\cos\\theta\\,d\\theta$.",
             "explain": "On $S^1$, $x=\\cos\\theta$, $y=\\sin\\theta$, $x^2+y^2=1$, $dx=-\\sin\\theta\\,d\\theta$, $dy=\\cos\\theta\\,d\\theta$. Then $-y\\,dx+x\\,dy=\\sin^2\\theta\\,d\\theta+\\cos^2\\theta\\,d\\theta=d\\theta$. The pullback of the angle form is literally $d\\theta$."
           }
         ],
@@ -8627,6 +9208,7 @@ window.MVQuizBank = {
               "the supremum of $\\omega$ on the image"
             ],
             "answer": 1,
+            "hint": "Integration over a smooth simplex is $\\int_\\sigma\\omega := \\int_{\\Delta^k}\\sigma^*\\omega$.",
             "explain": "Integration over a smooth simplex is $\\int_\\sigma\\omega := \\int_{\\Delta^k}\\sigma^*\\omega$. This is well-defined because $\\sigma^*\\omega$ is a $k$-form on $\\Delta^k\\subset\\mathbb{R}^k$, which integrates via the standard Lebesgue integral of its $du^1\\wedge\\cdots\\wedge du^k$ coefficient."
           },
           {
@@ -8639,6 +9221,7 @@ window.MVQuizBank = {
               "Because $M$ is compact"
             ],
             "answer": 2,
+            "hint": "For an orientation-preserving diffeomorphism $\\phi$, change of variables gives $\\int\\phi^*\\eta = \\int\\eta$.",
             "explain": "For an orientation-preserving diffeomorphism $\\phi$, change of variables gives $\\int\\phi^*\\eta = \\int\\eta$. Since forms pull back with a Jacobian determinant, the antisymmetry of $\\wedge$ is exactly what makes integration of forms reparametrization-invariant."
           },
           {
@@ -8646,6 +9229,7 @@ window.MVQuizBank = {
             "q": "Let $\\sigma:[0,1]\\to\\mathbb{R}^2$, $\\sigma(t)=(t,t^2)$, and $\\omega = dy$. Compute $\\int_\\sigma\\omega$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\sigma^*\\omega = \\sigma^*(dy) = d(t^2) = 2t\\,dt$.",
             "explain": "$\\sigma^*\\omega = \\sigma^*(dy) = d(t^2) = 2t\\,dt$. Then $\\int_\\sigma\\omega = \\int_0^1 2t\\,dt = 1$. Geometrically, $\\int_\\sigma dy$ is just the net vertical displacement of $\\sigma$, $y(1)-y(0)=1-0=1$."
           }
         ],
@@ -8691,6 +9275,7 @@ window.MVQuizBank = {
               "$\\int_{\\partial M} \\omega = 0$ for every closed $\\omega$"
             ],
             "answer": 1,
+            "hint": "Stokes: $\\int_M d\\omega = \\int_{\\partial M}\\omega$.",
             "explain": "Stokes: $\\int_M d\\omega = \\int_{\\partial M}\\omega$. It unifies the fundamental theorem of calculus, Green, classical Stokes, and divergence theorems."
           },
           {
@@ -8698,6 +9283,7 @@ window.MVQuizBank = {
             "q": "Let $\\omega = (-y\\,dx + x\\,dy)/(x^2+y^2)$ on $\\mathbb{R}^2\\setminus\\{0\\}$ and let $\\gamma$ be a loop winding $n=3$ times counterclockwise around $0$. Compute $\\oint_\\gamma \\omega / \\pi$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\oint_\\gamma \\omega = 2\\pi n = 6\\pi$, so $\\oint_\\gamma\\omega/\\pi = 6$.",
             "explain": "$\\oint_\\gamma \\omega = 2\\pi n = 6\\pi$, so $\\oint_\\gamma\\omega/\\pi = 6$. Nonzero integral means $\\omega$ is closed but not exact."
           },
           {
@@ -8705,6 +9291,7 @@ window.MVQuizBank = {
             "q": "What is $\\dim H^1_{\\mathrm{dR}}(T^2)$ for the $2$-torus $T^2 = S^1\\times S^1$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The torus has two independent $1$-cycles ($d\\theta_1$ and $d\\theta_2$), so $H^1_{\\mathrm{dR}}(T^2)\\cong\\mathbb{R}^2$ and its dimension is $2$.",
             "explain": "The torus has two independent $1$-cycles ($d\\theta_1$ and $d\\theta_2$), so $H^1_{\\mathrm{dR}}(T^2)\\cong\\mathbb{R}^2$ and its dimension is $2$."
           }
         ],
@@ -8761,6 +9348,7 @@ window.MVQuizBank = {
               "$\\mathbf{x}_u(q)=\\mathbf{x}_v(q)$"
             ],
             "answer": 1,
+            "hint": "Regularity means $d\\mathbf{x}_q$ is injective, i.e.",
             "explain": "Regularity means $d\\mathbf{x}_q$ is injective, i.e. the two partial derivatives span a 2-plane; equivalently their cross product is nonzero."
           },
           {
@@ -8768,6 +9356,7 @@ window.MVQuizBank = {
             "q": "For the unit-speed circle $\\gamma(t)=(\\cos t,\\sin t)$ in the plane, what is the curvature $\\kappa$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "A unit circle has $\\kappa=1/R=1$.",
             "explain": "A unit circle has $\\kappa=1/R=1$. In general $\\kappa=|\\ddot\\gamma|$ for a unit-speed planar curve, and here $|\\ddot\\gamma|=1$."
           },
           {
@@ -8778,6 +9367,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "$\\mathbf{x}_u=(1,0,2u)$, $\\mathbf{x}_v=(0,1,-2v)$.",
             "explain": "$\\mathbf{x}_u=(1,0,2u)$, $\\mathbf{x}_v=(0,1,-2v)$. At $(0,0)$ the cross product is $(0,0,1)$, so $a=0,b=0$."
           }
         ],
@@ -8831,6 +9421,7 @@ window.MVQuizBank = {
               "only the orientation of $S$"
             ],
             "answer": 1,
+            "hint": "$I$ is the restricted Euclidean inner product on each tangent plane — it determines intrinsic length, angle, and area.",
             "explain": "$I$ is the restricted Euclidean inner product on each tangent plane — it determines intrinsic length, angle, and area. Bending information lives in the second fundamental form."
           },
           {
@@ -8838,6 +9429,7 @@ window.MVQuizBank = {
             "q": "For the cylinder $\\mathbf{x}(u,v)=(\\cos u,\\sin u,v)$, compute $E\\cdot G-F^2$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\mathbf{x}_u=(-\\sin u,\\cos u,0)$, $\\mathbf{x}_v=(0,0,1)$, so $E=1$, $G=1$, $F=0$ and $EG-F^2=1$.",
             "explain": "$\\mathbf{x}_u=(-\\sin u,\\cos u,0)$, $\\mathbf{x}_v=(0,0,1)$, so $E=1$, $G=1$, $F=0$ and $EG-F^2=1$."
           },
           {
@@ -8845,6 +9437,7 @@ window.MVQuizBank = {
             "q": "For the sphere of radius $R$ with $\\mathbf{x}(u,v)=(R\\sin u\\cos v,R\\sin u\\sin v,R\\cos u)$, compute $E$ at any $(u,v)$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\mathbf{x}_u=(R\\cos u\\cos v,R\\cos u\\sin v,-R\\sin u)$ — wait, with $R=1$ we get $E=\\mathbf{x}_u\\cdot\\mathbf{x}_u=\\cos^2u+\\sin^2u=1$.",
             "explain": "$\\mathbf{x}_u=(R\\cos u\\cos v,R\\cos u\\sin v,-R\\sin u)$ — wait, with $R=1$ we get $E=\\mathbf{x}_u\\cdot\\mathbf{x}_u=\\cos^2u+\\sin^2u=1$. For general $R$, $E=R^2$; taking $R=1$ gives $1$."
           }
         ],
@@ -8893,6 +9486,7 @@ window.MVQuizBank = {
               "nilpotent when $K\\neq 0$"
             ],
             "answer": 1,
+            "hint": "Differentiating $\\langle N,\\mathbf{x}_u\\rangle=\\langle N,\\mathbf{x}_v\\rangle=0$ shows $S_p$ is self-adjoint for $I$, so it diagonalizes over $\\mathbb{R}$ with eigenvalues $k_1\\ge k_2$ (the principal…",
             "explain": "Differentiating $\\langle N,\\mathbf{x}_u\\rangle=\\langle N,\\mathbf{x}_v\\rangle=0$ shows $S_p$ is self-adjoint for $I$, so it diagonalizes over $\\mathbb{R}$ with eigenvalues $k_1\\ge k_2$ (the principal curvatures) along orthogonal principal directions."
           },
           {
@@ -8900,6 +9494,7 @@ window.MVQuizBank = {
             "q": "On the round sphere of radius $R$ the Gauss map is $\\mathbf{n}(p)=p/R$, so $S_p=(1/R)\\,\\mathrm{id}$. Give the Gaussian curvature $K=\\det S_p$ when $R=3$.",
             "answer": 0.1111111111111111,
             "tol": 0.000001,
+            "hint": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$.",
             "explain": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$. For $R=3$, $K=1/9\\approx 0.1111$."
           },
           {
@@ -8912,6 +9507,7 @@ window.MVQuizBank = {
               "two antipodal points"
             ],
             "answer": 2,
+            "hint": "On a cylinder the unit normal always lies in the horizontal plane, so $\\mathbf{n}$ traces out a great circle.",
             "explain": "On a cylinder the unit normal always lies in the horizontal plane, so $\\mathbf{n}$ traces out a great circle. The image has measure zero on $S^2$, consistent with $K\\equiv 0$."
           }
         ],
@@ -8965,6 +9561,7 @@ window.MVQuizBank = {
               "determined by the embedding in $\\mathbb{R}^3$ only"
             ],
             "answer": 1,
+            "hint": "Gauss's remarkable theorem: $K$ is computable from $(E,F,G)$ and their derivatives alone, so it is an isometric invariant — intrinsic.",
             "explain": "Gauss's remarkable theorem: $K$ is computable from $(E,F,G)$ and their derivatives alone, so it is an isometric invariant — intrinsic."
           },
           {
@@ -8972,6 +9569,7 @@ window.MVQuizBank = {
             "q": "On the sphere of radius $R$, the Gaussian curvature is constant. Compute $K$ when $R=2$.",
             "answer": 0.25,
             "tol": 0.000001,
+            "hint": "For a round sphere of radius $R$, $K=1/R^2$.",
             "explain": "For a round sphere of radius $R$, $K=1/R^2$. With $R=2$ that is $1/4=0.25$."
           },
           {
@@ -8979,6 +9577,7 @@ window.MVQuizBank = {
             "q": "A geodesic triangle on the unit sphere has interior angles $\\pi/2,\\pi/2,\\pi/2$. By Gauss–Bonnet, its area equals the angle excess. What is the area?",
             "answer": 1.5707963267948966,
             "tol": 0.000001,
+            "hint": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$.",
             "explain": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$. On the unit sphere $K=1$, so area $=\\int K\\,dA=\\pi/2\\approx 1.5708$."
           }
         ],
@@ -9032,6 +9631,7 @@ window.MVQuizBank = {
               "$\\int_S H\\,dA = 2\\pi\\chi(S)$ (mean curvature, not Gaussian)"
             ],
             "answer": 1,
+            "hint": "Total Gaussian curvature equals $2\\pi$ times the Euler characteristic $\\chi(S)=V-E+F=2-2g$.",
             "explain": "Total Gaussian curvature equals $2\\pi$ times the Euler characteristic $\\chi(S)=V-E+F=2-2g$. It couples differential geometry ($K$) to topology ($\\chi$)."
           },
           {
@@ -9039,6 +9639,7 @@ window.MVQuizBank = {
             "q": "For a closed genus-$3$ orientable surface, compute $\\int_S K\\,dA$.",
             "answer": -25.132741228718345,
             "tol": 0.00001,
+            "hint": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$.",
             "explain": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$."
           },
           {
@@ -9046,6 +9647,7 @@ window.MVQuizBank = {
             "q": "A geodesic triangle on a surface of constant curvature $K=-1$ has interior angles $\\alpha+\\beta+\\gamma=\\pi/3$. By local Gauss–Bonnet, what is the area of the triangle?",
             "answer": 2.0943951023931953,
             "tol": 0.000001,
+            "hint": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$.",
             "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
           }
         ],
@@ -9103,6 +9705,7 @@ window.MVQuizBank = {
               "$\\Re(s)=\\sigma_a$ only"
             ],
             "answer": 1,
+            "hint": "Absolute convergence occurs in a right half-plane $\\Re(s)>\\sigma_a$.",
             "explain": "Absolute convergence occurs in a right half-plane $\\Re(s)>\\sigma_a$."
           },
           {
@@ -9110,6 +9713,7 @@ window.MVQuizBank = {
             "q": "For $\\zeta(s)=\\sum n^{-s}$, the abscissa of absolute convergence is $\\sigma_a=$ ?",
             "answer": 1,
             "tol": 1e-9,
+            "hint": "The $p$-series test gives convergence for $\\Re(s)>1$.",
             "explain": "The $p$-series test gives convergence for $\\Re(s)>1$."
           },
           {
@@ -9121,6 +9725,7 @@ window.MVQuizBank = {
               "They converge more slowly / become less stable"
             ],
             "answer": 2,
+            "hint": "Near the boundary of convergence, tails decay more slowly.",
             "explain": "Near the boundary of convergence, tails decay more slowly."
           }
         ],
@@ -9173,6 +9778,7 @@ window.MVQuizBank = {
               "Quadratic reciprocity"
             ],
             "answer": 0,
+            "hint": "Expanding the product picks one prime power term per prime, encoding unique factorization.",
             "explain": "Expanding the product picks one prime power term per prime, encoding unique factorization."
           },
           {
@@ -9180,6 +9786,7 @@ window.MVQuizBank = {
             "q": "Compute $(1-2^{-2})^{-1}$.",
             "answer": 1.3333333333,
             "tol": 0.000001,
+            "hint": "$(1-1/4)^{-1}=4/3$.",
             "explain": "$(1-1/4)^{-1}=4/3$."
           },
           {
@@ -9191,6 +9798,7 @@ window.MVQuizBank = {
               "A product over zeros only"
             ],
             "answer": 1,
+            "hint": "Multiplicativity organizes terms by prime powers, giving an Euler product.",
             "explain": "Multiplicativity organizes terms by prime powers, giving an Euler product."
           }
         ],
@@ -9243,6 +9851,7 @@ window.MVQuizBank = {
               "Always composite"
             ],
             "answer": 1,
+            "hint": "Each reduced residue class contains infinitely many primes.",
             "explain": "Each reduced residue class contains infinitely many primes."
           },
           {
@@ -9254,6 +9863,7 @@ window.MVQuizBank = {
               "Continued fractions"
             ],
             "answer": 1,
+            "hint": "Characters diagonalize class functions modulo $q$.",
             "explain": "Characters diagonalize class functions modulo $q$."
           },
           {
@@ -9261,6 +9871,7 @@ window.MVQuizBank = {
             "q": "How many reduced residue classes are modulo $8$?",
             "answer": 4,
             "tol": 1e-9,
+            "hint": "$\\varphi(8)=4$ (classes $1,3,5,7$).",
             "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
           }
         ],
@@ -9314,6 +9925,7 @@ window.MVQuizBank = {
               "$\\int_{-\\infty}^\\infty f(x)\\,e^{-isx}\\,dx$"
             ],
             "answer": 1,
+            "hint": "Mellin is the multiplicative Fourier transform on $(0,\\infty)$ with kernel $x^{s-1}\\,dx$; it turns dilation into translation in the $s$-variable.",
             "explain": "Mellin is the multiplicative Fourier transform on $(0,\\infty)$ with kernel $x^{s-1}\\,dx$; it turns dilation into translation in the $s$-variable."
           },
           {
@@ -9321,6 +9933,7 @@ window.MVQuizBank = {
             "q": "The Mellin transform of $e^{-x}$ on $(0,\\infty)$ equals $\\Gamma(s)$. Evaluate $\\Gamma(5)$.",
             "answer": 24,
             "tol": 0.000001,
+            "hint": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$.",
             "explain": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$."
           },
           {
@@ -9333,6 +9946,7 @@ window.MVQuizBank = {
               "Because $\\zeta(s)$ equals its own Mellin transform"
             ],
             "answer": 0,
+            "hint": "Riemann's 1859 trick: the completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ is the Mellin of $\\tfrac12(\\theta(x)-1)$; the Jacobi theta functional equation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ splits…",
             "explain": "Riemann's 1859 trick: the completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ is the Mellin of $\\tfrac12(\\theta(x)-1)$; the Jacobi theta functional equation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ splits the integral $\\int_0^\\infty = \\int_0^1 + \\int_1^\\infty$ into two convergent pieces, manifesting $\\xi(s)=\\xi(1-s)$."
           }
         ],
@@ -9386,6 +10000,7 @@ window.MVQuizBank = {
               "$A(x)=D(1)\\cdot x$"
             ],
             "answer": 0,
+            "hint": "Perron: shift a vertical contour past the pole of $1/s$ at $s=0$; the $x^s/s$ kernel acts as a smoothed indicator of $n\\le x$, and residues of $D(s)x^s/s$ at poles (including the main term pole of…",
             "explain": "Perron: shift a vertical contour past the pole of $1/s$ at $s=0$; the $x^s/s$ kernel acts as a smoothed indicator of $n\\le x$, and residues of $D(s)x^s/s$ at poles (including the main term pole of $D$) give the leading-order asymptotic."
           },
           {
@@ -9398,6 +10013,7 @@ window.MVQuizBank = {
               "the Euler factor at $p=2$"
             ],
             "answer": 0,
+            "hint": "The pole of $\\zeta(s)$ at $s=1$ becomes a simple pole of $-\\zeta'/\\zeta$ at $s=1$ with residue $+1$; its contribution in the Perron contour is $x$, giving $\\psi(x)\\sim x$ (the prime-number theorem).",
             "explain": "The pole of $\\zeta(s)$ at $s=1$ becomes a simple pole of $-\\zeta'/\\zeta$ at $s=1$ with residue $+1$; its contribution in the Perron contour is $x$, giving $\\psi(x)\\sim x$ (the prime-number theorem). The zeros of $\\zeta$ contribute lower-order oscillations."
           },
           {
@@ -9405,6 +10021,7 @@ window.MVQuizBank = {
             "q": "At a simple pole of $D(s)$ at $s=s_0$ with residue $\\rho$, the residue of $D(s)\\,x^s/s$ at $s=s_0$ (for $s_0\\ne 0$) is $\\rho\\cdot x^{s_0}/s_0$. For $D(s)=\\zeta(s)$, $s_0=1$, $\\rho=1$, and $x=e$, what is this residue to 4 decimals?",
             "answer": 2.7183,
             "tol": 0.001,
+            "hint": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$.",
             "explain": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$. This is exactly the leading term in Perron for $\\sum_{n\\le e}1 = $ counting function, with correction terms from the other poles/zeros."
           }
         ],
@@ -9463,6 +10080,7 @@ window.MVQuizBank = {
               "$\\Phi_t$ is orthogonal for every $t$"
             ],
             "answer": 1,
+            "hint": "The flow is a one-parameter group: $\\Phi_{t+s}=\\Phi_t\\circ\\Phi_s$ and $\\Phi_0=\\mathrm{id}$.",
             "explain": "The flow is a one-parameter group: $\\Phi_{t+s}=\\Phi_t\\circ\\Phi_s$ and $\\Phi_0=\\mathrm{id}$. Linearity and orthogonality are special properties of particular vector fields."
           },
           {
@@ -9470,6 +10088,7 @@ window.MVQuizBank = {
             "q": "For the linear system $\\dot x = -x$ on $\\mathbb{R}$ with $x(0)=4$, compute $x(\\ln 2)$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$.",
             "explain": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$."
           },
           {
@@ -9490,6 +10109,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "$\\dot x=-x$: exponential decay to 0.",
             "explain": "$\\dot x=-x$: exponential decay to 0. $\\dot x=x^2$: $x(t)=x_0/(1-x_0 t)$ blows up at $t=1/x_0$. $\\dot x=x$: exponential growth."
           }
         ],
@@ -9545,6 +10165,7 @@ window.MVQuizBank = {
               "Every eigenvalue of $DX(p^*)$ has modulus $1$"
             ],
             "answer": 1,
+            "hint": "Hyperbolic = no eigenvalue lies on the imaginary axis.",
             "explain": "Hyperbolic = no eigenvalue lies on the imaginary axis. Hartman–Grobman then conjugates the flow to its linearization on a neighbourhood."
           },
           {
@@ -9552,6 +10173,7 @@ window.MVQuizBank = {
             "q": "For $\\dot x = \\sin x$, the fixed point at $x=0$ has Jacobian $\\cos 0$. What is its value?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point.",
             "explain": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point."
           },
           {
@@ -9564,6 +10186,7 @@ window.MVQuizBank = {
               "center"
             ],
             "answer": 2,
+            "hint": "Eigenvalues $1$ and $-2$ have opposite sign, so the origin is a saddle: one expanding direction ($e_1$) and one contracting direction ($e_2$).",
             "explain": "Eigenvalues $1$ and $-2$ have opposite sign, so the origin is a saddle: one expanding direction ($e_1$) and one contracting direction ($e_2$)."
           }
         ],
@@ -9619,6 +10242,7 @@ window.MVQuizBank = {
               "center"
             ],
             "answer": 1,
+            "hint": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node.",
             "explain": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node."
           },
           {
@@ -9634,6 +10258,7 @@ window.MVQuizBank = {
               0,
               3
             ],
+            "hint": "Saddle requires $\\det A<0$.",
             "explain": "Saddle requires $\\det A<0$. (a) $\\det=-1$: saddle. (b) $\\det=2$: stable node. (c) $\\det=3$: node. (d) $\\det=-1$: saddle."
           },
           {
@@ -9646,6 +10271,7 @@ window.MVQuizBank = {
               "a symmetry axis"
             ],
             "answer": 1,
+            "hint": "Nullclines are the zero sets of the components; their intersections are fixed points, and they organize the direction field (on the $x$-nullcline, trajectories move vertically).",
             "explain": "Nullclines are the zero sets of the components; their intersections are fixed points, and they organize the direction field (on the $x$-nullcline, trajectories move vertically)."
           }
         ],
@@ -9722,6 +10348,7 @@ window.MVQuizBank = {
               "empty"
             ],
             "answer": 2,
+            "hint": "In $\\mathbb{R}^2$, the trichotomy is: the $\\omega$-limit set is a fixed point, a periodic orbit, or a union of fixed points joined by heteroclinic/homoclinic connections.",
             "explain": "In $\\mathbb{R}^2$, the trichotomy is: the $\\omega$-limit set is a fixed point, a periodic orbit, or a union of fixed points joined by heteroclinic/homoclinic connections. No fixed point leaves only a periodic orbit."
           },
           {
@@ -9734,6 +10361,7 @@ window.MVQuizBank = {
               "the flow is conservative"
             ],
             "answer": 0,
+            "hint": "By Green's theorem, along a closed orbit the integral of $\\operatorname{div}(\\phi X)$ over the enclosed region would be zero; if the integrand has constant non-zero sign, no such region can exist.",
             "explain": "By Green's theorem, along a closed orbit the integral of $\\operatorname{div}(\\phi X)$ over the enclosed region would be zero; if the integrand has constant non-zero sign, no such region can exist."
           },
           {
@@ -9741,6 +10369,7 @@ window.MVQuizBank = {
             "q": "For $\\dot r = r(1-r^2),\\ \\dot\\theta = 1$ in polar coordinates, the unique stable limit cycle is the circle $r = ?$",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle).",
             "explain": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle). Near $r=1$ the radial flow contracts ($\\dot r=r(1-r^2)$ changes sign), so $r=1$ is the stable limit cycle."
           }
         ],
@@ -9788,6 +10417,7 @@ window.MVQuizBank = {
             "q": "For the logistic map $f_r(x)=rx(1-x)$ with $r=2.5$, compute the non-zero fixed point $x^*\\in(0,1)$.",
             "answer": 0.6,
             "tol": 0.000001,
+            "hint": "$x^*=1-1/r=1-0.4=0.6$.",
             "explain": "$x^*=1-1/r=1-0.4=0.6$."
           },
           {
@@ -9800,6 +10430,7 @@ window.MVQuizBank = {
               "$f''(x^*)>0$"
             ],
             "answer": 1,
+            "hint": "Linearization near $x^*$: $x_{n+1}-x^*\\approx f'(x^*)(x_n-x^*)$.",
             "explain": "Linearization near $x^*$: $x_{n+1}-x^*\\approx f'(x^*)(x_n-x^*)$. Stability needs $|f'(x^*)|<1$."
           },
           {
@@ -9879,6 +10510,7 @@ window.MVQuizBank = {
             "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
             "answer": 0.6,
             "tol": 0.000001,
+            "hint": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting.",
             "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
           },
           {
@@ -9891,6 +10523,7 @@ window.MVQuizBank = {
               "Chaotic (no period)"
             ],
             "answer": 1,
+            "hint": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$.",
             "explain": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$. Between them — including $r=3.2$ — the attractor is a stable 2-cycle."
           },
           {
@@ -9903,6 +10536,7 @@ window.MVQuizBank = {
               "The orbit becomes chaotic immediately after the first doubling."
             ],
             "answer": 1,
+            "hint": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$.",
             "explain": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$. So gaps between successive bifurcations contract by a constant factor $\\approx 1/\\delta$ each step — geometric convergence in $r$-space, even though $n$ marches up linearly. That is why infinitely many doublings fit into the finite interval $[3, r_\\infty]$."
           }
         ]
@@ -9920,6 +10554,7 @@ window.MVQuizBank = {
               "Hopf bifurcation at $\\mu=0$"
             ],
             "answer": 2,
+            "hint": "For $\\mu>0$ two fixed points at $\\pm\\sqrt\\mu$; at $\\mu=0$ they collide; for $\\mu<0$ no fixed points.",
             "explain": "For $\\mu>0$ two fixed points at $\\pm\\sqrt\\mu$; at $\\mu=0$ they collide; for $\\mu<0$ no fixed points. That is a saddle-node."
           },
           {
@@ -9943,6 +10578,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a…",
             "explain": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a limit cycle from a spiral."
           },
           {
@@ -9955,6 +10591,7 @@ window.MVQuizBank = {
               "It is a continuous limit cycle."
             ],
             "answer": 1,
+            "hint": "At $r=3$ the fixed point loses stability ($f'(x^*)=-1$); a stable 2-cycle emerges via period-doubling and persists for $r>3$ (until $r_2\\approx 3.449$ where it period-doubles again).",
             "explain": "At $r=3$ the fixed point loses stability ($f'(x^*)=-1$); a stable 2-cycle emerges via period-doubling and persists for $r>3$ (until $r_2\\approx 3.449$ where it period-doubles again)."
           }
         ],
@@ -10008,6 +10645,7 @@ window.MVQuizBank = {
             "q": "Compute the Lyapunov exponent of the doubling map $f(x)=2x\\bmod 1$ on $[0,1)$.",
             "answer": 0.6931471805599453,
             "tol": 0.0001,
+            "hint": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$.",
             "explain": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$."
           },
           {
@@ -10020,6 +10658,7 @@ window.MVQuizBank = {
               "the system is measure preserving"
             ],
             "answer": 1,
+            "hint": "SDIC: arbitrarily close points eventually separate by at least a fixed amount $\\delta$ under iteration.",
             "explain": "SDIC: arbitrarily close points eventually separate by at least a fixed amount $\\delta$ under iteration."
           },
           {
@@ -10035,6 +10674,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC.",
             "explain": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC. Banks–Brooks–Cairns–Davis–Stacey later showed (iii) is implied by (i)+(ii) on infinite metric spaces."
           }
         ],
@@ -10091,6 +10731,7 @@ window.MVQuizBank = {
               "$X$ is bounded"
             ],
             "answer": 0,
+            "hint": "$\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U))=\\int_U \\operatorname{div}X\\,d\\mathrm{vol}$, so the flow preserves volume iff $\\operatorname{div}X\\equiv 0$.",
             "explain": "$\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U))=\\int_U \\operatorname{div}X\\,d\\mathrm{vol}$, so the flow preserves volume iff $\\operatorname{div}X\\equiv 0$."
           },
           {
@@ -10098,6 +10739,7 @@ window.MVQuizBank = {
             "q": "For the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=\\rho x-y-xz,\\ \\dot z=xy-\\beta z$, compute $\\operatorname{div}X$ with $\\sigma=10,\\beta=8/3$.",
             "answer": -13.666666666666666,
             "tol": 0.001,
+            "hint": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$.",
             "explain": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$. Strictly negative, so Lorenz is dissipative."
           },
           {
@@ -10113,6 +10755,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$.",
             "explain": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$. (b) $\\operatorname{div}=-1<0$: dissipative. (c) Pendulum is Hamiltonian with $H=y^2/2-\\cos x$. (d) Damped oscillator: $\\operatorname{div}=-\\mu<0$."
           }
         ],
@@ -10169,6 +10812,7 @@ window.MVQuizBank = {
               "the Lyapunov exponent"
             ],
             "answer": 1,
+            "hint": "$\\Sigma$ is locally transversal to $X$; the first-return time $\\tau(x)$ is well-defined nearby, and $P(x)=\\Phi_{\\tau(x)}(x)$ is the return map.",
             "explain": "$\\Sigma$ is locally transversal to $X$; the first-return time $\\tau(x)$ is well-defined nearby, and $P(x)=\\Phi_{\\tau(x)}(x)$ is the return map."
           },
           {
@@ -10181,6 +10825,7 @@ window.MVQuizBank = {
               "nothing: periodic orbits are invisible to $P$"
             ],
             "answer": 0,
+            "hint": "A closed orbit crossing $\\Sigma$ once per period returns to the same point: $P(x^*)=x^*$.",
             "explain": "A closed orbit crossing $\\Sigma$ once per period returns to the same point: $P(x^*)=x^*$. Its stability as a cycle = stability of $x^*$ as a fixed point of $P$."
           },
           {
@@ -10188,6 +10833,7 @@ window.MVQuizBank = {
             "q": "For the rigid rotation $\\dot r=0,\\ \\dot\\theta=1$ with section $\\Sigma=\\{\\theta=0\\}$, the first-return map $P\\colon \\Sigma\\to\\Sigma$ has return time equal to:",
             "answer": 6.283185307179586,
             "tol": 0.000001,
+            "hint": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$.",
             "explain": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$."
           }
         ],
@@ -10255,6 +10901,7 @@ window.MVQuizBank = {
               "the rotation $R_\\alpha$ with $\\alpha$ irrational"
             ],
             "answer": 1,
+            "hint": "Write $x$ in binary $x=0.b_1b_2b_3\\ldots$; then $f(x)=0.b_2b_3\\ldots$, i.e.",
             "explain": "Write $x$ in binary $x=0.b_1b_2b_3\\ldots$; then $f(x)=0.b_2b_3\\ldots$, i.e. the left-shift on binary sequences."
           },
           {
@@ -10275,6 +10922,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding.",
             "explain": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding."
           },
           {
@@ -10282,6 +10930,7 @@ window.MVQuizBank = {
             "q": "Count the number of 2-periodic points of the full 2-shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$ (including fixed points).",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$).",
             "explain": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$)."
           }
         ],
@@ -10339,6 +10988,7 @@ window.MVQuizBank = {
               "it is volume-doubling"
             ],
             "answer": 1,
+            "hint": "Ergodicity = the only invariant sets (up to measure zero) are the trivial ones.",
             "explain": "Ergodicity = the only invariant sets (up to measure zero) are the trivial ones."
           },
           {
@@ -10351,6 +11001,7 @@ window.MVQuizBank = {
               "$T$ has zero Lyapunov exponent"
             ],
             "answer": 0,
+            "hint": "Time average = space average almost everywhere, when $T$ is ergodic.",
             "explain": "Time average = space average almost everywhere, when $T$ is ergodic. This is why statistical mechanics works."
           },
           {
@@ -10366,6 +11017,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "Irrational rotations are uniquely ergodic (Weyl).",
             "explain": "Irrational rotations are uniquely ergodic (Weyl). The doubling map is ergodic (even mixing). Rational rotations split $[0,1)$ into finitely many cycles — not ergodic. The identity preserves every set — far from ergodic."
           }
         ],
@@ -10417,6 +11069,7 @@ window.MVQuizBank = {
               "is a single periodic orbit"
             ],
             "answer": 1,
+            "hint": "'Strange' = chaotic dynamics on the attractor + fractal/non-integer dimension.",
             "explain": "'Strange' = chaotic dynamics on the attractor + fractal/non-integer dimension. Regular attractors (fixed points, limit cycles, tori) are NOT strange."
           },
           {
@@ -10429,6 +11082,7 @@ window.MVQuizBank = {
               "$(\\sigma,\\beta,\\rho)=(10,\\,10,\\,10)$"
             ],
             "answer": 0,
+            "hint": "$(10,8/3,28)$ are Lorenz's original 1963 values, where the butterfly-wing attractor was first discovered.",
             "explain": "$(10,8/3,28)$ are Lorenz's original 1963 values, where the butterfly-wing attractor was first discovered."
           },
           {
@@ -10436,6 +11090,7 @@ window.MVQuizBank = {
             "q": "Estimate of the box-counting dimension of the Lorenz attractor (classical parameters), to 2 decimals.",
             "answer": 2.06,
             "tol": 0.05,
+            "hint": "Numerical estimates give $d\\approx 2.05$–$2.07$; it is just above $2$, consistent with an attractor that is almost but not quite a surface.",
             "explain": "Numerical estimates give $d\\approx 2.05$–$2.07$; it is just above $2$, consistent with an attractor that is almost but not quite a surface."
           }
         ],
@@ -10920,6 +11575,7 @@ window.MVQuizBank = {
               "$a^2+b^2=1$"
             ],
             "answer": 1,
+            "hint": "A nonzero discriminant means no cusp or node.",
             "explain": "A nonzero discriminant means no cusp or node."
           },
           {
@@ -10927,6 +11583,7 @@ window.MVQuizBank = {
             "q": "If $a=-1,b=0$, compute $4a^3+27b^2$.",
             "answer": -4,
             "tol": 1e-9,
+            "hint": "$4(-1)^3+27(0)^2=-4$.",
             "explain": "$4(-1)^3+27(0)^2=-4$."
           },
           {
@@ -10938,6 +11595,7 @@ window.MVQuizBank = {
               "No rational points"
             ],
             "answer": 0,
+            "hint": "Singularity appears as node/cusp where derivatives vanish simultaneously.",
             "explain": "Singularity appears as node/cusp where derivatives vanish simultaneously."
           }
         ],
@@ -10987,6 +11645,7 @@ window.MVQuizBank = {
               "$P$ and $Q$ are torsion"
             ],
             "answer": 0,
+            "hint": "The secant line meets the cubic in three points summing to zero.",
             "explain": "The secant line meets the cubic in three points summing to zero."
           },
           {
@@ -10998,6 +11657,7 @@ window.MVQuizBank = {
               "The point at infinity $\\mathcal O$"
             ],
             "answer": 2,
+            "hint": "Projectively, the neutral element is the point at infinity.",
             "explain": "Projectively, the neutral element is the point at infinity."
           },
           {
@@ -11005,6 +11665,7 @@ window.MVQuizBank = {
             "q": "If a point has order $5$, the smallest positive $n$ with $nP=\\mathcal O$ is:",
             "answer": 5,
             "tol": 1e-9,
+            "hint": "That is the definition of order.",
             "explain": "That is the definition of order."
           }
         ],
@@ -11056,6 +11717,7 @@ window.MVQuizBank = {
               "the coefficients $(a,b)$ agree up to sign"
             ],
             "answer": 1,
+            "hint": "$j(E)=1728\\cdot 4a^3/(4a^3+27b^2)$ is a complete isomorphism invariant over $\\bar k$.",
             "explain": "$j(E)=1728\\cdot 4a^3/(4a^3+27b^2)$ is a complete isomorphism invariant over $\\bar k$."
           },
           {
@@ -11063,6 +11725,7 @@ window.MVQuizBank = {
             "q": "Compute $j(E)$ for $E: y^2=x^3-x$ (i.e. $a=-1, b=0$).",
             "answer": 1728,
             "tol": 0.000001,
+            "hint": "With $b=0$, $j=1728\\cdot 4a^3/(4a^3)=1728$.",
             "explain": "With $b=0$, $j=1728\\cdot 4a^3/(4a^3)=1728$. This is the CM-by-$\\mathbb{Z}[i]$ curve."
           },
           {
@@ -11075,6 +11738,7 @@ window.MVQuizBank = {
               "$j=-3375$ and $j=-32768$"
             ],
             "answer": 0,
+            "hint": "At $j=0$ the curve has an order-$6$ automorphism (via $\\omega$); at $j=1728$ it has an order-$4$ automorphism (via $i$).",
             "explain": "At $j=0$ the curve has an order-$6$ automorphism (via $\\omega$); at $j=1728$ it has an order-$4$ automorphism (via $i$). Generic $j$ gives $\\operatorname{Aut}(E)=\\{\\pm1\\}$."
           }
         ],
@@ -11126,6 +11790,7 @@ window.MVQuizBank = {
               "the upper half-plane $\\mathbb{H}$"
             ],
             "answer": 1,
+            "hint": "The Weierstrass $\\wp$-function embeds $\\mathbb{C}/\\Lambda$ as a cubic $y^2=4x^3-g_2 x-g_3$ in $\\mathbb{CP}^2$.",
             "explain": "The Weierstrass $\\wp$-function embeds $\\mathbb{C}/\\Lambda$ as a cubic $y^2=4x^3-g_2 x-g_3$ in $\\mathbb{CP}^2$."
           },
           {
@@ -11138,6 +11803,7 @@ window.MVQuizBank = {
               "the lattice $\\Lambda$ is rectangular"
             ],
             "answer": 0,
+            "hint": "CM means $\\operatorname{End}(E)$ is an order in an imaginary quadratic field $K$; generically $\\operatorname{End}(E)=\\mathbb{Z}$.",
             "explain": "CM means $\\operatorname{End}(E)$ is an order in an imaginary quadratic field $K$; generically $\\operatorname{End}(E)=\\mathbb{Z}$."
           },
           {
@@ -11145,6 +11811,7 @@ window.MVQuizBank = {
             "q": "For the CM lattice $\\Lambda=\\mathbb{Z}[i]$, the endomorphism 'multiplication by $i$' has degree (i.e. number of sheets as an isogeny) equal to $|i|^2=$?",
             "answer": 1,
             "tol": 1e-9,
+            "hint": "$|i|^2=1$, so multiplication by $i$ is an automorphism (degree $1$), consistent with $j=1728$ having $\\operatorname{Aut}(E)\\supset\\{\\pm1,\\pm i\\}$.",
             "explain": "$|i|^2=1$, so multiplication by $i$ is an automorphism (degree $1$), consistent with $j=1728$ having $\\operatorname{Aut}(E)\\supset\\{\\pm1,\\pm i\\}$."
           }
         ],
@@ -11194,6 +11861,7 @@ window.MVQuizBank = {
               "Always rank 0"
             ],
             "answer": 1,
+            "hint": "$E(\\mathbb{Q})\\cong E(\\mathbb{Q})_{\\text{tors}}\\oplus\\mathbb{Z}^r$.",
             "explain": "$E(\\mathbb{Q})\\cong E(\\mathbb{Q})_{\\text{tors}}\\oplus\\mathbb{Z}^r$."
           },
           {
@@ -11201,6 +11869,7 @@ window.MVQuizBank = {
             "q": "If $E(\\mathbb{Q})\\cong (\\mathbb{Z}/2\\mathbb{Z})\\oplus\\mathbb{Z}^3$, the rank is:",
             "answer": 3,
             "tol": 1e-9,
+            "hint": "Rank is the exponent of the free part.",
             "explain": "Rank is the exponent of the free part."
           },
           {
@@ -11212,6 +11881,7 @@ window.MVQuizBank = {
               "Infinite cyclic"
             ],
             "answer": 1,
+            "hint": "Over $\\mathbb{Q}$, torsion is finite (Mazur classifies possibilities).",
             "explain": "Over $\\mathbb{Q}$, torsion is finite (Mazur classifies possibilities)."
           }
         ],
@@ -11271,6 +11941,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -11293,6 +11964,7 @@ window.MVQuizBank = {
               "proper"
             ],
             "answer": 3,
+            "hint": "Étale = flat + unramified (equivalently: smooth of relative dimension $0$).",
             "explain": "Étale = flat + unramified (equivalently: smooth of relative dimension $0$). Properness is a separate condition; étale morphisms are by definition of finite presentation but need not be proper."
           },
           {
@@ -11300,6 +11972,7 @@ window.MVQuizBank = {
             "q": "Consider the map $f\\colon \\mathbb{A}^1_{\\mathbb{C}}\\to \\mathbb{A}^1_{\\mathbb{C}}$, $z\\mapsto z^5$. Away from the origin it is étale. Over a point $t\\neq 0$, how many geometric points does the fibre have?",
             "answer": 5,
             "tol": 0.0001,
+            "hint": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e.",
             "explain": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e. $5$ distinct fifth roots, so the étale degree is $5$. Over $t=0$ the fibre collapses to a single ramified point $z=0$."
           },
           {
@@ -11312,6 +11985,7 @@ window.MVQuizBank = {
               "never"
             ],
             "answer": 1,
+            "hint": "The derivative $nt^{n-1}$ must be invertible on $\\mathbb{G}_m$; over $\\mathbb{F}_p$ that holds iff $p\\nmid n$.",
             "explain": "The derivative $nt^{n-1}$ must be invertible on $\\mathbb{G}_m$; over $\\mathbb{F}_p$ that holds iff $p\\nmid n$. Otherwise the map is inseparable (Frobenius-like) and ramified."
           }
         ],
@@ -11365,6 +12039,7 @@ window.MVQuizBank = {
               "Because Frobenius has no action when $\\ell = p$."
             ],
             "answer": 0,
+            "hint": "In characteristic $p$, the étale cohomology $H^i_{\\text{ét}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead).",
             "explain": "In characteristic $p$, the étale cohomology $H^i_{\\text{ét}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead). For $\\ell \\neq p$ the theory is well-behaved and gives the right Betti numbers."
           },
           {
@@ -11372,6 +12047,7 @@ window.MVQuizBank = {
             "q": "Let $E$ be a smooth projective curve of genus $g$ over an algebraically closed field. What is $\\dim_{\\mathbb{Q}_\\ell} H^1_{\\text{ét}}(E, \\mathbb{Q}_\\ell)$ for $g = 3$?",
             "answer": 6,
             "tol": 0.0001,
+            "hint": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{ét}}(E,\\mathbb{Q}_\\ell) = 2g$.",
             "explain": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{ét}}(E,\\mathbb{Q}_\\ell) = 2g$. With $g=3$ this is $6$ — matching the classical Betti number $b_1 = 2g$ for a complex curve."
           },
           {
@@ -11384,6 +12060,7 @@ window.MVQuizBank = {
               "$\\bigoplus_n H^i_{\\text{ét}}(X, \\mathbb{Z}/\\ell^n)$"
             ],
             "answer": 1,
+            "hint": "One takes the inverse limit over torsion sheaves $\\mathbb{Z}/\\ell^n$ to land in $\\mathbb{Z}_\\ell$-modules, then tensors with $\\mathbb{Q}_\\ell$ to get a finite-dimensional $\\mathbb{Q}_\\ell$-vector…",
             "explain": "One takes the inverse limit over torsion sheaves $\\mathbb{Z}/\\ell^n$ to land in $\\mathbb{Z}_\\ell$-modules, then tensors with $\\mathbb{Q}_\\ell$ to get a finite-dimensional $\\mathbb{Q}_\\ell$-vector space."
           }
         ],
@@ -11437,6 +12114,7 @@ window.MVQuizBank = {
               "$\\det(f^* \\mid H^*_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$"
             ],
             "answer": 1,
+            "hint": "The count is an **alternating** sum of traces: odd-degree cohomology contributes with a minus sign, matching the classical topological Lefschetz formula $L(f) = \\sum (-1)^i \\mathrm{Tr}(f^*\\mid H^i)$.",
             "explain": "The count is an **alternating** sum of traces: odd-degree cohomology contributes with a minus sign, matching the classical topological Lefschetz formula $L(f) = \\sum (-1)^i \\mathrm{Tr}(f^*\\mid H^i)$."
           },
           {
@@ -11444,6 +12122,7 @@ window.MVQuizBank = {
             "q": "Apply the trace formula to $X = \\mathbb{P}^2_{\\mathbb{F}_q}$ with $q=3$ and $f = F_q$ (geometric Frobenius), so $F^*$ acts as $q^i$ on $H^{2i}$ and odd cohomology vanishes. Compute $\\#\\mathbb{P}^2(\\mathbb{F}_3)$.",
             "answer": 13,
             "tol": 0.0001,
+            "hint": "$\\sum_i (-1)^i \\mathrm{Tr}(F^*\\mid H^i) = 1 + q + q^2 = 1+3+9 = 13$, matching $\\#\\mathbb{P}^2(\\mathbb{F}_3) = (3^3-1)/(3-1) = 13$.",
             "explain": "$\\sum_i (-1)^i \\mathrm{Tr}(F^*\\mid H^i) = 1 + q + q^2 = 1+3+9 = 13$, matching $\\#\\mathbb{P}^2(\\mathbb{F}_3) = (3^3-1)/(3-1) = 13$."
           },
           {
@@ -11456,6 +12135,7 @@ window.MVQuizBank = {
               "Transversality is never automatic; it has to be imposed."
             ],
             "answer": 1,
+            "hint": "The derivative of $x\\mapsto x^q$ is identically zero, so the tangent space of the graph at a fixed point is just $T_x(\\Delta)$'s complement inside $T_x(X\\times X)$ — the two subspaces are transverse,…",
             "explain": "The derivative of $x\\mapsto x^q$ is identically zero, so the tangent space of the graph at a fixed point is just $T_x(\\Delta)$'s complement inside $T_x(X\\times X)$ — the two subspaces are transverse, and every fixed point contributes $+1$ to the intersection."
           }
         ],
@@ -11504,6 +12184,7 @@ window.MVQuizBank = {
             "q": "Let $E/\\mathbb{F}_q$ be an elliptic curve and write the Frobenius eigenvalues on $H^1_{\\text{ét}}$ as $\\alpha, \\beta$ with $\\alpha\\beta = q$. If $q = 5$ and $\\alpha + \\beta = 3$, compute $\\#E(\\mathbb{F}_5)$.",
             "answer": 3,
             "tol": 0.0001,
+            "hint": "$\\#E(\\mathbb{F}_q) = q + 1 - (\\alpha+\\beta) = 5 + 1 - 3 = 3$.",
             "explain": "$\\#E(\\mathbb{F}_q) = q + 1 - (\\alpha+\\beta) = 5 + 1 - 3 = 3$. The trace $\\alpha+\\beta$ is the standard $a_q$."
           },
           {
@@ -11514,6 +12195,7 @@ window.MVQuizBank = {
               2
             ],
             "tol": 0.001,
+            "hint": "On $H^1$ with $q=4$ we need $|\\alpha| = \\sqrt{4} = 2$.",
             "explain": "On $H^1$ with $q=4$ we need $|\\alpha| = \\sqrt{4} = 2$. On the positive imaginary axis that is $\\alpha = 2i$."
           },
           {
@@ -11526,6 +12208,7 @@ window.MVQuizBank = {
               "All of the above."
             ],
             "answer": 3,
+            "hint": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth).",
             "explain": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth). Étale cohomology with its Frobenius action is what makes them provable."
           }
         ],
@@ -11579,6 +12262,7 @@ window.MVQuizBank = {
               "$H^i_{\\text{ét}}$ depends nontrivially on $\\ell$"
             ],
             "answer": 0,
+            "hint": "Artin's theorem: étale cohomology of a complex variety agrees with topological singular cohomology after tensoring to $\\mathbb{Q}_\\ell$.",
             "explain": "Artin's theorem: étale cohomology of a complex variety agrees with topological singular cohomology after tensoring to $\\mathbb{Q}_\\ell$. In particular $\\dim H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ is the classical Betti number $b_i$, independent of $\\ell$."
           },
           {
@@ -11586,6 +12270,7 @@ window.MVQuizBank = {
             "q": "Using the comparison theorem, compute the $\\ell$-adic Betti number $b_2 = \\dim_{\\mathbb{Q}_\\ell} H^2_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ for $X = \\mathbb{P}^1 \\times \\mathbb{P}^1$ over $\\mathbb{C}$.",
             "answer": 2,
             "tol": 0.0001,
+            "hint": "By Künneth and comparison, $H^2(\\mathbb{P}^1\\times\\mathbb{P}^1) = H^2(\\mathbb{P}^1)\\otimes H^0(\\mathbb{P}^1) \\oplus H^0\\otimes H^2$, giving $b_2 = 1+1 = 2$.",
             "explain": "By Künneth and comparison, $H^2(\\mathbb{P}^1\\times\\mathbb{P}^1) = H^2(\\mathbb{P}^1)\\otimes H^0(\\mathbb{P}^1) \\oplus H^0\\otimes H^2$, giving $b_2 = 1+1 = 2$. The two classes are the pullbacks of the hyperplane class from each factor."
           },
           {
@@ -11598,6 +12283,7 @@ window.MVQuizBank = {
               "One uses de Rham cohomology of the generic fiber."
             ],
             "answer": 1,
+            "hint": "Étale cohomology with $\\mathbb{Z}/p^n$ coefficients sees Frobenius-kernel pathology in characteristic $p$.",
             "explain": "Étale cohomology with $\\mathbb{Z}/p^n$ coefficients sees Frobenius-kernel pathology in characteristic $p$. Crystalline cohomology (Berthelot–Grothendieck) replaces it, producing a $W(k)$-module with semi-linear Frobenius whose characteristic polynomial matches the $\\ell$-adic ones for $\\ell\\neq p$."
           }
         ],
@@ -12049,6 +12735,7 @@ window.MVQuizBank = {
               "Any $K_{r+1}$-free graph achieves the bound"
             ],
             "answer": 2,
+            "hint": "Turán's theorem identifies $T(n, r)$ — the complete $r$-partite graph with parts as equal as possible — as the unique edge-maximizer among $K_{r+1}$-free graphs.",
             "explain": "Turán's theorem identifies $T(n, r)$ — the complete $r$-partite graph with parts as equal as possible — as the unique edge-maximizer among $K_{r+1}$-free graphs."
           },
           {
@@ -12056,6 +12743,7 @@ window.MVQuizBank = {
             "q": "How many edges does the balanced Turán graph $T(6, 3)$ have?",
             "answer": 12,
             "tol": 0,
+            "hint": "$T(6,3)$ has three parts of size $2$.",
             "explain": "$T(6,3)$ has three parts of size $2$. Edge count $= \\binom{6}{2} - 3\\binom{2}{2} = 15 - 3 = 12$, equivalently $(1 - 1/3) \\cdot 6^2/2 = 12$."
           },
           {
@@ -12068,6 +12756,7 @@ window.MVQuizBank = {
               "$1$"
             ],
             "answer": 1,
+            "hint": "$\\pi(K_{r+1}) = 1 - 1/r$.",
             "explain": "$\\pi(K_{r+1}) = 1 - 1/r$. For $K_4 = K_{3+1}$, $r = 3$ and $\\pi(K_4) = 1 - 1/3 = 2/3$."
           }
         ]
@@ -12085,6 +12774,7 @@ window.MVQuizBank = {
               "$\\Theta(n^2)$"
             ],
             "answer": 1,
+            "hint": "KST gives $\\mathrm{ex}(n, K_{s,t}) \\le \\frac{1}{2}(t-1)^{1/s} n^{2-1/s} + O(n)$.",
             "explain": "KST gives $\\mathrm{ex}(n, K_{s,t}) \\le \\frac{1}{2}(t-1)^{1/s} n^{2-1/s} + O(n)$. The exponent $2 - 1/s$ is sharp for $s = 2$ (incidence-graph construction) and conjectured sharp in general."
           },
           {
@@ -12097,6 +12787,7 @@ window.MVQuizBank = {
               "A Cayley graph of $(\\mathbb{Z}/n\\mathbb{Z})^*$"
             ],
             "answer": 2,
+            "hint": "Erdős–Rényi: take vertices = points and lines of $\\mathrm{PG}(2, q)$, with $n \\approx 2(q^2 + q + 1)$ vertices.",
             "explain": "Erdős–Rényi: take vertices = points and lines of $\\mathrm{PG}(2, q)$, with $n \\approx 2(q^2 + q + 1)$ vertices. Incidence as edges gives a $C_4$-free graph with $\\Theta(n^{3/2})$ edges."
           },
           {
@@ -12113,6 +12804,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "The proof is a clean three-line counting argument: count cherries / common-neighbour patterns two ways and apply convexity.",
             "explain": "The proof is a clean three-line counting argument: count cherries / common-neighbour patterns two ways and apply convexity. Regularity is overkill — KST predates it by 21 years."
           }
         ]
@@ -12130,6 +12822,7 @@ window.MVQuizBank = {
               "Whether $H$ is bipartite"
             ],
             "answer": 2,
+            "hint": "$\\mathrm{ex}(n, H) = (1 - 1/(\\chi(H)-1))\\,n^2/2 + o(n^2)$.",
             "explain": "$\\mathrm{ex}(n, H) = (1 - 1/(\\chi(H)-1))\\,n^2/2 + o(n^2)$. The leading term sees only $\\chi(H)$ — neither vertex count nor edge count nor any finer structure."
           },
           {
@@ -12142,6 +12835,7 @@ window.MVQuizBank = {
               "$3/4$"
             ],
             "answer": 2,
+            "hint": "By Erdős–Stone, $\\pi(H) = 1 - 1/(\\chi(H) - 1)$.",
             "explain": "By Erdős–Stone, $\\pi(H) = 1 - 1/(\\chi(H) - 1)$. For $\\chi(H) = 4$, $\\pi(H) = 1 - 1/3 = 2/3$. The asymptotic extremal example is $T(n, 3)$, the balanced tripartite graph."
           },
           {
@@ -12154,6 +12848,7 @@ window.MVQuizBank = {
               "$\\Theta(n \\log n)$"
             ],
             "answer": 1,
+            "hint": "$1 - 1/(2-1) = 0$, so the leading $n^2$ coefficient vanishes.",
             "explain": "$1 - 1/(2-1) = 0$, so the leading $n^2$ coefficient vanishes. $\\mathrm{ex}(n, H) = o(n^2)$ — but Erdős–Stone gives no rate. Determining the rate (KST exponents, even-cycle bounds, the Sidorenko conjecture) is the bipartite extremal industry."
           }
         ]
@@ -12166,6 +12861,7 @@ window.MVQuizBank = {
             "q": "What is the Ramsey number $R(3, 3)$?",
             "answer": 6,
             "tol": 0,
+            "hint": "$R(3,3) = 6$.",
             "explain": "$R(3,3) = 6$. Lower bound: the $5$-cycle $C_5$ together with its complement is triangle-free in both colours. Upper bound: pigeonhole at any vertex of $K_6$ — three of its five edges are the same colour, then either those endpoints form a monochromatic triangle or include the missing colour."
           },
           {
@@ -12178,6 +12874,7 @@ window.MVQuizBank = {
               "$R(k, k) = O(k^2 / \\log k)$"
             ],
             "answer": 2,
+            "hint": "Random $2$-edge-coloring of $K_n$: expected monochromatic $K_k$ count is $\\binom{n}{k} 2^{1 - \\binom{k}{2}}$.",
             "explain": "Random $2$-edge-coloring of $K_n$: expected monochromatic $K_k$ count is $\\binom{n}{k} 2^{1 - \\binom{k}{2}}$. Setting this $< 1$ yields the lower bound $\\sim 2^{k/2}$. The upper bound $4^k$ is from Erdős–Szekeres."
           },
           {
@@ -12190,6 +12887,7 @@ window.MVQuizBank = {
               "$x + y + z = 0$"
             ],
             "answer": 1,
+            "hint": "Schur: every $r$-colouring of a long enough initial segment contains a monochromatic Schur triple $x + y = z$.",
             "explain": "Schur: every $r$-colouring of a long enough initial segment contains a monochromatic Schur triple $x + y = z$. The proof reduces to graph Ramsey on $K_n$ via colour-by-difference."
           }
         ]
@@ -12202,6 +12900,7 @@ window.MVQuizBank = {
             "q": "What is the maximum size of an antichain in $2^{[5]}$?",
             "answer": 10,
             "tol": 0,
+            "hint": "Sperner: max size $= \\binom{n}{\\lfloor n/2 \\rfloor}$.",
             "explain": "Sperner: max size $= \\binom{n}{\\lfloor n/2 \\rfloor}$. For $n = 5$, this is $\\binom{5}{2} = \\binom{5}{3} = 10$, attained by either of the two middle layers."
           },
           {
@@ -12214,6 +12913,7 @@ window.MVQuizBank = {
               "$\\prod_{F\\in\\mathcal{F}} |F| \\le n^n$"
             ],
             "answer": 1,
+            "hint": "LYM (Lubell–Yamamoto–Meshalkin): the chain-counting bound $\\sum_F 1/\\binom{n}{|F|} \\le 1$.",
             "explain": "LYM (Lubell–Yamamoto–Meshalkin): the chain-counting bound $\\sum_F 1/\\binom{n}{|F|} \\le 1$. Sperner's theorem follows by bounding each summand below by $1/\\binom{n}{\\lfloor n/2\\rfloor}$."
           },
           {
@@ -12226,6 +12926,7 @@ window.MVQuizBank = {
               "Linear programming duality"
             ],
             "answer": 1,
+            "hint": "Each maximal chain $\\emptyset = C_0 \\subset \\cdots \\subset C_n = [n]$ is a permutation — there are $n!$ of them.",
             "explain": "Each maximal chain $\\emptyset = C_0 \\subset \\cdots \\subset C_n = [n]$ is a permutation — there are $n!$ of them. A given $F$ with $|F|=k$ lies on $k!(n-k)! = n!/\\binom{n}{k}$ chains. An antichain meets each chain at most once, so $\\sum_F n!/\\binom{n}{|F|} \\le n!$."
           }
         ]
@@ -12243,6 +12944,7 @@ window.MVQuizBank = {
               "Every dense graph contains a triangle"
             ],
             "answer": 1,
+            "hint": "Removal lemma: few triangles $\\Rightarrow$ few edges suffice to destroy them all.",
             "explain": "Removal lemma: few triangles $\\Rightarrow$ few edges suffice to destroy them all. Equivalently (contrapositive): a graph that is robustly non-triangle-free is supersaturated with triangles."
           },
           {
@@ -12255,6 +12957,7 @@ window.MVQuizBank = {
               "The Erdős–Ko–Rado theorem"
             ],
             "answer": 2,
+            "hint": "Roth (1953): any $A \\subseteq \\{1,\\ldots,N\\}$ free of $3$-APs has $|A| = o(N)$.",
             "explain": "Roth (1953): any $A \\subseteq \\{1,\\ldots,N\\}$ free of $3$-APs has $|A| = o(N)$. Proof via removal: build a tripartite graph whose triangles correspond to $3$-APs in $A$; trivial APs force supersaturation, so non-trivial ones must exist when $|A|/N$ is bounded below."
           },
           {
@@ -12267,6 +12970,7 @@ window.MVQuizBank = {
               "$K(\\varepsilon)$ depends linearly on $n$"
             ],
             "answer": 2,
+            "hint": "Szemerédi gives an explicit tower-type bound; Gowers (1997) showed it is essentially sharp — no polynomial in $1/\\varepsilon$ suffices.",
             "explain": "Szemerédi gives an explicit tower-type bound; Gowers (1997) showed it is essentially sharp — no polynomial in $1/\\varepsilon$ suffices. This is what makes regularity proofs ineffective in practice for small $\\varepsilon$."
           }
         ]
@@ -12289,6 +12993,7 @@ window.MVQuizBank = {
               "$x$ and $z$"
             ],
             "answer": 2,
+            "hint": "$x$ is bound by $\\forall x$ inside the first conjunct; $y$ is bound by $\\exists y$.",
             "explain": "$x$ is bound by $\\forall x$ inside the first conjunct; $y$ is bound by $\\exists y$. $Q(z)$ is outside any quantifier scope, so $z$ is the only free variable."
           },
           {
@@ -12296,6 +13001,7 @@ window.MVQuizBank = {
             "q": "How many distinct terms of depth at most $1$ can be built from one constant $c$, one unary function $f$, and one variable $x$? (Depth $0$: variable or constant. Depth $1$: $f$ applied to a depth-$0$ term.)",
             "answer": 4,
             "tol": 0,
+            "hint": "Depth-$0$ terms: $c, x$ (2).",
             "explain": "Depth-$0$ terms: $c, x$ (2). Depth-$1$ terms: $f(c), f(x)$ (2). Total $2 + 2 = 4$."
           },
           {
@@ -12308,6 +13014,7 @@ window.MVQuizBank = {
               "$\\forall x\\,(x)$"
             ],
             "answer": 0,
+            "hint": "The first is a sentence: 'every $x$ has an additive complement to $1$'.",
             "explain": "The first is a sentence: 'every $x$ has an additive complement to $1$'. The others misuse symbols: relation/function symbols cannot be quantified over (that would be second-order), and $(x)$ is not a formula."
           }
         ]
@@ -12325,6 +13032,7 @@ window.MVQuizBank = {
               "$\\forall x\\,(x = 0)$"
             ],
             "answer": 0,
+            "hint": "Every integer has an additive inverse: $y = -x$.",
             "explain": "Every integer has an additive inverse: $y = -x$. The second fails for $x = 1$. The third asks for a non-zero additive identity. The fourth is trivially false."
           },
           {
@@ -12332,6 +13040,7 @@ window.MVQuizBank = {
             "q": "Let $\\mathfrak{A}$ be the structure on $\\{a,b,c\\}$ where $R$ is interpreted as the relation $\\{(a,b),(b,c),(a,c)\\}$. How many ordered pairs $(x,y)$ satisfy $\\mathfrak{A}\\models R(x,y) \\lor R(y,x)$?",
             "answer": 6,
             "tol": 0,
+            "hint": "The relation $R \\cup R^{-1}$ has $3$ pairs each from $R$ and $R^{-1}$, all distinct: $(a,b),(b,c),(a,c),(b,a),(c,b),(c,a)$.",
             "explain": "The relation $R \\cup R^{-1}$ has $3$ pairs each from $R$ and $R^{-1}$, all distinct: $(a,b),(b,c),(a,c),(b,a),(c,b),(c,a)$. So $6$ pairs."
           },
           {
@@ -12344,6 +13053,7 @@ window.MVQuizBank = {
               "$\\mathfrak{A}\\models \\varphi(x)$ when $s$ is the empty assignment."
             ],
             "answer": 1,
+            "hint": "The semantic clause for $\\forall x$ is: $\\varphi$ holds for every value of $x$ ranging over the domain — i.e.",
             "explain": "The semantic clause for $\\forall x$ is: $\\varphi$ holds for every value of $x$ ranging over the domain — i.e. for the modified assignment $s[x\\mapsto a]$ as $a$ varies. Restricting to closed terms is wrong: domains may contain elements named by no closed term."
           }
         ]
@@ -12361,6 +13071,7 @@ window.MVQuizBank = {
               "The compactness theorem applied to $\\Gamma \\cup \\{\\neg\\varphi\\}$."
             ],
             "answer": 1,
+            "hint": "Soundness is proved by induction on proofs.",
             "explain": "Soundness is proved by induction on proofs. Logical axioms are tautologies, hence valid; rules like modus ponens preserve truth in every structure. Therefore every theorem of the calculus is semantically valid."
           },
           {
@@ -12373,6 +13084,7 @@ window.MVQuizBank = {
               "From $\\Gamma\\vdash\\exists x\\,\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$."
             ],
             "answer": 0,
+            "hint": "The side condition '$x$ not free in $\\Gamma$' is essential: from $\\{P(x)\\}$ we must NOT conclude $\\forall x\\,P(x)$, since $x$ is being used as a name.",
             "explain": "The side condition '$x$ not free in $\\Gamma$' is essential: from $\\{P(x)\\}$ we must NOT conclude $\\forall x\\,P(x)$, since $x$ is being used as a name. Dropping the side condition gives an unsound rule."
           },
           {
@@ -12380,6 +13092,7 @@ window.MVQuizBank = {
             "q": "In a Hilbert system with modus ponens as the only inference rule, how many premises does an application of MP take?",
             "answer": 2,
             "tol": 0,
+            "hint": "Modus ponens: from $\\varphi$ and $\\varphi\\to\\psi$ infer $\\psi$.",
             "explain": "Modus ponens: from $\\varphi$ and $\\varphi\\to\\psi$ infer $\\psi$. Two premises."
           }
         ]
@@ -12397,6 +13110,7 @@ window.MVQuizBank = {
               "Every formula is equivalent to a quantifier-free formula."
             ],
             "answer": 1,
+            "hint": "Completeness equates syntactic provability with semantic entailment.",
             "explain": "Completeness equates syntactic provability with semantic entailment. The first option is the (false) statement that Gödel's incompleteness theorem refutes. The third and fourth are unrelated."
           },
           {
@@ -12409,6 +13123,7 @@ window.MVQuizBank = {
               "Constructing a forcing extension of the standard model."
             ],
             "answer": 0,
+            "hint": "Henkin's recipe: (1) add witness constants for every existential, in a chain; (2) Lindenbaum-extend to maximal consistency; (3) define $s\\sim t$ iff $T\\vdash s=t$; the quotient set of closed terms is…",
             "explain": "Henkin's recipe: (1) add witness constants for every existential, in a chain; (2) Lindenbaum-extend to maximal consistency; (3) define $s\\sim t$ iff $T\\vdash s=t$; the quotient set of closed terms is the domain. Truth in this term model coincides with provability."
           },
           {
@@ -12416,6 +13131,7 @@ window.MVQuizBank = {
             "q": "A consistent theory $T$ has at least how many models? (By the completeness theorem, the minimum guaranteed.)",
             "answer": 1,
             "tol": 0,
+            "hint": "Consistency $\\iff$ existence of a model.",
             "explain": "Consistency $\\iff$ existence of a model. So at least $1$."
           }
         ]
@@ -12433,6 +13149,7 @@ window.MVQuizBank = {
               "$\\Sigma$ is decidable."
             ],
             "answer": 1,
+            "hint": "Finite-satisfiability of every finite subset implies global satisfiability.",
             "explain": "Finite-satisfiability of every finite subset implies global satisfiability. Proof: by completeness, satisfiability $\\iff$ consistency, and inconsistency requires a finite proof, hence a finite inconsistent subset."
           },
           {
@@ -12445,6 +13162,7 @@ window.MVQuizBank = {
               "$\\forall x\\,(x < c)$."
             ],
             "answer": 1,
+            "hint": "Each finite subset of $\\mathrm{Th}(\\mathbb{N}) \\cup \\{c \\ne \\overline{n} : n \\in \\mathbb{N}\\}$ is satisfiable in $\\mathbb{N}$ (interpret $c$ as a number larger than all numerals mentioned), so the…",
             "explain": "Each finite subset of $\\mathrm{Th}(\\mathbb{N}) \\cup \\{c \\ne \\overline{n} : n \\in \\mathbb{N}\\}$ is satisfiable in $\\mathbb{N}$ (interpret $c$ as a number larger than all numerals mentioned), so the whole set is satisfiable. The resulting model contains $c$ different from every standard numeral — a non-standard element."
           },
           {
@@ -12452,6 +13170,7 @@ window.MVQuizBank = {
             "q": "Downward Löwenheim–Skolem: a satisfiable theory in a countable language has a model of cardinality $\\aleph_n$ for some $n$. Enter the smallest such $n$.",
             "answer": 0,
             "tol": 0,
+            "hint": "A countable model has cardinality $\\aleph_0$, so $n=0$.",
             "explain": "A countable model has cardinality $\\aleph_0$, so $n=0$."
           }
         ]
@@ -12469,6 +13188,7 @@ window.MVQuizBank = {
               "Every model has a countable elementary extension."
             ],
             "answer": 1,
+            "hint": "Downward LS: countable language + satisfiable $\\Rightarrow$ countable model.",
             "explain": "Downward LS: countable language + satisfiable $\\Rightarrow$ countable model. Upward LS would say models can be made arbitrarily large. Uniqueness of models is categoricity, a separate notion."
           },
           {
@@ -12481,6 +13201,7 @@ window.MVQuizBank = {
               "Cantor's theorem fails in non-standard models."
             ],
             "answer": 1,
+            "hint": "Skolem's resolution: 'uncountable in $M$' means 'no bijection $\\mathbb{N}^M\\to\\mathbb{R}^M$ exists inside $M$'.",
             "explain": "Skolem's resolution: 'uncountable in $M$' means 'no bijection $\\mathbb{N}^M\\to\\mathbb{R}^M$ exists inside $M$'. The external bijection is invisible to $M$. Uncountability is not absolute between models."
           },
           {
@@ -12488,6 +13209,7 @@ window.MVQuizBank = {
             "q": "If a first-order theory in a countable language has an infinite model, by upward Löwenheim–Skolem it has models of every cardinality $\\kappa \\ge \\aleph_n$. Enter the smallest such $n$.",
             "answer": 0,
             "tol": 0,
+            "hint": "Upward LS: an infinite model implies models of every cardinality $\\kappa \\ge \\max(\\aleph_0, |\\mathcal{L}|) = \\aleph_0$.",
             "explain": "Upward LS: an infinite model implies models of every cardinality $\\kappa \\ge \\max(\\aleph_0, |\\mathcal{L}|) = \\aleph_0$. So $n=0$."
           }
         ]
@@ -12505,6 +13227,7 @@ window.MVQuizBank = {
               "Finite."
             ],
             "answer": 1,
+            "hint": "Algorithm: enumerate proofs from the recursive axioms.",
             "explain": "Algorithm: enumerate proofs from the recursive axioms. Since $T$ is complete, exactly one of $\\varphi, \\neg\\varphi$ is a theorem; whichever appears first is the answer. Without completeness, some sentences are independent; without recursive axiomatisation we cannot enumerate proofs."
           },
           {
@@ -12517,6 +13240,7 @@ window.MVQuizBank = {
               "True arithmetic $\\mathrm{Th}(\\mathbb{N}, +, \\cdot, 0, 1)$."
             ],
             "answer": 2,
+            "hint": "ACF$_p$ admits QE in the language of rings: every formula is equivalent to a Boolean combination of polynomial equations (Tarski–Chevalley).",
             "explain": "ACF$_p$ admits QE in the language of rings: every formula is equivalent to a Boolean combination of polynomial equations (Tarski–Chevalley). PA and ZFC are incomplete; true arithmetic is undecidable (Tarski), so it does not admit QE."
           },
           {
@@ -12524,6 +13248,7 @@ window.MVQuizBank = {
             "q": "DLO (dense linear orders without endpoints) is $\\aleph_0$-categorical. How many countable models does DLO have, up to isomorphism?",
             "answer": 1,
             "tol": 0,
+            "hint": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$.",
             "explain": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$. Exactly $1$ countable model up to isomorphism."
           }
         ]
@@ -12533,18 +13258,257 @@ window.MVQuizBank = {
   "forcing-and-independence": {
     "topic": "forcing-and-independence",
     "quizzes": {
-      "forcing-and-independence-intro": {
-        "title": "Intro",
+      "forcing-posets": {
+        "title": "Forcing posets and dense subsets",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "In the standard convention $p\\le q$ in a forcing poset $\\mathbb P$ means:",
             "choices": [
-              "A",
-              "B"
+              "$p$ is a weaker condition than $q$ (less information)",
+              "$p$ is a stronger condition than $q$ (more information, narrower)",
+              "$p$ and $q$ are incompatible",
+              "$p$ extends $q$ as a set"
+            ],
+            "answer": 1,
+            "hint": "By the Cohen/Kunen convention, $p\\le q$ means $p$ extends $q$ — $p$ has more information and rules out more of the unknown object.",
+            "explain": "By the Cohen/Kunen convention, $p\\le q$ means $p$ extends $q$ — $p$ has more information and rules out more of the unknown object. Some authors flip the order; we follow the standard 'going down means stronger'."
+          },
+          {
+            "type": "mcq",
+            "q": "A subset $D\\subseteq\\mathbb P$ is dense iff:",
+            "choices": [
+              "Every two conditions in $D$ are comparable.",
+              "$D$ is closed under taking weaker conditions.",
+              "For every $p\\in\\mathbb P$ there is $q\\le p$ with $q\\in D$.",
+              "$D$ is closed under intersections."
+            ],
+            "answer": 2,
+            "hint": "Density is exactly the property that every condition can be extended into $D$.",
+            "explain": "Density is exactly the property that every condition can be extended into $D$. Each dense set encodes a question we want answered; meeting it is committing to an answer."
+          },
+          {
+            "type": "numeric",
+            "q": "In Cohen forcing $2^{<\\omega}$ (finite binary strings ordered by extension), how many immediate successors $q\\le p$ does any condition $p$ of length $n$ have at length $n+1$?",
+            "answer": 2,
+            "tol": 0,
+            "hint": "Each finite string $p$ extends in two ways: append 0 or append 1.",
+            "explain": "Each finite string $p$ extends in two ways: append 0 or append 1. So the poset is the infinite binary tree growing downward."
+          }
+        ]
+      },
+      "forcing-generic-extensions": {
+        "title": "Generic filters and the model $M[G]$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An $M$-generic filter $G\\subseteq\\mathbb P$ is required to:",
+            "choices": [
+              "Meet every dense subset $D\\subseteq\\mathbb P$ (whether or not $D\\in M$).",
+              "Meet every dense subset $D\\in M$.",
+              "Meet every chain in $\\mathbb P$.",
+              "Be definable inside $M$."
+            ],
+            "answer": 1,
+            "hint": "Genericity is relative to the ground model: $G$ must meet every dense set that $M$ can see.",
+            "explain": "Genericity is relative to the ground model: $G$ must meet every dense set that $M$ can see. Since $M$ is countable, only countably many dense sets need to be met, and a generic $G$ exists by a Baire-category-style diagonalization outside $M$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the ground model $M$ usually need to be countable for the forcing construction?",
+            "choices": [
+              "Because uncountable models cannot satisfy ZFC.",
+              "So that the family of dense subsets in $M$ is countable, letting us build $G$ by enumerating them.",
+              "Because $\\mathbb P$ must be finite.",
+              "To avoid the axiom of choice."
+            ],
+            "answer": 1,
+            "hint": "Countability of $M$ ensures only countably many dense sets in $M$, so a filter meeting all of them is built by induction along an $\\omega$-enumeration.",
+            "explain": "Countability of $M$ ensures only countably many dense sets in $M$, so a filter meeting all of them is built by induction along an $\\omega$-enumeration. Löwenheim–Skolem produces such a countable model."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following best describes $M[G]$?",
+            "choices": [
+              "The smallest transitive model of ZFC containing $M\\cup\\{G\\}$.",
+              "The set $M\\cup\\{G\\}$.",
+              "An elementary extension of $M$.",
+              "An inner model of $M$."
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "hint": "$M[G]$ is built by interpreting $\\mathbb P$-names from $M$ using $G$.",
+            "explain": "$M[G]$ is built by interpreting $\\mathbb P$-names from $M$ using $G$. It is transitive, contains $M$ and $G$, satisfies ZFC, and is the smallest such model — every step is forced from data already in $M$."
+          }
+        ]
+      },
+      "forcing-truth-lemma": {
+        "title": "The forcing relation and truth lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The truth lemma asserts that for any sentence $\\varphi$ in the forcing language and $M$-generic $G$:",
+            "choices": [
+              "$M[G]\\models\\varphi$ iff every $p\\in\\mathbb P$ forces $\\varphi$.",
+              "$M[G]\\models\\varphi$ iff some $p\\in G$ forces $\\varphi$.",
+              "$M[G]\\models\\varphi$ iff $\\varphi$ holds in $M$.",
+              "$M[G]\\models\\varphi$ iff no $p\\in\\mathbb P$ forces $\\neg\\varphi$."
+            ],
+            "answer": 1,
+            "hint": "The truth lemma: a statement holds in $M[G]$ exactly when some condition in the generic filter forces it.",
+            "explain": "The truth lemma: a statement holds in $M[G]$ exactly when some condition in the generic filter forces it. The forcing relation is definable inside $M$, so $M$ controls the truth in $M[G]$ from below."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these is a key property of the forcing relation $\\Vdash$?",
+            "choices": [
+              "It is undefinable in $M$.",
+              "It is monotone: if $p\\Vdash\\varphi$ and $q\\le p$ then $q\\Vdash\\varphi$.",
+              "It is decidable for every $p$ and $\\varphi$.",
+              "It is the same as classical truth."
+            ],
+            "answer": 1,
+            "hint": "Forcing is monotone (downward): a stronger condition forces everything its predecessor forced.",
+            "explain": "Forcing is monotone (downward): a stronger condition forces everything its predecessor forced. It is also definable inside $M$ (a key technical theorem of Cohen), so $M$ recognises which conditions force what."
+          },
+          {
+            "type": "mcq",
+            "q": "Which fact about $\\Vdash$ explains why $M[G]$ satisfies ZFC?",
+            "choices": [
+              "Every ZFC axiom is forced by the maximal element $\\mathbb 1\\in\\mathbb P$.",
+              "$M[G]$ is identical to $M$.",
+              "$G$ is itself a ZFC axiom.",
+              "Forcing is a meta-theory argument that bypasses ZFC."
+            ],
+            "answer": 0,
+            "hint": "One proves in $M$ that $\\mathbb 1\\Vdash\\sigma$ for each ZFC axiom $\\sigma$; by the truth lemma each axiom holds in $M[G]$.",
+            "explain": "One proves in $M$ that $\\mathbb 1\\Vdash\\sigma$ for each ZFC axiom $\\sigma$; by the truth lemma each axiom holds in $M[G]$. So $M[G]\\models$ ZFC for any generic $G$."
+          }
+        ]
+      },
+      "forcing-cohen-reals": {
+        "title": "Cohen forcing for adding reals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Cohen forcing $\\mathbb P=2^{<\\omega}$, the generic filter $G$ produces:",
+            "choices": [
+              "A new countable ordinal not in $M$.",
+              "A single new real $r_G\\in 2^\\omega$, the union of all conditions in $G$.",
+              "A new uncountable cardinal.",
+              "A copy of $M$."
+            ],
+            "answer": 1,
+            "hint": "$G$ is a chain of finite binary strings cofinal in length, and $r_G=\\bigcup G\\in 2^\\omega$ is a single new infinite binary sequence — the Cohen real.",
+            "explain": "$G$ is a chain of finite binary strings cofinal in length, and $r_G=\\bigcup G\\in 2^\\omega$ is a single new infinite binary sequence — the Cohen real. It is not in $M$ because its membership is decided dense-set by dense-set."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $r_G$ guaranteed not to be any specific real $s\\in 2^\\omega$ from $M$?",
+            "choices": [
+              "Because $G$ is uncountable.",
+              "Because the set $D_s=\\{p\\in\\mathbb P: p\\text{ disagrees with }s\\text{ at some bit}\\}$ is dense in $M$, and $G$ meets it.",
+              "Because Cohen forcing collapses cardinals.",
+              "Because the axiom of choice fails in $M[G]$."
+            ],
+            "answer": 1,
+            "hint": "For each $s\\in (2^\\omega)^M$, the set of conditions disagreeing with $s$ is dense (extend $p$ by flipping the next bit).",
+            "explain": "For each $s\\in (2^\\omega)^M$, the set of conditions disagreeing with $s$ is dense (extend $p$ by flipping the next bit). Genericity forces $r_G$ to differ from $s$ — so $r_G\\ne s$ for every old real."
+          },
+          {
+            "type": "mcq",
+            "q": "The product Cohen forcing $\\operatorname{Fn}(\\aleph_2\\times\\omega,2)$ — finite partial functions — is used to:",
+            "choices": [
+              "Collapse $\\aleph_1$ to be countable.",
+              "Add $\\aleph_2$ many distinct generic reals while preserving cardinals.",
+              "Force CH.",
+              "Add a single new ordinal."
+            ],
+            "answer": 1,
+            "hint": "Cohen's product forcing adds $\\aleph_2$ mutually distinct generic reals indexed by $\\aleph_2$.",
+            "explain": "Cohen's product forcing adds $\\aleph_2$ mutually distinct generic reals indexed by $\\aleph_2$. The countable chain condition (ccc) ensures no cardinal is collapsed, so $\\aleph_2^M=\\aleph_2^{M[G]}$ and $2^{\\aleph_0}\\ge\\aleph_2$ in the extension."
+          }
+        ]
+      },
+      "forcing-not-ch": {
+        "title": "Independence of the continuum hypothesis",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Cohen's 1963 result establishes:",
+            "choices": [
+              "ZFC proves CH.",
+              "ZFC proves $\\neg$CH.",
+              "ZFC does not prove $\\neg$CH (so CH is consistent).",
+              "ZFC does not prove CH (so $\\neg$CH is consistent)."
+            ],
+            "answer": 3,
+            "hint": "Forcing produces a model of ZFC + $\\neg$CH, so $\\neg$CH is consistent with ZFC; equivalently, ZFC does not prove CH.",
+            "explain": "Forcing produces a model of ZFC + $\\neg$CH, so $\\neg$CH is consistent with ZFC; equivalently, ZFC does not prove CH. Combined with Gödel's earlier consistency of CH, CH is independent of ZFC."
+          },
+          {
+            "type": "mcq",
+            "q": "Which pair of authors completes the independence proof of CH?",
+            "choices": [
+              "Gödel (CH consistent via $L$) and Cohen ($\\neg$CH consistent via forcing)",
+              "Cantor and Hilbert",
+              "Zermelo and Fraenkel",
+              "Skolem and Löwenheim"
+            ],
+            "answer": 0,
+            "hint": "Gödel built the constructible universe $L$ in 1940 and showed $L\\models$ ZFC + GCH, giving Con(ZFC + CH).",
+            "explain": "Gödel built the constructible universe $L$ in 1940 and showed $L\\models$ ZFC + GCH, giving Con(ZFC + CH). Cohen invented forcing in 1963 to build a model of ZFC + $\\neg$CH. Together: independence."
+          },
+          {
+            "type": "numeric",
+            "q": "In Cohen's original $\\neg$CH model, what is the value of $2^{\\aleph_0}$ as an aleph index? (Answer the subscript: $2^{\\aleph_0}=\\aleph_n$, give $n$.)",
+            "answer": 2,
+            "tol": 0,
+            "hint": "Cohen forced $\\aleph_2$ many new reals while preserving cardinals, so the continuum becomes $\\aleph_2$ in the extension.",
+            "explain": "Cohen forced $\\aleph_2$ many new reals while preserving cardinals, so the continuum becomes $\\aleph_2$ in the extension. Subsequent work (Solovay, Easton) shows $2^{\\aleph_0}$ can be any cardinal of uncountable cofinality."
+          }
+        ]
+      },
+      "forcing-applications": {
+        "title": "Other independence results",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is independent of ZFC?",
+            "choices": [
+              "The axiom of pairing.",
+              "Existence of $\\mathbb R$.",
+              "The Suslin hypothesis (every ccc complete dense linear order without endpoints is order-isomorphic to $\\mathbb R$).",
+              "Commutativity of ordinal addition."
+            ],
+            "answer": 2,
+            "hint": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using countable-support iterated forcing.",
+            "explain": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using countable-support iterated forcing. So SH is independent of ZFC."
+          },
+          {
+            "type": "mcq",
+            "q": "Martin's axiom (MA) is best described as:",
+            "choices": [
+              "A theorem of ZFC.",
+              "A weakening of CH consistent with $\\neg$CH that says ccc forcings of size $<2^{\\aleph_0}$ admit generic-like filters meeting any small family of dense sets.",
+              "An equivalent of the axiom of choice.",
+              "A large-cardinal axiom."
+            ],
+            "answer": 1,
+            "hint": "MA says: for any ccc poset $\\mathbb P$ and family $\\mathcal D$ of $<2^{\\aleph_0}$ dense sets, a filter meeting all of $\\mathcal D$ exists.",
+            "explain": "MA says: for any ccc poset $\\mathbb P$ and family $\\mathcal D$ of $<2^{\\aleph_0}$ dense sets, a filter meeting all of $\\mathcal D$ exists. Solovay–Tennenbaum (1971) forced MA + $\\neg$CH; under CH it is automatic but uninformative."
+          },
+          {
+            "type": "mcq",
+            "q": "Laver's indestructibility theorem (1978) shows:",
+            "choices": [
+              "Every supercompact cardinal collapses under any forcing.",
+              "Supercompactness can be made indestructible under a class of further forcings via a 'Laver preparation' iteration.",
+              "ZFC is inconsistent if a supercompact exists.",
+              "Forcing cannot change large cardinals."
+            ],
+            "answer": 1,
+            "hint": "Laver showed that after a suitable preparatory forcing, a supercompact cardinal $\\kappa$ remains supercompact in any further $<\\kappa$-directed-closed forcing extension.",
+            "explain": "Laver showed that after a suitable preparatory forcing, a supercompact cardinal $\\kappa$ remains supercompact in any further $<\\kappa$-directed-closed forcing extension. This is the template for many large-cardinal indestructibility results."
           }
         ]
       }
@@ -12578,6 +13542,7 @@ window.MVQuizBank = {
               "unrelated in general"
             ],
             "answer": 2,
+            "hint": "Any two primes above $p$ are related by an element of $G$ (Galois acts transitively on primes above $p$), and conjugating the prime conjugates the Frobenius.",
             "explain": "Any two primes above $p$ are related by an element of $G$ (Galois acts transitively on primes above $p$), and conjugating the prime conjugates the Frobenius. So $\\mathrm{Frob}_p$ is a well-defined conjugacy class in $G$."
           },
           {
@@ -12585,6 +13550,7 @@ window.MVQuizBank = {
             "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), a prime $p$ with factorisation $\\bar f(x)\\bmod p=(\\deg 2)\\cdot(\\deg 1)$ has Frobenius of cycle shape a single transposition. What is the order of $\\mathrm{Frob}_p$ in $S_3$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "A transposition in $S_3$ has order $2$: applying it twice returns the identity.",
             "explain": "A transposition in $S_3$ has order $2$: applying it twice returns the identity."
           }
         ],
@@ -12638,6 +13604,7 @@ window.MVQuizBank = {
               "$r$ and $f$ can depend on the chosen prime $\\mathfrak{P}_i$"
             ],
             "answer": 1,
+            "hint": "In a Galois extension $G$ acts transitively on primes above $p$, so $r$ and $f$ are the same for every $\\mathfrak{P}_i$, and the degree formula $\\sum e_i f_i = n$ collapses (with $e_i=1$) to $rf=n$.",
             "explain": "In a Galois extension $G$ acts transitively on primes above $p$, so $r$ and $f$ are the same for every $\\mathfrak{P}_i$, and the degree formula $\\sum e_i f_i = n$ collapses (with $e_i=1$) to $rf=n$."
           },
           {
@@ -12645,6 +13612,7 @@ window.MVQuizBank = {
             "q": "For $K=\\mathbb{Q}(\\zeta_7)$, $[K:\\mathbb{Q}]=6$, a prime $p$ that is inert in $K$ has splitting type $(r,f)=(1,6)$. If instead $p$ splits into $r=3$ primes, what is the common residue degree $f$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$rf=n$ with $n=6$, $r=3$ forces $f=2$.",
             "explain": "$rf=n$ with $n=6$, $r=3$ forces $f=2$."
           },
           {
@@ -12657,6 +13625,7 @@ window.MVQuizBank = {
               "$(6)$"
             ],
             "answer": 2,
+            "hint": "Completely split means Frobenius is the identity, which acts on the three roots with cycle shape $(1,1,1)$.",
             "explain": "Completely split means Frobenius is the identity, which acts on the three roots with cycle shape $(1,1,1)$."
           }
         ],
@@ -12710,6 +13679,7 @@ window.MVQuizBank = {
               "the kernel of the reduction map $\\mathcal{O}_K\\to\\mathcal{O}_K/\\mathfrak{P}$"
             ],
             "answer": 1,
+            "hint": "By definition $D(\\mathfrak{P})$ is the stabiliser of $\\mathfrak{P}$ under the $G$-action on primes above $p$; its order is $ef=|G|/r$.",
             "explain": "By definition $D(\\mathfrak{P})$ is the stabiliser of $\\mathfrak{P}$ under the $G$-action on primes above $p$; its order is $ef=|G|/r$."
           },
           {
@@ -12717,6 +13687,7 @@ window.MVQuizBank = {
             "q": "In a Galois extension of degree $n=12$ where a prime $p$ has $r=3$ primes above it with ramification index $e=2$ and residue degree $f=2$, what is $|D(\\mathfrak{P})|$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$|D(\\mathfrak{P})|=ef=2\\cdot 2=4$; equivalently $n/r=12/3=4$.",
             "explain": "$|D(\\mathfrak{P})|=ef=2\\cdot 2=4$; equivalently $n/r=12/3=4$."
           },
           {
@@ -12729,6 +13700,7 @@ window.MVQuizBank = {
               "$I(\\mathfrak{P})$ has order $f$"
             ],
             "answer": 1,
+            "hint": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does,…",
             "explain": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does, $D/I\\cong\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$ is generated by Frobenius."
           }
         ],
@@ -12782,6 +13754,7 @@ window.MVQuizBank = {
               "$1/|C|$"
             ],
             "answer": 1,
+            "hint": "The natural density of unramified primes whose Frobenius class is $C$ is exactly $|C|/|G|$; every conjugacy class is hit by a positive fraction determined by its size.",
             "explain": "The natural density of unramified primes whose Frobenius class is $C$ is exactly $|C|/|G|$; every conjugacy class is hit by a positive fraction determined by its size."
           },
           {
@@ -12789,6 +13762,7 @@ window.MVQuizBank = {
             "q": "For $f(x)=x^3-x-1$ with $G=S_3$, Chebotarev predicts the density of primes $p$ that split completely (Frobenius = identity). Express this density as a decimal (to $4$ places).",
             "answer": 0.16666666666666666,
             "tol": 0.001,
+            "hint": "The identity is one conjugacy class of size $1$ in $|S_3|=6$, giving density $1/6\\approx 0.1667$.",
             "explain": "The identity is one conjugacy class of size $1$ in $|S_3|=6$, giving density $1/6\\approx 0.1667$."
           },
           {
@@ -12796,6 +13770,7 @@ window.MVQuizBank = {
             "q": "Same $f$, same $G=S_3$: what fraction of primes have $\\mathrm{Frob}_p$ a transposition (cycle shape $(2,1)$)?",
             "answer": 0.5,
             "tol": 0.000001,
+            "hint": "Transpositions form a conjugacy class of size $3$ in $S_3$, so density $3/6=1/2$.",
             "explain": "Transpositions form a conjugacy class of size $3$ in $S_3$, so density $3/6=1/2$."
           }
         ],
@@ -12849,6 +13824,7 @@ window.MVQuizBank = {
               "the trivial group"
             ],
             "answer": 1,
+            "hint": "The Kronecker–Weber theorem embeds every abelian $K$ into a cyclotomic field $\\mathbb{Q}(\\zeta_N)$, whose Galois group is $(\\mathbb{Z}/N)^\\times$.",
             "explain": "The Kronecker–Weber theorem embeds every abelian $K$ into a cyclotomic field $\\mathbb{Q}(\\zeta_N)$, whose Galois group is $(\\mathbb{Z}/N)^\\times$. So Frobenius depends only on $p\\bmod N$."
           },
           {
@@ -12861,6 +13837,7 @@ window.MVQuizBank = {
               "$a_p(\\pi_\\rho)=p$ for all unramified $p$"
             ],
             "answer": 1,
+            "hint": "The slogan is: the Frobenius trace on the Galois side equals the $p$-th Fourier coefficient of an automorphic form on the other side, at every unramified prime.",
             "explain": "The slogan is: the Frobenius trace on the Galois side equals the $p$-th Fourier coefficient of an automorphic form on the other side, at every unramified prime."
           },
           {
@@ -12868,6 +13845,7 @@ window.MVQuizBank = {
             "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), the associated weight-1 cusp form $\\eta(z)\\eta(23z)=\\sum a_n q^n$ has $a_p=2$ exactly when $p$ splits completely. For such a splitting prime $p$, what is $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$ where $\\rho$ is the standard $2$-dim representation of $S_3$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$.",
             "explain": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$. This matches $a_p=2$ for the modular form, illustrating $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=a_p$."
           }
         ],
@@ -12931,6 +13909,7 @@ window.MVQuizBank = {
               "the unit ball is compact"
             ],
             "answer": 2,
+            "hint": "A Banach space is a normed vector space in which every Cauchy sequence converges.",
             "explain": "A Banach space is a normed vector space in which every Cauchy sequence converges. Inner products give Hilbert spaces; compact unit balls characterize finite-dimensional normed spaces."
           },
           {
@@ -12943,6 +13922,7 @@ window.MVQuizBank = {
               "$\\|\\alpha x\\|=|\\alpha|\\|x\\|$"
             ],
             "answer": 1,
+            "hint": "The Jordan–von Neumann theorem: a norm comes from an inner product iff it obeys the parallelogram law.",
             "explain": "The Jordan–von Neumann theorem: a norm comes from an inner product iff it obeys the parallelogram law. The inner product is then recovered by polarization."
           },
           {
@@ -12950,6 +13930,7 @@ window.MVQuizBank = {
             "q": "In $\\ell^2$, compute $\\|x\\|_2$ for $x=(1,2,2,0,0,\\ldots)$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$.",
             "explain": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$."
           }
         ],
@@ -13000,6 +13981,7 @@ window.MVQuizBank = {
               "$\\inf\\{\\|Tx\\| : x\\in X\\}$"
             ],
             "answer": 3,
+            "hint": "The infimum is $0$ for any linear $T$ (take $x=0$).",
             "explain": "The infimum is $0$ for any linear $T$ (take $x=0$). The first three expressions are all standard equivalent formulas for the operator norm."
           },
           {
@@ -13007,6 +13989,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{R}^2$ with Euclidean norm, what is the operator norm of the diagonal matrix $T=\\mathrm{diag}(3,-4)$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$.",
             "explain": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$. Here $\\max(3,4)=4$."
           },
           {
@@ -13014,6 +13997,7 @@ window.MVQuizBank = {
             "q": "Compute the operator norm of $T=\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}$ (symmetric, so $\\|T\\|=\\max|\\lambda_i|$).",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$.",
             "explain": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$. The operator norm is $\\max(|3|,|-1|)=3$."
           }
         ],
@@ -13066,6 +14050,7 @@ window.MVQuizBank = {
               "$T$ is injective"
             ],
             "answer": 3,
+            "hint": "Continuity at a point, continuity everywhere, and boundedness are equivalent for linear maps.",
             "explain": "Continuity at a point, continuity everywhere, and boundedness are equivalent for linear maps. Injectivity is unrelated: the zero map is bounded and continuous but not injective."
           },
           {
@@ -13078,6 +14063,7 @@ window.MVQuizBank = {
               "$\\|T^*\\|=2\\|T\\|$"
             ],
             "answer": 1,
+            "hint": "The defining $C^*$-identity is $\\|T^*T\\|=\\|T\\|^2$.",
             "explain": "The defining $C^*$-identity is $\\|T^*T\\|=\\|T\\|^2$. Combined with $\\|T^*\\|=\\|T\\|$, it pins down the Hilbert-space operator norm."
           },
           {
@@ -13085,6 +14071,7 @@ window.MVQuizBank = {
             "q": "On $\\ell^2$, let $S$ be the unilateral (right) shift $S(x_1,x_2,\\ldots)=(0,x_1,x_2,\\ldots)$. What is the operator norm $\\|S\\|$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$.",
             "explain": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$."
           }
         ],
@@ -13136,6 +14123,7 @@ window.MVQuizBank = {
               "$T^*T=I$"
             ],
             "answer": 1,
+            "hint": "The defining identity of the adjoint is $\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$.",
             "explain": "The defining identity of the adjoint is $\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$. Existence and uniqueness follow from the Riesz representation theorem applied to $y\\mapsto\\langle Tx,y\\rangle$."
           },
           {
@@ -13152,6 +14140,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "All three Pauli matrices are Hermitian (self-adjoint): $\\sigma_k^*=\\sigma_k$.",
             "explain": "All three Pauli matrices are Hermitian (self-adjoint): $\\sigma_k^*=\\sigma_k$. The skew-symmetric matrix $J=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ satisfies $J^*=-J$, so it is anti-self-adjoint, not self-adjoint."
           },
           {
@@ -13159,6 +14148,7 @@ window.MVQuizBank = {
             "q": "For $T=\\begin{pmatrix}2&i\\\\ 3&0\\end{pmatrix}$ on $\\mathbb{C}^2$, compute $(T^*)_{12}$ (the top-right entry of the adjoint). Give your answer as a real number (it happens to be real here).",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$.",
             "explain": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$. So $(T^*)_{12}=3$."
           }
         ],
@@ -13237,6 +14227,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "Hahn–Banach extends functionals; Open Mapping gives openness (so inverses of bijections are bounded); Closed Graph turns a a-priori estimate into continuity; Banach–Steinhaus (uniform boundedness)…",
             "explain": "Hahn–Banach extends functionals; Open Mapping gives openness (so inverses of bijections are bounded); Closed Graph turns a a-priori estimate into continuity; Banach–Steinhaus (uniform boundedness) upgrades pointwise bounds to norm bounds."
           },
           {
@@ -13249,6 +14240,7 @@ window.MVQuizBank = {
               "Hahn–Banach (extension form)"
             ],
             "answer": 3,
+            "hint": "Hahn–Banach rests on Zorn's lemma (or the axiom of choice), not on Baire category.",
             "explain": "Hahn–Banach rests on Zorn's lemma (or the axiom of choice), not on Baire category. The other three all use the Baire category theorem on a Banach space — a complete metric space is not a countable union of nowhere-dense sets."
           },
           {
@@ -13261,6 +14253,7 @@ window.MVQuizBank = {
               "Use the Riesz representation theorem, then restrict to $X$"
             ],
             "answer": 1,
+            "hint": "On the 1-dimensional subspace $\\mathbb{K}x$, define $\\ell_0(\\alpha x)=\\alpha\\|x\\|$ so that $|\\ell_0|=\\|\\cdot\\|$ there.",
             "explain": "On the 1-dimensional subspace $\\mathbb{K}x$, define $\\ell_0(\\alpha x)=\\alpha\\|x\\|$ so that $|\\ell_0|=\\|\\cdot\\|$ there. Hahn–Banach extends $\\ell_0$ to $\\ell\\in X^*$ with $\\|\\ell\\|=1$ and $\\ell(x)=\\|x\\|>0$."
           }
         ],
@@ -13321,6 +14314,7 @@ window.MVQuizBank = {
               "$\\|T\\|<1$"
             ],
             "answer": 2,
+            "hint": "A compact operator sends the unit ball (bounded) to a relatively compact (precompact) set.",
             "explain": "A compact operator sends the unit ball (bounded) to a relatively compact (precompact) set. Equivalently, every bounded sequence $(x_n)$ has $(Tx_{n_k})$ norm-convergent. This is far stronger than continuity."
           },
           {
@@ -13336,6 +14330,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "The identity is not compact on an infinite-dimensional Hilbert space (the unit ball is not compact — Riesz's lemma).",
             "explain": "The identity is not compact on an infinite-dimensional Hilbert space (the unit ball is not compact — Riesz's lemma). Finite-rank operators are always compact. Diagonal operators with $\\lambda_n\\to 0$ are compact (norm-limit of finite-rank truncations). $\\lambda_n=1+1/n\\to 1\\ne 0$, so not compact."
           },
           {
@@ -13348,6 +14343,7 @@ window.MVQuizBank = {
               "solutions exist iff $y$ is an eigenvector of $T$"
             ],
             "answer": 1,
+            "hint": "Fredholm alternative dichotomy: for $\\lambda\\ne 0$ in $\\sigma(T)\\cup\\rho(T)$, either $T-\\lambda I$ is a bijection, or $\\dim\\ker(T-\\lambda I)=\\dim\\mathrm{coker}(T-\\lambda I)<\\infty$ and solvability is…",
             "explain": "Fredholm alternative dichotomy: for $\\lambda\\ne 0$ in $\\sigma(T)\\cup\\rho(T)$, either $T-\\lambda I$ is a bijection, or $\\dim\\ker(T-\\lambda I)=\\dim\\mathrm{coker}(T-\\lambda I)<\\infty$ and solvability is equivalent to a finite family of orthogonality conditions."
           }
         ],
@@ -13399,6 +14395,7 @@ window.MVQuizBank = {
               "empty"
             ],
             "answer": 0,
+            "hint": "Self-adjoint operators have real spectrum.",
             "explain": "Self-adjoint operators have real spectrum. Unitary operators have spectrum on the unit circle; bounded operator spectra on complex Hilbert spaces are always nonempty and compact."
           },
           {
@@ -13411,6 +14408,7 @@ window.MVQuizBank = {
               "a finite-rank projection"
             ],
             "answer": 2,
+            "hint": "After a unitary change of coordinates, every bounded self-adjoint operator becomes multiplication by a bounded real-valued function on an $L^2$ space.",
             "explain": "After a unitary change of coordinates, every bounded self-adjoint operator becomes multiplication by a bounded real-valued function on an $L^2$ space."
           },
           {
@@ -13421,6 +14419,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$.",
             "explain": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$."
           }
         ],
@@ -13479,6 +14478,7 @@ window.MVQuizBank = {
               0,
               1
             ],
+            "hint": "Point = $\\lambda$ is an eigenvalue.",
             "explain": "Point = $\\lambda$ is an eigenvalue. Continuous = injective, dense range, not closed (think multiplication by $x$ on $L^2[0,1]$). Residual = injective, range not dense (classic: $\\lambda=0$ for the right shift)."
           },
           {
@@ -13491,6 +14491,7 @@ window.MVQuizBank = {
               "$\\{0\\}$"
             ],
             "answer": 2,
+            "hint": "If $Sx=\\lambda x$ with $x\\ne 0$, then $(0,x_1,x_2,\\ldots)=\\lambda(x_1,x_2,\\ldots)$ gives $\\lambda x_1=0$ and $\\lambda x_{n+1}=x_n$.",
             "explain": "If $Sx=\\lambda x$ with $x\\ne 0$, then $(0,x_1,x_2,\\ldots)=\\lambda(x_1,x_2,\\ldots)$ gives $\\lambda x_1=0$ and $\\lambda x_{n+1}=x_n$. If $\\lambda=0$, then $x=0$; if $\\lambda\\ne 0$, then $x_1=0$ and inductively $x=0$. So $S$ has no eigenvalues — $\\sigma_p(S)=\\emptyset$, yet $\\sigma(S)=\\overline{D(0,1)}$."
           },
           {
@@ -13503,6 +14504,7 @@ window.MVQuizBank = {
               "$\\rho(T)$ is closed"
             ],
             "answer": 1,
+            "hint": "The resolvent set is open (perturbing $T-\\lambda I$ slightly keeps invertibility by a Neumann-series argument), so the spectrum is closed.",
             "explain": "The resolvent set is open (perturbing $T-\\lambda I$ slightly keeps invertibility by a Neumann-series argument), so the spectrum is closed. It is also bounded by $\\|T\\|$ (for $|\\lambda|>\\|T\\|$, the Neumann series $\\sum(T/\\lambda)^n/\\lambda$ inverts $T-\\lambda I$). Hence $\\sigma(T)$ is compact, non-empty, and countable iff dictated by extra structure (e.g., compactness of $T$)."
           }
         ],
@@ -13567,6 +14569,7 @@ window.MVQuizBank = {
               "$L^\\infty$ for every $p$"
             ],
             "answer": 1,
+            "hint": "The pairing $\\langle f,g\\rangle=\\int fg\\,d\\mu$ is bounded by Hölder with constant $\\|g\\|_q$, and every bounded functional on $L^p$ arises this way — this is the content of the Riesz representation…",
             "explain": "The pairing $\\langle f,g\\rangle=\\int fg\\,d\\mu$ is bounded by Hölder with constant $\\|g\\|_q$, and every bounded functional on $L^p$ arises this way — this is the content of the Riesz representation for $L^p$."
           },
           {
@@ -13574,6 +14577,7 @@ window.MVQuizBank = {
             "q": "On $\\ell^2$ let $\\ell(x)=2x_1+x_2-2x_3$ for $x=(x_1,x_2,x_3,0,\\ldots)$. By Riesz, $\\ell(x)=\\langle x,y\\rangle$ for some $y\\in\\ell^2$. Compute $\\|\\ell\\|=\\|y\\|_2$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$.",
             "explain": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$. Riesz makes $\\|\\ell\\|_{H^*}=\\|y\\|_H$."
           }
         ],
@@ -13624,6 +14628,7 @@ window.MVQuizBank = {
               "$x_n=x$ eventually"
             ],
             "answer": 1,
+            "hint": "Weak convergence $x_n\\rightharpoonup x$ means $\\ell(x_n)\\to\\ell(x)$ for every bounded linear functional $\\ell$.",
             "explain": "Weak convergence $x_n\\rightharpoonup x$ means $\\ell(x_n)\\to\\ell(x)$ for every bounded linear functional $\\ell$. Norm convergence is strictly stronger."
           },
           {
@@ -13636,6 +14641,7 @@ window.MVQuizBank = {
               "dense in $X^{**}$"
             ],
             "answer": 1,
+            "hint": "Banach–Alaoglu: $B_{X^*}$ is compact in the weak-* topology, proved by embedding it in the product $\\prod_{x\\in X}\\overline{D(0,\\|x\\|)}$ and applying Tychonoff.",
             "explain": "Banach–Alaoglu: $B_{X^*}$ is compact in the weak-* topology, proved by embedding it in the product $\\prod_{x\\in X}\\overline{D(0,\\|x\\|)}$ and applying Tychonoff. Norm-compactness of the unit ball fails in every infinite-dimensional Banach space."
           },
           {
@@ -13643,6 +14649,7 @@ window.MVQuizBank = {
             "q": "In $\\ell^2$, let $e_n$ be the $n$-th standard basis vector. The sequence $(e_n)$ does NOT converge in norm, but does converge weakly to a unique limit $w\\in\\ell^2$. Compute $\\|w\\|_2$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$.",
             "explain": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$. Yet $\\|e_n-0\\|_2=1$, so there is no norm convergence — a textbook illustration that weak limit $\\ne$ strong limit."
           }
         ],
@@ -13693,6 +14700,7 @@ window.MVQuizBank = {
               "conjugate-linear"
             ],
             "answer": 1,
+            "hint": "Hahn–Banach guarantees enough functionals to isometrically embed $X$ in $X^{**}$: $\\|Jx\\|=\\sup_{\\|\\ell\\|\\le 1}|\\ell(x)|=\\|x\\|$.",
             "explain": "Hahn–Banach guarantees enough functionals to isometrically embed $X$ in $X^{**}$: $\\|Jx\\|=\\sup_{\\|\\ell\\|\\le 1}|\\ell(x)|=\\|x\\|$. $X$ is reflexive when $J$ is additionally surjective."
           },
           {
@@ -13709,6 +14717,7 @@ window.MVQuizBank = {
               0,
               1
             ],
+            "hint": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive.",
             "explain": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
           },
           {
@@ -13721,6 +14730,7 @@ window.MVQuizBank = {
               "finite-dimensional"
             ],
             "answer": 1,
+            "hint": "Kakutani's theorem: $X$ is reflexive iff $B_X$ is weakly compact.",
             "explain": "Kakutani's theorem: $X$ is reflexive iff $B_X$ is weakly compact. Norm-compactness happens only in finite dimensions. Eberlein–Šmulian further says this weak compactness can be checked sequentially: $B_X$ weakly compact iff every bounded sequence has a weakly convergent subsequence."
           }
         ],
@@ -13778,6 +14788,7 @@ window.MVQuizBank = {
               "an element of $L^\\infty(\\mathbb{R})$"
             ],
             "answer": 1,
+            "hint": "The space $\\mathcal{D}'(\\mathbb{R})=(C_c^\\infty(\\mathbb{R}))^*$ is, by definition, the continuous linear functionals on test functions (with a specific inductive-limit topology).",
             "explain": "The space $\\mathcal{D}'(\\mathbb{R})=(C_c^\\infty(\\mathbb{R}))^*$ is, by definition, the continuous linear functionals on test functions (with a specific inductive-limit topology). Every locally integrable function $f$ defines a distribution $\\phi\\mapsto\\int f\\phi$, but distributions are strictly more general — they include $\\delta$ and its derivatives."
           },
           {
@@ -13790,6 +14801,7 @@ window.MVQuizBank = {
               "$f_n(x)=\\sin(nx)$"
             ],
             "answer": 0,
+            "hint": "$f_n=n\\cdot\\mathbf{1}_{[0,1/n]}$ has $\\int f_n=1$ and mass concentrating at $0$.",
             "explain": "$f_n=n\\cdot\\mathbf{1}_{[0,1/n]}$ has $\\int f_n=1$ and mass concentrating at $0$. For $\\phi\\in C_c^\\infty$, $\\int f_n\\phi=n\\int_0^{1/n}\\phi(x)dx\\to\\phi(0)$ by continuity. Hence $f_n\\to\\delta_0$ in $\\mathcal{D}'$."
           },
           {
@@ -13797,6 +14809,7 @@ window.MVQuizBank = {
             "q": "Compute $\\langle\\delta_0^{(1)},\\phi\\rangle$ where $\\delta_0^{(1)}$ is the distributional derivative of $\\delta_0$ and $\\phi(x)=x^2-3x+5$. Recall $\\langle\\delta_0^{(1)},\\phi\\rangle=-\\phi'(0)$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$.",
             "explain": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$. For $T=\\delta_0$, $\\langle\\delta_0',\\phi\\rangle=-\\langle\\delta_0,\\phi'\\rangle=-\\phi'(0)$. With $\\phi(x)=x^2-3x+5$, $\\phi'(x)=2x-3$, $\\phi'(0)=-3$, so $-\\phi'(0)=3$."
           }
         ],
@@ -13862,6 +14875,7 @@ window.MVQuizBank = {
               "the global sections $\\Gamma(X,\\mathcal{O}_X)$"
             ],
             "answer": 1,
+            "hint": "Yoneda says $X$ is determined by $h_X$.",
             "explain": "Yoneda says $X$ is determined by $h_X$. Restricting along $\\mathrm{Spec}\\dashv\\Gamma$ gives the functor $R\\mapsto X(R)=\\mathrm{Hom}(\\mathrm{Spec}\\,R,X)$ on commutative rings, which captures $X$ up to unique isomorphism."
           },
           {
@@ -13874,6 +14888,7 @@ window.MVQuizBank = {
               "always a group of order $|R|$"
             ],
             "answer": 0,
+            "hint": "For an affine $X=\\mathrm{Spec}\\,A$, $X(R)=\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$.",
             "explain": "For an affine $X=\\mathrm{Spec}\\,A$, $X(R)=\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$. A ring hom out of $\\mathbb{Z}[x,y]/(y^2-x^3-1)$ is exactly a choice of $(a,b)\\in R^2$ satisfying the relation."
           },
           {
@@ -13881,6 +14896,7 @@ window.MVQuizBank = {
             "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, count $|X(\\mathbb{F}_2)|$ by brute force over $a,b\\in\\{0,1\\}$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ ✓; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ ✓; $(1,1): 1 \\ne 0$.",
             "explain": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ ✓; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ ✓; $(1,1): 1 \\ne 0$. So $|X(\\mathbb{F}_2)|=2$."
           }
         ],
@@ -13934,6 +14950,7 @@ window.MVQuizBank = {
               "$F$ sends fields to groups"
             ],
             "answer": 1,
+            "hint": "Representability by $\\mathrm{Spec}\\,A$ means exactly that $F\\cong h_{\\mathrm{Spec}\\,A}$, i.e.",
             "explain": "Representability by $\\mathrm{Spec}\\,A$ means exactly that $F\\cong h_{\\mathrm{Spec}\\,A}$, i.e. $F(R)\\cong\\mathrm{Hom}(A,R)$ naturally in $R$. The universal element is the image of $\\mathrm{id}_A$."
           },
           {
@@ -13946,6 +14963,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}[[t]]$"
             ],
             "answer": 2,
+            "hint": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible).",
             "explain": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible). So $\\mathbb{G}_m=\\mathrm{Spec}\\,\\mathbb{Z}[t,t^{-1}]$."
           },
           {
@@ -13953,6 +14971,7 @@ window.MVQuizBank = {
             "q": "The functor $\\mathrm{GL}_n$ is represented by $\\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, t]/(t\\det(X)-1)$. How many generators (counting $t$) does this ring have for $n=2$?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible.",
             "explain": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible. For $n=2$: $4+1=5$ generators."
           }
         ],
@@ -14006,6 +15025,7 @@ window.MVQuizBank = {
               "the functor is not covariant"
             ],
             "answer": 1,
+            "hint": "The automorphism $[-1]$ (and extra ones at $j=0,1728$) lets you build nontrivial families that are pointwise isomorphic to the trivial family but globally distinct.",
             "explain": "The automorphism $[-1]$ (and extra ones at $j=0,1728$) lets you build nontrivial families that are pointwise isomorphic to the trivial family but globally distinct. Passing to isomorphism classes forgets this gluing data, breaking the sheaf condition."
           },
           {
@@ -14018,6 +15038,7 @@ window.MVQuizBank = {
               "the category $\\mathsf{Ring}$ of rings"
             ],
             "answer": 1,
+            "hint": "An algebraic stack is (essentially) a sheaf of groupoids $\\mathrm{CRing}\\to\\mathsf{Grpd}$.",
             "explain": "An algebraic stack is (essentially) a sheaf of groupoids $\\mathrm{CRing}\\to\\mathsf{Grpd}$. Remembering automorphisms as 2-arrows restores descent, which taking isomorphism classes destroyed."
           },
           {
@@ -14025,6 +15046,7 @@ window.MVQuizBank = {
             "q": "For an elliptic curve $E$ over a field of characteristic $0$ with generic $j$-invariant, what is $|\\mathrm{Aut}(E)|$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups).",
             "explain": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups)."
           }
         ],
@@ -14078,6 +15100,7 @@ window.MVQuizBank = {
               "neither full nor faithful"
             ],
             "answer": 2,
+            "hint": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from…",
             "explain": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from a unique scheme map."
           },
           {
@@ -14090,6 +15113,7 @@ window.MVQuizBank = {
               "any closed immersion"
             ],
             "answer": 1,
+            "hint": "The Yoneda lemma identifies $\\mathrm{Nat}(h_X,F) \\cong F(X)$ by evaluating on $\\mathrm{id}_X$.",
             "explain": "The Yoneda lemma identifies $\\mathrm{Nat}(h_X,F) \\cong F(X)$ by evaluating on $\\mathrm{id}_X$. So the identity is the universal $X$-point, and every natural transformation is recovered by pushing $\\mathrm{id}_X$ forward."
           },
           {
@@ -14097,6 +15121,7 @@ window.MVQuizBank = {
             "q": "Let $F(R) = R \\times R$ as a set-valued functor on $\\mathrm{CRing}$. Which scheme represents $F$? Enter the integer $n$ such that $F \\cong h_{\\mathbb{A}^n}$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$.",
             "explain": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
           }
         ],
@@ -14150,6 +15175,7 @@ window.MVQuizBank = {
               "$X_k(R)$ is always empty when $k$ has characteristic $p$"
             ],
             "answer": 1,
+            "hint": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras.",
             "explain": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras. Equivalently $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure — pulling back along $\\mathrm{Spec}\\,R \\to \\mathrm{Spec}\\,k \\to \\mathrm{Spec}\\,\\mathbb{Z}$."
           },
           {
@@ -14162,6 +15188,7 @@ window.MVQuizBank = {
               "agrees with the disjoint union $X(T) \\sqcup Y(T)$"
             ],
             "answer": 0,
+            "hint": "Representable functors preserve limits.",
             "explain": "Representable functors preserve limits. So the representable functor of $X \\times_S Y$ is the pointwise fiber product of the representable functors of $X, S, Y$ — this is exactly what lets you compute base changes by solving equations over each test ring."
           },
           {
@@ -14169,6 +15196,7 @@ window.MVQuizBank = {
             "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\mathrm{Spec}\\,\\mathbb{Z}} \\mathrm{Spec}\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$.",
             "explain": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$. Since $2^2 = 4 \\equiv -1 \\pmod 5$ and $3^2 = 9 \\equiv -1 \\pmod 5$, there are exactly $2$ solutions."
           }
         ],
@@ -14225,6 +15253,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -14247,6 +15276,7 @@ window.MVQuizBank = {
               "automorphism of $\\bar{\\mathbb{Q}}$ that fixes $\\mathbb{Q}$"
             ],
             "answer": 1,
+            "hint": "By definition $\\rho$ is a continuous homomorphism from the profinite group $G_\\mathbb{Q}$ to a linear group; continuity against the target's topology (complex, $\\ell$-adic, or mod-$\\ell$) is what…",
             "explain": "By definition $\\rho$ is a continuous homomorphism from the profinite group $G_\\mathbb{Q}$ to a linear group; continuity against the target's topology (complex, $\\ell$-adic, or mod-$\\ell$) is what distinguishes Artin, $\\ell$-adic, and residual representations."
           },
           {
@@ -14259,6 +15289,7 @@ window.MVQuizBank = {
               "they cannot be irreducible"
             ],
             "answer": 2,
+            "hint": "Continuity $G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ with the discrete image topology (any compact subgroup of $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group with no small profinite subgroups)…",
             "explain": "Continuity $G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ with the discrete image topology (any compact subgroup of $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group with no small profinite subgroups) forces finite image, i.e. factorisation through some finite $\\mathrm{Gal}(L/\\mathbb{Q})$."
           },
           {
@@ -14266,6 +15297,7 @@ window.MVQuizBank = {
             "q": "For the $\\ell$-adic cyclotomic character $\\chi:G_\\mathbb{Q}\\to\\mathbb{Z}_\\ell^\\times$, what is $\\chi(\\mathrm{Frob}_p)$ when $p\\ne\\ell$ is unramified? (Take $p=7$.)",
             "answer": 7,
             "tol": 0.000001,
+            "hint": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$.",
             "explain": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$. For $p=7$ the value is $7$."
           }
         ],
@@ -14319,6 +15351,7 @@ window.MVQuizBank = {
               "$t - a_p$"
             ],
             "answer": 1,
+            "hint": "The determinant is the cyclotomic character, so $\\det=p$, and the trace is the Frobenius trace $a_p$: $\\det(tI-\\rho(\\mathrm{Frob}_p))=t^2-a_p t+p$.",
             "explain": "The determinant is the cyclotomic character, so $\\det=p$, and the trace is the Frobenius trace $a_p$: $\\det(tI-\\rho(\\mathrm{Frob}_p))=t^2-a_p t+p$."
           },
           {
@@ -14326,6 +15359,7 @@ window.MVQuizBank = {
             "q": "An elliptic curve $E/\\mathbb{Q}$ has good reduction at $p=11$ and $|\\tilde E(\\mathbb{F}_{11})|=10$. Compute $a_{11}=p+1-|\\tilde E(\\mathbb{F}_p)|$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$a_{11}=11+1-10=2$.",
             "explain": "$a_{11}=11+1-10=2$. This is the trace of $\\mathrm{Frob}_{11}$ on $V_\\ell E$."
           },
           {
@@ -14333,6 +15367,7 @@ window.MVQuizBank = {
             "q": "By Hasse, $|a_p|\\le 2\\sqrt{p}$. What is the largest integer $a_p$ can be for $p=37$?",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$.",
             "explain": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$."
           }
         ],
@@ -14386,6 +15421,7 @@ window.MVQuizBank = {
               "$\\chi_1$ alone"
             ],
             "answer": 1,
+            "hint": "Semisimplification replaces a Jordan–Hölder filtration by the direct sum of its graded pieces.",
             "explain": "Semisimplification replaces a Jordan–Hölder filtration by the direct sum of its graded pieces. The graded pieces here are $\\chi_1$ and $\\chi_2$, so $\\rho^{\\mathrm{ss}}=\\chi_1\\oplus\\chi_2$."
           },
           {
@@ -14398,6 +15434,7 @@ window.MVQuizBank = {
               "because $G_\\mathbb{Q}$ is abelian"
             ],
             "answer": 1,
+            "hint": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$.",
             "explain": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$. So the trace only depends on $\\rho^{\\mathrm{ss}}$."
           },
           {
@@ -14405,6 +15442,7 @@ window.MVQuizBank = {
             "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$.",
             "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
           }
         ],
@@ -14458,6 +15496,7 @@ window.MVQuizBank = {
               "$\\rho$ is irreducible"
             ],
             "answer": 1,
+            "hint": "Unramified at $p$ means $\\rho(I_p)=1$; only then does $\\rho$ factor through $D_p/I_p$ and $\\mathrm{Frob}_p$ gets a well-defined image.",
             "explain": "Unramified at $p$ means $\\rho(I_p)=1$; only then does $\\rho$ factor through $D_p/I_p$ and $\\mathrm{Frob}_p$ gets a well-defined image."
           },
           {
@@ -14470,6 +15509,7 @@ window.MVQuizBank = {
               "$f_p=p$"
             ],
             "answer": 1,
+            "hint": "Multiplicative reduction is tame: inertia has a 1-dimensional invariant subspace on $V_\\ell E$, so $f_p=\\dim V-\\dim V^{I_p}=2-1=1$ and the wild term vanishes.",
             "explain": "Multiplicative reduction is tame: inertia has a 1-dimensional invariant subspace on $V_\\ell E$, so $f_p=\\dim V-\\dim V^{I_p}=2-1=1$ and the wild term vanishes."
           },
           {
@@ -14477,6 +15517,7 @@ window.MVQuizBank = {
             "q": "A representation $\\rho$ has $\\dim V=3$, $\\dim V^{I_p}=2$, and trivial wild ramification at $p$. What is the Artin conductor exponent $f_p(\\rho)$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$.",
             "explain": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$."
           }
         ],
@@ -14530,6 +15571,7 @@ window.MVQuizBank = {
               "$\\rho_{f,\\lambda}$ is always reducible"
             ],
             "answer": 0,
+            "hint": "Eichler–Shimura/Deligne: Fourier coefficients at unramified primes are traces of Frobenius, and the determinant is $\\varepsilon\\cdot\\chi^{k-1}$ (the cyclotomic character raised to the $k-1$ power,…",
             "explain": "Eichler–Shimura/Deligne: Fourier coefficients at unramified primes are traces of Frobenius, and the determinant is $\\varepsilon\\cdot\\chi^{k-1}$ (the cyclotomic character raised to the $k-1$ power, times the nebentypus)."
           },
           {
@@ -14542,6 +15584,7 @@ window.MVQuizBank = {
               "it is reducible"
             ],
             "answer": 1,
+            "hint": "Modularity of a residual (mod-$\\ell$) representation means it comes from a cuspidal eigenform $f$ via $\\bar\\rho\\cong\\bar\\rho_{f,\\lambda}$.",
             "explain": "Modularity of a residual (mod-$\\ell$) representation means it comes from a cuspidal eigenform $f$ via $\\bar\\rho\\cong\\bar\\rho_{f,\\lambda}$. Modularity lifting theorems ($R=T$) propagate modularity from $\\bar\\rho$ to its $\\ell$-adic lifts."
           },
           {
@@ -14549,6 +15592,7 @@ window.MVQuizBank = {
             "q": "The weight-12 cusp form $\\Delta=\\sum\\tau(n)q^n$ has $\\tau(2)=-24$. By Deligne, what is $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_2)$ for $\\ell\\ne 2$?",
             "answer": -24,
             "tol": 0.000001,
+            "hint": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$.",
             "explain": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
           }
         ],
@@ -14607,6 +15651,7 @@ window.MVQuizBank = {
               "$9$"
             ],
             "answer": 2,
+            "hint": "The minimal polynomial of $\\sqrt[3]{2}$ has degree $3$ and that of $\\omega$ has degree $2$, so $[L:\\mathbb{Q}]=3\\cdot 2=6$ by the tower law.",
             "explain": "The minimal polynomial of $\\sqrt[3]{2}$ has degree $3$ and that of $\\omega$ has degree $2$, so $[L:\\mathbb{Q}]=3\\cdot 2=6$ by the tower law."
           },
           {
@@ -14614,6 +15659,7 @@ window.MVQuizBank = {
             "q": "What is the order of $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$, where $\\zeta_5=e^{2\\pi i/5}$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "The fifth cyclotomic polynomial $\\Phi_5$ has degree $\\varphi(5)=4$, so the Galois group has order $4$ (it is cyclic, isomorphic to $(\\mathbb{Z}/5)^\\times$).",
             "explain": "The fifth cyclotomic polynomial $\\Phi_5$ has degree $\\varphi(5)=4$, so the Galois group has order $4$ (it is cyclic, isomorphic to $(\\mathbb{Z}/5)^\\times$)."
           },
           {
@@ -14624,6 +15670,7 @@ window.MVQuizBank = {
               -3
             ],
             "tol": 0.000001,
+            "hint": "Complex conjugation fixes $\\mathbb{Q}$ and sends $i\\mapsto -i$, so $2+3i\\mapsto 2-3i$.",
             "explain": "Complex conjugation fixes $\\mathbb{Q}$ and sends $i\\mapsto -i$, so $2+3i\\mapsto 2-3i$."
           }
         ],
@@ -14677,6 +15724,7 @@ window.MVQuizBank = {
               "elements of $L$ fixed by conjugation"
             ],
             "answer": 1,
+            "hint": "The correspondence $F\\leftrightarrow \\operatorname{Gal}(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups.",
             "explain": "The correspondence $F\\leftrightarrow \\operatorname{Gal}(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups."
           },
           {
@@ -14684,6 +15732,7 @@ window.MVQuizBank = {
             "q": "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ has $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ of order $4$. How many intermediate fields strictly between $\\mathbb{Q}$ and $L$ are there?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$.",
             "explain": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$."
           },
           {
@@ -14749,6 +15798,7 @@ window.MVQuizBank = {
               "it has a real root"
             ],
             "answer": 2,
+            "hint": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients.",
             "explain": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients."
           },
           {
@@ -14756,6 +15806,7 @@ window.MVQuizBank = {
             "q": "What is $|A_5|$, the order of the alternating group that obstructs solving the general quintic?",
             "answer": 60,
             "tol": 0.000001,
+            "hint": "$|A_5|=5!/2=60$.",
             "explain": "$|A_5|=5!/2=60$. Since $A_5$ is simple and non-abelian, $S_5$ is not solvable, so the general quintic has no radical formula."
           },
           {
@@ -14768,6 +15819,7 @@ window.MVQuizBank = {
               "$(x^2-2)(x^3-2)$"
             ],
             "answer": 1,
+            "hint": "$x^5-x-1$ is irreducible over $\\mathbb{Q}$, has exactly two non-real roots (so complex conjugation is a transposition), and a $5$-cycle from transitivity — these generate $S_5$.",
             "explain": "$x^5-x-1$ is irreducible over $\\mathbb{Q}$, has exactly two non-real roots (so complex conjugation is a transposition), and a $5$-cycle from transitivity — these generate $S_5$."
           }
         ],
@@ -14821,6 +15873,7 @@ window.MVQuizBank = {
               "$\\mathbb{Q}(\\zeta_7)$"
             ],
             "answer": 2,
+            "hint": "$\\mathbb{Q}(\\sqrt[3]{2})$ contains only one root of $x^3-2$; the other two roots $\\omega\\sqrt[3]{2},\\omega^2\\sqrt[3]{2}$ are complex.",
             "explain": "$\\mathbb{Q}(\\sqrt[3]{2})$ contains only one root of $x^3-2$; the other two roots $\\omega\\sqrt[3]{2},\\omega^2\\sqrt[3]{2}$ are complex. A normal extension must contain all roots of the minimal polynomial of any element."
           },
           {
@@ -14828,6 +15881,7 @@ window.MVQuizBank = {
             "q": "For a finite Galois extension $L/K$ one has $|\\operatorname{Gal}(L/K)|=[L:K]$. If $[L:K]=12$, what is $|\\operatorname{Gal}(L/K)|$?",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "Galois is exactly the equality $|\\operatorname{Gal}(L/K)|=[L:K]$.",
             "explain": "Galois is exactly the equality $|\\operatorname{Gal}(L/K)|=[L:K]$. If either side is $12$, so is the other."
           },
           {
@@ -14840,6 +15894,7 @@ window.MVQuizBank = {
               "$\\alpha$ lies in a tower of quadratic extensions"
             ],
             "answer": 1,
+            "hint": "By definition $\\alpha$ is separable over $K$ iff its minimal polynomial over $K$ has no repeated roots in any extension.",
             "explain": "By definition $\\alpha$ is separable over $K$ iff its minimal polynomial over $K$ has no repeated roots in any extension. In characteristic zero this is automatic."
           }
         ],
@@ -14893,6 +15948,7 @@ window.MVQuizBank = {
               "of prime degree"
             ],
             "answer": 2,
+            "hint": "A finite separable extension admits a primitive element: $L=K(\\theta)$ for some $\\theta\\in L$.",
             "explain": "A finite separable extension admits a primitive element: $L=K(\\theta)$ for some $\\theta\\in L$. Such an extension is called simple."
           },
           {
@@ -14900,6 +15956,7 @@ window.MVQuizBank = {
             "q": "The element $\\theta=\\sqrt{2}+\\sqrt{3}$ is primitive for $\\mathbb{Q}(\\sqrt{2},\\sqrt{3})/\\mathbb{Q}$. What is the degree of its minimal polynomial over $\\mathbb{Q}$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]=4$, and if $\\theta$ is primitive then $[\\mathbb{Q}(\\theta):\\mathbb{Q}]=4$, so $m_\\theta$ has degree $4$ (explicitly $x^4-10x^2+1$).",
             "explain": "$[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]=4$, and if $\\theta$ is primitive then $[\\mathbb{Q}(\\theta):\\mathbb{Q}]=4$, so $m_\\theta$ has degree $4$ (explicitly $x^4-10x^2+1$)."
           },
           {
@@ -14912,6 +15969,7 @@ window.MVQuizBank = {
               "for extensions of degree $2$"
             ],
             "answer": 2,
+            "hint": "Separability is essential.",
             "explain": "Separability is essential. $\\mathbb{F}_p(x,y)/\\mathbb{F}_p(x^p,y^p)$ has degree $p^2$ but every element generates a subfield of degree at most $p$, so it is not simple."
           }
         ],
@@ -15344,6 +16402,7 @@ window.MVQuizBank = {
               "The left derived functors of $\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$"
             ],
             "answer": 1,
+            "hint": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$.",
             "explain": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$. (Coinvariants give group homology $H_n(G,M)$.)"
           },
           {
@@ -15356,6 +16415,7 @@ window.MVQuizBank = {
               "$g_1\\varphi(g_2)+\\varphi(g_1)$"
             ],
             "answer": 1,
+            "hint": "The bar formula in degree 1 gives $(d\\varphi)(g_1,g_2)=g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$.",
             "explain": "The bar formula in degree 1 gives $(d\\varphi)(g_1,g_2)=g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$. A 1-cocycle (kernel of $d$) is exactly a crossed homomorphism."
           },
           {
@@ -15372,6 +16432,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "Cohomology is independent of the chosen projective resolution (the whole point of derived functors).",
             "explain": "Cohomology is independent of the chosen projective resolution (the whole point of derived functors). The Ext-formula is the standard equivalent description, and functoriality in $G$ is what makes restriction, inflation, and corestriction work."
           }
         ]
@@ -15384,6 +16445,7 @@ window.MVQuizBank = {
             "q": "Let $G=C_4$ act on $M=\\mathbb{Z}/12$ via $\\sigma\\cdot x = 5x$. Compute $|H^0(G,M)|=|M^G|$.",
             "answer": 4,
             "tol": 0.5,
+            "hint": "$M^G=\\ker(\\sigma-1)=\\{x:4x\\equiv 0\\bmod 12\\}=\\{0,3,6,9\\}$, so $|M^G|=\\gcd(4,12)=4$.",
             "explain": "$M^G=\\ker(\\sigma-1)=\\{x:4x\\equiv 0\\bmod 12\\}=\\{0,3,6,9\\}$, so $|M^G|=\\gcd(4,12)=4$. (Equivalently $|M^G|=\\gcd(k-1,m)$ for $\\sigma\\cdot x=kx$ on $\\mathbb{Z}/m$.)"
           },
           {
@@ -15396,6 +16458,7 @@ window.MVQuizBank = {
               "Because $A$ might fail to be normal in $B$"
             ],
             "answer": 1,
+            "hint": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact.",
             "explain": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact. The obstruction to lifting a fixed point in $C$ to a fixed point in $B$ lives in $H^1(G,A)$ — that is exactly $\\delta(c)$."
           },
           {
@@ -15408,6 +16471,7 @@ window.MVQuizBank = {
               "$M/|G|M$"
             ],
             "answer": 1,
+            "hint": "Trivial action means every element is fixed: $M^G=M$.",
             "explain": "Trivial action means every element is fixed: $M^G=M$. (Note: $\\mathrm{Hom}(G,M)$ is what $H^1$ becomes under trivial action.)"
           }
         ]
@@ -15425,6 +16489,7 @@ window.MVQuizBank = {
               "$\\varphi(gh)=\\varphi(g)\\cdot\\varphi(h)$"
             ],
             "answer": 1,
+            "hint": "The cocycle condition $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ — this collapses to the homomorphism law when the action is trivial.",
             "explain": "The cocycle condition $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ — this collapses to the homomorphism law when the action is trivial."
           },
           {
@@ -15437,6 +16502,7 @@ window.MVQuizBank = {
               "$H^1(G,L^\\times)=L^\\times/N_{L/K}(L^\\times)$"
             ],
             "answer": 0,
+            "hint": "Hilbert 90 in cyclic form: $H^1(G,L^\\times)=1$, equivalently norm-one elements are coboundaries $\\sigma(\\alpha)/\\alpha$.",
             "explain": "Hilbert 90 in cyclic form: $H^1(G,L^\\times)=1$, equivalently norm-one elements are coboundaries $\\sigma(\\alpha)/\\alpha$. The fact about $L$ (additive) is the additive Hilbert 90, and the $H^2$ statement is the definition of relative Brauer."
           },
           {
@@ -15449,6 +16515,7 @@ window.MVQuizBank = {
               "$\\alpha=i$"
             ],
             "answer": 1,
+            "hint": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence…",
             "explain": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence $\\sigma(\\alpha)/\\alpha=\\beta^{-1}\\cdot 1=\\beta$? Carefully: $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$, so adjust to $\\alpha=\\beta(1+\\beta)$ if you want $\\beta$ rather than $\\beta^{-1}$ — the widget shows the explicit calculation."
           }
         ]
@@ -15466,6 +16533,7 @@ window.MVQuizBank = {
               "$H^3(G,A)$"
             ],
             "answer": 2,
+            "hint": "The cocycle $c(g,h)$ measuring failure of a section $s:G\\to E$ to be a homomorphism is a 2-cocycle, and changing the section by $a:G\\to A$ shifts $c$ by $da$.",
             "explain": "The cocycle $c(g,h)$ measuring failure of a section $s:G\\to E$ to be a homomorphism is a 2-cocycle, and changing the section by $a:G\\to A$ shifts $c$ by $da$. The class $[c]\\in H^2(G,A)$ classifies the extension."
           },
           {
@@ -15478,6 +16546,7 @@ window.MVQuizBank = {
               "Universal central extensions"
             ],
             "answer": 2,
+            "hint": "$[c]=0$ iff $c$ is a coboundary, iff some section $s$ exists with $c=0$, iff $s$ is a homomorphism, iff the extension splits.",
             "explain": "$[c]=0$ iff $c$ is a coboundary, iff some section $s$ exists with $c=0$, iff $s$ is a homomorphism, iff the extension splits."
           },
           {
@@ -15490,6 +16559,7 @@ window.MVQuizBank = {
               "$H^2=\\mathbb{Z}$; infinitely many isomorphism classes"
             ],
             "answer": 1,
+            "hint": "By the periodic resolution, $H^2(C_2,\\mathbb{Z}/2)=\\mathbb{Z}/2$.",
             "explain": "By the periodic resolution, $H^2(C_2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The trivial class is $V_4$ (split); the nontrivial class lifts $\\sigma\\in C_2$ to an order-4 element, giving $C_4$."
           }
         ]
@@ -15507,6 +16577,7 @@ window.MVQuizBank = {
               "$H^{2k}=0$ and $H^{2k+1}=M^G/N(M)$"
             ],
             "answer": 0,
+            "hint": "The two-step periodic resolution alternates $\\sigma-1$ and the norm $N=1+\\sigma+\\dots+\\sigma^{n-1}$.",
             "explain": "The two-step periodic resolution alternates $\\sigma-1$ and the norm $N=1+\\sigma+\\dots+\\sigma^{n-1}$. Reading off the cochain complex: even degrees give $\\ker(\\sigma-1)/\\mathrm{im}(N)=M^G/N(M)$, odd degrees give $\\ker(N)/\\mathrm{im}(\\sigma-1)$."
           },
           {
@@ -15514,6 +16585,7 @@ window.MVQuizBank = {
             "q": "For $G=C_3$ acting trivially on $M=\\mathbb{Z}/6$, compute $|H^2(C_3,\\mathbb{Z}/6)|$.",
             "answer": 3,
             "tol": 0.5,
+            "hint": "Trivial action: $\\sigma-1=0$ so $M^G=M=\\mathbb{Z}/6$, and $N=1+1+1=3$ so $N(M)=3\\cdot\\mathbb{Z}/6=\\{0,3\\}$.",
             "explain": "Trivial action: $\\sigma-1=0$ so $M^G=M=\\mathbb{Z}/6$, and $N=1+1+1=3$ so $N(M)=3\\cdot\\mathbb{Z}/6=\\{0,3\\}$. Then $H^2=M^G/N(M)=(\\mathbb{Z}/6)/(2$-element subgroup$)=\\mathbb{Z}/3$, of order 3."
           },
           {
@@ -15526,6 +16598,7 @@ window.MVQuizBank = {
               "It equals the Euler characteristic of $M$"
             ],
             "answer": 1,
+            "hint": "Herbrand quotient is multiplicative: $h(B)=h(A)h(C)$ for SES $0\\to A\\to B\\to C\\to 0$, and $h(M)=1$ when $M$ is finite.",
             "explain": "Herbrand quotient is multiplicative: $h(B)=h(A)h(C)$ for SES $0\\to A\\to B\\to C\\to 0$, and $h(M)=1$ when $M$ is finite. These two properties are what make it a usable invariant in class field theory."
           }
         ]
@@ -15543,6 +16616,7 @@ window.MVQuizBank = {
               "$0\\to M^G\\to M^H\\to (M^H)^{G/H}\\to H^1(G,M)\\to 0$"
             ],
             "answer": 0,
+            "hint": "This is the low-degree edge of the LHS spectral sequence.",
             "explain": "This is the low-degree edge of the LHS spectral sequence. The crucial fixed-points $M^H$ in the inflation entry, and the $G/H$-invariants on the restriction entry, are what make the sequence work — both come from how the spectral sequence's $E_2$-page is built."
           },
           {
@@ -15555,6 +16629,7 @@ window.MVQuizBank = {
               "$E_2^{p,q}=\\mathrm{Ext}^p(\\mathbb{Z},H^q(H,M))$"
             ],
             "answer": 1,
+            "hint": "Take cohomology of the normal subgroup first, then of the quotient.",
             "explain": "Take cohomology of the normal subgroup first, then of the quotient. Note the order: $H$ goes inside (gives row $q$), and $G/H$ goes outside (gives column $p$)."
           },
           {
@@ -15567,6 +16642,7 @@ window.MVQuizBank = {
               "Only when $M$ is trivial"
             ],
             "answer": 1,
+            "hint": "If $|H|$ is invertible in $M$, then $H^q(H,M)=0$ for $q\\ge 1$ (cohomology of a finite group with coefficients in a divisible module vanishes).",
             "explain": "If $|H|$ is invertible in $M$, then $H^q(H,M)=0$ for $q\\ge 1$ (cohomology of a finite group with coefficients in a divisible module vanishes). The page is concentrated on row $q=0$, no differentials are possible, so $H^p(G,M)\\cong H^p(G/H,M^H)$."
           }
         ]
@@ -15584,6 +16660,7 @@ window.MVQuizBank = {
               "$\\mathrm{Br}(k)=\\mathrm{Pic}(\\mathrm{Spec}\\,k)$"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$.",
             "explain": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$. (Hilbert 90 says $H^1=0$, so the first nontrivial cohomology of $\\bar k^\\times$ is degree 2.) This $H^2$ classifies central simple $k$-algebras up to Morita equivalence."
           },
           {
@@ -15596,6 +16673,7 @@ window.MVQuizBank = {
               "$H^1(k,\\mu_n)=\\mathrm{Br}(k)[n]$"
             ],
             "answer": 2,
+            "hint": "Long exact sequence: $k^\\times\\xrightarrow{n}k^\\times\\to H^1(k,\\mu_n)\\to H^1(k,\\bar k^\\times)=0$ by Hilbert 90.",
             "explain": "Long exact sequence: $k^\\times\\xrightarrow{n}k^\\times\\to H^1(k,\\mu_n)\\to H^1(k,\\bar k^\\times)=0$ by Hilbert 90. So $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$ — the Kummer isomorphism, foundation of Kummer theory."
           },
           {
@@ -15608,6 +16686,7 @@ window.MVQuizBank = {
               "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}$"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$ with generator $\\mathbb{H}$.",
             "explain": "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$ with generator $\\mathbb{H}$. (For comparison: $\\mathrm{Br}(\\bar k)=0$, $\\mathrm{Br}(\\mathbb{F}_q)=0$ by Wedderburn, $\\mathrm{Br}(\\mathbb{Q}_p)=\\mathbb{Q}/\\mathbb{Z}$ via the local invariant.)"
           }
         ]
@@ -15993,6 +17072,7 @@ window.MVQuizBank = {
               "Because $\\mathbb{T}$ is compact"
             ],
             "answer": 1,
+            "hint": "Orthonormality is the integral $\\int_0^1 e^{2\\pi i (m-n)x}\\,dx = \\delta_{mn}$.",
             "explain": "Orthonormality is the integral $\\int_0^1 e^{2\\pi i (m-n)x}\\,dx = \\delta_{mn}$. Density of trigonometric polynomials in $C(\\mathbb{T})$ (Stone–Weierstrass) and then in $L^2(\\mathbb{T})$ promotes that orthonormal set to a basis."
           },
           {
@@ -16000,6 +17080,7 @@ window.MVQuizBank = {
             "q": "Let $f(x) = 3 + 4\\cos(2\\pi x) - 2\\sin(4\\pi x)$ on $\\mathbb{T}$. Compute $\\|f\\|_{L^2(\\mathbb{T})}^2 = \\int_0^1 |f(x)|^2\\,dx$.",
             "answer": 19,
             "tol": 0.000001,
+            "hint": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$.",
             "explain": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$. The Fourier coefficients are $\\hat f(0)=3$, $\\hat f(\\pm 1) = 2$, $\\hat f(2) = i$, $\\hat f(-2) = -i$. By Parseval, $\\|f\\|_2^2 = 9 + 4 + 4 + 1 + 1 = 19$."
           },
           {
@@ -16012,6 +17093,7 @@ window.MVQuizBank = {
               "everywhere pointwise"
             ],
             "answer": 2,
+            "hint": "Carleson proved a.e.",
             "explain": "Carleson proved a.e. pointwise convergence for $L^2$. Kolmogorov had earlier shown an $L^1$ function whose Fourier series diverges everywhere, so 'everywhere pointwise' fails outside $L^2$ in a strong sense."
           }
         ]
@@ -16029,6 +17111,7 @@ window.MVQuizBank = {
               "$\\hat f(\\xi + a)$"
             ],
             "answer": 0,
+            "hint": "Substitute $y = x - a$: $\\int f(x-a) e^{-2\\pi i \\xi x}\\,dx = e^{-2\\pi i a \\xi}\\int f(y) e^{-2\\pi i \\xi y}\\,dy = e^{-2\\pi i a \\xi}\\hat f(\\xi)$.",
             "explain": "Substitute $y = x - a$: $\\int f(x-a) e^{-2\\pi i \\xi x}\\,dx = e^{-2\\pi i a \\xi}\\int f(y) e^{-2\\pi i \\xi y}\\,dy = e^{-2\\pi i a \\xi}\\hat f(\\xi)$. Translation in $x$ becomes modulation in $\\xi$."
           },
           {
@@ -16041,6 +17124,7 @@ window.MVQuizBank = {
               "$\\|\\hat f\\|_\\infty = \\|f\\|_1$"
             ],
             "answer": 1,
+            "hint": "$\\hat f \\in C_0(\\mathbb{R})$: continuous and decaying at infinity.",
             "explain": "$\\hat f \\in C_0(\\mathbb{R})$: continuous and decaying at infinity. The map $L^1 \\to C_0$ is bounded with $\\|\\hat f\\|_\\infty \\le \\|f\\|_1$ but is NOT surjective, and $\\hat f$ need not be in $L^1$ (e.g. for the indicator of an interval)."
           },
           {
@@ -16048,6 +17132,7 @@ window.MVQuizBank = {
             "q": "Let $f = \\mathbf{1}_{[-1/2, 1/2]}$ on $\\mathbb{R}$. Compute $\\|\\hat f\\|_{L^2}^2$ using Plancherel.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$.",
             "explain": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$. Here $\\|f\\|_2^2 = \\int_{-1/2}^{1/2} 1\\,dx = 1$, so $\\|\\hat f\\|_2^2 = 1$. (Aside: $\\hat f(\\xi) = \\mathrm{sinc}(\\xi) = \\sin(\\pi \\xi)/(\\pi \\xi)$.)"
           }
         ]
@@ -16065,6 +17150,7 @@ window.MVQuizBank = {
               "$\\widehat{f+g} = \\hat f + \\hat g$"
             ],
             "answer": 1,
+            "hint": "Convolution in $x$ becomes pointwise product in $\\xi$.",
             "explain": "Convolution in $x$ becomes pointwise product in $\\xi$. The dual identity $\\widehat{fg} = \\hat f * \\hat g$ also holds (with the right hypotheses) — Fourier swaps the two operations."
           },
           {
@@ -16077,6 +17163,7 @@ window.MVQuizBank = {
               "Because the Fourier transform is unitary on $L^1$"
             ],
             "answer": 1,
+            "hint": "Young's inequality bounds the convolution; the Banach-algebra axioms follow.",
             "explain": "Young's inequality bounds the convolution; the Banach-algebra axioms follow. A unit $e$ would Fourier-transform to $1$, so $e$ would have to be the Dirac delta — a tempered distribution, not an $L^1$ function. Approximate identities are the substitute."
           },
           {
@@ -16084,6 +17171,7 @@ window.MVQuizBank = {
             "q": "Let $g(x) = e^{-\\pi x^2}$. Using $\\hat g = g$ and the convolution theorem, compute $\\widehat{(g*g)}(0)$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$.",
             "explain": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$. Evaluating at $\\xi = 0$ gives $1$."
           }
         ]
@@ -16101,6 +17189,7 @@ window.MVQuizBank = {
               "$f$ is real-analytic on $\\mathbb{R}$"
             ],
             "answer": 1,
+            "hint": "Schwartz space $\\mathcal{S}$ is smooth functions of rapid decrease: every derivative decays faster than any polynomial.",
             "explain": "Schwartz space $\\mathcal{S}$ is smooth functions of rapid decrease: every derivative decays faster than any polynomial. Compactly supported smooth functions $C_c^\\infty$ form a strictly smaller class; both are dense in $L^p$ for $1\\le p<\\infty$."
           },
           {
@@ -16113,6 +17202,7 @@ window.MVQuizBank = {
               "$\\hat{}$ is undefined on $C_c^\\infty$"
             ],
             "answer": 2,
+            "hint": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials.",
             "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials. The two component identities $\\widehat{f^{(b)}}(\\xi)=(2\\pi i\\xi)^b\\hat f(\\xi)$ and $\\widehat{x^a g}(\\xi)=(2\\pi i)^{-a}(-1)^a\\hat g^{(a)}(\\xi)$ together let polynomial-times-derivative operators round-trip through $\\mathcal{S}$ (with Leibniz cross-terms when both $a,b>0$). Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
           },
           {
@@ -16125,6 +17215,7 @@ window.MVQuizBank = {
               "$0$"
             ],
             "answer": 1,
+            "hint": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered…",
             "explain": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered distribution. Dually, $\\hat 1 = \\delta$."
           }
         ]
@@ -16142,6 +17233,7 @@ window.MVQuizBank = {
               "$\\|x f\\|_1\\,\\|\\xi\\hat f\\|_1 \\ge \\|f\\|_1^2$"
             ],
             "answer": 1,
+            "hint": "Centred at $0$ in space and frequency, the product of variances is at least $\\|f\\|_2^4/(4\\pi)^2$, equivalently $\\|x f\\|_2\\|\\xi\\hat f\\|_2\\ge\\|f\\|_2^2/(4\\pi)$.",
             "explain": "Centred at $0$ in space and frequency, the product of variances is at least $\\|f\\|_2^4/(4\\pi)^2$, equivalently $\\|x f\\|_2\\|\\xi\\hat f\\|_2\\ge\\|f\\|_2^2/(4\\pi)$. Equality holds iff $f$ is a (translated, modulated) Gaussian."
           },
           {
@@ -16154,6 +17246,7 @@ window.MVQuizBank = {
               "the Dirichlet kernel"
             ],
             "answer": 2,
+            "hint": "Variational analysis (or completing the square in the proof) shows the only minimizers are Gaussians.",
             "explain": "Variational analysis (or completing the square in the proof) shows the only minimizers are Gaussians. They are the fixed points / eigenfunctions of $\\hat{}$ — the same fact in two languages."
           },
           {
@@ -16161,6 +17254,7 @@ window.MVQuizBank = {
             "q": "For $f(x) = e^{-\\pi x^2}$, compute the lower bound $\\|f\\|_2^2/(4\\pi)$ in Heisenberg's inequality.",
             "answer": 0.05627314338,
             "tol": 0.000001,
+            "hint": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$.",
             "explain": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$. So $\\|f\\|_2^2/(4\\pi) = 1/(4\\pi\\sqrt{2}) \\approx 0.05627$. The Gaussian saturates the inequality with equality."
           }
         ]
@@ -16178,6 +17272,7 @@ window.MVQuizBank = {
               "$\\sum_n f(n)^2 = \\sum_n |\\hat f(n)|^2$"
             ],
             "answer": 0,
+            "hint": "Periodize $F(x) = \\sum_n f(x+n)$ on $\\mathbb{T}$; its Fourier coefficients are $\\hat F(k) = \\hat f(k)$.",
             "explain": "Periodize $F(x) = \\sum_n f(x+n)$ on $\\mathbb{T}$; its Fourier coefficients are $\\hat F(k) = \\hat f(k)$. Evaluating $F(0)$ in two ways — direct sum vs. Fourier expansion at $x=0$ — gives the identity."
           },
           {
@@ -16190,6 +17285,7 @@ window.MVQuizBank = {
               "It's not — analytic continuation is purely about contour integrals"
             ],
             "answer": 1,
+            "hint": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to…",
             "explain": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to $f_t(x) = e^{-\\pi t x^2}$."
           },
           {
@@ -16197,6 +17293,7 @@ window.MVQuizBank = {
             "q": "For $f_t(x) = e^{-\\pi t x^2}$ (so $\\hat f_t(\\xi) = t^{-1/2} e^{-\\pi \\xi^2/t}$), let $\\theta(t) = \\sum_{n\\in\\mathbb{Z}} e^{-\\pi n^2 t}$. By Poisson summation, $\\theta(t) = t^{-1/2}\\theta(1/t)$. Compute the ratio $\\theta(4)/\\theta(1/4)$.",
             "answer": 0.5,
             "tol": 0.000001,
+            "hint": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$.",
             "explain": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$. The modular transformation rescales the lattice."
           }
         ]
@@ -16209,6 +17306,7 @@ window.MVQuizBank = {
             "q": "Compute $\\hat g(0)$ where $g(x) = e^{-\\pi x^2}$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$.",
             "explain": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$. (Equivalently, $\\int_{\\mathbb{R}} e^{-\\pi x^2}\\,dx = 1$.)"
           },
           {
@@ -16221,6 +17319,7 @@ window.MVQuizBank = {
               "$\\hat u(t,\\xi) = \\hat f(\\xi/t)$"
             ],
             "answer": 1,
+            "hint": "$\\widehat{\\partial_x^2 f}(\\xi) = (2\\pi i \\xi)^2 \\hat f(\\xi) = -4\\pi^2 \\xi^2 \\hat f(\\xi)$.",
             "explain": "$\\widehat{\\partial_x^2 f}(\\xi) = (2\\pi i \\xi)^2 \\hat f(\\xi) = -4\\pi^2 \\xi^2 \\hat f(\\xi)$. So evolution becomes pointwise multiplication by a Gaussian — diffusion damps high frequencies."
           },
           {
@@ -16233,6 +17332,7 @@ window.MVQuizBank = {
               "It equals the spectrum of the Laplacian"
             ],
             "answer": 1,
+            "hint": "Hermite functions form an orthonormal basis of $L^2(\\mathbb{R})$ diagonalizing $\\hat{}$ with eigenvalues $(-i)^n$.",
             "explain": "Hermite functions form an orthonormal basis of $L^2(\\mathbb{R})$ diagonalizing $\\hat{}$ with eigenvalues $(-i)^n$. So $\\hat{}$ is unitary with spectrum $\\{1,-i,-1,i\\}$, each of infinite multiplicity, and $\\mathcal{F}^4 = \\mathrm{id}$ on $L^2$."
           }
         ]
@@ -16250,6 +17350,7 @@ window.MVQuizBank = {
               "the group of Borel measures on $G$"
             ],
             "answer": 1,
+            "hint": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters.",
             "explain": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
           },
           {
@@ -16273,6 +17374,7 @@ window.MVQuizBank = {
               3,
               1
             ],
+            "hint": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients).",
             "explain": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients). The general Plancherel theorem on $G$ specializes to all the classical Fourier theorems."
           },
           {
@@ -16285,6 +17387,7 @@ window.MVQuizBank = {
               "$\\widehat G$ is always compact"
             ],
             "answer": 1,
+            "hint": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or…",
             "explain": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or Parseval on $\\mathbb{T}$, in one breath."
           }
         ]
@@ -16305,6 +17408,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -16326,6 +17430,7 @@ window.MVQuizBank = {
               "a projection to cusp forms only"
             ],
             "answer": 1,
+            "hint": "Geometrically it averages over degree-$p$ isogeny/lattice data.",
             "explain": "Geometrically it averages over degree-$p$ isogeny/lattice data."
           },
           {
@@ -16333,6 +17438,7 @@ window.MVQuizBank = {
             "q": "$T_p$ depends on a prime parameter. For $T_5$, what is $p$?",
             "answer": 5,
             "tol": 0.001,
+            "hint": "By notation, the subscript is the prime.",
             "explain": "By notation, the subscript is the prime."
           },
           {
@@ -16344,6 +17450,7 @@ window.MVQuizBank = {
               "non-holomorphic space only"
             ],
             "answer": 0,
+            "hint": "Hecke operators act endomorphically on standard modular-form spaces.",
             "explain": "Hecke operators act endomorphically on standard modular-form spaces."
           }
         ],
@@ -16396,6 +17503,7 @@ window.MVQuizBank = {
               "$a_{n+p}$ only"
             ],
             "answer": 0,
+            "hint": "The standard formula is $a'_n=a_{pn}+p^{k-1}a_{n/p}$.",
             "explain": "The standard formula is $a'_n=a_{pn}+p^{k-1}a_{n/p}$."
           },
           {
@@ -16403,6 +17511,7 @@ window.MVQuizBank = {
             "q": "In weight $k=2$, what is $p^{k-1}$ when $p=3$?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "$p^{k-1}=3^1=3$.",
             "explain": "$p^{k-1}=3^1=3$."
           },
           {
@@ -16414,6 +17523,7 @@ window.MVQuizBank = {
               "It only applies to Eisenstein series"
             ],
             "answer": 0,
+            "hint": "It makes Hecke action algorithmic on q-series data.",
             "explain": "It makes Hecke action algorithmic on q-series data."
           }
         ],
@@ -16466,6 +17576,7 @@ window.MVQuizBank = {
               "$T_n^2=0$ always"
             ],
             "answer": 0,
+            "hint": "Hecke operators form a commutative algebra in this setting.",
             "explain": "Hecke operators form a commutative algebra in this setting."
           },
           {
@@ -16477,6 +17588,7 @@ window.MVQuizBank = {
               "eliminate cusp forms"
             ],
             "answer": 0,
+            "hint": "Commuting normal/self-adjoint operators admit joint eigenbases.",
             "explain": "Commuting normal/self-adjoint operators admit joint eigenbases."
           },
           {
@@ -16484,6 +17596,7 @@ window.MVQuizBank = {
             "q": "If $f$ is an eigenvector for $T_2,T_3$ with eigenvalues 5 and -1, what is $(T_2+T_3)f$ eigenvalue?",
             "answer": 4,
             "tol": 0.001,
+            "hint": "Linearity gives $(5+(-1))f=4f$.",
             "explain": "Linearity gives $(5+(-1))f=4f$."
           }
         ],
@@ -16536,6 +17649,7 @@ window.MVQuizBank = {
               "p"
             ],
             "answer": 1,
+            "hint": "Normalization sets $a_1=1$.",
             "explain": "Normalization sets $a_1=1$."
           },
           {
@@ -16547,6 +17661,7 @@ window.MVQuizBank = {
               "only geometric intersection numbers"
             ],
             "answer": 0,
+            "hint": "Their coefficients satisfy multiplicative relations giving Euler factors.",
             "explain": "Their coefficients satisfy multiplicative relations giving Euler factors."
           },
           {
@@ -16554,6 +17669,7 @@ window.MVQuizBank = {
             "q": "If multiplicativity gives $a_{mn}=a_ma_n$ for $(m,n)=1$, and $a_2=3,a_3=-2$, compute $a_6$.",
             "answer": -6,
             "tol": 0.001,
+            "hint": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$.",
             "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
           }
         ],
@@ -16606,6 +17722,7 @@ window.MVQuizBank = {
               "$y^{-k}\\,dx\\,dy$ on all of $\\mathcal{H}$"
             ],
             "answer": 1,
+            "hint": "The weighting $y^{k-2}\\,dx\\,dy$ makes $f(\\tau)\\overline{g(\\tau)}\\,y^k \\cdot y^{-2}\\,dx\\,dy$ an $\\mathrm{SL}_2(\\mathbb{Z})$-invariant integrand on the hyperbolic quotient.",
             "explain": "The weighting $y^{k-2}\\,dx\\,dy$ makes $f(\\tau)\\overline{g(\\tau)}\\,y^k \\cdot y^{-2}\\,dx\\,dy$ an $\\mathrm{SL}_2(\\mathbb{Z})$-invariant integrand on the hyperbolic quotient."
           },
           {
@@ -16617,6 +17734,7 @@ window.MVQuizBank = {
               "It forces every modular form to be a cusp form"
             ],
             "answer": 1,
+            "hint": "Self-adjoint + commuting operators are simultaneously diagonalizable with real eigenvalues — that is exactly the spectral theorem producing the eigenform basis.",
             "explain": "Self-adjoint + commuting operators are simultaneously diagonalizable with real eigenvalues — that is exactly the spectral theorem producing the eigenform basis."
           },
           {
@@ -16624,6 +17742,7 @@ window.MVQuizBank = {
             "q": "On $S_k(\\Gamma_0(N))$, the standard Hecke operator $T_p$ is self-adjoint for primes $p$ satisfying $\\gcd(p,N)=1$. For $N=15$, how many of the primes $p\\in\\{2,3,5,7,11\\}$ give a self-adjoint $T_p$?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes.",
             "explain": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes. At $p=3,5$ one gets Atkin–Lehner involutions instead."
           }
         ],
@@ -16677,6 +17796,7 @@ window.MVQuizBank = {
             "q": "Compute $H([15:-9:24])\\in\\mathbb{P}^2(\\mathbb{Q})$. (Reduce to coprime integer coordinates first.)",
             "answer": 8,
             "tol": 1e-9,
+            "hint": "$\\gcd(15,9,24)=3$, so $[15:-9:24]=[5:-3:8]$.",
             "explain": "$\\gcd(15,9,24)=3$, so $[15:-9:24]=[5:-3:8]$. Then $H=\\max(|5|,|-3|,|8|)=8$."
           },
           {
@@ -16688,6 +17808,7 @@ window.MVQuizBank = {
               "The naive height is multiplicative and would double-count primes in $\\gcd$."
             ],
             "answer": 1,
+            "hint": "Multiplying every coordinate by a constant gives the same projective point, so a coordinate-free $H$ requires picking the smallest integer representative — equivalently, dividing through by the gcd.",
             "explain": "Multiplying every coordinate by a constant gives the same projective point, so a coordinate-free $H$ requires picking the smallest integer representative — equivalently, dividing through by the gcd."
           },
           {
@@ -16700,6 +17821,7 @@ window.MVQuizBank = {
               "$|a/b|$"
             ],
             "answer": 2,
+            "hint": "By definition $H([a:b])=\\max(|a|,|b|)$.",
             "explain": "By definition $H([a:b])=\\max(|a|,|b|)$. So $H(3/4)=4$, $H(7)=H([7:1])=7$, etc."
           }
         ]
@@ -16717,6 +17839,7 @@ window.MVQuizBank = {
               "Polynomial in $B$ but exponential in $d$."
             ],
             "answer": 1,
+            "hint": "The whole point of Northcott is that bounding height AND degree (over $\\mathbb{Q}$) is enough — you do not have to fix the number field in advance.",
             "explain": "The whole point of Northcott is that bounding height AND degree (over $\\mathbb{Q}$) is enough — you do not have to fix the number field in advance."
           },
           {
@@ -16729,6 +17852,7 @@ window.MVQuizBank = {
               "There is no canonical way to define $H$ outside $\\mathbb{Q}$."
             ],
             "answer": 0,
+            "hint": "All cyclotomic numbers $\\zeta_m$ have height $0$, and there are infinitely many of them across all degrees.",
             "explain": "All cyclotomic numbers $\\zeta_m$ have height $0$, and there are infinitely many of them across all degrees. Bounding the degree kills this."
           },
           {
@@ -16736,6 +17860,7 @@ window.MVQuizBank = {
             "q": "How many points of $\\mathbb{P}^1(\\mathbb{Q})$ have $H([a:b])\\le 2$? (Use coprime integer reps; remember $[a:b]=[-a:-b]$.)",
             "answer": 11,
             "tol": 0.5,
+            "hint": "Pairs $(a,b)$ with $\\gcd=1$, $\\max(|a|,|b|)\\le 2$, modulo sign: $[0:1],[1:0],[1:1],[1:-1],[1:2],[1:-2],[2:1],[2:-1],[1:0]$ already counted… enumeration gives $0,\\infty,\\pm 1,\\pm 2,\\pm 1/2$ — that's…",
             "explain": "Pairs $(a,b)$ with $\\gcd=1$, $\\max(|a|,|b|)\\le 2$, modulo sign: $[0:1],[1:0],[1:1],[1:-1],[1:2],[1:-2],[2:1],[2:-1],[1:0]$ already counted… enumeration gives $0,\\infty,\\pm 1,\\pm 2,\\pm 1/2$ — that's $11$ projective points."
           }
         ]
@@ -16753,6 +17878,7 @@ window.MVQuizBank = {
               "It depends multiplicatively on the choice and is only well-defined up to scaling."
             ],
             "answer": 1,
+            "hint": "$h_{X,L}$ is canonical only modulo bounded functions on $X(\\bar K)$.",
             "explain": "$h_{X,L}$ is canonical only modulo bounded functions on $X(\\bar K)$. This is enough for Northcott (which is insensitive to $O(1)$) but not enough to define a quadratic form — that needs the canonical-height refinement."
           },
           {
@@ -16765,6 +17891,7 @@ window.MVQuizBank = {
               "There is no general relation; it depends on $f$."
             ],
             "answer": 1,
+            "hint": "The standard Weil-height machine: pullback intertwines heights up to a bounded function.",
             "explain": "The standard Weil-height machine: pullback intertwines heights up to a bounded function. The $O(1)$ is unavoidable since the heights themselves are only well-defined up to $O(1)$."
           },
           {
@@ -16777,6 +17904,7 @@ window.MVQuizBank = {
               "$H^1(X,\\mathcal{O}_X^*)$ — wait, that's the same as Pic."
             ],
             "answer": 1,
+            "hint": "$L\\mapsto h_{X,L}$ is a homomorphism $\\mathrm{Pic}(X)\\to\\{\\text{functions }X(\\bar K)\\to\\mathbb{R}\\}/O(1)$.",
             "explain": "$L\\mapsto h_{X,L}$ is a homomorphism $\\mathrm{Pic}(X)\\to\\{\\text{functions }X(\\bar K)\\to\\mathbb{R}\\}/O(1)$. Tensor product of line bundles becomes addition of heights."
           }
         ]
@@ -16794,6 +17922,7 @@ window.MVQuizBank = {
               "$\\hat h(P)=\\sup_n h(x([n]P))/n^2$"
             ],
             "answer": 1,
+            "hint": "Doubling on $E$ acts as multiplication-by-$4$ on a Weil height attached to a symmetric ample bundle, so dividing by $n^2$ is the right normalisation.",
             "explain": "Doubling on $E$ acts as multiplication-by-$4$ on a Weil height attached to a symmetric ample bundle, so dividing by $n^2$ is the right normalisation. Equivalently, $\\hat h=\\lim_n h(x(2^n P))/4^n$ — the form usually written down."
           },
           {
@@ -16806,6 +17935,7 @@ window.MVQuizBank = {
               "Northcott finiteness on $E(\\mathbb{Q})$."
             ],
             "answer": 2,
+            "hint": "The naive height satisfies $h([n]P)=n^2 h(P)+O(1)$ but not equality.",
             "explain": "The naive height satisfies $h([n]P)=n^2 h(P)+O(1)$ but not equality. Tate's averaging absorbs the $O(1)$; the resulting $\\hat h$ is exactly quadratic and gives a positive-definite pairing on $E(\\mathbb{Q})/\\mathrm{tors}$."
           },
           {
@@ -16818,6 +17948,7 @@ window.MVQuizBank = {
               "$P$ has $x$-coordinate $0$."
             ],
             "answer": 1,
+            "hint": "Quadratic + Northcott + invariance under $[n]$ forces $\\hat h$ to vanish exactly on the torsion subgroup.",
             "explain": "Quadratic + Northcott + invariance under $[n]$ forces $\\hat h$ to vanish exactly on the torsion subgroup. This is what makes $\\hat h$ a positive-definite form on $E(\\mathbb{Q})/\\mathrm{tors}$ and gives a regulator."
           }
         ]
@@ -16830,6 +17961,7 @@ window.MVQuizBank = {
             "q": "Compute $M(f)$ for $f(x)=2x^2-3x+1=2(x-1)(x-1/2)$. (Mahler measure = $|a|\\prod\\max(1,|\\alpha_i|)$.)",
             "answer": 2,
             "tol": 1e-9,
+            "hint": "Roots are $1$ and $1/2$, both with $|\\alpha|\\le 1$, so each $\\max(1,|\\alpha|)=1$.",
             "explain": "Roots are $1$ and $1/2$, both with $|\\alpha|\\le 1$, so each $\\max(1,|\\alpha|)=1$. Then $M(f)=|2|\\cdot 1\\cdot 1=2$."
           },
           {
@@ -16842,6 +17974,7 @@ window.MVQuizBank = {
               "Linear polynomials $\\pm x\\pm 1$."
             ],
             "answer": 1,
+            "hint": "Kronecker: a monic integer polynomial whose roots all have $|\\alpha|\\le 1$ has all its non-zero roots on the unit circle and being algebraic integers, they are roots of unity.",
             "explain": "Kronecker: a monic integer polynomial whose roots all have $|\\alpha|\\le 1$ has all its non-zero roots on the unit circle and being algebraic integers, they are roots of unity. So $M(f)=1$ iff $f=\\pm x^k\\prod\\Phi_{n_i}(x)$."
           },
           {
@@ -16854,6 +17987,7 @@ window.MVQuizBank = {
               "Whether every algebraic integer arises as a Mahler measure."
             ],
             "answer": 1,
+            "hint": "Lehmer's polynomial $L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1$ has $M(L)\\approx 1.17628$, the smallest known value $>1$.",
             "explain": "Lehmer's polynomial $L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1$ has $M(L)\\approx 1.17628$, the smallest known value $>1$. Whether some $f$ can do better is the open problem; conjecturally Lehmer's value is the infimum."
           }
         ]
@@ -16871,6 +18005,7 @@ window.MVQuizBank = {
               "$C(K)$ is finitely generated as an abelian group."
             ],
             "answer": 1,
+            "hint": "Mordell's conjecture: genus-$\\ge 2$ forces finitely many rational points.",
             "explain": "Mordell's conjecture: genus-$\\ge 2$ forces finitely many rational points. Genus $0$ gives $\\mathbb{P}^1$ (infinitely many) and genus $1$ gives elliptic curves where $E(K)$ is finitely generated but typically infinite."
           },
           {
@@ -16883,6 +18018,7 @@ window.MVQuizBank = {
               "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
             ],
             "answer": 1,
+            "hint": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world.",
             "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
           },
           {
@@ -16895,6 +18031,7 @@ window.MVQuizBank = {
               "Faltings' proof requires $g\\ge 2$ for technical reasons that have since been removed."
             ],
             "answer": 1,
+            "hint": "An elliptic curve $E$ is its own Jacobian, and $E(K)$ can have positive rank — finitely many rational points is simply false.",
             "explain": "An elliptic curve $E$ is its own Jacobian, and $E(K)$ can have positive rank — finitely many rational points is simply false. The right statement is finite generation, which is Mordell–Weil. Higher genus has trivial intersection with the Jacobian, allowing Faltings/Vojta's heavier finiteness."
           }
         ]
@@ -16912,6 +18049,7 @@ window.MVQuizBank = {
               "Resolve all singularities of arithmetic surfaces."
             ],
             "answer": 1,
+            "hint": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity.",
             "explain": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity. Arakelov fills it by demanding Hermitian metrics on line bundles over $X(\\mathbb{C})$; the resulting compactified geometry supports an arithmetic intersection theory."
           },
           {
@@ -16924,6 +18062,7 @@ window.MVQuizBank = {
               "The Faltings height of the Jacobian."
             ],
             "answer": 1,
+            "hint": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ —…",
             "explain": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ — heights as intersection numbers in disguise."
           },
           {
@@ -16936,6 +18075,7 @@ window.MVQuizBank = {
               "Without a metric, heights are only defined modulo torsion."
             ],
             "answer": 1,
+            "hint": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula.",
             "explain": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula. The Hermitian metric is exactly what supplies that archimedean local height."
           }
         ]
@@ -17356,6 +18496,7 @@ window.MVQuizBank = {
               "$\\partial_n = \\mathrm{id}$ for all $n$"
             ],
             "answer": 1,
+            "hint": "The defining condition of a chain complex is $\\partial^2=0$, i.e.",
             "explain": "The defining condition of a chain complex is $\\partial^2=0$, i.e. $\\partial_{n-1}\\circ\\partial_n=0$. This guarantees $\\operatorname{im}\\partial_{n+1}\\subseteq \\ker\\partial_n$, so $H_n=\\ker\\partial_n/\\operatorname{im}\\partial_{n+1}$ is well-defined."
           },
           {
@@ -17363,6 +18504,7 @@ window.MVQuizBank = {
             "q": "Let $C_\\bullet$ be the simplicial chain complex of the standard triangle (boundary of a $2$-simplex) with $C_0=\\mathbb{Q}^3,\\ C_1=\\mathbb{Q}^3$. What is $\\dim_\\mathbb{Q} H_1$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The triangle is homotopy equivalent to $S^1$, so $H_0=\\mathbb{Q}$ and $H_1=\\mathbb{Q}$.",
             "explain": "The triangle is homotopy equivalent to $S^1$, so $H_0=\\mathbb{Q}$ and $H_1=\\mathbb{Q}$. Its one independent $1$-cycle is the loop around the triangle."
           },
           {
@@ -17370,6 +18512,7 @@ window.MVQuizBank = {
             "q": "For the torus $T^2$ with rational Betti numbers $(b_0,b_1,b_2)=(1,2,1)$, compute the Euler characteristic $\\chi(T^2)=b_0-b_1+b_2$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$\\chi(T^2)=1-2+1=0$.",
             "explain": "$\\chi(T^2)=1-2+1=0$. Every closed orientable surface of genus $g$ has $\\chi=2-2g$; here $g=1$."
           }
         ],
@@ -17420,6 +18563,7 @@ window.MVQuizBank = {
               "$f$ is injective and $g$ is surjective"
             ],
             "answer": 2,
+            "hint": "Exactness at $B$ is the equality $\\operatorname{im} f = \\ker g$.",
             "explain": "Exactness at $B$ is the equality $\\operatorname{im} f = \\ker g$. The weaker condition $g\\circ f=0$ only gives $\\operatorname{im} f\\subseteq\\ker g$; the reverse inclusion is the substantive content."
           },
           {
@@ -17432,6 +18576,7 @@ window.MVQuizBank = {
               "exact only over $\\mathbb{Q}$"
             ],
             "answer": 2,
+            "hint": "$\\operatorname{im}(\\cdot n)=n\\mathbb{Z}=\\ker(\\text{mod }n)$, so it is short exact.",
             "explain": "$\\operatorname{im}(\\cdot n)=n\\mathbb{Z}=\\ker(\\text{mod }n)$, so it is short exact. A splitting would require a homomorphism $\\mathbb{Z}/n\\to\\mathbb{Z}$, and there is none for $n\\ge 2$ (any image is torsion-free). So it splits iff $n=1$, where the sequence is trivial."
           },
           {
@@ -17439,6 +18584,7 @@ window.MVQuizBank = {
             "q": "For a short exact sequence $0\\to A\\to B\\to C\\to 0$ of finite abelian groups with $|A|=6$ and $|C|=10$, compute $|B|$.",
             "answer": 60,
             "tol": 0.000001,
+            "hint": "Orders multiply across a short exact sequence: $|B|=|A|\\cdot|C|=6\\cdot 10=60$.",
             "explain": "Orders multiply across a short exact sequence: $|B|=|A|\\cdot|C|=6\\cdot 10=60$. This is the group-theoretic analogue of $\\dim B = \\dim A + \\dim C$ for vector spaces."
           }
         ],
@@ -17490,6 +18636,7 @@ window.MVQuizBank = {
               "$\\delta:\\operatorname{coker}\\gamma\\to\\ker\\alpha$"
             ],
             "answer": 1,
+            "hint": "The snake connects $\\ker\\gamma$ (on the right of the top row) to $\\operatorname{coker}\\alpha$ (on the left of the bottom row) via the recipe lift $\\to$ $\\beta$ $\\to$ pull back along $i'$.",
             "explain": "The snake connects $\\ker\\gamma$ (on the right of the top row) to $\\operatorname{coker}\\alpha$ (on the left of the bottom row) via the recipe lift $\\to$ $\\beta$ $\\to$ pull back along $i'$."
           },
           {
@@ -17502,6 +18649,7 @@ window.MVQuizBank = {
               "$0\\to\\ker\\alpha\\to A\\to\\operatorname{coker}\\alpha\\to 0$"
             ],
             "answer": 0,
+            "hint": "Kernels first (reading left-to-right), then $\\delta$, then cokernels (again left-to-right).",
             "explain": "Kernels first (reading left-to-right), then $\\delta$, then cokernels (again left-to-right). The 0 on the left encodes 'left-most kernel arrow is injective' and the 0 on the right encodes 'right-most cokernel arrow is surjective'."
           },
           {
@@ -17509,6 +18657,7 @@ window.MVQuizBank = {
             "q": "In the widget's example ($\\alpha=0, \\beta=\\cdot 2, \\gamma=0$ on $\\mathbb{Z}/2,\\mathbb{Z}/4,\\mathbb{Z}/2$), what is $\\delta(1)\\in\\operatorname{coker}\\alpha=\\mathbb{Z}/2$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Lift $c=1$ to $b=1\\in\\mathbb{Z}/4$; $\\beta(b)=2$; pull back along $i':a'\\mapsto 2a'$ to get $a'=1\\in\\mathbb{Z}/2$.",
             "explain": "Lift $c=1$ to $b=1\\in\\mathbb{Z}/4$; $\\beta(b)=2$; pull back along $i':a'\\mapsto 2a'$ to get $a'=1\\in\\mathbb{Z}/2$. Since $\\operatorname{im}\\alpha=0$, $\\delta(1)=1$."
           }
         ],
@@ -17573,6 +18722,7 @@ window.MVQuizBank = {
               "If all rows are zero, all $f_i$ are zero."
             ],
             "answer": 1,
+            "hint": "The five lemma: outer four $f_1,f_2,f_4,f_5$ isomorphisms + exact rows $\\Rightarrow$ middle $f_3$ is an isomorphism.",
             "explain": "The five lemma: outer four $f_1,f_2,f_4,f_5$ isomorphisms + exact rows $\\Rightarrow$ middle $f_3$ is an isomorphism. Proof is the standard two-step diagram chase (injectivity, then surjectivity)."
           },
           {
@@ -17585,6 +18735,7 @@ window.MVQuizBank = {
               "$f_1$ injective, $f_5$ surjective"
             ],
             "answer": 0,
+            "hint": "The surjectivity half of the five lemma: $f_2$ surjective and $f_4$ injective force $f_3$ surjective.",
             "explain": "The surjectivity half of the five lemma: $f_2$ surjective and $f_4$ injective force $f_3$ surjective. The injectivity half requires $f_2$ injective and $f_4$ surjective — dual conditions, split across the two halves."
           },
           {
@@ -17592,6 +18743,7 @@ window.MVQuizBank = {
             "q": "In a ladder with exact rows, $f_1,f_2,f_4,f_5$ are isomorphisms and $\\dim A_3=\\dim B_3=7$ (vector spaces). What is the rank of $f_3$?",
             "answer": 7,
             "tol": 0.000001,
+            "hint": "By the five lemma $f_3$ is an isomorphism, so its rank equals $\\dim A_3=7$.",
             "explain": "By the five lemma $f_3$ is an isomorphism, so its rank equals $\\dim A_3=7$."
           }
         ],
@@ -17654,6 +18806,7 @@ window.MVQuizBank = {
               "$\\partial:H_n(A)\\to H_{n+1}(C)$"
             ],
             "answer": 2,
+            "hint": "The snake lemma applied degree-by-degree produces $\\partial:H_n(C)\\to H_{n-1}(A)$, lowering homological degree by 1 (for a cohomologically indexed complex the analogous map raises degree by 1).",
             "explain": "The snake lemma applied degree-by-degree produces $\\partial:H_n(C)\\to H_{n-1}(A)$, lowering homological degree by 1 (for a cohomologically indexed complex the analogous map raises degree by 1)."
           },
           {
@@ -17661,6 +18814,7 @@ window.MVQuizBank = {
             "q": "Use the Mayer–Vietoris long exact sequence and induction to compute $\\dim_\\mathbb{Q} H_n(S^n;\\mathbb{Q})$ for $n\\ge 1$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Covering $S^n$ by two contractible hemispheres $U,V$ with $U\\cap V\\simeq S^{n-1}$, the MV sequence gives $H_n(S^n)\\cong H_{n-1}(S^{n-1})$ for $n\\ge 2$, and $H_1(S^1)\\cong\\mathbb{Z}$ directly.",
             "explain": "Covering $S^n$ by two contractible hemispheres $U,V$ with $U\\cap V\\simeq S^{n-1}$, the MV sequence gives $H_n(S^n)\\cong H_{n-1}(S^{n-1})$ for $n\\ge 2$, and $H_1(S^1)\\cong\\mathbb{Z}$ directly. Inductively $\\dim H_n(S^n;\\mathbb{Q})=1$."
           },
           {
@@ -17673,6 +18827,7 @@ window.MVQuizBank = {
               "nothing useful"
             ],
             "answer": 1,
+            "hint": "With the middle terms $H_n(B)=H_{n-1}(B)=0$ the sequence $0\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)\\to 0$ forces $\\partial$ to be an isomorphism.",
             "explain": "With the middle terms $H_n(B)=H_{n-1}(B)=0$ the sequence $0\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)\\to 0$ forces $\\partial$ to be an isomorphism. Acyclic complexes are 'invisible' except for the degree shift they impose."
           }
         ],
@@ -17723,6 +18878,7 @@ window.MVQuizBank = {
               "$\\operatorname{Hom}(P,-)$ is right exact"
             ],
             "answer": 1,
+            "hint": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\operatorname{Hom}(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free…",
             "explain": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\operatorname{Hom}(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free module. Free is strictly stronger in general (though not over a PID)."
           },
           {
@@ -17735,6 +18891,7 @@ window.MVQuizBank = {
               "$\\varphi$ must be an isomorphism"
             ],
             "answer": 0,
+            "hint": "Projectivity: for any surjection $\\varphi\\colon M\\twoheadrightarrow N$ and any $f\\colon P\\to N$, there exists a lift $\\tilde f\\colon P\\to M$ with $\\varphi\\tilde f=f$.",
             "explain": "Projectivity: for any surjection $\\varphi\\colon M\\twoheadrightarrow N$ and any $f\\colon P\\to N$, there exists a lift $\\tilde f\\colon P\\to M$ with $\\varphi\\tilde f=f$. This is exactly the dual of the 'extension' property defining injectives."
           },
           {
@@ -17747,6 +18904,7 @@ window.MVQuizBank = {
               "any free abelian group"
             ],
             "answer": 2,
+            "hint": "Over a PID, projective $\\iff$ free.",
             "explain": "Over a PID, projective $\\iff$ free. $\\mathbb{Z}/2$ is not free (it has torsion), and the surjection $\\mathbb{Z}\\twoheadrightarrow\\mathbb{Z}/2$ does not split (no homomorphism $\\mathbb{Z}/2\\to\\mathbb{Z}$). Hence $\\mathbb{Z}/2$ is not projective."
           }
         ],
@@ -17798,6 +18956,7 @@ window.MVQuizBank = {
               "$I$ is finitely generated"
             ],
             "answer": 1,
+            "hint": "Injectivity: for every injection $A\\hookrightarrow B$ and map $A\\to I$, there is an extension $B\\to I$.",
             "explain": "Injectivity: for every injection $A\\hookrightarrow B$ and map $A\\to I$, there is an extension $B\\to I$. Equivalently $\\operatorname{Hom}(-,I)$ is exact (both left and right). The 'every injection from $I$ splits' form is also an equivalent formulation."
           },
           {
@@ -17810,6 +18969,7 @@ window.MVQuizBank = {
               "projective modules $P\\hookrightarrow R$ only"
             ],
             "answer": 1,
+            "hint": "Baer's criterion: $I$ is injective $\\iff$ every map from an ideal $\\mathfrak{a}\\subseteq R$ to $I$ extends to $R\\to I$.",
             "explain": "Baer's criterion: $I$ is injective $\\iff$ every map from an ideal $\\mathfrak{a}\\subseteq R$ to $I$ extends to $R\\to I$. This reduces an a priori enormous check (all injections of all modules) to a single, tractable one."
           },
           {
@@ -17822,6 +18982,7 @@ window.MVQuizBank = {
               "$\\prod_p \\mathbb{Z}/p^\\infty$"
             ],
             "answer": 2,
+            "hint": "Over $\\mathbb{Z}$, injective $\\iff$ divisible.",
             "explain": "Over $\\mathbb{Z}$, injective $\\iff$ divisible. $\\mathbb{Q}$ and $\\mathbb{Q}/\\mathbb{Z}$ and Prüfer groups $\\mathbb{Z}/p^\\infty$ are divisible; $\\mathbb{Z}/2$ is not ($2\\cdot\\mathbb{Z}/2 = 0\\ne \\mathbb{Z}/2$)."
           }
         ],
@@ -17873,6 +19034,7 @@ window.MVQuizBank = {
               "$M$ is free"
             ],
             "answer": 0,
+            "hint": "Flat $=$ tensoring with $M$ preserves exactness.",
             "explain": "Flat $=$ tensoring with $M$ preserves exactness. Equivalently preserves injectivity (the right-exactness of $-\\otimes M$ holds automatically; flatness is the extra condition that injective maps stay injective after tensoring)."
           },
           {
@@ -17885,6 +19047,7 @@ window.MVQuizBank = {
               "free $\\Rightarrow$ flat $\\Rightarrow$ injective"
             ],
             "answer": 0,
+            "hint": "Free $\\Rightarrow$ projective (trivial: free is projective); projective $\\Rightarrow$ flat (direct summand of free, and free is obviously flat).",
             "explain": "Free $\\Rightarrow$ projective (trivial: free is projective); projective $\\Rightarrow$ flat (direct summand of free, and free is obviously flat). None of the reverse implications hold over general rings."
           },
           {
@@ -17897,6 +19060,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}/2$"
             ],
             "answer": 3,
+            "hint": "Over a PID, flat $\\iff$ torsion-free.",
             "explain": "Over a PID, flat $\\iff$ torsion-free. $\\mathbb{Z}/2$ has torsion; concretely, tensoring $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 2}\\mathbb{Z}$ with $\\mathbb{Z}/2$ gives $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, which is not injective. So $\\mathbb{Z}/2$ is not flat."
           }
         ],
@@ -17947,6 +19111,7 @@ window.MVQuizBank = {
               "take the dual module $M^\\vee$ and apply $F$"
             ],
             "answer": 1,
+            "hint": "Right derived functors of a left exact $F$ are computed from an injective resolution $0\\to M\\to I^0\\to I^1\\to\\cdots$, applying $F$ and taking cohomology of $F(I^\\bullet)$.",
             "explain": "Right derived functors of a left exact $F$ are computed from an injective resolution $0\\to M\\to I^0\\to I^1\\to\\cdots$, applying $F$ and taking cohomology of $F(I^\\bullet)$. The answer is independent of the resolution."
           },
           {
@@ -17954,6 +19119,7 @@ window.MVQuizBank = {
             "q": "Compute $\\dim_{\\mathbb{F}_2} \\operatorname{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/2,\\mathbb{Z}/2)$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\operatorname{Hom}(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is…",
             "explain": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\operatorname{Hom}(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is $\\mathbb{Z}/2$. So $\\operatorname{Ext}^1_\\mathbb{Z}(\\mathbb{Z}/2,\\mathbb{Z}/2)\\cong\\mathbb{Z}/2$, dimension $1$ over $\\mathbb{F}_2$."
           },
           {
@@ -17961,6 +19127,7 @@ window.MVQuizBank = {
             "q": "What is $\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/6,\\mathbb{Z}/4)$ as $\\mathbb{Z}/d$? Give $d$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/m,\\mathbb{Z}/n)\\cong\\mathbb{Z}/\\gcd(m,n)$.",
             "explain": "$\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/m,\\mathbb{Z}/n)\\cong\\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(6,4)=2$."
           }
         ],
@@ -18011,6 +19178,7 @@ window.MVQuizBank = {
               "$M\\to F_0\\to F_1\\to\\cdots$ with each $F_i$ free"
             ],
             "answer": 1,
+            "hint": "Projective resolutions go from the left: $\\cdots\\to P_1\\to P_0\\twoheadrightarrow M\\to 0$, exact at every spot.",
             "explain": "Projective resolutions go from the left: $\\cdots\\to P_1\\to P_0\\twoheadrightarrow M\\to 0$, exact at every spot. They are used to compute left-derived functors like $\\operatorname{Tor}$ and $L_iF$ for right-exact $F$."
           },
           {
@@ -18018,6 +19186,7 @@ window.MVQuizBank = {
             "q": "$\\mathbb{Z}/6$ has what length-$1$ free resolution? Enter the single invariant factor appearing in the presentation matrix (a $1\\times 1$ matrix).",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "The resolution is $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 6}\\mathbb{Z}\\to\\mathbb{Z}/6\\to 0$.",
             "explain": "The resolution is $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 6}\\mathbb{Z}\\to\\mathbb{Z}/6\\to 0$. The presentation matrix is the $1\\times 1$ matrix $[6]$."
           },
           {
@@ -18030,6 +19199,7 @@ window.MVQuizBank = {
               "$\\infty$"
             ],
             "answer": 2,
+            "hint": "Hilbert's syzygy theorem: the global dimension of $k[x_1,\\dots,x_n]$ is exactly $n$.",
             "explain": "Hilbert's syzygy theorem: the global dimension of $k[x_1,\\dots,x_n]$ is exactly $n$. Equivalently, every finitely generated module has a free resolution of length $\\le n$, and there exist modules requiring length exactly $n$."
           }
         ],
@@ -18080,6 +19250,7 @@ window.MVQuizBank = {
               "Every object is projective."
             ],
             "answer": 3,
+            "hint": "Abelian categories need a zero object, kernels/cokernels, biproducts, and every mono/epi to be normal (a kernel/cokernel respectively).",
             "explain": "Abelian categories need a zero object, kernels/cokernels, biproducts, and every mono/epi to be normal (a kernel/cokernel respectively). They do NOT need every object to be projective — in fact $\\mathsf{Ab}$ is abelian and most objects there aren't projective."
           },
           {
@@ -18092,6 +19263,7 @@ window.MVQuizBank = {
               "Every abelian category is triangulated."
             ],
             "answer": 0,
+            "hint": "Freyd–Mitchell: any small abelian category $\\mathcal{A}$ admits a full exact embedding $\\mathcal{A}\\hookrightarrow R\\text{-Mod}$ for some ring $R$.",
             "explain": "Freyd–Mitchell: any small abelian category $\\mathcal{A}$ admits a full exact embedding $\\mathcal{A}\\hookrightarrow R\\text{-Mod}$ for some ring $R$. The point: element-chases in $\\mathsf{Ab}$ transfer to any abelian category."
           },
           {
@@ -18104,6 +19276,7 @@ window.MVQuizBank = {
               "an object"
             ],
             "answer": 1,
+            "hint": "Short exact sequences in $\\mathcal{A}$ lift to distinguished triangles in $D(\\mathcal{A})$; the rotation/shift structure of triangles encodes long exact sequences of cohomology objects.",
             "explain": "Short exact sequences in $\\mathcal{A}$ lift to distinguished triangles in $D(\\mathcal{A})$; the rotation/shift structure of triangles encodes long exact sequences of cohomology objects. This is the fundamental move toward derived categories."
           }
         ],
@@ -18161,6 +19334,7 @@ window.MVQuizBank = {
               "$(-1,-1)$ on every page"
             ],
             "answer": 1,
+            "hint": "In the standard cohomological convention $d_r:E_r^{p,q}\\to E_r^{p+r,q-r+1}$, i.e.",
             "explain": "In the standard cohomological convention $d_r:E_r^{p,q}\\to E_r^{p+r,q-r+1}$, i.e. bidegree $(r,1-r)$. The next page is defined as $E_{r+1}=H(E_r,d_r)$."
           },
           {
@@ -18173,6 +19347,7 @@ window.MVQuizBank = {
               "the filtration on $H^\\bullet$ is trivial"
             ],
             "answer": 1,
+            "hint": "Degeneration at $E_2$ means $d_r=0$ for all $r\\ge 2$, so $E_\\infty=E_2$.",
             "explain": "Degeneration at $E_2$ means $d_r=0$ for all $r\\ge 2$, so $E_\\infty=E_2$. The abutment $H^n$ is then the associated graded of some filtration with graded pieces $E_2^{p,n-p}$ — you still have an extension problem, but the entries are pinned down."
           },
           {
@@ -18180,6 +19355,7 @@ window.MVQuizBank = {
             "q": "Consider the double complex $C^{0,0}=C^{1,0}=C^{0,1}=C^{1,1}=\\mathbb{Z}$, with horizontal maps multiplication by $2$ and vertical maps multiplication by $3$. Taking horizontal homology first, what is the rank of $E_1^{0,0}$ as an abelian group?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "The horizontal map $\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$ is injective, so its kernel is $0$.",
             "explain": "The horizontal map $\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$ is injective, so its kernel is $0$. Thus $E_1^{0,0}=\\ker(2)=0$, which has rank $0$ (and is in fact the zero group)."
           }
         ],
@@ -19063,6 +20239,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -19161,6 +20338,7 @@ window.MVQuizBank = {
               0,
               1
             ],
+            "hint": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities.",
             "explain": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities. The cycle map exists but generally fails to be either injective or surjective — Griffiths' work on Fano threefolds gives counterexamples to injectivity, and transcendental Hodge classes obstruct surjectivity. Simple-connectedness has no bearing on $A_*$."
           }
         ],
@@ -19414,6 +20592,7 @@ window.MVQuizBank = {
               "$a_p=\\#E(\\mathbb{F}_p)-p-1$ only when $p=2$"
             ],
             "answer": 1,
+            "hint": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$.",
             "explain": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$."
           },
           {
@@ -19421,6 +20600,7 @@ window.MVQuizBank = {
             "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
             "answer": -3,
             "tol": 1e-9,
+            "hint": "$a_5=5+1-9=-3$.",
             "explain": "$a_5=5+1-9=-3$."
           },
           {
@@ -19432,6 +20612,7 @@ window.MVQuizBank = {
               "Only bad primes"
             ],
             "answer": 0,
+            "hint": "An $L$-function is assembled from local data prime-by-prime.",
             "explain": "An $L$-function is assembled from local data prime-by-prime."
           }
         ],
@@ -19484,6 +20665,7 @@ window.MVQuizBank = {
               "$L(f,s)=\\prod_n (1-a_nn^{-s})$"
             ],
             "answer": 0,
+            "hint": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$.",
             "explain": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$."
           },
           {
@@ -19495,6 +20677,7 @@ window.MVQuizBank = {
               "Trivial functional equation"
             ],
             "answer": 0,
+            "hint": "Multiplicativity is exactly what supports an Euler product.",
             "explain": "Multiplicativity is exactly what supports an Euler product."
           },
           {
@@ -19502,6 +20685,7 @@ window.MVQuizBank = {
             "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
             "answer": 1,
             "tol": 1e-9,
+            "hint": "Normalization sets the first coefficient to 1.",
             "explain": "Normalization sets the first coefficient to 1."
           }
         ],
@@ -19554,6 +20738,7 @@ window.MVQuizBank = {
               "$\\Lambda(E,s)=\\Lambda(E,s+1)$"
             ],
             "answer": 1,
+            "hint": "In the elliptic-curve normalization, the involution is $s\\leftrightarrow 2-s$, centered at $s=1$.",
             "explain": "In the elliptic-curve normalization, the involution is $s\\leftrightarrow 2-s$, centered at $s=1$."
           },
           {
@@ -19565,6 +20750,7 @@ window.MVQuizBank = {
               "class number"
             ],
             "answer": 1,
+            "hint": "The root number controls parity phenomena at the center.",
             "explain": "The root number controls parity phenomena at the center."
           },
           {
@@ -19572,6 +20758,7 @@ window.MVQuizBank = {
             "q": "The central point of $s\\leftrightarrow 2-s$ symmetry is $s=$ ?",
             "answer": 1,
             "tol": 1e-9,
+            "hint": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry.",
             "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
           }
         ],
@@ -19625,6 +20812,7 @@ window.MVQuizBank = {
               "only at integers"
             ],
             "answer": 1,
+            "hint": "The Hasse bound $|a_p|\\le 2\\sqrt{p}$ gives absolute convergence on $\\mathrm{Re}\\,s > 3/2$; continuation past that needs modularity.",
             "explain": "The Hasse bound $|a_p|\\le 2\\sqrt{p}$ gives absolute convergence on $\\mathrm{Re}\\,s > 3/2$; continuation past that needs modularity."
           },
           {
@@ -19637,6 +20825,7 @@ window.MVQuizBank = {
               "Applying the Cauchy residue theorem at integers"
             ],
             "answer": 1,
+            "hint": "Split the Mellin integral at $y=1$, apply $y\\mapsto 1/y$, and the modular transformation of $f$ makes the integral entire in $s$.",
             "explain": "Split the Mellin integral at $y=1$, apply $y\\mapsto 1/y$, and the modular transformation of $f$ makes the integral entire in $s$."
           },
           {
@@ -19644,6 +20833,7 @@ window.MVQuizBank = {
             "q": "How many poles does the completed $\\Lambda(f,s)$ of a weight-$k$ cusp form have in $\\mathbb{C}$?",
             "answer": 0,
             "tol": 1e-9,
+            "hint": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$.",
             "explain": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$."
           }
         ],
@@ -19692,6 +20882,7 @@ window.MVQuizBank = {
             "q": "Euler's evaluation gives $\\zeta(2)=\\pi^2/k$ for which integer $k$?",
             "answer": 6,
             "tol": 1e-9,
+            "hint": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant.",
             "explain": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant."
           },
           {
@@ -19704,6 +20895,7 @@ window.MVQuizBank = {
               "$L(E,2)$ is always zero"
             ],
             "answer": 1,
+            "hint": "BSD ties the order of vanishing of $L(E,s)$ at the center $s=1$ of the functional equation to the Mordell–Weil rank.",
             "explain": "BSD ties the order of vanishing of $L(E,s)$ at the center $s=1$ of the functional equation to the Mordell–Weil rank."
           },
           {
@@ -19716,6 +20908,7 @@ window.MVQuizBank = {
               "the discriminant alone, with no arithmetic invariant"
             ],
             "answer": 0,
+            "hint": "Special values of $L(s,\\chi)$ at $s=1$ encode class numbers, regulators, and unit information of the corresponding abelian extension of $\\mathbb{Q}$.",
             "explain": "Special values of $L(s,\\chi)$ at $s=1$ encode class numbers, regulators, and unit information of the corresponding abelian extension of $\\mathbb{Q}$."
           }
         ],
@@ -19772,6 +20965,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -19792,6 +20986,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -19814,6 +21009,7 @@ window.MVQuizBank = {
               "a vector space equipped with a bilinear bracket"
             ],
             "answer": 1,
+            "hint": "A Lie group is simultaneously a smooth manifold and a group, where the multiplication $\\mu:G\\times G\\to G$ and inversion $\\iota:G\\to G$ are smooth maps.",
             "explain": "A Lie group is simultaneously a smooth manifold and a group, where the multiplication $\\mu:G\\times G\\to G$ and inversion $\\iota:G\\to G$ are smooth maps."
           },
           {
@@ -19821,6 +21017,7 @@ window.MVQuizBank = {
             "q": "What is the real dimension of $\\mathrm{SU}(2)$?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$\\mathrm{SU}(n)$ has real dimension $n^2-1$.",
             "explain": "$\\mathrm{SU}(n)$ has real dimension $n^2-1$. For $n=2$ this gives $3$, consistent with $\\mathrm{SU}(2)\\cong S^3$."
           },
           {
@@ -19828,6 +21025,7 @@ window.MVQuizBank = {
             "q": "What is the real dimension of $\\mathrm{SO}(n)$ for $n=4$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\dim\\mathrm{SO}(n)=\\binom{n}{2}=\\frac{n(n-1)}{2}$.",
             "explain": "$\\dim\\mathrm{SO}(n)=\\binom{n}{2}=\\frac{n(n-1)}{2}$. For $n=4$: $\\binom{4}{2}=6$."
           }
         ],
@@ -19881,6 +21079,7 @@ window.MVQuizBank = {
               "the quotient $\\mathrm{GL}_n(\\mathbb{R})/G$"
             ],
             "answer": 1,
+            "hint": "By definition $\\mathfrak{g}=T_eG$ is the space of velocity vectors at the identity.",
             "explain": "By definition $\\mathfrak{g}=T_eG$ is the space of velocity vectors at the identity. Concretely, differentiate a curve through $I$ lying in $G$ and collect all such tangent vectors. This recovers $\\mathfrak{sl}_n$ (trace zero), $\\mathfrak{so}(n)$ (skew-symmetric), etc."
           },
           {
@@ -19888,6 +21087,7 @@ window.MVQuizBank = {
             "q": "Differentiating $A(t)^\\top A(t)=I$ at $t=0$ with $A(0)=I$ gives which equation on $X=A'(0)$? Enter the answer as the value of $(X^\\top+X)_{1,1}$ when $X$ satisfies this equation.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "Differentiation yields $X^\\top+X=0$, i.e.",
             "explain": "Differentiation yields $X^\\top+X=0$, i.e. $X$ is skew-symmetric, so every diagonal entry vanishes. In particular $(X^\\top+X)_{1,1}=2X_{1,1}=0$."
           },
           {
@@ -19895,6 +21095,7 @@ window.MVQuizBank = {
             "q": "What is the real dimension of $\\mathfrak{sl}_3(\\mathbb{R})$ (the traceless $3\\times 3$ real matrices)?",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$.",
             "explain": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$: $9-1=8$."
           }
         ],
@@ -19948,6 +21149,7 @@ window.MVQuizBank = {
               "the Frobenius inner product $\\mathrm{tr}(X^\\top Y)$"
             ],
             "answer": 1,
+            "hint": "For matrix groups the Lie bracket on $\\mathfrak{g}$ is the matrix commutator $[X,Y]=XY-YX$, which is automatically antisymmetric and satisfies the Jacobi identity.",
             "explain": "For matrix groups the Lie bracket on $\\mathfrak{g}$ is the matrix commutator $[X,Y]=XY-YX$, which is automatically antisymmetric and satisfies the Jacobi identity."
           },
           {
@@ -19955,6 +21157,7 @@ window.MVQuizBank = {
             "q": "Let $X=\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}\\in\\mathfrak{so}(2)$ with $\\theta=\\pi$. Compute the $(1,1)$ entry of $\\exp(X)$.",
             "answer": -1,
             "tol": 0.000001,
+            "hint": "$\\exp\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$.",
             "explain": "$\\exp\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. At $\\theta=\\pi$ the $(1,1)$ entry is $\\cos\\pi=-1$."
           },
           {
@@ -19962,6 +21165,7 @@ window.MVQuizBank = {
             "q": "If $X\\in\\mathfrak{sl}_n(\\mathbb{R})$ has $\\operatorname{tr}(X)=0$, what is $\\det(\\exp X)$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix.",
             "explain": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix. With $\\operatorname{tr} X=0$ we get $\\det(\\exp X)=e^0=1$, confirming $\\exp$ maps $\\mathfrak{sl}_n$ into $\\mathrm{SL}_n$."
           }
         ],
@@ -20023,6 +21227,7 @@ window.MVQuizBank = {
             "q": "In $\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$, compute the coefficient of $E_2$ in $[E_1,[E_2,E_3]]+[E_2,[E_3,E_1]]+[E_3,[E_1,E_2]]$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "The Jacobi identity forces this sum to be zero, so every coefficient — including that of $E_2$ — vanishes.",
             "explain": "The Jacobi identity forces this sum to be zero, so every coefficient — including that of $E_2$ — vanishes. Concretely: $[E_2,E_3]=E_1$ so $[E_1,E_1]=0$; $[E_3,E_1]=E_2$ so $[E_2,E_2]=0$; $[E_1,E_2]=E_3$ so $[E_3,E_3]=0$. Sum $=0$."
           },
           {
@@ -20030,6 +21235,7 @@ window.MVQuizBank = {
             "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$ and $Y=\\begin{pmatrix}0&0\\\\1&0\\end{pmatrix}$ in $\\mathfrak{sl}_2$. Compute the $(1,1)$ entry of $[X,Y]$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$XY=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $YX=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$, so $[X,Y]=XY-YX=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=h$.",
             "explain": "$XY=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $YX=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$, so $[X,Y]=XY-YX=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=h$. The $(1,1)$ entry is $1$ — this recovers the $\\mathfrak{sl}_2$ relation $[e,f]=h$."
           }
         ],
@@ -20083,6 +21289,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}/4$"
             ],
             "answer": 1,
+            "hint": "The quaternion action $q\\cdot\\vec v=q\\vec v q^{-1}$ on imaginary quaternions is an element of $\\mathrm{SO}(3)$, and $\\pm q$ act identically because the action is conjugation.",
             "explain": "The quaternion action $q\\cdot\\vec v=q\\vec v q^{-1}$ on imaginary quaternions is an element of $\\mathrm{SO}(3)$, and $\\pm q$ act identically because the action is conjugation. Hence $\\ker\\pi=\\{\\pm I\\}\\cong\\mathbb{Z}/2$."
           },
           {
@@ -20090,6 +21297,7 @@ window.MVQuizBank = {
             "q": "Let $q=\\cos(\\theta/2)+\\sin(\\theta/2)\\,\\mathbf{i}$ be the unit quaternion implementing rotation by $\\theta$ about the $x$-axis. At what value of $\\theta$ (in radians) does $q$ first equal $-1$?",
             "answer": 6.283185307179586,
             "tol": 0.00001,
+            "hint": "Set $\\cos(\\theta/2)=-1$: minimal solution is $\\theta/2=\\pi$, i.e.",
             "explain": "Set $\\cos(\\theta/2)=-1$: minimal solution is $\\theta/2=\\pi$, i.e. $\\theta=2\\pi$. A single $360°$ rotation in $\\mathrm{SO}(3)$ lifts to the path $I\\to -I$ in $\\mathrm{SU}(2)$ — the spinor sign."
           },
           {
@@ -20102,6 +21310,7 @@ window.MVQuizBank = {
               "Both groups are simply connected"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{SU}(2)\\cong S^3$ is simply connected.",
             "explain": "$\\mathrm{SU}(2)\\cong S^3$ is simply connected. The antipodal quotient $S^3/\\{\\pm1\\}=\\mathbb{RP}^3\\cong\\mathrm{SO}(3)$ has $\\pi_1=\\mathbb{Z}/2$; this non-trivial loop is the famous \"belt trick.\""
           }
         ],
@@ -20155,6 +21364,7 @@ window.MVQuizBank = {
               "the commutator: $\\mathrm{Ad}_g(X)=gX-Xg$"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is conjugation, $\\mathrm{Ad}_g(X)=gXg^{-1}$ for matrix groups.",
             "explain": "$\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is conjugation, $\\mathrm{Ad}_g(X)=gXg^{-1}$ for matrix groups. It is a homomorphism because $\\mathrm{Ad}_{gh}=\\mathrm{Ad}_g\\mathrm{Ad}_h$."
           },
           {
@@ -20167,6 +21377,7 @@ window.MVQuizBank = {
               "$\\operatorname{ad}_X(Y)=X+Y$"
             ],
             "answer": 1,
+            "hint": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$.",
             "explain": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$. So the differential of $\\mathrm{Ad}$ at $e$ is the adjoint action $\\operatorname{ad}_X=[X,\\cdot]$ on the algebra."
           },
           {
@@ -20174,6 +21385,7 @@ window.MVQuizBank = {
             "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute $B(h,h)=\\operatorname{tr}(\\operatorname{ad}_h\\circ\\operatorname{ad}_h)$ (the Killing form value).",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$.",
             "explain": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$. Hence $\\operatorname{ad}_h^2$ has eigenvalues $0,4,4$, and the trace is $0+4+4=8$."
           }
         ],
@@ -20227,6 +21439,7 @@ window.MVQuizBank = {
               "$\\mathrm{Ad}(g)X=\\exp(X)g$"
             ],
             "answer": 1,
+            "hint": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups.",
             "explain": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups. Its differential at $e$ is $\\operatorname{ad}_X(Y)=[X,Y]$."
           },
           {
@@ -20234,6 +21447,7 @@ window.MVQuizBank = {
             "q": "How many roots does the root system $A_2$ (that is, $\\mathfrak{sl}_3(\\mathbb{C})$) have?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "The roots of $A_n$ are $\\varepsilon_i-\\varepsilon_j$ for $i\\ne j$ in $\\{1,\\dots,n+1\\}$, giving $(n+1)n$ roots.",
             "explain": "The roots of $A_n$ are $\\varepsilon_i-\\varepsilon_j$ for $i\\ne j$ in $\\{1,\\dots,n+1\\}$, giving $(n+1)n$ roots. For $A_2$: $3\\cdot 2=6$."
           },
           {
@@ -20241,6 +21455,7 @@ window.MVQuizBank = {
             "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ satisfying $[h,e]=2e$, what is the eigenvalue of $\\operatorname{ad}_h$ on $e$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$.",
             "explain": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$. This eigenvalue is the root $\\alpha(h)=2$ for $A_1$."
           }
         ],
@@ -20593,6 +21808,7 @@ window.MVQuizBank = {
               "All intervals in $\\mathbb{R}$"
             ],
             "answer": 1,
+            "hint": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions.",
             "explain": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions. Open sets and intervals are not closed under complements, and finite subsets are not closed under countable unions in an infinite set."
           },
           {
@@ -20600,6 +21816,7 @@ window.MVQuizBank = {
             "q": "Let $\\mu$ be a measure with $\\mu(A)=3$, $\\mu(B)=4$, and $\\mu(A\\cap B)=1$. Compute $\\mu(A\\cup B)$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$.",
             "explain": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$."
           },
           {
@@ -20610,6 +21827,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$.",
             "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
           }
         ],
@@ -20660,6 +21878,7 @@ window.MVQuizBank = {
               "$m^*(E)=\\sup\\{m(K):K\\subset E,\\ K\\text{ compact}\\}$ for every $E$"
             ],
             "answer": 1,
+            "hint": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate).",
             "explain": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate). Countable additivity fails on non-measurable sets — that is precisely what Carathéodory's criterion diagnoses."
           },
           {
@@ -20672,6 +21891,7 @@ window.MVQuizBank = {
               "$m^*(A\\cap E)\\le m^*(A)$"
             ],
             "answer": 1,
+            "hint": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure.",
             "explain": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure. The $\\le$ direction is free by subadditivity; the $\\ge$ direction is the substantive requirement."
           },
           {
@@ -20679,6 +21899,7 @@ window.MVQuizBank = {
             "q": "Compute the Lebesgue outer measure $m^*(\\mathbb{Q}\\cap[0,1])$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$.",
             "explain": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$. Total cover length is $\\varepsilon$, and $\\varepsilon>0$ was arbitrary, so $m^*=0$."
           }
         ],
@@ -20730,6 +21951,7 @@ window.MVQuizBank = {
               "depends on $x$"
             ],
             "answer": 2,
+            "hint": "Points have zero length, so every singleton has Lebesgue measure $0$.",
             "explain": "Points have zero length, so every singleton has Lebesgue measure $0$."
           },
           {
@@ -20737,6 +21959,7 @@ window.MVQuizBank = {
             "q": "Compute $m([2,5])$, where $m$ is Lebesgue measure on $\\mathbb{R}$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$.",
             "explain": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$."
           },
           {
@@ -20747,6 +21970,7 @@ window.MVQuizBank = {
               2
             ],
             "tol": 0.000001,
+            "hint": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$.",
             "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
           }
         ],
@@ -20797,6 +22021,7 @@ window.MVQuizBank = {
               "$f^{-1}(B)$ is finite"
             ],
             "answer": 1,
+            "hint": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$.",
             "explain": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$."
           },
           {
@@ -20804,6 +22029,7 @@ window.MVQuizBank = {
             "q": "Let $f=\\mathbf 1_{[0,2]}$ on $\\mathbb R$. What is $\\int f\\,dm$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$.",
             "explain": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$."
           },
           {
@@ -20814,6 +22040,7 @@ window.MVQuizBank = {
               4
             ],
             "tol": 0.000001,
+            "hint": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$.",
             "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
           }
         ],
@@ -20864,6 +22091,7 @@ window.MVQuizBank = {
               "the limit of midpoint sums only"
             ],
             "answer": 1,
+            "hint": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$.",
             "explain": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$."
           },
           {
@@ -20871,6 +22099,7 @@ window.MVQuizBank = {
             "q": "Compute $\\int_0^1 x\\,dx$ (Lebesgue measure).",
             "answer": 0.5,
             "tol": 0.000001,
+            "hint": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$.",
             "explain": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$."
           },
           {
@@ -20881,6 +22110,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "$e^{ix}=\\cos x+i\\sin x$.",
             "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
           }
         ],
@@ -20931,6 +22161,7 @@ window.MVQuizBank = {
               "Jensen inequality"
             ],
             "answer": 1,
+            "hint": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit.",
             "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
           },
           {
@@ -20938,6 +22169,7 @@ window.MVQuizBank = {
             "q": "Let $f_n(x)=x^n$ on $[0,1]$. Compute $\\int_0^1 f_n(x)\\,dx$ in terms of $n$ at $n=9$.",
             "answer": 0.1,
             "tol": 0.000001,
+            "hint": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$.",
             "explain": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$."
           },
           {
@@ -20948,6 +22180,7 @@ window.MVQuizBank = {
               1
             ],
             "tol": 0.000001,
+            "hint": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$.",
             "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
           }
         ],
@@ -20999,6 +22232,7 @@ window.MVQuizBank = {
               "$L^p$ is never complete"
             ],
             "answer": 1,
+            "hint": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$.",
             "explain": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$."
           },
           {
@@ -21006,6 +22240,7 @@ window.MVQuizBank = {
             "q": "On $[0,1]$, let $f(x)=x$. Compute $\\|f\\|_2$.",
             "answer": 0.5773502692,
             "tol": 0.001,
+            "hint": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$.",
             "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
           },
           {
@@ -21013,6 +22248,7 @@ window.MVQuizBank = {
             "q": "Compute $\\left|\\,1-i\\,\\right|$.",
             "answer": 1.414213562,
             "tol": 0.001,
+            "hint": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$.",
             "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
           }
         ],
@@ -21063,6 +22299,7 @@ window.MVQuizBank = {
               "Always equal to $\\mathcal{B}(X\\times Y)$ when $X,Y$ are topological spaces"
             ],
             "answer": 1,
+            "hint": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$.",
             "explain": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$. Measurable rectangles alone aren't closed under countable operations, hence the generation step."
           },
           {
@@ -21070,6 +22307,7 @@ window.MVQuizBank = {
             "q": "On $[0,1]\\times[0,1]$ with Lebesgue $\\otimes$ Lebesgue, compute $(m\\otimes m)([0,0.5]\\times[0,0.4])$.",
             "answer": 0.2,
             "tol": 0.000001,
+            "hint": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$.",
             "explain": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$."
           },
           {
@@ -21082,6 +22320,7 @@ window.MVQuizBank = {
               "$\\mu$ takes only finite values"
             ],
             "answer": 1,
+            "hint": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$.",
             "explain": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$. Lebesgue measure on $\\mathbb{R}$ is $\\sigma$-finite ($\\mathbb{R}=\\bigcup_n[-n,n]$) but not finite."
           }
         ],
@@ -21133,6 +22372,7 @@ window.MVQuizBank = {
               "$f$ has compact support"
             ],
             "answer": 1,
+            "hint": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally.",
             "explain": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally. Fubini is the companion statement for complex-valued $f\\in L^1(\\mu\\otimes\\nu)$."
           },
           {
@@ -21140,6 +22380,7 @@ window.MVQuizBank = {
             "q": "Compute $\\int_0^1\\!\\int_0^1 xy\\,dx\\,dy$.",
             "answer": 0.25,
             "tol": 0.000001,
+            "hint": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$.",
             "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
           },
           {
@@ -21152,6 +22393,7 @@ window.MVQuizBank = {
               "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
             ],
             "answer": 1,
+            "hint": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral.",
             "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
           }
         ],
@@ -21203,6 +22445,7 @@ window.MVQuizBank = {
               "$\\nu=\\nu^+\\circ\\nu^-$"
             ],
             "answer": 0,
+            "hint": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to…",
             "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
           },
           {
@@ -21215,6 +22458,7 @@ window.MVQuizBank = {
               "$\\nu$ is a probability measure"
             ],
             "answer": 0,
+            "hint": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null.",
             "explain": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null. Radon–Nikodym gives a density $f=d\\nu/d\\mu\\ge 0$ with $\\nu(E)=\\int_E f\\,d\\mu$ when $\\mu$ is $\\sigma$-finite and $\\nu\\ll\\mu$."
           },
           {
@@ -21222,6 +22466,7 @@ window.MVQuizBank = {
             "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=2x\\,dm$. Compute $\\nu([0,1])$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$.",
             "explain": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$. The density $f(x)=2x$ is the Radon–Nikodym derivative $d\\nu/dm$."
           }
         ],
@@ -21272,6 +22517,7 @@ window.MVQuizBank = {
               "Represented by an $L^\\infty$ function"
             ],
             "answer": 1,
+            "hint": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets).",
             "explain": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets). The bijection is the bridge from functional analysis to measure theory."
           },
           {
@@ -21279,6 +22525,7 @@ window.MVQuizBank = {
             "q": "On $X=[0,1]$, let $\\Lambda(f)=f(1/3)$ for $f\\in C([0,1])$. What is $\\mu([0,1/2])$ for the representing measure $\\mu$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$.",
             "explain": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$. Since $1/3\\in[0,1/2]$, $\\mu([0,1/2])=1$."
           },
           {
@@ -21291,6 +22538,7 @@ window.MVQuizBank = {
               "$\\sigma$-finiteness"
             ],
             "answer": 1,
+            "hint": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$.",
             "explain": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$. These conditions pin $\\mu$ down uniquely."
           }
         ],
@@ -21342,6 +22590,7 @@ window.MVQuizBank = {
               "Always zero for fractals"
             ],
             "answer": 0,
+            "hint": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$.",
             "explain": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$. This limit is monotone decreasing in $\\delta$, hence well-defined in $[0,\\infty]$."
           },
           {
@@ -21349,6 +22598,7 @@ window.MVQuizBank = {
             "q": "Compute the Hausdorff dimension of the middle-thirds Cantor set $C$. Report as a decimal to 3 places. (Answer: $\\log 2/\\log 3$.)",
             "answer": 0.6309297536,
             "tol": 0.001,
+            "hint": "$C$ is self-similar with two similarities of ratio $1/3$.",
             "explain": "$C$ is self-similar with two similarities of ratio $1/3$. The Moran equation $2\\cdot(1/3)^s=1$ gives $s=\\log 2/\\log 3\\approx 0.6309$."
           },
           {
@@ -21361,6 +22611,7 @@ window.MVQuizBank = {
               "The Lebesgue measure of $E$"
             ],
             "answer": 0,
+            "hint": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$.",
             "explain": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$. At $s^*$ itself, $\\mathcal{H}^{s^*}(E)$ may take any value in $[0,\\infty]$."
           }
         ],
@@ -21417,6 +22668,7 @@ window.MVQuizBank = {
               "$\\sigma = \\{\\in\\}$ (one binary relation)"
             ],
             "answer": 1,
+            "hint": "Ring axioms quantify over $0$, $1$, addition, multiplication, and additive inverse, so the natural signature is $\\{0,1,+,\\cdot,-\\}$.",
             "explain": "Ring axioms quantify over $0$, $1$, addition, multiplication, and additive inverse, so the natural signature is $\\{0,1,+,\\cdot,-\\}$. The third option is the signature of groups; the fourth is the signature of set theory; the first is the signature of orders."
           },
           {
@@ -21424,6 +22676,7 @@ window.MVQuizBank = {
             "q": "How many distinct $\\sigma$-structures are there on the two-element domain $\\{0,1\\}$ when $\\sigma = \\{R\\}$ has a single binary relation symbol?",
             "answer": 16,
             "tol": 0,
+            "hint": "A binary relation on a $2$-element set is a subset of $\\{0,1\\}^2$, which has $4$ ordered pairs.",
             "explain": "A binary relation on a $2$-element set is a subset of $\\{0,1\\}^2$, which has $4$ ordered pairs. The number of subsets is $2^4 = 16$."
           },
           {
@@ -21436,6 +22689,7 @@ window.MVQuizBank = {
               "$\\forall x\\,(x < x)$"
             ],
             "answer": 2,
+            "hint": "Choice 3 says 'there is a minimum'; the element $1$ witnesses it (no $y<1$).",
             "explain": "Choice 3 says 'there is a minimum'; the element $1$ witnesses it (no $y<1$). Choice 1 fails at $x=3$ (no upper element). Choice 2 says $<$ is symmetric, false. Choice 4 says $<$ is reflexive, false."
           }
         ]
@@ -21453,6 +22707,7 @@ window.MVQuizBank = {
               "Every formula true in $\\mathfrak{A}$ has a witness in $\\mathfrak{B}$."
             ],
             "answer": 1,
+            "hint": "By definition, $\\mathfrak{A}\\equiv\\mathfrak{B}$ iff $\\mathrm{Th}(\\mathfrak{A}) = \\mathrm{Th}(\\mathfrak{B})$ — the same first-order sentences are true in both.",
             "explain": "By definition, $\\mathfrak{A}\\equiv\\mathfrak{B}$ iff $\\mathrm{Th}(\\mathfrak{A}) = \\mathrm{Th}(\\mathfrak{B})$ — the same first-order sentences are true in both. Choice 1 is isomorphism (strictly stronger). Cardinality is invisible to first-order logic."
           },
           {
@@ -21465,6 +22720,7 @@ window.MVQuizBank = {
               "$(\\{0,1\\}, <)$ and $(\\{0,1,2\\}, <)$"
             ],
             "answer": 1,
+            "hint": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both dense linear orders without endpoints, and DLO is a complete theory — so they are elementarily equivalent.",
             "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both dense linear orders without endpoints, and DLO is a complete theory — so they are elementarily equivalent. $\\mathbb{N}$ has a minimum (false in $\\mathbb{Z}$), $\\mathbb{Z}$ is discrete (every element has an immediate successor; false in $\\mathbb{Q}$), and finite structures of different sizes can always be separated by a sentence counting elements."
           },
           {
@@ -21472,6 +22728,7 @@ window.MVQuizBank = {
             "q": "How many distinct first-order theories (= equivalence classes under $\\equiv$) are there among finite linear orders in the language $\\{<\\}$? (Hint: a finite linear order is determined up to isomorphism by its size, and isomorphic structures are elementarily equivalent.)",
             "answer": 0,
             "tol": 0,
+            "hint": "Trick question — there are infinitely many.",
             "explain": "Trick question — there are infinitely many. For each $n\\ge 1$ the sentence 'there are exactly $n$ elements' picks out a unique equivalence class, and these classes are all distinct. Enter $0$ to mean the count is unbounded. (Strictly: countably infinitely many.)",
             "tol_note": "Author note: this question is designed to be flagged as 'unbounded' — answer 0 is the convention here."
           }
@@ -21490,6 +22747,7 @@ window.MVQuizBank = {
               "Neither implication holds in general"
             ],
             "answer": 0,
+            "hint": "For finite structures the two notions coincide.",
             "explain": "For finite structures the two notions coincide. Isomorphism always implies elementary equivalence (any iso preserves truth of every formula). Conversely, on a finite structure the complete first-order theory pins down the isomorphism type — you can write a sentence describing the entire diagram."
           },
           {
@@ -21502,6 +22760,7 @@ window.MVQuizBank = {
               "$(\\mathbb{R}, +, \\cdot)$ and $(\\mathbb{C}, +, \\cdot)$"
             ],
             "answer": 1,
+            "hint": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both models of DLO (a complete theory), so they are elementarily equivalent; but they have different cardinalities, so they are not isomorphic.",
             "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both models of DLO (a complete theory), so they are elementarily equivalent; but they have different cardinalities, so they are not isomorphic. The other pairs differ in first-order properties (e.g. divisibility, sentence about $-1$, $\\sqrt{-1}$)."
           },
           {
@@ -21509,6 +22768,7 @@ window.MVQuizBank = {
             "q": "By Cantor's back-and-forth theorem, how many isomorphism classes of <em>countable</em> dense linear orders without endpoints exist?",
             "answer": 1,
             "tol": 0,
+            "hint": "Cantor proved that any two countable dense linear orders without endpoints are isomorphic, via a back-and-forth construction.",
             "explain": "Cantor proved that any two countable dense linear orders without endpoints are isomorphic, via a back-and-forth construction. So there is exactly $1$ isomorphism class. This is the model-theoretic statement that DLO is $\\aleph_0$-categorical."
           }
         ]
@@ -21526,6 +22786,7 @@ window.MVQuizBank = {
               "An $\\mathfrak{A}$-definable subset of $A$."
             ],
             "answer": 1,
+            "hint": "A complete type is the maximal consistent first-order description of (a possible) element.",
             "explain": "A complete type is the maximal consistent first-order description of (a possible) element. By compactness it is always realised in some elementary extension of $\\mathfrak{A}$ — it may or may not be realised inside $\\mathfrak{A}$ itself."
           },
           {
@@ -21538,6 +22799,7 @@ window.MVQuizBank = {
               "$p(x)$ has no consistent extension to a complete type."
             ],
             "answer": 2,
+            "hint": "Every finite subset of $p$ is consistent (witness: any rational larger than the finite list of $q$'s mentioned), so by compactness $p$ is consistent.",
             "explain": "Every finite subset of $p$ is consistent (witness: any rational larger than the finite list of $q$'s mentioned), so by compactness $p$ is consistent. But no rational is larger than every rational, so $p$ is omitted in $(\\mathbb{Q},<)$. Compactness produces an elementary extension where it is realised — that extension contains a 'point at infinity'."
           },
           {
@@ -21545,6 +22807,7 @@ window.MVQuizBank = {
             "q": "A structure $\\mathfrak{A}$ is <em>$\\omega$-saturated</em> if every type over a finite parameter set is realised in $\\mathfrak{A}$. The countable random graph is $\\omega$-saturated; the dense linear order $(\\mathbb{Q},<)$ also is. How many distinct complete $1$-types over the empty parameter set does the theory DLO have?",
             "answer": 1,
             "tol": 0,
+            "hint": "DLO is a complete theory, and over the empty set there is exactly one complete $1$-type — every element of a model satisfies the same formulas in $\\{<\\}$ with no parameters.",
             "explain": "DLO is a complete theory, and over the empty set there is exactly one complete $1$-type — every element of a model satisfies the same formulas in $\\{<\\}$ with no parameters. (Once you add even one parameter, the type space splits into 'less than', 'equal to', 'greater than' that parameter.)"
           }
         ]
@@ -21562,6 +22825,7 @@ window.MVQuizBank = {
               "$\\mathfrak{A}$ embeds into $\\mathfrak{B}$ as an elementary substructure."
             ],
             "answer": 1,
+            "hint": "EF games measure agreement up to <em>quantifier rank</em>: an $n$-round Duplicator strategy exactly captures indistinguishability by rank-$n$ sentences.",
             "explain": "EF games measure agreement up to <em>quantifier rank</em>: an $n$-round Duplicator strategy exactly captures indistinguishability by rank-$n$ sentences. As $n\\to\\infty$ this approaches full elementary equivalence (for finite signatures)."
           },
           {
@@ -21569,6 +22833,7 @@ window.MVQuizBank = {
             "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: a sentence of quantifier rank $n$ can count up to roughly $2^n$ elements; here a rank-$2$ sentence already separates them.)",
             "answer": 1,
             "tol": 0,
+            "hint": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$.",
             "explain": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$. With $2$ rounds Spoiler picks the largest element in $\\mathfrak{B}$, then the second-largest; in $\\mathfrak{A}$ Duplicator runs out of distinct space to copy this configuration. So $n=1$ is the largest Duplicator winning round count."
           },
           {
@@ -21581,6 +22846,7 @@ window.MVQuizBank = {
               "'Every vertex has degree exactly 2.'"
             ],
             "answer": 1,
+            "hint": "Connectivity is the canonical example of a non-FO-definable property.",
             "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $n$, a long cycle $C_{2n+1}$ (connected) and a disjoint union $C_n \\sqcup C_{n+1}$ (disconnected) agree on every sentence of quantifier rank $\\le n$, by an EF-game argument. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
           }
         ]
@@ -21598,6 +22864,7 @@ window.MVQuizBank = {
               "Categorical in every cardinality."
             ],
             "answer": 1,
+            "hint": "ACF$_0$ is a complete theory: any two algebraically closed fields of characteristic $0$ are elementarily equivalent (this is essentially the Lefschetz principle).",
             "explain": "ACF$_0$ is a complete theory: any two algebraically closed fields of characteristic $0$ are elementarily equivalent (this is essentially the Lefschetz principle). It is categorical in <em>uncountable</em> cardinalities (Steinitz: transcendence degree determines isomorphism type) but not in $\\aleph_0$ — countable ACF$_0$'s of different transcendence degrees are not isomorphic."
           },
           {
@@ -21610,6 +22877,7 @@ window.MVQuizBank = {
               "Hilbert's Nullstellensatz."
             ],
             "answer": 1,
+            "hint": "The proof: 'injective $\\Rightarrow$ surjective' is a first-order schema (one sentence per pair of degree bounds).",
             "explain": "The proof: 'injective $\\Rightarrow$ surjective' is a first-order schema (one sentence per pair of degree bounds). It holds trivially in every algebraic closure $\\overline{\\mathbb{F}_p}$ — those fields are unions of finite fields, where injections of finite sets are bijections. By the Lefschetz principle (ACF$_0$ and ACF$_p$ for large $p$ agree on first-order sentences), it holds in $\\mathbb{C}$. This is the canonical 'compactness + transfer' application."
           },
           {
@@ -21622,6 +22890,7 @@ window.MVQuizBank = {
               "The Galois group of the algebraic closure is trivial."
             ],
             "answer": 1,
+            "hint": "Model-completeness is equivalent to: every formula is equivalent (modulo $T$) to an $\\exists$-formula whose existential witness, if it exists in any model, exists in any extension.",
             "explain": "Model-completeness is equivalent to: every formula is equivalent (modulo $T$) to an $\\exists$-formula whose existential witness, if it exists in any model, exists in any extension. ACF has full quantifier elimination, which implies model-completeness. The other options are true facts about ACF but don't directly give model-completeness."
           }
         ]
@@ -21642,6 +22911,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -21659,6 +22929,7 @@ window.MVQuizBank = {
             "q": "Compute the covolume of the lattice $\\Lambda = \\mathbb{Z}v_1 + \\mathbb{Z}v_2$ with $v_1=(2,0)$ and $v_2=(1,3)$ (i.e. $|\\det[v_1\\,v_2]|$).",
             "answer": 6,
             "tol": 0.001,
+            "hint": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$.",
             "explain": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$. The covolume is the absolute value, $6$. Geometrically this is the area of the fundamental parallelogram, and it is independent of the chosen basis — any other basis of the same $\\Lambda$ differs by a matrix of determinant $\\pm 1$."
           },
           {
@@ -21671,6 +22942,7 @@ window.MVQuizBank = {
               "$M = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$"
             ],
             "answer": 0,
+            "hint": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$.",
             "explain": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$. So $M=\\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$, and $\\det M = 1\\cdot 2 - 1\\cdot 1 = 1$, confirming $M\\in\\mathrm{SL}_2(\\mathbb{Z})$."
           },
           {
@@ -21683,6 +22955,7 @@ window.MVQuizBank = {
               "$(1,1)$ and $(2,2)$"
             ],
             "answer": 1,
+            "hint": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$.",
             "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
           }
         ]
@@ -21700,6 +22973,7 @@ window.MVQuizBank = {
               "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ alone"
             ],
             "answer": 0,
+            "hint": "The classical generators are $T:\\tau\\mapsto\\tau+1$ and $S:\\tau\\mapsto -1/\\tau$, satisfying $S^4=I$ and $(ST)^6=I$.",
             "explain": "The classical generators are $T:\\tau\\mapsto\\tau+1$ and $S:\\tau\\mapsto -1/\\tau$, satisfying $S^4=I$ and $(ST)^6=I$. Option B uses $T^2$, which only generates the index-$2$ subgroup of even translations together with $S$ (you cannot reach $T$ itself). Option C generates only the abelian subgroup $\\{\\pm T^n:n\\in\\mathbb{Z}\\}$, which is far from all of $SL_2(\\mathbb{Z})$. Option D (translations only) misses $S$ entirely."
           },
           {
@@ -21707,6 +22981,7 @@ window.MVQuizBank = {
             "q": "Compute $S(i)=-1/i$.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "$-1/i=i$.",
             "explain": "$-1/i=i$."
           },
           {
@@ -21718,6 +22993,7 @@ window.MVQuizBank = {
               "different q-variables"
             ],
             "answer": 0,
+            "hint": "Modular invariance identifies orbit-equivalent points.",
             "explain": "Modular invariance identifies orbit-equivalent points."
           }
         ],
@@ -21768,6 +23044,7 @@ window.MVQuizBank = {
               "$f(\\gamma\\tau)=(a\\tau+b)^k f(\\tau)$"
             ],
             "answer": 1,
+            "hint": "This is the transformation law for $\\gamma=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$.",
             "explain": "This is the transformation law for $\\gamma=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$."
           },
           {
@@ -21779,6 +23056,7 @@ window.MVQuizBank = {
               "$y=\\Im\\tau$"
             ],
             "answer": 0,
+            "hint": "One checks regularity of the Fourier expansion in $q$.",
             "explain": "One checks regularity of the Fourier expansion in $q$."
           },
           {
@@ -21786,6 +23064,7 @@ window.MVQuizBank = {
             "q": "If $f$ is a cusp form, what is its constant $q^0$ coefficient?",
             "answer": 0,
             "tol": 0.001,
+            "hint": "Cusp forms vanish at the cusp.",
             "explain": "Cusp forms vanish at the cusp."
           }
         ],
@@ -21835,6 +23114,7 @@ window.MVQuizBank = {
               "$E_6,E_8$"
             ],
             "answer": 1,
+            "hint": "The graded ring is generated by $E_4$ and $E_6$.",
             "explain": "The graded ring is generated by $E_4$ and $E_6$."
           },
           {
@@ -21842,6 +23122,7 @@ window.MVQuizBank = {
             "q": "What is the constant term of normalized $E_4(q)$?",
             "answer": 1,
             "tol": 0.001,
+            "hint": "Normalized Eisenstein series start with 1.",
             "explain": "Normalized Eisenstein series start with 1."
           },
           {
@@ -21853,6 +23134,7 @@ window.MVQuizBank = {
               "non-holomorphic Maass forms"
             ],
             "answer": 1,
+            "hint": "They are concrete holomorphic modular forms.",
             "explain": "They are concrete holomorphic modular forms."
           }
         ],
@@ -21903,6 +23185,7 @@ window.MVQuizBank = {
               "$\\tau^2$"
             ],
             "answer": 1,
+            "hint": "By convention $q=e^{2\\pi i\\tau}$.",
             "explain": "By convention $q=e^{2\\pi i\\tau}$."
           },
           {
@@ -21910,6 +23193,7 @@ window.MVQuizBank = {
             "q": "If $\\tau=i$, compute $|q|=|e^{2\\pi i\\tau}|$ to 3 decimals.",
             "answer": 0.001867,
             "tol": 0.0005,
+            "hint": "$|q|=e^{-2\\pi}\\approx 0.001867$.",
             "explain": "$|q|=e^{-2\\pi}\\approx 0.001867$."
           },
           {
@@ -21921,6 +23205,7 @@ window.MVQuizBank = {
               "They only work for weight 0"
             ],
             "answer": 1,
+            "hint": "Arithmetic information is encoded in Fourier coefficients.",
             "explain": "Arithmetic information is encoded in Fourier coefficients."
           }
         ],
@@ -21971,6 +23256,7 @@ window.MVQuizBank = {
               "$f(\\tau)\\,g(\\tau)\\, y^{k}$"
             ],
             "answer": 1,
+            "hint": "The factor $y^{k-2}$ combines the weight-$k$ transformation with the hyperbolic measure $y^{-2}dx\\,dy$ so the whole thing is $\\Gamma$-invariant.",
             "explain": "The factor $y^{k-2}$ combines the weight-$k$ transformation with the hyperbolic measure $y^{-2}dx\\,dy$ so the whole thing is $\\Gamma$-invariant."
           },
           {
@@ -21982,6 +23268,7 @@ window.MVQuizBank = {
               "The measure $y^{-2}dx\\,dy$ vanishes at the cusp"
             ],
             "answer": 1,
+            "hint": "Near $i\\infty$, $|f|\\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable; Eisenstein series lack this decay and the integral diverges.",
             "explain": "Near $i\\infty$, $|f|\\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable; Eisenstein series lack this decay and the integral diverges."
           },
           {
@@ -21989,6 +23276,7 @@ window.MVQuizBank = {
             "q": "If $f,g$ are two distinct normalized Hecke eigenforms in $S_k$ with different eigenvalue systems, what is $\\langle f,g\\rangle$?",
             "answer": 0,
             "tol": 1e-9,
+            "hint": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal.",
             "explain": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal."
           }
         ],
@@ -22044,6 +23332,7 @@ window.MVQuizBank = {
               "$\\Delta = 2^{8}(abc)^{2p}$"
             ],
             "answer": 0,
+            "hint": "For $y^2 = x(x-\\alpha)(x+\\beta)$ with $\\gamma = \\alpha+\\beta$, the discriminant is $16(\\alpha\\beta\\gamma)^2$.",
             "explain": "For $y^2 = x(x-\\alpha)(x+\\beta)$ with $\\gamma = \\alpha+\\beta$, the discriminant is $16(\\alpha\\beta\\gamma)^2$. With $\\alpha=a^p,\\beta=b^p,\\gamma=c^p$ this gives $16\\,(a b c)^{2p}$; after the standard change of variables to minimal model the factor of $2^{8}$ drops out, leaving $\\Delta = (abc)^{2p}/2^{8}$."
           },
           {
@@ -22064,6 +23353,7 @@ window.MVQuizBank = {
               "ramified at every prime"
             ],
             "answer": 1,
+            "hint": "A prime $\\ell \\mid abc$ with $\\ell$ odd appears in $\\Delta$ to multiplicity $2p$, i.e.",
             "explain": "A prime $\\ell \\mid abc$ with $\\ell$ odd appears in $\\Delta$ to multiplicity $2p$, i.e. a perfect square. By Tate's algorithm this gives multiplicative reduction, so the curve is semistable; the conductor $N_E$ is squarefree away from $2$."
           }
         ],
@@ -22115,6 +23405,7 @@ window.MVQuizBank = {
               "$M_2(\\Gamma_1(N))$"
             ],
             "answer": 1,
+            "hint": "Modularity: $E$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N_E))$ with $a_p(E) = a_p(f_E)$ for all good primes $p$.",
             "explain": "Modularity: $E$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N_E))$ with $a_p(E) = a_p(f_E)$ for all good primes $p$. The weight is $2$ because $E$ has dimension $1$ (H^1 is 2-dimensional)."
           },
           {
@@ -22122,6 +23413,7 @@ window.MVQuizBank = {
             "q": "Cremona's curve $E: y^2 + y = x^3 - x^2$ has conductor $11$. Its associated newform has the $q$-expansion $q - 2q^2 - q^3 + 2q^4 + q^5 + \\cdots$. Independently, one can verify $\\#E(\\mathbb{F}_2) = 5$. What is $a_2(f_E)$? (Use $a_p(E) = p + 1 - \\#E(\\mathbb{F}_p)$.)",
             "answer": -2,
             "tol": 0.01,
+            "hint": "$a_2(E) = 2 + 1 - 5 = -2$.",
             "explain": "$a_2(E) = 2 + 1 - 5 = -2$. Modularity says $a_2(f_E) = a_2(E) = -2$, which matches the $-2q^2$ coefficient of the newform $\\eta(\\tau)^2\\eta(11\\tau)^2$."
           },
           {
@@ -22134,6 +23426,7 @@ window.MVQuizBank = {
               "Deligne"
             ],
             "answer": 2,
+            "hint": "The full modularity theorem was completed in 2001 by Breuil, Conrad, Diamond, and Taylor, handling the remaining cases of additive reduction at $3$.",
             "explain": "The full modularity theorem was completed in 2001 by Breuil, Conrad, Diamond, and Taylor, handling the remaining cases of additive reduction at $3$."
           }
         ],
@@ -22179,6 +23472,7 @@ window.MVQuizBank = {
             "q": "Ribet's level-lowering, applied to the mod-$p$ Galois representation of the Frey curve, lowers the level from the Frey conductor down to the squarefree part of $\\{2\\}$: the final level is $N = 2$. What is $\\dim S_2(\\Gamma_0(2))$?",
             "answer": 0,
             "tol": 0.01,
+            "hint": "The genus of $X_0(2)$ is $0$, and $\\dim S_2(\\Gamma_0(N)) = \\mathrm{genus}(X_0(N))$.",
             "explain": "The genus of $X_0(2)$ is $0$, and $\\dim S_2(\\Gamma_0(N)) = \\mathrm{genus}(X_0(N))$. So $\\dim S_2(\\Gamma_0(2)) = 0$: there are no weight-2 cusp forms of level 2. This is the contradiction that finishes FLT."
           },
           {
@@ -22191,6 +23485,7 @@ window.MVQuizBank = {
               "The Galois group $G_\\mathbb{Q}$ has no nontrivial finite quotients"
             ],
             "answer": 1,
+            "hint": "Ribet proved that superfluous primes in the level can be removed whenever the residual Galois representation is unramified there.",
             "explain": "Ribet proved that superfluous primes in the level can be removed whenever the residual Galois representation is unramified there. Applied to the Frey curve, this strips the level all the way down to $2$."
           },
           {
@@ -22203,6 +23498,7 @@ window.MVQuizBank = {
               "Because $p$ is prime"
             ],
             "answer": 1,
+            "hint": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$.",
             "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists — contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
           }
         ],
@@ -22266,6 +23562,7 @@ window.MVQuizBank = {
               "$\\pi_1^{\\text{ét}}(\\mathrm{Spec}\\,\\mathbb{Z}[1/\\Sigma])$"
             ],
             "answer": 1,
+            "hint": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint…",
             "explain": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint cocycles satisfying the chosen local conditions."
           },
           {
@@ -22273,6 +23570,7 @@ window.MVQuizBank = {
             "q": "Suppose $R_\\Sigma$ is a quotient of the power series ring $\\mathbb{Z}_p[[x_1, x_2, x_3]]$ by a regular sequence of length $1$. What is the Krull dimension of $R_\\Sigma$?",
             "answer": 3,
             "tol": 0.01,
+            "hint": "$\\dim \\mathbb{Z}_p[[x_1,x_2,x_3]] = 1 + 3 = 4$ (the $1$ for $\\mathbb{Z}_p$); killing a regular element drops the dimension by $1$, giving $\\dim R_\\Sigma = 3$.",
             "explain": "$\\dim \\mathbb{Z}_p[[x_1,x_2,x_3]] = 1 + 3 = 4$ (the $1$ for $\\mathbb{Z}_p$); killing a regular element drops the dimension by $1$, giving $\\dim R_\\Sigma = 3$."
           }
         ],
@@ -22323,6 +23621,7 @@ window.MVQuizBank = {
               "$R_\\Sigma$ = étale fundamental group;   $\\mathbb{T}_\\Sigma$ = de Rham cohomology"
             ],
             "answer": 1,
+            "hint": "$R_\\Sigma$ is the Galois-deformation side: all $p$-adic lifts of $\\overline\\rho$ with prescribed ramification.",
             "explain": "$R_\\Sigma$ is the Galois-deformation side: all $p$-adic lifts of $\\overline\\rho$ with prescribed ramification. $\\mathbb{T}_\\Sigma$ is the automorphic side: Hecke operators on weight-2 cusp forms, localized at the maximal ideal matching $\\overline\\rho$. R = T says the two moduli spaces coincide."
           },
           {
@@ -22335,6 +23634,7 @@ window.MVQuizBank = {
               "Ribet's level-lowering theorem gives the isomorphism directly."
             ],
             "answer": 0,
+            "hint": "Modular eigensystems visibly produce lifts of $\\overline\\rho$, giving a natural surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ by the universal property of $R_\\Sigma$.",
             "explain": "Modular eigensystems visibly produce lifts of $\\overline\\rho$, giving a natural surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ by the universal property of $R_\\Sigma$. Taylor–Wiles patching chooses auxiliary 'nice' primes $Q_n$, matches dimensions on both sides level by level, and takes a compatible limit to collapse the surjection into an isomorphism."
           },
           {
@@ -22347,6 +23647,7 @@ window.MVQuizBank = {
               "$\\overline\\rho$ has finite image."
             ],
             "answer": 1,
+            "hint": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form.",
             "explain": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form. For a modular residual $\\overline\\rho$, this promotes modularity from the residual level to every characteristic-zero lift — the whole point of modularity lifting."
           }
         ],
@@ -22410,6 +23711,7 @@ window.MVQuizBank = {
               "the category of all schemes over $S$"
             ],
             "answer": 1,
+            "hint": "The moduli functor sends a base $S$ to iso classes of families $E\\to S$ of the objects of interest — here, flat proper families of elliptic curves.",
             "explain": "The moduli functor sends a base $S$ to iso classes of families $E\\to S$ of the objects of interest — here, flat proper families of elliptic curves."
           },
           {
@@ -22417,6 +23719,7 @@ window.MVQuizBank = {
             "q": "Over $\\mathbb{C}$, the $j$-invariant induces a bijection between iso classes of elliptic curves and $\\mathbb{A}^1(\\mathbb{C})=\\mathbb{C}$. What is the (complex) dimension of this parameter space?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\mathbb{A}^1(\\mathbb{C})=\\mathbb{C}$ has complex dimension $1$, matching $\\dim M_{1,1}=1$.",
             "explain": "$\\mathbb{A}^1(\\mathbb{C})=\\mathbb{C}$ has complex dimension $1$, matching $\\dim M_{1,1}=1$."
           },
           {
@@ -22427,6 +23730,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "$\\Delta=-16(0+27)=-16\\cdot 27=-432$, which is nonzero, confirming the curve is smooth (hence an elliptic curve).",
             "explain": "$\\Delta=-16(0+27)=-16\\cdot 27=-432$, which is nonzero, confirming the curve is smooth (hence an elliptic curve)."
           }
         ],
@@ -22480,6 +23784,7 @@ window.MVQuizBank = {
               "$M$ is the quotient of a scheme by a finite group"
             ],
             "answer": 1,
+            "hint": "Fine moduli is exactly representability: $\\mathcal{M}\\cong h_M$.",
             "explain": "Fine moduli is exactly representability: $\\mathcal{M}\\cong h_M$. The identity $\\mathrm{id}_M\\in h_M(M)$ corresponds to the universal family $\\mathcal{E}\\to M$."
           },
           {
@@ -22492,6 +23797,7 @@ window.MVQuizBank = {
               "it is a compact moduli space"
             ],
             "answer": 1,
+            "hint": "The $j$-line is the coarse moduli space of $\\mathcal{M}_{1,1}$: geometric points match iso classes bijectively, but no universal family exists because of automorphisms.",
             "explain": "The $j$-line is the coarse moduli space of $\\mathcal{M}_{1,1}$: geometric points match iso classes bijectively, but no universal family exists because of automorphisms."
           },
           {
@@ -22499,6 +23805,7 @@ window.MVQuizBank = {
             "q": "The obstruction to fine moduli for $\\mathcal{M}_{1,1}$ is the presence of nontrivial automorphisms. Every elliptic curve has at least the $[-1]$ involution. What is the order of the automorphism group of a generic elliptic curve (with $j\\ne 0,1728$)?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "For generic $j$, the only nontrivial automorphism is $[-1]:(x,y)\\mapsto(x,-y)$, so $|\\mathrm{Aut}(E)|=2$.",
             "explain": "For generic $j$, the only nontrivial automorphism is $[-1]:(x,y)\\mapsto(x,-y)$, so $|\\mathrm{Aut}(E)|=2$."
           }
         ],
@@ -22552,6 +23859,7 @@ window.MVQuizBank = {
               "Because they make the $j$-invariant ill-defined"
             ],
             "answer": 1,
+            "hint": "A representable functor $h_M$ can only see families that pull back from a single classifying map.",
             "explain": "A representable functor $h_M$ can only see families that pull back from a single classifying map. Twisting by a nontrivial cocycle in $H^1(S,\\underline{\\mathrm{Aut}})$ produces genuinely different families with identical classifying maps, which $h_M$ cannot distinguish."
           },
           {
@@ -22559,6 +23867,7 @@ window.MVQuizBank = {
             "q": "The curve $y^2=x^3+1$ has $j=0$. Its automorphism group over $\\bar{\\mathbb{Q}}$ is cyclic of what order? (Hint: it is generated by $(x,y)\\mapsto(\\zeta_3 x, -y)$.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "At $j=0$ the automorphism group is $\\mathbb{Z}/6$, generated by the order-6 map $(x,y)\\mapsto(\\zeta_3 x,-y)$ where $\\zeta_3$ is a primitive cube root of unity.",
             "explain": "At $j=0$ the automorphism group is $\\mathbb{Z}/6$, generated by the order-6 map $(x,y)\\mapsto(\\zeta_3 x,-y)$ where $\\zeta_3$ is a primitive cube root of unity. This is the maximum automorphism group for an elliptic curve in characteristic $\\ne 2,3$."
           },
           {
@@ -22571,6 +23880,7 @@ window.MVQuizBank = {
               "$\\pi_0(\\mathbb{A}^1\\setminus\\{0\\})$"
             ],
             "answer": 1,
+            "hint": "Twists of a fixed family are classified by first Čech cohomology with coefficients in the automorphism sheaf.",
             "explain": "Twists of a fixed family are classified by first Čech cohomology with coefficients in the automorphism sheaf. The nontriviality of this $H^1$ is exactly the obstruction to representability."
           }
         ],
@@ -22624,6 +23934,7 @@ window.MVQuizBank = {
               "Because $\\mathrm{GL}_2(\\mathbb{Z}/2)$ is trivial"
             ],
             "answer": 1,
+            "hint": "On $E[2]$, multiplication by $-1$ is the identity because $2P=0$ implies $-P=P$.",
             "explain": "On $E[2]$, multiplication by $-1$ is the identity because $2P=0$ implies $-P=P$. So $[-1]$ fixes any basis of $E[2]$, i.e. level-$2$ is not rigid enough. For $N\\ge 3$, $[-1]\\ne 1$ on $E[N]$."
           },
           {
@@ -22631,6 +23942,7 @@ window.MVQuizBank = {
             "q": "For smooth projective curves of genus $g\\ge 2$, $\\dim M_g=3g-3$. Compute $\\dim M_4$.",
             "answer": 9,
             "tol": 0.000001,
+            "hint": "$3(4)-3=9$.",
             "explain": "$3(4)-3=9$. This is the deformation-theoretic count $\\dim H^1(C,T_C)$."
           },
           {
@@ -22638,6 +23950,7 @@ window.MVQuizBank = {
             "q": "The Deligne–Mumford compactification $\\overline{M}_{g,n}$ adds stable curves. Using $\\dim M_{g,n}=3g-3+n$ for $g\\ge 2$, compute $\\dim M_{2,3}$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$3(2)-3+3=3+3=6$.",
             "explain": "$3(2)-3+3=3+3=6$."
           }
         ],
@@ -22686,6 +23999,7 @@ window.MVQuizBank = {
             "q": "Compute $\\dim M_g$ for $g=6$ using the Riemann–Roch formula $\\dim M_g=3g-3$.",
             "answer": 15,
             "tol": 0.000001,
+            "hint": "$3(6)-3=15$.",
             "explain": "$3(6)-3=15$. This matches $\\dim H^1(C,T_C)$, the first-order deformation space of a smooth genus-$6$ curve."
           },
           {
@@ -22698,6 +24012,7 @@ window.MVQuizBank = {
               "$C$ is smooth"
             ],
             "answer": 1,
+            "hint": "Stability is exactly finiteness of the automorphism group.",
             "explain": "Stability is exactly finiteness of the automorphism group. Equivalent combinatorial conditions: every smooth rational component has $\\ge 3$ special points, every genus-$1$ component has $\\ge 1$. This is what cuts out a Deligne–Mumford stack."
           },
           {
@@ -22710,6 +24025,7 @@ window.MVQuizBank = {
               "a genus-$1$ curve with a node attached to a $\\mathbb{P}^1$ carrying three marked points"
             ],
             "answer": 2,
+            "hint": "A smooth $\\mathbb{P}^1$ alone has arithmetic genus $0$, not $2$, and also has infinite automorphism group $\\mathrm{PGL}_2$ — it fails stability on every count.",
             "explain": "A smooth $\\mathbb{P}^1$ alone has arithmetic genus $0$, not $2$, and also has infinite automorphism group $\\mathrm{PGL}_2$ — it fails stability on every count. The other options are standard boundary strata of $\\overline{M}_2$ and $\\overline{M}_{2,3}$."
           }
         ],
@@ -22768,6 +24084,7 @@ window.MVQuizBank = {
               "$1 + 196884\\, q + 21493760\\, q^2 + \\cdots$"
             ],
             "answer": 1,
+            "hint": "$j(\\tau) = q^{-1} + 744 + 196884\\,q + 21493760\\,q^2 + \\cdots$ with $q = e^{2\\pi i\\tau}$.",
             "explain": "$j(\\tau) = q^{-1} + 744 + 196884\\,q + 21493760\\,q^2 + \\cdots$ with $q = e^{2\\pi i\\tau}$. The pole is at the cusp $q=0$; the constant term $744$ is a normalization; the higher coefficients are the McKay–Thompson data."
           },
           {
@@ -22775,6 +24092,7 @@ window.MVQuizBank = {
             "q": "What is the coefficient of $q$ (i.e., $c_1$) in the Fourier expansion of $j(\\tau)$?",
             "answer": 196884,
             "tol": 0,
+            "hint": "$c_1 = 196884$.",
             "explain": "$c_1 = 196884$. Numerically one unit more than the dimension $196883$ of the smallest non-trivial irreducible representation of the Monster — McKay's starting observation."
           },
           {
@@ -22787,6 +24105,7 @@ window.MVQuizBank = {
               "different pole order at $i\\infty$"
             ],
             "answer": 1,
+            "hint": "Subtracting $744$ only changes the constant term; the pole $q^{-1}$ and every $c_n$ for $n \\ge 1$ are unchanged.",
             "explain": "Subtracting $744$ only changes the constant term; the pole $q^{-1}$ and every $c_n$ for $n \\ge 1$ are unchanged. $J$ is the version whose graded-dimension statement, $J = \\sum_{n} (\\dim V^\\natural_n) q^n$, is cleanest."
           }
         ],
@@ -22840,6 +24159,7 @@ window.MVQuizBank = {
               "an infinite-dimensional Lie algebra"
             ],
             "answer": 2,
+            "hint": "$\\mathbb{M}$ is the largest of the $26$ sporadic finite simple groups, of order $\\approx 8\\times 10^{53}$.",
             "explain": "$\\mathbb{M}$ is the largest of the $26$ sporadic finite simple groups, of order $\\approx 8\\times 10^{53}$. The other finite simple groups sit in infinite families (cyclic of prime order, alternating, Lie type); $\\mathbb{M}$ does not."
           },
           {
@@ -22847,6 +24167,7 @@ window.MVQuizBank = {
             "q": "What is the dimension of the smallest faithful (i.e., non-trivial) complex irreducible representation of the Monster?",
             "answer": 196883,
             "tol": 0,
+            "hint": "$\\dim V_2 = 196883$.",
             "explain": "$\\dim V_2 = 196883$. The Griess algebra on which $\\mathbb{M}$ was originally constructed is $196883$-dimensional (its identity element adds one more, giving the $196884$-dimensional 'Griess algebra plus identity' often quoted)."
           },
           {
@@ -22859,6 +24180,7 @@ window.MVQuizBank = {
               "exactly the Mersenne primes"
             ],
             "answer": 1,
+            "hint": "These $15$ primes — the 'supersingular primes' in the sense of Ogg — are exactly the primes $p$ for which $\\Gamma_0(p)+$ has genus $0$.",
             "explain": "These $15$ primes — the 'supersingular primes' in the sense of Ogg — are exactly the primes $p$ for which $\\Gamma_0(p)+$ has genus $0$. Ogg conjectured this coincidence before moonshine existed, and Conway–Norton's conjecture explained it."
           }
         ],
@@ -22907,6 +24229,7 @@ window.MVQuizBank = {
             "q": "Compute $196883 + 1$.",
             "answer": 196884,
             "tol": 0,
+            "hint": "$196884 = 196883 + 1 = \\dim V_2 + \\dim V_1$.",
             "explain": "$196884 = 196883 + 1 = \\dim V_2 + \\dim V_1$. McKay's original line: the $q$-coefficient of $j$ equals the sum of the two smallest irreducible dimensions of the Monster — numerically trivial, mathematically a miracle."
           },
           {
@@ -22914,6 +24237,7 @@ window.MVQuizBank = {
             "q": "Compute $21296876 + 196883 + 1$ and compare to the $q^2$-coefficient of $j(\\tau)$.",
             "answer": 21493760,
             "tol": 0,
+            "hint": "$21493760 = 21296876 + 196883 + 1 = \\dim V_3 + \\dim V_2 + \\dim V_1 = c_2$.",
             "explain": "$21493760 = 21296876 + 196883 + 1 = \\dim V_3 + \\dim V_2 + \\dim V_1 = c_2$. McKay's list continues: every $c_n$ decomposes as a non-negative integer combination of Monster irreducible dimensions."
           },
           {
@@ -22926,6 +24250,7 @@ window.MVQuizBank = {
               "a Hecke eigenform space"
             ],
             "answer": 1,
+            "hint": "The conjecture: there is a graded $\\mathbb{M}$-module $V^\\natural = \\bigoplus_n V^\\natural_n$ with $\\dim V^\\natural_n = c_n$.",
             "explain": "The conjecture: there is a graded $\\mathbb{M}$-module $V^\\natural = \\bigoplus_n V^\\natural_n$ with $\\dim V^\\natural_n = c_n$. Its graded character (replacing dimension by $\\mathrm{tr}\\,g$) gives Thompson series; Frenkel–Lepowsky–Meurman built $V^\\natural$ explicitly as a vertex operator algebra."
           }
         ],
@@ -22979,6 +24304,7 @@ window.MVQuizBank = {
               "identically equal to $j(\\tau) - 744$"
             ],
             "answer": 1,
+            "hint": "Hauptmodul = generator of the function field of a genus-zero modular curve $\\Gamma_g\\backslash\\mathcal{H}^*$, normalized by its pole at the cusp.",
             "explain": "Hauptmodul = generator of the function field of a genus-zero modular curve $\\Gamma_g\\backslash\\mathcal{H}^*$, normalized by its pole at the cusp. The full list of possible $\\Gamma_g$ is a specific set of $171$ commensurable-with-$\\mathrm{SL}_2(\\mathbb{Z})$ groups."
           },
           {
@@ -22991,6 +24317,7 @@ window.MVQuizBank = {
               "$E_4(\\tau)$"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{tr}(e | V^\\natural_n) = \\dim V^\\natural_n = c_n$, the $q^n$-coefficient of $J = j - 744$.",
             "explain": "$\\mathrm{tr}(e | V^\\natural_n) = \\dim V^\\natural_n = c_n$, the $q^n$-coefficient of $J = j - 744$. The constant term vanishes because $V^\\natural_0 = 0$ (the 'vacuum' lives in degree $-1$)."
           },
           {
@@ -22998,6 +24325,7 @@ window.MVQuizBank = {
             "q": "For the class 2A in $\\mathbb{M}$, the character values are $\\chi_1(g) = 1$ and $\\chi_2(g) = 4371$. Compute the coefficient of $q$ in $T_{2A}(\\tau)$.",
             "answer": 4372,
             "tol": 0,
+            "hint": "$V^\\natural_1 = V_1 \\oplus V_2$ (McKay's decomposition), so $\\mathrm{tr}(g | V^\\natural_1) = \\chi_1(g) + \\chi_2(g) = 1 + 4371 = 4372$.",
             "explain": "$V^\\natural_1 = V_1 \\oplus V_2$ (McKay's decomposition), so $\\mathrm{tr}(g | V^\\natural_1) = \\chi_1(g) + \\chi_2(g) = 1 + 4371 = 4372$. This is the $q$-coefficient of the Hauptmodul of $\\Gamma_0(2)+$."
           }
         ],
@@ -23051,6 +24379,7 @@ window.MVQuizBank = {
               "a modular form of weight $\\tfrac{1}{2}$ attached to each Thompson series"
             ],
             "answer": 1,
+            "hint": "The Monster Lie algebra $\\mathfrak{m}$ is a generalized Kac–Moody algebra whose root $(m,n)$ (for $m > 0, n \\in \\mathbb{Z}$) has multiplicity $c(mn)$, the $j$-coefficient at $mn$.",
             "explain": "The Monster Lie algebra $\\mathfrak{m}$ is a generalized Kac–Moody algebra whose root $(m,n)$ (for $m > 0, n \\in \\mathbb{Z}$) has multiplicity $c(mn)$, the $j$-coefficient at $mn$. This is the object whose existence is forced by the Goddard–Thorn no-ghost theorem applied to $V^\\natural$ plus lattice bosons."
           },
           {
@@ -23063,6 +24392,7 @@ window.MVQuizBank = {
               "$\\mathrm{tr}(g | V^\\natural) = j(\\tau)$"
             ],
             "answer": 0,
+            "hint": "This infinite product, viewed as a formal power series in $p$ and $q$, equals $J(p) - J(q)$.",
             "explain": "This infinite product, viewed as a formal power series in $p$ and $q$, equals $J(p) - J(q)$. Equating coefficients of $p^m q^n$ produces 'replication' recursions; each Thompson series satisfies the same recursion with character values in place of dimensions, forcing it to be a Hauptmodul."
           },
           {
@@ -23075,6 +24405,7 @@ window.MVQuizBank = {
               "showing $V^\\natural$ is a finite-dimensional representation"
             ],
             "answer": 1,
+            "hint": "Goddard–Thorn (1972, from string theory) identifies the BRST-cohomological physical states of a bosonic string on a certain background with a Lie algebra carrying an explicit root decomposition.",
             "explain": "Goddard–Thorn (1972, from string theory) identifies the BRST-cohomological physical states of a bosonic string on a certain background with a Lie algebra carrying an explicit root decomposition. Applied to $V^\\natural \\otimes V_{1,1}$ (Leech-lattice-like bosons), the output is the Monster Lie algebra."
           }
         ],
@@ -23133,6 +24464,7 @@ window.MVQuizBank = {
               "$f^{\\#}$ is surjective on every open set"
             ],
             "answer": 1,
+            "hint": "A morphism of schemes is a morphism of locally ringed spaces: the stalk maps $f^{\\#}_x$ must be local, i.e.",
             "explain": "A morphism of schemes is a morphism of locally ringed spaces: the stalk maps $f^{\\#}_x$ must be local, i.e. send the maximal ideal $\\mathfrak{m}_{f(x)}$ into $\\mathfrak{m}_x$. Without this, arbitrary ringed-space maps between spectra don't correspond to ring maps."
           },
           {
@@ -23145,6 +24477,7 @@ window.MVQuizBank = {
               "Every continuous map of spectra comes from a unique ring map"
             ],
             "answer": 1,
+            "hint": "$\\operatorname{Spec}$ is a contravariant functor: a ring map $\\varphi\\colon A\\to B$ induces $\\operatorname{Spec}\\varphi\\colon \\operatorname{Spec} B\\to\\operatorname{Spec} A$ by pulling back prime…",
             "explain": "$\\operatorname{Spec}$ is a contravariant functor: a ring map $\\varphi\\colon A\\to B$ induces $\\operatorname{Spec}\\varphi\\colon \\operatorname{Spec} B\\to\\operatorname{Spec} A$ by pulling back prime ideals via $\\mathfrak{q}\\mapsto \\varphi^{-1}(\\mathfrak{q})$."
           },
           {
@@ -23152,6 +24485,7 @@ window.MVQuizBank = {
             "q": "How many morphisms $\\operatorname{Spec}\\mathbb{F}_5\\to \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-1)$ over $\\operatorname{Spec}\\mathbb{Z}$ are there? (Equivalently, how many ring maps $\\mathbb{Z}[x]/(x^2-1)\\to \\mathbb{F}_5$ fixing $\\mathbb{Z}$?)",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Such a ring map is determined by the image of $x$, which must satisfy $x^2=1$ in $\\mathbb{F}_5$.",
             "explain": "Such a ring map is determined by the image of $x$, which must satisfy $x^2=1$ in $\\mathbb{F}_5$. The solutions are $x=\\pm 1$, so there are $2$ morphisms."
           }
         ],
@@ -23205,6 +24539,7 @@ window.MVQuizBank = {
               "$i$ is proper and finite"
             ],
             "answer": 1,
+            "hint": "Closed immersion = topological closed inclusion + surjective map of structure sheaves.",
             "explain": "Closed immersion = topological closed inclusion + surjective map of structure sheaves. The kernel of $i^{\\#}$ is the ideal sheaf cutting out $Z$."
           },
           {
@@ -23217,6 +24552,7 @@ window.MVQuizBank = {
               "$A\\to A\\otimes_{\\mathbb{Z}} A$ (tensor square)"
             ],
             "answer": 1,
+            "hint": "Open immersions onto a basic open come from localization: $A\\to A_f = A[1/f]$ inverts $f$, and primes of $A_f$ correspond exactly to primes of $A$ not containing $f$.",
             "explain": "Open immersions onto a basic open come from localization: $A\\to A_f = A[1/f]$ inverts $f$, and primes of $A_f$ correspond exactly to primes of $A$ not containing $f$."
           },
           {
@@ -23224,6 +24560,7 @@ window.MVQuizBank = {
             "q": "The closed subscheme $V((x^2))\\hookrightarrow \\operatorname{Spec} k[x]$ has the same underlying topological space as $V((x))$ (just the origin), but a different structure sheaf. What is $\\dim_k \\Gamma(V((x^2)),\\mathcal{O}) = \\dim_k k[x]/(x^2)$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$.",
             "explain": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$. This is the 'fat point' / tangent direction attached to the origin — a non-reduced closed subscheme."
           }
         ],
@@ -23289,6 +24626,7 @@ window.MVQuizBank = {
               "having exactly one point in every fiber"
             ],
             "answer": 1,
+            "hint": "Closed immersions are preserved by base change: if $Z\\hookrightarrow X$ is closed and $X'\\to X$ any morphism, then $Z\\times_X X'\\hookrightarrow X'$ is again a closed immersion.",
             "explain": "Closed immersions are preserved by base change: if $Z\\hookrightarrow X$ is closed and $X'\\to X$ any morphism, then $Z\\times_X X'\\hookrightarrow X'$ is again a closed immersion. Topological bijectivity and point-count in fibers are not stable under base change."
           },
           {
@@ -23296,6 +24634,7 @@ window.MVQuizBank = {
             "q": "As a $\\mathbb{Q}$-vector space, what is the dimension of $\\mathbb{Q}(\\sqrt{2})\\otimes_{\\mathbb{Q}} \\mathbb{Q}(\\sqrt{2})$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$\\mathbb{Q}(\\sqrt 2)$ has $\\mathbb{Q}$-dimension $2$, so the tensor product has dimension $2\\cdot 2 = 4$.",
             "explain": "$\\mathbb{Q}(\\sqrt 2)$ has $\\mathbb{Q}$-dimension $2$, so the tensor product has dimension $2\\cdot 2 = 4$. Geometrically, $\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)\\times_{\\operatorname{Spec}\\mathbb{Q}}\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)$ is $4$-dimensional over $\\mathbb{Q}$ and splits as two points over $\\mathbb{Q}(\\sqrt 2)$."
           }
         ],
@@ -23349,6 +24688,7 @@ window.MVQuizBank = {
               "$\\operatorname{Spec}(\\mathcal{O}_{Y,y}/\\mathfrak{m}_y)$"
             ],
             "answer": 1,
+            "hint": "The scheme-theoretic fiber is the base change $X\\times_Y \\operatorname{Spec}\\kappa(y)$.",
             "explain": "The scheme-theoretic fiber is the base change $X\\times_Y \\operatorname{Spec}\\kappa(y)$. Its underlying topological space is $f^{-1}(y)$, but the scheme structure records multiplicities and nilpotents."
           },
           {
@@ -23356,6 +24696,7 @@ window.MVQuizBank = {
             "q": "Consider $f\\colon \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to \\operatorname{Spec}\\mathbb{Z}$. How many (geometric, i.e. over $\\overline{\\mathbb{F}_p}$) points does the fiber above the closed point $(5)\\in\\operatorname{Spec}\\mathbb{Z}$ have, counted without multiplicity?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The fiber over $(5)$ is $\\operatorname{Spec}\\mathbb{F}_5[x]/(x^2)$, a single point with a nilpotent — ramified.",
             "explain": "The fiber over $(5)$ is $\\operatorname{Spec}\\mathbb{F}_5[x]/(x^2)$, a single point with a nilpotent — ramified. Topologically the fiber has $1$ point; scheme-theoretically its length is $2$."
           },
           {
@@ -23363,6 +24704,7 @@ window.MVQuizBank = {
             "q": "For the same family $f\\colon \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to \\operatorname{Spec}\\mathbb{Z}$, how many geometric points does the fiber over $(11)$ have? (Hint: is $5$ a square mod $11$? Check $4^2=16\\equiv 5$.)",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points.",
             "explain": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points. The prime $11$ splits in $\\mathbb{Z}[\\sqrt 5]$."
           }
         ],
@@ -23416,6 +24758,7 @@ window.MVQuizBank = {
               "an isomorphism"
             ],
             "answer": 1,
+            "hint": "Separatedness = closed diagonal.",
             "explain": "Separatedness = closed diagonal. This is the scheme-theoretic analog of Hausdorff, where in topology the diagonal is closed iff limits are unique."
           },
           {
@@ -23428,6 +24771,7 @@ window.MVQuizBank = {
               "$\\operatorname{Spec} k[x,y]/(xy)$"
             ],
             "answer": 2,
+            "hint": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed.",
             "explain": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed. All other options are separated."
           },
           {
@@ -23440,6 +24784,7 @@ window.MVQuizBank = {
               "a non-closed open immersion"
             ],
             "answer": 1,
+            "hint": "Projective space is the prototype proper morphism over a field.",
             "explain": "Projective space is the prototype proper morphism over a field. Affine space fails the valuative criterion (a $K$-point like $1/t\\in\\mathbb{A}^1_K$ does not extend to the DVR), as does $\\mathbb{G}_m$."
           }
         ],
@@ -23496,6 +24841,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -23513,6 +24859,7 @@ window.MVQuizBank = {
             "q": "If $|A| = 7$, $|B| = 9$, and $|A \\cap B| = 4$, what is $|A \\cup B|$?",
             "answer": 12,
             "tol": 0,
+            "hint": "Inclusion–exclusion: $|A \\cup B| = |A| + |B| - |A \\cap B| = 7 + 9 - 4 = 12$.",
             "explain": "Inclusion–exclusion: $|A \\cup B| = |A| + |B| - |A \\cap B| = 7 + 9 - 4 = 12$."
           },
           {
@@ -23525,6 +24872,7 @@ window.MVQuizBank = {
               "neither injective nor surjective"
             ],
             "answer": 1,
+            "hint": "The image is $\\{a,b,c\\}$, the whole codomain, so $f$ is surjective.",
             "explain": "The image is $\\{a,b,c\\}$, the whole codomain, so $f$ is surjective. But $f(1) = f(3) = a$ shows $f$ is not injective. With $|A|=4 > 3 = |B|$ no function $A \\to B$ can be injective (pigeonhole)."
           },
           {
@@ -23532,6 +24880,7 @@ window.MVQuizBank = {
             "q": "How many subsets does a set of size $6$ have? (That is, compute $|\\mathcal{P}(A)|$ for $|A| = 6$.)",
             "answer": 64,
             "tol": 0,
+            "hint": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$.",
             "explain": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$."
           }
         ],
@@ -23577,6 +24926,7 @@ window.MVQuizBank = {
             "q": "If $|A| = 5$ and $|B| = 4$, how many functions are there from $A$ to $B$? (That is, compute $|B^A|$.)",
             "answer": 1024,
             "tol": 0,
+            "hint": "Each of the $|A|=5$ elements picks a value in $B$ independently, so $|B^A| = |B|^{|A|} = 4^5 = 1024$.",
             "explain": "Each of the $|A|=5$ elements picks a value in $B$ independently, so $|B^A| = |B|^{|A|} = 4^5 = 1024$."
           },
           {
@@ -23589,6 +24939,7 @@ window.MVQuizBank = {
               "$S \\mapsto A \\setminus S$ (which is not a bijection to $\\{0,1\\}^A$)"
             ],
             "answer": 1,
+            "hint": "A subset $S\\subseteq A$ is determined by, and determines, its indicator function $\\mathbf{1}_S\\colon A\\to\\{0,1\\}$.",
             "explain": "A subset $S\\subseteq A$ is determined by, and determines, its indicator function $\\mathbf{1}_S\\colon A\\to\\{0,1\\}$. This bijection is also why $|\\mathcal{P}(A)|=2^{|A|}$."
           },
           {
@@ -23596,6 +24947,7 @@ window.MVQuizBank = {
             "q": "Let $|A|=3$ and $|B|=2$. How many elements are in $\\mathcal{P}(A\\times B)$?",
             "answer": 64,
             "tol": 0,
+            "hint": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$.",
             "explain": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$."
           }
         ],
@@ -23636,6 +24988,7 @@ window.MVQuizBank = {
             "q": "How many equivalence classes does the relation '$a \\sim b$ iff $5 \\mid a - b$' on $\\mathbb{Z}$ have?",
             "answer": 5,
             "tol": 0,
+            "hint": "The classes are $[0], [1], [2], [3], [4]$ — the residue classes modulo $5$.",
             "explain": "The classes are $[0], [1], [2], [3], [4]$ — the residue classes modulo $5$. So $|\\mathbb{Z}/5\\mathbb{Z}| = 5$."
           },
           {
@@ -23648,6 +25001,7 @@ window.MVQuizBank = {
               "$a \\sim b \\iff a \\mid b$"
             ],
             "answer": 2,
+            "hint": "$a \\sim b \\iff a^2 = b^2$ is reflexive ($a^2 = a^2$), symmetric ($a^2 = b^2 \\Rightarrow b^2 = a^2$), and transitive.",
             "explain": "$a \\sim b \\iff a^2 = b^2$ is reflexive ($a^2 = a^2$), symmetric ($a^2 = b^2 \\Rightarrow b^2 = a^2$), and transitive. The others fail: $\\le$ is not symmetric, $\\ne$ is not reflexive (and not transitive), and $\\mid$ is not symmetric."
           },
           {
@@ -23660,6 +25014,7 @@ window.MVQuizBank = {
               "A function $X/{\\sim} \\to Y$ factors through $\\pi$ iff it is surjective."
             ],
             "answer": 1,
+            "hint": "The universal property: $f\\colon X \\to Y$ descends to a (unique) $\\bar f\\colon X/{\\sim} \\to Y$ with $\\bar f \\circ \\pi = f$ exactly when $f$ respects the equivalence — i.e.",
             "explain": "The universal property: $f\\colon X \\to Y$ descends to a (unique) $\\bar f\\colon X/{\\sim} \\to Y$ with $\\bar f \\circ \\pi = f$ exactly when $f$ respects the equivalence — i.e. $x \\sim x' \\Rightarrow f(x) = f(x')$."
           }
         ],
@@ -23710,6 +25065,7 @@ window.MVQuizBank = {
               "$\\mathcal{P}(\\mathbb{N})$"
             ],
             "answer": 3,
+            "hint": "By Cantor's theorem $|\\mathcal{P}(\\mathbb{N})| > |\\mathbb{N}|$, so $\\mathcal{P}(\\mathbb{N})$ is uncountable (in fact $|\\mathcal{P}(\\mathbb{N})| = 2^{\\aleph_0} = \\mathfrak{c} = |\\mathbb{R}|$).",
             "explain": "By Cantor's theorem $|\\mathcal{P}(\\mathbb{N})| > |\\mathbb{N}|$, so $\\mathcal{P}(\\mathbb{N})$ is uncountable (in fact $|\\mathcal{P}(\\mathbb{N})| = 2^{\\aleph_0} = \\mathfrak{c} = |\\mathbb{R}|$). The other three are countable: $\\mathbb{Q}$ injects into $\\mathbb{Z}^2$; $\\mathbb{Z}^3$ is a finite product of countables; the algebraic numbers are a countable union of finite root-sets of integer polynomials."
           },
           {
@@ -23722,6 +25078,7 @@ window.MVQuizBank = {
               "$0011$"
             ],
             "answer": 1,
+            "hint": "The diagonal entries are $s_0(0) = 0$, $s_1(1) = 0$, $s_2(2) = 1$, $s_3(3) = 1$.",
             "explain": "The diagonal entries are $s_0(0) = 0$, $s_1(1) = 0$, $s_2(2) = 1$, $s_3(3) = 1$. Flipping each bit gives $d = 1100\\dots$, which differs from each $s_n$ in position $n$."
           },
           {
@@ -23729,6 +25086,7 @@ window.MVQuizBank = {
             "q": "Under the Cantor zigzag pairing $\\langle i, j \\rangle = \\tfrac{(i+j)(i+j+1)}{2} + i$ (with $i, j \\ge 0$), what is $\\langle 2, 1 \\rangle$?",
             "answer": 8,
             "tol": 0,
+            "hint": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$.",
             "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
           }
         ],
@@ -23780,6 +25138,7 @@ window.MVQuizBank = {
               "Russell's paradox: there is no set of all sets."
             ],
             "answer": 1,
+            "hint": "Zorn's lemma is one of the standard equivalents of AC, alongside the well-ordering theorem and Tukey's lemma.",
             "explain": "Zorn's lemma is one of the standard equivalents of AC, alongside the well-ordering theorem and Tukey's lemma. The other choices are theorems of ZF or ZFC but are not equivalent to AC — the continuum hypothesis is independent of ZFC, and Cantor's theorem is provable in ZF with no choice at all."
           },
           {
@@ -23792,6 +25151,7 @@ window.MVQuizBank = {
               "The axiom of choice is equivalent to the well-ordering of $\\mathbb{R}$ only for ordered pairs."
             ],
             "answer": 1,
+            "hint": "With shoes there is a uniform rule ('pick the left one'), so no AC is needed.",
             "explain": "With shoes there is a uniform rule ('pick the left one'), so no AC is needed. With socks there is no such rule, yet AC still asserts the product $\\prod_i A_i$ is non-empty. The point is that for infinite families we can always produce a choice function under AC, even when we cannot write down an explicit one."
           },
           {
@@ -23804,6 +25164,7 @@ window.MVQuizBank = {
               "A countable union of countable sets is countable."
             ],
             "answer": 3,
+            "hint": "The first three all use full AC (or Zorn's lemma, which is equivalent).",
             "explain": "The first three all use full AC (or Zorn's lemma, which is equivalent). The countable-union-of-countable-sets statement only needs the weaker <em>countable choice</em>, and over ZF plus <em>countable</em> choice it is provable — but in ZF alone it is not. The question asks for the statement that is 'not known to require <em>AC</em>' (i.e. full choice)."
           }
         ],
@@ -23864,6 +25225,7 @@ window.MVQuizBank = {
               "$\\|a^2\\|=\\|a\\|^2$"
             ],
             "answer": 2,
+            "hint": "The $C^*$-identity $\\|a^*a\\|=\\|a\\|^2$ is what makes $C^*$-algebras rigid: it forces the norm to be determined by the algebraic structure.",
             "explain": "The $C^*$-identity $\\|a^*a\\|=\\|a\\|^2$ is what makes $C^*$-algebras rigid: it forces the norm to be determined by the algebraic structure."
           },
           {
@@ -23876,6 +25238,7 @@ window.MVQuizBank = {
               "no elements in general"
             ],
             "answer": 2,
+            "hint": "Self-adjoints satisfy $a^*a = a^2 = aa^*$ and unitaries satisfy $a^*a=1=aa^*$.",
             "explain": "Self-adjoints satisfy $a^*a = a^2 = aa^*$ and unitaries satisfy $a^*a=1=aa^*$. Both are normal; normality includes strictly more than just these two classes."
           },
           {
@@ -23883,6 +25246,7 @@ window.MVQuizBank = {
             "q": "In the $C^*$-algebra $M_2(\\mathbb{C})$, the operator norm of the self-adjoint matrix $\\begin{pmatrix}3&0\\\\0&-4\\end{pmatrix}$ equals:",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "For a self-adjoint operator the norm equals the spectral radius: $\\|a\\|=\\max|\\lambda_i|=\\max(|3|,|-4|)=4$.",
             "explain": "For a self-adjoint operator the norm equals the spectral radius: $\\|a\\|=\\max|\\lambda_i|=\\max(|3|,|-4|)=4$."
           }
         ],
@@ -23933,6 +25297,7 @@ window.MVQuizBank = {
               "always a subset of the real line"
             ],
             "answer": 1,
+            "hint": "Compactness: $\\sigma(a)$ is closed (complement is open) and bounded by $\\|a\\|$.",
             "explain": "Compactness: $\\sigma(a)$ is closed (complement is open) and bounded by $\\|a\\|$. Non-emptiness: if $\\sigma(a)=\\emptyset$, the resolvent $(\\lambda-a)^{-1}$ would be a bounded entire $A$-valued function, which by Liouville forces $a$ to be a scalar — but then $\\sigma(a)=\\{a\\}\\ne\\emptyset$. Reality only holds for self-adjoint in a $C^*$-algebra."
           },
           {
@@ -23940,6 +25305,7 @@ window.MVQuizBank = {
             "q": "The spectral radius formula gives $r(a)=\\lim_n\\|a^n\\|^{1/n}$. For the nilpotent $N=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}\\in M_2(\\mathbb{C})$ (operator norm), compute $r(N)$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$N^2=0$, so $\\|N^n\\|=0$ for $n\\ge 2$, giving $r(N)=0$.",
             "explain": "$N^2=0$, so $\\|N^n\\|=0$ for $n\\ge 2$, giving $r(N)=0$. Note $\\|N\\|=1\\ne 0=r(N)$: the spectral radius strictly undercuts the norm. This is consistent with $\\sigma(N)=\\{0\\}$."
           },
           {
@@ -23952,6 +25318,7 @@ window.MVQuizBank = {
               "always constant"
             ],
             "answer": 1,
+            "hint": "The resolvent identity $(a-\\lambda)^{-1}-(a-\\mu)^{-1}=(\\lambda-\\mu)(a-\\lambda)^{-1}(a-\\mu)^{-1}$ shows the quotient $((a-\\lambda)^{-1}-(a-\\mu)^{-1})/(\\lambda-\\mu)\\to(a-\\mu)^{-2}$ as $\\lambda\\to\\mu$,…",
             "explain": "The resolvent identity $(a-\\lambda)^{-1}-(a-\\mu)^{-1}=(\\lambda-\\mu)(a-\\lambda)^{-1}(a-\\mu)^{-1}$ shows the quotient $((a-\\lambda)^{-1}-(a-\\mu)^{-1})/(\\lambda-\\mu)\\to(a-\\mu)^{-2}$ as $\\lambda\\to\\mu$, so the resolvent is complex-differentiable with values in $A$."
           }
         ],
@@ -24005,6 +25372,7 @@ window.MVQuizBank = {
               "an open subset of $\\mathbb{C}$"
             ],
             "answer": 1,
+            "hint": "Compactness follows from $\\sigma(a)\\subseteq\\overline{B(0,\\|a\\|)}$ closed; non-emptiness uses holomorphy of the resolvent $(\\lambda-a)^{-1}$ combined with Liouville.",
             "explain": "Compactness follows from $\\sigma(a)\\subseteq\\overline{B(0,\\|a\\|)}$ closed; non-emptiness uses holomorphy of the resolvent $(\\lambda-a)^{-1}$ combined with Liouville. Reality $\\sigma(a)\\subseteq\\mathbb{R}$ only holds for self-adjoint $a$."
           },
           {
@@ -24012,6 +25380,7 @@ window.MVQuizBank = {
             "q": "The spectral radius formula says $r(a)=\\lim_n \\|a^n\\|^{1/n}$. For a self-adjoint $a$ with $\\|a\\|=5$, compute $r(a)$.",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "For self-adjoint (hence normal) $a$ the $C^*$-identity gives $\\|a^n\\|=\\|a\\|^n$, so $r(a)=\\|a\\|=5$.",
             "explain": "For self-adjoint (hence normal) $a$ the $C^*$-identity gives $\\|a^n\\|=\\|a\\|^n$, so $r(a)=\\|a\\|=5$. Equivalently, the continuous functional calculus sends $a\\mapsto\\mathrm{id}$ on $\\sigma(a)$, and $\\|a\\|=\\sup_{\\sigma(a)}|\\lambda|=r(a)$."
           },
           {
@@ -24024,6 +25393,7 @@ window.MVQuizBank = {
               "$L^2(\\sigma(a))\\cong C^*(a,1)$"
             ],
             "answer": 0,
+            "hint": "Gelfand–Naimark applied to the commutative $C^*$-algebra $C^*(a,1)$ generated by $a$ and the unit: its spectrum is $\\sigma(a)$ and $f(a)$ is well-defined for any continuous $f$ on $\\sigma(a)$.",
             "explain": "Gelfand–Naimark applied to the commutative $C^*$-algebra $C^*(a,1)$ generated by $a$ and the unit: its spectrum is $\\sigma(a)$ and $f(a)$ is well-defined for any continuous $f$ on $\\sigma(a)$. This is how one defines square roots, logarithms, spectral projections, etc."
           }
         ],
@@ -24074,6 +25444,7 @@ window.MVQuizBank = {
               "$a$ has a square root"
             ],
             "answer": 0,
+            "hint": "Equivalent characterizations: $a=b^*b$ for some $b$, or $a=a^*$ with non-negative spectrum.",
             "explain": "Equivalent characterizations: $a=b^*b$ for some $b$, or $a=a^*$ with non-negative spectrum. The set of positive elements $A_+$ is a closed convex cone generating the self-adjoint part."
           },
           {
@@ -24086,6 +25457,7 @@ window.MVQuizBank = {
               "the lexicographic order on eigenvalues"
             ],
             "answer": 0,
+            "hint": "For $f\\in C(X)$: $\\sigma(f)=f(X)$, so $f\\ge 0$ iff $f(x)\\ge 0$ for all $x$.",
             "explain": "For $f\\in C(X)$: $\\sigma(f)=f(X)$, so $f\\ge 0$ iff $f(x)\\ge 0$ for all $x$. This is the classical pointwise cone; positivity in $C^*$-algebras is its noncommutative generalization (Löwner order in $B(H)$)."
           },
           {
@@ -24093,6 +25465,7 @@ window.MVQuizBank = {
             "q": "In $M_2(\\mathbb{C})$ consider $A=\\begin{pmatrix}2&0\\\\0&-1\\end{pmatrix}$. How many of its eigenvalues lie in $[0,\\infty)$? (needed to check whether $A$ is positive)",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Eigenvalues are $2$ and $-1$; only $2\\ge 0$, so one eigenvalue lies in $[0,\\infty)$.",
             "explain": "Eigenvalues are $2$ and $-1$; only $2\\ge 0$, so one eigenvalue lies in $[0,\\infty)$. Since not all eigenvalues are non-negative, $A$ is self-adjoint but NOT positive."
           }
         ],
@@ -24145,6 +25518,7 @@ window.MVQuizBank = {
               "affine schemes over $\\mathbb{C}$"
             ],
             "answer": 1,
+            "hint": "Unital commutative $C^*$-algebras $A$ correspond contravariantly to compact Hausdorff spaces via $A\\mapsto \\widehat{A}$ (characters) with inverse $X\\mapsto C(X)$.",
             "explain": "Unital commutative $C^*$-algebras $A$ correspond contravariantly to compact Hausdorff spaces via $A\\mapsto \\widehat{A}$ (characters) with inverse $X\\mapsto C(X)$."
           },
           {
@@ -24157,6 +25531,7 @@ window.MVQuizBank = {
               "the real line"
             ],
             "answer": 1,
+            "hint": "If $\\chi(a)=\\lambda$ then $\\chi(a-\\lambda)=0$, so $a-\\lambda$ is not invertible (it lies in $\\ker\\chi$, a maximal ideal).",
             "explain": "If $\\chi(a)=\\lambda$ then $\\chi(a-\\lambda)=0$, so $a-\\lambda$ is not invertible (it lies in $\\ker\\chi$, a maximal ideal). Hence $\\lambda\\in\\sigma(a)$."
           },
           {
@@ -24164,6 +25539,7 @@ window.MVQuizBank = {
             "q": "Let $A=C(\\{p_1,p_2,p_3\\})\\cong\\mathbb{C}^3$. How many characters $\\chi\\colon A\\to\\mathbb{C}$ are there?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Each point $p_i$ gives an evaluation character $\\mathrm{ev}_{p_i}$, and Gelfand duality says these exhaust the character space.",
             "explain": "Each point $p_i$ gives an evaluation character $\\mathrm{ev}_{p_i}$, and Gelfand duality says these exhaust the character space. So $|\\widehat{A}|=|X|=3$."
           }
         ],
@@ -24214,6 +25590,7 @@ window.MVQuizBank = {
               "a unitary element"
             ],
             "answer": 0,
+            "hint": "For $A=C(X)$, every character is $\\mathrm{ev}_x$ and pure states are evaluations at points.",
             "explain": "For $A=C(X)$, every character is $\\mathrm{ev}_x$ and pure states are evaluations at points. For noncommutative $A$, pure states — the extreme points of $S(A)$ — generalize points even when $\\hat A=\\emptyset$."
           },
           {
@@ -24226,6 +25603,7 @@ window.MVQuizBank = {
               "countably infinitely many"
             ],
             "answer": 2,
+            "hint": "A character kills all commutators, but $[u,v]=(e^{2\\pi i\\theta}-1)uv\\neq 0$ for irrational $\\theta$.",
             "explain": "A character kills all commutators, but $[u,v]=(e^{2\\pi i\\theta}-1)uv\\neq 0$ for irrational $\\theta$. So $A_\\theta$ has no characters — its classical spectrum is empty, though $A_\\theta$ is a perfectly good 'noncommutative space'."
           },
           {
@@ -24236,6 +25614,7 @@ window.MVQuizBank = {
               1
             ],
             "tol": 0.000001,
+            "hint": "$e^{2\\pi i\\cdot 1/4}=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=0+1\\cdot i = i$.",
             "explain": "$e^{2\\pi i\\cdot 1/4}=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=0+1\\cdot i = i$."
           }
         ],
@@ -24288,6 +25667,7 @@ window.MVQuizBank = {
               "any subalgebra closed in the weak-$*$ topology on $B(H)^*$"
             ],
             "answer": 1,
+            "hint": "Von Neumann's double commutant theorem: a unital $*$-subalgebra $M\\subseteq B(H)$ is closed in the strong (equivalently weak) operator topology iff $M=M''$.",
             "explain": "Von Neumann's double commutant theorem: a unital $*$-subalgebra $M\\subseteq B(H)$ is closed in the strong (equivalently weak) operator topology iff $M=M''$. Norm closure alone gives a $C^*$-algebra, which is strictly weaker."
           },
           {
@@ -24300,6 +25680,7 @@ window.MVQuizBank = {
               "the set of all unitaries conjugating $S$"
             ],
             "answer": 0,
+            "hint": "$S' = \\{x\\in B(H):[x,s]=0\\ \\forall s\\in S\\}$ is the set of operators commuting with everything in $S$.",
             "explain": "$S' = \\{x\\in B(H):[x,s]=0\\ \\forall s\\in S\\}$ is the set of operators commuting with everything in $S$. It is automatically a unital $*$-subalgebra closed in the weak operator topology — hence a von Neumann algebra."
           },
           {
@@ -24307,6 +25688,7 @@ window.MVQuizBank = {
             "q": "In $B(\\mathbb{C}^2)=M_2(\\mathbb{C})$, let $S=\\{A\\}$ with $A=\\mathrm{diag}(1,2)$. The commutant $S'$ consists of all matrices commuting with $A$ — the diagonal matrices. What is $\\dim_\\mathbb{C} S'$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "A $2\\times 2$ matrix $X=\\begin{pmatrix}x&y\\\\ z&w\\end{pmatrix}$ commutes with $\\mathrm{diag}(1,2)$ iff $y=z=0$, i.e., $X$ is diagonal.",
             "explain": "A $2\\times 2$ matrix $X=\\begin{pmatrix}x&y\\\\ z&w\\end{pmatrix}$ commutes with $\\mathrm{diag}(1,2)$ iff $y=z=0$, i.e., $X$ is diagonal. The diagonal matrices in $M_2$ form a $2$-dimensional subspace."
           }
         ],
@@ -24369,6 +25751,7 @@ window.MVQuizBank = {
               "$M=B(H)$"
             ],
             "answer": 1,
+            "hint": "A factor has trivial center: $Z(M)=\\mathbb{C}\\cdot 1$.",
             "explain": "A factor has trivial center: $Z(M)=\\mathbb{C}\\cdot 1$. Every von Neumann algebra decomposes as a direct integral of factors; factors are the 'irreducible' building blocks. $B(H)$ is the prototypical type I factor."
           },
           {
@@ -24392,6 +25775,7 @@ window.MVQuizBank = {
               3,
               2
             ],
+            "hint": "Type I$_n$ = $M_n(\\mathbb{C})$ (finite-dim matrices); Type I$_\\infty$ = $B(H)$; Type II$_1$ admits a finite faithful normal trace, e.g., the hyperfinite $R$; Type III admits no semifinite trace,…",
             "explain": "Type I$_n$ = $M_n(\\mathbb{C})$ (finite-dim matrices); Type I$_\\infty$ = $B(H)$; Type II$_1$ admits a finite faithful normal trace, e.g., the hyperfinite $R$; Type III admits no semifinite trace, e.g., Powers factors $R_\\lambda$ from III$_\\lambda$."
           },
           {
@@ -24404,6 +25788,7 @@ window.MVQuizBank = {
               "Only the center of $M$"
             ],
             "answer": 0,
+            "hint": "Type I $\\iff$ minimal projections exist.",
             "explain": "Type I $\\iff$ minimal projections exist. Among types without minimal projections: semifinite normal trace exists $\\iff$ type II; no semifinite trace $\\iff$ type III. Traces are the key to separating II from III."
           }
         ],
@@ -24462,6 +25847,7 @@ window.MVQuizBank = {
               "$p\\le q$ or $q\\le p$"
             ],
             "answer": 1,
+            "hint": "$p\\sim q$ iff there is a partial isometry $v\\in M$ (crucially within $M$) with $v^*v=p$, $vv^*=q$.",
             "explain": "$p\\sim q$ iff there is a partial isometry $v\\in M$ (crucially within $M$) with $v^*v=p$, $vv^*=q$. Then $v$ implements an isomorphism between the ranges of $p$ and $q$ preserving the $M$-module structure."
           },
           {
@@ -24469,6 +25855,7 @@ window.MVQuizBank = {
             "q": "In $M_4(\\mathbb{C})$ (a type I$_4$ factor), let $p=\\mathrm{diag}(1,1,0,0)$ and $q=\\mathrm{diag}(1,0,1,0)$. How many 1's do $p$ and $q$ have in common in their rank? (this is $\\min(\\mathrm{rank}(p),\\mathrm{rank}(q))$; they are MvN-equivalent iff equal)",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\mathrm{rank}(p)=2=\\mathrm{rank}(q)$, so $p\\sim q$ in $M_4(\\mathbb{C})$.",
             "explain": "$\\mathrm{rank}(p)=2=\\mathrm{rank}(q)$, so $p\\sim q$ in $M_4(\\mathbb{C})$. In type I$_n$, MvN-equivalence is detected by rank: $p\\sim q\\iff\\mathrm{tr}(p)=\\mathrm{tr}(q)$, i.e., same rank."
           },
           {
@@ -24481,6 +25868,7 @@ window.MVQuizBank = {
               "$d(p)=\\mathrm{rank}(p)$"
             ],
             "answer": 0,
+            "hint": "For a II$_1$ factor, the trace $\\tau$ restricts to a dimension function $d=\\tau|_{\\mathrm{Proj}(M)}:\\mathrm{Proj}(M)\\to[0,1]$.",
             "explain": "For a II$_1$ factor, the trace $\\tau$ restricts to a dimension function $d=\\tau|_{\\mathrm{Proj}(M)}:\\mathrm{Proj}(M)\\to[0,1]$. It is continuous, surjective, and $p\\sim q\\iff\\tau(p)=\\tau(q)$. This is one reason II$_1$ factors are sometimes called 'algebras of continuous dimension'."
           }
         ],
@@ -24544,6 +25932,7 @@ window.MVQuizBank = {
               "$\\phi$ is multiplicative"
             ],
             "answer": 0,
+            "hint": "Positivity $\\phi(a^*a)\\ge 0$ plus normalization $\\phi(1)=1$ forces $\\|\\phi\\|=1$.",
             "explain": "Positivity $\\phi(a^*a)\\ge 0$ plus normalization $\\phi(1)=1$ forces $\\|\\phi\\|=1$. States generalize probability measures: on commutative $A=C(X)$ they are exactly Borel probability measures by Riesz representation."
           },
           {
@@ -24556,6 +25945,7 @@ window.MVQuizBank = {
               "normal states"
             ],
             "answer": 1,
+            "hint": "Pure states are the extreme points of $S(A)$: states $\\phi$ that cannot be written as $\\tfrac12(\\phi_1+\\phi_2)$ for distinct states $\\phi_1,\\phi_2$.",
             "explain": "Pure states are the extreme points of $S(A)$: states $\\phi$ that cannot be written as $\\tfrac12(\\phi_1+\\phi_2)$ for distinct states $\\phi_1,\\phi_2$. On commutative $A$ pure states are characters; on $B(H)$ pure states are vector states $a\\mapsto\\langle a\\xi,\\xi\\rangle$ for unit $\\xi$."
           },
           {
@@ -24563,6 +25953,7 @@ window.MVQuizBank = {
             "q": "In $M_2(\\mathbb{C})$ the trace state $\\tau(a)=\\tfrac12\\mathrm{tr}(a)$ is a state. Compute $\\tau\\!\\left(\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}\\right)$.",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$\\tfrac12\\mathrm{tr}\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$.",
             "explain": "$\\tfrac12\\mathrm{tr}\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$. This matrix is self-adjoint with eigenvalues $4\\pm\\sqrt{2}>0$, so it's positive; a state sends positive elements to $\\ge 0$ and sends $1$ to $1$, both verified here."
           }
         ],
@@ -24622,6 +26013,7 @@ window.MVQuizBank = {
               3,
               4
             ],
+            "hint": "Starting from the sesquilinear form $\\langle a,b\\rangle=\\omega(b^*a)$, the null ideal $N_\\omega$ is identified, the quotient completed to $H_\\omega$, the action $\\pi_\\omega$ defined by left…",
             "explain": "Starting from the sesquilinear form $\\langle a,b\\rangle=\\omega(b^*a)$, the null ideal $N_\\omega$ is identified, the quotient completed to $H_\\omega$, the action $\\pi_\\omega$ defined by left multiplication, and finally the cyclic vector $\\Omega_\\omega$ reproduces $\\omega$ via the inner product."
           },
           {
@@ -24641,6 +26033,7 @@ window.MVQuizBank = {
               "$\\|\\Omega_\\omega\\|=0$"
             ],
             "answer": 0,
+            "hint": "$\\Omega_\\omega=[1+N_\\omega]$ is cyclic: $\\pi_\\omega(A)\\Omega_\\omega=\\{[a+N_\\omega]:a\\in A\\}$ is dense in $H_\\omega$ by construction.",
             "explain": "$\\Omega_\\omega=[1+N_\\omega]$ is cyclic: $\\pi_\\omega(A)\\Omega_\\omega=\\{[a+N_\\omega]:a\\in A\\}$ is dense in $H_\\omega$ by construction. Cyclicity is what makes GNS reps the building blocks of all $*$-reps (via direct sum)."
           }
         ],
@@ -24703,6 +26096,7 @@ window.MVQuizBank = {
               "$e_\\lambda$ are unitary"
             ],
             "answer": 0,
+            "hint": "The standard definition: positive contractions forming an increasing net with $e_\\lambda a\\to a$.",
             "explain": "The standard definition: positive contractions forming an increasing net with $e_\\lambda a\\to a$. Every $C^*$-algebra (unital or not) admits one — construct via $e_\\lambda=\\lambda a^*a(1+\\lambda a^*a)^{-1}$-type spectral calculus."
           },
           {
@@ -24710,6 +26104,7 @@ window.MVQuizBank = {
             "q": "In $c_0$ (sequences vanishing at infinity, non-unital), let $e_n$ be the characteristic sequence of $\\{1,\\ldots,n\\}$ (so $e_n(k)=1$ for $k\\le n$, $=0$ else). Compute $\\|e_n\\|$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\|e_n\\|_\\infty=\\sup_k|e_n(k)|=1$, since at least one entry equals 1.",
             "explain": "$\\|e_n\\|_\\infty=\\sup_k|e_n(k)|=1$, since at least one entry equals 1. The $e_n$ are projections in $c_0$ forming an approximate unit: for $f\\in c_0$, $\\|e_n f-f\\|_\\infty=\\sup_{k>n}|f(k)|\\to 0$ by vanishing at infinity."
           },
           {
@@ -24780,6 +26175,7 @@ window.MVQuizBank = {
               "$|7|_7 = 0$"
             ],
             "answer": 2,
+            "hint": "$v_7(7)=1$, so $|7|_7 = 7^{-1} = 1/7$.",
             "explain": "$v_7(7)=1$, so $|7|_7 = 7^{-1} = 1/7$. Divisibility by $p$ makes a number $p$-adically small."
           },
           {
@@ -24787,6 +26183,7 @@ window.MVQuizBank = {
             "q": "Compute $|98/3|_7$.",
             "answer": 0.02040816326530612,
             "tol": 0.000001,
+            "hint": "$98 = 2 \\cdot 7^2$ so $v_7(98)=2$ and $v_7(3)=0$.",
             "explain": "$98 = 2 \\cdot 7^2$ so $v_7(98)=2$ and $v_7(3)=0$. Thus $v_7(98/3)=2$ and $|98/3|_7 = 7^{-2} = 1/49 \\approx 0.020408$."
           },
           {
@@ -24799,6 +26196,7 @@ window.MVQuizBank = {
               "$|xy|_p = |x|_p + |y|_p$"
             ],
             "answer": 1,
+            "hint": "Non-Archimedean absolute values satisfy the strong triangle inequality $|x+y|_p\\le\\max(|x|_p,|y|_p)$, which is strictly stronger than the usual triangle inequality.",
             "explain": "Non-Archimedean absolute values satisfy the strong triangle inequality $|x+y|_p\\le\\max(|x|_p,|y|_p)$, which is strictly stronger than the usual triangle inequality."
           }
         ],
@@ -24852,6 +26250,7 @@ window.MVQuizBank = {
               "Their union is always a ball"
             ],
             "answer": 1,
+            "hint": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ — so any two balls are either disjoint or nested.",
             "explain": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ — so any two balls are either disjoint or nested."
           },
           {
@@ -24864,6 +26263,7 @@ window.MVQuizBank = {
               "Cannot be determined without more data"
             ],
             "answer": 1,
+            "hint": "When $|x|_p \\ne |y|_p$, the ultrametric inequality becomes an equality: $|x+y|_p = \\max(|x|_p,|y|_p)$.",
             "explain": "When $|x|_p \\ne |y|_p$, the ultrametric inequality becomes an equality: $|x+y|_p = \\max(|x|_p,|y|_p)$. This is the 'isoceles triangle' principle."
           },
           {
@@ -24871,6 +26271,7 @@ window.MVQuizBank = {
             "q": "How many connected components does $\\mathbb{Q}_p$ have as a topological space? (Answer with the cardinality of singletons per point, i.e. $1$ per point means totally disconnected — here give the size of the connected component of any fixed point.)",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons.",
             "explain": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons. So each point is its own connected component, of size $1$."
           }
         ],
@@ -24924,6 +26325,7 @@ window.MVQuizBank = {
               "$-1$ does not lie in $\\mathbb{Z}_5$"
             ],
             "answer": 1,
+            "hint": "Using the geometric series identity $(p-1)\\sum_{i\\ge 0} p^i = -1$ in $|\\cdot|_p$: with $p=5$, $4(1+5+5^2+\\cdots) = -1$ in $\\mathbb{Z}_5$.",
             "explain": "Using the geometric series identity $(p-1)\\sum_{i\\ge 0} p^i = -1$ in $|\\cdot|_p$: with $p=5$, $4(1+5+5^2+\\cdots) = -1$ in $\\mathbb{Z}_5$."
           },
           {
@@ -24931,6 +26333,7 @@ window.MVQuizBank = {
             "q": "What is the first digit $a_0$ in the $3$-adic expansion of $7$ (i.e. $7 \\bmod 3$)?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$7 = 1 + 2\\cdot 3 + 0\\cdot 3^2 + \\cdots$, so $a_0 = 7 \\bmod 3 = 1$.",
             "explain": "$7 = 1 + 2\\cdot 3 + 0\\cdot 3^2 + \\cdots$, so $a_0 = 7 \\bmod 3 = 1$."
           },
           {
@@ -24943,6 +26346,7 @@ window.MVQuizBank = {
               "they agree only on $a_0$"
             ],
             "answer": 2,
+            "hint": "Digits agreeing through index $n-1$ is exactly the condition $x\\equiv y\\pmod{p^n}$, and disagreeing at index $n$ means $x\\not\\equiv y\\pmod{p^{n+1}}$.",
             "explain": "Digits agreeing through index $n-1$ is exactly the condition $x\\equiv y\\pmod{p^n}$, and disagreeing at index $n$ means $x\\not\\equiv y\\pmod{p^{n+1}}$. Both descriptions are equivalent."
           }
         ],
@@ -24996,6 +26400,7 @@ window.MVQuizBank = {
               "$f(x_0) \\equiv 0 \\pmod{p^2}$"
             ],
             "answer": 1,
+            "hint": "The derivative being a unit mod $p$ (i.e.",
             "explain": "The derivative being a unit mod $p$ (i.e. nonzero mod $p$) is what makes Newton's iteration $x_{n+1}=x_n - f(x_n)/f'(x_n)$ well-defined and convergent in $\\mathbb{Z}_p$."
           },
           {
@@ -25003,6 +26408,7 @@ window.MVQuizBank = {
             "q": "Seeding Hensel for $f(x) = x^2 - 2$ over $\\mathbb{Z}_7$ with $x_0 = 3$, the next iterate $x_1 = x_0 + a_1\\cdot 7$ uses digit $a_1 = -(x_0^2-2)/7 \\cdot (2x_0)^{-1} \\bmod 7$. Compute $a_1$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$(3^2-2)/7 = 1$.",
             "explain": "$(3^2-2)/7 = 1$. Also $2\\cdot 3 = 6$, and $6^{-1} \\equiv 6 \\pmod 7$. So $a_1 \\equiv -1\\cdot 6 \\equiv -6 \\equiv 1 \\pmod 7$. Hence $x_1 = 3 + 1\\cdot 7 = 10$, and indeed $10^2 = 100 \\equiv 2 \\pmod{49}$."
           },
           {
@@ -25015,6 +26421,7 @@ window.MVQuizBank = {
               "Only in $\\mathbb{Q}_2$"
             ],
             "answer": 1,
+            "hint": "Take $f(x)=x^2+1$.",
             "explain": "Take $f(x)=x^2+1$. Then $f(2)=5\\equiv 0\\pmod 5$ and $f'(2)=4\\not\\equiv 0\\pmod 5$. Hensel produces a unique $i\\in\\mathbb{Z}_5$ with $i\\equiv 2\\pmod 5$."
           }
         ],
@@ -25068,6 +26475,7 @@ window.MVQuizBank = {
               "its discriminant is a perfect square"
             ],
             "answer": 2,
+            "hint": "Hasse-Minkowski: for quadratic forms, local solvability at all places (the real place plus every $p$-adic place) is equivalent to global solvability over $\\mathbb{Q}$.",
             "explain": "Hasse-Minkowski: for quadratic forms, local solvability at all places (the real place plus every $p$-adic place) is equivalent to global solvability over $\\mathbb{Q}$."
           },
           {
@@ -25080,6 +26488,7 @@ window.MVQuizBank = {
               "Local obstruction at $p=2$: $x,y$ must both be even, forcing a contradiction"
             ],
             "answer": 1,
+            "hint": "$x^2+y^2=3$ is clearly solvable in $\\mathbb{R}$.",
             "explain": "$x^2+y^2=3$ is clearly solvable in $\\mathbb{R}$. The $3$-adic obstruction: mod $3$, squares are $\\{0,1\\}$, so $x^2+y^2\\in\\{0,1,2\\}\\bmod 3$, never $3\\equiv 0$ with $(x,y)$ primitive. This local failure forces no rational solution."
           },
           {
@@ -25092,6 +26501,7 @@ window.MVQuizBank = {
               "The j-invariant"
             ],
             "answer": 2,
+            "hint": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$.",
             "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
           }
         ],
@@ -25153,6 +26563,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -25170,6 +26581,7 @@ window.MVQuizBank = {
             "q": "How many partitions of $5$ are there? (List them in your head: $5,\\ 4{+}1,\\ 3{+}2,\\ 3{+}1{+}1,\\ 2{+}2{+}1,\\ 2{+}1{+}1{+}1,\\ 1{+}1{+}1{+}1{+}1$.)",
             "answer": 7,
             "tol": 1e-9,
+            "hint": "$p(5)=7$.",
             "explain": "$p(5)=7$. The seven partitions are exactly the ones listed."
           },
           {
@@ -25182,6 +26594,7 @@ window.MVQuizBank = {
               "$1,3,6,10,15,21,28$"
             ],
             "answer": 0,
+            "hint": "$p(n)$ begins $1,2,3,5,7,11,15,22,30,42,\\ldots$.",
             "explain": "$p(n)$ begins $1,2,3,5,7,11,15,22,30,42,\\ldots$. The second sequence is Fibonacci; the third is powers of two; the fourth is triangular numbers."
           },
           {
@@ -25189,6 +26602,7 @@ window.MVQuizBank = {
             "q": "Compute $p(10)$ — the number of partitions of $10$.",
             "answer": 42,
             "tol": 1e-9,
+            "hint": "$p(10)=42$.",
             "explain": "$p(10)=42$. It is the last entry of the classical small-$n$ table $1,2,3,5,7,11,15,22,30,42$."
           }
         ],
@@ -25242,6 +26656,7 @@ window.MVQuizBank = {
               "$\\sum_{n\\ge 1} \\dfrac{q^n}{1-q^n}$"
             ],
             "answer": 1,
+            "hint": "Each factor $\\tfrac{1}{1-q^n}=1+q^n+q^{2n}+\\cdots$ records 'how many copies of the part $n$'.",
             "explain": "Each factor $\\tfrac{1}{1-q^n}=1+q^n+q^{2n}+\\cdots$ records 'how many copies of the part $n$'. Multiplying over $n\\ge 1$ sums over all partitions, with $q$-weight equal to the total."
           },
           {
@@ -25254,6 +26669,7 @@ window.MVQuizBank = {
               "$\\prod(1-q^n)=\\sum(-1)^n q^{n(3n-1)/2}$"
             ],
             "answer": 0,
+            "hint": "Both sides equal $\\prod_{n\\ge 1}\\tfrac{1-q^{2n}}{1-q^n}$; the left counts odd-part partitions, the right counts distinct-part partitions.",
             "explain": "Both sides equal $\\prod_{n\\ge 1}\\tfrac{1-q^{2n}}{1-q^n}$; the left counts odd-part partitions, the right counts distinct-part partitions. This is the baby case of a long string of Rogers–Ramanujan-style identities."
           },
           {
@@ -25261,6 +26677,7 @@ window.MVQuizBank = {
             "q": "Expand $\\prod_{n=1}^{3} \\dfrac{1}{1-q^n}$ as a power series and read off the coefficient of $q^4$. (This counts partitions of $4$ with all parts $\\le 3$.)",
             "answer": 4,
             "tol": 1e-9,
+            "hint": "The partitions of $4$ with all parts $\\le 3$ are $3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$, giving $4$.",
             "explain": "The partitions of $4$ with all parts $\\le 3$ are $3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$, giving $4$. The partition $4$ itself is excluded, so this is $p(4)-1=4$."
           }
         ],
@@ -25314,6 +26731,7 @@ window.MVQuizBank = {
               "the primes"
             ],
             "answer": 2,
+            "hint": "The nonzero exponents are the generalized pentagonal numbers $1,2,5,7,12,15,22,26,\\ldots$, from $k=\\pm 1,\\pm 2,\\pm 3,\\ldots$ in $k(3k-1)/2$.",
             "explain": "The nonzero exponents are the generalized pentagonal numbers $1,2,5,7,12,15,22,26,\\ldots$, from $k=\\pm 1,\\pm 2,\\pm 3,\\ldots$ in $k(3k-1)/2$."
           },
           {
@@ -25321,6 +26739,7 @@ window.MVQuizBank = {
             "q": "Use Euler's recurrence $p(n) = p(n{-}1) + p(n{-}2) - p(n{-}5) - p(n{-}7) + p(n{-}12) + \\cdots$ (with $p(0)=1$, $p(m)=0$ for $m<0$) to compute $p(7)$ given $p(6)=11$, $p(5)=7$, $p(2)=2$, $p(0)=1$.",
             "answer": 15,
             "tol": 1e-9,
+            "hint": "The pentagonal shifts up to $7$ are $1,2,5,7$ with signs $+,+,-,-$.",
             "explain": "The pentagonal shifts up to $7$ are $1,2,5,7$ with signs $+,+,-,-$. Hence $p(7)=p(6)+p(5)-p(2)-p(0)=11+7-2-1=15$, matching the table entry."
           },
           {
@@ -25333,6 +26752,7 @@ window.MVQuizBank = {
               "because most partitions are pentagonal"
             ],
             "answer": 0,
+            "hint": "The pentagonal numbers $1,2,5,7,12,15,22,26,35,40,\\ldots$ have density $\\sim\\sqrt{n}$, so Euler's recurrence needs only $O(\\sqrt{n})$ additions per new value.",
             "explain": "The pentagonal numbers $1,2,5,7,12,15,22,26,35,40,\\ldots$ have density $\\sim\\sqrt{n}$, so Euler's recurrence needs only $O(\\sqrt{n})$ additions per new value. Total work to table $p(1),\\ldots,p(N)$ is $O(N^{3/2})$, dramatically better than enumerating $p(N)\\sim e^{\\pi\\sqrt{2N/3}}$ partitions."
           }
         ],
@@ -25386,6 +26806,7 @@ window.MVQuizBank = {
               "$p(n) \\equiv n \\pmod{7}$"
             ],
             "answer": 1,
+            "hint": "Ramanujan's three congruences are $p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$.",
             "explain": "Ramanujan's three congruences are $p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$. The moduli $5,7,11$ are the only primes for which such a simple arithmetic progression congruence holds for $p$."
           },
           {
@@ -25393,6 +26814,7 @@ window.MVQuizBank = {
             "q": "Verify Ramanujan's mod-5 congruence by computing $p(9) \\bmod 5$ (note $9 = 5\\cdot 1 + 4$, so this falls in the progression).",
             "answer": 0,
             "tol": 1e-9,
+            "hint": "$p(9)=30$, and $30 = 6\\cdot 5$, so $p(9)\\equiv 0\\pmod{5}$.",
             "explain": "$p(9)=30$, and $30 = 6\\cdot 5$, so $p(9)\\equiv 0\\pmod{5}$. The pattern continues: $p(4)=5,\\ p(9)=30,\\ p(14)=135,\\ p(19)=490,\\ \\ldots$ — all divisible by $5$."
           },
           {
@@ -25400,6 +26822,7 @@ window.MVQuizBank = {
             "q": "Verify Ramanujan's mod-7 congruence at the first case $n=5$ (so $7n+5=5$). Compute $p(5)\\bmod 7$.",
             "answer": 0,
             "tol": 1e-9,
+            "hint": "$p(5)=7\\equiv 0\\pmod 7$.",
             "explain": "$p(5)=7\\equiv 0\\pmod 7$. The next cases are $p(12)=77=11\\cdot 7$ and $p(19)=490=70\\cdot 7$, all clean multiples of $7$."
           }
         ],
@@ -25453,6 +26876,7 @@ window.MVQuizBank = {
               "$\\eta=\\sum p(n) q^n$"
             ],
             "answer": 1,
+            "hint": "$\\prod(1-q^n)^{-1}=\\sum p(n)q^n$, so the partition generating function is essentially $q^{1/24}/\\eta$.",
             "explain": "$\\prod(1-q^n)^{-1}=\\sum p(n)q^n$, so the partition generating function is essentially $q^{1/24}/\\eta$. The fractional prefactor $q^{1/24}$ is exactly what makes $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$ — a weight-$1/2$ modular transformation."
           },
           {
@@ -25465,6 +26889,7 @@ window.MVQuizBank = {
               "$1/2$"
             ],
             "answer": 1,
+            "hint": "Each factor of $\\eta$ contributes weight $1/2$, so $\\eta^{24}$ has weight $12$.",
             "explain": "Each factor of $\\eta$ contributes weight $1/2$, so $\\eta^{24}$ has weight $12$. $\\Delta$ is the first nonzero cusp form on $\\mathrm{SL}_2(\\mathbb{Z})$; its Fourier coefficients are Ramanujan's $\\tau(n)$."
           },
           {
@@ -25472,6 +26897,7 @@ window.MVQuizBank = {
             "q": "Using Hardy–Ramanujan's asymptotic $p(n)\\sim \\dfrac{1}{4n\\sqrt{3}}\\exp\\!\\bigl(\\pi\\sqrt{2n/3}\\bigr)$, compute the exponent $\\pi\\sqrt{2n/3}$ at $n=6$. (Round to two decimals.)",
             "answer": 6.28,
             "tol": 0.02,
+            "hint": "At $n=6$: $2n/3 = 4$, so $\\sqrt{2n/3}=2$ and $\\pi\\sqrt{2n/3}=2\\pi\\approx 6.283$.",
             "explain": "At $n=6$: $2n/3 = 4$, so $\\sqrt{2n/3}=2$ and $\\pi\\sqrt{2n/3}=2\\pi\\approx 6.283$. Exponentiating and dividing by $4\\cdot 6\\cdot\\sqrt{3}\\approx 41.57$ gives $p(6)\\approx 13.0$; the true value is $11$, so the leading asymptotic is already within a factor of $1.2$ at $n=6$."
           }
         ],
@@ -25531,6 +26957,7 @@ window.MVQuizBank = {
               "$d(x,y)\\le 1$ for all $x,y$"
             ],
             "answer": 3,
+            "hint": "Metrics need not be bounded.",
             "explain": "Metrics need not be bounded. The three required axioms are identity of indiscernibles, symmetry, and triangle inequality. Boundedness is a separate property (e.g. discrete metrics are bounded by $1$, Euclidean metrics are not)."
           },
           {
@@ -25538,6 +26965,7 @@ window.MVQuizBank = {
             "q": "In $(\\mathbb{R}^2, d_\\infty)$ with $d_\\infty(x,y)=\\max(|x_1-y_1|,|x_2-y_2|)$, what is the area of the open ball $B(0,1)$ (as a subset of the plane)?",
             "answer": 4,
             "tol": 0.001,
+            "hint": "The sup-ball of radius $1$ around the origin is the open square $(-1,1)\\times(-1,1)$, with area $2\\cdot 2 = 4$.",
             "explain": "The sup-ball of radius $1$ around the origin is the open square $(-1,1)\\times(-1,1)$, with area $2\\cdot 2 = 4$. By contrast the Euclidean disk has area $\\pi\\approx 3.14$ and the taxicab diamond has area $2$ — same topology, different shapes."
           },
           {
@@ -25550,6 +26978,7 @@ window.MVQuizBank = {
               "$C([0,1])$ with the uniform metric"
             ],
             "answer": 1,
+            "hint": "$(0,1)$ is not complete: the sequence $x_n=1/n$ is Cauchy but its limit $0$ lies outside the space.",
             "explain": "$(0,1)$ is not complete: the sequence $x_n=1/n$ is Cauchy but its limit $0$ lies outside the space. Completeness is a metric property, not a topological one — $(0,1)$ is homeomorphic to $\\mathbb{R}$, which is complete."
           }
         ],
@@ -25601,6 +27030,7 @@ window.MVQuizBank = {
               "$\\{\\{a\\}, \\{b\\}, \\{c\\}, X\\}$"
             ],
             "answer": 1,
+            "hint": "Option (b) contains $\\emptyset$ and $X$, and the union / intersection of any listed opens remains in the family.",
             "explain": "Option (b) contains $\\emptyset$ and $X$, and the union / intersection of any listed opens remains in the family. Option (a) fails because $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is missing; (c) fails because $\\{a,b\\}\\cap\\{b,c\\}=\\{b\\}$ is missing; (d) fails because $\\emptyset$ is missing."
           },
           {
@@ -25613,6 +27043,7 @@ window.MVQuizBank = {
               "arbitrary intersections always give the empty set"
             ],
             "answer": 1,
+            "hint": "Countable intersections of opens can collapse to non-open sets: $\\bigcap_{n\\ge 1}(-1/n,1/n)=\\{0\\}$ is not open in $\\mathbb{R}$.",
             "explain": "Countable intersections of opens can collapse to non-open sets: $\\bigcap_{n\\ge 1}(-1/n,1/n)=\\{0\\}$ is not open in $\\mathbb{R}$. Only finite intersections are safe."
           },
           {
@@ -25620,6 +27051,7 @@ window.MVQuizBank = {
             "q": "How many distinct topologies are there on a 2-element set $X=\\{a,b\\}$?",
             "answer": 4,
             "tol": 0.0001,
+            "hint": "The four topologies are: (i) indiscrete $\\{\\emptyset,X\\}$; (ii) discrete $\\{\\emptyset,\\{a\\},\\{b\\},X\\}$; (iii) Sierpiński $\\{\\emptyset,\\{a\\},X\\}$; (iv) the mirror $\\{\\emptyset,\\{b\\},X\\}$.",
             "explain": "The four topologies are: (i) indiscrete $\\{\\emptyset,X\\}$; (ii) discrete $\\{\\emptyset,\\{a\\},\\{b\\},X\\}$; (iii) Sierpiński $\\{\\emptyset,\\{a\\},X\\}$; (iv) the mirror $\\{\\emptyset,\\{b\\},X\\}$."
           }
         ],
@@ -25670,6 +27102,7 @@ window.MVQuizBank = {
               "$f$ is a bijection"
             ],
             "answer": 1,
+            "hint": "$f$ is continuous iff $f^{-1}(V)$ is open in $X$ whenever $V$ is open in $Y$.",
             "explain": "$f$ is continuous iff $f^{-1}(V)$ is open in $X$ whenever $V$ is open in $Y$. Images of opens generally need not be open — consider $x\\mapsto x^2$ on $\\mathbb{R}$, which sends the open interval $(-1,1)$ to the non-open $[0,1)$."
           },
           {
@@ -25682,6 +27115,7 @@ window.MVQuizBank = {
               "$S^1\\times [0,1]$ and the cylinder $\\{(x,y,z):x^2+y^2=1,\\ 0\\le z\\le 1\\}$"
             ],
             "answer": 1,
+            "hint": "$[0,1]$ is compact and $(0,1)$ is not — continuous images of compact sets are compact, so no continuous bijection between them can be a homeomorphism.",
             "explain": "$[0,1]$ is compact and $(0,1)$ is not — continuous images of compact sets are compact, so no continuous bijection between them can be a homeomorphism. Meanwhile $(0,1)\\cong \\mathbb{R}$ via $t\\mapsto \\tan(\\pi(t-1/2))$, and both (c) and (d) are homeomorphic pairs."
           },
           {
@@ -25694,6 +27128,7 @@ window.MVQuizBank = {
               "$S^1$ is not Hausdorff"
             ],
             "answer": 1,
+            "hint": "$(0,1)$ has the cut-point property: removing any interior point disconnects it.",
             "explain": "$(0,1)$ has the cut-point property: removing any interior point disconnects it. $S^1\\setminus\\{p\\}$ is a connected arc. Since homeomorphisms preserve connectedness and bijections, no homeomorphism can match cut points to non-cut points."
           }
         ],
@@ -25744,6 +27179,7 @@ window.MVQuizBank = {
               "closed and bounded"
             ],
             "answer": 3,
+            "hint": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded.",
             "explain": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded. Warning — this equivalence is specific to $\\mathbb{R}^n$. In infinite-dimensional Banach spaces the closed unit ball is bounded and closed but not compact."
           },
           {
@@ -25756,6 +27192,7 @@ window.MVQuizBank = {
               "$\\mathbb{Q}\\cap[0,1]$"
             ],
             "answer": 2,
+            "hint": "$\\{0\\}\\cup\\{1/n\\}$ is closed (contains its limit point $0$) and bounded, hence compact.",
             "explain": "$\\{0\\}\\cup\\{1/n\\}$ is closed (contains its limit point $0$) and bounded, hence compact. $(0,1)$ is not closed, $[0,\\infty)$ is not bounded, $\\mathbb{Q}\\cap[0,1]$ is not closed in $\\mathbb{R}$."
           },
           {
@@ -25768,6 +27205,7 @@ window.MVQuizBank = {
               "$f$ is necessarily injective"
             ],
             "answer": 3,
+            "hint": "The constant function is continuous on any $K$ and is far from injective.",
             "explain": "The constant function is continuous on any $K$ and is far from injective. The other three are standard consequences of compactness: extreme value theorem, continuous image of compact is compact, Heine–Cantor."
           }
         ],
@@ -25818,6 +27256,7 @@ window.MVQuizBank = {
               "any convex subset of $\\mathbb{R}^n$"
             ],
             "answer": 1,
+            "hint": "$[0,1]\\cup[2,3]$ is disconnected: take $U=(-1,1.5)$, $V=(1.5,4)$; both hit the subspace in disjoint nonempty opens.",
             "explain": "$[0,1]\\cup[2,3]$ is disconnected: take $U=(-1,1.5)$, $V=(1.5,4)$; both hit the subspace in disjoint nonempty opens. The other three are connected — intervals and convex sets are path-connected, and path-connected implies connected."
           },
           {
@@ -25830,6 +27269,7 @@ window.MVQuizBank = {
               "neither connected nor path-connected"
             ],
             "answer": 1,
+            "hint": "$T$ is the closure of a connected set (the graph), so it is connected.",
             "explain": "$T$ is the closure of a connected set (the graph), so it is connected. But any continuous path from the limit segment to the graph would have to traverse infinitely many oscillations in finite time, which fails to exist. Hence connected but not path-connected."
           },
           {
@@ -25842,6 +27282,7 @@ window.MVQuizBank = {
               "a single point"
             ],
             "answer": 1,
+            "hint": "Continuous images of connected sets are connected; the connected subsets of $\\mathbb{R}$ are exactly the intervals (possibly unbounded, possibly degenerate).",
             "explain": "Continuous images of connected sets are connected; the connected subsets of $\\mathbb{R}$ are exactly the intervals (possibly unbounded, possibly degenerate). This is the abstract form of the intermediate value theorem."
           }
         ],
@@ -25892,6 +27333,7 @@ window.MVQuizBank = {
               "every open cover has a finite subcover"
             ],
             "answer": 1,
+            "hint": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens.",
             "explain": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens. Option (a) is $T_1$, option (c) is normality ($T_4$), option (d) is compactness."
           },
           {
@@ -25904,6 +27346,7 @@ window.MVQuizBank = {
               "any discrete space"
             ],
             "answer": 2,
+            "hint": "The cofinite topology on $\\mathbb{R}$: every singleton is closed (hence $T_1$), but any two nonempty opens have finite complements, so they must intersect — failing Hausdorff.",
             "explain": "The cofinite topology on $\\mathbb{R}$: every singleton is closed (hence $T_1$), but any two nonempty opens have finite complements, so they must intersect — failing Hausdorff. Sierpiński is $T_0$ but not even $T_1$."
           },
           {
@@ -25916,6 +27359,7 @@ window.MVQuizBank = {
               "$T_0$ and separable"
             ],
             "answer": 1,
+            "hint": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable.",
             "explain": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable. The converse (metric $\\Rightarrow$ regular Hausdorff) holds but metric spaces need not be second-countable in general — second-countability is the bite here."
           }
         ],
@@ -25976,6 +27420,7 @@ window.MVQuizBank = {
               "$2m$"
             ],
             "answer": 2,
+            "hint": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$).",
             "explain": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$)."
           },
           {
@@ -25983,6 +27428,7 @@ window.MVQuizBank = {
             "q": "Compute $\\sum_{k=1}^{10} k^2 = \\tfrac{n(n+1)(2n+1)}{6}$ at $n=10$.",
             "answer": 385,
             "tol": 0.000001,
+            "hint": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$.",
             "explain": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$."
           },
           {
@@ -25990,6 +27436,7 @@ window.MVQuizBank = {
             "q": "Using Faulhaber, $\\sum_{k=1}^{n} k^3 = \\left(\\tfrac{n(n+1)}{2}\\right)^2$. What is its value at $n=5$?",
             "answer": 225,
             "tol": 0.000001,
+            "hint": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$.",
             "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
           },
           {
@@ -26080,6 +27527,7 @@ window.MVQuizBank = {
               "$B_n$ is always an integer"
             ],
             "answer": 1,
+            "hint": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$.",
             "explain": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$."
           },
           {
@@ -26087,6 +27535,7 @@ window.MVQuizBank = {
             "q": "What is $B_2$ in the convention $B_1=-\\tfrac12$?",
             "answer": 0.16666666666666666,
             "tol": 0.0001,
+            "hint": "$B_2=1/6$.",
             "explain": "$B_2=1/6$. The low table is $B_0=1$, $B_1=-1/2$, $B_2=1/6$, $B_4=-1/30$, $B_6=1/42$."
           },
           {
@@ -26094,6 +27543,7 @@ window.MVQuizBank = {
             "q": "What is $B_4$?",
             "answer": -0.03333333333333333,
             "tol": 0.0001,
+            "hint": "$B_4=-1/30\\approx -0.0333$.",
             "explain": "$B_4=-1/30\\approx -0.0333$. Even Bernoulli numbers alternate in sign."
           }
         ],
@@ -26147,6 +27597,7 @@ window.MVQuizBank = {
               "$\\pi^2/90$"
             ],
             "answer": 1,
+            "hint": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$.",
             "explain": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$."
           },
           {
@@ -26154,6 +27605,7 @@ window.MVQuizBank = {
             "q": "Using $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_2=1/6$, compute $\\zeta(-1)$.",
             "answer": -0.08333333333333333,
             "tol": 0.0001,
+            "hint": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$.",
             "explain": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$. This is the regularised value behind the infamous $1+2+3+\\cdots\\mapsto -1/12$."
           },
           {
@@ -26161,6 +27613,7 @@ window.MVQuizBank = {
             "q": "Compute $\\zeta(4)=\\pi^4/90$ to four decimals.",
             "answer": 1.0823,
             "tol": 0.0005,
+            "hint": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$.",
             "explain": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$."
           }
         ],
@@ -26214,6 +27667,7 @@ window.MVQuizBank = {
               "Factorials only"
             ],
             "answer": 1,
+            "hint": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term.",
             "explain": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term."
           },
           {
@@ -26221,6 +27675,7 @@ window.MVQuizBank = {
             "q": "Apply Euler-Maclaurin with $f(x)=x$, $a=1$, $b=n$. The integral gives $\\tfrac{n^2-1}{2}$ and the endpoint term gives $\\tfrac{n+1}{2}$, so $\\sum_{k=1}^{n} k=\\tfrac{n(n+1)}{2}$. Compute this at $n=20$.",
             "answer": 210,
             "tol": 0.000001,
+            "hint": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$.",
             "explain": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$."
           },
           {
@@ -26228,6 +27683,7 @@ window.MVQuizBank = {
             "q": "For the harmonic partial sum $H_n=\\sum_{k=1}^{n}\\tfrac1k$, the Euler-Maclaurin expansion gives $H_n\\approx \\ln n + \\gamma + \\tfrac{1}{2n}-\\tfrac{1}{12 n^2}+\\cdots$. With $\\gamma\\approx 0.5772$, estimate $H_{10}$ to three decimals.",
             "answer": 2.929,
             "tol": 0.005,
+            "hint": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$.",
             "explain": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$."
           }
         ],
@@ -26281,6 +27737,7 @@ window.MVQuizBank = {
               "$\\xi(s)=\\zeta(s)$"
             ],
             "answer": 1,
+            "hint": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$.",
             "explain": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$."
           },
           {
@@ -26288,6 +27745,7 @@ window.MVQuizBank = {
             "q": "Using $\\zeta(-1)=-B_2/2=-1/12$ and the reflection $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$, confirm the left-hand side. What is $-1/12$ as a decimal (4 dp)?",
             "answer": -0.0833,
             "tol": 0.0005,
+            "hint": "$-1/12\\approx -0.0833$.",
             "explain": "$-1/12\\approx -0.0833$. Plugging $s=2$ on the right gives $2(2\\pi)^{-2}\\cos(\\pi)\\Gamma(2)\\zeta(2)=-\\pi^2/(2\\pi^2)\\cdot \\pi^2/6\\cdot (6/\\pi^2)\\cdot(-1)$... the Bernoulli book-keeping collapses to $-1/12$."
           },
           {
@@ -26295,6 +27753,7 @@ window.MVQuizBank = {
             "q": "At the trivial zero $s=-2$, $\\zeta(-2)=-B_3/3$. Since $B_3=0$, what value do you get?",
             "answer": 0,
             "tol": 1e-9,
+            "hint": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$.",
             "explain": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$. These are the *trivial* zeros on the real axis."
           }
         ],
@@ -26353,6 +27812,7 @@ window.MVQuizBank = {
               "$X = 7$ with probability at least $1/2$"
             ],
             "answer": 1,
+            "hint": "If every sample point had $X \\le 7$ then $\\mathbb{E}[X] \\le 7 < 7.3$.",
             "explain": "If every sample point had $X \\le 7$ then $\\mathbb{E}[X] \\le 7 < 7.3$. So at least one sample point gives $X \\ge 8$. Nothing is implied about variance or about the distribution of $X$ on other points."
           },
           {
@@ -26360,6 +27820,7 @@ window.MVQuizBank = {
             "q": "Random tournament on $n=6$ vertices: orient each of the $\\binom{6}{2}=15$ edges by an independent fair coin. What is the expected number of Hamilton paths?",
             "answer": 22.5,
             "tol": 0.01,
+            "hint": "There are $6! = 720$ permutations.",
             "explain": "There are $6! = 720$ permutations. For each, the probability all $5$ consecutive edges agree with the permutation's direction is $2^{-5} = 1/32$. Linearity gives $\\mathbb{E}[X] = 720/32 = 22.5$. The existence principle then forces some tournament on $6$ vertices to have $\\ge 23$ Hamilton paths."
           },
           {
@@ -26375,6 +27836,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "Items 1 and 3 are direct existence-by-expectation/union-bound statements.",
             "explain": "Items 1 and 3 are direct existence-by-expectation/union-bound statements. Item 2 is wrong — the existence principle never says \\emph{every} object has the property, only that one does. Item 4 misreads existence as constructiveness; the probabilistic method gives no algorithm by itself."
           }
         ]
@@ -26392,6 +27854,7 @@ window.MVQuizBank = {
               "$1/k!$"
             ],
             "answer": 1,
+            "hint": "$S$ has $\\binom{k}{2}$ edges; the probability they all match a chosen colour is $2^{-\\binom{k}{2}}$, and there are $2$ colour choices.",
             "explain": "$S$ has $\\binom{k}{2}$ edges; the probability they all match a chosen colour is $2^{-\\binom{k}{2}}$, and there are $2$ colour choices. So $\\mathbb{P}(S\\text{ monochromatic}) = 2 \\cdot 2^{-\\binom{k}{2}} = 2^{1-\\binom{k}{2}}$."
           },
           {
@@ -26404,6 +27867,7 @@ window.MVQuizBank = {
               "It's the same as $n < 2^{k/2}$ by the central limit theorem"
             ],
             "answer": 1,
+            "hint": "$\\mathbb{E}[\\#\\text{mono }K_k] = \\binom{n}{k}\\,2^{1-\\binom{k}{2}}$ by linearity.",
             "explain": "$\\mathbb{E}[\\#\\text{mono }K_k] = \\binom{n}{k}\\,2^{1-\\binom{k}{2}}$ by linearity. If this is $<1$ the count is integer-valued with mean $<1$, so it equals $0$ on a positive-probability event. Such a colouring witnesses $R(k,k) > n$."
           },
           {
@@ -26411,6 +27875,7 @@ window.MVQuizBank = {
             "q": "Plug $k=4$, $n=8$ into Erdős's union bound: compute $\\binom{8}{4}\\,2^{1-\\binom{4}{2}}$.",
             "answer": 2.1875,
             "tol": 0.001,
+            "hint": "$\\binom{8}{4}=70$ and $2^{1-6}=2^{-5}=1/32$, so the bound is $70/32 = 2.1875$.",
             "explain": "$\\binom{8}{4}=70$ and $2^{1-6}=2^{-5}=1/32$, so the bound is $70/32 = 2.1875$. Since this exceeds $1$, Erdős's argument is inconclusive at $(n,k)=(8,4)$ — and indeed $R(4,4)=18$, far above $8$. Trying larger $n$ inflates $\\binom{n}{4}$ further, so the union bound $R(k,k) > 2^{k/2}$ only kicks in for moderately large $k$."
           }
         ]
@@ -26428,6 +27893,7 @@ window.MVQuizBank = {
               "Only that each $X_i$ is integrable"
             ],
             "answer": 3,
+            "hint": "Linearity of $\\mathbb{E}$ holds for any integrable random variables — independence is irrelevant.",
             "explain": "Linearity of $\\mathbb{E}$ holds for any integrable random variables — independence is irrelevant. Independence is needed for $\\mathbb{E}[XY]=\\mathbb{E}[X]\\mathbb{E}[Y]$ and for variance to add."
           },
           {
@@ -26435,6 +27901,7 @@ window.MVQuizBank = {
             "q": "In $G(n,1/2)$ with $n=10$, what is the expected number of independent sets of size exactly $k=4$?",
             "answer": 3.28125,
             "tol": 0.001,
+            "hint": "$\\mathbb{E}[\\#\\{4\\text{-indep sets}\\}] = \\binom{10}{4}\\cdot 2^{-\\binom{4}{2}} = 210 \\cdot 2^{-6} = 210/64 = 3.28125$ — the count is non-zero in expectation, so the first-moment method is inconclusive…",
             "explain": "$\\mathbb{E}[\\#\\{4\\text{-indep sets}\\}] = \\binom{10}{4}\\cdot 2^{-\\binom{4}{2}} = 210 \\cdot 2^{-6} = 210/64 = 3.28125$ — the count is non-zero in expectation, so the first-moment method is inconclusive at this $k$. Pushing $k$ up to $\\lceil 2\\log_2 10\\rceil = 7$ drives the expectation below $1$."
           },
           {
@@ -26450,6 +27917,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "Linearity holds with no independence — item 1 is correct, item 2 is the trap.",
             "explain": "Linearity holds with no independence — item 1 is correct, item 2 is the trap. Item 3 is the first-moment principle. Item 4 confuses mean with deterministic value; the variable can fluctuate around $5$."
           }
         ]
@@ -26467,6 +27935,7 @@ window.MVQuizBank = {
               "Use the Lovász Local Lemma to skip defects"
             ],
             "answer": 1,
+            "hint": "The alteration method weakens the requirement that the random object outright satisfy property $P$ — instead it tolerates $\\beta$ expected defects, then surgically removes one element per defect.",
             "explain": "The alteration method weakens the requirement that the random object outright satisfy property $P$ — instead it tolerates $\\beta$ expected defects, then surgically removes one element per defect. The cost is $\\beta$ in size; the gain is being able to use much denser random objects."
           },
           {
@@ -26479,6 +27948,7 @@ window.MVQuizBank = {
               "The vertex set is enlarged to absorb defects"
             ],
             "answer": 0,
+            "hint": "Sample $G\\sim G(n,p)$ with $p = n^{\\theta-1}$, count short cycles in expectation, then delete one vertex per short cycle.",
             "explain": "Sample $G\\sim G(n,p)$ with $p = n^{\\theta-1}$, count short cycles in expectation, then delete one vertex per short cycle. The remaining graph has girth $\\ge g$ and the independence number is unchanged or smaller (deletion is monotone), preserving the chromatic-number lower bound."
           },
           {
@@ -26494,6 +27964,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "The deletion method is non-constructive (item 2): you know an object exists, but the proof gives no efficient construction.",
             "explain": "The deletion method is non-constructive (item 2): you know an object exists, but the proof gives no efficient construction. It often beats the basic method (item 3) because it works with denser/looser random objects. It is not equivalent to the LLL (item 4) — LLL handles many overlapping bad events without alteration; alteration handles few isolated ones."
           }
         ]
@@ -26511,6 +27982,7 @@ window.MVQuizBank = {
               "$p \\le 1/2$"
             ],
             "answer": 2,
+            "hint": "The symmetric LLL hypothesis is $e\\,p\\,(d+1)\\le 1$, where $e$ is Euler's constant.",
             "explain": "The symmetric LLL hypothesis is $e\\,p\\,(d+1)\\le 1$, where $e$ is Euler's constant. The factor of $e$ comes from the inductive proof's geometric sum bound."
           },
           {
@@ -26523,6 +27995,7 @@ window.MVQuizBank = {
               "The LLL requires the $A_i$ to be mutually independent"
             ],
             "answer": 1,
+            "hint": "The union bound demands $\\sum \\mathbb{P}(A_i) = m\\,2^{-k} < 1$, useless for large $m$.",
             "explain": "The union bound demands $\\sum \\mathbb{P}(A_i) = m\\,2^{-k} < 1$, useless for large $m$. The LLL trades the global sum for a local degree: dependence (sharing a variable) of bounded degree suffices. This is what makes LLL the right tool when bad events are sparse but not few."
           },
           {
@@ -26530,6 +28003,7 @@ window.MVQuizBank = {
             "q": "In $4$-SAT, the LLL guarantees satisfiability whenever each variable appears in at most $2^k/(ek)$ clauses with $k=4$. To the nearest integer, what is this threshold?",
             "answer": 1,
             "tol": 0,
+            "hint": "$2^4/(e\\cdot 4) = 16/(4e) = 4/e \\approx 1.47$.",
             "explain": "$2^4/(e\\cdot 4) = 16/(4e) = 4/e \\approx 1.47$. Rounded down (the integer floor of the threshold), the LLL covers each variable appearing in at most $1$ clause — a weak bound at $k=4$, but the threshold $2^k/(ek)$ grows exponentially in $k$, dominating the union bound for moderate $k$."
           }
         ]
@@ -26547,6 +28021,7 @@ window.MVQuizBank = {
               "$p = 1/\\sqrt n$"
             ],
             "answer": 1,
+            "hint": "$\\mathbb{E}[X_T] = \\binom{n}{3} p^3 \\sim n^3 p^3 / 6$.",
             "explain": "$\\mathbb{E}[X_T] = \\binom{n}{3} p^3 \\sim n^3 p^3 / 6$. This stays bounded iff $p = \\Theta(1/n)$. For $p \\ll 1/n$ the first moment vanishes and there are no triangles a.a.s.; for $p \\gg 1/n$ the second moment shows triangles exist a.a.s."
           },
           {
@@ -26559,6 +28034,7 @@ window.MVQuizBank = {
               "$X$ is independent of itself"
             ],
             "answer": 1,
+            "hint": "Chebyshev's inequality gives $\\mathbb{P}(X = 0)\\le \\mathbb{P}(|X-\\mathbb{E}[X]|\\ge\\mathbb{E}[X]) \\le \\operatorname{Var}(X)/\\mathbb{E}[X]^2$.",
             "explain": "Chebyshev's inequality gives $\\mathbb{P}(X = 0)\\le \\mathbb{P}(|X-\\mathbb{E}[X]|\\ge\\mathbb{E}[X]) \\le \\operatorname{Var}(X)/\\mathbb{E}[X]^2$. So the variance must be $o(\\mathbb{E}[X]^2)$ on top of $\\mathbb{E}[X]\\to\\infty$ for this to vanish."
           },
           {
@@ -26575,6 +28051,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "Items 1, 2, 3 are foundational facts of Erdős–Rényi.",
             "explain": "Items 1, 2, 3 are foundational facts of Erdős–Rényi. Item 4 is wrong — connectivity ($\\log n/n$), triangle-containment ($1/n$), and Hamiltonicity ($\\log n/n$) all have different thresholds; the threshold depends on the property."
           }
         ]
@@ -26592,6 +28069,7 @@ window.MVQuizBank = {
               "$X$ is integer-valued"
             ],
             "answer": 1,
+            "hint": "Markov's inequality is for non-negative $X$ — it is the most elementary tail bound and the foundation for Chebyshev (apply Markov to $(X-\\mu)^2$) and Chernoff (apply Markov to $e^{tX}$).",
             "explain": "Markov's inequality is for non-negative $X$ — it is the most elementary tail bound and the foundation for Chebyshev (apply Markov to $(X-\\mu)^2$) and Chernoff (apply Markov to $e^{tX}$)."
           },
           {
@@ -26604,6 +28082,7 @@ window.MVQuizBank = {
               "$\\mathbb{P}(S_n = \\mathbb{E}S_n) = 1$"
             ],
             "answer": 1,
+            "hint": "Hoeffding: independent bounded variables have a sub-Gaussian tail.",
             "explain": "Hoeffding: independent bounded variables have a sub-Gaussian tail. Item 1 is Chebyshev (polynomial decay), item 3 is Markov, item 4 is the law of large numbers as a single point — all weaker than Hoeffding's exponential bound."
           },
           {
@@ -26616,6 +28095,7 @@ window.MVQuizBank = {
               "Because Hoeffding's constants are always $1$"
             ],
             "answer": 1,
+            "hint": "Adding a single vertex to an existing optimal colouring needs at most one extra colour, so $\\chi$ changes by $\\le 1$.",
             "explain": "Adding a single vertex to an existing optimal colouring needs at most one extra colour, so $\\chi$ changes by $\\le 1$. The Doob/exposure martingale of $\\chi$ conditional on revealed edges thus has $|c_i| \\le 1$, and Azuma gives $\\mathbb{P}(|\\chi - \\mathbb{E}\\chi| \\ge t) \\le 2e^{-t^2/(2n)}$."
           }
         ]
@@ -26638,6 +28118,7 @@ window.MVQuizBank = {
               "$\\mathbb{P}(A)>0$ for every $A\\in\\mathcal{F}\\setminus\\{\\varnothing\\}$"
             ],
             "answer": 3,
+            "hint": "A probability measure may assign $0$ to non-empty events; e.g.",
             "explain": "A probability measure may assign $0$ to non-empty events; e.g. $\\mathbb{P}(\\{x\\})=0$ for every singleton under Lebesgue measure on $[0,1]$. The first three are the defining axioms."
           },
           {
@@ -26645,6 +28126,7 @@ window.MVQuizBank = {
             "q": "Let $\\mathbb{P}$ be the uniform law on $\\Omega=\\{1,\\ldots,10\\}$. Compute $\\mathbb{P}(\\{\\text{odd}\\}\\cup\\{\\text{prime}\\})$ where prime = $\\{2,3,5,7\\}$.",
             "answer": 0.6,
             "tol": 0.000001,
+            "hint": "Odd $=\\{1,3,5,7,9\\}$; prime $=\\{2,3,5,7\\}$; union $=\\{1,2,3,5,7,9\\}$, size $6$, probability $6/10=0.6$.",
             "explain": "Odd $=\\{1,3,5,7,9\\}$; prime $=\\{2,3,5,7\\}$; union $=\\{1,2,3,5,7,9\\}$, size $6$, probability $6/10=0.6$."
           },
           {
@@ -26661,6 +28143,7 @@ window.MVQuizBank = {
               1,
               3
             ],
+            "hint": "Option 2 fails: $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is not included, so the collection is not closed under unions.",
             "explain": "Option 2 fails: $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is not included, so the collection is not closed under unions. The other three are all valid $\\sigma$-algebras."
           }
         ],
@@ -26701,6 +28184,7 @@ window.MVQuizBank = {
               "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(B\\mid A)$"
             ],
             "answer": 1,
+            "hint": "Independence is exactly the product-factorization $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$, which is equivalent to $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A)$ when $\\mathbb{P}(B)>0$.",
             "explain": "Independence is exactly the product-factorization $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$, which is equivalent to $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A)$ when $\\mathbb{P}(B)>0$."
           },
           {
@@ -26708,6 +28192,7 @@ window.MVQuizBank = {
             "q": "A test detects a disease with $99\\%$ sensitivity and $95\\%$ specificity. Prior prevalence is $1\\%$. Given a positive test, what is the posterior probability of disease? Report to 3 decimals.",
             "answer": 0.167,
             "tol": 0.005,
+            "hint": "By Bayes: $\\mathbb{P}(D\\mid+)=\\frac{0.99\\cdot 0.01}{0.99\\cdot 0.01+0.05\\cdot 0.99}=\\frac{0.0099}{0.0099+0.0495}\\approx 0.1667$.",
             "explain": "By Bayes: $\\mathbb{P}(D\\mid+)=\\frac{0.99\\cdot 0.01}{0.99\\cdot 0.01+0.05\\cdot 0.99}=\\frac{0.0099}{0.0099+0.0495}\\approx 0.1667$."
           },
           {
@@ -26728,6 +28213,7 @@ window.MVQuizBank = {
               0,
               2
             ],
+            "hint": "Law of total probability is the partition sum; Bayes flips conditioning; independence is the product rule.",
             "explain": "Law of total probability is the partition sum; Bayes flips conditioning; independence is the product rule."
           }
         ],
@@ -26768,6 +28254,7 @@ window.MVQuizBank = {
               "invertible"
             ],
             "answer": 2,
+            "hint": "By definition, a random variable is a measurable function into $(\\mathbb{R},\\mathcal{B}(\\mathbb{R}))$; continuity, boundedness, and invertibility are extra hypotheses not required.",
             "explain": "By definition, a random variable is a measurable function into $(\\mathbb{R},\\mathcal{B}(\\mathbb{R}))$; continuity, boundedness, and invertibility are extra hypotheses not required."
           },
           {
@@ -26775,6 +28262,7 @@ window.MVQuizBank = {
             "q": "Let $X$ be Bernoulli with $\\mathbb{P}(X=1)=0.3$. What is $\\mathbb{P}_X(\\{1\\})$, the push-forward measure of the singleton?",
             "answer": 0.3,
             "tol": 0.000001,
+            "hint": "The law is $\\mathbb{P}_X(B)=\\mathbb{P}(X\\in B)$, so $\\mathbb{P}_X(\\{1\\})=\\mathbb{P}(X=1)=0.3$.",
             "explain": "The law is $\\mathbb{P}_X(B)=\\mathbb{P}(X\\in B)$, so $\\mathbb{P}_X(\\{1\\})=\\mathbb{P}(X=1)=0.3$."
           },
           {
@@ -26787,6 +28275,7 @@ window.MVQuizBank = {
               "Neither — measurability fails under arithmetic"
             ],
             "answer": 0,
+            "hint": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in…",
             "explain": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in fact continuous)."
           }
         ],
@@ -26827,6 +28316,7 @@ window.MVQuizBank = {
               "$f(x)=\\lambda e^{-\\lambda x}$ for $x>0$"
             ],
             "answer": 1,
+            "hint": "Poisson PMF is $e^{-\\lambda}\\lambda^k/k!$ on the non-negative integers; choice 0 is binomial, choice 3 is exponential (PDF, not PMF).",
             "explain": "Poisson PMF is $e^{-\\lambda}\\lambda^k/k!$ on the non-negative integers; choice 0 is binomial, choice 3 is exponential (PDF, not PMF)."
           },
           {
@@ -26834,6 +28324,7 @@ window.MVQuizBank = {
             "q": "For $X\\sim\\text{Exp}(\\lambda=2)$, compute $\\mathbb{P}(X>1)$.",
             "answer": 0.1353,
             "tol": 0.005,
+            "hint": "Exponential tail: $\\mathbb{P}(X>t)=e^{-\\lambda t}=e^{-2}\\approx 0.1353$.",
             "explain": "Exponential tail: $\\mathbb{P}(X>t)=e^{-\\lambda t}=e^{-2}\\approx 0.1353$."
           },
           {
@@ -26857,6 +28348,7 @@ window.MVQuizBank = {
               2,
               3
             ],
+            "hint": "Binomial is supported on $\\{0,\\ldots,n\\}$; Poisson on non-negative integers; Exponential on $[0,\\infty)$; Gaussian on $\\mathbb{R}$.",
             "explain": "Binomial is supported on $\\{0,\\ldots,n\\}$; Poisson on non-negative integers; Exponential on $[0,\\infty)$; Gaussian on $\\mathbb{R}$."
           }
         ],
@@ -26905,6 +28397,7 @@ window.MVQuizBank = {
               "the Stieltjes integral only"
             ],
             "answer": 1,
+            "hint": "Expectation is defined as the Lebesgue integral of $X$ against the probability measure $\\mathbb{P}$; finite by definition when $X\\in L^1(\\Omega,\\mathcal{F},\\mathbb{P})$.",
             "explain": "Expectation is defined as the Lebesgue integral of $X$ against the probability measure $\\mathbb{P}$; finite by definition when $X\\in L^1(\\Omega,\\mathcal{F},\\mathbb{P})$."
           },
           {
@@ -26912,6 +28405,7 @@ window.MVQuizBank = {
             "q": "Let $X$ be uniform on $\\{1,2,3,4,5,6\\}$. Compute $\\mathbb{E}[X^2]$.",
             "answer": 15.1667,
             "tol": 0.01,
+            "hint": "$\\mathbb{E}[X^2]=(1+4+9+16+25+36)/6=91/6\\approx 15.1667$.",
             "explain": "$\\mathbb{E}[X^2]=(1+4+9+16+25+36)/6=91/6\\approx 15.1667$."
           },
           {
@@ -26919,6 +28413,7 @@ window.MVQuizBank = {
             "q": "For $X$ with $\\mathbb{E}[X]=2$ and $\\mathbb{E}[X^2]=5$, compute $\\text{Var}(X)$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Variance shortcut: $\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2=5-4=1$.",
             "explain": "Variance shortcut: $\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2=5-4=1$."
           }
         ],
@@ -26991,6 +28486,7 @@ window.MVQuizBank = {
               "$F_X(x)=\\mathbb{P}(X\\le x)$"
             ],
             "answer": 0,
+            "hint": "$\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ is the characteristic function.",
             "explain": "$\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ is the characteristic function. The others are the MGF, the PGF, and the CDF, respectively."
           },
           {
@@ -26998,6 +28494,7 @@ window.MVQuizBank = {
             "q": "For $X\\sim\\mathcal{N}(0,1)$, compute $M_X(1)=\\mathbb{E}[e^{X}]$ to 4 decimals.",
             "answer": 1.6487,
             "tol": 0.005,
+            "hint": "Gaussian MGF: $M_X(t)=e^{t^2/2}$, so $M_X(1)=e^{1/2}\\approx 1.6487$.",
             "explain": "Gaussian MGF: $M_X(t)=e^{t^2/2}$, so $M_X(1)=e^{1/2}\\approx 1.6487$."
           },
           {
@@ -27008,6 +28505,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.01,
+            "hint": "Gaussian characteristic function: $\\varphi_X(t)=e^{-t^2/2}$, so $\\varphi_X(1)=e^{-1/2}\\approx 0.6065$ (real).",
             "explain": "Gaussian characteristic function: $\\varphi_X(t)=e^{-t^2/2}$, so $\\varphi_X(1)=e^{-1/2}\\approx 0.6065$ (real)."
           }
         ],
@@ -27068,6 +28566,7 @@ window.MVQuizBank = {
               "$X_n\\xrightarrow{L^1}X$ implies $X_n\\xrightarrow{a.s.}X$"
             ],
             "answer": 1,
+            "hint": "a.s.",
             "explain": "a.s. implies in-probability by a standard subsequence argument. The reverse implications fail: in-probability doesn't give a.s. (typewriter sequence), and convergence in distribution is weakest."
           },
           {
@@ -27075,6 +28574,7 @@ window.MVQuizBank = {
             "q": "Let $X_n=n\\cdot\\mathbf{1}_{A_n}$ where $\\mathbb{P}(A_n)=1/n^2$. Does $X_n\\to 0$ almost surely? Report $1$ for yes, $0$ for no.",
             "answer": 1,
             "tol": 0.01,
+            "hint": "By Borel-Cantelli, $\\sum\\mathbb{P}(A_n)=\\sum 1/n^2<\\infty$, so $\\mathbb{P}(A_n\\text{ i.o.})=0$.",
             "explain": "By Borel-Cantelli, $\\sum\\mathbb{P}(A_n)=\\sum 1/n^2<\\infty$, so $\\mathbb{P}(A_n\\text{ i.o.})=0$. Thus $X_n=0$ for all sufficiently large $n$ a.s., so $X_n\\to 0$ a.s."
           },
           {
@@ -27090,6 +28590,7 @@ window.MVQuizBank = {
               2,
               0
             ],
+            "hint": "a.s.",
             "explain": "a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist. The chain is strict: each reverse implication fails in general."
           }
         ],
@@ -27153,6 +28654,7 @@ window.MVQuizBank = {
               "uniformly"
             ],
             "answer": 2,
+            "hint": "WLLN concludes convergence in probability; SLLN (Kolmogorov) strengthens this to a.s.\\ convergence, and requires only $\\mathbb{E}|X_1|<\\infty$.",
             "explain": "WLLN concludes convergence in probability; SLLN (Kolmogorov) strengthens this to a.s.\\ convergence, and requires only $\\mathbb{E}|X_1|<\\infty$."
           },
           {
@@ -27160,6 +28662,7 @@ window.MVQuizBank = {
             "q": "Flip a fair coin $10{,}000$ times. By LLN, the sample mean of indicators is approximately $0.5$. What does Chebyshev's inequality bound $\\mathbb{P}(|\\bar X-0.5|\\ge 0.05)$ by?",
             "answer": 0.01,
             "tol": 0.001,
+            "hint": "$\\text{Var}(\\bar X)=0.25/10000=2.5\\times 10^{-5}$.",
             "explain": "$\\text{Var}(\\bar X)=0.25/10000=2.5\\times 10^{-5}$. Chebyshev: $\\mathbb{P}(|\\bar X-\\mu|\\ge 0.05)\\le\\sigma^2/(\\epsilon^2)=2.5\\times 10^{-5}/0.0025=0.01$."
           },
           {
@@ -27172,6 +28675,7 @@ window.MVQuizBank = {
               "a finite moment-generating function"
             ],
             "answer": 1,
+            "hint": "Kolmogorov's SLLN requires only that $X_1,X_2,\\ldots$ are i.i.d.\\ and $\\mathbb{E}|X_1|<\\infty$; integrability suffices.",
             "explain": "Kolmogorov's SLLN requires only that $X_1,X_2,\\ldots$ are i.i.d.\\ and $\\mathbb{E}|X_1|<\\infty$; integrability suffices. Finite variance is enough but not necessary."
           }
         ],
@@ -27245,6 +28749,7 @@ window.MVQuizBank = {
               "uniformly to $\\mathcal{N}(0,1)$"
             ],
             "answer": 2,
+            "hint": "The CLT gives convergence in distribution, not almost-sure or in probability.",
             "explain": "The CLT gives convergence in distribution, not almost-sure or in probability. Almost-sure convergence to a non-degenerate Gaussian would be paradoxical — the sample mean does not converge a.s.\\ to a random limit."
           },
           {
@@ -27252,6 +28757,7 @@ window.MVQuizBank = {
             "q": "For $S_{100}=\\sum_{i=1}^{100}X_i$ with $X_i$ i.i.d.\\ Bernoulli$(0.5)$, approximate $\\mathbb{P}(S_{100}\\ge 60)$ using the Gaussian approximation. Report to 3 decimals.",
             "answer": 0.023,
             "tol": 0.01,
+            "hint": "$\\mathbb{E}[S_{100}]=50$, $\\text{Var}(S_{100})=25$.",
             "explain": "$\\mathbb{E}[S_{100}]=50$, $\\text{Var}(S_{100})=25$. $Z=(60-50)/5=2$. $\\mathbb{P}(Z\\ge 2)\\approx 0.0228$."
           },
           {
@@ -27264,6 +28770,7 @@ window.MVQuizBank = {
               "The Berry-Esseen quantitative CLT"
             ],
             "answer": 1,
+            "hint": "When $\\text{Var}(X_i)=\\infty$ but tails are regularly varying, suitably normalized sums converge to a non-Gaussian stable distribution.",
             "explain": "When $\\text{Var}(X_i)=\\infty$ but tails are regularly varying, suitably normalized sums converge to a non-Gaussian stable distribution. Lindeberg, Lyapunov, and Berry-Esseen all require finite variance."
           }
         ],
@@ -27337,6 +28844,7 @@ window.MVQuizBank = {
               "The expectation $\\mathbb{E}[X_{n+1}]=\\mathbb{E}[X_n]$"
             ],
             "answer": 0,
+            "hint": "Markov property: the future depends on the past only through the present.",
             "explain": "Markov property: the future depends on the past only through the present. Independence of present from past (choice 1) is too strong; choice 2 is independence of future from present."
           },
           {
@@ -27344,6 +28852,7 @@ window.MVQuizBank = {
             "q": "A two-state chain with transition matrix $P=\\begin{pmatrix}0.7&0.3\\\\0.4&0.6\\end{pmatrix}$ has stationary distribution $\\pi$ with $\\pi P=\\pi$. What is $\\pi_1$ (mass on state 1)?",
             "answer": 0.5714,
             "tol": 0.005,
+            "hint": "Solve $0.7\\pi_1+0.4(1-\\pi_1)=\\pi_1$, giving $0.4=0.7\\pi_1$, so $\\pi_1=4/7\\approx 0.5714$.",
             "explain": "Solve $0.7\\pi_1+0.4(1-\\pi_1)=\\pi_1$, giving $0.4=0.7\\pi_1$, so $\\pi_1=4/7\\approx 0.5714$. Check: $\\pi_2=3/7$."
           },
           {
@@ -27356,6 +28865,7 @@ window.MVQuizBank = {
               "$\\pi$ is the uniform distribution"
             ],
             "answer": 1,
+            "hint": "For finite-state irreducible aperiodic chains, $P^n\\to\\Pi$ with $\\Pi_{ij}=\\pi_j$ (every starting state converges to $\\pi$).",
             "explain": "For finite-state irreducible aperiodic chains, $P^n\\to\\Pi$ with $\\Pi_{ij}=\\pi_j$ (every starting state converges to $\\pi$). This is the ergodic theorem for Markov chains."
           }
         ],
@@ -27411,6 +28921,7 @@ window.MVQuizBank = {
               "$\\text{Var}(M_n)$ is constant"
             ],
             "answer": 0,
+            "hint": "Martingale definition: adapted, $L^1$, and the conditional expectation of the future given the past equals the present.",
             "explain": "Martingale definition: adapted, $L^1$, and the conditional expectation of the future given the past equals the present. This captures 'fair game' gambling intuition."
           },
           {
@@ -27418,6 +28929,7 @@ window.MVQuizBank = {
             "q": "$S_n=\\sum_{i=1}^n X_i$ where $X_i$ are i.i.d.\\ with $\\mathbb{E}[X_i]=0$. What is $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]-S_5$?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "By independence: $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]=S_5+\\mathbb{E}[X_6+\\cdots+X_{10}\\mid\\mathcal{F}_5]=S_5+0=S_5$.",
             "explain": "By independence: $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]=S_5+\\mathbb{E}[X_6+\\cdots+X_{10}\\mid\\mathcal{F}_5]=S_5+0=S_5$. So the difference is $0$: random walk is a martingale."
           },
           {
@@ -27430,6 +28942,7 @@ window.MVQuizBank = {
               "No conditions are needed"
             ],
             "answer": 0,
+            "hint": "At least one of these conditions is required; otherwise optional-stopping fails (e.g.\\ simple random walk stopped at $+1$ has $\\mathbb{E}[M_\\tau]=1\\ne 0=\\mathbb{E}[M_0]$).",
             "explain": "At least one of these conditions is required; otherwise optional-stopping fails (e.g.\\ simple random walk stopped at $+1$ has $\\mathbb{E}[M_\\tau]=1\\ne 0=\\mathbb{E}[M_0]$)."
           }
         ],
@@ -27502,6 +29015,7 @@ window.MVQuizBank = {
               "bounded variation on compact intervals"
             ],
             "answer": 0,
+            "hint": "Brownian motion is the Gaussian process with these three properties; its paths are continuous but nowhere differentiable and of unbounded variation on every interval.",
             "explain": "Brownian motion is the Gaussian process with these three properties; its paths are continuous but nowhere differentiable and of unbounded variation on every interval."
           },
           {
@@ -27509,6 +29023,7 @@ window.MVQuizBank = {
             "q": "Compute $\\mathbb{P}(W_1>1.96)$ where $W_1\\sim\\mathcal{N}(0,1)$. Report to 3 decimals.",
             "answer": 0.025,
             "tol": 0.005,
+            "hint": "Standard Gaussian tail: $\\mathbb{P}(Z>1.96)\\approx 0.025$ (the two-tail $5\\%$ critical value).",
             "explain": "Standard Gaussian tail: $\\mathbb{P}(Z>1.96)\\approx 0.025$ (the two-tail $5\\%$ critical value)."
           },
           {
@@ -27521,6 +29036,7 @@ window.MVQuizBank = {
               "$t^2$"
             ],
             "answer": 0,
+            "hint": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability (and a.s.\\ along dyadic refinements) as the mesh shrinks.",
             "explain": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability (and a.s.\\ along dyadic refinements) as the mesh shrinks. Infinite variation but finite quadratic variation is the signature of Brownian motion."
           }
         ],
@@ -27594,6 +29110,7 @@ window.MVQuizBank = {
               "a point of $K^2$"
             ],
             "answer": 1,
+            "hint": "$\\mathbb{P}^2(K)=(K^3\\setminus\\{0\\})/\\sim$ where $(X,Y,Z)\\sim(\\lambda X,\\lambda Y,\\lambda Z)$ for $\\lambda\\in K^\\times$.",
             "explain": "$\\mathbb{P}^2(K)=(K^3\\setminus\\{0\\})/\\sim$ where $(X,Y,Z)\\sim(\\lambda X,\\lambda Y,\\lambda Z)$ for $\\lambda\\in K^\\times$. Each equivalence class is exactly a 1-dimensional linear subspace — a line through the origin in $K^3$."
           },
           {
@@ -27606,6 +29123,7 @@ window.MVQuizBank = {
               "$[1:1:1]$"
             ],
             "answer": 1,
+            "hint": "Two triples represent the same projective point iff one is a non-zero scalar multiple of the other.",
             "explain": "Two triples represent the same projective point iff one is a non-zero scalar multiple of the other. $[3:6:9]=\\tfrac{3}{2}\\cdot[2:4:6]$."
           },
           {
@@ -27613,6 +29131,7 @@ window.MVQuizBank = {
             "q": "Over the finite field $\\mathbb{F}_q$, the number of points of $\\mathbb{P}^2$ is $q^2+q+1$. How many points does $\\mathbb{P}^2(\\mathbb{F}_3)$ have?",
             "answer": 13,
             "tol": 0.000001,
+            "hint": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$.",
             "explain": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=3$: $9+3+1=13$."
           }
         ],
@@ -27666,6 +29185,7 @@ window.MVQuizBank = {
               "$Y^2-X^3-Z$"
             ],
             "answer": 1,
+            "hint": "For degree $d=3$, $F(X,Y,Z)=Z^3 f(X/Z,Y/Z)=Y^2Z-X^3-Z^3$.",
             "explain": "For degree $d=3$, $F(X,Y,Z)=Z^3 f(X/Z,Y/Z)=Y^2Z-X^3-Z^3$. Each monomial ends at total degree $3$."
           },
           {
@@ -27673,6 +29193,7 @@ window.MVQuizBank = {
             "q": "The affine conic $f(x,y)=x^2+y^2-1$ homogenizes to $F(X,Y,Z)=X^2+Y^2-Z^2$. How many points at infinity ($Z=0$) does it have over $\\mathbb{R}$?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "Setting $Z=0$ gives $X^2+Y^2=0$, which over $\\mathbb{R}$ forces $X=Y=0$ — not a valid projective point.",
             "explain": "Setting $Z=0$ gives $X^2+Y^2=0$, which over $\\mathbb{R}$ forces $X=Y=0$ — not a valid projective point. So there are $0$ real points at infinity. (Over $\\mathbb{C}$ there are two: $[1:\\pm i:0]$.)"
           },
           {
@@ -27680,6 +29201,7 @@ window.MVQuizBank = {
             "q": "The parabola $y-x^2=0$ homogenizes to $YZ-X^2=0$. How many points at infinity does it have?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Setting $Z=0$ in $YZ-X^2=0$ gives $X^2=0$, hence $X=0$ and $[0:1:0]$ is the unique projective solution.",
             "explain": "Setting $Z=0$ in $YZ-X^2=0$ gives $X^2=0$, hence $X=0$ and $[0:1:0]$ is the unique projective solution. The parabola has exactly one point at infinity."
           }
         ],
@@ -27733,6 +29255,7 @@ window.MVQuizBank = {
               "$\\mathrm{PGL}_2(K)$"
             ],
             "answer": 1,
+            "hint": "Invertible $3\\times3$ matrices act on $\\mathbb{P}^2$, but two matrices give the same map iff they differ by a nonzero scalar.",
             "explain": "Invertible $3\\times3$ matrices act on $\\mathbb{P}^2$, but two matrices give the same map iff they differ by a nonzero scalar. The quotient is $\\mathrm{PGL}_3(K)=\\mathrm{GL}_3(K)/K^\\times$."
           },
           {
@@ -27740,6 +29263,7 @@ window.MVQuizBank = {
             "q": "What is the dimension of $\\mathrm{PGL}_3(K)$ as an algebraic group over $K$?",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "$\\dim\\mathrm{GL}_3=9$ and we quotient by the $1$-dimensional center $K^\\times$, giving $\\dim\\mathrm{PGL}_3=9-1=8$.",
             "explain": "$\\dim\\mathrm{GL}_3=9$ and we quotient by the $1$-dimensional center $K^\\times$, giving $\\dim\\mathrm{PGL}_3=9-1=8$."
           },
           {
@@ -27752,6 +29276,7 @@ window.MVQuizBank = {
               "a single integer invariant, its degree"
             ],
             "answer": 1,
+            "hint": "Over an algebraically closed field any smooth plane conic can be brought into $X^2+Y^2=Z^2$ (or equivalently $XY=Z^2$) by an element of $\\mathrm{PGL}_3$, so there is a unique projective equivalence…",
             "explain": "Over an algebraically closed field any smooth plane conic can be brought into $X^2+Y^2=Z^2$ (or equivalently $XY=Z^2$) by an element of $\\mathrm{PGL}_3$, so there is a unique projective equivalence class."
           }
         ],
@@ -27805,6 +29330,7 @@ window.MVQuizBank = {
               "the affine plane $\\mathbb{A}^2$"
             ],
             "answer": 1,
+            "hint": "A line $aX+bY+cZ=0$ is determined by $[a:b:c]\\in\\mathbb{P}^2$, so lines in $\\mathbb{P}^2$ form another copy of $\\mathbb{P}^2$, the dual plane $(\\mathbb{P}^2)^*$.",
             "explain": "A line $aX+bY+cZ=0$ is determined by $[a:b:c]\\in\\mathbb{P}^2$, so lines in $\\mathbb{P}^2$ form another copy of $\\mathbb{P}^2$, the dual plane $(\\mathbb{P}^2)^*$."
           },
           {
@@ -27817,6 +29343,7 @@ window.MVQuizBank = {
               "every conic passes through three points"
             ],
             "answer": 1,
+            "hint": "Swapping \"point\" $\\leftrightarrow$ \"line\" and \"lies on\" $\\leftrightarrow$ \"passes through\" turns \"two points span one line\" into \"two lines meet in one point\" — exactly the statement that…",
             "explain": "Swapping \"point\" $\\leftrightarrow$ \"line\" and \"lies on\" $\\leftrightarrow$ \"passes through\" turns \"two points span one line\" into \"two lines meet in one point\" — exactly the statement that $\\mathbb{P}^2$ has no parallels."
           },
           {
@@ -27824,6 +29351,7 @@ window.MVQuizBank = {
             "q": "Over $\\mathbb{F}_q$, the number of lines in $\\mathbb{P}^2(\\mathbb{F}_q)$ equals $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=q^2+q+1$. How many lines does $\\mathbb{P}^2(\\mathbb{F}_2)$ contain?",
             "answer": 7,
             "tol": 0.000001,
+            "hint": "By duality $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$.",
             "explain": "By duality $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=2$: $4+2+1=7$ — the Fano plane has $7$ points and $7$ lines, beautifully self-dual."
           }
         ],
@@ -27872,6 +29400,7 @@ window.MVQuizBank = {
             "q": "Compute the cross-ratio $[0,1;2,3]=\\dfrac{(0-2)(1-3)}{(0-3)(1-2)}$.",
             "answer": 1.3333333333,
             "tol": 0.001,
+            "hint": "$[0,1;2,3]=\\dfrac{(-2)(-2)}{(-3)(-1)}=\\dfrac{4}{3}\\approx 1.333$.",
             "explain": "$[0,1;2,3]=\\dfrac{(-2)(-2)}{(-3)(-1)}=\\dfrac{4}{3}\\approx 1.333$."
           },
           {
@@ -27884,6 +29413,7 @@ window.MVQuizBank = {
               "It equals the sum of the four coordinates"
             ],
             "answer": 1,
+            "hint": "The cross-ratio is the unique (up to functional relation) projective invariant of four points on a line: any $g\\in\\mathrm{PGL}_2(K)$ acts by Möbius transformations, which preserve $[a,b;c,d]$.",
             "explain": "The cross-ratio is the unique (up to functional relation) projective invariant of four points on a line: any $g\\in\\mathrm{PGL}_2(K)$ acts by Möbius transformations, which preserve $[a,b;c,d]$."
           },
           {
@@ -27891,6 +29421,7 @@ window.MVQuizBank = {
             "q": "How many distinct values does the cross-ratio take as the four input points are permuted by $S_4$? (Equivalently: $|S_4|/|V_4|$ where $V_4$ is the Klein four-group of permutations that fix the cross-ratio.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "Of the $24$ permutations of four points, the Klein four-group $V_4$ (double-transpositions together with the identity) fixes the cross-ratio $\\lambda$.",
             "explain": "Of the $24$ permutations of four points, the Klein four-group $V_4$ (double-transpositions together with the identity) fixes the cross-ratio $\\lambda$. The remaining $24/4=6$ cosets give the six values $\\{\\lambda,\\ 1-\\lambda,\\ 1/\\lambda,\\ 1/(1-\\lambda),\\ \\lambda/(\\lambda-1),\\ (\\lambda-1)/\\lambda\\}$."
           }
         ],
@@ -27948,6 +29479,7 @@ window.MVQuizBank = {
               "$D = a^2 - 4bc$"
             ],
             "answer": 0,
+            "hint": "By definition $D = b^2 - 4ac$.",
             "explain": "By definition $D = b^2 - 4ac$. For positive-definite forms $D < 0$."
           },
           {
@@ -27959,6 +29491,7 @@ window.MVQuizBank = {
               "$b$ is even"
             ],
             "answer": 0,
+            "hint": "Primitivity means the three coefficients share no common factor greater than 1.",
             "explain": "Primitivity means the three coefficients share no common factor greater than 1."
           },
           {
@@ -27966,6 +29499,7 @@ window.MVQuizBank = {
             "q": "Compute the discriminant $D$ of the form $x^2+xy+y^2$.",
             "answer": -3,
             "tol": 0.001,
+            "hint": "$D = b^2 - 4ac = 1 - 4(1)(1) = -3$.",
             "explain": "$D = b^2 - 4ac = 1 - 4(1)(1) = -3$."
           }
         ],
@@ -28016,6 +29550,7 @@ window.MVQuizBank = {
               "$a < c$ and $b = 0$"
             ],
             "answer": 0,
+            "hint": "Gauss's reduction inequalities are $|b|\\le a\\le c$ with the tie-breaking sign conventions.",
             "explain": "Gauss's reduction inequalities are $|b|\\le a\\le c$ with the tie-breaking sign conventions."
           },
           {
@@ -28027,6 +29562,7 @@ window.MVQuizBank = {
               "may contain zero or one reduced forms"
             ],
             "answer": 1,
+            "hint": "A key theorem: each class contains precisely one reduced representative, making the class number well-defined.",
             "explain": "A key theorem: each class contains precisely one reduced representative, making the class number well-defined."
           },
           {
@@ -28034,6 +29570,7 @@ window.MVQuizBank = {
             "q": "How many reduced primitive positive-definite forms have discriminant $D=-4$? (i.e. what is $h(-4)$?)",
             "answer": 1,
             "tol": 0.001,
+            "hint": "The only reduced form with $D=-4$ is $x^2+y^2$, so $h(-4)=1$.",
             "explain": "The only reduced form with $D=-4$ is $x^2+y^2$, so $h(-4)=1$."
           }
         ],
@@ -28084,6 +29621,7 @@ window.MVQuizBank = {
               "ring but not a group"
             ],
             "answer": 0,
+            "hint": "Gauss–Dirichlet composition turns the set of primitive classes into a finite abelian group, the form class group of discriminant $D$.",
             "explain": "Gauss–Dirichlet composition turns the set of primitive classes into a finite abelian group, the form class group of discriminant $D$."
           },
           {
@@ -28095,6 +29633,7 @@ window.MVQuizBank = {
               "the zero form $0\\cdot x^2+0\\cdot xy+0\\cdot y^2$"
             ],
             "answer": 0,
+            "hint": "The principal form (the one representing $1$) is the identity; its exact form depends on the parity of $D$.",
             "explain": "The principal form (the one representing $1$) is the identity; its exact form depends on the parity of $D$."
           },
           {
@@ -28102,6 +29641,7 @@ window.MVQuizBank = {
             "q": "The class number $h(-23)$ equals 3. How many elements does the form class group of discriminant $-23$ have?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "The form class group has order equal to the class number, so $h(-23)=3$ means a group of order 3.",
             "explain": "The form class group has order equal to the class number, so $h(-23)=3$ means a group of order 3."
           }
         ],
@@ -28152,6 +29692,7 @@ window.MVQuizBank = {
               "$t$"
             ],
             "answer": 0,
+            "hint": "Gauss proved the number of genera is exactly $2^{t-1}$ where $t$ counts the number of prime discriminant divisors of $D$.",
             "explain": "Gauss proved the number of genera is exactly $2^{t-1}$ where $t$ counts the number of prime discriminant divisors of $D$."
           },
           {
@@ -28163,6 +29704,7 @@ window.MVQuizBank = {
               "$(-1)^{(m-1)/2}$"
             ],
             "answer": 0,
+            "hint": "Each genus character is a Legendre symbol evaluated at integers represented by the form, linking genus theory to quadratic residue symbols.",
             "explain": "Each genus character is a Legendre symbol evaluated at integers represented by the form, linking genus theory to quadratic residue symbols."
           },
           {
@@ -28174,6 +29716,7 @@ window.MVQuizBank = {
               "the unique genus of forms representing 1"
             ],
             "answer": 0,
+            "hint": "The principal genus is the kernel of all genus characters; it equals the subgroup $\\mathrm{Cl}(D)^2$ of squares.",
             "explain": "The principal genus is the kernel of all genus characters; it equals the subgroup $\\mathrm{Cl}(D)^2$ of squares."
           }
         ],
@@ -28224,6 +29767,7 @@ window.MVQuizBank = {
               "the Galois group of $\\mathbb{Q}(\\sqrt{D})/\\mathbb{Q}$"
             ],
             "answer": 0,
+            "hint": "The classical correspondence sends a primitive form $ax^2+bxy+cy^2$ to the ideal $[a, (-b+\\sqrt{D})/2]$ in the ring of integers, yielding a group isomorphism.",
             "explain": "The classical correspondence sends a primitive form $ax^2+bxy+cy^2$ to the ideal $[a, (-b+\\sqrt{D})/2]$ in the ring of integers, yielding a group isomorphism."
           },
           {
@@ -28235,6 +29779,7 @@ window.MVQuizBank = {
               "ideals of the form $(a)$ with $a$ totally positive"
             ],
             "answer": 0,
+            "hint": "The principal form class maps to the trivial ideal class, and the principal genus maps to the subgroup of squares, matching the structure on both sides.",
             "explain": "The principal form class maps to the trivial ideal class, and the principal genus maps to the subgroup of squares, matching the structure on both sides."
           },
           {
@@ -28246,6 +29791,7 @@ window.MVQuizBank = {
               "$p \\equiv 1 \\pmod{|D|}$"
             ],
             "answer": 0,
+            "hint": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of…",
             "explain": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of class field theory."
           }
         ],
@@ -28301,6 +29847,7 @@ window.MVQuizBank = {
             "q": "What is the order of the multiplicative group $(\\mathbb{Z}/13)^\\times$?",
             "answer": 12,
             "tol": 0.001,
+            "hint": "For prime $p$, every nonzero residue $1,2,\\ldots,p-1$ is a unit, so $|(\\mathbb{Z}/p)^\\times|=p-1$.",
             "explain": "For prime $p$, every nonzero residue $1,2,\\ldots,p-1$ is a unit, so $|(\\mathbb{Z}/p)^\\times|=p-1$. With $p=13$ this is $12$."
           },
           {
@@ -28313,6 +29860,7 @@ window.MVQuizBank = {
               "$4$ — its powers $4,2,1,4,2,1$ cycle with period $3$"
             ],
             "answer": 1,
+            "hint": "$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1\\pmod 7$ — all six nonzero residues appear, so $3$ has order $6=\\varphi(7)$ and is a primitive root.",
             "explain": "$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1\\pmod 7$ — all six nonzero residues appear, so $3$ has order $6=\\varphi(7)$ and is a primitive root. The other candidates have smaller orders ($2,4$ have order $3$; $6$ has order $2$)."
           },
           {
@@ -28320,6 +29868,7 @@ window.MVQuizBank = {
             "q": "Compute $3^5 \\bmod 7$.",
             "answer": 5,
             "tol": 0.001,
+            "hint": "$3^2=9\\equiv 2$, $3^4\\equiv 2^2=4$, so $3^5\\equiv 3\\cdot 4=12\\equiv 5\\pmod 7$.",
             "explain": "$3^2=9\\equiv 2$, $3^4\\equiv 2^2=4$, so $3^5\\equiv 3\\cdot 4=12\\equiv 5\\pmod 7$. (Equivalently, $3$ is a primitive root mod $7$, and its fifth power lands at $5$.)"
           }
         ]
@@ -28336,6 +29885,7 @@ window.MVQuizBank = {
               "$a$ is a primitive root mod $p$"
             ],
             "answer": 1,
+            "hint": "By definition, $\\left(\\frac{a}{p}\\right)=1$ exactly when $x^2\\equiv a\\pmod p$ is solvable.",
             "explain": "By definition, $\\left(\\frac{a}{p}\\right)=1$ exactly when $x^2\\equiv a\\pmod p$ is solvable."
           },
           {
@@ -28343,6 +29893,7 @@ window.MVQuizBank = {
             "q": "Compute $\\left(\\frac{4}{7}\\right)$.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "$2^2\\equiv 4\\pmod 7$, so 4 is a square mod 7.",
             "explain": "$2^2\\equiv 4\\pmod 7$, so 4 is a square mod 7."
           },
           {
@@ -28354,6 +29905,7 @@ window.MVQuizBank = {
               "either 1 or -1"
             ],
             "answer": 2,
+            "hint": "Away from multiples of $p$, residues split into squares (1) and nonsquares (-1).",
             "explain": "Away from multiples of $p$, residues split into squares (1) and nonsquares (-1)."
           }
         ],
@@ -28401,6 +29953,7 @@ window.MVQuizBank = {
               "$p\\equiv 1 \\pmod 8$"
             ],
             "answer": 0,
+            "hint": "The first supplementary law gives $(-1/p)=(-1)^{(p-1)/2}$.",
             "explain": "The first supplementary law gives $(-1/p)=(-1)^{(p-1)/2}$."
           },
           {
@@ -28408,6 +29961,7 @@ window.MVQuizBank = {
             "q": "Compute $\\left(\\frac{2}{17}\\right)$.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "Since $17\\equiv 1\\pmod 8$, the second supplementary law gives $(2/17)=1$.",
             "explain": "Since $17\\equiv 1\\pmod 8$, the second supplementary law gives $(2/17)=1$."
           },
           {
@@ -28419,6 +29973,7 @@ window.MVQuizBank = {
               "$p\\equiv 1,3\\pmod 8$"
             ],
             "answer": 1,
+            "hint": "$(2/p)=(-1)^{(p^2-1)/8}$ is negative for classes 3 and 5 mod 8.",
             "explain": "$(2/p)=(-1)^{(p^2-1)/8}$ is negative for classes 3 and 5 mod 8."
           }
         ],
@@ -28471,6 +30026,7 @@ window.MVQuizBank = {
               "prime factorization of $a$"
             ],
             "answer": 1,
+            "hint": "It is $(-1)^n$ where $n$ counts how many reduced multiples of $a$ fall in $(p/2,p)$.",
             "explain": "It is $(-1)^n$ where $n$ counts how many reduced multiples of $a$ fall in $(p/2,p)$."
           },
           {
@@ -28478,6 +30034,7 @@ window.MVQuizBank = {
             "q": "For $p=11,a=2$, the reduced list from $2,4,6,8,10$ has how many terms $>11/2$?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "The terms are $2,4,6,8,10$; those above 5.5 are 6,8,10.",
             "explain": "The terms are $2,4,6,8,10$; those above 5.5 are 6,8,10."
           },
           {
@@ -28485,6 +30042,7 @@ window.MVQuizBank = {
             "q": "Using the previous count, compute $\\left(\\frac{2}{11}\\right)=(-1)^n$.",
             "answer": -1,
             "tol": 0.001,
+            "hint": "$n=3$ is odd, so $(-1)^n=-1$.",
             "explain": "$n=3$ is odd, so $(-1)^n=-1$."
           }
         ],
@@ -28532,6 +30090,7 @@ window.MVQuizBank = {
               "$\\left(\\frac{p}{q}\\right)+\\left(\\frac{q}{p}\\right)=0$"
             ],
             "answer": 1,
+            "hint": "This is the classical reciprocity identity.",
             "explain": "This is the classical reciprocity identity."
           },
           {
@@ -28539,6 +30098,7 @@ window.MVQuizBank = {
             "q": "Compute $(-1)^{\\frac{(3-1)(11-1)}{4}}$.",
             "answer": -1,
             "tol": 0.001,
+            "hint": "Exponent is $(2\\cdot 10)/4=5$, so the sign is -1.",
             "explain": "Exponent is $(2\\cdot 10)/4=5$, so the sign is -1."
           },
           {
@@ -28550,6 +30110,7 @@ window.MVQuizBank = {
               "both symbols are always 1"
             ],
             "answer": 1,
+            "hint": "The sign factor is -1 exactly in the (3 mod 4, 3 mod 4) case.",
             "explain": "The sign factor is -1 exactly in the (3 mod 4, 3 mod 4) case."
           }
         ],
@@ -28602,6 +30163,7 @@ window.MVQuizBank = {
               "$a^{(n-1)/2} \\bmod n$ for arbitrary odd $n$"
             ],
             "answer": 1,
+            "hint": "It extends the Legendre symbol multiplicatively in the bottom entry; the squareness interpretation fails for composite $n$.",
             "explain": "It extends the Legendre symbol multiplicatively in the bottom entry; the squareness interpretation fails for composite $n$."
           },
           {
@@ -28609,6 +30171,7 @@ window.MVQuizBank = {
             "q": "Compute $\\left(\\frac{2}{15}\\right)=\\left(\\frac{2}{3}\\right)\\left(\\frac{2}{5}\\right)$.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "$(2/3)=-1$ and $(2/5)=-1$, so the product is $+1$ — yet $2$ is not a square mod $15$, illustrating the caveat.",
             "explain": "$(2/3)=-1$ and $(2/5)=-1$, so the product is $+1$ — yet $2$ is not a square mod $15$, illustrating the caveat."
           },
           {
@@ -28620,6 +30183,7 @@ window.MVQuizBank = {
               "Because the Jacobi symbol equals $a^{(n-1)/2}\\bmod n$ which is cheap"
             ],
             "answer": 1,
+            "hint": "Multiplicativity plus the mod-2 identity $\\tfrac{mn-1}{2}\\equiv\\tfrac{m-1}{2}+\\tfrac{n-1}{2}$ lifts every step to odd integers, so no primality test is ever needed.",
             "explain": "Multiplicativity plus the mod-2 identity $\\tfrac{mn-1}{2}\\equiv\\tfrac{m-1}{2}+\\tfrac{n-1}{2}$ lifts every step to odd integers, so no primality test is ever needed."
           }
         ],
@@ -28665,18 +30229,237 @@ window.MVQuizBank = {
   "random-walks-and-mixing": {
     "topic": "random-walks-and-mixing",
     "quizzes": {
-      "random-walks-and-mixing-intro": {
-        "title": "Intro",
+      "rw-markov-chains": {
+        "title": "Markov chains and transition matrices",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "A row-stochastic matrix $P$ on a finite state space $S$ encodes a Markov chain. Which of the following must hold for every $i\\in S$?",
             "choices": [
-              "A",
-              "B"
+              "$\\sum_{j\\in S} P_{ij} = 1$ and $P_{ij}\\ge 0$",
+              "$\\sum_{i\\in S} P_{ij} = 1$ for every column $j$",
+              "$P$ is symmetric",
+              "$P$ is invertible"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "hint": "Row-stochastic means each row is a probability distribution over next states: nonneg entries summing to $1$.",
+            "explain": "Row-stochastic means each row is a probability distribution over next states: nonneg entries summing to $1$. Column sums need not be $1$ (that would be doubly stochastic), and $P$ need not be symmetric or invertible."
+          },
+          {
+            "type": "numeric",
+            "q": "For the chain with $P=\\begin{pmatrix}0.5&0.5\\\\0.25&0.75\\end{pmatrix}$, compute the $(1,2)$ entry of $P^2$ (probability of going $1\\to 2$ in two steps).",
+            "answer": 0.625,
+            "tol": 0.005,
+            "hint": "$(P^2)_{12} = P_{11}P_{12}+P_{12}P_{22} = 0.5\\cdot 0.5 + 0.5\\cdot 0.75 = 0.25+0.375 = 0.625$.",
+            "explain": "$(P^2)_{12} = P_{11}P_{12}+P_{12}P_{22} = 0.5\\cdot 0.5 + 0.5\\cdot 0.75 = 0.25+0.375 = 0.625$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Markov property $\\mathbb{P}(X_{n+1}=y\\mid X_0,\\ldots,X_n)=\\mathbb{P}(X_{n+1}=y\\mid X_n)$ assert?",
+            "choices": [
+              "the past and future are independent given the present",
+              "the chain is stationary",
+              "successive states are independent",
+              "the transition probabilities are time-dependent"
+            ],
+            "answer": 0,
+            "hint": "The Markov / memoryless property: conditional on the current state $X_n$, the future is independent of the past $X_0,\\ldots,X_{n-1}$.",
+            "explain": "The Markov / memoryless property: conditional on the current state $X_n$, the future is independent of the past $X_0,\\ldots,X_{n-1}$. Stationarity is a separate condition (time-homogeneity)."
+          }
+        ]
+      },
+      "rw-stationary-distribution": {
+        "title": "Stationary distributions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A probability vector $\\pi$ is stationary for $P$ when:",
+            "choices": [
+              "$\\pi P = \\pi$",
+              "$P\\pi = \\pi$",
+              "$\\pi^\\top P\\pi = 1$",
+              "$P$ has $\\pi$ as a column"
+            ],
+            "answer": 0,
+            "hint": "Stationarity: applying one step leaves the distribution unchanged.",
+            "explain": "Stationarity: applying one step leaves the distribution unchanged. As a row vector, $\\pi P=\\pi$. (Equivalently $P^\\top\\pi^\\top=\\pi^\\top$, but the right-multiplication form is the convention.)"
+          },
+          {
+            "type": "numeric",
+            "q": "Two-state chain with $P=\\begin{pmatrix}0.6&0.4\\\\0.2&0.8\\end{pmatrix}$. Solve $\\pi P=\\pi$ for $\\pi_1$ (mass on state 1).",
+            "answer": 0.3333,
+            "tol": 0.005,
+            "hint": "$0.6\\pi_1+0.2(1-\\pi_1)=\\pi_1$ gives $0.2=0.6\\pi_1$, so $\\pi_1=1/3$.",
+            "explain": "$0.6\\pi_1+0.2(1-\\pi_1)=\\pi_1$ gives $0.2=0.6\\pi_1$, so $\\pi_1=1/3$. Check: $\\pi_2=2/3$, and $0.4\\cdot 1/3 + 0.8\\cdot 2/3 = 2/3$."
+          },
+          {
+            "type": "mcq",
+            "q": "A chain on $\\{1,2,3,4\\}$ has two closed classes $\\{1,2\\}$ and $\\{3,4\\}$, each with its own stationary distribution. How many stationary distributions does the full chain have?",
+            "choices": [
+              "exactly one",
+              "exactly two",
+              "infinitely many — a one-parameter family of convex combinations",
+              "none, because the chain is reducible"
+            ],
+            "answer": 2,
+            "hint": "Each closed class contributes a stationary $\\pi^{(k)}$; any convex combination $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$, $\\alpha\\in[0,1]$, is also stationary.",
+            "explain": "Each closed class contributes a stationary $\\pi^{(k)}$; any convex combination $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$, $\\alpha\\in[0,1]$, is also stationary. Uniqueness needs irreducibility."
+          }
+        ]
+      },
+      "rw-mixing-time": {
+        "title": "Mixing time",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Total variation distance between probability measures $\\mu,\\nu$ on a finite set is",
+            "choices": [
+              "$\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|$",
+              "$\\sum_x \\mu(x)\\nu(x)$",
+              "$\\max_x \\mu(x)/\\nu(x)$",
+              "$\\sum_x (\\mu(x)-\\nu(x))^2$"
+            ],
+            "answer": 0,
+            "hint": "$\\|\\mu-\\nu\\|_{\\mathrm{TV}}=\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|=\\sup_A|\\mu(A)-\\nu(A)|$.",
+            "explain": "$\\|\\mu-\\nu\\|_{\\mathrm{TV}}=\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|=\\sup_A|\\mu(A)-\\nu(A)|$. The factor of $\\tfrac{1}{2}$ converts the L¹ norm into the supremum-of-events characterisation."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\mu=(0.6,0.4)$ and $\\nu=(0.3,0.7)$, what is $\\|\\mu-\\nu\\|_{\\mathrm{TV}}$?",
+            "answer": 0.3,
+            "tol": 0.005,
+            "hint": "$\\tfrac{1}{2}(|0.6-0.3|+|0.4-0.7|)=\\tfrac{1}{2}(0.3+0.3)=0.3$.",
+            "explain": "$\\tfrac{1}{2}(|0.6-0.3|+|0.4-0.7|)=\\tfrac{1}{2}(0.3+0.3)=0.3$."
+          },
+          {
+            "type": "mcq",
+            "q": "The mixing time $t_{\\mathrm{mix}}(\\varepsilon)$ is defined as:",
+            "choices": [
+              "$\\min\\{t : \\max_x\\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}\\le\\varepsilon\\}$",
+              "the expected return time to the start",
+              "the period of the chain",
+              "$1/\\lambda_2$"
+            ],
+            "answer": 0,
+            "hint": "Mixing time is the first time the worst-case TV distance to $\\pi$ drops below $\\varepsilon$ (the convention $\\varepsilon=1/4$ or $1/(2e)$ is common).",
+            "explain": "Mixing time is the first time the worst-case TV distance to $\\pi$ drops below $\\varepsilon$ (the convention $\\varepsilon=1/4$ or $1/(2e)$ is common). Return times and the spectral gap are related but distinct."
+          }
+        ]
+      },
+      "rw-spectral-gap": {
+        "title": "Spectral gap and rapid mixing",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a reversible irreducible aperiodic Markov chain with transition matrix $P$, the eigenvalues lie in $[-1,1]$ with $\\lambda_1=1$. The (absolute) spectral gap is",
+            "choices": [
+              "$\\gamma_* = 1 - \\max(|\\lambda_2|,|\\lambda_n|)$",
+              "$\\lambda_2 - \\lambda_n$",
+              "$\\lambda_1 + \\lambda_2$",
+              "$1 - \\det(P)$"
+            ],
+            "answer": 0,
+            "hint": "The absolute gap is $1$ minus the second-largest eigenvalue in magnitude.",
+            "explain": "The absolute gap is $1$ minus the second-largest eigenvalue in magnitude. The relevant nontrivial eigenvalues are $\\lambda_2$ (slow-mixing direction) and $\\lambda_n$ (parity / near-bipartite); both can be the bottleneck."
+          },
+          {
+            "type": "numeric",
+            "q": "A reversible chain has $\\lambda_2 = 0.9$ and $\\pi_{\\min}=0.01$. The spectral mixing-time bound is $t_{\\mathrm{mix}}(\\varepsilon)\\le\\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$. With $\\varepsilon=1/4$, give the bound (rounded to nearest integer).",
+            "answer": 60,
+            "tol": 2,
+            "hint": "$\\frac{1}{1-0.9}=10$, and $\\log\\frac{1}{0.01\\cdot 0.25}=\\log 400\\approx 5.99$, so $t_{\\mathrm{mix}}\\le 10\\cdot 5.99\\approx 60$.",
+            "explain": "$\\frac{1}{1-0.9}=10$, and $\\log\\frac{1}{0.01\\cdot 0.25}=\\log 400\\approx 5.99$, so $t_{\\mathrm{mix}}\\le 10\\cdot 5.99\\approx 60$."
+          },
+          {
+            "type": "mcq",
+            "q": "If a chain has $\\lambda_2$ very close to $1$, what can you conclude about mixing?",
+            "choices": [
+              "mixing is fast — close to one step",
+              "mixing is slow — there is a near-bottleneck and convergence to $\\pi$ takes order $1/(1-\\lambda_2)$",
+              "the chain is bipartite",
+              "the chain has no stationary distribution"
+            ],
+            "answer": 1,
+            "hint": "$\\lambda_2\\to 1$ corresponds to a near-disconnection (Cheeger): a slowly-decaying mode persists for time $\\sim 1/(1-\\lambda_2)$, so mixing is slow.",
+            "explain": "$\\lambda_2\\to 1$ corresponds to a near-disconnection (Cheeger): a slowly-decaying mode persists for time $\\sim 1/(1-\\lambda_2)$, so mixing is slow. Bipartiteness is the $\\lambda_n=-1$ end."
+          }
+        ]
+      },
+      "rw-coupling-method": {
+        "title": "Coupling for upper bounds on mixing",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The coupling inequality says that for any coupling $(X_t,Y_t)$ of two copies of the chain with arbitrary starting laws,",
+            "choices": [
+              "$\\|\\mathcal{L}(X_t)-\\mathcal{L}(Y_t)\\|_{\\mathrm{TV}}\\le \\mathbb{P}(X_t\\ne Y_t)$",
+              "$\\|\\mathcal{L}(X_t)-\\mathcal{L}(Y_t)\\|_{\\mathrm{TV}}=\\mathbb{P}(X_t=Y_t)$",
+              "$X_t$ and $Y_t$ become independent",
+              "the chains converge a.s.\\ to the same value"
+            ],
+            "answer": 0,
+            "hint": "The fundamental coupling inequality: TV distance is bounded by the probability that the two copies have not yet met under the coupling.",
+            "explain": "The fundamental coupling inequality: TV distance is bounded by the probability that the two copies have not yet met under the coupling. To prove rapid mixing, design a coupling under which meeting is fast."
+          },
+          {
+            "type": "numeric",
+            "q": "Lazy random walk on the hypercube $\\{0,1\\}^n$ with $n=10$: at each step, pick a coordinate uniformly and flip it with probability $1/2$. Coupon-collector heuristics give mixing time $\\Theta(n\\log n)$. Estimate $n\\log n$ for $n=10$ (use natural log, round to integer).",
+            "answer": 23,
+            "tol": 2,
+            "hint": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$.",
+            "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives mixing in time $\\sim \\tfrac{1}{2}n\\log n$ via coupon collector."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does coupling only provide an upper bound on mixing time (and not also a matching lower bound)?",
+            "choices": [
+              "any specific coupling overestimates the meeting time",
+              "the coupling inequality is tight: TV distance equals the meeting probability under some coupling",
+              "TV distance is symmetric, so couplings are useless for lower bounds",
+              "couplings only work for reversible chains"
+            ],
+            "answer": 1,
+            "hint": "There exists an optimal coupling for which the inequality is an equality (Strassen / Aldous).",
+            "explain": "There exists an optimal coupling for which the inequality is an equality (Strassen / Aldous). But finding it is usually impossible, so a constructed coupling gives only an upper bound; lower bounds require different tools (conductance, distinguishing statistics)."
+          }
+        ]
+      },
+      "rw-applications-mcmc": {
+        "title": "Markov-chain Monte Carlo",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Metropolis–Hastings with target distribution $\\pi$ and proposal density $q(y\\mid x)$, the acceptance probability is",
+            "choices": [
+              "$\\min\\!\\big(1,\\;\\frac{\\pi(y)q(x\\mid y)}{\\pi(x)q(y\\mid x)}\\big)$",
+              "$\\pi(y)/\\pi(x)$",
+              "$q(y\\mid x)$",
+              "$1$ if $\\pi(y)>\\pi(x)$, else $0$"
+            ],
+            "answer": 0,
+            "hint": "Metropolis–Hastings acceptance ratio.",
+            "explain": "Metropolis–Hastings acceptance ratio. The factor $q(x\\mid y)/q(y\\mid x)$ is the proposal-asymmetry correction; for symmetric proposals (Metropolis) it reduces to $\\pi(y)/\\pi(x)$. Detailed balance with $\\pi$ holds by construction."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is mixing time the relevant cost of MCMC sampling, rather than total runtime?",
+            "choices": [
+              "consecutive samples are correlated, so $t_{\\mathrm{mix}}$ steps yield $\\approx 1$ effectively independent draw",
+              "MCMC is always $O(1)$ per sample",
+              "the proposal density $q$ has cost $t_{\\mathrm{mix}}$",
+              "mixing time controls memory, not time"
+            ],
+            "answer": 0,
+            "hint": "After $t_{\\mathrm{mix}}$ steps the chain has 'forgotten' its start — past samples are essentially unrelated to the current one.",
+            "explain": "After $t_{\\mathrm{mix}}$ steps the chain has 'forgotten' its start — past samples are essentially unrelated to the current one. So drawing $N$ approximately-independent samples costs $\\sim N\\cdot t_{\\mathrm{mix}}$ chain steps."
+          },
+          {
+            "type": "numeric",
+            "q": "A symmetric Metropolis sampler targeting $\\pi(x)\\propto e^{-x^2/2}$ on $\\mathbb{R}$ proposes $y=x+\\eta$ with $\\eta\\sim\\mathcal{N}(0,1)$. From $x=0$, what is the acceptance probability for $y=2$? (Round to 3 decimals.)",
+            "answer": 0.135,
+            "tol": 0.005,
+            "hint": "$\\pi(2)/\\pi(0) = e^{-2}/e^0 = e^{-2}\\approx 0.135$.",
+            "explain": "$\\pi(2)/\\pi(0) = e^{-2}/e^0 = e^{-2}\\approx 0.135$. Symmetric proposal so the $q$-ratio is $1$; acceptance is $\\min(1,\\pi(y)/\\pi(x))=e^{-2}$."
           }
         ]
       }
@@ -28698,6 +30481,7 @@ window.MVQuizBank = {
               "$\\mathbb{R}$ is closed under addition"
             ],
             "answer": 2,
+            "hint": "$\\mathbb{Q}$ is an ordered, Archimedean field, and closed under addition.",
             "explain": "$\\mathbb{Q}$ is an ordered, Archimedean field, and closed under addition. The distinguishing property is the least-upper-bound (Dedekind) completeness: the set $\\{q\\in\\mathbb{Q}:q^2<2\\}$ is bounded above but has no supremum in $\\mathbb{Q}$."
           },
           {
@@ -28705,6 +30489,7 @@ window.MVQuizBank = {
             "q": "Let $S = \\{1 - 1/n : n\\in\\mathbb{N}_{\\ge 1}\\}\\subset\\mathbb{R}$. What is $\\sup S$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$S$ is bounded above by $1$ and its elements approach $1$.",
             "explain": "$S$ is bounded above by $1$ and its elements approach $1$. Since $1$ is an upper bound and no smaller number is, $\\sup S = 1$. Note $1\\notin S$ — the supremum need not be attained."
           },
           {
@@ -28717,6 +30502,7 @@ window.MVQuizBank = {
               "Every sequence has a convergent subsequence"
             ],
             "answer": 1,
+            "hint": "Cauchy completeness is exactly the statement that every Cauchy sequence has a limit in the space.",
             "explain": "Cauchy completeness is exactly the statement that every Cauchy sequence has a limit in the space. Bounded sequences need not converge ($(-1)^n$); monotone-bounded sequences do, and bounded sequences have convergent subsequences (Bolzano–Weierstrass) — but those are consequences, not definitions."
           }
         ],
@@ -28755,6 +30541,7 @@ window.MVQuizBank = {
               "Heine–Borel"
             ],
             "answer": 1,
+            "hint": "IVT: a continuous function on $[a,b]$ takes every value between $f(a)$ and $f(b)$.",
             "explain": "IVT: a continuous function on $[a,b]$ takes every value between $f(a)$ and $f(b)$. Since $0$ lies between $-1$ and $2$, some $c\\in[0,1]$ has $f(c)=0$."
           },
           {
@@ -28762,6 +30549,7 @@ window.MVQuizBank = {
             "q": "For $f(x)=2x+3$ and $a=1$, with $\\varepsilon=0.01$, what is the largest $\\delta$ that works in the $\\varepsilon$–$\\delta$ definition of continuity?",
             "answer": 0.005,
             "tol": 0.000001,
+            "hint": "$|f(x)-f(1)| = |2x+3 - 5| = 2|x-1|$.",
             "explain": "$|f(x)-f(1)| = |2x+3 - 5| = 2|x-1|$. We need $2|x-1| < 0.01$, i.e. $|x-1| < 0.005$. So $\\delta = 0.005$."
           },
           {
@@ -28774,6 +30562,7 @@ window.MVQuizBank = {
               "$f([0,1])$ is a closed bounded interval"
             ],
             "answer": 2,
+            "hint": "Continuity on a closed bounded interval gives EVT (attains max/min), uniform continuity (via compactness), and that the image is compact and connected (so a closed bounded interval).",
             "explain": "Continuity on a closed bounded interval gives EVT (attains max/min), uniform continuity (via compactness), and that the image is compact and connected (so a closed bounded interval). Differentiability is a strictly stronger condition — e.g., $f(x)=|x-1/2|$ is continuous on $[0,1]$ but not differentiable at $1/2$."
           }
         ],
@@ -28828,6 +30617,7 @@ window.MVQuizBank = {
             "q": "If $f(x)=x^3$ on $[0,3]$, find $c\\in(0,3)$ given by the mean value theorem: $f'(c) = (f(3)-f(0))/3$.",
             "answer": 1.7320508,
             "tol": 0.0001,
+            "hint": "Average slope $= (27-0)/3 = 9$.",
             "explain": "Average slope $= (27-0)/3 = 9$. Set $3c^2 = 9$, so $c = \\sqrt 3 \\approx 1.7320508$."
           },
           {
@@ -28840,6 +30630,7 @@ window.MVQuizBank = {
               "The area under $f$ from $0$ to $a$"
             ],
             "answer": 1,
+            "hint": "The derivative is the best-linear-approximation characterization: $f'(a)$ is the (scalar) coefficient of the unique linear $L\\colon\\mathbb{R}\\to\\mathbb{R}$ for which the remainder is little-o of…",
             "explain": "The derivative is the best-linear-approximation characterization: $f'(a)$ is the (scalar) coefficient of the unique linear $L\\colon\\mathbb{R}\\to\\mathbb{R}$ for which the remainder is little-o of $|h|$. This is the formulation that generalizes to the Jacobian in several variables."
           },
           {
@@ -28847,6 +30638,7 @@ window.MVQuizBank = {
             "q": "The 2nd-degree Taylor polynomial of $f(x)=\\cos x$ at $a=0$ is $1 - x^2/2$. What is the Lagrange remainder bound for $|x|\\le 0.1$? (Use $\\max|f'''(\\xi)|\\le 1$.)",
             "answer": 0.000166667,
             "tol": 0.000001,
+            "hint": "Lagrange: $|R_2(x)| \\le \\max|f^{(3)}(\\xi)| \\cdot |x|^3/3! \\le 1 \\cdot (0.1)^3/6 = 0.001/6 \\approx 0.000166\\overline{6}$.",
             "explain": "Lagrange: $|R_2(x)| \\le \\max|f^{(3)}(\\xi)| \\cdot |x|^3/3! \\le 1 \\cdot (0.1)^3/6 = 0.001/6 \\approx 0.000166\\overline{6}$."
           }
         ],
@@ -28885,6 +30677,7 @@ window.MVQuizBank = {
               "$f_n$ converges uniformly on $[0,1]$ to a discontinuous limit"
             ],
             "answer": 1,
+            "hint": "For $x\\in[0,1)$, $x^n\\to 0$; at $x=1$, $f_n(1)=1\\to 1$.",
             "explain": "For $x\\in[0,1)$, $x^n\\to 0$; at $x=1$, $f_n(1)=1\\to 1$. Pointwise limit is discontinuous. Since $\\sup_{[0,1]}|f_n-f|=1$ for every $n$, convergence is not uniform — uniform convergence preserves continuity."
           },
           {
@@ -28892,6 +30685,7 @@ window.MVQuizBank = {
             "q": "Apply the Weierstrass M-test to $\\sum_{n\\ge 1} \\sin(nx)/n^2$ on $\\mathbb{R}$. What is $\\sum_{n=1}^\\infty M_n$ with the optimal $M_n = 1/n^2$? (Give the numerical value.)",
             "answer": 1.6449340668,
             "tol": 0.001,
+            "hint": "$|\\sin(nx)/n^2|\\le 1/n^2 = M_n$.",
             "explain": "$|\\sin(nx)/n^2|\\le 1/n^2 = M_n$. The series $\\sum 1/n^2 = \\pi^2/6 \\approx 1.6449$ is finite, so the Weierstrass M-test gives absolute and uniform convergence on $\\mathbb{R}$."
           },
           {
@@ -28904,6 +30698,7 @@ window.MVQuizBank = {
               "The convergence is automatically pointwise-but-not-uniform"
             ],
             "answer": 1,
+            "hint": "Uniform limits of continuous functions are continuous (standard $\\varepsilon/3$ argument), and uniform convergence on $[a,b]$ lets you swap limit and Riemann integral.",
             "explain": "Uniform limits of continuous functions are continuous (standard $\\varepsilon/3$ argument), and uniform convergence on $[a,b]$ lets you swap limit and Riemann integral. Uniform convergence does NOT in general preserve differentiability — additional hypotheses are needed there."
           }
         ],
@@ -28942,6 +30737,7 @@ window.MVQuizBank = {
               "The indicator $\\mathbf{1}_{\\mathbb{Q}\\cap[0,1]}$ of the rationals"
             ],
             "answer": 3,
+            "hint": "Continuous functions, monotone functions, and bounded functions discontinuous on a measure-zero set are all Riemann-integrable (Lebesgue's criterion).",
             "explain": "Continuous functions, monotone functions, and bounded functions discontinuous on a measure-zero set are all Riemann-integrable (Lebesgue's criterion). The Dirichlet indicator is discontinuous everywhere in $[0,1]$, and its upper sum is always $1$, lower sum always $0$ — not Riemann-integrable."
           },
           {
@@ -28949,6 +30745,7 @@ window.MVQuizBank = {
             "q": "Using FTC, compute $\\int_1^2 (3x^2 - 1)\\,dx$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "An antiderivative is $F(x) = x^3 - x$.",
             "explain": "An antiderivative is $F(x) = x^3 - x$. FTC gives $F(2) - F(1) = (8-2) - (1-1) = 6$."
           },
           {
@@ -28956,6 +30753,7 @@ window.MVQuizBank = {
             "q": "For $f(x)=x$ on $[0,1]$ and the uniform partition $P_n$ with $n$ subintervals, the gap $U(f,P_n)-L(f,P_n)$ equals $1/n$. What is this gap at $n=10$?",
             "answer": 0.1,
             "tol": 0.000001,
+            "hint": "On $[(k-1)/n, k/n]$, $\\sup f - \\inf f = 1/n$.",
             "explain": "On $[(k-1)/n, k/n]$, $\\sup f - \\inf f = 1/n$. Summing: $U - L = \\sum_{k=1}^n (1/n)\\cdot(1/n) = 1/n$. At $n=10$, gap $= 0.1$."
           }
         ],
@@ -28994,6 +30792,7 @@ window.MVQuizBank = {
               "The determinant of the Jacobian"
             ],
             "answer": 2,
+            "hint": "$DF(a)$ is the best linear approximation — a linear map from $\\mathbb{R}^n$ to $\\mathbb{R}^m$.",
             "explain": "$DF(a)$ is the best linear approximation — a linear map from $\\mathbb{R}^n$ to $\\mathbb{R}^m$. In the standard bases it is the Jacobian matrix $[\\partial F^i/\\partial x_j]$. For scalar-valued $F$ ($m=1$) the Jacobian is a row vector, not a scalar."
           },
           {
@@ -29001,6 +30800,7 @@ window.MVQuizBank = {
             "q": "Let $f(x,y)=x^2 y + y^3$. Compute the directional derivative of $f$ at $(1,1)$ in the unit direction $v = (1/\\sqrt{2}, 1/\\sqrt{2})$.",
             "answer": 4.242640687,
             "tol": 0.001,
+            "hint": "$\\nabla f = (2xy,\\; x^2 + 3y^2)$.",
             "explain": "$\\nabla f = (2xy,\\; x^2 + 3y^2)$. At $(1,1)$: $\\nabla f = (2, 4)$. Then $D_v f = (2,4)\\cdot(1/\\sqrt 2, 1/\\sqrt 2) = 6/\\sqrt{2} = 3\\sqrt{2} \\approx 4.2426$."
           },
           {
@@ -29013,6 +30813,7 @@ window.MVQuizBank = {
               "$f$ is $C^1$ near $a$"
             ],
             "answer": 2,
+            "hint": "Bare existence of partials is too weak.",
             "explain": "Bare existence of partials is too weak. The standard counterexample $f(x,y) = xy/(x^2+y^2)$ (with $f(0,0)=0$) has both partials at the origin yet fails to be continuous — let alone differentiable — there. Continuity of the partials in a neighborhood is the standard sufficient condition."
           }
         ],
@@ -29047,6 +30848,7 @@ window.MVQuizBank = {
             "q": "Use polar coordinates $(x,y) = (r\\cos\\theta, r\\sin\\theta)$ to evaluate $\\iint_D 1\\,dA$, where $D$ is the disk $\\{x^2+y^2\\le 4\\}$.",
             "answer": 12.5663706144,
             "tol": 0.001,
+            "hint": "In polar, $dA = r\\,dr\\,d\\theta$.",
             "explain": "In polar, $dA = r\\,dr\\,d\\theta$. The integral becomes $\\int_0^{2\\pi}\\int_0^2 r\\,dr\\,d\\theta = 2\\pi \\cdot 2 = 4\\pi \\approx 12.566$. This is the area of the disk of radius $2$."
           },
           {
@@ -29059,6 +30861,7 @@ window.MVQuizBank = {
               "$f$ takes only nonnegative values"
             ],
             "answer": 1,
+            "hint": "Fubini in the Riemann setting requires integrability on the box plus integrability of slices.",
             "explain": "Fubini in the Riemann setting requires integrability on the box plus integrability of slices. Continuity of $f$ is the usual sufficient hypothesis. Tonelli's theorem handles nonnegative measurable functions in the Lebesgue setting without requiring a priori integrability."
           },
           {
@@ -29066,6 +30869,7 @@ window.MVQuizBank = {
             "q": "Under the change of variables $(u,v)\\mapsto(2u,\\,3v)$, by what factor does area on $\\mathbb{R}^2$ scale?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "The Jacobian matrix is $\\operatorname{diag}(2,3)$, with determinant $|\\det J| = 6$.",
             "explain": "The Jacobian matrix is $\\operatorname{diag}(2,3)$, with determinant $|\\det J| = 6$. Areas scale by exactly this factor."
           }
         ],
@@ -29105,6 +30909,7 @@ window.MVQuizBank = {
               "$F$ is injective on some neighborhood of $a$"
             ],
             "answer": 1,
+            "hint": "IFT: if $F$ is $C^1$ on an open neighborhood of $a$ and the Jacobian $J_F(a)$ is invertible (equivalently, $\\det J_F(a)\\neq 0$), then $F$ restricts to a $C^1$-diffeomorphism between open…",
             "explain": "IFT: if $F$ is $C^1$ on an open neighborhood of $a$ and the Jacobian $J_F(a)$ is invertible (equivalently, $\\det J_F(a)\\neq 0$), then $F$ restricts to a $C^1$-diffeomorphism between open neighborhoods of $a$ and $F(a)$."
           },
           {
@@ -29112,6 +30917,7 @@ window.MVQuizBank = {
             "q": "On the unit circle $F(x,y) = x^2 + y^2 - 1 = 0$, at the point $(x_0, y_0) = (1/2, \\sqrt{3}/2)$, implicit differentiation gives $dy/dx = -F_x/F_y$. Compute this slope.",
             "answer": -0.5773502692,
             "tol": 0.001,
+            "hint": "$F_x = 2x = 1$, $F_y = 2y = \\sqrt{3}$.",
             "explain": "$F_x = 2x = 1$, $F_y = 2y = \\sqrt{3}$. Then $dy/dx = -1/\\sqrt{3} = -\\sqrt{3}/3 \\approx -0.5774$. This is the slope of the tangent line to the unit circle at $(1/2,\\sqrt 3/2)$."
           },
           {
@@ -29124,6 +30930,7 @@ window.MVQuizBank = {
               "$\\partial F/\\partial x(x_0, y_0) \\neq 0$"
             ],
             "answer": 1,
+            "hint": "The $y$-block Jacobian (here $\\partial F/\\partial y$) must be invertible.",
             "explain": "The $y$-block Jacobian (here $\\partial F/\\partial y$) must be invertible. If $\\partial F/\\partial y(x_0, y_0) = 0$, IFT does not apply — geometrically, the tangent to $\\{F=0\\}$ is vertical, so the curve fails to be locally a graph $y = g(x)$ (e.g., the unit circle at $(\\pm 1, 0)$)."
           }
         ],
@@ -29162,6 +30969,7 @@ window.MVQuizBank = {
               "Divergence test: $a_n \\not\\to 0$"
             ],
             "answer": 2,
+            "hint": "The ratio $a_{n+1}/a_n = (1/(n+1)!)/(1/n!) = 1/(n+1) \\to 0$.",
             "explain": "The ratio $a_{n+1}/a_n = (1/(n+1)!)/(1/n!) = 1/(n+1) \\to 0$. Since $L=0<1$, the ratio test gives absolute convergence (here to $e$). Comparison against $1/n$ fails in the wrong direction, and the integral test needs a nice integrable function on $[1,\\infty)$."
           },
           {
@@ -29169,6 +30977,7 @@ window.MVQuizBank = {
             "q": "Let $a_n = 3^n/n!$. Compute $L = \\lim_{n\\to\\infty} |a_{n+1}/a_n|$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$a_{n+1}/a_n = (3^{n+1}/(n+1)!)\\cdot(n!/3^n) = 3/(n+1) \\to 0$.",
             "explain": "$a_{n+1}/a_n = (3^{n+1}/(n+1)!)\\cdot(n!/3^n) = 3/(n+1) \\to 0$. So $L=0<1$ — the series converges absolutely (in fact to $e^3$)."
           },
           {
@@ -29181,6 +30990,7 @@ window.MVQuizBank = {
               "A Cauchy sequence but not convergent"
             ],
             "answer": 1,
+            "hint": "By the alternating series test the series converges (to $\\ln 2$).",
             "explain": "By the alternating series test the series converges (to $\\ln 2$). But $\\sum |(-1)^{n+1}/n| = \\sum 1/n$ is the harmonic series, which diverges. So the convergence is conditional, not absolute."
           }
         ],
@@ -29225,6 +31035,7 @@ window.MVQuizBank = {
             "q": "What is the radius of convergence of $\\sum_{n\\ge 1} x^n/n$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$a_n = 1/n$, so $|a_n|^{1/n} = (1/n)^{1/n} \\to 1$.",
             "explain": "$a_n = 1/n$, so $|a_n|^{1/n} = (1/n)^{1/n} \\to 1$. By Cauchy–Hadamard $1/R = 1$, hence $R = 1$. (The series is $-\\ln(1-x)$ on $(-1,1)$.)"
           },
           {
@@ -29237,6 +31048,7 @@ window.MVQuizBank = {
               "$\\sum n!\\,x^n$"
             ],
             "answer": 2,
+            "hint": "For $\\sum x^n/n!$, the ratio $|a_{n+1}/a_n| = 1/(n+1) \\to 0$, so $1/R = 0$ and $R = \\infty$.",
             "explain": "For $\\sum x^n/n!$, the ratio $|a_{n+1}/a_n| = 1/(n+1) \\to 0$, so $1/R = 0$ and $R = \\infty$. This is the exponential series. By contrast $\\sum n!\\,x^n$ has $R=0$, and $\\sum x^n$, $\\sum x^n/n$ both have $R=1$."
           },
           {
@@ -29244,6 +31056,7 @@ window.MVQuizBank = {
             "q": "Compute $\\limsup_{n\\to\\infty} n^{1/n}$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$n^{1/n} = \\exp((\\ln n)/n)$, and $(\\ln n)/n \\to 0$, so $n^{1/n}\\to 1$.",
             "explain": "$n^{1/n} = \\exp((\\ln n)/n)$, and $(\\ln n)/n \\to 0$, so $n^{1/n}\\to 1$. Hence $\\limsup n^{1/n} = 1$. This is why Cauchy–Hadamard gives $R=1$ for any series $\\sum a_n x^n$ with $a_n = n^{\\pm k}$."
           }
         ],
@@ -29293,6 +31106,7 @@ window.MVQuizBank = {
               "$A$ is both open and closed"
             ],
             "answer": 1,
+            "hint": "Nowhere dense means $\\mathrm{int}(\\overline{A}) = \\varnothing$: the closure contains no open ball.",
             "explain": "Nowhere dense means $\\mathrm{int}(\\overline{A}) = \\varnothing$: the closure contains no open ball. Equivalently, every nonempty open set has a nonempty open subset disjoint from $A$. Finite sets in $\\mathbb{R}$ qualify, but so do Cantor-like sets, which are uncountable."
           },
           {
@@ -29305,6 +31119,7 @@ window.MVQuizBank = {
               "$X$ is second countable"
             ],
             "answer": 1,
+            "hint": "Baire category theorem: a complete metric space (or a locally compact Hausdorff space) cannot be written as $\\bigcup_n F_n$ where each $F_n$ is nowhere dense.",
             "explain": "Baire category theorem: a complete metric space (or a locally compact Hausdorff space) cannot be written as $\\bigcup_n F_n$ where each $F_n$ is nowhere dense. Equivalently, a countable intersection of open dense sets is dense. This powers uniform boundedness, open mapping, and closed graph theorems."
           },
           {
@@ -29312,6 +31127,7 @@ window.MVQuizBank = {
             "q": "Let $\\mathbb{Q}\\cap[0,1]$ be enumerated as $\\{q_1, q_2, \\dots\\}$. Each singleton $\\{q_k\\}$ is nowhere dense in $[0,1]$ (with the usual metric). How many such singletons are there in the enumeration?",
             "answer": 0,
             "tol": 0.5,
+            "hint": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons — but the question asks how many are finite in count: the answer is infinite, conventionally encoded…",
             "explain": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons — but the question asks how many are finite in count: the answer is infinite, conventionally encoded as \"not finite\". The meager-in-$[0,1]$ point: $\\mathbb{Q}\\cap[0,1]$ is a countable union of nowhere-dense sets, yet $[0,1]$ itself is complete and non-meager (Baire). The numeric $0$ captures \"no finite upper bound\" in this grading."
           }
         ],
@@ -29352,6 +31168,7 @@ window.MVQuizBank = {
             "q": "Using FTC, compute $\\int_1^e (1/x)\\,dx$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$F(x) = \\ln x$ is an antiderivative of $1/x$ on $(0,\\infty)$.",
             "explain": "$F(x) = \\ln x$ is an antiderivative of $1/x$ on $(0,\\infty)$. By FTC Part II, $\\int_1^e 1/x\\,dx = \\ln e - \\ln 1 = 1 - 0 = 1$."
           },
           {
@@ -29364,6 +31181,7 @@ window.MVQuizBank = {
               "Both parts simultaneously, in that order"
             ],
             "answer": 1,
+            "hint": "Part II (the \"evaluation\" part) says: if $F$ is differentiable with $F'$ integrable, then $\\int_a^b F' = F(b)-F(a)$.",
             "explain": "Part II (the \"evaluation\" part) says: if $F$ is differentiable with $F'$ integrable, then $\\int_a^b F' = F(b)-F(a)$. Here $F(x)=x^3$ has $F'(x)=3x^2$, and $F(2)-F(0)=8$. Part I would instead construct $F$ from the integral, not evaluate a known integral."
           },
           {
@@ -29371,6 +31189,7 @@ window.MVQuizBank = {
             "q": "Let $F(x) = \\int_0^x 3t^2\\,dt$. By FTC Part I, $F'(x) = 3x^2$. Compute $F'(2)$.",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "FTC Part I says $F'(x) = f(x)$ when $f$ is continuous.",
             "explain": "FTC Part I says $F'(x) = f(x)$ when $f$ is continuous. So $F'(2) = 3(2)^2 = 12$. Note $F(x) = x^3$ (Part II), and indeed $F'(x) = 3x^2$ agrees."
           }
         ],
@@ -29420,6 +31239,7 @@ window.MVQuizBank = {
               "Polynomials are discontinuous"
             ],
             "answer": 1,
+            "hint": "If $p$ is a polynomial with compact support, then $p$ vanishes outside some bounded interval — in particular, on an open half-line.",
             "explain": "If $p$ is a polynomial with compact support, then $p$ vanishes outside some bounded interval — in particular, on an open half-line. A polynomial vanishing on an infinite set is the zero polynomial (or more strongly, vanishing on an open set). Smooth bumps like $\\exp(-1/(1-x^2))$ dodge this by being non-analytic at $x=\\pm 1$."
           },
           {
@@ -29427,6 +31247,7 @@ window.MVQuizBank = {
             "q": "The standard bump $\\psi(x) = \\exp(-1/(1-x^2))$ on $|x|<1$ (extended by $0$ outside) attains its maximum at $x=0$. Compute $\\psi(0)$ to four decimal places.",
             "answer": 0.3679,
             "tol": 0.001,
+            "hint": "$\\psi(0) = \\exp(-1/(1-0)) = \\exp(-1) = 1/e \\approx 0.3679$.",
             "explain": "$\\psi(0) = \\exp(-1/(1-0)) = \\exp(-1) = 1/e \\approx 0.3679$."
           },
           {
@@ -29439,6 +31260,7 @@ window.MVQuizBank = {
               "In nowhere — it is a strict subspace"
             ],
             "answer": 1,
+            "hint": "$C^\\infty_c$ is dense in $L^p$ for $1 \\le p < \\infty$, via mollification plus truncation.",
             "explain": "$C^\\infty_c$ is dense in $L^p$ for $1 \\le p < \\infty$, via mollification plus truncation. It is NOT dense in $L^\\infty$ (the sup-norm closure of compactly supported functions is $C_0$, functions vanishing at infinity). This density is why distributional derivatives and Sobolev approximations work."
           }
         ],
@@ -29489,6 +31311,7 @@ window.MVQuizBank = {
               "$\\sup_{f\\in\\mathcal{F}} \\|f\\|_\\infty < \\infty$"
             ],
             "answer": 1,
+            "hint": "Equicontinuity is uniform continuity with the $\\delta$ shared across all members of the family.",
             "explain": "Equicontinuity is uniform continuity with the $\\delta$ shared across all members of the family. Merely being continuous (even uniformly continuous individually) is not enough — the $\\delta$ must not depend on which $f\\in\\mathcal{F}$ you picked. Pointwise boundedness (choice 4) is the second Arzelà–Ascoli hypothesis, not equicontinuity."
           },
           {
@@ -29501,6 +31324,7 @@ window.MVQuizBank = {
               "Not a vector space"
             ],
             "answer": 0,
+            "hint": "$C[a,b]$ is complete under the sup norm because uniform limits of continuous functions are continuous (§4).",
             "explain": "$C[a,b]$ is complete under the sup norm because uniform limits of continuous functions are continuous (§4). So it is a Banach space. It is NOT a Hilbert space in general — the sup norm is not induced by an inner product (the parallelogram law fails)."
           },
           {
@@ -29508,6 +31332,7 @@ window.MVQuizBank = {
             "q": "Compute $\\|x - x^2\\|_\\infty$ on $[0,1]$ (the supremum of $x - x^2$).",
             "answer": 0.25,
             "tol": 0.000001,
+            "hint": "$f(x) = x - x^2$, $f'(x) = 1 - 2x = 0$ at $x = 1/2$.",
             "explain": "$f(x) = x - x^2$, $f'(x) = 1 - 2x = 0$ at $x = 1/2$. $f(1/2) = 1/2 - 1/4 = 1/4 = 0.25$. Endpoints give $f(0) = f(1) = 0$. So $\\|f\\|_\\infty = 1/4$."
           }
         ],
@@ -29564,6 +31389,7 @@ window.MVQuizBank = {
               "a subset of $G$ closed under conjugation"
             ],
             "answer": 1,
+            "hint": "A representation is a group homomorphism $\\rho\\colon G\\to\\mathrm{GL}(V)$; equivalently, a linear $G$-action on $V$, or a left $\\mathbb{C}[G]$-module structure.",
             "explain": "A representation is a group homomorphism $\\rho\\colon G\\to\\mathrm{GL}(V)$; equivalently, a linear $G$-action on $V$, or a left $\\mathbb{C}[G]$-module structure."
           },
           {
@@ -29571,6 +31397,7 @@ window.MVQuizBank = {
             "q": "The cyclic group $C_6$ has how many non-isomorphic irreducible complex representations? (Recall every irrep of an abelian group is $1$-dimensional.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "For any finite abelian group $G$, the number of irreducible complex representations equals $|G|$; for $C_6$ that is $6$, one for each $6$th root of unity.",
             "explain": "For any finite abelian group $G$, the number of irreducible complex representations equals $|G|$; for $C_6$ that is $6$, one for each $6$th root of unity."
           },
           {
@@ -29581,6 +31408,7 @@ window.MVQuizBank = {
               0.8660254037844387
             ],
             "tol": 0.000001,
+            "hint": "$\\chi_1(g^2)=\\zeta_6^2=e^{2\\pi i/3}=-\\tfrac12+\\tfrac{\\sqrt3}{2}i$.",
             "explain": "$\\chi_1(g^2)=\\zeta_6^2=e^{2\\pi i/3}=-\\tfrac12+\\tfrac{\\sqrt3}{2}i$."
           }
         ],
@@ -29634,6 +31462,7 @@ window.MVQuizBank = {
               "$\\chi_{V\\otimes W}(g) = \\chi_V(g)/\\chi_W(g)$"
             ],
             "answer": 1,
+            "hint": "Since $\\rho_{V\\otimes W}(g) = \\rho_V(g)\\otimes\\rho_W(g)$ and the trace of a tensor product is the product of traces, characters multiply pointwise under $\\otimes$.",
             "explain": "Since $\\rho_{V\\otimes W}(g) = \\rho_V(g)\\otimes\\rho_W(g)$ and the trace of a tensor product is the product of traces, characters multiply pointwise under $\\otimes$."
           },
           {
@@ -29646,6 +31475,7 @@ window.MVQuizBank = {
               "To force $V^*$ to be irreducible"
             ],
             "answer": 1,
+            "hint": "Using $\\rho(g)$ instead of $\\rho(g^{-1})$ would give $((gh)\\cdot f)(v) = f(\\rho(gh)v) = f(\\rho(g)\\rho(h)v) = (h\\cdot(g\\cdot f))(v)$, the opposite order — a right action.",
             "explain": "Using $\\rho(g)$ instead of $\\rho(g^{-1})$ would give $((gh)\\cdot f)(v) = f(\\rho(gh)v) = f(\\rho(g)\\rho(h)v) = (h\\cdot(g\\cdot f))(v)$, the opposite order — a right action. The inverse restores left-action compatibility."
           },
           {
@@ -29653,6 +31483,7 @@ window.MVQuizBank = {
             "q": "For the standard $2$-dim irrep $V$ of $S_3$ with character $(2,0,-1)$ on classes $\\{e,(12),(123)\\}$, compute $\\chi_{V\\otimes V}((123))$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\chi_{V\\otimes V}(g) = \\chi_V(g)^2$, so $\\chi_{V\\otimes V}((123)) = (-1)^2 = 1$.",
             "explain": "$\\chi_{V\\otimes V}(g) = \\chi_V(g)^2$, so $\\chi_{V\\otimes V}((123)) = (-1)^2 = 1$."
           }
         ],
@@ -29705,6 +31536,7 @@ window.MVQuizBank = {
               "$|G|$ is prime"
             ],
             "answer": 2,
+            "hint": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$.",
             "explain": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$."
           },
           {
@@ -29717,6 +31549,7 @@ window.MVQuizBank = {
               "$g\\mapsto\\mathrm{diag}(1,\\zeta_p)$"
             ],
             "answer": 2,
+            "hint": "The unipotent $2\\times 2$ rep has the line $\\mathbb{F}_p\\cdot e_1$ as a subrep with no $G$-stable complement: over $\\mathbb{F}_p$ it is indecomposable but not irreducible.",
             "explain": "The unipotent $2\\times 2$ rep has the line $\\mathbb{F}_p\\cdot e_1$ as a subrep with no $G$-stable complement: over $\\mathbb{F}_p$ it is indecomposable but not irreducible."
           },
           {
@@ -29724,6 +31557,7 @@ window.MVQuizBank = {
             "q": "By Maschke, a finite-dimensional complex rep $V$ of a finite group $G$ decomposes as $V\\cong\\bigoplus_\\lambda V_\\lambda^{\\oplus m_\\lambda}$. If $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=5$ and each multiplicity is $1$ or $2$, how many distinct irreducibles appear with multiplicity $1$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\sum m_\\lambda^2=5$ with entries in $\\{1,2\\}$ forces one multiplicity-$2$ summand ($4$) plus one multiplicity-$1$ summand ($1$).",
             "explain": "$\\sum m_\\lambda^2=5$ with entries in $\\{1,2\\}$ forces one multiplicity-$2$ summand ($4$) plus one multiplicity-$1$ summand ($1$). Hence exactly $1$ distinct irreducible appears with $m_\\lambda=1$."
           }
         ],
@@ -29776,6 +31610,7 @@ window.MVQuizBank = {
               "$T$ preserves a Hermitian inner product"
             ],
             "answer": 1,
+            "hint": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility.",
             "explain": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility."
           },
           {
@@ -29783,6 +31618,7 @@ window.MVQuizBank = {
             "q": "For $G$ abelian and $V$ a finite-dimensional complex irrep of $G$, Schur forces $\\dim V = ?$",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Every $\\rho(h)$ commutes with every $\\rho(g)$, so by Schur $\\rho(h)$ acts as a scalar on the irrep $V$.",
             "explain": "Every $\\rho(h)$ commutes with every $\\rho(g)$, so by Schur $\\rho(h)$ acts as a scalar on the irrep $V$. Any subspace is then $G$-stable, so $V$ being irreducible forces $\\dim V=1$."
           },
           {
@@ -29790,6 +31626,7 @@ window.MVQuizBank = {
             "q": "Let $V = 2V_1 \\oplus 3V_2$ where $V_1,V_2$ are non-isomorphic irreps of $G$. By the commutant formula $\\mathrm{End}_G(V)\\cong\\prod_\\lambda M_{m_\\lambda}(\\mathbb{C})$, compute $\\dim_{\\mathbb{C}}\\mathrm{End}_G(V)$.",
             "answer": 13,
             "tol": 0.000001,
+            "hint": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$.",
             "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$."
           }
         ],
@@ -29843,6 +31680,7 @@ window.MVQuizBank = {
               "$\\chi_V(g)=0$ for all $g\\ne e$"
             ],
             "answer": 1,
+            "hint": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand.",
             "explain": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand."
           },
           {
@@ -29850,6 +31688,7 @@ window.MVQuizBank = {
             "q": "For $S_3$ with classes $\\{e\\},\\{(12)\\},\\{(123)\\}$ of sizes $1,3,2$, the $3$-dimensional permutation rep has character $(3,1,0)$. Compute the multiplicity $\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle$ of the standard $2$-dim irrep $V$ (whose character is $(2,0,-1)$).",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=1$.",
             "explain": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=1$."
           },
           {
@@ -29857,6 +31696,7 @@ window.MVQuizBank = {
             "q": "Using $|G|=\\sum_\\lambda (\\dim V_\\lambda)^2$, a group of order $8$ has five conjugacy classes. If four of its irreducibles are $1$-dimensional, what is the dimension of the fifth irreducible?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$1+1+1+1+d^2=8$, so $d=2$.",
             "explain": "$1+1+1+1+d^2=8$, so $d=2$. This is the pattern for $D_4$ and $Q_8$."
           }
         ],
@@ -29891,6 +31731,7 @@ window.MVQuizBank = {
             "q": "How many irreducible complex representations does $S_4$ have?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$.",
             "explain": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$."
           },
           {
@@ -29903,6 +31744,7 @@ window.MVQuizBank = {
               "$5$"
             ],
             "answer": 2,
+            "hint": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters.",
             "explain": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters. So $D_4$ has $4$ one-dimensional irreps plus one $2$-dimensional."
           },
           {
@@ -29910,6 +31752,7 @@ window.MVQuizBank = {
             "q": "The character table of $S_3$ has rows $\\chi_\\mathbf{1}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$ on classes $\\{e\\},\\{(12)\\},\\{(123)\\}$. Verify the $|G| = \\sum_\\lambda (\\dim V_\\lambda)^2$ identity by computing $\\sum_\\lambda (\\dim V_\\lambda)^2$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$1^2 + 1^2 + 2^2 = 6 = |S_3|$.",
             "explain": "$1^2 + 1^2 + 2^2 = 6 = |S_3|$. The dimension column of the character table squares to $|G|$."
           }
         ],
@@ -29963,6 +31806,7 @@ window.MVQuizBank = {
               "$\\chi_{V_X}(g) = 0$ unless $g=e$"
             ],
             "answer": 1,
+            "hint": "The matrix of $\\rho(g)$ in the basis $\\{e_x\\}$ has a $1$ on the diagonal exactly at fixed points $x = g\\cdot x$, so its trace counts fixed points.",
             "explain": "The matrix of $\\rho(g)$ in the basis $\\{e_x\\}$ has a $1$ on the diagonal exactly at fixed points $x = g\\cdot x$, so its trace counts fixed points."
           },
           {
@@ -29970,6 +31814,7 @@ window.MVQuizBank = {
             "q": "By Burnside's lemma, the number of orbits of $G$ on $X$ equals $\\frac{1}{|G|}\\sum_{g\\in G}\\#\\mathrm{Fix}_X(g)$. For $G=S_3$ acting on $X=\\{1,2,3\\}$ (transitively), this gives:",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Fix counts: $e$ fixes $3$, each of the three transpositions fixes $1$, each $3$-cycle fixes $0$.",
             "explain": "Fix counts: $e$ fixes $3$, each of the three transpositions fixes $1$, each $3$-cycle fixes $0$. Sum $= 3+3+0 = 6$. Divided by $|S_3|=6$ gives $1$ orbit."
           },
           {
@@ -29977,6 +31822,7 @@ window.MVQuizBank = {
             "q": "For $S_4$ acting on the $6$ two-element subsets of $\\{1,2,3,4\\}$, the stabilizer of $\\{1,2\\}$ is $S_{\\{1,2\\}}\\times S_{\\{3,4\\}} \\cong S_2\\times S_2$ of order $4$. By orbit-stabilizer, the orbit of $\\{1,2\\}$ has size:",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$|G|/|\\mathrm{Stab}| = 24/4 = 6$, matching the $6$ two-element subsets (single orbit).",
             "explain": "$|G|/|\\mathrm{Stab}| = 24/4 = 6$, matching the $6$ two-element subsets (single orbit)."
           }
         ],
@@ -30017,6 +31863,7 @@ window.MVQuizBank = {
               "$\\mathbb{C}[G] = \\mathbf{1}^{\\oplus|G|}$ (trivially)"
             ],
             "answer": 1,
+            "hint": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$.",
             "explain": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$."
           },
           {
@@ -30024,6 +31871,7 @@ window.MVQuizBank = {
             "q": "The regular representation of $S_3$ has dimension $6$. Verify: how many copies of each irrep does it contain in total (summed dimensions)? Compute $\\sum_\\lambda \\dim V_\\lambda$ for $S_3$ (sum of one of each irrep).",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$S_3$ has irreducibles of dimensions $1, 1, 2$, summing to $4$.",
             "explain": "$S_3$ has irreducibles of dimensions $1, 1, 2$, summing to $4$. (Compare to $\\sum (\\dim V_\\lambda)^2 = 1+1+4 = 6 = |S_3|$.)"
           },
           {
@@ -30031,6 +31879,7 @@ window.MVQuizBank = {
             "q": "The character of the regular representation of any finite group $G$ satisfies $\\chi_{\\mathrm{reg}}(e) = |G|$ and $\\chi_{\\mathrm{reg}}(g) = 0$ for $g\\ne e$. For $|G|=12$, compute $\\langle \\chi_{\\mathrm{reg}}, \\chi_\\lambda\\rangle$ for a $3$-dimensional irrep $V_\\lambda$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$\\langle\\chi_{\\mathrm{reg}},\\chi_\\lambda\\rangle = \\tfrac{1}{|G|}\\cdot|G|\\cdot\\chi_\\lambda(e) = \\chi_\\lambda(e) = \\dim V_\\lambda = 3$.",
             "explain": "$\\langle\\chi_{\\mathrm{reg}},\\chi_\\lambda\\rangle = \\tfrac{1}{|G|}\\cdot|G|\\cdot\\chi_\\lambda(e) = \\chi_\\lambda(e) = \\dim V_\\lambda = 3$."
           }
         ],
@@ -30070,6 +31919,7 @@ window.MVQuizBank = {
               "$\\dim\\mathrm{Ind}_H^G W = \\dim W$"
             ],
             "answer": 0,
+            "hint": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$.",
             "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$."
           },
           {
@@ -30077,6 +31927,7 @@ window.MVQuizBank = {
             "q": "Let $H=\\langle(123)\\rangle\\cong C_3\\le S_3$, $[S_3:H]=2$. If $W$ is any $1$-dimensional rep of $C_3$, compute $\\dim\\mathrm{Ind}_H^{S_3}W$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$.",
             "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$."
           },
           {
@@ -30084,6 +31935,7 @@ window.MVQuizBank = {
             "q": "For $H = A_4 \\le G = S_4$ with $[G:H] = 2$, compute $\\dim \\mathrm{Ind}_H^G \\mathbf{1}_H$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\dim\\mathrm{Ind}_{A_4}^{S_4}\\mathbf{1} = [S_4:A_4]\\cdot 1 = 2\\cdot 1 = 2$.",
             "explain": "$\\dim\\mathrm{Ind}_{A_4}^{S_4}\\mathbf{1} = [S_4:A_4]\\cdot 1 = 2\\cdot 1 = 2$. This induced rep is $\\mathbf{1}\\oplus\\varepsilon$ (the trivial rep plus the sign rep of $S_4$)."
           }
         ],
@@ -30132,6 +31984,7 @@ window.MVQuizBank = {
             "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(3,1)\\vdash 4$. The hook lengths are $4,2,1$ in the first row and $1$ in the second row.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$.",
             "explain": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$."
           },
           {
@@ -30139,6 +31992,7 @@ window.MVQuizBank = {
             "q": "How many partitions does $5$ have, i.e., how many irreducible representations does $S_5$ have?",
             "answer": 7,
             "tol": 0.000001,
+            "hint": "Partitions of $5$: $(5), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1)$.",
             "explain": "Partitions of $5$: $(5), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1)$. Seven partitions, seven irreducible representations."
           },
           {
@@ -30146,6 +32000,7 @@ window.MVQuizBank = {
             "q": "For $\\lambda = (2,2) \\vdash 4$, the hook lengths are $3, 2, 2, 1$. Compute $\\dim V_{(2,2)}$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$f^{(2,2)} = 4!/(3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$.",
             "explain": "$f^{(2,2)} = 4!/(3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$."
           }
         ],
@@ -30186,6 +32041,7 @@ window.MVQuizBank = {
               "Simply connected Lie groups"
             ],
             "answer": 1,
+            "hint": "Peter–Weyl requires compactness (ensures Haar measure is finite and irreps are finite-dimensional) plus Hausdorff (ensures unique Haar measure).",
             "explain": "Peter–Weyl requires compactness (ensures Haar measure is finite and irreps are finite-dimensional) plus Hausdorff (ensures unique Haar measure). For non-compact groups like $\\mathrm{SL}_2(\\mathbb{R})$, infinite-dim irreps enter via the Plancherel theorem."
           },
           {
@@ -30193,6 +32049,7 @@ window.MVQuizBank = {
             "q": "The irreducible unitary representations of $\\mathrm{SU}(2)$ are $V_n$ of dimension $n+1$ for $n = 0, 1, 2, \\ldots$. How many linearly independent matrix coefficients does $V_3$ contribute to $L^2(\\mathrm{SU}(2))$ (i.e., what is $\\dim V_3 \\cdot \\dim V_3^* = (\\dim V_3)^2$)?",
             "answer": 16,
             "tol": 0.000001,
+            "hint": "$V_3$ has dimension $4$, so $V_3\\otimes V_3^*$ contributes $4\\cdot 4 = 16$ matrix coefficients.",
             "explain": "$V_3$ has dimension $4$, so $V_3\\otimes V_3^*$ contributes $4\\cdot 4 = 16$ matrix coefficients."
           },
           {
@@ -30258,6 +32115,7 @@ window.MVQuizBank = {
               "$Hv = Ev = Fv = 0$"
             ],
             "answer": 1,
+            "hint": "A highest-weight vector is annihilated by the raising operator $E$ (so its weight cannot be increased) and is a simultaneous eigenvector of the Cartan $H$.",
             "explain": "A highest-weight vector is annihilated by the raising operator $E$ (so its weight cannot be increased) and is a simultaneous eigenvector of the Cartan $H$."
           },
           {
@@ -30265,6 +32123,7 @@ window.MVQuizBank = {
             "q": "If $v$ is a highest-weight vector of weight $n = 5$ in a finite-dimensional irreducible $\\mathfrak{sl}_2$-rep, how many linearly independent vectors are in $\\{v, Fv, F^2 v, \\ldots, F^5 v\\}$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "The chain has $n+1 = 6$ linearly independent vectors, and their $H$-weights $5, 3, 1, -1, -3, -5$ are distinct.",
             "explain": "The chain has $n+1 = 6$ linearly independent vectors, and their $H$-weights $5, 3, 1, -1, -3, -5$ are distinct."
           },
           {
@@ -30277,6 +32136,7 @@ window.MVQuizBank = {
               "Because the exponential map sends $\\lambda$ to a complex number"
             ],
             "answer": 1,
+            "hint": "Finite dimensionality gives $F^{n+1}v = 0$ for some $n$.",
             "explain": "Finite dimensionality gives $F^{n+1}v = 0$ for some $n$. Applying $E$ and using $EF^k v = k(\\lambda - k + 1)F^{k-1}v$ at $k = n+1$ gives $0 = (n+1)(\\lambda-n)F^n v$. Since $F^n v \\ne 0$ and $n+1 \\ne 0$, $\\lambda = n$."
           }
         ],
@@ -30330,6 +32190,7 @@ window.MVQuizBank = {
               "$\\{\\pm n\\}$"
             ],
             "answer": 1,
+            "hint": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$.",
             "explain": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$."
           },
           {
@@ -30337,6 +32198,7 @@ window.MVQuizBank = {
             "q": "Using Clebsch–Gordan $V_m\\otimes V_n = V_{m+n}\\oplus V_{m+n-2}\\oplus\\cdots\\oplus V_{|m-n|}$, compute $\\dim V_2\\otimes V_3$ and verify by summing the dimensions of the irreducible summands.",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "$\\dim V_2\\otimes V_3 = 3\\cdot 4 = 12$.",
             "explain": "$\\dim V_2\\otimes V_3 = 3\\cdot 4 = 12$. Clebsch–Gordan gives $V_5\\oplus V_3\\oplus V_1$ with dimensions $6+4+2=12$. ✓"
           },
           {
@@ -30344,6 +32206,7 @@ window.MVQuizBank = {
             "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n-m)(n+m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$.",
             "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$."
           }
         ],
@@ -30401,6 +32264,7 @@ window.MVQuizBank = {
               "the atlas is finite"
             ],
             "answer": 1,
+            "hint": "The defining requirement is that overlaps are biholomorphic; smoothness alone gives a smooth 2-manifold, not a Riemann surface.",
             "explain": "The defining requirement is that overlaps are biholomorphic; smoothness alone gives a smooth 2-manifold, not a Riemann surface."
           },
           {
@@ -30408,6 +32272,7 @@ window.MVQuizBank = {
             "q": "For a compact Riemann surface of genus $g=3$, compute $\\chi(X)=2-2g$.",
             "answer": -4,
             "tol": 0.000001,
+            "hint": "$\\chi=2-2\\cdot 3=-4$.",
             "explain": "$\\chi=2-2\\cdot 3=-4$. Genus and Euler characteristic are interchangeable topological data for orientable surfaces."
           },
           {
@@ -30415,6 +32280,7 @@ window.MVQuizBank = {
             "q": "On a compact Riemann surface of genus $g=4$, what is $\\dim H^0(X,\\Omega^1)$ (the space of holomorphic 1-forms)?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Hodge theory gives $\\dim H^0(X,\\Omega^1)=g$; here $g=4$.",
             "explain": "Hodge theory gives $\\dim H^0(X,\\Omega^1)=g$; here $g=4$."
           }
         ],
@@ -30468,6 +32334,7 @@ window.MVQuizBank = {
               "$z\\mapsto \\overline{z}$"
             ],
             "answer": 2,
+            "hint": "Locally every non-constant holomorphic map looks like $z\\mapsto z^{e_p}$; $e_p$ is the ramification index, equal to $1$ at unramified points.",
             "explain": "Locally every non-constant holomorphic map looks like $z\\mapsto z^{e_p}$; $e_p$ is the ramification index, equal to $1$ at unramified points."
           },
           {
@@ -30475,6 +32342,7 @@ window.MVQuizBank = {
             "q": "For the hyperelliptic curve $w^2=P(z)$ with $\\deg P=6$ (even), how many branch points does the projection $(z,w)\\mapsto z$ have on $\\mathbb{CP}^1$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "The branch locus is the zero set of $P$ (size $d=6$); since $d$ is even, $\\infty$ is not a branch point.",
             "explain": "The branch locus is the zero set of $P$ (size $d=6$); since $d$ is even, $\\infty$ is not a branch point."
           },
           {
@@ -30485,6 +32353,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "A loop around $0$ sends $\\sqrt{z}\\mapsto -\\sqrt{z}$; so $w=+1$ returns as $w=-1=-1+0i$.",
             "explain": "A loop around $0$ sends $\\sqrt{z}\\mapsto -\\sqrt{z}$; so $w=+1$ returns as $w=-1=-1+0i$."
           }
         ],
@@ -30538,6 +32407,7 @@ window.MVQuizBank = {
               "always $\\mathbb{CP}^1$"
             ],
             "answer": 2,
+            "hint": "The trichotomy: $g=0\\Rightarrow\\mathbb{CP}^1$ (spherical), $g=1\\Rightarrow\\mathbb{C}$ (flat), $g\\ge 2\\Rightarrow\\mathbb{H}$ (hyperbolic).",
             "explain": "The trichotomy: $g=0\\Rightarrow\\mathbb{CP}^1$ (spherical), $g=1\\Rightarrow\\mathbb{C}$ (flat), $g\\ge 2\\Rightarrow\\mathbb{H}$ (hyperbolic)."
           },
           {
@@ -30545,6 +32415,7 @@ window.MVQuizBank = {
             "q": "A degree-$3$ map $f:X\\to\\mathbb{CP}^1$ is totally ramified over $4$ points (each with a single preimage of ramification index $3$) and unramified elsewhere. Use Riemann-Hurwitz $2g_X-2 = n(2g_Y-2)+\\sum(e_p-1)$ to find $g_X$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Total ramification contribution is $4\\cdot(3-1)=8$; so $2g_X-2=3(-2)+8=2$, giving $g_X=2$.",
             "explain": "Total ramification contribution is $4\\cdot(3-1)=8$; so $2g_X-2=3(-2)+8=2$, giving $g_X=2$."
           },
           {
@@ -30552,6 +32423,7 @@ window.MVQuizBank = {
             "q": "For a double cover $f:X\\to\\mathbb{CP}^1$ branched at exactly $b=8$ points, what is $g_X$?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Riemann-Hurwitz gives $2g_X-2=2(-2)+8=4$, so $g_X=3$.",
             "explain": "Riemann-Hurwitz gives $2g_X-2=2(-2)+8=4$, so $g_X=3$. (Equivalently $g_X=b/2-1$.)"
           }
         ],
@@ -30605,6 +32477,7 @@ window.MVQuizBank = {
               "the specific complex structure (choice of biholomorphism class)"
             ],
             "answer": 3,
+            "hint": "For $g\\ge 2$ the biholomorphism class varies in a $(6g-6)$-real-dimensional moduli space $\\mathcal{M}_g$; only topological/Hodge invariants like $\\chi,\\ b_1=2g,\\ \\dim H^0(\\Omega^1)=g$ are forced by…",
             "explain": "For $g\\ge 2$ the biholomorphism class varies in a $(6g-6)$-real-dimensional moduli space $\\mathcal{M}_g$; only topological/Hodge invariants like $\\chi,\\ b_1=2g,\\ \\dim H^0(\\Omega^1)=g$ are forced by $g$ alone."
           },
           {
@@ -30612,6 +32485,7 @@ window.MVQuizBank = {
             "q": "What is the first Betti number $b_1(X)$ of a compact Riemann surface of genus $g=5$?",
             "answer": 10,
             "tol": 0.000001,
+            "hint": "$H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, so $b_1=2g=10$.",
             "explain": "$H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, so $b_1=2g=10$."
           },
           {
@@ -30619,6 +32493,7 @@ window.MVQuizBank = {
             "q": "On a compact Riemann surface of genus $g=7$, compute $\\deg K_X = 2g-2$ (the degree of the canonical divisor).",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "$\\deg K_X=2\\cdot 7-2=12$.",
             "explain": "$\\deg K_X=2\\cdot 7-2=12$. This is the $1$-forms count cashed out as a divisor degree."
           }
         ],
@@ -30672,6 +32547,7 @@ window.MVQuizBank = {
               "$\\ell(D) \\cdot \\ell(K-D) = \\deg D \\cdot g$"
             ],
             "answer": 1,
+            "hint": "The identity $\\ell(D)-\\ell(K-D)=\\deg D-g+1$ is Riemann-Roch; equivalently $\\chi(\\mathcal{O}(D))=\\deg D-g+1$, and the correction $\\ell(K-D)$ is Serre dual to $h^1$.",
             "explain": "The identity $\\ell(D)-\\ell(K-D)=\\deg D-g+1$ is Riemann-Roch; equivalently $\\chi(\\mathcal{O}(D))=\\deg D-g+1$, and the correction $\\ell(K-D)$ is Serre dual to $h^1$."
           },
           {
@@ -30679,6 +32555,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{CP}^1$ (genus $0$), for $D=5\\cdot\\infty$, compute $\\ell(D)$. (Hint: Riemann-Roch with $K=-2\\cdot\\infty$ and $\\ell(K-D)=0$ for $\\deg(K-D)<0$.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\deg(K-D)=-2-5=-7<0$ so $\\ell(K-D)=0$.",
             "explain": "$\\deg(K-D)=-2-5=-7<0$ so $\\ell(K-D)=0$. Then $\\ell(D)=\\deg D-g+1=5-0+1=6$ — polynomials of degree $\\le 5$."
           },
           {
@@ -30686,6 +32563,7 @@ window.MVQuizBank = {
             "q": "On an elliptic curve $E$ (genus $1$) with $\\deg K=0$, take $D=4\\cdot O$ with $O$ the origin. Compute $\\ell(D)$. (For $\\deg D>0$ on genus $1$, $\\ell(K-D)=0$.)",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Since $\\deg(K-D)=-4<0$, $\\ell(K-D)=0$ and $\\ell(D)=\\deg D-g+1=4-1+1=4$.",
             "explain": "Since $\\deg(K-D)=-4<0$, $\\ell(K-D)=0$ and $\\ell(D)=\\deg D-g+1=4-1+1=4$. A basis is $\\{1,\\wp,\\wp',\\wp^2\\}$."
           }
         ],
@@ -30744,6 +32622,7 @@ window.MVQuizBank = {
               "a choice of global chart on $M$"
             ],
             "answer": 1,
+            "hint": "A Riemannian metric is a smooth, symmetric, positive-definite inner product on each tangent space.",
             "explain": "A Riemannian metric is a smooth, symmetric, positive-definite inner product on each tangent space. Symmetry alone is not enough; positive-definiteness is what gives lengths and angles."
           },
           {
@@ -30751,6 +32630,7 @@ window.MVQuizBank = {
             "q": "On the round sphere with $ds^2 = d\\theta^2 + \\sin^2\\theta\\,d\\varphi^2$, compute the squared length of the vector $v = \\partial_\\varphi$ at the equator $\\theta=\\pi/2$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The metric assigns $g(\\partial_\\varphi,\\partial_\\varphi) = \\sin^2\\theta$.",
             "explain": "The metric assigns $g(\\partial_\\varphi,\\partial_\\varphi) = \\sin^2\\theta$. At $\\theta=\\pi/2$, $\\sin^2(\\pi/2)=1$."
           },
           {
@@ -30758,6 +32638,7 @@ window.MVQuizBank = {
             "q": "The hyperbolic half-plane metric is $ds^2 = (du^2+dv^2)/v^2$. What is the hyperbolic length of the vertical segment from $(0,1)$ to $(0,e)$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Parametrize $v(t)=t$ for $t\\in[1,e]$; the length is $\\int_1^e dt/t = \\ln e - \\ln 1 = 1$.",
             "explain": "Parametrize $v(t)=t$ for $t\\in[1,e]$; the length is $\\int_1^e dt/t = \\ln e - \\ln 1 = 1$."
           }
         ],
@@ -30811,6 +32692,7 @@ window.MVQuizBank = {
               "symmetric and has vanishing curvature"
             ],
             "answer": 1,
+            "hint": "The fundamental theorem of Riemannian geometry: there is a unique torsion-free connection with $\\nabla g = 0$.",
             "explain": "The fundamental theorem of Riemannian geometry: there is a unique torsion-free connection with $\\nabla g = 0$. Flatness is not required — curvature can be nonzero."
           },
           {
@@ -30823,6 +32705,7 @@ window.MVQuizBank = {
               "$\\ddot{x}^k = R^k_{\\ ij\\ell}\\dot{x}^i\\dot{x}^j\\dot{x}^\\ell$"
             ],
             "answer": 1,
+            "hint": "A geodesic satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma = 0$, which in coordinates is $\\ddot x^k + \\Gamma^k_{ij}\\dot x^i \\dot x^j = 0$.",
             "explain": "A geodesic satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma = 0$, which in coordinates is $\\ddot x^k + \\Gamma^k_{ij}\\dot x^i \\dot x^j = 0$."
           },
           {
@@ -30830,6 +32713,7 @@ window.MVQuizBank = {
             "q": "For the Euclidean metric $g_{ij}=\\delta_{ij}$ on $\\mathbb{R}^n$, how many of the Christoffel symbols $\\Gamma^k_{ij}$ are nonzero?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$\\Gamma^k_{ij} = \\tfrac12 g^{k\\ell}(\\partial_i g_{j\\ell}+\\partial_j g_{i\\ell}-\\partial_\\ell g_{ij})$.",
             "explain": "$\\Gamma^k_{ij} = \\tfrac12 g^{k\\ell}(\\partial_i g_{j\\ell}+\\partial_j g_{i\\ell}-\\partial_\\ell g_{ij})$. With $g_{ij}$ constant, every partial vanishes, so all Christoffels are zero."
           }
         ],
@@ -30883,6 +32767,7 @@ window.MVQuizBank = {
               "diffeomorphic to $\\mathbb{R}^n$ via the exponential map"
             ],
             "answer": 1,
+            "hint": "Uniformly positive Ricci forces geodesics to refocus within distance $\\pi/\\sqrt{\\kappa}$, which makes $M$ compact with bounded diameter and finite $\\pi_1$.",
             "explain": "Uniformly positive Ricci forces geodesics to refocus within distance $\\pi/\\sqrt{\\kappa}$, which makes $M$ compact with bounded diameter and finite $\\pi_1$."
           },
           {
@@ -30895,6 +32780,7 @@ window.MVQuizBank = {
               "undefined"
             ],
             "answer": 2,
+            "hint": "The unit sphere has constant Gaussian (sectional) curvature $K=+1$.",
             "explain": "The unit sphere has constant Gaussian (sectional) curvature $K=+1$."
           },
           {
@@ -30902,6 +32788,7 @@ window.MVQuizBank = {
             "q": "For a geodesic triangle on the round unit 2-sphere enclosing area $A$, the Gauss–Bonnet formula gives the angle excess $(\\alpha+\\beta+\\gamma)-\\pi = \\int K\\,dA$. If $K=1$ and $A=\\pi/2$, what is $(\\alpha+\\beta+\\gamma)-\\pi$?",
             "answer": 1.5707963267948966,
             "tol": 0.000001,
+            "hint": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$.",
             "explain": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$."
           }
         ],
@@ -30955,6 +32842,7 @@ window.MVQuizBank = {
               "the determinant of the Riemann tensor in normal coordinates"
             ],
             "answer": 1,
+            "hint": "Contracting the Riemann tensor yields $\\operatorname{Ric}(v,v)=\\sum_i \\langle R(v,e_i)e_i,v\\rangle$ for an orthonormal basis $\\{e_i\\}$ with $e_1=v/\\|v\\|$; summing the $(n-1)$ sectional curvatures of…",
             "explain": "Contracting the Riemann tensor yields $\\operatorname{Ric}(v,v)=\\sum_i \\langle R(v,e_i)e_i,v\\rangle$ for an orthonormal basis $\\{e_i\\}$ with $e_1=v/\\|v\\|$; summing the $(n-1)$ sectional curvatures of planes through $v$ gives exactly $(n-1)$ times their average."
           },
           {
@@ -30962,6 +32850,7 @@ window.MVQuizBank = {
             "q": "On the round $n$-sphere of radius $1$, every sectional curvature equals $1$. What is the scalar curvature $S$ for $n=3$? (Use $S = n(n-1)\\,\\overline{K}$ with $\\overline{K}$ the average sectional curvature.)",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "With $K\\equiv 1$ we have $\\overline{K}=1$, so $S = n(n-1) = 3\\cdot 2 = 6$.",
             "explain": "With $K\\equiv 1$ we have $\\overline{K}=1$, so $S = n(n-1) = 3\\cdot 2 = 6$."
           },
           {
@@ -30974,6 +32863,7 @@ window.MVQuizBank = {
               "$\\operatorname{diam}(M)\\le \\pi$"
             ],
             "answer": 1,
+            "hint": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric.",
             "explain": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric. Spheres, hyperbolic spaces, and complex projective spaces with their symmetric metrics are all Einstein."
           }
         ],
@@ -31027,6 +32917,7 @@ window.MVQuizBank = {
               "$(\\det g_{ij})^{-1/2}\\; dx^1\\wedge\\cdots\\wedge dx^n$"
             ],
             "answer": 1,
+            "hint": "The metric-compatible, orientation-compatible top form is $d\\mathrm{vol}_g=\\sqrt{\\det g_{ij}}\\,dx^1\\wedge\\cdots\\wedge dx^n$.",
             "explain": "The metric-compatible, orientation-compatible top form is $d\\mathrm{vol}_g=\\sqrt{\\det g_{ij}}\\,dx^1\\wedge\\cdots\\wedge dx^n$. The factor $\\sqrt{\\det g}$ is exactly the volume of the parallelepiped spanned by the coordinate vectors in the metric $g$."
           },
           {
@@ -31034,6 +32925,7 @@ window.MVQuizBank = {
             "q": "For the round metric $ds^2 = d\\theta^2 + \\sin^2\\theta\\, d\\varphi^2$ on $S^2$ with $\\theta\\in[0,\\pi],\\,\\varphi\\in[0,2\\pi)$, what is the total surface area $\\int_{S^2} d\\mathrm{vol}_g$?",
             "answer": 12.566370614359172,
             "tol": 0.000001,
+            "hint": "$\\sqrt{\\det g}=\\sin\\theta$, so $\\mathrm{Area}=\\int_0^{2\\pi}\\!\\!\\int_0^\\pi \\sin\\theta\\,d\\theta\\,d\\varphi = 2\\pi\\cdot 2 = 4\\pi\\approx 12.566$.",
             "explain": "$\\sqrt{\\det g}=\\sin\\theta$, so $\\mathrm{Area}=\\int_0^{2\\pi}\\!\\!\\int_0^\\pi \\sin\\theta\\,d\\theta\\,d\\varphi = 2\\pi\\cdot 2 = 4\\pi\\approx 12.566$."
           },
           {
@@ -31099,6 +32991,7 @@ window.MVQuizBank = {
             "q": "For $E/\\mathbb{Q}$ of good reduction at $p = 11$, suppose $a_{11} = 4$. Compute $\\theta_{11}$ in radians (principal value in $[0,\\pi]$), rounded to 3 decimals.",
             "answer": 0.928,
             "tol": 0.01,
+            "hint": "$a_p = 2\\sqrt{p}\\cos\\theta_p$ gives $\\cos\\theta_{11} = 4/(2\\sqrt{11}) = 2/\\sqrt{11} \\approx 0.6030$, so $\\theta_{11} = \\arccos(0.6030) \\approx 0.9281$.",
             "explain": "$a_p = 2\\sqrt{p}\\cos\\theta_p$ gives $\\cos\\theta_{11} = 4/(2\\sqrt{11}) = 2/\\sqrt{11} \\approx 0.6030$, so $\\theta_{11} = \\arccos(0.6030) \\approx 0.9281$."
           },
           {
@@ -31111,6 +33004,7 @@ window.MVQuizBank = {
               "$\\theta_p$ is irrational"
             ],
             "answer": 1,
+            "hint": "Supersingular means $a_p = 0$, i.e.",
             "explain": "Supersingular means $a_p = 0$, i.e. $\\cos\\theta_p = 0$, i.e. $\\theta_p = \\pi/2$. The eigenvalues are then $\\pm i\\sqrt{p}$."
           },
           {
@@ -31118,6 +33012,7 @@ window.MVQuizBank = {
             "q": "The Hasse bound $|a_p| \\le 2\\sqrt{p}$ forces $\\theta_p$ to lie in which interval? Enter the length of that interval.",
             "answer": 3.14159,
             "tol": 0.01,
+            "hint": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$.",
             "explain": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$."
           }
         ],
@@ -31168,6 +33063,7 @@ window.MVQuizBank = {
               "$(x_n)$ is dense in $[0,1]$"
             ],
             "answer": 1,
+            "hint": "Weyl's criterion: equidistribution with respect to a measure $\\mu$ on a compact space is equivalent to prime-averaged matrix coefficients of every non-trivial irreducible representation tending to…",
             "explain": "Weyl's criterion: equidistribution with respect to a measure $\\mu$ on a compact space is equivalent to prime-averaged matrix coefficients of every non-trivial irreducible representation tending to $0$. On $\\mathbb{R}/\\mathbb{Z}$ the non-trivial irreducibles are the characters $e^{2\\pi i k\\cdot}$ for $k\\ne 0$."
           },
           {
@@ -31180,6 +33076,7 @@ window.MVQuizBank = {
               "Dirichlet characters"
             ],
             "answer": 0,
+            "hint": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$.",
             "explain": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$. Equidistribution of $\\theta_p$ is equivalent to $\\tfrac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$, the content of Sato–Tate."
           },
           {
@@ -31187,6 +33084,7 @@ window.MVQuizBank = {
             "q": "Compute $\\int_0^\\pi \\chi_1(\\theta)\\,d\\mu_{ST}(\\theta)$ where $\\chi_1(\\theta)=\\sin(2\\theta)/\\sin\\theta=2\\cos\\theta$ and $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$).",
             "explain": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$). This is orthogonality of $\\chi_1$ to the trivial representation on $\\mathrm{SU}(2)$."
           }
         ],
@@ -31238,6 +33136,7 @@ window.MVQuizBank = {
               "$\\tfrac{1}{\\pi}\\sin\\theta\\,d\\theta$"
             ],
             "answer": 1,
+            "hint": "The conjugacy measure on $\\mathrm{SU}(2)$ pushed down to $[0,\\pi]$ is $(2/\\pi)\\sin^2\\theta\\,d\\theta$, integrating to $1$.",
             "explain": "The conjugacy measure on $\\mathrm{SU}(2)$ pushed down to $[0,\\pi]$ is $(2/\\pi)\\sin^2\\theta\\,d\\theta$, integrating to $1$."
           },
           {
@@ -31245,6 +33144,7 @@ window.MVQuizBank = {
             "q": "Under the Sato–Tate measure, compute $\\Pr\\!\\left[0 \\le \\theta \\le \\tfrac{\\pi}{2}\\right]$.",
             "answer": 0.5,
             "tol": 0.01,
+            "hint": "$\\int_0^{\\pi/2}\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\cdot\\tfrac{\\pi}{4} = \\tfrac12$.",
             "explain": "$\\int_0^{\\pi/2}\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\cdot\\tfrac{\\pi}{4} = \\tfrac12$. The density is symmetric about $\\theta = \\pi/2$."
           },
           {
@@ -31257,6 +33157,7 @@ window.MVQuizBank = {
               "$a_p$ is uniformly distributed in $[-2\\sqrt{p},2\\sqrt{p}]$"
             ],
             "answer": 1,
+            "hint": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$.",
             "explain": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$."
           }
         ],
@@ -31320,6 +33221,7 @@ window.MVQuizBank = {
               "a finite subgroup"
             ],
             "answer": 0,
+            "hint": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group.",
             "explain": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group. CM: the Galois image sits inside a non-split torus, so the Sato–Tate group is the normalizer $N(T)$; the two cosets of $T$ in $N(T)$ are the split and non-split (supersingular) primes."
           },
           {
@@ -31327,6 +33229,7 @@ window.MVQuizBank = {
             "q": "For a CM curve, the density of supersingular primes is $1/2$. Given $\\pi(10^6)=78{,}498$, estimate how many of the first $\\pi(10^6)$ primes would be supersingular for a CM curve with good reduction everywhere.",
             "answer": 39249,
             "tol": 100,
+            "hint": "Half of $78498$ is $39249$.",
             "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ — Chebotarev with error term — so any count within a few hundred is consistent with the CM equidistribution law."
           }
         ],
@@ -31378,6 +33281,7 @@ window.MVQuizBank = {
               "$(1 - \\alpha_p^n p^{-s})^{-1}(1 - \\beta_p^n p^{-s})^{-1}$"
             ],
             "answer": 0,
+            "hint": "$\\mathrm{Sym}^n$ of the 2-dim Frobenius rep has eigenvalues $\\alpha_p^{n-k}\\beta_p^k$ for $k=0,\\ldots,n$, giving $n+1$ local inverse-linear factors.",
             "explain": "$\\mathrm{Sym}^n$ of the 2-dim Frobenius rep has eigenvalues $\\alpha_p^{n-k}\\beta_p^k$ for $k=0,\\ldots,n$, giving $n+1$ local inverse-linear factors."
           },
           {
@@ -31385,6 +33289,7 @@ window.MVQuizBank = {
             "q": "If $\\theta_p = \\pi/3$ (so $\\alpha_p = \\sqrt{p}\\,e^{i\\pi/3}$), compute $\\alpha_p^2 + \\alpha_p\\beta_p + \\beta_p^2$ divided by $p$. (This is the trace of $\\mathrm{Sym}^2$ Frobenius divided by $p$.)",
             "answer": 2,
             "tol": 0.01,
+            "hint": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$.",
             "explain": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$. Sum = $4p\\cos^2\\theta_p - p$. Dividing by $p$: $4\\cos^2(\\pi/3) - 1 = 4\\cdot\\tfrac14 - 1 = 0$ … plus $\\alpha\\beta/p = 1$, giving $0 + 1 + 1 = 2$. (Equivalently: $\\sum e^{i(2-2k)\\theta_p} = U_2(\\cos\\theta_p) = 4\\cos^2\\theta_p - 1 + 1 = 2$ at $\\theta = \\pi/3$.)"
           },
           {
@@ -31397,6 +33302,7 @@ window.MVQuizBank = {
               "$a_p$ is an integer for all $p$"
             ],
             "answer": 1,
+            "hint": "By a Tauberian / Wiener–Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato–Tate measure…",
             "explain": "By a Tauberian / Wiener–Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato–Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
           }
         ],
@@ -31453,6 +33359,7 @@ window.MVQuizBank = {
               "all elements of $R$"
             ],
             "answer": 2,
+            "hint": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$.",
             "explain": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$. Maximal ideals are closed points, but non-maximal primes (like $(0)$ in $\\mathbb Z$) give generic points."
           },
           {
@@ -31460,6 +33367,7 @@ window.MVQuizBank = {
             "q": "How many points does $\\operatorname{Spec}\\mathbb{Z}/12\\mathbb{Z}$ have? (Count prime ideals of $\\mathbb Z/12\\mathbb Z$.)",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$.",
             "explain": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$. So there are $2$ points."
           },
           {
@@ -31472,6 +33380,7 @@ window.MVQuizBank = {
               "singletons $\\{\\mathfrak p\\}$ for each prime"
             ],
             "answer": 0,
+            "hint": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology.",
             "explain": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology. They are closed under arbitrary intersection and finite union."
           }
         ],
@@ -31534,6 +33443,7 @@ window.MVQuizBank = {
               "the quotient field of $R$"
             ],
             "answer": 2,
+            "hint": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish.",
             "explain": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish."
           },
           {
@@ -31541,6 +33451,7 @@ window.MVQuizBank = {
             "q": "The residue field $\\kappa(\\mathfrak p)$ at the generic point $\\mathfrak p=(0)$ of $\\operatorname{Spec}\\mathbb{Z}$ is $\\mathbb Q$. What is its characteristic?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$\\mathbb Q$ has characteristic $0$.",
             "explain": "$\\mathbb Q$ has characteristic $0$. By contrast $\\kappa((p))=\\mathbb F_p$ at a closed point has characteristic $p$ — different points can have residue fields of different characteristics."
           }
         ],
@@ -31591,6 +33502,7 @@ window.MVQuizBank = {
               "$y=x^2$"
             ],
             "answer": 2,
+            "hint": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$.",
             "explain": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$. The two origins become $0$ and $\\infty$."
           },
           {
@@ -31598,6 +33510,7 @@ window.MVQuizBank = {
             "q": "How many closed points does $\\mathbb P^1_{\\mathbb F_q}$ have over a finite field $\\mathbb F_q$? Give the answer for $q=5$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$.",
             "explain": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$. For $q=5$ that is $5+1=6$ closed points: the $5$ values of $x\\in\\mathbb F_5$ plus the point at infinity."
           },
           {
@@ -31610,6 +33523,7 @@ window.MVQuizBank = {
               "$\\mathbb P^1_k$ is disconnected"
             ],
             "answer": 1,
+            "hint": "$\\mathbb P^1_k$ is the classic non-affine scheme.",
             "explain": "$\\mathbb P^1_k$ is the classic non-affine scheme. Global sections of $\\mathcal O$ are just $k$ (too few for an affine of positive dimension), yet it is covered by two affine charts $\\mathbb A^1_k$."
           }
         ],
@@ -31674,6 +33588,7 @@ window.MVQuizBank = {
               "infinitely many"
             ],
             "answer": 2,
+            "hint": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes.",
             "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\operatorname{Spec}R$ is the union of two irreducible components meeting at the origin."
           },
           {
@@ -31681,6 +33596,7 @@ window.MVQuizBank = {
             "q": "The ideal $I=(x^2,xy,y^2)\\subset k[x,y]$ has radical $\\sqrt I = (x,y)$. As a $k$-vector space the quotient $k[x,y]/I$ has what dimension (the length of the fat point)?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$.",
             "explain": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$. The reduced point has length $1$, so this is a non-reduced length-$3$ scheme concentrated at the origin."
           }
         ],
@@ -31726,6 +33642,7 @@ window.MVQuizBank = {
             "q": "What is the Krull dimension of $\\operatorname{Spec} k[x_1,x_2,x_3,x_4]$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$.",
             "explain": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$. For $n=4$ this gives dimension $4$."
           },
           {
@@ -31733,6 +33650,7 @@ window.MVQuizBank = {
             "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$.",
             "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\operatorname{Spec}\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
           },
           {
@@ -31745,6 +33663,7 @@ window.MVQuizBank = {
               "the number of generators of the maximal ideal $\\mathfrak m_x$"
             ],
             "answer": 1,
+            "hint": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$.",
             "explain": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$. The global $\\dim X$ is the supremum over closed points (on a finite-type scheme over a field)."
           }
         ],
@@ -31795,6 +33714,7 @@ window.MVQuizBank = {
               "the empty set"
             ],
             "answer": 1,
+            "hint": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$.",
             "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\operatorname{Spec}\\mathbb Z[x]$."
           },
           {
@@ -31807,6 +33727,7 @@ window.MVQuizBank = {
               "the complement of $Z$ in $\\operatorname{Spec}R$"
             ],
             "answer": 1,
+            "hint": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$.",
             "explain": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$. For $Z=V(\\mathfrak p)$ with $\\mathfrak p$ prime minimal with that property, the generic point is exactly $\\mathfrak p$ itself."
           },
           {
@@ -31814,6 +33735,7 @@ window.MVQuizBank = {
             "q": "How many generic points does the scheme $\\operatorname{Spec}(k[x,y]/(xy))$ have? (Count minimal primes.)",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes).",
             "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes). Each is the generic point of its component, so the scheme has $2$ generic points."
           }
         ],
@@ -31864,6 +33786,7 @@ window.MVQuizBank = {
               "$\\mathfrak p$ itself as an $R$-module"
             ],
             "answer": 1,
+            "hint": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal.",
             "explain": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal. For a maximal $\\mathfrak p$, $R/\\mathfrak p$ is already a field, but at non-maximal primes you need the fraction field."
           },
           {
@@ -31876,6 +33799,7 @@ window.MVQuizBank = {
               "$\\mathbb Z[x]$ itself"
             ],
             "answer": 2,
+            "hint": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$.",
             "explain": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$."
           },
           {
@@ -31883,6 +33807,7 @@ window.MVQuizBank = {
             "q": "At the maximal ideal $\\mathfrak m=(2,x^2+x+1)\\subset\\mathbb Z[x]$, the residue field is $\\mathbb Z[x]/(2,x^2+x+1)\\cong\\mathbb F_2[x]/(x^2+x+1)$. How many elements does $\\kappa(\\mathfrak m)$ have?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible.",
             "explain": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible. Hence $\\kappa(\\mathfrak m)=\\mathbb F_2[x]/(x^2+x+1)=\\mathbb F_4$, a field of $4$ elements."
           }
         ],
@@ -31933,6 +33858,7 @@ window.MVQuizBank = {
               "$\\mathcal O_X$ has global sections equal to $\\mathbb Z$"
             ],
             "answer": 1,
+            "hint": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal).",
             "explain": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal). Stalks being fields is the much stronger condition that defines a 'sheaf of fields', not the right notion for schemes."
           },
           {
@@ -31945,6 +33871,7 @@ window.MVQuizBank = {
               "$\\mathcal O_{X,x}\\to\\mathcal O_{Y,f(x)}$ is injective"
             ],
             "answer": 1,
+            "hint": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$.",
             "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\operatorname{Spec}$s would not correspond to ring homomorphisms in the right direction."
           },
           {
@@ -31957,6 +33884,7 @@ window.MVQuizBank = {
               "a topological manifold"
             ],
             "answer": 1,
+            "hint": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$…",
             "explain": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$ (depending on $U$). Globally isomorphic to a single $\\operatorname{Spec}R$ is the stronger 'affine' condition."
           }
         ],
@@ -32012,6 +33940,7 @@ window.MVQuizBank = {
               "all ideals of $S$ containing $S_+$"
             ],
             "answer": 1,
+            "hint": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$.",
             "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
           },
           {
@@ -32024,6 +33953,7 @@ window.MVQuizBank = {
               "$\\operatorname{Proj}k$"
             ],
             "answer": 2,
+            "hint": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$.",
             "explain": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$. Formally $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ and the degree-$0$ part of $S_{x_i}$ is generated by $x_j/x_i$ for $j\\ne i$, giving $\\mathbb A^n_k$."
           },
           {
@@ -32031,6 +33961,7 @@ window.MVQuizBank = {
             "q": "How many standard affine charts cover $\\mathbb P^5_k=\\operatorname{Proj}k[x_0,\\dots,x_5]$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$.",
             "explain": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$. For $n=5$, that is $6$ charts."
           }
         ],
@@ -32081,6 +34012,7 @@ window.MVQuizBank = {
               "the image of $f$ restricted to a neighborhood of $y$"
             ],
             "answer": 1,
+            "hint": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$.",
             "explain": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
           },
           {
@@ -32106,6 +34038,7 @@ window.MVQuizBank = {
               "the empty subset of $Y$"
             ],
             "answer": 0,
+            "hint": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$.",
             "explain": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
           }
         ],
@@ -32162,6 +34095,7 @@ window.MVQuizBank = {
               "$t_{\\alpha\\beta}+t_{\\alpha\\gamma}+t_{\\beta\\gamma}=0$"
             ],
             "answer": 1,
+            "hint": "The alternating Čech differential gives $(d t)_{\\alpha\\beta\\gamma}=t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}$; setting it to zero is the cocycle condition on triple overlaps.",
             "explain": "The alternating Čech differential gives $(d t)_{\\alpha\\beta\\gamma}=t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}$; setting it to zero is the cocycle condition on triple overlaps."
           },
           {
@@ -32174,6 +34108,7 @@ window.MVQuizBank = {
               "Because injective sheaves have trivial $H^0$."
             ],
             "answer": 1,
+            "hint": "A $0$-cochain is $\\{s_\\alpha\\in\\mathcal{F}(U_\\alpha)\\}$; $(ds)_{\\alpha\\beta}=s_\\beta-s_\\alpha=0$ forces the $s_\\alpha$ to glue by the sheaf axiom, yielding exactly a global section.",
             "explain": "A $0$-cochain is $\\{s_\\alpha\\in\\mathcal{F}(U_\\alpha)\\}$; $(ds)_{\\alpha\\beta}=s_\\beta-s_\\alpha=0$ forces the $s_\\alpha$ to glue by the sheaf axiom, yielding exactly a global section."
           },
           {
@@ -32181,6 +34116,7 @@ window.MVQuizBank = {
             "q": "For the circle $S^1$ with the constant sheaf $\\underline{\\mathbb{Z}}$ and a standard good cover by two overlapping arcs whose intersection has two connected components, compute $\\dim_{\\mathbb{Q}} (\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\otimes\\mathbb{Q})$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional.",
             "explain": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional."
           }
         ],
@@ -32234,6 +34170,7 @@ window.MVQuizBank = {
               "$\\mathcal{F}$ is a constant sheaf"
             ],
             "answer": 1,
+            "hint": "The Leray condition asks that $\\mathcal{F}$ be acyclic on every finite intersection of the cover.",
             "explain": "The Leray condition asks that $\\mathcal{F}$ be acyclic on every finite intersection of the cover. When satisfied, the canonical map $\\check{H}^p(\\mathcal{U},\\mathcal{F}) \\to H^p(X,\\mathcal{F})$ is an isomorphism for every $p$."
           },
           {
@@ -32246,6 +34183,7 @@ window.MVQuizBank = {
               "The projection formula"
             ],
             "answer": 1,
+            "hint": "Serre proved that affine schemes have no higher quasi-coherent cohomology, so every finite intersection of affine opens (also affine when the scheme is separated) is $\\mathcal{F}$-acyclic.",
             "explain": "Serre proved that affine schemes have no higher quasi-coherent cohomology, so every finite intersection of affine opens (also affine when the scheme is separated) is $\\mathcal{F}$-acyclic. Hence an affine open cover is Leray."
           },
           {
@@ -32253,6 +34191,7 @@ window.MVQuizBank = {
             "q": "The standard affine cover of $\\mathbb{P}^2$ has three charts $U_0,U_1,U_2$. How many terms does the resulting Čech complex $\\check C^0 \\to \\check C^1 \\to \\check C^2$ have in $\\check C^1$?",
             "answer": 3,
             "tol": 0,
+            "hint": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$.",
             "explain": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$. (Triple intersections contribute $\\binom{3}{3}=1$ term in $\\check C^2$.)"
           }
         ],
@@ -32306,6 +34245,7 @@ window.MVQuizBank = {
               "$\\delta$ goes between $\\mathcal{F}$ and $\\mathcal{F}''$ at the same degree"
             ],
             "answer": 1,
+            "hint": "The connecting map raises degree by one and jumps from the quotient sheaf back to the subsheaf: $\\delta\\colon H^p(\\mathcal{F}'') \\to H^{p+1}(\\mathcal{F}')$.",
             "explain": "The connecting map raises degree by one and jumps from the quotient sheaf back to the subsheaf: $\\delta\\colon H^p(\\mathcal{F}'') \\to H^{p+1}(\\mathcal{F}')$. In Čech language it lifts a local section of $\\mathcal{F}''$ to one of $\\mathcal{F}$; the failure of the lifts to glue is a class in $H^{p+1}(\\mathcal{F}')$."
           },
           {
@@ -32318,6 +34258,7 @@ window.MVQuizBank = {
               "$2\\pi i$ as an element of $H^0(\\mathcal{O})$"
             ],
             "answer": 1,
+            "hint": "On $\\mathbb{C}^\\times$ the global section $z$ has no single-valued logarithm, so its image under $\\delta$ is non-trivial.",
             "explain": "On $\\mathbb{C}^\\times$ the global section $z$ has no single-valued logarithm, so its image under $\\delta$ is non-trivial. Concretely the class is $1\\in H^1(\\mathbb{C}^\\times,\\underline{\\mathbb{Z}}) = \\mathbb{Z}$, the winding-number generator."
           },
           {
@@ -32325,6 +34266,7 @@ window.MVQuizBank = {
             "q": "From $0\\to\\mathcal{O}_{\\mathbb{P}^1}(-1)\\to\\mathcal{O}_{\\mathbb{P}^1}\\to\\mathcal{O}_p\\to 0$ (skyscraper at a point) and the vanishing $H^i(\\mathbb{P}^1,\\mathcal{O}_{\\mathbb{P}^1}(-1))=0$ for all $i$, deduce $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}_p)$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$.",
             "explain": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$. Since $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}) = 1$, we get $\\dim H^0(\\mathcal{O}_p) = 1$ — the stalk at $p$."
           }
         ],
@@ -32378,6 +34320,7 @@ window.MVQuizBank = {
               "Failure of additivity"
             ],
             "answer": 2,
+            "hint": "$\\Gamma(X,-)$ is left exact but not right exact; $R^i\\Gamma$ measures exactly the right-exactness defect via a long exact sequence.",
             "explain": "$\\Gamma(X,-)$ is left exact but not right exact; $R^i\\Gamma$ measures exactly the right-exactness defect via a long exact sequence."
           },
           {
@@ -32390,6 +34333,7 @@ window.MVQuizBank = {
               "arbitrary locally constant sheaves"
             ],
             "answer": 3,
+            "hint": "Injective, flabby, and soft (on paracompact Hausdorff) sheaves are all $\\Gamma$-acyclic.",
             "explain": "Injective, flabby, and soft (on paracompact Hausdorff) sheaves are all $\\Gamma$-acyclic. A locally constant sheaf like $\\underline{\\mathbb{Z}}$ on $S^1$ has nonzero $H^1$, so it is not acyclic in general."
           },
           {
@@ -32397,6 +34341,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{P}^1_k$ the line bundle $\\mathcal{O}(-5)$ has $h^0=0$. Using $\\dim_k H^1(\\mathbb{P}^1,\\mathcal{O}(n))=\\max(-n-1,0)$, compute $\\dim_k H^1(\\mathbb{P}^1,\\mathcal{O}(-5))$.",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$\\max(-(-5)-1,0)=\\max(4,0)=4$.",
             "explain": "$\\max(-(-5)-1,0)=\\max(4,0)=4$."
           }
         ],
@@ -32450,6 +34395,7 @@ window.MVQuizBank = {
               "$\\check{H}^2(X,\\mathcal{O}_X^\\times)$"
             ],
             "answer": 2,
+            "hint": "Line bundles are classified by their transition cocycles in $\\mathcal{O}_X^\\times$ modulo coboundaries: $\\mathrm{Pic}(X)\\cong\\check{H}^1(X,\\mathcal{O}_X^\\times)$.",
             "explain": "Line bundles are classified by their transition cocycles in $\\mathcal{O}_X^\\times$ modulo coboundaries: $\\mathrm{Pic}(X)\\cong\\check{H}^1(X,\\mathcal{O}_X^\\times)$."
           },
           {
@@ -32457,6 +34403,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{P}^1$ with $\\omega_{\\mathbb{P}^1}=\\mathcal{O}(-2)$, Serre duality gives $\\dim H^1(\\mathcal{O}(-7))=\\dim H^0(\\mathcal{O}(7-2))$. Compute this common dimension.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\dim H^0(\\mathbb{P}^1,\\mathcal{O}(5))=5+1=6$, and $\\max(-(-7)-1,0)=6$, so the duality check holds.",
             "explain": "$\\dim H^0(\\mathbb{P}^1,\\mathcal{O}(5))=5+1=6$, and $\\max(-(-7)-1,0)=6$, so the duality check holds."
           },
           {
@@ -32464,6 +34411,7 @@ window.MVQuizBank = {
             "q": "Use Riemann–Roch on a smooth projective curve of genus $g=4$ together with Serre duality to compute $\\dim H^0(C,L)-\\dim H^0(C,\\omega_C\\otimes L^{-1})$ for a line bundle $L$ of degree $d=10$.",
             "answer": 7,
             "tol": 0.000001,
+            "hint": "Riemann–Roch: $h^0(L)-h^1(L)=d-g+1=10-4+1=7$, and Serre duality identifies $h^1(L)=h^0(\\omega_C\\otimes L^{-1})$.",
             "explain": "Riemann–Roch: $h^0(L)-h^1(L)=d-g+1=10-4+1=7$, and Serre duality identifies $h^1(L)=h^0(\\omega_C\\otimes L^{-1})$."
           }
         ],
@@ -32522,6 +34470,7 @@ window.MVQuizBank = {
               "a presheaf on the one-point compactification of $X$"
             ],
             "answer": 1,
+            "hint": "Restriction $F(U) \\to F(V)$ for $V \\subseteq U$ reverses the inclusion arrow $V \\hookrightarrow U$, which is exactly contravariance.",
             "explain": "Restriction $F(U) \\to F(V)$ for $V \\subseteq U$ reverses the inclusion arrow $V \\hookrightarrow U$, which is exactly contravariance. Equivalently, a presheaf is a functor out of $\\mathrm{Open}(X)^{\\mathrm{op}}$."
           },
           {
@@ -32534,6 +34483,7 @@ window.MVQuizBank = {
               "$\\rho^U_W$ depends only on $U$, not on $V$ or $W$"
             ],
             "answer": 0,
+            "hint": "Restricting to $W$ in one shot must equal: restrict to $V$ first, then to $W$.",
             "explain": "Restricting to $W$ in one shot must equal: restrict to $V$ first, then to $W$. This is the composition law of the contravariant functor, $\\rho^U_W = \\rho^V_W \\circ \\rho^U_V$."
           },
           {
@@ -32541,6 +34491,7 @@ window.MVQuizBank = {
             "q": "How many morphisms are there in $\\mathrm{Open}(X)$ from $V$ to $U$ when $V \\subseteq U$ and $V \\ne U$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise.",
             "explain": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise."
           }
         ],
@@ -32594,6 +34545,7 @@ window.MVQuizBank = {
               "the stalks $F_x$ all agree for $x\\in U$"
             ],
             "answer": 1,
+            "hint": "The sheaf axiom packages locality (injectivity on $F(U)\\to\\prod F(U_i)$) and gluing (compatible families lift) as the equalizer condition.",
             "explain": "The sheaf axiom packages locality (injectivity on $F(U)\\to\\prod F(U_i)$) and gluing (compatible families lift) as the equalizer condition."
           },
           {
@@ -32606,6 +34558,7 @@ window.MVQuizBank = {
               "$B(\\emptyset)$ is not terminal"
             ],
             "answer": 1,
+            "hint": "Bounded functions glue to an unbounded function: on $\\mathbb{R} = \\bigcup_n (-n,n)$ the compatible family $f_n(x)=x$ has no bounded global lift, so gluing fails.",
             "explain": "Bounded functions glue to an unbounded function: on $\\mathbb{R} = \\bigcup_n (-n,n)$ the compatible family $f_n(x)=x$ has no bounded global lift, so gluing fails."
           },
           {
@@ -32613,6 +34566,7 @@ window.MVQuizBank = {
             "q": "For a sheaf of abelian groups $F$, what is $|F(\\emptyset)|$? (Enter the size of the underlying set.)",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element.",
             "explain": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element."
           }
         ],
@@ -32666,6 +34620,7 @@ window.MVQuizBank = {
               "$\\varprojlim_{x\\in U} F(U)$"
             ],
             "answer": 2,
+            "hint": "A germ at $x$ is an equivalence class $[(U,s)]$ of a section on some open neighborhood, modulo agreement on smaller neighborhoods — exactly the filtered colimit $\\varinjlim_{x\\in U} F(U)$.",
             "explain": "A germ at $x$ is an equivalence class $[(U,s)]$ of a section on some open neighborhood, modulo agreement on smaller neighborhoods — exactly the filtered colimit $\\varinjlim_{x\\in U} F(U)$."
           },
           {
@@ -32678,6 +34633,7 @@ window.MVQuizBank = {
               "$s = t$ only if $F$ is a sheaf of abelian groups"
             ],
             "answer": 0,
+            "hint": "Agreement on all stalks produces an open cover on which $s$ and $t$ coincide; the sheaf's locality axiom then forces $s = t$ on $U$.",
             "explain": "Agreement on all stalks produces an open cover on which $s$ and $t$ coincide; the sheaf's locality axiom then forces $s = t$ on $U$."
           },
           {
@@ -32685,6 +34641,7 @@ window.MVQuizBank = {
             "q": "On a scheme $X = \\mathrm{Spec}\\,R$, the stalk of $\\mathcal{O}_X$ at the prime $\\mathfrak{p}$ is $R_{\\mathfrak{p}}$. For $R = \\mathbb{Z}$ and $\\mathfrak{p} = (5)$, what is the residue field $R_{\\mathfrak{p}}/\\mathfrak{p}R_{\\mathfrak{p}}$'s characteristic?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$.",
             "explain": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$."
           }
         ],
@@ -32738,6 +34695,7 @@ window.MVQuizBank = {
               "stalk maps carry no information about $\\varphi$"
             ],
             "answer": 0,
+            "hint": "Monomorphisms in $\\mathsf{Sh}(X)$ coincide with sectionwise injective, equivalently stalkwise injective.",
             "explain": "Monomorphisms in $\\mathsf{Sh}(X)$ coincide with sectionwise injective, equivalently stalkwise injective. Epimorphisms are stalkwise surjective but NOT sectionwise surjective in general — that asymmetry is the seed of sheaf cohomology."
           },
           {
@@ -32750,6 +34708,7 @@ window.MVQuizBank = {
               "globally surjective but not stalkwise surjective"
             ],
             "answer": 0,
+            "hint": "Locally on a small disc a holomorphic logarithm exists, so $\\exp_x$ is surjective on every stalk.",
             "explain": "Locally on a small disc a holomorphic logarithm exists, so $\\exp_x$ is surjective on every stalk. But no global holomorphic logarithm of $z$ exists on $\\mathbb{C}^\\times$ (the branch cut obstructs it), so $z \\not\\in \\exp(\\mathcal{O}(\\mathbb{C}^\\times))$."
           },
           {
@@ -32757,6 +34716,7 @@ window.MVQuizBank = {
             "q": "A short exact sequence $0 \\to F' \\to F \\to F'' \\to 0$ of sheaves of abelian groups on $X$ yields a long exact sequence in sheaf cohomology. The cohomology degree where the first new obstruction to global surjectivity appears is $H^i(X, F')$ for $i = ?$",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$.",
             "explain": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$. The connecting map lands in $H^1$, which measures exactly the failure of $\\Gamma F \\to \\Gamma F''$ to be surjective."
           }
         ],
@@ -32810,6 +34770,7 @@ window.MVQuizBank = {
               "not a functor in general"
             ],
             "answer": 1,
+            "hint": "Sheafification is the left adjoint to $\\iota$.",
             "explain": "Sheafification is the left adjoint to $\\iota$. The universal property: any presheaf map $F \\to \\iota G$ into a sheaf factors uniquely through the unit $\\eta\\colon F \\to F^\\#$."
           },
           {
@@ -32822,6 +34783,7 @@ window.MVQuizBank = {
               "nothing — sheafification changes everything"
             ],
             "answer": 2,
+            "hint": "The unit $\\eta\\colon F \\to F^\\#$ induces an isomorphism $F_x \\xrightarrow{\\sim} (F^\\#)_x$ on every stalk.",
             "explain": "The unit $\\eta\\colon F \\to F^\\#$ induces an isomorphism $F_x \\xrightarrow{\\sim} (F^\\#)_x$ on every stalk. Global and sectional data CAN change — e.g. the constant presheaf on a disconnected space has $F(X) = S$ but $F^\\#(X) = S^{\\#(\\mathrm{components})}$."
           },
           {
@@ -32829,6 +34791,7 @@ window.MVQuizBank = {
             "q": "Let $X = U_1 \\sqcup U_2 \\sqcup U_3$ be a disjoint union of three nonempty opens, and let $F = \\underline{\\mathbb{Z}/2}^{\\mathrm{pre}}$ be the constant presheaf with value $\\mathbb{Z}/2$. How many elements does the sheafified global-sections set $F^\\#(X)$ have?",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$.",
             "explain": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$. With three components, this is $(\\mathbb{Z}/2)^3$, which has $2^3 = 8$ elements. The unsheafified presheaf $F(X)$ has only $2$ elements, so sheafification has multiplied the global sections from $2$ to $8$."
           }
         ],
@@ -32882,6 +34845,7 @@ window.MVQuizBank = {
               "$X$ is a topological space and $\\mathcal{O}_X$ is just a ring — the same ring on every open"
             ],
             "answer": 1,
+            "hint": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings).",
             "explain": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings). Examples: $(M, C^\\infty_M)$ for a smooth manifold; $(\\mathrm{Spec}\\,R, \\widetilde{R})$ for an affine scheme."
           },
           {
@@ -32894,6 +34858,7 @@ window.MVQuizBank = {
               "$\\mathcal{O}_X(U)$ is a local ring for every open $U$"
             ],
             "answer": 1,
+            "hint": "Local ringedness is the stalk-level condition: every $\\mathcal{O}_{X,x}$ is a local ring.",
             "explain": "Local ringedness is the stalk-level condition: every $\\mathcal{O}_{X,x}$ is a local ring. The maximal ideal is 'functions vanishing at $x$', and the residue field $\\kappa(x) = \\mathcal{O}_{X,x}/\\mathfrak{m}_x$ is the field of values at $x$. Smooth manifolds, complex manifolds, and schemes are all locally ringed; general ringed spaces need not be."
           },
           {
@@ -32901,6 +34866,7 @@ window.MVQuizBank = {
             "q": "For a smooth manifold $M$, the sheaf of sections of the trivial rank-$5$ bundle $M \\times \\mathbb{R}^5 \\to M$ is a locally free $C^\\infty_M$-module of rank equal to what integer?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module.",
             "explain": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module. A rank-$n$ bundle corresponds to a locally free $\\mathcal{O}_M$-module of rank $n$; the trivial rank-$5$ bundle gives $(C^\\infty_M)^5$, a free (hence locally free) module of rank $5$."
           }
         ],
@@ -32954,6 +34920,7 @@ window.MVQuizBank = {
               "$F^+ = F$ whenever $F$ is separated"
             ],
             "answer": 1,
+            "hint": "Sheafification is left-adjoint to the inclusion $\\mathsf{Sh}(X)\\hookrightarrow\\mathsf{PSh}(X)$: it enforces gluing while preserving stalks $(F^+)_x = F_x$.",
             "explain": "Sheafification is left-adjoint to the inclusion $\\mathsf{Sh}(X)\\hookrightarrow\\mathsf{PSh}(X)$: it enforces gluing while preserving stalks $(F^+)_x = F_x$."
           },
           {
@@ -32966,6 +34933,7 @@ window.MVQuizBank = {
               "always lands in coherent sheaves"
             ],
             "answer": 1,
+            "hint": "The key theorem: $M\\mapsto\\widetilde{M}$ is an equivalence of categories with inverse $\\mathcal{F}\\mapsto\\Gamma(X,\\mathcal{F})$.",
             "explain": "The key theorem: $M\\mapsto\\widetilde{M}$ is an equivalence of categories with inverse $\\mathcal{F}\\mapsto\\Gamma(X,\\mathcal{F})$. This reduces quasi-coherent sheaf theory on an affine scheme to module theory."
           },
           {
@@ -32973,6 +34941,7 @@ window.MVQuizBank = {
             "q": "For $R=\\mathbb{Z}$, $M = \\mathbb{Z}/6$, and $f = 2$, the section $\\widetilde{M}(D(2)) = M_2 = M[\\tfrac{1}{2}]$ has how many elements?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements.",
             "explain": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements."
           }
         ],
@@ -33031,6 +35000,7 @@ window.MVQuizBank = {
               "$K$ contains every subset of $V$"
             ],
             "answer": 1,
+            "hint": "Hereditary / downward-closed is exactly the simplicial axiom.",
             "explain": "Hereditary / downward-closed is exactly the simplicial axiom. Union-closure would make $K$ a join-semilattice with top element $V$, not a simplicial complex; uniformity is the much stronger 'pure' property; full $2^V$ is the simplex $\\Delta^{|V|-1}$."
           },
           {
@@ -33038,6 +35008,7 @@ window.MVQuizBank = {
             "q": "Let $K$ be the boundary of a tetrahedron $\\partial\\Delta^3$ on vertex set $\\{1,2,3,4\\}$. How many faces (including the empty face) does $K$ have?",
             "answer": 15,
             "tol": 0,
+            "hint": "$\\partial\\Delta^3$ has all subsets of $\\{1,2,3,4\\}$ except $\\{1,2,3,4\\}$ itself.",
             "explain": "$\\partial\\Delta^3$ has all subsets of $\\{1,2,3,4\\}$ except $\\{1,2,3,4\\}$ itself. That's $2^4 - 1 = 15$ faces. (4 vertices + 6 edges + 4 triangles + 1 empty = 15.)"
           },
           {
@@ -33050,6 +35021,7 @@ window.MVQuizBank = {
               "$4$"
             ],
             "answer": 1,
+            "hint": "$\\dim K = \\max_\\sigma(|\\sigma|-1)$.",
             "explain": "$\\dim K = \\max_\\sigma(|\\sigma|-1)$. Both facets have $|\\sigma|=3$ so $\\dim K = 2$ — $K$ is a $2$-complex (a triangulated piece of surface)."
           }
         ]
@@ -33067,6 +35039,7 @@ window.MVQuizBank = {
               "$(4, 6, 4, 1)$"
             ],
             "answer": 2,
+            "hint": "$\\partial\\Delta^3$ has $4$ vertices, $\\binom{4}{2}=6$ edges, and $\\binom{4}{3}=4$ triangles, so $f = (f_0,f_1,f_2) = (4,6,4)$.",
             "explain": "$\\partial\\Delta^3$ has $4$ vertices, $\\binom{4}{2}=6$ edges, and $\\binom{4}{3}=4$ triangles, so $f = (f_0,f_1,f_2) = (4,6,4)$."
           },
           {
@@ -33074,6 +35047,7 @@ window.MVQuizBank = {
             "q": "The Euler characteristic of the boundary of a simplicial $3$-polytope (a $2$-sphere) is which integer?",
             "answer": 2,
             "tol": 0,
+            "hint": "$\\chi = f_0 - f_1 + f_2 = V - E + F = 2$ for any triangulated $2$-sphere — the classical Euler formula.",
             "explain": "$\\chi = f_0 - f_1 + f_2 = V - E + F = 2$ for any triangulated $2$-sphere — the classical Euler formula. For $\\partial\\Delta^3$: $4 - 6 + 4 = 2$. For the octahedron: $6 - 12 + 8 = 2$."
           },
           {
@@ -33086,6 +35060,7 @@ window.MVQuizBank = {
               "$\\sum h_k = 0$"
             ],
             "answer": 1,
+            "hint": "$h_k = h_{d-k}$ — the $h$-vector is palindromic.",
             "explain": "$h_k = h_{d-k}$ — the $h$-vector is palindromic. For $\\partial\\Delta^3$ ($d=3$), $h = (1,1,1,1)$. For the octahedron's boundary, $h = (1,3,3,1)$. Both are symmetric, consistent with being simplicial $2$-spheres."
           }
         ]
@@ -33103,6 +35078,7 @@ window.MVQuizBank = {
               "Every $U_i$ for $i\\in\\sigma$ is open"
             ],
             "answer": 1,
+            "hint": "A face captures a non-empty common intersection.",
             "explain": "A face captures a non-empty common intersection. This is downward-closed: if $\\sigma$ has non-empty common intersection, any subset $\\tau\\subseteq\\sigma$ has at least that same intersection, hence non-empty."
           },
           {
@@ -33115,6 +35091,7 @@ window.MVQuizBank = {
               "$X$ is compact"
             ],
             "answer": 2,
+            "hint": "The 'good cover' hypothesis — contractible intersections — is what makes the nerve carry the same homotopy type as $X$.",
             "explain": "The 'good cover' hypothesis — contractible intersections — is what makes the nerve carry the same homotopy type as $X$. Without it, the nerve still records combinatorics of intersections, but the homotopy type can drift."
           },
           {
@@ -33127,6 +35104,7 @@ window.MVQuizBank = {
               "They agree only over $\\mathbb{Q}$, never over $\\mathbb{Z}$"
             ],
             "answer": 1,
+            "hint": "A foundational comparison theorem: the simplicial chain complex with face boundary map computes the same invariant as singular homology of the geometric realization.",
             "explain": "A foundational comparison theorem: the simplicial chain complex with face boundary map computes the same invariant as singular homology of the geometric realization. This is what makes simplicial complexes a viable computational substitute for spaces."
           }
         ]
@@ -33144,6 +35122,7 @@ window.MVQuizBank = {
               "Homotopy type cannot be determined from a shelling"
             ],
             "answer": 2,
+            "hint": "Shelling $\\Rightarrow$ homotopy-equivalent to $\\bigvee^{h_d} S^{d-1}$.",
             "explain": "Shelling $\\Rightarrow$ homotopy-equivalent to $\\bigvee^{h_d} S^{d-1}$. For boundaries of simplicial polytopes with $h$-vector ending in $h_d=1$, this gives one sphere; for the boundary of the cyclic polytope it gives the unique top-dimensional sphere predicted by the $g$-theorem."
           },
           {
@@ -33156,6 +35135,7 @@ window.MVQuizBank = {
               "Neither implies the other"
             ],
             "answer": 1,
+            "hint": "Shellable $\\Rightarrow$ CM is the easy direction: a shelling decomposes the chain complex compatibly enough to verify Reisner's criterion.",
             "explain": "Shellable $\\Rightarrow$ CM is the easy direction: a shelling decomposes the chain complex compatibly enough to verify Reisner's criterion. The converse fails: there exist CM complexes that are not shellable (the first examples were constructed in the 1980s)."
           },
           {
@@ -33168,6 +35148,7 @@ window.MVQuizBank = {
               "The Euler characteristic $\\chi(K)$ being $\\pm 1$"
             ],
             "answer": 0,
+            "hint": "Reisner (1976): $K$ is CM/$k$ iff $\\widetilde H_i(\\mathrm{lk}_K\\sigma; k)=0$ for all $\\sigma\\in K$ and $i<\\dim\\mathrm{lk}_K(\\sigma)$.",
             "explain": "Reisner (1976): $K$ is CM/$k$ iff $\\widetilde H_i(\\mathrm{lk}_K\\sigma; k)=0$ for all $\\sigma\\in K$ and $i<\\dim\\mathrm{lk}_K(\\sigma)$. Spheres satisfy this; a complex with the wrong-dimensional hole in some link fails."
           }
         ]
@@ -33185,6 +35166,7 @@ window.MVQuizBank = {
               "All quadratic monomials $x_i x_j$"
             ],
             "answer": 1,
+            "hint": "By definition $I_K = (\\prod_{i\\in\\sigma} x_i : \\sigma\\notin K)$ — the squarefree monomials supported on the non-faces.",
             "explain": "By definition $I_K = (\\prod_{i\\in\\sigma} x_i : \\sigma\\notin K)$ — the squarefree monomials supported on the non-faces. By the hereditary axiom on $K$, this ideal is generated by the minimal non-faces."
           },
           {
@@ -33197,6 +35179,7 @@ window.MVQuizBank = {
               "$k[x_1,x_2,x_3]$"
             ],
             "answer": 2,
+            "hint": "$\\partial\\Delta^2$ contains every proper subset of $\\{1,2,3\\}$.",
             "explain": "$\\partial\\Delta^2$ contains every proper subset of $\\{1,2,3\\}$. The only non-face is $\\{1,2,3\\}$ itself, so $I_K = (x_1x_2x_3)$ and $k[K] = k[x_1,x_2,x_3]/(x_1x_2x_3)$."
           },
           {
@@ -33204,6 +35187,7 @@ window.MVQuizBank = {
             "q": "What is the Krull dimension of the Stanley–Reisner ring $k[K]$ of a simplicial complex $K$ with $\\dim K = d-1$?",
             "answer": 3,
             "tol": 0,
+            "hint": "$\\dim k[K] = 1 + \\dim K$.",
             "explain": "$\\dim k[K] = 1 + \\dim K$. Take $\\dim K = 2$ (so $d-1=2$, $d=3$): then $\\dim k[K] = 3$. The maximal-length chain of primes in $k[K]$ comes from a maximal-length flag of faces, giving the answer."
           }
         ]
@@ -33221,6 +35205,7 @@ window.MVQuizBank = {
               "Some pairwise distance in $\\sigma$ is $\\le r$"
             ],
             "answer": 1,
+            "hint": "$\\mathrm{VR}_r(X) = \\{\\sigma \\subseteq X : \\mathrm{diam}(\\sigma)\\le 2r\\}$ — i.e.",
             "explain": "$\\mathrm{VR}_r(X) = \\{\\sigma \\subseteq X : \\mathrm{diam}(\\sigma)\\le 2r\\}$ — i.e. all pairwise distances $\\le 2r$. Equivalently, $\\sigma$ is a face iff every two vertices of $\\sigma$ are connected in the $r$-disk graph; higher faces are forced by the pairwise condition."
           },
           {
@@ -33233,6 +35218,7 @@ window.MVQuizBank = {
               "A wedge of circles"
             ],
             "answer": 1,
+            "hint": "Over a field $k$, a finitely-generated graded module over $k[t]$ decomposes uniquely (Smith normal form) into interval modules $k[t](-b)/(t^{d-b})$.",
             "explain": "Over a field $k$, a finitely-generated graded module over $k[t]$ decomposes uniquely (Smith normal form) into interval modules $k[t](-b)/(t^{d-b})$. Translating back: bars $[b,d)$. The barcode is the multiset of these intervals."
           },
           {
@@ -33245,6 +35231,7 @@ window.MVQuizBank = {
               "Adding a point cannot change the barcode"
             ],
             "answer": 0,
+            "hint": "Stability: a small perturbation of the input (in Hausdorff or sup norm) moves bars in the barcode by at most that perturbation, in bottleneck distance.",
             "explain": "Stability: a small perturbation of the input (in Hausdorff or sup norm) moves bars in the barcode by at most that perturbation, in bottleneck distance. This is what justifies persistent homology as a robust topological statistic on noisy data."
           }
         ]
@@ -33275,6 +35262,7 @@ window.MVQuizBank = {
             "q": "How many morphisms $[1] \\to [3]$ are there in $\\Delta$?",
             "answer": 10,
             "tol": 0.5,
+            "hint": "Order-preserving maps $[m] \\to [n]$ are in bijection with weakly increasing sequences of length $m+1$ from $\\{0,\\ldots,n\\}$, equivalently with multisets of size $m+1$ from $n+1$ elements:…",
             "explain": "Order-preserving maps $[m] \\to [n]$ are in bijection with weakly increasing sequences of length $m+1$ from $\\{0,\\ldots,n\\}$, equivalently with multisets of size $m+1$ from $n+1$ elements: $\\binom{m+n+1}{m+1}$. For $m=1, n=3$ this is $\\binom{5}{2} = 10$."
           },
           {
@@ -33287,6 +35275,7 @@ window.MVQuizBank = {
               "A degeneracy followed by a face on the same index undoes the degeneracy."
             ],
             "answer": 0,
+            "hint": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$.",
             "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
           }
         ]
@@ -33299,6 +35288,7 @@ window.MVQuizBank = {
             "q": "How many non-degenerate $1$-simplices does the standard simplex $\\Delta^3$ have?",
             "answer": 6,
             "tol": 0.5,
+            "hint": "Non-degenerate $k$-simplices of $\\Delta^n$ are injective order-preserving maps $[k] \\to [n]$, counted by $\\binom{n+1}{k+1}$.",
             "explain": "Non-degenerate $k$-simplices of $\\Delta^n$ are injective order-preserving maps $[k] \\to [n]$, counted by $\\binom{n+1}{k+1}$. For $n=3, k=1$: $\\binom{4}{2}=6$ — the six edges of a tetrahedron."
           },
           {
@@ -33324,6 +35314,7 @@ window.MVQuizBank = {
               "Because the simplex category is filtered."
             ],
             "answer": 1,
+            "hint": "$\\Delta$ is generated by cofaces and codegeneracies subject to the cosimplicial identities; dualizing gives that a simplicial set (graded set with $d_i, s_j$ satisfying the simplicial identities) is…",
             "explain": "$\\Delta$ is generated by cofaces and codegeneracies subject to the cosimplicial identities; dualizing gives that a simplicial set (graded set with $d_i, s_j$ satisfying the simplicial identities) is the same as a contravariant functor $\\Delta \\to \\mathbf{Set}$. Option 1 confuses `presheaf' with `valued-in-Set'; option 3 is the density theorem, true but irrelevant; option 4 is false ($\\Delta$ is not filtered)."
           }
         ],
@@ -33362,6 +35353,7 @@ window.MVQuizBank = {
               "The closed unit ball $D^n$ with no further identifications."
             ],
             "answer": 0,
+            "hint": "By definition $|\\Delta^n|$ is the convex hull of $n+1$ affinely independent points; concretely the standard topological $n$-simplex.",
             "explain": "By definition $|\\Delta^n|$ is the convex hull of $n+1$ affinely independent points; concretely the standard topological $n$-simplex. (It is homeomorphic to $D^n$, but the canonical model is the simplex itself, equipped with barycentric coordinates.)"
           },
           {
@@ -33374,6 +35366,7 @@ window.MVQuizBank = {
               "A point."
             ],
             "answer": 0,
+            "hint": "$|\\partial \\Delta^n|$ is the boundary of the topological $n$-simplex, which is homeomorphic to $S^{n-1}$.",
             "explain": "$|\\partial \\Delta^n|$ is the boundary of the topological $n$-simplex, which is homeomorphic to $S^{n-1}$. For $n=2$ this is the triangle's boundary $\\cong S^1$; for $n=3$ the tetrahedron's boundary $\\cong S^2$."
           },
           {
@@ -33386,6 +35379,7 @@ window.MVQuizBank = {
               "A disk $D^2$."
             ],
             "answer": 0,
+            "hint": "$\\Lambda^2_1 \\subset \\Delta^2$ is the union of the two edges through vertex $1$ — i.e., the edges $[0,1]$ and $[1,2]$.",
             "explain": "$\\Lambda^2_1 \\subset \\Delta^2$ is the union of the two edges through vertex $1$ — i.e., the edges $[0,1]$ and $[1,2]$. The realization is two segments joined at a midpoint; contractible (this is what makes the inner-horn extension property a kind of `composability' assertion, not a topological accident)."
           }
         ]
@@ -33398,6 +35392,7 @@ window.MVQuizBank = {
             "q": "Let $C$ be the poset $\\{a < b < c\\}$ viewed as a category (one arrow $x \\to y$ whenever $x \\le y$). How many $2$-simplices does $N(C)$ have? (Count all of $N(C)_2$, including degeneracies.)",
             "answer": 10,
             "tol": 0.5,
+            "hint": "$N(C)_2$ is the set of composable pairs $(f,g)$, equivalently functors $[2] \\to C$, equivalently order-preserving maps $\\{0,1,2\\} \\to \\{a,b,c\\}$.",
             "explain": "$N(C)_2$ is the set of composable pairs $(f,g)$, equivalently functors $[2] \\to C$, equivalently order-preserving maps $\\{0,1,2\\} \\to \\{a,b,c\\}$. That count is $\\binom{2+2+1}{2+1} = \\binom{5}{3} = 10$."
           },
           {
@@ -33405,6 +35400,7 @@ window.MVQuizBank = {
             "q": "Let $G$ be the group $\\mathbb{Z}/2$ regarded as a one-object groupoid $BG$. How many non-degenerate $2$-simplices does $N(BG)$ have?",
             "answer": 1,
             "tol": 0.5,
+            "hint": "$N(BG)_n = G^n$, with $(g_1, g_2)$ non-degenerate iff each $g_i \\neq e$.",
             "explain": "$N(BG)_n = G^n$, with $(g_1, g_2)$ non-degenerate iff each $g_i \\neq e$. For $G = \\mathbb{Z}/2$ there is exactly one non-identity element, so the only non-degenerate $2$-simplex is $(g, g)$ — one in total."
           },
           {
@@ -33466,6 +35462,7 @@ window.MVQuizBank = {
               2,
               4
             ],
+            "hint": "Singular complexes and nerves of groupoids are Kan complexes.",
             "explain": "Singular complexes and nerves of groupoids are Kan complexes. Constant simplicial sets are Kan trivially (every horn factors through the constant). $\\Delta^n$ and $N(C)$ for a non-groupoidal $C$ are NOT Kan: the outer horn $\\Lambda^2_0$ of a composable pair $f, g$ in $N(C)$ would require an arrow $g \\circ f^{-1}$, which need not exist."
           },
           {
@@ -33478,6 +35475,7 @@ window.MVQuizBank = {
               "Because every simplicial set is a Kan complex."
             ],
             "answer": 0,
+            "hint": "$|\\Lambda^n_k|$ is a strong deformation retract of $|\\Delta^n|$, so any continuous $|\\Lambda^n_k|\\to X$ extends to $|\\Delta^n|\\to X$.",
             "explain": "$|\\Lambda^n_k|$ is a strong deformation retract of $|\\Delta^n|$, so any continuous $|\\Lambda^n_k|\\to X$ extends to $|\\Delta^n|\\to X$. By the realization-singular adjunction this is exactly the lifting property defining Kan complex."
           },
           {
@@ -33490,6 +35488,7 @@ window.MVQuizBank = {
               "Locally contractible spaces."
             ],
             "answer": 0,
+            "hint": "Quillen's theorem: the adjunction $|{-}| \\dashv \\mathrm{Sing}$ is a Quillen equivalence between $\\mathbf{sSet}_{\\mathrm{Kan}}$ and $\\mathbf{Top}$ with weak equivalences and Serre fibrations.",
             "explain": "Quillen's theorem: the adjunction $|{-}| \\dashv \\mathrm{Sing}$ is a Quillen equivalence between $\\mathbf{sSet}_{\\mathrm{Kan}}$ and $\\mathbf{Top}$ with weak equivalences and Serre fibrations. On homotopy categories: Kan complexes $\\simeq$ CW-complexes."
           }
         ]
@@ -33507,6 +35506,7 @@ window.MVQuizBank = {
               "$\\Lambda^3_3$"
             ],
             "answer": 0,
+            "hint": "$\\Lambda^n_k$ is inner iff $0 < k < n$.",
             "explain": "$\\Lambda^n_k$ is inner iff $0 < k < n$. For $n=3$: inner horns are $\\Lambda^3_1$ and $\\Lambda^3_2$; $\\Lambda^3_0$ and $\\Lambda^3_3$ are outer. For $n=2$: only $\\Lambda^2_1$ is inner."
           },
           {
@@ -33519,6 +35519,7 @@ window.MVQuizBank = {
               "$X$ is the singular complex of some space."
             ],
             "answer": 0,
+            "hint": "This is the key characterisation: $X$ is the nerve of a $1$-category iff it is a quasi-category (inner horns extend) AND the extension is unique.",
             "explain": "This is the key characterisation: $X$ is the nerve of a $1$-category iff it is a quasi-category (inner horns extend) AND the extension is unique. Inner-horn fillers in $N(C)$ correspond to compositions $g \\circ f$, which exist and are unique."
           },
           {
@@ -33531,6 +35532,7 @@ window.MVQuizBank = {
               "All simplicial sets."
             ],
             "answer": 0,
+            "hint": "Fibrant objects in the Joyal model structure are the quasi-categories (inner Kan complexes).",
             "explain": "Fibrant objects in the Joyal model structure are the quasi-categories (inner Kan complexes). Kan complexes are the fibrant objects in the Kan–Quillen model structure (a stricter condition); nerves of $1$-categories are quasi-categories with the additional uniqueness-of-fillers property."
           }
         ],
@@ -33579,6 +35581,7 @@ window.MVQuizBank = {
               "$3$ distinct lines"
             ],
             "answer": 2,
+            "hint": "The degree-$2$ part at the origin is $y^2 - x^2 = (y-x)(y+x)$, which factors into two distinct linear forms.",
             "explain": "The degree-$2$ part at the origin is $y^2 - x^2 = (y-x)(y+x)$, which factors into two distinct linear forms. So the tangent cone is two lines $y = \\pm x$, exactly the node picture."
           },
           {
@@ -33591,6 +35594,7 @@ window.MVQuizBank = {
               "identically zero"
             ],
             "answer": 1,
+            "hint": "The lowest-order terms of $y^2 - x^3$ at the origin are just $y^2$, a single repeated factor.",
             "explain": "The lowest-order terms of $y^2 - x^3$ at the origin are just $y^2$, a single repeated factor. That single tangent direction with multiplicity $2$ is what distinguishes a cusp from a node."
           },
           {
@@ -33598,6 +35602,7 @@ window.MVQuizBank = {
             "q": "For the cuspidal parametrization $(x,y) = (t^2, t^3)$, evaluate $y$ at $t = 3$.",
             "answer": 27,
             "tol": 0.000001,
+            "hint": "$y = t^3 = 3^3 = 27$.",
             "explain": "$y = t^3 = 3^3 = 27$. The cusp $y^2 = x^3$ is parametrized by $t \\mapsto (t^2,t^3)$, with $t=0$ mapping to the singular point."
           }
         ],
@@ -33651,6 +35656,7 @@ window.MVQuizBank = {
               "$p \\nmid \\Delta$"
             ],
             "answer": 2,
+            "hint": "A Weierstrass cubic is smooth over $\\mathbb{F}_p$ exactly when its discriminant is nonzero mod $p$.",
             "explain": "A Weierstrass cubic is smooth over $\\mathbb{F}_p$ exactly when its discriminant is nonzero mod $p$. So bad reduction at $p$ is the condition $p \\mid \\Delta$; good reduction is $p \\nmid \\Delta$."
           },
           {
@@ -33658,6 +35664,7 @@ window.MVQuizBank = {
             "q": "For $E : y^2 = x^3 + 1$ (so $a = 0, b = 1$), compute $\\Delta = -16(4a^3 + 27 b^2)$.",
             "answer": -432,
             "tol": 0.000001,
+            "hint": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$.",
             "explain": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$."
           },
           {
@@ -33670,6 +35677,7 @@ window.MVQuizBank = {
               "every prime is bad"
             ],
             "answer": 2,
+            "hint": "Bad primes are those dividing $\\Delta = -432$, namely $p = 2$ and $p = 3$.",
             "explain": "Bad primes are those dividing $\\Delta = -432$, namely $p = 2$ and $p = 3$. Every other prime, including $p = 5$, is a prime of good reduction."
           }
         ],
@@ -33723,6 +35731,7 @@ window.MVQuizBank = {
               "an elliptic curve over $\\mathbb{F}_p$"
             ],
             "answer": 1,
+            "hint": "Cuspidal reduction is called <i>additive</i> precisely because the smooth locus is the additive group $\\mathbb{G}_a(\\mathbb{F}_p) = \\mathbb{F}_p$, which has order $p$.",
             "explain": "Cuspidal reduction is called <i>additive</i> precisely because the smooth locus is the additive group $\\mathbb{G}_a(\\mathbb{F}_p) = \\mathbb{F}_p$, which has order $p$."
           },
           {
@@ -33735,6 +35744,7 @@ window.MVQuizBank = {
               "the singularity is a cusp"
             ],
             "answer": 0,
+            "hint": "Split means the tangent slopes $\\pm s$ lie in $\\mathbb{F}_p$, so the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p) \\cong \\mathbb{F}_p^\\times$ of order $p-1$.",
             "explain": "Split means the tangent slopes $\\pm s$ lie in $\\mathbb{F}_p$, so the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p) \\cong \\mathbb{F}_p^\\times$ of order $p-1$. Non-split means the slopes live in $\\mathbb{F}_{p^2} \\setminus \\mathbb{F}_p$, giving a non-split torus of order $p+1$."
           },
           {
@@ -33742,6 +35752,7 @@ window.MVQuizBank = {
             "q": "For a non-split multiplicative reduction at $p = 7$, the smooth part of $\\tilde E_p$ has order $p+1$. Compute this order.",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "The non-split torus has order $p + 1 = 7 + 1 = 8$.",
             "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
           }
         ],
@@ -33795,6 +35806,7 @@ window.MVQuizBank = {
               "$|a_p| \\le p + 1$"
             ],
             "answer": 1,
+            "hint": "Hasse's theorem (a Riemann-hypothesis analogue for $E/\\mathbb{F}_p$) gives $|a_p| \\le 2\\sqrt p$.",
             "explain": "Hasse's theorem (a Riemann-hypothesis analogue for $E/\\mathbb{F}_p$) gives $|a_p| \\le 2\\sqrt p$. Equivalently $|E(\\mathbb{F}_p)|$ lies in the interval $[p + 1 - 2\\sqrt p,\\; p + 1 + 2\\sqrt p]$."
           },
           {
@@ -33802,6 +35814,7 @@ window.MVQuizBank = {
             "q": "For $E\\colon y^2 = x^3 - x$ over $\\mathbb{F}_5$, direct count gives $|E(\\mathbb{F}_5)| = 8$ (including $O$). Compute $a_5$.",
             "answer": -2,
             "tol": 0,
+            "hint": "$a_5 = p + 1 - |E(\\mathbb{F}_p)| = 5 + 1 - 8 = -2$.",
             "explain": "$a_5 = p + 1 - |E(\\mathbb{F}_p)| = 5 + 1 - 8 = -2$. This satisfies $|a_5| = 2 \\le 2\\sqrt 5 \\approx 4.47$, so Hasse is happy."
           },
           {
@@ -33867,6 +35880,7 @@ window.MVQuizBank = {
               "$\\Delta \\mapsto \\Delta$ (discriminant is invariant)"
             ],
             "answer": 2,
+            "hint": "The short Weierstrass form transforms $a \\to u^{-4} a,\\, b \\to u^{-6} b$, and $\\Delta = -16(4a^3 + 27 b^2)$ picks up $u^{-12}$; when we clear denominators the integer model's discriminant scales by…",
             "explain": "The short Weierstrass form transforms $a \\to u^{-4} a,\\, b \\to u^{-6} b$, and $\\Delta = -16(4a^3 + 27 b^2)$ picks up $u^{-12}$; when we clear denominators the integer model's discriminant scales by $u^{12}$. This is exactly why minimality asks for the smallest achievable $v_p(\\Delta)$ at each prime."
           },
           {
@@ -33874,6 +35888,7 @@ window.MVQuizBank = {
             "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p = 11$ and good reduction at every other prime, the conductor exponent at $11$ is $f_{11} = 1$. Compute the conductor $N(E)$.",
             "answer": 11,
             "tol": 0,
+            "hint": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$.",
             "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. This is the conductor of the curve $y^2 + y = x^3 - x^2$ (Cremona 11a1), the smallest-conductor elliptic curve over $\\mathbb{Q}$."
           },
           {
@@ -33886,6 +35901,7 @@ window.MVQuizBank = {
               "$f_p = 12$"
             ],
             "answer": 2,
+            "hint": "For $p \\ne 2, 3$ (tame reduction), additive reduction contributes $f_p = 2$ and multiplicative reduction contributes $f_p = 1$.",
             "explain": "For $p \\ne 2, 3$ (tame reduction), additive reduction contributes $f_p = 2$ and multiplicative reduction contributes $f_p = 1$. At $p = 2, 3$ wild ramification in the Galois representation can add a non-negative correction."
           }
         ],
@@ -33944,6 +35960,7 @@ window.MVQuizBank = {
               "$M$ is compact"
             ],
             "answer": 1,
+            "hint": "Smoothness of transition maps between Euclidean patches is exactly what lifts calculus from $\\mathbb{R}^n$ to $M$.",
             "explain": "Smoothness of transition maps between Euclidean patches is exactly what lifts calculus from $\\mathbb{R}^n$ to $M$. No disjointness, compactness, or linearity is required."
           },
           {
@@ -33951,6 +35968,7 @@ window.MVQuizBank = {
             "q": "On $S^2$ with the two-chart stereographic atlas from $N$ and $S$, the overlap $U_N\\cap U_S$ is $S^2$ minus how many points?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The north chart misses $N$ and the south chart misses $S$, so the overlap is $S^2\\setminus\\{N,S\\}$ — two missing points.",
             "explain": "The north chart misses $N$ and the south chart misses $S$, so the overlap is $S^2\\setminus\\{N,S\\}$ — two missing points."
           },
           {
@@ -33963,6 +35981,7 @@ window.MVQuizBank = {
               "only continuous, not smooth"
             ],
             "answer": 1,
+            "hint": "Composing the two stereographic projections gives $(u,v)\\mapsto(u,v)/(u^2+v^2)$, a $C^\\infty$ diffeomorphism of $\\mathbb{R}^2\\setminus\\{0\\}$.",
             "explain": "Composing the two stereographic projections gives $(u,v)\\mapsto(u,v)/(u^2+v^2)$, a $C^\\infty$ diffeomorphism of $\\mathbb{R}^2\\setminus\\{0\\}$."
           }
         ],
@@ -34008,6 +36027,7 @@ window.MVQuizBank = {
             "q": "What is the dimension of the matrix Lie group $\\mathrm{SO}(n)$?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles.",
             "explain": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles."
           },
           {
@@ -34020,6 +36040,7 @@ window.MVQuizBank = {
               "a compact $(n+1)$-manifold"
             ],
             "answer": 1,
+            "hint": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$ identifies antipodal points; the resulting space is a compact smooth $n$-manifold, with standard affine charts $\\{x_i\\ne 0\\}$.",
             "explain": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$ identifies antipodal points; the resulting space is a compact smooth $n$-manifold, with standard affine charts $\\{x_i\\ne 0\\}$."
           },
           {
@@ -34027,6 +36048,7 @@ window.MVQuizBank = {
             "q": "The Grassmannian $\\mathrm{Gr}(k,n)$ of $k$-planes in $\\mathbb{R}^n$ has dimension $k(n-k)$. What is $\\dim\\mathrm{Gr}(2,5)$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$.",
             "explain": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$. The charts are graphs of linear maps $W_0\\to W_0^\\perp$, giving $k(n-k)$ parameters."
           }
         ],
@@ -34077,6 +36099,7 @@ window.MVQuizBank = {
               "$f$ is linear in some chart"
             ],
             "answer": 1,
+            "hint": "Smoothness of $f$ is smoothness of every coordinate representative $\\hat f = \\psi\\circ f\\circ\\varphi^{-1}$, which is a map between open subsets of Euclidean space.",
             "explain": "Smoothness of $f$ is smoothness of every coordinate representative $\\hat f = \\psi\\circ f\\circ\\varphi^{-1}$, which is a map between open subsets of Euclidean space. Chart compatibility makes this property independent of chart choice."
           },
           {
@@ -34089,6 +36112,7 @@ window.MVQuizBank = {
               "a linear bijection"
             ],
             "answer": 1,
+            "hint": "Diffeomorphisms are the isomorphisms of the smooth category: smooth, bijective, with smooth inverse.",
             "explain": "Diffeomorphisms are the isomorphisms of the smooth category: smooth, bijective, with smooth inverse. A smooth bijection need not be a diffeomorphism — consider $x\\mapsto x^3$ on $\\mathbb{R}$, whose inverse is not smooth at $0$."
           },
           {
@@ -34096,6 +36120,7 @@ window.MVQuizBank = {
             "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(x+y,\\,xy)$. At $p=(1,2)$ the Jacobian is $\\begin{pmatrix}1&1\\\\ y&x\\end{pmatrix}_{(1,2)} = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$. What is the rank of $df_p$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$.",
             "explain": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$."
           }
         ],
@@ -34146,6 +36171,7 @@ window.MVQuizBank = {
               "the kernel of some linear map on $M$"
             ],
             "answer": 0,
+            "hint": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space.",
             "explain": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space."
           },
           {
@@ -34153,6 +36179,7 @@ window.MVQuizBank = {
             "q": "What is the dimension of the tangent bundle $TM$ of a smooth $n$-manifold $M$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$TM$ has dimension $2n$; for $n=3$ this is $6$.",
             "explain": "$TM$ has dimension $2n$; for $n=3$ this is $6$."
           },
           {
@@ -34160,6 +36187,7 @@ window.MVQuizBank = {
             "q": "Under a chart change $y=y(x)$, a tangent vector with components $X^i$ becomes $\\tilde X^j = (\\partial y^j/\\partial x^i)X^i$. If $X=(2,0)$ in coordinates $x$ and the Jacobian at the point is $\\begin{pmatrix}3&1\\\\0&2\\end{pmatrix}$, what is $\\tilde X^1$?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "$\\tilde X^1 = 3\\cdot 2 + 1\\cdot 0 = 6$.",
             "explain": "$\\tilde X^1 = 3\\cdot 2 + 1\\cdot 0 = 6$."
           }
         ],
@@ -34210,6 +36238,7 @@ window.MVQuizBank = {
               "the dual of the cotangent bundle only when $M$ is orientable"
             ],
             "answer": 0,
+            "hint": "$TM=\\bigsqcup_{p\\in M}T_pM$ is a rank-$n$ vector bundle over $M$; each fibre is an $n$-plane, and the total space is a smooth manifold of dimension $2n$.",
             "explain": "$TM=\\bigsqcup_{p\\in M}T_pM$ is a rank-$n$ vector bundle over $M$; each fibre is an $n$-plane, and the total space is a smooth manifold of dimension $2n$. $TM$ is trivial ($\\cong M\\times\\mathbb{R}^n$) iff $M$ is parallelizable — false in general (e.g. $S^2$)."
           },
           {
@@ -34222,6 +36251,7 @@ window.MVQuizBank = {
               "a path $\\gamma\\colon\\mathbb{R}\\to M$"
             ],
             "answer": 1,
+            "hint": "A vector field assigns to each point $p\\in M$ a vector $X_p\\in T_pM$ smoothly, i.e.",
             "explain": "A vector field assigns to each point $p\\in M$ a vector $X_p\\in T_pM$ smoothly, i.e. a smooth section of the projection $\\pi\\colon TM\\to M$. Equivalently, a derivation on $C^\\infty(M)$."
           },
           {
@@ -34229,6 +36259,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{R}^2$, the vector field $X = x\\,\\partial_x + y\\,\\partial_y$ acts on the function $f(x,y)=x^2+y^2$ as $Xf$. What is $(Xf)(1,2)$?",
             "answer": 10,
             "tol": 0.000001,
+            "hint": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$.",
             "explain": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$. At $(1,2)$: $2(1+4) = 10$."
           }
         ],
@@ -34279,6 +36310,7 @@ window.MVQuizBank = {
               "is the zero map"
             ],
             "answer": 1,
+            "hint": "Immersion = injective differential, rank $m$.",
             "explain": "Immersion = injective differential, rank $m$. Submersion is the surjective case with rank $n$."
           },
           {
@@ -34286,6 +36318,7 @@ window.MVQuizBank = {
             "q": "By the regular value theorem, if $c$ is a regular value of $g\\colon\\mathbb{R}^{n+1}\\to\\mathbb{R}$ then $g^{-1}(c)$ is a smooth manifold of dimension $n$. For $g(x)=\\|x\\|^2$ on $\\mathbb{R}^4$ and $c=1$, what is the dimension of $g^{-1}(1)=S^3$?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$g\\colon\\mathbb{R}^4\\to\\mathbb{R}$, and $1$ is regular, so $g^{-1}(1)$ has dimension $4-1=3$.",
             "explain": "$g\\colon\\mathbb{R}^4\\to\\mathbb{R}$, and $1$ is regular, so $g^{-1}(1)$ has dimension $4-1=3$."
           },
           {
@@ -34298,6 +36331,7 @@ window.MVQuizBank = {
               "no Euclidean space in general"
             ],
             "answer": 2,
+            "hint": "Whitney (1944): every smooth $n$-manifold embeds smoothly in $\\mathbb{R}^{2n}$, and immerses in $\\mathbb{R}^{2n-1}$.",
             "explain": "Whitney (1944): every smooth $n$-manifold embeds smoothly in $\\mathbb{R}^{2n}$, and immerses in $\\mathbb{R}^{2n-1}$."
           }
         ],
@@ -34348,6 +36382,7 @@ window.MVQuizBank = {
               "$\\gamma(t)\\in\\operatorname{supp}(X)$ for all $t$"
             ],
             "answer": 1,
+            "hint": "An integral curve is a trajectory that follows the vector field: its velocity at every time equals the value of $X$ at the current position, i.e.",
             "explain": "An integral curve is a trajectory that follows the vector field: its velocity at every time equals the value of $X$ at the current position, i.e. $\\gamma'(t)=X_{\\gamma(t)}$."
           },
           {
@@ -34355,6 +36390,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{R}$, the vector field $X=x\\,\\partial_x$ has integral curve through $x_0=1$ given by $\\gamma(t)=e^t$. What is $\\gamma(\\ln 3)$?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$.",
             "explain": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$. Then $\\gamma(\\ln 3)=e^{\\ln 3}=3$."
           },
           {
@@ -34367,6 +36403,7 @@ window.MVQuizBank = {
               "the gradient of some function"
             ],
             "answer": 1,
+            "hint": "On a compact manifold integral curves cannot escape to infinity in finite time, so the maximal domain of each integral curve is all of $\\mathbb{R}$.",
             "explain": "On a compact manifold integral curves cannot escape to infinity in finite time, so the maximal domain of each integral curve is all of $\\mathbb{R}$. Equivalently, the flow $\\Phi^X_t$ is defined for every real $t$ — $X$ is complete."
           }
         ],
@@ -34418,6 +36455,7 @@ window.MVQuizBank = {
               "$[X,Y]f = X(f) + Y(f)$"
             ],
             "answer": 1,
+            "hint": "$[X,Y] = XY - YX$ as operators on $C^\\infty(M)$.",
             "explain": "$[X,Y] = XY - YX$ as operators on $C^\\infty(M)$. The second-order terms cancel and the commutator is again a derivation, hence a vector field."
           },
           {
@@ -34425,6 +36463,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{R}^2$ with $X=\\partial_x$ and $Y=x\\,\\partial_y$, the Lie bracket is $[X,Y]=\\partial_y$. Applying $[X,Y]$ to $f(x,y)=y^2$ at the point $(3,4)$ gives what number?",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "$[X,Y]f = \\partial_y(y^2) = 2y$.",
             "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
           },
           {
@@ -34437,6 +36476,7 @@ window.MVQuizBank = {
               "$[X,X] = X$"
             ],
             "answer": 1,
+            "hint": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity.",
             "explain": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity. Those two axioms define a Lie algebra over $\\mathbb{R}$."
           }
         ],
@@ -34487,6 +36527,7 @@ window.MVQuizBank = {
               "$\\rho_\\alpha$ is the characteristic function of $U_\\alpha$"
             ],
             "answer": 0,
+            "hint": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum…",
             "explain": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum makes sense pointwise), and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$ on $M$. Characteristic functions of open sets are not even continuous, so (D) fails."
           },
           {
@@ -34499,6 +36540,7 @@ window.MVQuizBank = {
               "only submanifolds of $\\mathbb{R}^n$"
             ],
             "answer": 2,
+            "hint": "Smooth partitions of unity exist on any paracompact smooth manifold; our definition already assumes second countability + Hausdorff, which imply paracompactness, so every smooth manifold in this…",
             "explain": "Smooth partitions of unity exist on any paracompact smooth manifold; our definition already assumes second countability + Hausdorff, which imply paracompactness, so every smooth manifold in this notebook admits them. Compactness and orientability are irrelevant."
           },
           {
@@ -34506,6 +36548,7 @@ window.MVQuizBank = {
             "q": "Suppose $\\{\\rho_1,\\rho_2,\\rho_3\\}$ is a partition of unity on $M$ and at a point $p$, $\\rho_1(p)=0.2$, $\\rho_2(p)=0.5$. What is $\\rho_3(p)$?",
             "answer": 0.3,
             "tol": 0.000001,
+            "hint": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$.",
             "explain": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$."
           }
         ],
@@ -34549,6 +36592,7 @@ window.MVQuizBank = {
               "$M$ embeds into $\\mathbb{R}^n$ for some $n$"
             ],
             "answer": 1,
+            "hint": "Orientability is equivalent to the existence of an oriented atlas — one for which every transition $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ has $\\det D(\\varphi_\\beta\\circ\\varphi_\\alpha^{-1})>0$ on its…",
             "explain": "Orientability is equivalent to the existence of an oriented atlas — one for which every transition $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ has $\\det D(\\varphi_\\beta\\circ\\varphi_\\alpha^{-1})>0$ on its domain. Equivalently, $M$ admits a nowhere-vanishing top-degree form."
           },
           {
@@ -34561,6 +36605,7 @@ window.MVQuizBank = {
               "real projective 3-space $\\mathbb{RP}^3$"
             ],
             "answer": 2,
+            "hint": "The Möbius band has a single side: going once around the core circle and returning flips a local frame's handedness, so no consistent orientation exists.",
             "explain": "The Möbius band has a single side: going once around the core circle and returning flips a local frame's handedness, so no consistent orientation exists. $S^2$, $T^2$, and $\\mathbb{RP}^3$ are orientable ($\\mathbb{RP}^n$ is orientable iff $n$ is odd)."
           },
           {
@@ -34568,6 +36613,7 @@ window.MVQuizBank = {
             "q": "How many orientations does a connected orientable smooth manifold admit?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "An orientation is a choice of sign on the top exterior power at each point, varying continuously.",
             "explain": "An orientation is a choice of sign on the top exterior power at each point, varying continuously. On a connected manifold there are exactly two global choices, differing by an overall sign flip."
           }
         ],
@@ -34630,6 +36676,7 @@ window.MVQuizBank = {
             "q": "Compute $\\langle\\delta_0,\\phi\\rangle$ when $\\phi(x) = e^{-x^2}\\mathbf{1}_{|x|<1}$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "By definition $\\langle\\delta_0,\\phi\\rangle = \\phi(0)$, and $\\phi(0) = e^0 \\cdot 1 = 1$.",
             "explain": "By definition $\\langle\\delta_0,\\phi\\rangle = \\phi(0)$, and $\\phi(0) = e^0 \\cdot 1 = 1$. The Dirac delta is point-evaluation; the support and shape of $\\phi$ are otherwise irrelevant once $0\\in\\operatorname{supp}\\phi$."
           },
           {
@@ -34642,6 +36689,7 @@ window.MVQuizBank = {
               "Only continuous functions induce distributions"
             ],
             "answer": 1,
+            "hint": "If $\\int(f-g)\\phi=0$ for every test $\\phi\\in C_c^\\infty$, the fundamental lemma of the calculus of variations gives $f=g$ a.e.",
             "explain": "If $\\int(f-g)\\phi=0$ for every test $\\phi\\in C_c^\\infty$, the fundamental lemma of the calculus of variations gives $f=g$ a.e. (not pointwise — null sets are invisible). Surjectivity fails: $\\delta_0$ is not regular. Continuity is unnecessary; $L^1_{\\mathrm{loc}}$ suffices."
           }
         ]
@@ -34659,6 +36707,7 @@ window.MVQuizBank = {
               "Undefined — $H$ has a jump"
             ],
             "answer": 1,
+            "hint": "$\\langle H',\\phi\\rangle = -\\langle H,\\phi'\\rangle = -\\int_0^\\infty\\phi' = \\phi(0) = \\langle\\delta_0,\\phi\\rangle$ by the fundamental theorem of calculus.",
             "explain": "$\\langle H',\\phi\\rangle = -\\langle H,\\phi'\\rangle = -\\int_0^\\infty\\phi' = \\phi(0) = \\langle\\delta_0,\\phi\\rangle$ by the fundamental theorem of calculus. The classical derivative is $0$ where defined, but the distributional one captures the jump as a unit point mass at the origin."
           },
           {
@@ -34666,6 +36715,7 @@ window.MVQuizBank = {
             "q": "Let $T = \\delta_0''$ on $\\mathbb{R}$ and $\\phi(x) = x^2 e^{-x^2}\\mathbf{1}_{|x|<5}$. Compute $\\langle T,\\phi\\rangle$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "By the rule $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$, we get $\\langle\\delta_0'',\\phi\\rangle = (-1)^2\\langle\\delta_0,\\phi''\\rangle = \\phi''(0)$.",
             "explain": "By the rule $\\langle\\partial^\\alpha T,\\phi\\rangle = (-1)^{|\\alpha|}\\langle T,\\partial^\\alpha\\phi\\rangle$, we get $\\langle\\delta_0'',\\phi\\rangle = (-1)^2\\langle\\delta_0,\\phi''\\rangle = \\phi''(0)$. Differentiating $\\phi = x^2 e^{-x^2}$: $\\phi' = (2x-2x^3)e^{-x^2}$, $\\phi'' = (2-10x^2+4x^4)e^{-x^2}$, so $\\phi''(0) = 2$."
           },
           {
@@ -34678,6 +36728,7 @@ window.MVQuizBank = {
               "$2\\delta_0$"
             ],
             "answer": 1,
+            "hint": "$|x|$ is continuous (no jump), so no delta is produced.",
             "explain": "$|x|$ is continuous (no jump), so no delta is produced. Away from $0$ the classical derivative is $\\operatorname{sgn}(x)$, which is bounded — hence locally integrable — so it serves as the weak derivative. Integration by parts: $\\int|x|\\phi' = \\int_0^\\infty x\\phi' - \\int_{-\\infty}^0 x\\phi' = -\\int_0^\\infty\\phi + \\int_{-\\infty}^0\\phi = -\\int\\operatorname{sgn}(x)\\phi$."
           }
         ]
@@ -34695,6 +36746,7 @@ window.MVQuizBank = {
               "No $p$ in $[1,\\infty)$"
             ],
             "answer": 1,
+            "hint": "$u\\in L^p$ for every $p$, but $u'(x)=\\tfrac12 x^{-1/2}$ has $\\int_0^1 |u'|^p\\,dx = (1/2)^p\\int_0^1 x^{-p/2}\\,dx$, which converges iff $-p/2>-1$, i.e.",
             "explain": "$u\\in L^p$ for every $p$, but $u'(x)=\\tfrac12 x^{-1/2}$ has $\\int_0^1 |u'|^p\\,dx = (1/2)^p\\int_0^1 x^{-p/2}\\,dx$, which converges iff $-p/2>-1$, i.e. $p<2$. At $p=2$ the integral logarithmically diverges."
           },
           {
@@ -34707,6 +36759,7 @@ window.MVQuizBank = {
               "$(u,v) = \\int u\\bar v - \\int \\nabla u\\cdot\\overline{\\nabla v}$"
             ],
             "answer": 2,
+            "hint": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$ (option 2).",
             "explain": "$H^1=W^{1,2}$ collects all $|\\alpha|\\le 1$ derivatives in $L^2$; the natural Hilbert inner product is the sum of the $L^2$ inner products of $u$ and of $\\nabla u$ (option 2). Option 1, the pure-gradient form, is only an inner product on $H^1_0$ via Poincaré, not on $H^1$ itself — without Poincaré, the constants form a non-trivial kernel."
           },
           {
@@ -34719,6 +36772,7 @@ window.MVQuizBank = {
               "It is a coincidence that holds only in dimension $1$"
             ],
             "answer": 0,
+            "hint": "Plancherel turns $\\partial^\\alpha$ into multiplication by $(i\\xi)^\\alpha$; summing $|\\xi^\\alpha|^2$ over all $|\\alpha|\\le k$ yields a polynomial bounded above and below by constants times…",
             "explain": "Plancherel turns $\\partial^\\alpha$ into multiplication by $(i\\xi)^\\alpha$; summing $|\\xi^\\alpha|^2$ over all $|\\alpha|\\le k$ yields a polynomial bounded above and below by constants times $(1+|\\xi|^2)^k$, so the two norms are equivalent. The Fourier transform fails to be bounded on $L^p$ for $p\\ne 2$, and $\\hat u$ need not be smooth."
           }
         ]
@@ -34731,6 +36785,7 @@ window.MVQuizBank = {
             "q": "On $\\mathbb{R}^3$ with $k=1$ and $p=2$, compute the Sobolev exponent $p^* = np/(n-kp)$.",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "Plug in: $p^* = (3\\cdot 2)/(3-1\\cdot 2) = 6/1 = 6$.",
             "explain": "Plug in: $p^* = (3\\cdot 2)/(3-1\\cdot 2) = 6/1 = 6$. So $H^1(\\mathbb{R}^3)\\hookrightarrow L^6(\\mathbb{R}^3)$ — the famous critical exponent that drives most 3-D variational problems."
           },
           {
@@ -34743,6 +36798,7 @@ window.MVQuizBank = {
               "$H^1(\\Omega)\\hookrightarrow L^\\infty(\\Omega)$"
             ],
             "answer": 1,
+            "hint": "Rellich–Kondrachov gives compactness exactly below the critical exponent: $H^1\\hookrightarrow L^p$ is compact for $p<6=p^*$ on a bounded domain.",
             "explain": "Rellich–Kondrachov gives compactness exactly below the critical exponent: $H^1\\hookrightarrow L^p$ is compact for $p<6=p^*$ on a bounded domain. At $p=p^*=6$ the embedding is bounded but never compact (concentration / bubbling). $H^1\\not\\hookrightarrow L^\\infty$ on $\\mathbb{R}^3$ at all (the borderline regime is $kp=n$, requiring $p\\ge 3$)."
           },
           {
@@ -34755,6 +36811,7 @@ window.MVQuizBank = {
               "$\\gamma = 3/4$"
             ],
             "answer": 1,
+            "hint": "Morrey's exponent is $\\gamma = k - n/p = 1 - 2/4 = 1/2$ in the supercritical regime.",
             "explain": "Morrey's exponent is $\\gamma = k - n/p = 1 - 2/4 = 1/2$ in the supercritical regime. So $W^{1,4}(\\Omega)$ functions are automatically Hölder-continuous of exponent $1/2$ — a regularity gain over the bare measurability of $L^p$."
           }
         ]
@@ -34772,6 +36829,7 @@ window.MVQuizBank = {
               "$C^0(\\partial\\Omega)$"
             ],
             "answer": 1,
+            "hint": "The trace loses exactly $1/p = 1/2$ of a derivative: $H^1(\\Omega) = W^{1,2}(\\Omega) \\to W^{1-1/2,2}(\\partial\\Omega) = H^{1/2}(\\partial\\Omega)$, and the image is exactly $H^{1/2}$ (surjective).",
             "explain": "The trace loses exactly $1/p = 1/2$ of a derivative: $H^1(\\Omega) = W^{1,2}(\\Omega) \\to W^{1-1/2,2}(\\partial\\Omega) = H^{1/2}(\\partial\\Omega)$, and the image is exactly $H^{1/2}$ (surjective). A bare $L^2$ statement is true but loses information; $H^1$ on the boundary is too strong."
           },
           {
@@ -34784,6 +36842,7 @@ window.MVQuizBank = {
               "$L^2(\\Omega)$"
             ],
             "answer": 2,
+            "hint": "$H^1_0(\\Omega)$ is by definition the closure of $C_c^\\infty(\\Omega)$ in $H^1$, and it equals $\\ker\\operatorname{Tr}$.",
             "explain": "$H^1_0(\\Omega)$ is by definition the closure of $C_c^\\infty(\\Omega)$ in $H^1$, and it equals $\\ker\\operatorname{Tr}$. Pointwise statements like '$u=0$ on $\\partial\\Omega$' are meaningless for general $H^1$ functions because $\\partial\\Omega$ has measure zero; the trace theorem makes the condition rigorous, and $H^1_0$ packages it cleanly."
           },
           {
@@ -34796,6 +36855,7 @@ window.MVQuizBank = {
               "$\\{u : |\\xi'|\\hat u\\in L^\\infty\\}$"
             ],
             "answer": 1,
+            "hint": "$H^s$ on the boundary uses the Fourier multiplier $(1+|\\xi'|^2)^{s/2}$, so for $s=1/2$ the multiplier is $(1+|\\xi'|^2)^{1/4}$.",
             "explain": "$H^s$ on the boundary uses the Fourier multiplier $(1+|\\xi'|^2)^{s/2}$, so for $s=1/2$ the multiplier is $(1+|\\xi'|^2)^{1/4}$. The weight $(1+|\\xi'|^2)^{1/2}$ is the $H^1$ symbol, one full derivative."
           }
         ]
@@ -34809,6 +36869,7 @@ window.MVQuizBank = {
             "answer": -0.07957747154594767,
             "tol": 0.0001,
             "tol_note": "Numerical value of $-1/(4\\pi)$.",
+            "hint": "$E_3(x) = -1/(4\\pi|x|)$, so $c = -1/(4\\pi)\\approx -0.07958$.",
             "explain": "$E_3(x) = -1/(4\\pi|x|)$, so $c = -1/(4\\pi)\\approx -0.07958$. The sign convention is $\\Delta = \\partial_1^2+\\partial_2^2+\\partial_3^2$, and the constant is fixed by Gauss's flux law: $\\nabla E_3$ has magnitude $1/(4\\pi r^2)$ on the sphere $|x|=r$ of area $4\\pi r^2$, so the radial flux equals $1$ — the unit point source at the origin."
           },
           {
@@ -34821,6 +36882,7 @@ window.MVQuizBank = {
               "The classical and distributional Laplacians always disagree"
             ],
             "answer": 0,
+            "hint": "Away from the origin, direct calculation gives $\\Delta(1/|x|)=0$.",
             "explain": "Away from the origin, direct calculation gives $\\Delta(1/|x|)=0$. The classical operator only sees the smooth-piece behaviour and misses the singularity at $0$; the distributional Laplacian, defined by pairing with test functions, picks up the boundary contribution at $\\partial B_\\varepsilon$ as $\\varepsilon\\to 0$, which evaluates to $\\phi(0)$. The two agree on smooth-region behaviour and differ exactly at concentrated singularities."
           },
           {
@@ -34833,6 +36895,7 @@ window.MVQuizBank = {
               "$u = f$"
             ],
             "answer": 0,
+            "hint": "$\\Delta(E_3 * f) = (\\Delta E_3) * f = \\delta_0 * f = f$.",
             "explain": "$\\Delta(E_3 * f) = (\\Delta E_3) * f = \\delta_0 * f = f$. So with $E_3 = -1/(4\\pi|x|)$, $u = E_3 * f$ solves $\\Delta u = f$, equivalently $-\\Delta(-u) = f$. The standard physicist sign $-\\Delta u = f$ uses $u = -E_3 * f = (1/(4\\pi))\\int f(y)/|x-y|\\,dy$, the Newtonian potential of the source $f$."
           }
         ]
@@ -34850,6 +36913,7 @@ window.MVQuizBank = {
               "$\\int u\\,\\Delta v = -\\int f v$"
             ],
             "answer": 1,
+            "hint": "Multiply $-\\Delta u = f$ by $v\\in C_c^\\infty$, integrate by parts to move the gradient onto $v$, and the boundary term vanishes (compact support, then density to $H^1_0$).",
             "explain": "Multiply $-\\Delta u = f$ by $v\\in C_c^\\infty$, integrate by parts to move the gradient onto $v$, and the boundary term vanishes (compact support, then density to $H^1_0$). The bilinear form is $a(u,v)=\\int\\nabla u\\cdot\\nabla v$; the linear form is $L(v)=\\int fv$."
           },
           {
@@ -34862,6 +36926,7 @@ window.MVQuizBank = {
               "Continuous in one argument only"
             ],
             "answer": 1,
+            "hint": "Lax–Milgram requires bilinearity, continuity, and coercivity.",
             "explain": "Lax–Milgram requires bilinearity, continuity, and coercivity. Coercivity here uses the Poincaré inequality on $H^1_0$: $\\|u\\|_{L^2}\\le C\\|\\nabla u\\|_{L^2}$, hence $a(u,u)=\\|\\nabla u\\|_{L^2}^2 \\ge (1+C^2)^{-1}\\|u\\|_{H^1}^2$. Symmetry is convenient (it lets you read off the energy minimisation) but not required."
           },
           {
@@ -34874,6 +36939,7 @@ window.MVQuizBank = {
               "Smooth, regardless of $f$"
             ],
             "answer": 1,
+            "hint": "For symmetric coercive $a$, the Euler–Lagrange equation of $J(v)=\\tfrac12 a(v,v)-L(v)$ is $a(u,\\cdot)=L$, and convexity makes the critical point a minimiser.",
             "explain": "For symmetric coercive $a$, the Euler–Lagrange equation of $J(v)=\\tfrac12 a(v,v)-L(v)$ is $a(u,\\cdot)=L$, and convexity makes the critical point a minimiser. The Dirichlet principle: '$u$ minimises $\\tfrac12\\int|\\nabla v|^2 - \\int fv$ over $H^1_0$.'  Smoothness of $u$ is a separate question (elliptic regularity), and uniqueness is global, not 'up to a constant'."
           }
         ]
@@ -34896,6 +36962,7 @@ window.MVQuizBank = {
               "$L$ is positive semidefinite, but the constant vector is not always in $\\ker L$"
             ],
             "answer": 1,
+            "hint": "$L$ is real symmetric, and $f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2 \\ge 0$, so PSD.",
             "explain": "$L$ is real symmetric, and $f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2 \\ge 0$, so PSD. The constant vector $\\mathbf{1}$ has $L\\mathbf{1}=0$ regardless of the graph, since each row sum of $L$ is $d_i - d_i = 0$."
           },
           {
@@ -34903,6 +36970,7 @@ window.MVQuizBank = {
             "q": "Let $K_5$ be the complete graph on $5$ vertices. What is the largest eigenvalue of the combinatorial Laplacian $L$ of $K_5$?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$).",
             "explain": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$). For $n=5$ the largest eigenvalue is $5$."
           },
           {
@@ -34918,6 +36986,7 @@ window.MVQuizBank = {
               0,
               3
             ],
+            "hint": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$.",
             "explain": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. The unhalved sum (option 3) double-counts each edge."
           }
         ]
@@ -34935,6 +37004,7 @@ window.MVQuizBank = {
               "12"
             ],
             "answer": 2,
+            "hint": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components.",
             "explain": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components."
           },
           {
@@ -34947,6 +37017,7 @@ window.MVQuizBank = {
               "$f$ is orthogonal to $\\mathbf{1}$"
             ],
             "answer": 2,
+            "hint": "$f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$.",
             "explain": "$f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. Vanishing forces $f(i)=f(j)$ across every edge, so $f$ is constant on each component — but components are independent."
           },
           {
@@ -34954,6 +37025,7 @@ window.MVQuizBank = {
             "q": "A graph $G$ on $10$ vertices is the disjoint union of a triangle, a 4-cycle, and three isolated vertices. What is the multiplicity of $0$ as an eigenvalue of $L_G$?",
             "answer": 5,
             "tol": 0,
+            "hint": "Components: 1 triangle + 1 cycle + 3 isolated vertices = $5$ components, so $\\dim\\ker L = 5$.",
             "explain": "Components: 1 triangle + 1 cycle + 3 isolated vertices = $5$ components, so $\\dim\\ker L = 5$."
           }
         ]
@@ -34971,6 +37043,7 @@ window.MVQuizBank = {
               "$\\lambda_2 = \\frac{1}{n}\\sum_i f(i)$ for the Fiedler vector $f$"
             ],
             "answer": 1,
+            "hint": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for…",
             "explain": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for connected $G$)."
           },
           {
@@ -34983,6 +37056,7 @@ window.MVQuizBank = {
               "A cycle $C_4$ with one edge deleted, plus an isolated vertex"
             ],
             "answer": 1,
+            "hint": "$\\lambda_2 > 0 \\iff G$ is connected.",
             "explain": "$\\lambda_2 > 0 \\iff G$ is connected. The path $P_5$ is connected (so $\\lambda_2>0$); the others are disconnected, so $\\lambda_2 = 0$."
           },
           {
@@ -34990,6 +37064,7 @@ window.MVQuizBank = {
             "q": "What is the algebraic connectivity $\\lambda_2$ of the complete graph $K_4$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$).",
             "explain": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$). For $K_4$ the second-smallest eigenvalue is $4$."
           }
         ]
@@ -35007,6 +37082,7 @@ window.MVQuizBank = {
               "$h(G) = \\lambda_2$ exactly"
             ],
             "answer": 1,
+            "hint": "Cheeger gives the two-sided bound $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$.",
             "explain": "Cheeger gives the two-sided bound $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$. The lower bound is easy; the upper bound is the sweep-cut argument and is the source of all spectral approximation algorithms for sparsest cut."
           },
           {
@@ -35019,6 +37095,7 @@ window.MVQuizBank = {
               "It implies $h(G)$ is always rational"
             ],
             "answer": 1,
+            "hint": "Computing $h(G)$ exactly is NP-hard.",
             "explain": "Computing $h(G)$ exactly is NP-hard. Cheeger's upper bound is constructive — the sweep-cut algorithm — and gives a polynomial-time approximation factor of $\\sqrt{2d/\\lambda_2}$, the prototype for spectral approximation."
           },
           {
@@ -35035,6 +37112,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "Both directions are equivalent characterisations of disconnection (item 1).",
             "explain": "Both directions are equivalent characterisations of disconnection (item 1). Item 2 follows from the lower bound; item 3 from the upper bound. Item 4 is a wrong rearrangement: the lower bound is $\\lambda_2/2 \\le h(G)$, not $\\sqrt{\\lambda_2} \\le h(G)$."
           }
         ]
@@ -35052,6 +37130,7 @@ window.MVQuizBank = {
               "Concentrated on the highest-degree vertex"
             ],
             "answer": 0,
+            "hint": "For a $d$-regular graph all $d_i = d$, so $\\pi_i = d_i/(2|E|) = d/(nd) = 1/n$.",
             "explain": "For a $d$-regular graph all $d_i = d$, so $\\pi_i = d_i/(2|E|) = d/(nd) = 1/n$. The general formula is $\\pi_i = d_i/(2|E|)$, which specialises to uniform in the regular case."
           },
           {
@@ -35064,6 +37143,7 @@ window.MVQuizBank = {
               "$\\nu_n / \\nu_2$"
             ],
             "answer": 2,
+            "hint": "The transition matrix $P$ has eigenvalues $1-\\nu_k\\in[-1,1]$.",
             "explain": "The transition matrix $P$ has eigenvalues $1-\\nu_k\\in[-1,1]$. The slowest non-trivial decay is the largest of $|1-\\nu_2|=1-\\nu_2$ and $|1-\\nu_n|=\\nu_n-1$, so the spectral gap is $1$ minus that maximum, namely $\\min(\\nu_2,\\,2-\\nu_n)$."
           },
           {
@@ -35079,6 +37159,7 @@ window.MVQuizBank = {
               0,
               1
             ],
+            "hint": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation).",
             "explain": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation). Triangle counts and degree alone do not dictate mixing speed."
           }
         ]
@@ -35096,6 +37177,7 @@ window.MVQuizBank = {
               "$G$ is an expander"
             ],
             "answer": 1,
+            "hint": "$\\nu_n = 2 \\iff G$ is bipartite.",
             "explain": "$\\nu_n = 2 \\iff G$ is bipartite. The corresponding eigenvector is $D^{1/2}\\mathbf{1}_L - D^{1/2}\\mathbf{1}_R$ for the bipartition $V = L\\sqcup R$."
           },
           {
@@ -35108,6 +37190,7 @@ window.MVQuizBank = {
               "$\\lambda_2(A)$ can be made arbitrarily close to $0$ in a regular family"
             ],
             "answer": 1,
+            "hint": "Alon–Boppana: any infinite family of $d$-regular graphs has $\\liminf_n \\lambda_2(A_{G_n}) \\ge 2\\sqrt{d-1}$.",
             "explain": "Alon–Boppana: any infinite family of $d$-regular graphs has $\\liminf_n \\lambda_2(A_{G_n}) \\ge 2\\sqrt{d-1}$. Graphs that achieve $|\\lambda_2(A)| \\le 2\\sqrt{d-1}$ are called Ramanujan — they essentially saturate this bound."
           },
           {
@@ -35124,6 +37207,7 @@ window.MVQuizBank = {
               1,
               2
             ],
+            "hint": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time.",
             "explain": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time. Complete graphs $K_n$ have great mixing but are not sparse — they are not expanders in the asymptotic sense."
           }
         ]
@@ -35141,6 +37225,7 @@ window.MVQuizBank = {
               "All $n$ eigenvectors"
             ],
             "answer": 1,
+            "hint": "The standard recipe (Shi–Malik / Ng–Jordan–Weiss): take the eigenvectors at the bottom $k$ eigenvalues.",
             "explain": "The standard recipe (Shi–Malik / Ng–Jordan–Weiss): take the eigenvectors at the bottom $k$ eigenvalues. Each row of the resulting $n\\times k$ matrix is a vertex's coordinates in $\\mathbb{R}^k$, then $k$-means is run on the rows."
           },
           {
@@ -35153,6 +37238,7 @@ window.MVQuizBank = {
               "Eigenvalues count cluster size"
             ],
             "answer": 1,
+            "hint": "When the graph is the disjoint union of $k$ components, $\\dim\\ker L = k$ and component indicators span the kernel.",
             "explain": "When the graph is the disjoint union of $k$ components, $\\dim\\ker L = k$ and component indicators span the kernel. Adding a few cross-cluster edges perturbs these eigenvectors only slightly, so the embedding still maps each cluster to a tight blob — exactly what $k$-means picks up."
           },
           {
@@ -35165,6 +37251,7 @@ window.MVQuizBank = {
               "The graph is regular"
             ],
             "answer": 1,
+            "hint": "The eigengap heuristic: a large gap after the $k$-th eigenvalue indicates that the bottom $k$ eigenvalues form a coherent group close to $0$, signalling a $k$-cluster structure.",
             "explain": "The eigengap heuristic: a large gap after the $k$-th eigenvalue indicates that the bottom $k$ eigenvalues form a coherent group close to $0$, signalling a $k$-cluster structure. It is heuristic, not a theorem, but remarkably reliable."
           }
         ]
@@ -35185,6 +37272,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -35207,6 +37295,7 @@ window.MVQuizBank = {
               "because the $j$-line is not a scheme"
             ],
             "answer": 2,
+            "hint": "Every elliptic curve has the automorphism $[-1]$; twisting a family by this automorphism along a cover produces a non-isomorphic family with the same classifying map to any putative fine moduli…",
             "explain": "Every elliptic curve has the automorphism $[-1]$; twisting a family by this automorphism along a cover produces a non-isomorphic family with the same classifying map to any putative fine moduli scheme. Passing to groupoid-valued functors is precisely what records this data."
           },
           {
@@ -35219,6 +37308,7 @@ window.MVQuizBank = {
               "$\\mathcal{X}(U) \\to \\prod_i \\mathcal{X}(U_i)$ is an equivalence of categories with no compatibility conditions"
             ],
             "answer": 0,
+            "hint": "The stack axiom has two layers: isomorphism sheaves must glue locally, and objects given by compatible local data (a descent datum satisfying the cocycle on triple overlaps) must glue to a global…",
             "explain": "The stack axiom has two layers: isomorphism sheaves must glue locally, and objects given by compatible local data (a descent datum satisfying the cocycle on triple overlaps) must glue to a global object unique up to unique isomorphism."
           },
           {
@@ -35226,6 +37316,7 @@ window.MVQuizBank = {
             "q": "Let $G$ be a groupoid with three objects, each having automorphism group $\\mathbb{Z}/2$, all connected by isomorphisms. How many isomorphism classes does $\\pi_0(G)$ have?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element.",
             "explain": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element. The three $\\mathbb{Z}/2$ automorphism groups are what is lost when one collapses to $\\pi_0$."
           }
         ],
@@ -35279,6 +37370,7 @@ window.MVQuizBank = {
               "because $BG$ is never finite type"
             ],
             "answer": 2,
+            "hint": "A scheme's functor of points lands in sets, so its geometric points have trivial automorphism groups.",
             "explain": "A scheme's functor of points lands in sets, so its geometric points have trivial automorphism groups. $BG$ has automorphism group $G$ at its trivial torsor, which records pure automorphism data and prevents representability by any scheme."
           },
           {
@@ -35286,6 +37378,7 @@ window.MVQuizBank = {
             "q": "How many isomorphism classes of $\\mathbb{Z}/3$-torsors are there on $\\mathrm{Spec}\\,\\mathbb{F}_q$ for a finite field $\\mathbb{F}_q$? (Equivalently, $|H^1(\\mathrm{Spec}\\,\\mathbb{F}_q,\\mathbb{Z}/3)|$, using that the absolute Galois group of $\\mathbb{F}_q$ is $\\widehat{\\mathbb{Z}}$ and $\\mathrm{Hom}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)=\\mathbb{Z}/3$.)",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$.",
             "explain": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$. Hence $|\\pi_0(B(\\mathbb{Z}/3)(\\mathbb{F}_q))|=3$."
           },
           {
@@ -35293,6 +37386,7 @@ window.MVQuizBank = {
             "q": "For $G=\\mathbb{Z}/2$ over $\\mathbb{R}$: $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R})=\\mathbb{Z}/2$, so $|\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)|=?$ (this counts iso classes of $\\mathbb{Z}/2$-torsors over $\\mathrm{Spec}\\,\\mathbb{R}$).",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$.",
             "explain": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$."
           }
         ],
@@ -35346,6 +37440,7 @@ window.MVQuizBank = {
               "a free $G$-action on $T$"
             ],
             "answer": 1,
+            "hint": "By definition $[X/G](T)$ is the groupoid of pairs $(P\\to T,\\ \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant.",
             "explain": "By definition $[X/G](T)$ is the groupoid of pairs $(P\\to T,\\ \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant. Setting $X=\\mathrm{pt}$ recovers $BG$; setting $G=\\{e\\}$ recovers $X$ itself."
           },
           {
@@ -35358,6 +37453,7 @@ window.MVQuizBank = {
               "never, unless $G$ is trivial"
             ],
             "answer": 1,
+            "hint": "If the action is free, every stabiliser is trivial and no automorphism data needs to be remembered, so $[X/G]$ is the ordinary quotient $X/G$.",
             "explain": "If the action is free, every stabiliser is trivial and no automorphism data needs to be remembered, so $[X/G]$ is the ordinary quotient $X/G$. Non-free actions create non-trivial stabilisers and force stacky structure."
           },
           {
@@ -35365,6 +37461,7 @@ window.MVQuizBank = {
             "q": "For $G=\\mu_3$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x = \\zeta x$, the stabiliser at $x=0$ is all of $\\mu_3$ and is trivial elsewhere. What is the order of the automorphism group of the origin in $[\\mathbb{A}^1/\\mu_3]$?",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$.",
             "explain": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$. Geometrically this is the stacky enhancement at the fixed point; away from $0$ the quotient is an ordinary scheme."
           }
         ],
@@ -35418,6 +37515,7 @@ window.MVQuizBank = {
               "the stack is quasi-compact"
             ],
             "answer": 1,
+            "hint": "Artin requires a smooth atlas and a representable diagonal; DM additionally requires the atlas to be étale, equivalently the diagonal to be unramified.",
             "explain": "Artin requires a smooth atlas and a representable diagonal; DM additionally requires the atlas to be étale, equivalently the diagonal to be unramified. This forces automorphism schemes to be $0$-dimensional (finite and unramified)."
           },
           {
@@ -35430,6 +37528,7 @@ window.MVQuizBank = {
               "$[\\mathbb{A}^1/\\mu_3]$"
             ],
             "answer": 2,
+            "hint": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$, which is $1$-dimensional — so it is Artin but not DM.",
             "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$, which is $1$-dimensional — so it is Artin but not DM. $B\\mu_n$ and $[\\mathbb{A}^1/\\mu_3]$ have finite automorphism groups, and $\\mathcal{M}_{1,1}$ has finite automorphisms away from char $2,3$."
           },
           {
@@ -35437,6 +37536,7 @@ window.MVQuizBank = {
             "q": "What is the dimension of the automorphism group at the generic geometric point of $B\\mathbb{G}_m$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional.",
             "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional. That positive dimension is exactly why $B\\mathbb{G}_m$ fails to be DM."
           }
         ],
@@ -35490,6 +37590,7 @@ window.MVQuizBank = {
               "Artin stacks are not fibered categories"
             ],
             "answer": 1,
+            "hint": "The defining upgrade from Artin to DM is the étale (versus merely smooth) atlas, which forces automorphism schemes to be finite and unramified.",
             "explain": "The defining upgrade from Artin to DM is the étale (versus merely smooth) atlas, which forces automorphism schemes to be finite and unramified. $BG$ for $G$ finite is DM; $BG$ for $G$ positive-dimensional (e.g. $B\\mathbb{G}_m$) is Artin but not DM."
           },
           {
@@ -35502,6 +37603,7 @@ window.MVQuizBank = {
               "$\\pi$ has no universal property"
             ],
             "answer": 1,
+            "hint": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$.",
             "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}[t]/(12t)\\ne \\mathrm{CH}^*(\\mathbb{A}^1)$."
           },
           {
@@ -35509,6 +37611,7 @@ window.MVQuizBank = {
             "q": "For $\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$, what is the order of the automorphism group of the elliptic curve $E:y^2=x^3+1$ (the $j=0$ point)?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$.",
             "explain": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$. After quotienting by the generic $\\mu_2$ ($[-1]$), residual automorphism is $\\mu_3$, so locally $\\mathcal{M}_{1,1}$ looks like $[\\mathbb{A}^1/\\mu_3]$ near $j=0$."
           }
         ],
@@ -35565,6 +37668,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -35585,6 +37689,7 @@ window.MVQuizBank = {
               "B"
             ],
             "answer": 0,
+            "hint": "Placeholder.",
             "explain": "Placeholder."
           }
         ]
@@ -35607,6 +37712,7 @@ window.MVQuizBank = {
               "$p\\equiv 1\\pmod 3$"
             ],
             "answer": 1,
+            "hint": "Odd primes that are sums of two squares are exactly those with $p\\equiv 1\\pmod 4$.",
             "explain": "Odd primes that are sums of two squares are exactly those with $p\\equiv 1\\pmod 4$. Equivalently, $(-1/p)=+1$, so $p$ splits in $\\mathbb{Z}[i]$."
           },
           {
@@ -35614,6 +37720,7 @@ window.MVQuizBank = {
             "q": "Using Jacobi's formula $r_2(n)=4(d_1(n)-d_3(n))$ for $n=5$ (divisors $1,5$, both $\\equiv 1\\pmod 4$), what is $r_2(5)$?",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "$d_1(5)=2$, $d_3(5)=0$, so $r_2(5)=4(2-0)=8$.",
             "explain": "$d_1(5)=2$, $d_3(5)=0$, so $r_2(5)=4(2-0)=8$. The reps are the $8$ signed ordered pairs $(\\pm 1,\\pm 2),(\\pm 2,\\pm 1)$."
           },
           {
@@ -35624,6 +37731,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.000001,
+            "hint": "$(2+i)(2-i)=4-i^2=4+1=5$, i.e.",
             "explain": "$(2+i)(2-i)=4-i^2=4+1=5$, i.e. $5+0i$. This is the norm $N(2+i)=2^2+1^2=5$."
           }
         ],
@@ -35677,6 +37785,7 @@ window.MVQuizBank = {
               "$p$ is odd"
             ],
             "answer": 2,
+            "hint": "Odd primes $p$ split in $\\mathbb{Z}[i]$ exactly when $p\\equiv 1\\pmod 4$ (controlled by the Legendre symbol $(-1/p)$).",
             "explain": "Odd primes $p$ split in $\\mathbb{Z}[i]$ exactly when $p\\equiv 1\\pmod 4$ (controlled by the Legendre symbol $(-1/p)$). The prime $p=2$ ramifies, and $p\\equiv 3\\pmod 4$ stays inert."
           },
           {
@@ -35684,6 +37793,7 @@ window.MVQuizBank = {
             "q": "How many Gaussian integers $a+bi$ satisfy $a^2+b^2=13$ (i.e. how many lattice points lie on the circle $|\\alpha|^2=13$)? This counts signed ordered pairs.",
             "answer": 8,
             "tol": 0.000001,
+            "hint": "$13=2^2+3^2=3^2+2^2$, giving the $8$ signed ordered pairs $(\\pm 2,\\pm 3),(\\pm 3,\\pm 2)$.",
             "explain": "$13=2^2+3^2=3^2+2^2$, giving the $8$ signed ordered pairs $(\\pm 2,\\pm 3),(\\pm 3,\\pm 2)$. This is $r_2(13)=8$, consistent with Jacobi's formula $4(d_1-d_3)=4(2-0)=8$."
           },
           {
@@ -35696,6 +37806,7 @@ window.MVQuizBank = {
               "because $2$ is a sum of two distinct squares"
             ],
             "answer": 1,
+            "hint": "The prime $2$ ramifies: $(1+i)(1-i)=2$ and $1-i=-i(1+i)$, so $(2)=(1+i)^2\\cdot(-i)$.",
             "explain": "The prime $2$ ramifies: $(1+i)(1-i)=2$ and $1-i=-i(1+i)$, so $(2)=(1+i)^2\\cdot(-i)$. The Gaussian prime $1+i$ lies above $2$ with ramification index $2$."
           }
         ],
@@ -35749,6 +37860,7 @@ window.MVQuizBank = {
               "$n$ is a perfect square"
             ],
             "answer": 2,
+            "hint": "Legendre–Gauss: $n$ is a sum of three squares iff $n$ is NOT of the form $4^a(8b+7)$.",
             "explain": "Legendre–Gauss: $n$ is a sum of three squares iff $n$ is NOT of the form $4^a(8b+7)$. Mod $8$, squares are $\\{0,1,4\\}$, so three of them cannot sum to $7$."
           },
           {
@@ -35756,6 +37868,7 @@ window.MVQuizBank = {
             "q": "What is $r_3(7)$, the number of ordered signed representations of $7$ as a sum of three squares?",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "$7=4^0(8\\cdot 0+7)$ is excluded by Legendre–Gauss, so $r_3(7)=0$.",
             "explain": "$7=4^0(8\\cdot 0+7)$ is excluded by Legendre–Gauss, so $r_3(7)=0$."
           },
           {
@@ -35763,6 +37876,7 @@ window.MVQuizBank = {
             "q": "Is $n=28$ excluded from being a sum of three squares? Strip factors of $4$: $28=4\\cdot 7$. Enter $1$ if excluded, $0$ if not.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "$28=4^1\\cdot(8\\cdot 0+7)$, matching $4^a(8b+7)$ with $a=1, b=0$.",
             "explain": "$28=4^1\\cdot(8\\cdot 0+7)$, matching $4^a(8b+7)$ with $a=1, b=0$. So $28$ is excluded and $r_3(28)=0$."
           }
         ],
@@ -35816,6 +37930,7 @@ window.MVQuizBank = {
               "only integers $n\\not\\equiv 7\\pmod 8$ are sums of four squares"
             ],
             "answer": 1,
+            "hint": "Lagrange (1770): every non-negative integer $n$ can be written as $a^2+b^2+c^2+d^2$.",
             "explain": "Lagrange (1770): every non-negative integer $n$ can be written as $a^2+b^2+c^2+d^2$. The proof uses multiplicativity (Euler's four-square identity) and descent."
           },
           {
@@ -35823,6 +37938,7 @@ window.MVQuizBank = {
             "q": "Using Jacobi's formula $r_4(n)=8\\sigma(n)$ for odd $n$, compute $r_4(3)$. (Divisors of $3$: $1,3$; $\\sigma(3)=4$.)",
             "answer": 32,
             "tol": 0.000001,
+            "hint": "For odd $n$, $r_4(n)=8\\sigma(n)$.",
             "explain": "For odd $n$, $r_4(n)=8\\sigma(n)$. With $\\sigma(3)=1+3=4$, we get $r_4(3)=8\\cdot 4=32$."
           },
           {
@@ -35835,6 +37951,7 @@ window.MVQuizBank = {
               "$g(2)=5$"
             ],
             "answer": 2,
+            "hint": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g.",
             "explain": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g. $n=7$ needs four)."
           }
         ],
@@ -35888,6 +38005,7 @@ window.MVQuizBank = {
               "every modular form is a sum of Eisenstein series"
             ],
             "answer": 1,
+            "hint": "Hilbert proved that $g(k)$ is finite for every $k\\ge 1$; Lagrange's $g(2)=4$ is the $k=2$ special case.",
             "explain": "Hilbert proved that $g(k)$ is finite for every $k\\ge 1$; Lagrange's $g(2)=4$ is the $k=2$ special case. The sharper constants $g(k)$ and $G(k)$ have been pinned down for many $k$."
           },
           {
@@ -35895,6 +38013,7 @@ window.MVQuizBank = {
             "q": "What is $g(3)$, the smallest $s$ such that every positive integer is a sum of at most $s$ cubes (including $0^3$)?",
             "answer": 9,
             "tol": 0.000001,
+            "hint": "$g(3)=9$: the integer $n=23$ requires nine cubes (for example $23=2\\cdot 2^3+7\\cdot 1^3$).",
             "explain": "$g(3)=9$: the integer $n=23$ requires nine cubes (for example $23=2\\cdot 2^3+7\\cdot 1^3$). Every other $n$ needs at most nine as well."
           },
           {
@@ -35907,6 +38026,7 @@ window.MVQuizBank = {
               "$g(k)$ is finite only for $k\\le 4$"
             ],
             "answer": 1,
+            "hint": "$G(k)$ counts the asymptotic number of powers needed (sufficiently large $n$), while $g(k)$ accounts for a few small exceptional integers.",
             "explain": "$G(k)$ counts the asymptotic number of powers needed (sufficiently large $n$), while $g(k)$ accounts for a few small exceptional integers. Hence $G(k)\\le g(k)$; e.g. $G(4)=16$ but $g(4)=19$ because $79$ needs $19$ fourth powers."
           }
         ],
@@ -35965,6 +38085,7 @@ window.MVQuizBank = {
               "partition numbers $p(n)$"
             ],
             "answer": 1,
+            "hint": "Each term $q^{n^2/2}$ comes from the vector $n\\in\\mathbb{Z}$ with squared norm $n^2$, so $\\theta$ counts lattice points by squared norm.",
             "explain": "Each term $q^{n^2/2}$ comes from the vector $n\\in\\mathbb{Z}$ with squared norm $n^2$, so $\\theta$ counts lattice points by squared norm."
           },
           {
@@ -35972,6 +38093,7 @@ window.MVQuizBank = {
             "q": "Evaluate the number $r_1(4)$ of ways to write $4=n^2$ with $n\\in\\mathbb{Z}$ (signs counted).",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Only $n=\\pm 2$ gives $n^2=4$, so $r_1(4)=2$.",
             "explain": "Only $n=\\pm 2$ gives $n^2=4$, so $r_1(4)=2$."
           },
           {
@@ -35979,6 +38101,7 @@ window.MVQuizBank = {
             "q": "For $\\theta^2(\\tau)=\\sum_m r_2(m) q^{m/2}$, compute $r_2(1)$, the number of integer pairs $(a,b)$ with $a^2+b^2=1$.",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "The solutions are $(\\pm 1,0)$ and $(0,\\pm 1)$, giving $r_2(1)=4$.",
             "explain": "The solutions are $(\\pm 1,0)$ and $(0,\\pm 1)$, giving $r_2(1)=4$."
           }
         ],
@@ -36027,6 +38150,7 @@ window.MVQuizBank = {
               "because the terms eventually vanish"
             ],
             "answer": 1,
+            "hint": "On $\\mathcal{H}$, $|q|=e^{-2\\pi\\operatorname{Im}\\tau}<1$, so $|q^{n^2/2}|=e^{-\\pi n^2\\operatorname{Im}\\tau}$ decays faster than any geometric rate.",
             "explain": "On $\\mathcal{H}$, $|q|=e^{-2\\pi\\operatorname{Im}\\tau}<1$, so $|q^{n^2/2}|=e^{-\\pi n^2\\operatorname{Im}\\tau}$ decays faster than any geometric rate. The resulting sum is absolutely and uniformly convergent on horizontal strips $\\operatorname{Im}\\tau\\ge\\varepsilon$."
           },
           {
@@ -36034,6 +38158,7 @@ window.MVQuizBank = {
             "q": "In the $q$-expansion $\\theta(\\tau)=\\sum_{m\\ge 0}r_1^*(m) q^{m/2}$, compute the coefficient $r_1^*(4)$, i.e. $\\#\\{n\\in\\mathbb{Z}:n^2=4\\}$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "The equation $n^2=4$ is solved by $n=\\pm 2$, giving $r_1^*(4)=2$.",
             "explain": "The equation $n^2=4$ is solved by $n=\\pm 2$, giving $r_1^*(4)=2$. The integer $m=4$ is a perfect square, so the coefficient is $2$; non-squares contribute $0$."
           },
           {
@@ -36046,6 +38171,7 @@ window.MVQuizBank = {
               "$\\theta(\\tau+\\pi)=\\theta(\\tau)$"
             ],
             "answer": 1,
+            "hint": "$\\theta(\\tau+2)=\\theta(\\tau)$ because $e^{\\pi i n^2\\cdot 2}=1$ for every $n$.",
             "explain": "$\\theta(\\tau+2)=\\theta(\\tau)$ because $e^{\\pi i n^2\\cdot 2}=1$ for every $n$. Under $\\tau\\mapsto\\tau+1$ the $n=1$ term picks up $e^{\\pi i}=-1$, so the period is $2$, not $1$."
           }
         ],
@@ -36099,6 +38225,7 @@ window.MVQuizBank = {
               "$\\theta(-1/\\tau)=\\tau\\,\\theta(\\tau)$"
             ],
             "answer": 1,
+            "hint": "Poisson summation applied to the Gaussian $e^{\\pi i n^2\\tau}$ yields $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$, with the principal branch of the square root.",
             "explain": "Poisson summation applied to the Gaussian $e^{\\pi i n^2\\tau}$ yields $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$, with the principal branch of the square root."
           },
           {
@@ -36111,6 +38238,7 @@ window.MVQuizBank = {
               "Stirling's approximation"
             ],
             "answer": 1,
+            "hint": "Poisson summation turns $\\sum_n f(n)$ into $\\sum_k\\hat f(k)$; applied to the Gaussian $f(x)=e^{\\pi i x^2\\tau}$ it exchanges $\\tau$ with $-1/\\tau$.",
             "explain": "Poisson summation turns $\\sum_n f(n)$ into $\\sum_k\\hat f(k)$; applied to the Gaussian $f(x)=e^{\\pi i x^2\\tau}$ it exchanges $\\tau$ with $-1/\\tau$."
           },
           {
@@ -36118,6 +38246,7 @@ window.MVQuizBank = {
             "q": "On the imaginary axis $\\tau=iy$, the identity becomes $\\theta(i/y)=\\sqrt{y}\\,\\theta(iy)$. Taking $y=1$, evaluate the multiplier $\\sqrt{y}$.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "At $y=1$ the multiplier is $\\sqrt{1}=1$, and indeed $\\theta(i)=\\theta(i)$ is a consistent fixed point.",
             "explain": "At $y=1$ the multiplier is $\\sqrt{1}=1$, and indeed $\\theta(i)=\\theta(i)$ is a consistent fixed point."
           }
         ],
@@ -36166,6 +38295,7 @@ window.MVQuizBank = {
               "$\\Delta=\\eta^{48}$"
             ],
             "answer": 1,
+            "hint": "$\\Delta(\\tau)=\\eta(\\tau)^{24}=q\\prod_{n\\ge 1}(1-q^n)^{24}$ is the first cusp form of weight $12$ on $\\mathrm{SL}_2(\\mathbb{Z})$.",
             "explain": "$\\Delta(\\tau)=\\eta(\\tau)^{24}=q\\prod_{n\\ge 1}(1-q^n)^{24}$ is the first cusp form of weight $12$ on $\\mathrm{SL}_2(\\mathbb{Z})$. Its Fourier coefficients are Ramanujan's $\\tau(n)$."
           },
           {
@@ -36173,6 +38303,7 @@ window.MVQuizBank = {
             "q": "The eta function satisfies the modular transformation $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$. On the imaginary axis $\\tau=iy$, the multiplier $\\sqrt{-i(iy)}=\\sqrt{y}$ at $y=4$ equals what?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "$\\sqrt{y}=\\sqrt{4}=2$ at $y=4$, so $\\eta(i/4)=2\\,\\eta(4i)$.",
             "explain": "$\\sqrt{y}=\\sqrt{4}=2$ at $y=4$, so $\\eta(i/4)=2\\,\\eta(4i)$. This is the eta version of the Jacobi transformation law; the same Poisson-summation argument drives both."
           },
           {
@@ -36180,6 +38311,7 @@ window.MVQuizBank = {
             "q": "Expanding $\\Delta(\\tau)=\\eta(\\tau)^{24}=\\sum_{n\\ge 1}\\tau(n)\\,q^n$, what is Ramanujan's $\\tau(2)$?",
             "answer": -24,
             "tol": 0.000001,
+            "hint": "Ramanujan's tau function begins $\\tau(1)=1,\\ \\tau(2)=-24,\\ \\tau(3)=252,\\ \\tau(4)=-1472,\\ldots$ The $-24$ comes from the constant…",
             "explain": "Ramanujan's tau function begins $\\tau(1)=1,\\ \\tau(2)=-24,\\ \\tau(3)=252,\\ \\tau(4)=-1472,\\ldots$ The $-24$ comes from the constant $-24$ in the expansion of $(1-q)^{24}=1-24q+\\ldots$"
           }
         ],
@@ -36228,6 +38360,7 @@ window.MVQuizBank = {
               "$\\sum_{n\\ge 0}(-1)^n q^{n(3n-1)/2}$"
             ],
             "answer": 1,
+            "hint": "This is the classical Jacobi triple product, turning the bilateral sum into a product over three factors per $n$.",
             "explain": "This is the classical Jacobi triple product, turning the bilateral sum into a product over three factors per $n$."
           },
           {
@@ -36235,6 +38368,7 @@ window.MVQuizBank = {
             "q": "In the $q$-expansion $\\prod_{n\\ge 1}(1-q^n) = \\sum_{k\\in\\mathbb{Z}}(-1)^k q^{k(3k-1)/2}$ (Euler's pentagonal number theorem), compute the coefficient of $q^1$.",
             "answer": -1,
             "tol": 0.000001,
+            "hint": "The pentagonal numbers begin $0,1,2,5,7,\\ldots$, and $k=1$ contributes $(-1)^1 q^{1}=-q$, so $[q^1]=-1$.",
             "explain": "The pentagonal numbers begin $0,1,2,5,7,\\ldots$, and $k=1$ contributes $(-1)^1 q^{1}=-q$, so $[q^1]=-1$."
           },
           {
@@ -36242,6 +38376,7 @@ window.MVQuizBank = {
             "q": "Setting $z=1$ in Jacobi's triple product gives $\\theta_3(\\tau)=\\sum_{n\\in\\mathbb{Z}} q^{n^2/2}$. Compute the coefficient of $q^{0}$ on the sum side.",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Only $n=0$ contributes to the $q^0$ term in $\\sum_n q^{n^2/2}$, giving coefficient $1$.",
             "explain": "Only $n=0$ contributes to the $q^0$ term in $\\sum_n q^{n^2/2}$, giving coefficient $1$."
           }
         ],
@@ -36300,6 +38435,7 @@ window.MVQuizBank = {
               "$a\\equiv b:A$ (definitional equality of terms)"
             ],
             "answer": 2,
+            "hint": "Type theory replaces set-theoretic membership with the typing judgment $a:A$.",
             "explain": "Type theory replaces set-theoretic membership with the typing judgment $a:A$. The four basic forms are $A\\;\\mathsf{type}$, $A\\equiv B$, $a:A$, and $a\\equiv b:A$ — all derived in a context $\\Gamma$. Membership $\\in$ has no separate role."
           },
           {
@@ -36312,6 +38448,7 @@ window.MVQuizBank = {
               "$B$ must be independent of $x$."
             ],
             "answer": 1,
+            "hint": "Contexts are built left-to-right.",
             "explain": "Contexts are built left-to-right. Each new variable's type may depend on the earlier ones, but only the earlier ones — so $\\vdash A\\;\\mathsf{type}$ and then $x:A\\vdash B(x)\\;\\mathsf{type}$. Independence of $B$ from $x$ would just give a non-dependent context."
           },
           {
@@ -36319,6 +38456,7 @@ window.MVQuizBank = {
             "q": "How many free variables appear in the well-formed context $\\Gamma=(n:\\mathbb{N},\\ v:\\mathsf{Vec}(\\mathbb{R},n),\\ f:\\mathsf{Vec}(\\mathbb{R},n)\\to\\mathbb{R})$?",
             "answer": 3,
             "tol": 0,
+            "hint": "Each entry of the context introduces exactly one free variable: $n$, $v$, and $f$ — three in total.",
             "explain": "Each entry of the context introduces exactly one free variable: $n$, $v$, and $f$ — three in total. Note that $\\mathbb{R}$ and $\\mathbb{N}$ are constants, not new variables."
           }
         ]
@@ -36336,6 +38474,7 @@ window.MVQuizBank = {
               "$A\\land B$"
             ],
             "answer": 1,
+            "hint": "A term of $\\prod_{x:A} B(x)$ is a function assigning, for each $a:A$, a proof of $B(a)$ — exactly the constructive content of $\\forall x.\\ B(x)$.",
             "explain": "A term of $\\prod_{x:A} B(x)$ is a function assigning, for each $a:A$, a proof of $B(a)$ — exactly the constructive content of $\\forall x.\\ B(x)$. The non-dependent special case $\\prod_{x:A} B = A\\to B$ recovers material implication."
           },
           {
@@ -36348,6 +38487,7 @@ window.MVQuizBank = {
               "$\\lambda x.\\,a$"
             ],
             "answer": 0,
+            "hint": "$(\\lambda x.\\lambda y.x)(a)\\equiv \\lambda y.a$, and applying that to $b$ gives $a$.",
             "explain": "$(\\lambda x.\\lambda y.x)(a)\\equiv \\lambda y.a$, and applying that to $b$ gives $a$. This is the K combinator: discard the second argument."
           },
           {
@@ -36355,6 +38495,7 @@ window.MVQuizBank = {
             "q": "A term of $\\Sigma_{n:\\mathbb{N}} \\mathsf{Vec}(\\mathbb{R},n)$ is a pair $(n,v)$ with $v$ a vector of length $n$. If we project the second component of $(3,(1.0,2.0,3.0))$, how many real entries does the resulting vector have?",
             "answer": 3,
             "tol": 0,
+            "hint": "$\\mathrm{pr}_2$ of a Σ-pair $(a,b)$ returns $b$, here a vector of length $n=3$.",
             "explain": "$\\mathrm{pr}_2$ of a Σ-pair $(a,b)$ returns $b$, here a vector of length $n=3$. The Σ-type is the dependent generalisation of a Cartesian product: the type of the second component depends on the first."
           }
         ]
@@ -36372,6 +38513,7 @@ window.MVQuizBank = {
               "Any term, since identity types are always inhabited."
             ],
             "answer": 0,
+            "hint": "The only point-constructor for $\\mathsf{Id}_A$ is $\\mathsf{refl}$.",
             "explain": "The only point-constructor for $\\mathsf{Id}_A$ is $\\mathsf{refl}$. Crucially, $\\mathsf{refl}_a$ has type $\\mathsf{Id}_A(a,a)$ — to inhabit $\\mathsf{Id}_A(a,b)$ for distinct $a,b$ you must derive a witness through other rules (the J-eliminator or transport along earlier identifications)."
           },
           {
@@ -36384,6 +38526,7 @@ window.MVQuizBank = {
               "An element of the underlying set of $A$."
             ],
             "answer": 1,
+            "hint": "The path interpretation is the central idea of HoTT: types are spaces, terms are points, identifications are paths, identifications between identifications are homotopies, and so on up the tower.",
             "explain": "The path interpretation is the central idea of HoTT: types are spaces, terms are points, identifications are paths, identifications between identifications are homotopies, and so on up the tower."
           },
           {
@@ -36391,6 +38534,7 @@ window.MVQuizBank = {
             "q": "If $p:\\mathsf{Id}_A(a,b)$ and $q:\\mathsf{Id}_A(b,c)$, the concatenation $p\\cdot q$ has type $\\mathsf{Id}_A(a,?)$. What goes in the blank, given $a$ has 'index' $0$, $b$ has 'index' $1$, $c$ has 'index' $2$?",
             "answer": 2,
             "tol": 0,
+            "hint": "Concatenation of paths $a\\to b$ and $b\\to c$ produces a path $a\\to c$.",
             "explain": "Concatenation of paths $a\\to b$ and $b\\to c$ produces a path $a\\to c$. So $p\\cdot q:\\mathsf{Id}_A(a,c)$, and the answer is the index of $c$, namely $2$."
           }
         ]
@@ -36408,6 +38552,7 @@ window.MVQuizBank = {
               "Surjective but not injective."
             ],
             "answer": 0,
+            "hint": "Voevodsky's univalence axiom upgrades 'identifications $\\Rightarrow$ equivalences' to a full equivalence of types.",
             "explain": "Voevodsky's univalence axiom upgrades 'identifications $\\Rightarrow$ equivalences' to a full equivalence of types. Equivalent types are then identifiable, and structure transports along this identification."
           },
           {
@@ -36420,6 +38565,7 @@ window.MVQuizBank = {
               "Type theory is inconsistent."
             ],
             "answer": 1,
+            "hint": "Univalence makes 'isomorphism is identity' a theorem of the foundation, not just a working principle.",
             "explain": "Univalence makes 'isomorphism is identity' a theorem of the foundation, not just a working principle. Anything you can say about $A$ that's invariant under equivalence automatically transfers to any $B\\simeq A$."
           },
           {
@@ -36432,6 +38578,7 @@ window.MVQuizBank = {
               "Inductive definitions."
             ],
             "answer": 1,
+            "hint": "UIP says every two elements of $\\mathsf{Id}_A(a,b)$ are themselves equal.",
             "explain": "UIP says every two elements of $\\mathsf{Id}_A(a,b)$ are themselves equal. But under univalence, the identity type of the universe at $(\\mathbb{B},\\mathbb{B})$ has two distinct elements — $\\mathsf{refl}$ and the swap equivalence — refuting UIP."
           }
         ]
@@ -36449,6 +38596,7 @@ window.MVQuizBank = {
               "An infinite list of point constructors $\\mathsf{base}_n$ for $n\\in\\mathbb{Z}$."
             ],
             "answer": 1,
+            "hint": "The HoTT presentation of the circle has a single point $\\mathsf{base}:S^1$ together with a path $\\mathsf{loop}:\\mathsf{Id}_{S^1}(\\mathsf{base},\\mathsf{base})$.",
             "explain": "The HoTT presentation of the circle has a single point $\\mathsf{base}:S^1$ together with a path $\\mathsf{loop}:\\mathsf{Id}_{S^1}(\\mathsf{base},\\mathsf{base})$. Iterating $\\mathsf{loop}$ produces all integer winding numbers."
           },
           {
@@ -36461,6 +38609,7 @@ window.MVQuizBank = {
               "They're only definable in proof assistants, not on paper."
             ],
             "answer": 1,
+            "hint": "Ordinary inductive types let you specify only point-level data.",
             "explain": "Ordinary inductive types let you specify only point-level data. HITs additionally let you specify path-level identifications, and recursively higher-cell coherences — directly synthesising $n$-cells of a CW complex inside the syntax."
           },
           {
@@ -36468,6 +38617,7 @@ window.MVQuizBank = {
             "q": "The fundamental group of the circle, computed inside HoTT, is $\\Omega(S^1)\\simeq\\mathbb{Z}$. What is the order of the path $\\mathsf{loop}^3$ in $\\pi_1(S^1)$? (Enter $0$ if it has infinite order.)",
             "answer": 0,
             "tol": 0,
+            "hint": "$\\pi_1(S^1)\\cong\\mathbb{Z}$ is a free abelian group on the generator $\\mathsf{loop}$.",
             "explain": "$\\pi_1(S^1)\\cong\\mathbb{Z}$ is a free abelian group on the generator $\\mathsf{loop}$. The element $\\mathsf{loop}^3$ corresponds to $3\\in\\mathbb{Z}$, which has infinite order."
           }
         ]
@@ -36485,6 +38635,7 @@ window.MVQuizBank = {
               "A finite category."
             ],
             "answer": 2,
+            "hint": "Types are interpreted as Kan complexes — simplicial sets satisfying the horn-filling condition — which present $\\infty$-groupoids.",
             "explain": "Types are interpreted as Kan complexes — simplicial sets satisfying the horn-filling condition — which present $\\infty$-groupoids. This is the homotopy-theoretic structure that powers identity types and univalence."
           },
           {
@@ -36497,6 +38648,7 @@ window.MVQuizBank = {
               "Because Kan complexes are sets."
             ],
             "answer": 1,
+            "hint": "Voevodsky constructed a univalent universe of small Kan fibrations: a Kan complex whose paths are exactly equivalences of fibres.",
             "explain": "Voevodsky constructed a univalent universe of small Kan fibrations: a Kan complex whose paths are exactly equivalences of fibres. Inside this universe, $(A=B)$ matches $(A\\simeq B)$ by construction, validating univalence."
           },
           {
@@ -36509,6 +38661,7 @@ window.MVQuizBank = {
               "It is required to run any proof assistant."
             ],
             "answer": 1,
+            "hint": "Models are how we know the theory is consistent: any contradiction in HoTT would yield a contradiction in the simplicial-set model (and hence in ZFC + inaccessibles).",
             "explain": "Models are how we know the theory is consistent: any contradiction in HoTT would yield a contradiction in the simplicial-set model (and hence in ZFC + inaccessibles). Models also make the homotopy-theoretic intuitions precise."
           }
         ]
@@ -36530,6 +38683,7 @@ window.MVQuizBank = {
               "$\\{x+iy:x>0\\}$"
             ],
             "answer": 1,
+            "hint": "The boundary $y=0$ is excluded.",
             "explain": "The boundary $y=0$ is excluded."
           },
           {
@@ -36537,6 +38691,7 @@ window.MVQuizBank = {
             "q": "What is $\\operatorname{Im}(3+4i)$?",
             "answer": 4,
             "tol": 0.001,
+            "hint": "Imaginary part is 4.",
             "explain": "Imaginary part is 4."
           },
           {
@@ -36548,6 +38703,7 @@ window.MVQuizBank = {
               "It is the set of elliptic fixed points"
             ],
             "answer": 0,
+            "hint": "The boundary is not in the space but appears as ideal points.",
             "explain": "The boundary is not in the space but appears as ideal points."
           }
         ],
@@ -36600,6 +38756,7 @@ window.MVQuizBank = {
               "$ds^2=y^2(dx^2+dy^2)$"
             ],
             "answer": 1,
+            "hint": "Hyperbolic length scales Euclidean length by 1/y.",
             "explain": "Hyperbolic length scales Euclidean length by 1/y."
           },
           {
@@ -36607,6 +38764,7 @@ window.MVQuizBank = {
             "q": "At height $y=2$, what is the scaling factor on Euclidean length?",
             "answer": 0.5,
             "tol": 0.001,
+            "hint": "Factor is $1/y=1/2$.",
             "explain": "Factor is $1/y=1/2$."
           },
           {
@@ -36618,6 +38776,7 @@ window.MVQuizBank = {
               "blowing up"
             ],
             "answer": 2,
+            "hint": "Division by $y$ makes lengths diverge near boundary.",
             "explain": "Division by $y$ makes lengths diverge near boundary."
           }
         ],
@@ -36670,6 +38829,7 @@ window.MVQuizBank = {
               "All circles"
             ],
             "answer": 1,
+            "hint": "This is the defining geometric picture of the model.",
             "explain": "This is the defining geometric picture of the model."
           },
           {
@@ -36681,6 +38841,7 @@ window.MVQuizBank = {
               "a horocycle"
             ],
             "answer": 1,
+            "hint": "Every vertical line in H is geodesic.",
             "explain": "Every vertical line in H is geodesic."
           },
           {
@@ -36688,6 +38849,7 @@ window.MVQuizBank = {
             "q": "How many intersection points can two distinct geodesics in H have inside H?",
             "answer": 1,
             "tol": 0.001,
+            "hint": "Like Euclidean lines, distinct geodesics intersect at most once in the interior.",
             "explain": "Like Euclidean lines, distinct geodesics intersect at most once in the interior."
           }
         ],
@@ -36740,6 +38902,7 @@ window.MVQuizBank = {
               "$a/(c\\tau+d)$"
             ],
             "answer": 1,
+            "hint": "This is the Möbius (fractional linear) action.",
             "explain": "This is the Möbius (fractional linear) action."
           },
           {
@@ -36747,6 +38910,7 @@ window.MVQuizBank = {
             "q": "For $T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $\\tau=i$, compute $T\\cdot\\tau$ imaginary part.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "$T\\cdot i=i+1$, whose imaginary part is 1.",
             "explain": "$T\\cdot i=i+1$, whose imaginary part is 1."
           },
           {
@@ -36758,6 +38922,7 @@ window.MVQuizBank = {
               "only finite orbits"
             ],
             "answer": 1,
+            "hint": "This is the entry point to modular forms.",
             "explain": "This is the entry point to modular forms."
           }
         ],
@@ -36810,6 +38975,7 @@ window.MVQuizBank = {
               "the upper-triangular subgroup"
             ],
             "answer": 1,
+            "hint": "Both $g$ and $-g$ give the same Möbius map, so the effective group is $PSL_2(\\mathbb R)=SL_2(\\mathbb R)/\\{\\pm I\\}$.",
             "explain": "Both $g$ and $-g$ give the same Möbius map, so the effective group is $PSL_2(\\mathbb R)=SL_2(\\mathbb R)/\\{\\pm I\\}$."
           },
           {
@@ -36821,6 +38987,7 @@ window.MVQuizBank = {
               "elliptic (a single fixed point inside $\\mathbb H$)"
             ],
             "answer": 2,
+            "hint": "Trace-squared minus 4 is the discriminant of the fixed-point quadratic; negative discriminant puts the fixed point inside $\\mathbb H$.",
             "explain": "Trace-squared minus 4 is the discriminant of the fixed-point quadratic; negative discriminant puts the fixed point inside $\\mathbb H$."
           },
           {
@@ -36828,6 +38995,7 @@ window.MVQuizBank = {
             "q": "For $g=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$.",
             "answer": 2,
             "tol": 0.001,
+            "hint": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$.",
             "explain": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
           }
         ],
@@ -36886,6 +39054,7 @@ window.MVQuizBank = {
               "every $k$-th power is a sum of $g(k)$ primes"
             ],
             "answer": 1,
+            "hint": "Waring's problem: $g(k)$ is the least $s$ such that every positive integer can be written as $n = x_1^k + \\cdots + x_s^k$ with $x_i\\ge 0$.",
             "explain": "Waring's problem: $g(k)$ is the least $s$ such that every positive integer can be written as $n = x_1^k + \\cdots + x_s^k$ with $x_i\\ge 0$. Hilbert (1909) proved $g(k)<\\infty$ for every $k$."
           },
           {
@@ -36893,6 +39062,7 @@ window.MVQuizBank = {
             "q": "What is $g(2)$? (Lagrange's theorem.)",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$g(2)=4$: every non-negative integer is a sum of four squares (Lagrange, 1770), and three do not suffice since e.g.",
             "explain": "$g(2)=4$: every non-negative integer is a sum of four squares (Lagrange, 1770), and three do not suffice since e.g. $7$ is not a sum of three squares."
           },
           {
@@ -36900,6 +39070,7 @@ window.MVQuizBank = {
             "q": "What is $g(3)$? (The integer $n=23$ requires nine cubes: $23=2\\cdot 2^3+7\\cdot 1^3$.)",
             "answer": 9,
             "tol": 0.000001,
+            "hint": "$g(3)=9$ (Wieferich/Kempner).",
             "explain": "$g(3)=9$ (Wieferich/Kempner). The extremal integers are $23$ and $239$, which both require nine cubes; every other $n$ needs at most nine."
           }
         ],
@@ -36953,6 +39124,7 @@ window.MVQuizBank = {
               "$G(k)\\le \\log k$"
             ],
             "answer": 1,
+            "hint": "$G(k)$ is the least $s$ such that every sufficiently large $n$ is a sum of $s$ $k$-th powers, while $g(k)$ covers all $n\\ge 1$.",
             "explain": "$G(k)$ is the least $s$ such that every sufficiently large $n$ is a sum of $s$ $k$-th powers, while $g(k)$ covers all $n\\ge 1$. A handful of small exceptional integers push $g(k)$ above $G(k)$; e.g. $79=4\\cdot 2^4+15\\cdot 1^4$ forces $g(4)=19$ but $G(4)=16$."
           },
           {
@@ -36960,6 +39132,7 @@ window.MVQuizBank = {
             "q": "What is $G(2)$? (Hint: the three-squares theorem excludes $4^a(8b+7)$ for every $a$, so three do not suffice even asymptotically.)",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$G(2)=4$: the excluded set $\\{4^a(8b+7)\\}$ is infinite, so even for large $n$ four squares are sometimes necessary.",
             "explain": "$G(2)=4$: the excluded set $\\{4^a(8b+7)\\}$ is infinite, so even for large $n$ four squares are sometimes necessary. Hence $G(2)=g(2)=4$ is one of the rare cases with equality."
           },
           {
@@ -36972,6 +39145,7 @@ window.MVQuizBank = {
               "$G(k) \\le k^{3/2}$"
             ],
             "answer": 2,
+            "hint": "Vinogradov's mean-value method (refined by Wooley) gives $G(k)\\le k\\log k + k\\log\\log k + O(k)$ — linear up to a log factor.",
             "explain": "Vinogradov's mean-value method (refined by Wooley) gives $G(k)\\le k\\log k + k\\log\\log k + O(k)$ — linear up to a log factor. This is believed to be close to the truth: one expects $G(k)\\asymp k$."
           }
         ],
@@ -37025,6 +39199,7 @@ window.MVQuizBank = {
               "the Weil conjectures"
             ],
             "answer": 1,
+            "hint": "Hilbert found an identity writing $(\\sum x_i^2)^k$ as a positive rational combination of $(2k)$-th powers of linear forms $L_j(x)$.",
             "explain": "Hilbert found an identity writing $(\\sum x_i^2)^k$ as a positive rational combination of $(2k)$-th powers of linear forms $L_j(x)$. Combined with Lagrange's four-square theorem, this yields the finiteness of $g(k)$ — but gives no explicit bound. Hardy–Littlewood later recovered an asymptotic count via the circle method."
           },
           {
@@ -37032,6 +39207,7 @@ window.MVQuizBank = {
             "q": "For $k=2$, Hilbert's construction degenerates into Lagrange plus a trivial identity. What is $g(2)$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "$g(2)=4$ — the base case.",
             "explain": "$g(2)=4$ — the base case. Hilbert's induction bootstraps higher $k$ from the fact that four squares suffice."
           },
           {
@@ -37044,6 +39220,7 @@ window.MVQuizBank = {
               "it requires the Riemann hypothesis"
             ],
             "answer": 1,
+            "hint": "Hilbert's argument is non-constructive in the sense that the bound it produces is astronomical and far from the true $g(k)$.",
             "explain": "Hilbert's argument is non-constructive in the sense that the bound it produces is astronomical and far from the true $g(k)$. Sharpening $g(k)$ for specific $k$ (e.g. $g(3)=9$, $g(4)=19$) took decades of further work."
           }
         ],
@@ -37097,6 +39274,7 @@ window.MVQuizBank = {
               "$f(\\alpha)=\\sum_n \\Lambda(n) n^{-\\alpha}$"
             ],
             "answer": 1,
+            "hint": "Write $f(\\alpha)=\\sum_{n=1}^{\\lfloor N^{1/k}\\rfloor} e(\\alpha n^k)$.",
             "explain": "Write $f(\\alpha)=\\sum_{n=1}^{\\lfloor N^{1/k}\\rfloor} e(\\alpha n^k)$. Then $f(\\alpha)^s = \\sum_{m} r(m) e(\\alpha m)$ where $r(m)$ counts ordered reps of $m$ as a sum of $s$ $k$-th powers; extracting the coefficient of $e(\\alpha N)$ is an integral over the unit interval."
           },
           {
@@ -37109,6 +39287,7 @@ window.MVQuizBank = {
               "$\\prod_p (1 + p^{-s})$"
             ],
             "answer": 1,
+            "hint": "By Fourier orthogonality on $\\mathbb{Z}$: $\\int_0^1 e(\\alpha m)\\,d\\alpha = [m=0]$.",
             "explain": "By Fourier orthogonality on $\\mathbb{Z}$: $\\int_0^1 e(\\alpha m)\\,d\\alpha = [m=0]$. So $\\int_0^1 f(\\alpha)^s e(-\\alpha N)\\,d\\alpha$ picks out precisely the coefficient of $e(\\alpha N)$ in $f(\\alpha)^s$, which is $r_{s,k}(N)$."
           },
           {
@@ -37116,6 +39295,7 @@ window.MVQuizBank = {
             "q": "For $k=2$, $s=4$, the circle method recovers Jacobi's formula $r_4(N)=8\\sum_{d\\mid N,\\,4\\nmid d} d$ (for $N$ odd). What is $r_4(3)$? (Divisors of $3$: $1,3$.)",
             "answer": 32,
             "tol": 0.000001,
+            "hint": "$r_4(3)=8(1+3)=32$ — matching the circle-method asymptotic with singular series $8\\sigma^*(N)$.",
             "explain": "$r_4(3)=8(1+3)=32$ — matching the circle-method asymptotic with singular series $8\\sigma^*(N)$. In the Lagrange/Jacobi case the asymptotic is exact, because the minor arcs vanish."
           }
         ],
@@ -37181,6 +39361,7 @@ window.MVQuizBank = {
               "$|f(\\alpha)| = N^{1/k}$ for all $\\alpha$"
             ],
             "answer": 2,
+            "hint": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$.",
             "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
           },
           {
@@ -37193,6 +39374,7 @@ window.MVQuizBank = {
               "the trivial constant $1$"
             ],
             "answer": 1,
+            "hint": "$\\mathfrak{S}(N)$ factors as an Euler product $\\prod_p \\sigma_p(N)$ where $\\sigma_p(N)$ is the $p$-adic density of solutions to $n = x_1^k+\\cdots+x_s^k$.",
             "explain": "$\\mathfrak{S}(N)$ factors as an Euler product $\\prod_p \\sigma_p(N)$ where $\\sigma_p(N)$ is the $p$-adic density of solutions to $n = x_1^k+\\cdots+x_s^k$. Together with the singular integral (the real/archimedean density), Waring is solvable iff every local factor is positive — a Hasse principle for sums of $k$-th powers (for $s$ large enough)."
           }
         ],
@@ -37251,6 +39433,7 @@ window.MVQuizBank = {
               "Matching the coefficient of $x^4$ and dividing by $\\pi^2$"
             ],
             "answer": 1,
+            "hint": "Dividing both sides by $\\pi x$ gives $\\sin(\\pi x)/(\\pi x)=\\prod_{n=1}^\\infty(1-x^2/n^2)$.",
             "explain": "Dividing both sides by $\\pi x$ gives $\\sin(\\pi x)/(\\pi x)=\\prod_{n=1}^\\infty(1-x^2/n^2)$. The Taylor expansion gives coefficient of $x^2$ as $-\\pi^2/6$, while the product gives $-\\sum_{n=1}^\\infty 1/n^2 = -\\zeta(2)$. Equating: $\\zeta(2)=\\pi^2/6$."
           },
           {
@@ -37258,6 +39441,7 @@ window.MVQuizBank = {
             "q": "The partial sum $\\sum_{n=1}^{4} 1/n^2 = 1 + 1/4 + 1/9 + 1/16$. Enter this value as a decimal to four places.",
             "answer": 1.4236,
             "tol": 0.0005,
+            "hint": "$1+0.25+0.1111+0.0625=1.4236$.",
             "explain": "$1+0.25+0.1111+0.0625=1.4236$. Compare with $\\pi^2/6\\approx 1.6449$; the series converges slowly."
           },
           {
@@ -37265,6 +39449,7 @@ window.MVQuizBank = {
             "q": "Euler's result: $\\zeta(2)=\\pi^2/6$. Compute this to four decimal places.",
             "answer": 1.6449,
             "tol": 0.0005,
+            "hint": "$\\pi^2\\approx 9.8696$, so $\\pi^2/6\\approx 1.6449$.",
             "explain": "$\\pi^2\\approx 9.8696$, so $\\pi^2/6\\approx 1.6449$. This is the exact sum of the reciprocals of all perfect squares."
           }
         ],
@@ -37318,6 +39503,7 @@ window.MVQuizBank = {
               "$\\pi^4/60$"
             ],
             "answer": 0,
+            "hint": "With $n=2$: $(-1)^3 \\cdot (-1/30)(2\\pi)^4/(2\\cdot 24) = (1/30)\\cdot 16\\pi^4/48 = 16\\pi^4/1440 = \\pi^4/90$.",
             "explain": "With $n=2$: $(-1)^3 \\cdot (-1/30)(2\\pi)^4/(2\\cdot 24) = (1/30)\\cdot 16\\pi^4/48 = 16\\pi^4/1440 = \\pi^4/90$."
           },
           {
@@ -37325,6 +39511,7 @@ window.MVQuizBank = {
             "q": "Compute $\\zeta(6)=\\pi^6/945$ to four decimal places.",
             "answer": 1.0173,
             "tol": 0.0005,
+            "hint": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$.",
             "explain": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$. This uses $B_6=1/42$ and $n=3$ in the formula."
           },
           {
@@ -37337,6 +39524,7 @@ window.MVQuizBank = {
               "All integers including negative ones"
             ],
             "answer": 0,
+            "hint": "The formula holds for all positive integers $n\\ge 1$, giving $\\zeta(2),\\zeta(4),\\zeta(6),\\ldots$ in terms of Bernoulli numbers and $\\pi$.",
             "explain": "The formula holds for all positive integers $n\\ge 1$, giving $\\zeta(2),\\zeta(4),\\zeta(6),\\ldots$ in terms of Bernoulli numbers and $\\pi$. It does not extend to odd arguments, where no analogous rational-times-power-of-$\\pi$ formula is known."
           }
         ],
@@ -37390,6 +39578,7 @@ window.MVQuizBank = {
               "It equals a rational multiple of $\\ln 2$"
             ],
             "answer": 1,
+            "hint": "Apéry proved irrationality using an accelerated series $\\zeta(3)=5/2\\sum_{n=1}^{\\infty}(-1)^{n+1}/(n^3\\binom{2n}{n})$ and showing the implied rational approximations converge too fast for $\\zeta(3)$…",
             "explain": "Apéry proved irrationality using an accelerated series $\\zeta(3)=5/2\\sum_{n=1}^{\\infty}(-1)^{n+1}/(n^3\\binom{2n}{n})$ and showing the implied rational approximations converge too fast for $\\zeta(3)$ to be rational. Transcendence remains open."
           },
           {
@@ -37397,6 +39586,7 @@ window.MVQuizBank = {
             "q": "The Apéry series converges via $\\zeta(3)=5/2\\sum_{n=1}^{\\infty}(-1)^{n+1}/\\bigl(n^3\\tbinom{2n}{n}\\bigr)$. The first term ($n=1$) contributes $5/2 \\cdot 1/(1^3\\cdot 2)$. What is this?",
             "answer": 1.25,
             "tol": 0.000001,
+            "hint": "$5/2\\cdot 1/2 = 5/4 = 1.25$.",
             "explain": "$5/2\\cdot 1/2 = 5/4 = 1.25$. Compare with $\\zeta(3)\\approx 1.2021$; the first term alone over-estimates, but convergence is rapid."
           },
           {
@@ -37404,6 +39594,7 @@ window.MVQuizBank = {
             "q": "The value $\\zeta(3)\\approx 1.2021$ is known as Apéry's constant. Enter this value to four decimal places.",
             "answer": 1.2021,
             "tol": 0.0005,
+            "hint": "$\\zeta(3)=1+1/8+1/27+1/64+\\cdots\\approx 1.20206$.",
             "explain": "$\\zeta(3)=1+1/8+1/27+1/64+\\cdots\\approx 1.20206$. No closed form in terms of $\\pi$ is known."
           }
         ],
@@ -37457,6 +39648,7 @@ window.MVQuizBank = {
               "$-1/6$"
             ],
             "answer": 1,
+            "hint": "$\\zeta(-1)=-B_2/2=-1/12$.",
             "explain": "$\\zeta(-1)=-B_2/2=-1/12$. This is the analytic continuation value behind the regularisation $1+2+3+\\cdots \\mapsto -1/12$."
           },
           {
@@ -37464,6 +39656,7 @@ window.MVQuizBank = {
             "q": "Since $B_3=0$, what is $\\zeta(-2)$ using $\\zeta(-n)=-B_{n+1}/(n+1)$?",
             "answer": 0,
             "tol": 1e-9,
+            "hint": "$\\zeta(-2)=-B_3/3=0$.",
             "explain": "$\\zeta(-2)=-B_3/3=0$. Similarly all $\\zeta(-2k)=0$ for $k\\ge 1$ are the trivial zeros of $\\zeta$."
           },
           {
@@ -37476,6 +39669,7 @@ window.MVQuizBank = {
               "At $s=1/2+it$ for real $t$"
             ],
             "answer": 1,
+            "hint": "Trivial zeros occur at $s=-2,-4,-6,\\ldots$ because $B_{2k+1}=0$ for $k\\ge 1$, making $\\zeta(-2k)=0$.",
             "explain": "Trivial zeros occur at $s=-2,-4,-6,\\ldots$ because $B_{2k+1}=0$ for $k\\ge 1$, making $\\zeta(-2k)=0$. The zeros at $s=1/2+it$ are the non-trivial zeros, whose distribution is the subject of the Riemann Hypothesis."
           }
         ],
@@ -37529,6 +39723,7 @@ window.MVQuizBank = {
               "$\\xi(s)=\\xi(-s)$"
             ],
             "answer": 1,
+            "hint": "Riemann showed $\\xi(s)=\\xi(1-s)$.",
             "explain": "Riemann showed $\\xi(s)=\\xi(1-s)$. This maps $s\\leftrightarrow 1-s$, reflecting the critical strip about $\\mathrm{Re}(s)=1/2$, and forces zeros to be symmetric about that line."
           },
           {
@@ -37541,6 +39736,7 @@ window.MVQuizBank = {
               "$\\zeta(s)$ extends to an entire function"
             ],
             "answer": 1,
+            "hint": "The symmetry $s\\mapsto 1-s$ directly implies that if $\\rho$ is a zero, so is $1-\\rho$.",
             "explain": "The symmetry $s\\mapsto 1-s$ directly implies that if $\\rho$ is a zero, so is $1-\\rho$. The Riemann Hypothesis (zeros on $\\mathrm{Re}(s)=1/2$) is a stronger, unproven claim. The absence of zeros in $\\mathrm{Re}(s)>1$ follows from the Euler product, not the functional equation."
           },
           {
@@ -37548,6 +39744,7 @@ window.MVQuizBank = {
             "q": "Using $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$: $\\cos(\\pi)=-1$ and $\\Gamma(2)=1$. Combined with $\\zeta(2)=\\pi^2/6$, what is $\\zeta(-1)$?",
             "answer": -0.08333,
             "tol": 0.0005,
+            "hint": "$\\zeta(-1)=2(2\\pi)^{-2}\\cos(\\pi)\\cdot 1\\cdot\\pi^2/6 = 2\\cdot(-1)/(4\\pi^2)\\cdot\\pi^2/6 = -2/24 = -1/12\\approx -0.0833$.",
             "explain": "$\\zeta(-1)=2(2\\pi)^{-2}\\cos(\\pi)\\cdot 1\\cdot\\pi^2/6 = 2\\cdot(-1)/(4\\pi^2)\\cdot\\pi^2/6 = -2/24 = -1/12\\approx -0.0833$."
           }
         ],
@@ -37606,6 +39803,7 @@ window.MVQuizBank = {
               "Choice"
             ],
             "answer": 1,
+            "hint": "Naive comprehension $\\{x : \\varphi(x)\\}$ is replaced by Separation: $\\{x \\in A : \\varphi(x)\\}$ for an already-given set $A$.",
             "explain": "Naive comprehension $\\{x : \\varphi(x)\\}$ is replaced by Separation: $\\{x \\in A : \\varphi(x)\\}$ for an already-given set $A$. Without an ambient set, Russell's $R$ never gets formed; Regularity additionally rules out $x \\in x$."
           },
           {
@@ -37618,6 +39816,7 @@ window.MVQuizBank = {
               "Replacement"
             ],
             "answer": 2,
+            "hint": "Infinity posits a set $I$ with $\\emptyset \\in I$ and $x \\in I \\Rightarrow x \\cup \\{x\\} \\in I$.",
             "explain": "Infinity posits a set $I$ with $\\emptyset \\in I$ and $x \\in I \\Rightarrow x \\cup \\{x\\} \\in I$. The intersection of all such $I$ is $\\omega$, the set of finite von Neumann ordinals."
           },
           {
@@ -37630,6 +39829,7 @@ window.MVQuizBank = {
               "Forming $\\mathcal{P}(A)$ from a given set $A$"
             ],
             "answer": 1,
+            "hint": "Separation only filters elements out of an already-given set.",
             "explain": "Separation only filters elements out of an already-given set. Iterating $\\mathcal P$ along $\\omega$ produces the function $n \\mapsto V_n$; collecting its image into a set is exactly Replacement. Power Set then closes us off; Union assembles $V_\\omega$."
           }
         ]
@@ -37647,6 +39847,7 @@ window.MVQuizBank = {
               "$\\{1,2,3\\}$"
             ],
             "answer": 2,
+            "hint": "$0=\\emptyset$, $1=\\{0\\}=\\{\\emptyset\\}$, $2=\\{0,1\\}=\\{\\emptyset,\\{\\emptyset\\}\\}$, $3=\\{0,1,2\\}=\\{\\emptyset,\\{\\emptyset\\},\\{\\emptyset,\\{\\emptyset\\}\\}\\}$.",
             "explain": "$0=\\emptyset$, $1=\\{0\\}=\\{\\emptyset\\}$, $2=\\{0,1\\}=\\{\\emptyset,\\{\\emptyset\\}\\}$, $3=\\{0,1,2\\}=\\{\\emptyset,\\{\\emptyset\\},\\{\\emptyset,\\{\\emptyset\\}\\}\\}$. Each ordinal is the set of all smaller ordinals."
           },
           {
@@ -37659,6 +39860,7 @@ window.MVQuizBank = {
               "$\\alpha$ is finite"
             ],
             "answer": 1,
+            "hint": "An ordinal is by definition a transitive set well-ordered by $\\in$.",
             "explain": "An ordinal is by definition a transitive set well-ordered by $\\in$. Regularity rules out $\\alpha\\in\\alpha$. Successor ordinals have a maximum; limit ordinals (like $\\omega$) do not."
           },
           {
@@ -37666,6 +39868,7 @@ window.MVQuizBank = {
             "q": "Among the ordinals $\\omega,\\;\\omega+1,\\;\\omega\\cdot 2,\\;\\omega^2$, how many are limit ordinals? (Recall: a limit ordinal is nonzero and not a successor.)",
             "answer": 3,
             "tol": 0,
+            "hint": "$\\omega$, $\\omega\\cdot 2 = \\omega+\\omega$, and $\\omega^2$ are all limits — none has an immediate predecessor.",
             "explain": "$\\omega$, $\\omega\\cdot 2 = \\omega+\\omega$, and $\\omega^2$ are all limits — none has an immediate predecessor. Only $\\omega+1$ is a successor (its predecessor is $\\omega$). So the count is $3$."
           }
         ]
@@ -37683,6 +39886,7 @@ window.MVQuizBank = {
               "$\\omega^2 = 2^\\omega$"
             ],
             "answer": 1,
+            "hint": "$1+\\omega$ is order type $\\bullet,0,1,2,\\dots$, which has the same order type as $\\omega$.",
             "explain": "$1+\\omega$ is order type $\\bullet,0,1,2,\\dots$, which has the same order type as $\\omega$. But $\\omega+1$ has a maximum, so $\\omega+1\\ne\\omega$. Likewise $2\\cdot\\omega = \\omega \\ne \\omega\\cdot 2 = \\omega+\\omega$, and $2^\\omega = \\omega$ as ordinals (not $2^{\\aleph_0}$ as cardinals)."
           },
           {
@@ -37695,6 +39899,7 @@ window.MVQuizBank = {
               "An inaccessible cardinal"
             ],
             "answer": 2,
+            "hint": "$\\varepsilon_0$ is the supremum (and limit) of the tower $\\omega,\\;\\omega^\\omega,\\;\\omega^{\\omega^\\omega},\\dots$ — equivalently the least fixed point of $\\alpha\\mapsto\\omega^\\alpha$.",
             "explain": "$\\varepsilon_0$ is the supremum (and limit) of the tower $\\omega,\\;\\omega^\\omega,\\;\\omega^{\\omega^\\omega},\\dots$ — equivalently the least fixed point of $\\alpha\\mapsto\\omega^\\alpha$. It is countable but already too large for Peano arithmetic to prove well-founded (Gentzen)."
           },
           {
@@ -37702,6 +39907,7 @@ window.MVQuizBank = {
             "q": "Compute the ordinal $(\\omega + 3) + (\\omega + 5)$ in Cantor normal form, and enter the coefficient of $\\omega^1$. (E.g. for $\\omega\\cdot 4 + 7$, enter $4$.)",
             "answer": 2,
             "tol": 0,
+            "hint": "$(\\omega+3)+(\\omega+5) = \\omega + (3+\\omega) + 5 = \\omega + \\omega + 5 = \\omega\\cdot 2 + 5$.",
             "explain": "$(\\omega+3)+(\\omega+5) = \\omega + (3+\\omega) + 5 = \\omega + \\omega + 5 = \\omega\\cdot 2 + 5$. The lower term $3$ is absorbed by the next $\\omega$ on its right because addition is left-distributive but not commutative. The coefficient of $\\omega^1$ is $2$."
           }
         ]
@@ -37719,6 +39925,7 @@ window.MVQuizBank = {
               "Because $\\mathbb R$ is well-ordered by the standard order"
             ],
             "answer": 1,
+            "hint": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$.",
             "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
           },
           {
@@ -37731,6 +39938,7 @@ window.MVQuizBank = {
               "$\\aleph_1$"
             ],
             "answer": 0,
+            "hint": "$\\aleph_\\omega = \\sup_n \\aleph_n$ is the limit of a countable sequence, so its cofinality is $\\omega = \\aleph_0$.",
             "explain": "$\\aleph_\\omega = \\sup_n \\aleph_n$ is the limit of a countable sequence, so its cofinality is $\\omega = \\aleph_0$. This makes $\\aleph_\\omega$ a singular cardinal — by König's theorem, $2^{\\aleph_0} \\ne \\aleph_\\omega$."
           },
           {
@@ -37743,6 +39951,7 @@ window.MVQuizBank = {
               "$\\aleph_{\\omega+\\omega}$"
             ],
             "answer": 2,
+            "hint": "Successor cardinals $\\aleph_{\\alpha+1}$ are regular (in ZFC).",
             "explain": "Successor cardinals $\\aleph_{\\alpha+1}$ are regular (in ZFC). Limit cardinals $\\aleph_\\lambda$ have $\\operatorname{cf}(\\aleph_\\lambda) = \\operatorname{cf}(\\lambda)$, so $\\aleph_\\omega$ and $\\aleph_{\\omega+\\omega}$ have cofinality $\\omega$ — singular. $\\aleph_{\\omega_1}$ is singular too (cofinality $\\omega_1 < \\aleph_{\\omega_1}$)."
           }
         ]
@@ -37760,6 +39969,7 @@ window.MVQuizBank = {
               "Every infinite set is in bijection with $\\omega$"
             ],
             "answer": 3,
+            "hint": "AC is equivalent to Zorn's lemma, the well-ordering theorem, Tychonoff's theorem, and 'every vector space has a basis'.",
             "explain": "AC is equivalent to Zorn's lemma, the well-ordering theorem, Tychonoff's theorem, and 'every vector space has a basis'. But 'every infinite set is countable' is false — Cantor showed $\\mathbb R$ is uncountable, no choice needed."
           },
           {
@@ -37772,6 +39982,7 @@ window.MVQuizBank = {
               "All of the above need full AC"
             ],
             "answer": 2,
+            "hint": "Finite products of compact spaces are compact in ZF.",
             "explain": "Finite products of compact spaces are compact in ZF. Countable products of compact Hausdorff spaces need countable choice (DC). The general Tychonoff theorem is equivalent to AC (Kelley 1950)."
           },
           {
@@ -37784,6 +39995,7 @@ window.MVQuizBank = {
               "A continuous function $\\mathbb R\\to\\mathbb R$"
             ],
             "answer": 1,
+            "hint": "Vitali's construction picks one representative from each coset of $\\mathbb Q$ in $\\mathbb R/\\mathbb Q$, an uncountable family of non-empty sets — this is exactly a choice function.",
             "explain": "Vitali's construction picks one representative from each coset of $\\mathbb Q$ in $\\mathbb R/\\mathbb Q$, an uncountable family of non-empty sets — this is exactly a choice function. Solovay (1970) showed it is consistent with ZF+DC that every set of reals is Lebesgue measurable, so the non-measurable set really requires AC."
           }
         ]
@@ -37801,6 +40013,7 @@ window.MVQuizBank = {
               "Every infinite subset of $\\mathbb R$ is countable"
             ],
             "answer": 1,
+            "hint": "CH is the statement $2^{\\aleph_0}=\\aleph_1$.",
             "explain": "CH is the statement $2^{\\aleph_0}=\\aleph_1$. Equivalently: every infinite subset of $\\mathbb R$ is either countable or in bijection with $\\mathbb R$ — there is no cardinality in between."
           },
           {
@@ -37813,6 +40026,7 @@ window.MVQuizBank = {
               "An open problem"
             ],
             "answer": 2,
+            "hint": "Gödel (1940) built the constructible universe $L$, an inner model of ZFC where CH (and GCH) hold; this shows ZFC + CH is consistent.",
             "explain": "Gödel (1940) built the constructible universe $L$, an inner model of ZFC where CH (and GCH) hold; this shows ZFC + CH is consistent. Cohen (1963) introduced forcing to build a model where CH fails. Neither half can prove CH itself."
           },
           {
@@ -37825,6 +40039,7 @@ window.MVQuizBank = {
               "Diagonalization"
             ],
             "answer": 1,
+            "hint": "Forcing adjoins to a ground model $M$ a generic filter $G$ on a partial order $\\mathbb P\\in M$, producing a larger model $M[G]\\models$ ZFC where carefully chosen statements (like $\\neg$CH) are forced…",
             "explain": "Forcing adjoins to a ground model $M$ a generic filter $G$ on a partial order $\\mathbb P\\in M$, producing a larger model $M[G]\\models$ ZFC where carefully chosen statements (like $\\neg$CH) are forced to hold. It is the standard tool for independence results."
           }
         ]
@@ -37842,6 +40057,7 @@ window.MVQuizBank = {
               "Equal to $\\aleph_\\omega$"
             ],
             "answer": 0,
+            "hint": "Inaccessible = uncountable + regular + strong limit.",
             "explain": "Inaccessible = uncountable + regular + strong limit. Both conditions ensure $V_\\kappa$ is closed under power-set and unions of size $<\\kappa$, so $V_\\kappa\\models$ ZFC."
           },
           {
@@ -37854,6 +40070,7 @@ window.MVQuizBank = {
               "Because $V_\\kappa$ has size $\\aleph_0$"
             ],
             "answer": 0,
+            "hint": "If ZFC + Inaccessible $\\vdash$ Con(ZFC), then ZFC alone cannot prove the existence of an inaccessible — else ZFC would prove Con(ZFC), violating Gödel II.",
             "explain": "If ZFC + Inaccessible $\\vdash$ Con(ZFC), then ZFC alone cannot prove the existence of an inaccessible — else ZFC would prove Con(ZFC), violating Gödel II. So 'an inaccessible exists' has strictly higher consistency strength than ZFC."
           },
           {
@@ -37866,6 +40083,7 @@ window.MVQuizBank = {
               "Grothendieck universes need only ZF, not ZFC"
             ],
             "answer": 1,
+            "hint": "A Grothendieck universe $\\mathcal U$ is a transitive set closed under pairs, unions, power-sets, and replacement-like indexing — exactly the closure conditions $V_\\kappa$ has when $\\kappa$ is…",
             "explain": "A Grothendieck universe $\\mathcal U$ is a transitive set closed under pairs, unions, power-sets, and replacement-like indexing — exactly the closure conditions $V_\\kappa$ has when $\\kappa$ is inaccessible. SGA assumes 'every set lies in a Grothendieck universe' for category-theoretic foundations; this is the universe axiom, equivalent to a proper class of inaccessibles."
           }
         ]

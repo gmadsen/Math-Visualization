@@ -14,6 +14,7 @@
             "$\\sigma = \\{\\in\\}$ (one binary relation)"
           ],
           "answer": 1,
+          "hint": "Ring axioms quantify over $0$, $1$, addition, multiplication, and additive inverse, so the natural signature is $\\{0,1,+,\\cdot,-\\}$.",
           "explain": "Ring axioms quantify over $0$, $1$, addition, multiplication, and additive inverse, so the natural signature is $\\{0,1,+,\\cdot,-\\}$. The third option is the signature of groups; the fourth is the signature of set theory; the first is the signature of orders."
         },
         {
@@ -21,6 +22,7 @@
           "q": "How many distinct $\\sigma$-structures are there on the two-element domain $\\{0,1\\}$ when $\\sigma = \\{R\\}$ has a single binary relation symbol?",
           "answer": 16,
           "tol": 0,
+          "hint": "A binary relation on a $2$-element set is a subset of $\\{0,1\\}^2$, which has $4$ ordered pairs.",
           "explain": "A binary relation on a $2$-element set is a subset of $\\{0,1\\}^2$, which has $4$ ordered pairs. The number of subsets is $2^4 = 16$."
         },
         {
@@ -33,6 +35,7 @@
             "$\\forall x\\,(x < x)$"
           ],
           "answer": 2,
+          "hint": "Choice 3 says 'there is a minimum'; the element $1$ witnesses it (no $y<1$).",
           "explain": "Choice 3 says 'there is a minimum'; the element $1$ witnesses it (no $y<1$). Choice 1 fails at $x=3$ (no upper element). Choice 2 says $<$ is symmetric, false. Choice 4 says $<$ is reflexive, false."
         }
       ]
@@ -50,6 +53,7 @@
             "Every formula true in $\\mathfrak{A}$ has a witness in $\\mathfrak{B}$."
           ],
           "answer": 1,
+          "hint": "By definition, $\\mathfrak{A}\\equiv\\mathfrak{B}$ iff $\\mathrm{Th}(\\mathfrak{A}) = \\mathrm{Th}(\\mathfrak{B})$ — the same first-order sentences are true in both.",
           "explain": "By definition, $\\mathfrak{A}\\equiv\\mathfrak{B}$ iff $\\mathrm{Th}(\\mathfrak{A}) = \\mathrm{Th}(\\mathfrak{B})$ — the same first-order sentences are true in both. Choice 1 is isomorphism (strictly stronger). Cardinality is invisible to first-order logic."
         },
         {
@@ -62,6 +66,7 @@
             "$(\\{0,1\\}, <)$ and $(\\{0,1,2\\}, <)$"
           ],
           "answer": 1,
+          "hint": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both dense linear orders without endpoints, and DLO is a complete theory — so they are elementarily equivalent.",
           "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both dense linear orders without endpoints, and DLO is a complete theory — so they are elementarily equivalent. $\\mathbb{N}$ has a minimum (false in $\\mathbb{Z}$), $\\mathbb{Z}$ is discrete (every element has an immediate successor; false in $\\mathbb{Q}$), and finite structures of different sizes can always be separated by a sentence counting elements."
         },
         {
@@ -69,6 +74,7 @@
           "q": "How many distinct first-order theories (= equivalence classes under $\\equiv$) are there among finite linear orders in the language $\\{<\\}$? (Hint: a finite linear order is determined up to isomorphism by its size, and isomorphic structures are elementarily equivalent.)",
           "answer": 0,
           "tol": 0,
+          "hint": "Trick question — there are infinitely many.",
           "explain": "Trick question — there are infinitely many. For each $n\\ge 1$ the sentence 'there are exactly $n$ elements' picks out a unique equivalence class, and these classes are all distinct. Enter $0$ to mean the count is unbounded. (Strictly: countably infinitely many.)",
           "tol_note": "Author note: this question is designed to be flagged as 'unbounded' — answer 0 is the convention here."
         }
@@ -87,6 +93,7 @@
             "Neither implication holds in general"
           ],
           "answer": 0,
+          "hint": "For finite structures the two notions coincide.",
           "explain": "For finite structures the two notions coincide. Isomorphism always implies elementary equivalence (any iso preserves truth of every formula). Conversely, on a finite structure the complete first-order theory pins down the isomorphism type — you can write a sentence describing the entire diagram."
         },
         {
@@ -99,6 +106,7 @@
             "$(\\mathbb{R}, +, \\cdot)$ and $(\\mathbb{C}, +, \\cdot)$"
           ],
           "answer": 1,
+          "hint": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both models of DLO (a complete theory), so they are elementarily equivalent; but they have different cardinalities, so they are not isomorphic.",
           "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both models of DLO (a complete theory), so they are elementarily equivalent; but they have different cardinalities, so they are not isomorphic. The other pairs differ in first-order properties (e.g. divisibility, sentence about $-1$, $\\sqrt{-1}$)."
         },
         {
@@ -106,6 +114,7 @@
           "q": "By Cantor's back-and-forth theorem, how many isomorphism classes of <em>countable</em> dense linear orders without endpoints exist?",
           "answer": 1,
           "tol": 0,
+          "hint": "Cantor proved that any two countable dense linear orders without endpoints are isomorphic, via a back-and-forth construction.",
           "explain": "Cantor proved that any two countable dense linear orders without endpoints are isomorphic, via a back-and-forth construction. So there is exactly $1$ isomorphism class. This is the model-theoretic statement that DLO is $\\aleph_0$-categorical."
         }
       ]
@@ -123,6 +132,7 @@
             "An $\\mathfrak{A}$-definable subset of $A$."
           ],
           "answer": 1,
+          "hint": "A complete type is the maximal consistent first-order description of (a possible) element.",
           "explain": "A complete type is the maximal consistent first-order description of (a possible) element. By compactness it is always realised in some elementary extension of $\\mathfrak{A}$ — it may or may not be realised inside $\\mathfrak{A}$ itself."
         },
         {
@@ -135,6 +145,7 @@
             "$p(x)$ has no consistent extension to a complete type."
           ],
           "answer": 2,
+          "hint": "Every finite subset of $p$ is consistent (witness: any rational larger than the finite list of $q$'s mentioned), so by compactness $p$ is consistent.",
           "explain": "Every finite subset of $p$ is consistent (witness: any rational larger than the finite list of $q$'s mentioned), so by compactness $p$ is consistent. But no rational is larger than every rational, so $p$ is omitted in $(\\mathbb{Q},<)$. Compactness produces an elementary extension where it is realised — that extension contains a 'point at infinity'."
         },
         {
@@ -142,6 +153,7 @@
           "q": "A structure $\\mathfrak{A}$ is <em>$\\omega$-saturated</em> if every type over a finite parameter set is realised in $\\mathfrak{A}$. The countable random graph is $\\omega$-saturated; the dense linear order $(\\mathbb{Q},<)$ also is. How many distinct complete $1$-types over the empty parameter set does the theory DLO have?",
           "answer": 1,
           "tol": 0,
+          "hint": "DLO is a complete theory, and over the empty set there is exactly one complete $1$-type — every element of a model satisfies the same formulas in $\\{<\\}$ with no parameters.",
           "explain": "DLO is a complete theory, and over the empty set there is exactly one complete $1$-type — every element of a model satisfies the same formulas in $\\{<\\}$ with no parameters. (Once you add even one parameter, the type space splits into 'less than', 'equal to', 'greater than' that parameter.)"
         }
       ]
@@ -159,6 +171,7 @@
             "$\\mathfrak{A}$ embeds into $\\mathfrak{B}$ as an elementary substructure."
           ],
           "answer": 1,
+          "hint": "EF games measure agreement up to <em>quantifier rank</em>: an $n$-round Duplicator strategy exactly captures indistinguishability by rank-$n$ sentences.",
           "explain": "EF games measure agreement up to <em>quantifier rank</em>: an $n$-round Duplicator strategy exactly captures indistinguishability by rank-$n$ sentences. As $n\\to\\infty$ this approaches full elementary equivalence (for finite signatures)."
         },
         {
@@ -166,6 +179,7 @@
           "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: a sentence of quantifier rank $n$ can count up to roughly $2^n$ elements; here a rank-$2$ sentence already separates them.)",
           "answer": 1,
           "tol": 0,
+          "hint": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$.",
           "explain": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$. With $2$ rounds Spoiler picks the largest element in $\\mathfrak{B}$, then the second-largest; in $\\mathfrak{A}$ Duplicator runs out of distinct space to copy this configuration. So $n=1$ is the largest Duplicator winning round count."
         },
         {
@@ -178,6 +192,7 @@
             "'Every vertex has degree exactly 2.'"
           ],
           "answer": 1,
+          "hint": "Connectivity is the canonical example of a non-FO-definable property.",
           "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $n$, a long cycle $C_{2n+1}$ (connected) and a disjoint union $C_n \\sqcup C_{n+1}$ (disconnected) agree on every sentence of quantifier rank $\\le n$, by an EF-game argument. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
         }
       ]
@@ -195,6 +210,7 @@
             "Categorical in every cardinality."
           ],
           "answer": 1,
+          "hint": "ACF$_0$ is a complete theory: any two algebraically closed fields of characteristic $0$ are elementarily equivalent (this is essentially the Lefschetz principle).",
           "explain": "ACF$_0$ is a complete theory: any two algebraically closed fields of characteristic $0$ are elementarily equivalent (this is essentially the Lefschetz principle). It is categorical in <em>uncountable</em> cardinalities (Steinitz: transcendence degree determines isomorphism type) but not in $\\aleph_0$ — countable ACF$_0$'s of different transcendence degrees are not isomorphic."
         },
         {
@@ -207,6 +223,7 @@
             "Hilbert's Nullstellensatz."
           ],
           "answer": 1,
+          "hint": "The proof: 'injective $\\Rightarrow$ surjective' is a first-order schema (one sentence per pair of degree bounds).",
           "explain": "The proof: 'injective $\\Rightarrow$ surjective' is a first-order schema (one sentence per pair of degree bounds). It holds trivially in every algebraic closure $\\overline{\\mathbb{F}_p}$ — those fields are unions of finite fields, where injections of finite sets are bijections. By the Lefschetz principle (ACF$_0$ and ACF$_p$ for large $p$ agree on first-order sentences), it holds in $\\mathbb{C}$. This is the canonical 'compactness + transfer' application."
         },
         {
@@ -219,6 +236,7 @@
             "The Galois group of the algebraic closure is trivial."
           ],
           "answer": 1,
+          "hint": "Model-completeness is equivalent to: every formula is equivalent (modulo $T$) to an $\\exists$-formula whose existential witness, if it exists in any model, exists in any extension.",
           "explain": "Model-completeness is equivalent to: every formula is equivalent (modulo $T$) to an $\\exists$-formula whose existential witness, if it exists in any model, exists in any extension. ACF has full quantifier elimination, which implies model-completeness. The other options are true facts about ACF but don't directly give model-completeness."
         }
       ]

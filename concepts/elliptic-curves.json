@@ -11,7 +11,9 @@
         "projective-points-lines"
       ],
       "blurb": "A smooth genus-1 curve with basepoint admits Weierstrass equations and rich arithmetic.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "elliptic-group-law",
@@ -27,10 +29,14 @@
       "title": "The j-invariant and isomorphism classes",
       "anchor": "j",
       "prereqs": [
-        "elliptic-curve-definition"
+        "elliptic-curve-definition",
+        "hilbert-class-field"
       ],
       "blurb": "The j-invariant is a single number that classifies elliptic curves over an algebraically closed field up to isomorphism, and witnesses the coarse moduli space M_{1,1}.",
-      "tags": ["classification", "moduli"]
+      "tags": [
+        "classification",
+        "moduli"
+      ]
     },
     {
       "id": "complex-multiplication",
@@ -38,20 +44,25 @@
       "anchor": "complex",
       "prereqs": [
         "elliptic-curve-definition",
-        "riemann-surface-definition"
+        "riemann-surface-definition",
+        "mobius-transformations"
       ],
-      "blurb": "Over C every elliptic curve is a torus C/\u039b; curves whose endomorphism ring is larger than Z have complex multiplication by an order in an imaginary quadratic field.",
-      "tags": ["classification"]
+      "blurb": "Over C every elliptic curve is a torus C/Λ; curves whose endomorphism ring is larger than Z have complex multiplication by an order in an imaginary quadratic field.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "mordell-weil-ec",
-      "title": "Mordell\u2013Weil and invariants",
+      "title": "Mordell–Weil and invariants",
       "anchor": "mordell",
       "prereqs": [
         "elliptic-group-law"
       ],
       "blurb": "Rational points form a finitely generated group with rank and torsion invariants.",
-      "tags": ["finiteness"]
+      "tags": [
+        "finiteness"
+      ]
     }
   ]
 }

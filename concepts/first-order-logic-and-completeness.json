@@ -65,7 +65,8 @@
       "anchor": "lowenheim-skolem",
       "prereqs": [
         "fol-completeness",
-        "countability"
+        "countability",
+        "compactness"
       ],
       "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
     },

@@ -239,6 +239,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./elliptic-curves.html#j\">Elliptic curves</a> · The j-invariant and isomorphism classes</div>\n    <div><a href=\"./quadratic-forms-genus-theory.html#ideals-vs-forms\">Quadratic forms &amp; genus theory</a> · Forms and ideal classes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n\n"
         },
         {
@@ -483,7 +487,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./frobenius-and-reciprocity.html#strong\">Reciprocity toward Artin maps</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./frobenius-and-reciprocity.html#strong\">Reciprocity toward Artin maps</a></li>\n    <li><a href=\"./adeles-and-ideles.html#ideles\">The idèle class group</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

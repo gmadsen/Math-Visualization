@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./zfc-and-ordinals.html#choice\">ZFC and ordinals</a> · The axiom of choice</div>\n    <div><a href=\"./zfc-and-ordinals.html#ordinals\">ZFC and ordinals</a> · Von Neumann ordinals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./forcing-and-independence.html#posets\">Forcing and independence</a> · Forcing posets and dense subsets</div>\n    <div><a href=\"./zfc-and-ordinals.html#choice\">ZFC and ordinals</a> · The axiom of choice</div>\n    <div><a href=\"./zfc-and-ordinals.html#ordinals\">ZFC and ordinals</a> · Von Neumann ordinals</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -237,6 +237,10 @@
           "type": "quiz",
           "concept": "continuum-hypothesis",
           "html": "<div class=\"quiz\" data-concept=\"continuum-hypothesis\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./forcing-and-independence.html#not-ch\">Forcing and independence</a> · Independence of the continuum hypothesis</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

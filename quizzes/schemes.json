@@ -14,13 +14,15 @@
             "all elements of $R$"
           ],
           "answer": 2,
+          "hint": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$.",
           "explain": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$. Maximal ideals are closed points, but non-maximal primes (like $(0)$ in $\\mathbb Z$) give generic points."
         },
         {
           "type": "numeric",
           "q": "How many points does $\\operatorname{Spec}\\mathbb{Z}/12\\mathbb{Z}$ have? (Count prime ideals of $\\mathbb Z/12\\mathbb Z$.)",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$.",
           "explain": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$. So there are $2$ points."
         },
         {
@@ -33,6 +35,7 @@
             "singletons $\\{\\mathfrak p\\}$ for each prime"
           ],
           "answer": 0,
+          "hint": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology.",
           "explain": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology. They are closed under arbitrary intersection and finite union."
         }
       ],
@@ -53,7 +56,7 @@
           "type": "numeric",
           "q": "How many points does $\\operatorname{Spec}(\\mathbb{Z}[x]/(x^2+1))$ have that lie over the prime $(2)\\subset\\mathbb{Z}$? (Count prime ideals of $\\mathbb{Z}[x]/(x^2+1)$ above $2$.)",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Over $(2)$: $\\mathbb{F}_2[x]/(x^2+1)=\\mathbb{F}_2[x]/(x+1)^2$ since $x^2+1=(x+1)^2$ in characteristic $2$. This quotient has a unique prime $(x+1)$, so there is exactly $1$ prime above $2$."
         },
         {
@@ -95,13 +98,15 @@
             "the quotient field of $R$"
           ],
           "answer": 2,
+          "hint": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish.",
           "explain": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish."
         },
         {
           "type": "numeric",
           "q": "The residue field $\\kappa(\\mathfrak p)$ at the generic point $\\mathfrak p=(0)$ of $\\operatorname{Spec}\\mathbb{Z}$ is $\\mathbb Q$. What is its characteristic?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\mathbb Q$ has characteristic $0$.",
           "explain": "$\\mathbb Q$ has characteristic $0$. By contrast $\\kappa((p))=\\mathbb F_p$ at a closed point has characteristic $p$ — different points can have residue fields of different characteristics."
         }
       ],
@@ -134,7 +139,7 @@
           "type": "numeric",
           "q": "Let $R=\\mathbb{Z}[i]=\\mathbb{Z}[x]/(x^2+1)$. The prime $(3)\\subset\\mathbb{Z}$ splits in $R$ as $(3)=(3,i-?)(3,i+?)$ because $x^2+1=(x-1)(x+1)\\pmod{3}$ is incorrect; in fact $x^2+1$ is irreducible mod $3$. How many primes of $R$ lie over $(3)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$x^2+1\\pmod{3}$: checking $x=0,1,2$ gives $1,2,2$ — no root, so $x^2+1$ is irreducible over $\\mathbb{F}_3$. Thus $(3)$ remains prime in $\\mathbb{Z}[i]$ (it is inert), and there is exactly $1$ prime of $\\mathbb{Z}[i]$ above $3$."
         }
       ]
@@ -152,13 +157,15 @@
             "$y=x^2$"
           ],
           "answer": 2,
+          "hint": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$.",
           "explain": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$. The two origins become $0$ and $\\infty$."
         },
         {
           "type": "numeric",
           "q": "How many closed points does $\\mathbb P^1_{\\mathbb F_q}$ have over a finite field $\\mathbb F_q$? Give the answer for $q=5$.",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$.",
           "explain": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$. For $q=5$ that is $5+1=6$ closed points: the $5$ values of $x\\in\\mathbb F_5$ plus the point at infinity."
         },
         {
@@ -171,6 +178,7 @@
             "$\\mathbb P^1_k$ is disconnected"
           ],
           "answer": 1,
+          "hint": "$\\mathbb P^1_k$ is the classic non-affine scheme.",
           "explain": "$\\mathbb P^1_k$ is the classic non-affine scheme. Global sections of $\\mathcal O$ are just $k$ (too few for an affine of positive dimension), yet it is covered by two affine charts $\\mathbb A^1_k$."
         }
       ],
@@ -191,7 +199,7 @@
           "type": "numeric",
           "q": "The projective space $\\mathbb{P}^n_k$ is covered by $n+1$ standard affine charts $D_+(x_i)\\cong\\mathbb{A}^n_k$. For $n=3$, how many affine charts are in the standard cover?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathbb{P}^3_k$ is covered by $D_+(x_0),D_+(x_1),D_+(x_2),D_+(x_3)$, giving $n+1=4$ affine charts."
         },
         {
@@ -228,15 +236,22 @@
         {
           "type": "mcq",
           "q": "The ring $R=k[x,y]/(xy)$ has how many irreducible components when viewed as $\\operatorname{Spec}R$?",
-          "choices": ["0", "1", "2", "infinitely many"],
+          "choices": [
+            "0",
+            "1",
+            "2",
+            "infinitely many"
+          ],
           "answer": 2,
+          "hint": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes.",
           "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\operatorname{Spec}R$ is the union of two irreducible components meeting at the origin."
         },
         {
           "type": "numeric",
           "q": "The ideal $I=(x^2,xy,y^2)\\subset k[x,y]$ has radical $\\sqrt I = (x,y)$. As a $k$-vector space the quotient $k[x,y]/I$ has what dimension (the length of the fat point)?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$.",
           "explain": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$. The reduced point has length $1$, so this is a non-reduced length-$3$ scheme concentrated at the origin."
         }
       ],
@@ -269,7 +284,7 @@
           "type": "numeric",
           "q": "How many minimal primes does $R=\\mathbb Z[x]/(6x) = \\mathbb Z[x]/(2\\cdot 3\\cdot x)$ have? (Equivalently, how many irreducible components does $\\operatorname{Spec}R$ have?)",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "In $\\mathbb Z[x]$, the prime $(6x)=(2)\\cap(3)\\cap(x)$ factors as a meet of three minimal primes over $(6x)$: $(2)$, $(3)$, and $(x)$. In $\\mathbb Z[x]/(6x)$ these become the three minimal primes, so $\\operatorname{Spec}R$ has $3$ irreducible components."
         }
       ]
@@ -281,14 +296,16 @@
           "type": "numeric",
           "q": "What is the Krull dimension of $\\operatorname{Spec} k[x_1,x_2,x_3,x_4]$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$.",
           "explain": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$. For $n=4$ this gives dimension $4$."
         },
         {
           "type": "numeric",
           "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$.",
           "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\operatorname{Spec}\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
         },
         {
@@ -301,6 +318,7 @@
             "the number of generators of the maximal ideal $\\mathfrak m_x$"
           ],
           "answer": 1,
+          "hint": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$.",
           "explain": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$. The global $\\dim X$ is the supremum over closed points (on a finite-type scheme over a field)."
         }
       ],
@@ -309,7 +327,7 @@
           "type": "numeric",
           "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z[x_1,x_2]$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "For a Noetherian ring $A$, $\\dim A[x]=\\dim A + 1$. Starting from $\\dim\\mathbb Z = 1$: $\\dim\\mathbb Z[x_1]=2$, $\\dim\\mathbb Z[x_1,x_2]=3$. A maximal chain is $(0)\\subsetneq(p)\\subsetneq(p,x_1)\\subsetneq(p,x_1,x_2)$ for any prime $p$."
         },
         {
@@ -351,6 +369,7 @@
             "the empty set"
           ],
           "answer": 1,
+          "hint": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$.",
           "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\operatorname{Spec}\\mathbb Z[x]$."
         },
         {
@@ -363,13 +382,15 @@
             "the complement of $Z$ in $\\operatorname{Spec}R$"
           ],
           "answer": 1,
+          "hint": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$.",
           "explain": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$. For $Z=V(\\mathfrak p)$ with $\\mathfrak p$ prime minimal with that property, the generic point is exactly $\\mathfrak p$ itself."
         },
         {
           "type": "numeric",
           "q": "How many generic points does the scheme $\\operatorname{Spec}(k[x,y]/(xy))$ have? (Count minimal primes.)",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes).",
           "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes). Each is the generic point of its component, so the scheme has $2$ generic points."
         }
       ],
@@ -390,7 +411,7 @@
           "type": "numeric",
           "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, what is the maximum length of a specialization chain $\\mathfrak p_0\\subsetneq\\mathfrak p_1\\subsetneq\\cdots\\subsetneq\\mathfrak p_n$? (Give $n$, the number of strict inclusions.)",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\dim\\mathbb Z[x]=2$, achieved by e.g. $(0)\\subsetneq(p)\\subsetneq(p,x-a)$: three primes, two strict inclusions. So the longest specialization chain has length $n=2$."
         },
         {
@@ -420,6 +441,7 @@
             "$\\mathfrak p$ itself as an $R$-module"
           ],
           "answer": 1,
+          "hint": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal.",
           "explain": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal. For a maximal $\\mathfrak p$, $R/\\mathfrak p$ is already a field, but at non-maximal primes you need the fraction field."
         },
         {
@@ -432,13 +454,15 @@
             "$\\mathbb Z[x]$ itself"
           ],
           "answer": 2,
+          "hint": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$.",
           "explain": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$."
         },
         {
           "type": "numeric",
           "q": "At the maximal ideal $\\mathfrak m=(2,x^2+x+1)\\subset\\mathbb Z[x]$, the residue field is $\\mathbb Z[x]/(2,x^2+x+1)\\cong\\mathbb F_2[x]/(x^2+x+1)$. How many elements does $\\kappa(\\mathfrak m)$ have?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible.",
           "explain": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible. Hence $\\kappa(\\mathfrak m)=\\mathbb F_2[x]/(x^2+x+1)=\\mathbb F_4$, a field of $4$ elements."
         }
       ],
@@ -471,7 +495,7 @@
           "type": "numeric",
           "q": "In $\\mathbb Z[x]$, consider the maximal ideal $\\mathfrak m=(p)$ of the height-$1$ prime $(p)\\subset\\mathbb Z[x]$ — i.e. the prime $(p)$ itself, height $1$, not a closed point. The residue field $\\kappa((p))=\\mathbb F_p(x)$. What is its transcendence degree over $\\mathbb F_p$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\kappa((p))=\\operatorname{Frac}(\\mathbb Z[x]/(p))=\\operatorname{Frac}(\\mathbb F_p[x])=\\mathbb F_p(x)$. The transcendence degree of $\\mathbb F_p(x)$ over $\\mathbb F_p$ is $1$ — one transcendental generator $x$. (This matches the intuition that $(p)$ is a 'curve' in $\\operatorname{Spec}\\mathbb Z[x]$.)"
         }
       ]
@@ -489,6 +513,7 @@
             "$\\mathcal O_X$ has global sections equal to $\\mathbb Z$"
           ],
           "answer": 1,
+          "hint": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal).",
           "explain": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal). Stalks being fields is the much stronger condition that defines a 'sheaf of fields', not the right notion for schemes."
         },
         {
@@ -501,6 +526,7 @@
             "$\\mathcal O_{X,x}\\to\\mathcal O_{Y,f(x)}$ is injective"
           ],
           "answer": 1,
+          "hint": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$.",
           "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\operatorname{Spec}$s would not correspond to ring homomorphisms in the right direction."
         },
         {
@@ -513,6 +539,7 @@
             "a topological manifold"
           ],
           "answer": 1,
+          "hint": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$…",
           "explain": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$ (depending on $U$). Globally isomorphic to a single $\\operatorname{Spec}R$ is the stronger 'affine' condition."
         }
       ],
@@ -568,6 +595,7 @@
             "all ideals of $S$ containing $S_+$"
           ],
           "answer": 1,
+          "hint": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$.",
           "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
         },
         {
@@ -580,13 +608,15 @@
             "$\\operatorname{Proj}k$"
           ],
           "answer": 2,
+          "hint": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$.",
           "explain": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$. Formally $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ and the degree-$0$ part of $S_{x_i}$ is generated by $x_j/x_i$ for $j\\ne i$, giving $\\mathbb A^n_k$."
         },
         {
           "type": "numeric",
           "q": "How many standard affine charts cover $\\mathbb P^5_k=\\operatorname{Proj}k[x_0,\\dots,x_5]$?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$.",
           "explain": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$. For $n=5$, that is $6$ charts."
         }
       ],
@@ -619,7 +649,7 @@
           "type": "numeric",
           "q": "The global sections $H^0(\\mathbb P^n_k,\\mathcal O(d))$ for $d\\ge 0$ is the degree-$d$ part of $k[x_0,\\dots,x_n]$. What is $\\dim_k H^0(\\mathbb P^2_k,\\mathcal O(3))$? (Number of degree-$3$ monomials in $3$ variables.)",
           "answer": 10,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The number of degree-$d$ monomials in $n+1$ variables is $\\binom{n+d}{d}$. For $n=2$, $d=3$: $\\binom{5}{3}=10$. The ten monomials are $x_0^3,x_0^2x_1,x_0^2x_2,x_0x_1^2,x_0x_1x_2,x_0x_2^2,x_1^3,x_1^2x_2,x_1x_2^2,x_2^3$."
         }
       ]
@@ -637,6 +667,7 @@
             "the image of $f$ restricted to a neighborhood of $y$"
           ],
           "answer": 1,
+          "hint": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$.",
           "explain": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
         },
         {
@@ -662,6 +693,7 @@
             "the empty subset of $Y$"
           ],
           "answer": 0,
+          "hint": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$.",
           "explain": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
         }
       ],
@@ -670,7 +702,7 @@
           "type": "numeric",
           "q": "Consider $f\\colon\\operatorname{Spec}\\mathbb Z[i]\\to\\operatorname{Spec}\\mathbb Z$. How many closed points does the fiber over $(5)\\in\\operatorname{Spec}\\mathbb Z$ have?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Fiber over $(5)$ is $\\operatorname{Spec}(\\mathbb Z[i]\\otimes_{\\mathbb Z}\\mathbb F_5)=\\operatorname{Spec}\\mathbb F_5[x]/(x^2+1)$. Over $\\mathbb F_5$, $x^2+1=(x-2)(x+2)$ (since $2^2=4\\equiv-1$), so the fiber is $\\operatorname{Spec}(\\mathbb F_5\\times\\mathbb F_5)$: two closed points. ($5$ splits in $\\mathbb Z[i]$.)"
         },
         {

@@ -14,13 +14,15 @@
             "$L$ is positive semidefinite, but the constant vector is not always in $\\ker L$"
           ],
           "answer": 1,
+          "hint": "$L$ is real symmetric, and $f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2 \\ge 0$, so PSD.",
           "explain": "$L$ is real symmetric, and $f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2 \\ge 0$, so PSD. The constant vector $\\mathbf{1}$ has $L\\mathbf{1}=0$ regardless of the graph, since each row sum of $L$ is $d_i - d_i = 0$."
         },
         {
           "type": "numeric",
           "q": "Let $K_5$ be the complete graph on $5$ vertices. What is the largest eigenvalue of the combinatorial Laplacian $L$ of $K_5$?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$).",
           "explain": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$). For $n=5$ the largest eigenvalue is $5$."
         },
         {
@@ -32,7 +34,11 @@
             "$\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$",
             "$\\langle f, Df\\rangle - \\langle f, Af\\rangle$"
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
+          "hint": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$.",
           "explain": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. The unhalved sum (option 3) double-counts each edge."
         }
       ]
@@ -43,8 +49,14 @@
         {
           "type": "mcq",
           "q": "Let $G$ have $n=12$ vertices, and suppose $L_G$ has eigenvalues with $0$ appearing with multiplicity $3$. How many connected components does $G$ have?",
-          "choices": ["1", "2", "3", "12"],
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "12"
+          ],
           "answer": 2,
+          "hint": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components.",
           "explain": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components."
         },
         {
@@ -57,6 +69,7 @@
             "$f$ is orthogonal to $\\mathbf{1}$"
           ],
           "answer": 2,
+          "hint": "$f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$.",
           "explain": "$f^\\top L f = \\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. Vanishing forces $f(i)=f(j)$ across every edge, so $f$ is constant on each component — but components are independent."
         },
         {
@@ -64,6 +77,7 @@
           "q": "A graph $G$ on $10$ vertices is the disjoint union of a triangle, a 4-cycle, and three isolated vertices. What is the multiplicity of $0$ as an eigenvalue of $L_G$?",
           "answer": 5,
           "tol": 0,
+          "hint": "Components: 1 triangle + 1 cycle + 3 isolated vertices = $5$ components, so $\\dim\\ker L = 5$.",
           "explain": "Components: 1 triangle + 1 cycle + 3 isolated vertices = $5$ components, so $\\dim\\ker L = 5$."
         }
       ]
@@ -81,6 +95,7 @@
             "$\\lambda_2 = \\frac{1}{n}\\sum_i f(i)$ for the Fiedler vector $f$"
           ],
           "answer": 1,
+          "hint": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for…",
           "explain": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for connected $G$)."
         },
         {
@@ -93,13 +108,15 @@
             "A cycle $C_4$ with one edge deleted, plus an isolated vertex"
           ],
           "answer": 1,
+          "hint": "$\\lambda_2 > 0 \\iff G$ is connected.",
           "explain": "$\\lambda_2 > 0 \\iff G$ is connected. The path $P_5$ is connected (so $\\lambda_2>0$); the others are disconnected, so $\\lambda_2 = 0$."
         },
         {
           "type": "numeric",
           "q": "What is the algebraic connectivity $\\lambda_2$ of the complete graph $K_4$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$).",
           "explain": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$). For $K_4$ the second-smallest eigenvalue is $4$."
         }
       ]
@@ -117,6 +134,7 @@
             "$h(G) = \\lambda_2$ exactly"
           ],
           "answer": 1,
+          "hint": "Cheeger gives the two-sided bound $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$.",
           "explain": "Cheeger gives the two-sided bound $\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d\\, \\lambda_2}$. The lower bound is easy; the upper bound is the sweep-cut argument and is the source of all spectral approximation algorithms for sparsest cut."
         },
         {
@@ -129,6 +147,7 @@
             "It implies $h(G)$ is always rational"
           ],
           "answer": 1,
+          "hint": "Computing $h(G)$ exactly is NP-hard.",
           "explain": "Computing $h(G)$ exactly is NP-hard. Cheeger's upper bound is constructive — the sweep-cut algorithm — and gives a polynomial-time approximation factor of $\\sqrt{2d/\\lambda_2}$, the prototype for spectral approximation."
         },
         {
@@ -140,7 +159,12 @@
             "Small $\\lambda_2$ implies small $h(G)$",
             "$h(G)$ is always at least $\\sqrt{\\lambda_2}$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Both directions are equivalent characterisations of disconnection (item 1).",
           "explain": "Both directions are equivalent characterisations of disconnection (item 1). Item 2 follows from the lower bound; item 3 from the upper bound. Item 4 is a wrong rearrangement: the lower bound is $\\lambda_2/2 \\le h(G)$, not $\\sqrt{\\lambda_2} \\le h(G)$."
         }
       ]
@@ -158,6 +182,7 @@
             "Concentrated on the highest-degree vertex"
           ],
           "answer": 0,
+          "hint": "For a $d$-regular graph all $d_i = d$, so $\\pi_i = d_i/(2|E|) = d/(nd) = 1/n$.",
           "explain": "For a $d$-regular graph all $d_i = d$, so $\\pi_i = d_i/(2|E|) = d/(nd) = 1/n$. The general formula is $\\pi_i = d_i/(2|E|)$, which specialises to uniform in the regular case."
         },
         {
@@ -170,6 +195,7 @@
             "$\\nu_n / \\nu_2$"
           ],
           "answer": 2,
+          "hint": "The transition matrix $P$ has eigenvalues $1-\\nu_k\\in[-1,1]$.",
           "explain": "The transition matrix $P$ has eigenvalues $1-\\nu_k\\in[-1,1]$. The slowest non-trivial decay is the largest of $|1-\\nu_2|=1-\\nu_2$ and $|1-\\nu_n|=\\nu_n-1$, so the spectral gap is $1$ minus that maximum, namely $\\min(\\nu_2,\\,2-\\nu_n)$."
         },
         {
@@ -181,7 +207,11 @@
             "The graph has many triangles",
             "The graph has high maximum degree"
           ],
-          "answer": [0, 1],
+          "answer": [
+            0,
+            1
+          ],
+          "hint": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation).",
           "explain": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation). Triangle counts and degree alone do not dictate mixing speed."
         }
       ]
@@ -199,6 +229,7 @@
             "$G$ is an expander"
           ],
           "answer": 1,
+          "hint": "$\\nu_n = 2 \\iff G$ is bipartite.",
           "explain": "$\\nu_n = 2 \\iff G$ is bipartite. The corresponding eigenvector is $D^{1/2}\\mathbf{1}_L - D^{1/2}\\mathbf{1}_R$ for the bipartition $V = L\\sqcup R$."
         },
         {
@@ -211,6 +242,7 @@
             "$\\lambda_2(A)$ can be made arbitrarily close to $0$ in a regular family"
           ],
           "answer": 1,
+          "hint": "Alon–Boppana: any infinite family of $d$-regular graphs has $\\liminf_n \\lambda_2(A_{G_n}) \\ge 2\\sqrt{d-1}$.",
           "explain": "Alon–Boppana: any infinite family of $d$-regular graphs has $\\liminf_n \\lambda_2(A_{G_n}) \\ge 2\\sqrt{d-1}$. Graphs that achieve $|\\lambda_2(A)| \\le 2\\sqrt{d-1}$ are called Ramanujan — they essentially saturate this bound."
         },
         {
@@ -222,7 +254,12 @@
             "Random walks mix in $O(\\log n)$ steps",
             "The graph is a complete graph"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time.",
           "explain": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time. Complete graphs $K_n$ have great mixing but are not sparse — they are not expanders in the asymptotic sense."
         }
       ]
@@ -240,6 +277,7 @@
             "All $n$ eigenvectors"
           ],
           "answer": 1,
+          "hint": "The standard recipe (Shi–Malik / Ng–Jordan–Weiss): take the eigenvectors at the bottom $k$ eigenvalues.",
           "explain": "The standard recipe (Shi–Malik / Ng–Jordan–Weiss): take the eigenvectors at the bottom $k$ eigenvalues. Each row of the resulting $n\\times k$ matrix is a vertex's coordinates in $\\mathbb{R}^k$, then $k$-means is run on the rows."
         },
         {
@@ -252,6 +290,7 @@
             "Eigenvalues count cluster size"
           ],
           "answer": 1,
+          "hint": "When the graph is the disjoint union of $k$ components, $\\dim\\ker L = k$ and component indicators span the kernel.",
           "explain": "When the graph is the disjoint union of $k$ components, $\\dim\\ker L = k$ and component indicators span the kernel. Adding a few cross-cluster edges perturbs these eigenvectors only slightly, so the embedding still maps each cluster to a tight blob — exactly what $k$-means picks up."
         },
         {
@@ -264,6 +303,7 @@
             "The graph is regular"
           ],
           "answer": 1,
+          "hint": "The eigengap heuristic: a large gap after the $k$-th eigenvalue indicates that the bottom $k$ eigenvalues form a coherent group close to $0$, signalling a $k$-cluster structure.",
           "explain": "The eigengap heuristic: a large gap after the $k$-th eigenvalue indicates that the bottom $k$ eigenvalues form a coherent group close to $0$, signalling a $k$-cluster structure. It is heuristic, not a theorem, but remarkably reliable."
         }
       ]

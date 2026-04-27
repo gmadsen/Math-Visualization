@@ -14,20 +14,23 @@
             "partition numbers $p(n)$"
           ],
           "answer": 1,
+          "hint": "Each term $q^{n^2/2}$ comes from the vector $n\\in\\mathbb{Z}$ with squared norm $n^2$, so $\\theta$ counts lattice points by squared norm.",
           "explain": "Each term $q^{n^2/2}$ comes from the vector $n\\in\\mathbb{Z}$ with squared norm $n^2$, so $\\theta$ counts lattice points by squared norm."
         },
         {
           "type": "numeric",
           "q": "Evaluate the number $r_1(4)$ of ways to write $4=n^2$ with $n\\in\\mathbb{Z}$ (signs counted).",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "Only $n=\\pm 2$ gives $n^2=4$, so $r_1(4)=2$.",
           "explain": "Only $n=\\pm 2$ gives $n^2=4$, so $r_1(4)=2$."
         },
         {
           "type": "numeric",
           "q": "For $\\theta^2(\\tau)=\\sum_m r_2(m) q^{m/2}$, compute $r_2(1)$, the number of integer pairs $(a,b)$ with $a^2+b^2=1$.",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "The solutions are $(\\pm 1,0)$ and $(0,\\pm 1)$, giving $r_2(1)=4$.",
           "explain": "The solutions are $(\\pm 1,0)$ and $(0,\\pm 1)$, giving $r_2(1)=4$."
         }
       ],
@@ -49,7 +52,7 @@
           "type": "numeric",
           "q": "The number of ways to write an integer $m$ as a sum of two squares satisfies $r_2(m)=4(d_1(m)-d_3(m))$ where $d_k(m)$ counts divisors $\\equiv k\\pmod{4}$. Compute $r_2(5)$.",
           "answer": 8,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Count divisors of $m$ by residue class modulo $4$.",
           "explain": "Divisors of $5$: $1$ and $5$. We have $1\\equiv 1\\pmod{4}$ and $5\\equiv 1\\pmod{4}$, so $d_1(5)=2$, $d_3(5)=0$. Thus $r_2(5)=4(2-0)=8$. Direct check: $(\\pm 1,\\pm 2)$ and $(\\pm 2,\\pm 1)$ give $8$ pairs."
         },
@@ -57,7 +60,7 @@
           "type": "numeric",
           "q": "The rank-$2$ integer lattice $\\mathbb{Z}^2$ has theta series $\\theta^2(\\tau)$. Compute the coefficient $r_2(2)$ — the number of integer pairs $(a,b)$ with $a^2+b^2=2$.",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Four unit vectors $(\\pm 1, 0)$ and $(0, \\pm 1)$ contribute, plus reflections.",
           "explain": "Solutions: $(\\pm 1,\\pm 1)$, giving $4$ pairs. Note $r_2(1)=4$ as well (unit circle), but $r_2(2)=4$ comes from the diagonal vectors."
         }
@@ -76,13 +79,15 @@
             "because the terms eventually vanish"
           ],
           "answer": 1,
+          "hint": "On $\\mathcal{H}$, $|q|=e^{-2\\pi\\operatorname{Im}\\tau}<1$, so $|q^{n^2/2}|=e^{-\\pi n^2\\operatorname{Im}\\tau}$ decays faster than any geometric rate.",
           "explain": "On $\\mathcal{H}$, $|q|=e^{-2\\pi\\operatorname{Im}\\tau}<1$, so $|q^{n^2/2}|=e^{-\\pi n^2\\operatorname{Im}\\tau}$ decays faster than any geometric rate. The resulting sum is absolutely and uniformly convergent on horizontal strips $\\operatorname{Im}\\tau\\ge\\varepsilon$."
         },
         {
           "type": "numeric",
           "q": "In the $q$-expansion $\\theta(\\tau)=\\sum_{m\\ge 0}r_1^*(m) q^{m/2}$, compute the coefficient $r_1^*(4)$, i.e. $\\#\\{n\\in\\mathbb{Z}:n^2=4\\}$.",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "The equation $n^2=4$ is solved by $n=\\pm 2$, giving $r_1^*(4)=2$.",
           "explain": "The equation $n^2=4$ is solved by $n=\\pm 2$, giving $r_1^*(4)=2$. The integer $m=4$ is a perfect square, so the coefficient is $2$; non-squares contribute $0$."
         },
         {
@@ -95,6 +100,7 @@
             "$\\theta(\\tau+\\pi)=\\theta(\\tau)$"
           ],
           "answer": 1,
+          "hint": "$\\theta(\\tau+2)=\\theta(\\tau)$ because $e^{\\pi i n^2\\cdot 2}=1$ for every $n$.",
           "explain": "$\\theta(\\tau+2)=\\theta(\\tau)$ because $e^{\\pi i n^2\\cdot 2}=1$ for every $n$. Under $\\tau\\mapsto\\tau+1$ the $n=1$ term picks up $e^{\\pi i}=-1$, so the period is $2$, not $1$."
         }
       ],
@@ -148,6 +154,7 @@
             "$\\theta(-1/\\tau)=\\tau\\,\\theta(\\tau)$"
           ],
           "answer": 1,
+          "hint": "Poisson summation applied to the Gaussian $e^{\\pi i n^2\\tau}$ yields $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$, with the principal branch of the square root.",
           "explain": "Poisson summation applied to the Gaussian $e^{\\pi i n^2\\tau}$ yields $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$, with the principal branch of the square root."
         },
         {
@@ -160,13 +167,15 @@
             "Stirling's approximation"
           ],
           "answer": 1,
+          "hint": "Poisson summation turns $\\sum_n f(n)$ into $\\sum_k\\hat f(k)$; applied to the Gaussian $f(x)=e^{\\pi i x^2\\tau}$ it exchanges $\\tau$ with $-1/\\tau$.",
           "explain": "Poisson summation turns $\\sum_n f(n)$ into $\\sum_k\\hat f(k)$; applied to the Gaussian $f(x)=e^{\\pi i x^2\\tau}$ it exchanges $\\tau$ with $-1/\\tau$."
         },
         {
           "type": "numeric",
           "q": "On the imaginary axis $\\tau=iy$, the identity becomes $\\theta(i/y)=\\sqrt{y}\\,\\theta(iy)$. Taking $y=1$, evaluate the multiplier $\\sqrt{y}$.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "At $y=1$ the multiplier is $\\sqrt{1}=1$, and indeed $\\theta(i)=\\theta(i)$ is a consistent fixed point.",
           "explain": "At $y=1$ the multiplier is $\\sqrt{1}=1$, and indeed $\\theta(i)=\\theta(i)$ is a consistent fixed point."
         }
       ],
@@ -188,7 +197,7 @@
           "type": "numeric",
           "q": "The transformation law $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$ applied twice gives $\\theta(\\tau)=c\\cdot\\theta(\\tau)$ for some constant $c$. Compute $c$.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Iterating twice should give the original back, which constrains the multiplier.",
           "explain": "Apply the law to $\\tau$: $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$. Now apply it to $-1/\\tau$: $\\theta(\\tau)=\\sqrt{-i(-1/\\tau)}\\,\\theta(-1/\\tau)=\\sqrt{i/\\tau}\\cdot\\sqrt{-i\\tau}\\,\\theta(\\tau)=\\sqrt{1}\\,\\theta(\\tau)$. So $c=1$, consistent with $(S^2=-I)$ having finite order in $\\mathrm{SL}_2(\\mathbb{Z})$."
         },
@@ -196,7 +205,7 @@
           "type": "numeric",
           "q": "Using the transformation law on the imaginary axis: $\\theta(i/y)=\\sqrt{y}\\,\\theta(iy)$. At $y=9$, compute the multiplier $\\sqrt{y}$.",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Compute $\\sqrt{9} = 3$.",
           "explain": "$\\sqrt{y}=\\sqrt{9}=3$, so $\\theta(i/9)=3\\,\\theta(9i)$. Since $\\theta(9i)$ is extremely close to $1$ (the Gaussian terms decay as $e^{-9\\pi n^2}$), this shows how the functional equation relates a slow-decaying theta near $0$ to a fast-decaying one near $i\\infty$."
         }
@@ -215,20 +224,23 @@
             "$\\Delta=\\eta^{48}$"
           ],
           "answer": 1,
+          "hint": "$\\Delta(\\tau)=\\eta(\\tau)^{24}=q\\prod_{n\\ge 1}(1-q^n)^{24}$ is the first cusp form of weight $12$ on $\\mathrm{SL}_2(\\mathbb{Z})$.",
           "explain": "$\\Delta(\\tau)=\\eta(\\tau)^{24}=q\\prod_{n\\ge 1}(1-q^n)^{24}$ is the first cusp form of weight $12$ on $\\mathrm{SL}_2(\\mathbb{Z})$. Its Fourier coefficients are Ramanujan's $\\tau(n)$."
         },
         {
           "type": "numeric",
           "q": "The eta function satisfies the modular transformation $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$. On the imaginary axis $\\tau=iy$, the multiplier $\\sqrt{-i(iy)}=\\sqrt{y}$ at $y=4$ equals what?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$\\sqrt{y}=\\sqrt{4}=2$ at $y=4$, so $\\eta(i/4)=2\\,\\eta(4i)$.",
           "explain": "$\\sqrt{y}=\\sqrt{4}=2$ at $y=4$, so $\\eta(i/4)=2\\,\\eta(4i)$. This is the eta version of the Jacobi transformation law; the same Poisson-summation argument drives both."
         },
         {
           "type": "numeric",
           "q": "Expanding $\\Delta(\\tau)=\\eta(\\tau)^{24}=\\sum_{n\\ge 1}\\tau(n)\\,q^n$, what is Ramanujan's $\\tau(2)$?",
           "answer": -24,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "Ramanujan's tau function begins $\\tau(1)=1,\\ \\tau(2)=-24,\\ \\tau(3)=252,\\ \\tau(4)=-1472,\\ldots$ The $-24$ comes from the constant…",
           "explain": "Ramanujan's tau function begins $\\tau(1)=1,\\ \\tau(2)=-24,\\ \\tau(3)=252,\\ \\tau(4)=-1472,\\ldots$ The $-24$ comes from the constant $-24$ in the expansion of $(1-q)^{24}=1-24q+\\ldots$"
         }
       ],
@@ -237,7 +249,7 @@
           "type": "numeric",
           "q": "Ramanujan's tau function satisfies $\\tau(1)=1$, $\\tau(2)=-24$, $\\tau(3)=252$. Using multiplicativity $\\tau(6)=\\tau(2)\\tau(3)$, compute $\\tau(6)$.",
           "answer": -6048,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Multiplicativity is only true for coprime arguments.",
           "explain": "$\\tau(6)=\\tau(2)\\cdot\\tau(3)=(-24)(252)=-6048$. Multiplicativity holds because $\\Delta$ is a Hecke eigenform on $\\mathrm{SL}_2(\\mathbb{Z})$ and $\\gcd(2,3)=1$."
         },
@@ -258,7 +270,7 @@
           "type": "numeric",
           "q": "The discriminant $\\Delta(\\tau)=\\eta(\\tau)^{24}$ has weight $12$. If a modular form $f$ of weight $12$ on $\\mathrm{SL}_2(\\mathbb{Z})$ is a cusp form, then $f=c\\Delta$ for some constant $c$. Given $\\Delta=\\sum\\tau(n)q^n$ and that $\\tau(1)=1$, what is the constant $c$ for $f=\\Delta$ itself?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "The space $S_{12}$ is one-dimensional, so $f$ is a scalar multiple of $\\Delta$.",
           "explain": "The space $S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))$ is one-dimensional. The unique normalised cusp form is $\\Delta$ with leading coefficient $\\tau(1)=1$, so $c=1$."
         }
@@ -277,20 +289,23 @@
             "$\\sum_{n\\ge 0}(-1)^n q^{n(3n-1)/2}$"
           ],
           "answer": 1,
+          "hint": "This is the classical Jacobi triple product, turning the bilateral sum into a product over three factors per $n$.",
           "explain": "This is the classical Jacobi triple product, turning the bilateral sum into a product over three factors per $n$."
         },
         {
           "type": "numeric",
           "q": "In the $q$-expansion $\\prod_{n\\ge 1}(1-q^n) = \\sum_{k\\in\\mathbb{Z}}(-1)^k q^{k(3k-1)/2}$ (Euler's pentagonal number theorem), compute the coefficient of $q^1$.",
           "answer": -1,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "The pentagonal numbers begin $0,1,2,5,7,\\ldots$, and $k=1$ contributes $(-1)^1 q^{1}=-q$, so $[q^1]=-1$.",
           "explain": "The pentagonal numbers begin $0,1,2,5,7,\\ldots$, and $k=1$ contributes $(-1)^1 q^{1}=-q$, so $[q^1]=-1$."
         },
         {
           "type": "numeric",
           "q": "Setting $z=1$ in Jacobi's triple product gives $\\theta_3(\\tau)=\\sum_{n\\in\\mathbb{Z}} q^{n^2/2}$. Compute the coefficient of $q^{0}$ on the sum side.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "Only $n=0$ contributes to the $q^0$ term in $\\sum_n q^{n^2/2}$, giving coefficient $1$.",
           "explain": "Only $n=0$ contributes to the $q^0$ term in $\\sum_n q^{n^2/2}$, giving coefficient $1$."
         }
       ],
@@ -312,7 +327,7 @@
           "type": "numeric",
           "q": "In Euler's pentagonal number theorem $\\prod_{n\\ge 1}(1-q^n)=\\sum_{k\\in\\mathbb{Z}}(-1)^k q^{k(3k-1)/2}$, the pentagonal number for $k=-1$ is $k(3k-1)/2=(-1)(-4)/2=2$. What is the signed contribution of the $k=-1$ term to the coefficient of $q^2$ in the expansion?",
           "answer": -1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Substitute $k = 3$: $g_3 = 3 \\cdot 8 / 2$.",
           "explain": "$k=-1$: exponent $= (-1)(3\\cdot(-1)-1)/2 = (-1)(-4)/2 = 2$; sign $= (-1)^{-1} = -1$. No other value of $k$ produces exponent $2$ (the next pentagonal numbers are $0,1,2,5,7,\\ldots$), so the coefficient of $q^2$ in $\\prod(1-q^n)$ is $-1$."
         },

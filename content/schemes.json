@@ -839,7 +839,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./sheaves.html#omod\">Sheaves</a> · Ringed spaces and $\\mathcal{O}_X$-modules</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-spaces.html#why-algebraic-spaces\">Algebraic spaces</a> · Why schemes aren't enough</div>\n    <div><a href=\"./sheaves.html#omod\">Sheaves</a> · Ringed spaces and $\\mathcal{O}_X$-modules</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -26,13 +26,15 @@
             "unrelated in general"
           ],
           "answer": 2,
+          "hint": "Any two primes above $p$ are related by an element of $G$ (Galois acts transitively on primes above $p$), and conjugating the prime conjugates the Frobenius.",
           "explain": "Any two primes above $p$ are related by an element of $G$ (Galois acts transitively on primes above $p$), and conjugating the prime conjugates the Frobenius. So $\\mathrm{Frob}_p$ is a well-defined conjugacy class in $G$."
         },
         {
           "type": "numeric",
           "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), a prime $p$ with factorisation $\\bar f(x)\\bmod p=(\\deg 2)\\cdot(\\deg 1)$ has Frobenius of cycle shape a single transposition. What is the order of $\\mathrm{Frob}_p$ in $S_3$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "A transposition in $S_3$ has order $2$: applying it twice returns the identity.",
           "explain": "A transposition in $S_3$ has order $2$: applying it twice returns the identity."
         }
       ],
@@ -67,7 +69,7 @@
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}(\\sqrt{-23})$, the ring of integers is a non-UFD with class number $3$. The prime $p=2$ has $\\mathrm{Frob}_2$ of order $3$ in $\\mathrm{Gal}(K/\\mathbb{Q})\\cong\\mathbb{Z}/2\\mathbb{Z}$... but wait: this is a degree-$2$ extension so $|G|=2$. Instead consider the Hilbert class field $H/\\mathbb{Q}$ of $K$, which has $\\mathrm{Gal}(H/\\mathbb{Q})\\cong S_3$ and degree $6$. What is the order of $\\mathrm{Frob}_2$ in $S_3$ if $2$ has residue degree $f=3$ in $H/\\mathbb{Q}$?",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Order of Frobenius equals the residue degree $f$ of the prime.",
           "explain": "The Frobenius $\\mathrm{Frob}_2\\in S_3$ generates the decomposition group $D(\\mathfrak{P})\\cong\\mathbb{Z}/f\\mathbb{Z}=\\mathbb{Z}/3\\mathbb{Z}$. An element of order $3$ in $S_3$ is a $3$-cycle, so $\\mathrm{ord}(\\mathrm{Frob}_2)=3$."
         }
@@ -86,13 +88,15 @@
             "$r$ and $f$ can depend on the chosen prime $\\mathfrak{P}_i$"
           ],
           "answer": 1,
+          "hint": "In a Galois extension $G$ acts transitively on primes above $p$, so $r$ and $f$ are the same for every $\\mathfrak{P}_i$, and the degree formula $\\sum e_i f_i = n$ collapses (with $e_i=1$) to $rf=n$.",
           "explain": "In a Galois extension $G$ acts transitively on primes above $p$, so $r$ and $f$ are the same for every $\\mathfrak{P}_i$, and the degree formula $\\sum e_i f_i = n$ collapses (with $e_i=1$) to $rf=n$."
         },
         {
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}(\\zeta_7)$, $[K:\\mathbb{Q}]=6$, a prime $p$ that is inert in $K$ has splitting type $(r,f)=(1,6)$. If instead $p$ splits into $r=3$ primes, what is the common residue degree $f$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$rf=n$ with $n=6$, $r=3$ forces $f=2$.",
           "explain": "$rf=n$ with $n=6$, $r=3$ forces $f=2$."
         },
         {
@@ -105,6 +109,7 @@
             "$(6)$"
           ],
           "answer": 2,
+          "hint": "Completely split means Frobenius is the identity, which acts on the three roots with cycle shape $(1,1,1)$.",
           "explain": "Completely split means Frobenius is the identity, which acts on the three roots with cycle shape $(1,1,1)$."
         }
       ],
@@ -126,7 +131,7 @@
           "type": "numeric",
           "q": "Let $K/\\mathbb{Q}$ be the splitting field of $x^4-2$ with Galois group $D_4$ of order $8$. A prime $p$ splits into $r=4$ distinct primes in $\\mathcal{O}_K$, each with ramification index $e=1$. What is the residue degree $f$ of each prime above $p$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Use $ref = |G|$ with $e=1$ and $r=4$.",
           "explain": "The degree formula gives $ref=|G|=8$. With $r=4$ and $e=1$, we get $f=8/(4\\cdot 1)=2$."
         },
@@ -158,13 +163,15 @@
             "the kernel of the reduction map $\\mathcal{O}_K\\to\\mathcal{O}_K/\\mathfrak{P}$"
           ],
           "answer": 1,
+          "hint": "By definition $D(\\mathfrak{P})$ is the stabiliser of $\\mathfrak{P}$ under the $G$-action on primes above $p$; its order is $ef=|G|/r$.",
           "explain": "By definition $D(\\mathfrak{P})$ is the stabiliser of $\\mathfrak{P}$ under the $G$-action on primes above $p$; its order is $ef=|G|/r$."
         },
         {
           "type": "numeric",
           "q": "In a Galois extension of degree $n=12$ where a prime $p$ has $r=3$ primes above it with ramification index $e=2$ and residue degree $f=2$, what is $|D(\\mathfrak{P})|$?",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$|D(\\mathfrak{P})|=ef=2\\cdot 2=4$; equivalently $n/r=12/3=4$.",
           "explain": "$|D(\\mathfrak{P})|=ef=2\\cdot 2=4$; equivalently $n/r=12/3=4$."
         },
         {
@@ -177,6 +184,7 @@
             "$I(\\mathfrak{P})$ has order $f$"
           ],
           "answer": 1,
+          "hint": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does,…",
           "explain": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does, $D/I\\cong\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$ is generated by Frobenius."
         }
       ],
@@ -211,7 +219,7 @@
           "type": "numeric",
           "q": "In the Galois closure of $\\mathbb{Q}(\\sqrt[3]{2})$ over $\\mathbb{Q}$, the Galois group is $S_3$ of order $6$. A prime $p\\equiv 1\\pmod 3$ and $p\\nmid 2$ splits into $r=3$ primes above it in $\\mathbb{Q}(\\sqrt[3]{2})$ (degree $3$). What is the order of $\\mathrm{Frob}_p$ in the Galois closure $L/\\mathbb{Q}$ (with group $S_3$) if $p$ also splits completely in $L$?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Complete splitting means $r=|G|$ and Frobenius is trivial.",
           "explain": "Splitting completely in $L/\\mathbb{Q}$ means $\\mathrm{Frob}_p=\\mathrm{id}$, which has order $1$. Complete splitting in the Galois closure is equivalent to $p$ splitting into $[L:\\mathbb{Q}]=6$ distinct primes in $\\mathcal{O}_L$."
         }
@@ -230,6 +238,7 @@
             "$1/|C|$"
           ],
           "answer": 1,
+          "hint": "The natural density of unramified primes whose Frobenius class is $C$ is exactly $|C|/|G|$; every conjugacy class is hit by a positive fraction determined by its size.",
           "explain": "The natural density of unramified primes whose Frobenius class is $C$ is exactly $|C|/|G|$; every conjugacy class is hit by a positive fraction determined by its size."
         },
         {
@@ -237,13 +246,15 @@
           "q": "For $f(x)=x^3-x-1$ with $G=S_3$, Chebotarev predicts the density of primes $p$ that split completely (Frobenius = identity). Express this density as a decimal (to $4$ places).",
           "answer": 0.16666666666666666,
           "tol": 0.001,
+          "hint": "The identity is one conjugacy class of size $1$ in $|S_3|=6$, giving density $1/6\\approx 0.1667$.",
           "explain": "The identity is one conjugacy class of size $1$ in $|S_3|=6$, giving density $1/6\\approx 0.1667$."
         },
         {
           "type": "numeric",
           "q": "Same $f$, same $G=S_3$: what fraction of primes have $\\mathrm{Frob}_p$ a transposition (cycle shape $(2,1)$)?",
           "answer": 0.5,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "Transpositions form a conjugacy class of size $3$ in $S_3$, so density $3/6=1/2$.",
           "explain": "Transpositions form a conjugacy class of size $3$ in $S_3$, so density $3/6=1/2$."
         }
       ],
@@ -252,7 +263,7 @@
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}(\\zeta_{11})$ with $G=\\mathrm{Gal}(K/\\mathbb{Q})\\cong(\\mathbb{Z}/11)^\\times\\cong\\mathbb{Z}/10\\mathbb{Z}$, Chebotarev predicts the density of primes $p$ with $\\mathrm{Frob}_p$ of exact order $5$ in $G$. How many elements of $(\\mathbb{Z}/11)^\\times$ have order $5$? (Give the count as an integer.)",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Elements of exact order $5$ in $\\mathbb{Z}/10\\mathbb{Z}$ are those coprime-to-$5$-times-$2$.",
           "explain": "In $\\mathbb{Z}/10\\mathbb{Z}$ the elements of order $5$ are $\\{2,4,6,8\\}$ (those $a$ with $\\gcd(a,10)=2$, i.e. $5a\\equiv 0\\pmod{10}$ but $a\\not\\equiv 0$). There are $\\phi(5)=4$ such elements. By Chebotarev, density $=4/10=2/5$."
         },
@@ -297,6 +308,7 @@
             "the trivial group"
           ],
           "answer": 1,
+          "hint": "The Kronecker–Weber theorem embeds every abelian $K$ into a cyclotomic field $\\mathbb{Q}(\\zeta_N)$, whose Galois group is $(\\mathbb{Z}/N)^\\times$.",
           "explain": "The Kronecker–Weber theorem embeds every abelian $K$ into a cyclotomic field $\\mathbb{Q}(\\zeta_N)$, whose Galois group is $(\\mathbb{Z}/N)^\\times$. So Frobenius depends only on $p\\bmod N$."
         },
         {
@@ -309,13 +321,15 @@
             "$a_p(\\pi_\\rho)=p$ for all unramified $p$"
           ],
           "answer": 1,
+          "hint": "The slogan is: the Frobenius trace on the Galois side equals the $p$-th Fourier coefficient of an automorphic form on the other side, at every unramified prime.",
           "explain": "The slogan is: the Frobenius trace on the Galois side equals the $p$-th Fourier coefficient of an automorphic form on the other side, at every unramified prime."
         },
         {
           "type": "numeric",
           "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), the associated weight-1 cusp form $\\eta(z)\\eta(23z)=\\sum a_n q^n$ has $a_p=2$ exactly when $p$ splits completely. For such a splitting prime $p$, what is $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$ where $\\rho$ is the standard $2$-dim representation of $S_3$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$.",
           "explain": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$. This matches $a_p=2$ for the modular form, illustrating $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=a_p$."
         }
       ],

@@ -20,7 +20,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./elementary-topos-theory.html#presheaf-topos\">Elementary topos theory</a> · Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#grothendieck-topology\">Grothendieck topologies and sites</a> · Grothendieck topology axioms</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./elementary-topos-theory.html#presheaf-topos\">Elementary topos theory</a> · Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathbf{Set}]$</div>\n    <div><a href=\"./elementary-topos-theory.html#subobject-classifier\">Elementary topos theory</a> · The subobject classifier $\\Omega$</div>\n    <div><a href=\"./grothendieck-topologies-sites.html#grothendieck-topology\">Grothendieck topologies and sites</a> · Grothendieck topology axioms</div>\n    <div><a href=\"./heyting-algebras-toposes.html#omega-heyting\">Heyting algebras and toposes</a> · $\\Omega$ as an internal Heyting algebra</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

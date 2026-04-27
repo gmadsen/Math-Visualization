@@ -11,18 +11,18 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 39 | 42 | 3 | 6 | 0.077 |
-| Algebra & homological | 78 | 107 | 9 | 55 | 0.115 |
-| Higher categories & toposes | 45 | 66 | 22 | 2 | 0.489 |
-| Analysis | 107 | 153 | 14 | 27 | 0.131 |
-| Probability & statistics | 17 | 15 | 7 | 7 | 0.412 |
-| Geometry & topology | 51 | 58 | 6 | 46 | 0.118 |
-| Number theory | 73 | 94 | 25 | 21 | 0.342 |
-| Modular forms & L-functions | 74 | 94 | 44 | 6 | 0.595 |
-| Algebraic geometry | 109 | 137 | 42 | 14 | 0.385 |
-| Combinatorics & graph theory | 34 | 28 | 12 | 0 | 0.353 |
+| Logic & Foundations | 49 | 56 | 4 | 10 | 0.082 |
+| Algebra & homological | 78 | 107 | 9 | 61 | 0.115 |
+| Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
+| Analysis | 107 | 166 | 16 | 30 | 0.150 |
+| Probability & statistics | 22 | 22 | 9 | 8 | 0.409 |
+| Geometry & topology | 51 | 60 | 6 | 48 | 0.118 |
+| Number theory | 73 | 96 | 25 | 22 | 0.342 |
+| Modular forms & L-functions | 74 | 94 | 47 | 6 | 0.635 |
+| Algebraic geometry | 109 | 138 | 47 | 14 | 0.431 |
+| Combinatorics & graph theory | 34 | 28 | 16 | 1 | 0.471 |
 
-## EMPTY — concepts with no prereqs (21)
+## EMPTY — concepts with no prereqs (15)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -34,11 +34,7 @@ at brand-new progress alongside genuine entry points like
 |---|---|---|
 | analytic-number-theory | `analytic-number-theory-intro` | Intro |
 | characteristic-classes | `characteristic-classes-intro` | Intro |
-| complexity-theory | `complexity-theory-intro` | Intro |
 | enumerative-combinatorics | `enumerative-combinatorics-intro` | Intro |
-| extremal-combinatorics | `sperner-lym` | Sperner's theorem and the LYM inequality |
-| extremal-combinatorics | `turan-theorem` | Turán's theorem and the Turán graph |
-| forcing-and-independence | `forcing-and-independence-intro` | Intro |
 | galois-cohomology-and-brauer | `galois-cohomology-and-brauer-intro` | Intro |
 | harmonic-functions | `harmonic-functions-intro` | Intro |
 | information-theory | `information-theory-intro` | Intro |
@@ -47,8 +43,6 @@ at brand-new progress alongside genuine entry points like
 | modular-curves | `modular-curves-intro` | Intro |
 | morse-theory | `morse-theory-intro` | Intro |
 | partial-differential-equations | `partial-differential-equations-intro` | Intro |
-| random-walks-and-mixing | `random-walks-and-mixing-intro` | Intro |
-| simplicial-complexes-combinatorial | `abstract-simplicial-complex` | Abstract simplicial complexes |
 | spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 | spectral-theory | `spectral-theory-intro` | Intro |
 | stochastic-calculus | `stochastic-calculus-intro` | Intro |

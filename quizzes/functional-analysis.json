@@ -14,6 +14,7 @@
             "the unit ball is compact"
           ],
           "answer": 2,
+          "hint": "A Banach space is a normed vector space in which every Cauchy sequence converges.",
           "explain": "A Banach space is a normed vector space in which every Cauchy sequence converges. Inner products give Hilbert spaces; compact unit balls characterize finite-dimensional normed spaces."
         },
         {
@@ -26,13 +27,15 @@
             "$\\|\\alpha x\\|=|\\alpha|\\|x\\|$"
           ],
           "answer": 1,
+          "hint": "The Jordan–von Neumann theorem: a norm comes from an inner product iff it obeys the parallelogram law.",
           "explain": "The Jordan–von Neumann theorem: a norm comes from an inner product iff it obeys the parallelogram law. The inner product is then recovered by polarization."
         },
         {
           "type": "numeric",
           "q": "In $\\ell^2$, compute $\\|x\\|_2$ for $x=(1,2,2,0,0,\\ldots)$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$.",
           "explain": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$."
         }
       ],
@@ -65,7 +68,7 @@
           "type": "numeric",
           "q": "Let $e_1,e_2\\in\\ell^2$ be the first two standard basis vectors. Using the polarization identity $\\langle x,y\\rangle=\\tfrac{1}{4}(\\|x+y\\|^2-\\|x-y\\|^2)$ (real case), compute $\\langle e_1+2e_2,\\, 3e_1-e_2\\rangle$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\langle e_1+2e_2,3e_1-e_2\\rangle=1\\cdot 3+2\\cdot(-1)=3-2=1$. Verify with polarization: $\\|x+y\\|^2=\\|(4e_1+e_2)\\|^2=17$, $\\|x-y\\|^2=\\|(-2e_1+3e_2)\\|^2=13$; $(17-13)/4=1$."
         }
       ]
@@ -83,20 +86,23 @@
             "$\\inf\\{\\|Tx\\| : x\\in X\\}$"
           ],
           "answer": 3,
+          "hint": "The infimum is $0$ for any linear $T$ (take $x=0$).",
           "explain": "The infimum is $0$ for any linear $T$ (take $x=0$). The first three expressions are all standard equivalent formulas for the operator norm."
         },
         {
           "type": "numeric",
           "q": "On $\\mathbb{R}^2$ with Euclidean norm, what is the operator norm of the diagonal matrix $T=\\mathrm{diag}(3,-4)$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$.",
           "explain": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$. Here $\\max(3,4)=4$."
         },
         {
           "type": "numeric",
           "q": "Compute the operator norm of $T=\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}$ (symmetric, so $\\|T\\|=\\max|\\lambda_i|$).",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$.",
           "explain": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$. The operator norm is $\\max(|3|,|-1|)=3$."
         }
       ],
@@ -118,7 +124,7 @@
           "type": "numeric",
           "q": "Let $T=\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ on $\\mathbb{R}^2$ (Euclidean). Compute $\\|T\\|$ via the largest singular value.",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Compute $T^\\top T$ and find its largest eigenvalue, then take square root.",
           "explain": "$T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$ has eigenvalues $25$ and $0$. Largest singular value is $\\sqrt{25}=5$. Matches: the single nonzero row has norm $\\sqrt{9+16}=5$."
         },
@@ -149,6 +155,7 @@
             "$T$ is injective"
           ],
           "answer": 3,
+          "hint": "Continuity at a point, continuity everywhere, and boundedness are equivalent for linear maps.",
           "explain": "Continuity at a point, continuity everywhere, and boundedness are equivalent for linear maps. Injectivity is unrelated: the zero map is bounded and continuous but not injective."
         },
         {
@@ -161,13 +168,15 @@
             "$\\|T^*\\|=2\\|T\\|$"
           ],
           "answer": 1,
+          "hint": "The defining $C^*$-identity is $\\|T^*T\\|=\\|T\\|^2$.",
           "explain": "The defining $C^*$-identity is $\\|T^*T\\|=\\|T\\|^2$. Combined with $\\|T^*\\|=\\|T\\|$, it pins down the Hilbert-space operator norm."
         },
         {
           "type": "numeric",
           "q": "On $\\ell^2$, let $S$ be the unilateral (right) shift $S(x_1,x_2,\\ldots)=(0,x_1,x_2,\\ldots)$. What is the operator norm $\\|S\\|$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$.",
           "explain": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$."
         }
       ],
@@ -201,7 +210,7 @@
           "type": "numeric",
           "q": "Let $T$ be the $2\\times 2$ matrix $\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ viewed as an operator $\\mathbb{R}^2\\to\\mathbb{R}^2$ with the Euclidean norm. Compute $\\|T\\|$ (the operator norm), which equals the largest singular value of $T$.",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The singular values of $T$ are the square roots of the eigenvalues of $T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$. Its eigenvalues are $25$ and $0$, so the largest singular value — and hence the operator norm — is $\\sqrt{25}=5$."
         }
       ]
@@ -219,6 +228,7 @@
             "$T^*T=I$"
           ],
           "answer": 1,
+          "hint": "The defining identity of the adjoint is $\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$.",
           "explain": "The defining identity of the adjoint is $\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$. Existence and uniqueness follow from the Riesz representation theorem applied to $y\\mapsto\\langle Tx,y\\rangle$."
         },
         {
@@ -230,14 +240,20 @@
             "$\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix}$ (Pauli $\\sigma_y$)",
             "$\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ (skew-symmetric rotation generator)"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "All three Pauli matrices are Hermitian (self-adjoint): $\\sigma_k^*=\\sigma_k$.",
           "explain": "All three Pauli matrices are Hermitian (self-adjoint): $\\sigma_k^*=\\sigma_k$. The skew-symmetric matrix $J=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ satisfies $J^*=-J$, so it is anti-self-adjoint, not self-adjoint."
         },
         {
           "type": "numeric",
           "q": "For $T=\\begin{pmatrix}2&i\\\\ 3&0\\end{pmatrix}$ on $\\mathbb{C}^2$, compute $(T^*)_{12}$ (the top-right entry of the adjoint). Give your answer as a real number (it happens to be real here).",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$.",
           "explain": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$. So $(T^*)_{12}=3$."
         }
       ],
@@ -270,7 +286,12 @@
             "normal",
             "unitary"
           ],
-          "answer": [1, 3, 0, 2],
+          "answer": [
+            1,
+            3,
+            0,
+            2
+          ],
           "explain": "Self-adjoint: $T^*=T$. Skew-adjoint: $T^*=-T$. Normal: $T^*T=TT^*$ (strictly weaker — includes self-adjoint and unitary). Unitary: $T^*T=TT^*=I$ (i.e., $T$ is an isometric bijection)."
         },
         {
@@ -305,7 +326,13 @@
             "Banach–Steinhaus",
             "Hahn–Banach"
           ],
-          "answer": [3, 0, 1, 2],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
+          "hint": "Hahn–Banach extends functionals; Open Mapping gives openness (so inverses of bijections are bounded); Closed Graph turns a a-priori estimate into continuity; Banach–Steinhaus (uniform boundedness)…",
           "explain": "Hahn–Banach extends functionals; Open Mapping gives openness (so inverses of bijections are bounded); Closed Graph turns a a-priori estimate into continuity; Banach–Steinhaus (uniform boundedness) upgrades pointwise bounds to norm bounds."
         },
         {
@@ -318,6 +345,7 @@
             "Hahn–Banach (extension form)"
           ],
           "answer": 3,
+          "hint": "Hahn–Banach rests on Zorn's lemma (or the axiom of choice), not on Baire category.",
           "explain": "Hahn–Banach rests on Zorn's lemma (or the axiom of choice), not on Baire category. The other three all use the Baire category theorem on a Banach space — a complete metric space is not a countable union of nowhere-dense sets."
         },
         {
@@ -330,6 +358,7 @@
             "Use the Riesz representation theorem, then restrict to $X$"
           ],
           "answer": 1,
+          "hint": "On the 1-dimensional subspace $\\mathbb{K}x$, define $\\ell_0(\\alpha x)=\\alpha\\|x\\|$ so that $|\\ell_0|=\\|\\cdot\\|$ there.",
           "explain": "On the 1-dimensional subspace $\\mathbb{K}x$, define $\\ell_0(\\alpha x)=\\alpha\\|x\\|$ so that $|\\ell_0|=\\|\\cdot\\|$ there. Hahn–Banach extends $\\ell_0$ to $\\ell\\in X^*$ with $\\|\\ell\\|=1$ and $\\ell(x)=\\|x\\|>0$."
         }
       ],
@@ -355,7 +384,7 @@
             "the $N$-th partial-sum evaluated at $0$: $L_N(f)=S_N f(0)$ on $C(\\mathbb{T})$, whose norm is the $N$-th Lebesgue constant $\\|L_N\\|\\sim\\log N\\to\\infty$",
             "the Cesàro mean",
             "the identity on $C(\\mathbb{T})$"
-           ],
+          ],
           "answer": 1,
           "explain": "Banach–Steinhaus says: if $\\sup_N\\|L_N\\|=\\infty$, then $\\{f:\\sup_N|L_N(f)|<\\infty\\}$ is meager. The Lebesgue constants $\\|L_N\\|=\\int_{-\\pi}^\\pi|D_N(t)|dt/(2\\pi)$ grow like $\\log N$, so the set of $f$ with $S_N f(0)$ bounded is meager — and for generic $f$, the Fourier series diverges at $0$. By translation, divergence occurs on a dense set."
         },
@@ -390,6 +419,7 @@
             "$\\|T\\|<1$"
           ],
           "answer": 2,
+          "hint": "A compact operator sends the unit ball (bounded) to a relatively compact (precompact) set.",
           "explain": "A compact operator sends the unit ball (bounded) to a relatively compact (precompact) set. Equivalently, every bounded sequence $(x_n)$ has $(Tx_{n_k})$ norm-convergent. This is far stronger than continuity."
         },
         {
@@ -401,7 +431,11 @@
             "a diagonal operator with eigenvalues $\\lambda_n=1/n$",
             "a diagonal operator with eigenvalues $\\lambda_n=1+1/n$"
           ],
-          "answer": [1, 2],
+          "answer": [
+            1,
+            2
+          ],
+          "hint": "The identity is not compact on an infinite-dimensional Hilbert space (the unit ball is not compact — Riesz's lemma).",
           "explain": "The identity is not compact on an infinite-dimensional Hilbert space (the unit ball is not compact — Riesz's lemma). Finite-rank operators are always compact. Diagonal operators with $\\lambda_n\\to 0$ are compact (norm-limit of finite-rank truncations). $\\lambda_n=1+1/n\\to 1\\ne 0$, so not compact."
         },
         {
@@ -414,6 +448,7 @@
             "solutions exist iff $y$ is an eigenvector of $T$"
           ],
           "answer": 1,
+          "hint": "Fredholm alternative dichotomy: for $\\lambda\\ne 0$ in $\\sigma(T)\\cup\\rho(T)$, either $T-\\lambda I$ is a bijection, or $\\dim\\ker(T-\\lambda I)=\\dim\\mathrm{coker}(T-\\lambda I)<\\infty$ and solvability is…",
           "explain": "Fredholm alternative dichotomy: for $\\lambda\\ne 0$ in $\\sigma(T)\\cup\\rho(T)$, either $T-\\lambda I$ is a bijection, or $\\dim\\ker(T-\\lambda I)=\\dim\\mathrm{coker}(T-\\lambda I)<\\infty$ and solvability is equivalent to a finite family of orthogonality conditions."
         }
       ],
@@ -465,6 +500,7 @@
             "empty"
           ],
           "answer": 0,
+          "hint": "Self-adjoint operators have real spectrum.",
           "explain": "Self-adjoint operators have real spectrum. Unitary operators have spectrum on the unit circle; bounded operator spectra on complex Hilbert spaces are always nonempty and compact."
         },
         {
@@ -477,13 +513,18 @@
             "a finite-rank projection"
           ],
           "answer": 2,
+          "hint": "After a unitary change of coordinates, every bounded self-adjoint operator becomes multiplication by a bounded real-valued function on an $L^2$ space.",
           "explain": "After a unitary change of coordinates, every bounded self-adjoint operator becomes multiplication by a bounded real-valued function on an $L^2$ space."
         },
         {
           "type": "complex",
           "q": "Let $T=\\begin{pmatrix}0&-i\\\\ i&0\\end{pmatrix}=\\sigma_y$ acting on $\\mathbb{C}^2$. Its spectrum is $\\{-1,+1\\}$. Give the product of its two eigenvalues as $a+bi$.",
-          "answer": [-1, 0],
-          "tol": 1e-6,
+          "answer": [
+            -1,
+            0
+          ],
+          "tol": 0.000001,
+          "hint": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$.",
           "explain": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$."
         }
       ],
@@ -516,7 +557,7 @@
           "type": "numeric",
           "q": "The spectral projections of $T=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ onto eigenspaces $\\lambda=+1$ and $\\lambda=-1$ are $P_+=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $P_-=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$. Compute $\\|T\\|^2=\\|T^*T\\|$ using the spectral decomposition $T=P_+-P_-$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$T^*T=T^2=(P_+-P_-)^2=P_++P_-=I$ (since $P_+P_-=0$ and $P_\\pm^2=P_\\pm$). Thus $\\|T^*T\\|=\\|I\\|=1$, so $\\|T\\|^2=1$ and $\\|T\\|=1$. This matches $\\|T\\|=\\max(|+1|,|-1|)=1$."
         }
       ]
@@ -537,7 +578,12 @@
             "residual spectrum $\\sigma_r(T)$",
             "point spectrum $\\sigma_p(T)$"
           ],
-          "answer": [2, 0, 1],
+          "answer": [
+            2,
+            0,
+            1
+          ],
+          "hint": "Point = $\\lambda$ is an eigenvalue.",
           "explain": "Point = $\\lambda$ is an eigenvalue. Continuous = injective, dense range, not closed (think multiplication by $x$ on $L^2[0,1]$). Residual = injective, range not dense (classic: $\\lambda=0$ for the right shift)."
         },
         {
@@ -550,6 +596,7 @@
             "$\\{0\\}$"
           ],
           "answer": 2,
+          "hint": "If $Sx=\\lambda x$ with $x\\ne 0$, then $(0,x_1,x_2,\\ldots)=\\lambda(x_1,x_2,\\ldots)$ gives $\\lambda x_1=0$ and $\\lambda x_{n+1}=x_n$.",
           "explain": "If $Sx=\\lambda x$ with $x\\ne 0$, then $(0,x_1,x_2,\\ldots)=\\lambda(x_1,x_2,\\ldots)$ gives $\\lambda x_1=0$ and $\\lambda x_{n+1}=x_n$. If $\\lambda=0$, then $x=0$; if $\\lambda\\ne 0$, then $x_1=0$ and inductively $x=0$. So $S$ has no eigenvalues — $\\sigma_p(S)=\\emptyset$, yet $\\sigma(S)=\\overline{D(0,1)}$."
         },
         {
@@ -562,6 +609,7 @@
             "$\\rho(T)$ is closed"
           ],
           "answer": 1,
+          "hint": "The resolvent set is open (perturbing $T-\\lambda I$ slightly keeps invertibility by a Neumann-series argument), so the spectrum is closed.",
           "explain": "The resolvent set is open (perturbing $T-\\lambda I$ slightly keeps invertibility by a Neumann-series argument), so the spectrum is closed. It is also bounded by $\\|T\\|$ (for $|\\lambda|>\\|T\\|$, the Neumann series $\\sum(T/\\lambda)^n/\\lambda$ inverts $T-\\lambda I$). Hence $\\sigma(T)$ is compact, non-empty, and countable iff dictated by extra structure (e.g., compactness of $T$)."
         }
       ],
@@ -626,13 +674,15 @@
             "$L^\\infty$ for every $p$"
           ],
           "answer": 1,
+          "hint": "The pairing $\\langle f,g\\rangle=\\int fg\\,d\\mu$ is bounded by Hölder with constant $\\|g\\|_q$, and every bounded functional on $L^p$ arises this way — this is the content of the Riesz representation…",
           "explain": "The pairing $\\langle f,g\\rangle=\\int fg\\,d\\mu$ is bounded by Hölder with constant $\\|g\\|_q$, and every bounded functional on $L^p$ arises this way — this is the content of the Riesz representation for $L^p$."
         },
         {
           "type": "numeric",
           "q": "On $\\ell^2$ let $\\ell(x)=2x_1+x_2-2x_3$ for $x=(x_1,x_2,x_3,0,\\ldots)$. By Riesz, $\\ell(x)=\\langle x,y\\rangle$ for some $y\\in\\ell^2$. Compute $\\|\\ell\\|=\\|y\\|_2$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$.",
           "explain": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$. Riesz makes $\\|\\ell\\|_{H^*}=\\|y\\|_H$."
         }
       ],
@@ -683,6 +733,7 @@
             "$x_n=x$ eventually"
           ],
           "answer": 1,
+          "hint": "Weak convergence $x_n\\rightharpoonup x$ means $\\ell(x_n)\\to\\ell(x)$ for every bounded linear functional $\\ell$.",
           "explain": "Weak convergence $x_n\\rightharpoonup x$ means $\\ell(x_n)\\to\\ell(x)$ for every bounded linear functional $\\ell$. Norm convergence is strictly stronger."
         },
         {
@@ -695,13 +746,15 @@
             "dense in $X^{**}$"
           ],
           "answer": 1,
+          "hint": "Banach–Alaoglu: $B_{X^*}$ is compact in the weak-* topology, proved by embedding it in the product $\\prod_{x\\in X}\\overline{D(0,\\|x\\|)}$ and applying Tychonoff.",
           "explain": "Banach–Alaoglu: $B_{X^*}$ is compact in the weak-* topology, proved by embedding it in the product $\\prod_{x\\in X}\\overline{D(0,\\|x\\|)}$ and applying Tychonoff. Norm-compactness of the unit ball fails in every infinite-dimensional Banach space."
         },
         {
           "type": "numeric",
           "q": "In $\\ell^2$, let $e_n$ be the $n$-th standard basis vector. The sequence $(e_n)$ does NOT converge in norm, but does converge weakly to a unique limit $w\\in\\ell^2$. Compute $\\|w\\|_2$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$.",
           "explain": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$. Yet $\\|e_n-0\\|_2=1$, so there is no norm convergence — a textbook illustration that weak limit $\\ne$ strong limit."
         }
       ],
@@ -752,6 +805,7 @@
             "conjugate-linear"
           ],
           "answer": 1,
+          "hint": "Hahn–Banach guarantees enough functionals to isometrically embed $X$ in $X^{**}$: $\\|Jx\\|=\\sup_{\\|\\ell\\|\\le 1}|\\ell(x)|=\\|x\\|$.",
           "explain": "Hahn–Banach guarantees enough functionals to isometrically embed $X$ in $X^{**}$: $\\|Jx\\|=\\sup_{\\|\\ell\\|\\le 1}|\\ell(x)|=\\|x\\|$. $X$ is reflexive when $J$ is additionally surjective."
         },
         {
@@ -764,7 +818,11 @@
             "$C[0,1]$ with sup norm",
             "$\\ell^\\infty$"
           ],
-          "answer": [0, 1],
+          "answer": [
+            0,
+            1
+          ],
+          "hint": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive.",
           "explain": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
         },
         {
@@ -777,6 +835,7 @@
             "finite-dimensional"
           ],
           "answer": 1,
+          "hint": "Kakutani's theorem: $X$ is reflexive iff $B_X$ is weakly compact.",
           "explain": "Kakutani's theorem: $X$ is reflexive iff $B_X$ is weakly compact. Norm-compactness happens only in finite dimensions. Eberlein–Šmulian further says this weak compactness can be checked sequentially: $B_X$ weakly compact iff every bounded sequence has a weakly convergent subsequence."
         }
       ],
@@ -834,6 +893,7 @@
             "an element of $L^\\infty(\\mathbb{R})$"
           ],
           "answer": 1,
+          "hint": "The space $\\mathcal{D}'(\\mathbb{R})=(C_c^\\infty(\\mathbb{R}))^*$ is, by definition, the continuous linear functionals on test functions (with a specific inductive-limit topology).",
           "explain": "The space $\\mathcal{D}'(\\mathbb{R})=(C_c^\\infty(\\mathbb{R}))^*$ is, by definition, the continuous linear functionals on test functions (with a specific inductive-limit topology). Every locally integrable function $f$ defines a distribution $\\phi\\mapsto\\int f\\phi$, but distributions are strictly more general — they include $\\delta$ and its derivatives."
         },
         {
@@ -846,13 +906,15 @@
             "$f_n(x)=\\sin(nx)$"
           ],
           "answer": 0,
+          "hint": "$f_n=n\\cdot\\mathbf{1}_{[0,1/n]}$ has $\\int f_n=1$ and mass concentrating at $0$.",
           "explain": "$f_n=n\\cdot\\mathbf{1}_{[0,1/n]}$ has $\\int f_n=1$ and mass concentrating at $0$. For $\\phi\\in C_c^\\infty$, $\\int f_n\\phi=n\\int_0^{1/n}\\phi(x)dx\\to\\phi(0)$ by continuity. Hence $f_n\\to\\delta_0$ in $\\mathcal{D}'$."
         },
         {
           "type": "numeric",
           "q": "Compute $\\langle\\delta_0^{(1)},\\phi\\rangle$ where $\\delta_0^{(1)}$ is the distributional derivative of $\\delta_0$ and $\\phi(x)=x^2-3x+5$. Recall $\\langle\\delta_0^{(1)},\\phi\\rangle=-\\phi'(0)$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$.",
           "explain": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$. For $T=\\delta_0$, $\\langle\\delta_0',\\phi\\rangle=-\\langle\\delta_0,\\phi'\\rangle=-\\phi'(0)$. With $\\phi(x)=x^2-3x+5$, $\\phi'(x)=2x-3$, $\\phi'(0)=-3$, so $-\\phi'(0)=3$."
         }
       ],

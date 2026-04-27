@@ -27,6 +27,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./extremal-combinatorics.html#erdos-stone\">Extremal combinatorics</a> · Erdős–Stone–Simonovits: the chromatic threshold</div>\n    <div><a href=\"./extremal-combinatorics.html#kst\">Extremal combinatorics</a> · Kővári–Sós–Turán &amp; the Zarankiewicz problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -183,6 +187,10 @@
         {
           "type": "raw",
           "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",

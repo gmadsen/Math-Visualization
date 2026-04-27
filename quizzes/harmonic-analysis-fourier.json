@@ -14,13 +14,15 @@
             "Because $\\mathbb{T}$ is compact"
           ],
           "answer": 1,
+          "hint": "Orthonormality is the integral $\\int_0^1 e^{2\\pi i (m-n)x}\\,dx = \\delta_{mn}$.",
           "explain": "Orthonormality is the integral $\\int_0^1 e^{2\\pi i (m-n)x}\\,dx = \\delta_{mn}$. Density of trigonometric polynomials in $C(\\mathbb{T})$ (Stone–Weierstrass) and then in $L^2(\\mathbb{T})$ promotes that orthonormal set to a basis."
         },
         {
           "type": "numeric",
           "q": "Let $f(x) = 3 + 4\\cos(2\\pi x) - 2\\sin(4\\pi x)$ on $\\mathbb{T}$. Compute $\\|f\\|_{L^2(\\mathbb{T})}^2 = \\int_0^1 |f(x)|^2\\,dx$.",
           "answer": 19,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$.",
           "explain": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$. The Fourier coefficients are $\\hat f(0)=3$, $\\hat f(\\pm 1) = 2$, $\\hat f(2) = i$, $\\hat f(-2) = -i$. By Parseval, $\\|f\\|_2^2 = 9 + 4 + 4 + 1 + 1 = 19$."
         },
         {
@@ -33,6 +35,7 @@
             "everywhere pointwise"
           ],
           "answer": 2,
+          "hint": "Carleson proved a.e.",
           "explain": "Carleson proved a.e. pointwise convergence for $L^2$. Kolmogorov had earlier shown an $L^1$ function whose Fourier series diverges everywhere, so 'everywhere pointwise' fails outside $L^2$ in a strong sense."
         }
       ]
@@ -50,6 +53,7 @@
             "$\\hat f(\\xi + a)$"
           ],
           "answer": 0,
+          "hint": "Substitute $y = x - a$: $\\int f(x-a) e^{-2\\pi i \\xi x}\\,dx = e^{-2\\pi i a \\xi}\\int f(y) e^{-2\\pi i \\xi y}\\,dy = e^{-2\\pi i a \\xi}\\hat f(\\xi)$.",
           "explain": "Substitute $y = x - a$: $\\int f(x-a) e^{-2\\pi i \\xi x}\\,dx = e^{-2\\pi i a \\xi}\\int f(y) e^{-2\\pi i \\xi y}\\,dy = e^{-2\\pi i a \\xi}\\hat f(\\xi)$. Translation in $x$ becomes modulation in $\\xi$."
         },
         {
@@ -62,13 +66,15 @@
             "$\\|\\hat f\\|_\\infty = \\|f\\|_1$"
           ],
           "answer": 1,
+          "hint": "$\\hat f \\in C_0(\\mathbb{R})$: continuous and decaying at infinity.",
           "explain": "$\\hat f \\in C_0(\\mathbb{R})$: continuous and decaying at infinity. The map $L^1 \\to C_0$ is bounded with $\\|\\hat f\\|_\\infty \\le \\|f\\|_1$ but is NOT surjective, and $\\hat f$ need not be in $L^1$ (e.g. for the indicator of an interval)."
         },
         {
           "type": "numeric",
           "q": "Let $f = \\mathbf{1}_{[-1/2, 1/2]}$ on $\\mathbb{R}$. Compute $\\|\\hat f\\|_{L^2}^2$ using Plancherel.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$.",
           "explain": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$. Here $\\|f\\|_2^2 = \\int_{-1/2}^{1/2} 1\\,dx = 1$, so $\\|\\hat f\\|_2^2 = 1$. (Aside: $\\hat f(\\xi) = \\mathrm{sinc}(\\xi) = \\sin(\\pi \\xi)/(\\pi \\xi)$.)"
         }
       ]
@@ -86,6 +92,7 @@
             "$\\widehat{f+g} = \\hat f + \\hat g$"
           ],
           "answer": 1,
+          "hint": "Convolution in $x$ becomes pointwise product in $\\xi$.",
           "explain": "Convolution in $x$ becomes pointwise product in $\\xi$. The dual identity $\\widehat{fg} = \\hat f * \\hat g$ also holds (with the right hypotheses) — Fourier swaps the two operations."
         },
         {
@@ -98,13 +105,15 @@
             "Because the Fourier transform is unitary on $L^1$"
           ],
           "answer": 1,
+          "hint": "Young's inequality bounds the convolution; the Banach-algebra axioms follow.",
           "explain": "Young's inequality bounds the convolution; the Banach-algebra axioms follow. A unit $e$ would Fourier-transform to $1$, so $e$ would have to be the Dirac delta — a tempered distribution, not an $L^1$ function. Approximate identities are the substitute."
         },
         {
           "type": "numeric",
           "q": "Let $g(x) = e^{-\\pi x^2}$. Using $\\hat g = g$ and the convolution theorem, compute $\\widehat{(g*g)}(0)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$.",
           "explain": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$. Evaluating at $\\xi = 0$ gives $1$."
         }
       ]
@@ -122,6 +131,7 @@
             "$f$ is real-analytic on $\\mathbb{R}$"
           ],
           "answer": 1,
+          "hint": "Schwartz space $\\mathcal{S}$ is smooth functions of rapid decrease: every derivative decays faster than any polynomial.",
           "explain": "Schwartz space $\\mathcal{S}$ is smooth functions of rapid decrease: every derivative decays faster than any polynomial. Compactly supported smooth functions $C_c^\\infty$ form a strictly smaller class; both are dense in $L^p$ for $1\\le p<\\infty$."
         },
         {
@@ -134,6 +144,7 @@
             "$\\hat{}$ is undefined on $C_c^\\infty$"
           ],
           "answer": 2,
+          "hint": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials.",
           "explain": "Schwartz space is closed under both $\\hat{}$ and pointwise multiplication by polynomials. The two component identities $\\widehat{f^{(b)}}(\\xi)=(2\\pi i\\xi)^b\\hat f(\\xi)$ and $\\widehat{x^a g}(\\xi)=(2\\pi i)^{-a}(-1)^a\\hat g^{(a)}(\\xi)$ together let polynomial-times-derivative operators round-trip through $\\mathcal{S}$ (with Leibniz cross-terms when both $a,b>0$). Compactly supported smooth functions Fourier-transform to entire functions (Paley–Wiener), so they leak out of $C_c^\\infty$."
         },
         {
@@ -146,6 +157,7 @@
             "$0$"
           ],
           "answer": 1,
+          "hint": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered…",
           "explain": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered distribution. Dually, $\\hat 1 = \\delta$."
         }
       ]
@@ -163,6 +175,7 @@
             "$\\|x f\\|_1\\,\\|\\xi\\hat f\\|_1 \\ge \\|f\\|_1^2$"
           ],
           "answer": 1,
+          "hint": "Centred at $0$ in space and frequency, the product of variances is at least $\\|f\\|_2^4/(4\\pi)^2$, equivalently $\\|x f\\|_2\\|\\xi\\hat f\\|_2\\ge\\|f\\|_2^2/(4\\pi)$.",
           "explain": "Centred at $0$ in space and frequency, the product of variances is at least $\\|f\\|_2^4/(4\\pi)^2$, equivalently $\\|x f\\|_2\\|\\xi\\hat f\\|_2\\ge\\|f\\|_2^2/(4\\pi)$. Equality holds iff $f$ is a (translated, modulated) Gaussian."
         },
         {
@@ -175,13 +188,15 @@
             "the Dirichlet kernel"
           ],
           "answer": 2,
+          "hint": "Variational analysis (or completing the square in the proof) shows the only minimizers are Gaussians.",
           "explain": "Variational analysis (or completing the square in the proof) shows the only minimizers are Gaussians. They are the fixed points / eigenfunctions of $\\hat{}$ — the same fact in two languages."
         },
         {
           "type": "numeric",
           "q": "For $f(x) = e^{-\\pi x^2}$, compute the lower bound $\\|f\\|_2^2/(4\\pi)$ in Heisenberg's inequality.",
           "answer": 0.05627314338,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$.",
           "explain": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$. So $\\|f\\|_2^2/(4\\pi) = 1/(4\\pi\\sqrt{2}) \\approx 0.05627$. The Gaussian saturates the inequality with equality."
         }
       ]
@@ -199,6 +214,7 @@
             "$\\sum_n f(n)^2 = \\sum_n |\\hat f(n)|^2$"
           ],
           "answer": 0,
+          "hint": "Periodize $F(x) = \\sum_n f(x+n)$ on $\\mathbb{T}$; its Fourier coefficients are $\\hat F(k) = \\hat f(k)$.",
           "explain": "Periodize $F(x) = \\sum_n f(x+n)$ on $\\mathbb{T}$; its Fourier coefficients are $\\hat F(k) = \\hat f(k)$. Evaluating $F(0)$ in two ways — direct sum vs. Fourier expansion at $x=0$ — gives the identity."
         },
         {
@@ -211,13 +227,15 @@
             "It's not — analytic continuation is purely about contour integrals"
           ],
           "answer": 1,
+          "hint": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to…",
           "explain": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to $f_t(x) = e^{-\\pi t x^2}$."
         },
         {
           "type": "numeric",
           "q": "For $f_t(x) = e^{-\\pi t x^2}$ (so $\\hat f_t(\\xi) = t^{-1/2} e^{-\\pi \\xi^2/t}$), let $\\theta(t) = \\sum_{n\\in\\mathbb{Z}} e^{-\\pi n^2 t}$. By Poisson summation, $\\theta(t) = t^{-1/2}\\theta(1/t)$. Compute the ratio $\\theta(4)/\\theta(1/4)$.",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$.",
           "explain": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$. The modular transformation rescales the lattice."
         }
       ]
@@ -229,7 +247,8 @@
           "type": "numeric",
           "q": "Compute $\\hat g(0)$ where $g(x) = e^{-\\pi x^2}$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$.",
           "explain": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$. (Equivalently, $\\int_{\\mathbb{R}} e^{-\\pi x^2}\\,dx = 1$.)"
         },
         {
@@ -242,6 +261,7 @@
             "$\\hat u(t,\\xi) = \\hat f(\\xi/t)$"
           ],
           "answer": 1,
+          "hint": "$\\widehat{\\partial_x^2 f}(\\xi) = (2\\pi i \\xi)^2 \\hat f(\\xi) = -4\\pi^2 \\xi^2 \\hat f(\\xi)$.",
           "explain": "$\\widehat{\\partial_x^2 f}(\\xi) = (2\\pi i \\xi)^2 \\hat f(\\xi) = -4\\pi^2 \\xi^2 \\hat f(\\xi)$. So evolution becomes pointwise multiplication by a Gaussian — diffusion damps high frequencies."
         },
         {
@@ -254,6 +274,7 @@
             "It equals the spectrum of the Laplacian"
           ],
           "answer": 1,
+          "hint": "Hermite functions form an orthonormal basis of $L^2(\\mathbb{R})$ diagonalizing $\\hat{}$ with eigenvalues $(-i)^n$.",
           "explain": "Hermite functions form an orthonormal basis of $L^2(\\mathbb{R})$ diagonalizing $\\hat{}$ with eigenvalues $(-i)^n$. So $\\hat{}$ is unitary with spectrum $\\{1,-i,-1,i\\}$, each of infinite multiplicity, and $\\mathcal{F}^4 = \\mathrm{id}$ on $L^2$."
         }
       ]
@@ -271,6 +292,7 @@
             "the group of Borel measures on $G$"
           ],
           "answer": 1,
+          "hint": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters.",
           "explain": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
         },
         {
@@ -288,7 +310,13 @@
             "$\\mathbb{R}$",
             "$\\mathbb{T}$"
           ],
-          "answer": [2, 0, 3, 1],
+          "answer": [
+            2,
+            0,
+            3,
+            1
+          ],
+          "hint": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients).",
           "explain": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients). The general Plancherel theorem on $G$ specializes to all the classical Fourier theorems."
         },
         {
@@ -301,6 +329,7 @@
             "$\\widehat G$ is always compact"
           ],
           "answer": 1,
+          "hint": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or…",
           "explain": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or Parseval on $\\mathbb{T}$, in one breath."
         }
       ]

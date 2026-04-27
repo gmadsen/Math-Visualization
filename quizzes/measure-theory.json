@@ -14,20 +14,26 @@
             "All intervals in $\\mathbb{R}$"
           ],
           "answer": 1,
+          "hint": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions.",
           "explain": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions. Open sets and intervals are not closed under complements, and finite subsets are not closed under countable unions in an infinite set."
         },
         {
           "type": "numeric",
           "q": "Let $\\mu$ be a measure with $\\mu(A)=3$, $\\mu(B)=4$, and $\\mu(A\\cap B)=1$. Compute $\\mu(A\\cup B)$.",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$.",
           "explain": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$."
         },
         {
           "type": "complex",
           "q": "Write $e^{i\\pi}$ as $a+bi$.",
-          "answer": [-1, 0],
-          "tol": 1e-6,
+          "answer": [
+            -1,
+            0
+          ],
+          "tol": 0.000001,
+          "hint": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$.",
           "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
         }
       ],
@@ -48,7 +54,7 @@
           "type": "numeric",
           "q": "Let $(X,\\mathcal{A},\\mu)$ be a measure space with $\\mu(X)=1$. Suppose $A_1\\supset A_2\\supset\\cdots$ with $\\mu(A_1)=0.8$ and $\\mu(A_n)\\to L$. If $\\mu(A_3)=0.5$ and $\\mu(A_5)=0.3$, and $\\bigcap_{n=1}^\\infty A_n=\\varnothing$, what is $L$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By continuity of measure from above: if $\\mu(A_1)<\\infty$ and $A_n\\downarrow\\varnothing$, then $\\mu(A_n)\\to\\mu(\\varnothing)=0$. The values at $n=3,5$ are irrelevant to the limit."
         },
         {
@@ -78,6 +84,7 @@
             "$m^*(E)=\\sup\\{m(K):K\\subset E,\\ K\\text{ compact}\\}$ for every $E$"
           ],
           "answer": 1,
+          "hint": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate).",
           "explain": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate). Countable additivity fails on non-measurable sets — that is precisely what Carathéodory's criterion diagnoses."
         },
         {
@@ -90,13 +97,15 @@
             "$m^*(A\\cap E)\\le m^*(A)$"
           ],
           "answer": 1,
+          "hint": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure.",
           "explain": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure. The $\\le$ direction is free by subadditivity; the $\\ge$ direction is the substantive requirement."
         },
         {
           "type": "numeric",
           "q": "Compute the Lebesgue outer measure $m^*(\\mathbb{Q}\\cap[0,1])$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$.",
           "explain": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$. Total cover length is $\\varepsilon$, and $\\varepsilon>0$ was arbitrary, so $m^*=0$."
         }
       ],
@@ -130,7 +139,7 @@
           "type": "numeric",
           "q": "Let $\\mu_0$ be the length premeasure on the algebra of finite unions of half-open intervals $(a,b]\\subset\\mathbb{R}$. After Carathéodory extension, what is the Lebesgue outer measure of the fat Cantor set obtained by removing middle intervals of length $4^{-n}$ from $[0,1]$ at stage $n$?",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Total removed length is $\\sum_{n=1}^\\infty 2^{n-1}\\cdot 4^{-n}=\\sum_{n=1}^\\infty 2^{-n-1}=1/2$. The remaining closed set has Lebesgue measure $1-1/2=1/2$ — a Lebesgue-positive-measure set with empty interior, showing Carathéodory measurability is strictly subtler than topology."
         }
       ]
@@ -141,22 +150,33 @@
         {
           "type": "mcq",
           "q": "What is the Lebesgue measure of a singleton $\\{x\\}\\subset\\mathbb{R}$?",
-          "choices": ["$1$", "$\\infty$", "$0$", "depends on $x$"],
+          "choices": [
+            "$1$",
+            "$\\infty$",
+            "$0$",
+            "depends on $x$"
+          ],
           "answer": 2,
+          "hint": "Points have zero length, so every singleton has Lebesgue measure $0$.",
           "explain": "Points have zero length, so every singleton has Lebesgue measure $0$."
         },
         {
           "type": "numeric",
           "q": "Compute $m([2,5])$, where $m$ is Lebesgue measure on $\\mathbb{R}$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$.",
           "explain": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$."
         },
         {
           "type": "complex",
           "q": "Compute $(1+i)^2$.",
-          "answer": [0, 2],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            2
+          ],
+          "tol": 0.000001,
+          "hint": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$.",
           "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
         }
       ],
@@ -177,7 +197,7 @@
           "type": "numeric",
           "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, if $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ are pairwise disjoint and cover $[0,2]$, what value does $\\sum_{q}m(V+q)$ take if $m(V)$ existed and were positive?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "If $m(V)=c>0$, countable additivity gives $m([0,2])\\ge\\sum_{q}c=\\infty$, contradicting $m([0,2])=2$. If $m(V)=0$, then $m([0,2])=0$, again a contradiction. So no consistent value of $m(V)$ exists; the correct answer reflecting the only non-contradictory finite value attempted is $0$, but in truth measurability fails entirely."
         },
         {
@@ -207,20 +227,26 @@
             "$f^{-1}(B)$ is finite"
           ],
           "answer": 1,
+          "hint": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$.",
           "explain": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$."
         },
         {
           "type": "numeric",
           "q": "Let $f=\\mathbf 1_{[0,2]}$ on $\\mathbb R$. What is $\\int f\\,dm$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$.",
           "explain": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$."
         },
         {
           "type": "complex",
           "q": "Compute $\\overline{(3-4i)}$.",
-          "answer": [3, 4],
-          "tol": 1e-6,
+          "answer": [
+            3,
+            4
+          ],
+          "tol": 0.000001,
+          "hint": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$.",
           "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
         }
       ],
@@ -241,7 +267,7 @@
           "type": "numeric",
           "q": "Let $f:\\mathbb{R}\\to\\mathbb{R}$ be a simple function $f=3\\cdot\\mathbf{1}_A+7\\cdot\\mathbf{1}_B$ where $A=[0,1]$, $B=(2,4]$, and $A\\cap B=\\varnothing$. Compute $\\int f\\,dm$.",
           "answer": 17,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "For a simple function $\\int\\sum c_i\\mathbf{1}_{E_i}\\,dm=\\sum c_i m(E_i)$. So $\\int f\\,dm=3\\cdot m([0,1])+7\\cdot m((2,4])=3\\cdot 1+7\\cdot 2=3+14=17$."
         },
         {
@@ -271,20 +297,26 @@
             "the limit of midpoint sums only"
           ],
           "answer": 1,
+          "hint": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$.",
           "explain": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$."
         },
         {
           "type": "numeric",
           "q": "Compute $\\int_0^1 x\\,dx$ (Lebesgue measure).",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$.",
           "explain": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$."
         },
         {
           "type": "complex",
           "q": "Compute $\\int_0^{2\\pi} e^{ix}\\,dx$ and report as $a+bi$.",
-          "answer": [0, 0],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            0
+          ],
+          "tol": 0.000001,
+          "hint": "$e^{ix}=\\cos x+i\\sin x$.",
           "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
         }
       ],
@@ -305,7 +337,7 @@
           "type": "numeric",
           "q": "Compute $\\int_1^e \\ln(x)\\,dx$ using the Lebesgue integral (equal to the Riemann integral here).",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Integration by parts: $\\int_1^e \\ln x\\,dx=[x\\ln x - x]_1^e=(e\\cdot 1-e)-(1\\cdot 0-1)=0+1=1$."
         },
         {
@@ -328,22 +360,33 @@
         {
           "type": "mcq",
           "q": "If $0\\le f_n\\uparrow f$ pointwise, which theorem gives $\\int f_n\\to\\int f$?",
-          "choices": ["Fatou lemma", "Monotone convergence theorem", "Fubini theorem", "Jensen inequality"],
+          "choices": [
+            "Fatou lemma",
+            "Monotone convergence theorem",
+            "Fubini theorem",
+            "Jensen inequality"
+          ],
           "answer": 1,
+          "hint": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit.",
           "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
         },
         {
           "type": "numeric",
           "q": "Let $f_n(x)=x^n$ on $[0,1]$. Compute $\\int_0^1 f_n(x)\\,dx$ in terms of $n$ at $n=9$.",
           "answer": 0.1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$.",
           "explain": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$."
         },
         {
           "type": "complex",
           "q": "Compute $i^5$ as $a+bi$.",
-          "answer": [0, 1],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            1
+          ],
+          "tol": 0.000001,
+          "hint": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$.",
           "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
         }
       ],
@@ -365,7 +408,7 @@
           "type": "numeric",
           "q": "Let $g_n(x)=\\mathbf{1}_{[0,n]}(x)\\cdot e^{-x}$ on $[0,\\infty)$. By MCT (the sequence is increasing and nonneg), $\\lim_{n\\to\\infty}\\int_0^\\infty g_n\\,dm$ equals what?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$g_n\\uparrow e^{-x}$ pointwise, so MCT gives $\\lim\\int g_n=\\int_0^\\infty e^{-x}\\,dm=[-e^{-x}]_0^\\infty=0-(-1)=1$."
         },
         {
@@ -395,20 +438,23 @@
             "$L^p$ is never complete"
           ],
           "answer": 1,
+          "hint": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$.",
           "explain": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$."
         },
         {
           "type": "numeric",
           "q": "On $[0,1]$, let $f(x)=x$. Compute $\\|f\\|_2$.",
           "answer": 0.5773502692,
-          "tol": 1e-3,
+          "tol": 0.001,
+          "hint": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$.",
           "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
         },
         {
           "type": "numeric",
           "q": "Compute $\\left|\\,1-i\\,\\right|$.",
           "answer": 1.414213562,
-          "tol": 1e-3,
+          "tol": 0.001,
+          "hint": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$.",
           "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
         }
       ],
@@ -429,7 +475,7 @@
           "type": "numeric",
           "q": "Let $f,g\\in L^2([0,1])$ with $\\|f\\|_2=3$ and $\\|g\\|_2=4$. By the Cauchy–Schwarz inequality, $|\\langle f,g\\rangle|\\le$ what value?",
           "answer": 12,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Cauchy–Schwarz: $|\\langle f,g\\rangle|\\le\\|f\\|_2\\|g\\|_2=3\\cdot 4=12$."
         },
         {
@@ -459,13 +505,15 @@
             "Always equal to $\\mathcal{B}(X\\times Y)$ when $X,Y$ are topological spaces"
           ],
           "answer": 1,
+          "hint": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$.",
           "explain": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$. Measurable rectangles alone aren't closed under countable operations, hence the generation step."
         },
         {
           "type": "numeric",
           "q": "On $[0,1]\\times[0,1]$ with Lebesgue $\\otimes$ Lebesgue, compute $(m\\otimes m)([0,0.5]\\times[0,0.4])$.",
           "answer": 0.2,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$.",
           "explain": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$."
         },
         {
@@ -478,6 +526,7 @@
             "$\\mu$ takes only finite values"
           ],
           "answer": 1,
+          "hint": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$.",
           "explain": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$. Lebesgue measure on $\\mathbb{R}$ is $\\sigma$-finite ($\\mathbb{R}=\\bigcup_n[-n,n]$) but not finite."
         }
       ],
@@ -499,7 +548,7 @@
           "type": "numeric",
           "q": "On $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B},m\\otimes m)$, compute the measure of the triangle $\\{(x,y):0\\le y\\le x\\le 1\\}$.",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By Tonelli: $\\int_0^1\\int_0^x 1\\,dy\\,dx=\\int_0^1 x\\,dx=1/2$."
         },
         {
@@ -529,13 +578,15 @@
             "$f$ has compact support"
           ],
           "answer": 1,
+          "hint": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally.",
           "explain": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally. Fubini is the companion statement for complex-valued $f\\in L^1(\\mu\\otimes\\nu)$."
         },
         {
           "type": "numeric",
           "q": "Compute $\\int_0^1\\!\\int_0^1 xy\\,dx\\,dy$.",
           "answer": 0.25,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$.",
           "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
         },
         {
@@ -548,6 +599,7 @@
             "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
           ],
           "answer": 1,
+          "hint": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral.",
           "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
         }
       ],
@@ -569,7 +621,7 @@
           "type": "numeric",
           "q": "Compute $\\int_0^\\infty\\int_0^\\infty e^{-xy}\\sin x\\,dx\\,dy$ assuming absolute integrability allows the swap. (Hint: swap and use $\\int_0^\\infty e^{-xy}\\sin x\\,dy=\\sin x/x$.)",
           "answer": 1.5707963268,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "Swap: $\\int_0^\\infty\\sin x\\int_0^\\infty e^{-xy}\\,dy\\,dx=\\int_0^\\infty \\frac{\\sin x}{x}\\,dx=\\pi/2$. Absolute integrability in the stated form is delicate here, but the iterated computation yields the classical Dirichlet integral."
         },
         {
@@ -599,6 +651,7 @@
             "$\\nu=\\nu^+\\circ\\nu^-$"
           ],
           "answer": 0,
+          "hint": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to…",
           "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
         },
         {
@@ -611,13 +664,15 @@
             "$\\nu$ is a probability measure"
           ],
           "answer": 0,
+          "hint": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null.",
           "explain": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null. Radon–Nikodym gives a density $f=d\\nu/d\\mu\\ge 0$ with $\\nu(E)=\\int_E f\\,d\\mu$ when $\\mu$ is $\\sigma$-finite and $\\nu\\ll\\mu$."
         },
         {
           "type": "numeric",
           "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=2x\\,dm$. Compute $\\nu([0,1])$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$.",
           "explain": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$. The density $f(x)=2x$ is the Radon–Nikodym derivative $d\\nu/dm$."
         }
       ],
@@ -638,7 +693,7 @@
           "type": "numeric",
           "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=f\\,dm$ with $f(x)=3x^2$. Compute $\\nu([0,1/2])$.",
           "answer": 0.125,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\nu([0,1/2])=\\int_0^{1/2}3x^2\\,dm=x^3\\big|_0^{1/2}=1/8=0.125$."
         },
         {
@@ -668,13 +723,15 @@
             "Represented by an $L^\\infty$ function"
           ],
           "answer": 1,
+          "hint": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets).",
           "explain": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets). The bijection is the bridge from functional analysis to measure theory."
         },
         {
           "type": "numeric",
           "q": "On $X=[0,1]$, let $\\Lambda(f)=f(1/3)$ for $f\\in C([0,1])$. What is $\\mu([0,1/2])$ for the representing measure $\\mu$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$.",
           "explain": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$. Since $1/3\\in[0,1/2]$, $\\mu([0,1/2])=1$."
         },
         {
@@ -687,6 +744,7 @@
             "$\\sigma$-finiteness"
           ],
           "answer": 1,
+          "hint": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$.",
           "explain": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$. These conditions pin $\\mu$ down uniquely."
         }
       ],
@@ -708,7 +766,7 @@
           "type": "numeric",
           "q": "On $X=[0,1]$, let $\\Lambda(f)=\\int_0^1 f(x)\\cdot 2x\\,dx$. What is $\\mu([0,1])$ for the representing measure?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\Lambda(f)=\\int f\\,d\\mu$ where $d\\mu=2x\\,dm$. So $\\mu([0,1])=\\int_0^1 2x\\,dm=1$."
         },
         {
@@ -738,13 +796,15 @@
             "Always zero for fractals"
           ],
           "answer": 0,
+          "hint": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$.",
           "explain": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$. This limit is monotone decreasing in $\\delta$, hence well-defined in $[0,\\infty]$."
         },
         {
           "type": "numeric",
           "q": "Compute the Hausdorff dimension of the middle-thirds Cantor set $C$. Report as a decimal to 3 places. (Answer: $\\log 2/\\log 3$.)",
           "answer": 0.6309297536,
-          "tol": 1e-3,
+          "tol": 0.001,
+          "hint": "$C$ is self-similar with two similarities of ratio $1/3$.",
           "explain": "$C$ is self-similar with two similarities of ratio $1/3$. The Moran equation $2\\cdot(1/3)^s=1$ gives $s=\\log 2/\\log 3\\approx 0.6309$."
         },
         {
@@ -757,6 +817,7 @@
             "The Lebesgue measure of $E$"
           ],
           "answer": 0,
+          "hint": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$.",
           "explain": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$. At $s^*$ itself, $\\mathcal{H}^{s^*}(E)$ may take any value in $[0,\\infty]$."
         }
       ],
@@ -778,7 +839,7 @@
           "type": "numeric",
           "q": "For the 4-contraction Koch curve with similarity ratio $1/3$, compute the Hausdorff dimension to 3 decimals. (Moran: $4\\cdot(1/3)^s=1$.)",
           "answer": 1.2618595071,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "$s=\\log 4/\\log 3\\approx 1.2619$. The Koch curve has strictly larger Hausdorff dimension than its topological dimension ($1$), reflecting its fractal crinkliness."
         },
         {

@@ -14,6 +14,7 @@
             "the additive adele ring $\\mathbb{A}_K$"
           ],
           "answer": 1,
+          "hint": "The idèle group is the restricted product of the local multiplicative groups $K_v^\\times$ with respect to the compact subgroups $\\mathcal{O}_v^\\times$ — almost every component must be a local unit.",
           "explain": "The idèle group is the restricted product of the local multiplicative groups $K_v^\\times$ with respect to the compact subgroups $\\mathcal{O}_v^\\times$ — almost every component must be a local unit."
         },
         {
@@ -26,13 +27,15 @@
             "$C_K = \\widehat{\\mathbb{Z}}^\\times$"
           ],
           "answer": 0,
+          "hint": "By definition $C_K = \\mathbb{A}_K^\\times / K^\\times$, the quotient of the idèles by the diagonally embedded global units $K^\\times$.",
           "explain": "By definition $C_K = \\mathbb{A}_K^\\times / K^\\times$, the quotient of the idèles by the diagonally embedded global units $K^\\times$."
         },
         {
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}(\\sqrt{-5})$, the class number is $h_K=2$. What is the order of $\\operatorname{Cl}(K)$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "The order of the ideal class group is exactly the class number, so $|\\operatorname{Cl}(K)|=h_K=2$.",
           "explain": "The order of the ideal class group is exactly the class number, so $|\\operatorname{Cl}(K)|=h_K=2$."
         }
       ],
@@ -67,7 +70,7 @@
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}(\\sqrt{-23})$ the class number is $h_K=3$. The Hilbert class field $H/K$ has degree $[H:K]=h_K$. What is $[H:\\mathbb{Q}]$?",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Multiply $[H:K]$ by $[K:\\mathbb{Q}]$.",
           "explain": "$[H:\\mathbb{Q}]=[H:K]\\cdot[K:\\mathbb{Q}]=3\\cdot 2=6$."
         }
@@ -86,13 +89,15 @@
             "the compositum of all cyclotomic extensions of $K$"
           ],
           "answer": 1,
+          "hint": "By definition $H$ is the maximal abelian extension of $K$ in which every prime (finite and infinite) is unramified.",
           "explain": "By definition $H$ is the maximal abelian extension of $K$ in which every prime (finite and infinite) is unramified. The Artin map then gives $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$."
         },
         {
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}(\\sqrt{-14})$, which has class number $h_K=4$, what is the degree $[H:K]$ of the Hilbert class field over $K$?",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "The Artin isomorphism $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$ forces $[H:K]=|\\operatorname{Cl}(K)|=h_K$.",
           "explain": "The Artin isomorphism $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$ forces $[H:K]=|\\operatorname{Cl}(K)|=h_K$. Here $h_K=4$, so $[H:K]=4$."
         },
         {
@@ -105,6 +110,7 @@
             "$\\mathfrak{a}$ ramifies in $H/K$"
           ],
           "answer": 1,
+          "hint": "Furtwängler's principal ideal theorem: every ideal of $\\mathcal{O}_K$ becomes principal when lifted to $\\mathcal{O}_H$.",
           "explain": "Furtwängler's principal ideal theorem: every ideal of $\\mathcal{O}_K$ becomes principal when lifted to $\\mathcal{O}_H$. Ideal classes of $K$ capitulate in the Hilbert class field."
         }
       ],
@@ -139,7 +145,7 @@
           "type": "numeric",
           "q": "Let $K=\\mathbb{Q}(\\sqrt{-5})$, $h_K=2$, $H=$ Hilbert class field of $K$, $h_H=1$. How many steps does the class field tower take before reaching a field with class number $1$?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "If $h_H = 1$, the tower stops immediately at $H$.",
           "explain": "The tower is $K\\subset H$ with $h_H=1$, so $H_1=H$ already has trivial class group. The tower stabilises after $1$ step."
         }
@@ -158,13 +164,15 @@
             "the identity, always"
           ],
           "answer": 1,
+          "hint": "Cyclotomic reciprocity: $\\operatorname{Frob}_p(\\zeta_n)=\\zeta_n^p$ for $p\\nmid n$.",
           "explain": "Cyclotomic reciprocity: $\\operatorname{Frob}_p(\\zeta_n)=\\zeta_n^p$ for $p\\nmid n$. This identifies $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q})$ with $(\\mathbb{Z}/n)^\\times$ via $\\sigma_p\\leftrightarrow p\\bmod n$."
         },
         {
           "type": "numeric",
           "q": "Take $L=\\mathbb{Q}(\\zeta_{12})/\\mathbb{Q}$, so $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/12)^\\times$. The Frobenius at $p=13$ corresponds to $13\\bmod 12$. Enter that residue.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$13 = 12+1$, so $13\\equiv 1\\pmod{12}$.",
           "explain": "$13 = 12+1$, so $13\\equiv 1\\pmod{12}$. The Frobenius at $p=13$ is the identity, reflecting that $13$ splits completely in $\\mathbb{Q}(\\zeta_{12})$."
         },
         {
@@ -177,6 +185,7 @@
             "$\\mathbb{Z}\\twoheadrightarrow\\operatorname{Gal}(L/K)$"
           ],
           "answer": 0,
+          "hint": "The main theorem: the Artin map factors through the ray class group $\\operatorname{Cl}_\\mathfrak{m}(K)$ and is surjective onto $\\operatorname{Gal}(L/K)$, with kernel generated by the classes of…",
           "explain": "The main theorem: the Artin map factors through the ray class group $\\operatorname{Cl}_\\mathfrak{m}(K)$ and is surjective onto $\\operatorname{Gal}(L/K)$, with kernel generated by the classes of primes splitting completely in $L$."
         }
       ],
@@ -198,7 +207,7 @@
           "type": "numeric",
           "q": "In $\\mathbb{Q}(\\zeta_7)/\\mathbb{Q}$, the prime $p=2$ is unramified (since $2\\nmid 7$). The Frobenius $\\operatorname{Frob}_2$ acts as $\\zeta_7\\mapsto\\zeta_7^2$, so $\\operatorname{Frob}_2$ has order equal to the multiplicative order of $2$ modulo $7$. What is that order?",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Frobenius at $2$ in $\\mathbb{Q}(\\zeta_7)$ corresponds to $2 \\bmod 7$.",
           "explain": "$2^1=2,\\; 2^2=4,\\; 2^3=8\\equiv 1\\pmod 7$. So $\\operatorname{ord}_7(2)=3$, meaning $p=2$ splits into $\\varphi(7)/3=2$ primes in $\\mathbb{Q}(\\zeta_7)$."
         },
@@ -230,13 +239,15 @@
             "the Hilbert class field of $\\mathbb{Q}$"
           ],
           "answer": 2,
+          "hint": "Kronecker–Weber in class-field-theoretic form: the ray class field of $\\mathbb{Q}$ with conductor $n\\cdot\\infty$ is exactly $\\mathbb{Q}(\\zeta_n)$, and…",
           "explain": "Kronecker–Weber in class-field-theoretic form: the ray class field of $\\mathbb{Q}$ with conductor $n\\cdot\\infty$ is exactly $\\mathbb{Q}(\\zeta_n)$, and $\\operatorname{Cl}_{n\\infty}(\\mathbb{Q})=(\\mathbb{Z}/n)^\\times\\cong\\operatorname{Gal}(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q})$."
         },
         {
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}$, the order of the ray class group $\\operatorname{Cl}_{12\\infty}(\\mathbb{Q})=(\\mathbb{Z}/12)^\\times$ is:",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$\\varphi(12)=\\varphi(4)\\varphi(3)=2\\cdot 2=4$, so $(\\mathbb{Z}/12)^\\times$ has order $4$.",
           "explain": "$\\varphi(12)=\\varphi(4)\\varphi(3)=2\\cdot 2=4$, so $(\\mathbb{Z}/12)^\\times$ has order $4$. Equivalently $[\\mathbb{Q}(\\zeta_{12}):\\mathbb{Q}]=4$."
         },
         {
@@ -249,6 +260,7 @@
             "kernel equal to $K^\\times$"
           ],
           "answer": 1,
+          "hint": "The kernel of the global reciprocity map is exactly the connected component of $1$ in $C_K$; finite abelian extensions $L/K$ correspond to finite-index open subgroups of $C_K$ containing this…",
           "explain": "The kernel of the global reciprocity map is exactly the connected component of $1$ in $C_K$; finite abelian extensions $L/K$ correspond to finite-index open subgroups of $C_K$ containing this connected component."
         }
       ],
@@ -283,7 +295,7 @@
           "type": "numeric",
           "q": "The ray class group $\\operatorname{Cl}_{8\\infty}(\\mathbb{Q})=(\\mathbb{Z}/8)^\\times$. Compute its order $\\varphi(8)$.",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Apply $\\varphi(8) = 8(1 - 1/2)$.",
           "explain": "$(\\mathbb{Z}/8)^\\times=\\{1,3,5,7\\}$ has order $4=\\varphi(8)=8\\cdot(1-1/2)=4$. Thus $[\\mathbb{Q}(\\zeta_8):\\mathbb{Q}]=4$."
         }
@@ -302,6 +314,7 @@
             "finite subgroups of $\\operatorname{Gal}(\\overline{K}/K)$"
           ],
           "answer": 1,
+          "hint": "Every finite-index open subgroup $N\\subset C_K$ is the kernel of the Artin map for a unique finite abelian extension $L/K$, and vice versa.",
           "explain": "Every finite-index open subgroup $N\\subset C_K$ is the kernel of the Artin map for a unique finite abelian extension $L/K$, and vice versa. This is the class-field bijection."
         },
         {
@@ -314,13 +327,15 @@
             "$N_L\\cdot N_{L'}=C_K$"
           ],
           "answer": 1,
+          "hint": "The correspondence is order-reversing: a bigger field $L'$ has a smaller kernel $N_{L'}$.",
           "explain": "The correspondence is order-reversing: a bigger field $L'$ has a smaller kernel $N_{L'}$. Equivalently, $L=(K^{\\mathrm{ab}})^{N_L}$, so inclusions of fields flip to reverse inclusions of subgroups."
         },
         {
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}$, Kronecker–Weber plus Takagi existence says every finite abelian $L/\\mathbb{Q}$ sits in some $\\mathbb{Q}(\\zeta_n)$. Take $L=\\mathbb{Q}(i,\\sqrt{5})$. The smallest $n$ for which $L\\subseteq\\mathbb{Q}(\\zeta_n)$ is $n = ?$",
           "answer": 20,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "The conductor of $\\mathbb{Q}(i)$ is $4$ and of $\\mathbb{Q}(\\sqrt{5})$ is $5$; by the conductor-discriminant/Takagi existence correspondence the conductor of their compositum is…",
           "explain": "The conductor of $\\mathbb{Q}(i)$ is $4$ and of $\\mathbb{Q}(\\sqrt{5})$ is $5$; by the conductor-discriminant/Takagi existence correspondence the conductor of their compositum is $\\operatorname{lcm}(4,5)=20$, so $\\mathbb{Q}(i,\\sqrt{5})\\subset\\mathbb{Q}(\\zeta_{20})$ and no smaller $n$ works."
         }
       ],
@@ -355,7 +370,7 @@
           "type": "numeric",
           "q": "For $K=\\mathbb{Q}$, the abelian extension $L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ has Galois group $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$. The conductors of $\\mathbb{Q}(\\sqrt{2})$, $\\mathbb{Q}(\\sqrt{3})$, and $\\mathbb{Q}(\\sqrt{6})$ are $8$, $12$, and $24$ respectively. The conductor of $L$ is $\\operatorname{lcm}(8,12)$. Compute that value.",
           "answer": 24,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Its Galois group is a product of two copies of $\\mathbb{Z}/2\\mathbb{Z}$.",
           "explain": "$\\operatorname{lcm}(8,12)=24$. Thus $L\\subseteq\\mathbb{Q}(\\zeta_{24})$ and the conductor of $L/\\mathbb{Q}$ is $24$."
         }
@@ -374,13 +389,15 @@
             "$\\mathfrak{d}_{L/K}=\\mathcal{O}_K$ whenever $L/K$ is abelian"
           ],
           "answer": 1,
+          "hint": "Hasse's Führerdiskriminantenproduktformel: the relative discriminant of an abelian $L/K$ factors as the product of the Artin conductors of its 1-dimensional characters.",
           "explain": "Hasse's Führerdiskriminantenproduktformel: the relative discriminant of an abelian $L/K$ factors as the product of the Artin conductors of its 1-dimensional characters."
         },
         {
           "type": "numeric",
           "q": "For $L=\\mathbb{Q}(\\zeta_5)/\\mathbb{Q}$, the four characters of $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/5)^\\times$ have conductors $1,5,5,5$ (the trivial character has conductor $1$; the three non-trivial characters all have conductor $5$). Compute the absolute discriminant $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))|=1\\cdot 5\\cdot 5\\cdot 5$.",
           "answer": 125,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "By the conductor-discriminant formula $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))|=\\prod_\\chi \\mathfrak{f}(\\chi)=1\\cdot 5\\cdot 5\\cdot 5 = 125$, matching the classical value…",
           "explain": "By the conductor-discriminant formula $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))|=\\prod_\\chi \\mathfrak{f}(\\chi)=1\\cdot 5\\cdot 5\\cdot 5 = 125$, matching the classical value $\\operatorname{disc}(\\mathbb{Q}(\\zeta_5))=5^3$."
         },
         {
@@ -393,6 +410,7 @@
             "$\\chi(\\operatorname{Frob}_\\mathfrak{p})=1$ for every $\\chi$"
           ],
           "answer": 1,
+          "hint": "A prime ramifies in $L$ iff some character $\\chi$ of $\\operatorname{Gal}(L/K)$ is non-trivial on its inertia subgroup, iff $\\mathfrak{p}\\mid\\mathfrak{f}(\\chi)$ for some non-trivial $\\chi$.",
           "explain": "A prime ramifies in $L$ iff some character $\\chi$ of $\\operatorname{Gal}(L/K)$ is non-trivial on its inertia subgroup, iff $\\mathfrak{p}\\mid\\mathfrak{f}(\\chi)$ for some non-trivial $\\chi$. Unramified primes appear in no conductor and hence contribute nothing to the discriminant."
         }
       ],
@@ -401,7 +419,7 @@
           "type": "numeric",
           "q": "For $L=\\mathbb{Q}(\\zeta_8)/\\mathbb{Q}$, we have $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/8)^\\times\\cong(\\mathbb{Z}/2)^2$, with four characters each of conductor dividing $8$. The trivial character has conductor $1$; the three non-trivial characters each have conductor $8$. Compute $|\\operatorname{disc}(\\mathbb{Q}(\\zeta_8))|=1\\cdot 8\\cdot 8\\cdot 8$.",
           "answer": 512,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "For $(\\mathbb{Z}/2)^2$ the conductors of the three nontrivial characters add up.",
           "explain": "$|\\operatorname{disc}(\\mathbb{Q}(\\zeta_8))|=1\\cdot 8^3=512$. Alternatively: $\\mathbb{Q}(\\zeta_8)=\\mathbb{Q}(\\sqrt{2},i)$ has discriminant $2^9=512$ over $\\mathbb{Q}$."
         },

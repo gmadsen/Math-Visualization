@@ -9,6 +9,7 @@
           "q": "For $E/\\mathbb{Q}$ of good reduction at $p = 11$, suppose $a_{11} = 4$. Compute $\\theta_{11}$ in radians (principal value in $[0,\\pi]$), rounded to 3 decimals.",
           "answer": 0.928,
           "tol": 0.01,
+          "hint": "$a_p = 2\\sqrt{p}\\cos\\theta_p$ gives $\\cos\\theta_{11} = 4/(2\\sqrt{11}) = 2/\\sqrt{11} \\approx 0.6030$, so $\\theta_{11} = \\arccos(0.6030) \\approx 0.9281$.",
           "explain": "$a_p = 2\\sqrt{p}\\cos\\theta_p$ gives $\\cos\\theta_{11} = 4/(2\\sqrt{11}) = 2/\\sqrt{11} \\approx 0.6030$, so $\\theta_{11} = \\arccos(0.6030) \\approx 0.9281$."
         },
         {
@@ -21,6 +22,7 @@
             "$\\theta_p$ is irrational"
           ],
           "answer": 1,
+          "hint": "Supersingular means $a_p = 0$, i.e.",
           "explain": "Supersingular means $a_p = 0$, i.e. $\\cos\\theta_p = 0$, i.e. $\\theta_p = \\pi/2$. The eigenvalues are then $\\pm i\\sqrt{p}$."
         },
         {
@@ -28,6 +30,7 @@
           "q": "The Hasse bound $|a_p| \\le 2\\sqrt{p}$ forces $\\theta_p$ to lie in which interval? Enter the length of that interval.",
           "answer": 3.14159,
           "tol": 0.01,
+          "hint": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$.",
           "explain": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$."
         }
       ],
@@ -37,7 +40,7 @@
           "q": "For the elliptic curve $y^2=x^3-x$ at $p=5$, one finds $a_5=-2$. Compute $\\theta_5\\in[0,\\pi]$ in radians, rounded to 3 decimals. (Use $\\cos\\theta_5 = a_5/(2\\sqrt{5})$.)",
           "answer": 2.034,
           "tol": 0.01,
-          "explain": "$\\cos\\theta_5 = -2/(2\\sqrt{5}) = -1/\\sqrt{5}\\approx -0.4472$, so $\\theta_5 = \\arccos(-0.4472)\\approx 2.034$. Check: $2\\sqrt{5}\\cos(2.034)\\approx 2(2.236)(-0.4472)\\approx -2$. \u2713"
+          "explain": "$\\cos\\theta_5 = -2/(2\\sqrt{5}) = -1/\\sqrt{5}\\approx -0.4472$, so $\\theta_5 = \\arccos(-0.4472)\\approx 2.034$. Check: $2\\sqrt{5}\\cos(2.034)\\approx 2(2.236)(-0.4472)\\approx -2$. ✓"
         },
         {
           "type": "mcq",
@@ -57,7 +60,7 @@
           "choices": [
             "Weil conjectures $\\Rightarrow$ $|\\alpha_p|=\\sqrt{p}$ $\\Rightarrow$ write $\\alpha_p=\\sqrt{p}e^{i\\theta_p}$ $\\Rightarrow$ $a_p=2\\sqrt{p}\\cos\\theta_p$",
             "$a_p\\in\\mathbb{Z}$ $\\Rightarrow$ Hasse bound $\\Rightarrow$ $\\alpha_p=e^{i\\theta_p}$ $\\Rightarrow$ $a_p=2\\cos\\theta_p$",
-            "Sato\u2013Tate theorem $\\Rightarrow$ $\\theta_p$ exists $\\Rightarrow$ $|\\alpha_p|=\\sqrt{p}$ $\\Rightarrow$ Hasse bound",
+            "Sato–Tate theorem $\\Rightarrow$ $\\theta_p$ exists $\\Rightarrow$ $|\\alpha_p|=\\sqrt{p}$ $\\Rightarrow$ Hasse bound",
             "Riemann hypothesis $\\Rightarrow$ $a_p=0$ $\\Rightarrow$ $\\theta_p=\\pi/2$ for all $p$"
           ],
           "answer": 0,
@@ -78,11 +81,12 @@
             "$(x_n)$ is dense in $[0,1]$"
           ],
           "answer": 1,
+          "hint": "Weyl's criterion: equidistribution with respect to a measure $\\mu$ on a compact space is equivalent to prime-averaged matrix coefficients of every non-trivial irreducible representation tending to…",
           "explain": "Weyl's criterion: equidistribution with respect to a measure $\\mu$ on a compact space is equivalent to prime-averaged matrix coefficients of every non-trivial irreducible representation tending to $0$. On $\\mathbb{R}/\\mathbb{Z}$ the non-trivial irreducibles are the characters $e^{2\\pi i k\\cdot}$ for $k\\ne 0$."
         },
         {
           "type": "mcq",
-          "q": "For Sato\u2013Tate, the compact space is $\\mathrm{SU}(2)/\\mathrm{conj}\\cong[0,\\pi]$ and the 'characters' that must average to $0$ are:",
+          "q": "For Sato–Tate, the compact space is $\\mathrm{SU}(2)/\\mathrm{conj}\\cong[0,\\pi]$ and the 'characters' that must average to $0$ are:",
           "choices": [
             "traces of the symmetric-power representations $\\mathrm{Sym}^n$ for $n\\ge 1$",
             "matrix coefficients of $\\mathrm{GL}_2$",
@@ -90,13 +94,15 @@
             "Dirichlet characters"
           ],
           "answer": 0,
-          "explain": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$. Equidistribution of $\\theta_p$ is equivalent to $\\tfrac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$, the content of Sato\u2013Tate."
+          "hint": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$.",
+          "explain": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$. Equidistribution of $\\theta_p$ is equivalent to $\\tfrac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$, the content of Sato–Tate."
         },
         {
           "type": "numeric",
           "q": "Compute $\\int_0^\\pi \\chi_1(\\theta)\\,d\\mu_{ST}(\\theta)$ where $\\chi_1(\\theta)=\\sin(2\\theta)/\\sin\\theta=2\\cos\\theta$ and $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
           "answer": 0,
-          "tol": 1e-06,
+          "tol": 0.000001,
+          "hint": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$).",
           "explain": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$). This is orthogonality of $\\chi_1$ to the trivial representation on $\\mathrm{SU}(2)$."
         }
       ],
@@ -123,7 +129,7 @@
         },
         {
           "type": "mcq",
-          "q": "Weyl's equidistribution theorem for the sequence $\\alpha n\\pmod{1}$ ($\\alpha$ irrational) uses the same criterion as Sato\u2013Tate. Which is the correct chain of steps?",
+          "q": "Weyl's equidistribution theorem for the sequence $\\alpha n\\pmod{1}$ ($\\alpha$ irrational) uses the same criterion as Sato–Tate. Which is the correct chain of steps?",
           "choices": [
             "Density $\\Rightarrow$ equidistribution $\\Rightarrow$ Weyl criterion for all $k$",
             "Weyl criterion for all $k\\ne 0$: $\\frac{1}{N}\\sum e^{2\\pi ik\\alpha n}\\to 0$ (geometric series, $|e^{2\\pi ik\\alpha}-1|>0$) $\\Rightarrow$ equidistribution by approximation of continuous functions by trigonometric polynomials",
@@ -136,11 +142,11 @@
       ]
     },
     "sato-tate-measure": {
-      "title": "The Sato\u2013Tate measure",
+      "title": "The Sato–Tate measure",
       "questions": [
         {
           "type": "mcq",
-          "q": "The Sato\u2013Tate density on $[0,\\pi]$ is:",
+          "q": "The Sato–Tate density on $[0,\\pi]$ is:",
           "choices": [
             "$\\tfrac{1}{\\pi}\\,d\\theta$ (uniform)",
             "$\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta$",
@@ -148,18 +154,20 @@
             "$\\tfrac{1}{\\pi}\\sin\\theta\\,d\\theta$"
           ],
           "answer": 1,
+          "hint": "The conjugacy measure on $\\mathrm{SU}(2)$ pushed down to $[0,\\pi]$ is $(2/\\pi)\\sin^2\\theta\\,d\\theta$, integrating to $1$.",
           "explain": "The conjugacy measure on $\\mathrm{SU}(2)$ pushed down to $[0,\\pi]$ is $(2/\\pi)\\sin^2\\theta\\,d\\theta$, integrating to $1$."
         },
         {
           "type": "numeric",
-          "q": "Under the Sato\u2013Tate measure, compute $\\Pr\\!\\left[0 \\le \\theta \\le \\tfrac{\\pi}{2}\\right]$.",
+          "q": "Under the Sato–Tate measure, compute $\\Pr\\!\\left[0 \\le \\theta \\le \\tfrac{\\pi}{2}\\right]$.",
           "answer": 0.5,
           "tol": 0.01,
+          "hint": "$\\int_0^{\\pi/2}\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\cdot\\tfrac{\\pi}{4} = \\tfrac12$.",
           "explain": "$\\int_0^{\\pi/2}\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\cdot\\tfrac{\\pi}{4} = \\tfrac12$. The density is symmetric about $\\theta = \\pi/2$."
         },
         {
           "type": "mcq",
-          "q": "For a non-CM elliptic curve $E/\\mathbb{Q}$, the Sato\u2013Tate conjecture (now theorem of Barnet-Lamb\u2013Geraghty\u2013Harris\u2013Taylor) says:",
+          "q": "For a non-CM elliptic curve $E/\\mathbb{Q}$, the Sato–Tate conjecture (now theorem of Barnet-Lamb–Geraghty–Harris–Taylor) says:",
           "choices": [
             "$a_p \\to 0$ as $p \\to \\infty$",
             "The angles $\\theta_p$ equidistribute with respect to $(2/\\pi)\\sin^2\\theta\\,d\\theta$",
@@ -167,6 +175,7 @@
             "$a_p$ is uniformly distributed in $[-2\\sqrt{p},2\\sqrt{p}]$"
           ],
           "answer": 1,
+          "hint": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$.",
           "explain": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$."
         }
       ],
@@ -180,7 +189,7 @@
         },
         {
           "type": "mcq",
-          "q": "The Sato\u2013Tate measure is the pushforward of normalized Haar measure on $\\mathrm{SU}(2)$ along the map $g\\mapsto\\theta_g$ (half the argument of eigenvalues). Which statement about this measure is FALSE?",
+          "q": "The Sato–Tate measure is the pushforward of normalized Haar measure on $\\mathrm{SU}(2)$ along the map $g\\mapsto\\theta_g$ (half the argument of eigenvalues). Which statement about this measure is FALSE?",
           "choices": [
             "It assigns more mass near $\\theta=\\pi/2$ than near $\\theta=0$ or $\\theta=\\pi$",
             "It is absolutely continuous with respect to Lebesgue measure on $[0,\\pi]$",
@@ -188,7 +197,7 @@
             "Its density vanishes at $\\theta=0$ and $\\theta=\\pi$"
           ],
           "answer": 2,
-          "explain": "The Sato\u2013Tate density is $(2/\\pi)\\sin^2\\theta$, not the uniform measure $1/\\pi$. It peaks at $\\theta=\\pi/2$ and vanishes at the endpoints, so options A, B, D are true statements."
+          "explain": "The Sato–Tate density is $(2/\\pi)\\sin^2\\theta$, not the uniform measure $1/\\pi$. It peaks at $\\theta=\\pi/2$ and vanishes at the endpoints, so options A, B, D are true statements."
         },
         {
           "type": "mcq",
@@ -212,17 +221,17 @@
           "q": "For a CM elliptic curve $E/\\mathbb{Q}$, the Frobenius angles $\\theta_p$ (at primes of good reduction) equidistribute with respect to which measure on $[0,\\pi]$?",
           "choices": [
             "The semicircle $(2/\\pi)\\sin^2\\theta\\,d\\theta$ on $[0,\\pi]$",
-            "A 50/50 mixture: $\\tfrac12\\delta_{\\pi/2}+\\tfrac12\\cdot(1/\\pi)\\,d\\theta$ \u2014 half a Dirac mass at $\\theta=\\pi/2$ plus half the uniform measure on $[0,\\pi]$; this is the pushforward of Haar measure on the normalizer $N(T)\\subset\\mathrm{SU}(2)$",
+            "A 50/50 mixture: $\\tfrac12\\delta_{\\pi/2}+\\tfrac12\\cdot(1/\\pi)\\,d\\theta$ — half a Dirac mass at $\\theta=\\pi/2$ plus half the uniform measure on $[0,\\pi]$; this is the pushforward of Haar measure on the normalizer $N(T)\\subset\\mathrm{SU}(2)$",
             "The uniform measure $(1/\\pi)\\,d\\theta$ on $[0,\\pi]$",
             "A Dirac mass $\\delta_0$ concentrated at $\\theta=0$"
           ],
           "answer": 1,
-          "hint": "The CM Sato\u2013Tate group is $N(T)$, the normalizer of a maximal torus in $\\mathrm{SU}(2)$. It has two cosets of $T$: split and inert.",
-          "explain": "For a CM curve, the Sato\u2013Tate group is $N(T)$, the normalizer of a maximal torus $T\\cong\\mathrm{U}(1)$ in $\\mathrm{SU}(2)$. Haar measure on $N(T)$ splits evenly across its two cosets of $T$: the identity coset pushes to the uniform measure on $[0,\\pi]$ (these are the split primes, with $\\theta_p$ coming from a Hecke Gr\u00f6ssencharacter), and the non-identity coset pushes to a Dirac at $\\theta=\\pi/2$ (the supersingular primes, which are inert in the CM field). The total is $\\tfrac12\\delta_{\\pi/2}+\\tfrac12\\cdot d\\theta/\\pi$. This is distinct from both the non-CM semicircle and the pure uniform measure."
+          "hint": "The CM Sato–Tate group is $N(T)$, the normalizer of a maximal torus in $\\mathrm{SU}(2)$. It has two cosets of $T$: split and inert.",
+          "explain": "For a CM curve, the Sato–Tate group is $N(T)$, the normalizer of a maximal torus $T\\cong\\mathrm{U}(1)$ in $\\mathrm{SU}(2)$. Haar measure on $N(T)$ splits evenly across its two cosets of $T$: the identity coset pushes to the uniform measure on $[0,\\pi]$ (these are the split primes, with $\\theta_p$ coming from a Hecke Grössencharacter), and the non-identity coset pushes to a Dirac at $\\theta=\\pi/2$ (the supersingular primes, which are inert in the CM field). The total is $\\tfrac12\\delta_{\\pi/2}+\\tfrac12\\cdot d\\theta/\\pi$. This is distinct from both the non-CM semicircle and the pure uniform measure."
         },
         {
           "type": "mcq",
-          "q": "The Sato\u2013Tate group of a non-CM elliptic curve over $\\mathbb{Q}$ is:",
+          "q": "The Sato–Tate group of a non-CM elliptic curve over $\\mathbb{Q}$ is:",
           "choices": [
             "$\\mathrm{SU}(2)$ itself",
             "the normalizer $N(T)$ of a maximal torus in $\\mathrm{SU}(2)$",
@@ -230,33 +239,35 @@
             "a finite subgroup"
           ],
           "answer": 0,
-          "explain": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato\u2013Tate group. CM: the Galois image sits inside a non-split torus, so the Sato\u2013Tate group is the normalizer $N(T)$; the two cosets of $T$ in $N(T)$ are the split and non-split (supersingular) primes."
+          "hint": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group.",
+          "explain": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group. CM: the Galois image sits inside a non-split torus, so the Sato–Tate group is the normalizer $N(T)$; the two cosets of $T$ in $N(T)$ are the split and non-split (supersingular) primes."
         },
         {
           "type": "numeric",
           "q": "For a CM curve, the density of supersingular primes is $1/2$. Given $\\pi(10^6)=78{,}498$, estimate how many of the first $\\pi(10^6)$ primes would be supersingular for a CM curve with good reduction everywhere.",
           "answer": 39249,
           "tol": 100,
-          "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ \u2014 Chebotarev with error term \u2014 so any count within a few hundred is consistent with the CM equidistribution law."
+          "hint": "Half of $78498$ is $39249$.",
+          "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ — Chebotarev with error term — so any count within a few hundred is consistent with the CM equidistribution law."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "For a CM elliptic curve $E/\\mathbb{Q}$ with CM by $\\mathcal{O}_K$, the Sato\u2013Tate group is $N(T)$, the normalizer of a maximal torus $T\\cong\\mathrm{U}(1)$ in $\\mathrm{SU}(2)$. Which is the correct order-of-steps argument showing the equidistribution for split primes?",
+          "q": "For a CM elliptic curve $E/\\mathbb{Q}$ with CM by $\\mathcal{O}_K$, the Sato–Tate group is $N(T)$, the normalizer of a maximal torus $T\\cong\\mathrm{U}(1)$ in $\\mathrm{SU}(2)$. Which is the correct order-of-steps argument showing the equidistribution for split primes?",
           "choices": [
             "Hecke $L$-function $L(\\psi,s)$ is entire and non-vanishing on $\\operatorname{Re}s\\ge 1$ $\\Rightarrow$ the split Frobenius angles equidistribute uniformly on $[0,\\pi]$ via Weyl's criterion for $\\mathrm{U}(1)$",
-            "Sato\u2013Tate theorem for non-CM applies to $E$ because all elliptic curves over $\\mathbb{Q}$ are modular $\\Rightarrow$ angles equidistribute as $(2/\\pi)\\sin^2\\theta$",
+            "Sato–Tate theorem for non-CM applies to $E$ because all elliptic curves over $\\mathbb{Q}$ are modular $\\Rightarrow$ angles equidistribute as $(2/\\pi)\\sin^2\\theta$",
             "Supersingular primes have density $0$ by the prime number theorem $\\Rightarrow$ CM and non-CM angles follow the same law",
             "Chebotarev density theorem applied to the 2-division field $\\Rightarrow$ all torsion primes equidistribute"
           ],
           "answer": 0,
           "hint": "For split primes in a CM curve, Frobenius comes from a Grossencharacter, not from $\\mathrm{SU}(2)$.",
-          "explain": "For split primes $p$ in a CM curve, $a_p=\\psi(\\mathfrak{p})+\\overline{\\psi(\\mathfrak{p})}$ for a Hecke Gr\u00f6ssencharacter $\\psi$. The associated Hecke $L$-function is entire and non-vanishing on $\\operatorname{Re}s\\ge 1$, so the split angles equidistribute uniformly on $[0,\\pi]$ (the Haar measure on $\\mathrm{U}(1)$ pushed to $[0,\\pi]$)."
+          "explain": "For split primes $p$ in a CM curve, $a_p=\\psi(\\mathfrak{p})+\\overline{\\psi(\\mathfrak{p})}$ for a Hecke Grössencharacter $\\psi$. The associated Hecke $L$-function is entire and non-vanishing on $\\operatorname{Re}s\\ge 1$, so the split angles equidistribute uniformly on $[0,\\pi]$ (the Haar measure on $\\mathrm{U}(1)$ pushed to $[0,\\pi]$)."
         },
         {
           "type": "mcq",
-          "q": "Which space is NOT a valid Sato\u2013Tate group for any motive over $\\mathbb{Q}$ of rank 2?",
+          "q": "Which space is NOT a valid Sato–Tate group for any motive over $\\mathbb{Q}$ of rank 2?",
           "choices": [
             "$\\mathrm{SU}(2)$",
             "$N(T)\\subset\\mathrm{SU}(2)$ (normalizer of maximal torus)",
@@ -264,14 +275,14 @@
             "$\\mathrm{SO}(3)$"
           ],
           "answer": 3,
-          "explain": "$\\mathrm{SO}(3)$ is not a subgroup of $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$ in the relevant sense for rank-2 motives. The Sato\u2013Tate groups for rank-2 motives are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), or $U(1)$ (CM over the base field); $\\mathrm{SO}(3)$ appears for symmetric-square motives, not rank-2."
+          "explain": "$\\mathrm{SO}(3)$ is not a subgroup of $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$ in the relevant sense for rank-2 motives. The Sato–Tate groups for rank-2 motives are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), or $U(1)$ (CM over the base field); $\\mathrm{SO}(3)$ appears for symmetric-square motives, not rank-2."
         },
         {
           "type": "numeric",
           "q": "For a CM curve with CM field $K=\\mathbb{Q}(i)$, primes that split in $K$ are those $p\\equiv 1\\pmod{4}$. By Dirichlet's theorem, their density among all primes is $1/2$. Given $\\pi(100)=25$, estimate the count of primes $p\\le 100$ with $p\\equiv 1\\pmod{4}$.",
           "answer": 11,
           "tol": 2,
-          "explain": "Primes $\\le 100$ with $p\\equiv 1\\pmod 4$: $5,13,17,29,37,41,53,61,73,89,97$ \u2014 that is $11$ primes. Dirichlet predicts roughly $25/2\\approx 12.5$; the actual count is $11$."
+          "explain": "Primes $\\le 100$ with $p\\equiv 1\\pmod 4$: $5,13,17,29,37,41,53,61,73,89,97$ — that is $11$ primes. Dirichlet predicts roughly $25/2\\approx 12.5$; the actual count is $11$."
         }
       ]
     },
@@ -288,6 +299,7 @@
             "$(1 - \\alpha_p^n p^{-s})^{-1}(1 - \\beta_p^n p^{-s})^{-1}$"
           ],
           "answer": 0,
+          "hint": "$\\mathrm{Sym}^n$ of the 2-dim Frobenius rep has eigenvalues $\\alpha_p^{n-k}\\beta_p^k$ for $k=0,\\ldots,n$, giving $n+1$ local inverse-linear factors.",
           "explain": "$\\mathrm{Sym}^n$ of the 2-dim Frobenius rep has eigenvalues $\\alpha_p^{n-k}\\beta_p^k$ for $k=0,\\ldots,n$, giving $n+1$ local inverse-linear factors."
         },
         {
@@ -295,11 +307,12 @@
           "q": "If $\\theta_p = \\pi/3$ (so $\\alpha_p = \\sqrt{p}\\,e^{i\\pi/3}$), compute $\\alpha_p^2 + \\alpha_p\\beta_p + \\beta_p^2$ divided by $p$. (This is the trace of $\\mathrm{Sym}^2$ Frobenius divided by $p$.)",
           "answer": 2,
           "tol": 0.01,
-          "explain": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$. Sum = $4p\\cos^2\\theta_p - p$. Dividing by $p$: $4\\cos^2(\\pi/3) - 1 = 4\\cdot\\tfrac14 - 1 = 0$ \u2026 plus $\\alpha\\beta/p = 1$, giving $0 + 1 + 1 = 2$. (Equivalently: $\\sum e^{i(2-2k)\\theta_p} = U_2(\\cos\\theta_p) = 4\\cos^2\\theta_p - 1 + 1 = 2$ at $\\theta = \\pi/3$.)"
+          "hint": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$.",
+          "explain": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$. Sum = $4p\\cos^2\\theta_p - p$. Dividing by $p$: $4\\cos^2(\\pi/3) - 1 = 4\\cdot\\tfrac14 - 1 = 0$ … plus $\\alpha\\beta/p = 1$, giving $0 + 1 + 1 = 2$. (Equivalently: $\\sum e^{i(2-2k)\\theta_p} = U_2(\\cos\\theta_p) = 4\\cos^2\\theta_p - 1 + 1 = 2$ at $\\theta = \\pi/3$.)"
         },
         {
           "type": "mcq",
-          "q": "Sato\u2013Tate equidistribution follows from which analytic property?",
+          "q": "Sato–Tate equidistribution follows from which analytic property?",
           "choices": [
             "$L(E,s)$ has a pole at $s = 1$",
             "$L(\\mathrm{Sym}^n E, s)$ is holomorphic and non-vanishing on $\\mathrm{Re}\\,s \\ge 1$ for every $n \\ge 1$",
@@ -307,7 +320,8 @@
             "$a_p$ is an integer for all $p$"
           ],
           "answer": 1,
-          "explain": "By a Tauberian / Wiener\u2013Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato\u2013Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
+          "hint": "By a Tauberian / Wiener–Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato–Tate measure…",
+          "explain": "By a Tauberian / Wiener–Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato–Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
         }
       ],
       "hard": [
@@ -320,7 +334,7 @@
         },
         {
           "type": "mcq",
-          "q": "The proof of Sato\u2013Tate by Barnet-Lamb\u2013Geraghty\u2013Harris\u2013Taylor establishes holomorphy and non-vanishing of $L(\\mathrm{Sym}^n E,s)$ on $\\operatorname{Re}s\\ge 1$ by which main strategy?",
+          "q": "The proof of Sato–Tate by Barnet-Lamb–Geraghty–Harris–Taylor establishes holomorphy and non-vanishing of $L(\\mathrm{Sym}^n E,s)$ on $\\operatorname{Re}s\\ge 1$ by which main strategy?",
           "choices": [
             "Direct computation of $a_p$ for all primes using Weil's explicit formula",
             "Potential automorphy: showing $\\mathrm{Sym}^n$ of the Galois representation becomes automorphic over a solvable extension, then descending",

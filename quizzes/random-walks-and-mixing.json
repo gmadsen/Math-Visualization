@@ -1,18 +1,237 @@
 {
   "topic": "random-walks-and-mixing",
   "quizzes": {
-    "random-walks-and-mixing-intro": {
-      "title": "Intro",
+    "rw-markov-chains": {
+      "title": "Markov chains and transition matrices",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "A row-stochastic matrix $P$ on a finite state space $S$ encodes a Markov chain. Which of the following must hold for every $i\\in S$?",
           "choices": [
-            "A",
-            "B"
+            "$\\sum_{j\\in S} P_{ij} = 1$ and $P_{ij}\\ge 0$",
+            "$\\sum_{i\\in S} P_{ij} = 1$ for every column $j$",
+            "$P$ is symmetric",
+            "$P$ is invertible"
           ],
           "answer": 0,
-          "explain": "Placeholder."
+          "hint": "Row-stochastic means each row is a probability distribution over next states: nonneg entries summing to $1$.",
+          "explain": "Row-stochastic means each row is a probability distribution over next states: nonneg entries summing to $1$. Column sums need not be $1$ (that would be doubly stochastic), and $P$ need not be symmetric or invertible."
+        },
+        {
+          "type": "numeric",
+          "q": "For the chain with $P=\\begin{pmatrix}0.5&0.5\\\\0.25&0.75\\end{pmatrix}$, compute the $(1,2)$ entry of $P^2$ (probability of going $1\\to 2$ in two steps).",
+          "answer": 0.625,
+          "tol": 0.005,
+          "hint": "$(P^2)_{12} = P_{11}P_{12}+P_{12}P_{22} = 0.5\\cdot 0.5 + 0.5\\cdot 0.75 = 0.25+0.375 = 0.625$.",
+          "explain": "$(P^2)_{12} = P_{11}P_{12}+P_{12}P_{22} = 0.5\\cdot 0.5 + 0.5\\cdot 0.75 = 0.25+0.375 = 0.625$."
+        },
+        {
+          "type": "mcq",
+          "q": "What does the Markov property $\\mathbb{P}(X_{n+1}=y\\mid X_0,\\ldots,X_n)=\\mathbb{P}(X_{n+1}=y\\mid X_n)$ assert?",
+          "choices": [
+            "the past and future are independent given the present",
+            "the chain is stationary",
+            "successive states are independent",
+            "the transition probabilities are time-dependent"
+          ],
+          "answer": 0,
+          "hint": "The Markov / memoryless property: conditional on the current state $X_n$, the future is independent of the past $X_0,\\ldots,X_{n-1}$.",
+          "explain": "The Markov / memoryless property: conditional on the current state $X_n$, the future is independent of the past $X_0,\\ldots,X_{n-1}$. Stationarity is a separate condition (time-homogeneity)."
+        }
+      ]
+    },
+    "rw-stationary-distribution": {
+      "title": "Stationary distributions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A probability vector $\\pi$ is stationary for $P$ when:",
+          "choices": [
+            "$\\pi P = \\pi$",
+            "$P\\pi = \\pi$",
+            "$\\pi^\\top P\\pi = 1$",
+            "$P$ has $\\pi$ as a column"
+          ],
+          "answer": 0,
+          "hint": "Stationarity: applying one step leaves the distribution unchanged.",
+          "explain": "Stationarity: applying one step leaves the distribution unchanged. As a row vector, $\\pi P=\\pi$. (Equivalently $P^\\top\\pi^\\top=\\pi^\\top$, but the right-multiplication form is the convention.)"
+        },
+        {
+          "type": "numeric",
+          "q": "Two-state chain with $P=\\begin{pmatrix}0.6&0.4\\\\0.2&0.8\\end{pmatrix}$. Solve $\\pi P=\\pi$ for $\\pi_1$ (mass on state 1).",
+          "answer": 0.3333,
+          "tol": 0.005,
+          "hint": "$0.6\\pi_1+0.2(1-\\pi_1)=\\pi_1$ gives $0.2=0.6\\pi_1$, so $\\pi_1=1/3$.",
+          "explain": "$0.6\\pi_1+0.2(1-\\pi_1)=\\pi_1$ gives $0.2=0.6\\pi_1$, so $\\pi_1=1/3$. Check: $\\pi_2=2/3$, and $0.4\\cdot 1/3 + 0.8\\cdot 2/3 = 2/3$."
+        },
+        {
+          "type": "mcq",
+          "q": "A chain on $\\{1,2,3,4\\}$ has two closed classes $\\{1,2\\}$ and $\\{3,4\\}$, each with its own stationary distribution. How many stationary distributions does the full chain have?",
+          "choices": [
+            "exactly one",
+            "exactly two",
+            "infinitely many — a one-parameter family of convex combinations",
+            "none, because the chain is reducible"
+          ],
+          "answer": 2,
+          "hint": "Each closed class contributes a stationary $\\pi^{(k)}$; any convex combination $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$, $\\alpha\\in[0,1]$, is also stationary.",
+          "explain": "Each closed class contributes a stationary $\\pi^{(k)}$; any convex combination $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$, $\\alpha\\in[0,1]$, is also stationary. Uniqueness needs irreducibility."
+        }
+      ]
+    },
+    "rw-mixing-time": {
+      "title": "Mixing time",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Total variation distance between probability measures $\\mu,\\nu$ on a finite set is",
+          "choices": [
+            "$\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|$",
+            "$\\sum_x \\mu(x)\\nu(x)$",
+            "$\\max_x \\mu(x)/\\nu(x)$",
+            "$\\sum_x (\\mu(x)-\\nu(x))^2$"
+          ],
+          "answer": 0,
+          "hint": "$\\|\\mu-\\nu\\|_{\\mathrm{TV}}=\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|=\\sup_A|\\mu(A)-\\nu(A)|$.",
+          "explain": "$\\|\\mu-\\nu\\|_{\\mathrm{TV}}=\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|=\\sup_A|\\mu(A)-\\nu(A)|$. The factor of $\\tfrac{1}{2}$ converts the L¹ norm into the supremum-of-events characterisation."
+        },
+        {
+          "type": "numeric",
+          "q": "If $\\mu=(0.6,0.4)$ and $\\nu=(0.3,0.7)$, what is $\\|\\mu-\\nu\\|_{\\mathrm{TV}}$?",
+          "answer": 0.3,
+          "tol": 0.005,
+          "hint": "$\\tfrac{1}{2}(|0.6-0.3|+|0.4-0.7|)=\\tfrac{1}{2}(0.3+0.3)=0.3$.",
+          "explain": "$\\tfrac{1}{2}(|0.6-0.3|+|0.4-0.7|)=\\tfrac{1}{2}(0.3+0.3)=0.3$."
+        },
+        {
+          "type": "mcq",
+          "q": "The mixing time $t_{\\mathrm{mix}}(\\varepsilon)$ is defined as:",
+          "choices": [
+            "$\\min\\{t : \\max_x\\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}\\le\\varepsilon\\}$",
+            "the expected return time to the start",
+            "the period of the chain",
+            "$1/\\lambda_2$"
+          ],
+          "answer": 0,
+          "hint": "Mixing time is the first time the worst-case TV distance to $\\pi$ drops below $\\varepsilon$ (the convention $\\varepsilon=1/4$ or $1/(2e)$ is common).",
+          "explain": "Mixing time is the first time the worst-case TV distance to $\\pi$ drops below $\\varepsilon$ (the convention $\\varepsilon=1/4$ or $1/(2e)$ is common). Return times and the spectral gap are related but distinct."
+        }
+      ]
+    },
+    "rw-spectral-gap": {
+      "title": "Spectral gap and rapid mixing",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a reversible irreducible aperiodic Markov chain with transition matrix $P$, the eigenvalues lie in $[-1,1]$ with $\\lambda_1=1$. The (absolute) spectral gap is",
+          "choices": [
+            "$\\gamma_* = 1 - \\max(|\\lambda_2|,|\\lambda_n|)$",
+            "$\\lambda_2 - \\lambda_n$",
+            "$\\lambda_1 + \\lambda_2$",
+            "$1 - \\det(P)$"
+          ],
+          "answer": 0,
+          "hint": "The absolute gap is $1$ minus the second-largest eigenvalue in magnitude.",
+          "explain": "The absolute gap is $1$ minus the second-largest eigenvalue in magnitude. The relevant nontrivial eigenvalues are $\\lambda_2$ (slow-mixing direction) and $\\lambda_n$ (parity / near-bipartite); both can be the bottleneck."
+        },
+        {
+          "type": "numeric",
+          "q": "A reversible chain has $\\lambda_2 = 0.9$ and $\\pi_{\\min}=0.01$. The spectral mixing-time bound is $t_{\\mathrm{mix}}(\\varepsilon)\\le\\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$. With $\\varepsilon=1/4$, give the bound (rounded to nearest integer).",
+          "answer": 60,
+          "tol": 2,
+          "hint": "$\\frac{1}{1-0.9}=10$, and $\\log\\frac{1}{0.01\\cdot 0.25}=\\log 400\\approx 5.99$, so $t_{\\mathrm{mix}}\\le 10\\cdot 5.99\\approx 60$.",
+          "explain": "$\\frac{1}{1-0.9}=10$, and $\\log\\frac{1}{0.01\\cdot 0.25}=\\log 400\\approx 5.99$, so $t_{\\mathrm{mix}}\\le 10\\cdot 5.99\\approx 60$."
+        },
+        {
+          "type": "mcq",
+          "q": "If a chain has $\\lambda_2$ very close to $1$, what can you conclude about mixing?",
+          "choices": [
+            "mixing is fast — close to one step",
+            "mixing is slow — there is a near-bottleneck and convergence to $\\pi$ takes order $1/(1-\\lambda_2)$",
+            "the chain is bipartite",
+            "the chain has no stationary distribution"
+          ],
+          "answer": 1,
+          "hint": "$\\lambda_2\\to 1$ corresponds to a near-disconnection (Cheeger): a slowly-decaying mode persists for time $\\sim 1/(1-\\lambda_2)$, so mixing is slow.",
+          "explain": "$\\lambda_2\\to 1$ corresponds to a near-disconnection (Cheeger): a slowly-decaying mode persists for time $\\sim 1/(1-\\lambda_2)$, so mixing is slow. Bipartiteness is the $\\lambda_n=-1$ end."
+        }
+      ]
+    },
+    "rw-coupling-method": {
+      "title": "Coupling for upper bounds on mixing",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The coupling inequality says that for any coupling $(X_t,Y_t)$ of two copies of the chain with arbitrary starting laws,",
+          "choices": [
+            "$\\|\\mathcal{L}(X_t)-\\mathcal{L}(Y_t)\\|_{\\mathrm{TV}}\\le \\mathbb{P}(X_t\\ne Y_t)$",
+            "$\\|\\mathcal{L}(X_t)-\\mathcal{L}(Y_t)\\|_{\\mathrm{TV}}=\\mathbb{P}(X_t=Y_t)$",
+            "$X_t$ and $Y_t$ become independent",
+            "the chains converge a.s.\\ to the same value"
+          ],
+          "answer": 0,
+          "hint": "The fundamental coupling inequality: TV distance is bounded by the probability that the two copies have not yet met under the coupling.",
+          "explain": "The fundamental coupling inequality: TV distance is bounded by the probability that the two copies have not yet met under the coupling. To prove rapid mixing, design a coupling under which meeting is fast."
+        },
+        {
+          "type": "numeric",
+          "q": "Lazy random walk on the hypercube $\\{0,1\\}^n$ with $n=10$: at each step, pick a coordinate uniformly and flip it with probability $1/2$. Coupon-collector heuristics give mixing time $\\Theta(n\\log n)$. Estimate $n\\log n$ for $n=10$ (use natural log, round to integer).",
+          "answer": 23,
+          "tol": 2,
+          "hint": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$.",
+          "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives mixing in time $\\sim \\tfrac{1}{2}n\\log n$ via coupon collector."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does coupling only provide an upper bound on mixing time (and not also a matching lower bound)?",
+          "choices": [
+            "any specific coupling overestimates the meeting time",
+            "the coupling inequality is tight: TV distance equals the meeting probability under some coupling",
+            "TV distance is symmetric, so couplings are useless for lower bounds",
+            "couplings only work for reversible chains"
+          ],
+          "answer": 1,
+          "hint": "There exists an optimal coupling for which the inequality is an equality (Strassen / Aldous).",
+          "explain": "There exists an optimal coupling for which the inequality is an equality (Strassen / Aldous). But finding it is usually impossible, so a constructed coupling gives only an upper bound; lower bounds require different tools (conductance, distinguishing statistics)."
+        }
+      ]
+    },
+    "rw-applications-mcmc": {
+      "title": "Markov-chain Monte Carlo",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In Metropolis–Hastings with target distribution $\\pi$ and proposal density $q(y\\mid x)$, the acceptance probability is",
+          "choices": [
+            "$\\min\\!\\big(1,\\;\\frac{\\pi(y)q(x\\mid y)}{\\pi(x)q(y\\mid x)}\\big)$",
+            "$\\pi(y)/\\pi(x)$",
+            "$q(y\\mid x)$",
+            "$1$ if $\\pi(y)>\\pi(x)$, else $0$"
+          ],
+          "answer": 0,
+          "hint": "Metropolis–Hastings acceptance ratio.",
+          "explain": "Metropolis–Hastings acceptance ratio. The factor $q(x\\mid y)/q(y\\mid x)$ is the proposal-asymmetry correction; for symmetric proposals (Metropolis) it reduces to $\\pi(y)/\\pi(x)$. Detailed balance with $\\pi$ holds by construction."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is mixing time the relevant cost of MCMC sampling, rather than total runtime?",
+          "choices": [
+            "consecutive samples are correlated, so $t_{\\mathrm{mix}}$ steps yield $\\approx 1$ effectively independent draw",
+            "MCMC is always $O(1)$ per sample",
+            "the proposal density $q$ has cost $t_{\\mathrm{mix}}$",
+            "mixing time controls memory, not time"
+          ],
+          "answer": 0,
+          "hint": "After $t_{\\mathrm{mix}}$ steps the chain has 'forgotten' its start — past samples are essentially unrelated to the current one.",
+          "explain": "After $t_{\\mathrm{mix}}$ steps the chain has 'forgotten' its start — past samples are essentially unrelated to the current one. So drawing $N$ approximately-independent samples costs $\\sim N\\cdot t_{\\mathrm{mix}}$ chain steps."
+        },
+        {
+          "type": "numeric",
+          "q": "A symmetric Metropolis sampler targeting $\\pi(x)\\propto e^{-x^2/2}$ on $\\mathbb{R}$ proposes $y=x+\\eta$ with $\\eta\\sim\\mathcal{N}(0,1)$. From $x=0$, what is the acceptance probability for $y=2$? (Round to 3 decimals.)",
+          "answer": 0.135,
+          "tol": 0.005,
+          "hint": "$\\pi(2)/\\pi(0) = e^{-2}/e^0 = e^{-2}\\approx 0.135$.",
+          "explain": "$\\pi(2)/\\pi(0) = e^{-2}/e^0 = e^{-2}\\approx 0.135$. Symmetric proposal so the $q$-ratio is $1$; acceptance is $\\min(1,\\pi(y)/\\pi(x))=e^{-2}$."
         }
       ]
     }

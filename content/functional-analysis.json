@@ -346,6 +346,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#compact\">Functional analysis</a> · Compact operators and Fredholm alternative</div>\n    <div><a href=\"./functional-analysis.html#spectral\">Functional analysis</a> · Spectral theorem viewpoint</div>\n    <div><a href=\"./functional-analysis.html#spec-class\">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>\n    <div><a href=\"./functional-analysis.html#bigfour\">Functional analysis</a> · The big four theorems</div>\n    <div><a href=\"./functional-analysis.html#weak\">Functional analysis</a> · Weak and weak-* topologies</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -857,7 +861,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./operator-algebras.html#states\">Operator algebras</a> · States and pure states</div>\n    <div><a href=\"./sobolev-spaces-distributions.html#variational\">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./operator-algebras.html#states\">Operator algebras</a> · States and pure states</div>\n    <div><a href=\"./sobolev-spaces-distributions.html#variational\">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

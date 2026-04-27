@@ -272,7 +272,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./heyting-algebras-toposes.html#internal-language\">The internal Mitchell–Bénabou language</a> — the 1-categorical analogue: each topos models intuitionistic higher-order logic.</li>\n    <li><a href=\"./elementary-topos-theory.html#omega\">Subobject classifier $\\Omega$</a> — what becomes the universe $\\mathcal{U}$.</li>\n    <li><a href=\"./type-theory-and-hott.html#hits\">Higher inductive types</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./heyting-algebras-toposes.html#internal-language\">The internal Mitchell–Bénabou language</a> — the 1-categorical analogue: each topos models intuitionistic higher-order logic.</li>\n    <li><a href=\"./elementary-topos-theory.html#omega\">Subobject classifier $\\Omega$</a> — what becomes the universe $\\mathcal{U}$.</li>\n    <li><a href=\"./type-theory-and-hott.html#hits\">Higher inductive types</a></li>\n    <li><a href=\"./type-theory-and-hott.html#univalence\">Univalence axiom</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

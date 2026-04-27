@@ -29,7 +29,8 @@
       "title": "Commuting Hecke algebra",
       "anchor": "algebra",
       "prereqs": [
-        "hecke-q-expansion-action"
+        "hecke-q-expansion-action",
+        "characters-orthogonality"
       ],
       "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
     },

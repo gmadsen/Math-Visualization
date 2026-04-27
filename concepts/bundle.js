@@ -365,7 +365,8 @@ window.__MVConcepts = {
           "anchor": "lowenheim-skolem",
           "prereqs": [
             "fol-completeness",
-            "countability"
+            "countability",
+            "compactness"
           ],
           "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
         },
@@ -637,11 +638,84 @@ window.__MVConcepts = {
       "page": "complexity-theory.html",
       "concepts": [
         {
-          "id": "complexity-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "cx-time-complexity",
+          "title": "Time complexity and big-O",
+          "anchor": "time",
+          "prereqs": [
+            "computability-and-decidability:comp-turing-machines"
+          ],
+          "blurb": "Fix a (multitape) Turing-machine model and let $t_M(x)$ be the number of steps $M$ runs on input $x$. The class $\\mathrm{DTIME}(f(n))$ is the languages decided by some $M$ with $t_M(x)\\le f(|x|)$ for all $x$. Asymptotic notation hides constants and lower-order terms: $f=O(g)$ if $\\exists c, n_0$ with $f(n)\\le c\\,g(n)$ for $n\\ge n_0$. The polynomial-time class $\\mathsf{P}=\\bigcup_k \\mathrm{DTIME}(n^k)$ is the working notion of \"feasible\". The exponential gap $n^k$ vs $2^n$ is the central drama.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "cx-p-and-np",
+          "title": "P and NP",
+          "anchor": "p-np",
+          "prereqs": [
+            "cx-time-complexity"
+          ],
+          "blurb": "$\\mathsf{P}$ is the class of decision problems solvable by a deterministic TM in polynomial time. $\\mathsf{NP}$ is the class of problems with a polynomial-time <em>verifier</em>: $L\\in\\mathsf{NP}$ iff there is a polynomial-time $V(x,w)$ and a polynomial $p$ with $x\\in L \\iff \\exists w,|w|\\le p(|x|),\\,V(x,w)=1$. Witnesses: a satisfying assignment for SAT, a Hamiltonian cycle for HAM-CYC, a clique for CLIQUE. Equivalently $\\mathsf{NP}=\\bigcup_k \\mathrm{NTIME}(n^k)$ — nondeterministic polynomial time. Whether $\\mathsf{P}=\\mathsf{NP}$ is the headline open problem.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cx-np-completeness",
+          "title": "NP-completeness and Cook–Levin",
+          "anchor": "np-complete",
+          "prereqs": [
+            "cx-p-and-np",
+            "computability-and-decidability:comp-undecidability"
+          ],
+          "blurb": "A language $L$ is <strong>NP-hard</strong> if every $A\\in\\mathsf{NP}$ admits a polynomial-time many-one (Karp) reduction $A\\le_p L$. It is <strong>NP-complete</strong> if additionally $L\\in\\mathsf{NP}$. <strong>Cook–Levin (1971/73):</strong> SAT is NP-complete. The proof builds, from any NP machine $M$ and input $x$, a polynomial-size CNF whose satisfying assignments encode accepting computations of $M$ on $x$ — the tableau of cell values across configuration $\\times$ time, with consistency clauses for the transition function. Hardness then propagates: SAT $\\le_p$ 3-SAT $\\le_p$ everything else.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cx-reductions",
+          "title": "Karp reductions and complete problems",
+          "anchor": "reductions",
+          "prereqs": [
+            "cx-np-completeness"
+          ],
+          "blurb": "$A\\le_p B$ (polynomial-time many-one) means $\\exists f$ computable in polynomial time with $x\\in A \\iff f(x)\\in B$. The relation is transitive, so to show $L$ is NP-hard it suffices to reduce <em>one</em> known NP-complete problem to $L$. The Karp 21 (1972) wired up the first wave: 3-SAT $\\le_p$ CLIQUE (clauses become groups in a graph), CLIQUE $\\le_p$ INDEPENDENT-SET (complement graph), VERTEX-COVER $\\equiv$ INDEPENDENT-SET, 3-SAT $\\le_p$ 3-COLORING, SUBSET-SUM, HAMILTONIAN-CYCLE, PARTITION, and so on. The whole web propagates one hardness fact across thousands of problems.",
+          "tags": [
+            "classification",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "cx-space-complexity",
+          "title": "Space complexity and PSPACE",
+          "anchor": "space",
+          "prereqs": [
+            "cx-time-complexity"
+          ],
+          "blurb": "$\\mathrm{DSPACE}(f)$, $\\mathrm{NSPACE}(f)$ count tape cells used (excluding input). $\\mathsf{L}=\\mathrm{DSPACE}(\\log n)$, $\\mathsf{NL}=\\mathrm{NSPACE}(\\log n)$, $\\mathsf{PSPACE}=\\bigcup_k\\mathrm{DSPACE}(n^k)$. <strong>Savitch's theorem:</strong> $\\mathrm{NSPACE}(f)\\subseteq\\mathrm{DSPACE}(f^2)$ for $f\\ge\\log n$ — nondeterminism only costs a square in space. Hence $\\mathsf{PSPACE}=\\mathsf{NPSPACE}$. The chain $\\mathsf{L}\\subseteq\\mathsf{NL}\\subseteq\\mathsf{P}\\subseteq\\mathsf{NP}\\subseteq\\mathsf{PSPACE}\\subseteq\\mathsf{EXP}$ is one of the few we know strictly. TQBF (true quantified boolean formulas) is PSPACE-complete; geography, Reversi, and many two-player games join it.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "cx-hierarchy-theorems",
+          "title": "Time and space hierarchy theorems",
+          "anchor": "hierarchy",
+          "prereqs": [
+            "cx-time-complexity",
+            "cx-space-complexity"
+          ],
+          "blurb": "<strong>Time hierarchy (Hartmanis–Stearns):</strong> if $f,g$ are time-constructible and $f(n)\\log f(n) = o(g(n))$, then $\\mathrm{DTIME}(f)\\subsetneq\\mathrm{DTIME}(g)$. Proof by diagonalisation: build a TM that simulates the $i$-th machine on the $i$-th input within the $g$ budget and flips the answer. <strong>Space hierarchy:</strong> $f=o(g)$ space-constructible suffices, no $\\log$ factor. Consequences: $\\mathsf{P}\\subsetneq\\mathsf{EXP}$, $\\mathsf{L}\\subsetneq\\mathsf{PSPACE}$, $\\mathsf{NL}\\subsetneq\\mathsf{NPSPACE}=\\mathsf{PSPACE}$. The diagonal in time/space mirrors Cantor's, but with a stopwatch attached to the simulator.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         }
       ]
     },
@@ -734,11 +808,72 @@ window.__MVConcepts = {
       "page": "forcing-and-independence.html",
       "concepts": [
         {
-          "id": "forcing-and-independence-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "forcing-posets",
+          "title": "Forcing posets and dense subsets",
+          "anchor": "posets",
+          "prereqs": [
+            "zfc-axioms"
+          ],
+          "blurb": "A forcing notion is a poset $(\\mathbb P,\\le)$ of conditions, where $p\\le q$ means $p$ is stronger (carries more information) than $q$. A subset $D\\subseteq\\mathbb P$ is dense if every condition has an extension in $D$ — every line of questioning can be answered.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "forcing-generic-extensions",
+          "title": "Generic filters and the model $M[G]$",
+          "anchor": "generic",
+          "prereqs": [
+            "forcing-posets",
+            "fol-lowenheim-skolem"
+          ],
+          "blurb": "Given a countable transitive model $M\\models$ ZFC and a poset $\\mathbb P\\in M$, a filter $G\\subseteq\\mathbb P$ is $M$-generic if it meets every dense set $D\\in M$. The extension $M[G]$ is the smallest transitive model of ZFC containing $M\\cup\\{G\\}$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "forcing-truth-lemma",
+          "title": "The forcing relation and truth lemma",
+          "anchor": "truth-lemma",
+          "prereqs": [
+            "forcing-generic-extensions"
+          ],
+          "blurb": "The relation $p\\Vdash\\varphi$ ($p$ forces $\\varphi$) is definable inside $M$ by recursion on the formula. Truth lemma: $M[G]\\models\\varphi$ iff some $p\\in G$ forces $\\varphi$. So statements about the unknown $G$ are decided by the conditions $M$ already sees.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "forcing-cohen-reals",
+          "title": "Cohen forcing for adding reals",
+          "anchor": "cohen-reals",
+          "prereqs": [
+            "forcing-truth-lemma"
+          ],
+          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once."
+        },
+        {
+          "id": "forcing-not-ch",
+          "title": "Independence of the continuum hypothesis",
+          "anchor": "not-ch",
+          "prereqs": [
+            "forcing-cohen-reals",
+            "continuum-hypothesis"
+          ],
+          "blurb": "Cohen (1963): forcing with the side-by-side Cohen poset over a model of ZFC + CH gives an extension where $2^{\\aleph_0}\\ge\\aleph_2$, so $\\neg$CH holds. Combined with Gödel's $L$ (CH consistent), CH is independent of ZFC.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "forcing-applications",
+          "title": "Other independence results",
+          "anchor": "applications",
+          "prereqs": [
+            "forcing-not-ch"
+          ],
+          "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing."
         }
       ]
     },
@@ -1769,7 +1904,8 @@ window.__MVConcepts = {
           "anchor": "subobject-classifier",
           "prereqs": [
             "topos-definition",
-            "universal-properties"
+            "universal-properties",
+            "sieves"
           ],
           "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function.",
           "tags": [
@@ -1862,7 +1998,8 @@ window.__MVConcepts = {
           "anchor": "omega-heyting",
           "prereqs": [
             "subobject-classifier",
-            "heyting-algebra"
+            "heyting-algebra",
+            "sieves"
           ],
           "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
         },
@@ -2338,7 +2475,8 @@ window.__MVConcepts = {
           "prereqs": [
             "infty-topos-definition",
             "internal-language",
-            "tt-higher-inductive-types"
+            "tt-higher-inductive-types",
+            "tt-univalence"
           ],
           "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
         },
@@ -2411,7 +2549,8 @@ window.__MVConcepts = {
           "title": "Riemann integral",
           "anchor": "riemann-integral",
           "prereqs": [
-            "real-continuity"
+            "real-continuity",
+            "real-differentiation"
           ],
           "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
         },
@@ -2575,7 +2714,9 @@ window.__MVConcepts = {
           "anchor": "convergence",
           "prereqs": [
             "lebesgue-integral",
-            "uniform-convergence"
+            "uniform-convergence",
+            "measurable-functions",
+            "lebesgue-measure"
           ],
           "blurb": "MCT and DCT let you swap limit and integral under mild hypotheses — the machine behind most measure-theoretic arguments."
         },
@@ -2584,7 +2725,8 @@ window.__MVConcepts = {
           "title": "Lᵖ spaces",
           "anchor": "lp",
           "prereqs": [
-            "convergence-theorems"
+            "convergence-theorems",
+            "algebraic-structures"
           ],
           "blurb": "Banach spaces of p-th-power integrable functions, Hölder and Minkowski, L² as the canonical Hilbert space of analysis.",
           "tags": [
@@ -2727,7 +2869,8 @@ window.__MVConcepts = {
           "anchor": "contour",
           "prereqs": [
             "holomorphic-function",
-            "paths"
+            "paths",
+            "cauchy-riemann"
           ],
           "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
         },
@@ -2758,7 +2901,10 @@ window.__MVConcepts = {
           "title": "Analyticity = holomorphy",
           "anchor": "cons",
           "prereqs": [
-            "cauchy-integral-formula"
+            "cauchy-integral-formula",
+            "liouville",
+            "fta",
+            "schwarz-lemma"
           ],
           "blurb": "Every holomorphic function is locally a convergent power series."
         },
@@ -2855,7 +3001,8 @@ window.__MVConcepts = {
           "title": "Conformal maps",
           "anchor": "conf",
           "prereqs": [
-            "amplitwist"
+            "amplitwist",
+            "mobius-transformations"
           ],
           "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
         },
@@ -2907,7 +3054,11 @@ window.__MVConcepts = {
           "anchor": "coda",
           "prereqs": [
             "cauchy-riemann",
-            "simply-connected"
+            "simply-connected",
+            "holomorphic-function",
+            "conformal-map",
+            "analytic-continuation",
+            "contour-integral"
           ],
           "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
         },
@@ -2958,7 +3109,8 @@ window.__MVConcepts = {
           "anchor": "bounded",
           "prereqs": [
             "operator-norm",
-            "banach-hilbert-spaces"
+            "banach-hilbert-spaces",
+            "algebraic-structures"
           ],
           "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
         },
@@ -2967,7 +3119,8 @@ window.__MVConcepts = {
           "title": "Adjoint operator on Hilbert space",
           "anchor": "adjoint",
           "prereqs": [
-            "bounded-operators-fa"
+            "bounded-operators-fa",
+            "riesz-representation"
           ],
           "blurb": "Self-adjoint, normal, and unitary operators are detected through identities between T and T*; Pauli matrices make the distinctions concrete in 2×2.",
           "tags": [
@@ -3793,11 +3946,67 @@ window.__MVConcepts = {
       "page": "random-walks-and-mixing.html",
       "concepts": [
         {
-          "id": "random-walks-and-mixing-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "rw-markov-chains",
+          "title": "Markov chains and transition matrices",
+          "anchor": "markov",
+          "prereqs": [
+            "markov-chains"
+          ],
+          "blurb": "A discrete-time Markov chain on a finite or countable state space is encoded by a row-stochastic transition matrix $P$; the $n$-step law is $P^n$, and stationary distributions satisfy $\\pi P=\\pi$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "rw-stationary-distribution",
+          "title": "Stationary distributions",
+          "anchor": "stationary",
+          "prereqs": [
+            "rw-markov-chains",
+            "algebraic-structures"
+          ],
+          "blurb": "Every finite irreducible aperiodic chain has a unique stationary $\\pi$ that is the left Perron eigenvector of $P$; detailed balance $\\pi_iP_{ij}=\\pi_jP_{ji}$ identifies it for reversible chains.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rw-mixing-time",
+          "title": "Mixing time",
+          "anchor": "mixing",
+          "prereqs": [
+            "rw-stationary-distribution"
+          ],
+          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+        },
+        {
+          "id": "rw-spectral-gap",
+          "title": "Spectral gap and rapid mixing",
+          "anchor": "spectral",
+          "prereqs": [
+            "rw-mixing-time",
+            "adjacency-and-laplacian"
+          ],
+          "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants)."
+        },
+        {
+          "id": "rw-coupling-method",
+          "title": "Coupling for upper bounds on mixing",
+          "anchor": "coupling",
+          "prereqs": [
+            "rw-mixing-time"
+          ],
+          "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly."
+        },
+        {
+          "id": "rw-applications-mcmc",
+          "title": "Markov-chain Monte Carlo",
+          "anchor": "mcmc",
+          "prereqs": [
+            "rw-spectral-gap",
+            "expectation-moments"
+          ],
+          "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds."
         }
       ]
     },
@@ -3863,7 +4072,8 @@ window.__MVConcepts = {
           "title": "Continuity & homeomorphism",
           "anchor": "continuity",
           "prereqs": [
-            "open-sets"
+            "open-sets",
+            "metric-spaces"
           ],
           "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
         },
@@ -3872,7 +4082,8 @@ window.__MVConcepts = {
           "title": "Compactness",
           "anchor": "compact",
           "prereqs": [
-            "open-sets"
+            "open-sets",
+            "metric-spaces"
           ],
           "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.",
           "tags": [
@@ -4698,7 +4909,8 @@ window.__MVConcepts = {
           "anchor": "ideals-vs-forms",
           "prereqs": [
             "genus-theory",
-            "prime-ideals-factorization-ant"
+            "prime-ideals-factorization-ant",
+            "hilbert-class-field"
           ],
           "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
         }
@@ -5206,7 +5418,8 @@ window.__MVConcepts = {
           "anchor": "existence",
           "prereqs": [
             "local-global-cft",
-            "artin-reciprocity-preview"
+            "artin-reciprocity-preview",
+            "idele-class-group"
           ],
           "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection.",
           "tags": [
@@ -5616,7 +5829,8 @@ window.__MVConcepts = {
           "title": "Commuting Hecke algebra",
           "anchor": "algebra",
           "prereqs": [
-            "hecke-q-expansion-action"
+            "hecke-q-expansion-action",
+            "characters-orthogonality"
           ],
           "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
         },
@@ -5655,7 +5869,8 @@ window.__MVConcepts = {
           "anchor": "series",
           "prereqs": [
             "riemann-integral",
-            "analytic-continuation"
+            "analytic-continuation",
+            "real-numbers"
           ],
           "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions.",
           "tags": [
@@ -5717,7 +5932,8 @@ window.__MVConcepts = {
           "title": "Germs and disks of convergence",
           "anchor": "germs",
           "prereqs": [
-            "analyticity"
+            "analyticity",
+            "analytic-continuation"
           ],
           "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
         },
@@ -6550,7 +6766,8 @@ window.__MVConcepts = {
           "anchor": "reframe",
           "prereqs": [
             "yoneda-limits-adjunctions",
-            "scheme-morphisms"
+            "scheme-morphisms",
+            "yoneda-lemma"
           ],
           "blurb": "A space is studied through all maps into it, turning geometry into a representable functor problem.",
           "tags": [
@@ -6589,7 +6806,8 @@ window.__MVConcepts = {
           "anchor": "yoneda-embedding",
           "prereqs": [
             "yoneda-functor-points",
-            "universal-properties"
+            "universal-properties",
+            "yoneda-lemma"
           ],
           "blurb": "The assignment $X \\mapsto h_X$ is a fully faithful embedding of schemes into presheaves on rings, so a scheme is determined by — and can be constructed from — its functor of points.",
           "tags": [
@@ -6643,7 +6861,8 @@ window.__MVConcepts = {
           "title": "The j-invariant and isomorphism classes",
           "anchor": "j",
           "prereqs": [
-            "elliptic-curve-definition"
+            "elliptic-curve-definition",
+            "hilbert-class-field"
           ],
           "blurb": "The j-invariant is a single number that classifies elliptic curves over an algebraically closed field up to isomorphism, and witnesses the coarse moduli space M_{1,1}.",
           "tags": [
@@ -6657,7 +6876,8 @@ window.__MVConcepts = {
           "anchor": "complex",
           "prereqs": [
             "elliptic-curve-definition",
-            "riemann-surface-definition"
+            "riemann-surface-definition",
+            "mobius-transformations"
           ],
           "blurb": "Over C every elliptic curve is a torus C/Λ; curves whose endomorphism ring is larger than Z have complex multiplication by an order in an imaginary quadratic field.",
           "tags": [
@@ -6829,7 +7049,8 @@ window.__MVConcepts = {
           "title": "Čech cocycles and cohomology",
           "anchor": "cech",
           "prereqs": [
-            "presheaf-sheaf-axioms"
+            "presheaf-sheaf-axioms",
+            "open-sets"
           ],
           "blurb": "Cover-based cocycles detect obstruction classes for global patching.",
           "tags": [
@@ -7060,7 +7281,8 @@ window.__MVConcepts = {
           "title": "Why schemes aren't enough",
           "anchor": "why-algebraic-spaces",
           "prereqs": [
-            "spectrum-primes"
+            "spectrum-primes",
+            "locally-ringed-space"
           ],
           "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
         },
@@ -7578,7 +7800,8 @@ window.__MVConcepts = {
           "anchor": "random-walks",
           "prereqs": [
             "adjacency-and-laplacian",
-            "markov-chains"
+            "markov-chains",
+            "rw-mixing-time"
           ],
           "blurb": "The walk's transition $P=D^{-1}A$ is similar to $I-\\mathcal{L}$ where $\\mathcal{L}=D^{-1/2}LD^{-1/2}$ is the normalised Laplacian. The spectral gap $\\gamma=\\min(\\nu_2,2-\\nu_n)$ controls mixing time: $t_{\\mathrm{mix}}\\le \\frac{1}{\\gamma}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$.",
           "tags": [
@@ -7784,7 +8007,9 @@ window.__MVConcepts = {
           "id": "turan-theorem",
           "title": "Turán's theorem and the Turán graph",
           "anchor": "turan",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "$\\mathrm{ex}(n, K_{r+1}) = (1 - 1/r)\\,n^2/2 - O(1)$, with the unique extremal graph the balanced complete $r$-partite Turán graph $T(n, r)$. Proof by Zykov symmetrization; the limiting Turán density $\\pi(K_{r+1}) = 1 - 1/r$.",
           "tags": [
             "classification"
@@ -7825,7 +8050,9 @@ window.__MVConcepts = {
           "id": "sperner-lym",
           "title": "Sperner's theorem and the LYM inequality",
           "anchor": "sperner",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains."
         },
         {
@@ -7848,7 +8075,9 @@ window.__MVConcepts = {
           "id": "abstract-simplicial-complex",
           "title": "Abstract simplicial complexes",
           "anchor": "complex",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "A finite set system $K \\subseteq 2^V$ closed under taking subsets, with every singleton in $K$. Faces are members of $K$; dimension is one less than the largest face size; facets are inclusion-maximal faces. The face lattice $(K,\\subseteq)$ is a graded down-closed sub-poset of $2^V$.",
           "tags": [
             "foundation"
@@ -8755,74 +8984,74 @@ window.__MVConcepts = {
   ],
   "sectionStats": {
     "Logic & Foundations": {
-      "concepts": 39,
-      "intra": 42,
-      "crossOut": 3,
-      "crossIn": 6,
-      "density": 0.07692307692307693
+      "concepts": 49,
+      "intra": 56,
+      "crossOut": 4,
+      "crossIn": 10,
+      "density": 0.08163265306122448
     },
     "Algebra & homological": {
       "concepts": 78,
       "intra": 107,
       "crossOut": 9,
-      "crossIn": 55,
+      "crossIn": 61,
       "density": 0.11538461538461539
     },
     "Higher categories & toposes": {
       "concepts": 45,
-      "intra": 66,
-      "crossOut": 22,
+      "intra": 68,
+      "crossOut": 23,
       "crossIn": 2,
-      "density": 0.4888888888888889
+      "density": 0.5111111111111111
     },
     "Analysis": {
       "concepts": 107,
-      "intra": 153,
-      "crossOut": 14,
-      "crossIn": 27,
-      "density": 0.1308411214953271
+      "intra": 166,
+      "crossOut": 16,
+      "crossIn": 30,
+      "density": 0.14953271028037382
     },
     "Probability & statistics": {
-      "concepts": 17,
-      "intra": 15,
-      "crossOut": 7,
-      "crossIn": 7,
-      "density": 0.4117647058823529
+      "concepts": 22,
+      "intra": 22,
+      "crossOut": 9,
+      "crossIn": 8,
+      "density": 0.4090909090909091
     },
     "Geometry & topology": {
       "concepts": 51,
-      "intra": 58,
+      "intra": 60,
       "crossOut": 6,
-      "crossIn": 46,
+      "crossIn": 48,
       "density": 0.11764705882352941
     },
     "Number theory": {
       "concepts": 73,
-      "intra": 94,
+      "intra": 96,
       "crossOut": 25,
-      "crossIn": 21,
+      "crossIn": 22,
       "density": 0.3424657534246575
     },
     "Modular forms & L-functions": {
       "concepts": 74,
       "intra": 94,
-      "crossOut": 44,
+      "crossOut": 47,
       "crossIn": 6,
-      "density": 0.5945945945945946
+      "density": 0.6351351351351351
     },
     "Algebraic geometry": {
       "concepts": 109,
-      "intra": 137,
-      "crossOut": 42,
+      "intra": 138,
+      "crossOut": 47,
       "crossIn": 14,
-      "density": 0.3853211009174312
+      "density": 0.43119266055045874
     },
     "Combinatorics & graph theory": {
       "concepts": 34,
       "intra": 28,
-      "crossOut": 12,
-      "crossIn": 0,
-      "density": 0.35294117647058826
+      "crossOut": 16,
+      "crossIn": 1,
+      "density": 0.47058823529411764
     }
   }
 };

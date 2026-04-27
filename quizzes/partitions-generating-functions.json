@@ -8,7 +8,8 @@
           "type": "numeric",
           "q": "How many partitions of $5$ are there? (List them in your head: $5,\\ 4{+}1,\\ 3{+}2,\\ 3{+}1{+}1,\\ 2{+}2{+}1,\\ 2{+}1{+}1{+}1,\\ 1{+}1{+}1{+}1{+}1$.)",
           "answer": 7,
-          "tol": 1e-09,
+          "tol": 1e-9,
+          "hint": "$p(5)=7$.",
           "explain": "$p(5)=7$. The seven partitions are exactly the ones listed."
         },
         {
@@ -21,13 +22,15 @@
             "$1,3,6,10,15,21,28$"
           ],
           "answer": 0,
+          "hint": "$p(n)$ begins $1,2,3,5,7,11,15,22,30,42,\\ldots$.",
           "explain": "$p(n)$ begins $1,2,3,5,7,11,15,22,30,42,\\ldots$. The second sequence is Fibonacci; the third is powers of two; the fourth is triangular numbers."
         },
         {
           "type": "numeric",
           "q": "Compute $p(10)$ — the number of partitions of $10$.",
           "answer": 42,
-          "tol": 1e-09,
+          "tol": 1e-9,
+          "hint": "$p(10)=42$.",
           "explain": "$p(10)=42$. It is the last entry of the classical small-$n$ table $1,2,3,5,7,11,15,22,30,42$."
         }
       ],
@@ -36,7 +39,7 @@
           "type": "numeric",
           "q": "Compute $p(13)$. Use the pentagonal recurrence: $p(n)=p(n{-}1)+p(n{-}2)-p(n{-}5)-p(n{-}7)+p(n{-}12)+\\cdots$ with $p(0)=1$. You may use $p(12)=77$, $p(11)=56$, $p(8)=22$, $p(6)=11$, $p(1)=1$.",
           "answer": 101,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "Iterate the recurrence up through $n = 13$ using prior values.",
           "explain": "Pentagonal offsets up to $13$: $1,2,5,7,12$ with signs $+,+,-,-,+$. So $p(13)=p(12)+p(11)-p(8)-p(6)+p(1)=77+56-22-11+1=101$."
         },
@@ -81,6 +84,7 @@
             "$\\sum_{n\\ge 1} \\dfrac{q^n}{1-q^n}$"
           ],
           "answer": 1,
+          "hint": "Each factor $\\tfrac{1}{1-q^n}=1+q^n+q^{2n}+\\cdots$ records 'how many copies of the part $n$'.",
           "explain": "Each factor $\\tfrac{1}{1-q^n}=1+q^n+q^{2n}+\\cdots$ records 'how many copies of the part $n$'. Multiplying over $n\\ge 1$ sums over all partitions, with $q$-weight equal to the total."
         },
         {
@@ -93,13 +97,15 @@
             "$\\prod(1-q^n)=\\sum(-1)^n q^{n(3n-1)/2}$"
           ],
           "answer": 0,
+          "hint": "Both sides equal $\\prod_{n\\ge 1}\\tfrac{1-q^{2n}}{1-q^n}$; the left counts odd-part partitions, the right counts distinct-part partitions.",
           "explain": "Both sides equal $\\prod_{n\\ge 1}\\tfrac{1-q^{2n}}{1-q^n}$; the left counts odd-part partitions, the right counts distinct-part partitions. This is the baby case of a long string of Rogers–Ramanujan-style identities."
         },
         {
           "type": "numeric",
           "q": "Expand $\\prod_{n=1}^{3} \\dfrac{1}{1-q^n}$ as a power series and read off the coefficient of $q^4$. (This counts partitions of $4$ with all parts $\\le 3$.)",
           "answer": 4,
-          "tol": 1e-09,
+          "tol": 1e-9,
+          "hint": "The partitions of $4$ with all parts $\\le 3$ are $3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$, giving $4$.",
           "explain": "The partitions of $4$ with all parts $\\le 3$ are $3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$, giving $4$. The partition $4$ itself is excluded, so this is $p(4)-1=4$."
         }
       ],
@@ -108,7 +114,7 @@
           "type": "numeric",
           "q": "From the product $\\prod_{n=1}^{4}\\dfrac{1}{1-q^n}$, extract the coefficient of $q^5$. This counts partitions of $5$ with all parts $\\le 4$.",
           "answer": 6,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "List partitions of $5$ whose largest part is at most $4$.",
           "explain": "Partitions of $5$ with parts $\\le 4$: $4{+}1,\\ 3{+}2,\\ 3{+}1{+}1,\\ 2{+}2{+}1,\\ 2{+}1{+}1{+}1,\\ 1^5$. That is $6$ partitions; the partition $5$ itself is excluded since $5>4$."
         },
@@ -153,13 +159,15 @@
             "the primes"
           ],
           "answer": 2,
+          "hint": "The nonzero exponents are the generalized pentagonal numbers $1,2,5,7,12,15,22,26,\\ldots$, from $k=\\pm 1,\\pm 2,\\pm 3,\\ldots$ in $k(3k-1)/2$.",
           "explain": "The nonzero exponents are the generalized pentagonal numbers $1,2,5,7,12,15,22,26,\\ldots$, from $k=\\pm 1,\\pm 2,\\pm 3,\\ldots$ in $k(3k-1)/2$."
         },
         {
           "type": "numeric",
           "q": "Use Euler's recurrence $p(n) = p(n{-}1) + p(n{-}2) - p(n{-}5) - p(n{-}7) + p(n{-}12) + \\cdots$ (with $p(0)=1$, $p(m)=0$ for $m<0$) to compute $p(7)$ given $p(6)=11$, $p(5)=7$, $p(2)=2$, $p(0)=1$.",
           "answer": 15,
-          "tol": 1e-09,
+          "tol": 1e-9,
+          "hint": "The pentagonal shifts up to $7$ are $1,2,5,7$ with signs $+,+,-,-$.",
           "explain": "The pentagonal shifts up to $7$ are $1,2,5,7$ with signs $+,+,-,-$. Hence $p(7)=p(6)+p(5)-p(2)-p(0)=11+7-2-1=15$, matching the table entry."
         },
         {
@@ -172,6 +180,7 @@
             "because most partitions are pentagonal"
           ],
           "answer": 0,
+          "hint": "The pentagonal numbers $1,2,5,7,12,15,22,26,35,40,\\ldots$ have density $\\sim\\sqrt{n}$, so Euler's recurrence needs only $O(\\sqrt{n})$ additions per new value.",
           "explain": "The pentagonal numbers $1,2,5,7,12,15,22,26,35,40,\\ldots$ have density $\\sim\\sqrt{n}$, so Euler's recurrence needs only $O(\\sqrt{n})$ additions per new value. Total work to table $p(1),\\ldots,p(N)$ is $O(N^{3/2})$, dramatically better than enumerating $p(N)\\sim e^{\\pi\\sqrt{2N/3}}$ partitions."
         }
       ],
@@ -180,7 +189,7 @@
           "type": "numeric",
           "q": "List the first four positive generalized pentagonal numbers $g_k = k(3k-1)/2$ for $k=1,-1,2,-2$. What is their sum?",
           "answer": 15,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "The four values are $1, 2, 5, 7$ for $k = 1, -1, 2, -2$.",
           "explain": "$g_1=1,\\ g_{-1}=2,\\ g_2=5,\\ g_{-2}=7$. Sum $=1+2+5+7=15$."
         },
@@ -225,20 +234,23 @@
             "$p(n) \\equiv n \\pmod{7}$"
           ],
           "answer": 1,
+          "hint": "Ramanujan's three congruences are $p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$.",
           "explain": "Ramanujan's three congruences are $p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$. The moduli $5,7,11$ are the only primes for which such a simple arithmetic progression congruence holds for $p$."
         },
         {
           "type": "numeric",
           "q": "Verify Ramanujan's mod-5 congruence by computing $p(9) \\bmod 5$ (note $9 = 5\\cdot 1 + 4$, so this falls in the progression).",
           "answer": 0,
-          "tol": 1e-09,
+          "tol": 1e-9,
+          "hint": "$p(9)=30$, and $30 = 6\\cdot 5$, so $p(9)\\equiv 0\\pmod{5}$.",
           "explain": "$p(9)=30$, and $30 = 6\\cdot 5$, so $p(9)\\equiv 0\\pmod{5}$. The pattern continues: $p(4)=5,\\ p(9)=30,\\ p(14)=135,\\ p(19)=490,\\ \\ldots$ — all divisible by $5$."
         },
         {
           "type": "numeric",
           "q": "Verify Ramanujan's mod-7 congruence at the first case $n=5$ (so $7n+5=5$). Compute $p(5)\\bmod 7$.",
           "answer": 0,
-          "tol": 1e-09,
+          "tol": 1e-9,
+          "hint": "$p(5)=7\\equiv 0\\pmod 7$.",
           "explain": "$p(5)=7\\equiv 0\\pmod 7$. The next cases are $p(12)=77=11\\cdot 7$ and $p(19)=490=70\\cdot 7$, all clean multiples of $7$."
         }
       ],
@@ -247,7 +259,7 @@
           "type": "numeric",
           "q": "Verify Ramanujan's mod-11 congruence at the first case: $n=0$ gives $11n+6=6$. Compute $p(6)\\bmod 11$.",
           "answer": 0,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "Compute $p(6) = 11$ directly and reduce modulo $11$.",
           "explain": "$p(6)=11\\equiv 0\\pmod{11}$. The next instances are $p(17)=297=27\\cdot 11$ and $p(28)=3718=338\\cdot 11$."
         },
@@ -292,6 +304,7 @@
             "$\\eta=\\sum p(n) q^n$"
           ],
           "answer": 1,
+          "hint": "$\\prod(1-q^n)^{-1}=\\sum p(n)q^n$, so the partition generating function is essentially $q^{1/24}/\\eta$.",
           "explain": "$\\prod(1-q^n)^{-1}=\\sum p(n)q^n$, so the partition generating function is essentially $q^{1/24}/\\eta$. The fractional prefactor $q^{1/24}$ is exactly what makes $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$ — a weight-$1/2$ modular transformation."
         },
         {
@@ -304,6 +317,7 @@
             "$1/2$"
           ],
           "answer": 1,
+          "hint": "Each factor of $\\eta$ contributes weight $1/2$, so $\\eta^{24}$ has weight $12$.",
           "explain": "Each factor of $\\eta$ contributes weight $1/2$, so $\\eta^{24}$ has weight $12$. $\\Delta$ is the first nonzero cusp form on $\\mathrm{SL}_2(\\mathbb{Z})$; its Fourier coefficients are Ramanujan's $\\tau(n)$."
         },
         {
@@ -311,6 +325,7 @@
           "q": "Using Hardy–Ramanujan's asymptotic $p(n)\\sim \\dfrac{1}{4n\\sqrt{3}}\\exp\\!\\bigl(\\pi\\sqrt{2n/3}\\bigr)$, compute the exponent $\\pi\\sqrt{2n/3}$ at $n=6$. (Round to two decimals.)",
           "answer": 6.28,
           "tol": 0.02,
+          "hint": "At $n=6$: $2n/3 = 4$, so $\\sqrt{2n/3}=2$ and $\\pi\\sqrt{2n/3}=2\\pi\\approx 6.283$.",
           "explain": "At $n=6$: $2n/3 = 4$, so $\\sqrt{2n/3}=2$ and $\\pi\\sqrt{2n/3}=2\\pi\\approx 6.283$. Exponentiating and dividing by $4\\cdot 6\\cdot\\sqrt{3}\\approx 41.57$ gives $p(6)\\approx 13.0$; the true value is $11$, so the leading asymptotic is already within a factor of $1.2$ at $n=6$."
         }
       ],

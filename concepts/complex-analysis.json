@@ -77,7 +77,8 @@
       "anchor": "contour",
       "prereqs": [
         "holomorphic-function",
-        "paths"
+        "paths",
+        "cauchy-riemann"
       ],
       "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
     },
@@ -108,7 +109,10 @@
       "title": "Analyticity = holomorphy",
       "anchor": "cons",
       "prereqs": [
-        "cauchy-integral-formula"
+        "cauchy-integral-formula",
+        "liouville",
+        "fta",
+        "schwarz-lemma"
       ],
       "blurb": "Every holomorphic function is locally a convergent power series."
     },
@@ -205,7 +209,8 @@
       "title": "Conformal maps",
       "anchor": "conf",
       "prereqs": [
-        "amplitwist"
+        "amplitwist",
+        "mobius-transformations"
       ],
       "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
     },
@@ -257,7 +262,11 @@
       "anchor": "coda",
       "prereqs": [
         "cauchy-riemann",
-        "simply-connected"
+        "simply-connected",
+        "holomorphic-function",
+        "conformal-map",
+        "analytic-continuation",
+        "contour-integral"
       ],
       "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
     },

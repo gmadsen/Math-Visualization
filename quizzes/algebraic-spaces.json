@@ -14,6 +14,7 @@
             "Because $\\mathbb{A}^1$ is not proper."
           ],
           "answer": 2,
+          "hint": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$.",
           "explain": "The pullback of $\\Delta_X$ to $\\mathbb{A}^1 \\times \\mathbb{A}^1$ is the equivalence relation $R = \\mathbb{Z} \\times \\mathbb{A}^1$. For $X$ to be a scheme, $\\Delta_X$ would need to be quasi-compact (in fact, locally closed); but $R$ is an infinite disjoint union of $\\mathbb{A}^1$'s and so not quasi-compact. The action <em>is</em> free; finiteness of the group is irrelevant; properness of $\\mathbb{A}^1$ is unrelated."
         },
         {
@@ -25,7 +26,12 @@
             "It is a quasi-separated algebraic space.",
             "It is an algebraic space."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "hint": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal…",
           "explain": "It is a sheaf (étale-sheafification of the presheaf quotient), and the natural projection $\\mathbb{A}^1 \\twoheadrightarrow \\mathbb{A}^1/\\mathbb{Z}$ is étale and surjective; combined with the diagonal pullback $R = \\mathbb{Z}\\times\\mathbb{A}^1$ being a scheme, $X$ is an algebraic space. It is <em>not</em> quasi-separated, because $\\Delta_X$ is not quasi-compact."
         },
         {
@@ -39,6 +45,7 @@
             "QED."
           ],
           "answer": 2,
+          "hint": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective.",
           "explain": "Step 3 invokes \"GAGA\" — a comparison theorem between projective complex-analytic and projective algebraic geometry — to conclude something is quasi-projective. GAGA does not produce schemes from étale quotient sheaves, and a free étale action on a scheme need not produce a scheme quotient (e.g. $\\mathbb{A}^1/\\mathbb{Z}$ itself). The correct conclusion is only that the quotient is an algebraic space."
         }
       ]
@@ -56,19 +63,31 @@
             "$R \\subset \\mathbb{A}^1 \\times \\mathbb{A}^1$ defined by $\\{(x, y) : y = x + 1\\}$ alone."
           ],
           "answer": 3,
+          "hint": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e.",
           "explain": "Choices A, B, and C are all valid étale equivalence relations: the diagonal (trivial), free finite group action, and the codiagonal (i.e. $\\pi_0$ collapses to a point). Choice D fails transitivity — $x \\sim x+1$ and $x+1 \\sim x+2$ should imply $x \\sim x+2$, but $(x, x+2) \\not\\in R$. To make this an equivalence relation you would need $R = \\bigcup_{n \\in \\mathbb{Z}} \\{(x, x+n)\\} = \\mathbb{Z} \\times \\mathbb{A}^1$ — the relation generating $\\mathbb{A}^1/\\mathbb{Z}$."
         },
         {
           "type": "matching",
           "q": "Match each scheme-theoretic gadget with its role in an étale equivalence relation $j = (s,t)\\colon R \\hookrightarrow U \\times U$.",
-          "left": ["Reflexivity", "Symmetry", "Transitivity", "Étale projections"],
+          "left": [
+            "Reflexivity",
+            "Symmetry",
+            "Transitivity",
+            "Étale projections"
+          ],
           "right": [
             "$\\Delta_U \\colon U \\to U \\times U$ factors through $j$",
             "swap involution $\\sigma$ on $U \\times U$ restricts to an automorphism of $R$",
             "$R \\times_{s, U, t} R \\to U \\times U$ factors through $j$",
             "both $s, t$ are étale morphisms from $R$ to $U$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Reflexivity = diagonal factors through $R$.",
           "explain": "Reflexivity = diagonal factors through $R$. Symmetry = swap restricts. Transitivity = the fibre product $R \\times_U R$ (composing equivalences) lands in $R$. Étale projections is the topology condition that makes the quotient an <em>algebraic space</em> rather than just any sheaf."
         },
         {
@@ -81,6 +100,7 @@
             "$|G|$ is invertible on $U$."
           ],
           "answer": 1,
+          "hint": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free.",
           "explain": "The map $G \\times U \\to U \\times U$ is automatically a monomorphism iff the action is free. Each projection $G \\times U \\to U$ is a disjoint union of $|G|$ copies of $U$, which is étale exactly when the source is reduced and the action is free in the geometric sense. Abelian-ness, quasi-projectivity, and invertibility of $|G|$ are unrelated to whether the relation is étale; they affect properties of the quotient (e.g. tameness) but not the equivalence-relation structure itself."
         }
       ]
@@ -98,6 +118,7 @@
             "A locally ringed space with a covering by spectra of commutative rings."
           ],
           "answer": 1,
+          "hint": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas.",
           "explain": "By definition (Knutson, after Artin), an algebraic space is exactly a sheaf $X$ on $(\\mathrm{Sch})_{\\acute e t}$ with (1) representable diagonal and (2) an étale-surjective scheme atlas. Choice A is the definition of (a quasi-affine) scheme. Choice C describes DM stacks. Choice D is the classical definition of a scheme."
         },
         {
@@ -109,7 +130,13 @@
             "the diagonal $\\Delta_X \\colon X \\to X \\times X$, representable by schemes",
             "the étale sheaf $X \\colon (\\mathrm{Sch})_{\\acute e t}^{\\mathrm{op}} \\to \\mathrm{Set}$"
           ],
-          "answer": [3, 2, 1, 0],
+          "answer": [
+            3,
+            2,
+            1,
+            0
+          ],
+          "hint": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme;…",
           "explain": "Logical order: first $X$ is required to be an étale sheaf; then $\\Delta_X$ is asked to be representable; this turns any test atlas $U$ into a representable picture, with $R = U\\times_X U$ a scheme; and finally the existence of an étale surjective $U \\twoheadrightarrow X$ closes the definition. (Some textbooks phrase it as $X = U/R$ for an étale equivalence relation; that's the equivalent étale-quotient form.)"
         },
         {
@@ -122,6 +149,7 @@
             "The same as $X$ — there is no extra information."
           ],
           "answer": 1,
+          "hint": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$.",
           "explain": "Pulling back $\\Delta_X$ along the atlas $U \\times U \\to X \\times X$ gives $R = U \\times_X U \\hookrightarrow U \\times U$. This is the étale equivalence relation, and $X = U/R$ as étale sheaves. It is generally <em>not</em> $\\Delta_U$ (that would force the atlas to be an isomorphism) and only equals $U \\sqcup U$ in trivial cases."
         }
       ],
@@ -166,6 +194,7 @@
             "locally of finite presentation"
           ],
           "answer": 2,
+          "hint": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does.",
           "explain": "Étale, smooth, and locally of finite presentation are all étale-local on the target, so $f$ has the property iff $\\tilde f$ does. Separatedness is more subtle: it is the condition that $\\Delta_f \\colon X \\to X \\times_Y X$ is a closed immersion, which involves the relation $R \\rightrightarrows U$ and is <em>not</em> determined by $\\tilde f$ alone."
         },
         {
@@ -179,7 +208,14 @@
             "finite",
             "isomorphism"
           ],
-          "answer": [0, 1, 2, 4, 5],
+          "answer": [
+            0,
+            1,
+            2,
+            4,
+            5
+          ],
+          "hint": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target.",
           "explain": "Étale, flat, proper, finite, and isomorphism are all étale-local on the target. Separated is the exception — it is a condition on the diagonal $\\Delta_f$ rather than on $f$ itself, and depends on the equivalence relation in the algebraic-space presentation."
         },
         {
@@ -192,6 +228,7 @@
             "A morphism of locally ringed spaces, but only up to étale localisation."
           ],
           "answer": 1,
+          "hint": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too.",
           "explain": "The Yoneda embedding (schemes) $\\hookrightarrow$ (étale sheaves) is fully faithful, and the further inclusion into algebraic spaces is too. So a morphism between two schemes-as-algebraic-spaces is exactly a morphism of schemes — no extra data, no quotient by anything."
         }
       ]
@@ -209,6 +246,7 @@
             "Because $\\mathbb{A}^1$ is not affine."
           ],
           "answer": 2,
+          "hint": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact.",
           "explain": "Quasi-projective schemes are quasi-separated, so their diagonals must be quasi-compact. But the diagonal of $\\mathbb{A}^1/\\mathbb{Z}$ pulls back along $\\mathbb{A}^1 \\times \\mathbb{A}^1 \\to X\\times X$ to $\\mathbb{Z}\\times\\mathbb{A}^1$ — an infinite disjoint union, not quasi-compact. The other choices are either false ($\\mathbb{A}^1$ <em>is</em> affine and one would expect properness to be unrelated to schemehood of a quotient) or red herrings."
         },
         {
@@ -221,6 +259,7 @@
             "The space has dimension 0."
           ],
           "answer": 1,
+          "hint": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero.",
           "explain": "Hironaka's space $H$ is smooth and proper, but it contains a proper curve $C$ (the descended image of $\\tilde C_0$) on which every line bundle has degree zero. This forbids the existence of an ample line bundle, hence projectivity, hence (for proper smooth 3-folds over $\\mathbb{C}$) schemehood. The space is reduced, separated, and 3-dimensional."
         },
         {
@@ -233,7 +272,11 @@
             "Hironaka's smooth proper 3-fold $H$",
             "An étale double cover of $\\mathbb{P}^1$ (when the cover is connected)"
           ],
-          "answer": [1, 3],
+          "answer": [
+            1,
+            3
+          ],
+          "hint": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes.",
           "explain": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
         }
       ],
@@ -278,19 +321,31 @@
             "The stack is quasi-compact."
           ],
           "answer": 1,
+          "hint": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism.",
           "explain": "An Artin stack is an algebraic space iff every geometric stabiliser is trivial — iff $\\Delta_{\\mathcal X}$ is a monomorphism. Choice A characterises DM stacks; choice C is necessary but not sufficient (DM stacks also have étale atlases by schemes, e.g. $B(\\mathbb{Z}/2)$ has the trivial étale cover from a point times $\\mathbb{Z}/2$); choice D is unrelated."
         },
         {
           "type": "matching",
           "q": "Match each rung of the hierarchy with the condition on its diagonal.",
-          "left": ["Schemes", "Algebraic spaces", "DM stacks", "Artin stacks"],
+          "left": [
+            "Schemes",
+            "Algebraic spaces",
+            "DM stacks",
+            "Artin stacks"
+          ],
           "right": [
             "$\\Delta$ is a locally closed immersion (and Zariski atlas exists)",
             "$\\Delta$ is a monomorphism (representable by schemes)",
             "$\\Delta$ is unramified (representable, equivalently finite + unramified)",
             "$\\Delta$ is representable by algebraic spaces"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM)…",
           "explain": "The hierarchy is fully captured by progressively weaker conditions on the diagonal: locally closed immersion (schemes) $\\Rightarrow$ monomorphism (algebraic spaces) $\\Rightarrow$ unramified (DM) $\\Rightarrow$ representable (Artin). Each weakening corresponds to allowing more structure in the geometric stabilisers (none, none, finite étale, any algebraic group)."
         },
         {
@@ -303,6 +358,7 @@
             "An Artin stack but not a DM stack."
           ],
           "answer": 2,
+          "hint": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$.",
           "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\operatorname{Spec} k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
         }
       ],
@@ -329,7 +385,11 @@
             "$BGL_n$ for $n \\ge 1$",
             "$\\mathcal{M}_g$ for $g \\ge 2$"
           ],
-          "answer": [0, 1, 4],
+          "answer": [
+            0,
+            1,
+            4
+          ],
           "explain": "$B(\\mathbb{Z}/n)$, $\\overline{\\mathcal M}_{1,1}$ (with $\\mathbb{Z}/2$ stabiliser at the $j=1728$ point), and $\\mathcal M_g$ for $g \\ge 2$ are all DM stacks with nontrivial finite stabilisers, hence not algebraic spaces. $\\mathbb{P}^1$ is a scheme. $BGL_n$ has positive-dimensional stabiliser $GL_n$, so it is an Artin stack that is <em>not</em> DM."
         }
       ]

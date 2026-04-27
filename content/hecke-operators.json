@@ -306,6 +306,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./representation-theory.html#characters\">Characters and orthogonality</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#satake\">Automorphic forms (adelic)</a> · Spherical Hecke algebra and Satake</div>\n    <div><a href=\"./hecke-operators.html#eigen\">Hecke operators</a> · Eigenforms and Euler factors</div>\n    <div><a href=\"./hecke-operators.html#petersson\">Hecke operators</a> · Self-adjointness of $T_p$</div>\n    <div><a href=\"./modularity-and-flt.html#rt\">Modularity and FLT</a> · The R = T theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

@@ -13,6 +13,7 @@
             "$D = a^2 - 4bc$"
           ],
           "answer": 0,
+          "hint": "By definition $D = b^2 - 4ac$.",
           "explain": "By definition $D = b^2 - 4ac$. For positive-definite forms $D < 0$."
         },
         {
@@ -24,6 +25,7 @@
             "$b$ is even"
           ],
           "answer": 0,
+          "hint": "Primitivity means the three coefficients share no common factor greater than 1.",
           "explain": "Primitivity means the three coefficients share no common factor greater than 1."
         },
         {
@@ -31,6 +33,7 @@
           "q": "Compute the discriminant $D$ of the form $x^2+xy+y^2$.",
           "answer": -3,
           "tol": 0.001,
+          "hint": "$D = b^2 - 4ac = 1 - 4(1)(1) = -3$.",
           "explain": "$D = b^2 - 4ac = 1 - 4(1)(1) = -3$."
         }
       ],
@@ -81,6 +84,7 @@
             "$a < c$ and $b = 0$"
           ],
           "answer": 0,
+          "hint": "Gauss's reduction inequalities are $|b|\\le a\\le c$ with the tie-breaking sign conventions.",
           "explain": "Gauss's reduction inequalities are $|b|\\le a\\le c$ with the tie-breaking sign conventions."
         },
         {
@@ -92,6 +96,7 @@
             "may contain zero or one reduced forms"
           ],
           "answer": 1,
+          "hint": "A key theorem: each class contains precisely one reduced representative, making the class number well-defined.",
           "explain": "A key theorem: each class contains precisely one reduced representative, making the class number well-defined."
         },
         {
@@ -99,6 +104,7 @@
           "q": "How many reduced primitive positive-definite forms have discriminant $D=-4$? (i.e. what is $h(-4)$?)",
           "answer": 1,
           "tol": 0.001,
+          "hint": "The only reduced form with $D=-4$ is $x^2+y^2$, so $h(-4)=1$.",
           "explain": "The only reduced form with $D=-4$ is $x^2+y^2$, so $h(-4)=1$."
         }
       ],
@@ -149,6 +155,7 @@
             "ring but not a group"
           ],
           "answer": 0,
+          "hint": "Gauss–Dirichlet composition turns the set of primitive classes into a finite abelian group, the form class group of discriminant $D$.",
           "explain": "Gauss–Dirichlet composition turns the set of primitive classes into a finite abelian group, the form class group of discriminant $D$."
         },
         {
@@ -160,6 +167,7 @@
             "the zero form $0\\cdot x^2+0\\cdot xy+0\\cdot y^2$"
           ],
           "answer": 0,
+          "hint": "The principal form (the one representing $1$) is the identity; its exact form depends on the parity of $D$.",
           "explain": "The principal form (the one representing $1$) is the identity; its exact form depends on the parity of $D$."
         },
         {
@@ -167,6 +175,7 @@
           "q": "The class number $h(-23)$ equals 3. How many elements does the form class group of discriminant $-23$ have?",
           "answer": 3,
           "tol": 0.001,
+          "hint": "The form class group has order equal to the class number, so $h(-23)=3$ means a group of order 3.",
           "explain": "The form class group has order equal to the class number, so $h(-23)=3$ means a group of order 3."
         }
       ],
@@ -217,6 +226,7 @@
             "$t$"
           ],
           "answer": 0,
+          "hint": "Gauss proved the number of genera is exactly $2^{t-1}$ where $t$ counts the number of prime discriminant divisors of $D$.",
           "explain": "Gauss proved the number of genera is exactly $2^{t-1}$ where $t$ counts the number of prime discriminant divisors of $D$."
         },
         {
@@ -228,6 +238,7 @@
             "$(-1)^{(m-1)/2}$"
           ],
           "answer": 0,
+          "hint": "Each genus character is a Legendre symbol evaluated at integers represented by the form, linking genus theory to quadratic residue symbols.",
           "explain": "Each genus character is a Legendre symbol evaluated at integers represented by the form, linking genus theory to quadratic residue symbols."
         },
         {
@@ -239,6 +250,7 @@
             "the unique genus of forms representing 1"
           ],
           "answer": 0,
+          "hint": "The principal genus is the kernel of all genus characters; it equals the subgroup $\\mathrm{Cl}(D)^2$ of squares.",
           "explain": "The principal genus is the kernel of all genus characters; it equals the subgroup $\\mathrm{Cl}(D)^2$ of squares."
         }
       ],
@@ -289,6 +301,7 @@
             "the Galois group of $\\mathbb{Q}(\\sqrt{D})/\\mathbb{Q}$"
           ],
           "answer": 0,
+          "hint": "The classical correspondence sends a primitive form $ax^2+bxy+cy^2$ to the ideal $[a, (-b+\\sqrt{D})/2]$ in the ring of integers, yielding a group isomorphism.",
           "explain": "The classical correspondence sends a primitive form $ax^2+bxy+cy^2$ to the ideal $[a, (-b+\\sqrt{D})/2]$ in the ring of integers, yielding a group isomorphism."
         },
         {
@@ -300,6 +313,7 @@
             "ideals of the form $(a)$ with $a$ totally positive"
           ],
           "answer": 0,
+          "hint": "The principal form class maps to the trivial ideal class, and the principal genus maps to the subgroup of squares, matching the structure on both sides.",
           "explain": "The principal form class maps to the trivial ideal class, and the principal genus maps to the subgroup of squares, matching the structure on both sides."
         },
         {
@@ -311,6 +325,7 @@
             "$p \\equiv 1 \\pmod{|D|}$"
           ],
           "answer": 0,
+          "hint": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of…",
           "explain": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of class field theory."
         }
       ],

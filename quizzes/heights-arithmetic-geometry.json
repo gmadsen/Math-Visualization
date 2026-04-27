@@ -9,6 +9,7 @@
           "q": "Compute $H([15:-9:24])\\in\\mathbb{P}^2(\\mathbb{Q})$. (Reduce to coprime integer coordinates first.)",
           "answer": 8,
           "tol": 1e-9,
+          "hint": "$\\gcd(15,9,24)=3$, so $[15:-9:24]=[5:-3:8]$.",
           "explain": "$\\gcd(15,9,24)=3$, so $[15:-9:24]=[5:-3:8]$. Then $H=\\max(|5|,|-3|,|8|)=8$."
         },
         {
@@ -20,6 +21,7 @@
             "The naive height is multiplicative and would double-count primes in $\\gcd$."
           ],
           "answer": 1,
+          "hint": "Multiplying every coordinate by a constant gives the same projective point, so a coordinate-free $H$ requires picking the smallest integer representative — equivalently, dividing through by the gcd.",
           "explain": "Multiplying every coordinate by a constant gives the same projective point, so a coordinate-free $H$ requires picking the smallest integer representative — equivalently, dividing through by the gcd."
         },
         {
@@ -32,6 +34,7 @@
             "$|a/b|$"
           ],
           "answer": 2,
+          "hint": "By definition $H([a:b])=\\max(|a|,|b|)$.",
           "explain": "By definition $H([a:b])=\\max(|a|,|b|)$. So $H(3/4)=4$, $H(7)=H([7:1])=7$, etc."
         }
       ]
@@ -49,6 +52,7 @@
             "Polynomial in $B$ but exponential in $d$."
           ],
           "answer": 1,
+          "hint": "The whole point of Northcott is that bounding height AND degree (over $\\mathbb{Q}$) is enough — you do not have to fix the number field in advance.",
           "explain": "The whole point of Northcott is that bounding height AND degree (over $\\mathbb{Q}$) is enough — you do not have to fix the number field in advance."
         },
         {
@@ -61,6 +65,7 @@
             "There is no canonical way to define $H$ outside $\\mathbb{Q}$."
           ],
           "answer": 0,
+          "hint": "All cyclotomic numbers $\\zeta_m$ have height $0$, and there are infinitely many of them across all degrees.",
           "explain": "All cyclotomic numbers $\\zeta_m$ have height $0$, and there are infinitely many of them across all degrees. Bounding the degree kills this."
         },
         {
@@ -68,6 +73,7 @@
           "q": "How many points of $\\mathbb{P}^1(\\mathbb{Q})$ have $H([a:b])\\le 2$? (Use coprime integer reps; remember $[a:b]=[-a:-b]$.)",
           "answer": 11,
           "tol": 0.5,
+          "hint": "Pairs $(a,b)$ with $\\gcd=1$, $\\max(|a|,|b|)\\le 2$, modulo sign: $[0:1],[1:0],[1:1],[1:-1],[1:2],[1:-2],[2:1],[2:-1],[1:0]$ already counted… enumeration gives $0,\\infty,\\pm 1,\\pm 2,\\pm 1/2$ — that's…",
           "explain": "Pairs $(a,b)$ with $\\gcd=1$, $\\max(|a|,|b|)\\le 2$, modulo sign: $[0:1],[1:0],[1:1],[1:-1],[1:2],[1:-2],[2:1],[2:-1],[1:0]$ already counted… enumeration gives $0,\\infty,\\pm 1,\\pm 2,\\pm 1/2$ — that's $11$ projective points."
         }
       ]
@@ -85,6 +91,7 @@
             "It depends multiplicatively on the choice and is only well-defined up to scaling."
           ],
           "answer": 1,
+          "hint": "$h_{X,L}$ is canonical only modulo bounded functions on $X(\\bar K)$.",
           "explain": "$h_{X,L}$ is canonical only modulo bounded functions on $X(\\bar K)$. This is enough for Northcott (which is insensitive to $O(1)$) but not enough to define a quadratic form — that needs the canonical-height refinement."
         },
         {
@@ -97,6 +104,7 @@
             "There is no general relation; it depends on $f$."
           ],
           "answer": 1,
+          "hint": "The standard Weil-height machine: pullback intertwines heights up to a bounded function.",
           "explain": "The standard Weil-height machine: pullback intertwines heights up to a bounded function. The $O(1)$ is unavoidable since the heights themselves are only well-defined up to $O(1)$."
         },
         {
@@ -109,6 +117,7 @@
             "$H^1(X,\\mathcal{O}_X^*)$ — wait, that's the same as Pic."
           ],
           "answer": 1,
+          "hint": "$L\\mapsto h_{X,L}$ is a homomorphism $\\mathrm{Pic}(X)\\to\\{\\text{functions }X(\\bar K)\\to\\mathbb{R}\\}/O(1)$.",
           "explain": "$L\\mapsto h_{X,L}$ is a homomorphism $\\mathrm{Pic}(X)\\to\\{\\text{functions }X(\\bar K)\\to\\mathbb{R}\\}/O(1)$. Tensor product of line bundles becomes addition of heights."
         }
       ]
@@ -126,6 +135,7 @@
             "$\\hat h(P)=\\sup_n h(x([n]P))/n^2$"
           ],
           "answer": 1,
+          "hint": "Doubling on $E$ acts as multiplication-by-$4$ on a Weil height attached to a symmetric ample bundle, so dividing by $n^2$ is the right normalisation.",
           "explain": "Doubling on $E$ acts as multiplication-by-$4$ on a Weil height attached to a symmetric ample bundle, so dividing by $n^2$ is the right normalisation. Equivalently, $\\hat h=\\lim_n h(x(2^n P))/4^n$ — the form usually written down."
         },
         {
@@ -138,6 +148,7 @@
             "Northcott finiteness on $E(\\mathbb{Q})$."
           ],
           "answer": 2,
+          "hint": "The naive height satisfies $h([n]P)=n^2 h(P)+O(1)$ but not equality.",
           "explain": "The naive height satisfies $h([n]P)=n^2 h(P)+O(1)$ but not equality. Tate's averaging absorbs the $O(1)$; the resulting $\\hat h$ is exactly quadratic and gives a positive-definite pairing on $E(\\mathbb{Q})/\\mathrm{tors}$."
         },
         {
@@ -150,6 +161,7 @@
             "$P$ has $x$-coordinate $0$."
           ],
           "answer": 1,
+          "hint": "Quadratic + Northcott + invariance under $[n]$ forces $\\hat h$ to vanish exactly on the torsion subgroup.",
           "explain": "Quadratic + Northcott + invariance under $[n]$ forces $\\hat h$ to vanish exactly on the torsion subgroup. This is what makes $\\hat h$ a positive-definite form on $E(\\mathbb{Q})/\\mathrm{tors}$ and gives a regulator."
         }
       ]
@@ -162,6 +174,7 @@
           "q": "Compute $M(f)$ for $f(x)=2x^2-3x+1=2(x-1)(x-1/2)$. (Mahler measure = $|a|\\prod\\max(1,|\\alpha_i|)$.)",
           "answer": 2,
           "tol": 1e-9,
+          "hint": "Roots are $1$ and $1/2$, both with $|\\alpha|\\le 1$, so each $\\max(1,|\\alpha|)=1$.",
           "explain": "Roots are $1$ and $1/2$, both with $|\\alpha|\\le 1$, so each $\\max(1,|\\alpha|)=1$. Then $M(f)=|2|\\cdot 1\\cdot 1=2$."
         },
         {
@@ -174,6 +187,7 @@
             "Linear polynomials $\\pm x\\pm 1$."
           ],
           "answer": 1,
+          "hint": "Kronecker: a monic integer polynomial whose roots all have $|\\alpha|\\le 1$ has all its non-zero roots on the unit circle and being algebraic integers, they are roots of unity.",
           "explain": "Kronecker: a monic integer polynomial whose roots all have $|\\alpha|\\le 1$ has all its non-zero roots on the unit circle and being algebraic integers, they are roots of unity. So $M(f)=1$ iff $f=\\pm x^k\\prod\\Phi_{n_i}(x)$."
         },
         {
@@ -186,6 +200,7 @@
             "Whether every algebraic integer arises as a Mahler measure."
           ],
           "answer": 1,
+          "hint": "Lehmer's polynomial $L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1$ has $M(L)\\approx 1.17628$, the smallest known value $>1$.",
           "explain": "Lehmer's polynomial $L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1$ has $M(L)\\approx 1.17628$, the smallest known value $>1$. Whether some $f$ can do better is the open problem; conjecturally Lehmer's value is the infimum."
         }
       ]
@@ -203,6 +218,7 @@
             "$C(K)$ is finitely generated as an abelian group."
           ],
           "answer": 1,
+          "hint": "Mordell's conjecture: genus-$\\ge 2$ forces finitely many rational points.",
           "explain": "Mordell's conjecture: genus-$\\ge 2$ forces finitely many rational points. Genus $0$ gives $\\mathbb{P}^1$ (infinitely many) and genus $1$ gives elliptic curves where $E(K)$ is finitely generated but typically infinite."
         },
         {
@@ -215,6 +231,7 @@
             "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
           ],
           "answer": 1,
+          "hint": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world.",
           "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
         },
         {
@@ -227,6 +244,7 @@
             "Faltings' proof requires $g\\ge 2$ for technical reasons that have since been removed."
           ],
           "answer": 1,
+          "hint": "An elliptic curve $E$ is its own Jacobian, and $E(K)$ can have positive rank — finitely many rational points is simply false.",
           "explain": "An elliptic curve $E$ is its own Jacobian, and $E(K)$ can have positive rank — finitely many rational points is simply false. The right statement is finite generation, which is Mordell–Weil. Higher genus has trivial intersection with the Jacobian, allowing Faltings/Vojta's heavier finiteness."
         }
       ]
@@ -244,6 +262,7 @@
             "Resolve all singularities of arithmetic surfaces."
           ],
           "answer": 1,
+          "hint": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity.",
           "explain": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity. Arakelov fills it by demanding Hermitian metrics on line bundles over $X(\\mathbb{C})$; the resulting compactified geometry supports an arithmetic intersection theory."
         },
         {
@@ -256,6 +275,7 @@
             "The Faltings height of the Jacobian."
           ],
           "answer": 1,
+          "hint": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ —…",
           "explain": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ — heights as intersection numbers in disguise."
         },
         {
@@ -268,6 +288,7 @@
             "Without a metric, heights are only defined modulo torsion."
           ],
           "answer": 1,
+          "hint": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula.",
           "explain": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula. The Hermitian metric is exactly what supplies that archimedean local height."
         }
       ]

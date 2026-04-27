@@ -14,20 +14,23 @@
             "a choice of global chart on $M$"
           ],
           "answer": 1,
+          "hint": "A Riemannian metric is a smooth, symmetric, positive-definite inner product on each tangent space.",
           "explain": "A Riemannian metric is a smooth, symmetric, positive-definite inner product on each tangent space. Symmetry alone is not enough; positive-definiteness is what gives lengths and angles."
         },
         {
           "type": "numeric",
           "q": "On the round sphere with $ds^2 = d\\theta^2 + \\sin^2\\theta\\,d\\varphi^2$, compute the squared length of the vector $v = \\partial_\\varphi$ at the equator $\\theta=\\pi/2$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "The metric assigns $g(\\partial_\\varphi,\\partial_\\varphi) = \\sin^2\\theta$.",
           "explain": "The metric assigns $g(\\partial_\\varphi,\\partial_\\varphi) = \\sin^2\\theta$. At $\\theta=\\pi/2$, $\\sin^2(\\pi/2)=1$."
         },
         {
           "type": "numeric",
           "q": "The hyperbolic half-plane metric is $ds^2 = (du^2+dv^2)/v^2$. What is the hyperbolic length of the vertical segment from $(0,1)$ to $(0,e)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "Parametrize $v(t)=t$ for $t\\in[1,e]$; the length is $\\int_1^e dt/t = \\ln e - \\ln 1 = 1$.",
           "explain": "Parametrize $v(t)=t$ for $t\\in[1,e]$; the length is $\\int_1^e dt/t = \\ln e - \\ln 1 = 1$."
         }
       ],
@@ -49,7 +52,7 @@
           "type": "numeric",
           "q": "On the hyperbolic half-plane with $ds^2=(du^2+dv^2)/v^2$, what is $\\sqrt{\\det g_{ij}}$ at the point $(u,v)=(3,2)$?",
           "answer": 0.25,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Compute $\\sqrt{\\det g}$ from the diagonal conformal factor.",
           "explain": "The metric matrix is $\\mathrm{diag}(1/v^2,1/v^2)$, so $\\det g_{ij}=v^{-4}$ and $\\sqrt{\\det g}=v^{-2}=1/4$ at $v=2$."
         },
@@ -81,6 +84,7 @@
             "symmetric and has vanishing curvature"
           ],
           "answer": 1,
+          "hint": "The fundamental theorem of Riemannian geometry: there is a unique torsion-free connection with $\\nabla g = 0$.",
           "explain": "The fundamental theorem of Riemannian geometry: there is a unique torsion-free connection with $\\nabla g = 0$. Flatness is not required — curvature can be nonzero."
         },
         {
@@ -93,13 +97,15 @@
             "$\\ddot{x}^k = R^k_{\\ ij\\ell}\\dot{x}^i\\dot{x}^j\\dot{x}^\\ell$"
           ],
           "answer": 1,
+          "hint": "A geodesic satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma = 0$, which in coordinates is $\\ddot x^k + \\Gamma^k_{ij}\\dot x^i \\dot x^j = 0$.",
           "explain": "A geodesic satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma = 0$, which in coordinates is $\\ddot x^k + \\Gamma^k_{ij}\\dot x^i \\dot x^j = 0$."
         },
         {
           "type": "numeric",
           "q": "For the Euclidean metric $g_{ij}=\\delta_{ij}$ on $\\mathbb{R}^n$, how many of the Christoffel symbols $\\Gamma^k_{ij}$ are nonzero?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\Gamma^k_{ij} = \\tfrac12 g^{k\\ell}(\\partial_i g_{j\\ell}+\\partial_j g_{i\\ell}-\\partial_\\ell g_{ij})$.",
           "explain": "$\\Gamma^k_{ij} = \\tfrac12 g^{k\\ell}(\\partial_i g_{j\\ell}+\\partial_j g_{i\\ell}-\\partial_\\ell g_{ij})$. With $g_{ij}$ constant, every partial vanishes, so all Christoffels are zero."
         }
       ],
@@ -121,7 +127,7 @@
           "type": "numeric",
           "q": "On the round $S^2$ (radius $1$, coordinates $\\theta,\\varphi$), the only non-zero independent Christoffel symbol components are $\\Gamma^\\theta_{\\varphi\\varphi}=-\\sin\\theta\\cos\\theta$ and $\\Gamma^\\varphi_{\\theta\\varphi}=\\cos\\theta/\\sin\\theta$. Evaluate $\\Gamma^\\theta_{\\varphi\\varphi}$ at $\\theta=\\pi/4$. Express your answer to six decimal places.",
           "answer": -0.5,
-          "tol": 1e-5,
+          "tol": 0.00001,
           "hint": "Substitute $\\theta=\\pi/4$ into $-\\sin\\theta\\cos\\theta$.",
           "explain": "$\\Gamma^\\theta_{\\varphi\\varphi}=-\\sin(\\pi/4)\\cos(\\pi/4)=-(\\frac{\\sqrt2}{2})(\\frac{\\sqrt2}{2})=-\\frac12=-0.5$."
         },
@@ -153,20 +159,28 @@
             "diffeomorphic to $\\mathbb{R}^n$ via the exponential map"
           ],
           "answer": 1,
+          "hint": "Uniformly positive Ricci forces geodesics to refocus within distance $\\pi/\\sqrt{\\kappa}$, which makes $M$ compact with bounded diameter and finite $\\pi_1$.",
           "explain": "Uniformly positive Ricci forces geodesics to refocus within distance $\\pi/\\sqrt{\\kappa}$, which makes $M$ compact with bounded diameter and finite $\\pi_1$."
         },
         {
           "type": "mcq",
           "q": "On the round 2-sphere of radius $1$, the sectional curvature is:",
-          "choices": ["$-1$", "$0$", "$+1$", "undefined"],
+          "choices": [
+            "$-1$",
+            "$0$",
+            "$+1$",
+            "undefined"
+          ],
           "answer": 2,
+          "hint": "The unit sphere has constant Gaussian (sectional) curvature $K=+1$.",
           "explain": "The unit sphere has constant Gaussian (sectional) curvature $K=+1$."
         },
         {
           "type": "numeric",
           "q": "For a geodesic triangle on the round unit 2-sphere enclosing area $A$, the Gauss–Bonnet formula gives the angle excess $(\\alpha+\\beta+\\gamma)-\\pi = \\int K\\,dA$. If $K=1$ and $A=\\pi/2$, what is $(\\alpha+\\beta+\\gamma)-\\pi$?",
           "answer": 1.5707963267948966,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$.",
           "explain": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$."
         }
       ],
@@ -188,7 +202,7 @@
           "type": "numeric",
           "q": "A geodesic triangle on the hyperbolic plane ($K=-1$) has area $A$. Its angle excess is $(\\alpha+\\beta+\\gamma)-\\pi = -A$ (Gauss–Bonnet with $K=-1$). If $\\alpha=\\pi/6$, $\\beta=\\pi/6$, $\\gamma=\\pi/6$, what is the area $A$?",
           "answer": 1.5707963267948966,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Area equals $\\pi$ minus the angle sum when $K=-1$.",
           "explain": "Gauss–Bonnet on the hyperbolic plane ($K=-1$): $\\alpha+\\beta+\\gamma-\\pi = \\int K\\,dA = -A$, so $A = \\pi-(\\alpha+\\beta+\\gamma)$. With $\\alpha=\\beta=\\gamma=\\pi/6$: $A=\\pi-3(\\pi/6)=\\pi-\\pi/2=\\pi/2\\approx 1.5708$."
         },
@@ -220,13 +234,15 @@
             "the determinant of the Riemann tensor in normal coordinates"
           ],
           "answer": 1,
+          "hint": "Contracting the Riemann tensor yields $\\operatorname{Ric}(v,v)=\\sum_i \\langle R(v,e_i)e_i,v\\rangle$ for an orthonormal basis $\\{e_i\\}$ with $e_1=v/\\|v\\|$; summing the $(n-1)$ sectional curvatures of…",
           "explain": "Contracting the Riemann tensor yields $\\operatorname{Ric}(v,v)=\\sum_i \\langle R(v,e_i)e_i,v\\rangle$ for an orthonormal basis $\\{e_i\\}$ with $e_1=v/\\|v\\|$; summing the $(n-1)$ sectional curvatures of planes through $v$ gives exactly $(n-1)$ times their average."
         },
         {
           "type": "numeric",
           "q": "On the round $n$-sphere of radius $1$, every sectional curvature equals $1$. What is the scalar curvature $S$ for $n=3$? (Use $S = n(n-1)\\,\\overline{K}$ with $\\overline{K}$ the average sectional curvature.)",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "With $K\\equiv 1$ we have $\\overline{K}=1$, so $S = n(n-1) = 3\\cdot 2 = 6$.",
           "explain": "With $K\\equiv 1$ we have $\\overline{K}=1$, so $S = n(n-1) = 3\\cdot 2 = 6$."
         },
         {
@@ -239,6 +255,7 @@
             "$\\operatorname{diam}(M)\\le \\pi$"
           ],
           "answer": 1,
+          "hint": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric.",
           "explain": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric. Spheres, hyperbolic spaces, and complex projective spaces with their symmetric metrics are all Einstein."
         }
       ],
@@ -260,7 +277,7 @@
           "type": "numeric",
           "q": "On a compact Einstein $n$-manifold with $\\operatorname{Ric}=\\lambda g$, the scalar curvature is $S=n\\lambda$. If $n=4$ and $\\lambda=3$, what is $S$?",
           "answer": 12,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Trace the Einstein condition to get $S=n\\lambda$.",
           "explain": "$S = g^{ij}\\operatorname{Ric}_{ij} = g^{ij}(\\lambda g_{ij}) = \\lambda\\,\\delta^i{}_i = \\lambda n = 3\\cdot 4 = 12$."
         },
@@ -292,13 +309,15 @@
             "$(\\det g_{ij})^{-1/2}\\; dx^1\\wedge\\cdots\\wedge dx^n$"
           ],
           "answer": 1,
+          "hint": "The metric-compatible, orientation-compatible top form is $d\\mathrm{vol}_g=\\sqrt{\\det g_{ij}}\\,dx^1\\wedge\\cdots\\wedge dx^n$.",
           "explain": "The metric-compatible, orientation-compatible top form is $d\\mathrm{vol}_g=\\sqrt{\\det g_{ij}}\\,dx^1\\wedge\\cdots\\wedge dx^n$. The factor $\\sqrt{\\det g}$ is exactly the volume of the parallelepiped spanned by the coordinate vectors in the metric $g$."
         },
         {
           "type": "numeric",
           "q": "For the round metric $ds^2 = d\\theta^2 + \\sin^2\\theta\\, d\\varphi^2$ on $S^2$ with $\\theta\\in[0,\\pi],\\,\\varphi\\in[0,2\\pi)$, what is the total surface area $\\int_{S^2} d\\mathrm{vol}_g$?",
           "answer": 12.566370614359172,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\sqrt{\\det g}=\\sin\\theta$, so $\\mathrm{Area}=\\int_0^{2\\pi}\\!\\!\\int_0^\\pi \\sin\\theta\\,d\\theta\\,d\\varphi = 2\\pi\\cdot 2 = 4\\pi\\approx 12.566$.",
           "explain": "$\\sqrt{\\det g}=\\sin\\theta$, so $\\mathrm{Area}=\\int_0^{2\\pi}\\!\\!\\int_0^\\pi \\sin\\theta\\,d\\theta\\,d\\varphi = 2\\pi\\cdot 2 = 4\\pi\\approx 12.566$."
         },
         {
@@ -332,7 +351,7 @@
           "type": "numeric",
           "q": "Using the Laplace–Beltrami operator on the round $S^2$ (radius $1$), the first non-zero eigenvalue is $\\lambda_1=l(l+1)$ for the lowest $l\\ge 1$. What is $\\lambda_1$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Plug $l=1$ into the spherical-harmonic eigenvalue formula.",
           "explain": "Spherical harmonics of degree $l$ satisfy $-\\Delta_{S^2}Y_l^m=l(l+1)Y_l^m$. The smallest positive eigenvalue is at $l=1$: $\\lambda_1=1\\cdot 2=2$."
         },

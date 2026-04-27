@@ -9,10 +9,13 @@
       "anchor": "series",
       "prereqs": [
         "riemann-integral",
-        "analytic-continuation"
+        "analytic-continuation",
+        "real-numbers"
       ],
       "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "euler-product-structure",
@@ -43,7 +46,9 @@
         "analytic-continuation"
       ],
       "blurb": "The Mellin transform $\\int_0^\\infty f(x) x^{s-1}\\,dx$ turns a Dirichlet series into an integral against a theta-like kernel, the bridge Riemann uses for analytic continuation.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "perron-formula",

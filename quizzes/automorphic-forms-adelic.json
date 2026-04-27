@@ -14,6 +14,7 @@
             "$g_v$ is upper-triangular at every finite place."
           ],
           "answer": 1,
+          "hint": "The restricted-product constraint is membership in the compact open $\\mathrm{GL}_2(\\mathbb{Z}_p)$ at almost all $p$.",
           "explain": "The restricted-product constraint is membership in the compact open $\\mathrm{GL}_2(\\mathbb{Z}_p)$ at almost all $p$. Without it the topology would not be locally compact."
         },
         {
@@ -25,7 +26,11 @@
             "$\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot \\mathrm{GL}_2(\\hat{\\mathbb{Z}})$",
             "The principal congruence subgroup $\\Gamma(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
+          "hint": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open.",
           "explain": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open. $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete (not open), and a classical congruence subgroup is a subgroup of $\\mathrm{SL}_2(\\mathbb{Z})$, not of the adelic group."
         },
         {
@@ -38,6 +43,7 @@
             "$\\mathrm{SL}_2(\\mathbb{R}) \\times \\mathrm{SO}_2$"
           ],
           "answer": 0,
+          "hint": "The adèle ring splits as $\\mathbb{R} \\times \\mathbb{A}_f$, and applying $\\mathrm{GL}_2$ pointwise gives $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$.",
           "explain": "The adèle ring splits as $\\mathbb{R} \\times \\mathbb{A}_f$, and applying $\\mathrm{GL}_2$ pointwise gives $\\mathrm{GL}_2(\\mathbb{R}) \\times \\mathrm{GL}_2(\\mathbb{A}_f)$."
         }
       ]
@@ -55,6 +61,7 @@
             "$\\mathrm{GL}_2(\\mathbb{Q}_p) \\cdot K_0(N)$ for each $p$ separately"
           ],
           "answer": 0,
+          "hint": "The full adelic group is the product of the (discrete) global rationals with the (open) connected archimedean component times an open compact $K_f$.",
           "explain": "The full adelic group is the product of the (discrete) global rationals with the (open) connected archimedean component times an open compact $K_f$. This is the form that translates double cosets into $Y_0(N)$."
         },
         {
@@ -67,6 +74,7 @@
             "$Y_0(N) = \\Gamma_0(N) \\backslash \\mathrm{GL}_2(\\mathbb{R})$"
           ],
           "answer": 0,
+          "hint": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right…",
           "explain": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right recovers $\\Gamma_0(N) \\backslash \\mathbb{H}$."
         },
         {
@@ -79,6 +87,7 @@
             "The product formula fails."
           ],
           "answer": 1,
+          "hint": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so…",
           "explain": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so $\\mathbb{A}^\\times \\ne \\mathbb{Q}^\\times \\cdot \\mathbb{R}^\\times \\cdot \\hat{\\mathbb{Z}}^\\times$ in a single double coset."
         }
       ]
@@ -95,7 +104,12 @@
             "Moderate (polynomial) growth.",
             "Compact support on $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Compact support is too strong — it would rule out Eisenstein series.",
           "explain": "Compact support is too strong — it would rule out Eisenstein series. The three required conditions are right $K$-finiteness, $\\mathfrak{z}$-finiteness, and moderate growth."
         },
         {
@@ -108,6 +122,7 @@
             "$\\phi$ is invariant under the centre."
           ],
           "answer": 1,
+          "hint": "The Whittaker / constant-term integral over the unipotent radical of the standard Borel must vanish; this is the adelic translation of \"$f$ vanishes at every cusp\".",
           "explain": "The Whittaker / constant-term integral over the unipotent radical of the standard Borel must vanish; this is the adelic translation of \"$f$ vanishes at every cusp\"."
         },
         {
@@ -120,6 +135,7 @@
             "Because $\\phi$ must be a homomorphism."
           ],
           "answer": 1,
+          "hint": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of…",
           "explain": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of $\\Gamma \\backslash G$ in the classical setting."
         }
       ]
@@ -137,6 +153,7 @@
             "$\\phi_f(g) = \\sum_p f(g_p)$"
           ],
           "answer": 1,
+          "hint": "The slash-operator $f|_k g_\\infty$ accounts for the weight-$k$ automorphy factor; evaluating at $i \\in \\mathbb{H}$ projects to $\\mathbb{C}$.",
           "explain": "The slash-operator $f|_k g_\\infty$ accounts for the weight-$k$ automorphy factor; evaluating at $i \\in \\mathbb{H}$ projects to $\\mathbb{C}$. The decomposition is well-defined modulo the stabiliser of $i$ inside $K_\\infty K_f$."
         },
         {
@@ -149,6 +166,7 @@
             "Hecke eigenforms only."
           ],
           "answer": 1,
+          "hint": "Right $K_0(N)$-invariance is exactly the level structure; combined with weight $k$ and the adelic transformation law, this carves out $M_k(\\Gamma_0(N))$ on the classical side.",
           "explain": "Right $K_0(N)$-invariance is exactly the level structure; combined with weight $k$ and the adelic transformation law, this carves out $M_k(\\Gamma_0(N))$ on the classical side."
         },
         {
@@ -161,6 +179,7 @@
             "A Hecke character."
           ],
           "answer": 1,
+          "hint": "Classical cuspidality (vanishing at all cusps) translates into the adelic constant-term condition $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$.",
           "explain": "Classical cuspidality (vanishing at all cusps) translates into the adelic constant-term condition $\\int_{\\mathbb{Q} \\backslash \\mathbb{A}} \\phi(n_x g)\\,dx = 0$."
         }
       ]
@@ -178,6 +197,7 @@
             "A field."
           ],
           "answer": 1,
+          "hint": "The Cartan / Smith decomposition shows the double cosets are indexed by $a \\ge b$ in $\\mathbb{Z}$; convolution makes the algebra commutative — Gelfand pair argument.",
           "explain": "The Cartan / Smith decomposition shows the double cosets are indexed by $a \\ge b$ in $\\mathbb{Z}$; convolution makes the algebra commutative — Gelfand pair argument."
         },
         {
@@ -190,6 +210,7 @@
             "The group ring $\\mathbb{C}[\\mathrm{GL}_2(\\mathbb{Z}_p)]$."
           ],
           "answer": 0,
+          "hint": "The Satake transform sends Hecke functions to symmetric polynomials in the Satake parameters; the Weyl group of $\\mathrm{GL}_2$ is $S_2$, hence the symmetrisation.",
           "explain": "The Satake transform sends Hecke functions to symmetric polynomials in the Satake parameters; the Weyl group of $\\mathrm{GL}_2$ is $S_2$, hence the symmetrisation."
         },
         {
@@ -202,6 +223,7 @@
             "$p$"
           ],
           "answer": 2,
+          "hint": "The classical Hecke eigenvalue $a_p$ relates to the Satake parameters by $a_p = (\\alpha + \\beta) p^{(k-1)/2}$ (or $\\alpha + \\beta$ in the unitary normalisation).",
           "explain": "The classical Hecke eigenvalue $a_p$ relates to the Satake parameters by $a_p = (\\alpha + \\beta) p^{(k-1)/2}$ (or $\\alpha + \\beta$ in the unitary normalisation). Either form of the answer is acceptable; this option gives the classical weight-$k$ normalisation."
         }
       ]
@@ -219,6 +241,7 @@
             "$0$ for all $v$"
           ],
           "answer": 1,
+          "hint": "The defining $\\psi$-equivariance is what distinguishes a Whittaker functional and forces uniqueness (up to scalar) for generic representations — local multiplicity-one.",
           "explain": "The defining $\\psi$-equivariance is what distinguishes a Whittaker functional and forces uniqueness (up to scalar) for generic representations — local multiplicity-one."
         },
         {
@@ -231,6 +254,7 @@
             "The unipotent radical."
           ],
           "answer": 1,
+          "hint": "$c_p$ is the local conductor exponent.",
           "explain": "$c_p$ is the local conductor exponent. Smaller $c_p$ would give a fixed vector of even lower level, contradicting minimality; larger gives a multidimensional space. Multiplying these gives the global conductor $N = \\prod_p p^{c_p}$, which equals the classical level."
         },
         {
@@ -243,6 +267,7 @@
             "Dirichlet's theorem on primes in arithmetic progressions."
           ],
           "answer": 0,
+          "hint": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the…",
           "explain": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the same statement, prime by prime, in the local Whittaker / Kirillov language."
         }
       ]
@@ -260,6 +285,7 @@
             "$(1 - p^{-s})^{-1}$"
           ],
           "answer": 1,
+          "hint": "Each Satake parameter contributes a geometric series.",
           "explain": "Each Satake parameter contributes a geometric series. The product of two such factors is the rank-2 Euler factor at $p$."
         },
         {
@@ -272,6 +298,7 @@
             "The Selberg zeta function."
           ],
           "answer": 2,
+          "hint": "The unramified local factors reproduce the Hecke Euler factors of $f$; the archimedean factor is a shifted gamma.",
           "explain": "The unramified local factors reproduce the Hecke Euler factors of $f$; the archimedean factor is a shifted gamma. This is the dictionary that makes the adelic theory a true generalisation of the classical."
         },
         {
@@ -284,6 +311,7 @@
             "Because Dirichlet series have no analogue beyond $\\mathrm{GL}_1$."
           ],
           "answer": 0,
+          "hint": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the…",
           "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
         }
       ]

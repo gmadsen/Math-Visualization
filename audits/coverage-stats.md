@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **105**, concepts: **627**
-- Widgets: **661** (registry-driven: 563, inline: 98)
-- Quizzes: **3014** (v1: 1778, hard: 1223, expert: 13)
-- Quiz types: mcq: 1908, numeric: 905, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **123**
-- Concepts lacking a hard-tier quiz: **189**
+- Topics: **105**, concepts: **642**
+- Widgets: **679** (registry-driven: 563, inline: 116)
+- Quizzes: **3065** (v1: 1829, hard: 1223, expert: 13)
+- Quiz types: mcq: 1950, numeric: 914, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **120**
+- Concepts lacking a hard-tier quiz: **204**
 
 ## Per-slug registry adoption
 
@@ -161,13 +161,13 @@ page has wired one in yet.
 
 ### Logic & Foundations
 
-- Topics: **8**, concepts: **39**
-- Widgets: **36** (registry-driven: 4, inline: 32)
-  - by family: unknown: 32, clickable-diagram: 3, button-stepper: 1
-  - by dimension: unknown: 32, 2d: 4
-  - by gesture: unknown: 32, click: 4
-- Quizzes: **128** (v1: 113, hard: 15, expert: 0)
-  - by type: mcq: 97, numeric: 31
+- Topics: **8**, concepts: **49**
+- Widgets: **48** (registry-driven: 4, inline: 44)
+  - by family: unknown: 44, clickable-diagram: 3, button-stepper: 1
+  - by dimension: unknown: 44, 2d: 4
+  - by gesture: unknown: 44, click: 4
+- Quizzes: **162** (v1: 147, hard: 15, expert: 0)
+  - by type: mcq: 128, numeric: 34
 
 ### Algebra & homological
 
@@ -201,13 +201,13 @@ page has wired one in yet.
 
 ### Probability & statistics
 
-- Topics: **6**, concepts: **17**
-- Widgets: **10** (registry-driven: 10, inline: 0)
-  - by family: button-stepper: 10
-  - by dimension: 2d: 10
-  - by gesture: click: 10
-- Quizzes: **78** (v1: 41, hard: 24, expert: 13)
-  - by type: mcq: 48, numeric: 20, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
+- Topics: **6**, concepts: **22**
+- Widgets: **16** (registry-driven: 10, inline: 6)
+  - by family: button-stepper: 10, unknown: 6
+  - by dimension: 2d: 10, unknown: 6
+  - by gesture: click: 10, unknown: 6
+- Quizzes: **95** (v1: 58, hard: 24, expert: 13)
+  - by type: mcq: 59, numeric: 26, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
 ### Geometry & topology
 
@@ -266,9 +266,9 @@ page has wired one in yet.
 - `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `complexity-theory` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `complexity-theory` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `type-theory-and-hott` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `forcing-and-independence` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `forcing-and-independence` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `algebra` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
@@ -299,7 +299,7 @@ page has wired one in yet.
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `stochastic-calculus` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `random-walks-and-mixing` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `information-theory` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `large-deviations` (Probability & statistics) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
@@ -373,8 +373,6 @@ page has wired one in yet.
 
 - `cartesian-product-powerset` (naive-set-theory)
 - `axiom-of-choice-intuition` (naive-set-theory)
-- `complexity-theory-intro` (complexity-theory)
-- `forcing-and-independence-intro` (forcing-and-independence)
 - `algebraic-structures` (algebra)
 - `ring-ideals` (algebra)
 - `field-extensions-basics` (algebra)
@@ -391,6 +389,8 @@ page has wired one in yet.
 - `domain-coloring` (complex-analysis)
 - `cauchy-theorem` (complex-analysis)
 - `cauchy-integral-formula` (complex-analysis)
+- `liouville` (complex-analysis)
+- `fta` (complex-analysis)
 
 ### Concepts missing a hard-tier quiz (top 20)
 

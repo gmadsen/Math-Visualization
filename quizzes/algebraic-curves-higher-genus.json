@@ -45,7 +45,6 @@
         }
       ]
     },
-
     "divisors-on-curves": {
       "title": "Divisors on curves",
       "questions": [
@@ -75,11 +74,11 @@
             "they define isomorphic algebraic curves."
           ],
           "answer": 2,
+          "hint": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e.",
           "explain": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e. the divisor of some rational function. This is the equivalence relation defining $\\mathrm{Pic}(C)$."
         }
       ]
     },
-
     "riemann-roch-curves": {
       "title": "Riemann–Roch on curves",
       "questions": [
@@ -96,6 +95,7 @@
           "q": "On a curve of genus $g = 2$, $D = K_C$ (the canonical divisor). Compute $h^0(D)$.",
           "answer": 2,
           "tol": 0,
+          "hint": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$.",
           "explain": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$."
         },
         {
@@ -130,7 +130,6 @@
         }
       ]
     },
-
     "canonical-embedding": {
       "title": "The canonical embedding",
       "questions": [
@@ -139,6 +138,7 @@
           "q": "On a smooth projective curve of genus $g = 5$, what is $\\deg K_C$?",
           "answer": 8,
           "tol": 0,
+          "hint": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$.",
           "explain": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$."
         },
         {
@@ -159,6 +159,7 @@
             "$C$ has trivial automorphism group."
           ],
           "answer": 2,
+          "hint": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$).",
           "explain": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$). For hyperelliptic $C$, $\\varphi_K$ factors through the $2:1$ map to $\\mathbb{P}^1$ followed by the rational normal curve."
         }
       ],
@@ -185,7 +186,6 @@
         }
       ]
     },
-
     "hyperelliptic-curves": {
       "title": "Hyperelliptic curves",
       "questions": [
@@ -206,7 +206,11 @@
             "$y^2 = x^7 + x^3 + 1$",
             "Any smooth curve of genus $g = 2$"
           ],
-          "answer": [0, 2, 3],
+          "answer": [
+            0,
+            2,
+            3
+          ],
           "explain": "(a) $y^2 = $ (degree 5) is hyperelliptic of genus 2. (c) $y^2 = $ (degree 7) is hyperelliptic of genus 3. (d) every genus-2 curve is hyperelliptic (canonical map is the unique $g^1_2$). The smooth plane quartic in (b) is the canonical model of a non-hyperelliptic genus-3 curve (generic case).",
           "hint": "Hyperelliptic ⇔ $y^2 = f(x)$ with $f$ separable of degree $2g+1$ or $2g+2$, OR genus $\\le 2$."
         },
@@ -220,7 +224,6 @@
         }
       ]
     },
-
     "moduli-of-curves-genus-g": {
       "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
       "questions": [

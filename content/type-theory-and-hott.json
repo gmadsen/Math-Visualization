@@ -150,7 +150,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./type-theory-and-hott.html#models\">Type theory and HoTT</a> · Models of HoTT</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./infinity-topoi.html#internal-logic\">$\\infty$-topoi (Lurie's higher topos theory)</a> · Internal logic: homotopy type theory and ∞-toposes</div>\n    <div><a href=\"./type-theory-and-hott.html#models\">Type theory and HoTT</a> · Models of HoTT</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

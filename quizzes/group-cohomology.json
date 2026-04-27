@@ -14,6 +14,7 @@
             "The left derived functors of $\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$"
           ],
           "answer": 1,
+          "hint": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$.",
           "explain": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$. (Coinvariants give group homology $H_n(G,M)$.)"
         },
         {
@@ -26,6 +27,7 @@
             "$g_1\\varphi(g_2)+\\varphi(g_1)$"
           ],
           "answer": 1,
+          "hint": "The bar formula in degree 1 gives $(d\\varphi)(g_1,g_2)=g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$.",
           "explain": "The bar formula in degree 1 gives $(d\\varphi)(g_1,g_2)=g_1\\varphi(g_2)-\\varphi(g_1g_2)+\\varphi(g_1)$. A 1-cocycle (kernel of $d$) is exactly a crossed homomorphism."
         },
         {
@@ -37,7 +39,12 @@
             "$H^n(G,M)$ is naturally functorial in both $G$ and $M$",
             "$H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$"
           ],
-          "answer": [1, 2, 3],
+          "answer": [
+            1,
+            2,
+            3
+          ],
+          "hint": "Cohomology is independent of the chosen projective resolution (the whole point of derived functors).",
           "explain": "Cohomology is independent of the chosen projective resolution (the whole point of derived functors). The Ext-formula is the standard equivalent description, and functoriality in $G$ is what makes restriction, inflation, and corestriction work."
         }
       ]
@@ -50,6 +57,7 @@
           "q": "Let $G=C_4$ act on $M=\\mathbb{Z}/12$ via $\\sigma\\cdot x = 5x$. Compute $|H^0(G,M)|=|M^G|$.",
           "answer": 4,
           "tol": 0.5,
+          "hint": "$M^G=\\ker(\\sigma-1)=\\{x:4x\\equiv 0\\bmod 12\\}=\\{0,3,6,9\\}$, so $|M^G|=\\gcd(4,12)=4$.",
           "explain": "$M^G=\\ker(\\sigma-1)=\\{x:4x\\equiv 0\\bmod 12\\}=\\{0,3,6,9\\}$, so $|M^G|=\\gcd(4,12)=4$. (Equivalently $|M^G|=\\gcd(k-1,m)$ for $\\sigma\\cdot x=kx$ on $\\mathbb{Z}/m$.)"
         },
         {
@@ -62,13 +70,20 @@
             "Because $A$ might fail to be normal in $B$"
           ],
           "answer": 1,
+          "hint": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact.",
           "explain": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact. The obstruction to lifting a fixed point in $C$ to a fixed point in $B$ lives in $H^1(G,A)$ — that is exactly $\\delta(c)$."
         },
         {
           "type": "mcq",
           "q": "If $G$ acts trivially on $M$, what is $H^0(G,M)$?",
-          "choices": ["$0$", "$M$", "$\\mathrm{Hom}(G,M)$", "$M/|G|M$"],
+          "choices": [
+            "$0$",
+            "$M$",
+            "$\\mathrm{Hom}(G,M)$",
+            "$M/|G|M$"
+          ],
           "answer": 1,
+          "hint": "Trivial action means every element is fixed: $M^G=M$.",
           "explain": "Trivial action means every element is fixed: $M^G=M$. (Note: $\\mathrm{Hom}(G,M)$ is what $H^1$ becomes under trivial action.)"
         }
       ]
@@ -86,6 +101,7 @@
             "$\\varphi(gh)=\\varphi(g)\\cdot\\varphi(h)$"
           ],
           "answer": 1,
+          "hint": "The cocycle condition $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ — this collapses to the homomorphism law when the action is trivial.",
           "explain": "The cocycle condition $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ — this collapses to the homomorphism law when the action is trivial."
         },
         {
@@ -98,6 +114,7 @@
             "$H^1(G,L^\\times)=L^\\times/N_{L/K}(L^\\times)$"
           ],
           "answer": 0,
+          "hint": "Hilbert 90 in cyclic form: $H^1(G,L^\\times)=1$, equivalently norm-one elements are coboundaries $\\sigma(\\alpha)/\\alpha$.",
           "explain": "Hilbert 90 in cyclic form: $H^1(G,L^\\times)=1$, equivalently norm-one elements are coboundaries $\\sigma(\\alpha)/\\alpha$. The fact about $L$ (additive) is the additive Hilbert 90, and the $H^2$ statement is the definition of relative Brauer."
         },
         {
@@ -110,6 +127,7 @@
             "$\\alpha=i$"
           ],
           "answer": 1,
+          "hint": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence…",
           "explain": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence $\\sigma(\\alpha)/\\alpha=\\beta^{-1}\\cdot 1=\\beta$? Carefully: $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$, so adjust to $\\alpha=\\beta(1+\\beta)$ if you want $\\beta$ rather than $\\beta^{-1}$ — the widget shows the explicit calculation."
         }
       ]
@@ -127,6 +145,7 @@
             "$H^3(G,A)$"
           ],
           "answer": 2,
+          "hint": "The cocycle $c(g,h)$ measuring failure of a section $s:G\\to E$ to be a homomorphism is a 2-cocycle, and changing the section by $a:G\\to A$ shifts $c$ by $da$.",
           "explain": "The cocycle $c(g,h)$ measuring failure of a section $s:G\\to E$ to be a homomorphism is a 2-cocycle, and changing the section by $a:G\\to A$ shifts $c$ by $da$. The class $[c]\\in H^2(G,A)$ classifies the extension."
         },
         {
@@ -139,6 +158,7 @@
             "Universal central extensions"
           ],
           "answer": 2,
+          "hint": "$[c]=0$ iff $c$ is a coboundary, iff some section $s$ exists with $c=0$, iff $s$ is a homomorphism, iff the extension splits.",
           "explain": "$[c]=0$ iff $c$ is a coboundary, iff some section $s$ exists with $c=0$, iff $s$ is a homomorphism, iff the extension splits."
         },
         {
@@ -151,6 +171,7 @@
             "$H^2=\\mathbb{Z}$; infinitely many isomorphism classes"
           ],
           "answer": 1,
+          "hint": "By the periodic resolution, $H^2(C_2,\\mathbb{Z}/2)=\\mathbb{Z}/2$.",
           "explain": "By the periodic resolution, $H^2(C_2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The trivial class is $V_4$ (split); the nontrivial class lifts $\\sigma\\in C_2$ to an order-4 element, giving $C_4$."
         }
       ]
@@ -168,6 +189,7 @@
             "$H^{2k}=0$ and $H^{2k+1}=M^G/N(M)$"
           ],
           "answer": 0,
+          "hint": "The two-step periodic resolution alternates $\\sigma-1$ and the norm $N=1+\\sigma+\\dots+\\sigma^{n-1}$.",
           "explain": "The two-step periodic resolution alternates $\\sigma-1$ and the norm $N=1+\\sigma+\\dots+\\sigma^{n-1}$. Reading off the cochain complex: even degrees give $\\ker(\\sigma-1)/\\mathrm{im}(N)=M^G/N(M)$, odd degrees give $\\ker(N)/\\mathrm{im}(\\sigma-1)$."
         },
         {
@@ -175,6 +197,7 @@
           "q": "For $G=C_3$ acting trivially on $M=\\mathbb{Z}/6$, compute $|H^2(C_3,\\mathbb{Z}/6)|$.",
           "answer": 3,
           "tol": 0.5,
+          "hint": "Trivial action: $\\sigma-1=0$ so $M^G=M=\\mathbb{Z}/6$, and $N=1+1+1=3$ so $N(M)=3\\cdot\\mathbb{Z}/6=\\{0,3\\}$.",
           "explain": "Trivial action: $\\sigma-1=0$ so $M^G=M=\\mathbb{Z}/6$, and $N=1+1+1=3$ so $N(M)=3\\cdot\\mathbb{Z}/6=\\{0,3\\}$. Then $H^2=M^G/N(M)=(\\mathbb{Z}/6)/(2$-element subgroup$)=\\mathbb{Z}/3$, of order 3."
         },
         {
@@ -187,6 +210,7 @@
             "It equals the Euler characteristic of $M$"
           ],
           "answer": 1,
+          "hint": "Herbrand quotient is multiplicative: $h(B)=h(A)h(C)$ for SES $0\\to A\\to B\\to C\\to 0$, and $h(M)=1$ when $M$ is finite.",
           "explain": "Herbrand quotient is multiplicative: $h(B)=h(A)h(C)$ for SES $0\\to A\\to B\\to C\\to 0$, and $h(M)=1$ when $M$ is finite. These two properties are what make it a usable invariant in class field theory."
         }
       ]
@@ -204,6 +228,7 @@
             "$0\\to M^G\\to M^H\\to (M^H)^{G/H}\\to H^1(G,M)\\to 0$"
           ],
           "answer": 0,
+          "hint": "This is the low-degree edge of the LHS spectral sequence.",
           "explain": "This is the low-degree edge of the LHS spectral sequence. The crucial fixed-points $M^H$ in the inflation entry, and the $G/H$-invariants on the restriction entry, are what make the sequence work — both come from how the spectral sequence's $E_2$-page is built."
         },
         {
@@ -216,6 +241,7 @@
             "$E_2^{p,q}=\\mathrm{Ext}^p(\\mathbb{Z},H^q(H,M))$"
           ],
           "answer": 1,
+          "hint": "Take cohomology of the normal subgroup first, then of the quotient.",
           "explain": "Take cohomology of the normal subgroup first, then of the quotient. Note the order: $H$ goes inside (gives row $q$), and $G/H$ goes outside (gives column $p$)."
         },
         {
@@ -228,6 +254,7 @@
             "Only when $M$ is trivial"
           ],
           "answer": 1,
+          "hint": "If $|H|$ is invertible in $M$, then $H^q(H,M)=0$ for $q\\ge 1$ (cohomology of a finite group with coefficients in a divisible module vanishes).",
           "explain": "If $|H|$ is invertible in $M$, then $H^q(H,M)=0$ for $q\\ge 1$ (cohomology of a finite group with coefficients in a divisible module vanishes). The page is concentrated on row $q=0$, no differentials are possible, so $H^p(G,M)\\cong H^p(G/H,M^H)$."
         }
       ]
@@ -245,6 +272,7 @@
             "$\\mathrm{Br}(k)=\\mathrm{Pic}(\\mathrm{Spec}\\,k)$"
           ],
           "answer": 1,
+          "hint": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$.",
           "explain": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$. (Hilbert 90 says $H^1=0$, so the first nontrivial cohomology of $\\bar k^\\times$ is degree 2.) This $H^2$ classifies central simple $k$-algebras up to Morita equivalence."
         },
         {
@@ -257,6 +285,7 @@
             "$H^1(k,\\mu_n)=\\mathrm{Br}(k)[n]$"
           ],
           "answer": 2,
+          "hint": "Long exact sequence: $k^\\times\\xrightarrow{n}k^\\times\\to H^1(k,\\mu_n)\\to H^1(k,\\bar k^\\times)=0$ by Hilbert 90.",
           "explain": "Long exact sequence: $k^\\times\\xrightarrow{n}k^\\times\\to H^1(k,\\mu_n)\\to H^1(k,\\bar k^\\times)=0$ by Hilbert 90. So $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$ — the Kummer isomorphism, foundation of Kummer theory."
         },
         {
@@ -269,6 +298,7 @@
             "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}$"
           ],
           "answer": 1,
+          "hint": "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$ with generator $\\mathbb{H}$.",
           "explain": "$\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$ with generator $\\mathbb{H}$. (For comparison: $\\mathrm{Br}(\\bar k)=0$, $\\mathrm{Br}(\\mathbb{F}_q)=0$ by Wedderburn, $\\mathrm{Br}(\\mathbb{Q}_p)=\\mathbb{Q}/\\mathbb{Z}$ via the local invariant.)"
         }
       ]

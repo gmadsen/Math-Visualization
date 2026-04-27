@@ -7,32 +7,66 @@
         {
           "type": "mcq",
           "q": "For $S_m(n)=\\sum_{k=1}^{n} k^m$, what is the degree of $S_m$ as a polynomial in $n$?",
-          "choices": ["$m-1$", "$m$", "$m+1$", "$2m$"],
+          "choices": [
+            "$m-1$",
+            "$m$",
+            "$m+1$",
+            "$2m$"
+          ],
           "answer": 2,
+          "hint": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$).",
           "explain": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$)."
         },
         {
           "type": "numeric",
           "q": "Compute $\\sum_{k=1}^{10} k^2 = \\tfrac{n(n+1)(2n+1)}{6}$ at $n=10$.",
           "answer": 385,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$.",
           "explain": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$."
         },
         {
           "type": "numeric",
           "q": "Using Faulhaber, $\\sum_{k=1}^{n} k^3 = \\left(\\tfrac{n(n+1)}{2}\\right)^2$. What is its value at $n=5$?",
           "answer": 225,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$.",
           "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
         },
         {
           "type": "guess-my-rule",
           "q": "The function below is $S_2(n) = \\sum_{k=1}^{n} k^2$. Given these examples, predict the value for each test input.",
-          "examples": [[1, 1], [2, 5], [3, 14], [4, 30]],
-          "testCases": [[5, 55], [6, 91]],
+          "examples": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              14
+            ],
+            [
+              4,
+              30
+            ]
+          ],
+          "testCases": [
+            [
+              5,
+              55
+            ],
+            [
+              6,
+              91
+            ]
+          ],
           "inputKind": "integer",
           "outputKind": "integer",
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Each output adds the next square: $S_2(n) = S_2(n-1) + n^2$, or use $n(n+1)(2n+1)/6$.",
           "explain": "$S_2(n) = \\tfrac{n(n+1)(2n+1)}{6}$. At $n=5$: $5\\cdot 6\\cdot 11/6=55$. At $n=6$: $6\\cdot 7\\cdot 13/6=91$. Equivalently, $S_2(5)=30+25=55$ and $S_2(6)=55+36=91$."
         }
@@ -55,7 +89,7 @@
           "type": "numeric",
           "q": "Using the Faulhaber polynomial for $m=4$: $S_4(n)=\\tfrac{n(n+1)(2n+1)(3n^2+3n-1)}{30}$, compute $\\sum_{k=1}^{5}k^4$.",
           "answer": 979,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Substitute $n=5$ into the given closed form.",
           "explain": "$S_4(5)=\\tfrac{5\\cdot 6\\cdot 11\\cdot(75+15-1)}{30}=\\tfrac{5\\cdot 6\\cdot 11\\cdot 89}{30}=\\tfrac{29370}{30}=979$."
         },
@@ -87,20 +121,23 @@
             "$B_n$ is always an integer"
           ],
           "answer": 1,
+          "hint": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$.",
           "explain": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$."
         },
         {
           "type": "numeric",
           "q": "What is $B_2$ in the convention $B_1=-\\tfrac12$?",
           "answer": 0.16666666666666666,
-          "tol": 1e-4,
+          "tol": 0.0001,
+          "hint": "$B_2=1/6$.",
           "explain": "$B_2=1/6$. The low table is $B_0=1$, $B_1=-1/2$, $B_2=1/6$, $B_4=-1/30$, $B_6=1/42$."
         },
         {
           "type": "numeric",
           "q": "What is $B_4$?",
           "answer": -0.03333333333333333,
-          "tol": 1e-4,
+          "tol": 0.0001,
+          "hint": "$B_4=-1/30\\approx -0.0333$.",
           "explain": "$B_4=-1/30\\approx -0.0333$. Even Bernoulli numbers alternate in sign."
         }
       ],
@@ -108,7 +145,12 @@
         {
           "type": "mcq",
           "q": "The Bernoulli numbers satisfy the recurrence $\\sum_{k=0}^{n}\\binom{n+1}{k}B_k=0$ for $n\\ge 1$. Using this, which is the correct value of $B_6$?",
-          "choices": ["$1/42$", "$-1/42$", "$1/30$", "$-1/30$"],
+          "choices": [
+            "$1/42$",
+            "$-1/42$",
+            "$1/30$",
+            "$-1/30$"
+          ],
           "answer": 0,
           "hint": "Apply the binomial recurrence at $n=6$ and solve.",
           "explain": "Applying the recurrence at $n=6$: $7B_6 + 21B_4 + 35B_2 + 21B_0=0$ gives $7B_6 = 21/30 - 35/6 - 21 = 7/10 - 35/6 - 21$. Careful arithmetic yields $B_6=1/42$."
@@ -142,22 +184,30 @@
         {
           "type": "mcq",
           "q": "Euler's formula gives $\\zeta(2n)=(-1)^{n+1}\\dfrac{B_{2n}(2\\pi)^{2n}}{2\\,(2n)!}$. With $B_2=1/6$, what does this give for $\\zeta(2)$?",
-          "choices": ["$\\pi/2$", "$\\pi^2/6$", "$\\pi^2/12$", "$\\pi^2/90$"],
+          "choices": [
+            "$\\pi/2$",
+            "$\\pi^2/6$",
+            "$\\pi^2/12$",
+            "$\\pi^2/90$"
+          ],
           "answer": 1,
+          "hint": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$.",
           "explain": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$."
         },
         {
           "type": "numeric",
           "q": "Using $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_2=1/6$, compute $\\zeta(-1)$.",
           "answer": -0.08333333333333333,
-          "tol": 1e-4,
+          "tol": 0.0001,
+          "hint": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$.",
           "explain": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$. This is the regularised value behind the infamous $1+2+3+\\cdots\\mapsto -1/12$."
         },
         {
           "type": "numeric",
           "q": "Compute $\\zeta(4)=\\pi^4/90$ to four decimals.",
           "answer": 1.0823,
-          "tol": 5e-4,
+          "tol": 0.0005,
+          "hint": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$.",
           "explain": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$."
         }
       ],
@@ -166,7 +216,7 @@
           "type": "numeric",
           "q": "Using $\\zeta(2n)=(-1)^{n+1}\\tfrac{B_{2n}(2\\pi)^{2n}}{2(2n)!}$ with $B_6=1/42$, compute $\\zeta(6)=\\pi^6/945$ to four decimal places.",
           "answer": 1.0173,
-          "tol": 5e-4,
+          "tol": 0.0005,
           "hint": "Compute $\\pi^6/945$ numerically.",
           "explain": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$. Verify via the formula: $(-1)^4\\tfrac{(1/42)(2\\pi)^6}{2\\cdot 720}=\\tfrac{64\\pi^6/42}{1440}=\\tfrac{64\\pi^6}{60480}=\\tfrac{\\pi^6}{945}$."
         },
@@ -211,20 +261,23 @@
             "Factorials only"
           ],
           "answer": 1,
+          "hint": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term.",
           "explain": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term."
         },
         {
           "type": "numeric",
           "q": "Apply Euler-Maclaurin with $f(x)=x$, $a=1$, $b=n$. The integral gives $\\tfrac{n^2-1}{2}$ and the endpoint term gives $\\tfrac{n+1}{2}$, so $\\sum_{k=1}^{n} k=\\tfrac{n(n+1)}{2}$. Compute this at $n=20$.",
           "answer": 210,
-          "tol": 1e-6,
+          "tol": 0.000001,
+          "hint": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$.",
           "explain": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$."
         },
         {
           "type": "numeric",
           "q": "For the harmonic partial sum $H_n=\\sum_{k=1}^{n}\\tfrac1k$, the Euler-Maclaurin expansion gives $H_n\\approx \\ln n + \\gamma + \\tfrac{1}{2n}-\\tfrac{1}{12 n^2}+\\cdots$. With $\\gamma\\approx 0.5772$, estimate $H_{10}$ to three decimals.",
           "answer": 2.929,
-          "tol": 5e-3,
+          "tol": 0.005,
+          "hint": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$.",
           "explain": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$."
         }
       ],
@@ -246,7 +299,7 @@
           "type": "numeric",
           "q": "Using two Euler-Maclaurin correction terms for $\\sum_{k=1}^{\\infty}k^{-2}$: the integral from $1$ to $\\infty$ gives $1$, the endpoint $\\tfrac12 f(1)=\\tfrac12$, and the first correction $\\tfrac{B_2}{2!}f'(1)=\\tfrac{1/6}{2}\\cdot(-2)$. What does this two-term approximation give for $\\zeta(2)$?",
           "answer": 1.3333333333333333,
-          "tol": 1e-4,
+          "tol": 0.0001,
           "hint": "Add integral, endpoint, and Bernoulli correction exactly as given.",
           "explain": "$1 + 1/2 + (1/12)\\cdot(-2) = 1 + 0.5 - 1/6 = 3/2 - 1/6 = 4/3\\approx 1.3333$. This overshoots $\\pi^2/6\\approx 1.6449$ because the tail $\\sum_{k=2}^\\infty k^{-2}$ is omitted; the formula applies to the tail starting at $N$ and one adds back the first $N-1$ terms."
         },
@@ -278,13 +331,15 @@
             "$\\xi(s)=\\zeta(s)$"
           ],
           "answer": 1,
+          "hint": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$.",
           "explain": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$."
         },
         {
           "type": "numeric",
           "q": "Using $\\zeta(-1)=-B_2/2=-1/12$ and the reflection $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$, confirm the left-hand side. What is $-1/12$ as a decimal (4 dp)?",
           "answer": -0.0833,
-          "tol": 5e-4,
+          "tol": 0.0005,
+          "hint": "$-1/12\\approx -0.0833$.",
           "explain": "$-1/12\\approx -0.0833$. Plugging $s=2$ on the right gives $2(2\\pi)^{-2}\\cos(\\pi)\\Gamma(2)\\zeta(2)=-\\pi^2/(2\\pi^2)\\cdot \\pi^2/6\\cdot (6/\\pi^2)\\cdot(-1)$... the Bernoulli book-keeping collapses to $-1/12$."
         },
         {
@@ -292,6 +347,7 @@
           "q": "At the trivial zero $s=-2$, $\\zeta(-2)=-B_3/3$. Since $B_3=0$, what value do you get?",
           "answer": 0,
           "tol": 1e-9,
+          "hint": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$.",
           "explain": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$. These are the *trivial* zeros on the real axis."
         }
       ],
@@ -313,7 +369,7 @@
           "type": "numeric",
           "q": "Using $\\zeta(-3)=-B_4/4$ and $B_4=-1/30$, compute $\\zeta(-3)$ as a fraction. Enter the decimal value.",
           "answer": 0.008333333333333333,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Plug $B_4=-1/30$ into $\\zeta(-3)=-B_4/4$.",
           "explain": "$\\zeta(-3)=-(-1/30)/4=1/120\\approx 0.008333$. This matches $\\zeta(1-s)$ at $s=4$: the formula gives $\\zeta(-3)=B_4/(-4)$ — careful with the sign convention $\\zeta(-n)=-B_{n+1}/(n+1)$, so $\\zeta(-3)=-B_4/4=-(-1/30)/4=1/120$."
         },

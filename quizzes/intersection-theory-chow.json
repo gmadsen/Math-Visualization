@@ -20,13 +20,21 @@
         {
           "type": "matching",
           "q": "Match each cycle on $\\mathbb{P}^1$ with the unique class it represents in $A_0(\\mathbb{P}^1)$.",
-          "left": ["$0 \\in A_0(\\mathbb{P}^1)$", "$[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$", "$2[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$"],
+          "left": [
+            "$0 \\in A_0(\\mathbb{P}^1)$",
+            "$[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$",
+            "$2[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$"
+          ],
           "right": [
             "$[5] - [7]$",
             "$[3]$",
             "$[1] + [2]$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "$A_0(\\mathbb{P}^1) = \\mathbb{Z}$ via degree. A degree-$0$ cycle is $0$; a degree-$1$ cycle is $[\\mathrm{pt}]$; a degree-$2$ cycle is $2[\\mathrm{pt}]$.",
           "hint": "Compute the degree of each right-hand cycle."
         },
@@ -78,7 +86,11 @@
             "There is a cycle map $A_*(X) \\to H_{2*}^{\\mathrm{BM}}(X(\\mathbb{C}); \\mathbb{Z})$ which is always an isomorphism.",
             "$A_*$ vanishes on smooth projective varieties whenever $X(\\mathbb{C})$ is simply connected."
           ],
-          "answer": [0, 1],
+          "answer": [
+            0,
+            1
+          ],
+          "hint": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities.",
           "explain": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities. The cycle map exists but generally fails to be either injective or surjective — Griffiths' work on Fano threefolds gives counterexamples to injectivity, and transcendental Hodge classes obstruct surjectivity. Simple-connectedness has no bearing on $A_*$."
         }
       ],
@@ -177,7 +189,11 @@
             "$\\deg((2h)(3h))$ in $A^*(\\mathbb{P}^2)$ — Bézout for a conic and a cubic",
             "$\\deg((4h)(5h)(6h))$ in $A^*(\\mathbb{P}^3)$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "First: $h^2 \\cdot h^2 = h^4 = $ class of point on $\\mathbb{P}^4$, degree $1$. Second: $(2h)(3h) = 6 h^2$, degree $6$ on $\\mathbb{P}^2$. Third: $(4h)(5h)(6h) = 120\\, h^3$, degree $120$ on $\\mathbb{P}^3$. So the order $1 < 6 < 120$.",
           "hint": "Compute each as an integer first, then sort."
         }
@@ -216,7 +232,11 @@
             "$c(L) = 1 + c_1(L)$ for line bundles, with $c_1(L)$ the class of the divisor of zeros of a section.",
             "$c_i(E) = 0$ for $i > \\mathrm{rk}(E)$."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Naturality, Whitney sum, and the line-bundle normalisation are Grothendieck's three axioms; vanishing $c_i$ above the rank is a <em>consequence</em> (every rank-$r$ bundle has all non-trivial Chern classes in degrees $\\le r$).",
           "hint": "The axioms must be enough to compute everything; the rank vanishing is forced by the splitting principle."
         }
@@ -273,7 +293,12 @@
             "Multiply $\\mathrm{ch} \\cdot \\mathrm{td}$ in $A^*(\\mathbb{P}^2) \\otimes \\mathbb{Q}$ and read off the coefficient of $h^2$.",
             "Push forward to a point via $f_*\\colon A^*(\\mathbb{P}^2) \\to A^*(\\mathrm{Spec}\\, k) = \\mathbb{Z}$ to obtain $\\chi$."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Compute each ingredient, multiply, then take degree (= push-forward to a point). This is the universal recipe for Hirzebruch–Riemann–Roch on $\\mathbb{P}^n$.",
           "hint": "First gather the ingredients (ch and td), then combine them, then specialise."
         }

@@ -7,7 +7,9 @@
       "id": "turan-theorem",
       "title": "Turán's theorem and the Turán graph",
       "anchor": "turan",
-      "prereqs": [],
+      "prereqs": [
+        "sets-functions"
+      ],
       "blurb": "$\\mathrm{ex}(n, K_{r+1}) = (1 - 1/r)\\,n^2/2 - O(1)$, with the unique extremal graph the balanced complete $r$-partite Turán graph $T(n, r)$. Proof by Zykov symmetrization; the limiting Turán density $\\pi(K_{r+1}) = 1 - 1/r$.",
       "tags": [
         "classification"
@@ -48,7 +50,9 @@
       "id": "sperner-lym",
       "title": "Sperner's theorem and the LYM inequality",
       "anchor": "sperner",
-      "prereqs": [],
+      "prereqs": [
+        "sets-functions"
+      ],
       "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains."
     },
     {
