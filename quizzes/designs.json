@@ -1,4 +1,22 @@
 {
   "topic": "designs",
-  "quizzes": {}
+  "quizzes": {
+    "designs-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder — page is a stub awaiting authoring.",
+          "choices": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "answer": 0,
+          "explain": "Stub."
+        }
+      ]
+    }
+  }
 }

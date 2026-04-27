@@ -4,6 +4,21 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "mathematical-statistics",
+      "numerical-analysis",
+      "computational-number-theory",
+      "variational-methods",
+      "fixed-point-theorems",
+      "calabi-yau-manifolds",
+      "high-dimensional-geometry",
+      "mirror-symmetry",
+      "mostow-rigidity",
+      "resolution-of-singularities",
+      "hamiltonians-classical-mechanics",
+      "general-relativity",
+      "three-body-problem",
+      "designs",
+      "expanders",
       "symplectic-manifolds",
       "quantum-groups",
       "quaternions-octonions-and-division-algebras",
@@ -254,10 +269,586 @@ window.__MVConcepts = {
       "schrodinger-equation": "standard",
       "ricci-flow": "advanced",
       "geometric-and-combinatorial-group-theory": "advanced",
-      "atiyah-singer-index-theorem": "capstone"
+      "atiyah-singer-index-theorem": "capstone",
+      "mathematical-statistics": "standard",
+      "numerical-analysis": "standard",
+      "computational-number-theory": "standard",
+      "variational-methods": "standard",
+      "fixed-point-theorems": "standard",
+      "calabi-yau-manifolds": "advanced",
+      "mirror-symmetry": "advanced",
+      "resolution-of-singularities": "advanced",
+      "high-dimensional-geometry": "advanced",
+      "mostow-rigidity": "advanced",
+      "hamiltonians-classical-mechanics": "standard",
+      "general-relativity": "advanced",
+      "three-body-problem": "advanced",
+      "designs": "standard",
+      "expanders": "standard"
     }
   },
   "topics": {
+    "mathematical-statistics": {
+      "topic": "mathematical-statistics",
+      "title": "Mathematical statistics",
+      "page": "mathematical-statistics.html",
+      "concepts": [
+        {
+          "id": "ms-estimators",
+          "title": "Point estimators: bias, consistency, MSE, sufficiency",
+          "anchor": "estimators",
+          "prereqs": [
+            "random-variables",
+            "expectation-moments"
+          ],
+          "blurb": "An estimator $\\hat\\theta_n=T(X_1,\\ldots,X_n)$ is a measurable function of the sample; bias is $\\mathbb{E}_\\theta[\\hat\\theta_n]-\\theta$, variance is $\\mathrm{Var}_\\theta(\\hat\\theta_n)$, and mean-square error decomposes as $\\mathrm{MSE}=\\mathrm{bias}^2+\\mathrm{variance}$. Consistency means $\\hat\\theta_n\\to\\theta$ in probability; a sufficient statistic carries all sample information about $\\theta$ via the Fisher–Neyman factorisation $f(x;\\theta)=g(T(x);\\theta)\\,h(x)$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ms-mle",
+          "title": "Maximum likelihood and the score equation",
+          "anchor": "mle",
+          "prereqs": [
+            "ms-estimators",
+            "it-kl-divergence"
+          ],
+          "blurb": "The MLE maximises $\\ell(\\theta)=\\sum_i\\log f(X_i;\\theta)$, equivalently solves the score equation $\\partial_\\theta\\ell=0$. Under regularity, $\\hat\\theta_{\\mathrm{MLE}}$ is consistent and asymptotically normal: $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\,1/I(\\theta))$ where $I(\\theta)=\\mathbb{E}_\\theta[(\\partial_\\theta\\log f)^2]$ is Fisher information. MLE minimises empirical KL to the true law, so it is the statistical mirror of $D(p\\,\\|\\,q)$."
+        },
+        {
+          "id": "ms-cramer-rao",
+          "title": "Cramér–Rao bound, UMVU, Rao–Blackwell",
+          "anchor": "cramer-rao",
+          "prereqs": [
+            "ms-estimators",
+            "ms-mle"
+          ],
+          "blurb": "Cramér–Rao: any unbiased $\\hat\\theta_n$ satisfies $\\mathrm{Var}_\\theta(\\hat\\theta_n)\\ge 1/(nI(\\theta))$ — Fisher information is the floor on estimator variance. An estimator hitting the floor is UMVU (uniformly minimum-variance unbiased). Rao–Blackwell: conditioning any unbiased estimator on a sufficient statistic strictly reduces variance, so UMVU lives among functions of complete sufficient statistics (Lehmann–Scheffé).",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "ms-hypothesis-testing",
+          "title": "Hypothesis testing: Neyman–Pearson and likelihood ratios",
+          "anchor": "testing",
+          "prereqs": [
+            "ms-mle"
+          ],
+          "blurb": "A test of $H_0:\\theta\\in\\Theta_0$ vs $H_1:\\theta\\in\\Theta_1$ partitions the sample space into rejection / acceptance; size $\\alpha=\\sup_{\\Theta_0}\\mathbb{P}_\\theta(\\text{reject})$ is type-I error, power $1-\\beta=\\mathbb{P}_{\\theta_1}(\\text{reject})$. Neyman–Pearson lemma: for simple-vs-simple, the likelihood ratio test $\\Lambda(x)=L(\\theta_1;x)/L(\\theta_0;x)\\gtrless k$ is uniformly most powerful at every level. The $p$-value is the smallest $\\alpha$ at which the observed data would have rejected."
+        },
+        {
+          "id": "ms-bayesian",
+          "title": "Bayesian inference: posteriors, conjugate priors, credible intervals",
+          "anchor": "bayesian",
+          "prereqs": [
+            "ms-mle"
+          ],
+          "blurb": "Bayes' rule on parameters: $\\pi(\\theta\\mid x)\\propto\\pi(\\theta)\\,L(\\theta;x)$ — the posterior is prior times likelihood, normalised. Conjugate priors close the family under updating (Beta–Binomial, Gamma–Poisson, Normal–Normal). MAP $\\hat\\theta=\\arg\\max\\pi(\\theta\\mid x)$ is the posterior mode; the posterior mean minimises squared-error loss. A $1-\\alpha$ credible interval is any region of posterior mass $1-\\alpha$ — typically the highest-posterior-density interval.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "ms-asymptotics",
+          "title": "Asymptotics: delta method, Slutsky, Wilks",
+          "anchor": "asymptotics",
+          "prereqs": [
+            "central-limit-theorem",
+            "convergence-rv",
+            "ms-mle"
+          ],
+          "blurb": "The delta method propagates CLT through smooth $g$: if $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\sigma^2)$ then $\\sqrt n(g(\\hat\\theta_n)-g(\\theta))\\xrightarrow{d}\\mathcal{N}(0,g'(\\theta)^2\\sigma^2)$. Slutsky lets you replace nuisance estimates by their probability limits inside a converging sequence. Wilks' theorem: under $H_0$, $-2\\log\\Lambda_n\\xrightarrow{d}\\chi^2_{r}$ where $r=\\dim\\Theta-\\dim\\Theta_0$ — the LRT calibrates itself asymptotically without simulation.",
+          "tags": [
+            "completion"
+          ]
+        }
+      ]
+    },
+    "numerical-analysis": {
+      "topic": "numerical-analysis",
+      "title": "Numerical analysis",
+      "page": "numerical-analysis.html",
+      "concepts": [
+        {
+          "id": "na-floating-point",
+          "title": "Floating-point arithmetic",
+          "anchor": "floating-point",
+          "prereqs": [
+            "real-numbers"
+          ],
+          "blurb": "IEEE 754 represents reals as $(-1)^s \\cdot m \\cdot 2^e$ with finite mantissa: machine epsilon $\\varepsilon_M\\approx 2.22\\times 10^{-16}$ in double precision bounds the relative roundoff $\\mathrm{fl}(x)=x(1+\\delta)$. Conditioning of a problem and numerical stability of an algorithm are two independent axes; a stable algorithm on an ill-conditioned problem still loses digits.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "na-rootfinding",
+          "title": "Rootfinding: bisection & Newton",
+          "anchor": "rootfinding",
+          "prereqs": [
+            "na-floating-point",
+            "real-differentiation"
+          ],
+          "blurb": "Bisection halves an interval $[a,b]$ with $f(a)f(b)<0$, converging linearly with rate $1/2$. Newton's iteration $x_{n+1}=x_n-f(x_n)/f'(x_n)$ converges quadratically near a simple root: $|e_{n+1}|\\le C|e_n|^2$. The order $p$ of convergence is the supremum with $|e_{n+1}|\\le C|e_n|^p$; secant gives the golden ratio $p=(1+\\sqrt5)/2$."
+        },
+        {
+          "id": "na-quadrature",
+          "title": "Quadrature: trapezoid, Simpson, Gauss",
+          "anchor": "quadrature",
+          "prereqs": [
+            "riemann-integral",
+            "na-floating-point"
+          ],
+          "blurb": "Composite trapezoid on $n$ panels has error $-\\tfrac{(b-a)h^2}{12}f''(\\xi)$ with $h=(b-a)/n$; Simpson's rule integrates cubics exactly with error $O(h^4)$; Gauss–Legendre with $n$ nodes integrates polynomials up to degree $2n-1$ exactly by choosing nodes as zeros of Legendre polynomials. The exponent of $h$ is the order of accuracy."
+        },
+        {
+          "id": "na-linear-systems",
+          "title": "Linear systems: direct & iterative solvers",
+          "anchor": "linear-systems",
+          "prereqs": [
+            "na-floating-point",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "$Ax=b$ via LU $(O(n^3))$, Cholesky for SPD $(\\tfrac12 n^3)$, or QR for least-squares; the condition number $\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|$ governs how perturbations $\\delta b$ amplify into $\\delta x$. For large sparse $A$, stationary iterations (Jacobi, Gauss–Seidel) converge when the spectral radius of the iteration matrix is $<1$, and Krylov methods (conjugate gradient on SPD systems) reach the solution in $O(\\sqrt{\\kappa})$ iterations."
+        },
+        {
+          "id": "na-finite-differences",
+          "title": "Finite differences and CFL stability",
+          "anchor": "fd",
+          "prereqs": [
+            "na-rootfinding",
+            "pde-classification",
+            "pde-heat-equation"
+          ],
+          "blurb": "Forward $(f(x+h)-f(x))/h$, backward, and central $(f(x+h)-f(x-h))/(2h)$ differences approximate $f'$ with truncation error $O(h)$, $O(h)$, $O(h^2)$. Discretizing $u_t=u_{xx}$ explicitly demands $\\Delta t\\le \\tfrac{1}{2}(\\Delta x)^2$; the wave equation explicit scheme demands the CFL condition $c\\,\\Delta t/\\Delta x\\le 1$. Cross those bounds and the scheme amplifies round-off geometrically.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "na-finite-elements",
+          "title": "Finite elements & Galerkin formulation",
+          "anchor": "fem",
+          "prereqs": [
+            "pde-weak-solutions",
+            "na-linear-systems"
+          ],
+          "blurb": "On a mesh $\\mathcal{T}_h$ with piecewise-linear hat basis $\\{\\varphi_i\\}$, write $u_h=\\sum c_i\\varphi_i\\in V_h\\subset H^1_0(\\Omega)$ and impose $\\int\\nabla u_h\\cdot\\nabla \\varphi_j=\\int f\\varphi_j$ for every $j$. The stiffness matrix $K_{ij}=\\int\\nabla\\varphi_i\\cdot\\nabla\\varphi_j$ is sparse and SPD; Céa's lemma plus interpolation give the a priori estimate $\\|u-u_h\\|_{H^1}\\le C h\\|u\\|_{H^2}$.",
+          "tags": [
+            "duality"
+          ]
+        }
+      ]
+    },
+    "computational-number-theory": {
+      "topic": "computational-number-theory",
+      "title": "Computational number theory",
+      "page": "computational-number-theory.html",
+      "concepts": [
+        {
+          "id": "cnt-primality",
+          "title": "Primality testing",
+          "anchor": "primality",
+          "prereqs": [
+            "crypto-modular-arithmetic",
+            "cx-time-complexity"
+          ],
+          "tags": [
+            "finiteness"
+          ],
+          "blurb": "Fermat's little theorem, the Miller–Rabin probabilistic test, and the AKS deterministic polynomial-time algorithm. Composite witnesses turn $a^{n-1}\\not\\equiv 1\\pmod n$ into a verifiable proof of compositeness; AKS removes randomness at the cost of a higher polynomial."
+        },
+        {
+          "id": "cnt-factoring",
+          "title": "Integer factoring",
+          "anchor": "factoring",
+          "prereqs": [
+            "cnt-primality",
+            "crypto-rsa",
+            "cx-p-and-np"
+          ],
+          "tags": [],
+          "blurb": "Trial division, Pollard's $\\rho$ method (Floyd cycle detection on $x \\mapsto x^2+1 \\bmod n$), Pollard's $p-1$ method, the quadratic sieve, and the general number-field sieve. Subexponential complexity $L_n[1/3,c]$ is the current frontier — no polynomial-time classical algorithm is known."
+        },
+        {
+          "id": "cnt-lattice-reduction",
+          "title": "LLL & lattice reduction",
+          "anchor": "lll",
+          "prereqs": [
+            "cx-time-complexity",
+            "crypto-lattice-based"
+          ],
+          "tags": [
+            "classification"
+          ],
+          "blurb": "The Lenstra–Lenstra–Lovász algorithm finds a basis whose first vector is at most $2^{(n-1)/2}$ times the shortest in polynomial time. Applications: integer-relation detection (PSLQ-style), Coppersmith's small-roots attack on RSA, knapsack cryptanalysis, and post-quantum lattice schemes."
+        },
+        {
+          "id": "cnt-modular-arithmetic-algorithms",
+          "title": "Modular arithmetic algorithms",
+          "anchor": "mod-arith",
+          "prereqs": [
+            "crypto-modular-arithmetic"
+          ],
+          "tags": [
+            "foundation"
+          ],
+          "blurb": "Fast modular exponentiation by repeated squaring ($O(\\log n)$ multiplies), Tonelli–Shanks for square roots modulo $p$ when $\\left(\\tfrac{a}{p}\\right)=1$, and the Chinese remainder theorem implemented as Garner's algorithm. The arithmetic primitives every higher-level routine assumes."
+        },
+        {
+          "id": "cnt-elliptic-curves-computation",
+          "title": "Schoof & point counting",
+          "anchor": "ec-comp",
+          "prereqs": [
+            "cnt-modular-arithmetic-algorithms"
+          ],
+          "tags": [
+            "finiteness"
+          ],
+          "blurb": "Schoof's algorithm computes $\\#E(\\mathbb{F}_p) = p+1-t$ in time polynomial in $\\log p$ by determining $t \\bmod \\ell$ for many small primes $\\ell$ via the action of Frobenius on $\\ell$-torsion, then reconstructing $t$ via CRT. Schoof–Elkies–Atkin (SEA) speeds this up using modular polynomials."
+        },
+        {
+          "id": "cnt-class-group-computation",
+          "title": "Class & unit group computation",
+          "anchor": "class-group",
+          "prereqs": [
+            "prime-ideals-factorization-ant",
+            "class-group-units-ant",
+            "cnt-lattice-reduction"
+          ],
+          "tags": [
+            "finiteness"
+          ],
+          "blurb": "Buchmann's subexponential algorithm (under GRH) computes the class number, regulator, and a system of fundamental units of a number field by relation-collection in a factor base of small prime ideals plus LLL reduction of the relation lattice. The algorithm's correctness assumes the generalized Riemann hypothesis for Hecke L-functions."
+        }
+      ]
+    },
+    "variational-methods": {
+      "topic": "variational-methods",
+      "title": "Variational methods",
+      "page": "variational-methods.html",
+      "concepts": [
+        {
+          "id": "vm-functional-derivative",
+          "title": "Functional derivative",
+          "anchor": "functional-derivative",
+          "prereqs": [
+            "banach-hilbert-spaces",
+            "bounded-operators-fa",
+            "lp-spaces"
+          ],
+          "blurb": "$\\delta J/\\delta u$ measures the linear response of a functional to a perturbation; the Gateaux directional derivative $\\lim_{\\varepsilon\\to 0}(J(u+\\varepsilon h)-J(u))/\\varepsilon$ upgrades to a Fréchet derivative when the linear part dominates uniformly in $h$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "vm-euler-lagrange",
+          "title": "Euler–Lagrange equations",
+          "anchor": "euler-lagrange",
+          "prereqs": [
+            "vm-functional-derivative",
+            "lp-spaces"
+          ],
+          "blurb": "Stationarity of $J(u)=\\int L(x,u,u')\\,dx$ against compactly-supported variations forces $\\frac{d}{dx}\\partial_{u'}L = \\partial_u L$; the necessary condition every classical minimiser must satisfy.",
+          "tags": [
+            "universal-property"
+          ]
+        },
+        {
+          "id": "vm-direct-method",
+          "title": "Direct method (Tonelli)",
+          "anchor": "direct-method",
+          "prereqs": [
+            "vm-functional-derivative",
+            "convergence-theorems",
+            "banach-hilbert-spaces",
+            "pde-weak-solutions"
+          ],
+          "blurb": "Coercivity bounds a minimising sequence in a reflexive space; weak compactness extracts a subsequential limit; weak lower-semicontinuity ($J(u)\\le\\liminf J(u_k)$) certifies it as a minimiser. The blueprint behind every modern existence theorem in calculus of variations.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "vm-mountain-pass",
+          "title": "Mountain-pass theorem",
+          "anchor": "mountain-pass",
+          "prereqs": [
+            "vm-functional-derivative",
+            "vm-direct-method",
+            "bounded-operators-fa"
+          ],
+          "blurb": "Ambrosetti–Rabinowitz: if $J$ has a local min at the origin and dips below it at some far point, the saddle-height $c=\\inf_\\gamma\\max_t J(\\gamma(t))$ over connecting paths is a critical value — provided the Palais–Smale compactness condition holds.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "vm-isoperimetric",
+          "title": "Isoperimetric inequality",
+          "anchor": "isoperimetric",
+          "prereqs": [
+            "vm-direct-method",
+            "vm-euler-lagrange"
+          ],
+          "blurb": "Among planar regions of fixed perimeter $L$, the disk uniquely maximises area: $4\\pi A\\le L^2$. The Euler–Lagrange analysis gives constant geodesic curvature, and a calibration argument certifies the disk as the global optimum — the soap-bubble principle.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "vm-applications",
+          "title": "Applications: geodesics, minimal surfaces, gauge theory",
+          "anchor": "applications",
+          "prereqs": [
+            "vm-euler-lagrange",
+            "vm-direct-method",
+            "pde-existence-and-regularity"
+          ],
+          "blurb": "Geodesics minimise arc-length and satisfy $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$; Plateau's problem produces minimal surfaces with $H=0$; thin elastic plates minimise bending energy $\\int|\\Delta u|^2$; Yang–Mills connections are critical points of $\\int|F_A|^2$. All of physics is a stationarity condition.",
+          "tags": [
+            "universal-property"
+          ]
+        }
+      ]
+    },
+    "fixed-point-theorems": {
+      "topic": "fixed-point-theorems",
+      "title": "Fixed-point theorems",
+      "page": "fixed-point-theorems.html",
+      "concepts": [
+        {
+          "id": "fpt-banach",
+          "title": "Banach contraction principle",
+          "anchor": "banach",
+          "prereqs": [
+            "metric-spaces"
+          ],
+          "blurb": "A contraction $f$ with Lipschitz constant $L<1$ on a complete metric space has a unique fixed point, reached by Picard iteration $x_{n+1}=f(x_n)$ with geometric convergence.",
+          "tags": [
+            "completion",
+            "foundation"
+          ]
+        },
+        {
+          "id": "fpt-brouwer",
+          "title": "Brouwer fixed-point theorem",
+          "anchor": "brouwer",
+          "prereqs": [
+            "compactness",
+            "connectedness",
+            "fpt-banach",
+            "singular-homology"
+          ],
+          "blurb": "Every continuous self-map of a closed ball $D^n\\to D^n$ has a fixed point; the proof goes through degree theory or the no-retraction lemma.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "fpt-schauder",
+          "title": "Schauder fixed-point theorem",
+          "anchor": "schauder",
+          "prereqs": [
+            "fpt-brouwer",
+            "banach-hilbert-spaces",
+            "compact-operators"
+          ],
+          "blurb": "A continuous self-map of a non-empty convex compact subset of a Banach space — or a compact operator on a closed bounded convex set — has a fixed point. The infinite-dimensional companion to Brouwer.",
+          "tags": [
+            "compactness",
+            "completion"
+          ]
+        },
+        {
+          "id": "fpt-lefschetz",
+          "title": "Lefschetz fixed-point theorem",
+          "anchor": "lefschetz",
+          "prereqs": [
+            "fpt-brouwer",
+            "singular-homology",
+            "fundamental-group"
+          ],
+          "blurb": "If the Lefschetz number $\\Lambda(f)=\\sum (-1)^k\\,\\tr(f_*\\colon H_k\\to H_k)$ is non-zero, then $f$ has a fixed point. Brouwer is the special case of a contractible space.",
+          "tags": [
+            "cohomology",
+            "compactness"
+          ]
+        },
+        {
+          "id": "fpt-kakutani",
+          "title": "Kakutani fixed-point theorem",
+          "anchor": "kakutani",
+          "prereqs": [
+            "fpt-brouwer",
+            "compactness"
+          ],
+          "blurb": "An upper-hemicontinuous set-valued map $\\varphi$ from a non-empty compact convex set to its non-empty closed convex subsets has a fixed point $x\\in\\varphi(x)$. The engine behind Nash's existence proof.",
+          "tags": [
+            "compactness",
+            "group-action"
+          ]
+        },
+        {
+          "id": "fpt-applications",
+          "title": "Applications across mathematics",
+          "anchor": "applications",
+          "prereqs": [
+            "fpt-banach",
+            "fpt-brouwer",
+            "fpt-kakutani"
+          ],
+          "blurb": "Picard–Lindelöf for ODEs, the implicit function theorem, Nash equilibrium existence, and Markov-chain stationary distributions all reduce to one of these four fixed-point theorems.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        }
+      ]
+    },
+    "calabi-yau-manifolds": {
+      "topic": "calabi-yau-manifolds",
+      "title": "Calabi yau manifolds",
+      "page": "calabi-yau-manifolds.html",
+      "concepts": [
+        {
+          "id": "calabi-yau-manifolds-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "high-dimensional-geometry": {
+      "topic": "high-dimensional-geometry",
+      "title": "High dimensional geometry",
+      "page": "high-dimensional-geometry.html",
+      "concepts": [
+        {
+          "id": "high-dimensional-geometry-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "mirror-symmetry": {
+      "topic": "mirror-symmetry",
+      "title": "Mirror symmetry",
+      "page": "mirror-symmetry.html",
+      "concepts": [
+        {
+          "id": "mirror-symmetry-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "mostow-rigidity": {
+      "topic": "mostow-rigidity",
+      "title": "Mostow rigidity",
+      "page": "mostow-rigidity.html",
+      "concepts": [
+        {
+          "id": "mostow-rigidity-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "resolution-of-singularities": {
+      "topic": "resolution-of-singularities",
+      "title": "Resolution of singularities",
+      "page": "resolution-of-singularities.html",
+      "concepts": [
+        {
+          "id": "resolution-of-singularities-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "hamiltonians-classical-mechanics": {
+      "topic": "hamiltonians-classical-mechanics",
+      "title": "Hamiltonians classical mechanics",
+      "page": "hamiltonians-classical-mechanics.html",
+      "concepts": [
+        {
+          "id": "hamiltonians-classical-mechanics-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "general-relativity": {
+      "topic": "general-relativity",
+      "title": "General relativity",
+      "page": "general-relativity.html",
+      "concepts": [
+        {
+          "id": "general-relativity-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "three-body-problem": {
+      "topic": "three-body-problem",
+      "title": "Three body problem",
+      "page": "three-body-problem.html",
+      "concepts": [
+        {
+          "id": "three-body-problem-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "designs": {
+      "topic": "designs",
+      "title": "Designs",
+      "page": "designs.html",
+      "concepts": [
+        {
+          "id": "designs-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "expanders": {
+      "topic": "expanders",
+      "title": "Expanders",
+      "page": "expanders.html",
+      "concepts": [
+        {
+          "id": "expanders-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
     "symplectic-manifolds": {
       "topic": "symplectic-manifolds",
       "title": "Symplectic manifolds",
@@ -10653,7 +11244,9 @@ window.__MVConcepts = {
           "harmonic-functions",
           "spectral-theory",
           "wavelets",
-          "schrodinger-equation"
+          "numerical-analysis",
+          "variational-methods",
+          "fixed-point-theorems"
         ],
         "color": "p"
       },
@@ -10666,7 +11259,9 @@ window.__MVConcepts = {
           "stochastic-calculus",
           "random-walks-and-mixing",
           "information-theory",
-          "large-deviations"
+          "large-deviations",
+          "mathematical-statistics",
+          "high-dimensional-geometry"
         ],
         "color": "g"
       },
@@ -10688,7 +11283,8 @@ window.__MVConcepts = {
           "symplectic-manifolds",
           "knot-polynomials",
           "ricci-flow",
-          "atiyah-singer-index-theorem"
+          "atiyah-singer-index-theorem",
+          "mostow-rigidity"
         ],
         "color": "v"
       },
@@ -10708,7 +11304,8 @@ window.__MVConcepts = {
           "galois-representations",
           "heights-arithmetic-geometry",
           "analytic-number-theory",
-          "mathematics-and-cryptography"
+          "mathematics-and-cryptography",
+          "computational-number-theory"
         ],
         "color": "y"
       },
@@ -10757,7 +11354,10 @@ window.__MVConcepts = {
           "group-schemes",
           "etale-fundamental-group",
           "deformation-theory",
-          "etale-cohomology"
+          "etale-cohomology",
+          "calabi-yau-manifolds",
+          "mirror-symmetry",
+          "resolution-of-singularities"
         ],
         "color": "g"
       },
@@ -10770,9 +11370,22 @@ window.__MVConcepts = {
           "probabilistic-method",
           "extremal-combinatorics",
           "simplicial-complexes-combinatorial",
-          "enumerative-combinatorics"
+          "enumerative-combinatorics",
+          "designs",
+          "expanders"
         ],
         "color": "v"
+      },
+      {
+        "title": "Mathematical physics",
+        "color": "p",
+        "topics": [
+          "schrodinger-equation",
+          "hamiltonians-classical-mechanics",
+          "general-relativity",
+          "three-body-problem"
+        ],
+        "id": "mathematical-physics"
       }
     ]
   },
@@ -10971,7 +11584,22 @@ window.__MVConcepts = {
     "schrodinger-equation": "standard",
     "ricci-flow": "advanced",
     "geometric-and-combinatorial-group-theory": "advanced",
-    "atiyah-singer-index-theorem": "capstone"
+    "atiyah-singer-index-theorem": "capstone",
+    "mathematical-statistics": "standard",
+    "numerical-analysis": "standard",
+    "computational-number-theory": "standard",
+    "variational-methods": "standard",
+    "fixed-point-theorems": "standard",
+    "calabi-yau-manifolds": "advanced",
+    "mirror-symmetry": "advanced",
+    "resolution-of-singularities": "advanced",
+    "high-dimensional-geometry": "advanced",
+    "mostow-rigidity": "advanced",
+    "hamiltonians-classical-mechanics": "standard",
+    "general-relativity": "advanced",
+    "three-body-problem": "advanced",
+    "designs": "standard",
+    "expanders": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -10995,7 +11623,7 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 56,
       "crossOut": 4,
-      "crossIn": 11,
+      "crossIn": 14,
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
@@ -11013,32 +11641,32 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 134,
-      "intra": 222,
-      "crossOut": 16,
-      "crossIn": 38,
-      "density": 0.11940298507462686
+      "concepts": 146,
+      "intra": 249,
+      "crossOut": 23,
+      "crossIn": 44,
+      "density": 0.15753424657534246
     },
     "Probability & statistics": {
-      "concepts": 41,
-      "intra": 65,
+      "concepts": 48,
+      "intra": 76,
       "crossOut": 11,
       "crossIn": 8,
-      "density": 0.2682926829268293
+      "density": 0.22916666666666666
     },
     "Geometry & topology": {
-      "concepts": 91,
+      "concepts": 92,
       "intra": 135,
       "crossOut": 14,
-      "crossIn": 54,
-      "density": 0.15384615384615385
+      "crossIn": 61,
+      "density": 0.15217391304347827
     },
     "Number theory": {
-      "concepts": 84,
-      "intra": 106,
-      "crossOut": 30,
+      "concepts": 90,
+      "intra": 115,
+      "crossOut": 33,
       "crossIn": 24,
-      "density": 0.35714285714285715
+      "density": 0.36666666666666664
     },
     "Modular forms & L-functions": {
       "concepts": 85,
@@ -11048,18 +11676,25 @@ window.__MVConcepts = {
       "density": 0.611764705882353
     },
     "Algebraic geometry": {
-      "concepts": 109,
+      "concepts": 112,
       "intra": 138,
       "crossOut": 48,
       "crossIn": 14,
-      "density": 0.44036697247706424
+      "density": 0.42857142857142855
     },
     "Combinatorics & graph theory": {
-      "concepts": 39,
+      "concepts": 41,
       "intra": 34,
       "crossOut": 17,
       "crossIn": 2,
-      "density": 0.4358974358974359
+      "density": 0.4146341463414634
+    },
+    "Mathematical physics": {
+      "concepts": 9,
+      "intra": 5,
+      "crossOut": 6,
+      "crossIn": 0,
+      "density": 0.6666666666666666
     }
   }
 };

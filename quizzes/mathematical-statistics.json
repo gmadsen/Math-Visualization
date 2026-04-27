@@ -1,4 +1,216 @@
 {
   "topic": "mathematical-statistics",
-  "quizzes": {}
+  "quizzes": {
+    "ms-estimators": {
+      "title": "Point estimators: bias, consistency, MSE, sufficiency",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $X_1,\\ldots,X_n$ be i.i.d. with mean $\\mu$ and variance $\\sigma^2$. Which estimator of $\\sigma^2$ is unbiased?",
+          "choices": [
+            "$\\hat\\sigma^2_{\\text{MLE}}=\\tfrac{1}{n}\\sum (X_i-\\bar X)^2$",
+            "$S^2=\\tfrac{1}{n-1}\\sum (X_i-\\bar X)^2$",
+            "$\\tfrac{1}{n}\\sum X_i^2$",
+            "$\\bar X^2$"
+          ],
+          "answer": 1,
+          "explain": "The Bessel-corrected sample variance $S^2=\\tfrac{1}{n-1}\\sum(X_i-\\bar X)^2$ has $\\mathbb{E}[S^2]=\\sigma^2$. The $1/n$ MLE version is biased downward by a factor $(n-1)/n$ because $\\bar X$ already absorbed one degree of freedom."
+        },
+        {
+          "type": "numeric",
+          "q": "Estimator $\\hat\\theta$ has bias $0.2$ and variance $0.09$ at the true parameter. What is its MSE?",
+          "answer": 0.13,
+          "tol": 0.0001,
+          "explain": "$\\mathrm{MSE}=\\mathrm{bias}^2+\\mathrm{var}=0.04+0.09=0.13$. The bias-variance decomposition is the basic accounting identity for risk under squared loss."
+        },
+        {
+          "type": "mcq",
+          "q": "By the Fisher–Neyman factorisation theorem, $T(X)$ is sufficient for $\\theta$ iff the joint density factors as:",
+          "choices": [
+            "$f(x;\\theta)=g(T(x);\\theta)\\,h(x)$",
+            "$f(x;\\theta)=g(x)\\,h(\\theta)$",
+            "$f(x;\\theta)=\\sum_t g(t;\\theta)\\mathbf{1}_{T(x)=t}$",
+            "$f(x;\\theta)=g(T(x))\\,h(\\theta)$"
+          ],
+          "answer": 0,
+          "explain": "Fisher–Neyman: $T$ is sufficient iff $f(x;\\theta)$ splits as a piece $g$ that depends on the data only through $T(x)$ times a $\\theta$-free piece $h(x)$. Equivalently, the conditional law of $X$ given $T$ is free of $\\theta$."
+        }
+      ]
+    },
+    "ms-mle": {
+      "title": "Maximum likelihood and the score equation",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For i.i.d. $X_i\\sim\\mathrm{Exp}(\\lambda)$ (density $\\lambda e^{-\\lambda x}$, $x>0$), compute the MLE of $\\lambda$ when $n=5$ and $\\sum X_i=10$.",
+          "answer": 0.5,
+          "tol": 0.0001,
+          "explain": "$\\ell(\\lambda)=n\\log\\lambda-\\lambda\\sum X_i$; setting $\\ell'=n/\\lambda-\\sum X_i=0$ gives $\\hat\\lambda=n/\\sum X_i=5/10=0.5$. The MLE for an exponential rate is the reciprocal of the sample mean."
+        },
+        {
+          "type": "numeric",
+          "q": "For $X_i\\sim\\mathcal{N}(\\theta,1)$, the Fisher information per sample is $I(\\theta)=$?",
+          "answer": 1,
+          "tol": 0.0001,
+          "explain": "$\\log f=-\\tfrac{1}{2}(x-\\theta)^2+\\text{const}$, so $\\partial_\\theta\\log f=x-\\theta$ and $I(\\theta)=\\mathbb{E}[(X-\\theta)^2]=\\sigma^2=1$. Asymptotic variance of $\\hat\\theta_{\\mathrm{MLE}}=\\bar X$ is $1/(nI)=1/n$, matching $\\mathrm{Var}(\\bar X)$ exactly."
+        },
+        {
+          "type": "mcq",
+          "q": "MLE corresponds to minimising which divergence between the empirical distribution $\\hat p_n$ and the model family $\\{p_\\theta\\}$?",
+          "choices": [
+            "Total variation $\\|\\hat p_n-p_\\theta\\|_{\\mathrm{TV}}$",
+            "Hellinger distance",
+            "Kullback–Leibler $D(\\hat p_n\\,\\|\\,p_\\theta)$",
+            "Wasserstein-2 distance"
+          ],
+          "answer": 2,
+          "explain": "$D(\\hat p_n\\,\\|\\,p_\\theta)=-\\tfrac{1}{n}\\sum\\log p_\\theta(X_i)+\\text{const}(\\hat p_n)$, so minimising KL in $\\theta$ maximises $\\sum\\log p_\\theta(X_i)$ — the log-likelihood. This is exactly why MLE inherits Sanov-style asymptotics."
+        }
+      ]
+    },
+    "ms-cramer-rao": {
+      "title": "Cramér–Rao, UMVU, Rao–Blackwell",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For i.i.d. $X_i\\sim\\mathcal{N}(\\mu,\\sigma^2)$ with $\\sigma^2$ known, the Cramér–Rao lower bound on $\\mathrm{Var}(\\hat\\mu)$ for unbiased $\\hat\\mu$ from $n$ samples equals $\\sigma^2/(cn)$. What is $c$?",
+          "answer": 1,
+          "tol": 0.0001,
+          "explain": "$I(\\mu)=1/\\sigma^2$ per observation, so the CRLB is $1/(nI)=\\sigma^2/n$, i.e. $c=1$. The sample mean $\\bar X$ achieves it — $\\bar X$ is UMVU for $\\mu$."
+        },
+        {
+          "type": "mcq",
+          "q": "Rao–Blackwell says: given an unbiased estimator $W$ and a sufficient statistic $T$, the estimator $W^*=\\mathbb{E}[W\\mid T]$:",
+          "choices": [
+            "Is biased but lower variance",
+            "Is unbiased with variance $\\le$ that of $W$",
+            "Equals $W$ exactly",
+            "Has variance $0$"
+          ],
+          "answer": 1,
+          "explain": "By tower, $\\mathbb{E}[W^*]=\\mathbb{E}[W]=\\theta$ (still unbiased). Conditional Jensen / law of total variance gives $\\mathrm{Var}(W^*)\\le\\mathrm{Var}(W)$, with equality iff $W$ was already a function of $T$. Combined with completeness (Lehmann–Scheffé), this gives UMVU."
+        },
+        {
+          "type": "mcq",
+          "q": "Which estimator achieves the Cramér–Rao bound?",
+          "choices": [
+            "Any consistent estimator",
+            "Any unbiased estimator with finite variance",
+            "An efficient estimator (typically the MLE in regular models, asymptotically)",
+            "The method-of-moments estimator"
+          ],
+          "answer": 2,
+          "explain": "An estimator hitting the CRLB is called efficient. Generically, only special unbiased estimators (e.g. $\\bar X$ for Gaussian mean) hit it exactly; the MLE achieves it asymptotically — $\\sqrt n(\\hat\\theta_{\\mathrm{MLE}}-\\theta)\\to\\mathcal{N}(0,1/I(\\theta))$."
+        }
+      ]
+    },
+    "ms-hypothesis-testing": {
+      "title": "Hypothesis testing, Neyman–Pearson, likelihood ratios",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For testing $H_0:\\theta=\\theta_0$ vs $H_1:\\theta=\\theta_1$ (both simple), the Neyman–Pearson lemma says the most powerful level-$\\alpha$ test rejects when:",
+          "choices": [
+            "$|X-\\theta_0|$ is large",
+            "$L(\\theta_1;x)/L(\\theta_0;x)>k$ for an $\\alpha$-calibrated $k$",
+            "$\\hat\\theta_{\\mathrm{MLE}}$ is closer to $\\theta_1$ than $\\theta_0$",
+            "The $p$-value under $H_0$ is $<\\alpha$, regardless of the form of the rejection set"
+          ],
+          "answer": 1,
+          "explain": "Neyman–Pearson is constructive: fix $\\alpha=\\mathbb{P}_{\\theta_0}(\\Lambda>k)$, then rejection region $\\{\\Lambda>k\\}$ is the most powerful at level $\\alpha$ — every other size-$\\alpha$ test has power $\\le 1-\\beta_{\\text{NP}}$."
+        },
+        {
+          "type": "numeric",
+          "q": "A z-test of $H_0:\\mu=0$ vs $H_1:\\mu>0$ (one-sided, known $\\sigma=1$, $n=25$ samples) rejects at level $\\alpha=0.05$ when $\\bar X>1.645/\\sqrt{25}$. What is the threshold on $\\bar X$? (Round to 4 decimals.)",
+          "answer": 0.329,
+          "tol": 0.001,
+          "explain": "Under $H_0$, $\\bar X\\sim\\mathcal{N}(0,1/n)$. The $0.95$ quantile of $\\mathcal{N}(0,1/n)$ is $z_{0.95}/\\sqrt n=1.645/5=0.329$. Reject when $\\bar X>0.329$."
+        },
+        {
+          "type": "mcq",
+          "q": "The $p$-value of an observation $x_{\\text{obs}}$ is best described as:",
+          "choices": [
+            "The probability that $H_0$ is true given the data",
+            "The probability of observing data at least as extreme as $x_{\\text{obs}}$ assuming $H_0$",
+            "Type-II error probability",
+            "$1$ minus the power of the test"
+          ],
+          "answer": 1,
+          "explain": "$p=\\mathbb{P}_{H_0}(T(X)\\ge T(x_{\\text{obs}}))$ — a probability under the null, not a posterior on $H_0$. Confusing the two is the canonical frequentist–Bayesian fallacy."
+        }
+      ]
+    },
+    "ms-bayesian": {
+      "title": "Bayesian inference: posteriors, conjugates, credible intervals",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Beta–Binomial conjugacy: with $\\theta\\sim\\mathrm{Beta}(\\alpha,\\beta)$ prior and $X\\sim\\mathrm{Binom}(n,\\theta)$ data, the posterior is:",
+          "choices": [
+            "$\\mathrm{Beta}(\\alpha+x,\\beta+n-x)$",
+            "$\\mathrm{Beta}(\\alpha+n,\\beta+n)$",
+            "$\\mathrm{Beta}(\\alpha x,\\beta(n-x))$",
+            "$\\mathrm{Normal}(x/n,\\,x(n-x)/n^3)$"
+          ],
+          "answer": 0,
+          "explain": "Posterior $\\propto\\theta^{\\alpha-1}(1-\\theta)^{\\beta-1}\\cdot\\theta^x(1-\\theta)^{n-x}=\\theta^{\\alpha+x-1}(1-\\theta)^{\\beta+n-x-1}$ — a $\\mathrm{Beta}(\\alpha+x,\\beta+n-x)$. Conjugate priors are exactly the families closed under this update."
+        },
+        {
+          "type": "numeric",
+          "q": "Flat prior $\\theta\\sim\\mathrm{Beta}(1,1)$ on a coin's heads-probability; observe $7$ heads in $10$ flips. The posterior is $\\mathrm{Beta}(8,4)$. Compute the posterior mean.",
+          "answer": 0.6666666667,
+          "tol": 0.001,
+          "explain": "$\\mathbb{E}[\\theta\\mid x]=\\alpha'/(\\alpha'+\\beta')=8/12=2/3\\approx 0.667$. The MLE was $7/10=0.7$; the prior pulls the estimate slightly toward $1/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "MAP and posterior mean coincide when:",
+          "choices": [
+            "The likelihood is Gaussian",
+            "The posterior is symmetric and unimodal (e.g. Gaussian, symmetric Beta)",
+            "Always",
+            "The prior is flat"
+          ],
+          "answer": 1,
+          "explain": "For symmetric unimodal posteriors, mode = mean. Asymmetric posteriors (e.g. $\\mathrm{Beta}(2,5)$) have mode $\\neq$ mean. MAP minimises a $0$–$1$ loss; posterior mean minimises squared-error loss."
+        }
+      ]
+    },
+    "ms-asymptotics": {
+      "title": "Asymptotics: delta method, Slutsky, Wilks",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Apply the delta method: if $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,1)$ and $g(\\theta)=\\theta^2$ with $\\theta=3$, then $\\sqrt n(g(\\hat\\theta_n)-g(\\theta))\\xrightarrow{d}\\mathcal{N}(0,v)$. Compute $v$.",
+          "answer": 36,
+          "tol": 0.0001,
+          "explain": "Delta method: $v=g'(\\theta)^2\\sigma^2=(2\\theta)^2\\cdot 1=4\\theta^2=4\\cdot 9=36$. The Jacobian of $g$ stretches the asymptotic variance by $g'(\\theta)^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Wilks' theorem says that under $H_0$, the LRT statistic $-2\\log\\Lambda_n$ converges in distribution to:",
+          "choices": [
+            "$\\mathcal{N}(0,1)$",
+            "$\\chi^2_r$ where $r=\\dim\\Theta-\\dim\\Theta_0$",
+            "$F$-distribution",
+            "$\\mathrm{Exp}(1)$"
+          ],
+          "answer": 1,
+          "explain": "$-2\\log\\Lambda_n\\xrightarrow{d}\\chi^2_r$ with $r$ the difference in dimensions. This is what calibrates LRT-based confidence regions: $\\{\\theta:-2\\log\\Lambda(\\theta)<\\chi^2_{r,1-\\alpha}\\}$ has asymptotic coverage $1-\\alpha$."
+        },
+        {
+          "type": "mcq",
+          "q": "Slutsky's theorem says: if $X_n\\xrightarrow{d}X$ and $Y_n\\xrightarrow{p}c$ (constant), then:",
+          "choices": [
+            "$X_n+Y_n\\xrightarrow{d}X+c$ and $X_nY_n\\xrightarrow{d}cX$",
+            "$X_n+Y_n\\xrightarrow{p}X+c$",
+            "$Y_nX_n\\xrightarrow{d}\\mathcal{N}(c,1)$",
+            "Convergence fails unless $X$ is Gaussian"
+          ],
+          "answer": 0,
+          "explain": "Slutsky lets you replace a consistent nuisance estimate by its limit inside a converging-in-distribution sequence. Used constantly: $\\sqrt n(\\bar X-\\mu)/S\\xrightarrow{d}\\mathcal{N}(0,1)$ because $S\\xrightarrow{p}\\sigma$."
+        }
+      ]
+    }
+  }
 }

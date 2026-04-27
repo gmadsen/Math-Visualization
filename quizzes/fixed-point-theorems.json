@@ -1,4 +1,236 @@
 {
   "topic": "fixed-point-theorems",
-  "quizzes": {}
+  "quizzes": {
+    "fpt-banach": {
+      "title": "Banach contraction principle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which hypothesis is essential for the Banach contraction principle to guarantee a unique fixed point?",
+          "choices": [
+            "the metric space is bounded",
+            "the metric space is complete and the map has Lipschitz constant $L<1$",
+            "the map is continuous and the space is connected",
+            "the map is differentiable on a compact set"
+          ],
+          "answer": 1,
+          "explain": "Completeness is needed for the Cauchy iteration $x_{n+1}=f(x_n)$ to have a limit; the strict contraction $L<1$ forces uniqueness and geometric convergence at rate $L$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f(x)=\\tfrac{1}{2}x+1$ on $\\mathbb{R}$. What is the unique fixed point?",
+          "answer": 2,
+          "tol": 0.000001,
+          "explain": "Solve $x=\\tfrac{1}{2}x+1$, giving $x=2$. The Lipschitz constant is $1/2<1$, so Picard iteration from any starting point converges to $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Define $f\\colon\\mathbb{R}\\to\\mathbb{R}$ by $f(x)=x+e^{-x}$. Why does Banach's theorem fail to apply, even though $|f'(x)|<1$ for all $x$?",
+          "choices": [
+            "$f$ is not continuous",
+            "$\\mathbb{R}$ is not complete",
+            "there is no global Lipschitz constant $L<1$, only $|f'(x)|<1$ pointwise",
+            "$f$ has no fixed point"
+          ],
+          "answer": 2,
+          "explain": "Banach demands a uniform $L<1$, not merely $|f'(x)|<1$ at each point. Here $f'(x)=1-e^{-x}\\to 1$ as $x\\to\\infty$, so $\\sup|f'|=1$. Indeed $f(x)>x$ everywhere, so $f$ has no fixed point."
+        }
+      ]
+    },
+    "fpt-brouwer": {
+      "title": "Brouwer fixed-point theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following spaces does NOT satisfy the Brouwer fixed-point property?",
+          "choices": [
+            "the closed disk $D^2$",
+            "the closed cube $[0,1]^n$",
+            "the circle $S^1$",
+            "any non-empty compact convex subset of $\\mathbb{R}^n$"
+          ],
+          "answer": 2,
+          "explain": "$S^1$ admits the antipodal map $x\\mapsto -x$, which is continuous and fixed-point-free. Brouwer requires a contractible (or just convex compact) domain; circles are not contractible."
+        },
+        {
+          "type": "mcq",
+          "q": "The standard proof of Brouwer reduces to which auxiliary statement?",
+          "choices": [
+            "the Hairy Ball theorem",
+            "no retraction $D^n\\to S^{n-1}$ extends the identity on $S^{n-1}$",
+            "every polynomial has a root",
+            "the unit ball of $\\ell^2$ is compact"
+          ],
+          "answer": 1,
+          "explain": "If $f\\colon D^n\\to D^n$ had no fixed point, the ray from $f(x)$ through $x$ defines a retraction $D^n\\to S^{n-1}$, contradicting the no-retraction lemma. The latter is proved by computing $H_{n-1}$ or the degree."
+        },
+        {
+          "type": "numeric",
+          "q": "For the constant map $f\\colon D^2\\to D^2$, $f(x)=(0,0)$, how many fixed points does $f$ have?",
+          "answer": 1,
+          "tol": 0.000001,
+          "explain": "$x=(0,0)$ is the unique fixed point. Brouwer guarantees at least one; this map shows the count can be exactly one (and the degree of $\\mathrm{id}-f$ is $1$)."
+        }
+      ]
+    },
+    "fpt-schauder": {
+      "title": "Schauder fixed-point theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the role of compactness in Schauder's theorem that distinguishes it from Brouwer's?",
+          "choices": [
+            "compactness is automatic in any Banach space",
+            "in infinite dimensions the closed unit ball is not compact, so one assumes either a compact convex domain or that the operator is compact on a bounded set",
+            "compactness replaces continuity",
+            "no compactness is needed; convexity suffices"
+          ],
+          "answer": 1,
+          "explain": "In $\\mathbb{R}^n$ closed-bounded equals compact, so Brouwer needs no extra hypothesis. In a Banach space the unit ball is non-compact (Riesz's lemma), so Schauder demands the convex set be compact, or that $T$ be a compact operator on a closed bounded convex set."
+        },
+        {
+          "type": "mcq",
+          "q": "Schauder is typically applied to PDEs and integral equations because:",
+          "choices": [
+            "linear operators are always compact",
+            "integral operators with continuous kernels on $C[a,b]$ are compact (Arzelà–Ascoli), making the Schauder hypotheses easy to verify",
+            "PDE solutions live in finite-dimensional spaces",
+            "the spectral theorem implies a fixed point"
+          ],
+          "answer": 1,
+          "explain": "Compact operators arise everywhere in analysis — Volterra, Fredholm, Green's functions. Arzelà–Ascoli guarantees the image of a bounded set is precompact, so $T$ maps a closed bounded convex set into a compact convex set."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is convexity of the domain essential in Schauder's theorem?",
+          "choices": [
+            "only convex sets are compact",
+            "convexity is needed to approximate by finite-dimensional Brouwer applications via convex combinations",
+            "convexity replaces completeness",
+            "non-convex sets fail to be metric spaces"
+          ],
+          "answer": 1,
+          "explain": "Schauder's proof uses finite $\\varepsilon$-nets and Brouwer on their convex hulls. Without convexity the convex-hull retraction step fails, and indeed an annulus admits a fixed-point-free rotation."
+        }
+      ]
+    },
+    "fpt-lefschetz": {
+      "title": "Lefschetz fixed-point theorem",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For the identity map $\\mathrm{id}\\colon T^2\\to T^2$ on the 2-torus, the homology Betti numbers are $b_0=1,\\,b_1=2,\\,b_2=1$. Compute the Lefschetz number $\\Lambda(\\mathrm{id})$.",
+          "answer": 0,
+          "tol": 0.000001,
+          "explain": "$\\Lambda(\\mathrm{id})=\\sum(-1)^k b_k=1-2+1=0$, the Euler characteristic of the torus. Lefschetz gives no obstruction: indeed a non-trivial translation has no fixed points."
+        },
+        {
+          "type": "mcq",
+          "q": "Which Brouwer-type theorem does Lefschetz recover when applied to a contractible space?",
+          "choices": [
+            "Brouwer fixed-point: contractible $\\Rightarrow$ $H_0=\\mathbb{Z}$, $H_k=0$ for $k>0$, so $\\Lambda(f)=1\\ne 0$",
+            "Schauder",
+            "Banach contraction",
+            "Kakutani"
+          ],
+          "answer": 0,
+          "explain": "On a contractible space all higher homology vanishes and $f_*\\colon H_0\\to H_0$ is the identity, so $\\Lambda(f)=1$. Non-zero Lefschetz number forces a fixed point — exactly Brouwer."
+        },
+        {
+          "type": "mcq",
+          "q": "What does $\\Lambda(f)\\ne 0$ tell you, and what does $\\Lambda(f)=0$ tell you?",
+          "choices": [
+            "$\\Lambda(f)\\ne 0$ implies $f$ has a fixed point; $\\Lambda(f)=0$ is inconclusive",
+            "$\\Lambda(f)=0$ implies $f$ has no fixed point",
+            "$\\Lambda(f)$ counts fixed points exactly",
+            "$\\Lambda(f)$ is always non-negative"
+          ],
+          "answer": 0,
+          "explain": "Lefschetz is one-directional: non-zero trace forces a fixed point. A zero Lefschetz number is silent — a torus rotation has $\\Lambda=0$ and no fixed points; the identity also has $\\Lambda=\\chi$, often zero, yet fixes everything."
+        }
+      ]
+    },
+    "fpt-kakutani": {
+      "title": "Kakutani fixed-point theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does Kakutani's theorem add to Brouwer's?",
+          "choices": [
+            "it works in infinite dimensions",
+            "it allows set-valued maps $\\varphi(x)$ with non-empty closed convex values, requiring $x\\in\\varphi(x)$ at the fixed point",
+            "it removes the convexity requirement",
+            "it replaces compactness with completeness"
+          ],
+          "answer": 1,
+          "explain": "Kakutani upgrades single-valued continuous maps to upper-hemicontinuous correspondences with non-empty compact convex images. The fixed-point condition becomes membership: $x\\in\\varphi(x)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is Kakutani — not Brouwer — the right tool for Nash equilibrium?",
+          "choices": [
+            "best-response maps are typically multi-valued (ties produce sets of best responses), and Nash needs a fixed point of this correspondence",
+            "Brouwer requires linearity",
+            "Brouwer gives uniqueness, which Nash forbids",
+            "Nash equilibria are always pure strategies"
+          ],
+          "answer": 0,
+          "explain": "Each player's best-response set $B_i(\\sigma_{-i})$ is a non-empty compact convex subset of their mixed-strategy simplex, but generally not a singleton. Kakutani applied to $\\sigma\\mapsto\\prod_i B_i(\\sigma_{-i})$ produces a Nash equilibrium."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property must $\\varphi$ satisfy beyond non-empty closed convex values?",
+          "choices": [
+            "Lipschitz continuity",
+            "upper hemicontinuity (closed graph in the compact case)",
+            "differentiability",
+            "linearity"
+          ],
+          "answer": 1,
+          "explain": "Upper hemicontinuity — equivalently, closed graph when the codomain is compact — is the analogue of continuity for set-valued maps and is exactly the regularity Kakutani requires."
+        }
+      ]
+    },
+    "fpt-applications": {
+      "title": "Applications: ODEs, IVT, Nash, Markov chains",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Picard–Lindelöf existence and uniqueness for $\\dot{x}=f(t,x)$ rests on which fixed-point theorem?",
+          "choices": [
+            "Brouwer",
+            "Banach contraction (applied to the Picard integral operator on $C([t_0-h,t_0+h])$)",
+            "Schauder",
+            "Lefschetz"
+          ],
+          "answer": 1,
+          "explain": "The integral operator $T(\\varphi)(t)=x_0+\\int_{t_0}^t f(s,\\varphi(s))\\,ds$ is a contraction on a small enough interval when $f$ is Lipschitz in $x$, giving the unique solution as its fixed point."
+        },
+        {
+          "type": "mcq",
+          "q": "A finite-state Markov chain with stochastic matrix $P$ has a stationary distribution because:",
+          "choices": [
+            "$P$ has a unique eigenvalue",
+            "the simplex $\\Delta$ is non-empty compact convex and $\\pi\\mapsto\\pi P$ is continuous, so Brouwer gives $\\pi^*\\in\\Delta$ with $\\pi^*P=\\pi^*$",
+            "$P$ is symmetric",
+            "every Markov chain is reversible"
+          ],
+          "answer": 1,
+          "explain": "Brouwer applied to the simplex $\\Delta=\\{\\pi\\ge 0:\\sum\\pi_i=1\\}$ under $\\pi\\mapsto\\pi P$ produces a stationary distribution — no irreducibility or symmetry needed."
+        },
+        {
+          "type": "mcq",
+          "q": "The implicit function theorem can be derived from which fixed-point principle?",
+          "choices": [
+            "Lefschetz",
+            "Banach contraction (the Newton-style operator $y\\mapsto y-A^{-1}F(x,y)$ is a contraction near the base point)",
+            "Kakutani",
+            "Schauder"
+          ],
+          "answer": 1,
+          "explain": "Linearizing $F(x,y)=0$ at the base point and applying Banach contraction to a Newton-iteration operator on a small ball yields the implicit function $y=g(x)$ with the desired smoothness."
+        }
+      ]
+    }
+  }
 }
