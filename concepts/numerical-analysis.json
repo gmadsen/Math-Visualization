@@ -1,0 +1,14 @@
+{
+  "topic": "numerical-analysis",
+  "title": "Numerical analysis",
+  "page": "numerical-analysis.html",
+  "concepts": [
+    {
+      "id": "numerical-analysis-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

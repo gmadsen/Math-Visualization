@@ -1,0 +1,14 @@
+{
+  "topic": "general-relativity",
+  "title": "General relativity",
+  "page": "general-relativity.html",
+  "concepts": [
+    {
+      "id": "general-relativity-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

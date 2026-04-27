@@ -1,5 +1,20 @@
 {
   "topics": [
+    "mathematical-statistics",
+    "numerical-analysis",
+    "computational-number-theory",
+    "variational-methods",
+    "fixed-point-theorems",
+    "calabi-yau-manifolds",
+    "high-dimensional-geometry",
+    "mirror-symmetry",
+    "mostow-rigidity",
+    "resolution-of-singularities",
+    "hamiltonians-classical-mechanics",
+    "general-relativity",
+    "three-body-problem",
+    "designs",
+    "expanders",
     "symplectic-manifolds",
     "quantum-groups",
     "quaternions-octonions-and-division-algebras",
@@ -250,6 +265,21 @@
     "schrodinger-equation": "standard",
     "ricci-flow": "advanced",
     "geometric-and-combinatorial-group-theory": "advanced",
-    "atiyah-singer-index-theorem": "capstone"
+    "atiyah-singer-index-theorem": "capstone",
+    "mathematical-statistics": "standard",
+    "numerical-analysis": "standard",
+    "computational-number-theory": "standard",
+    "variational-methods": "standard",
+    "fixed-point-theorems": "standard",
+    "calabi-yau-manifolds": "advanced",
+    "mirror-symmetry": "advanced",
+    "resolution-of-singularities": "advanced",
+    "high-dimensional-geometry": "advanced",
+    "mostow-rigidity": "advanced",
+    "hamiltonians-classical-mechanics": "standard",
+    "general-relativity": "advanced",
+    "three-body-problem": "advanced",
+    "designs": "standard",
+    "expanders": "standard"
   }
 }

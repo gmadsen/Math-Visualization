@@ -1,0 +1,14 @@
+{
+  "topic": "expanders",
+  "title": "Expanders",
+  "page": "expanders.html",
+  "concepts": [
+    {
+      "id": "expanders-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

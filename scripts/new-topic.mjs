@@ -60,6 +60,7 @@ const SECTIONS = [
   'Modular forms & L-functions',
   'Algebraic geometry',
   'Combinatorics & graph theory',
+  'Mathematical physics',
 ];
 
 // Per-section default card color palette for the placeholder thumb. The
@@ -78,6 +79,7 @@ const SECTION_PALETTE = new Map([
   ['Number theory',                { klass: 'y', cssVar: '--yellow' }],
   ['Modular forms & L-functions',  { klass: 'c', cssVar: '--cyan'   }],
   ['Algebraic geometry',           { klass: 'g', cssVar: '--green'  }],
+  ['Mathematical physics',         { klass: 'p', cssVar: '--pink'   }],
   ['Combinatorics & graph theory', { klass: 'v', cssVar: '--violet' }],
 ]);
 
@@ -116,6 +118,10 @@ const SECTION_ALIASES = new Map([
   ['combinatorics & graph theory', 'Combinatorics & graph theory'],
   ['combinatorics and graph theory', 'Combinatorics & graph theory'],
   ['graph-theory', 'Combinatorics & graph theory'],
+  ['mathematical-physics', 'Mathematical physics'],
+  ['mathematical physics', 'Mathematical physics'],
+  ['math-physics', 'Mathematical physics'],
+  ['physics', 'Mathematical physics'],
 ]);
 
 // concepts/index.json layout: blank-line-separated groups. The first 7
@@ -125,7 +131,7 @@ const SECTION_ALIASES = new Map([
 // in one of the 7 regular sections, and if the topic is also a capstone the
 // authoring agent manually migrates it to the capstones group + adds an
 // entry to concepts/capstones.json.
-const CAPSTONES_GROUP_INDEX = 10; // 0-based, immediately after the 10 SECTIONS
+const CAPSTONES_GROUP_INDEX = 11; // 0-based, immediately after the 11 SECTIONS
 
 function usage() {
   console.error('usage: node scripts/new-topic.mjs <topic-slug> <section>');

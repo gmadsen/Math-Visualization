@@ -1,0 +1,14 @@
+{
+  "topic": "designs",
+  "title": "Designs",
+  "page": "designs.html",
+  "concepts": [
+    {
+      "id": "designs-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

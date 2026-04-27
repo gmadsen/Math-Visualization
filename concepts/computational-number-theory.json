@@ -1,0 +1,14 @@
+{
+  "topic": "computational-number-theory",
+  "title": "Computational number theory",
+  "page": "computational-number-theory.html",
+  "concepts": [
+    {
+      "id": "computational-number-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

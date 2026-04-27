@@ -1,0 +1,14 @@
+{
+  "topic": "three-body-problem",
+  "title": "Three body problem",
+  "page": "three-body-problem.html",
+  "concepts": [
+    {
+      "id": "three-body-problem-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

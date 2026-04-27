@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Algebraic geometry · Interactive Mathematics Notebook</title>
+<title>Probability & statistics · Interactive Mathematics Notebook</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -439,467 +439,138 @@
     <a href="../pathway.html" style="color:var(--violet)">Pathway explorer →</a>
   </nav>
   <section class="hero">
-    <h1>Algebraic geometry</h1>
-    <p class="sub">Projective varieties, schemes, sheaves, moduli spaces, and the arithmetic capstones that tie it all together.</p>
+    <h1>Probability & statistics</h1>
+    <p class="sub"></p>
   </section>
 
-  <div class="sec">Algebraic geometry</div>
+  <div class="sec">Probability & statistics</div>
   <div class="grid">
 
 
-  <a class="card y" href="../projective-plane.html">
+  <a class="card b" href="../probability-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- affine lines meeting at a point at infinity -->
-        <g stroke="var(--yellow)" stroke-width="1.2" fill="none" opacity="0.85">
-          <line x1="14" y1="62" x2="86" y2="18"/>
-          <line x1="14" y1="46" x2="86" y2="46"/>
-          <line x1="14" y1="22" x2="86" y2="66"/>
-        </g>
-        <!-- line at infinity: circle around the plane -->
-        <circle cx="50" cy="40" r="32" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3 2" opacity="0.8"/>
-        <!-- marked point at infinity -->
-        <circle cx="82" cy="40" r="3" fill="var(--pink)"/>
-        <text x="50" y="78" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">ℙ² = 𝔸² ∪ ℓ∞</text>
+        <!-- bell curve over a base line -->
+        <path d="M 12 58 Q 30 58, 40 40 T 60 22 T 88 58" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
+        <line x1="12" y1="58" x2="88" y2="58" stroke="var(--mute)" stroke-width="0.8"/>
+        <g fill="var(--blue)"><rect x="18" y="52" width="4" height="6"/><rect x="32" y="44" width="4" height="14"/><rect x="46" y="34" width="4" height="24"/><rect x="60" y="42" width="4" height="16"/><rect x="74" y="52" width="4" height="6"/></g>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">P(X)</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Projective plane <span class="level prereq">prereq</span></div>
-        <div class="desc">Points at infinity, homogeneous coordinates $[X{:}Y{:}Z]$, three affine patches, parallel lines meeting on $\ell_\infty$, and projective curves as the right stage for Bézout.</div>
-        <span class="tag">[X:Y:Z] · 𝔸² ∪ ℓ∞ · patches</span>
+        <div class="tt">Probability theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Sample spaces, random variables, Bayes, expectation, convergence theorems, the law of large numbers and central limit theorem, Markov chains, martingales, and a glimpse of Brownian motion.</div>
+        <span class="tag">σ · E · CLT · martingale</span>
       </div>
     </a>
 
 
-  <a class="card b" href="../bezout.html">
+    <a class="card g" href="../stochastic-processes-and-martingales.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- two conics intersecting at 4 points -->
-        <ellipse cx="40" cy="40" rx="24" ry="18" fill="none" stroke="var(--blue)" stroke-width="1.3"/>
-        <ellipse cx="60" cy="40" rx="24" ry="18" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
-        <!-- 4 intersection points -->
-        <g fill="var(--pink)">
-          <circle cx="50" cy="26.5" r="2.6"/>
-          <circle cx="50" cy="53.5" r="2.6"/>
-          <circle cx="23" cy="40" r="2.6"/>
-          <circle cx="77" cy="40" r="2.6"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">#(C ∩ D) = d·e</text>
+<polyline points="10,42 14,38 18,44 22,36 26,46 30,38 34,40 38,32 42,46 46,38 50,44 54,30 58,42 62,36 66,48 70,38 74,46 78,32 82,42 86,36 90,40"
+                  stroke="var(--green)" stroke-width="1.4" fill="none"/>
+        <line x1="8" y1="40" x2="92" y2="40" stroke="var(--mute)" stroke-width="0.6" stroke-dasharray="2 2"/>
+        <text x="92" y="38" text-anchor="end" font-family="serif" font-size="9" font-style="italic" fill="var(--green)">B</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Bézout's theorem</div>
-        <div class="desc">Intersection multiplicities via local rings $\dim_k \mathcal{O}/(f,g)$, resultants, two plane curves of degrees $d, e$ meeting in $de$ points (in $\mathbb{P}^2$, over $\bar k$, with multiplicity).</div>
-        <span class="tag">Iₚ(f,g) · d·e · ℙ²</span>
+        <div class="tt">Stochastic processes and martingales</div>
+        <div class="desc">Filtrations and adapted processes, discrete and continuous martingales, optional stopping, Doob decomposition, Brownian motion.</div>
+        <span class="tag">martingales · stopping · BM</span>
       </div>
     </a>
 
 
-  <a class="card g" href="../schemes.html">
+    <a class="card g" href="../stochastic-calculus.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="8" y1="55" x2="92" y2="55" stroke="var(--green)" opacity="0.4"/>
-        <g fill="var(--green)">
-          <circle cx="15" cy="55" r="2.4"/><circle cx="32" cy="55" r="2.4"/><circle cx="50" cy="55" r="2.4"/><circle cx="68" cy="55" r="2.4"/><circle cx="85" cy="55" r="2.4"/>
-        </g>
-        <g font-size="7" fill="var(--green)" text-anchor="middle" font-family="serif" font-style="italic">
-          <text x="15" y="70">2</text><text x="32" y="70">3</text><text x="50" y="70">5</text><text x="68" y="70">7</text><text x="85" y="70">p</text>
-        </g>
-        <circle cx="50" cy="25" r="7" fill="var(--green)" opacity="0.2"/>
-        <circle cx="50" cy="25" r="1.8" fill="var(--green)"/>
-        <text x="50" y="17" text-anchor="middle" font-size="8" fill="var(--green)" opacity="0.8" font-style="italic">η</text>
+<text x="22" y="56" font-family="serif" font-size="40" font-style="italic" fill="var(--green)">∫</text>
+        <text x="48" y="50" font-family="serif" font-size="14" font-style="italic" fill="var(--green)">f dB</text>
+        <line x1="14" y1="62" x2="86" y2="62" stroke="var(--mute)" stroke-width="0.8"/>
+        <text x="14" y="74" font-family="serif" font-size="9" fill="var(--mute)">0</text>
+        <text x="86" y="74" text-anchor="end" font-family="serif" font-size="9" fill="var(--mute)">t</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Schemes</div>
-        <div class="desc">Spec of a ring, locally ringed spaces, generic and closed points — from $\text{Spec}\,\mathbb{Z}$ to projective varieties.</div>
-        <span class="tag">Spec · 𝒪ₓ · points</span>
+        <div class="tt">Stochastic calculus</div>
+        <div class="desc">Itô integral, Itô's formula, stochastic differential equations, Girsanov's change of measure, Feynman–Kac, Black–Scholes.</div>
+        <span class="tag">Itô · SDE · Girsanov</span>
       </div>
     </a>
 
 
-  <a class="card b" href="../sheaves.html">
+    <a class="card g" href="../random-walks-and-mixing.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- base space as a horizontal bar -->
-        <line x1="10" y1="58" x2="90" y2="58" stroke="var(--blue)" stroke-width="1.4"/>
-        <!-- stalks over three points -->
-        <line x1="25" y1="58" x2="25" y2="18" stroke="var(--blue)" stroke-width="1" opacity="0.5"/>
-        <line x1="50" y1="58" x2="50" y2="18" stroke="var(--blue)" stroke-width="1" opacity="0.5"/>
-        <line x1="75" y1="58" x2="75" y2="18" stroke="var(--blue)" stroke-width="1" opacity="0.5"/>
-        <!-- section as a curve through the stalks -->
-        <path d="M 12 40 Q 25 26 38 34 Q 50 40 62 28 Q 75 18 88 26" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
-        <!-- section dots on each stalk -->
-        <circle cx="25" cy="28" r="2.2" fill="var(--yellow)"/>
-        <circle cx="50" cy="36" r="2.2" fill="var(--yellow)"/>
-        <circle cx="75" cy="22" r="2.2" fill="var(--yellow)"/>
+<polyline points="10,40 18,32 26,44 34,30 42,46 50,28 58,42 66,34 74,48 82,30 90,42"
+                  stroke="var(--green)" stroke-width="1.6" fill="none"/>
+        <g stroke="var(--mute)" stroke-width="0.8" stroke-dasharray="2 2"><line x1="10" y1="40" x2="90" y2="40"/></g>
+        <g fill="var(--green)"><circle cx="10" cy="40" r="2"/><circle cx="90" cy="42" r="2"/></g>
       </svg></div>
       <div class="body">
-        <div class="tt">Sheaves</div>
-        <div class="desc">Presheaves, the gluing axiom, stalks and germs, sheafification, and quasi-coherent sheaves on $\text{Spec}\,R$.</div>
-        <span class="tag">F(U) · stalks · QCoh</span>
+        <div class="tt">Random walks and mixing</div>
+        <div class="desc">Markov chains and stationary distributions, total-variation mixing time, spectral gap, coupling arguments, MCMC and Metropolis–Hastings.</div>
+        <span class="tag">chains · spectral gap · MCMC</span>
       </div>
     </a>
 
 
-  <a class="card p" href="../morphisms-fiber-products.html">
+    <a class="card g" href="../information-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- pullback square -->
-        <g fill="var(--pink)"><circle cx="26" cy="22" r="3"/><circle cx="74" cy="22" r="3"/><circle cx="26" cy="58" r="3"/><circle cx="74" cy="58" r="3"/></g>
-        <g stroke="var(--pink)" stroke-width="1.2" fill="none">
-          <line x1="30" y1="22" x2="70" y2="22"/>
-          <line x1="30" y1="58" x2="70" y2="58"/>
-          <line x1="26" y1="26" x2="26" y2="54"/>
-          <line x1="74" y1="26" x2="74" y2="54"/>
+<g fill="var(--green)">
+          <rect x="14" y="46" width="8" height="20"/>
+          <rect x="26" y="38" width="8" height="28"/>
+          <rect x="38" y="22" width="8" height="44"/>
+          <rect x="50" y="38" width="8" height="28"/>
+          <rect x="62" y="46" width="8" height="20"/>
+          <rect x="74" y="54" width="8" height="12"/>
         </g>
-        <!-- pullback corner symbol -->
-        <path d="M 34 26 L 34 32 L 28 32" fill="none" stroke="var(--pink)" stroke-width="1" opacity="0.8"/>
-        <!-- vertex labels -->
-        <text x="26" y="14" text-anchor="middle" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">X×_S Y</text>
-        <text x="74" y="14" text-anchor="middle" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">Y</text>
-        <text x="26" y="72" text-anchor="middle" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">X</text>
-        <text x="74" y="72" text-anchor="middle" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">S</text>
+        <line x1="10" y1="66" x2="86" y2="66" stroke="var(--mute)" stroke-width="0.8"/>
+        <text x="48" y="14" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--green)">H(X)</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Morphisms &amp; fiber products</div>
-        <div class="desc">Morphisms of schemes as locally ringed spaces, $\text{Spec}$ of a ring map, fiber products via $A\otimes_R B$, base change, and a capstone family with ramified fibers.</div>
-        <span class="tag">Spec(φ) · ⊗_R · fibers</span>
+        <div class="tt">Information theory</div>
+        <div class="desc">Shannon entropy, mutual information, KL divergence, source coding (Huffman / AEP), channel capacity, rate-distortion.</div>
+        <span class="tag">entropy · mutual info · KL</span>
       </div>
     </a>
 
 
-  <a class="card c" href="../functor-of-points.html">
+    <a class="card g" href="../large-deviations.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- a scheme X on the left, its functor h_X on the right: two arrows from rings to sets -->
-        <g fill="var(--cyan)"><circle cx="20" cy="40" r="4"/></g>
-        <text x="20" y="58" text-anchor="middle" font-size="9" fill="var(--cyan)" font-style="italic" font-family="serif">X</text>
-        <!-- rings column -->
-        <g fill="var(--yellow)" opacity="0.85">
-          <circle cx="55" cy="22" r="2.2"/><circle cx="55" cy="40" r="2.2"/><circle cx="55" cy="58" r="2.2"/>
-        </g>
-        <g font-size="7" fill="var(--yellow)" font-family="serif" font-style="italic" opacity="0.9" text-anchor="end">
-          <text x="51" y="24">ℤ</text><text x="51" y="42">𝔽ₚ</text><text x="51" y="60">ℝ</text>
-        </g>
-        <!-- sets column -->
-        <g fill="var(--pink)" opacity="0.85">
-          <circle cx="85" cy="22" r="2.2"/><circle cx="85" cy="40" r="2.2"/><circle cx="85" cy="58" r="2.2"/>
-        </g>
-        <!-- arrows from rings to sets: the functor h_X -->
-        <g stroke="var(--blue)" stroke-width="1" opacity="0.8" fill="none">
-          <line x1="58" y1="22" x2="82" y2="22"/>
-          <line x1="58" y1="40" x2="82" y2="40"/>
-          <line x1="58" y1="58" x2="82" y2="58"/>
-        </g>
-        <text x="70" y="14" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">h_X</text>
+<path d="M 10 60 Q 30 60 40 50 Q 50 14 60 50 Q 70 60 90 60 Z"
+              stroke="var(--green)" stroke-width="1.5" fill="none"/>
+        <path d="M 70 60 Q 76 60 78 56 Q 80 50 84 56 Q 88 60 90 60 Z"
+              fill="var(--green)" opacity="0.45"/>
+        <line x1="78" y1="60" x2="78" y2="64" stroke="var(--green)" stroke-width="1"/>
+        <text x="78" y="74" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--green)">x</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Functor of points</div>
-        <div class="desc">A scheme $X$ remembered by $h_X = \mathrm{Hom}(-,X)$: $R$-points as a functor, Yoneda, representability, and why moduli problems naturally escape it.</div>
-        <span class="tag">h_X · X(R) · representable</span>
+        <div class="tt">Large deviations</div>
+        <div class="desc">Cramér's theorem for i.i.d. sums, rate functions via Legendre duality, Sanov's theorem with KL-divergence, Gärtner–Ellis.</div>
+        <span class="tag">Cramér · KL · Schilder</span>
       </div>
     </a>
 
 
-  <a class="card y" href="../elliptic-curves.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- elliptic curve y^2 = x^3 + 1 (single oval) -->
-        <path d="M 50 12 C 85 12 85 68 50 68 C 20 68 20 45 45 45 C 20 45 20 35 45 35 C 20 35 20 12 50 12 Z"
-              fill="none" stroke="var(--yellow)" stroke-width="1.4" transform="translate(-5,0)"/>
-        <!-- chord through P and Q with third intersection R -->
-        <line x1="25" y1="58" x2="80" y2="28" stroke="var(--blue)" stroke-width="1" opacity="0.85"/>
-        <!-- points P, Q, R and P+Q -->
-        <circle cx="28" cy="56" r="2.2" fill="var(--green)"/>
-        <text x="23" y="66" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">P</text>
-        <circle cx="56" cy="41" r="2.2" fill="var(--green)"/>
-        <text x="58" y="38" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">Q</text>
-        <circle cx="76" cy="30" r="2.2" fill="var(--pink)"/>
-        <text x="80" y="28" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">R</text>
-        <!-- reflection of R gives P+Q -->
-        <line x1="76" y1="30" x2="76" y2="50" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.7"/>
-        <circle cx="76" cy="50" r="2.2" fill="var(--yellow)"/>
-        <text x="78" y="58" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">P+Q</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Elliptic curves</div>
-        <div class="desc">Weierstrass cubics $y^2=x^3+ax+b$, the chord-tangent group law, torsion over $\mathbb{F}_p$, the $j$-invariant, the uniformization $E(\mathbb{C})=\mathbb{C}/\Lambda$, and Mordell.</div>
-        <span class="tag">y² = x³+ax+b · j · E(ℚ)</span>
-      </div>
-    </a>
-
-
-  <a class="card p" href="../singular-cubics-reduction.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- nodal cubic on left, cuspidal cubic on right -->
-        <g fill="none" stroke="var(--pink)" stroke-width="1.3">
-          <path d="M 28 52 Q 20 40 28 28 Q 34 22 30 40 Q 26 58 32 52 Q 18 58 28 52 Z" transform="translate(-5,0)"/>
-        </g>
-        <g fill="none" stroke="var(--yellow)" stroke-width="1.3">
-          <path d="M 70 52 Q 60 40 70 28 Q 76 34 74 40 Q 72 46 70 52 Z"/>
-        </g>
-        <circle cx="23" cy="40" r="2.4" fill="var(--pink)"/>
-        <circle cx="70" cy="40" r="2.4" fill="var(--yellow)"/>
-        <g font-size="7" fill="var(--mute)" font-style="italic" font-family="serif" text-anchor="middle">
-          <text x="23" y="72">node</text><text x="70" y="72">cusp</text>
-        </g>
-        <text x="50" y="14" text-anchor="middle" font-size="7" fill="var(--blue)" font-style="italic" font-family="serif">Δ ≡ 0 (mod p)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Singular cubics &amp; reduction <span class="level advanced">advanced</span></div>
-        <div class="desc">Good vs. bad reduction of $E/\mathbb{Q}$, nodal vs. cuspidal degenerations, the group law as $\mathbb{G}_m$ or $\mathbb{G}_a$, split/non-split multiplicative &amp; additive types, and Hasse counting.</div>
-        <span class="tag">Δ mod p · 𝔾ₘ · 𝔾ₐ · Hasse</span>
-      </div>
-    </a>
-
-
-  <a class="card g" href="../algebraic-curves-higher-genus.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <path d="M 16 42 C 16 28 38 20 50 30 C 62 20 84 28 84 42 C 84 56 62 64 50 54 C 38 64 16 56 16 42 Z" fill="color-mix(in srgb, var(--green) 12%, transparent)" stroke="var(--green)" stroke-width="1.4"/>
-        <ellipse cx="32" cy="42" rx="6" ry="3" fill="none" stroke="var(--green)" stroke-width="0.9"/>
-        <ellipse cx="68" cy="42" rx="6" ry="3" fill="none" stroke="var(--green)" stroke-width="0.9"/>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">smooth proj. curve, g = 2</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Algebraic curves: higher genus</div>
-        <div class="desc">Genus $g \ge 2$: Riemann–Roch determines $h^0(D)$ from $\deg D$ and $g$, the canonical class embeds non-hyperelliptic curves, and $\mathcal{M}_g$ has dimension $3g-3$.</div>
-        <span class="tag">genus · Riemann–Roch · canonical · M_g</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="../sheaf-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="38" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
-        <circle cx="62" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
-        <path d="M 50 28 A 18 18 0 0 1 50 56 A 18 18 0 0 1 50 28 Z" fill="var(--cyan)" opacity="0.12"/>
-        <path d="M 50 24 A 24 12 0 0 1 50 60" fill="none" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="3 2"/>
-        <text x="38" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">U</text>
-        <text x="62" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">V</text>
-        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H¹</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Sheaf cohomology <span class="level advanced">advanced</span></div>
-        <div class="desc">Čech cohomology, the long exact sequence, $H^i(\mathbb{P}^n,\mathcal{O}(d))$ as a dimension table, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$ — with live cocycle widgets.</div>
-        <span class="tag">Čech · H^i · 𝒪(d)</span>
-      </div>
-    </a>
-
-
-  <a class="card p" href="../algebraic-de-rham-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <polygon points="50,18 80,42 50,66 20,42" fill="none" stroke="var(--mute)" stroke-width="1"/>
-        <text x="50" y="22" text-anchor="middle" font-size="6" fill="var(--mute)">h⁰²</text>
-        <text x="80" y="46" text-anchor="middle" font-size="6" fill="var(--mute)">h¹¹</text>
-        <text x="50" y="74" text-anchor="middle" font-size="6" fill="var(--mute)">h²⁰</text>
-        <text x="20" y="46" text-anchor="middle" font-size="6" fill="var(--mute)">h⁰⁰</text>
-        <text x="50" y="46" text-anchor="middle" font-size="9" fill="var(--pink)" font-weight="600">Hodge</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Algebraic de Rham cohomology</div>
-        <div class="desc">Hypercohomology of the algebraic de Rham complex $\Omega^\bullet_{X/k}$, with the Hodge filtration $F^\bullet$ and Hodge numbers $h^{p,q}$ assembling into the Hodge diamond. Comparison with Betti cohomology over $\mathbb{C}$.</div>
-        <span class="tag">Ω¹ · Hodge filtration · Hodge diamond · comparison</span>
-      </div>
-    </a>
-
-
-  <a class="card v" href="../moduli-spaces.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="10" y1="58" x2="90" y2="58" stroke="var(--violet)" stroke-width="1.3"/>
-        <circle cx="25" cy="58" r="3" fill="var(--yellow)"/>
-        <circle cx="75" cy="58" r="3" fill="var(--yellow)"/>
-        <text x="25" y="72" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">0</text>
-        <text x="75" y="72" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">1728</text>
-        <g fill="none" stroke="var(--violet)" stroke-width="1" opacity="0.8">
-          <path d="M 18 30 Q 25 18 32 30 Q 25 42 18 30 Z"/>
-          <path d="M 43 30 Q 50 16 57 30 Q 50 40 43 30 Z"/>
-          <path d="M 68 30 Q 75 18 82 30 Q 75 42 68 30 Z"/>
-        </g>
-        <g stroke="var(--violet)" stroke-width="0.6" opacity="0.4">
-          <line x1="25" y1="42" x2="25" y2="55"/>
-          <line x1="50" y1="40" x2="50" y2="55"/>
-          <line x1="75" y1="42" x2="75" y2="55"/>
-        </g>
-        <circle cx="50" cy="58" r="2" fill="var(--violet)"/>
-        <text x="50" y="14" text-anchor="middle" font-size="8" fill="var(--violet)" font-style="italic" font-family="serif">M₁,₁</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Moduli spaces <span class="level advanced">advanced</span></div>
-        <div class="desc">The $j$-line as coarse moduli of elliptic curves, fine vs. coarse moduli, level structure, stable curves, and the Deligne–Mumford compactification $\overline{M}_{g,n}$.</div>
-        <span class="tag">j · fine/coarse · M_{g,n}</span>
-      </div>
-    </a>
-
-
-  <a class="card g" href="../algebraic-spaces.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="14" y="22" width="30" height="20" fill="none" stroke="var(--green)" stroke-width="1.3"/>
-        <text x="29" y="35" text-anchor="middle" font-size="8" fill="var(--ink)">U</text>
-        <rect x="54" y="22" width="32" height="20" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <text x="70" y="35" text-anchor="middle" font-size="8" fill="var(--ink)">R⊂U×U</text>
-        <line x1="44" y1="28" x2="54" y2="28" stroke="var(--mute)" stroke-width="1"/>
-        <line x1="44" y1="36" x2="54" y2="36" stroke="var(--mute)" stroke-width="1"/>
-        <text x="49" y="26" text-anchor="middle" font-size="6" fill="var(--mute)">s</text>
-        <text x="49" y="40" text-anchor="middle" font-size="6" fill="var(--mute)">t</text>
-        <text x="50" y="60" text-anchor="middle" font-size="8" fill="var(--violet)">X = U/R</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Algebraic spaces</div>
-        <div class="desc">Étale equivalence relations on schemes — the smallest enlargement that closes under quotients, sitting between schemes and DM stacks.</div>
-        <span class="tag">étale equivalence · diagonal · Hironaka · quotients</span>
-      </div>
-    </a>
-
-
-  <a class="card g" href="../stacks.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="var(--green)">
-          <circle cx="25" cy="28" r="3.2"/>
-          <circle cx="70" cy="28" r="3.2"/>
-          <circle cx="48" cy="56" r="3.2"/>
-        </g>
-        <g fill="none" stroke="var(--green)" stroke-width="1.2">
-          <path d="M 28 28 Q 48 20 67 28" marker-end="url(#st1)"/>
-          <path d="M 67 32 Q 58 48 51 53" marker-end="url(#st1)"/>
-          <path d="M 45 55 Q 30 48 26 32" marker-end="url(#st1)"/>
-        </g>
-        <g fill="none" stroke="var(--yellow)" stroke-width="1.1">
-          <circle cx="25" cy="18" r="5"/>
-          <circle cx="70" cy="18" r="5"/>
-          <circle cx="48" cy="66" r="5"/>
-        </g>
-        <defs>
-          <marker id="st1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--green)"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Stacks (Deligne–Mumford) <span class="level capstone">capstone</span></div>
-        <div class="desc">Groupoid-valued functors, descent, $BG$, étale atlases, and $\mathcal{M}_{1,1}$ as a DM stack with stacky points at $j=0, 1728$ — with the $j$-line as coarse moduli.</div>
-        <span class="tag">Grpd · BG · M_{g,n} · étale</span>
-      </div>
-    </a>
-
-
-  <a class="card g" href="../intersection-theory-chow.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="14" y1="40" x2="86" y2="40" stroke="var(--green)" stroke-width="1.4"/>
-        <path d="M 14 60 Q 50 12 86 60" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <circle cx="34" cy="40" r="2.4" fill="var(--yellow)"/>
-        <circle cx="66" cy="40" r="2.4" fill="var(--yellow)"/>
-        <text x="50" y="74" text-anchor="middle" font-size="7" fill="var(--mute)">L · C = 2 (Bezout)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Intersection theory & Chow groups</div>
-        <div class="desc">Cycles modulo rational equivalence form the Chow groups $A_*(X)$. On smooth $X$, intersection makes $A^*$ a graded ring; $A^*(\mathbb{P}^n) = \mathbb{Z}[h]/(h^{n+1})$ generalizes Bezout. Chern classes, GRR.</div>
-        <span class="tag">cycles · Chow ring · Chern · GRR</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="../group-schemes.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="16" y="22" width="68" height="36" rx="3" fill="none" stroke="var(--mute)" stroke-width="1"/>
-        <text x="50" y="36" text-anchor="middle" font-size="9" fill="var(--ink)">Spec A</text>
-        <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--yellow)">G = 𝔾_m</text>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">Δ(t) = t ⊗ t,  S(t) = t⁻¹</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Group schemes</div>
-        <div class="desc">Group objects in schemes: $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$, the Hopf-algebra correspondence for affine $G$, étale-vs-connected SES, $\mathrm{Lie}(G)$, torsors classified by $H^1_{\acute{e}t}$.</div>
-        <span class="tag">Hopf algebra · μ_n · Lie(G) · torsors</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="../etale-fundamental-group.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="50" cy="40" r="6" fill="var(--cyan)"/>
-        <text x="50" y="43" text-anchor="middle" font-size="7" fill="#111">x̄</text>
-        <circle cx="22" cy="22" r="2.2" fill="var(--yellow)"/>
-        <circle cx="78" cy="22" r="2.2" fill="var(--yellow)"/>
-        <circle cx="22" cy="58" r="2.2" fill="var(--yellow)"/>
-        <circle cx="78" cy="58" r="2.2" fill="var(--yellow)"/>
-        <line x1="44" y1="38" x2="24" y2="24" stroke="var(--mute)" stroke-dasharray="2 2"/>
-        <line x1="56" y1="38" x2="76" y2="24" stroke="var(--mute)" stroke-dasharray="2 2"/>
-        <line x1="44" y1="42" x2="24" y2="56" stroke="var(--mute)" stroke-dasharray="2 2"/>
-        <line x1="56" y1="42" x2="76" y2="56" stroke="var(--mute)" stroke-dasharray="2 2"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Étale fundamental group</div>
-        <div class="desc">Grothendieck's Galois theory: $\pi_1^{\acute{e}t}(X, \bar{x}) = \mathrm{Aut}(F_{\bar{x}})$ classifies finite étale covers. Recovers $\mathrm{Gal}(\bar{k}/k)$ for $\mathrm{Spec}\,k$, with Frobenius generating $\hat{\mathbb{Z}}$ over $\mathbb{F}_q$.</div>
-        <span class="tag">finite étale · fiber functor · Frobenius · Riemann existence</span>
-      </div>
-    </a>
-
-
-  <a class="card p" href="../deformation-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="20" y="36" width="20" height="28" fill="color-mix(in srgb, var(--pink) 16%, transparent)" stroke="var(--pink)" stroke-width="1.3"/>
-        <text x="30" y="54" text-anchor="middle" font-size="9" fill="var(--ink)">X₀</text>
-        <rect x="60" y="28" width="20" height="36" fill="none" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="2 2"/>
-        <text x="70" y="50" text-anchor="middle" font-size="9" fill="var(--ink)">X</text>
-        <line x1="42" y1="50" x2="58" y2="46" stroke="var(--ink)" stroke-width="1.1" marker-end="url(#arr-dt-card)"/>
-        <defs><marker id="arr-dt-card" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 z" fill="var(--ink)"/></marker></defs>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">flat lift / k[ε]</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Deformation theory</div>
-        <div class="desc">First-order deformations classified by $H^1(X_0, T_{X_0})$, obstructions in $H^2$, Schlessinger's criteria for hulls, the cotangent complex unifying tangent/obstruction theory across all deformation problems.</div>
-        <span class="tag">first-order · H¹/H² · Schlessinger · cotangent complex</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="../etale-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <g stroke="var(--yellow)" stroke-width="1" fill="none" opacity="0.9">
-          <path d="M 32 42 A 22 12 0 0 1 68 42"/>
-          <path d="M 32 42 A 22 12 0 0 0 68 42"/>
-        </g>
-        <g fill="var(--pink)">
-          <circle cx="32" cy="42" r="1.8"/><circle cx="68" cy="42" r="1.8"/>
-        </g>
-        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">X_ét</text>
-        <text x="50" y="74" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H^i_ét(X, ℚ_ℓ)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Étale cohomology <span class="level capstone">capstone</span></div>
-        <div class="desc">Étale morphisms, $\ell$-adic cohomology, and the Weil conjectures: point counts as an alternating sum of Frobenius traces with eigenvalues $|\alpha|=q^{i/2}$.</div>
-        <span class="tag">étale · ℚ_ℓ · Frobenius · Weil</span>
-      </div>
-    </a>
-
-
-    <a class="card g" href="../calabi-yau-manifolds.html">
+    <a class="card g" href="../mathematical-statistics.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
         <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
         <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Calabi yau manifolds</div>
+        <div class="tt">Mathematical statistics</div>
         <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebraic geometry</span>
+        <span class="tag">Probability &amp; statistics</span>
       </div>
     </a>
 
 
-    <a class="card g" href="../mirror-symmetry.html">
+    <a class="card g" href="../high-dimensional-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
         <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
         <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Mirror symmetry</div>
+        <div class="tt">High dimensional geometry</div>
         <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebraic geometry</span>
-      </div>
-    </a>
-
-
-    <a class="card g" href="../resolution-of-singularities.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Resolution of singularities</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebraic geometry</span>
+        <span class="tag">Probability &amp; statistics</span>
       </div>
     </a>
   </div>

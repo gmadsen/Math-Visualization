@@ -1,0 +1,14 @@
+{
+  "topic": "calabi-yau-manifolds",
+  "title": "Calabi yau manifolds",
+  "page": "calabi-yau-manifolds.html",
+  "concepts": [
+    {
+      "id": "calabi-yau-manifolds-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}
