@@ -1,0 +1,14 @@
+{
+  "topic": "high-dimensional-geometry",
+  "title": "High dimensional geometry",
+  "page": "high-dimensional-geometry.html",
+  "concepts": [
+    {
+      "id": "high-dimensional-geometry-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

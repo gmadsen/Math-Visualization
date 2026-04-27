@@ -65,7 +65,9 @@
         "harmonic-functions",
         "spectral-theory",
         "wavelets",
-        "schrodinger-equation"
+        "numerical-analysis",
+        "variational-methods",
+        "fixed-point-theorems"
       ],
       "color": "p"
     },
@@ -78,7 +80,9 @@
         "stochastic-calculus",
         "random-walks-and-mixing",
         "information-theory",
-        "large-deviations"
+        "large-deviations",
+        "mathematical-statistics",
+        "high-dimensional-geometry"
       ],
       "color": "g"
     },
@@ -100,7 +104,8 @@
         "symplectic-manifolds",
         "knot-polynomials",
         "ricci-flow",
-        "atiyah-singer-index-theorem"
+        "atiyah-singer-index-theorem",
+        "mostow-rigidity"
       ],
       "color": "v"
     },
@@ -120,7 +125,8 @@
         "galois-representations",
         "heights-arithmetic-geometry",
         "analytic-number-theory",
-        "mathematics-and-cryptography"
+        "mathematics-and-cryptography",
+        "computational-number-theory"
       ],
       "color": "y"
     },
@@ -169,7 +175,10 @@
         "group-schemes",
         "etale-fundamental-group",
         "deformation-theory",
-        "etale-cohomology"
+        "etale-cohomology",
+        "calabi-yau-manifolds",
+        "mirror-symmetry",
+        "resolution-of-singularities"
       ],
       "color": "g"
     },
@@ -182,9 +191,22 @@
         "probabilistic-method",
         "extremal-combinatorics",
         "simplicial-complexes-combinatorial",
-        "enumerative-combinatorics"
+        "enumerative-combinatorics",
+        "designs",
+        "expanders"
       ],
       "color": "v"
+    },
+    {
+      "title": "Mathematical physics",
+      "color": "p",
+      "topics": [
+        "schrodinger-equation",
+        "hamiltonians-classical-mechanics",
+        "general-relativity",
+        "three-body-problem"
+      ],
+      "id": "mathematical-physics"
     }
   ]
 }

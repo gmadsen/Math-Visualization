@@ -7,8 +7,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="../js/progress.js"></script>
-<script src="../concepts/bundle.js"></script>
+<link rel="stylesheet" href="../css/theme-light.css">
+<script src="../js/theme-toggle.js"></script>
+<script defer src="../js/progress.js"></script>
+<script defer src="../concepts/bundle.js"></script>
+<script src="../js/onboarding.js" defer></script>
 <script>
 (function(){
   function renderAll(){
@@ -33,6 +36,21 @@
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
   }
   *{box-sizing:border-box}
+  /* Honour the OS / browser-level reduced-motion preference. The hero auto-
+     animation already gates itself in JS; this catches every other transform
+     and transition this page introduces (card hover lift, sticky-bar shadow,
+     mastery-ring stroke-dasharray, drawer slide, today/continue / pathway /
+     tag-card lifts). */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .card:hover,.featured-card:hover,.pathway-banner:hover,
+    .ru-card:hover,.tag-card:hover,.tag-card.active{transform:none}
+  }
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
     font-size:17px;line-height:1.6}
@@ -74,13 +92,42 @@
     flex-wrap:wrap;justify-content:center;align-items:center}
   .hero-tagline .dot{color:var(--line)}
   .hero-tagline .tg-num{color:var(--cyan);font-weight:600}
+  /* Hero widget: a small Lissajous curve that morphs as you slide the
+     frequency ratio. Auto-animates a half-cycle on first load so the
+     reader sees the curves evolve before reaching for the slider. Pure
+     SVG, no extra deps. */
+  .hero-widget{margin:1.4rem auto 0;max-width:420px;padding:0.9rem 1.1rem 0.7rem;
+    background:color-mix(in srgb, var(--panel) 60%, transparent);
+    border:1px solid color-mix(in srgb, var(--cyan) 22%, var(--line));
+    border-radius:12px;display:flex;flex-direction:column;gap:0.4rem;
+    align-items:stretch;text-align:center}
+  .hero-widget svg{display:block;margin:0 auto;max-width:100%;height:auto}
+  .hero-widget .hw-row{display:flex;align-items:center;gap:0.7rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .hero-widget .hw-row label{flex-shrink:0;letter-spacing:0.06em}
+  .hero-widget .hw-row input[type="range"]{flex:1;accent-color:var(--cyan)}
+  .hero-widget .hw-readout{color:var(--cyan);font-weight:600;min-width:4ch;
+    text-align:right}
+  .hero-widget .hw-curve{stroke:var(--cyan);stroke-width:1.3;fill:none;
+    stroke-linecap:round}
+  .hero-widget .hw-frame{stroke:var(--line);stroke-width:0.8;fill:none}
   /* In-page section jump row: a compact horizontal strip of pill-links that
      scroll to the matching #section anchor on this same page. Sits between
      the pathway banner and Recently Updated so the whole seven-section map
      is visible without scrolling past a thousand lines of cards. */
   .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
     padding:0.75rem 0.9rem;margin:0 0 2rem;
-    background:var(--panel);border:1px solid var(--line);border-radius:10px}
+    border:1px solid var(--line);border-radius:10px;
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--panel) 88%, transparent);
+    transition:box-shadow 160ms ease, border-color 160ms ease}
+  .section-jump.stuck{box-shadow:0 6px 18px rgba(0,0,0,0.32);
+    border-color:color-mix(in srgb, var(--cyan) 30%, var(--line))}
+  /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
+     stuck. IntersectionObserver in the script block at the bottom of body adds
+     .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
+  .sj-sentinel{height:1px;margin-top:-1px}
   .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
     margin-right:0.5rem;white-space:nowrap}
@@ -107,9 +154,12 @@
   .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
   .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
   @media (max-width:520px){
-    .section-jump{padding:0.65rem 0.7rem}
+    .section-jump{padding:0.65rem 0.7rem;
+      flex-wrap:nowrap;overflow-x:auto;
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
     .section-jump .sj-label{display:none}
-    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
+      flex-shrink:0;white-space:nowrap}
   }
   .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
@@ -123,6 +173,40 @@
   .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
   @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+
+  /* Featured rail: two-card row sitting between the pathway banner and the
+     section-jump nav. Left card surfaces a date-seeded ready-to-master
+     concept ("Today's concept"); right card surfaces the topic owning the
+     visitor's most recently mastered concept ("Continue where you left
+     off"), or a curated welcome card for cold visitors. Hidden by default
+     and revealed by the script block at the bottom of body once
+     __MVConcepts has populated and a useful pick is available. */
+  .featured-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 1.6rem}
+  .featured-card{display:flex;flex-direction:column;gap:6px;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem;text-decoration:none;color:inherit;
+    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease}
+  .featured-card:hover{transform:translateY(-3px);border-color:var(--violet);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .featured-card.fc-continue:hover{border-color:var(--green);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--green) 22%, transparent)}
+  .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
+  .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+    line-height:1.35}
+  .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
+    line-height:1.45;flex:1;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+    overflow:hidden}
+  .featured-card .fc-foot{display:flex;justify-content:space-between;
+    align-items:center;gap:0.5rem;margin-top:0.4rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .featured-card .fc-arrow{color:var(--violet);font-size:1.1rem;line-height:1}
+  .featured-card.fc-continue .fc-arrow{color:var(--green)}
+  @media (max-width:640px){
+    .featured-rail{grid-template-columns:1fr}
+  }
   h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
@@ -140,6 +224,18 @@
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
+  /* Right-aligned stats group: mastery donut + topic count. The donut's
+     stroke colour inherits via currentColor so it picks up the section's
+     accent (set by data-color on .sec); empty rings stay neutral via the
+     .ring-empty class. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  .sec .sec-ring{width:18px;height:18px;flex-shrink:0;display:block}
+  .sec .sec-ring circle{fill:none;stroke-width:2.6}
+  .sec .sec-ring .ring-track{stroke:var(--line)}
+  .sec .sec-ring .ring-fill{stroke:currentColor;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:center;
+    transition:stroke-dasharray 280ms ease}
+  .sec .sec-ring.ring-empty .ring-fill{stroke:var(--line)}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
      keeps matching. */
@@ -158,10 +254,17 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
-    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
-  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+    transition:transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease}
+  .card:hover{transform:translateY(-4px);background:var(--panel2);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--mute) 18%, transparent)}
+  .card.y:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--yellow) 22%, transparent)}
+  .card.b:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--blue)   22%, transparent)}
+  .card.g:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--green)  22%, transparent)}
+  .card.p:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--pink)   22%, transparent)}
+  .card.v:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .card.c:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--cyan)   22%, transparent)}
   .card.coming{opacity:0.55;cursor:not-allowed}
-  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line);box-shadow:none}
   .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
     border:1px solid var(--line);border-radius:6px;
     display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -198,8 +301,12 @@
   .mastery .m-v1{color:var(--green)}
   .mastery .m-hard{color:var(--violet)}
   .mastery .m-sep{color:var(--mute);opacity:0.55}
-  .mastery.m-zero .m-v1{color:var(--mute);opacity:0.7}
-  .mastery.m-zero .m-hard{color:var(--mute);opacity:0.55}
+  /* Cold-visitor mastery chip: drop the opacity stacks (which previously
+     multiplied --mute below WCAG AA contrast on --panel2) and use --ink at a
+     muted but legible value. Computes to roughly --ink at 70% blended with
+     --bg, hitting ~7:1 against --panel2. */
+  .mastery.m-zero .m-v1{color:color-mix(in srgb, var(--ink) 72%, var(--bg))}
+  .mastery.m-zero .m-hard{color:color-mix(in srgb, var(--ink) 60%, var(--bg))}
   .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
   .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
   .mastery .m-check{color:var(--green);font-weight:600}
@@ -217,10 +324,16 @@
     display:inline-flex;align-items:center;justify-content:center;
     padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
     color:var(--mute);cursor:pointer;line-height:0;z-index:2;
-    transition:background 150ms ease, border-color 150ms ease, color 150ms ease}
+    opacity:0;
+    transition:opacity 150ms ease, background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .card:hover .progbtn{opacity:1}
+  .progbtn:focus-visible{opacity:1;outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
-  .progbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  /* Touch devices have no hover, so reveal the progbtn unconditionally there. */
+  @media (hover:none){
+    .progbtn{opacity:0.6}
+  }
   .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
     opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
   .mv-backdrop.open{opacity:1;pointer-events:auto}
@@ -334,7 +447,7 @@
   <div class="grid">
 
 
-    <a class="card p" href="../real-analysis.html">
+  <a class="card p" href="../real-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- smooth curve with tangent at a point and a riemann-sum undercurtain -->
         <path d="M 10 58 Q 30 18 55 38 T 92 28" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
@@ -360,7 +473,7 @@
     </a>
 
 
-    <a class="card g" href="../measure-theory.html">
+  <a class="card g" href="../measure-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Cantor-set construction: three horizontal bars -->
         <g stroke="var(--green)" stroke-width="3" stroke-linecap="square">
@@ -379,7 +492,7 @@
     </a>
 
 
-    <a class="card y" href="../complex-analysis.html">
+  <a class="card y" href="../complex-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- unit circle and a small amplitwist arrow -->
         <circle cx="50" cy="40" r="24" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
@@ -403,7 +516,7 @@
     </a>
 
 
-    <a class="card v" href="../functional-analysis.html">
+  <a class="card v" href="../functional-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- three unit balls: ℓ¹ (diamond), ℓ² (circle), ℓ∞ (square) -->
         <polygon points="18,40 30,28 42,40 30,52" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
@@ -427,7 +540,7 @@
     </a>
 
 
-    <a class="card c" href="../operator-algebras.html">
+  <a class="card c" href="../operator-algebras.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- C*-algebra: spectrum as a topological space -->
         <circle cx="35" cy="40" r="20" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
@@ -441,6 +554,172 @@
         <div class="tt">Operator algebras <span class="level advanced">advanced</span></div>
         <div class="desc">C*-algebras and Gelfand duality: a compact Hausdorff space and its commutative C*-algebra of functions are the same data. Functional calculus, characters, the Gelfand transform, and the noncommutative turn.</div>
         <span class="tag">A ↔ Spec(A)</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="../dynamical-systems.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Lorenz-ish butterfly silhouette -->
+        <path d="M 20 50 C 18 30, 38 22, 48 38 C 58 22, 82 30, 80 50 C 78 62, 56 60, 50 52 C 44 60, 22 62, 20 50 Z" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <circle cx="48" cy="38" r="2" fill="var(--yellow)"/>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--pink)" font-style="italic" font-family="serif">chaos</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Dynamical systems <span class="level advanced">advanced</span></div>
+        <div class="desc">Orbits, phase portraits, bifurcations, chaos, Lyapunov exponents, and strange attractors — continuous and discrete dynamics you can drag, perturb, and watch evolve.</div>
+        <span class="tag">orbits · bifurcation · chaos</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="../harmonic-analysis-fourier.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="42" x2="80" y2="42" stroke="var(--mute)" stroke-width="0.5"/>
+        <path d="M 20 42 Q 30 18, 40 42 T 60 42 T 80 42" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <path d="M 20 42 Q 28 30, 36 42 Q 44 54, 52 42 Q 60 30, 68 42 Q 76 54, 80 42" fill="none" stroke="var(--cyan)" stroke-width="0.9" opacity="0.75"/>
+        <path d="M 20 42 Q 24 36, 28 42 Q 32 48, 36 42 Q 40 36, 44 42 Q 48 48, 52 42 Q 56 36, 60 42 Q 64 48, 68 42 Q 72 36, 76 42 Q 78 39, 80 42" fill="none" stroke="var(--violet)" stroke-width="0.7" opacity="0.6"/>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">harmonics: 1, 3, 5</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Harmonic analysis &amp; Fourier theory</div>
+        <div class="desc">Fourier series and transforms, Plancherel, convolution theorem, Schwartz space and tempered distributions, uncertainty, Poisson summation, the heat kernel.</div>
+        <span class="tag">Plancherel &middot; convolution &middot; uncertainty &middot; Poisson</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="../sobolev-spaces-distributions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="50" y1="20" x2="50" y2="62" stroke="var(--line)" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <path d="M 22 58 L 36 58 L 50 22 L 64 58 L 78 58" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="50" y="32" text-anchor="middle" font-size="9" fill="var(--pink)" font-family="serif">δ</text>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">Heaviside′ = δ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Sobolev spaces &amp; distributions</div>
+        <div class="desc">Test functions, $\mathcal D'$, weak derivatives, $W^{k,p}$ and the embedding zoo, trace theorems, fundamental solutions, and the variational form of $-\Delta u = f$.</div>
+        <span class="tag">distributions &middot; $W^{k,p}$ &middot; embeddings &middot; Lax–Milgram</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../partial-differential-equations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<path d="M 10 64 Q 30 64 40 50 Q 50 30 60 50 Q 70 64 90 64"
+              stroke="var(--pink)" stroke-width="1.5" fill="none"/>
+        <path d="M 10 64 Q 24 64 32 60 Q 50 50 68 60 Q 76 64 90 64"
+              stroke="var(--pink)" stroke-width="1.2" fill="none" opacity="0.5"/>
+        <path d="M 10 64 Q 22 64 28 62 Q 50 58 72 62 Q 78 64 90 64"
+              stroke="var(--pink)" stroke-width="1.0" fill="none" opacity="0.3"/>
+        <text x="50" y="14" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--pink)">u(t,x)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Partial differential equations</div>
+        <div class="desc">Classification (elliptic / parabolic / hyperbolic), heat / wave / Laplace equations, weak solutions and Sobolev regularity.</div>
+        <span class="tag">heat · wave · weak</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../harmonic-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<circle cx="50" cy="40" r="26" stroke="var(--pink)" stroke-width="1.4" fill="none"/>
+        <g stroke="var(--pink)" stroke-width="0.9" fill="none" opacity="0.7">
+          <circle cx="50" cy="40" r="6"/>
+          <circle cx="50" cy="40" r="12"/>
+          <circle cx="50" cy="40" r="18"/>
+        </g>
+        <g stroke="var(--pink)" stroke-width="1.0">
+          <line x1="50" y1="40" x2="74" y2="40"/>
+          <line x1="50" y1="40" x2="32" y2="58"/>
+        </g>
+        <text x="74" y="38" font-family="serif" font-size="9" font-style="italic" fill="var(--pink)">∂Ω</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Harmonic functions</div>
+        <div class="desc">∆u = 0 and the mean-value property, maximum principles, Poisson kernels and the Dirichlet problem, Harnack and Perron.</div>
+        <span class="tag">Laplace · Poisson · Harnack</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../spectral-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<line x1="10" y1="40" x2="90" y2="40" stroke="var(--mute)" stroke-width="1"/>
+        <g fill="var(--pink)">
+          <circle cx="20" cy="40" r="3"/><circle cx="32" cy="40" r="3"/>
+          <circle cx="44" cy="40" r="3"/><circle cx="58" cy="40" r="3"/>
+          <circle cx="70" cy="40" r="3"/>
+        </g>
+        <g stroke="var(--mute)" stroke-width="0.8" stroke-dasharray="2 1">
+          <line x1="20" y1="40" x2="20" y2="56"/><line x1="32" y1="40" x2="32" y2="56"/>
+          <line x1="44" y1="40" x2="44" y2="56"/><line x1="58" y1="40" x2="58" y2="56"/>
+          <line x1="70" y1="40" x2="70" y2="56"/>
+        </g>
+        <text x="84" y="38" font-family="serif" font-size="9" font-style="italic" fill="var(--pink)">σ(T)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Spectral theory</div>
+        <div class="desc">Operator spectra, self-adjoint and compact operators, the spectral theorem in compact and bounded forms, unbounded operators.</div>
+        <span class="tag">spectrum · self-adjoint · PVM</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../wavelets.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Wavelets</div>
+        <div class="desc">Draft — fill in once the page has real content.</div>
+        <span class="tag">Analysis</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../numerical-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Numerical analysis</div>
+        <div class="desc">Draft — fill in once the page has real content.</div>
+        <span class="tag">Analysis</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../variational-methods.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Variational methods</div>
+        <div class="desc">Draft — fill in once the page has real content.</div>
+        <span class="tag">Analysis</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../fixed-point-theorems.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Fixed point theorems</div>
+        <div class="desc">Draft — fill in once the page has real content.</div>
+        <span class="tag">Analysis</span>
       </div>
     </a>
   </div>

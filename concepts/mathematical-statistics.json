@@ -1,0 +1,14 @@
+{
+  "topic": "mathematical-statistics",
+  "title": "Mathematical statistics",
+  "page": "mathematical-statistics.html",
+  "concepts": [
+    {
+      "id": "mathematical-statistics-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

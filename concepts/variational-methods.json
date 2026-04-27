@@ -1,0 +1,14 @@
+{
+  "topic": "variational-methods",
+  "title": "Variational methods",
+  "page": "variational-methods.html",
+  "concepts": [
+    {
+      "id": "variational-methods-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}
