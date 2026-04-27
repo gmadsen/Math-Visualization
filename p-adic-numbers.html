@@ -172,6 +172,7 @@
   .mv-display-toggle--off { opacity: 0.35; }
   /* display-prefs-css-auto-end */
 </style>
+<script src="./js/widget-modular-arithmetic-clock.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
 <!-- display-prefs-head-auto-end -->
@@ -832,7 +833,8 @@ $$x = \sum_{i=N}^{\infty} a_i p^i, \qquad a_i \in \{0,\ldots,p-1\},\ N\in\mathbb
   $('#w6-go').addEventListener('click', run);
   run();
 })();
-</script>
+</script><div class="widget" id="w-padic-mult-clock"></div>
+
 
 <p class="small">Striking cases: $\sum p^n$ diverges in $\mathbb{R}$ but converges to $1/(1-p)$ in $\mathbb{Q}_p$; $\sum n!$ diverges in $\mathbb{R}$ but <em>converges</em> in every $\mathbb{Q}_p$ because $v_p(n!)\to\infty$.</p>
 </section>

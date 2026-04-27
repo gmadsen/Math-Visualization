@@ -173,6 +173,7 @@
   .mv-display-toggle--off { opacity: 0.35; }
   /* display-prefs-css-auto-end */
 </style>
+<script src="./js/widget-lattice-visualizer.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
 <!-- display-prefs-head-auto-end -->
@@ -615,7 +616,8 @@ function drawNode(svg, x, y, label, opts={}){
   bindDrag(w2dot, 2);
   update();
 })();
-</script>
+</script><div class="widget" id="w-rs-lattice"></div>
+
 
 <p>The Weierstrass $\wp$-function supplies an explicit biholomorphism $\mathbb{C}/\Lambda \xrightarrow{\sim} E_\Lambda\subset\mathbb{CP}^2$ onto the elliptic curve $y^2 = 4x^3 - g_2 x - g_3$, matching the complex-analytic torus to a smooth plane cubic. This is the first and cleanest example of "Riemann surfaces = algebraic curves."</p>
 

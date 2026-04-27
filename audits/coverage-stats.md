@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **105**, concepts: **711**
-- Widgets: **756** (registry-driven: 563, inline: 193)
+- Widgets: **762** (registry-driven: 569, inline: 193)
 - Quizzes: **3300** (v1: 2064, hard: 1223, expert: 13)
 - Quiz types: mcq: 2140, numeric: 958, multi-select: 83, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **112**
+- Concepts lacking a widget in their section: **111**
 - Concepts lacking a hard-tier quiz: **273**
 
 ## Per-slug registry adoption
@@ -25,6 +25,8 @@ page has wired one in yet.
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `parametric-plot` | parametric-plot | slider | 2d | 5 | analytic-continuation |
 | `input-form` | input-form | input | 2d | 4 | sums-of-squares |
+| `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
+| `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity, sums-of-squares |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | category-theory, power-sums-bernoulli |
 | `algebraic-curves-canonical-embedding-scrubber` | algebraic-curves-canonical-embedding-scrubber | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-hyperelliptic-cover` | algebraic-curves-hyperelliptic-cover | interact | 2d | 1 | algebraic-curves-higher-genus |
@@ -142,8 +144,6 @@ page has wired one in yet.
 | `intersection-theory-chow-intersection-product` | clickable-diagram | click | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-orbits` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-pn-ring` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
-| `lattice-visualizer` | lattice-visualizer | slider | 2d | 1 | modular-forms |
-| `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 1 | quadratic-reciprocity |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 1 | algebraic-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
@@ -212,40 +212,40 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **10**, concepts: **61**
-- Widgets: **62** (registry-driven: 50, inline: 12)
-  - by family: button-stepper: 34, unknown: 12, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1
-  - by dimension: 2d: 44, unknown: 12, 3d: 6
-  - by gesture: click: 40, unknown: 12, drag: 6, static: 2, select: 1, timeline: 1
+- Widgets: **63** (registry-driven: 51, inline: 12)
+  - by family: button-stepper: 34, unknown: 12, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
+  - by dimension: 2d: 45, unknown: 12, 3d: 6
+  - by gesture: click: 40, unknown: 12, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
 - Quizzes: **325** (v1: 183, hard: 142, expert: 0)
   - by type: mcq: 205, numeric: 113, complex: 7
 
 ### Number theory
 
 - Topics: **14**, concepts: **78**
-- Widgets: **95** (registry-driven: 82, inline: 13)
-  - by family: button-stepper: 67, unknown: 13, clickable-diagram: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
-  - by dimension: 2d: 82, unknown: 13
-  - by gesture: click: 72, unknown: 13, input: 4, interactive: 2, scrub: 1, slider: 1, edit: 1, read: 1
+- Widgets: **98** (registry-driven: 85, inline: 13)
+  - by family: button-stepper: 67, unknown: 13, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
+  - by dimension: 2d: 85, unknown: 13
+  - by gesture: click: 72, unknown: 13, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
 - Quizzes: **409** (v1: 226, hard: 183, expert: 0)
   - by type: mcq: 272, numeric: 133, complex: 3, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
 - Topics: **15**, concepts: **79**
-- Widgets: **112** (registry-driven: 99, inline: 13)
-  - by family: button-stepper: 89, unknown: 13, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 1
-  - by dimension: 2d: 99, unknown: 13
-  - by gesture: click: 89, unknown: 13, slider: 6, static: 4
+- Widgets: **113** (registry-driven: 100, inline: 13)
+  - by family: button-stepper: 89, unknown: 13, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2
+  - by dimension: 2d: 100, unknown: 13
+  - by gesture: click: 89, unknown: 13, slider: 7, static: 4
 - Quizzes: **432** (v1: 237, hard: 195, expert: 0)
   - by type: mcq: 283, numeric: 146, multi-select: 2, ordering: 1
 
 ### Algebraic geometry
 
 - Topics: **19**, concepts: **109**
-- Widgets: **126** (registry-driven: 126, inline: 0)
-  - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 126
-  - by gesture: click: 97, interact: 15, scrub: 7, select: 3, drag: 2, read: 1, slide: 1
+- Widgets: **127** (registry-driven: 127, inline: 0)
+  - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 127
+  - by gesture: click: 97, interact: 15, scrub: 7, select: 3, drag: 2, slider: 1, read: 1, slide: 1
 - Quizzes: **572** (v1: 327, hard: 245, expert: 0)
   - by type: mcq: 347, numeric: 186, multi-select: 16, matching: 8, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
@@ -309,25 +309,25 @@ page has wired one in yet.
 - `differential-geometry` (Geometry & topology) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
-- `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
+- `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `characteristic-classes` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `morse-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `sums-of-squares` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
+- `sums-of-squares` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `power-sums-bernoulli` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=31 (v1=16, hard=15, expert=0)
 - `waring` (Number theory) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
 - `algebraic-number-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `p-adic-numbers` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
+- `p-adic-numbers` (Number theory) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
-- `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
+- `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
 - `heights-arithmetic-geometry` (Number theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `analytic-number-theory` (Number theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
-- `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
+- `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `partitions-generating-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `dirichlet-series-euler-products` (Modular forms & L-functions) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
@@ -344,7 +344,7 @@ page has wired one in yet.
 - `sheaves` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=42 (v1=21, hard=21, expert=0)
 - `morphisms-fiber-products` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `functor-of-points` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `elliptic-curves` (Algebraic geometry) — concepts=5, widgets=0 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
+- `elliptic-curves` (Algebraic geometry) — concepts=5, widgets=1 (slug=1), quiz=30 (v1=15, hard=15, expert=0)
 - `singular-cubics-reduction` (Algebraic geometry) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=25 (v1=18, hard=7, expert=0)
 - `sheaf-cohomology` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
