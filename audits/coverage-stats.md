@@ -159,7 +159,7 @@ page has wired one in yet.
 
 ## Per-subject
 
-### Foundations
+### Logic & Foundations
 
 - Topics: **1**, concepts: **5**
 - Widgets: **4** (registry-driven: 4, inline: 0)
@@ -169,25 +169,45 @@ page has wired one in yet.
 - Quizzes: **30** (v1: 15, hard: 15, expert: 0)
   - by type: mcq: 19, numeric: 11
 
-### Algebra
+### Algebra & homological
 
-- Topics: **14**, concepts: **121**
-- Widgets: **129** (registry-driven: 122, inline: 7)
-  - by family: button-stepper: 41, clickable-diagram: 35, declarative-host: 14, proof-scrubber: 10, parametric-plot: 9, unknown: 7, naturality-square: 1, clickable-graph: 1, svg-illustration: 1, counterexample-explorer: 1, inline-code-cell: 1, cocartesian-fibrations-leftright-scrubber: 1, cocartesian-fibrations-edge-scrubber: 1, cocartesian-fibrations-fibration-clickable: 1, cocartesian-fibrations-transport-clickable: 1, cocartesian-fibrations-grothendieck-scrubber: 1, cocartesian-fibrations-universal-leftfib: 1, cocartesian-fibrations-grothendieck-codecell: 1, cocartesian-fibrations-examples-graph: 1
-  - by dimension: 2d: 122, unknown: 7
-  - by gesture: click: 89, scrub: 10, select: 9, interact: 8, unknown: 7, step: 2, slider+click: 1, interactive: 1, read: 1, edit: 1
-- Quizzes: **598** (v1: 364, hard: 234, expert: 0)
-  - by type: mcq: 386, numeric: 146, multi-select: 40, matching: 9, spot-the-error: 9, ordering: 5, proof-completion: 2, complex: 1
+- Topics: **7**, concepts: **76**
+- Widgets: **80** (registry-driven: 73, inline: 7)
+  - by family: button-stepper: 38, clickable-diagram: 21, parametric-plot: 9, unknown: 7, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1
+  - by dimension: 2d: 73, unknown: 7
+  - by gesture: click: 60, select: 9, unknown: 7, scrub: 2, slider+click: 1, interactive: 1
+- Quizzes: **415** (v1: 229, hard: 186, expert: 0)
+  - by type: mcq: 247, numeric: 138, multi-select: 16, ordering: 4, spot-the-error: 4, matching: 3, proof-completion: 2, complex: 1
+
+### Higher categories & toposes
+
+- Topics: **7**, concepts: **45**
+- Widgets: **49** (registry-driven: 49, inline: 0)
+  - by family: clickable-diagram: 14, declarative-host: 13, proof-scrubber: 8, button-stepper: 3, svg-illustration: 1, cocartesian-fibrations-leftright-scrubber: 1, cocartesian-fibrations-edge-scrubber: 1, cocartesian-fibrations-fibration-clickable: 1, cocartesian-fibrations-transport-clickable: 1, cocartesian-fibrations-grothendieck-scrubber: 1, cocartesian-fibrations-universal-leftfib: 1, cocartesian-fibrations-grothendieck-codecell: 1, cocartesian-fibrations-examples-graph: 1, counterexample-explorer: 1, inline-code-cell: 1
+  - by dimension: 2d: 49
+  - by gesture: click: 29, scrub: 8, interact: 8, step: 2, read: 1, edit: 1
+- Quizzes: **183** (v1: 135, hard: 48, expert: 0)
+  - by type: mcq: 139, multi-select: 24, numeric: 8, matching: 6, spot-the-error: 5, ordering: 1
 
 ### Analysis
 
-- Topics: **9**, concepts: **116**
-- Widgets: **92** (registry-driven: 80, inline: 12)
-  - by family: button-stepper: 47, clickable-diagram: 31, unknown: 12, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
-  - by dimension: 2d: 80, unknown: 12
-  - by gesture: click: 78, unknown: 12, slider: 2
-- Quizzes: **508** (v1: 286, hard: 209, expert: 13)
-  - by type: mcq: 293, numeric: 143, complex: 15, multi-select: 14, matching: 13, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
+- Topics: **8**, concepts: **104**
+- Widgets: **82** (registry-driven: 70, inline: 12)
+  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 12, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
+  - by dimension: 2d: 70, unknown: 12
+  - by gesture: click: 68, unknown: 12, slider: 2
+- Quizzes: **435** (v1: 250, hard: 185, expert: 0)
+  - by type: mcq: 250, numeric: 123, complex: 14, multi-select: 12, matching: 11, ordering: 10, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+
+### Probability & statistics
+
+- Topics: **1**, concepts: **12**
+- Widgets: **10** (registry-driven: 10, inline: 0)
+  - by family: button-stepper: 10
+  - by dimension: 2d: 10
+  - by gesture: click: 10
+- Quizzes: **73** (v1: 36, hard: 24, expert: 13)
+  - by type: mcq: 43, numeric: 20, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
 ### Geometry & topology
 
@@ -241,30 +261,30 @@ page has wired one in yet.
 
 ## Per-topic
 
-- `naive-set-theory` (Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
-- `algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
-- `category-theory` (Algebra) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
-- `representation-theory` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
-- `commutative-algebra` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=40, hard=35, expert=0)
-- `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
-- `elementary-topos-theory` (Algebra) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
-- `heyting-algebras-toposes` (Algebra) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `grothendieck-topologies-sites` (Algebra) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `simplicial-sets-and-nerve` (Algebra) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `infinity-categories` (Algebra) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
-- `infinity-topoi` (Algebra) — concepts=7, widgets=9 (slug=9), quiz=29 (v1=21, hard=8, expert=0)
-- `derived-categories` (Algebra) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
-- `cocartesian-fibrations` (Algebra) — concepts=7, widgets=8 (slug=8), quiz=31 (v1=21, hard=10, expert=0)
-- `group-cohomology` (Algebra) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
+- `algebra` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
+- `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
+- `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
+- `commutative-algebra` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=40, hard=35, expert=0)
+- `homological` (Algebra & homological) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
+- `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
+- `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `elementary-topos-theory` (Higher categories & toposes) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
+- `heyting-algebras-toposes` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
+- `grothendieck-topologies-sites` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
+- `simplicial-sets-and-nerve` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
+- `infinity-categories` (Higher categories & toposes) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
+- `cocartesian-fibrations` (Higher categories & toposes) — concepts=7, widgets=8 (slug=8), quiz=31 (v1=21, hard=10, expert=0)
+- `infinity-topoi` (Higher categories & toposes) — concepts=7, widgets=9 (slug=9), quiz=29 (v1=21, hard=8, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=15 (slug=15), quiz=71 (v1=42, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `dynamical-systems` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=39, hard=36, expert=0)
-- `probability-theory` (Analysis) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=9), quiz=59 (v1=30, hard=29, expert=0)
@@ -353,6 +373,16 @@ page has wired one in yet.
 ### Concepts missing a hard-tier quiz (top 20)
 
 - `artinian-local-ca` (commutative-algebra)
+- `homotopy-category-K` (derived-categories)
+- `t-structures` (derived-categories)
+- `examples-D-Coh` (derived-categories)
+- `bar-resolution` (group-cohomology)
+- `h0-fixed-points` (group-cohomology)
+- `h1-crossed-homs` (group-cohomology)
+- `h2-extensions` (group-cohomology)
+- `cyclic-periodic-tate` (group-cohomology)
+- `inflation-restriction-lhs` (group-cohomology)
+- `galois-cohomology-brauer` (group-cohomology)
 - `topos-definition` (elementary-topos-theory)
 - `characteristic-maps` (elementary-topos-theory)
 - `power-objects` (elementary-topos-theory)
@@ -362,13 +392,3 @@ page has wired one in yet.
 - `geometric-morphisms-logic` (heyting-algebras-toposes)
 - `sieves` (grothendieck-topologies-sites)
 - `examples-of-sites` (grothendieck-topologies-sites)
-- `geometric-morphisms-of-sites` (grothendieck-topologies-sites)
-- `simplex-category` (simplicial-sets-and-nerve)
-- `geometric-realization` (simplicial-sets-and-nerve)
-- `kan-complex` (simplicial-sets-and-nerve)
-- `homotopy-category-of-infty` (infinity-categories)
-- `infty-functors` (infinity-categories)
-- `infty-adjunctions` (infinity-categories)
-- `presheaf-infty-topos` (infinity-topoi)
-- `geometric-morphisms-infty` (infinity-topoi)
-- `etale-infty-topos-of-scheme` (infinity-topoi)

@@ -7,15 +7,16 @@
     "representation-theory",
     "commutative-algebra",
     "homological",
+    "derived-categories",
+    "group-cohomology",
+
     "elementary-topos-theory",
     "heyting-algebras-toposes",
     "grothendieck-topologies-sites",
     "simplicial-sets-and-nerve",
     "infinity-categories",
-    "infinity-topoi",
-    "derived-categories",
     "cocartesian-fibrations",
-    "group-cohomology",
+    "infinity-topoi",
 
     "real-analysis",
     "measure-theory",
@@ -23,9 +24,10 @@
     "functional-analysis",
     "operator-algebras",
     "dynamical-systems",
-    "probability-theory",
     "sobolev-spaces-distributions",
     "harmonic-analysis-fourier",
+
+    "probability-theory",
 
     "point-set-topology",
     "algebraic-topology",

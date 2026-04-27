@@ -442,21 +442,31 @@
   for(const s of sectionsData.sections){
     for(const t of s.topics) TOPIC_SECTION[t] = s.title;
   }
-  // Foundations fallback for any topic not in sections.json (validator should
-  // catch this in CI, but be defensive at runtime so the page never crashes).
+  // Logic-and-Foundations fallback for any topic not in sections.json (validator
+  // should catch this in CI, but be defensive at runtime so the page never
+  // crashes).
   function sectionOf(topicId){
-    return TOPIC_SECTION[topicId] || 'Foundations';
+    return TOPIC_SECTION[topicId] || 'Logic & Foundations';
   }
 
-  const SECTION_COLOR = {
-    'Foundations':                  '#8c9aa6',
-    'Algebra':                      '#ffd866',
-    'Analysis':                     '#58c4dd',
-    'Geometry & topology':          '#7de0d6',
-    'Number theory':                '#83c167',
-    'Modular forms & L-functions':  '#e07a5f',
-    'Algebraic geometry':           '#b39ddb'
+  // Map title -> hex from the bundle's `color` field (single source of truth
+  // shared with concepts/sections.json + index.html SECTION_META + tags.html).
+  // Each section's letter maps via PALETTE_HEX below.
+  const PALETTE_HEX = {
+    'b': '#58c4dd',  // blue
+    'y': '#ffd866',  // yellow
+    'p': '#e07a5f',  // pink
+    'v': '#b39ddb',  // violet
+    'g': '#83c167',  // green
+    'c': '#7de0d6',  // cyan
   };
+  const SECTION_COLOR = (() => {
+    const out = {};
+    for (const s of (window.__MVConcepts?.sections?.sections || [])) {
+      if (s.title) out[s.title] = PALETTE_HEX[s.color || 'b'] || '#8c9aa6';
+    }
+    return out;
+  })();
 
   // Capstone goals → tagged for special rendering.
   const CAPSTONE_GOAL_IDS = new Set(capstones.map(c => c.goal));
@@ -524,26 +534,34 @@
   // fit its container; viewBox + preserveAspectRatio handle the scale.
   const STAGE_W = 2000, STAGE_H = 1200;
 
-  // Section anchors arranged in an octagonal layout. Foundations (single topic)
-  // sits at top-center; the other seven form a ring below it.
+  // Section anchors arranged on a 10-spoke ring. Order chosen so subjects
+  // that share many cross-topic edges sit adjacent: classical-spine on the
+  // right (Algebra → Higher cats → AG → NT → MF), payoff/applied on the
+  // bottom (Combinatorics → Analysis → Probability), G&T closes the loop.
   const SECTION_ANCHOR = (() => {
     const cx = STAGE_W / 2, cy = STAGE_H / 2 + 20;
     const r = Math.min(STAGE_W, STAGE_H) * 0.34;
-    // Order chosen so subjects that share many cross-topic edges sit adjacent.
-    // Combinatorics & graph theory is new — placed at bottom-center between
-    // Modular forms (bottom-left) and Geometry & topology (bottom-right) since
-    // its connections (simplicial complexes ↔ AT, graphs ↔ rep theory) span
-    // both halves of the ring.
-    return {
-      'Foundations':                  { x: cx,            y: cy - r * 1.05 },
-      'Algebra':                      { x: cx - r * 0.95, y: cy - r * 0.55 },
-      'Algebraic geometry':           { x: cx + r * 0.95, y: cy - r * 0.55 },
-      'Analysis':                     { x: cx + r * 1.10, y: cy + r * 0.20 },
-      'Geometry & topology':          { x: cx + r * 0.55, y: cy + r * 0.85 },
-      'Combinatorics & graph theory': { x: cx,            y: cy + r * 1.05 },
-      'Modular forms & L-functions':  { x: cx - r * 0.55, y: cy + r * 0.85 },
-      'Number theory':                { x: cx - r * 1.10, y: cy + r * 0.20 }
-    };
+    const order = [
+      'Logic & Foundations',           // 0° (top)
+      'Algebra & homological',         // 36°
+      'Higher categories & toposes',   // 72°
+      'Algebraic geometry',            // 108°
+      'Number theory',                 // 144°
+      'Modular forms & L-functions',   // 180° (bottom)
+      'Combinatorics & graph theory',  // 216°
+      'Analysis',                      // 252°
+      'Probability & statistics',      // 288°
+      'Geometry & topology'            // 324°
+    ];
+    const anchors = {};
+    for (let i = 0; i < order.length; i++) {
+      const angle = (2 * Math.PI * i) / order.length;
+      anchors[order[i]] = {
+        x: cx + r * 1.0 * Math.sin(angle),
+        y: cy - r * 1.0 * Math.cos(angle),
+      };
+    }
+    return anchors;
   })();
 
   // Fingerprint of the input so we can invalidate the layout cache when the

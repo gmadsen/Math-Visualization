@@ -10,24 +10,24 @@ window.__MVConcepts = {
       "representation-theory",
       "commutative-algebra",
       "homological",
+      "derived-categories",
+      "group-cohomology",
       "elementary-topos-theory",
       "heyting-algebras-toposes",
       "grothendieck-topologies-sites",
       "simplicial-sets-and-nerve",
       "infinity-categories",
-      "infinity-topoi",
-      "derived-categories",
       "cocartesian-fibrations",
-      "group-cohomology",
+      "infinity-topoi",
       "real-analysis",
       "measure-theory",
       "complex-analysis",
       "functional-analysis",
       "operator-algebras",
       "dynamical-systems",
-      "probability-theory",
       "sobolev-spaces-distributions",
       "harmonic-analysis-fourier",
+      "probability-theory",
       "point-set-topology",
       "algebraic-topology",
       "smooth-manifolds",
@@ -1027,6 +1027,208 @@ window.__MVConcepts = {
         }
       ]
     },
+    "derived-categories": {
+      "topic": "derived-categories",
+      "title": "Derived categories",
+      "page": "derived-categories.html",
+      "concepts": [
+        {
+          "id": "homotopy-category-K",
+          "title": "The homotopy category $K(\\mathcal{A})$",
+          "anchor": "homotopy-category",
+          "prereqs": [
+            "chain-complexes"
+          ],
+          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
+        },
+        {
+          "id": "quasi-isomorphisms",
+          "title": "Quasi-isomorphisms and localization",
+          "anchor": "quasi-isomorphisms",
+          "prereqs": [
+            "homotopy-category-K"
+          ],
+          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
+        },
+        {
+          "id": "derived-category",
+          "title": "The derived category $D(\\mathcal{A})$",
+          "anchor": "derived-category",
+          "prereqs": [
+            "quasi-isomorphisms"
+          ],
+          "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes.",
+          "tags": [
+            "universal-property",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "triangulated-structure",
+          "title": "Triangulated structure and exact triangles",
+          "anchor": "triangulated-structure",
+          "prereqs": [
+            "derived-category",
+            "exact-sequences",
+            "abelian-categories"
+          ],
+          "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$.",
+          "tags": [
+            "exact-sequence",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "derived-functors-triangulated",
+          "title": "Derived functors $RF, LF$",
+          "anchor": "derived-functors-triangulated",
+          "prereqs": [
+            "derived-category",
+            "derived-functors",
+            "resolutions-ha"
+          ],
+          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$.",
+          "tags": [
+            "cohomology",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "t-structures",
+          "title": "$t$-structures and hearts",
+          "anchor": "t-structures",
+          "prereqs": [
+            "triangulated-structure",
+            "abelian-categories"
+          ],
+          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
+        },
+        {
+          "id": "examples-D-Coh",
+          "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+          "anchor": "d-coh",
+          "prereqs": [
+            "derived-category",
+            "derived-functors-triangulated",
+            "sheafification-and-qcoh"
+          ],
+          "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        }
+      ]
+    },
+    "group-cohomology": {
+      "topic": "group-cohomology",
+      "title": "Group cohomology",
+      "page": "group-cohomology.html",
+      "concepts": [
+        {
+          "id": "bar-resolution",
+          "title": "The bar resolution and $H^n(G,M)$",
+          "anchor": "bar",
+          "prereqs": [
+            "derived-functors",
+            "group-actions-burnside"
+          ],
+          "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
+          "tags": [
+            "cohomology"
+          ]
+        },
+        {
+          "id": "h0-fixed-points",
+          "title": "$H^0$ as $G$-fixed points",
+          "anchor": "h0",
+          "prereqs": [
+            "bar-resolution"
+          ],
+          "blurb": "Degree zero recovers the input: $H^0(G,M)=M^G$. Failure of right-exactness of $(-)^G$ is exactly what the higher $H^n$ correct, generating the long exact sequence $0\\to A^G\\to B^G\\to C^G\\xrightarrow{\\delta} H^1(G,A)\\to\\cdots$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "h1-crossed-homs",
+          "title": "$H^1$, crossed homomorphisms, and Hilbert 90",
+          "anchor": "h1",
+          "prereqs": [
+            "h0-fixed-points",
+            "exact-sequences"
+          ],
+          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "h2-extensions",
+          "title": "$H^2$ classifies group extensions",
+          "anchor": "h2",
+          "prereqs": [
+            "h1-crossed-homs",
+            "semidirect-products-ses"
+          ],
+          "blurb": "Equivalence classes of extensions $1\\to A\\to E\\to G\\to 1$ with prescribed $G$-action on abelian $A$ are in bijection with $H^2(G,A)$. Split extensions hit $0$; the nontrivial class assembles a section's failure-of-multiplicativity into the canonical 2-cocycle.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "cyclic-periodic-tate",
+          "title": "Cyclic groups, periodicity, and Tate cohomology",
+          "anchor": "cyclic",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions"
+          ],
+          "blurb": "For $G=C_n$ the alternating $\\sigma-1$/$N$-resolution gives a 2-periodic theory: $H^{2k}=M^G/N(M)$, $H^{2k+1}=\\ker N/(\\sigma-1)M$. Splicing in negative degrees defines Tate cohomology $\\hat H^*$; the Herbrand quotient is multiplicative and a workhorse in class field theory.",
+          "tags": [
+            "cohomology",
+            "finiteness",
+            "completion"
+          ]
+        },
+        {
+          "id": "inflation-restriction-lhs",
+          "title": "Inflation–restriction and Lyndon–Hochschild–Serre",
+          "anchor": "infres",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions",
+            "spectral-sequences-ha"
+          ],
+          "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "galois-cohomology-brauer",
+          "title": "Galois cohomology and the Brauer group",
+          "anchor": "galois-cohom",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions",
+            "field-extensions-galois"
+          ],
+          "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "classification"
+          ]
+        }
+      ]
+    },
     "elementary-topos-theory": {
       "topic": "elementary-topos-theory",
       "title": "Elementary topos theory",
@@ -1444,194 +1646,6 @@ window.__MVConcepts = {
         }
       ]
     },
-    "infinity-topoi": {
-      "topic": "infinity-topoi",
-      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
-      "page": "infinity-topoi.html",
-      "concepts": [
-        {
-          "id": "presheaf-infty-topos",
-          "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
-          "anchor": "presheaf-infty-topos",
-          "prereqs": [
-            "quasi-category",
-            "presheaf-topos"
-          ],
-          "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos.",
-          "tags": [
-            "universal-property"
-          ]
-        },
-        {
-          "id": "infty-topos-definition",
-          "title": "$\\infty$-topos via accessible left exact localization",
-          "anchor": "infty-topos-definition",
-          "prereqs": [
-            "presheaf-infty-topos",
-            "infty-limits"
-          ],
-          "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy.",
-          "tags": [
-            "foundation",
-            "descent"
-          ]
-        },
-        {
-          "id": "giraud-infty",
-          "title": "$\\infty$-Giraud axioms",
-          "anchor": "giraud-infty",
-          "prereqs": [
-            "infty-topos-definition",
-            "topos-of-sheaves"
-          ],
-          "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form.",
-          "tags": [
-            "classification",
-            "descent"
-          ]
-        },
-        {
-          "id": "geometric-morphisms-infty",
-          "title": "Geometric morphisms of $\\infty$-topoi",
-          "anchor": "geometric-morphisms-infty",
-          "prereqs": [
-            "infty-topos-definition",
-            "infty-adjunctions",
-            "geometric-morphisms-intro"
-          ],
-          "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers.",
-          "tags": [
-            "functoriality"
-          ]
-        },
-        {
-          "id": "hypercompletion",
-          "title": "Hypercompletion and Whitehead's theorem",
-          "anchor": "hypercompletion",
-          "prereqs": [
-            "infty-topos-definition"
-          ],
-          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
-        },
-        {
-          "id": "internal-logic-of-infty-topos",
-          "title": "Internal logic: homotopy type theory and ∞-toposes",
-          "anchor": "internal-logic",
-          "prereqs": [
-            "infty-topos-definition",
-            "internal-language"
-          ],
-          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
-        },
-        {
-          "id": "etale-infty-topos-of-scheme",
-          "title": "The étale $\\infty$-topos of a scheme",
-          "anchor": "etale-infty-topos",
-          "prereqs": [
-            "infty-topos-definition",
-            "geometric-morphisms-of-sites"
-          ],
-          "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry.",
-          "tags": [
-            "cohomology",
-            "descent"
-          ]
-        }
-      ]
-    },
-    "derived-categories": {
-      "topic": "derived-categories",
-      "title": "Derived categories",
-      "page": "derived-categories.html",
-      "concepts": [
-        {
-          "id": "homotopy-category-K",
-          "title": "The homotopy category $K(\\mathcal{A})$",
-          "anchor": "homotopy-category",
-          "prereqs": [
-            "chain-complexes"
-          ],
-          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
-        },
-        {
-          "id": "quasi-isomorphisms",
-          "title": "Quasi-isomorphisms and localization",
-          "anchor": "quasi-isomorphisms",
-          "prereqs": [
-            "homotopy-category-K"
-          ],
-          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
-        },
-        {
-          "id": "derived-category",
-          "title": "The derived category $D(\\mathcal{A})$",
-          "anchor": "derived-category",
-          "prereqs": [
-            "quasi-isomorphisms"
-          ],
-          "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes.",
-          "tags": [
-            "universal-property",
-            "cohomology"
-          ]
-        },
-        {
-          "id": "triangulated-structure",
-          "title": "Triangulated structure and exact triangles",
-          "anchor": "triangulated-structure",
-          "prereqs": [
-            "derived-category",
-            "exact-sequences",
-            "abelian-categories"
-          ],
-          "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$.",
-          "tags": [
-            "exact-sequence",
-            "cohomology"
-          ]
-        },
-        {
-          "id": "derived-functors-triangulated",
-          "title": "Derived functors $RF, LF$",
-          "anchor": "derived-functors-triangulated",
-          "prereqs": [
-            "derived-category",
-            "derived-functors",
-            "resolutions-ha"
-          ],
-          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$.",
-          "tags": [
-            "cohomology",
-            "functoriality"
-          ]
-        },
-        {
-          "id": "t-structures",
-          "title": "$t$-structures and hearts",
-          "anchor": "t-structures",
-          "prereqs": [
-            "triangulated-structure",
-            "abelian-categories"
-          ],
-          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
-        },
-        {
-          "id": "examples-D-Coh",
-          "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
-          "anchor": "d-coh",
-          "prereqs": [
-            "derived-category",
-            "derived-functors-triangulated",
-            "sheafification-and-qcoh"
-          ],
-          "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels.",
-          "tags": [
-            "duality",
-            "cohomology"
-          ]
-        }
-      ]
-    },
     "cocartesian-fibrations": {
       "topic": "cocartesian-fibrations",
       "title": "Cocartesian fibrations & the Grothendieck construction",
@@ -1732,111 +1746,97 @@ window.__MVConcepts = {
         }
       ]
     },
-    "group-cohomology": {
-      "topic": "group-cohomology",
-      "title": "Group cohomology",
-      "page": "group-cohomology.html",
+    "infinity-topoi": {
+      "topic": "infinity-topoi",
+      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
+      "page": "infinity-topoi.html",
       "concepts": [
         {
-          "id": "bar-resolution",
-          "title": "The bar resolution and $H^n(G,M)$",
-          "anchor": "bar",
+          "id": "presheaf-infty-topos",
+          "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+          "anchor": "presheaf-infty-topos",
           "prereqs": [
-            "derived-functors",
-            "group-actions-burnside"
+            "quasi-category",
+            "presheaf-topos"
           ],
-          "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
+          "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos.",
           "tags": [
-            "cohomology"
+            "universal-property"
           ]
         },
         {
-          "id": "h0-fixed-points",
-          "title": "$H^0$ as $G$-fixed points",
-          "anchor": "h0",
+          "id": "infty-topos-definition",
+          "title": "$\\infty$-topos via accessible left exact localization",
+          "anchor": "infty-topos-definition",
           "prereqs": [
-            "bar-resolution"
+            "presheaf-infty-topos",
+            "infty-limits"
           ],
-          "blurb": "Degree zero recovers the input: $H^0(G,M)=M^G$. Failure of right-exactness of $(-)^G$ is exactly what the higher $H^n$ correct, generating the long exact sequence $0\\to A^G\\to B^G\\to C^G\\xrightarrow{\\delta} H^1(G,A)\\to\\cdots$.",
+          "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy.",
           "tags": [
-            "cohomology",
-            "exact-sequence"
+            "foundation",
+            "descent"
           ]
         },
         {
-          "id": "h1-crossed-homs",
-          "title": "$H^1$, crossed homomorphisms, and Hilbert 90",
-          "anchor": "h1",
+          "id": "giraud-infty",
+          "title": "$\\infty$-Giraud axioms",
+          "anchor": "giraud-infty",
           "prereqs": [
-            "h0-fixed-points",
-            "exact-sequences"
+            "infty-topos-definition",
+            "topos-of-sheaves"
           ],
-          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+          "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form.",
           "tags": [
-            "cohomology",
-            "duality"
-          ]
-        },
-        {
-          "id": "h2-extensions",
-          "title": "$H^2$ classifies group extensions",
-          "anchor": "h2",
-          "prereqs": [
-            "h1-crossed-homs",
-            "semidirect-products-ses"
-          ],
-          "blurb": "Equivalence classes of extensions $1\\to A\\to E\\to G\\to 1$ with prescribed $G$-action on abelian $A$ are in bijection with $H^2(G,A)$. Split extensions hit $0$; the nontrivial class assembles a section's failure-of-multiplicativity into the canonical 2-cocycle.",
-          "tags": [
-            "cohomology",
             "classification",
-            "exact-sequence"
+            "descent"
           ]
         },
         {
-          "id": "cyclic-periodic-tate",
-          "title": "Cyclic groups, periodicity, and Tate cohomology",
-          "anchor": "cyclic",
+          "id": "geometric-morphisms-infty",
+          "title": "Geometric morphisms of $\\infty$-topoi",
+          "anchor": "geometric-morphisms-infty",
           "prereqs": [
-            "h1-crossed-homs",
-            "h2-extensions"
+            "infty-topos-definition",
+            "infty-adjunctions",
+            "geometric-morphisms-intro"
           ],
-          "blurb": "For $G=C_n$ the alternating $\\sigma-1$/$N$-resolution gives a 2-periodic theory: $H^{2k}=M^G/N(M)$, $H^{2k+1}=\\ker N/(\\sigma-1)M$. Splicing in negative degrees defines Tate cohomology $\\hat H^*$; the Herbrand quotient is multiplicative and a workhorse in class field theory.",
+          "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers.",
           "tags": [
-            "cohomology",
-            "finiteness",
-            "completion"
-          ]
-        },
-        {
-          "id": "inflation-restriction-lhs",
-          "title": "Inflation–restriction and Lyndon–Hochschild–Serre",
-          "anchor": "infres",
-          "prereqs": [
-            "h1-crossed-homs",
-            "h2-extensions",
-            "spectral-sequences-ha"
-          ],
-          "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
-          "tags": [
-            "cohomology",
-            "exact-sequence",
             "functoriality"
           ]
         },
         {
-          "id": "galois-cohomology-brauer",
-          "title": "Galois cohomology and the Brauer group",
-          "anchor": "galois-cohom",
+          "id": "hypercompletion",
+          "title": "Hypercompletion and Whitehead's theorem",
+          "anchor": "hypercompletion",
           "prereqs": [
-            "h1-crossed-homs",
-            "h2-extensions",
-            "field-extensions-galois"
+            "infty-topos-definition"
           ],
-          "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
+        },
+        {
+          "id": "internal-logic-of-infty-topos",
+          "title": "Internal logic: homotopy type theory and ∞-toposes",
+          "anchor": "internal-logic",
+          "prereqs": [
+            "infty-topos-definition",
+            "internal-language"
+          ],
+          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
+        },
+        {
+          "id": "etale-infty-topos-of-scheme",
+          "title": "The étale $\\infty$-topos of a scheme",
+          "anchor": "etale-infty-topos",
+          "prereqs": [
+            "infty-topos-definition",
+            "geometric-morphisms-of-sites"
+          ],
+          "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry.",
           "tags": [
             "cohomology",
-            "duality",
-            "classification"
+            "descent"
           ]
         }
       ]
@@ -2856,143 +2856,6 @@ window.__MVConcepts = {
         }
       ]
     },
-    "probability-theory": {
-      "topic": "probability-theory",
-      "title": "Probability theory",
-      "page": "probability-theory.html",
-      "concepts": [
-        {
-          "id": "sample-spaces-events",
-          "title": "Sample spaces, events, and probability measures",
-          "anchor": "sample",
-          "prereqs": [
-            "sigma-algebras",
-            "lebesgue-measure"
-          ],
-          "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$.",
-          "tags": [
-            "foundation"
-          ]
-        },
-        {
-          "id": "conditional-bayes",
-          "title": "Conditional probability and Bayes' rule",
-          "anchor": "bayes",
-          "prereqs": [
-            "sample-spaces-events"
-          ],
-          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
-        },
-        {
-          "id": "random-variables",
-          "title": "Random variables",
-          "anchor": "rv",
-          "prereqs": [
-            "sample-spaces-events",
-            "measurable-functions"
-          ],
-          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
-        },
-        {
-          "id": "supports-distributions",
-          "title": "Supports, distributions, and densities",
-          "anchor": "supports",
-          "prereqs": [
-            "random-variables"
-          ],
-          "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "expectation-moments",
-          "title": "Expectation, variance, and moments",
-          "anchor": "expectation",
-          "prereqs": [
-            "random-variables",
-            "lebesgue-integral",
-            "lp-spaces"
-          ],
-          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
-        },
-        {
-          "id": "generating-functions",
-          "title": "Moment and characteristic functions",
-          "anchor": "gen-fun",
-          "prereqs": [
-            "expectation-moments"
-          ],
-          "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "convergence-rv",
-          "title": "Modes of convergence",
-          "anchor": "conv",
-          "prereqs": [
-            "random-variables",
-            "convergence-theorems"
-          ],
-          "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "law-of-large-numbers",
-          "title": "Law of large numbers",
-          "anchor": "lln",
-          "prereqs": [
-            "convergence-rv",
-            "expectation-moments"
-          ],
-          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
-        },
-        {
-          "id": "central-limit-theorem",
-          "title": "Central limit theorem",
-          "anchor": "clt",
-          "prereqs": [
-            "convergence-rv",
-            "generating-functions"
-          ],
-          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
-        },
-        {
-          "id": "markov-chains",
-          "title": "Markov chains",
-          "anchor": "markov",
-          "prereqs": [
-            "conditional-bayes",
-            "algebraic-structures"
-          ],
-          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
-        },
-        {
-          "id": "martingales",
-          "title": "Martingales",
-          "anchor": "martingales",
-          "prereqs": [
-            "conditional-bayes",
-            "convergence-rv"
-          ],
-          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
-        },
-        {
-          "id": "brownian-motion",
-          "title": "Brownian motion",
-          "anchor": "brownian",
-          "prereqs": [
-            "central-limit-theorem",
-            "martingales"
-          ],
-          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
-        }
-      ]
-    },
     "sobolev-spaces-distributions": {
       "topic": "sobolev-spaces-distributions",
       "title": "Sobolev spaces & distributions",
@@ -3196,6 +3059,143 @@ window.__MVConcepts = {
             "group-action"
           ],
           "blurb": "Every locally compact abelian group $G$ has a dual group $\\widehat G$ of continuous characters, and the Fourier transform is a unitary $L^2(G) \\to L^2(\\widehat G)$. The cases $G = \\mathbb{T}$ (dual $\\mathbb{Z}$), $G = \\mathbb{R}$ (self-dual), $G = \\mathbb{Z}/N$ (self-dual finite) are the same theorem in three keys."
+        }
+      ]
+    },
+    "probability-theory": {
+      "topic": "probability-theory",
+      "title": "Probability theory",
+      "page": "probability-theory.html",
+      "concepts": [
+        {
+          "id": "sample-spaces-events",
+          "title": "Sample spaces, events, and probability measures",
+          "anchor": "sample",
+          "prereqs": [
+            "sigma-algebras",
+            "lebesgue-measure"
+          ],
+          "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "conditional-bayes",
+          "title": "Conditional probability and Bayes' rule",
+          "anchor": "bayes",
+          "prereqs": [
+            "sample-spaces-events"
+          ],
+          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
+        },
+        {
+          "id": "random-variables",
+          "title": "Random variables",
+          "anchor": "rv",
+          "prereqs": [
+            "sample-spaces-events",
+            "measurable-functions"
+          ],
+          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
+        },
+        {
+          "id": "supports-distributions",
+          "title": "Supports, distributions, and densities",
+          "anchor": "supports",
+          "prereqs": [
+            "random-variables"
+          ],
+          "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "expectation-moments",
+          "title": "Expectation, variance, and moments",
+          "anchor": "expectation",
+          "prereqs": [
+            "random-variables",
+            "lebesgue-integral",
+            "lp-spaces"
+          ],
+          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
+        },
+        {
+          "id": "generating-functions",
+          "title": "Moment and characteristic functions",
+          "anchor": "gen-fun",
+          "prereqs": [
+            "expectation-moments"
+          ],
+          "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "convergence-rv",
+          "title": "Modes of convergence",
+          "anchor": "conv",
+          "prereqs": [
+            "random-variables",
+            "convergence-theorems"
+          ],
+          "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "law-of-large-numbers",
+          "title": "Law of large numbers",
+          "anchor": "lln",
+          "prereqs": [
+            "convergence-rv",
+            "expectation-moments"
+          ],
+          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
+        },
+        {
+          "id": "central-limit-theorem",
+          "title": "Central limit theorem",
+          "anchor": "clt",
+          "prereqs": [
+            "convergence-rv",
+            "generating-functions"
+          ],
+          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
+        },
+        {
+          "id": "markov-chains",
+          "title": "Markov chains",
+          "anchor": "markov",
+          "prereqs": [
+            "conditional-bayes",
+            "algebraic-structures"
+          ],
+          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
+        },
+        {
+          "id": "martingales",
+          "title": "Martingales",
+          "anchor": "martingales",
+          "prereqs": [
+            "conditional-bayes",
+            "convergence-rv"
+          ],
+          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
+        },
+        {
+          "id": "brownian-motion",
+          "title": "Brownian motion",
+          "anchor": "brownian",
+          "prereqs": [
+            "central-limit-theorem",
+            "martingales"
+          ],
+          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
         }
       ]
     },
@@ -7460,14 +7460,14 @@ window.__MVConcepts = {
     "capstones": [
       {
         "id": "capstone-solvability-by-radicals",
-        "section": "Algebra",
+        "section": "Algebra & homological",
         "title": "Galois solvability of polynomials",
         "goal": "solvability-by-radicals",
         "blurb": "A polynomial is solvable by radicals iff its Galois group is a solvable group — why the quintic resists closed-form roots and the cubic/quartic don't."
       },
       {
         "id": "capstone-yoneda",
-        "section": "Algebra",
+        "section": "Algebra & homological",
         "title": "Yoneda, limits, and adjunctions",
         "goal": "yoneda-limits-adjunctions",
         "blurb": "An object is what it does to every other object. Yoneda + limits + adjunctions is the categorical core that every downstream subject silently uses."
@@ -7614,7 +7614,7 @@ window.__MVConcepts = {
       },
       {
         "id": "capstone-infinity-topoi",
-        "section": "Algebra",
+        "section": "Higher categories & toposes",
         "title": "$\\infty$-topoi (Lurie's higher topos theory)",
         "goal": "infty-topos-definition",
         "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
@@ -7625,8 +7625,8 @@ window.__MVConcepts = {
     "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
     "sections": [
       {
-        "id": "foundations",
-        "title": "Foundations",
+        "id": "logic-and-foundations",
+        "title": "Logic & Foundations",
         "topics": [
           "naive-set-theory"
         ],
@@ -7634,7 +7634,7 @@ window.__MVConcepts = {
       },
       {
         "id": "algebra",
-        "title": "Algebra",
+        "title": "Algebra & homological",
         "topics": [
           "algebra",
           "category-theory",
@@ -7642,7 +7642,14 @@ window.__MVConcepts = {
           "commutative-algebra",
           "homological",
           "derived-categories",
-          "group-cohomology",
+          "group-cohomology"
+        ],
+        "color": "y"
+      },
+      {
+        "id": "higher-categories-and-toposes",
+        "title": "Higher categories & toposes",
+        "topics": [
           "elementary-topos-theory",
           "heyting-algebras-toposes",
           "grothendieck-topologies-sites",
@@ -7651,7 +7658,7 @@ window.__MVConcepts = {
           "cocartesian-fibrations",
           "infinity-topoi"
         ],
-        "color": "y"
+        "color": "c"
       },
       {
         "id": "analysis",
@@ -7663,11 +7670,18 @@ window.__MVConcepts = {
           "functional-analysis",
           "operator-algebras",
           "dynamical-systems",
-          "probability-theory",
           "harmonic-analysis-fourier",
           "sobolev-spaces-distributions"
         ],
         "color": "p"
+      },
+      {
+        "id": "probability-and-statistics",
+        "title": "Probability & statistics",
+        "topics": [
+          "probability-theory"
+        ],
+        "color": "g"
       },
       {
         "id": "geometry-and-topology",
@@ -7948,26 +7962,40 @@ window.__MVConcepts = {
     "cocartesian-fibrations"
   ],
   "sectionStats": {
-    "Foundations": {
+    "Logic & Foundations": {
       "concepts": 5,
       "intra": 5,
       "crossOut": 0,
       "crossIn": 5,
       "density": 0
     },
-    "Algebra": {
-      "concepts": 121,
-      "intra": 188,
-      "crossOut": 15,
-      "crossIn": 36,
-      "density": 0.12396694214876033
+    "Algebra & homological": {
+      "concepts": 76,
+      "intra": 107,
+      "crossOut": 9,
+      "crossIn": 50,
+      "density": 0.11842105263157894
+    },
+    "Higher categories & toposes": {
+      "concepts": 45,
+      "intra": 66,
+      "crossOut": 21,
+      "crossIn": 1,
+      "density": 0.4666666666666667
     },
     "Analysis": {
-      "concepts": 116,
-      "intra": 173,
-      "crossOut": 15,
-      "crossIn": 26,
-      "density": 0.12931034482758622
+      "concepts": 104,
+      "intra": 152,
+      "crossOut": 14,
+      "crossIn": 25,
+      "density": 0.1346153846153846
+    },
+    "Probability & statistics": {
+      "concepts": 12,
+      "intra": 15,
+      "crossOut": 7,
+      "crossIn": 7,
+      "density": 0.5833333333333334
     },
     "Geometry & topology": {
       "concepts": 49,

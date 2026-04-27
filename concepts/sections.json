@@ -2,8 +2,8 @@
   "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
   "sections": [
     {
-      "id": "foundations",
-      "title": "Foundations",
+      "id": "logic-and-foundations",
+      "title": "Logic & Foundations",
       "topics": [
         "naive-set-theory"
       ],
@@ -11,7 +11,7 @@
     },
     {
       "id": "algebra",
-      "title": "Algebra",
+      "title": "Algebra & homological",
       "topics": [
         "algebra",
         "category-theory",
@@ -19,7 +19,14 @@
         "commutative-algebra",
         "homological",
         "derived-categories",
-        "group-cohomology",
+        "group-cohomology"
+      ],
+      "color": "y"
+    },
+    {
+      "id": "higher-categories-and-toposes",
+      "title": "Higher categories & toposes",
+      "topics": [
         "elementary-topos-theory",
         "heyting-algebras-toposes",
         "grothendieck-topologies-sites",
@@ -28,7 +35,7 @@
         "cocartesian-fibrations",
         "infinity-topoi"
       ],
-      "color": "y"
+      "color": "c"
     },
     {
       "id": "analysis",
@@ -40,11 +47,18 @@
         "functional-analysis",
         "operator-algebras",
         "dynamical-systems",
-        "probability-theory",
         "harmonic-analysis-fourier",
         "sobolev-spaces-distributions"
       ],
       "color": "p"
+    },
+    {
+      "id": "probability-and-statistics",
+      "title": "Probability & statistics",
+      "topics": [
+        "probability-theory"
+      ],
+      "color": "g"
     },
     {
       "id": "geometry-and-topology",

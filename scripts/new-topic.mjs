@@ -50,9 +50,11 @@ const repoRoot = resolve(scriptsDir, '..');
 // groupings inside concepts/index.json. Order within each section determines
 // where a new slug lands on append.
 const SECTIONS = [
-  'Foundations',
-  'Algebra',
+  'Logic & Foundations',
+  'Algebra & homological',
+  'Higher categories & toposes',
   'Analysis',
+  'Probability & statistics',
   'Geometry & topology',
   'Number theory',
   'Modular forms & L-functions',
@@ -67,21 +69,36 @@ const SECTIONS = [
 // suffix on `<a class="card X">` (y/b/g/p/v/c) and the matching CSS variable
 // used inside the inline SVG.
 const SECTION_PALETTE = new Map([
-  ['Foundations',                  { klass: 'b', cssVar: '--blue'   }],
-  ['Algebra',                      { klass: 'y', cssVar: '--yellow' }],
+  ['Logic & Foundations',          { klass: 'b', cssVar: '--blue'   }],
+  ['Algebra & homological',        { klass: 'y', cssVar: '--yellow' }],
+  ['Higher categories & toposes',  { klass: 'c', cssVar: '--cyan'   }],
   ['Analysis',                     { klass: 'p', cssVar: '--pink'   }],
+  ['Probability & statistics',     { klass: 'g', cssVar: '--green'  }],
   ['Geometry & topology',          { klass: 'v', cssVar: '--violet' }],
   ['Number theory',                { klass: 'y', cssVar: '--yellow' }],
   ['Modular forms & L-functions',  { klass: 'c', cssVar: '--cyan'   }],
   ['Algebraic geometry',           { klass: 'g', cssVar: '--green'  }],
-  ['Combinatorics & graph theory', { klass: 'g', cssVar: '--green'  }],
+  ['Combinatorics & graph theory', { klass: 'v', cssVar: '--violet' }],
 ]);
 
 // Accept shorthand aliases for convenience. Map them to the canonical name.
 const SECTION_ALIASES = new Map([
-  ['foundations', 'Foundations'],
-  ['algebra', 'Algebra'],
+  ['foundations', 'Logic & Foundations'],
+  ['logic', 'Logic & Foundations'],
+  ['logic-and-foundations', 'Logic & Foundations'],
+  ['logic & foundations', 'Logic & Foundations'],
+  ['algebra', 'Algebra & homological'],
+  ['algebra-and-homological', 'Algebra & homological'],
+  ['algebra & homological', 'Algebra & homological'],
+  ['higher-categories', 'Higher categories & toposes'],
+  ['higher-categories-and-toposes', 'Higher categories & toposes'],
+  ['higher categories & toposes', 'Higher categories & toposes'],
+  ['toposes', 'Higher categories & toposes'],
   ['analysis', 'Analysis'],
+  ['probability', 'Probability & statistics'],
+  ['probability-and-statistics', 'Probability & statistics'],
+  ['probability & statistics', 'Probability & statistics'],
+  ['statistics', 'Probability & statistics'],
   ['geometry', 'Geometry & topology'],
   ['geometry-topology', 'Geometry & topology'],
   ['geometry & topology', 'Geometry & topology'],
@@ -108,7 +125,7 @@ const SECTION_ALIASES = new Map([
 // in one of the 7 regular sections, and if the topic is also a capstone the
 // authoring agent manually migrates it to the capstones group + adds an
 // entry to concepts/capstones.json.
-const CAPSTONES_GROUP_INDEX = 8; // 0-based, immediately after the 8 SECTIONS
+const CAPSTONES_GROUP_INDEX = 10; // 0-based, immediately after the 10 SECTIONS
 
 function usage() {
   console.error('usage: node scripts/new-topic.mjs <topic-slug> <section>');

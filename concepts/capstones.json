@@ -2,14 +2,14 @@
   "capstones": [
     {
       "id": "capstone-solvability-by-radicals",
-      "section": "Algebra",
+      "section": "Algebra & homological",
       "title": "Galois solvability of polynomials",
       "goal": "solvability-by-radicals",
       "blurb": "A polynomial is solvable by radicals iff its Galois group is a solvable group — why the quintic resists closed-form roots and the cubic/quartic don't."
     },
     {
       "id": "capstone-yoneda",
-      "section": "Algebra",
+      "section": "Algebra & homological",
       "title": "Yoneda, limits, and adjunctions",
       "goal": "yoneda-limits-adjunctions",
       "blurb": "An object is what it does to every other object. Yoneda + limits + adjunctions is the categorical core that every downstream subject silently uses."
@@ -156,7 +156,7 @@
     },
     {
       "id": "capstone-infinity-topoi",
-      "section": "Algebra",
+      "section": "Higher categories & toposes",
       "title": "$\\infty$-topoi (Lurie's higher topos theory)",
       "goal": "infty-topos-definition",
       "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
