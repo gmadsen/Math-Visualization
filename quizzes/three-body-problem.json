@@ -1,20 +1,249 @@
 {
   "topic": "three-body-problem",
   "quizzes": {
-    "three-body-problem-intro": {
-      "title": "Intro",
+    "tbp-newton-equations": {
+      "title": "Newton's equations and conserved quantities",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder — page is a stub awaiting authoring.",
+          "q": "Three point masses interacting only by gravity have how many independent classical first integrals?",
           "choices": [
-            "A",
-            "B",
-            "C",
-            "D"
+            "6",
+            "8",
+            "10",
+            "12"
+          ],
+          "answer": 2,
+          "explain": "Total energy (1), total linear momentum (3), centre-of-mass position at $t=0$ (3), and total angular momentum (3) — ten classical integrals, exhausted by Bruns' theorem (1887)."
+        },
+        {
+          "type": "mcq",
+          "q": "After Galilean reduction (fixing the centre of mass and removing momentum), how many effective degrees of freedom remain in the planar three-body problem?",
+          "choices": [
+            "3",
+            "4",
+            "6",
+            "9"
+          ],
+          "answer": 1,
+          "explain": "The planar problem is $12$-dimensional in phase space; quotienting by translations (4) and rotations + energy + angular momentum reductions leaves a $4$-dimensional reduced phase space."
+        },
+        {
+          "type": "mcq",
+          "q": "Which acceleration formula governs body $i$ under Newtonian gravity from the other bodies?",
+          "choices": [
+            "$\\ddot r_i = G\\sum_{j\\ne i} m_j (r_i-r_j)/|r_i-r_j|^3$",
+            "$\\ddot r_i = G\\sum_{j\\ne i} m_j (r_j-r_i)/|r_j-r_i|^3$",
+            "$\\ddot r_i = -G\\sum_{j\\ne i} m_j (r_j-r_i)/|r_j-r_i|^2$",
+            "$\\ddot r_i = G m_i \\sum_{j\\ne i} (r_j-r_i)/|r_j-r_i|^3$"
+          ],
+          "answer": 1,
+          "explain": "Force on $i$ points from $r_i$ toward $r_j$ — i.e. along $r_j-r_i$ — and decays as $1/r^2$, so the unit vector divided by $r^2$ is $(r_j-r_i)/|r_j-r_i|^3$. Body $i$'s mass cancels."
+        }
+      ]
+    },
+    "tbp-restricted-3body": {
+      "title": "Restricted three-body & Lagrange points",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "How many Lagrange points does the planar circular restricted three-body problem have?",
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "infinitely many"
+          ],
+          "answer": 2,
+          "explain": "Three collinear ($L_1$ between the masses, $L_2$ beyond the lighter, $L_3$ behind the heavier) plus two equilateral ($L_4,L_5$) for a total of five."
+        },
+        {
+          "type": "mcq",
+          "q": "Which Lagrange points can be linearly stable, and under what condition?",
+          "choices": [
+            "$L_1,L_2,L_3$ are stable for all mass ratios",
+            "$L_4,L_5$ are stable when $m_1/m_2 > 24.96$",
+            "All five are unstable",
+            "Only $L_1$ is stable"
+          ],
+          "answer": 1,
+          "explain": "The collinear points are saddles for every mass ratio. The equilateral points $L_4,L_5$ are linearly stable when the mass ratio exceeds the Routh value $(25+3\\sqrt{69})/2 \\approx 24.96$ — well satisfied by Sun/Jupiter, hence the Trojans."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the rotating frame give a time-independent Hamiltonian for the restricted problem?",
+          "choices": [
+            "The test particle has no kinetic energy",
+            "The two primaries are stationary in that frame, so the gravitational potential is time-independent (Coriolis and centrifugal are positional)",
+            "Newton's gravity is automatically autonomous",
+            "Energy is not conserved in the inertial frame"
+          ],
+          "answer": 1,
+          "explain": "In the corotating frame the primaries sit at fixed positions; the potential they generate plus the centrifugal term depend only on $(x,y,z)$, not $t$. The Coriolis force is velocity-dependent but adds no time-dependence. The conserved Jacobi integral $C$ replaces energy."
+        }
+      ]
+    },
+    "tbp-special-solutions": {
+      "title": "Lagrange, Euler, figure-eight",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What configuration does Lagrange's 1772 explicit solution maintain?",
+          "choices": [
+            "Three masses on a rotating line",
+            "Three masses at the vertices of an equilateral triangle that rotates rigidly",
+            "Three masses on three Keplerian ellipses with a common focus",
+            "Three masses chasing each other along a figure-eight"
+          ],
+          "answer": 1,
+          "explain": "Lagrange's solution: place three masses at the vertices of an equilateral triangle and give each the right velocity to rotate rigidly about the common centre of mass. The triangle stays equilateral forever (though it can also expand/contract along a Keplerian similarity)."
+        },
+        {
+          "type": "mcq",
+          "q": "Who proved (in 2000) the existence of the figure-eight three-body orbit?",
+          "choices": [
+            "Poincaré and Birkhoff",
+            "Sundman",
+            "Chenciner and Montgomery",
+            "Arnold and Moser"
+          ],
+          "answer": 2,
+          "explain": "Chenciner and Montgomery used a variational argument minimising action over a symmetry-constrained loop space, showing the minimiser is a smooth orbit on which three equal masses chase each other along a single planar curve — the figure-eight."
+        },
+        {
+          "type": "mcq",
+          "q": "What special symmetry does the figure-eight orbit possess?",
+          "choices": [
+            "All three bodies trace the same planar curve",
+            "Only one body moves; the other two are at rest",
+            "All three bodies lie on a line at all times",
+            "The orbit is purely radial"
           ],
           "answer": 0,
-          "explain": "Stub."
+          "explain": "The defining feature: a single planar curve (with the symmetry group of the lemniscate) is traced by all three masses, who chase each other around it with equal time-spacing."
+        }
+      ]
+    },
+    "tbp-poincare-tangle": {
+      "title": "Poincaré's tangle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What did Poincaré discover, while correcting an error in his 1889 prize memoir, about stable and unstable manifolds of a hyperbolic periodic orbit?",
+          "choices": [
+            "They never intersect",
+            "They are always identical",
+            "When they intersect transversally once, they must do so infinitely often, in an extremely intricate pattern",
+            "They form smooth tori"
+          ],
+          "answer": 2,
+          "explain": "Invariance under the flow forces a single transverse intersection point to be carried by iteration into infinitely many others, and the manifolds oscillate wildly between them — the homoclinic tangle. Poincaré called the picture too complicated to draw."
+        },
+        {
+          "type": "mcq",
+          "q": "What dynamical mechanism did Smale use to formalise the chaos hidden in Poincaré's tangle?",
+          "choices": [
+            "The Poincaré–Bendixson theorem",
+            "The horseshoe map: a return map conjugate to the shift on $\\{0,1\\}^{\\mathbb{Z}}$",
+            "The KAM theorem",
+            "Lyapunov exponents"
+          ],
+          "answer": 1,
+          "explain": "Smale's horseshoe is a geometric template: a square is stretched, folded, and mapped back over itself, so that the invariant Cantor-like set carries dynamics topologically conjugate to the full shift on two symbols — infinitely many periodic orbits, sensitive dependence, and the canonical model of chaos."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the three-body problem considered the birthplace of dynamical systems theory?",
+          "choices": [
+            "It has a simple closed-form solution",
+            "Poincaré's qualitative attack on it — replacing solve-it with describe-its-orbits — invented the entire qualitative theory of differential equations",
+            "It is the only problem in classical mechanics",
+            "It admits a complete set of action-angle variables"
+          ],
+          "answer": 1,
+          "explain": "Bruns (1887) and Poincaré (1889) proved no algebraic first integrals beyond the classical ten exist. Forced to abandon explicit formulas, Poincaré invented Poincaré sections, recurrence, structural stability, and the topology of phase space — the qualitative theory."
+        }
+      ]
+    },
+    "tbp-kam": {
+      "title": "KAM theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The KAM theorem applies to small perturbations $H = H_0(I) + \\varepsilon H_1(I,\\theta)$ of which kind of system?",
+          "choices": [
+            "Dissipative",
+            "Integrable Hamiltonian (with action-angle variables)",
+            "Stochastic",
+            "Linear"
+          ],
+          "answer": 1,
+          "explain": "KAM perturbs an integrable Hamiltonian — one foliated by invariant tori indexed by action variables $I$ with linear flow on each torus — and shows most tori survive small Hamiltonian perturbations."
+        },
+        {
+          "type": "mcq",
+          "q": "Which condition on the frequency vector $\\omega$ identifies tori that survive?",
+          "choices": [
+            "$\\omega$ is rational",
+            "$\\omega = 0$",
+            "$\\omega$ is Diophantine: $|k\\cdot\\omega|\\ge \\gamma|k|^{-\\tau}$ for all nonzero $k\\in\\mathbb{Z}^n$",
+            "$\\omega$ is bounded"
+          ],
+          "answer": 2,
+          "explain": "Resonances $k\\cdot\\omega=0$ produce small denominators in the perturbation series; the Diophantine condition quantifies how badly $\\omega$ avoids them, giving the convergent Newton iteration of the KAM scheme."
+        },
+        {
+          "type": "mcq",
+          "q": "What does KAM say about long-term stability of the solar system?",
+          "choices": [
+            "Every initial condition is stable forever",
+            "Most invariant tori (positive measure tending to full measure as $\\varepsilon\\to 0$) survive small perturbations, giving measure-theoretic stability of generic orbits",
+            "All planets eventually collide",
+            "The solar system is exactly integrable"
+          ],
+          "answer": 1,
+          "explain": "KAM gives positive-measure stability, not pointwise stability — the surviving tori form a Cantor-like set of positive measure. Numerical work by Laskar shows the actual solar system is mildly chaotic on Gyr timescales, consistent with measure-theoretic but not pointwise KAM stability."
+        }
+      ]
+    },
+    "tbp-applications": {
+      "title": "Spacecraft and Trojans",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Where is the James Webb Space Telescope parked?",
+          "choices": [
+            "Geostationary orbit",
+            "A halo orbit around the Sun–Earth $L_2$ point",
+            "Lunar orbit",
+            "Sun–Earth $L_4$"
+          ],
+          "answer": 1,
+          "explain": "JWST orbits the Sun–Earth $L_2$ point (1.5 million km anti-sunward of Earth) on a halo orbit, keeping Sun, Earth, and Moon all behind its sunshield. $L_2$ is a saddle, so active station-keeping is required."
+        },
+        {
+          "type": "mcq",
+          "q": "What are Jupiter's Trojan asteroids?",
+          "choices": [
+            "Asteroids in the main belt between Mars and Jupiter",
+            "Comets in the Kuiper belt",
+            "Asteroids librating around Jupiter's $L_4$ and $L_5$ Lagrange points (60° ahead and behind)",
+            "Jupiter's moons"
+          ],
+          "answer": 2,
+          "explain": "Over $10^4$ catalogued bodies librate in the stable equilateral wells $L_4$ (Greek camp, 60° ahead) and $L_5$ (Trojan camp, 60° behind) of the Sun–Jupiter system — a direct empirical confirmation of Lagrange's 1772 equilateral solution."
+        },
+        {
+          "type": "mcq",
+          "q": "What dynamical mechanism powers a gravity assist (\"slingshot\")?",
+          "choices": [
+            "A pure rocket burn at periapsis",
+            "Conservation of energy in the inertial frame, combined with a redirection of the spacecraft's velocity in the planet's frame, transferring orbital energy from the planet to the spacecraft (or vice versa)",
+            "Dark energy",
+            "Atmospheric drag"
+          ],
+          "answer": 1,
+          "explain": "In the planet's rest frame the encounter is elastic — speed in/out are equal. Boosting back to the heliocentric frame, the rotation of the velocity vector by the planet's orbital velocity gives the spacecraft a net change in solar-frame speed. This is the restricted three-body problem at work."
         }
       ]
     }

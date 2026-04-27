@@ -42,7 +42,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#canonical-embedding\">Algebraic curves: higher genus</a> · The canonical embedding</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">Algebraic de Rham cohomology</a> · The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</div>\n    <div><a href=\"./deformation-theory.html#cotangent-complex\">Deformation theory</a> · The cotangent complex $L_{X/Y}$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#canonical-embedding\">Algebraic curves: higher genus</a> · The canonical embedding</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">Algebraic de Rham cohomology</a> · The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</div>\n    <div><a href=\"./calabi-yau-manifolds.html#definition\">Calabi–Yau manifolds</a> · Definition: Ricci-flat Kähler manifolds</div>\n    <div><a href=\"./deformation-theory.html#cotangent-complex\">Deformation theory</a> · The cotangent complex $L_{X/Y}$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -98,7 +98,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">Algebraic de Rham cohomology</a> · The Hodge filtration $F^\\bullet$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">Algebraic de Rham cohomology</a> · The Hodge filtration $F^\\bullet$</div>\n    <div><a href=\"./calabi-yau-manifolds.html#period\">Calabi–Yau manifolds</a> · Periods and Picard–Fuchs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -202,7 +202,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-numbers\">Algebraic de Rham cohomology</a> · Hodge numbers $h^{p,q}(X)$</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-numbers\">Algebraic de Rham cohomology</a> · Hodge numbers $h^{p,q}(X)$</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n    <div><a href=\"./mirror-symmetry.html#periods\">Mirror symmetry</a> · B-model: periods and Picard–Fuchs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -269,6 +269,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sheaf-cohomology.html\">$H^q(X, \\mathcal{F})$ — what each $h^{p,q}$ literally counts</a></li>\n    <li><a href=\"./algebraic-curves-higher-genus.html\">Hodge diamond for genus-$g$ curves (next section)</a></li>\n    <li><a href=\"./sheaf-cohomology.html#serre\">Picard groups and Serre duality signals</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./calabi-yau-manifolds.html#hodge\">Calabi–Yau manifolds</a> · The Hodge diamond</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./enumerative-combinatorics.html#inclusion-exclusion\">Enumerative combinatorics</a> · Inclusion–exclusion and derangements</div>\n    <div><a href=\"./enumerative-combinatorics.html#permutation-stats\">Enumerative combinatorics</a> · Permutation statistics</div>\n    <div><a href=\"./enumerative-combinatorics.html#generating-functions\">Enumerative combinatorics</a> · Recurrences and generating functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./designs.html#block-designs\">Designs</a> · Balanced incomplete block designs</div>\n    <div><a href=\"./enumerative-combinatorics.html#inclusion-exclusion\">Enumerative combinatorics</a> · Inclusion–exclusion and derangements</div>\n    <div><a href=\"./enumerative-combinatorics.html#permutation-stats\">Enumerative combinatorics</a> · Permutation statistics</div>\n    <div><a href=\"./enumerative-combinatorics.html#generating-functions\">Enumerative combinatorics</a> · Recurrences and generating functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

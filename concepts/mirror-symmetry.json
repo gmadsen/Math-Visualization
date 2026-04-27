@@ -4,11 +4,91 @@
   "page": "mirror-symmetry.html",
   "concepts": [
     {
-      "id": "mirror-symmetry-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "ms-mirror-pair-statement",
+      "title": "The mirror pair statement",
+      "anchor": "statement",
+      "prereqs": [
+        "cy-definition",
+        "cy-hodge-numbers",
+        "cy-mirror-pair"
+      ],
+      "blurb": "For a Calabi–Yau 3-fold $X$ there is conjecturally a mirror partner $Y$ — another CY 3-fold — with the Hodge numbers swapped: $h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$. Geometrically this exchanges the Kähler (symplectic) moduli of $X$ with the complex-structure moduli of $Y$. Physically it identifies the type-IIA string on $X$ with the type-IIB string on $Y$, sending the A-model on $X$ to the B-model on $Y$.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    },
+    {
+      "id": "ms-quintic-prediction",
+      "title": "The quintic prediction",
+      "anchor": "quintic",
+      "prereqs": [
+        "ms-mirror-pair-statement",
+        "ms-period-integrals"
+      ],
+      "blurb": "Candelas–de la Ossa–Green–Parkes (1991) computed periods on the mirror $Y$ of the quintic 3-fold $X \\subset \\mathbb{P}^4$ and read off, by mirror symmetry, the Gromov–Witten invariants of $X$ — predicting the count of degree-$d$ rational curves on the quintic for every $d$. The numbers (e.g. $2{,}875$ lines, $609{,}250$ conics, $317{,}206{,}375$ twisted cubics, $\\dots$) were later proven to all orders by Givental and Lian–Liu–Yau, the first hard mathematical confirmation of the conjecture.",
+      "tags": [
+        "duality",
+        "moduli"
+      ]
+    },
+    {
+      "id": "ms-gromov-witten",
+      "title": "A-model: Gromov–Witten invariants",
+      "anchor": "gw",
+      "prereqs": [
+        "sm-symplectic-form",
+        "cy-definition"
+      ],
+      "blurb": "The A-model on $(X,\\omega)$ is governed by counts of pseudo-holomorphic curves: stable maps $f\\colon \\Sigma_g \\to X$ from a genus-$g$ Riemann surface representing a class $\\beta \\in H_2(X,\\mathbb{Z})$. The genus-zero Gromov–Witten invariants $N_\\beta = \\int_{[\\overline{\\mathcal{M}}_{0,0}(X,\\beta)]^{\\mathrm{vir}}} 1$ assemble into a generating function depending only on the Kähler class $[\\omega]$ — symplectic data, not complex-structure data.",
+      "tags": [
+        "moduli",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "ms-period-integrals",
+      "title": "B-model: periods and Picard–Fuchs",
+      "anchor": "periods",
+      "prereqs": [
+        "cy-period-map",
+        "hodge-filtration"
+      ],
+      "blurb": "The B-model on $Y$ is governed by the holomorphic 3-form $\\Omega \\in H^{3,0}(Y)$. Its periods $\\Pi_\\gamma(t) = \\int_\\gamma \\Omega(t)$ over a basis $\\gamma \\in H_3(Y,\\mathbb{Z})$ satisfy a Picard–Fuchs ODE in the complex-structure parameter $t$. Solving Picard–Fuchs gives the periods as hypergeometric series; the mirror map $t \\mapsto q$ is the change of coordinates that turns these series into A-model Gromov–Witten generating functions.",
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
+    },
+    {
+      "id": "ms-homological-mirror",
+      "title": "Homological mirror symmetry (Kontsevich)",
+      "anchor": "hms",
+      "prereqs": [
+        "ms-mirror-pair-statement",
+        "examples-D-Coh",
+        "sm-lagrangian-submanifolds"
+      ],
+      "blurb": "Kontsevich's 1994 ICM proposal: mirror symmetry is an equivalence of triangulated categories $D^b\\mathrm{Coh}(X) \\cong D^\\pi\\mathrm{Fuk}(Y)$. The B-model on $X$ is the bounded derived category of coherent sheaves; the A-model on $Y$ is the (split-closed) Fukaya category, whose objects are Lagrangian submanifolds equipped with brane data and whose hom-spaces are Lagrangian intersection Floer cohomologies. Verified for elliptic curves, quartic and quintic 3-folds, toric varieties, and many more.",
+      "tags": [
+        "duality",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "ms-syz",
+      "title": "Strominger–Yau–Zaslow fibrations",
+      "anchor": "syz",
+      "prereqs": [
+        "ms-mirror-pair-statement",
+        "sm-lagrangian-submanifolds",
+        "cy-definition"
+      ],
+      "blurb": "The Strominger–Yau–Zaslow conjecture (1996) gives a geometric mechanism for mirror symmetry: a CY 3-fold $X$ admits a special-Lagrangian $T^3$-fibration $X \\to B$ over a real 3-dimensional base, and the mirror $Y \\to B$ is the dual fibration — fibrewise replace each torus $T^3_b$ by its dual $\\check T^3_b = \\mathrm{Hom}(T^3_b, U(1))$. T-duality on the fibres swaps A-model and B-model. A foundation for both HMS and the modern Gross–Siebert program.",
+      "tags": [
+        "duality",
+        "fibration"
+      ]
     }
   ]
 }

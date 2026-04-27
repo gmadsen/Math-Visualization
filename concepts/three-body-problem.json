@@ -1,14 +1,72 @@
 {
   "topic": "three-body-problem",
-  "title": "Three body problem",
+  "title": "The three-body problem",
   "page": "three-body-problem.html",
   "concepts": [
     {
-      "id": "three-body-problem-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "tbp-newton-equations",
+      "title": "Newton's equations and conserved quantities",
+      "anchor": "newton-eq",
+      "prereqs": [
+        "dyn-orbits-flows"
+      ],
+      "blurb": "For three point masses interacting by gravity, Newton's second law gives $\\ddot r_i = G\\sum_{j\\ne i} m_j (r_j-r_i)/|r_j-r_i|^3$. The $18$-dimensional phase space carries ten classical integrals — total energy $E$, momentum $P$ (3), centre-of-mass $R$ (3), and angular momentum $L$ (3) — leaving $8$ effective degrees of freedom after Jacobi reduction.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "tbp-restricted-3body",
+      "title": "Restricted three-body problem & Lagrange points",
+      "anchor": "restricted",
+      "prereqs": [
+        "tbp-newton-equations",
+        "dyn-fixed-linearization"
+      ],
+      "blurb": "When one mass is negligible, the heavy pair traces a Keplerian orbit and the test particle sees a time-independent potential in the rotating frame. The effective potential $U_{\\mathrm{eff}}=-\\tfrac12\\Omega^2(x^2+y^2)-Gm_1/r_1-Gm_2/r_2$ has five critical points $L_1$–$L_5$: three collinear saddles ($L_1,L_2,L_3$) and two equilateral maxima ($L_4,L_5$) which become Lyapunov-stable when $m_1/m_2 > (25+3\\sqrt{69})/2 \\approx 24.96$.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "tbp-special-solutions",
+      "title": "Lagrange, Euler, and the figure-eight",
+      "anchor": "special",
+      "prereqs": [
+        "tbp-newton-equations"
+      ],
+      "blurb": "The full three-body problem admits a thin family of explicit solutions. Lagrange (1772) found the equilateral configuration: three masses at the vertices of an equilateral triangle that rotates rigidly. Euler (1767) gave the collinear family with the three masses on a rotating line in fixed ratios. Centuries later Chenciner and Montgomery (2000) proved the existence of the figure-eight: three equal masses chasing each other along a single planar curve with the symmetry of the lemniscate.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "tbp-poincare-tangle",
+      "title": "Poincaré's tangle — the birth of chaos",
+      "anchor": "poincare",
+      "prereqs": [
+        "tbp-restricted-3body",
+        "dyn-poincare-section",
+        "dyn-chaos"
+      ],
+      "blurb": "Poincaré's 1889 prize memoir, in correcting an error, discovered that the stable and unstable manifolds of a hyperbolic periodic orbit can intersect transversally — and once they do, they must do so infinitely often, weaving a homoclinic tangle of unimaginable complexity. Smale later distilled this into the horseshoe map: a topological mechanism producing infinitely many periodic orbits and sensitive dependence on initial conditions. The three-body problem is where dynamical systems was born.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "tbp-kam",
+      "title": "KAM theorem and stability of the solar system",
+      "anchor": "kam",
+      "prereqs": [
+        "tbp-poincare-tangle",
+        "sm-hamiltonian-flow"
+      ],
+      "blurb": "Kolmogorov (1954), Arnold (1963), and Moser (1962) showed that for a small Hamiltonian perturbation $H = H_0(I) + \\varepsilon H_1(I,\\theta)$ of an integrable system, most invariant tori (those whose frequencies satisfy a Diophantine condition $|k\\cdot\\omega|\\ge \\gamma|k|^{-\\tau}$) survive — only the resonant ones break up into Birkhoff zones. The set of surviving tori has positive measure tending to full measure as $\\varepsilon\\to 0$, giving long-time stability of the planetary problem in a measure-theoretic sense (Arnold, Laskar).",
+      "tags": ["classification"]
+    },
+    {
+      "id": "tbp-applications",
+      "title": "Spacecraft trajectories and Trojan asteroids",
+      "anchor": "applications",
+      "prereqs": [
+        "tbp-restricted-3body",
+        "tbp-special-solutions"
+      ],
+      "blurb": "The Lagrange points are real estate: $L_2$ of the Sun–Earth system parks JWST in eternal anti-solar shade, and halo orbits around $L_1$ host SOHO. Gravity assists exploit the energy exchange in close encounters of the restricted problem to slingshot Voyager out of the solar system. Jupiter's $L_4$ and $L_5$ host the Trojan asteroids — over $10^4$ catalogued — librating in the equilateral wells. Exoplanet stability analyses use KAM-style criteria to bound the architectures that can persist for billion-year timescales.",
+      "tags": ["foundation"]
     }
   ]
 }

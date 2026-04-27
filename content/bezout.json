@@ -515,6 +515,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./calabi-yau-manifolds.html#examples\">Calabi–Yau manifolds</a> · Examples: elliptic curves, K3, the quintic</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]

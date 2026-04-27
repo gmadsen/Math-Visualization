@@ -4,11 +4,70 @@
   "page": "resolution-of-singularities.html",
   "concepts": [
     {
-      "id": "resolution-of-singularities-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "ros-singular-vs-smooth",
+      "title": "Singular vs smooth points",
+      "anchor": "singular",
+      "prereqs": [
+        "geometric-fibers",
+        "scheme-morphisms"
+      ],
+      "blurb": "A point $p$ on a variety $X = V(f_1,\\ldots,f_r) \\subset \\mathbb{A}^n$ is smooth iff the Jacobian $(\\partial f_i / \\partial x_j)(p)$ has the expected rank $n - \\dim X$. The tangent space $T_pX = \\ker J(p)$ jumps in dimension precisely at singular points. The tangent cone $C_pX$ — the lowest-degree term of $f_i$ at $p$ — refines this: at a smooth point $T_pX = C_pX$, but at a node both lines of the cone live inside the bigger tangent space.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "ros-blow-up",
+      "title": "Blowing up a subvariety",
+      "anchor": "blowup",
+      "prereqs": [
+        "ros-singular-vs-smooth",
+        "fiber-products"
+      ],
+      "blurb": "The blow-up $\\mathrm{Bl}_Z X \\to X$ replaces a closed subvariety $Z \\subset X$ by its projectivized normal directions: $\\mathrm{Bl}_p \\mathbb{A}^n = \\{(x, \\ell) : x \\in \\ell\\} \\subset \\mathbb{A}^n \\times \\mathbb{P}^{n-1}$. It is a proper birational morphism, an iso away from $Z$, and is universal: any map to $X$ along which the ideal of $Z$ becomes locally principal factors uniquely through $\\mathrm{Bl}_Z X$. Each blow-up tries to convert a singularity into a milder one — possibly smooth.",
+      "tags": ["universal-property", "functoriality"]
+    },
+    {
+      "id": "ros-resolution-statement",
+      "title": "Hironaka's theorem",
+      "anchor": "statement",
+      "prereqs": [
+        "ros-blow-up",
+        "separated-proper-morphisms"
+      ],
+      "blurb": "For any variety $X$ over a characteristic-zero field, there exists a proper birational morphism $\\pi : \\tilde X \\to X$ with $\\tilde X$ smooth and $\\pi$ an isomorphism over the smooth locus of $X$. Hironaka (1964) proved this by an inductive sequence of blow-ups along smooth centres lying inside the singular locus, with an invariant that strictly decreases. In characteristic $p$ the analogous statement is open in dimension $\\ge 4$.",
+      "tags": ["foundation", "compactness"]
+    },
+    {
+      "id": "ros-curves",
+      "title": "Curves: nodes, cusps, normalisation",
+      "anchor": "curves",
+      "prereqs": [
+        "ros-blow-up",
+        "smooth-projective-curve"
+      ],
+      "blurb": "For a curve, resolution is classical and one-step: the normalisation $\\tilde C \\to C$ replaces $C$'s coordinate ring by its integral closure in the function field, separating branches at every singular point. A node $y^2 = x^2$ blows up to two disjoint smooth points; a cusp $y^2 = x^3$ to one smooth point with a Newton–Puiseux parametrisation $t \\mapsto (t^2, t^3)$. Normalisation, blow-up at the singularity, and Puiseux series all give the same answer in dimension one.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "ros-surfaces",
+      "title": "Surfaces and ADE",
+      "anchor": "surfaces",
+      "prereqs": [
+        "ros-resolution-statement",
+        "cech-cohomology"
+      ],
+      "blurb": "For surfaces, the simplest singularities are the rational double points (Du Val, ADE): $A_n: x^2 + y^2 + z^{n+1}$, $D_n$, $E_6, E_7, E_8$. Their minimal resolutions have exceptional divisor a tree of $\\mathbb{P}^1$'s whose intersection graph is the Dynkin diagram of the same name. Brieskorn realised them as quotients $\\mathbb{C}^2 / \\Gamma$ for finite subgroups $\\Gamma \\subset \\mathrm{SL}_2(\\mathbb{C})$; the McKay correspondence matches irreducible $\\Gamma$-representations with exceptional curves.",
+      "tags": ["classification", "duality"]
+    },
+    {
+      "id": "ros-applications",
+      "title": "Applications and frontiers",
+      "anchor": "applications",
+      "prereqs": [
+        "ros-resolution-statement",
+        "ros-surfaces"
+      ],
+      "blurb": "Resolution is the entry point to the minimal model program (Mori): contract redundant exceptional curves to find a canonical birational model. Log resolutions — making both $X$ and a divisor simple normal crossing — power motivic integration (Kontsevich) and weak factorisation. Characteristic-$p$ resolution, de Jong's alterations, and resolution of foliations remain active frontiers.",
+      "tags": ["classification"]
     }
   ]
 }

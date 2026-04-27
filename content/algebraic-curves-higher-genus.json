@@ -42,7 +42,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#divisors\">Algebraic curves: higher genus</a> · Divisors on curves</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g\">Algebraic curves: higher genus</a> · Moduli of higher-genus curves $\\mathcal{M}_g$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#divisors\">Algebraic curves: higher genus</a> · Divisors on curves</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g\">Algebraic curves: higher genus</a> · Moduli of higher-genus curves $\\mathcal{M}_g$</div>\n    <div><a href=\"./resolution-of-singularities.html#curves\">Resolution of singularities</a> · Curves: nodes, cusps, normalisation</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

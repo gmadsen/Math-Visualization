@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./symplectic-manifolds.html#darboux\">Symplectic manifolds</a> · Darboux's theorem</div>\n    <div><a href=\"./symplectic-manifolds.html#hamiltonian\">Symplectic manifolds</a> · Hamiltonian vector fields and flows</div>\n    <div><a href=\"./symplectic-manifolds.html#lagrangian\">Symplectic manifolds</a> · Lagrangian submanifolds</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#phase-space\">Hamiltonians and classical mechanics</a> · Phase space and the cotangent bundle</div>\n    <div><a href=\"./mirror-symmetry.html#gw\">Mirror symmetry</a> · A-model: Gromov–Witten invariants</div>\n    <div><a href=\"./symplectic-manifolds.html#darboux\">Symplectic manifolds</a> · Darboux's theorem</div>\n    <div><a href=\"./symplectic-manifolds.html#hamiltonian\">Symplectic manifolds</a> · Hamiltonian vector fields and flows</div>\n    <div><a href=\"./symplectic-manifolds.html#lagrangian\">Symplectic manifolds</a> · Lagrangian submanifolds</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -98,7 +98,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./symplectic-manifolds.html#floer\">Symplectic manifolds</a> · Floer homology — a preview</div>\n    <div><a href=\"./symplectic-manifolds.html#poisson\">Symplectic manifolds</a> · Poisson bracket</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#hamilton-eq\">Hamiltonians and classical mechanics</a> · Hamilton's equations</div>\n    <div><a href=\"./symplectic-manifolds.html#floer\">Symplectic manifolds</a> · Floer homology — a preview</div>\n    <div><a href=\"./symplectic-manifolds.html#poisson\">Symplectic manifolds</a> · Poisson bracket</div>\n    <div><a href=\"./three-body-problem.html#kam\">The three-body problem</a> · KAM theorem and stability of the solar system</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -139,6 +139,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#canonical\">Hamiltonians and classical mechanics</a> · Canonical transformations and Hamilton–Jacobi</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#noether\">Hamiltonians and classical mechanics</a> · Symmetries and Noether's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]
@@ -166,7 +170,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./symplectic-manifolds.html#floer\">Symplectic manifolds</a> · Floer homology — a preview</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mirror-symmetry.html#hms\">Mirror symmetry</a> · Homological mirror symmetry (Kontsevich)</div>\n    <div><a href=\"./mirror-symmetry.html#syz\">Mirror symmetry</a> · Strominger–Yau–Zaslow fibrations</div>\n    <div><a href=\"./symplectic-manifolds.html#floer\">Symplectic manifolds</a> · Floer homology — a preview</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
