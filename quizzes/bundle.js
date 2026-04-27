@@ -4736,20 +4736,267 @@ window.MVQuizBank = {
   "atiyah-singer-index-theorem": {
     "topic": "atiyah-singer-index-theorem",
     "quizzes": {
-      "atiyah-singer-index-theorem-intro": {
-        "title": "Intro",
+      "atiyah-singer-statement": {
+        "title": "The index theorem",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder — page is a stub awaiting authoring.",
+            "q": "What does the analytic index $\\ind(D)$ of an elliptic operator $D$ count?",
             "choices": [
-              "A",
-              "B",
-              "C",
-              "D"
+              "$\\dim\\ker D + \\dim\\mathrm{coker}\\,D$",
+              "$\\dim\\ker D - \\dim\\mathrm{coker}\\,D$",
+              "The trace of $D$",
+              "The number of eigenvalues of $D$"
+            ],
+            "answer": 1,
+            "hint": "It is a signed count of obstructions: solutions minus obstructions to surjectivity.",
+            "explain": "$\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$. Both summands are finite when $D$ is elliptic on a closed manifold; the difference is a deformation-stable integer."
+          },
+          {
+            "type": "mcq",
+            "q": "Atiyah–Singer asserts that $\\ind(D)$ depends only on which datum?",
+            "choices": [
+              "The lower-order terms of $D$",
+              "The boundary values of solutions",
+              "The class of the principal symbol $[\\sigma(D)]\\in K^0(T^*M)$",
+              "The dimension of $M$"
+            ],
+            "answer": 2,
+            "hint": "Lower-order perturbations leave the index unchanged; only the leading symbol matters.",
+            "explain": "The index is a homotopy invariant of the symbol; it only sees the K-theory class $[\\sigma(D)]\\in K^0(T^*M)$, not the operator itself."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is invariance under deformation a non-trivial fact?",
+            "choices": [
+              "Both $\\dim\\ker D$ and $\\dim\\mathrm{coker}\\,D$ are individually constant",
+              "$\\ker D$ may jump under perturbation, but the difference $\\dim\\ker-\\dim\\mathrm{coker}$ stays put",
+              "The operator $D$ is rigid on closed manifolds",
+              "Closed manifolds admit no continuous deformation of operators"
+            ],
+            "answer": 1,
+            "hint": "Eigenvalues can cross zero; one of $\\ker, \\mathrm{coker}$ may grow while the other shrinks by the same amount.",
+            "explain": "Continuous families of Fredholm operators have constant index even when individual kernel and cokernel dimensions jump — the jumps cancel. This stability is what lets the analytic index match a topological invariant."
+          }
+        ]
+      },
+      "as-elliptic-operators": {
+        "title": "Elliptic operators and Fredholm property",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An order-$m$ operator $D=\\sum_{|\\alpha|\\le m}a_\\alpha(x)\\partial^\\alpha$ is elliptic when which condition holds?",
+            "choices": [
+              "$a_0(x)\\ne 0$ everywhere",
+              "Its principal symbol $\\sigma_m(D)(x,\\xi)=\\sum_{|\\alpha|=m}a_\\alpha(x)(i\\xi)^\\alpha$ is invertible for every $\\xi\\ne 0$",
+              "All coefficients are constant",
+              "The operator is self-adjoint"
+            ],
+            "answer": 1,
+            "hint": "Look at the leading-order homogeneous part viewed as a function on $T^*M\\setminus 0$.",
+            "explain": "Ellipticity is the invertibility of the principal symbol away from the zero section of $T^*M$. The Laplacian $-\\Delta$ has $\\sigma_2=|\\xi|^2$, vanishing only at $\\xi=0$ — hence elliptic; the heat operator $\\partial_t-\\Delta$ has $\\sigma_2=|\\xi|^2$ which vanishes when $\\xi=0$ but the time covector is nonzero, making it parabolic, not elliptic."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does ellipticity force $\\dim\\ker D<\\infty$ and $\\dim\\mathrm{coker}\\,D<\\infty$ on a closed manifold?",
+            "choices": [
+              "Sobolev embedding compactly embeds $H^s\\hookrightarrow H^{s-1}$, and a parametrix turns $D$ into a Fredholm operator",
+              "Eigenvalues of $D$ form a finite set",
+              "The closed manifold is finite-dimensional",
+              "Elliptic operators are bounded"
             ],
             "answer": 0,
-            "explain": "Stub."
+            "hint": "A parametrix $Q$ inverts $D$ modulo compact errors; Fredholmness then follows.",
+            "explain": "On a closed manifold, an elliptic operator admits a pseudodifferential parametrix with $QD=I-S$, $DQ=I-T$ where $S,T$ are smoothing (compact between any Sobolev spaces). This identifies $D$ as a Fredholm map between Sobolev spaces."
+          },
+          {
+            "type": "mcq",
+            "q": "Elliptic regularity says: if $Du=f$ with $f\\in H^k$, then …",
+            "choices": [
+              "$u\\in H^{k-m}$ for the order $m$",
+              "$u\\in H^{k+m}$, gaining $m$ derivatives over $f$",
+              "$u\\in L^2$ regardless of $f$",
+              "$u$ is bounded"
+            ],
+            "answer": 1,
+            "hint": "Solving an order-$m$ equation should let you integrate the equation $m$ times.",
+            "explain": "Elliptic regularity: $f\\in H^k\\Rightarrow u\\in H^{k+m}$. Iterating, $f$ smooth implies $u$ smooth. Combined with Fredholmness, this means $\\ker D$ consists of smooth sections, so the analytic index is finite."
+          }
+        ]
+      },
+      "as-topological-side": {
+        "title": "The topological index",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the K-theory home of the symbol class of an elliptic operator on $M$?",
+            "choices": [
+              "$K^0(M)$",
+              "$K^0(T^*M)$ (compactly supported)",
+              "$K^1(M)$",
+              "$H^*(M;\\mathbb{Z})$"
+            ],
+            "answer": 1,
+            "hint": "The symbol is a bundle map on $T^*M$, an isomorphism off the zero section.",
+            "explain": "$\\sigma(D)$ defines an iso between pulled-back bundles outside the zero section in $T^*M$, hence a compactly supported K-class $[\\sigma(D)]\\in K^0(T^*M)$. This is the entry point for the topological index."
+          },
+          {
+            "type": "mcq",
+            "q": "The topological index is given by which cohomology pairing?",
+            "choices": [
+              "$\\langle c_n(TM),[M]\\rangle$",
+              "$\\bigl\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\bigr\\rangle$",
+              "$\\int_M e(TM)$",
+              "$\\int_M\\mathrm{ch}(\\sigma(D))$"
+            ],
+            "answer": 1,
+            "hint": "The Todd class corrects for K-orientation when integrating over $T^*M$.",
+            "explain": "Atiyah–Singer's index formula: $\\ind_{\\mathrm{top}}(D)=\\int_{T^*M}\\mathrm{ch}([\\sigma(D)])\\cdot\\mathrm{Td}(TM_\\mathbb{C})$. The Todd class is the K-theoretic Thom-class correction translating into ordinary cohomology."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Todd class $\\mathrm{Td}$ appear in the formula?",
+            "choices": [
+              "It enforces the K-theory Thom isomorphism on $T^*M$ when translated to ordinary cohomology",
+              "It cancels the Pontryagin class of $TM$",
+              "It is the Chern character of the trivial bundle",
+              "It controls torsion only"
+            ],
+            "answer": 0,
+            "hint": "Both $\\mathrm{ch}$ and the Thom isomorphism need to be reconciled with each other.",
+            "explain": "The Riemann–Roch defect: the K-theory pushforward and the ordinary-cohomology pushforward disagree by $\\mathrm{Td}(TM_\\mathbb{C})$. Matching them is exactly the Riemann–Roch theorem; Atiyah–Singer is its index-theoretic incarnation."
+          }
+        ]
+      },
+      "as-special-cases": {
+        "title": "Classical specialisations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Applied to the operator $D=d+d^*\\colon\\Omega^{\\mathrm{even}}\\to\\Omega^{\\mathrm{odd}}$ on a closed oriented manifold, the index theorem recovers …",
+            "choices": [
+              "Hirzebruch–Riemann–Roch",
+              "Gauss–Bonnet–Chern: $\\chi(M)=\\int_M e(TM)$",
+              "The Hopf invariant",
+              "The Lefschetz fixed-point formula"
+            ],
+            "answer": 1,
+            "hint": "$\\ker(d+d^*)$ on even forms is even-dimensional harmonic cohomology by Hodge theory.",
+            "explain": "$\\ind(d+d^*)=\\sum_k(-1)^k\\dim H^k(M)=\\chi(M)$. The right-hand topological invariant integrates the Pfaffian/Euler form, recovering Gauss–Bonnet–Chern."
+          },
+          {
+            "type": "mcq",
+            "q": "On a holomorphic vector bundle $E\\to X$ over a closed complex manifold, $\\ind(\\bar\\partial_E)$ equals …",
+            "choices": [
+              "$\\chi(X,E)=\\sum(-1)^k\\dim H^k(X,E)$",
+              "$\\dim H^0(X,E)$",
+              "$\\dim X$",
+              "$\\deg(E)$"
+            ],
+            "answer": 0,
+            "hint": "Dolbeault cohomology gives the kernels and cokernels of $\\bar\\partial$ on $(0,k)$-forms with values in $E$.",
+            "explain": "$\\ind(\\bar\\partial_E)=\\sum_k(-1)^k\\dim H^k(X,E)$, the holomorphic Euler characteristic. Atiyah–Singer specialises to $\\chi(X,E)=\\int_X\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TX)$, which is Hirzebruch–Riemann–Roch."
+          },
+          {
+            "type": "mcq",
+            "q": "The signature theorem identifies $\\sigma(M)$ with which integral?",
+            "choices": [
+              "$\\int_M\\mathrm{ch}(TM)$",
+              "$\\int_M L(TM)$ for the Hirzebruch $L$-genus",
+              "$\\int_M e(TM)^2$",
+              "$\\int_M\\hat A(TM)$"
+            ],
+            "answer": 1,
+            "hint": "$L=\\prod x_i/\\tanh(x_i)$ in formal Pontryagin roots.",
+            "explain": "For the signature operator $D_+\\colon\\Omega^+\\to\\Omega^-$ on a $4k$-manifold, the index equals the signature: $\\sigma(M)=\\int_M L(TM)$. In dimension $4$, $\\sigma=\\tfrac{1}{3}\\langle p_1,[M]\\rangle$."
+          }
+        ]
+      },
+      "as-dirac-operators": {
+        "title": "Dirac operators and the $\\hat A$-genus",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a $2n$-dimensional spin manifold, the index of the Dirac operator $D\\colon\\Gamma(S^+)\\to\\Gamma(S^-)$ equals …",
+            "choices": [
+              "$\\int_M e(TM)$",
+              "$\\int_M\\hat A(TM)$",
+              "$\\int_M L(TM)$",
+              "$\\chi(M)/2$"
+            ],
+            "answer": 1,
+            "hint": "The $\\hat A$-genus has formal expansion $\\prod (x_i/2)/\\sinh(x_i/2)$.",
+            "explain": "Atiyah–Singer for the Dirac operator: $\\ind(D)=\\int_M\\hat A(TM)$. On a closed spin $4$-manifold, $\\hat A=-p_1/24$, so $\\ind(D)=-\\langle p_1,[M]\\rangle/24$, which equals $-\\sigma(M)/8$ via the signature theorem."
+          },
+          {
+            "type": "mcq",
+            "q": "Lichnerowicz's vanishing theorem says that on a closed spin manifold of positive scalar curvature, …",
+            "choices": [
+              "$\\hat A(M)$ is bounded",
+              "$\\hat A(M)=0$",
+              "$\\chi(M)=0$",
+              "$M$ is parallelizable"
+            ],
+            "answer": 1,
+            "hint": "The Bochner–Weitzenböck formula for $D^2$ has a positive curvature term forcing $\\ker D=0$.",
+            "explain": "Lichnerowicz: $D^2=\\nabla^*\\nabla+\\tfrac{R}{4}$ where $R$ is the scalar curvature. If $R>0$ everywhere, $\\ker D=0$, so $\\ind(D)=-\\dim\\mathrm{coker}\\,D\\le 0$ and dually $\\ge 0$, hence $0$. This obstructs many spin manifolds (e.g. $K3$) from carrying positive-scalar-curvature metrics."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the integrality of $\\hat A(M)$ a non-trivial output on a spin manifold?",
+            "choices": [
+              "$\\hat A$ is rational a priori; integrality on spin manifolds comes from $\\ind(D)\\in\\mathbb{Z}$",
+              "$\\hat A$ is always integer-valued for any oriented manifold",
+              "$\\hat A$ vanishes on simply-connected manifolds",
+              "$\\hat A$ equals the Euler class"
+            ],
+            "answer": 0,
+            "hint": "Without spin, $\\hat A$ would only land in $\\mathbb{Q}$, but $\\ind(D)$ is an integer.",
+            "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — historically how Rokhlin's $\\sigma\\equiv 0\\pmod{16}$ for spin $4$-manifolds was reproved."
+          }
+        ]
+      },
+      "as-applications": {
+        "title": "Heat kernel, families, equivariant, anomalies",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The McKean–Singer formula expresses $\\ind(D)$ as which trace?",
+            "choices": [
+              "$\\tr(e^{-tD^*D})-\\tr(e^{-tDD^*})$, independent of $t>0$",
+              "$\\tr(D)$",
+              "$\\det(D)$",
+              "$\\lim_{t\\to\\infty}\\tr(e^{-tD})$"
+            ],
+            "answer": 0,
+            "hint": "Pair off non-zero eigenvalues of $D^*D$ and $DD^*$; only the kernels survive.",
+            "explain": "The supertrace of $e^{-tD^2}$ is independent of $t$. As $t\\to\\infty$ it picks out only $\\ker D$ and $\\ker D^*=\\mathrm{coker}\\,D$; as $t\\to 0$ the heat-kernel asymptotic produces a local index density. Equating the two limits is the heat-kernel proof."
+          },
+          {
+            "type": "mcq",
+            "q": "In the families index theorem, the index of a family $\\{D_b\\}_{b\\in B}$ of elliptic operators lives in which group?",
+            "choices": [
+              "$\\mathbb{Z}$",
+              "$K^0(B)$",
+              "$H^0(B;\\mathbb{Z})$",
+              "$\\mathrm{Diff}(B)$"
+            ],
+            "answer": 1,
+            "hint": "Generalise an integer to a virtual bundle on the parameter space.",
+            "explain": "The kernels and cokernels assemble into a virtual bundle $[\\ker D]-[\\mathrm{coker}\\,D]\\in K^0(B)$. The families version of Atiyah–Singer computes this via a fibre-integration of $\\mathrm{ch}\\cdot\\mathrm{Td}$."
+          },
+          {
+            "type": "mcq",
+            "q": "In gauge theory, the index of the chiral Dirac operator coupled to a connection $A$ on a $4$-manifold corresponds physically to …",
+            "choices": [
+              "The instanton number / second Chern number of the gauge field",
+              "The string tension",
+              "The mass of the lightest fermion",
+              "The Euler characteristic of spacetime"
+            ],
+            "answer": 0,
+            "hint": "$\\int\\mathrm{tr}(F\\wedge F)$ on the gauge bundle.",
+            "explain": "$\\ind(D_A)=\\int_M\\hat A(TM)\\cdot\\mathrm{ch}(E_A)$ — for a $\\mathrm{SU}(N)$ bundle in dim $4$ the leading piece is $\\int_M c_2(E_A)$, the instanton number. The chiral anomaly in physics is exactly this index."
           }
         ]
       }
@@ -17607,20 +17854,249 @@ window.MVQuizBank = {
   "geometric-and-combinatorial-group-theory": {
     "topic": "geometric-and-combinatorial-group-theory",
     "quizzes": {
-      "geometric-and-combinatorial-group-theory-intro": {
-        "title": "Intro",
+      "gcgt-presentations": {
+        "title": "Presentations and the word problem",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder — page is a stub awaiting authoring.",
+            "q": "What does the presentation $G = \\langle S \\mid R \\rangle$ formally denote?",
             "choices": [
-              "A",
-              "B",
-              "C",
-              "D"
+              "The free group on $S$ with extra generators $R$",
+              "The quotient $F(S) / \\langle\\!\\langle R \\rangle\\!\\rangle$ of the free group on $S$ by the normal closure of $R$",
+              "The direct product of cyclic groups generated by $S$, modulo the relations $R$",
+              "The Cayley graph with vertex set $S$ and edge set $R$"
+            ],
+            "answer": 1,
+            "explain": "A presentation realizes $G$ as $F(S) / N$, where $N$ is the smallest normal subgroup of $F(S)$ containing $R$ — this guarantees every word in $R$ becomes trivial in $G$ along with all conjugates."
+          },
+          {
+            "type": "mcq",
+            "q": "Which group is $\\langle a, b \\mid aba^{-1}b^{-1} \\rangle$?",
+            "choices": [
+              "The free group on two generators $F_2$",
+              "The cyclic group $\\mathbb{Z}$",
+              "The free abelian group $\\mathbb{Z}^2$",
+              "The dihedral group $D_\\infty$"
+            ],
+            "answer": 2,
+            "explain": "The relator $aba^{-1}b^{-1} = e$ says $ab = ba$, so adding commutativity to the free group on $\\{a,b\\}$ yields $\\mathbb{Z}^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the word problem for a finitely-presented group?",
+            "choices": [
+              "Decide whether two words in the generators give the same element",
+              "Compute the order of every element",
+              "Find a minimal generating set",
+              "Construct an explicit Cayley graph drawing"
             ],
             "answer": 0,
-            "explain": "Stub."
+            "explain": "Equivalently, decide whether a given word equals the identity. Novikov (1955) and Boone (1958) showed this is undecidable in general, but solvable for many large classes (hyperbolic, automatic, residually finite F.P.)."
+          }
+        ]
+      },
+      "gcgt-cayley-graph": {
+        "title": "Cayley graphs and the word metric",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In $\\mathrm{Cay}(G, S)$, what is the degree of every vertex when $S$ is symmetric (i.e. $s \\in S \\Rightarrow s^{-1} \\in S$) and contains no involutions?",
+            "choices": [
+              "$|G|$",
+              "$|S|$",
+              "$|S|/2$",
+              "$\\log_2 |G|$"
+            ],
+            "answer": 1,
+            "explain": "Each $s \\in S$ contributes one outgoing edge $g \\to gs$ at every vertex. With $S$ symmetric and involution-free, edges come in $\\{s, s^{-1}\\}$ pairs, so each vertex has exactly $|S|$ neighbors."
+          },
+          {
+            "type": "mcq",
+            "q": "Which action of $G$ on $\\mathrm{Cay}(G, S)$ is by graph automorphisms?",
+            "choices": [
+              "Right multiplication: $g \\cdot h = hg$",
+              "Left multiplication: $g \\cdot h = gh$",
+              "Conjugation: $g \\cdot h = ghg^{-1}$",
+              "Inversion: $g \\cdot h = h^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "Left multiplication preserves edges: if $h \\to hs$ is an edge, then $gh \\to ghs = (gh)s$ is also an edge. Right multiplication moves along the edge labelled $s$, so it is not an automorphism (it permutes labels)."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the word metric $d_S(g, h)$ measure?",
+            "choices": [
+              "The number of generators in $S$",
+              "The number of subgroups separating $g$ and $h$",
+              "The length of the shortest word in $S^{\\pm 1}$ representing $g^{-1}h$",
+              "The Euclidean distance between $g$ and $h$ in some embedding"
+            ],
+            "answer": 2,
+            "explain": "$d_S(g, h)$ is the graph distance in $\\mathrm{Cay}(G, S)$ — equivalently, the smallest $n$ such that $g^{-1}h = s_1 s_2 \\cdots s_n$ with each $s_i \\in S \\cup S^{-1}$."
+          }
+        ]
+      },
+      "gcgt-quasi-isometry": {
+        "title": "Quasi-isometry and large-scale geometry",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is a quasi-isometry between $\\mathbb{R}$ and $\\mathbb{Z}$?",
+            "choices": [
+              "The constant map $x \\mapsto 0$",
+              "The exponential $x \\mapsto 2^x$",
+              "The floor function $x \\mapsto \\lfloor x \\rfloor$",
+              "Only the identity restricted to $\\mathbb{Z}$"
+            ],
+            "answer": 2,
+            "explain": "$\\lfloor \\cdot \\rfloor$ is a $(1,1)$-quasi-isometry: $|\\lfloor x \\rfloor - \\lfloor y \\rfloor| \\le |x-y| + 1$ and image is $1$-dense. Constants collapse distance; exponentials blow it up."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Schwarz–Milnor lemma, two finite generating sets $S, S'$ of the same group $G$ produce Cayley graphs that are:",
+            "choices": [
+              "Isomorphic as graphs",
+              "Quasi-isometric, but generally not isomorphic",
+              "Homeomorphic when realized geometrically",
+              "Always equal as edge-labelled graphs"
+            ],
+            "answer": 1,
+            "explain": "Each generator of $S'$ has finite length in $S$, giving a bilipschitz comparison of word metrics — hence a quasi-isometry. The graphs are usually not isomorphic: $\\mathbb{Z}$ with $S=\\{1\\}$ is a line, with $S=\\{2,3\\}$ it has different local structure."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property is NOT a quasi-isometry invariant of finitely-generated groups?",
+            "choices": [
+              "Growth type (polynomial vs. exponential)",
+              "Number of ends",
+              "Gromov hyperbolicity",
+              "The order of a specific element"
+            ],
+            "answer": 3,
+            "explain": "Element order is local arithmetic — invisible to large-scale geometry. Growth, ends, and hyperbolicity are all coarse invariants."
+          }
+        ]
+      },
+      "gcgt-growth": {
+        "title": "Growth functions and Gromov's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the growth type of $\\mathbb{Z}^d$ with the standard generating set?",
+            "choices": [
+              "Polynomial of degree $d$",
+              "Polynomial of degree $1$",
+              "Exponential",
+              "Intermediate"
+            ],
+            "answer": 0,
+            "explain": "The ball of radius $n$ in $\\mathbb{Z}^d$ is a discrete diamond (the $\\ell^1$-ball) of volume $\\Theta(n^d)$ — polynomial growth of degree exactly $d$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the growth type of the free group $F_2$?",
+            "choices": [
+              "Polynomial of degree $2$",
+              "Exponential",
+              "Linear",
+              "Intermediate (subexponential, superpolynomial)"
+            ],
+            "answer": 1,
+            "explain": "The Cayley graph of $F_2 = \\langle a, b \\rangle$ is the $4$-regular tree, whose ball of radius $n$ has $1 + 4(3^n - 1)/2$ vertices — exponential growth with rate $3$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Gromov's polynomial-growth theorem say?",
+            "choices": [
+              "Every f.g. group has polynomial growth",
+              "A f.g. group has polynomial growth iff it is virtually nilpotent",
+              "Polynomial growth is equivalent to being abelian",
+              "Polynomial growth implies finite"
+            ],
+            "answer": 1,
+            "explain": "Gromov (1981): polynomial growth $\\Leftrightarrow$ a finite-index nilpotent subgroup exists. The hard direction uses an asymptotic-cone limit argument and Montgomery–Zippin's solution to Hilbert's fifth problem."
+          }
+        ]
+      },
+      "gcgt-hyperbolic-groups": {
+        "title": "Gromov-hyperbolic groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A geodesic triangle in a $\\delta$-hyperbolic space is $\\delta$-thin in the sense that:",
+            "choices": [
+              "Each side has length at most $\\delta$",
+              "Each side lies in the $\\delta$-neighborhood of the union of the other two",
+              "The triangle has area at most $\\delta$",
+              "Some pair of sides is parallel up to $\\delta$"
+            ],
+            "answer": 1,
+            "explain": "Thin-triangles capture negative curvature combinatorially: in $\\mathbb{H}^2$ all triangles satisfy this with a uniform $\\delta$, while in $\\mathbb{R}^2$ no finite $\\delta$ works."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is hyperbolic?",
+            "choices": [
+              "$\\mathbb{Z}^2$ with the standard generators",
+              "The free group $F_n$ for any $n \\ge 2$",
+              "The Heisenberg group",
+              "$\\mathbb{Z}^d$ for $d \\ge 2$"
+            ],
+            "answer": 1,
+            "explain": "Trees are $0$-hyperbolic, and the Cayley graph of $F_n$ is a $2n$-regular tree. Abelian groups of rank $\\ge 2$ contain flat planes and are not hyperbolic."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the word problem solvable in linear time for a hyperbolic group?",
+            "choices": [
+              "Because every relator is short",
+              "Because every word equal to the identity admits a Dehn presentation: it contains more than half of some relator, allowing greedy shortening",
+              "Because hyperbolic groups are abelian",
+              "Because every element has finite order"
+            ],
+            "answer": 1,
+            "explain": "Dehn's algorithm — repeatedly replacing more-than-half of a relator with the shorter complement — terminates linearly in word length on a hyperbolic group, decisively solving the word problem."
+          }
+        ]
+      },
+      "gcgt-applications": {
+        "title": "Applications and frontiers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mostow's rigidity theorem says that for closed hyperbolic manifolds of dimension $\\ge 3$:",
+            "choices": [
+              "They are all diffeomorphic",
+              "Isomorphism of fundamental groups implies isometry (up to scale)",
+              "They have trivial fundamental group",
+              "Their volumes are arbitrary"
+            ],
+            "answer": 1,
+            "explain": "A homotopy equivalence between two closed hyperbolic $n$-manifolds ($n \\ge 3$) is homotopic to an isometry. So $\\pi_1$ determines the metric — a striking failure of flexibility in higher rank."
+          },
+          {
+            "type": "mcq",
+            "q": "Cayley graphs of which family give an explicit construction of expander graphs?",
+            "choices": [
+              "$\\mathbb{Z}/n\\mathbb{Z}$ with $S = \\{1\\}$",
+              "$\\mathrm{SL}_2(\\mathbb{F}_p)$ with a fixed finite generating set (varying $p$)",
+              "$F_2$ with $S = \\{a, b\\}$",
+              "Any sequence of finite cyclic groups"
+            ],
+            "answer": 1,
+            "explain": "Margulis (1973) showed Cayley graphs of $\\mathrm{SL}_2(\\mathbb{F}_p)$ with a fixed generating set form an expander family — a key application of property (T) and a foundation of pseudorandom-graph constructions."
+          },
+          {
+            "type": "mcq",
+            "q": "Which decision problem for finitely-presented groups is undecidable in full generality?",
+            "choices": [
+              "The word problem only",
+              "The conjugacy problem only",
+              "The isomorphism problem only",
+              "All three: word, conjugacy, and isomorphism problems"
+            ],
+            "answer": 3,
+            "explain": "Novikov–Boone (word), Miller (conjugacy), and Adian–Rabin (isomorphism) all proved undecidability for general f.p. groups. Each becomes tractable on restricted classes — hyperbolic groups, for instance, decide all three."
           }
         ]
       }

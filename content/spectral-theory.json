@@ -94,7 +94,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./schrodinger-equation.html#stationary\">Schrödinger equation</a> · Stationary states and the eigenvalue problem</div>\n    <div><a href=\"./spectral-theory.html#unbounded\">Spectral theory</a> · Unbounded self-adjoint operators</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#elliptic\">The Atiyah–Singer index theorem</a> · Elliptic operators and Fredholm property</div>\n    <div><a href=\"./schrodinger-equation.html#stationary\">Schrödinger equation</a> · Stationary states and the eigenvalue problem</div>\n    <div><a href=\"./spectral-theory.html#unbounded\">Spectral theory</a> · Unbounded self-adjoint operators</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

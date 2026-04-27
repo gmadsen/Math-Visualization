@@ -21,7 +21,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./additive-number-theory.html#faulhaber\">Additive number theory</a> · Faulhaber's formula for power sums</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div class=\"more\">… and 12 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./additive-number-theory.html#faulhaber\">Additive number theory</a> · Faulhaber's formula for power sums</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div class=\"more\">… and 13 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -369,7 +369,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#ideals\">Abstract algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./galois.html#normal-separable\">Galois theory</a> · Normal and separable extensions</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./lie-algebras.html#solvable-nilpotent\">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#ideals\">Abstract algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./galois.html#normal-separable\">Galois theory</a> · Normal and separable extensions</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./geometric-and-combinatorial-group-theory.html#presentations\">Geometric and combinatorial group theory</a> · Presentations and the word problem</div>\n    <div><a href=\"./lie-algebras.html#solvable-nilpotent\">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -503,7 +503,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#orbits\">Abstract algebra</a> · Group actions, orbits, and Burnside</div>\n    <div><a href=\"./algebra.html#quotients-iso\">Abstract algebra</a> · Quotient groups and isomorphism theorems</div>\n    <div><a href=\"./algebra.html#sylow\">Abstract algebra</a> · Sylow theorems</div>\n    <div><a href=\"./galois.html#solvable\">Galois theory</a> · Solvable groups</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#orbits\">Abstract algebra</a> · Group actions, orbits, and Burnside</div>\n    <div><a href=\"./algebra.html#quotients-iso\">Abstract algebra</a> · Quotient groups and isomorphism theorems</div>\n    <div><a href=\"./algebra.html#sylow\">Abstract algebra</a> · Sylow theorems</div>\n    <div><a href=\"./galois.html#solvable\">Galois theory</a> · Solvable groups</div>\n    <div><a href=\"./geometric-and-combinatorial-group-theory.html#cayley\">Geometric and combinatorial group theory</a> · Cayley graphs and the word metric</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

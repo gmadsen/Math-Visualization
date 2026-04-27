@@ -94,7 +94,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./characteristic-classes.html#pontryagin\">Characteristic classes</a> · Pontryagin classes</div>\n    <div><a href=\"./intersection-theory-chow.html#chern-classes\">Intersection theory and Chow groups</a> · Chern classes</div>\n    <div><a href=\"./k-theory.html#chern-character\">K-theory</a> · Chern character</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#topological\">The Atiyah–Singer index theorem</a> · The topological index via $\\mathrm{ch}\\cdot\\mathrm{Td}$</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./characteristic-classes.html#pontryagin\">Characteristic classes</a> · Pontryagin classes</div>\n    <div><a href=\"./intersection-theory-chow.html#chern-classes\">Intersection theory and Chow groups</a> · Chern classes</div>\n    <div><a href=\"./k-theory.html#chern-character\">K-theory</a> · Chern character</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -131,6 +131,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#dirac\">The Atiyah–Singer index theorem</a> · Dirac operators and the $\\hat A$-genus</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#topological\">The Atiyah–Singer index theorem</a> · The topological index via $\\mathrm{ch}\\cdot\\mathrm{Td}$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]
@@ -155,6 +159,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#chi\">Euler characteristic and cohomology</a></li>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#cases\">The Atiyah–Singer index theorem</a> · Classical specialisations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -187,6 +195,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./differential-forms.html#deRham\">Stokes theorem and de Rham cohomology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#statement\">The Atiyah–Singer index theorem</a> · The index theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

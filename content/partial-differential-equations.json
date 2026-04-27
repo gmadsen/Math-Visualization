@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#heat\">Partial differential equations</a> · Heat equation and the heat kernel</div>\n    <div><a href=\"./partial-differential-equations.html#laplace\">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>\n    <div><a href=\"./partial-differential-equations.html#wave\">Partial differential equations</a> · Wave equation and d'Alembert</div>\n    <div><a href=\"./ricci-flow.html#equation\">Ricci flow</a> · The Ricci flow equation</div>\n    <div><a href=\"./schrodinger-equation.html#time-dep\">Schrödinger equation</a> · Time-dependent Schrödinger equation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#elliptic\">The Atiyah–Singer index theorem</a> · Elliptic operators and Fredholm property</div>\n    <div><a href=\"./partial-differential-equations.html#heat\">Partial differential equations</a> · Heat equation and the heat kernel</div>\n    <div><a href=\"./partial-differential-equations.html#laplace\">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>\n    <div><a href=\"./partial-differential-equations.html#wave\">Partial differential equations</a> · Wave equation and d'Alembert</div>\n    <div><a href=\"./ricci-flow.html#equation\">Ricci flow</a> · The Ricci flow equation</div>\n    <div><a href=\"./schrodinger-equation.html#time-dep\">Schrödinger equation</a> · Time-dependent Schrödinger equation</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -272,6 +272,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#riesz\">Riesz representation theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./atiyah-singer-index-theorem.html#elliptic\">The Atiyah–Singer index theorem</a> · Elliptic operators and Fredholm property</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

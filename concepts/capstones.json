@@ -165,7 +165,7 @@
       "id": "capstone-atiyah-singer",
       "section": "Geometry & topology",
       "title": "The Atiyah–Singer index theorem",
-      "goal": "atiyah-singer-index-theorem-intro",
+      "goal": "atiyah-singer-statement",
       "blurb": "Index of an elliptic operator equals a topological invariant — the cohomological / K-theoretic capstone unifying analysis, topology, and geometry."
     }
   ]

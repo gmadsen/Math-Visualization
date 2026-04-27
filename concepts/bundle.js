@@ -529,11 +529,86 @@ window.__MVConcepts = {
       "page": "geometric-and-combinatorial-group-theory.html",
       "concepts": [
         {
-          "id": "geometric-and-combinatorial-group-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "gcgt-presentations",
+          "title": "Presentations and the word problem",
+          "anchor": "presentations",
+          "prereqs": [
+            "algebraic-structures",
+            "quotients-homomorphisms"
+          ],
+          "blurb": "A presentation $G = \\langle S \\mid R \\rangle$ realizes $G$ as the quotient of the free group $F(S)$ by the normal closure of the relators $R$. Finitely-generated means $|S| < \\infty$, finitely-presented adds $|R| < \\infty$. Tietze transformations adjust generators and relators without changing $G$, and the word problem — decide whether a word in $S^{\\pm 1}$ equals the identity — is undecidable in general (Novikov–Boone) but linear-time for hyperbolic groups.",
+          "tags": [
+            "foundation",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "gcgt-cayley-graph",
+          "title": "Cayley graphs and the word metric",
+          "anchor": "cayley",
+          "prereqs": [
+            "gcgt-presentations",
+            "subgroups-cosets-lagrange"
+          ],
+          "blurb": "Given $(G, S)$ with $S$ a symmetric generating set, the Cayley graph $\\mathrm{Cay}(G, S)$ has vertex set $G$ and edges $\\{(g, gs) : s \\in S\\}$. Left multiplication by $G$ acts by graph automorphisms — the graph is vertex-transitive — and the right action of $S$ moves along edges. The word metric $d_S(g, h) = $ length of the shortest word representing $g^{-1}h$ makes $G$ a metric space, well-defined up to bilipschitz when $S$ is changed.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "gcgt-quasi-isometry",
+          "title": "Quasi-isometry and large-scale geometry",
+          "anchor": "quasi-iso",
+          "prereqs": [
+            "gcgt-cayley-graph",
+            "metric-spaces"
+          ],
+          "blurb": "A map $f: X \\to Y$ between metric spaces is a $(K, C)$-quasi-isometry when $\\tfrac{1}{K}d_X(x,x') - C \\le d_Y(f(x), f(x')) \\le K\\, d_X(x,x') + C$ and $f(X)$ is $C$-dense in $Y$. The Schwarz–Milnor lemma says any two finite generating sets of $G$ produce quasi-isometric Cayley graphs, so quasi-isometric invariants — growth, ends, hyperbolicity — are intrinsic to $G$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gcgt-growth",
+          "title": "Growth functions and Gromov's theorem",
+          "anchor": "growth",
+          "prereqs": [
+            "gcgt-cayley-graph"
+          ],
+          "blurb": "The growth function $\\beta_S(n) = \\#\\{g \\in G : d_S(e, g) \\le n\\}$ counts ball volumes in the Cayley graph. Up to quasi-isometry, $\\beta$ falls into polynomial, intermediate (Grigorchuk), or exponential growth. Gromov's theorem (1981): a finitely-generated group has polynomial growth iff it is virtually nilpotent — a deep bridge between coarse geometry and group structure.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "gcgt-hyperbolic-groups",
+          "title": "Gromov-hyperbolic groups",
+          "anchor": "hyperbolic",
+          "prereqs": [
+            "gcgt-quasi-isometry",
+            "fundamental-group"
+          ],
+          "blurb": "$G$ is $\\delta$-hyperbolic when every geodesic triangle in $\\mathrm{Cay}(G,S)$ is $\\delta$-thin: each side lies in the $\\delta$-neighborhood of the union of the other two. Equivalent to negative curvature in the large. Consequences: word and conjugacy problems solvable in linear time, finitely many conjugacy classes of torsion, a well-defined boundary $\\partial G$ at infinity, and quasi-isometric rigidity in many cases.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "gcgt-applications",
+          "title": "Applications and frontiers",
+          "anchor": "applications",
+          "prereqs": [
+            "gcgt-hyperbolic-groups",
+            "gcgt-growth",
+            "adjacency-and-laplacian"
+          ],
+          "blurb": "Decision problems (word/conjugacy/isomorphism), Mostow rigidity for lattices in rank-one Lie groups, CAT(0) cube complexes and Agol's resolution of the virtual Haken conjecture, mapping class groups of surfaces, and expanders built from Cayley graphs of $\\mathrm{SL}_2(\\mathbb{F}_p)$ — geometric group theory now sits at the crossroads of topology, combinatorics, and theoretical computer science.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
         }
       ]
     },
@@ -1146,15 +1221,103 @@ window.__MVConcepts = {
     },
     "atiyah-singer-index-theorem": {
       "topic": "atiyah-singer-index-theorem",
-      "title": "Atiyah singer index theorem",
+      "title": "The Atiyah–Singer index theorem",
       "page": "atiyah-singer-index-theorem.html",
       "concepts": [
         {
-          "id": "atiyah-singer-index-theorem-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "atiyah-singer-statement",
+          "title": "The index theorem",
+          "anchor": "statement",
+          "prereqs": [
+            "k-applications",
+            "k-chern-character",
+            "cc-chern-weil"
+          ],
+          "blurb": "For an elliptic differential operator $D\\colon\\Gamma(E)\\to\\Gamma(F)$ on a closed manifold $M$, the analytic index $\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$ is finite and equals a topological invariant determined by the symbol class $[\\sigma(D)]\\in K^0(T^*M)$ alone. The theorem unifies Hirzebruch–Riemann–Roch, Gauss–Bonnet–Chern, and the signature theorem as instances of one cohomological pairing.",
+          "tags": [
+            "duality",
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "as-elliptic-operators",
+          "title": "Elliptic operators and Fredholm property",
+          "anchor": "elliptic",
+          "prereqs": [
+            "pde-classification",
+            "pde-existence-and-regularity",
+            "st-spectral-theorem-bounded"
+          ],
+          "blurb": "A linear differential operator $D=\\sum_{|\\alpha|\\le m}a_\\alpha(x)\\partial^\\alpha$ has principal symbol $\\sigma_m(D)(x,\\xi)=\\sum_{|\\alpha|=m}a_\\alpha(x)(i\\xi)^\\alpha$, a bundle map $\\pi^*E\\to\\pi^*F$ on $T^*M$; ellipticity demands $\\sigma_m(D)(x,\\xi)$ invertible for $\\xi\\ne 0$. On a closed manifold, ellipticity plus elliptic regularity give a Fredholm extension between Sobolev spaces $H^s\\to H^{s-m}$ with finite-dimensional kernel and cokernel.",
+          "tags": [
+            "compactness",
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "as-topological-side",
+          "title": "The topological index via $\\mathrm{ch}\\cdot\\mathrm{Td}$",
+          "anchor": "topological",
+          "prereqs": [
+            "k-vector-bundles",
+            "k-grothendieck-group",
+            "k-bott-periodicity",
+            "cc-chern-classes",
+            "cc-pontryagin"
+          ],
+          "blurb": "The symbol of an elliptic operator defines a compactly supported K-class $[\\sigma(D)]\\in K^0(T^*M)$. The topological index is $\\ind_{\\mathrm{top}}(D)=\\bigl\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),\\,[T^*M]\\bigr\\rangle$, where the Todd class $\\mathrm{Td}=\\prod x_i/(1-e^{-x_i})$ corrects for the non-triviality of $T^*M$ as a K-orientation. Atiyah–Singer asserts $\\ind(D)=\\ind_{\\mathrm{top}}(D)$.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "as-special-cases",
+          "title": "Classical specialisations",
+          "anchor": "cases",
+          "prereqs": [
+            "atiyah-singer-statement",
+            "cc-euler-class"
+          ],
+          "blurb": "Three flagship special cases: Gauss–Bonnet–Chern picks $D=d+d^*$ on even-vs-odd forms, computes $\\ind(D)=\\chi(M)=\\int_M e(TM)$; Hirzebruch signature picks $D$ on self-dual vs anti-self-dual forms, gives $\\sigma(M)=\\int_M L(TM)$ via the Hirzebruch $L$-genus; Hirzebruch–Riemann–Roch picks $D=\\bar\\partial$ on a holomorphic bundle $E\\to X$ over a complex manifold, yielding $\\chi(X,E)=\\int_X\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TX)$.",
+          "tags": [
+            "classification",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "as-dirac-operators",
+          "title": "Dirac operators and the $\\hat A$-genus",
+          "anchor": "dirac",
+          "prereqs": [
+            "atiyah-singer-statement",
+            "cc-pontryagin"
+          ],
+          "blurb": "On a spin manifold $M^{2n}$ the spin bundle splits $S=S^+\\oplus S^-$ and the Dirac operator $D\\colon\\Gamma(S^+)\\to\\Gamma(S^-)$ is elliptic. The index theorem reads $\\ind(D)=\\int_M\\hat A(TM)$, with the $\\hat A$-genus $\\hat A=\\prod (x_i/2)/\\sinh(x_i/2)$. Lichnerowicz: positive scalar curvature forces $\\ker D=0$ and hence $\\hat A(M)=0$; integrality of $\\hat A$ on spin manifolds is the first obstruction it produces.",
+          "tags": [
+            "duality",
+            "classification",
+            "group-action"
+          ]
+        },
+        {
+          "id": "as-applications",
+          "title": "Heat kernel, families, equivariant, anomalies",
+          "anchor": "applications",
+          "prereqs": [
+            "as-dirac-operators",
+            "as-special-cases"
+          ],
+          "blurb": "The McKean–Singer formula $\\ind(D)=\\tr(e^{-tD^*D})-\\tr(e^{-tDD^*})$ is independent of $t>0$; the small-$t$ asymptotics of the heat kernel produce the index density locally, giving a proof that requires no K-theory. The families version replaces an integer by a class in $K^0(B)$ when $D$ varies over a base; the equivariant version refines $\\ind(D)$ to a virtual character of a compact Lie group action; in physics, the chiral anomaly and instanton number are direct readings of Dirac indices on curved or gauged backgrounds.",
+          "tags": [
+            "duality",
+            "cohomology",
+            "group-action",
+            "moduli"
+          ]
         }
       ]
     },
@@ -10418,7 +10581,7 @@ window.__MVConcepts = {
         "id": "capstone-atiyah-singer",
         "section": "Geometry & topology",
         "title": "The Atiyah–Singer index theorem",
-        "goal": "atiyah-singer-index-theorem-intro",
+        "goal": "atiyah-singer-statement",
         "blurb": "Index of an elliptic operator equals a topological invariant — the cohomological / K-theoretic capstone unifying analysis, topology, and geometry."
       }
     ]
@@ -10836,11 +10999,11 @@ window.__MVConcepts = {
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
-      "concepts": 101,
-      "intra": 148,
-      "crossOut": 13,
+      "concepts": 106,
+      "intra": 157,
+      "crossOut": 16,
       "crossIn": 68,
-      "density": 0.12871287128712872
+      "density": 0.1509433962264151
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -10853,7 +11016,7 @@ window.__MVConcepts = {
       "concepts": 134,
       "intra": 222,
       "crossOut": 16,
-      "crossIn": 35,
+      "crossIn": 38,
       "density": 0.11940298507462686
     },
     "Probability & statistics": {
@@ -10864,11 +11027,11 @@ window.__MVConcepts = {
       "density": 0.2682926829268293
     },
     "Geometry & topology": {
-      "concepts": 86,
-      "intra": 121,
-      "crossOut": 11,
-      "crossIn": 52,
-      "density": 0.12790697674418605
+      "concepts": 91,
+      "intra": 135,
+      "crossOut": 14,
+      "crossIn": 54,
+      "density": 0.15384615384615385
     },
     "Number theory": {
       "concepts": 84,
@@ -10895,7 +11058,7 @@ window.__MVConcepts = {
       "concepts": 39,
       "intra": 34,
       "crossOut": 17,
-      "crossIn": 1,
+      "crossIn": 2,
       "density": 0.4358974358974359
     }
   }
