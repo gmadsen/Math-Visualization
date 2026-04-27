@@ -257,7 +257,7 @@ function drawNode(svg, x, y, label, opts={}){
 <h2>1. Vertex operators and locality</h2>
 
 <p>Fix a $\mathbb{Z}$-graded complex vector space $V = \bigoplus_{n} V_n$. A <strong>vertex operator</strong> is a linear map
-$$Y(\,\cdot\,, z) \;:\; V \;\longrightarrow\; \mathrm{End}(V)[[z, z^{-1}]], \qquad Y(a, z) \;=\; \sum_{n \in \mathbb{Z}} a_n\, z^{-n - 1},$$
+$$Y(\,\cdot\,, z) \;:\; V \;\to\; \mathrm{End}(V)[[z, z^{-1}]], \qquad Y(a, z) \;=\; \sum_{n \in \mathbb{Z}} a_n\, z^{-n - 1},$$
 that takes a state $a \in V$ to a formal Laurent series whose coefficients $a_n \in \mathrm{End}(V)$ are called the <em>modes</em> of $a$. The convention $z^{-n-1}$ (rather than $z^n$) is so that $a_n$ lowers degree by $n$, consistent with the conformal-weight grading we will introduce.</p>
 
 <p>Two states $a, b$ produce two operator-valued series $Y(a, z)$ and $Y(b, w)$. They cannot in general commute as endomorphisms of $V$, because acting on a single fixed vector both have infinitely many non-zero modes — a single composition is itself a doubly infinite formal series. What replaces commutativity is</p>
@@ -696,7 +696,7 @@ treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro
 <p>Vertex operator algebras axiomatise the <strong>chiral half</strong> of two-dimensional conformal field theory. A 2D CFT factors (subject to modular invariance) into a holomorphic and an antiholomorphic sector; each sector is a VOA. The full theory is reconstructed from the two halves plus gluing data, and modular invariance of the partition function is exactly Zhu's theorem applied to both halves.</p>
 
 <p>The geometric upgrade is due to Beilinson and Drinfeld: a <strong>chiral algebra</strong> on an algebraic curve $X$ is a $\mathcal{D}_X$-module $\mathcal{A}$ together with a chiral product
-$$\mu : j_*j^* (\mathcal{A} \boxtimes \mathcal{A}) \;\longrightarrow\; \Delta_*\mathcal{A}$$
+$$\mu : j_*j^* (\mathcal{A} \boxtimes \mathcal{A}) \;\to\; \Delta_*\mathcal{A}$$
 (where $j$ is the open immersion of $X^2 \setminus \Delta$ into $X^2$ and $\Delta$ is the diagonal) satisfying associativity and skew-symmetry constraints. Restricting to the formal disc near a closed point recovers a VOA; varying the point globalises it to the entire curve.</p>
 
 <div class="widget" id="w-app">

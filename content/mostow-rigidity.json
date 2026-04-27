@@ -22,7 +22,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemannian-geometry.html#metric\">Riemannian metrics</a></li>\n    <li><a href=\"./algebraic-topology.html#pi1\">Fundamental group</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemannian-geometry.html#metric\">Riemannian metrics</a></li>\n    <li><a href=\"./algebraic-topology.html#pi1\">Fundamental group</a></li>\n    <li><a href=\"./upper-half-plane-hyperbolic.html#metric\">The hyperbolic metric</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -71,7 +71,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./upper-half-plane-hyperbolic.html#metric\">The hyperbolic metric</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./upper-half-plane-hyperbolic.html#metric\">The hyperbolic metric</a></li>\n    <li><a href=\"./complex-analysis.html#sphere\">Möbius transformations</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -161,7 +161,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#intro\">Lie groups and matrix examples</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#intro\">Lie groups and matrix examples</a></li>\n    <li><a href=\"./measure-theory.html#lebesgue\">Lebesgue measure</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

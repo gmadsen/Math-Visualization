@@ -263,7 +263,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="note"><strong>Point-of-view shift.</strong> Classical geometry starts with a space and asks about its points. Moduli theory starts with a <em>class of objects</em> and tries to <em>build</em> a space whose points are those objects. Whether such a space exists, and in what category, is the subtle part.</div>
 
 <p>Formally, we attach to the moduli problem a <em>functor</em>
-$$\mathcal{M}\colon \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set}, \qquad \mathcal{M}(S) = \{\text{families of objects of type } X \text{ over } S\} / \cong_S.$$
+$$\mathcal{M}\colon \mathrm{Sch}^{\mathrm{op}} \to \mathrm{Set}, \qquad \mathcal{M}(S) = \{\text{families of objects of type } X \text{ over } S\} / \cong_S.$$
 A <em>family over $S$</em> is a flat, proper morphism $E \to S$ whose geometric fibres are objects of type $X$. The moduli problem is <strong>representable</strong> if there is a scheme $M$ with $\mathcal{M}(-) \cong h_M(-) = \Hom(-,M)$. This is the gold standard; we call $M$ a <em>fine</em> moduli space.</p>
 
 <!-- callback-auto-begin -->
@@ -478,7 +478,7 @@ is a complete invariant over an algebraically closed field: two curves are $\mat
 <section id="summary">
 <h2>7. Mental model summary</h2>
 <p>A moduli problem is, at heart, a functor
-$$\mathcal{F}\colon \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set} \;\text{ or }\; \mathrm{Grpd}.$$
+$$\mathcal{F}\colon \mathrm{Sch}^{\mathrm{op}} \to \mathrm{Set} \;\text{ or }\; \mathrm{Grpd}.$$
 The question "does $\mathcal{F}$ come from a scheme?" has three graded answers.</p>
 
 <table class="plain">

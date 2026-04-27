@@ -5,7 +5,7 @@
 - Topics: **130**, concepts: **873**
 - Widgets: **874** (registry-driven: 568, inline: 306)
 - Quizzes: **3786** (v1: 2550, hard: 1223, expert: 13)
-- Quiz types: mcq: 2536, numeric: 1010, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 2537, numeric: 1009, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **160**
 - Concepts lacking a hard-tier quiz: **435**
 
@@ -267,7 +267,7 @@ page has wired one in yet.
   - by dimension: _(none)_
   - by gesture: _(none)_
 - Quizzes: **72** (v1: 72, hard: 0, expert: 0)
-  - by type: mcq: 61, numeric: 11
+  - by type: mcq: 62, numeric: 10
 
 ## Per-topic
 

@@ -908,7 +908,8 @@ window.__MVConcepts = {
           "anchor": "quintic",
           "prereqs": [
             "ms-mirror-pair-statement",
-            "ms-period-integrals"
+            "ms-period-integrals",
+            "elliptic-curve-definition"
           ],
           "blurb": "Candelas–de la Ossa–Green–Parkes (1991) computed periods on the mirror $Y$ of the quintic 3-fold $X \\subset \\mathbb{P}^4$ and read off, by mirror symmetry, the Gromov–Witten invariants of $X$ — predicting the count of degree-$d$ rational curves on the quintic for every $d$. The numbers (e.g. $2{,}875$ lines, $609{,}250$ conics, $317{,}206{,}375$ twisted cubics, $\\dots$) were later proven to all orders by Givental and Lian–Liu–Yau, the first hard mathematical confirmation of the conjecture.",
           "tags": [
@@ -936,7 +937,8 @@ window.__MVConcepts = {
           "anchor": "periods",
           "prereqs": [
             "cy-period-map",
-            "hodge-filtration"
+            "hodge-filtration",
+            "pde-classification"
           ],
           "blurb": "The B-model on $Y$ is governed by the holomorphic 3-form $\\Omega \\in H^{3,0}(Y)$. Its periods $\\Pi_\\gamma(t) = \\int_\\gamma \\Omega(t)$ over a basis $\\gamma \\in H_3(Y,\\mathbb{Z})$ satisfy a Picard–Fuchs ODE in the complex-structure parameter $t$. Solving Picard–Fuchs gives the periods as hypergeometric series; the mirror map $t \\mapsto q$ is the change of coordinates that turns these series into A-model Gromov–Witten generating functions.",
           "tags": [
@@ -987,7 +989,8 @@ window.__MVConcepts = {
           "anchor": "statement",
           "prereqs": [
             "riemannian-metrics",
-            "fundamental-group"
+            "fundamental-group",
+            "hyperbolic-metric"
           ],
           "blurb": "For closed hyperbolic $n$-manifolds with $n\\ge 3$, an isomorphism of fundamental groups is induced by a unique isometry. The hyperbolic metric is a topological invariant.",
           "tags": [
@@ -1000,7 +1003,8 @@ window.__MVConcepts = {
           "anchor": "hyp3",
           "prereqs": [
             "mr-statement",
-            "hyperbolic-metric"
+            "hyperbolic-metric",
+            "mobius-transformations"
           ],
           "blurb": "Closed hyperbolic 3-manifolds are quotients $\\mathbb{H}^3/\\Gamma$ by torsion-free discrete subgroups $\\Gamma\\subset\\mathrm{PSL}_2(\\mathbb{C})$; rigidity says the lattice $\\Gamma$ is determined by its abstract isomorphism type.",
           "tags": [
@@ -1025,7 +1029,8 @@ window.__MVConcepts = {
           "anchor": "ergodic",
           "prereqs": [
             "mr-quasi-isometry",
-            "lie-group-definition"
+            "lie-group-definition",
+            "lebesgue-measure"
           ],
           "blurb": "A cocompact lattice $\\Gamma$ acts ergodically on $S^{n-1}\\times S^{n-1}$ with respect to Lebesgue measure; combined with quasi-conformality this forces the boundary map to be Möbius, hence the bulk map to be an isometry.",
           "tags": [
@@ -1246,7 +1251,8 @@ window.__MVConcepts = {
           "title": "Spacetime as a Lorentzian manifold",
           "anchor": "spacetime",
           "prereqs": [
-            "riemannian-metrics"
+            "riemannian-metrics",
+            "smooth-manifold-definition"
           ],
           "blurb": "Spacetime is a smooth 4-manifold $(M,g)$ with a non-degenerate metric of signature $(-,+,+,+)$. The light cone $g(v,v)=0$ separates timelike, lightlike, and spacelike vectors at each point and pins down the local causal structure: only timelike worldlines can carry massive observers and only causal curves can transmit information.",
           "tags": [
@@ -1261,7 +1267,8 @@ window.__MVConcepts = {
           "prereqs": [
             "gr-spacetime",
             "ricci-curvature",
-            "pde-classification"
+            "pde-classification",
+            "levi-civita-connection"
           ],
           "blurb": "$R_{\\mu\\nu}-\\tfrac12 g_{\\mu\\nu}R+\\Lambda g_{\\mu\\nu}=8\\pi G\\,T_{\\mu\\nu}$ couples the Ricci-trace curvature of spacetime to the stress-energy tensor of matter. Geometry on the left, matter on the right; in vacuum with $\\Lambda=0$ the equation reduces to $R_{\\mu\\nu}=0$, a quasi-linear hyperbolic PDE for the metric whose nonlinearity is the source of nearly every interesting GR phenomenon.",
           "tags": [
@@ -1385,7 +1392,8 @@ window.__MVConcepts = {
           "anchor": "kam",
           "prereqs": [
             "tbp-poincare-tangle",
-            "sm-hamiltonian-flow"
+            "sm-hamiltonian-flow",
+            "lebesgue-measure"
           ],
           "blurb": "Kolmogorov (1954), Arnold (1963), and Moser (1962) showed that for a small Hamiltonian perturbation $H = H_0(I) + \\varepsilon H_1(I,\\theta)$ of an integrable system, most invariant tori (those whose frequencies satisfy a Diophantine condition $|k\\cdot\\omega|\\ge \\gamma|k|^{-\\tau}$) survive — only the resonant ones break up into Birkhoff zones. The set of surviving tori has positive measure tending to full measure as $\\varepsilon\\to 0$, giving long-time stability of the planetary problem in a measure-theoretic sense (Arnold, Laskar).",
           "tags": [
@@ -2938,7 +2946,8 @@ window.__MVConcepts = {
           "prereqs": [
             "mt-types-and-saturation",
             "mt-elementary-equivalence",
-            "field-extensions-basics"
+            "field-extensions-basics",
+            "sm-floer-homology-preview"
           ],
           "blurb": "ACF (algebraically closed fields) is a model-complete theory: every embedding between models is elementary, so first-order truth transfers freely along extensions. Compactness + the Lefschetz principle yield Ax–Grothendieck — every injective polynomial map $\\mathbb{C}^n\\to\\mathbb{C}^n$ is surjective — by reduction to algebraic closures of finite fields. These transfer principles are the standard model-theoretic tools used in algebraic geometry.",
           "tags": [
@@ -6029,7 +6038,8 @@ window.__MVConcepts = {
           "anchor": "conservative",
           "prereqs": [
             "dyn-orbits-flows",
-            "forms-and-wedge"
+            "forms-and-wedge",
+            "sm-hamiltonian-flow"
           ],
           "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume."
         },
@@ -12345,9 +12355,9 @@ window.__MVConcepts = {
     "Logic & Foundations": {
       "concepts": 49,
       "intra": 56,
-      "crossOut": 4,
+      "crossOut": 5,
       "crossIn": 15,
-      "density": 0.08163265306122448
+      "density": 0.10204081632653061
     },
     "Algebra & homological": {
       "concepts": 106,
@@ -12366,9 +12376,9 @@ window.__MVConcepts = {
     "Analysis": {
       "concepts": 146,
       "intra": 249,
-      "crossOut": 23,
-      "crossIn": 55,
-      "density": 0.15753424657534246
+      "crossOut": 24,
+      "crossIn": 59,
+      "density": 0.1643835616438356
     },
     "Probability & statistics": {
       "concepts": 53,
@@ -12380,9 +12390,9 @@ window.__MVConcepts = {
     "Geometry & topology": {
       "concepts": 97,
       "intra": 144,
-      "crossOut": 15,
-      "crossIn": 75,
-      "density": 0.15463917525773196
+      "crossOut": 18,
+      "crossIn": 79,
+      "density": 0.18556701030927836
     },
     "Number theory": {
       "concepts": 90,
@@ -12395,15 +12405,15 @@ window.__MVConcepts = {
       "concepts": 85,
       "intra": 112,
       "crossOut": 52,
-      "crossIn": 11,
+      "crossIn": 12,
       "density": 0.611764705882353
     },
     "Algebraic geometry": {
       "concepts": 127,
-      "intra": 172,
-      "crossOut": 54,
+      "intra": 173,
+      "crossOut": 55,
       "crossIn": 15,
-      "density": 0.4251968503937008
+      "density": 0.4330708661417323
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
@@ -12415,9 +12425,9 @@ window.__MVConcepts = {
     "Mathematical physics": {
       "concepts": 24,
       "intra": 22,
-      "crossOut": 23,
+      "crossOut": 26,
       "crossIn": 0,
-      "density": 0.9583333333333334
+      "density": 1.0833333333333333
     }
   }
 };

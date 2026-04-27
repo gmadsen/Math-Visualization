@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "In Minkowski space with metric $\\eta=\\mathrm{diag}(-1,1,1,1)$, compute $\\eta(v,v)$ for $v=(2,1,1,1)$.",
           "answer": -1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\eta(v,v)=-(2)^2+1+1+1=-4+3=-1$. The vector is timelike."
         },
         {
@@ -80,7 +80,7 @@
           "type": "numeric",
           "q": "At what radius $r$ (in units of $M$) does the Schwarzschild event horizon sit?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The metric component $g_{tt}=-(1-2M/r)$ vanishes at $r=2M$. This is the event horizon — a coordinate singularity, not a curvature singularity."
         },
         {
@@ -116,7 +116,7 @@
           "type": "numeric",
           "q": "For an extremal Kerr black hole the spin parameter $a$ saturates the bound $a=M$. Compute the horizon radius $r_+=M+\\sqrt{M^2-a^2}$ in units of $M$ when $a=M$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "When $a=M$ the discriminant $M^2-a^2$ vanishes, so $r_+=M$. The two horizons of subextremal Kerr coalesce; beyond this the geometry has a naked singularity."
         },
         {
@@ -185,11 +185,16 @@
       "title": "Gravitational waves",
       "questions": [
         {
-          "type": "numeric",
+          "type": "mcq",
           "q": "A gravitational wave in transverse-traceless gauge has how many independent polarisation modes?",
           "answer": 2,
-          "tol": 0.5,
-          "explain": "Linearised gravity has 10 metric components. Lorenz gauge fixes 4, residual gauge fixes 4 more, leaving 2 physical polarisations — the plus and cross modes."
+          "explain": "Linearised gravity has 10 metric components. Lorenz gauge fixes 4, residual gauge fixes 4 more, leaving 2 physical polarisations — the plus and cross modes.",
+          "choices": [
+            "0",
+            "1",
+            "2",
+            "4"
+          ]
         },
         {
           "type": "mcq",

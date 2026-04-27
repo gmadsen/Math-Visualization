@@ -9,7 +9,8 @@
       "anchor": "statement",
       "prereqs": [
         "riemannian-metrics",
-        "fundamental-group"
+        "fundamental-group",
+        "hyperbolic-metric"
       ],
       "blurb": "For closed hyperbolic $n$-manifolds with $n\\ge 3$, an isomorphism of fundamental groups is induced by a unique isometry. The hyperbolic metric is a topological invariant.",
       "tags": [
@@ -22,7 +23,8 @@
       "anchor": "hyp3",
       "prereqs": [
         "mr-statement",
-        "hyperbolic-metric"
+        "hyperbolic-metric",
+        "mobius-transformations"
       ],
       "blurb": "Closed hyperbolic 3-manifolds are quotients $\\mathbb{H}^3/\\Gamma$ by torsion-free discrete subgroups $\\Gamma\\subset\\mathrm{PSL}_2(\\mathbb{C})$; rigidity says the lattice $\\Gamma$ is determined by its abstract isomorphism type.",
       "tags": [
@@ -47,7 +49,8 @@
       "anchor": "ergodic",
       "prereqs": [
         "mr-quasi-isometry",
-        "lie-group-definition"
+        "lie-group-definition",
+        "lebesgue-measure"
       ],
       "blurb": "A cocompact lattice $\\Gamma$ acts ergodically on $S^{n-1}\\times S^{n-1}$ with respect to Lebesgue measure; combined with quasi-conformality this forces the boundary map to be Möbius, hence the bulk map to be an isometry.",
       "tags": [

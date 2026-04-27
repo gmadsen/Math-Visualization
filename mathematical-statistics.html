@@ -402,7 +402,8 @@ The first has bias $-\sigma^2/n$ (downward); $S^2$ is unbiased — Bessel's corr
 <section id="mle">
 <h2>2. Maximum likelihood and the score equation</h2>
 
-<p>The <strong>likelihood</strong> $L(\theta)=\prod_i f(X_i;\theta)$ is, viewed as a function of $\theta$ with the data fixed, just the joint density evaluated at the observed sample. Its log is the <strong>log-likelihood</strong>:
+
+<p>Once we have an estimator framework, the next question is: which estimator do we pick? The answer for most parametric models is *the one that maximises the likelihood of the data we observed* — and the surprise is how often this strategy is asymptotically optimal.</p><p>The <strong>likelihood</strong> $L(\theta)=\prod_i f(X_i;\theta)$ is, viewed as a function of $\theta$ with the data fixed, just the joint density evaluated at the observed sample. Its log is the <strong>log-likelihood</strong>:
 $$\ell(\theta)=\sum_{i=1}^n\log f(X_i;\theta).$$
 The <strong>maximum likelihood estimator</strong> is $\hat\theta_{\mathrm{MLE}}=\arg\max_\theta\ell(\theta)$. Differentiating and setting to zero gives the <em>score equation</em>:
 $$\partial_\theta\ell(\theta)=\sum_i\frac{\partial_\theta f(X_i;\theta)}{f(X_i;\theta)}=0.$$</p>
@@ -629,7 +630,8 @@ $$\mathrm{Var}(W)=\mathbb{E}[\mathrm{Var}(W\mid T)]+\mathrm{Var}(\mathbb{E}[W\mi
 <section id="testing">
 <h2>4. Hypothesis testing: Neyman–Pearson and likelihood ratios</h2>
 
-<p>A <strong>statistical test</strong> partitions the sample space into a rejection region $R$ and its complement; we reject $H_0:\theta\in\Theta_0$ in favour of $H_1:\theta\in\Theta_1$ when $X\in R$. Two error types:</p>
+
+<p>Estimation tells us where $\theta$ probably is; testing tells us whether $\theta$ is plausibly some specific value $\theta_0$. Once estimation is in place, hypothesis testing is the natural next move.</p><p>A <strong>statistical test</strong> partitions the sample space into a rejection region $R$ and its complement; we reject $H_0:\theta\in\Theta_0$ in favour of $H_1:\theta\in\Theta_1$ when $X\in R$. Two error types:</p>
 
 <table class="plain">
 <tr><th></th><th>$H_0$ true</th><th>$H_1$ true</th></tr>
@@ -772,7 +774,8 @@ $$\mathbb{P}_{0.5}(\bar X>0.329)=1-\Phi\bigl(\tfrac{0.329-0.5}{1/5}\bigr)=1-\Phi
 <section id="bayesian">
 <h2>5. Bayesian inference: posteriors, conjugate priors, credible intervals</h2>
 
-<p><strong>Bayesian inference</strong> treats $\theta$ as a random variable. Begin with a <em>prior</em> $\pi(\theta)$ encoding belief before data; observe $X$ with likelihood $L(\theta;x)=f(x;\theta)$; the <em>posterior</em> is
+
+<p>Frequentist statistics treats $\theta$ as a fixed unknown and the data as random. Bayesian statistics flips this — $\theta$ is random with a prior distribution, and observing data shrinks our uncertainty by Bayes' rule. The methodologies look different but agree on most asymptotic claims.</p><p><strong>Bayesian inference</strong> treats $\theta$ as a random variable. Begin with a <em>prior</em> $\pi(\theta)$ encoding belief before data; observe $X$ with likelihood $L(\theta;x)=f(x;\theta)$; the <em>posterior</em> is
 $$\pi(\theta\mid x)=\frac{\pi(\theta)L(\theta;x)}{\int\pi(\theta')L(\theta';x)\,d\theta'}\propto\pi(\theta)L(\theta;x).$$
 Bayes' rule on parameters — the same identity that runs the medical-test posterior in <a href="./probability-theory.html#bayes">probability theory</a>, applied to a continuous parameter.</p>
 

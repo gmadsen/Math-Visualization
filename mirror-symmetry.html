@@ -313,6 +313,7 @@ $$\boxed{\, h^{1,1}(X) \;=\; h^{2,1}(Y), \qquad h^{2,1}(X) \;=\; h^{1,1}(Y). \,}
 
 <section id="quintic">
 <h2>2. The quintic prediction</h2>
+<p><strong>Worked example: the quintic threefold.</strong> The mirror-symmetric prediction of curve counts on $X = \{F_5 = 0\} \subset \mathbb{P}^4$ is one of the great worked examples in modern geometry — the rest of this section walks through it step by step.</p>
 
 <p>The first hard test of mirror symmetry is the <strong>quintic 3-fold</strong> $X = \{F = 0\} \subset \mathbb{P}^4$, where $F$ is a generic homogeneous quintic. It has $h^{1,1}(X) = 1$ and $h^{2,1}(X) = 101$, so its mirror $Y$ should have $h^{1,1}(Y) = 101$ and $h^{2,1}(Y) = 1$. Greene and Plesser identified $Y$ as a crepant resolution of the orbifold</p>
 
@@ -346,7 +347,14 @@ $$Y \;=\; \widetilde{ \{x_1^5 + x_2^5 + x_3^5 + x_4^5 + x_5^5 - 5\psi\, x_1 x_2 
 
 <p>The lines count $2{,}875$ was already known to 19th-century algebraic geometers (Schubert calculus). The conics count $609{,}250$ was a hard theorem of Katz in 1986. Everything from cubics on was completely out of reach until CdGP wrote down a generating function in five lines of physics-flavoured calculus and let the mirror map do the work.</p>
 
-<div class="quiz" data-concept="ms-quintic-prediction"></div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#intro">Elliptic curves and Weierstrass models</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ms-quintic-prediction"></div>
 </section>
 
 <section id="gw">
@@ -431,6 +439,7 @@ $$\mathcal{L} \;=\; \theta^4 \;-\; 5z\, (5\theta + 1)(5\theta + 2)(5\theta + 3)(
   <ul>
     <li><a href="./calabi-yau-manifolds.html#period">Calabi–Yau manifolds — period map</a></li>
     <li><a href="./algebraic-de-rham-cohomology.html#hodge-filtration">Algebraic de Rham — Hodge filtration</a></li>
+    <li><a href="./partial-differential-equations.html#classification">Classification: elliptic / parabolic / hyperbolic</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
@@ -452,7 +461,7 @@ $$\boxed{\, D^b\mathrm{Coh}(X) \;\;\cong\;\; D^\pi \mathrm{Fuk}(Y) \,}$$
 
 <p>as triangulated (or more precisely $A_\infty$-) categories. The B-side is the <strong>bounded derived category of coherent sheaves</strong> on $X$ — see <a href="./derived-categories.html#d-coh">Derived categories §$D^b\mathrm{Coh}(X)$</a>. The A-side is the <strong>(split-closed) Fukaya category</strong> of $Y$, whose objects are Lagrangian submanifolds equipped with brane data (orientation, spin structure, grading, local system) and whose morphism complexes are <em>Lagrangian intersection Floer cohomologies</em>:</p>
 
-$$\mathrm{Hom}_{\mathrm{Fuk}}(L_0, L_1) \;=\; CF^*(L_0, L_1), \quad d \;=\; \text{count of pseudo-holomorphic strips.}$$
+$$\Hom_{\mathrm{Fuk}}(L_0, L_1) \;=\; CF^*(L_0, L_1), \quad d \;=\; \text{count of pseudo-holomorphic strips.}$$
 
 <div class="widget" id="hms-widget">
   <div class="hd">
@@ -463,7 +472,7 @@ $$\mathrm{Hom}_{\mathrm{Fuk}}(L_0, L_1) \;=\; CF^*(L_0, L_1), \quad d \;=\; \tex
   <div class="readout" id="hms-readout">Pick an object on the B-side (left).</div>
 </div>
 
-<p>Numerical consequences fall out: $\dim \mathrm{Hom}^*(\mathcal{O}_x, \mathcal{O}_x) = 1 + 3 + 3 + 1 = 8$ (Koszul) matches $\dim HF^*(L, L) = \chi(T^3) \cdot \text{rank}$, and the Euler pairing on $K^0(D^b\mathrm{Coh}(X))$ matches the symplectic intersection form on $H_n(Y, \mathbb{Z})$. <strong>Proven cases</strong>: elliptic curves (Polishchuk–Zaslow), abelian varieties (Fukaya, Kontsevich–Soibelman), the quartic K3 (Seidel), the quintic 3-fold (Sheridan), toric Fano varieties (Abouzaid, Fang–Liu–Treumann–Zaslow), and many more. HMS is now a central organizing principle in symplectic topology and derived algebraic geometry.</p>
+<p>Numerical consequences fall out: $\dim \Hom^*(\mathcal{O}_x, \mathcal{O}_x) = 1 + 3 + 3 + 1 = 8$ (Koszul) matches $\dim HF^*(L, L) = \chi(T^3) \cdot \text{rank}$, and the Euler pairing on $K^0(D^b\mathrm{Coh}(X))$ matches the symplectic intersection form on $H_n(Y, \mathbb{Z})$. <strong>Proven cases</strong>: elliptic curves (Polishchuk–Zaslow), abelian varieties (Fukaya, Kontsevich–Soibelman), the quartic K3 (Seidel), the quintic 3-fold (Sheridan), toric Fano varieties (Abouzaid, Fang–Liu–Treumann–Zaslow), and many more. HMS is now a central organizing principle in symplectic topology and derived algebraic geometry.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -483,11 +492,11 @@ $$\mathrm{Hom}_{\mathrm{Fuk}}(L_0, L_1) \;=\; CF^*(L_0, L_1), \quad d \;=\; \tex
 
 <p>HMS gives an equivalence of categories. <strong>Strominger, Yau, and Zaslow (1996)</strong> went the other direction and proposed a <em>geometric mechanism</em>. Their conjecture: a CY 3-fold $X$ admits a <strong>special-Lagrangian $T^3$-fibration</strong></p>
 
-$$\pi \colon X \;\longrightarrow\; B$$
+$$\pi \colon X \;\to\; B$$
 
 <p>over a real 3-dimensional base $B$. The smooth fibres $T^3_b = \pi^{-1}(b)$ are 3-tori, Lagrangian (so $\omega|_{T^3_b} = 0$), and <em>special</em> in McLean's sense (calibrated by $\mathrm{Re}\,\Omega$). The mirror $Y$ is the <strong>dual fibration</strong></p>
 
-$$\check\pi \colon Y \;\longrightarrow\; B, \qquad Y_b \;=\; \mathrm{Hom}(T^3_b, U(1)) \;\cong\; \check T^3_b.$$
+$$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \check T^3_b.$$
 
 <div class="widget" id="syz-widget">
   <div class="hd">

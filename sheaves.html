@@ -376,11 +376,11 @@ commutes. The restrictions $\rho^F, \rho^G$ are the presheaf restrictions. For p
 By (1), the section $s$ produced in (2) is unique.</div>
 
 <p>A compact way to phrase both axioms is the <strong>equalizer diagram</strong>: $F$ is a sheaf iff for every cover $\{U_i\}$ of $U$ the diagram
-$$F(U) \;\longrightarrow\; \prod_{i} F(U_i) \;\rightrightarrows\; \prod_{i,j} F(U_i \cap U_j)$$
+$$F(U) \;\to\; \prod_{i} F(U_i) \;\rightrightarrows\; \prod_{i,j} F(U_i \cap U_j)$$
 is an equalizer in $\mathsf{Set}$. The two parallel arrows send $(s_i)_i$ to $(s_i|_{U_i \cap U_j})_{i,j}$ and $(s_j|_{U_i \cap U_j})_{i,j}$ respectively. The first map being injective is locality; its image being precisely the equalizer of the parallel pair is gluing.</p>
 
 <p>One can push the diagram further into a cosimplicial-style object:
-$$F(U) \;\longrightarrow\; \prod_{i} F(U_i) \;\rightrightarrows\; \prod_{i_0, i_1} F(U_{i_0 i_1}) \;\xrightarrow{\ \ \ }\;\;\cdots \;\prod_{i_0, \dots, i_n} F(U_{i_0 \cdots i_n}) \;\xrightarrow{\ \ \ }\; \cdots$$
+$$F(U) \;\to\; \prod_{i} F(U_i) \;\rightrightarrows\; \prod_{i_0, i_1} F(U_{i_0 i_1}) \;\xrightarrow{\ \ \ }\;\;\cdots \;\prod_{i_0, \dots, i_n} F(U_{i_0 \cdots i_n}) \;\xrightarrow{\ \ \ }\; \cdots$$
 where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the map from $F(U)$ is the equalizer of the first two arrows; taking the total cohomology of this complex (for sheaves of abelian groups) yields the <strong>Čech cohomology</strong> of $F$ with respect to the cover. When the cover is "good enough" (e.g., intersections acyclic for the sheaf), Čech cohomology computes sheaf cohomology.</p>
 
 <p>The equalizer formulation makes it obvious how to lift the definition to other categories: $F\colon \mathrm{Open}(X)^{\mathrm{op}} \to \mathcal{C}$ is a sheaf iff the same diagram is an equalizer in $\mathcal{C}$. For $\mathcal{C} = \mathsf{Ab}$, equalizers exist and are computed as in $\mathsf{Set}$, so a sheaf of abelian groups is just a sheaf of sets whose sets carry compatible group operations.</p>

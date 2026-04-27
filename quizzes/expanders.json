@@ -156,7 +156,7 @@
             "It requires the Riemann hypothesis"
           ],
           "answer": 0,
-          "explain": "The zigzag $G\\,\\textcircled{z}\\,H$ multiplies vertex counts and reduces degree to $\\deg(H)^2$ while preserving a spectral gap — a purely combinatorial recursion underlying Reingold's $\\mathrm{SL}=\\mathrm{L}$ proof."
+          "explain": "The zigzag $G\\,\\boxtimes\\,H$ multiplies vertex counts and reduces degree to $\\deg(H)^2$ while preserving a spectral gap — a purely combinatorial recursion underlying Reingold's $\\mathrm{SL}=\\mathrm{L}$ proof."
         }
       ]
     },

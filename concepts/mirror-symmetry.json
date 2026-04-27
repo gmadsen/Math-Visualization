@@ -24,7 +24,8 @@
       "anchor": "quintic",
       "prereqs": [
         "ms-mirror-pair-statement",
-        "ms-period-integrals"
+        "ms-period-integrals",
+        "elliptic-curve-definition"
       ],
       "blurb": "Candelas–de la Ossa–Green–Parkes (1991) computed periods on the mirror $Y$ of the quintic 3-fold $X \\subset \\mathbb{P}^4$ and read off, by mirror symmetry, the Gromov–Witten invariants of $X$ — predicting the count of degree-$d$ rational curves on the quintic for every $d$. The numbers (e.g. $2{,}875$ lines, $609{,}250$ conics, $317{,}206{,}375$ twisted cubics, $\\dots$) were later proven to all orders by Givental and Lian–Liu–Yau, the first hard mathematical confirmation of the conjecture.",
       "tags": [
@@ -52,7 +53,8 @@
       "anchor": "periods",
       "prereqs": [
         "cy-period-map",
-        "hodge-filtration"
+        "hodge-filtration",
+        "pde-classification"
       ],
       "blurb": "The B-model on $Y$ is governed by the holomorphic 3-form $\\Omega \\in H^{3,0}(Y)$. Its periods $\\Pi_\\gamma(t) = \\int_\\gamma \\Omega(t)$ over a basis $\\gamma \\in H_3(Y,\\mathbb{Z})$ satisfy a Picard–Fuchs ODE in the complex-structure parameter $t$. Solving Picard–Fuchs gives the periods as hypergeometric series; the mirror map $t \\mapsto q$ is the change of coordinates that turns these series into A-model Gromov–Witten generating functions.",
       "tags": [

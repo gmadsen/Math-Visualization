@@ -44,13 +44,13 @@
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
     font-size:17px;line-height:1.65}
-  a{color:var(--blue)}
+  a{color:'var(--blue)'}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
   main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
   h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
   h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
-  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:'var(--yellow)'}
   p{margin:0.7rem 0}
   .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
   .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -67,7 +67,7 @@
   button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
     border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
   button:hover{background:#242c3e}
-  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  button.active{background:var(--yellow);color:#111;border-color:'var(--yellow)'}
   .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
     padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
     min-height:1.6em;white-space:pre-wrap;word-break:break-word}
@@ -85,7 +85,7 @@
     border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
     display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
   nav.toc a{color:var(--mute);text-decoration:none}
-  nav.toc a:hover{color:var(--yellow)}
+  nav.toc a:hover{color:'var(--yellow)'}
   /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
   aside.sidetoc{position:fixed;top:4.2rem;
     left:max(1rem, calc(50% - 440px - 220px));
@@ -99,12 +99,12 @@
   aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
     border-left:2px solid transparent;line-height:1.35;
     transition:color 120ms ease, border-color 120ms ease}
-  aside.sidetoc a:hover{color:var(--ink)}
-  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  aside.sidetoc a:hover{color:'var(--ink)'}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:'var(--yellow)'}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
   .hero{padding:3rem 0 1rem}
-  .small{font-size:.88rem;color:var(--mute)}
+  .small{font-size:.88rem;color:'var(--mute)'}
   footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
@@ -229,7 +229,7 @@ function drawArrow(svg, p1, p2, opts={}){
   return path;
 }
 function drawNode(svg, x, y, label, opts={}){
-  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='var(--ink)', fontSize=14} = opts;
   svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
   const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
   t.textContent = label;
@@ -469,7 +469,7 @@ together with the projection $\pi : \mathrm{Bl}_0 \mathbb{A}^n \to \mathbb{A}^n$
 <h2>3. Hironaka's theorem</h2>
 
 <p>Hironaka (1964): for any variety $X$ over a field $k$ of characteristic zero, there exists a proper birational morphism
-$$\pi : \tilde X \longrightarrow X$$
+$$\pi : \tilde X \to X$$
 with $\tilde X$ smooth, such that $\pi$ is an isomorphism over the smooth locus of $X$. Moreover $\pi$ can be taken to be a finite composition of blow-ups along smooth centres, each contained in the singular locus at its stage.</p>
 
 <p>The proof tracks a numerical invariant — the Hilbert–Samuel function, or modern variants thereof — that strictly decreases under each blow-up at a sufficiently chosen centre, and by Noetherian descent must terminate. Subsequent reformulations (Bierstone–Milman, Włodarczyk, Kollár) made the resolution <em>functorial</em>: it commutes with smooth morphisms and group actions, so it can be globalised on stacks.</p>
