@@ -1,20 +1,234 @@
 {
   "topic": "calabi-yau-manifolds",
   "quizzes": {
-    "calabi-yau-manifolds-intro": {
-      "title": "Intro",
+    "cy-definition": {
+      "title": "Definition: Ricci-flat Kähler manifolds",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder — page is a stub awaiting authoring.",
+          "q": "Which characterisation is **not** equivalent to the others for a compact Kähler $n$-fold $X$?",
           "choices": [
-            "A",
-            "B",
-            "C",
-            "D"
+            "$c_1(X) = 0$ in $H^2(X, \\mathbb{R})$",
+            "Trivial canonical bundle $K_X \\cong \\mathcal{O}_X$",
+            "Existence of a nowhere-vanishing holomorphic $n$-form",
+            "Vanishing $h^{1,0}(X)$"
+          ],
+          "answer": 3,
+          "explain": "The first three are equivalent (and define a CY in the strict sense). Vanishing of $h^{1,0}$ is an *extra* condition some authors impose to rule out tori — for example $h^{1,0}(\\mathrm{K3}) = 0$ but $h^{1,0}(\\text{elliptic curve}) = 1$, and both are CY by the first three criteria."
+        },
+        {
+          "type": "mcq",
+          "q": "Yau's theorem (Calabi conjecture) tells us:",
+          "choices": [
+            "Every Kähler class on a CY contains a unique Ricci-flat Kähler metric",
+            "Every CY admits a flat Kähler metric (zero curvature)",
+            "Every CY is automatically projective",
+            "Every CY is simply connected"
           ],
           "answer": 0,
-          "explain": "Stub."
+          "explain": "Ricci-flat ($\\mathrm{Ric} = 0$), not flat ($R = 0$). The metric is unique inside each Kähler class, but the curvature tensor is generically nonzero — only its trace vanishes."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are Calabi–Yau manifolds (in the broad sense $c_1 = 0$)?",
+          "choices": [
+            "An elliptic curve $\\mathbb{C}/\\Lambda$",
+            "$\\mathbb{P}^n$ for $n \\geq 1$",
+            "A smooth quartic surface in $\\mathbb{P}^3$ (a K3)",
+            "A smooth quintic 3-fold in $\\mathbb{P}^4$"
+          ],
+          "answer": [0, 2, 3],
+          "explain": "$\\mathbb{P}^n$ has $K = \\mathcal{O}(-n-1)$, so $c_1 \\neq 0$ — it is Fano, not CY. The other three all have trivial canonical bundle by the adjunction formula on $\\mathbb{P}^N$."
+        }
+      ]
+    },
+    "cy-hodge-numbers": {
+      "title": "The Hodge diamond",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a CY 3-fold $X$, what is $h^{3,0}(X)$?",
+          "choices": ["$0$", "$1$", "$h^{1,1}(X)$", "Depends on $X$"],
+          "answer": 1,
+          "explain": "$H^{3,0}(X) = H^0(X, \\Omega^3) = H^0(X, K_X)$, and the trivialisation $K_X \\cong \\mathcal{O}_X$ gives a 1-dimensional space spanned by the holomorphic volume form $\\Omega$."
+        },
+        {
+          "type": "numeric",
+          "q": "The quintic 3-fold has $h^{1,1} = 1$ and $h^{2,1} = 101$. What is its Euler characteristic $\\chi$?",
+          "answer": -200,
+          "tol": 0,
+          "explain": "$\\chi = 2(h^{1,1} - h^{2,1}) = 2(1 - 101) = -200$. The diamond rows sum to $1, 0, 1, 102, 1, 0, 1$ across degrees $0,\\ldots,6$ with signs $+,-,+,-,+,-,+$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which symmetry of the Hodge diamond is **specific** to CY (and not true for an arbitrary compact Kähler manifold)?",
+          "choices": [
+            "$h^{p,q} = h^{q,p}$",
+            "$h^{p,q} = h^{n-p, n-q}$",
+            "$h^{n,0} = h^{0,0} = 1$",
+            "$\\sum (-1)^{p+q} h^{p,q} = \\chi$"
+          ],
+          "answer": 2,
+          "explain": "Hodge symmetry, Serre duality, and the Euler-characteristic formula hold on any compact Kähler manifold. $h^{n,0} = 1 = h^{0,0}$ is the CY-specific statement, encoding the global holomorphic volume form."
+        }
+      ]
+    },
+    "cy-examples": {
+      "title": "Examples: elliptic curves, K3, the quintic",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is a smooth quintic hypersurface $X \\subset \\mathbb{P}^4$ a Calabi–Yau 3-fold?",
+          "choices": [
+            "$\\mathbb{P}^4$ itself is CY",
+            "Adjunction: $K_X = (K_{\\mathbb{P}^4} \\otimes \\mathcal{O}(5))|_X = \\mathcal{O}(-5+5)|_X = \\mathcal{O}_X$",
+            "Every smooth projective 3-fold has trivial canonical bundle",
+            "It is a complete intersection of dimension $\\geq 3$"
+          ],
+          "answer": 1,
+          "explain": "$K_{\\mathbb{P}^n} = \\mathcal{O}(-n-1)$, so for a degree-$d$ hypersurface $X \\subset \\mathbb{P}^n$ the adjunction formula gives $K_X = \\mathcal{O}(d-n-1)|_X$. CY iff $d = n+1$: degree 5 in $\\mathbb{P}^4$, degree 4 in $\\mathbb{P}^3$ (K3), degree 3 in $\\mathbb{P}^2$ (elliptic curve)."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the Hodge diamond of a K3 surface?",
+          "choices": [
+            "$1; 0,0; 1,20,1; 0,0; 1$",
+            "$1; 1,1; 1,2,1; 1,1; 1$",
+            "$1; 0,0; 1,0,1; 0,0; 1$",
+            "$1; 1,1; 1,20,1; 1,1; 1$"
+          ],
+          "answer": 0,
+          "explain": "K3 has $h^{1,0} = h^{0,1} = 0$ (simply connected, $b_1 = 0$) and $h^{1,1} = 20$. Total Betti numbers $b_0=1, b_1=0, b_2=22, b_3=0, b_4=1$ and $\\chi = 24$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following degrees $d$ make a smooth hypersurface $X^{n-1} \\subset \\mathbb{P}^n$ Calabi–Yau?",
+          "choices": [
+            "$d = n$",
+            "$d = n+1$",
+            "$d = 2n$",
+            "Any degree, as long as $X$ is smooth"
+          ],
+          "answer": 1,
+          "explain": "Adjunction gives $K_X = \\mathcal{O}(d - n - 1)|_X$; this is trivial iff $d = n+1$. Smaller $d$ gives Fano, larger $d$ gives general type."
+        }
+      ]
+    },
+    "cy-period-map": {
+      "title": "Periods and Picard–Fuchs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In a family $\\{X_t\\}$ of CY $n$-folds, the period integrals $\\Pi_i(t) = \\int_{\\gamma_i} \\Omega_t$ are functions of $t$ that:",
+          "choices": [
+            "Are always polynomial in $t$",
+            "Satisfy a linear ODE — the Picard–Fuchs equation — derived from Gauss–Manin",
+            "Are locally constant by Stokes' theorem",
+            "Are independent of the choice of cycle $\\gamma_i$"
+          ],
+          "answer": 1,
+          "explain": "The Gauss–Manin connection on $H^n_{\\mathrm{dR}}$ flat-translates cohomology classes; differentiating the periods enough times produces a linear relation, the Picard–Fuchs ODE. Solutions are typically transcendental (hypergeometric for the quintic)."
+        },
+        {
+          "type": "mcq",
+          "q": "Monodromy of the period map around a singular point in moduli measures:",
+          "choices": [
+            "How $\\Omega_t$ changes when you go around the puncture",
+            "The action on $H_n(X,\\mathbb{Z})$ when the cycles $\\gamma_i$ are transported around the singular fibre",
+            "The diffeomorphism class of the singular fibre",
+            "Nothing — periods are single-valued"
+          ],
+          "answer": 1,
+          "explain": "Monodromy is the parallel-transport action on integral cohomology after looping around a discriminant point. For a maximally unipotent boundary point of the quintic, the monodromy logarithm is nilpotent of index 4 — this is the data that mirror symmetry uses to identify the large-volume limit on the $A$-side."
+        },
+        {
+          "type": "mcq",
+          "q": "The mirror quintic family is governed by a Picard–Fuchs operator of order:",
+          "choices": ["2", "3", "4", "5"],
+          "answer": 2,
+          "explain": "Order 4, matching $\\dim H^3(X,\\mathbb{C}) = 2 + 2h^{2,1} = 4$ for the mirror (which has $h^{2,1} = 1$). The four solutions encode the prepotential and, via mirror symmetry, the genus-0 Gromov–Witten invariants of the original quintic."
+        }
+      ]
+    },
+    "cy-mirror-pair": {
+      "title": "Mirror symmetry: swapping the diamond",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $(X, Y)$ is a mirror pair of CY 3-folds, which equality holds?",
+          "choices": [
+            "$h^{1,1}(X) = h^{1,1}(Y)$",
+            "$h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$",
+            "$\\chi(X) = \\chi(Y)$",
+            "$X \\cong Y$ as complex manifolds"
+          ],
+          "answer": 1,
+          "explain": "Mirror symmetry swaps the two non-trivial entries of the CY 3-fold Hodge diamond. Consequently $\\chi(X) = -\\chi(Y)$: the quintic ($\\chi = -200$) is mirror to a 3-fold with $\\chi = +200$."
+        },
+        {
+          "type": "mcq",
+          "q": "On the physics side, mirror symmetry is a duality between:",
+          "choices": [
+            "Type IIA on $X$ and type IIB on $Y$",
+            "Bosonic and supersymmetric string theory",
+            "Open and closed strings on the same target",
+            "Gauge theory and gravity"
+          ],
+          "answer": 0,
+          "explain": "The two type-II string theories compactified on mirror CY 3-folds give the same 4D effective theory. The exchange swaps the Kähler moduli (controlled by $h^{1,1}$) with the complex-structure moduli (controlled by $h^{2,1}$)."
+        },
+        {
+          "type": "mcq",
+          "q": "The Candelas–de la Ossa–Green–Parkes prediction for the quintic is a count of:",
+          "choices": [
+            "Lines on a generic quintic",
+            "Rational curves of every degree on a generic quintic 3-fold",
+            "Holomorphic 3-forms on the quintic",
+            "Periods of $\\Omega$ over integral cycles"
+          ],
+          "answer": 1,
+          "explain": "The number of rational curves of each degree (genus-0 Gromov–Witten invariants) on the quintic was extracted from the periods of the mirror family — degree 1: 2875, degree 2: 609250, etc. — and later proved by Givental and Lian–Liu–Yau."
+        }
+      ]
+    },
+    "cy-applications": {
+      "title": "String compactifications, DT, SYZ",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why are CY 3-folds the geometries used to compactify the extra dimensions of superstring theory?",
+          "choices": [
+            "They are easy to write down explicitly",
+            "Ricci-flatness + holonomy $\\mathrm{SU}(3)$ preserves $\\mathcal{N}=1$ supersymmetry in 4D",
+            "Their Hodge numbers count gauge bosons",
+            "They have no moduli"
+          ],
+          "answer": 1,
+          "explain": "10D $\\mathcal{N}=1$ string on $\\mathbb{R}^{1,3} \\times X$ preserves $\\mathcal{N}=1$ in 4D iff $X$ has holonomy contained in $\\mathrm{SU}(n)$, i.e. $X$ is Calabi–Yau (the Killing-spinor equation reduces to a covariant constant spinor, which exists exactly when $\\mathrm{Ric} = 0$ Kähler)."
+        },
+        {
+          "type": "mcq",
+          "q": "Donaldson–Thomas invariants of a CY 3-fold $X$ count:",
+          "choices": [
+            "Holomorphic curves in $X$",
+            "Stable ideal sheaves with fixed Chern character",
+            "Critical points of a Morse function on $X$",
+            "Rational points of $X$ over $\\mathbb{F}_p$"
+          ],
+          "answer": 1,
+          "explain": "DT invariants are virtual counts of stable ideal sheaves on $X$ — equivalently subschemes — and are conjecturally equivalent (MNOP) to Gromov–Witten counts of the same $X$. On the mirror side they swap with another curve count."
+        },
+        {
+          "type": "mcq",
+          "q": "The Strominger–Yau–Zaslow conjecture asserts that a CY 3-fold near a large-complex-structure limit admits:",
+          "choices": [
+            "A Ricci-flat Einstein metric",
+            "A holomorphic embedding into $\\mathbb{P}^N$",
+            "A special-Lagrangian $T^3$-fibration $X \\to B$, with the mirror obtained by dualising the fibres",
+            "A free action of a finite group whose quotient is again CY"
+          ],
+          "answer": 2,
+          "explain": "SYZ realises mirror symmetry T-duality fibrewise: dualising the special-Lagrangian 3-torus fibres of $X \\to B$ produces the mirror $Y \\to B$, giving a geometric (and not merely Hodge-theoretic) explanation for why mirrors exist."
         }
       ]
     }

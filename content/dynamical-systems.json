@@ -51,7 +51,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#conservative\">Dynamical systems</a> · Conservative vs dissipative flows</div>\n    <div><a href=\"./dynamical-systems.html#fixed\">Dynamical systems</a> · Fixed points and linearization</div>\n    <div><a href=\"./dynamical-systems.html#maps\">Dynamical systems</a> · Iterated maps and the logistic family</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#conservative\">Dynamical systems</a> · Conservative vs dissipative flows</div>\n    <div><a href=\"./dynamical-systems.html#fixed\">Dynamical systems</a> · Fixed points and linearization</div>\n    <div><a href=\"./dynamical-systems.html#maps\">Dynamical systems</a> · Iterated maps and the logistic family</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#hamilton-eq\">Hamiltonians and classical mechanics</a> · Hamilton's equations</div>\n    <div><a href=\"./three-body-problem.html#newton-eq\">The three-body problem</a> · Newton's equations and conserved quantities</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -153,7 +153,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#bifurcation\">Dynamical systems</a> · Bifurcations</div>\n    <div><a href=\"./dynamical-systems.html#phase\">Dynamical systems</a> · Phase portraits in 2D</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#bifurcation\">Dynamical systems</a> · Bifurcations</div>\n    <div><a href=\"./dynamical-systems.html#phase\">Dynamical systems</a> · Phase portraits in 2D</div>\n    <div><a href=\"./three-body-problem.html#restricted\">The three-body problem</a> · Restricted three-body problem &amp; Lagrange points</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -653,7 +653,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#ergodic\">Dynamical systems</a> · Ergodicity and invariant measures</div>\n    <div><a href=\"./dynamical-systems.html#attractors\">Dynamical systems</a> · Strange attractors</div>\n    <div><a href=\"./dynamical-systems.html#symbolic\">Dynamical systems</a> · Symbolic dynamics</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#ergodic\">Dynamical systems</a> · Ergodicity and invariant measures</div>\n    <div><a href=\"./dynamical-systems.html#attractors\">Dynamical systems</a> · Strange attractors</div>\n    <div><a href=\"./dynamical-systems.html#symbolic\">Dynamical systems</a> · Symbolic dynamics</div>\n    <div><a href=\"./three-body-problem.html#poincare\">The three-body problem</a> · Poincaré's tangle — the birth of chaos</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -732,6 +732,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./differential-forms.html#wedge\">Differential forms and wedge product</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#integrable\">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -827,7 +831,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#attractors\">Dynamical systems</a> · Strange attractors</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#attractors\">Dynamical systems</a> · Strange attractors</div>\n    <div><a href=\"./three-body-problem.html#poincare\">The three-body problem</a> · Poincaré's tangle — the birth of chaos</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -1,20 +1,249 @@
 {
   "topic": "high-dimensional-geometry",
   "quizzes": {
-    "high-dimensional-geometry-intro": {
-      "title": "Intro",
+    "hdg-sphere-concentration": {
+      "title": "Concentration on the sphere",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder — page is a stub awaiting authoring.",
+          "q": "Lévy's lemma asserts that a $1$-Lipschitz function $f:S^{n-1}\\to\\mathbb{R}$ concentrates near its median with what kind of tail?",
           "choices": [
-            "A",
-            "B",
-            "C",
-            "D"
+            "Polynomial: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le C/t^{n}$",
+            "Sub-exponential: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le 2e^{-c(n-1)t}$",
+            "Sub-Gaussian: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le 2e^{-(n-1)t^{2}/2}$",
+            "No tail bound is uniform in $n$"
+          ],
+          "answer": 2,
+          "explain": "Lévy's lemma gives a Gaussian tail with rate $(n-1)/2$, so the deviation scale is $1/\\sqrt n$ — the higher the dimension, the tighter the concentration around the median."
+        },
+        {
+          "type": "mcq",
+          "q": "If $u,v$ are independent uniform random points on $S^{n-1}$, what is $\\mathbb{E}[\\langle u,v\\rangle^{2}]$?",
+          "choices": [
+            "$0$",
+            "$1/n$",
+            "$1/\\sqrt{n}$",
+            "$1/2$"
+          ],
+          "answer": 1,
+          "explain": "By symmetry $\\mathbb{E}[\\langle u,v\\rangle^{2}]=\\mathbb{E}[u_{1}^{2}]=1/n$. So $\\langle u,v\\rangle$ is concentrated on a window of width $1/\\sqrt n$ around $0$ — generic high-D vectors are almost orthogonal."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is concentration on the sphere called the \"blessing of dimensionality\"?",
+          "choices": [
+            "Because volume grows with $n$, giving more room for clusters",
+            "Because Lipschitz functions are essentially constant on most of $S^{n-1}$, so empirical averages behave deterministically",
+            "Because every set has measure $1$ in the limit $n\\to\\infty$",
+            "Because the curse of dimensionality is a folk myth"
+          ],
+          "answer": 1,
+          "explain": "High dimension makes Lipschitz functionals (norms, distances, smooth statistics) almost constant on the sphere — predictable behaviour from random inputs is the engine of modern high-D probability."
+        }
+      ]
+    },
+    "hdg-dvoretzky": {
+      "title": "Dvoretzky's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Dvoretzky's theorem says every centred convex body $K\\subset\\mathbb{R}^{n}$ has an almost-Euclidean section of dimension at least:",
+          "choices": [
+            "$O(1)$",
+            "$\\Theta(\\log n)$",
+            "$\\Theta(\\sqrt{n})$",
+            "$\\Theta(n)$"
+          ],
+          "answer": 1,
+          "explain": "Milman's proof gives $k(K,\\varepsilon)=\\Omega(\\varepsilon^{2}\\log n)$ for any centred convex body. The $\\log n$ scaling is sharp for $\\ell^{\\infty}$."
+        },
+        {
+          "type": "mcq",
+          "q": "What does \"almost-spherical section\" mean for a normed space $(\\mathbb{R}^{n},\\|\\cdot\\|)$ on a subspace $E$?",
+          "choices": [
+            "$\\|\\cdot\\|$ restricted to $E$ is exactly the Euclidean norm",
+            "$E$ is contained in the unit sphere of $\\|\\cdot\\|$",
+            "There is $c>0$ with $c\\,|x|\\le\\|x\\|\\le (1+\\varepsilon)c\\,|x|$ for all $x\\in E$",
+            "$E$ has positive Gaussian measure"
+          ],
+          "answer": 2,
+          "explain": "An $(1+\\varepsilon)$-Euclidean section is a subspace on which the given norm is sandwiched between two Hilbert-space norms with ratio $1+\\varepsilon$ — the geometry on $E$ looks Euclidean up to distortion $\\varepsilon$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which proof technique drives Dvoretzky's theorem?",
+          "choices": [
+            "The Hahn–Banach theorem applied to the polar body",
+            "Concentration of $\\|x\\|$ on the sphere combined with an $\\varepsilon$-net argument on Grassmannians",
+            "Spectral decomposition of the moment-of-inertia tensor",
+            "Riemann–Roch on a curve of high genus"
+          ],
+          "answer": 1,
+          "explain": "Milman's argument: Lévy concentration shows $\\|\\cdot\\|$ is essentially constant on most of $S^{n-1}$; an $\\varepsilon$-net on the Grassmannian then produces a subspace where the deviation is small uniformly."
+        }
+      ]
+    },
+    "hdg-johnson-lindenstrauss": {
+      "title": "Johnson–Lindenstrauss",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "How does the JL target dimension $k$ scale with the number of points $N$ and distortion $\\varepsilon$?",
+          "choices": [
+            "$k=O(N/\\varepsilon)$",
+            "$k=O(\\log N/\\varepsilon^{2})$",
+            "$k=O(\\sqrt{N}\\log(1/\\varepsilon))$",
+            "$k=O(n/\\log N)$"
+          ],
+          "answer": 1,
+          "explain": "The JL lemma gives $k=O(\\varepsilon^{-2}\\log N)$ — independent of the ambient $n$. The $\\varepsilon^{-2}$ comes from the variance of the projected length; the $\\log N$ from a union bound over $\\binom{N}{2}$ pairs."
+        },
+        {
+          "type": "mcq",
+          "q": "For a random $k\\times n$ Gaussian matrix $G$ with i.i.d.\\ $\\mathcal{N}(0,1/k)$ entries and a fixed unit vector $x$, what is $\\mathbb{E}[\\|Gx\\|^{2}]$?",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$k$",
+            "$n/k$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{E}[\\|Gx\\|^{2}]=\\sum_{i=1}^{k}\\mathbb{E}[(g_{i}\\cdot x)^{2}]=k\\cdot(1/k)\\|x\\|^{2}=\\|x\\|^{2}=1$. The JL embedding is unbiased; concentration around $1$ is the content of the lemma."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does JL preserve <em>pairwise distances</em>, not arbitrary geometric features?",
+          "choices": [
+            "It uses only differences $x_{i}-x_{j}$, applies the lemma to each, and union-bounds",
+            "Distances are conformally invariant",
+            "It assumes the data lies on a low-dimensional manifold",
+            "The Gaussian projection preserves all rank-1 matrices"
           ],
           "answer": 0,
-          "explain": "Stub."
+          "explain": "JL lifts a one-vector concentration ($\\|Gx\\|\\approx\\|x\\|$ with high probability) to all $\\binom{N}{2}$ difference vectors via a union bound — giving multiplicative distance preservation but not, say, angle preservation against arbitrary subspaces."
+        }
+      ]
+    },
+    "hdg-talagrand": {
+      "title": "Talagrand's inequality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Talagrand's convex-distance inequality is a concentration statement on which kind of probability space?",
+          "choices": [
+            "Compact Riemannian manifolds with positive curvature",
+            "Product spaces $\\Omega=\\Omega_{1}\\times\\cdots\\times\\Omega_{n}$ with product measure",
+            "Locally compact abelian groups",
+            "Banach spaces with cotype $2$"
+          ],
+          "answer": 1,
+          "explain": "Talagrand's setting is product probability spaces. Its strength is that the bound depends on the convex distance, not on a metric Lipschitz constant — so it controls many functionals that aren't Lipschitz on the Hamming cube."
+        },
+        {
+          "type": "mcq",
+          "q": "For a convex $1$-Lipschitz $f:[0,1]^{n}\\to\\mathbb{R}$ with $X$ uniform on $[0,1]^{n}$, Talagrand gives a tail of order:",
+          "choices": [
+            "$e^{-cnt^{2}}$",
+            "$e^{-ct^{2}}$ (no $n$)",
+            "$e^{-cn}$",
+            "$1/(1+t^{2})$"
+          ],
+          "answer": 1,
+          "explain": "Talagrand's bound is dimension-free in $n$: $\\mathbb{P}(|f-\\mathrm{med}\\,f|>t)\\le 4e^{-t^{2}/4}$. The Lipschitz constant absorbs scaling; one extra slot does not increase the deviation."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is convexity needed in Talagrand's statement (it fails for general $1$-Lipschitz $f$ on the cube)?",
+          "choices": [
+            "Convexity is just a convenience; the inequality holds for any Lipschitz $f$",
+            "Convexity ensures $f$ is differentiable a.e.",
+            "Convexity lets the convex distance dominate the increment, so the certificate-based induction closes",
+            "Convexity makes $f$ harmonic"
+          ],
+          "answer": 2,
+          "explain": "Talagrand's induction over coordinates uses convexity to control how a coordinate-flip changes $f$ in terms of the convex distance — giving the dimension-free constant. For non-convex Lipschitz $f$ on the Hamming cube the standard bound has a $\\sqrt n$ in the deviation."
+        }
+      ]
+    },
+    "hdg-isoperimetry": {
+      "title": "Gaussian isoperimetry",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Among Borel sets $A\\subset\\mathbb{R}^{n}$ of fixed Gaussian measure, which extremise the Gaussian surface area?",
+          "choices": [
+            "Euclidean balls",
+            "Halfspaces $\\{x:\\langle x,v\\rangle\\le c\\}$",
+            "Cubes",
+            "Cones with vertex at the origin"
+          ],
+          "answer": 1,
+          "explain": "Borell–Sudakov–Tsirelson: halfspaces are the Gaussian-isoperimetric minimisers, in contrast with Euclidean isoperimetry where balls are optimal."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the Poincaré–Maxwell limit linking the sphere and the Gaussian?",
+          "choices": [
+            "Uniform measure on $S^{n-1}(\\sqrt n)$ projected onto the first $k$ coordinates converges to $\\mathcal{N}(0,I_{k})$ as $n\\to\\infty$",
+            "$S^{n-1}$ has constant Gaussian curvature, equal to that of $\\mathbb{R}^{n}$",
+            "$L^{2}(S^{n-1})$ is unitarily equivalent to $L^{2}(\\mathbb{R}^{n},\\gamma)$",
+            "The diameter of $S^{n-1}$ converges to $\\infty$"
+          ],
+          "answer": 0,
+          "explain": "Project the uniform measure on the radius-$\\sqrt n$ sphere onto $k$ fixed coordinates: the marginal converges to standard $k$-dim Gaussian. This is why concentration on $S^{n-1}$ \"becomes\" Gaussian concentration in the limit."
+        },
+        {
+          "type": "mcq",
+          "q": "Which functional inequality, due to Gross, is equivalent to Gaussian isoperimetry up to dimension-free constants?",
+          "choices": [
+            "Brunn–Minkowski",
+            "The log-Sobolev inequality $\\mathrm{Ent}_{\\gamma}(f^{2})\\le 2\\int|\\nabla f|^{2}\\,d\\gamma$",
+            "The Bishop–Gromov volume comparison",
+            "The Hardy–Littlewood–Sobolev inequality"
+          ],
+          "answer": 1,
+          "explain": "Gross's log-Sobolev inequality for the Gaussian measure $\\gamma$ controls entropy by Dirichlet energy and is dimension-free. Bobkov's functional refinement is the sharp form that recovers Gaussian isoperimetry directly."
+        }
+      ]
+    },
+    "hdg-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Compressed sensing recovers a $k$-sparse signal $x\\in\\mathbb{R}^{n}$ from $m$ random linear measurements when:",
+          "choices": [
+            "$m\\ge n$ always",
+            "$m\\ge ck\\log(n/k)$, where the sensing matrix satisfies the Restricted Isometry Property",
+            "$m\\ge\\sqrt{n}$",
+            "$m=k$ exactly"
+          ],
+          "answer": 1,
+          "explain": "Candès–Tao show $\\ell^{1}$-minimisation recovers $k$-sparse $x$ exactly from $m=O(k\\log(n/k))$ Gaussian measurements. RIP is proved via JL-type concentration on every $k$-dim coordinate subspace."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the limiting empirical spectral distribution of $\\frac{1}{n}WW^{*}$ where $W$ is $m\\times n$ with i.i.d.\\ entries of mean $0$ and variance $1$, as $m,n\\to\\infty$ with $m/n\\to\\lambda$?",
+          "choices": [
+            "Semicircle law",
+            "Marchenko–Pastur law on $[(1-\\sqrt\\lambda)^{2},(1+\\sqrt\\lambda)^{2}]$",
+            "Standard Gaussian",
+            "Tracy–Widom"
+          ],
+          "answer": 1,
+          "explain": "The Wishart-type matrix has empirical spectrum converging to the Marchenko–Pastur distribution with parameter $\\lambda$. The semicircle is for symmetric Wigner matrices; Tracy–Widom is for the largest eigenvalue."
+        },
+        {
+          "type": "mcq",
+          "q": "VC-style PAC bounds give a sample complexity of order $m=O(d/\\varepsilon^{2})$ for a hypothesis class of VC dimension $d$. The bound rests on which probabilistic tool?",
+          "choices": [
+            "The fundamental theorem of calculus",
+            "Uniform concentration of empirical means (a Talagrand / chaining argument over the class)",
+            "Riemann's hypothesis",
+            "The spectral theorem for self-adjoint operators"
+          ],
+          "answer": 1,
+          "explain": "PAC learning bounds use uniform concentration: empirical means concentrate around expectations <em>uniformly</em> over the hypothesis class. Talagrand-type inequalities and chaining are the modern tools."
         }
       ]
     }

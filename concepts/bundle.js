@@ -711,29 +711,174 @@ window.__MVConcepts = {
     },
     "calabi-yau-manifolds": {
       "topic": "calabi-yau-manifolds",
-      "title": "Calabi yau manifolds",
+      "title": "Calabi–Yau manifolds",
       "page": "calabi-yau-manifolds.html",
       "concepts": [
         {
-          "id": "calabi-yau-manifolds-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "cy-definition",
+          "title": "Definition: Ricci-flat Kähler manifolds",
+          "anchor": "definition",
+          "prereqs": [
+            "forms-and-wedge",
+            "kahler-differentials"
+          ],
+          "tags": [
+            "foundation"
+          ],
+          "blurb": "A Calabi–Yau manifold is a compact complex Kähler manifold $X$ of complex dimension $n$ with vanishing first Chern class $c_1(X) = 0$ — equivalently, trivial canonical bundle $K_X \\cong \\mathcal{O}_X$, equivalently a global holomorphic $n$-form $\\Omega$ that vanishes nowhere. Yau's theorem (proving the Calabi conjecture) says each Kähler class then contains a unique Ricci-flat metric: complex algebra forces real geometry."
+        },
+        {
+          "id": "cy-hodge-numbers",
+          "title": "The Hodge diamond",
+          "anchor": "hodge",
+          "prereqs": [
+            "cy-definition",
+            "hodge-numbers"
+          ],
+          "tags": [
+            "cohomology",
+            "classification"
+          ],
+          "blurb": "Hodge numbers $h^{p,q} = \\dim H^q(X, \\Omega^p)$ form a diamond. For a CY $n$-fold, triviality of $K_X$ gives $h^{n,0} = h^{0,0} = 1$, and Kähler / Serre duality forces $h^{p,q} = h^{q,p} = h^{n-p,n-q}$. For a CY 3-fold the only free entries are $h^{1,1}$ and $h^{2,1}$, and the Euler characteristic is $\\chi(X) = 2(h^{1,1} - h^{2,1})$."
+        },
+        {
+          "id": "cy-examples",
+          "title": "Examples: elliptic curves, K3, the quintic",
+          "anchor": "examples",
+          "prereqs": [
+            "cy-definition",
+            "riemann-surface-definition",
+            "higher-dim-bezout"
+          ],
+          "tags": [
+            "classification"
+          ],
+          "blurb": "Dimension 1 CY = elliptic curve (a torus $\\mathbb{C}/\\Lambda$). Dimension 2 CY = K3 surface, e.g. a smooth quartic in $\\mathbb{P}^3$, with Hodge diamond $1, 0, 1, 20, 1, 0, 1$. The canonical 3-fold example is the quintic $\\{f_5(x_0,\\ldots,x_4)=0\\} \\subset \\mathbb{P}^4$, which has $h^{1,1}=1$ and $h^{2,1}=101$. More generally the Batyrev–Borisov construction gives CY hypersurfaces in toric Fano varieties."
+        },
+        {
+          "id": "cy-period-map",
+          "title": "Periods and Picard–Fuchs",
+          "anchor": "period",
+          "prereqs": [
+            "cy-hodge-numbers",
+            "de-rham-complex",
+            "cech-cohomology"
+          ],
+          "tags": [
+            "moduli",
+            "cohomology"
+          ],
+          "blurb": "As $X$ varies in a family $X_t$, integrate the holomorphic $n$-form $\\Omega_t$ against a basis $\\gamma_i$ of $H_n(X,\\mathbb{Z})$ to get period integrals $\\Pi_i(t) = \\int_{\\gamma_i} \\Omega_t$. These satisfy a linear ODE — the Picard–Fuchs equation — whose monodromy around singular points of moduli encodes the variation of Hodge structure. For the quintic family this is a hypergeometric ${}_4F_3$."
+        },
+        {
+          "id": "cy-mirror-pair",
+          "title": "Mirror symmetry: swapping the diamond",
+          "anchor": "mirror",
+          "prereqs": [
+            "cy-hodge-numbers",
+            "cy-period-map"
+          ],
+          "tags": [
+            "duality",
+            "moduli"
+          ],
+          "blurb": "Mirror symmetry pairs a CY 3-fold $X$ with a mirror $Y$ such that $h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$ — the Hodge diamond reflects across its diagonal. Physically this is type IIA on $X$ versus type IIB on $Y$. Mathematically it predicts equalities between $A$-model (symplectic, Gromov–Witten) data on $X$ and $B$-model (complex, period) data on $Y$ — the celebrated Candelas–de la Ossa–Green–Parkes count of rational curves on the quintic."
+        },
+        {
+          "id": "cy-applications",
+          "title": "String compactifications, DT, SYZ",
+          "anchor": "applications",
+          "prereqs": [
+            "cy-mirror-pair"
+          ],
+          "tags": [
+            "fibration",
+            "duality"
+          ],
+          "blurb": "CY 3-folds are the compact internal directions in superstring compactifications: the $\\mathcal{N}=1$ supersymmetry of the 4D effective theory needs Ricci-flat Kähler, hence CY. Donaldson–Thomas invariants count ideal sheaves on $X$ (mirror to Gromov–Witten on $Y$). The Strominger–Yau–Zaslow conjecture realises mirror pairs concretely: every CY 3-fold should admit a special-Lagrangian $T^3$-fibration $X \\to B$, with the mirror obtained by dualising the torus fibres."
         }
       ]
     },
     "high-dimensional-geometry": {
       "topic": "high-dimensional-geometry",
-      "title": "High dimensional geometry",
+      "title": "High-dimensional geometry",
       "page": "high-dimensional-geometry.html",
       "concepts": [
         {
-          "id": "high-dimensional-geometry-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "hdg-sphere-concentration",
+          "title": "Concentration on the sphere",
+          "anchor": "sphere",
+          "prereqs": [
+            "expectation-moments",
+            "lp-spaces"
+          ],
+          "blurb": "On $S^{n-1}$ a $1$-Lipschitz function $f$ concentrates near its median: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le 2e^{-(n-1)t^2/2}$ (Lévy's lemma). Generic vectors look almost orthogonal — the \"blessing of dimensionality\".",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "hdg-dvoretzky",
+          "title": "Dvoretzky's theorem",
+          "anchor": "dvoretzky",
+          "prereqs": [
+            "hdg-sphere-concentration",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "Every centred convex body in $\\mathbb{R}^n$ has an almost-Euclidean section of dimension $k\\asymp\\log n$: the unit ball of any norm contains a subspace whose induced norm is $(1+\\varepsilon)$-equivalent to $\\ell^2$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "hdg-johnson-lindenstrauss",
+          "title": "Johnson–Lindenstrauss",
+          "anchor": "jl",
+          "prereqs": [
+            "hdg-sphere-concentration",
+            "random-variables"
+          ],
+          "blurb": "Any $N$ points in $\\mathbb{R}^n$ embed into $\\mathbb{R}^k$ with $k=O(\\varepsilon^{-2}\\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\\pm\\varepsilon$ — the workhorse dimension reduction of high-D ML."
+        },
+        {
+          "id": "hdg-talagrand",
+          "title": "Talagrand's inequality",
+          "anchor": "talagrand",
+          "prereqs": [
+            "hdg-sphere-concentration",
+            "convergence-rv"
+          ],
+          "blurb": "On product probability spaces a convex $1$-Lipschitz $f$ satisfies $\\mathbb{P}(|f-\\mathrm{med}\\,f|>t)\\le 4e^{-t^2/4}$ — convex-distance concentration that is dimension-free and underlies modern high-dimensional probability.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "hdg-isoperimetry",
+          "title": "Gaussian isoperimetry",
+          "anchor": "isoperimetry",
+          "prereqs": [
+            "hdg-sphere-concentration",
+            "bounded-operators-fa"
+          ],
+          "blurb": "Among Borel sets of equal Gaussian measure, halfspaces minimise the Gaussian boundary measure. The sphere $\\to$ Gauss limit (Poincaré) plus log-Sobolev (Gross) and Bobkov's functional inequality place isoperimetry at the analytic core of concentration.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "hdg-applications",
+          "title": "Applications",
+          "anchor": "applications",
+          "prereqs": [
+            "hdg-johnson-lindenstrauss",
+            "hdg-talagrand",
+            "ld-cramer-theorem"
+          ],
+          "blurb": "Compressed sensing (RIP via JL), random matrix theory (Marchenko–Pastur, Wigner), PAC bounds in statistical learning, and random tensors all rest on concentration of measure as the geometric backbone of modern high-dimensional data analysis.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -743,11 +888,91 @@ window.__MVConcepts = {
       "page": "mirror-symmetry.html",
       "concepts": [
         {
-          "id": "mirror-symmetry-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "ms-mirror-pair-statement",
+          "title": "The mirror pair statement",
+          "anchor": "statement",
+          "prereqs": [
+            "cy-definition",
+            "cy-hodge-numbers",
+            "cy-mirror-pair"
+          ],
+          "blurb": "For a Calabi–Yau 3-fold $X$ there is conjecturally a mirror partner $Y$ — another CY 3-fold — with the Hodge numbers swapped: $h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$. Geometrically this exchanges the Kähler (symplectic) moduli of $X$ with the complex-structure moduli of $Y$. Physically it identifies the type-IIA string on $X$ with the type-IIB string on $Y$, sending the A-model on $X$ to the B-model on $Y$.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "ms-quintic-prediction",
+          "title": "The quintic prediction",
+          "anchor": "quintic",
+          "prereqs": [
+            "ms-mirror-pair-statement",
+            "ms-period-integrals"
+          ],
+          "blurb": "Candelas–de la Ossa–Green–Parkes (1991) computed periods on the mirror $Y$ of the quintic 3-fold $X \\subset \\mathbb{P}^4$ and read off, by mirror symmetry, the Gromov–Witten invariants of $X$ — predicting the count of degree-$d$ rational curves on the quintic for every $d$. The numbers (e.g. $2{,}875$ lines, $609{,}250$ conics, $317{,}206{,}375$ twisted cubics, $\\dots$) were later proven to all orders by Givental and Lian–Liu–Yau, the first hard mathematical confirmation of the conjecture.",
+          "tags": [
+            "duality",
+            "moduli"
+          ]
+        },
+        {
+          "id": "ms-gromov-witten",
+          "title": "A-model: Gromov–Witten invariants",
+          "anchor": "gw",
+          "prereqs": [
+            "sm-symplectic-form",
+            "cy-definition"
+          ],
+          "blurb": "The A-model on $(X,\\omega)$ is governed by counts of pseudo-holomorphic curves: stable maps $f\\colon \\Sigma_g \\to X$ from a genus-$g$ Riemann surface representing a class $\\beta \\in H_2(X,\\mathbb{Z})$. The genus-zero Gromov–Witten invariants $N_\\beta = \\int_{[\\overline{\\mathcal{M}}_{0,0}(X,\\beta)]^{\\mathrm{vir}}} 1$ assemble into a generating function depending only on the Kähler class $[\\omega]$ — symplectic data, not complex-structure data.",
+          "tags": [
+            "moduli",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "ms-period-integrals",
+          "title": "B-model: periods and Picard–Fuchs",
+          "anchor": "periods",
+          "prereqs": [
+            "cy-period-map",
+            "hodge-filtration"
+          ],
+          "blurb": "The B-model on $Y$ is governed by the holomorphic 3-form $\\Omega \\in H^{3,0}(Y)$. Its periods $\\Pi_\\gamma(t) = \\int_\\gamma \\Omega(t)$ over a basis $\\gamma \\in H_3(Y,\\mathbb{Z})$ satisfy a Picard–Fuchs ODE in the complex-structure parameter $t$. Solving Picard–Fuchs gives the periods as hypergeometric series; the mirror map $t \\mapsto q$ is the change of coordinates that turns these series into A-model Gromov–Witten generating functions.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "ms-homological-mirror",
+          "title": "Homological mirror symmetry (Kontsevich)",
+          "anchor": "hms",
+          "prereqs": [
+            "ms-mirror-pair-statement",
+            "examples-D-Coh",
+            "sm-lagrangian-submanifolds"
+          ],
+          "blurb": "Kontsevich's 1994 ICM proposal: mirror symmetry is an equivalence of triangulated categories $D^b\\mathrm{Coh}(X) \\cong D^\\pi\\mathrm{Fuk}(Y)$. The B-model on $X$ is the bounded derived category of coherent sheaves; the A-model on $Y$ is the (split-closed) Fukaya category, whose objects are Lagrangian submanifolds equipped with brane data and whose hom-spaces are Lagrangian intersection Floer cohomologies. Verified for elliptic curves, quartic and quintic 3-folds, toric varieties, and many more.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "ms-syz",
+          "title": "Strominger–Yau–Zaslow fibrations",
+          "anchor": "syz",
+          "prereqs": [
+            "ms-mirror-pair-statement",
+            "sm-lagrangian-submanifolds",
+            "cy-definition"
+          ],
+          "blurb": "The Strominger–Yau–Zaslow conjecture (1996) gives a geometric mechanism for mirror symmetry: a CY 3-fold $X$ admits a special-Lagrangian $T^3$-fibration $X \\to B$ over a real 3-dimensional base, and the mirror $Y \\to B$ is the dual fibration — fibrewise replace each torus $T^3_b$ by its dual $\\check T^3_b = \\mathrm{Hom}(T^3_b, U(1))$. T-duality on the fibres swaps A-model and B-model. A foundation for both HMS and the modern Gross–Siebert program.",
+          "tags": [
+            "duality",
+            "fibration"
+          ]
         }
       ]
     },
@@ -757,11 +982,80 @@ window.__MVConcepts = {
       "page": "mostow-rigidity.html",
       "concepts": [
         {
-          "id": "mostow-rigidity-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "mr-statement",
+          "title": "Mostow's rigidity theorem",
+          "anchor": "statement",
+          "prereqs": [
+            "riemannian-metrics",
+            "fundamental-group"
+          ],
+          "blurb": "For closed hyperbolic $n$-manifolds with $n\\ge 3$, an isomorphism of fundamental groups is induced by a unique isometry. The hyperbolic metric is a topological invariant.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mr-hyperbolic-3-mflds",
+          "title": "Hyperbolic 3-manifolds",
+          "anchor": "hyp3",
+          "prereqs": [
+            "mr-statement",
+            "hyperbolic-metric"
+          ],
+          "blurb": "Closed hyperbolic 3-manifolds are quotients $\\mathbb{H}^3/\\Gamma$ by torsion-free discrete subgroups $\\Gamma\\subset\\mathrm{PSL}_2(\\mathbb{C})$; rigidity says the lattice $\\Gamma$ is determined by its abstract isomorphism type.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "mr-quasi-isometry",
+          "title": "Quasi-isometry and boundary extension",
+          "anchor": "quasi-iso",
+          "prereqs": [
+            "mr-hyperbolic-3-mflds"
+          ],
+          "blurb": "A quasi-isometry of $\\mathbb{H}^n$ extends continuously to a quasi-conformal homeomorphism of the sphere at infinity $S^{n-1}$ — the analytic engine that converts coarse group data into conformal boundary data.",
+          "tags": [
+            "lifting"
+          ]
+        },
+        {
+          "id": "mr-ergodicity-of-action",
+          "title": "Ergodicity of the boundary action",
+          "anchor": "ergodic",
+          "prereqs": [
+            "mr-quasi-isometry",
+            "lie-group-definition"
+          ],
+          "blurb": "A cocompact lattice $\\Gamma$ acts ergodically on $S^{n-1}\\times S^{n-1}$ with respect to Lebesgue measure; combined with quasi-conformality this forces the boundary map to be Möbius, hence the bulk map to be an isometry.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "mr-arithmetic-lattices",
+          "title": "Margulis arithmeticity",
+          "anchor": "arithmetic",
+          "prereqs": [
+            "mr-ergodicity-of-action"
+          ],
+          "blurb": "In higher-rank irreducible symmetric spaces every lattice is arithmetic — defined as the integer points of an algebraic group. Margulis's superrigidity refines and strengthens Mostow's theorem.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mr-applications",
+          "title": "Volume, simplicial volume, and geometrisation",
+          "anchor": "applications",
+          "prereqs": [
+            "mr-statement",
+            "mr-hyperbolic-3-mflds"
+          ],
+          "blurb": "Hyperbolic volume becomes a topological invariant; Gromov's simplicial norm $\\|M\\|$ equals $\\mathrm{Vol}(M)/v_n$, and Thurston's geometrisation places the hyperbolic pieces of any 3-manifold into Mostow's rigid catalogue.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -771,25 +1065,174 @@ window.__MVConcepts = {
       "page": "resolution-of-singularities.html",
       "concepts": [
         {
-          "id": "resolution-of-singularities-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "ros-singular-vs-smooth",
+          "title": "Singular vs smooth points",
+          "anchor": "singular",
+          "prereqs": [
+            "geometric-fibers",
+            "scheme-morphisms"
+          ],
+          "blurb": "A point $p$ on a variety $X = V(f_1,\\ldots,f_r) \\subset \\mathbb{A}^n$ is smooth iff the Jacobian $(\\partial f_i / \\partial x_j)(p)$ has the expected rank $n - \\dim X$. The tangent space $T_pX = \\ker J(p)$ jumps in dimension precisely at singular points. The tangent cone $C_pX$ — the lowest-degree term of $f_i$ at $p$ — refines this: at a smooth point $T_pX = C_pX$, but at a node both lines of the cone live inside the bigger tangent space.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ros-blow-up",
+          "title": "Blowing up a subvariety",
+          "anchor": "blowup",
+          "prereqs": [
+            "ros-singular-vs-smooth",
+            "fiber-products"
+          ],
+          "blurb": "The blow-up $\\mathrm{Bl}_Z X \\to X$ replaces a closed subvariety $Z \\subset X$ by its projectivized normal directions: $\\mathrm{Bl}_p \\mathbb{A}^n = \\{(x, \\ell) : x \\in \\ell\\} \\subset \\mathbb{A}^n \\times \\mathbb{P}^{n-1}$. It is a proper birational morphism, an iso away from $Z$, and is universal: any map to $X$ along which the ideal of $Z$ becomes locally principal factors uniquely through $\\mathrm{Bl}_Z X$. Each blow-up tries to convert a singularity into a milder one — possibly smooth.",
+          "tags": [
+            "universal-property",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "ros-resolution-statement",
+          "title": "Hironaka's theorem",
+          "anchor": "statement",
+          "prereqs": [
+            "ros-blow-up",
+            "separated-proper-morphisms"
+          ],
+          "blurb": "For any variety $X$ over a characteristic-zero field, there exists a proper birational morphism $\\pi : \\tilde X \\to X$ with $\\tilde X$ smooth and $\\pi$ an isomorphism over the smooth locus of $X$. Hironaka (1964) proved this by an inductive sequence of blow-ups along smooth centres lying inside the singular locus, with an invariant that strictly decreases. In characteristic $p$ the analogous statement is open in dimension $\\ge 4$.",
+          "tags": [
+            "foundation",
+            "compactness"
+          ]
+        },
+        {
+          "id": "ros-curves",
+          "title": "Curves: nodes, cusps, normalisation",
+          "anchor": "curves",
+          "prereqs": [
+            "ros-blow-up",
+            "smooth-projective-curve"
+          ],
+          "blurb": "For a curve, resolution is classical and one-step: the normalisation $\\tilde C \\to C$ replaces $C$'s coordinate ring by its integral closure in the function field, separating branches at every singular point. A node $y^2 = x^2$ blows up to two disjoint smooth points; a cusp $y^2 = x^3$ to one smooth point with a Newton–Puiseux parametrisation $t \\mapsto (t^2, t^3)$. Normalisation, blow-up at the singularity, and Puiseux series all give the same answer in dimension one.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "ros-surfaces",
+          "title": "Surfaces and ADE",
+          "anchor": "surfaces",
+          "prereqs": [
+            "ros-resolution-statement",
+            "cech-cohomology"
+          ],
+          "blurb": "For surfaces, the simplest singularities are the rational double points (Du Val, ADE): $A_n: x^2 + y^2 + z^{n+1}$, $D_n$, $E_6, E_7, E_8$. Their minimal resolutions have exceptional divisor a tree of $\\mathbb{P}^1$'s whose intersection graph is the Dynkin diagram of the same name. Brieskorn realised them as quotients $\\mathbb{C}^2 / \\Gamma$ for finite subgroups $\\Gamma \\subset \\mathrm{SL}_2(\\mathbb{C})$; the McKay correspondence matches irreducible $\\Gamma$-representations with exceptional curves.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "ros-applications",
+          "title": "Applications and frontiers",
+          "anchor": "applications",
+          "prereqs": [
+            "ros-resolution-statement",
+            "ros-surfaces"
+          ],
+          "blurb": "Resolution is the entry point to the minimal model program (Mori): contract redundant exceptional curves to find a canonical birational model. Log resolutions — making both $X$ and a divisor simple normal crossing — power motivic integration (Kontsevich) and weak factorisation. Characteristic-$p$ resolution, de Jong's alterations, and resolution of foliations remain active frontiers.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
     "hamiltonians-classical-mechanics": {
       "topic": "hamiltonians-classical-mechanics",
-      "title": "Hamiltonians classical mechanics",
+      "title": "Hamiltonians and classical mechanics",
       "page": "hamiltonians-classical-mechanics.html",
       "concepts": [
         {
-          "id": "hamiltonians-classical-mechanics-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "hcm-phase-space",
+          "title": "Phase space and the cotangent bundle",
+          "anchor": "phase-space",
+          "prereqs": [
+            "sm-symplectic-form",
+            "forms-and-wedge"
+          ],
+          "blurb": "Configuration space $Q$ records positions; physically meaningful states pair positions with momenta, so the natural arena is the cotangent bundle $T^*Q$. The tautological 1-form $\\theta = \\sum p_i\\,dq^i$ has exterior derivative $\\omega = -d\\theta = \\sum dq^i\\wedge dp_i$, the canonical symplectic form. Canonical coordinates $(q^i,p_i)$ are not just convenience — they're the Darboux coordinates already built into $T^*Q$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "hcm-hamilton-equations",
+          "title": "Hamilton's equations",
+          "anchor": "hamilton-eq",
+          "prereqs": [
+            "hcm-phase-space",
+            "sm-hamiltonian-flow",
+            "dyn-orbits-flows"
+          ],
+          "blurb": "A Hamiltonian $H\\colon T^*Q\\to\\mathbb{R}$ generates evolution by $\\dot q^i = \\partial H/\\partial p_i,\\ \\dot p_i = -\\partial H/\\partial q^i$. These are exactly the integral curves of the Hamiltonian vector field $X_H$ defined by $\\iota_{X_H}\\omega = dH$. Energy conservation $\\dot H = 0$ and Liouville's theorem (volume preservation) follow at once from $\\mathcal{L}_{X_H}\\omega = 0$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "hcm-canonical-transformations",
+          "title": "Canonical transformations and Hamilton–Jacobi",
+          "anchor": "canonical",
+          "prereqs": [
+            "hcm-hamilton-equations",
+            "sm-poisson-bracket"
+          ],
+          "blurb": "A diffeomorphism $\\varphi\\colon T^*Q\\to T^*Q$ is canonical (a symplectomorphism) when $\\varphi^*\\omega = \\omega$. Locally each is encoded by a generating function $S(q,Q)$: $p_i = \\partial S/\\partial q^i,\\ P_i = -\\partial S/\\partial Q^i$. Choosing $S$ so the new Hamiltonian vanishes gives the Hamilton–Jacobi equation $\\partial S/\\partial t + H(q,\\partial S/\\partial q) = 0$ — solving it integrates the dynamics.",
+          "tags": [
+            "functoriality",
+            "duality"
+          ]
+        },
+        {
+          "id": "hcm-noether",
+          "title": "Symmetries and Noether's theorem",
+          "anchor": "noether",
+          "prereqs": [
+            "hcm-hamilton-equations",
+            "sm-poisson-bracket"
+          ],
+          "blurb": "If $f\\in C^\\infty(T^*Q)$ Poisson-commutes with $H$, then $f$ is conserved along the flow: $\\dot f = \\{f,H\\} = 0$. Conversely every continuous symmetry of $H$ has a moment map $f$ generating it. Translations $\\to$ linear momentum, rotations $\\to$ angular momentum, time-translation $\\to$ energy. Noether's theorem in Hamiltonian dress: symmetries and conserved quantities are the same data.",
+          "tags": [
+            "group-action",
+            "duality"
+          ]
+        },
+        {
+          "id": "hcm-integrable-systems",
+          "title": "Integrable systems and KAM",
+          "anchor": "integrable",
+          "prereqs": [
+            "hcm-noether",
+            "hcm-canonical-transformations",
+            "dyn-conservative-dissipative"
+          ],
+          "blurb": "Liouville–Arnold: if $T^*Q$ has $n$ functionally independent first integrals $f_1=H,f_2,\\dots,f_n$ in involution ($\\{f_i,f_j\\}=0$), each compact regular level set is a torus $T^n$ and there exist action-angle coordinates $(I,\\theta)$ in which $\\dot I = 0,\\ \\dot\\theta = \\partial H/\\partial I$. KAM: under a small non-degenerate perturbation of an integrable $H$, most invariant tori survive (those with sufficiently irrational frequency vectors).",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "hcm-applications",
+          "title": "Worked examples",
+          "anchor": "applications",
+          "prereqs": [
+            "hcm-integrable-systems"
+          ],
+          "blurb": "The harmonic oscillator $H=\\tfrac12(p^2+\\omega^2 q^2)$ is the cleanest integrable system; its phase portrait is concentric ellipses. The Kepler problem $H=\\tfrac{|p|^2}{2m}-\\tfrac{k}{|q|}$ is super-integrable — angular momentum and the Laplace–Runge–Lenz vector pin orbits to closed conics. The free rigid body, geodesic flow on a Riemannian manifold, and convex billiards round out the canonical examples; the three-body problem is famously not integrable.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -799,25 +1242,168 @@ window.__MVConcepts = {
       "page": "general-relativity.html",
       "concepts": [
         {
-          "id": "general-relativity-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "gr-spacetime",
+          "title": "Spacetime as a Lorentzian manifold",
+          "anchor": "spacetime",
+          "prereqs": [
+            "riemannian-metrics"
+          ],
+          "blurb": "Spacetime is a smooth 4-manifold $(M,g)$ with a non-degenerate metric of signature $(-,+,+,+)$. The light cone $g(v,v)=0$ separates timelike, lightlike, and spacelike vectors at each point and pins down the local causal structure: only timelike worldlines can carry massive observers and only causal curves can transmit information.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "gr-einstein-equations",
+          "title": "Einstein field equations",
+          "anchor": "einstein-eq",
+          "prereqs": [
+            "gr-spacetime",
+            "ricci-curvature",
+            "pde-classification"
+          ],
+          "blurb": "$R_{\\mu\\nu}-\\tfrac12 g_{\\mu\\nu}R+\\Lambda g_{\\mu\\nu}=8\\pi G\\,T_{\\mu\\nu}$ couples the Ricci-trace curvature of spacetime to the stress-energy tensor of matter. Geometry on the left, matter on the right; in vacuum with $\\Lambda=0$ the equation reduces to $R_{\\mu\\nu}=0$, a quasi-linear hyperbolic PDE for the metric whose nonlinearity is the source of nearly every interesting GR phenomenon.",
+          "tags": [
+            "classification",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "gr-schwarzschild",
+          "title": "Schwarzschild solution and event horizons",
+          "anchor": "schwarzschild",
+          "prereqs": [
+            "gr-einstein-equations",
+            "levi-civita-connection"
+          ],
+          "blurb": "The unique static spherically-symmetric vacuum solution is $ds^2=-(1-2M/r)\\,dt^2+(1-2M/r)^{-1}dr^2+r^2 d\\Omega^2$. The coordinate singularity at $r=2M$ is the event horizon — a one-way membrane no causal curve can cross outward — while $r=0$ is a genuine curvature singularity where $R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}\\sim M^2/r^6$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gr-kerr-rotating",
+          "title": "Kerr metric and rotating black holes",
+          "anchor": "kerr",
+          "prereqs": [
+            "gr-schwarzschild"
+          ],
+          "blurb": "A spinning black hole of mass $M$ and angular momentum $J=Ma$ is described by the Kerr metric in Boyer–Lindquist coordinates. Two surfaces appear: the event horizon at $r_+=M+\\sqrt{M^2-a^2}$ and an outer stationary-limit surface bounding an ergosphere where no observer can stay at rest — frame-dragging forces co-rotation, enabling the Penrose process for energy extraction.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
+        },
+        {
+          "id": "gr-cosmology-flrw",
+          "title": "FLRW cosmology",
+          "anchor": "cosmology",
+          "prereqs": [
+            "gr-einstein-equations"
+          ],
+          "blurb": "The Friedmann–Lemaître–Robertson–Walker metric $ds^2=-dt^2+a(t)^2[dr^2/(1-kr^2)+r^2 d\\Omega^2]$ encodes a homogeneous isotropic universe. Einstein's equations reduce to the Friedmann equations for the scale factor $a(t)$; the redshift $1+z=a(t_0)/a(t_e)$ tracks expansion, and a positive $\\Lambda$ drives accelerating expansion as observed for dark energy.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gr-gravitational-waves",
+          "title": "Linearised gravity and gravitational waves",
+          "anchor": "gw",
+          "prereqs": [
+            "gr-einstein-equations",
+            "pde-wave-equation"
+          ],
+          "blurb": "Write $g_{\\mu\\nu}=\\eta_{\\mu\\nu}+h_{\\mu\\nu}$ with $|h|\\ll1$ on a Minkowski background. In Lorenz gauge the Einstein equations linearise to $\\Box \\bar h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}$ — a wave equation for two transverse-traceless polarisation modes propagating at $c$. Binary black hole inspirals radiate $\\sim 10^{-21}$ strain detected by LIGO via interferometric arms.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
         }
       ]
     },
     "three-body-problem": {
       "topic": "three-body-problem",
-      "title": "Three body problem",
+      "title": "The three-body problem",
       "page": "three-body-problem.html",
       "concepts": [
         {
-          "id": "three-body-problem-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "tbp-newton-equations",
+          "title": "Newton's equations and conserved quantities",
+          "anchor": "newton-eq",
+          "prereqs": [
+            "dyn-orbits-flows"
+          ],
+          "blurb": "For three point masses interacting by gravity, Newton's second law gives $\\ddot r_i = G\\sum_{j\\ne i} m_j (r_j-r_i)/|r_j-r_i|^3$. The $18$-dimensional phase space carries ten classical integrals — total energy $E$, momentum $P$ (3), centre-of-mass $R$ (3), and angular momentum $L$ (3) — leaving $8$ effective degrees of freedom after Jacobi reduction.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tbp-restricted-3body",
+          "title": "Restricted three-body problem & Lagrange points",
+          "anchor": "restricted",
+          "prereqs": [
+            "tbp-newton-equations",
+            "dyn-fixed-linearization"
+          ],
+          "blurb": "When one mass is negligible, the heavy pair traces a Keplerian orbit and the test particle sees a time-independent potential in the rotating frame. The effective potential $U_{\\mathrm{eff}}=-\\tfrac12\\Omega^2(x^2+y^2)-Gm_1/r_1-Gm_2/r_2$ has five critical points $L_1$–$L_5$: three collinear saddles ($L_1,L_2,L_3$) and two equilateral maxima ($L_4,L_5$) which become Lyapunov-stable when $m_1/m_2 > (25+3\\sqrt{69})/2 \\approx 24.96$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "tbp-special-solutions",
+          "title": "Lagrange, Euler, and the figure-eight",
+          "anchor": "special",
+          "prereqs": [
+            "tbp-newton-equations"
+          ],
+          "blurb": "The full three-body problem admits a thin family of explicit solutions. Lagrange (1772) found the equilateral configuration: three masses at the vertices of an equilateral triangle that rotates rigidly. Euler (1767) gave the collinear family with the three masses on a rotating line in fixed ratios. Centuries later Chenciner and Montgomery (2000) proved the existence of the figure-eight: three equal masses chasing each other along a single planar curve with the symmetry of the lemniscate.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "tbp-poincare-tangle",
+          "title": "Poincaré's tangle — the birth of chaos",
+          "anchor": "poincare",
+          "prereqs": [
+            "tbp-restricted-3body",
+            "dyn-poincare-section",
+            "dyn-chaos"
+          ],
+          "blurb": "Poincaré's 1889 prize memoir, in correcting an error, discovered that the stable and unstable manifolds of a hyperbolic periodic orbit can intersect transversally — and once they do, they must do so infinitely often, weaving a homoclinic tangle of unimaginable complexity. Smale later distilled this into the horseshoe map: a topological mechanism producing infinitely many periodic orbits and sensitive dependence on initial conditions. The three-body problem is where dynamical systems was born.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tbp-kam",
+          "title": "KAM theorem and stability of the solar system",
+          "anchor": "kam",
+          "prereqs": [
+            "tbp-poincare-tangle",
+            "sm-hamiltonian-flow"
+          ],
+          "blurb": "Kolmogorov (1954), Arnold (1963), and Moser (1962) showed that for a small Hamiltonian perturbation $H = H_0(I) + \\varepsilon H_1(I,\\theta)$ of an integrable system, most invariant tori (those whose frequencies satisfy a Diophantine condition $|k\\cdot\\omega|\\ge \\gamma|k|^{-\\tau}$) survive — only the resonant ones break up into Birkhoff zones. The set of surviving tori has positive measure tending to full measure as $\\varepsilon\\to 0$, giving long-time stability of the planetary problem in a measure-theoretic sense (Arnold, Laskar).",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "tbp-applications",
+          "title": "Spacecraft trajectories and Trojan asteroids",
+          "anchor": "applications",
+          "prereqs": [
+            "tbp-restricted-3body",
+            "tbp-special-solutions"
+          ],
+          "blurb": "The Lagrange points are real estate: $L_2$ of the Sun–Earth system parks JWST in eternal anti-solar shade, and halo orbits around $L_1$ host SOHO. Gravity assists exploit the energy exchange in close encounters of the restricted problem to slingshot Voyager out of the solar system. Jupiter's $L_4$ and $L_5$ host the Trojan asteroids — over $10^4$ catalogued — librating in the equilateral wells. Exoplanet stability analyses use KAM-style criteria to bound the architectures that can persist for billion-year timescales.",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -827,11 +1413,77 @@ window.__MVConcepts = {
       "page": "designs.html",
       "concepts": [
         {
-          "id": "designs-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "d-block-designs",
+          "title": "Balanced incomplete block designs",
+          "anchor": "block-designs",
+          "prereqs": [
+            "sets-functions",
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "A $(v, k, \\lambda)$-BIBD is a collection of $k$-subsets (blocks) of a $v$-set so that every pair of points appears in exactly $\\lambda$ blocks. Necessary conditions $\\lambda(v-1) = r(k-1)$ and $bk = vr$ link the parameters $(v,b,r,k,\\lambda)$ but are far from sufficient — Fisher's inequality and Bruck–Ryser–Chowla cut deeper.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "d-fisher-inequality",
+          "title": "Fisher's inequality",
+          "anchor": "fisher",
+          "prereqs": [
+            "d-block-designs"
+          ],
+          "blurb": "Any non-trivial $2$-design satisfies $b \\ge v$: at least as many blocks as points. The proof inspects the incidence matrix $N$ and shows $NN^\\top = (r-\\lambda)I + \\lambda J$ has full rank $v$, forcing $\\mathrm{rank}(N) = v$, hence $b \\ge v$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "d-finite-projective-planes",
+          "title": "Finite projective planes",
+          "anchor": "finite-pp",
+          "prereqs": [
+            "d-fisher-inequality",
+            "projective-points-lines"
+          ],
+          "blurb": "A projective plane of order $q$ has $q^2 + q + 1$ points and the same number of lines, with $q+1$ points on each line — the symmetric $(q^2+q+1, q+1, 1)$-design. They exist iff $q$ is a prime power, with Bruck–Ryser–Chowla forbidding $q \\equiv 1, 2 \\pmod 4$ unless $q$ is a sum of two squares (ruling out e.g. $q=10$).",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "d-latin-squares",
+          "title": "Latin squares & MOLS",
+          "anchor": "latin-squares",
+          "prereqs": [
+            "d-block-designs"
+          ],
+          "blurb": "A Latin square of order $n$ is an $n \\times n$ array filled so each row and column is a permutation of $[n]$. Two are orthogonal if their superposition lists every pair $(a,b) \\in [n]^2$ once. A complete set of $n-1$ MOLS exists iff a projective plane of order $n$ does — Euler's $36$-officers problem closed the $n=6$ case (no MOLS pair).",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "d-error-correcting-codes",
+          "title": "Designs from codes",
+          "anchor": "codes",
+          "prereqs": [
+            "d-block-designs"
+          ],
+          "blurb": "Linear codes and combinatorial designs are deeply intertwined. The supports of minimum-weight codewords in the Hamming $[7,4,3]$ code form the Fano plane $\\mathrm{PG}(2,2)$, the unique Steiner triple system $S(2,3,7)$. The binary Golay code $G_{23}$ yields the Steiner system $S(4,7,23)$, and perfect codes correspond to specific $t$-designs by Assmus–Mattson.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "d-applications",
+          "title": "Applications: experiments, testing, geometry",
+          "anchor": "applications",
+          "prereqs": [
+            "d-block-designs",
+            "d-latin-squares"
+          ],
+          "blurb": "BIBDs were born from agricultural statistics — Fisher used them to test $v$ fertilizers on $b$ field plots so every pair is compared with equal precision. Latin squares schedule pairwise-orthogonal interactions in software testing; finite affine planes enable threshold cryptography; Steiner systems underlie tournament round-robins."
         }
       ]
     },
@@ -841,11 +1493,82 @@ window.__MVConcepts = {
       "page": "expanders.html",
       "concepts": [
         {
-          "id": "expanders-intro",
-          "title": "Intro",
-          "anchor": "intro",
+          "id": "e-definition",
+          "title": "Combinatorial expansion",
+          "anchor": "definition",
           "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "blurb": "A $d$-regular graph $G$ on $n$ vertices is an $(n,d,\\varepsilon)$-expander when every vertex set $S$ with $|S|\\le n/2$ has $|N(S)|\\ge(1+\\varepsilon)|S|$ — small sets always touch many new neighbours, so the graph cannot be cleanly cut.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "e-spectral-gap",
+          "title": "Spectral expansion",
+          "anchor": "spectral-gap",
+          "prereqs": [
+            "e-definition",
+            "adjacency-and-laplacian",
+            "rw-spectral-gap"
+          ],
+          "blurb": "Equivalently, a $d$-regular graph expands when the second-largest eigenvalue $\\lambda_2$ of the normalized adjacency $A/d$ is bounded away from $1$. Spectral expansion implies edge expansion (the easy direction of Cheeger), and the spectral gap $1-\\lambda_2$ is the quantitative knob.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "e-cheeger",
+          "title": "Cheeger inequality (graph version)",
+          "anchor": "cheeger",
+          "prereqs": [
+            "e-spectral-gap",
+            "cheeger-inequality"
+          ],
+          "blurb": "The graph Cheeger inequality $\\tfrac{1}{2}\\lambda_2 \\le \\phi(G) \\le \\sqrt{2\\lambda_2}$ pins edge expansion between two functions of the spectral gap — the discrete shadow of Cheeger's Riemannian theorem and the bridge between combinatorial and spectral expansion.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "e-explicit-constructions",
+          "title": "Explicit constructions",
+          "anchor": "construction",
+          "prereqs": [
+            "e-spectral-gap",
+            "random-walks-mixing"
+          ],
+          "blurb": "Margulis–Gabber–Galil produced the first explicit expander family using $SL_2(\\mathbb{Z})$ generators on $(\\mathbb{Z}/n)^2$; Lubotzky–Phillips–Sarnak upgraded this to Ramanujan graphs of degree $p+1$ via Hecke eigenvalues; Reingold–Vadhan–Wigderson's zigzag product gives a combinatorial recursion that needs no number theory.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "e-applications",
+          "title": "Applications",
+          "anchor": "applications",
+          "prereqs": [
+            "e-spectral-gap",
+            "rw-mixing-time"
+          ],
+          "blurb": "Expanders are the workhorse of pseudorandomness: error-correcting codes (Sipser–Spielman), derandomisation by walking on an expander, fast mixing of MCMC, and Reingold's $\\mathrm{LOGSPACE}$ algorithm for undirected $s$–$t$ connectivity all reduce to a uniform spectral gap.",
+          "tags": [
+            "functoriality"
+          ]
+        },
+        {
+          "id": "e-ramanujan-graphs",
+          "title": "Ramanujan graphs and Alon–Boppana",
+          "anchor": "ramanujan",
+          "prereqs": [
+            "e-explicit-constructions",
+            "bipartite-and-expanders",
+            "characters-orthogonality"
+          ],
+          "blurb": "Alon–Boppana shows any infinite family of $d$-regular graphs satisfies $\\liminf \\lambda_2 \\ge 2\\sqrt{d-1}$. A graph saturating this bound is called Ramanujan; the LPS construction realises Ramanujan graphs as Cayley graphs of $\\mathrm{PGL}_2(\\mathbb{F}_p)$, with the bound on $\\lambda_2$ coming from Deligne's proof of the Ramanujan conjecture for weight-$2$ modular forms.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
         }
       ]
     },
@@ -11623,14 +12346,14 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 56,
       "crossOut": 4,
-      "crossIn": 14,
+      "crossIn": 15,
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
       "concepts": 106,
       "intra": 157,
       "crossOut": 16,
-      "crossIn": 68,
+      "crossIn": 70,
       "density": 0.1509433962264151
     },
     "Higher categories & toposes": {
@@ -11644,22 +12367,22 @@ window.__MVConcepts = {
       "concepts": 146,
       "intra": 249,
       "crossOut": 23,
-      "crossIn": 44,
+      "crossIn": 55,
       "density": 0.15753424657534246
     },
     "Probability & statistics": {
-      "concepts": 48,
-      "intra": 76,
-      "crossOut": 11,
-      "crossIn": 8,
-      "density": 0.22916666666666666
+      "concepts": 53,
+      "intra": 86,
+      "crossOut": 14,
+      "crossIn": 10,
+      "density": 0.2641509433962264
     },
     "Geometry & topology": {
-      "concepts": 92,
-      "intra": 135,
-      "crossOut": 14,
-      "crossIn": 61,
-      "density": 0.15217391304347827
+      "concepts": 97,
+      "intra": 144,
+      "crossOut": 15,
+      "crossIn": 75,
+      "density": 0.15463917525773196
     },
     "Number theory": {
       "concepts": 90,
@@ -11672,29 +12395,29 @@ window.__MVConcepts = {
       "concepts": 85,
       "intra": 112,
       "crossOut": 52,
-      "crossIn": 10,
+      "crossIn": 11,
       "density": 0.611764705882353
     },
     "Algebraic geometry": {
-      "concepts": 112,
-      "intra": 138,
-      "crossOut": 48,
-      "crossIn": 14,
-      "density": 0.42857142857142855
+      "concepts": 127,
+      "intra": 172,
+      "crossOut": 54,
+      "crossIn": 15,
+      "density": 0.4251968503937008
     },
     "Combinatorics & graph theory": {
-      "concepts": 41,
-      "intra": 34,
-      "crossOut": 17,
+      "concepts": 51,
+      "intra": 50,
+      "crossOut": 22,
       "crossIn": 2,
-      "density": 0.4146341463414634
+      "density": 0.43137254901960786
     },
     "Mathematical physics": {
-      "concepts": 9,
-      "intra": 5,
-      "crossOut": 6,
+      "concepts": 24,
+      "intra": 22,
+      "crossOut": 23,
       "crossIn": 0,
-      "density": 0.6666666666666666
+      "density": 0.9583333333333334
     }
   }
 };

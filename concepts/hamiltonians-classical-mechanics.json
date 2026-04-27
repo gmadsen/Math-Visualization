@@ -1,14 +1,74 @@
 {
   "topic": "hamiltonians-classical-mechanics",
-  "title": "Hamiltonians classical mechanics",
+  "title": "Hamiltonians and classical mechanics",
   "page": "hamiltonians-classical-mechanics.html",
   "concepts": [
     {
-      "id": "hamiltonians-classical-mechanics-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "hcm-phase-space",
+      "title": "Phase space and the cotangent bundle",
+      "anchor": "phase-space",
+      "prereqs": [
+        "sm-symplectic-form",
+        "forms-and-wedge"
+      ],
+      "blurb": "Configuration space $Q$ records positions; physically meaningful states pair positions with momenta, so the natural arena is the cotangent bundle $T^*Q$. The tautological 1-form $\\theta = \\sum p_i\\,dq^i$ has exterior derivative $\\omega = -d\\theta = \\sum dq^i\\wedge dp_i$, the canonical symplectic form. Canonical coordinates $(q^i,p_i)$ are not just convenience — they're the Darboux coordinates already built into $T^*Q$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "hcm-hamilton-equations",
+      "title": "Hamilton's equations",
+      "anchor": "hamilton-eq",
+      "prereqs": [
+        "hcm-phase-space",
+        "sm-hamiltonian-flow",
+        "dyn-orbits-flows"
+      ],
+      "blurb": "A Hamiltonian $H\\colon T^*Q\\to\\mathbb{R}$ generates evolution by $\\dot q^i = \\partial H/\\partial p_i,\\ \\dot p_i = -\\partial H/\\partial q^i$. These are exactly the integral curves of the Hamiltonian vector field $X_H$ defined by $\\iota_{X_H}\\omega = dH$. Energy conservation $\\dot H = 0$ and Liouville's theorem (volume preservation) follow at once from $\\mathcal{L}_{X_H}\\omega = 0$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "hcm-canonical-transformations",
+      "title": "Canonical transformations and Hamilton–Jacobi",
+      "anchor": "canonical",
+      "prereqs": [
+        "hcm-hamilton-equations",
+        "sm-poisson-bracket"
+      ],
+      "blurb": "A diffeomorphism $\\varphi\\colon T^*Q\\to T^*Q$ is canonical (a symplectomorphism) when $\\varphi^*\\omega = \\omega$. Locally each is encoded by a generating function $S(q,Q)$: $p_i = \\partial S/\\partial q^i,\\ P_i = -\\partial S/\\partial Q^i$. Choosing $S$ so the new Hamiltonian vanishes gives the Hamilton–Jacobi equation $\\partial S/\\partial t + H(q,\\partial S/\\partial q) = 0$ — solving it integrates the dynamics.",
+      "tags": ["functoriality", "duality"]
+    },
+    {
+      "id": "hcm-noether",
+      "title": "Symmetries and Noether's theorem",
+      "anchor": "noether",
+      "prereqs": [
+        "hcm-hamilton-equations",
+        "sm-poisson-bracket"
+      ],
+      "blurb": "If $f\\in C^\\infty(T^*Q)$ Poisson-commutes with $H$, then $f$ is conserved along the flow: $\\dot f = \\{f,H\\} = 0$. Conversely every continuous symmetry of $H$ has a moment map $f$ generating it. Translations $\\to$ linear momentum, rotations $\\to$ angular momentum, time-translation $\\to$ energy. Noether's theorem in Hamiltonian dress: symmetries and conserved quantities are the same data.",
+      "tags": ["group-action", "duality"]
+    },
+    {
+      "id": "hcm-integrable-systems",
+      "title": "Integrable systems and KAM",
+      "anchor": "integrable",
+      "prereqs": [
+        "hcm-noether",
+        "hcm-canonical-transformations",
+        "dyn-conservative-dissipative"
+      ],
+      "blurb": "Liouville–Arnold: if $T^*Q$ has $n$ functionally independent first integrals $f_1=H,f_2,\\dots,f_n$ in involution ($\\{f_i,f_j\\}=0$), each compact regular level set is a torus $T^n$ and there exist action-angle coordinates $(I,\\theta)$ in which $\\dot I = 0,\\ \\dot\\theta = \\partial H/\\partial I$. KAM: under a small non-degenerate perturbation of an integrable $H$, most invariant tori survive (those with sufficiently irrational frequency vectors).",
+      "tags": ["classification", "compactness"]
+    },
+    {
+      "id": "hcm-applications",
+      "title": "Worked examples",
+      "anchor": "applications",
+      "prereqs": [
+        "hcm-integrable-systems"
+      ],
+      "blurb": "The harmonic oscillator $H=\\tfrac12(p^2+\\omega^2 q^2)$ is the cleanest integrable system; its phase portrait is concentric ellipses. The Kepler problem $H=\\tfrac{|p|^2}{2m}-\\tfrac{k}{|q|}$ is super-integrable — angular momentum and the Laplace–Runge–Lenz vector pin orbits to closed conics. The free rigid body, geodesic flow on a Riemannian manifold, and convex billiards round out the canonical examples; the three-body problem is famously not integrable.",
+      "tags": ["classification"]
     }
   ]
 }

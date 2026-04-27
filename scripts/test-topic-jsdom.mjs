@@ -567,8 +567,8 @@ describe('mindmap.html jsdom', () => {
     const statRows = doc.querySelectorAll('#section-stats-tbody tr');
     assert.equal(
       statRows.length,
-      10,
-      `expected 10 section-stats rows (one per section); got ${statRows.length}`,
+      11,
+      `expected 11 section-stats rows (one per section); got ${statRows.length}`,
     );
 
     // Gap-list panels populate. Orphan list should at least surface the two

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **115**, concepts: **783**
-- Widgets: **815** (registry-driven: 568, inline: 247)
-- Quizzes: **3516** (v1: 2280, hard: 1223, expert: 13)
-- Quiz types: mcq: 2300, numeric: 977, multi-select: 95, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **129**
-- Concepts lacking a hard-tier quiz: **345**
+- Topics: **130**, concepts: **873**
+- Widgets: **874** (registry-driven: 568, inline: 306)
+- Quizzes: **3786** (v1: 2550, hard: 1223, expert: 13)
+- Quiz types: mcq: 2536, numeric: 1010, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **160**
+- Concepts lacking a hard-tier quiz: **435**
 
 ## Per-slug registry adoption
 
@@ -191,43 +191,43 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **13**, concepts: **134**
-- Widgets: **94** (registry-driven: 70, inline: 24)
-  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 24, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
-  - by dimension: 2d: 70, unknown: 24
-  - by gesture: click: 68, unknown: 24, slider: 2
-- Quizzes: **525** (v1: 340, hard: 185, expert: 0)
-  - by type: mcq: 321, numeric: 134, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+- Topics: **15**, concepts: **146**
+- Widgets: **106** (registry-driven: 70, inline: 36)
+  - by family: button-stepper: 37, unknown: 36, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
+  - by dimension: 2d: 70, unknown: 36
+  - by gesture: click: 68, unknown: 36, slider: 2
+- Quizzes: **561** (v1: 376, hard: 185, expert: 0)
+  - by type: mcq: 352, numeric: 139, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
-- Topics: **6**, concepts: **41**
-- Widgets: **39** (registry-driven: 10, inline: 29)
-  - by family: unknown: 29, button-stepper: 10
-  - by dimension: unknown: 29, 2d: 10
-  - by gesture: unknown: 29, click: 10
-- Quizzes: **160** (v1: 123, hard: 24, expert: 13)
-  - by type: mcq: 108, numeric: 42, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
+- Topics: **8**, concepts: **53**
+- Widgets: **51** (registry-driven: 10, inline: 41)
+  - by family: unknown: 41, button-stepper: 10
+  - by dimension: unknown: 41, 2d: 10
+  - by gesture: unknown: 41, click: 10
+- Quizzes: **196** (v1: 159, hard: 24, expert: 13)
+  - by type: mcq: 137, numeric: 49, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
 ### Geometry & topology
 
-- Topics: **15**, concepts: **91**
-- Widgets: **93** (registry-driven: 51, inline: 42)
-  - by family: unknown: 42, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
-  - by dimension: 2d: 45, unknown: 42, 3d: 6
-  - by gesture: unknown: 42, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
-- Quizzes: **415** (v1: 273, hard: 142, expert: 0)
-  - by type: mcq: 281, numeric: 118, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
+- Topics: **16**, concepts: **97**
+- Widgets: **99** (registry-driven: 51, inline: 48)
+  - by family: unknown: 48, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
+  - by dimension: unknown: 48, 2d: 45, 3d: 6
+  - by gesture: unknown: 48, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
+- Quizzes: **433** (v1: 291, hard: 142, expert: 0)
+  - by type: mcq: 299, numeric: 118, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
 ### Number theory
 
-- Topics: **13**, concepts: **84**
+- Topics: **14**, concepts: **90**
 - Widgets: **103** (registry-driven: 84, inline: 19)
   - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
   - by dimension: 2d: 84, unknown: 19
   - by gesture: click: 71, unknown: 19, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
-- Quizzes: **427** (v1: 244, hard: 183, expert: 0)
-  - by type: mcq: 285, numeric: 135, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
+- Quizzes: **445** (v1: 262, hard: 183, expert: 0)
+  - by type: mcq: 298, numeric: 140, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -241,33 +241,58 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **19**, concepts: **109**
-- Widgets: **127** (registry-driven: 127, inline: 0)
-  - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 127
-  - by gesture: click: 97, interact: 15, scrub: 7, select: 3, drag: 2, slider: 1, read: 1, slide: 1
-- Quizzes: **572** (v1: 327, hard: 245, expert: 0)
-  - by type: mcq: 344, numeric: 186, multi-select: 16, matching: 11, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
+- Topics: **22**, concepts: **127**
+- Widgets: **144** (registry-driven: 127, inline: 17)
+  - by family: button-stepper: 61, clickable-diagram: 23, unknown: 17, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 127, unknown: 17
+  - by gesture: click: 97, unknown: 17, interact: 15, scrub: 7, select: 3, drag: 2, slider: 1, read: 1, slide: 1
+- Quizzes: **626** (v1: 381, hard: 245, expert: 0)
+  - by type: mcq: 396, numeric: 187, multi-select: 17, matching: 11, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
-- Topics: **6**, concepts: **39**
-- Widgets: **39** (registry-driven: 0, inline: 39)
-  - by family: unknown: 39
-  - by dimension: unknown: 39
-  - by gesture: unknown: 39
-- Quizzes: **117** (v1: 117, hard: 0, expert: 0)
-  - by type: mcq: 80, numeric: 27, multi-select: 10
+- Topics: **8**, concepts: **51**
+- Widgets: **51** (registry-driven: 0, inline: 51)
+  - by family: unknown: 51
+  - by dimension: unknown: 51
+  - by gesture: unknown: 51
+- Quizzes: **153** (v1: 153, hard: 0, expert: 0)
+  - by type: mcq: 112, numeric: 31, multi-select: 10
+
+### Mathematical physics
+
+- Topics: **4**, concepts: **24**
+- Widgets: **0** (registry-driven: 0, inline: 0)
+  - by family: _(none)_
+  - by dimension: _(none)_
+  - by gesture: _(none)_
+- Quizzes: **72** (v1: 72, hard: 0, expert: 0)
+  - by type: mcq: 61, numeric: 11
 
 ## Per-topic
 
+- `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `fixed-point-theorems` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `general-relativity` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `three-body-problem` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-and-combinatorial-group-theory` (Algebra & homological) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `wavelets` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `schrodinger-equation` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `knot-polynomials` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -381,46 +406,46 @@ page has wired one in yet.
 
 ### Concepts missing a widget in their owning section (top 20)
 
-- `gcgt-presentations` (geometric-and-combinatorial-group-theory)
-- `gcgt-cayley-graph` (geometric-and-combinatorial-group-theory)
-- `gcgt-quasi-isometry` (geometric-and-combinatorial-group-theory)
-- `gcgt-growth` (geometric-and-combinatorial-group-theory)
-- `gcgt-hyperbolic-groups` (geometric-and-combinatorial-group-theory)
-- `gcgt-applications` (geometric-and-combinatorial-group-theory)
-- `w-multiresolution` (wavelets)
-- `w-haar-wavelet` (wavelets)
-- `w-daubechies` (wavelets)
-- `w-discrete-transform` (wavelets)
-- `w-wavelet-vs-fourier` (wavelets)
-- `w-applications` (wavelets)
-- `se-time-dependent` (schrodinger-equation)
-- `se-stationary` (schrodinger-equation)
-- `se-harmonic-oscillator` (schrodinger-equation)
-- `se-hydrogen` (schrodinger-equation)
-- `se-scattering` (schrodinger-equation)
-- `se-path-integral-preview` (schrodinger-equation)
-- `cartesian-product-powerset` (naive-set-theory)
-- `axiom-of-choice-intuition` (naive-set-theory)
+- `cnt-primality` (computational-number-theory)
+- `cnt-factoring` (computational-number-theory)
+- `cnt-lattice-reduction` (computational-number-theory)
+- `cnt-modular-arithmetic-algorithms` (computational-number-theory)
+- `cnt-elliptic-curves-computation` (computational-number-theory)
+- `cnt-class-group-computation` (computational-number-theory)
+- `fpt-banach` (fixed-point-theorems)
+- `fpt-brouwer` (fixed-point-theorems)
+- `fpt-schauder` (fixed-point-theorems)
+- `fpt-lefschetz` (fixed-point-theorems)
+- `fpt-kakutani` (fixed-point-theorems)
+- `fpt-applications` (fixed-point-theorems)
+- `ros-applications` (resolution-of-singularities)
+- `hcm-phase-space` (hamiltonians-classical-mechanics)
+- `hcm-hamilton-equations` (hamiltonians-classical-mechanics)
+- `hcm-canonical-transformations` (hamiltonians-classical-mechanics)
+- `hcm-noether` (hamiltonians-classical-mechanics)
+- `hcm-integrable-systems` (hamiltonians-classical-mechanics)
+- `hcm-applications` (hamiltonians-classical-mechanics)
+- `gr-spacetime` (general-relativity)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
-- `sm-symplectic-form` (symplectic-manifolds)
-- `sm-darboux` (symplectic-manifolds)
-- `sm-hamiltonian-flow` (symplectic-manifolds)
-- `sm-poisson-bracket` (symplectic-manifolds)
-- `sm-lagrangian-submanifolds` (symplectic-manifolds)
-- `sm-floer-homology-preview` (symplectic-manifolds)
-- `qg-hopf-algebras` (quantum-groups)
-- `qg-uq-sl2` (quantum-groups)
-- `qg-r-matrix` (quantum-groups)
-- `qg-representations` (quantum-groups)
-- `qg-knot-invariants` (quantum-groups)
-- `qg-applications` (quantum-groups)
-- `qoda-quaternions` (quaternions-octonions-and-division-algebras)
-- `qoda-rotations` (quaternions-octonions-and-division-algebras)
-- `qoda-cayley-dickson` (quaternions-octonions-and-division-algebras)
-- `qoda-octonions` (quaternions-octonions-and-division-algebras)
-- `qoda-frobenius-theorem` (quaternions-octonions-and-division-algebras)
-- `qoda-hurwitz-theorem` (quaternions-octonions-and-division-algebras)
-- `gcgt-presentations` (geometric-and-combinatorial-group-theory)
-- `gcgt-cayley-graph` (geometric-and-combinatorial-group-theory)
+- `ms-estimators` (mathematical-statistics)
+- `ms-mle` (mathematical-statistics)
+- `ms-cramer-rao` (mathematical-statistics)
+- `ms-hypothesis-testing` (mathematical-statistics)
+- `ms-bayesian` (mathematical-statistics)
+- `ms-asymptotics` (mathematical-statistics)
+- `na-floating-point` (numerical-analysis)
+- `na-rootfinding` (numerical-analysis)
+- `na-quadrature` (numerical-analysis)
+- `na-linear-systems` (numerical-analysis)
+- `na-finite-differences` (numerical-analysis)
+- `na-finite-elements` (numerical-analysis)
+- `cnt-primality` (computational-number-theory)
+- `cnt-factoring` (computational-number-theory)
+- `cnt-lattice-reduction` (computational-number-theory)
+- `cnt-modular-arithmetic-algorithms` (computational-number-theory)
+- `cnt-elliptic-curves-computation` (computational-number-theory)
+- `cnt-class-group-computation` (computational-number-theory)
+- `vm-functional-derivative` (variational-methods)
+- `vm-euler-lagrange` (variational-methods)

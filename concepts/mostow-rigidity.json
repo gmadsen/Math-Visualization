@@ -4,11 +4,80 @@
   "page": "mostow-rigidity.html",
   "concepts": [
     {
-      "id": "mostow-rigidity-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "mr-statement",
+      "title": "Mostow's rigidity theorem",
+      "anchor": "statement",
+      "prereqs": [
+        "riemannian-metrics",
+        "fundamental-group"
+      ],
+      "blurb": "For closed hyperbolic $n$-manifolds with $n\\ge 3$, an isomorphism of fundamental groups is induced by a unique isometry. The hyperbolic metric is a topological invariant.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "mr-hyperbolic-3-mflds",
+      "title": "Hyperbolic 3-manifolds",
+      "anchor": "hyp3",
+      "prereqs": [
+        "mr-statement",
+        "hyperbolic-metric"
+      ],
+      "blurb": "Closed hyperbolic 3-manifolds are quotients $\\mathbb{H}^3/\\Gamma$ by torsion-free discrete subgroups $\\Gamma\\subset\\mathrm{PSL}_2(\\mathbb{C})$; rigidity says the lattice $\\Gamma$ is determined by its abstract isomorphism type.",
+      "tags": [
+        "group-action"
+      ]
+    },
+    {
+      "id": "mr-quasi-isometry",
+      "title": "Quasi-isometry and boundary extension",
+      "anchor": "quasi-iso",
+      "prereqs": [
+        "mr-hyperbolic-3-mflds"
+      ],
+      "blurb": "A quasi-isometry of $\\mathbb{H}^n$ extends continuously to a quasi-conformal homeomorphism of the sphere at infinity $S^{n-1}$ — the analytic engine that converts coarse group data into conformal boundary data.",
+      "tags": [
+        "lifting"
+      ]
+    },
+    {
+      "id": "mr-ergodicity-of-action",
+      "title": "Ergodicity of the boundary action",
+      "anchor": "ergodic",
+      "prereqs": [
+        "mr-quasi-isometry",
+        "lie-group-definition"
+      ],
+      "blurb": "A cocompact lattice $\\Gamma$ acts ergodically on $S^{n-1}\\times S^{n-1}$ with respect to Lebesgue measure; combined with quasi-conformality this forces the boundary map to be Möbius, hence the bulk map to be an isometry.",
+      "tags": [
+        "group-action"
+      ]
+    },
+    {
+      "id": "mr-arithmetic-lattices",
+      "title": "Margulis arithmeticity",
+      "anchor": "arithmetic",
+      "prereqs": [
+        "mr-ergodicity-of-action"
+      ],
+      "blurb": "In higher-rank irreducible symmetric spaces every lattice is arithmetic — defined as the integer points of an algebraic group. Margulis's superrigidity refines and strengthens Mostow's theorem.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "mr-applications",
+      "title": "Volume, simplicial volume, and geometrisation",
+      "anchor": "applications",
+      "prereqs": [
+        "mr-statement",
+        "mr-hyperbolic-3-mflds"
+      ],
+      "blurb": "Hyperbolic volume becomes a topological invariant; Gromov's simplicial norm $\\|M\\|$ equals $\\mathrm{Vol}(M)/v_n$, and Thurston's geometrisation places the hyperbolic pieces of any 3-manifold into Mostow's rigid catalogue.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

@@ -1,14 +1,55 @@
 {
   "topic": "calabi-yau-manifolds",
-  "title": "Calabi yau manifolds",
+  "title": "Calabi–Yau manifolds",
   "page": "calabi-yau-manifolds.html",
   "concepts": [
     {
-      "id": "calabi-yau-manifolds-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "cy-definition",
+      "title": "Definition: Ricci-flat Kähler manifolds",
+      "anchor": "definition",
+      "prereqs": ["forms-and-wedge", "kahler-differentials"],
+      "tags": ["foundation"],
+      "blurb": "A Calabi–Yau manifold is a compact complex Kähler manifold $X$ of complex dimension $n$ with vanishing first Chern class $c_1(X) = 0$ — equivalently, trivial canonical bundle $K_X \\cong \\mathcal{O}_X$, equivalently a global holomorphic $n$-form $\\Omega$ that vanishes nowhere. Yau's theorem (proving the Calabi conjecture) says each Kähler class then contains a unique Ricci-flat metric: complex algebra forces real geometry."
+    },
+    {
+      "id": "cy-hodge-numbers",
+      "title": "The Hodge diamond",
+      "anchor": "hodge",
+      "prereqs": ["cy-definition", "hodge-numbers"],
+      "tags": ["cohomology", "classification"],
+      "blurb": "Hodge numbers $h^{p,q} = \\dim H^q(X, \\Omega^p)$ form a diamond. For a CY $n$-fold, triviality of $K_X$ gives $h^{n,0} = h^{0,0} = 1$, and Kähler / Serre duality forces $h^{p,q} = h^{q,p} = h^{n-p,n-q}$. For a CY 3-fold the only free entries are $h^{1,1}$ and $h^{2,1}$, and the Euler characteristic is $\\chi(X) = 2(h^{1,1} - h^{2,1})$."
+    },
+    {
+      "id": "cy-examples",
+      "title": "Examples: elliptic curves, K3, the quintic",
+      "anchor": "examples",
+      "prereqs": ["cy-definition", "riemann-surface-definition", "higher-dim-bezout"],
+      "tags": ["classification"],
+      "blurb": "Dimension 1 CY = elliptic curve (a torus $\\mathbb{C}/\\Lambda$). Dimension 2 CY = K3 surface, e.g. a smooth quartic in $\\mathbb{P}^3$, with Hodge diamond $1, 0, 1, 20, 1, 0, 1$. The canonical 3-fold example is the quintic $\\{f_5(x_0,\\ldots,x_4)=0\\} \\subset \\mathbb{P}^4$, which has $h^{1,1}=1$ and $h^{2,1}=101$. More generally the Batyrev–Borisov construction gives CY hypersurfaces in toric Fano varieties."
+    },
+    {
+      "id": "cy-period-map",
+      "title": "Periods and Picard–Fuchs",
+      "anchor": "period",
+      "prereqs": ["cy-hodge-numbers", "de-rham-complex", "cech-cohomology"],
+      "tags": ["moduli", "cohomology"],
+      "blurb": "As $X$ varies in a family $X_t$, integrate the holomorphic $n$-form $\\Omega_t$ against a basis $\\gamma_i$ of $H_n(X,\\mathbb{Z})$ to get period integrals $\\Pi_i(t) = \\int_{\\gamma_i} \\Omega_t$. These satisfy a linear ODE — the Picard–Fuchs equation — whose monodromy around singular points of moduli encodes the variation of Hodge structure. For the quintic family this is a hypergeometric ${}_4F_3$."
+    },
+    {
+      "id": "cy-mirror-pair",
+      "title": "Mirror symmetry: swapping the diamond",
+      "anchor": "mirror",
+      "prereqs": ["cy-hodge-numbers", "cy-period-map"],
+      "tags": ["duality", "moduli"],
+      "blurb": "Mirror symmetry pairs a CY 3-fold $X$ with a mirror $Y$ such that $h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$ — the Hodge diamond reflects across its diagonal. Physically this is type IIA on $X$ versus type IIB on $Y$. Mathematically it predicts equalities between $A$-model (symplectic, Gromov–Witten) data on $X$ and $B$-model (complex, period) data on $Y$ — the celebrated Candelas–de la Ossa–Green–Parkes count of rational curves on the quintic."
+    },
+    {
+      "id": "cy-applications",
+      "title": "String compactifications, DT, SYZ",
+      "anchor": "applications",
+      "prereqs": ["cy-mirror-pair"],
+      "tags": ["fibration", "duality"],
+      "blurb": "CY 3-folds are the compact internal directions in superstring compactifications: the $\\mathcal{N}=1$ supersymmetry of the 4D effective theory needs Ricci-flat Kähler, hence CY. Donaldson–Thomas invariants count ideal sheaves on $X$ (mirror to Gromov–Witten on $Y$). The Strominger–Yau–Zaslow conjecture realises mirror pairs concretely: every CY 3-fold should admit a special-Lagrangian $T^3$-fibration $X \\to B$, with the mirror obtained by dualising the torus fibres."
     }
   ]
 }

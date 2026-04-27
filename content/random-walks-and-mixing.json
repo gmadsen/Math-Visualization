@@ -133,7 +133,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#coupling\">Random walks and mixing</a> · Coupling for upper bounds on mixing</div>\n    <div><a href=\"./random-walks-and-mixing.html#spectral\">Random walks and mixing</a> · Spectral gap and rapid mixing</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./expanders.html#applications\">Expanders</a> · Applications</div>\n    <div><a href=\"./random-walks-and-mixing.html#coupling\">Random walks and mixing</a> · Coupling for upper bounds on mixing</div>\n    <div><a href=\"./random-walks-and-mixing.html#spectral\">Random walks and mixing</a> · Spectral gap and rapid mixing</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -186,7 +186,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#mcmc\">Random walks and mixing</a> · Markov-chain Monte Carlo</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./expanders.html#spectral-gap\">Expanders</a> · Spectral expansion</div>\n    <div><a href=\"./random-walks-and-mixing.html#mcmc\">Random walks and mixing</a> · Markov-chain Monte Carlo</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

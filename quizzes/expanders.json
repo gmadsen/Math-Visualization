@@ -1,20 +1,244 @@
 {
   "topic": "expanders",
   "quizzes": {
-    "expanders-intro": {
-      "title": "Intro",
+    "e-definition": {
+      "title": "Combinatorial expansion",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder — page is a stub awaiting authoring.",
+          "q": "An $(n,d,\\varepsilon)$-expander is a $d$-regular graph on $n$ vertices satisfying which condition?",
           "choices": [
-            "A",
-            "B",
-            "C",
-            "D"
+            "$|N(S)| \\ge (1+\\varepsilon)|S|$ for every $S$ with $|S|\\le n/2$",
+            "$|N(S)| \\ge (1+\\varepsilon)|S|$ for every $S$ with $|S|\\ge n/2$",
+            "Every vertex has degree at most $\\varepsilon n$",
+            "The diameter is at most $\\log_d n$"
           ],
           "answer": 0,
-          "explain": "Stub."
+          "explain": "The defining inequality is on small sets — $|S|\\le n/2$ — because once $|S|>n/2$ the complement is the small side and the symmetric statement reapplies."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the definition restrict to $|S|\\le n/2$?",
+          "choices": [
+            "Because $|N(S)|$ is bounded above by $n-|S|$, so for $|S|>n/2$ the inequality $|N(S)|\\ge(1+\\varepsilon)|S|$ would force $\\varepsilon\\le 0$",
+            "Because $N(S)$ is undefined when $S$ is the whole vertex set",
+            "By convention; the inequality holds for all $S$ in any expander",
+            "Because random walks only mix on small sets"
+          ],
+          "answer": 0,
+          "explain": "$N(S)\\subseteq V\\setminus S$ has at most $n-|S|$ elements, so $(1+\\varepsilon)|S|\\le n-|S|$ forces $|S|\\le n/(2+\\varepsilon)$. Restricting to the small side is the only way to get a meaningful inequality."
+        },
+        {
+          "type": "mcq",
+          "q": "Which graph family is NOT an expander family?",
+          "choices": [
+            "The cycles $C_n$ as $n\\to\\infty$",
+            "The 3-regular Ramanujan graphs of LPS",
+            "Random $d$-regular graphs on $n$ vertices, for fixed $d\\ge 3$",
+            "Cayley graphs of $\\mathrm{PGL}_2(\\mathbb{F}_p)$ with the LPS generators"
+          ],
+          "answer": 0,
+          "explain": "Cycles have diameter $\\Theta(n)$ and the spectral gap collapses to $0$ as $n\\to\\infty$; they fail expansion. The other three families are the textbook expander examples."
+        }
+      ]
+    },
+    "e-spectral-gap": {
+      "title": "Spectral expansion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a $d$-regular graph let $\\lambda_2$ be the second-largest eigenvalue of $A/d$. Spectral expansion means:",
+          "choices": [
+            "$\\lambda_2 \\le 1-\\delta$ for some constant $\\delta>0$ (uniformly across the family)",
+            "$\\lambda_2 = 1$",
+            "$\\lambda_2$ is irrational",
+            "All eigenvalues are positive"
+          ],
+          "answer": 0,
+          "explain": "A uniform spectral gap $1-\\lambda_2 \\ge \\delta$ is the spectral form of expansion. The largest eigenvalue is always $1$ (for a regular graph), so the relevant data is how far $\\lambda_2$ sits below it."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does spectral expansion imply edge expansion (the easy direction of Cheeger)?",
+          "choices": [
+            "Because the indicator vector of a small set $S$ has a large component orthogonal to the constant, and the spectral gap forces $\\langle \\mathbf{1}_S, A\\mathbf{1}_{V\\setminus S}\\rangle$ to be sizable",
+            "Because every regular graph is bipartite",
+            "By the Perron–Frobenius theorem alone",
+            "Because the Laplacian has integer eigenvalues"
+          ],
+          "answer": 0,
+          "explain": "Decomposing $\\mathbf{1}_S = \\alpha\\mathbf{1} + v$ with $v\\perp\\mathbf{1}$ and applying the Rayleigh bound on $A$ to $v$ gives a lower bound on the cut $|E(S,\\bar S)|$ proportional to the spectral gap."
+        },
+        {
+          "type": "numeric",
+          "q": "For the cycle $C_n$ with $n$ large, the second-largest eigenvalue of $A/2$ is approximately $\\cos(2\\pi/n)$. What is its limit as $n\\to\\infty$?",
+          "answer": 1,
+          "tol": 0.01,
+          "explain": "$\\cos(2\\pi/n)\\to 1$, so the spectral gap collapses — confirming cycles do not form an expander family."
+        }
+      ]
+    },
+    "e-cheeger": {
+      "title": "Cheeger inequality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Cheeger's inequality for graphs states (with $\\lambda_2$ the second eigenvalue of the normalized Laplacian and $\\phi(G)$ the edge-expansion constant):",
+          "choices": [
+            "$\\tfrac{1}{2}\\lambda_2 \\le \\phi(G) \\le \\sqrt{2\\lambda_2}$",
+            "$\\phi(G) = \\lambda_2$",
+            "$\\phi(G) \\le \\lambda_2^2$",
+            "$\\phi(G) \\ge \\lambda_n$"
+          ],
+          "answer": 0,
+          "explain": "Edge expansion is sandwiched between a linear lower bound and a square-root upper bound in $\\lambda_2$. The square-root upper bound is the harder direction, proved via the spectral sweep cut."
+        },
+        {
+          "type": "mcq",
+          "q": "What does the upper-bound direction $\\phi(G)\\le\\sqrt{2\\lambda_2}$ give algorithmically?",
+          "choices": [
+            "A constant-factor approximation algorithm for the sparsest cut, using thresholding of the Fiedler vector",
+            "An exact polynomial-time algorithm for the maximum cut",
+            "A linear-time algorithm for graph isomorphism",
+            "Nothing algorithmic; it is a pure existence result"
+          ],
+          "answer": 0,
+          "explain": "Sweeping over thresholds of the Fiedler vector $u_2$ produces a cut whose ratio matches $\\sqrt{2\\lambda_2}$ — this is the spectral sweep, a constant-factor approximation."
+        },
+        {
+          "type": "mcq",
+          "q": "Cheeger's graph inequality is the discrete shadow of which Riemannian theorem?",
+          "choices": [
+            "Cheeger's inequality $\\lambda_1 \\ge h(M)^2/4$ on a closed Riemannian manifold",
+            "The Gauss–Bonnet theorem",
+            "The Hodge decomposition",
+            "The Atiyah–Singer index theorem"
+          ],
+          "answer": 0,
+          "explain": "Jeff Cheeger's 1970 isoperimetric bound on the smallest positive Laplace eigenvalue of a manifold motivated and named the graph version."
+        }
+      ]
+    },
+    "e-explicit-constructions": {
+      "title": "Explicit constructions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Margulis–Gabber–Galil's expander family is built on which vertex set?",
+          "choices": [
+            "$(\\mathbb{Z}/n\\mathbb{Z})^2$, with edges given by a fixed set of $SL_2(\\mathbb{Z})$ generators",
+            "The cyclic group $\\mathbb{Z}/n\\mathbb{Z}$ with $\\pm 1$ generators",
+            "Cayley graphs of free groups",
+            "Random bipartite graphs"
+          ],
+          "answer": 0,
+          "explain": "The MGG construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$. It was the first explicit expander family with a quantitative spectral gap (via Kazhdan's property (T))."
+        },
+        {
+          "type": "mcq",
+          "q": "Lubotzky–Phillips–Sarnak's Ramanujan graphs have which degree?",
+          "choices": [
+            "$p+1$ for a prime $p$",
+            "$p$ for a prime $p$",
+            "$2$",
+            "Arbitrary even integer"
+          ],
+          "answer": 0,
+          "explain": "LPS graphs are $(p+1)$-regular Cayley graphs of $\\mathrm{PGL}_2(\\mathbb{F}_q)$ generated by integer quaternions of norm $p$ — and the count of such quaternions is $p+1$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the headline feature of the zigzag product (Reingold–Vadhan–Wigderson)?",
+          "choices": [
+            "It iteratively combines a large and a small expander to produce a new expander whose spectral gap can be analysed combinatorially, with no number theory",
+            "It only works over finite fields of characteristic 2",
+            "It produces Ramanujan graphs",
+            "It requires the Riemann hypothesis"
+          ],
+          "answer": 0,
+          "explain": "The zigzag $G\\,\\textcircled{z}\\,H$ multiplies vertex counts and reduces degree to $\\deg(H)^2$ while preserving a spectral gap — a purely combinatorial recursion underlying Reingold's $\\mathrm{SL}=\\mathrm{L}$ proof."
+        }
+      ]
+    },
+    "e-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Reingold's theorem (2004) shows undirected $s$–$t$ connectivity lies in:",
+          "choices": [
+            "$\\mathrm{LOGSPACE}$ ($\\mathrm{L}$)",
+            "$\\mathrm{NP}$",
+            "$\\mathrm{PSPACE}$",
+            "$\\mathrm{EXPTIME}$"
+          ],
+          "answer": 0,
+          "explain": "Reingold deterministically explores any input graph in logarithmic space by repeatedly applying the zigzag product to the input and walking on the resulting expander, proving $\\mathrm{SL}=\\mathrm{L}$."
+        },
+        {
+          "type": "mcq",
+          "q": "How are expanders used in derandomisation (the BPP-style 'amplification with few random bits' application)?",
+          "choices": [
+            "Walk on an expander instead of taking independent samples — a $t$-step walk gives a sample whose error decays exponentially in $t$ but uses only $\\log n + O(t)$ random bits",
+            "Replace random bits with all-zero bits",
+            "Use the Riemann zeta function to seed a PRG",
+            "Multiply $\\lambda_2$ by random unit vectors"
+          ],
+          "answer": 0,
+          "explain": "The expander Chernoff bound shows a random walk on an expander concentrates as well as independent sampling but with logarithmic seed length — this is the canonical pseudorandomness-from-expansion argument."
+        },
+        {
+          "type": "mcq",
+          "q": "How do expanders enter the construction of Sipser–Spielman codes?",
+          "choices": [
+            "A bipartite expander defines the parity-check structure; expansion implies that any small corruption pattern conflicts with many checks, so unique decoding is possible in linear time",
+            "The expander provides a Fourier basis for decoding",
+            "They give the field over which the code is defined",
+            "They are unrelated to coding theory"
+          ],
+          "answer": 0,
+          "explain": "In the Sipser–Spielman expander code, vertices on one side of a bipartite expander are bits and vertices on the other side are parity checks; the expansion property forces low-weight error patterns to fail many checks, enabling fast iterative decoding."
+        }
+      ]
+    },
+    "e-ramanujan-graphs": {
+      "title": "Ramanujan graphs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Alon–Boppana lower bound says that for any infinite family of $d$-regular graphs $G_n$:",
+          "choices": [
+            "$\\liminf_{n\\to\\infty} \\lambda_2(G_n) \\ge 2\\sqrt{d-1}$",
+            "$\\limsup_{n\\to\\infty} \\lambda_2(G_n) \\le 2\\sqrt{d-1}$",
+            "$\\lambda_2(G_n) = 0$ for all $n$",
+            "$\\lambda_2(G_n) \\le 1/n$"
+          ],
+          "answer": 0,
+          "explain": "Alon–Boppana shows the second eigenvalue cannot stay below $2\\sqrt{d-1}-o(1)$ — this is the spectral radius of the $d$-regular infinite tree. Ramanujan graphs are the ones that saturate this floor."
+        },
+        {
+          "type": "mcq",
+          "q": "A $d$-regular graph $G$ is called Ramanujan when:",
+          "choices": [
+            "Every nontrivial adjacency eigenvalue $\\lambda$ satisfies $|\\lambda| \\le 2\\sqrt{d-1}$",
+            "$\\lambda_2 = d$",
+            "$G$ is bipartite and has girth at least $\\log n$",
+            "$G$ is a Cayley graph of an abelian group"
+          ],
+          "answer": 0,
+          "explain": "The Ramanujan condition pins all nontrivial eigenvalues inside $[-2\\sqrt{d-1},\\,2\\sqrt{d-1}]$ — exactly the support of the spectral measure of the $d$-regular infinite tree. It is the strongest possible expansion at fixed degree."
+        },
+        {
+          "type": "mcq",
+          "q": "The LPS construction proves the Ramanujan bound by reducing it to which deep theorem?",
+          "choices": [
+            "Deligne's proof of the Ramanujan–Petersson conjecture for weight-$2$ modular forms",
+            "Wiles's proof of Fermat's Last Theorem",
+            "The Riemann hypothesis for $\\zeta(s)$",
+            "Mostow rigidity"
+          ],
+          "answer": 0,
+          "explain": "Eigenvalues of LPS Cayley graphs are Hecke eigenvalues of weight-$2$ cusp forms; Deligne's bound $|a_p|\\le 2\\sqrt p$ (a corollary of his proof of the Weil conjectures) gives precisely $|\\lambda|\\le 2\\sqrt{p}$, hence the Ramanujan property at degree $p+1$."
         }
       ]
     }
