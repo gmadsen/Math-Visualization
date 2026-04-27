@@ -1,5 +1,17 @@
 {
   "topics": [
+    "symplectic-manifolds",
+    "quantum-groups",
+    "quaternions-octonions-and-division-algebras",
+    "geometric-and-combinatorial-group-theory",
+    "wavelets",
+    "vertex-operator-algebras",
+    "schrodinger-equation",
+    "mathematics-and-cryptography",
+    "knot-polynomials",
+    "ricci-flow",
+    "k-theory",
+    "atiyah-singer-index-theorem",
     "naive-set-theory",
     "first-order-logic-and-completeness",
     "zfc-and-ordinals",
@@ -226,6 +238,18 @@
     "analytic-number-theory": "standard",
     "modular-curves": "advanced",
     "enumerative-combinatorics": "standard",
-    "additive-number-theory": "standard"
+    "additive-number-theory": "standard",
+    "k-theory": "advanced",
+    "symplectic-manifolds": "advanced",
+    "knot-polynomials": "standard",
+    "quaternions-octonions-and-division-algebras": "standard",
+    "wavelets": "standard",
+    "mathematics-and-cryptography": "standard",
+    "vertex-operator-algebras": "advanced",
+    "quantum-groups": "advanced",
+    "schrodinger-equation": "standard",
+    "ricci-flow": "advanced",
+    "geometric-and-combinatorial-group-theory": "advanced",
+    "atiyah-singer-index-theorem": "capstone"
   }
 }

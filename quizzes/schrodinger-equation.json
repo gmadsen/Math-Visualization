@@ -1,0 +1,226 @@
+{
+  "topic": "schrodinger-equation",
+  "quizzes": {
+    "se-time-dependent": {
+      "title": "Time-dependent Schrödinger equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is $\\|\\psi(t)\\|_{L^2}$ conserved under $i\\hbar\\,\\partial_t\\psi = H\\psi$?",
+          "choices": [
+            "Because $H$ is self-adjoint, so $e^{-itH/\\hbar}$ is unitary.",
+            "Because $V$ is bounded below.",
+            "Because $\\psi$ is smooth in $t$.",
+            "Because $H$ is compact."
+          ],
+          "answer": 0,
+          "explain": "Self-adjointness of $H$ makes $U_t=e^{-itH/\\hbar}$ a strongly continuous unitary group (Stone), and unitaries preserve the $L^2$ norm exactly."
+        },
+        {
+          "type": "mcq",
+          "q": "For a free particle ($V=0$) in 1D, the Schrödinger equation $i\\hbar\\,\\partial_t\\psi = -\\frac{\\hbar^2}{2m}\\partial_{xx}\\psi$ relates to which classical PDE type?",
+          "choices": [
+            "Hyperbolic",
+            "Elliptic",
+            "Parabolic up to the factor $i$ (Schrödinger / imaginary-time heat)",
+            "First-order transport"
+          ],
+          "answer": 2,
+          "explain": "The principal symbol matches the heat equation up to a factor of $i$; substituting $t \\to -it$ gives a true parabolic equation, which is why Schrödinger evolution is sometimes called 'imaginary-time heat flow'."
+        },
+        {
+          "type": "numeric",
+          "q": "If $\\|\\psi(0)\\|_{L^2}^2 = 1$ and the Hamiltonian is self-adjoint, what is $\\|\\psi(10\\,\\mathrm{s})\\|_{L^2}^2$?",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "Unitary evolution preserves the $L^2$ norm exactly — total probability stays at 1 forever."
+        }
+      ]
+    },
+    "se-stationary": {
+      "title": "Stationary states",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $H\\varphi = E\\varphi$, how does the time-evolved state $\\psi(x,t)$ depend on $t$?",
+          "choices": [
+            "$\\psi(x,t) = \\varphi(x) + Et$",
+            "$\\psi(x,t) = e^{-iEt/\\hbar}\\varphi(x)$",
+            "$\\psi(x,t) = e^{Et/\\hbar}\\varphi(x)$",
+            "$\\psi(x,t) = \\cos(Et/\\hbar)\\,\\varphi(x)$"
+          ],
+          "answer": 1,
+          "explain": "Plug $\\psi=e^{-iEt/\\hbar}\\varphi$ into $i\\hbar\\,\\partial_t\\psi=H\\psi$: the LHS gives $E\\psi$, the RHS gives $E\\psi$. Stationary states evolve only by a global phase."
+        },
+        {
+          "type": "mcq",
+          "q": "What does 'stationary state' mean physically?",
+          "choices": [
+            "$\\psi$ doesn't change at all.",
+            "$|\\psi|^2$ — the probability density — is time-independent.",
+            "$\\psi$ is real.",
+            "$\\psi$ vanishes at infinity."
+          ],
+          "answer": 1,
+          "explain": "The phase $e^{-iEt/\\hbar}$ has modulus 1, so $|\\psi(x,t)|^2 = |\\varphi(x)|^2$ for all $t$. Observables are stationary; the wavefunction itself precesses in phase."
+        },
+        {
+          "type": "mcq",
+          "q": "Bound states of $H = -\\Delta + V$ correspond to which part of $\\sigma(H)$?",
+          "choices": [
+            "Continuous spectrum",
+            "Residual spectrum",
+            "Point spectrum (eigenvalues with $L^2$ eigenfunctions)",
+            "Resolvent set"
+          ],
+          "answer": 2,
+          "explain": "Bound states are normalizable eigenfunctions — they lie in $L^2$, so the corresponding $E$ is in the point spectrum. Scattering states (plane-wave-like) lie in the continuous spectrum."
+        }
+      ]
+    },
+    "se-harmonic-oscillator": {
+      "title": "Harmonic oscillator",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the ground-state energy $E_0$ of the harmonic oscillator in units of $\\hbar\\omega$?",
+          "answer": 0.5,
+          "tol": 0.001,
+          "explain": "$E_n = \\hbar\\omega(n+\\tfrac{1}{2})$ gives $E_0 = \\tfrac{1}{2}\\hbar\\omega$ — the zero-point energy, a direct consequence of $[x,p]=i\\hbar$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the commutator $[a, a^\\dagger]$ for the ladder operators?",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$i\\hbar$",
+            "$2a^\\dagger a$"
+          ],
+          "answer": 1,
+          "explain": "Direct computation from $a = \\sqrt{m\\omega/2\\hbar}(x+ip/m\\omega)$ and $[x,p]=i\\hbar$ gives $[a,a^\\dagger]=1$. This is the entire algebraic content of the oscillator."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the energy spacing $E_{n+1} - E_n$ in units of $\\hbar\\omega$?",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "$E_{n+1}-E_n = \\hbar\\omega$ — uniform spacing is what makes the oscillator the workhorse of quantization (phonons, photons, Fock space)."
+        }
+      ]
+    },
+    "se-hydrogen": {
+      "title": "Hydrogen atom",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "If $E_1 = -13.6\\,\\mathrm{eV}$, what is $E_2$ in eV (to 2 decimals)?",
+          "answer": -3.4,
+          "tol": 0.05,
+          "explain": "$E_n = -E_0/n^2$, so $E_2 = -13.6/4 = -3.40\\,\\mathrm{eV}$. The Lyman-α transition $2\\to 1$ releases $13.6 - 3.4 = 10.2\\,\\mathrm{eV}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the radial Schrödinger equation in spherical coordinates separate?",
+          "choices": [
+            "Because $V = -e^2/r$ is constant.",
+            "Because $V$ depends only on $r$ — the potential is rotation-invariant — so $H$ commutes with the angular momentum operators $L^2$ and $L_z$.",
+            "Because the wavefunction is radial.",
+            "Because $\\Delta$ in 3D is one-dimensional."
+          ],
+          "answer": 1,
+          "explain": "Rotational symmetry of $V(r)$ means $[H, L^2]=[H, L_z]=0$, so simultaneous eigenfunctions exist: $\\varphi_{n\\ell m} = R_{n\\ell}(r)\\,Y_\\ell^m(\\theta,\\phi)$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many linearly independent bound states share energy $E_n$ for $n=2$ in hydrogen (ignoring spin)?",
+          "answer": 4,
+          "tol": 0,
+          "explain": "Hydrogen's degeneracy is $n^2$: for $n=2$ that's $4$ states ($2s$ plus three $2p$). The 'accidental' SO(4) symmetry — Runge–Lenz — makes states with different $\\ell$ degenerate."
+        }
+      ]
+    },
+    "se-scattering": {
+      "title": "Scattering and tunneling",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a 1D barrier of height $V_0$ and a particle with energy $E < V_0$, what does quantum mechanics predict?",
+          "choices": [
+            "Transmission is exactly zero.",
+            "Transmission is exactly one.",
+            "Transmission is non-zero (tunneling).",
+            "The particle reflects with infinite probability."
+          ],
+          "answer": 2,
+          "explain": "Inside the barrier the wavefunction decays as $e^{-\\kappa x}$ with $\\kappa = \\sqrt{2m(V_0-E)}/\\hbar$, but it doesn't vanish. Matching at the boundaries gives non-zero transmission — the foundation of $\\alpha$-decay and STM."
+        },
+        {
+          "type": "mcq",
+          "q": "Plane-wave solutions $e^{ikx}$ of $-\\Delta\\,\\psi = k^2\\psi$ are not in $L^2(\\mathbb{R})$. What does this mean spectrally?",
+          "choices": [
+            "They aren't valid solutions.",
+            "They lie in the continuous spectrum, not the point spectrum.",
+            "They are eigenvalues with finite-dimensional eigenspaces.",
+            "They contradict the spectral theorem."
+          ],
+          "answer": 1,
+          "explain": "Continuous spectrum means generalized (non-$L^2$) eigenfunctions; the rigorous treatment uses spectral measures or rigged Hilbert spaces. Wavepackets — superpositions $\\int c(k)e^{ikx}\\,dk$ — are the genuine $L^2$ states."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the relation between transmission $T$ and reflection $R$ for a 1D barrier?",
+          "choices": [
+            "$T + R = 0$",
+            "$T + R = 1$ (probability conservation)",
+            "$T - R = 1$",
+            "$T \\cdot R = 1$"
+          ],
+          "answer": 1,
+          "explain": "Conservation of probability current gives $T + R = 1$: every particle either transmits or reflects. This is the unitarity of the S-matrix in disguise."
+        }
+      ]
+    },
+    "se-path-integral-preview": {
+      "title": "Path integral preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In Feynman's path integral $\\int e^{iS[q]/\\hbar}\\,\\mathcal{D}q$, what is $S[q]$?",
+          "choices": [
+            "The Hamiltonian evaluated at the path.",
+            "The classical action $\\int L(q,\\dot q)\\,dt$ along the path.",
+            "The energy of the path.",
+            "The arc-length of the path."
+          ],
+          "answer": 1,
+          "explain": "$S[q] = \\int_{t_i}^{t_f} L(q,\\dot q,t)\\,dt$ is the classical action — the same one that's stationary on Euler–Lagrange trajectories."
+        },
+        {
+          "type": "mcq",
+          "q": "How does the classical limit $\\hbar \\to 0$ emerge from the path integral?",
+          "choices": [
+            "Only the classical path contributes; all others vanish.",
+            "Stationary phase: paths near $\\delta S = 0$ dominate; the rest cancel by oscillation.",
+            "The integral becomes Gaussian.",
+            "The integrand becomes 1."
+          ],
+          "answer": 1,
+          "explain": "As $\\hbar \\to 0$, the phase $e^{iS/\\hbar}$ oscillates wildly except at critical points of $S$ — paths satisfying $\\delta S = 0$, i.e. the Euler–Lagrange equation. This is the WKB / stationary-phase picture."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the path-integral measure $\\mathcal{D}q$ mathematically subtle?",
+          "choices": [
+            "It's a finite-dimensional integral.",
+            "There is no honest translation-invariant measure on path space; it's defined by limits of discretizations or by Wick rotation to the Wiener measure.",
+            "Paths are smooth.",
+            "The action is unbounded."
+          ],
+          "answer": 1,
+          "explain": "Lebesgue-style measures don't exist on infinite-dimensional spaces. Imaginary-time ($t\\to -i\\tau$) converts the oscillatory integral into a Gaussian one — the Wiener measure on Brownian paths — which is rigorously defined."
+        }
+      ]
+    }
+  }
+}

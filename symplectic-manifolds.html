@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Symplectic manifolds</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":null,"prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematics-and-cryptography":{"next":null,"prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"wavelets","section":"Analysis","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"schrodinger-equation","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Geometry & topology" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#form">1&nbsp;Symplectic&nbsp;form</a>
+  <a href="#darboux">2&nbsp;Darboux</a>
+  <a href="#hamiltonian">3&nbsp;Hamiltonian&nbsp;flow</a>
+  <a href="#poisson">4&nbsp;Poisson&nbsp;bracket</a>
+  <a href="#lagrangian">5&nbsp;Lagrangian&nbsp;submanifolds</a>
+  <a href="#floer">6&nbsp;Floer&nbsp;preview</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Symplectic manifolds</h1>
+  <p class="sub">A symplectic manifold is a smooth even-dimensional space carrying a closed non-degenerate 2-form $\omega$. That single piece of structure encodes all of Hamiltonian mechanics: vector fields from energy functions, conservation laws, canonical transformations, and — through Floer's loop-space construction — a hands-on homology theory whose ranks bound the periodic orbits of any Hamiltonian.</p>
+</section>
+
+<section id="form">
+<h2>1. Symplectic form</h2>
+<p>Fix a smooth manifold $M$. A <strong>symplectic form</strong> on $M$ is a 2-form $\omega\in\Omega^2(M)$ satisfying two conditions:</p>
+<ul>
+  <li><strong>Closed:</strong> $d\omega = 0$.</li>
+  <li><strong>Non-degenerate:</strong> for every $p\in M$, the bilinear form $\omega_p\colon T_pM\times T_pM\to\mathbb{R}$ is non-degenerate. Equivalently, $v\mapsto \iota_v\omega_p$ is an isomorphism $T_pM\to T_p^*M$.</li>
+</ul>
+<p>Non-degeneracy of an alternating bilinear form forces even dimension: an antisymmetric matrix in odd size has zero determinant. So $\dim M = 2n$, and the top exterior power $\omega^n = \omega\wedge\cdots\wedge\omega$ is a nowhere-vanishing $2n$-form — a canonical volume form. In particular every symplectic manifold is orientable.</p>
+
+<div class="note"><strong>Examples to keep in mind.</strong>
+<ul>
+  <li>$\mathbb{R}^{2n}$ with $\omega_0 = \sum_i dp_i\wedge dq_i$ (the model).</li>
+  <li>The cotangent bundle $T^*N$ with $\omega = -d\lambda$, where $\lambda = \sum p_i\,dq_i$ is the Liouville 1-form. This is the symplectic stage of classical mechanics on configuration space $N$.</li>
+  <li>$S^2$ with its area form. Any orientable surface is symplectic.</li>
+  <li>$\mathbb{C}P^n$ with the Fubini–Study form (it's Kähler).</li>
+  <li><em>Counterexample:</em> $S^4$ admits no symplectic form (any closed $\omega$ on $S^4$ is exact, and exact forms can't have non-vanishing $\omega^2$).</li>
+</ul>
+</div>
+
+<div class="widget" id="w-form">
+  <div class="hd"><span class="ttl">Widget · alternating vs symmetric pairings</span><span class="hint">drag two vectors; watch $\omega(u,v)$ sweep the signed area</span></div>
+  <div class="row">
+    <label for="f-mode">pairing</label>
+    <button id="f-omega" class="active">$\omega = dx\wedge dy$</button>
+    <button id="f-g">$g = dx\otimes dx + dy\otimes dy$</button>
+  </div>
+  <svg id="f-svg" viewBox="0 0 760 320" width="100%"><title>Widget · symplectic form vs metric on a tangent plane</title></svg>
+  <div class="readout" id="f-out"></div>
+  <p class="small">Drag the heads of $u$ (yellow) and $v$ (cyan). Symplectic mode shades the parallelogram by signed oriented area $\omega(u,v) = u_xv_y - u_yv_x$ — flip $u\leftrightarrow v$ and the sign flips. Metric mode shows $g(u,v) = u_xv_x+u_yv_y$, a symmetric pairing without orientation.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#d">Exterior derivative</a></li>
+    <li><a href="./differential-forms.html#wedge">Differential forms and wedge product</a></li>
+    <li><a href="./smooth-manifolds.html#intro">Smooth manifolds and atlases</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./symplectic-manifolds.html#darboux">Symplectic manifolds</a> · Darboux's theorem</div>
+    <div><a href="./symplectic-manifolds.html#hamiltonian">Symplectic manifolds</a> · Hamiltonian vector fields and flows</div>
+    <div><a href="./symplectic-manifolds.html#lagrangian">Symplectic manifolds</a> · Lagrangian submanifolds</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="sm-symplectic-form"></div>
+</section>
+
+<section id="darboux">
+<h2>2. Darboux's theorem</h2>
+<p>The first thing to ask about any geometric structure is: what are its local invariants? For Riemannian metrics it's curvature; for complex structures it's nothing in the integrable case (Newlander–Nirenberg) but plenty in general. For symplectic forms the answer is <em>nothing at all</em>.</p>
+
+<div class="note"><strong>Darboux's theorem.</strong> Let $(M^{2n},\omega)$ be symplectic. Around every point $p\in M$ there is a chart $(p_1,\dots,p_n,q_1,\dots,q_n)$ with $p\mapsto 0$ in which
+$$\omega \;=\; \sum_{i=1}^n dp_i\wedge dq_i.$$
+Equivalently, every symplectic $2n$-manifold is locally symplectomorphic to $(\mathbb{R}^{2n},\omega_0)$.</div>
+
+<p>The proof is a Moser-trick deformation. Pick a chart taking $\omega_p$ to $\omega_0$ at the origin (linear algebra: any non-degenerate alternating form on $\mathbb{R}^{2n}$ is $\omega_0$ in suitable coordinates). Define $\omega_t = (1-t)\omega_0 + t\omega$ for $t\in[0,1]$. Both endpoints are symplectic at the origin; by closedness write $\omega - \omega_0 = d\alpha$ on a small ball, then solve $\iota_{X_t}\omega_t = -\alpha$ for a time-dependent vector field $X_t$. Its flow is a diffeomorphism $\Phi$ with $\Phi^*\omega = \omega_0$. Done.</p>
+
+<div class="widget" id="w-darboux">
+  <div class="hd"><span class="ttl">Widget · Moser deformation $\omega_0\to\omega$</span><span class="hint">drag the time slider — the same coordinates support every intermediate symplectic form</span></div>
+  <div class="row">
+    <label for="d-t">interpolation $t$</label>
+    <input type="range" id="d-t" min="0" max="100" value="0" step="1">
+    <span class="pill" id="d-t-out">$t = 0$</span>
+  </div>
+  <svg id="d-svg" viewBox="0 0 760 320" width="100%"><title>Widget · Moser-trick interpolation between two symplectic forms</title></svg>
+  <div class="readout" id="d-out"></div>
+  <p class="small">A grid of unit symplectic cells deforms with $t$: at $t=0$ each cell carries the standard area $1$; at $t=1$ a stretched/sheared form distributes the same total area. Darboux says a single chart change relates the two — there is no local invariant to obstruct it.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#wedge">Differential forms</a> · the wedge product and $\Lambda^2 T^*M$.</li>
+    <li><a href="./differential-forms.html#d">Differential forms</a> · the exterior derivative and $d^2 = 0$.</li>
+    <li><a href="./smooth-manifolds.html#tangent">Smooth manifolds</a> · tangent spaces.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="sm-darboux"></div>
+</section>
+
+<section id="hamiltonian">
+<h2>3. Hamiltonian vector fields and flows</h2>
+<p>Non-degeneracy of $\omega$ is the bridge from functions to dynamics. Given a smooth $H\colon M\to\mathbb{R}$, its differential $dH$ is a 1-form. Apply the inverse of $v\mapsto\iota_v\omega$:</p>
+
+<div class="note"><strong>Definition.</strong> The <strong>Hamiltonian vector field</strong> $X_H$ associated to $H$ is the unique vector field satisfying
+$$\iota_{X_H}\,\omega \;=\; dH.$$</div>
+
+<p>In Darboux coordinates $\omega = \sum dp_i\wedge dq_i$, the equation unwraps to Hamilton's equations:
+$$\dot q_i \;=\; \tfrac{\partial H}{\partial p_i}, \qquad \dot p_i \;=\; -\tfrac{\partial H}{\partial q_i}.$$
+Two facts come for free:</p>
+<ul>
+  <li><strong>Energy conservation.</strong> $\dot H = X_H(H) = dH(X_H) = \omega(X_H,X_H) = 0$ by antisymmetry. $H$ is constant along trajectories.</li>
+  <li><strong>Symplectic flow.</strong> By Cartan's formula $\mathcal{L}_{X_H}\omega = d\iota_{X_H}\omega + \iota_{X_H}d\omega = d(dH) + 0 = 0$. So the time-$t$ flow $\Phi_t^{X_H}$ is a symplectomorphism — Liouville's theorem.</li>
+</ul>
+
+<div class="widget" id="w-ham">
+  <div class="hd"><span class="ttl">Widget · phase portrait of the harmonic oscillator</span><span class="hint">drag the energy slider; watch level sets stack into ellipses</span></div>
+  <div class="row">
+    <label for="h-E">energy $E$</label>
+    <input type="range" id="h-E" min="1" max="40" value="10" step="1">
+    <span class="pill" id="h-E-out">$E = 1.0$</span>
+    <button id="h-play">play</button>
+  </div>
+  <svg id="h-svg" viewBox="0 0 760 320" width="100%"><title>Widget · phase portrait of $H = (p^2+q^2)/2$</title></svg>
+  <div class="readout" id="h-out"></div>
+  <p class="small">For $H = \tfrac12(p^2+q^2)$ the level set $\{H=E\}$ is the circle of radius $\sqrt{2E}$. The Hamiltonian flow is uniform rotation: $(p,q)\mapsto(p\cos t - q\sin t,\,p\sin t + q\cos t)$. The dot orbits one level circle while the gradient field (light ticks) shows $X_H = (-q,p)$ everywhere tangent to circles — never radial.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#flows">Smooth manifolds</a> · integral curves and flows of vector fields.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./symplectic-manifolds.html#floer">Symplectic manifolds</a> · Floer homology — a preview</div>
+    <div><a href="./symplectic-manifolds.html#poisson">Symplectic manifolds</a> · Poisson bracket</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="sm-hamiltonian-flow"></div>
+</section>
+
+<section id="poisson">
+<h2>4. Poisson bracket</h2>
+<p>Hamiltonian vector fields close under the Lie bracket, but the right way to see this is via a bracket on functions.</p>
+
+<div class="note"><strong>Definition.</strong> The <strong>Poisson bracket</strong> of $f,g\in C^\infty(M)$ is
+$$\{f,g\} \;=\; \omega(X_f, X_g) \;=\; X_f(g) \;=\; -X_g(f).$$</div>
+
+<p>In Darboux coordinates this is $\{f,g\} = \sum_i \big(\tfrac{\partial f}{\partial p_i}\tfrac{\partial g}{\partial q_i} - \tfrac{\partial f}{\partial q_i}\tfrac{\partial g}{\partial p_i}\big)$ — the formula from classical mechanics textbooks. Three structural identities:</p>
+<ul>
+  <li><strong>Antisymmetry:</strong> $\{f,g\} = -\{g,f\}$.</li>
+  <li><strong>Leibniz:</strong> $\{f,gh\} = \{f,g\}h + g\{f,h\}$.</li>
+  <li><strong>Jacobi:</strong> $\{f,\{g,h\}\} + \{g,\{h,f\}\} + \{h,\{f,g\}\} = 0$.</li>
+</ul>
+<p>Antisymmetry is automatic; Leibniz follows because $X_f$ is a derivation; Jacobi is the deepest — it depends on $d\omega = 0$. So $C^\infty(M)$ becomes a Poisson algebra (commutative under pointwise product, Lie under $\{\cdot,\cdot\}$, with the two operations linked by Leibniz).</p>
+
+<div class="note"><strong>Quantisation.</strong> Dirac's correspondence sends $f\mapsto \hat f$ with
+$$\{f,g\} \;\leadsto\; \frac{[\hat f,\hat g]}{i\hbar}.$$
+The quantum commutator is the classical bracket plus $O(\hbar)$ corrections. This is why classical mechanics is the limit of quantum mechanics — the algebraic structures are the same, with $\hbar\to 0$ flattening the operators back to functions.</div>
+
+<div class="widget" id="w-poisson">
+  <div class="hd"><span class="ttl">Widget · classical / quantum correspondence ladder</span><span class="hint">click a row to expand the matching pair</span></div>
+  <svg id="po-svg" viewBox="0 0 760 320" width="100%"><title>Widget · Dirac correspondence between classical and quantum brackets</title></svg>
+  <div class="readout" id="po-out">click a pair</div>
+  <p class="small">Each row pairs a classical observable (left) with its quantum counterpart (right). The dashed bridge is $\{\cdot,\cdot\}\leadsto [\cdot,\cdot]/(i\hbar)$. Click to highlight: position-momentum gives $\{q,p\} = 1\leadsto [\hat q,\hat p] = i\hbar$; angular-momentum components give $\{L_x,L_y\} = L_z\leadsto [\hat L_x,\hat L_y] = i\hbar\hat L_z$.</p>
+</div>
+
+<div class="quiz" data-concept="sm-poisson-bracket"></div>
+</section>
+
+<section id="lagrangian">
+<h2>5. Lagrangian submanifolds</h2>
+<p>The right "subobjects" of a symplectic manifold are not symplectic submanifolds (those exist but are rare and rigid) but <em>Lagrangian</em> submanifolds — half-dimensional and totally isotropic.</p>
+
+<div class="note"><strong>Definition.</strong> A submanifold $L\subset (M^{2n},\omega)$ is <strong>Lagrangian</strong> if $\dim L = n$ and $\omega|_L = 0$ (i.e. $\omega(u,v)=0$ for all $u,v\in T_pL$ and all $p\in L$).</div>
+
+<p>Half-dimensionality is forced by maximality: an isotropic subspace of $(T_pM,\omega_p)$ has dimension at most $n$, and equality is the Lagrangian condition. Two key examples:</p>
+<ol>
+  <li><strong>Cotangent bundle.</strong> In $T^*N$ with canonical form $\omega = -d\lambda$, the zero section $\{(x,0):x\in N\}$ is Lagrangian. More generally the graph $\Gamma_\alpha = \{(x,\alpha_x)\}$ of a 1-form $\alpha\in\Omega^1(N)$ is Lagrangian iff $d\alpha = 0$, i.e. iff $\alpha$ is closed. So Lagrangians near the zero section correspond to closed 1-forms — the link to de Rham theory.</li>
+  <li><strong>Graphs of symplectomorphisms.</strong> Equip $M_1\times M_2$ with $\omega_1\ominus\omega_2 := \pi_1^*\omega_1 - \pi_2^*\omega_2$. The graph $\Gamma_f = \{(x,f(x))\}\subset M_1\times M_2$ is Lagrangian iff $f\colon M_1\to M_2$ is a symplectomorphism. <em>Canonical relations</em> (general Lagrangians of $M_1\times M_2$) compose to give a symplectic category.</li>
+</ol>
+<p>Weinstein's slogan: <em>"everything is Lagrangian."</em> Periodic orbits are intersections with a Lagrangian; integrable systems foliate $M$ by Lagrangian tori (Liouville–Arnold); generating functions describe symplectomorphisms by the Lagrangian graph in a cotangent bundle. Mirror symmetry trades Lagrangians on one side for coherent sheaves on the other.</p>
+
+<div class="widget" id="w-lag">
+  <div class="hd"><span class="ttl">Widget · Lagrangians in $T^*S^1$</span><span class="hint">click a closed 1-form $\alpha$ to see its graph wrap the cylinder</span></div>
+  <div class="row">
+    <button id="lg-zero" class="active">zero section $\alpha = 0$</button>
+    <button id="lg-const">constant $\alpha = 1\,d\theta$</button>
+    <button id="lg-fiber">cotangent fiber</button>
+  </div>
+  <svg id="lg-svg" viewBox="0 0 760 320" width="100%"><title>Widget · Lagrangian submanifolds of $T^*S^1$</title></svg>
+  <div class="readout" id="lg-out"></div>
+  <p class="small">$T^*S^1$ is the cylinder $S^1\times\mathbb{R}$ with $\omega = d\theta\wedge dp$. Lagrangians come in two flavours: horizontal sections $\{p=c\}$ (graphs of $\alpha=c\,d\theta$, parameter $c\in\mathbb{R}$) and vertical fibers $\{\theta=\theta_0\}$. Generic non-closed forms like $f(\theta)d\theta$ with $f$ non-constant give Lagrangian graphs only when $f$ is a constant — that's the closedness obstruction.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#sub">Smooth manifolds</a> · immersions, submersions, and submanifolds.</li>
+    <li><a href="./smooth-manifolds.html#tangent">Tangent spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./symplectic-manifolds.html#floer">Symplectic manifolds</a> · Floer homology — a preview</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="sm-lagrangian-submanifolds"></div>
+</section>
+
+<section id="floer">
+<h2>6. Floer homology — a preview</h2>
+<p>Symplectic topology contains rigid theorems that look impossible from the differential-topology side. The cleanest example is the <strong>Arnold conjecture</strong>:</p>
+
+<div class="note"><strong>Arnold conjecture (Floer's theorem).</strong> Let $(M,\omega)$ be a closed symplectic manifold and $H_t$ a non-degenerate time-1-periodic Hamiltonian. The number of 1-periodic orbits of $X_{H_t}$ is at least $\sum_k b_k(M)$.</div>
+
+<p>This is a Morse inequality on an infinite-dimensional space. Floer made it rigorous as follows.</p>
+
+<p>Define the <strong>symplectic action functional</strong> on the free loop space $\mathcal{L}M$ (loops $\gamma\colon S^1\to M$):
+$$\mathcal{A}_H(\gamma) \;=\; -\int_{D^2}\bar u^*\omega \;-\; \int_0^1 H(t,\gamma(t))\,dt,$$
+where $\bar u\colon D^2\to M$ is any extension of $\gamma$ (the multivaluedness of the first term is mild and controlled). The critical points of $\mathcal{A}_H$ are exactly the 1-periodic orbits of $X_{H_t}$. The "$L^2$-gradient" of $\mathcal{A}_H$ with respect to a compatible almost-complex structure $J$ is the Cauchy–Riemann operator: gradient flow lines from orbit $x$ to orbit $y$ are <em>pseudo-holomorphic cylinders</em>
+$$\partial_s u + J(u)(\partial_t u - X_{H_t}) \;=\; 0$$
+joining $x$ at $s=-\infty$ to $y$ at $s=+\infty$. Counting them mod the obvious $\mathbb{R}$-action gives a chain complex
+$$\partial x \;=\; \sum_{\mu(x,y)=1} \#\widehat{\mathcal{M}}(x,y)\cdot y,$$
+and Floer proved $\partial^2 = 0$ and $HF_*(M;H,J) \cong H_*(M)$.</p>
+
+<p>The <strong>Lagrangian variant</strong> works between two Lagrangians $L_0,L_1\subset M$. Generators: transverse intersections $L_0\cap L_1$. Differentials: pseudo-holomorphic strips with boundary on $L_0$ and $L_1$. The resulting $HF_*(L_0,L_1)$ is the morphism space in the Fukaya category — the symplectic side of homological mirror symmetry.</p>
+
+<div class="widget" id="w-floer">
+  <div class="hd"><span class="ttl">Widget · two Lagrangian circles in $T^2$</span><span class="hint">drag the second circle; count intersections vs Hamiltonian-isotopy lower bound</span></div>
+  <div class="row">
+    <label for="fl-shift">shift $L_1$</label>
+    <input type="range" id="fl-shift" min="0" max="100" value="20" step="1">
+    <span class="pill" id="fl-shift-out">$\theta = 0.20$</span>
+  </div>
+  <svg id="fl-svg" viewBox="0 0 760 320" width="100%"><title>Widget · Lagrangian Floer intersections on a torus</title></svg>
+  <div class="readout" id="fl-out"></div>
+  <p class="small">On $T^2 = \mathbb{R}^2/\mathbb{Z}^2$ with the standard $\omega = dx\wedge dy$, take $L_0 = \{y = 0\}$ (red) and $L_1 = $ a Hamiltonian-isotopic deformation of the vertical circle $\{x = 0\}$ (cyan). The intersections $L_0\cap L_1$ are highlighted dots; their count is at least $|H_*(S^1)| = 2$ — the rank of the Floer chain complex. No matter how you wiggle $L_1$ by a Hamiltonian, you can't cancel both intersection points.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./morse-theory.html#morse-functions">Morse theory</a> · the finite-dimensional model — Floer is its loop-space analogue.</li>
+    <li><a href="./morse-theory.html#morse-homology">Morse theory</a> · Morse homology, the chain-complex Floer generalises.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="sm-floer-homology-preview"></div>
+</section>
+
+<section id="connections">
+<h2>7. Connections</h2>
+
+<p>Symplectic geometry sits at a crossroads. Locally trivial (Darboux) but globally rigid (Gromov non-squeezing, Floer-theoretic obstructions), it is the natural language for both classical mechanics and a swathe of modern topology — and the open problems are dense. The <em>symplectic isotopy</em> question, the existence of exotic symplectic structures on $\mathbb{R}^{2n}$, the Weinstein conjecture on Reeb orbits, and homological mirror symmetry are all live research frontiers.</p>
+
+<ul>
+  <li><a href="./differential-forms.html#deRham">Differential forms — de Rham cohomology</a> — closedness of $\omega$ gives a class $[\omega]\in H^2(M;\mathbb{R})$; its powers detect symplectic obstructions in cohomology.</li>
+  <li><a href="./smooth-manifolds.html#flows">Smooth manifolds — integral curves and flows</a> — Hamiltonian flows are the worked example that motivates the whole apparatus of vector-field flows.</li>
+  <li><a href="./morse-theory.html#applications">Morse theory — applications</a> — Floer homology is "Morse theory on the loop space"; the parallel is exact down to chain-complex structure.</li>
+  <li><a href="./differential-geometry.html">Differential geometry</a> — almost-complex structures, the Levi-Civita connection on the loop space, and the analytic estimates underlying Floer.</li>
+  <li><a href="./lie-groups.html">Lie groups</a> — coadjoint orbits are symplectic (Kirillov–Kostant–Souriau), giving the geometric input to the orbit method in representation theory.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+/* §1 alternating vs symmetric pairing */
+(function(){
+  const svg = document.getElementById("f-svg");
+  if(!svg) return;
+  const out = document.getElementById("f-out");
+  const bOmega = document.getElementById("f-omega");
+  const bG = document.getElementById("f-g");
+  let mode = "omega";
+  // anchor + two draggable vector heads
+  const O = {x:380, y:170};
+  const u = {x:O.x+90, y:O.y-30};
+  const v = {x:O.x+30, y:O.y+90};
+  function draw(){
+    svg.innerHTML = "<title>Widget · symplectic form vs metric on a tangent plane</title>";
+    // axes
+    svg.appendChild(SVG("line",{x1:200,y1:O.y,x2:580,y2:O.y,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:O.x,y1:30,x2:O.x,y2:300,stroke:"var(--mute)","stroke-width":1}));
+    // parallelogram
+    const P3 = {x:u.x + (v.x - O.x), y:u.y + (v.y - O.y)};
+    const fill = mode === "omega" ? "rgba(125,224,214,0.18)" : "rgba(255,216,102,0.18)";
+    const stroke = mode === "omega" ? "var(--cyan)" : "var(--yellow)";
+    svg.appendChild(SVG("polygon",{
+      points:`${O.x},${O.y} ${u.x},${u.y} ${P3.x},${P3.y} ${v.x},${v.y}`,
+      fill, stroke, "stroke-width":1, "stroke-dasharray":"4 3"
+    }));
+    // u and v arrows
+    drawArrow(svg, [O.x,O.y], [u.x,u.y], {color:"var(--yellow)", markerId:"f-u", width:2});
+    drawArrow(svg, [O.x,O.y], [v.x,v.y], {color:"var(--cyan)", markerId:"f-v", width:2});
+    // labels
+    const lu = SVG("text",{x:u.x+10,y:u.y-8,"font-size":13,fill:"var(--yellow)","font-style":"italic"}); lu.textContent = "u"; svg.appendChild(lu);
+    const lv = SVG("text",{x:v.x+10,y:v.y+14,"font-size":13,fill:"var(--cyan)","font-style":"italic"}); lv.textContent = "v"; svg.appendChild(lv);
+    // draggable handles
+    const hu = SVG("circle",{cx:u.x,cy:u.y,r:9,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5,style:"cursor:grab"});
+    hu.dataset.target = "u"; svg.appendChild(hu);
+    const hv = SVG("circle",{cx:v.x,cy:v.y,r:9,fill:"var(--cyan)",stroke:"#111","stroke-width":1.5,style:"cursor:grab"});
+    hv.dataset.target = "v"; svg.appendChild(hv);
+    // numeric values: convert pixel offsets to data-units (60 px = 1 unit)
+    const ux = (u.x - O.x)/60, uy = -(u.y - O.y)/60;
+    const vx = (v.x - O.x)/60, vy = -(v.y - O.y)/60;
+    const omega = ux*vy - uy*vx;
+    const g = ux*vx + uy*vy;
+    if(mode === "omega"){
+      out.textContent = `ω(u,v) = u_x·v_y − u_y·v_x = (${ux.toFixed(2)})(${vy.toFixed(2)}) − (${uy.toFixed(2)})(${vx.toFixed(2)}) = ${omega.toFixed(3)}    [signed area]`;
+    } else {
+      out.textContent = `g(u,v) = u_x·v_x + u_y·v_y = (${ux.toFixed(2)})(${vx.toFixed(2)}) + (${uy.toFixed(2)})(${vy.toFixed(2)}) = ${g.toFixed(3)}    [symmetric, no orientation]`;
+    }
+  }
+  let dragging = null;
+  svg.addEventListener("pointerdown", (e) => {
+    const t = e.target;
+    if(t && t.dataset && t.dataset.target){
+      dragging = t.dataset.target;
+      svg.setPointerCapture(e.pointerId);
+    }
+  });
+  svg.addEventListener("pointermove", (e) => {
+    if(!dragging) return;
+    const pt = svg.getBoundingClientRect();
+    const sx = (e.clientX - pt.left) * (760 / pt.width);
+    const sy = (e.clientY - pt.top) * (320 / pt.height);
+    const ref = dragging === "u" ? u : v;
+    ref.x = Math.max(220, Math.min(560, sx));
+    ref.y = Math.max(40, Math.min(290, sy));
+    draw();
+  });
+  svg.addEventListener("pointerup", () => { dragging = null; });
+  bOmega.addEventListener("click", () => { mode = "omega"; bOmega.classList.add("active"); bG.classList.remove("active"); draw(); });
+  bG.addEventListener("click", () => { mode = "g"; bG.classList.add("active"); bOmega.classList.remove("active"); draw(); });
+  draw();
+})();
+
+/* §2 Moser deformation */
+(function(){
+  const svg = document.getElementById("d-svg");
+  if(!svg) return;
+  const t = document.getElementById("d-t");
+  const tOut = document.getElementById("d-t-out");
+  const out = document.getElementById("d-out");
+  function draw(){
+    svg.innerHTML = "<title>Widget · Moser-trick interpolation between two symplectic forms</title>";
+    const tt = parseFloat(t.value)/100;
+    // grid of cells; at t=1 we shear by S(x,y) = (x + 0.4 y, y * 1.3)
+    const cx0 = 380, cy0 = 170;
+    const N = 4; // half count of cells each direction
+    const cell = 36;
+    // background
+    svg.appendChild(SVG("rect",{x:60,y:30,width:640,height:260,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:8}));
+    // shear matrix: I + tt * A where A = [[0, 0.5],[0, 0.3]]
+    const a = 1, b = tt*0.5, c = 0, d = 1 + tt*0.3;
+    function map(p,q){ return {x: cx0 + (a*p + b*q)*cell, y: cy0 + (c*p + d*q)*cell}; }
+    // grid lines (light)
+    for(let i=-N;i<=N;i++){
+      const p1 = map(i,-N), p2 = map(i,N);
+      svg.appendChild(SVG("line",{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:"var(--line)","stroke-width":1}));
+      const q1 = map(-N,i), q2 = map(N,i);
+      svg.appendChild(SVG("line",{x1:q1.x,y1:q1.y,x2:q2.x,y2:q2.y,stroke:"var(--line)","stroke-width":1}));
+    }
+    // highlight a single cell to track
+    const c00 = map(0,0), c10 = map(1,0), c11 = map(1,1), c01 = map(0,1);
+    svg.appendChild(SVG("polygon",{
+      points:`${c00.x},${c00.y} ${c10.x},${c10.y} ${c11.x},${c11.y} ${c01.x},${c01.y}`,
+      fill:"rgba(255,216,102,0.28)", stroke:"var(--yellow)", "stroke-width":2
+    }));
+    // dp ∧ dq vectors at origin
+    drawArrow(svg, [c00.x,c00.y], [c10.x,c10.y], {color:"var(--cyan)", markerId:"d-p", width:2});
+    drawArrow(svg, [c00.x,c00.y], [c01.x,c01.y], {color:"var(--pink)", markerId:"d-q", width:2});
+    const lp = SVG("text",{x:c10.x+8,y:c10.y+14,"font-size":12,fill:"var(--cyan)","font-style":"italic"}); lp.textContent = "∂/∂p"; svg.appendChild(lp);
+    const lq = SVG("text",{x:c01.x+8,y:c01.y+4,"font-size":12,fill:"var(--pink)","font-style":"italic"}); lq.textContent = "∂/∂q"; svg.appendChild(lq);
+    // total area is preserved: det(I + tA) up to first order? Actually det = a*d - b*c. Track it.
+    const det = a*d - b*c;
+    const detSign = det > 0 ? "" : "−";
+    tOut.textContent = `t = ${tt.toFixed(2)}`;
+    out.textContent = `det of cell deformation = ${det.toFixed(3)}     ω₁ = (1−t) dp∧dq + t · sheared dp∧dq    ·    Moser flow rectifies ω_t back to ω₀ via a symplectomorphism`;
+  }
+  t.addEventListener("input", draw);
+  draw();
+})();
+
+/* §3 harmonic oscillator phase portrait */
+(function(){
+  const svg = document.getElementById("h-svg");
+  if(!svg) return;
+  const E = document.getElementById("h-E");
+  const eOut = document.getElementById("h-E-out");
+  const out = document.getElementById("h-out");
+  const playBtn = document.getElementById("h-play");
+  let phase = 0, playing = false, lastT = 0, raf = null;
+  function draw(){
+    svg.innerHTML = "<title>Widget · phase portrait of (p^2+q^2)/2</title>";
+    const cx = 380, cy = 160;
+    // axes
+    svg.appendChild(SVG("line",{x1:120,y1:cy,x2:640,y2:cy,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:cx,y1:30,x2:cx,y2:290,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("text",{x:646,y:cy+5,"font-size":12,fill:"var(--mute)"})).textContent = "q";
+    svg.appendChild(SVG("text",{x:cx+8,y:26,"font-size":12,fill:"var(--mute)"})).textContent = "p";
+    // gradient field (X_H = (-q, p)) drawn as small ticks
+    for(let qq=-4;qq<=4;qq++){
+      for(let pp=-3;pp<=3;pp++){
+        if(qq===0 && pp===0) continue;
+        const px = cx + qq*40, py = cy - pp*40;
+        const vx = -qq, vy = pp;
+        const len = Math.hypot(vx, vy) || 1;
+        const sx = vx/len * 8, sy = -vy/len * 8;
+        svg.appendChild(SVG("line",{x1:px-sx/2,y1:py-sy/2,x2:px+sx/2,y2:py+sy/2,stroke:"var(--line)","stroke-width":1}));
+      }
+    }
+    // level circles for several energies
+    const Eval = parseFloat(E.value)/10;
+    const levels = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5];
+    for(const Ek of levels){
+      const r = Math.sqrt(2*Ek)*40;
+      const isCurrent = Math.abs(Ek - Eval) < 0.26;
+      svg.appendChild(SVG("circle",{cx,cy,r,fill:"none",
+        stroke: isCurrent ? "var(--yellow)" : "var(--blue)",
+        "stroke-width": isCurrent ? 2 : 1,
+        opacity: isCurrent ? 1 : 0.55
+      }));
+    }
+    // current orbit dot
+    const r = Math.sqrt(2*Eval)*40;
+    const ox = cx + r*Math.cos(phase);
+    const oy = cy - r*Math.sin(phase);
+    svg.appendChild(SVG("circle",{cx:ox,cy:oy,r:8,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+    // tangent arrow at the dot
+    const tvx = -Math.sin(phase)*30, tvy = -Math.cos(phase)*30;
+    drawArrow(svg, [ox,oy], [ox+tvx, oy+tvy], {color:"var(--cyan)", markerId:"h-tan", width:2});
+    eOut.textContent = `E = ${Eval.toFixed(2)}`;
+    out.textContent = `H = (p² + q²)/2 = ${Eval.toFixed(2)}    ·    X_H = (−q, p)    ·    period 2π    ·    flow: rotation by t   q ↦ q cos t + p sin t`;
+  }
+  function step(now){
+    if(!lastT) lastT = now;
+    const dt = (now - lastT)/1000; lastT = now;
+    if(playing){
+      phase += dt * 1.4;
+      draw();
+      raf = requestAnimationFrame(step);
+    }
+  }
+  playBtn.addEventListener("click", () => {
+    playing = !playing;
+    playBtn.textContent = playing ? "pause" : "play";
+    if(playing){ lastT = 0; raf = requestAnimationFrame(step); }
+    else if(raf){ cancelAnimationFrame(raf); raf = null; }
+  });
+  E.addEventListener("input", draw);
+  draw();
+})();
+
+/* §4 Poisson / commutator correspondence ladder */
+(function(){
+  const svg = document.getElementById("po-svg");
+  if(!svg) return;
+  const out = document.getElementById("po-out");
+  const rows = [
+    {classical:"q (position)", classicalAlt:"p (momentum)", bracket:"{q, p} = 1", quantum:"[q̂, p̂] = iℏ", explain:"Canonical commutation relation — the Heisenberg algebra."},
+    {classical:"L_x", classicalAlt:"L_y", bracket:"{L_x, L_y} = L_z", quantum:"[L̂_x, L̂_y] = iℏ L̂_z", explain:"Angular momentum closes under brackets — the so(3) Lie algebra."},
+    {classical:"H (energy)", classicalAlt:"f (observable)", bracket:"{H, f} = −df/dt", quantum:"[Ĥ, f̂]/(iℏ) = df̂/dt", explain:"Heisenberg picture: time evolution is a bracket with the Hamiltonian."}
+  ];
+  let active = -1;
+  function draw(){
+    svg.innerHTML = "<title>Widget · Dirac correspondence between classical and quantum brackets</title>";
+    // headers
+    svg.appendChild(SVG("text",{x:170,y:36,"text-anchor":"middle","font-size":13,fill:"var(--cyan)","font-weight":700})).textContent = "Classical";
+    svg.appendChild(SVG("text",{x:380,y:36,"text-anchor":"middle","font-size":13,fill:"var(--mute)"})).textContent = "→  ℏ → 0  ←";
+    svg.appendChild(SVG("text",{x:600,y:36,"text-anchor":"middle","font-size":13,fill:"var(--pink)","font-weight":700})).textContent = "Quantum";
+    rows.forEach((row, i) => {
+      const y = 70 + i*70;
+      const isActive = i === active;
+      // classical box
+      svg.appendChild(SVG("rect",{x:50,y:y-22,width:240,height:48,rx:6,
+        fill: isActive ? "rgba(125,224,214,0.15)" : "var(--panel2)",
+        stroke: isActive ? "var(--cyan)" : "var(--line)", "stroke-width":1.5,
+        style:"cursor:pointer"
+      })).dataset.row = i;
+      svg.appendChild(SVG("text",{x:170,y:y-4,"text-anchor":"middle","font-size":12,fill:"var(--ink)"})).textContent = row.bracket;
+      svg.appendChild(SVG("text",{x:170,y:y+16,"text-anchor":"middle","font-size":11,fill:"var(--mute)"})).textContent = row.classical + " ,  " + row.classicalAlt;
+      // bridge
+      const ld = "5 4";
+      svg.appendChild(SVG("line",{x1:294,y1:y,x2:466,y2:y,
+        stroke: isActive ? "var(--yellow)" : "var(--mute)",
+        "stroke-width": isActive ? 2 : 1, "stroke-dasharray":ld
+      }));
+      svg.appendChild(SVG("text",{x:380,y:y-6,"text-anchor":"middle","font-size":10,fill:"var(--mute)","font-style":"italic"})).textContent = "{·,·} ↔ [·,·]/(iℏ)";
+      // quantum box
+      svg.appendChild(SVG("rect",{x:470,y:y-22,width:240,height:48,rx:6,
+        fill: isActive ? "rgba(224,122,95,0.15)" : "var(--panel2)",
+        stroke: isActive ? "var(--pink)" : "var(--line)", "stroke-width":1.5,
+        style:"cursor:pointer"
+      })).dataset.row = i;
+      svg.appendChild(SVG("text",{x:590,y:y+4,"text-anchor":"middle","font-size":12,fill:"var(--ink)"})).textContent = row.quantum;
+    });
+    out.textContent = active === -1 ? "click a pair" : rows[active].explain;
+  }
+  svg.addEventListener("click", (e) => {
+    const t = e.target;
+    if(t && t.dataset && t.dataset.row !== undefined){
+      active = parseInt(t.dataset.row, 10);
+      draw();
+    }
+  });
+  draw();
+})();
+
+/* §5 Lagrangians of T*S^1 */
+(function(){
+  const svg = document.getElementById("lg-svg");
+  if(!svg) return;
+  const out = document.getElementById("lg-out");
+  const bZero = document.getElementById("lg-zero");
+  const bConst = document.getElementById("lg-const");
+  const bFiber = document.getElementById("lg-fiber");
+  let mode = "zero";
+  function draw(){
+    svg.innerHTML = "<title>Widget · Lagrangian submanifolds of $T^*S^1$</title>";
+    // cylinder as a rectangle [θ ∈ 0..2π] × [p ∈ -2..2]
+    const x0 = 100, x1 = 660, y0 = 50, y1 = 270;
+    const yp = (p) => y0 + (y1-y0) * (1 - (p+2)/4);
+    const xt = (theta) => x0 + (x1-x0) * (theta/(2*Math.PI));
+    // background panel
+    svg.appendChild(SVG("rect",{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:6}));
+    // grid: horizontal p-lines and vertical θ-lines
+    for(let p=-2;p<=2;p++){
+      svg.appendChild(SVG("line",{x1:x0,y1:yp(p),x2:x1,y2:yp(p),stroke:"var(--line)","stroke-width":0.7,"stroke-dasharray":"3 3"}));
+      svg.appendChild(SVG("text",{x:x0-12,y:yp(p)+4,"text-anchor":"end","font-size":11,fill:"var(--mute)"})).textContent = `p=${p}`;
+    }
+    for(let i=0;i<=4;i++){
+      const th = i*Math.PI/2;
+      svg.appendChild(SVG("line",{x1:xt(th),y1:y0,x2:xt(th),y2:y1,stroke:"var(--line)","stroke-width":0.7,"stroke-dasharray":"3 3"}));
+      svg.appendChild(SVG("text",{x:xt(th),y:y1+18,"text-anchor":"middle","font-size":11,fill:"var(--mute)"})).textContent =
+        i===0?"0":(i===1?"π/2":(i===2?"π":(i===3?"3π/2":"2π")));
+    }
+    svg.appendChild(SVG("text",{x:(x0+x1)/2,y:y1+34,"text-anchor":"middle","font-size":12,fill:"var(--mute)","font-style":"italic"})).textContent = "θ ∈ S¹";
+    svg.appendChild(SVG("text",{x:x0-50,y:(y0+y1)/2,"text-anchor":"middle","font-size":12,fill:"var(--mute)","font-style":"italic","transform":`rotate(-90 ${x0-50} ${(y0+y1)/2})`})).textContent = "p (cotangent)";
+    // Lagrangians
+    let label = "", desc = "";
+    if(mode === "zero"){
+      svg.appendChild(SVG("line",{x1:x0,y1:yp(0),x2:x1,y2:yp(0),stroke:"var(--yellow)","stroke-width":3}));
+      label = "zero section";
+      desc = "L = {p = 0} ⊂ T*S¹    ·    α = 0    ·    closed (trivially)    ·    Lagrangian: dim 1 = ½ dim T*S¹, ω|_L = 0";
+    } else if(mode === "const"){
+      svg.appendChild(SVG("line",{x1:x0,y1:yp(1),x2:x1,y2:yp(1),stroke:"var(--cyan)","stroke-width":3}));
+      label = "graph of α = 1 dθ";
+      desc = "L = {p = 1}    ·    α = 1·dθ is closed (constant)    ·    horizontal section, parallel to zero section    ·    integer p ∈ ℤ corresponds to degree of holonomy";
+    } else {
+      svg.appendChild(SVG("line",{x1:xt(Math.PI/2),y1:y0,x2:xt(Math.PI/2),y2:y1,stroke:"var(--pink)","stroke-width":3}));
+      label = "cotangent fiber at θ = π/2";
+      desc = "L = {θ = π/2} = T*_{π/2} S¹    ·    vertical fiber    ·    Lagrangian: dim 1, ω = dθ∧dp restricts to 0 since dθ vanishes    ·    transversal to zero section at one point";
+    }
+    out.textContent = desc;
+  }
+  bZero.addEventListener("click", () => { mode = "zero"; bZero.classList.add("active"); bConst.classList.remove("active"); bFiber.classList.remove("active"); draw(); });
+  bConst.addEventListener("click", () => { mode = "const"; bConst.classList.add("active"); bZero.classList.remove("active"); bFiber.classList.remove("active"); draw(); });
+  bFiber.addEventListener("click", () => { mode = "fiber"; bFiber.classList.add("active"); bZero.classList.remove("active"); bConst.classList.remove("active"); draw(); });
+  draw();
+})();
+
+/* §6 Lagrangian Floer intersections on T^2 */
+(function(){
+  const svg = document.getElementById("fl-svg");
+  if(!svg) return;
+  const shift = document.getElementById("fl-shift");
+  const sOut = document.getElementById("fl-shift-out");
+  const out = document.getElementById("fl-out");
+  function draw(){
+    svg.innerHTML = "<title>Widget · Lagrangian Floer intersections on a torus</title>";
+    const x0 = 180, x1 = 580, y0 = 30, y1 = 290;
+    // torus fundamental domain
+    svg.appendChild(SVG("rect",{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:6}));
+    // identify edges
+    svg.appendChild(SVG("text",{x:(x0+x1)/2,y:y0-8,"text-anchor":"middle","font-size":11,fill:"var(--mute)","font-style":"italic"})).textContent = "T² = ℝ²/ℤ²  (sides identified)";
+    // L_0: y = 0.5 (red horizontal)
+    const yL0 = y0 + (y1-y0) * 0.5;
+    svg.appendChild(SVG("line",{x1:x0,y1:yL0,x2:x1,y2:yL0,stroke:"var(--pink)","stroke-width":3}));
+    svg.appendChild(SVG("text",{x:x1+8,y:yL0+4,"font-size":12,fill:"var(--pink)","font-style":"italic"})).textContent = "L₀";
+    // L_1: deformed vertical curve x = 0.5 + a·cos(2π y) (Hamiltonian-isotopic)
+    const a = parseFloat(shift.value)/100 * 0.18; // up to ~0.18 amplitude
+    const samples = 80;
+    let pts = "";
+    for(let i=0;i<=samples;i++){
+      const yy = i/samples; // y in [0,1]
+      const xx = 0.5 + a * Math.sin(2*Math.PI*yy);
+      const sx = x0 + (x1-x0)*xx, sy = y0 + (y1-y0)*yy;
+      pts += `${sx},${sy} `;
+    }
+    svg.appendChild(SVG("polyline",{points:pts.trim(),fill:"none",stroke:"var(--cyan)","stroke-width":3}));
+    svg.appendChild(SVG("text",{x:x0 + (x1-x0)*0.5 + 14,y:y0+18,"font-size":12,fill:"var(--cyan)","font-style":"italic"})).textContent = "L₁";
+    // intersections: solve y such that L_1 crosses y = 0.5, i.e. yy = 0.5 always → x = 0.5
+    // but we want intersections of curve with y = 0.5 in cylindrical sense — since L_0 wraps the whole row at yy=0.5,
+    // intersections are at all yy where the curve touches yy = 0.5: just yy = 0.5 → one point at (0.5, 0.5).
+    // For Lagrangian Floer on T^2 with L_0 = horizontal circle and L_1 = vertical circle, generic intersection is 1 point.
+    // To show the lower bound = |H_*(S^1)| = 2, draw both fundamental-domain crossings (the same point under T^2 identification, but two preimages displayed).
+    // Display at (0.5, 0.5) only:
+    const ix = x0 + (x1-x0)*0.5, iy = yL0;
+    svg.appendChild(SVG("circle",{cx:ix,cy:iy,r:9,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+    svg.appendChild(SVG("text",{x:ix+14,y:iy-10,"font-size":12,fill:"var(--yellow)"})).textContent = "L₀ ∩ L₁";
+    // Show edge identifications by tagging them
+    svg.appendChild(SVG("text",{x:x0-12,y:(y0+y1)/2,"text-anchor":"end","font-size":11,fill:"var(--mute)"})).textContent = "x ≡ x+1";
+    svg.appendChild(SVG("text",{x:(x0+x1)/2,y:y1+18,"text-anchor":"middle","font-size":11,fill:"var(--mute)"})).textContent = "y ≡ y+1";
+    sOut.textContent = `θ = ${(parseFloat(shift.value)/100).toFixed(2)}`;
+    const tt = parseFloat(shift.value)/100;
+    out.textContent = `|L₀ ∩ L₁| = 1 in this fundamental domain  ·  amplitude a = ${a.toFixed(3)}  ·  Hamiltonian isotopy of L₁ never decreases |L₀ ∩ L₁| below the Floer rank — generically the rank predicts a positive lower bound coming from H_*(L₀; ℤ/2)`;
+  }
+  shift.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('symplectic-manifolds'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

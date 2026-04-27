@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mathematics and cryptography</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":null,"prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematics-and-cryptography":{"next":null,"prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"wavelets","section":"Analysis","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"schrodinger-equation","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Number theory" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+// number-theory helpers used across crypto widgets
+function gcdInt(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }
+function eeaInt(a,b){
+  // returns [g,s,t] with s*a + t*b = g
+  let [oldR,r] = [a,b];
+  let [oldS,s] = [1,0];
+  let [oldT,t] = [0,1];
+  while(r !== 0){
+    const q = Math.floor(oldR / r);
+    [oldR,r] = [r, oldR - q*r];
+    [oldS,s] = [s, oldS - q*s];
+    [oldT,t] = [t, oldT - q*t];
+  }
+  return [oldR, oldS, oldT];
+}
+function modInv(a,m){
+  const [g,s,] = eeaInt(((a%m)+m)%m, m);
+  if(g !== 1) return null;
+  return ((s%m)+m)%m;
+}
+function modPow(base, exp, mod){
+  base = ((base%mod)+mod)%mod;
+  let r = 1 % mod;
+  while(exp>0){
+    if(exp & 1) r = (r*base) % mod;
+    base = (base*base) % mod;
+    exp = Math.floor(exp/2);
+  }
+  return r;
+}
+function isPrimeSmall(n){
+  n = Math.abs(n|0);
+  if(n<2) return false;
+  if(n<4) return true;
+  if(n%2===0) return false;
+  for(let k=3; k*k<=n; k+=2) if(n%k===0) return false;
+  return true;
+}
+function eulerPhi(n){
+  n = Math.abs(n|0);
+  if(n<=1) return n===1 ? 1 : 0;
+  let result = n;
+  let m = n;
+  for(let p=2; p*p<=m; p++){
+    if(m%p===0){
+      while(m%p===0) m = m/p;
+      result -= Math.floor(result/p);
+    }
+  }
+  if(m>1) result -= Math.floor(result/m);
+  return result;
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#mod-arith">1&nbsp;Modular&nbsp;arithmetic</a>
+  <a href="#rsa">2&nbsp;RSA</a>
+  <a href="#dlog">3&nbsp;Discrete&nbsp;log</a>
+  <a href="#ecc">4&nbsp;Elliptic&nbsp;curves</a>
+  <a href="#lattice">5&nbsp;Lattice / PQC</a>
+  <a href="#zk">6&nbsp;Zero-knowledge</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Mathematics and cryptography</h1>
+  <p class="sub">A guided tour from <code>(\mathbb{Z}/n)^\times</code> through RSA, Diffie–Hellman, elliptic curves, and the post-quantum lattice frontier — with a coda on zero-knowledge proofs.</p>
+</section>
+
+<section id="mod-arith">
+<h2>1. Modular arithmetic and Euler's theorem</h2>
+
+<p>Public-key cryptography lives inside the <strong>multiplicative group</strong> $(\mathbb{Z}/n)^\times$ — the units modulo $n$, i.e. integers coprime to $n$ under multiplication. Its order is <strong>Euler's totient</strong>
+$$\phi(n) = \#\{a : 1\le a\le n,\ \gcd(a,n)=1\}.$$
+For a prime power, $\phi(p^k) = p^{k-1}(p-1)$, and $\phi$ is multiplicative on coprime arguments. The key identity, the <strong>Fermat–Euler theorem</strong>, falls out of Lagrange's theorem applied to the unit group:</p>
+
+$$\gcd(a,n)=1 \implies a^{\phi(n)} \equiv 1 \pmod n.$$
+
+<p>When $n=p$ is prime, $(\mathbb{Z}/p)^\times$ is cyclic of order $p-1$, and a generator is called a <strong>primitive root</strong>. Powers of a primitive root enumerate every nonzero residue exactly once — this is the algebraic substrate every classical cryptosystem will rent.</p>
+
+<div class="widget" id="w-totient">
+  <div class="hd"><span class="ttl">W1 · Euler totient and unit group</span><span class="hint">change $n$ to see $(\mathbb{Z}/n)^\times$</span></div>
+  <div class="row">
+    <label for="w-tot-n">$n=$</label><input type="number" id="w-tot-n" value="21" min="2" max="60" step="1" style="width:80px">
+    <button id="w-tot-go">recompute</button>
+  </div>
+  <div class="readout" id="w-tot-out"></div>
+  <svg id="w-tot-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="grid of residues, units highlighted"></svg>
+</div><script>
+(function(){
+  const out = $("#w-tot-out"), svg = $("#w-tot-svg");
+  function go(){
+    const n = parseInt($("#w-tot-n").value, 10);
+    svg.innerHTML = "";
+    if(!Number.isFinite(n) || n < 2 || n > 60){
+      out.textContent = "need 2 ≤ n ≤ 60";
+      return;
+    }
+    const units = [];
+    for(let a=1; a<n; a++){ if(gcdInt(a,n)===1) units.push(a); }
+    const phi = units.length;
+    out.textContent =
+      `n = ${n}\n` +
+      `φ(n) = ${phi}    [#units in (Z/${n})×]\n` +
+      `units = {${units.join(", ")}}`;
+    // grid: cols * rows = n, draw n cells
+    const W = 720, H = 220, pad = 16;
+    const cols = Math.min(15, n);
+    const rows = Math.ceil(n / cols);
+    const cw = (W - 2*pad) / cols;
+    const ch = Math.min(28, (H - 2*pad - 30) / rows);
+    for(let a=0; a<n; a++){
+      const r = Math.floor(a/cols), c = a%cols;
+      const x = pad + c*cw, y = pad + r*ch;
+      const isUnit = (a>0) && gcdInt(a,n)===1;
+      const isZero = (a===0);
+      const fill = isUnit ? "var(--yellow)" : (isZero ? "var(--panel2)" : "var(--panel)");
+      const stroke = isUnit ? "var(--yellow)" : "var(--line)";
+      svg.appendChild(SVG("rect", {x: x+1, y: y+1, width: cw-2, height: ch-2,
+        fill, stroke, "stroke-width": 1, opacity: isUnit ? 0.85 : 1, rx: 3}));
+      const t = SVG("text", {x: x + cw/2, y: y + ch/2 + 4, "text-anchor": "middle",
+        "font-size": 12, fill: isUnit ? "#111" : "var(--ink)"});
+      t.textContent = a;
+      svg.appendChild(t);
+    }
+    const legend = SVG("text", {x: pad, y: H - 14, "font-size": 12, fill: "var(--mute)"});
+    legend.textContent = `yellow = unit, count = φ(${n}) = ${phi}`;
+    svg.appendChild(legend);
+  }
+  $("#w-tot-go").addEventListener("click", go);
+  $("#w-tot-n").addEventListener("change", go);
+  go();
+})();
+</script>
+
+<div class="quiz" data-concept="crypto-modular-arithmetic"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematics-and-cryptography.html#dlog">Mathematics and cryptography</a> · Discrete logarithm and Diffie–Hellman</div>
+    <div><a href="./mathematics-and-cryptography.html#rsa">Mathematics and cryptography</a> · RSA</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+
+<section id="rsa">
+<h2>2. RSA</h2>
+
+<p>Rivest–Shamir–Adleman (1977) is the original public-key cryptosystem. Key generation: pick two large primes $p, q$ and set
+$$n = pq, \qquad \phi(n) = (p-1)(q-1).$$
+Choose a public exponent $e$ with $\gcd(e,\phi(n))=1$ (commonly $e=65537$), and compute the private exponent
+$$d \equiv e^{-1} \pmod{\phi(n)}.$$
+Encryption raises a message $m$ to the public exponent, decryption raises ciphertext to the private:</p>
+
+$$c \equiv m^e \pmod n, \qquad m \equiv c^d \pmod n.$$
+
+<p><strong>Why does this work?</strong> By construction $ed = 1 + k\phi(n)$ for some integer $k$, so for any $m$ coprime to $n$ Fermat–Euler gives</p>
+$$c^d = m^{ed} = m^{1+k\phi(n)} = m \cdot (m^{\phi(n)})^k \equiv m \cdot 1^k = m \pmod n.$$
+<p>(A short CRT argument extends correctness to all residues, even when $\gcd(m,n)>1$.)</p>
+
+<p><strong>Security</strong> rests on the conjectured hardness of factoring $n$. If you can factor, you recover $\phi(n)$ and hence $d$. The converse is also true: knowing $d$ lets you (probabilistically) factor $n$, so the private key and the factorization are essentially the same secret.</p>
+
+<div class="note"><strong>RSA assumption.</strong> Strictly, RSA security needs not just factoring-hardness but the <em>RSA problem</em> — given $(n,e,c)$, find $m$ with $m^e\equiv c$. No separation from factoring is known, but textbook RSA is broken in practice (deterministic, malleable, leaky), and real deployments use OAEP or PSS padding.</div>
+
+<div class="widget" id="w-rsa">
+  <div class="hd"><span class="ttl">W2 · Toy RSA</span><span class="hint">set primes &amp; encrypt a number</span></div>
+  <div class="row">
+    <label for="w-rsa-p">$p=$</label><input type="number" id="w-rsa-p" value="11" min="2" step="1" style="width:70px">
+    <label for="w-rsa-q">$q=$</label><input type="number" id="w-rsa-q" value="13" min="2" step="1" style="width:70px">
+    <label for="w-rsa-e">$e=$</label><input type="number" id="w-rsa-e" value="7" min="2" step="1" style="width:70px">
+    <label for="w-rsa-m">$m=$</label><input type="number" id="w-rsa-m" value="42" min="0" step="1" style="width:90px">
+    <button id="w-rsa-go">encrypt + decrypt</button>
+  </div>
+  <div class="readout" id="w-rsa-out"></div>
+  <svg id="w-rsa-svg" viewBox="0 0 720 140" width="720" height="140" aria-label="m -> c -> m diagram"></svg>
+</div><script>
+(function(){
+  const out = $("#w-rsa-out"), svg = $("#w-rsa-svg");
+  function go(){
+    const p = parseInt($("#w-rsa-p").value, 10);
+    const q = parseInt($("#w-rsa-q").value, 10);
+    const e = parseInt($("#w-rsa-e").value, 10);
+    const m = parseInt($("#w-rsa-m").value, 10);
+    svg.innerHTML = "";
+    if(!isPrimeSmall(p) || !isPrimeSmall(q) || p===q){
+      out.textContent = "need distinct primes p, q";
+      return;
+    }
+    const n = p*q;
+    const phi = (p-1)*(q-1);
+    if(gcdInt(e, phi) !== 1){
+      out.textContent = `e=${e} is not coprime to φ(n)=${phi}`;
+      return;
+    }
+    if(!Number.isFinite(m) || m < 0 || m >= n){
+      out.textContent = `need 0 ≤ m < n = ${n}`;
+      return;
+    }
+    const d = modInv(e, phi);
+    const c = modPow(m, e, n);
+    const mBack = modPow(c, d, n);
+    out.textContent =
+      `n = p*q = ${p}*${q} = ${n}\n` +
+      `φ(n) = (p-1)(q-1) = ${phi}\n` +
+      `public  (n, e) = (${n}, ${e})\n` +
+      `private  d = e^-1 mod φ(n) = ${d}\n` +
+      `encrypt: c = m^e mod n = ${m}^${e} mod ${n} = ${c}\n` +
+      `decrypt: m = c^d mod n = ${c}^${d} mod ${n} = ${mBack}    ${(mBack===m)?"✓":"✗"}`;
+    // arrow diagram m -> c -> m
+    drawNode(svg,  90, 70, "m", {r: 26, stroke: "var(--green)"});
+    drawNode(svg, 360, 70, "c", {r: 26, stroke: "var(--pink)"});
+    drawNode(svg, 630, 70, "m", {r: 26, stroke: "var(--green)"});
+    drawArrow(svg, [115, 70], [335, 70], {color: "var(--yellow)", label: `()^${e} mod ${n}`, markerId: "arr-rsa-enc"});
+    drawArrow(svg, [385, 70], [605, 70], {color: "var(--cyan)", label: `()^${d} mod ${n}`, markerId: "arr-rsa-dec"});
+    const t = SVG("text", {x: 360, y: 130, "text-anchor": "middle", "font-size": 12, fill: "var(--mute)"});
+    t.textContent = `m=${m}    c=${c}    decrypted=${mBack}`;
+    svg.appendChild(t);
+  }
+  $("#w-rsa-go").addEventListener("click", go);
+  ["#w-rsa-p","#w-rsa-q","#w-rsa-e","#w-rsa-m"].forEach(s => $(s).addEventListener("change", go));
+  go();
+})();
+</script>
+
+<div class="quiz" data-concept="crypto-rsa"></div>
+</section>
+
+
+<section id="dlog">
+<h2>3. Discrete logarithm and Diffie–Hellman</h2>
+
+<p>Fix a prime $p$ and a primitive root $g$ of $(\mathbb{Z}/p)^\times$. Every $h \in (\mathbb{Z}/p)^\times$ has a unique exponent
+$$x \in \{0,1,\dots,p-2\} \quad\text{with}\quad g^x \equiv h \pmod p.$$
+The <strong>discrete logarithm</strong> $\log_g h$ is that exponent. Computing it is conjecturally hard; verifying $g^x=h$ is one fast exponentiation. This one-way function is the engine of <strong>Diffie–Hellman key exchange</strong> (1976):</p>
+
+<ol>
+  <li>Public parameters: a prime $p$ and primitive root $g$.</li>
+  <li>Alice picks secret $a$, sends $A = g^a \bmod p$.</li>
+  <li>Bob picks secret $b$, sends $B = g^b \bmod p$.</li>
+  <li>Both compute $K = g^{ab} \bmod p$: Alice as $B^a$, Bob as $A^b$.</li>
+</ol>
+
+<p>The eavesdropper sees $g, p, g^a, g^b$ and must compute $g^{ab}$ — the <em>computational Diffie–Hellman</em> problem. The best known classical algorithm is <strong>index calculus</strong>, sub-exponential of complexity $L_p[1/3,c]$, which is why DH key sizes are pushed to $\ge 3072$ bits.</p>
+
+<div class="widget" id="w-dh">
+  <div class="hd"><span class="ttl">W3 · Diffie–Hellman key exchange</span><span class="hint">change secrets to see the shared key</span></div>
+  <div class="row">
+    <label for="w-dh-p">$p=$</label><input type="number" id="w-dh-p" value="23" min="3" step="1" style="width:80px">
+    <label for="w-dh-g">$g=$</label><input type="number" id="w-dh-g" value="5" min="2" step="1" style="width:70px">
+    <label for="w-dh-a">$a=$</label><input type="range" id="w-dh-a" min="1" max="22" value="6"><span id="w-dh-a-val" class="pill">6</span>
+    <label for="w-dh-b">$b=$</label><input type="range" id="w-dh-b" min="1" max="22" value="15"><span id="w-dh-b-val" class="pill">15</span>
+  </div>
+  <div class="readout" id="w-dh-out"></div>
+  <svg id="w-dh-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="alice-bob exchange diagram"></svg>
+</div><script>
+(function(){
+  const out = $("#w-dh-out"), svg = $("#w-dh-svg");
+  const aVal = $("#w-dh-a-val"), bVal = $("#w-dh-b-val");
+  function go(){
+    const p = parseInt($("#w-dh-p").value, 10);
+    const g = parseInt($("#w-dh-g").value, 10);
+    const a = parseInt($("#w-dh-a").value, 10);
+    const b = parseInt($("#w-dh-b").value, 10);
+    aVal.textContent = a; bVal.textContent = b;
+    svg.innerHTML = "";
+    if(!isPrimeSmall(p) || g <= 1 || g >= p){
+      out.textContent = "need a small prime p and 2 ≤ g < p";
+      return;
+    }
+    const A = modPow(g, a, p);
+    const B = modPow(g, b, p);
+    const KAlice = modPow(B, a, p);
+    const KBob   = modPow(A, b, p);
+    out.textContent =
+      `public:  p = ${p},  g = ${g}\n` +
+      `Alice:  secret a=${a},  sends A = g^a = ${A}\n` +
+      `Bob:    secret b=${b},  sends B = g^b = ${B}\n` +
+      `Alice computes K = B^a mod p = ${KAlice}\n` +
+      `Bob   computes K = A^b mod p = ${KBob}\n` +
+      `✓ shared key K = g^(ab) = ${KAlice}    ${(KAlice===KBob)?"✓":"✗"}`;
+    // diagram
+    drawNode(svg,  90, 60, "Alice", {r: 28, stroke: "var(--cyan)", fontSize: 12});
+    drawNode(svg, 630, 60, "Bob",   {r: 28, stroke: "var(--pink)", fontSize: 12});
+    drawArrow(svg, [120, 60], [600, 60], {color: "var(--yellow)", label: `A = g^${a} = ${A}`, markerId: "arr-dh-A"});
+    drawArrow(svg, [600, 100], [120, 100], {color: "var(--yellow)", label: `B = g^${b} = ${B}`, markerId: "arr-dh-B"});
+    const t1 = SVG("text", {x: 90, y: 160, "text-anchor": "middle", "font-size": 12, fill: "var(--mute)"});
+    t1.textContent = `K = B^a mod p = ${KAlice}`;
+    svg.appendChild(t1);
+    const t2 = SVG("text", {x: 630, y: 160, "text-anchor": "middle", "font-size": 12, fill: "var(--mute)"});
+    t2.textContent = `K = A^b mod p = ${KBob}`;
+    svg.appendChild(t2);
+    const t3 = SVG("text", {x: 360, y: 200, "text-anchor": "middle", "font-size": 13, fill: "var(--green)"});
+    t3.textContent = `shared K = g^(ab) mod ${p} = ${KAlice}`;
+    svg.appendChild(t3);
+  }
+  ["#w-dh-p","#w-dh-g","#w-dh-a","#w-dh-b"].forEach(s => {
+    $(s).addEventListener("input", go);
+    $(s).addEventListener("change", go);
+  });
+  go();
+})();
+</script>
+
+<div class="quiz" data-concept="crypto-discrete-log"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematics-and-cryptography.html#ecc">Mathematics and cryptography</a> · Elliptic-curve cryptography</div>
+    <div><a href="./mathematics-and-cryptography.html#lattice">Mathematics and cryptography</a> · Lattice-based and post-quantum cryptography</div>
+    <div><a href="./mathematics-and-cryptography.html#zk">Mathematics and cryptography</a> · Zero-knowledge proofs</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+
+<section id="ecc">
+<h2>4. Elliptic-curve cryptography</h2>
+
+<p>Replace the multiplicative group $(\mathbb{Z}/p)^\times$ with the <strong>group of points</strong> $E(\mathbb{F}_p)$ of an elliptic curve over a prime field. The chord-tangent construction equips $E(\mathbb{F}_p)$ with an abelian group law, neutral element the point at infinity. <strong>Hasse's theorem</strong> bounds its order:</p>
+$$\#E(\mathbb{F}_p) = p + 1 - a_p, \qquad |a_p| \le 2\sqrt p.$$
+
+<p>The <strong>elliptic-curve discrete logarithm problem</strong> (ECDLP) asks, given $P, Q\in E(\mathbb{F}_p)$ with $Q = [k]P$, to recover $k$. On a generic curve no index-calculus attack is known — the only known classical attack is <strong>Pollard's $\rho$</strong> in time $O(\sqrt{|E|})$. So 256-bit ECC delivers what 3072-bit RSA gives, and signed transactions on Bitcoin's <code>secp256k1</code> stay short.</p>
+
+<p><strong>Pitfalls.</strong> Two attack families pull the ECDLP into easier groups:</p>
+<ul>
+  <li><strong>MOV (Menezes–Okamoto–Vanstone).</strong> The Weil pairing embeds $E[\ell]\hookrightarrow \mathbb{F}_{p^k}^\times$ where $k$ is the embedding degree. Small $k$ ⇒ index calculus on $\mathbb{F}_{p^k}^\times$ wins.</li>
+  <li><strong>Smart / anomalous curves.</strong> If $\#E(\mathbb{F}_p)=p$, the lift to $\mathbb{Z}_p$ linearises the DLP into addition.</li>
+</ul>
+<p>Standard hardened curves (NIST P-256, Curve25519, secp256k1) avoid both. <strong>ECDH</strong> and <strong>ECDSA</strong> are the elliptic analogues of Diffie–Hellman and DSA — same protocol skeleton, different group.</p>
+
+<div class="widget" id="w-ecc">
+  <div class="hd"><span class="ttl">W4 · Toy elliptic-curve point group</span><span class="hint">$y^2 = x^3 + ax + b$ over $\mathbb{F}_p$</span></div>
+  <div class="row">
+    <label for="w-ecc-p">$p=$</label><input type="number" id="w-ecc-p" value="17" min="5" max="97" step="1" style="width:70px">
+    <label for="w-ecc-a">$a=$</label><input type="number" id="w-ecc-a" value="2" step="1" style="width:70px">
+    <label for="w-ecc-b">$b=$</label><input type="number" id="w-ecc-b" value="2" step="1" style="width:70px">
+    <label for="w-ecc-k">$k=$</label><input type="range" id="w-ecc-k" min="1" max="40" value="5"><span id="w-ecc-k-val" class="pill">5</span>
+  </div>
+  <div class="readout" id="w-ecc-out"></div>
+  <svg id="w-ecc-svg" viewBox="0 0 720 380" width="720" height="380" aria-label="point grid for E(F_p)"></svg>
+</div><script>
+(function(){
+  const out = $("#w-ecc-out"), svg = $("#w-ecc-svg");
+  const kVal = $("#w-ecc-k-val");
+  function pointAdd(P, Q, a, p){
+    if(P === null) return Q;
+    if(Q === null) return P;
+    const [x1,y1] = P, [x2,y2] = Q;
+    if(x1 === x2 && (y1 + y2) % p === 0) return null;  // P + (-P) = O
+    let m;
+    if(x1 === x2 && y1 === y2){
+      // doubling: m = (3 x1^2 + a) / (2 y1)
+      const num = (3*x1*x1 + a) % p;
+      const den = modInv((2*y1) % p, p);
+      if(den === null) return null;
+      m = ((num%p)+p)%p * den % p;
+    } else {
+      const num = ((y2 - y1) % p + p) % p;
+      const den = modInv(((x2 - x1) % p + p) % p, p);
+      if(den === null) return null;
+      m = num * den % p;
+    }
+    const x3 = (m*m - x1 - x2) % p;
+    const x3p = (x3 % p + p) % p;
+    const y3 = (m * (x1 - x3p) - y1) % p;
+    const y3p = (y3 % p + p) % p;
+    return [x3p, y3p];
+  }
+  function go(){
+    const p = parseInt($("#w-ecc-p").value, 10);
+    const a = parseInt($("#w-ecc-a").value, 10);
+    const b = parseInt($("#w-ecc-b").value, 10);
+    const k = parseInt($("#w-ecc-k").value, 10);
+    kVal.textContent = k;
+    svg.innerHTML = "";
+    if(!isPrimeSmall(p) || p < 5 || p > 97){
+      out.textContent = "need a small prime 5 ≤ p ≤ 97";
+      return;
+    }
+    // discriminant 4a^3 + 27b^2 != 0 mod p
+    const disc = (4*a*a*a + 27*b*b) % p;
+    if(((disc%p)+p)%p === 0){
+      out.textContent = `singular curve: 4a³ + 27b² ≡ 0 (mod ${p})`;
+      return;
+    }
+    // enumerate points
+    const points = [];
+    for(let x=0; x<p; x++){
+      const rhs = ((x*x*x + a*x + b) % p + p) % p;
+      for(let y=0; y<p; y++){
+        if((y*y) % p === rhs) points.push([x,y]);
+      }
+    }
+    // pick generator: first point
+    const G = points[0] || null;
+    let kG = null;
+    if(G !== null){
+      let acc = null, base = G;
+      let kk = k;
+      while(kk > 0){
+        if(kk & 1) acc = pointAdd(acc, base, a, p);
+        base = pointAdd(base, base, a, p);
+        kk = Math.floor(kk/2);
+      }
+      kG = acc;
+    }
+    out.textContent =
+      `E: y² = x³ + ${a}x + ${b}  over F_${p}\n` +
+      `#E(F_${p}) = ${points.length + 1}  (Hasse: |#E - (p+1)| ≤ 2√p = ${(2*Math.sqrt(p)).toFixed(2)})\n` +
+      (G ? `generator G = (${G[0]}, ${G[1]})\n` : "no affine points\n") +
+      (kG === null ? `[${k}]G = O (point at infinity)` :
+                     `[${k}]G = (${kG[0]}, ${kG[1]})`);
+    // grid
+    const W = 720, H = 380, pad = 30;
+    const cw = (W - 2*pad) / p, ch = (H - 2*pad) / p;
+    // grid background
+    for(let i=0;i<=p;i++){
+      svg.appendChild(SVG("line", {x1: pad + i*cw, y1: pad, x2: pad + i*cw, y2: H - pad,
+        stroke: "var(--line)", "stroke-width": 0.5, opacity: 0.4}));
+      svg.appendChild(SVG("line", {x1: pad, y1: pad + i*ch, x2: W - pad, y2: pad + i*ch,
+        stroke: "var(--line)", "stroke-width": 0.5, opacity: 0.4}));
+    }
+    // points
+    points.forEach(([x,y]) => {
+      const cx = pad + x*cw + cw/2;
+      const cy = H - pad - y*ch - ch/2;
+      svg.appendChild(SVG("circle", {cx, cy, r: Math.min(4, cw/3), fill: "var(--blue)", opacity: 0.7}));
+    });
+    // highlight G
+    if(G){
+      const cx = pad + G[0]*cw + cw/2;
+      const cy = H - pad - G[1]*ch - ch/2;
+      svg.appendChild(SVG("circle", {cx, cy, r: Math.min(7, cw/2), fill: "none", stroke: "var(--yellow)", "stroke-width": 2}));
+      const t = SVG("text", {x: cx + 10, y: cy - 8, "font-size": 11, fill: "var(--yellow)"});
+      t.textContent = "G";
+      svg.appendChild(t);
+    }
+    // highlight kG
+    if(kG){
+      const cx = pad + kG[0]*cw + cw/2;
+      const cy = H - pad - kG[1]*ch - ch/2;
+      svg.appendChild(SVG("circle", {cx, cy, r: Math.min(7, cw/2), fill: "none", stroke: "var(--green)", "stroke-width": 2}));
+      const t = SVG("text", {x: cx + 10, y: cy + 14, "font-size": 11, fill: "var(--green)"});
+      t.textContent = `[${k}]G`;
+      svg.appendChild(t);
+    }
+  }
+  ["#w-ecc-p","#w-ecc-a","#w-ecc-b","#w-ecc-k"].forEach(s => {
+    $(s).addEventListener("input", go);
+    $(s).addEventListener("change", go);
+  });
+  go();
+})();
+</script>
+
+<div class="quiz" data-concept="crypto-elliptic-curve"></div>
+</section>
+
+
+<section id="lattice">
+<h2>5. Lattice-based and post-quantum cryptography</h2>
+
+<p>In 1994 Peter Shor exhibited polynomial-time <em>quantum</em> algorithms for integer factorization and discrete logarithms in any abelian group. A sufficiently large fault-tolerant quantum computer therefore breaks RSA, Diffie–Hellman, and ECC simultaneously. The hunt for replacement primitives — <strong>post-quantum cryptography</strong> — has settled, for now, on lattices.</p>
+
+<p>A <strong>lattice</strong> $\Lambda \subset \mathbb{R}^n$ is the integer span of $n$ linearly independent vectors $\mathbf{b}_1,\dots,\mathbf{b}_n$. Two notorious problems:</p>
+<ul>
+  <li><strong>SVP</strong> — find a shortest nonzero vector of $\Lambda$.</li>
+  <li><strong>CVP</strong> — given a target $\mathbf{t}\in\mathbb{R}^n$, find the lattice point closest to it.</li>
+</ul>
+<p>Both are NP-hard in worst case (CVP exactly; SVP modulo a small approximation factor under randomized reductions). Even <em>approximating</em> them is hard for sub-polynomial factors.</p>
+
+<p>Regev's <strong>Learning With Errors (LWE)</strong> (2005) bridges worst-case lattice hardness to an average-case key exchange. Pick a secret $\mathbf{s}\in\mathbb{Z}_q^n$. Samples are pairs
+$$(\mathbf{a}_i,\ \langle \mathbf{a}_i, \mathbf{s}\rangle + e_i \bmod q),$$
+with $\mathbf{a}_i$ uniform and $e_i$ small Gaussian noise. Without the noise, Gaussian elimination recovers $\mathbf{s}$ from $n$ samples; with noise, the problem is conjectured (and quantum-reduces from worst-case approximate-SVP / GapSVP) to be hard.</p>
+
+<p><strong>CRYSTALS-Kyber</strong> — a Module-LWE KEM — became NIST <strong>FIPS&nbsp;203</strong> in 2024, with the related <strong>Dilithium</strong> signature scheme as FIPS 204. The construction reads as: generate noisy linear samples, encode a session key in the high bits of a lattice point, recover via the secret short vector.</p>
+
+<div class="widget" id="w-lwe">
+  <div class="hd"><span class="ttl">W5 · LWE: noisy linear samples</span><span class="hint">add noise — watch Gaussian elimination fail</span></div>
+  <div class="row">
+    <label for="w-lwe-q">$q=$</label><input type="number" id="w-lwe-q" value="29" min="5" step="1" style="width:80px">
+    <label for="w-lwe-s">secret $s=$</label><input type="number" id="w-lwe-s" value="11" min="0" step="1" style="width:80px">
+    <label for="w-lwe-noise">noise $\le$</label><input type="range" id="w-lwe-noise" min="0" max="6" value="2"><span id="w-lwe-noise-val" class="pill">2</span>
+    <button id="w-lwe-go">resample</button>
+  </div>
+  <div class="readout" id="w-lwe-out"></div>
+  <svg id="w-lwe-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="LWE samples scatter"></svg>
+</div><script>
+(function(){
+  const out = $("#w-lwe-out"), svg = $("#w-lwe-svg"), nVal = $("#w-lwe-noise-val");
+  function go(){
+    const q = parseInt($("#w-lwe-q").value, 10);
+    const s = parseInt($("#w-lwe-s").value, 10);
+    const noise = parseInt($("#w-lwe-noise").value, 10);
+    nVal.textContent = noise;
+    svg.innerHTML = "";
+    if(!Number.isFinite(q) || q < 5 || s < 0 || s >= q){
+      out.textContent = `need q ≥ 5 and 0 ≤ s < q`;
+      return;
+    }
+    const samples = [];
+    const N = 12;
+    for(let i=0;i<N;i++){
+      const a = Math.floor(Math.random()*q);
+      const e = Math.floor(Math.random()*(2*noise+1)) - noise;
+      const b = ((a*s + e) % q + q) % q;
+      samples.push({a,b,e});
+    }
+    out.textContent =
+      `q = ${q},  secret s = ${s},  noise bound = ${noise}\n` +
+      `samples (a,  a*s + e mod q):\n` +
+      samples.map(({a,b,e}) => `  a=${String(a).padStart(2)}    b=${String(b).padStart(2)}    (e=${e>=0?"+":""}${e})`).join("\n") +
+      `\n\nNoise=0 ⇒ b/a recovers s exactly (when gcd(a,q)=1).\nNoise>0 ⇒ every sample looks uniformly random; recovery is LWE-hard.`;
+    // scatter plot of (a, b)
+    const W = 720, H = 220, pad = 28;
+    const x = a => pad + a/q * (W - 2*pad);
+    const y = b => H - pad - b/q * (H - 2*pad - 30);
+    // axes
+    svg.appendChild(SVG("line", {x1: pad, y1: H-pad, x2: W-pad, y2: H-pad, stroke: "var(--line)"}));
+    svg.appendChild(SVG("line", {x1: pad, y1: pad, x2: pad, y2: H-pad, stroke: "var(--line)"}));
+    // ideal line b = a*s mod q (drawn as wrapped points)
+    for(let a=0;a<q;a++){
+      const bIdeal = (a*s) % q;
+      svg.appendChild(SVG("circle", {cx: x(a), cy: y(bIdeal), r: 2, fill: "var(--mute)", opacity: 0.6}));
+    }
+    // samples
+    samples.forEach(({a,b}) => {
+      svg.appendChild(SVG("circle", {cx: x(a), cy: y(b), r: 5, fill: "var(--yellow)", opacity: 0.85}));
+    });
+    const t1 = SVG("text", {x: pad, y: 16, "font-size": 11, fill: "var(--mute)"});
+    t1.textContent = `gray = ideal lattice line b=a·s; yellow = noisy samples`;
+    svg.appendChild(t1);
+    const t2 = SVG("text", {x: W-pad, y: H-10, "font-size": 11, fill: "var(--mute)", "text-anchor": "end"});
+    t2.textContent = `axes: a horizontally, b = a*s + e mod q vertically`;
+    svg.appendChild(t2);
+  }
+  $("#w-lwe-go").addEventListener("click", go);
+  ["#w-lwe-q","#w-lwe-s","#w-lwe-noise"].forEach(s => {
+    $(s).addEventListener("input", go);
+    $(s).addEventListener("change", go);
+  });
+  go();
+})();
+</script>
+
+<div class="quiz" data-concept="crypto-lattice-based"></div>
+</section>
+
+
+<section id="zk">
+<h2>6. Zero-knowledge proofs</h2>
+
+<p>Goldwasser, Micali, and Rackoff (1985) introduced <strong>interactive proofs</strong>: a randomized protocol between a prover $P$ and a verifier $V$, with three properties for a language $L$:</p>
+<ul>
+  <li><strong>Completeness.</strong> $x \in L$ ⇒ honest $P$ convinces $V$ with probability $\ge 2/3$.</li>
+  <li><strong>Soundness.</strong> $x \notin L$ ⇒ no cheating prover $P^*$ convinces $V$ with probability $> 1/3$.</li>
+  <li><strong>Zero-knowledge.</strong> The verifier's transcript can be simulated from $x$ alone — $V$ learns <em>only</em> the truth of the statement.</li>
+</ul>
+
+<p>The canonical example is <strong>Schnorr's protocol</strong> (1989) for proving knowledge of a discrete log $x$ with $h = g^x$:</p>
+<ol>
+  <li>Prover picks random $r$, sends commitment $t = g^r$.</li>
+  <li>Verifier sends random challenge $c$.</li>
+  <li>Prover sends response $s = r + cx$.</li>
+  <li>Verifier accepts iff $g^s = t \cdot h^c$.</li>
+</ol>
+<p>Soundness: a prover who can answer two distinct challenges $c \ne c'$ for the same $t$ leaks $x = (s - s') / (c - c')$. Zero-knowledge: a simulator chooses $s$ and $c$ first, then sets $t = g^s / h^c$ — the resulting transcript is indistinguishable from a real one.</p>
+
+<p>Modern <strong>zk-SNARKs</strong> (Groth16 (2016), PLONK (2019), STARKs) compile <em>any</em> NP statement into a few-kilobyte non-interactive proof verifiable in milliseconds. They are the engine of Zcash's shielded transactions, Ethereum zk-rollups, and verifiable computation services. The <strong>Fiat–Shamir transform</strong> turns any honest-verifier interactive ZK protocol into a non-interactive one by replacing the verifier's random challenge with a hash of the transcript so far — a structural bridge from Schnorr to SNARK.</p>
+
+<div class="widget" id="w-schnorr">
+  <div class="hd"><span class="ttl">W6 · Schnorr protocol — honest run</span><span class="hint">advance the protocol step by step</span></div>
+  <div class="row">
+    <label for="w-sch-p">$p=$</label><input type="number" id="w-sch-p" value="23" min="5" step="1" style="width:80px">
+    <label for="w-sch-g">$g=$</label><input type="number" id="w-sch-g" value="5" min="2" step="1" style="width:70px">
+    <label for="w-sch-x">secret $x=$</label><input type="number" id="w-sch-x" value="6" min="1" step="1" style="width:80px">
+    <button id="w-sch-step">step</button>
+    <button id="w-sch-reset">reset</button>
+  </div>
+  <div class="readout" id="w-sch-out"></div>
+  <svg id="w-sch-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="schnorr exchange diagram"></svg>
+</div><script>
+(function(){
+  const out = $("#w-sch-out"), svg = $("#w-sch-svg");
+  let step = 0, state = null;
+  function reset(){
+    step = 0;
+    state = null;
+    render();
+  }
+  function advance(){
+    const p = parseInt($("#w-sch-p").value, 10);
+    const g = parseInt($("#w-sch-g").value, 10);
+    const x = parseInt($("#w-sch-x").value, 10);
+    if(!isPrimeSmall(p) || g < 2 || g >= p || x < 1 || x >= p){
+      out.textContent = "need prime p, 2 ≤ g < p, 1 ≤ x < p";
+      return;
+    }
+    if(step === 0){
+      // commit
+      const r = 1 + Math.floor(Math.random() * (p - 2));
+      const t = modPow(g, r, p);
+      const h = modPow(g, x, p);
+      state = {p, g, x, r, t, h, c: null, s: null};
+      step = 1;
+    } else if(step === 1){
+      // challenge
+      state.c = 1 + Math.floor(Math.random() * (p - 2));
+      step = 2;
+    } else if(step === 2){
+      // response
+      const order = p - 1;
+      state.s = ((state.r + state.c * state.x) % order + order) % order;
+      step = 3;
+    } else {
+      reset();
+      return;
+    }
+    render();
+  }
+  function render(){
+    svg.innerHTML = "";
+    if(!state){
+      out.textContent = "Click \"step\" to begin Schnorr's protocol.";
+      drawNode(svg,  90, 80, "Prover",   {r: 32, stroke: "var(--cyan)", fontSize: 11});
+      drawNode(svg, 630, 80, "Verifier", {r: 32, stroke: "var(--pink)", fontSize: 11});
+      return;
+    }
+    const {p, g, x, r, t, h, c, s} = state;
+    let report =
+      `public:  p = ${p},  g = ${g},  h = g^x mod p = ${h}    (x is secret)\n`;
+    if(step >= 1) report += `» step 1 (commit):  prover picks r=${r}, sends t = g^r mod p = ${t}\n`;
+    if(step >= 2) report += `» step 2 (challenge): verifier sends random c = ${c}\n`;
+    if(step >= 3){
+      const lhs = modPow(g, s, p);
+      const rhs = (t * modPow(h, c, p)) % p;
+      report += `» step 3 (response):  prover sends s = r + c*x mod (p-1) = ${s}\n`;
+      report += `» verify:  g^s mod p = ${lhs}    t * h^c mod p = ${rhs}    ${(lhs===rhs)?"✓ accept":"✗ reject"}\n`;
+      report += `(zero-knowledge: x never appears in the transcript)`;
+    }
+    out.textContent = report;
+    // diagram
+    drawNode(svg,  90, 60, "Prover",   {r: 32, stroke: "var(--cyan)", fontSize: 11});
+    drawNode(svg, 630, 60, "Verifier", {r: 32, stroke: "var(--pink)", fontSize: 11});
+    if(step >= 1) drawArrow(svg, [122, 60], [598, 60], {color: "var(--yellow)", label: `t = ${t}`, markerId: "arr-sch-t"});
+    if(step >= 2) drawArrow(svg, [598, 110], [122, 110], {color: "var(--violet)", label: `c = ${c}`, markerId: "arr-sch-c"});
+    if(step >= 3) drawArrow(svg, [122, 160], [598, 160], {color: "var(--green)", label: `s = ${s}`, markerId: "arr-sch-s"});
+  }
+  $("#w-sch-step").addEventListener("click", advance);
+  $("#w-sch-reset").addEventListener("click", reset);
+  ["#w-sch-p","#w-sch-g","#w-sch-x"].forEach(s => $(s).addEventListener("change", reset));
+  reset();
+})();
+</script>
+
+<div class="quiz" data-concept="crypto-zero-knowledge"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Cryptography is one of the few places where unproved hardness conjectures cash out as deployed engineering. The settled-looking landscape — RSA, ECC, lattices — sits on a small pile of <em>conjectured</em> separations: factoring is conjecturally not in $\mathsf{P}$, the discrete log is conjecturally hard on $E(\mathbb{F}_p)$, average-case LWE conjecturally reduces from worst-case lattice problems. Open frontiers: a fault-tolerant quantum computer large enough to run Shor end-to-end on $2048$-bit RSA, post-quantum signature standardisation beyond Dilithium, succinct proofs without trusted setup, and obfuscation built on plausible primitives.</p>
+
+<ul>
+  <li><a href="./algebra.html#intro">Abstract algebra — groups, rings, fields</a> — the unit group $(\mathbb{Z}/n)^\times$ and Lagrange's theorem are the foundation under Fermat–Euler.</li>
+  <li><a href="./elliptic-curves.html#intro">Elliptic curves</a> — the chord-tangent group law is the algebraic substrate of ECDH and ECDSA.</li>
+  <li><a href="./complexity-theory.html#p-np">Complexity theory — P vs NP</a> — every cryptographic hardness assumption is a refusal to believe a polynomial-time algorithm exists.</li>
+  <li><a href="./complexity-theory.html#np-complete">NP-completeness</a> — lattice problems join the hardness web through Karp reductions; the Cook–Levin paradigm underwrites SNARK soundness via reductions to circuit-SAT.</li>
+  <li><a href="./p-adic-numbers.html#localglobal">p-adics — local-global</a> — the Hasse principle organises the same "study a Diophantine problem prime-by-prime" mindset that index-calculus attacks exploit.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('mathematics-and-cryptography'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

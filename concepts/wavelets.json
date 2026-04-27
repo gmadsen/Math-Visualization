@@ -1,0 +1,82 @@
+{
+  "topic": "wavelets",
+  "title": "Wavelets",
+  "page": "wavelets.html",
+  "concepts": [
+    {
+      "id": "w-multiresolution",
+      "title": "Multiresolution analysis",
+      "anchor": "multiresolution",
+      "prereqs": [
+        "lp-spaces",
+        "fourier-transform-real-line"
+      ],
+      "tags": [
+        "completion",
+        "duality"
+      ],
+      "blurb": "Mallat's MRA: a nested chain $\\cdots\\subset V_{-1}\\subset V_0\\subset V_1\\subset\\cdots$ of closed subspaces of $L^2(\\mathbb{R})$ with $\\bigcap V_j=\\{0\\}$, $\\overline{\\bigcup V_j}=L^2$, dilation symmetry $f\\in V_j\\iff f(2\\cdot)\\in V_{j+1}$, and a scaling function $\\phi$ whose integer translates form an orthonormal basis of $V_0$. The orthogonal complements $W_j=V_{j+1}\\ominus V_j$ are spanned by the wavelet $\\psi$ at scale $j$."
+    },
+    {
+      "id": "w-haar-wavelet",
+      "title": "The Haar wavelet",
+      "anchor": "haar",
+      "prereqs": [
+        "w-multiresolution",
+        "convergence-theorems"
+      ],
+      "tags": [
+        "foundation"
+      ],
+      "blurb": "The simplest MRA: $\\phi=\\chi_{[0,1)}$ and $\\psi=\\chi_{[0,1/2)}-\\chi_{[1/2,1)}$. Then $\\{\\psi_{j,k}(x)=2^{j/2}\\psi(2^j x-k):j,k\\in\\mathbb{Z}\\}$ is an orthonormal basis of $L^2(\\mathbb{R})$. Each Haar coefficient is a difference of two block averages — wavelets see local *change* the way Fourier coefficients see global oscillation."
+    },
+    {
+      "id": "w-daubechies",
+      "title": "Daubechies wavelets",
+      "anchor": "daubechies",
+      "prereqs": [
+        "w-haar-wavelet",
+        "fourier-transform-real-line"
+      ],
+      "tags": [
+        "classification"
+      ],
+      "blurb": "Compactly supported orthonormal wavelets with $N$ vanishing moments, $\\int x^k\\psi(x)\\,dx=0$ for $k<N$. Daubechies constructed them by spectral-factoring the polynomial $P(y)=\\sum_{k=0}^{N-1}\\binom{N-1+k}{k}y^k$ to obtain a quadrature mirror filter $h_n$ — the smoother the wavelet, the longer its support ($\\operatorname{supp}\\psi=[0,2N-1]$)."
+    },
+    {
+      "id": "w-discrete-transform",
+      "title": "Discrete wavelet transform",
+      "anchor": "dwt",
+      "prereqs": [
+        "w-daubechies"
+      ],
+      "tags": [
+        "functoriality"
+      ],
+      "blurb": "Mallat's pyramid algorithm computes the wavelet expansion of a length-$n$ signal in $O(n)$ time — strictly faster than the FFT's $O(n\\log n)$. At each level the input is convolved with the QMF pair $(h,g)$ and downsampled by $2$; the low-pass branch recurses, the high-pass branch stores detail coefficients. Inverse: upsample, convolve with the dual filters, sum."
+    },
+    {
+      "id": "w-wavelet-vs-fourier",
+      "title": "Time-frequency localisation",
+      "anchor": "vs-fourier",
+      "prereqs": [
+        "w-haar-wavelet",
+        "fourier-transform-real-line"
+      ],
+      "tags": [
+        "duality"
+      ],
+      "blurb": "Each wavelet $\\psi_{j,k}$ occupies a Heisenberg box of area $\\Delta x\\,\\Delta\\xi\\gtrsim 1$ centred at $(2^{-j}k,\\,2^j\\xi_0)$: high-frequency atoms are short and many, low-frequency atoms are long and few. This dyadic tiling tracks transients sharply where windowed Fourier (Gabor) — using a fixed-width window for every frequency — cannot."
+    },
+    {
+      "id": "w-applications",
+      "title": "Applications",
+      "anchor": "applications",
+      "prereqs": [
+        "w-discrete-transform",
+        "w-wavelet-vs-fourier"
+      ],
+      "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "topic": "k-theory",
+  "title": "K-theory",
+  "page": "k-theory.html",
+  "concepts": [
+    {
+      "id": "k-vector-bundles",
+      "title": "Topological $K^0(X)$ from vector bundles",
+      "anchor": "vector-bundles",
+      "prereqs": [
+        "cc-vector-bundles"
+      ],
+      "blurb": "$K^0(X)$ is the Grothendieck group of the abelian monoid $\\mathrm{Vect}_\\mathbb{C}(X)$ of complex vector bundles on $X$ under direct sum, formal differences $[E]-[F]$. Tensor product makes it a commutative ring; pullback makes it a contravariant functor; rank gives a ring homomorphism $K^0(X)\\to\\mathbb{Z}$ whose kernel is the reduced theory $\\widetilde K^0(X)$.",
+      "tags": [
+        "foundation",
+        "functoriality",
+        "universal-property"
+      ]
+    },
+    {
+      "id": "k-grothendieck-group",
+      "title": "Grothendieck group $K_0$ of an exact category",
+      "anchor": "grothendieck",
+      "prereqs": [
+        "k-vector-bundles",
+        "exact-sequences"
+      ],
+      "blurb": "For any exact (or abelian) category $\\mathcal{C}$, $K_0(\\mathcal{C})$ is the free abelian group on isomorphism classes $[X]$ modulo $[B]=[A]+[C]$ for every short exact sequence $0\\to A\\to B\\to C\\to 0$ — Quillen's $K_0$. For $\\mathcal{C}=\\mathrm{Vect}(X)$ the relation reduces to $[E\\oplus F]=[E]+[F]$ since bundles are split-exact, recovering $K^0(X)$. For the category of finitely generated projective $R$-modules this is $K_0(R)$.",
+      "tags": [
+        "universal-property",
+        "exact-sequence",
+        "foundation"
+      ]
+    },
+    {
+      "id": "k-bott-periodicity",
+      "title": "Bott periodicity",
+      "anchor": "bott",
+      "prereqs": [
+        "k-vector-bundles",
+        "fundamental-group"
+      ],
+      "blurb": "Complex topological K-theory is $2$-periodic: $K^n(X)\\cong K^{n+2}(X)$, with the iso induced by external product with the Bott class $\\beta=[\\mathcal{O}(1)]-[\\mathbf 1]\\in\\widetilde K^0(S^2)$. Real K-theory $KO$ is $8$-periodic. The periodicity makes $K^*$ a $\\mathbb{Z}/2$-graded cohomology theory and is the engine behind the Atiyah–Singer index theorem.",
+      "tags": [
+        "classification",
+        "fibration"
+      ]
+    },
+    {
+      "id": "k-chern-character",
+      "title": "Chern character",
+      "anchor": "chern-character",
+      "prereqs": [
+        "k-vector-bundles",
+        "cc-chern-classes",
+        "singular-homology"
+      ],
+      "blurb": "The Chern character $\\mathrm{ch}\\colon K^0(X)\\to H^{\\text{even}}(X;\\mathbb{Q})$, $\\mathrm{ch}(E)=\\sum_i e^{x_i}$ on Chern roots, is a ring homomorphism — additive on $\\oplus$ and multiplicative on $\\otimes$. After tensoring with $\\mathbb{Q}$ it becomes an iso $K^0(X)\\otimes\\mathbb{Q}\\xrightarrow{\\sim} H^{\\text{even}}(X;\\mathbb{Q})$ for finite CW $X$. Rationally K-theory carries no information beyond ordinary cohomology; the integral torsion is the new invariant.",
+      "tags": [
+        "cohomology",
+        "functoriality",
+        "duality"
+      ]
+    },
+    {
+      "id": "k-algebraic-k-theory",
+      "title": "Algebraic K-theory $K_n(R)$",
+      "anchor": "algebraic-k",
+      "prereqs": [
+        "k-grothendieck-group"
+      ],
+      "blurb": "Quillen's higher K-groups $K_n(R) = \\pi_n(BGL(R)^+)$ via the plus-construction on $BGL_\\infty(R)$. Low-degree concrete pictures: $K_0(R)$ is the projective class group; $K_1(R) = GL_\\infty(R)^{\\mathrm{ab}}$, agreeing with $\\det$ for fields and with units for commutative local rings; $K_2(R)$ is the Steinberg group's centre, encoding universal central extensions and explicit symbols $\\{a,b\\}$.",
+      "tags": [
+        "foundation",
+        "classification",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "k-applications",
+      "title": "Applications: index theorem & K-theory of $\\mathcal{O}_F$",
+      "anchor": "applications",
+      "prereqs": [
+        "k-bott-periodicity",
+        "k-chern-character",
+        "k-algebraic-k-theory"
+      ],
+      "blurb": "Atiyah–Singer: an elliptic operator $D$ on a closed manifold $M$ has a topological symbol class $[\\sigma(D)]\\in K^0(T^*M)$, and $\\ind(D)=\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$. On the algebraic side, Borel computed $K_n(\\mathcal{O}_F)\\otimes\\mathbb{Q}$ for a number field $F$: ranks given by the number of real and complex places, with Quillen's calculation of $K_n(\\mathbb{F}_q)$ as input.",
+      "tags": [
+        "duality",
+        "cohomology",
+        "classification"
+      ]
+    }
+  ]
+}

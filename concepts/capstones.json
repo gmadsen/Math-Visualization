@@ -160,6 +160,13 @@
       "title": "$\\infty$-topoi (Lurie's higher topos theory)",
       "goal": "infty-topos-definition",
       "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
+    },
+    {
+      "id": "capstone-atiyah-singer",
+      "section": "Geometry & topology",
+      "title": "The Atiyah–Singer index theorem",
+      "goal": "atiyah-singer-statement",
+      "blurb": "Index of an elliptic operator equals a topological invariant — the cohomological / K-theoretic capstone unifying analysis, topology, and geometry."
     }
   ]
 }

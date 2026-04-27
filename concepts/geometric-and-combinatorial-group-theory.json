@@ -1,0 +1,89 @@
+{
+  "topic": "geometric-and-combinatorial-group-theory",
+  "title": "Geometric and combinatorial group theory",
+  "page": "geometric-and-combinatorial-group-theory.html",
+  "concepts": [
+    {
+      "id": "gcgt-presentations",
+      "title": "Presentations and the word problem",
+      "anchor": "presentations",
+      "prereqs": [
+        "algebraic-structures",
+        "quotients-homomorphisms"
+      ],
+      "blurb": "A presentation $G = \\langle S \\mid R \\rangle$ realizes $G$ as the quotient of the free group $F(S)$ by the normal closure of the relators $R$. Finitely-generated means $|S| < \\infty$, finitely-presented adds $|R| < \\infty$. Tietze transformations adjust generators and relators without changing $G$, and the word problem — decide whether a word in $S^{\\pm 1}$ equals the identity — is undecidable in general (Novikov–Boone) but linear-time for hyperbolic groups.",
+      "tags": [
+        "foundation",
+        "finiteness"
+      ]
+    },
+    {
+      "id": "gcgt-cayley-graph",
+      "title": "Cayley graphs and the word metric",
+      "anchor": "cayley",
+      "prereqs": [
+        "gcgt-presentations",
+        "subgroups-cosets-lagrange"
+      ],
+      "blurb": "Given $(G, S)$ with $S$ a symmetric generating set, the Cayley graph $\\mathrm{Cay}(G, S)$ has vertex set $G$ and edges $\\{(g, gs) : s \\in S\\}$. Left multiplication by $G$ acts by graph automorphisms — the graph is vertex-transitive — and the right action of $S$ moves along edges. The word metric $d_S(g, h) = $ length of the shortest word representing $g^{-1}h$ makes $G$ a metric space, well-defined up to bilipschitz when $S$ is changed.",
+      "tags": [
+        "group-action"
+      ]
+    },
+    {
+      "id": "gcgt-quasi-isometry",
+      "title": "Quasi-isometry and large-scale geometry",
+      "anchor": "quasi-iso",
+      "prereqs": [
+        "gcgt-cayley-graph",
+        "metric-spaces"
+      ],
+      "blurb": "A map $f: X \\to Y$ between metric spaces is a $(K, C)$-quasi-isometry when $\\tfrac{1}{K}d_X(x,x') - C \\le d_Y(f(x), f(x')) \\le K\\, d_X(x,x') + C$ and $f(X)$ is $C$-dense in $Y$. The Schwarz–Milnor lemma says any two finite generating sets of $G$ produce quasi-isometric Cayley graphs, so quasi-isometric invariants — growth, ends, hyperbolicity — are intrinsic to $G$.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "gcgt-growth",
+      "title": "Growth functions and Gromov's theorem",
+      "anchor": "growth",
+      "prereqs": [
+        "gcgt-cayley-graph"
+      ],
+      "blurb": "The growth function $\\beta_S(n) = \\#\\{g \\in G : d_S(e, g) \\le n\\}$ counts ball volumes in the Cayley graph. Up to quasi-isometry, $\\beta$ falls into polynomial, intermediate (Grigorchuk), or exponential growth. Gromov's theorem (1981): a finitely-generated group has polynomial growth iff it is virtually nilpotent — a deep bridge between coarse geometry and group structure.",
+      "tags": [
+        "classification",
+        "finiteness"
+      ]
+    },
+    {
+      "id": "gcgt-hyperbolic-groups",
+      "title": "Gromov-hyperbolic groups",
+      "anchor": "hyperbolic",
+      "prereqs": [
+        "gcgt-quasi-isometry",
+        "fundamental-group"
+      ],
+      "blurb": "$G$ is $\\delta$-hyperbolic when every geodesic triangle in $\\mathrm{Cay}(G,S)$ is $\\delta$-thin: each side lies in the $\\delta$-neighborhood of the union of the other two. Equivalent to negative curvature in the large. Consequences: word and conjugacy problems solvable in linear time, finitely many conjugacy classes of torsion, a well-defined boundary $\\partial G$ at infinity, and quasi-isometric rigidity in many cases.",
+      "tags": [
+        "classification",
+        "compactness"
+      ]
+    },
+    {
+      "id": "gcgt-applications",
+      "title": "Applications and frontiers",
+      "anchor": "applications",
+      "prereqs": [
+        "gcgt-hyperbolic-groups",
+        "gcgt-growth",
+        "adjacency-and-laplacian"
+      ],
+      "blurb": "Decision problems (word/conjugacy/isomorphism), Mostow rigidity for lattices in rank-one Lie groups, CAT(0) cube complexes and Agol's resolution of the virtual Haken conjecture, mapping class groups of surfaces, and expanders built from Cayley graphs of $\\mathrm{SL}_2(\\mathbb{F}_p)$ — geometric group theory now sits at the crossroads of topology, combinatorics, and theoretical computer science.",
+      "tags": [
+        "classification",
+        "group-action"
+      ]
+    }
+  ]
+}
