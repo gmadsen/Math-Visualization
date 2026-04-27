@@ -478,9 +478,15 @@ $$K_t(x) \;=\; \frac{1}{(4\pi t)^{n/2}}\,e^{-|x|^2/4t}, \qquad K_0 = \delta_0.$$
   <ul>
     <li><a href="./measure-theory.html#convergence-theorems">Convergence theorems</a></li>
     <li><a href="./measure-theory.html#convergence">Monotone and dominated convergence</a></li>
+    <li><a href="./harmonic-functions.html#maximum">Maximum principle</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end -->
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./stochastic-calculus.html#feynman-kac">Stochastic calculus</a> · Feynman–Kac formula</div>
+</aside>
+<!-- backlinks-auto-end -->
 <div class="quiz" data-concept="pde-heat-equation"></div><script>
 /* ============================ §2 heat-kernel widget ============================ */
 (function(){
@@ -726,6 +732,7 @@ P_r(\alpha) \;=\; \frac{1-r^2}{1-2r\cos\alpha + r^2}.$$
   <ul>
     <li><a href="./harmonic-functions.html#hf-laplace-equation">The Laplace equation</a></li>
     <li><a href="./harmonic-functions.html#laplace-equation">Laplace's equation</a></li>
+    <li><a href="./harmonic-functions.html#poisson">Poisson kernel</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
@@ -763,22 +770,13 @@ P_r(\alpha) \;=\; \frac{1-r^2}{1-2r\cos\alpha + r^2}.$$
     return s/N;
   }
 
-  // map a value v ∈ [-1,1] to a heatmap RGB; clamp outside
+  // map v ∈ [-1,1] to a theme-aware heatmap: cool side blends --blue, warm side blends --pink, midpoint is --panel.
+  // Uses color-mix at the SVG fill site so the palette swaps with the theme.
   function heat(v){
     v = Math.max(-1, Math.min(1, v));
-    // -1 → blue, 0 → panel, +1 → pink
-    if(v >= 0){
-      const r = Math.round(120 + 110*v);
-      const g = Math.round(80  + 30 *v);
-      const b = Math.round(110 - 30 *v);
-      return `rgb(${r},${g},${b})`;
-    } else {
-      const a = -v;
-      const r = Math.round(80  + 0  *a);
-      const g = Math.round(120 + 60 *a);
-      const b = Math.round(140 + 70 *a);
-      return `rgb(${r},${g},${b})`;
-    }
+    const pct = Math.round(Math.abs(v) * 100);
+    const accent = v >= 0 ? 'var(--pink)' : 'var(--blue)';
+    return `color-mix(in srgb, ${accent} ${pct}%, var(--panel))`;
   }
 
   function render(){

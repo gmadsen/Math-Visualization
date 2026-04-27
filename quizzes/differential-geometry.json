@@ -14,7 +14,6 @@
             "$\\mathbf{x}_u(q)=\\mathbf{x}_v(q)$"
           ],
           "answer": 1,
-          "hint": "Regularity means $d\\mathbf{x}_q$ is injective, i.e.",
           "explain": "Regularity means $d\\mathbf{x}_q$ is injective, i.e. the two partial derivatives span a 2-plane; equivalently their cross product is nonzero."
         },
         {
@@ -22,7 +21,6 @@
           "q": "For the unit-speed circle $\\gamma(t)=(\\cos t,\\sin t)$ in the plane, what is the curvature $\\kappa$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "A unit circle has $\\kappa=1/R=1$.",
           "explain": "A unit circle has $\\kappa=1/R=1$. In general $\\kappa=|\\ddot\\gamma|$ for a unit-speed planar curve, and here $|\\ddot\\gamma|=1$."
         },
         {
@@ -33,7 +31,6 @@
             0
           ],
           "tol": 0.000001,
-          "hint": "$\\mathbf{x}_u=(1,0,2u)$, $\\mathbf{x}_v=(0,1,-2v)$.",
           "explain": "$\\mathbf{x}_u=(1,0,2u)$, $\\mathbf{x}_v=(0,1,-2v)$. At $(0,0)$ the cross product is $(0,0,1)$, so $a=0,b=0$."
         }
       ],
@@ -87,7 +84,6 @@
             "only the orientation of $S$"
           ],
           "answer": 1,
-          "hint": "$I$ is the restricted Euclidean inner product on each tangent plane — it determines intrinsic length, angle, and area.",
           "explain": "$I$ is the restricted Euclidean inner product on each tangent plane — it determines intrinsic length, angle, and area. Bending information lives in the second fundamental form."
         },
         {
@@ -95,7 +91,6 @@
           "q": "For the cylinder $\\mathbf{x}(u,v)=(\\cos u,\\sin u,v)$, compute $E\\cdot G-F^2$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\mathbf{x}_u=(-\\sin u,\\cos u,0)$, $\\mathbf{x}_v=(0,0,1)$, so $E=1$, $G=1$, $F=0$ and $EG-F^2=1$.",
           "explain": "$\\mathbf{x}_u=(-\\sin u,\\cos u,0)$, $\\mathbf{x}_v=(0,0,1)$, so $E=1$, $G=1$, $F=0$ and $EG-F^2=1$."
         },
         {
@@ -103,7 +98,6 @@
           "q": "For the sphere of radius $R$ with $\\mathbf{x}(u,v)=(R\\sin u\\cos v,R\\sin u\\sin v,R\\cos u)$, compute $E$ at any $(u,v)$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\mathbf{x}_u=(R\\cos u\\cos v,R\\cos u\\sin v,-R\\sin u)$ — wait, with $R=1$ we get $E=\\mathbf{x}_u\\cdot\\mathbf{x}_u=\\cos^2u+\\sin^2u=1$.",
           "explain": "$\\mathbf{x}_u=(R\\cos u\\cos v,R\\cos u\\sin v,-R\\sin u)$ — wait, with $R=1$ we get $E=\\mathbf{x}_u\\cdot\\mathbf{x}_u=\\cos^2u+\\sin^2u=1$. For general $R$, $E=R^2$; taking $R=1$ gives $1$."
         }
       ],
@@ -160,7 +154,6 @@
           "q": "On the round sphere of radius $R$ the Gauss map is $\\mathbf{n}(p)=p/R$, so $S_p=(1/R)\\,\\mathrm{id}$. Give the Gaussian curvature $K=\\det S_p$ when $R=3$.",
           "answer": 0.1111111111111111,
           "tol": 0.000001,
-          "hint": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$.",
           "explain": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$. For $R=3$, $K=1/9\\approx 0.1111$."
         },
         {
@@ -173,7 +166,6 @@
             "two antipodal points"
           ],
           "answer": 2,
-          "hint": "On a cylinder the unit normal always lies in the horizontal plane, so $\\mathbf{n}$ traces out a great circle.",
           "explain": "On a cylinder the unit normal always lies in the horizontal plane, so $\\mathbf{n}$ traces out a great circle. The image has measure zero on $S^2$, consistent with $K\\equiv 0$."
         }
       ],
@@ -227,7 +219,6 @@
             "determined by the embedding in $\\mathbb{R}^3$ only"
           ],
           "answer": 1,
-          "hint": "Gauss's remarkable theorem: $K$ is computable from $(E,F,G)$ and their derivatives alone, so it is an isometric invariant — intrinsic.",
           "explain": "Gauss's remarkable theorem: $K$ is computable from $(E,F,G)$ and their derivatives alone, so it is an isometric invariant — intrinsic."
         },
         {
@@ -235,7 +226,6 @@
           "q": "On the sphere of radius $R$, the Gaussian curvature is constant. Compute $K$ when $R=2$.",
           "answer": 0.25,
           "tol": 0.000001,
-          "hint": "For a round sphere of radius $R$, $K=1/R^2$.",
           "explain": "For a round sphere of radius $R$, $K=1/R^2$. With $R=2$ that is $1/4=0.25$."
         },
         {
@@ -243,7 +233,6 @@
           "q": "A geodesic triangle on the unit sphere has interior angles $\\pi/2,\\pi/2,\\pi/2$. By Gauss–Bonnet, its area equals the angle excess. What is the area?",
           "answer": 1.5707963267948966,
           "tol": 0.000001,
-          "hint": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$.",
           "explain": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$. On the unit sphere $K=1$, so area $=\\int K\\,dA=\\pi/2\\approx 1.5708$."
         }
       ],
@@ -297,7 +286,6 @@
             "$\\int_S H\\,dA = 2\\pi\\chi(S)$ (mean curvature, not Gaussian)"
           ],
           "answer": 1,
-          "hint": "Total Gaussian curvature equals $2\\pi$ times the Euler characteristic $\\chi(S)=V-E+F=2-2g$.",
           "explain": "Total Gaussian curvature equals $2\\pi$ times the Euler characteristic $\\chi(S)=V-E+F=2-2g$. It couples differential geometry ($K$) to topology ($\\chi$)."
         },
         {
@@ -305,7 +293,6 @@
           "q": "For a closed genus-$3$ orientable surface, compute $\\int_S K\\,dA$.",
           "answer": -25.132741228718345,
           "tol": 0.00001,
-          "hint": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$.",
           "explain": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$."
         },
         {
@@ -313,7 +300,6 @@
           "q": "A geodesic triangle on a surface of constant curvature $K=-1$ has interior angles $\\alpha+\\beta+\\gamma=\\pi/3$. By local Gauss–Bonnet, what is the area of the triangle?",
           "answer": 2.0943951023931953,
           "tol": 0.000001,
-          "hint": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$.",
           "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
         }
       ],

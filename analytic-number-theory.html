@@ -358,6 +358,7 @@ Combined with the explicit formula and a Hadamard product expansion, this yields
 <h2>4. Dirichlet's theorem on primes in AP</h2>
 <p><strong>Theorem (Dirichlet, 1837).</strong> <em>If $\gcd(a, q) = 1$, the arithmetic progression $a, a+q, a+2q, \ldots$ contains infinitely many primes.</em></p>
 
+<p><strong>Worked example: orthogonality of characters.</strong> The proof of Dirichlet's theorem uses character orthogonality to extract the contribution of one residue class from $\sum_{p \le x} 1$.</p>
 <p>The proof hinges on <a href="./dirichlet-series-euler-products.html#chars">Dirichlet $L$-functions</a> $L(s, \chi) = \sum_n \chi(n)/n^s$, where $\chi : (\mathbb{Z}/q)^\times \to \mathbb{C}^\times$ is a multiplicative character. Orthogonality of characters gives
 $$\frac{1}{\varphi(q)} \sum_{\chi \bmod q} \bar\chi(a)\,\chi(n) \;=\; \mathbf{1}[n \equiv a \pmod q],$$
 so summing $\log L(s, \chi)$ weighted by $\bar\chi(a)/\varphi(q)$ over all $\chi$ collapses to the partial sum $\sum_{p \equiv a} p^{-s} + O(1)$. The trivial character contributes $\log\zeta(s)$, which blows up as $s \to 1^+$. Each non-trivial $\chi$ contributes $\log L(s, \chi)$. <em>Provided</em> $L(1, \chi) \ne 0$ for every non-trivial $\chi$, those terms are bounded. So the prime sum diverges, and infinitely many primes hit the class $a$.</p>

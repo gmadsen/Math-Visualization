@@ -13,7 +13,6 @@
             "a projection to cusp forms only"
           ],
           "answer": 1,
-          "hint": "Geometrically it averages over degree-$p$ isogeny/lattice data.",
           "explain": "Geometrically it averages over degree-$p$ isogeny/lattice data."
         },
         {
@@ -21,7 +20,6 @@
           "q": "$T_p$ depends on a prime parameter. For $T_5$, what is $p$?",
           "answer": 5,
           "tol": 0.001,
-          "hint": "By notation, the subscript is the prime.",
           "explain": "By notation, the subscript is the prime."
         },
         {
@@ -33,7 +31,6 @@
             "non-holomorphic space only"
           ],
           "answer": 0,
-          "hint": "Hecke operators act endomorphically on standard modular-form spaces.",
           "explain": "Hecke operators act endomorphically on standard modular-form spaces."
         }
       ],
@@ -86,7 +83,6 @@
             "$a_{n+p}$ only"
           ],
           "answer": 0,
-          "hint": "The standard formula is $a'_n=a_{pn}+p^{k-1}a_{n/p}$.",
           "explain": "The standard formula is $a'_n=a_{pn}+p^{k-1}a_{n/p}$."
         },
         {
@@ -94,7 +90,6 @@
           "q": "In weight $k=2$, what is $p^{k-1}$ when $p=3$?",
           "answer": 3,
           "tol": 0.001,
-          "hint": "$p^{k-1}=3^1=3$.",
           "explain": "$p^{k-1}=3^1=3$."
         },
         {
@@ -106,7 +101,6 @@
             "It only applies to Eisenstein series"
           ],
           "answer": 0,
-          "hint": "It makes Hecke action algorithmic on q-series data.",
           "explain": "It makes Hecke action algorithmic on q-series data."
         }
       ],
@@ -159,7 +153,6 @@
             "$T_n^2=0$ always"
           ],
           "answer": 0,
-          "hint": "Hecke operators form a commutative algebra in this setting.",
           "explain": "Hecke operators form a commutative algebra in this setting."
         },
         {
@@ -171,7 +164,6 @@
             "eliminate cusp forms"
           ],
           "answer": 0,
-          "hint": "Commuting normal/self-adjoint operators admit joint eigenbases.",
           "explain": "Commuting normal/self-adjoint operators admit joint eigenbases."
         },
         {
@@ -179,7 +171,6 @@
           "q": "If $f$ is an eigenvector for $T_2,T_3$ with eigenvalues 5 and -1, what is $(T_2+T_3)f$ eigenvalue?",
           "answer": 4,
           "tol": 0.001,
-          "hint": "Linearity gives $(5+(-1))f=4f$.",
           "explain": "Linearity gives $(5+(-1))f=4f$."
         }
       ],
@@ -232,7 +223,6 @@
             "p"
           ],
           "answer": 1,
-          "hint": "Normalization sets $a_1=1$.",
           "explain": "Normalization sets $a_1=1$."
         },
         {
@@ -244,7 +234,6 @@
             "only geometric intersection numbers"
           ],
           "answer": 0,
-          "hint": "Their coefficients satisfy multiplicative relations giving Euler factors.",
           "explain": "Their coefficients satisfy multiplicative relations giving Euler factors."
         },
         {
@@ -252,7 +241,6 @@
           "q": "If multiplicativity gives $a_{mn}=a_ma_n$ for $(m,n)=1$, and $a_2=3,a_3=-2$, compute $a_6$.",
           "answer": -6,
           "tol": 0.001,
-          "hint": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$.",
           "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
         }
       ],
@@ -305,7 +293,6 @@
             "$y^{-k}\\,dx\\,dy$ on all of $\\mathcal{H}$"
           ],
           "answer": 1,
-          "hint": "The weighting $y^{k-2}\\,dx\\,dy$ makes $f(\\tau)\\overline{g(\\tau)}\\,y^k \\cdot y^{-2}\\,dx\\,dy$ an $\\mathrm{SL}_2(\\mathbb{Z})$-invariant integrand on the hyperbolic quotient.",
           "explain": "The weighting $y^{k-2}\\,dx\\,dy$ makes $f(\\tau)\\overline{g(\\tau)}\\,y^k \\cdot y^{-2}\\,dx\\,dy$ an $\\mathrm{SL}_2(\\mathbb{Z})$-invariant integrand on the hyperbolic quotient."
         },
         {
@@ -317,7 +304,6 @@
             "It forces every modular form to be a cusp form"
           ],
           "answer": 1,
-          "hint": "Self-adjoint + commuting operators are simultaneously diagonalizable with real eigenvalues — that is exactly the spectral theorem producing the eigenform basis.",
           "explain": "Self-adjoint + commuting operators are simultaneously diagonalizable with real eigenvalues — that is exactly the spectral theorem producing the eigenform basis."
         },
         {
@@ -325,7 +311,6 @@
           "q": "On $S_k(\\Gamma_0(N))$, the standard Hecke operator $T_p$ is self-adjoint for primes $p$ satisfying $\\gcd(p,N)=1$. For $N=15$, how many of the primes $p\\in\\{2,3,5,7,11\\}$ give a self-adjoint $T_p$?",
           "answer": 3,
           "tol": 0.001,
-          "hint": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes.",
           "explain": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes. At $p=3,5$ one gets Atkin–Lehner involutions instead."
         }
       ],

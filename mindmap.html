@@ -802,23 +802,78 @@
   }
   (function wirePanZoom(){
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    // Multi-pointer state for pinch-zoom (touch).
+    const pointers = new Map(); // pointerId -> {x, y}
+    let pinchStartDist = 0, pinchStartK = 1, pinchAnchor = null; // anchor in viewBox coords
+    function activePointers(){ return [...pointers.values()]; }
+    function pointerDist(){
+      const p = activePointers(); if(p.length < 2) return 0;
+      const dx = p[0].x - p[1].x, dy = p[0].y - p[1].y;
+      return Math.hypot(dx, dy);
+    }
+    function pointerCenter(){
+      const p = activePointers(); if(p.length < 2) return null;
+      return { x: (p[0].x + p[1].x)/2, y: (p[0].y + p[1].y)/2 };
+    }
+    function clientToViewbox(cx, cy){
+      const rect = stage.getBoundingClientRect();
+      const sxr = STAGE_W / rect.width, syr = STAGE_H / rect.height;
+      return { x: (cx - rect.left) * sxr, y: (cy - rect.top) * syr };
+    }
     stage.addEventListener('pointerdown', (ev) => {
       if(ev.target.closest('.node')) return; // node clicks handled separately
-      if(ev.button !== 0) return;
-      dragging = true; sx = ev.clientX; sy = ev.clientY; ox = viewT.x; oy = viewT.y;
-      stage.classList.add('dragging');
-      stage.setPointerCapture(ev.pointerId);
+      if(ev.pointerType === 'mouse' && ev.button !== 0) return;
+      pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+      try { stage.setPointerCapture(ev.pointerId); } catch {}
+      if(pointers.size === 2){
+        // Enter pinch mode: cancel any single-pointer drag, record anchor in viewBox coords.
+        dragging = false;
+        stage.classList.remove('dragging');
+        pinchStartDist = pointerDist();
+        pinchStartK = viewT.k;
+        const c = pointerCenter();
+        if(c){
+          const vb = clientToViewbox(c.x, c.y);
+          pinchAnchor = { vx: (vb.x - viewT.x) / viewT.k, vy: (vb.y - viewT.y) / viewT.k };
+        }
+      } else if(pointers.size === 1){
+        dragging = true; sx = ev.clientX; sy = ev.clientY; ox = viewT.x; oy = viewT.y;
+        stage.classList.add('dragging');
+      }
     });
     stage.addEventListener('pointermove', (ev) => {
-      if(!dragging) return;
-      viewT.x = ox + (ev.clientX - sx);
-      viewT.y = oy + (ev.clientY - sy);
-      applyView();
+      if(!pointers.has(ev.pointerId)) return;
+      pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+      if(pointers.size === 2 && pinchStartDist > 0 && pinchAnchor){
+        // Pinch: rescale around the initial midpoint in viewBox coords.
+        const dist = pointerDist();
+        if(dist > 0){
+          const newK = Math.min(6, Math.max(0.35, pinchStartK * (dist / pinchStartDist)));
+          const c = pointerCenter();
+          if(c){
+            const vb = clientToViewbox(c.x, c.y);
+            viewT.k = newK;
+            viewT.x = vb.x - pinchAnchor.vx * newK;
+            viewT.y = vb.y - pinchAnchor.vy * newK;
+            applyView();
+          }
+        }
+      } else if(pointers.size === 1 && dragging){
+        viewT.x = ox + (ev.clientX - sx);
+        viewT.y = oy + (ev.clientY - sy);
+        applyView();
+      }
     });
-    stage.addEventListener('pointerup', (ev) => {
-      dragging = false; stage.classList.remove('dragging');
+    function endPointer(ev){
+      pointers.delete(ev.pointerId);
       try { stage.releasePointerCapture(ev.pointerId); } catch {}
-    });
+      if(pointers.size < 2){ pinchStartDist = 0; pinchAnchor = null; }
+      if(pointers.size === 0){
+        dragging = false; stage.classList.remove('dragging');
+      }
+    }
+    stage.addEventListener('pointerup', endPointer);
+    stage.addEventListener('pointercancel', endPointer);
     stage.addEventListener('wheel', (ev) => {
       ev.preventDefault();
       const rect = stage.getBoundingClientRect();

@@ -14,7 +14,6 @@
             "Additive inverses are optional."
           ],
           "answer": 0,
-          "hint": "A field requires that $F^{\\times}=F\\setminus\\{0\\}$ is a group under multiplication, so each nonzero element is invertible.",
           "explain": "A field requires that $F^{\\times}=F\\setminus\\{0\\}$ is a group under multiplication, so each nonzero element is invertible."
         },
         {
@@ -22,7 +21,6 @@
           "q": "In the additive group $(\\mathbb{Z}/12\\mathbb{Z},+)$, what is the order of the element $4$?",
           "answer": 3,
           "tol": 1e-9,
-          "hint": "The order is $12/\\gcd(12,4)=3$, since $3\\cdot4\\equiv0\\pmod{12}$.",
           "explain": "The order is $12/\\gcd(12,4)=3$, since $3\\cdot4\\equiv0\\pmod{12}$."
         },
         {
@@ -34,7 +32,6 @@
             "Field"
           ],
           "answer": 0,
-          "hint": "Symmetries compose and invert, exactly the group axioms.",
           "explain": "Symmetries compose and invert, exactly the group axioms."
         }
       ],
@@ -103,7 +100,6 @@
             "Having prime order"
           ],
           "answer": 0,
-          "hint": "For fixed $g$, the map $h\\mapsto gh$ is bijective with inverse $h\\mapsto g^{-1}h$, so each row lists each element once.",
           "explain": "For fixed $g$, the map $h\\mapsto gh$ is bijective with inverse $h\\mapsto g^{-1}h$, so each row lists each element once."
         },
         {
@@ -111,7 +107,6 @@
           "q": "If $|G|=24$ and $|H|=6$, how many left cosets does $H$ have in $G$?",
           "answer": 4,
           "tol": 1e-9,
-          "hint": "By Lagrange, the index is $[G:H]=|G|/|H|=24/6=4$.",
           "explain": "By Lagrange, the index is $[G:H]=|G|/|H|=24/6=4$."
         },
         {
@@ -124,7 +119,6 @@
             "$H$ contains every involution in $G$"
           ],
           "answer": 0,
-          "hint": "Normality means left and right cosets coincide for every group element.",
           "explain": "Normality means left and right cosets coincide for every group element."
         }
       ],
@@ -178,7 +172,12 @@
             "$\\varphi$ is necessarily injective.",
             "$|G| = |\\ker\\varphi| \\cdot |\\operatorname{im}\\varphi|$ when $G$ is finite."
           ],
-          "answer": [0, 1, 2, 4],
+          "answer": [
+            0,
+            1,
+            2,
+            4
+          ],
           "hint": "Kernels are normal; images are subgroups; the First Isomorphism Theorem ties them together; Lagrange via the quotient gives the size identity. Injectivity is special — equivalent to trivial kernel.",
           "explain": "(0) $\\ker\\varphi\\trianglelefteq G$ (kernels of group homomorphisms are always normal). (1) $\\operatorname{im}\\varphi\\le H$ (the image is a subgroup). (2) First Isomorphism Theorem: $G/\\ker\\varphi\\cong\\operatorname{im}\\varphi$. (3) is FALSE in general — $\\varphi$ injective iff $\\ker\\varphi$ trivial. (4) follows from Lagrange: $|G|=|\\ker\\varphi|\\cdot[G:\\ker\\varphi]=|\\ker\\varphi|\\cdot|\\operatorname{im}\\varphi|$."
         },
@@ -187,7 +186,6 @@
           "q": "How many elements does $\\mathbb{F}_{3^2}$ have?",
           "answer": 9,
           "tol": 1e-9,
-          "hint": "A finite field $\\mathbb{F}_{p^n}$ has exactly $p^n$ elements.",
           "explain": "A finite field $\\mathbb{F}_{p^n}$ has exactly $p^n$ elements."
         },
         {
@@ -200,7 +198,6 @@
             "$x\\mapsto x^{-1}$"
           ],
           "answer": 0,
-          "hint": "The Frobenius endomorphism raises each element to the $p$th power.",
           "explain": "The Frobenius endomorphism raises each element to the $p$th power."
         }
       ],
@@ -251,7 +248,6 @@
             "$\\mathfrak{m}$ contains every zero divisor"
           ],
           "answer": 0,
-          "hint": "By the correspondence theorem, ideals of $R/\\mathfrak{m}$ correspond to ideals of $R$ containing $\\mathfrak{m}$.",
           "explain": "By the correspondence theorem, ideals of $R/\\mathfrak{m}$ correspond to ideals of $R$ containing $\\mathfrak{m}$. Maximality means the only such ideals are $\\mathfrak{m}$ and $R$, i.e. $R/\\mathfrak{m}$ has only $(0)$ and itself as ideals — which is exactly the field condition."
         },
         {
@@ -259,7 +255,6 @@
           "q": "In $\\mathbb{Z}$, how many maximal ideals contain the ideal $(30)$?",
           "answer": 3,
           "tol": 1e-9,
-          "hint": "Maximal ideals of $\\mathbb{Z}$ are $(p)$ for $p$ prime.",
           "explain": "Maximal ideals of $\\mathbb{Z}$ are $(p)$ for $p$ prime. $(30)\\subseteq(p)$ iff $p\\mid 30$, so $p\\in\\{2,3,5\\}$ — three of them."
         },
         {
@@ -272,7 +267,6 @@
             "$\\mathbb{Q}[x]$"
           ],
           "answer": 0,
-          "hint": "In $\\mathbb{Z}/6\\mathbb{Z}$, $\\overline{2}\\cdot\\overline{3}=\\overline{0}$ with neither factor zero, so $(6)$ is not prime.",
           "explain": "In $\\mathbb{Z}/6\\mathbb{Z}$, $\\overline{2}\\cdot\\overline{3}=\\overline{0}$ with neither factor zero, so $(6)$ is not prime. The other three are domains."
         }
       ],
@@ -319,7 +313,6 @@
           "q": "What is $[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]$?",
           "answer": 4,
           "tol": 1e-9,
-          "hint": "$[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$ (minimal poly $x^2-2$), and $\\sqrt{3}\\notin\\mathbb{Q}(\\sqrt{2})$, so $[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}(\\sqrt{2})]=2$.",
           "explain": "$[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$ (minimal poly $x^2-2$), and $\\sqrt{3}\\notin\\mathbb{Q}(\\sqrt{2})$, so $[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}(\\sqrt{2})]=2$. The Tower Law gives $2\\cdot 2=4$."
         },
         {
@@ -332,7 +325,6 @@
             "the product of all polynomials vanishing on $\\alpha$"
           ],
           "answer": 0,
-          "hint": "The ideal $\\{p\\in F[x]:p(\\alpha)=0\\}$ is principal in the PID $F[x]$, generated by a unique monic irreducible — that generator is the minimal polynomial.",
           "explain": "The ideal $\\{p\\in F[x]:p(\\alpha)=0\\}$ is principal in the PID $F[x]$, generated by a unique monic irreducible — that generator is the minimal polynomial."
         },
         {
@@ -340,7 +332,6 @@
           "q": "Let $\\alpha=\\sqrt[3]{2}$. What is $[\\mathbb{Q}(\\alpha):\\mathbb{Q}]$?",
           "answer": 3,
           "tol": 1e-9,
-          "hint": "The minimal polynomial of $\\sqrt[3]{2}$ over $\\mathbb{Q}$ is $x^3-2$, irreducible by Eisenstein at $p=2$.",
           "explain": "The minimal polynomial of $\\sqrt[3]{2}$ over $\\mathbb{Q}$ is $x^3-2$, irreducible by Eisenstein at $p=2$. Its degree $3$ is the extension degree."
         }
       ],
@@ -387,7 +378,6 @@
           "q": "If $|G|=60$ and $H\\le G$ with $|H|=12$, how many left cosets $gH$ does $H$ have in $G$?",
           "answer": 5,
           "tol": 1e-9,
-          "hint": "By Lagrange, $[G:H]=|G|/|H|=60/12=5$.",
           "explain": "By Lagrange, $[G:H]=|G|/|H|=60/12=5$."
         },
         {
@@ -400,7 +390,6 @@
             "$gH$ contains the identity $e$"
           ],
           "answer": 0,
-          "hint": "Left multiplication by $g$ is a bijection of $G$, so it sends $H$ to a set of the same cardinality.",
           "explain": "Left multiplication by $g$ is a bijection of $G$, so it sends $H$ to a set of the same cardinality. Cosets are not subgroups unless $g\\in H$ (then $gH=H$ contains $e$); left and right cosets coincide only when $H$ is normal."
         },
         {
@@ -471,7 +460,6 @@
             "Only when $N$ is the trivial subgroup"
           ],
           "answer": 0,
-          "hint": "The product of cosets is independent of representatives iff $aN=Na$ for all $a$, which is the defining property of a normal subgroup.",
           "explain": "The product of cosets is independent of representatives iff $aN=Na$ for all $a$, which is the defining property of a normal subgroup."
         },
         {
@@ -479,7 +467,6 @@
           "q": "What is $|G/N|$ when $|G|=24$ and $|N|=6$ (with $N\\trianglelefteq G$)?",
           "answer": 4,
           "tol": 1e-9,
-          "hint": "$|G/N|=[G:N]=|G|/|N|=24/6=4$.",
           "explain": "$|G/N|=[G:N]=|G|/|N|=24/6=4$."
         },
         {
@@ -492,7 +479,6 @@
             "$G\\cong H\\oplus\\ker\\varphi$"
           ],
           "answer": 0,
-          "hint": "Quotienting by the kernel identifies exactly those pairs that $\\varphi$ sends to the same element, so $G/\\ker\\varphi\\to\\mathrm{im}\\,\\varphi=H$ is an isomorphism.",
           "explain": "Quotienting by the kernel identifies exactly those pairs that $\\varphi$ sends to the same element, so $G/\\ker\\varphi\\to\\mathrm{im}\\,\\varphi=H$ is an isomorphism."
         }
       ],
@@ -540,21 +526,26 @@
           "q": "Let $G=S_4$ act on the set $X=\\{1,2,3,4\\}$ by permutation. The orbit of $1\\in X$ has size $4$, so by orbit-stabilizer, $|\\mathrm{Stab}(1)|=|G|/4=?$",
           "answer": 6,
           "tol": 1e-9,
-          "hint": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$.",
           "explain": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$. The stabilizer of $1$ is the subgroup of permutations fixing $1$, isomorphic to $S_3$ on $\\{2,3,4\\}$ — of order $6$."
         },
         {
           "type": "ordering",
           "q": "Arrange the steps in the standard derivation of Burnside's lemma: $\\#\\text{orbits} = \\tfrac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$.",
           "items": [
-            "Apply orbit-stabilizer: $|\\mathrm{Stab}(x)| = |G|/|\\mathrm{orbit}(x)|$, so $\\sum_{x\\in X}|\\mathrm{Stab}(x)| = \\sum_{\\text{orbits}\\,\\mathcal O}\\sum_{x\\in\\mathcal O}|G|/|\\mathcal O| = |G|\\cdot\\#\\text{orbits}$.",
-            "Count the size of $S = \\{(g,x)\\in G\\times X : g\\cdot x = x\\}$ in two ways.",
-            "Counting by $g$ first: $|S| = \\sum_{g\\in G}|\\mathrm{Fix}(g)|$.",
-            "Counting by $x$ first: $|S| = \\sum_{x\\in X}|\\mathrm{Stab}(x)|$.",
-            "Combine the two expressions: $\\sum_{g\\in G}|\\mathrm{Fix}(g)| = |G|\\cdot\\#\\text{orbits}$, divide by $|G|$."
+            "Fix a finite group $G$ acting on a finite set $X$.",
+            "Define $S = \\{(g,x) \\in G \\times X : g \\cdot x = x\\}$ — pairs of group elements and their fixed points.",
+            "Count $|S|$ both ways: $\\sum_g |\\mathrm{Fix}(g)| = \\sum_x |\\mathrm{Stab}(x)|$.",
+            "Use $|\\mathrm{Stab}(x)| = |G|/|\\mathrm{Orb}(x)|$ (orbit-stabiliser) on the right.",
+            "Average over $G$: $\\#\\text{orbits} = \\frac{1}{|G|}\\sum_g |\\mathrm{Fix}(g)|$ — Burnside's formula."
           ],
-          "answer": [1, 2, 3, 0, 4],
-          "hint": "Define the incidence set, count two ways, apply orbit-stabilizer, divide by $|G|$.",
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Set up $S$, double-count $|S|$, then apply orbit-stabiliser to extract the orbit count.",
           "explain": "Burnside's lemma is the classic two-way counting argument. (1) Set $S = \\{(g,x): g\\cdot x = x\\}$. (2) Counting by $g$: $|S| = \\sum_g |\\mathrm{Fix}(g)|$. (3) Counting by $x$: $|S| = \\sum_x |\\mathrm{Stab}(x)|$. (4) By orbit-stabilizer, $\\sum_x |\\mathrm{Stab}(x)| = \\sum_{\\mathcal O}\\sum_{x\\in\\mathcal O}|G|/|\\mathcal O| = \\sum_{\\mathcal O}|G| = |G|\\cdot\\#\\text{orbits}$. (5) Equating and dividing by $|G|$ gives the result — orbits = average fixed-point count."
         },
         {
@@ -562,7 +553,6 @@
           "q": "Apply Burnside to $G=\\mathbb{Z}/3\\mathbb{Z}$ acting on $2$-colorings of a $3$-bead necklace by rotation. There are $2^3=8$ colorings. The identity fixes all $8$; each nontrivial rotation fixes $2$ (constant colorings). The orbit count is $(8+2+2)/3=?$",
           "answer": 4,
           "tol": 1e-9,
-          "hint": "$(8+2+2)/3=12/3=4$.",
           "explain": "$(8+2+2)/3=12/3=4$. The four orbits correspond to distinct necklaces up to rotation."
         }
       ],
@@ -623,7 +613,6 @@
           "q": "For $|G|=56=2^3\\cdot 7$, what is the maximal possible order of a Sylow $2$-subgroup?",
           "answer": 8,
           "tol": 1e-9,
-          "hint": "A Sylow $p$-subgroup of a group of order $p^k m$ with $\\gcd(p,m)=1$ has order exactly $p^k$.",
           "explain": "A Sylow $p$-subgroup of a group of order $p^k m$ with $\\gcd(p,m)=1$ has order exactly $p^k$. Here $p=2$, $k=3$, so order $2^3=8$."
         },
         {
@@ -643,7 +632,6 @@
             3,
             4
           ],
-          "hint": "All five are part of the Sylow theorems.",
           "explain": "All five are part of the Sylow theorems. Existence gives order $p^k$; Sylow II gives conjugacy; Sylow III gives the divisibility and congruence on $n_p$; a unique Sylow subgroup is necessarily closed under conjugation, hence normal."
         }
       ],
@@ -692,7 +680,6 @@
           "q": "How many abelian groups of order $8$ are there, up to isomorphism?",
           "answer": 3,
           "tol": 1e-9,
-          "hint": "The partitions of $3$ (the $2$-adic valuation) are $3$, $2+1$, $1+1+1$, giving $\\mathbb{Z}/8$, $\\mathbb{Z}/4\\oplus\\mathbb{Z}/2$, and $(\\mathbb{Z}/2)^3$ — three groups.",
           "explain": "The partitions of $3$ (the $2$-adic valuation) are $3$, $2+1$, $1+1+1$, giving $\\mathbb{Z}/8$, $\\mathbb{Z}/4\\oplus\\mathbb{Z}/2$, and $(\\mathbb{Z}/2)^3$ — three groups."
         },
         {
@@ -700,7 +687,6 @@
           "q": "How many abelian groups of order $12$ are there?",
           "answer": 2,
           "tol": 1e-9,
-          "hint": "$12=2^2\\cdot 3$.",
           "explain": "$12=2^2\\cdot 3$. Partitions of $2$ (for $p=2$): $2$ or $1+1$; partitions of $1$ (for $p=3$): $1$. Product: $2\\cdot 1=2$ groups — $\\mathbb{Z}/12\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$ and $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$."
         },
         {
@@ -713,7 +699,6 @@
             "$\\mathbb{Z}/3\\oplus\\mathbb{Z}/8$"
           ],
           "answer": 0,
-          "hint": "Decompose into prime-power parts: $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$.",
           "explain": "Decompose into prime-power parts: $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$. Recombine as invariant factors $d_1\\mid d_2$: pair smaller prime powers into $\\mathbb{Z}/2$, and larger into $\\mathbb{Z}/4\\oplus\\mathbb{Z}/3\\cong\\mathbb{Z}/12$. So $\\mathbb{Z}/2\\oplus\\mathbb{Z}/12$."
         }
       ],
@@ -766,7 +751,6 @@
             "$f$ factors as $(x+1)(x^2-x+3)$"
           ],
           "answer": 0,
-          "hint": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$.",
           "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
         },
         {
@@ -779,7 +763,6 @@
             "Only irrational roots"
           ],
           "answer": 0,
-          "hint": "Candidates are $\\pm(\\text{divisors of }a_0)/(\\text{divisors of }a_n)=\\pm(1)/\\pm(1,2)=\\pm 1, \\pm\\tfrac{1}{2}$.",
           "explain": "Candidates are $\\pm(\\text{divisors of }a_0)/(\\text{divisors of }a_n)=\\pm(1)/\\pm(1,2)=\\pm 1, \\pm\\tfrac{1}{2}$. Testing: $f(-1)=0$ and $f(-\\tfrac{1}{2})=0$, so $f=(2x+1)(x+1)$."
         },
         {
@@ -787,7 +770,6 @@
           "q": "If $f\\in k[x]$ has degree $5$ and $g\\in k[x]$ has degree $3$, what is $\\deg(fg)$?",
           "answer": 8,
           "tol": 1e-9,
-          "hint": "In a polynomial ring over a field (or any integral domain), $\\deg(fg)=\\deg f+\\deg g=5+3=8$.",
           "explain": "In a polynomial ring over a field (or any integral domain), $\\deg(fg)=\\deg f+\\deg g=5+3=8$."
         }
       ],
@@ -836,7 +818,6 @@
           "q": "For a semidirect product $G=N\\rtimes_\\varphi H$ with $|N|=8$ and $|H|=3$, what is $|G|$?",
           "answer": 24,
           "tol": 1e-9,
-          "hint": "$|G|=|N|\\cdot|H|=8\\cdot 3=24$, independent of $\\varphi$.",
           "explain": "$|G|=|N|\\cdot|H|=8\\cdot 3=24$, independent of $\\varphi$."
         },
         {
@@ -862,7 +843,6 @@
             "$|H|$ divides $|N|$"
           ],
           "answer": 0,
-          "hint": "Splitting means the quotient map has a homomorphism section.",
           "explain": "Splitting means the quotient map has a homomorphism section. Equivalently, $G$ is isomorphic to a semidirect product $N\\rtimes H$."
         }
       ],

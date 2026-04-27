@@ -14,7 +14,6 @@
             "$p\\equiv 1\\pmod 3$"
           ],
           "answer": 1,
-          "hint": "Odd primes that are sums of two squares are exactly those with $p\\equiv 1\\pmod 4$.",
           "explain": "Odd primes that are sums of two squares are exactly those with $p\\equiv 1\\pmod 4$. Equivalently, $(-1/p)=+1$, so $p$ splits in $\\mathbb{Z}[i]$."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Using Jacobi's formula $r_2(n)=4(d_1(n)-d_3(n))$ for $n=5$ (divisors $1,5$, both $\\equiv 1\\pmod 4$), what is $r_2(5)$?",
           "answer": 8,
           "tol": 0.000001,
-          "hint": "$d_1(5)=2$, $d_3(5)=0$, so $r_2(5)=4(2-0)=8$.",
           "explain": "$d_1(5)=2$, $d_3(5)=0$, so $r_2(5)=4(2-0)=8$. The reps are the $8$ signed ordered pairs $(\\pm 1,\\pm 2),(\\pm 2,\\pm 1)$."
         },
         {
@@ -33,7 +31,6 @@
             0
           ],
           "tol": 0.000001,
-          "hint": "$(2+i)(2-i)=4-i^2=4+1=5$, i.e.",
           "explain": "$(2+i)(2-i)=4-i^2=4+1=5$, i.e. $5+0i$. This is the norm $N(2+i)=2^2+1^2=5$."
         }
       ],
@@ -87,7 +84,6 @@
             "$p$ is odd"
           ],
           "answer": 2,
-          "hint": "Odd primes $p$ split in $\\mathbb{Z}[i]$ exactly when $p\\equiv 1\\pmod 4$ (controlled by the Legendre symbol $(-1/p)$).",
           "explain": "Odd primes $p$ split in $\\mathbb{Z}[i]$ exactly when $p\\equiv 1\\pmod 4$ (controlled by the Legendre symbol $(-1/p)$). The prime $p=2$ ramifies, and $p\\equiv 3\\pmod 4$ stays inert."
         },
         {
@@ -95,7 +91,6 @@
           "q": "How many Gaussian integers $a+bi$ satisfy $a^2+b^2=13$ (i.e. how many lattice points lie on the circle $|\\alpha|^2=13$)? This counts signed ordered pairs.",
           "answer": 8,
           "tol": 0.000001,
-          "hint": "$13=2^2+3^2=3^2+2^2$, giving the $8$ signed ordered pairs $(\\pm 2,\\pm 3),(\\pm 3,\\pm 2)$.",
           "explain": "$13=2^2+3^2=3^2+2^2$, giving the $8$ signed ordered pairs $(\\pm 2,\\pm 3),(\\pm 3,\\pm 2)$. This is $r_2(13)=8$, consistent with Jacobi's formula $4(d_1-d_3)=4(2-0)=8$."
         },
         {
@@ -108,7 +103,6 @@
             "because $2$ is a sum of two distinct squares"
           ],
           "answer": 1,
-          "hint": "The prime $2$ ramifies: $(1+i)(1-i)=2$ and $1-i=-i(1+i)$, so $(2)=(1+i)^2\\cdot(-i)$.",
           "explain": "The prime $2$ ramifies: $(1+i)(1-i)=2$ and $1-i=-i(1+i)$, so $(2)=(1+i)^2\\cdot(-i)$. The Gaussian prime $1+i$ lies above $2$ with ramification index $2$."
         }
       ],
@@ -162,7 +156,6 @@
             "$n$ is a perfect square"
           ],
           "answer": 2,
-          "hint": "Legendre–Gauss: $n$ is a sum of three squares iff $n$ is NOT of the form $4^a(8b+7)$.",
           "explain": "Legendre–Gauss: $n$ is a sum of three squares iff $n$ is NOT of the form $4^a(8b+7)$. Mod $8$, squares are $\\{0,1,4\\}$, so three of them cannot sum to $7$."
         },
         {
@@ -170,7 +163,6 @@
           "q": "What is $r_3(7)$, the number of ordered signed representations of $7$ as a sum of three squares?",
           "answer": 0,
           "tol": 0.000001,
-          "hint": "$7=4^0(8\\cdot 0+7)$ is excluded by Legendre–Gauss, so $r_3(7)=0$.",
           "explain": "$7=4^0(8\\cdot 0+7)$ is excluded by Legendre–Gauss, so $r_3(7)=0$."
         },
         {
@@ -178,7 +170,6 @@
           "q": "Is $n=28$ excluded from being a sum of three squares? Strip factors of $4$: $28=4\\cdot 7$. Enter $1$ if excluded, $0$ if not.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$28=4^1\\cdot(8\\cdot 0+7)$, matching $4^a(8b+7)$ with $a=1, b=0$.",
           "explain": "$28=4^1\\cdot(8\\cdot 0+7)$, matching $4^a(8b+7)$ with $a=1, b=0$. So $28$ is excluded and $r_3(28)=0$."
         }
       ],
@@ -232,7 +223,6 @@
             "only integers $n\\not\\equiv 7\\pmod 8$ are sums of four squares"
           ],
           "answer": 1,
-          "hint": "Lagrange (1770): every non-negative integer $n$ can be written as $a^2+b^2+c^2+d^2$.",
           "explain": "Lagrange (1770): every non-negative integer $n$ can be written as $a^2+b^2+c^2+d^2$. The proof uses multiplicativity (Euler's four-square identity) and descent."
         },
         {
@@ -240,7 +230,6 @@
           "q": "Using Jacobi's formula $r_4(n)=8\\sigma(n)$ for odd $n$, compute $r_4(3)$. (Divisors of $3$: $1,3$; $\\sigma(3)=4$.)",
           "answer": 32,
           "tol": 0.000001,
-          "hint": "For odd $n$, $r_4(n)=8\\sigma(n)$.",
           "explain": "For odd $n$, $r_4(n)=8\\sigma(n)$. With $\\sigma(3)=1+3=4$, we get $r_4(3)=8\\cdot 4=32$."
         },
         {
@@ -253,7 +242,6 @@
             "$g(2)=5$"
           ],
           "answer": 2,
-          "hint": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g.",
           "explain": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g. $n=7$ needs four)."
         }
       ],
@@ -307,7 +295,6 @@
             "every modular form is a sum of Eisenstein series"
           ],
           "answer": 1,
-          "hint": "Hilbert proved that $g(k)$ is finite for every $k\\ge 1$; Lagrange's $g(2)=4$ is the $k=2$ special case.",
           "explain": "Hilbert proved that $g(k)$ is finite for every $k\\ge 1$; Lagrange's $g(2)=4$ is the $k=2$ special case. The sharper constants $g(k)$ and $G(k)$ have been pinned down for many $k$."
         },
         {
@@ -315,7 +302,6 @@
           "q": "What is $g(3)$, the smallest $s$ such that every positive integer is a sum of at most $s$ cubes (including $0^3$)?",
           "answer": 9,
           "tol": 0.000001,
-          "hint": "$g(3)=9$: the integer $n=23$ requires nine cubes (for example $23=2\\cdot 2^3+7\\cdot 1^3$).",
           "explain": "$g(3)=9$: the integer $n=23$ requires nine cubes (for example $23=2\\cdot 2^3+7\\cdot 1^3$). Every other $n$ needs at most nine as well."
         },
         {
@@ -328,7 +314,6 @@
             "$g(k)$ is finite only for $k\\le 4$"
           ],
           "answer": 1,
-          "hint": "$G(k)$ counts the asymptotic number of powers needed (sufficiently large $n$), while $g(k)$ accounts for a few small exceptional integers.",
           "explain": "$G(k)$ counts the asymptotic number of powers needed (sufficiently large $n$), while $g(k)$ accounts for a few small exceptional integers. Hence $G(k)\\le g(k)$; e.g. $G(4)=16$ but $g(4)=19$ because $79$ needs $19$ fourth powers."
         }
       ],

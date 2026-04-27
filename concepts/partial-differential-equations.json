@@ -21,7 +21,8 @@
       "anchor": "heat",
       "prereqs": [
         "pde-classification",
-        "convergence-theorems"
+        "convergence-theorems",
+        "hf-maximum-principle"
       ],
       "blurb": "$u_t=\\Delta u$ smooths data instantly: the fundamental solution $K_t(x)=(4\\pi t)^{-n/2}e^{-|x|^2/4t}$ converts $\\delta_0$ initial data into a Gaussian whose width scales as $\\sqrt{t}$, and the maximum principle keeps solutions trapped between their initial and boundary extremes.",
       "tags": [
@@ -46,7 +47,8 @@
       "anchor": "laplace",
       "prereqs": [
         "pde-classification",
-        "hf-laplace-equation"
+        "hf-laplace-equation",
+        "hf-poisson-kernel"
       ],
       "blurb": "$\\Delta u=0$ is the equilibrium of $u_t=\\Delta u$: solutions enjoy the mean-value property, hit their extremes only on $\\partial\\Omega$, and the Dirichlet/Neumann problems prescribe boundary value or normal flux. On the disk, the Poisson kernel writes the unique solution as a boundary integral.",
       "tags": [

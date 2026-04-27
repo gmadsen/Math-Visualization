@@ -718,8 +718,7 @@ r_G \;=\; \bigcup_{p\in G} p \;\in\; 2^\omega.
     const margin = 30;
     const baseY = 200;
     // Draw path along the bottom
-    svg.appendChild(SVG('text',{x:startX, y:30,'font-size':12, fill:'var(--mute)'}));
-    const ttl = SVG('text',{x:startX,y:30,'font-size':12,fill:'var(--mute)'});
+        const ttl = SVG('text',{x:startX,y:30,'font-size':12,fill:'var(--mute)'});
     ttl.textContent = bits.length ? `path through 2^<ω, decisions made so far:` : `start at root ⟨⟩.  press step to descend.`;
     svg.appendChild(ttl);
 

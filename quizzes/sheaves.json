@@ -14,7 +14,6 @@
             "a presheaf on the one-point compactification of $X$"
           ],
           "answer": 1,
-          "hint": "Restriction $F(U) \\to F(V)$ for $V \\subseteq U$ reverses the inclusion arrow $V \\hookrightarrow U$, which is exactly contravariance.",
           "explain": "Restriction $F(U) \\to F(V)$ for $V \\subseteq U$ reverses the inclusion arrow $V \\hookrightarrow U$, which is exactly contravariance. Equivalently, a presheaf is a functor out of $\\mathrm{Open}(X)^{\\mathrm{op}}$."
         },
         {
@@ -27,7 +26,6 @@
             "$\\rho^U_W$ depends only on $U$, not on $V$ or $W$"
           ],
           "answer": 0,
-          "hint": "Restricting to $W$ in one shot must equal: restrict to $V$ first, then to $W$.",
           "explain": "Restricting to $W$ in one shot must equal: restrict to $V$ first, then to $W$. This is the composition law of the contravariant functor, $\\rho^U_W = \\rho^V_W \\circ \\rho^U_V$."
         },
         {
@@ -35,7 +33,6 @@
           "q": "How many morphisms are there in $\\mathrm{Open}(X)$ from $V$ to $U$ when $V \\subseteq U$ and $V \\ne U$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise.",
           "explain": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise."
         }
       ],
@@ -89,7 +86,6 @@
             "the stalks $F_x$ all agree for $x\\in U$"
           ],
           "answer": 1,
-          "hint": "The sheaf axiom packages locality (injectivity on $F(U)\\to\\prod F(U_i)$) and gluing (compatible families lift) as the equalizer condition.",
           "explain": "The sheaf axiom packages locality (injectivity on $F(U)\\to\\prod F(U_i)$) and gluing (compatible families lift) as the equalizer condition."
         },
         {
@@ -102,7 +98,6 @@
             "$B(\\emptyset)$ is not terminal"
           ],
           "answer": 1,
-          "hint": "Bounded functions glue to an unbounded function: on $\\mathbb{R} = \\bigcup_n (-n,n)$ the compatible family $f_n(x)=x$ has no bounded global lift, so gluing fails.",
           "explain": "Bounded functions glue to an unbounded function: on $\\mathbb{R} = \\bigcup_n (-n,n)$ the compatible family $f_n(x)=x$ has no bounded global lift, so gluing fails."
         },
         {
@@ -110,7 +105,6 @@
           "q": "For a sheaf of abelian groups $F$, what is $|F(\\emptyset)|$? (Enter the size of the underlying set.)",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element.",
           "explain": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element."
         }
       ],
@@ -164,7 +158,6 @@
             "$\\varprojlim_{x\\in U} F(U)$"
           ],
           "answer": 2,
-          "hint": "A germ at $x$ is an equivalence class $[(U,s)]$ of a section on some open neighborhood, modulo agreement on smaller neighborhoods — exactly the filtered colimit $\\varinjlim_{x\\in U} F(U)$.",
           "explain": "A germ at $x$ is an equivalence class $[(U,s)]$ of a section on some open neighborhood, modulo agreement on smaller neighborhoods — exactly the filtered colimit $\\varinjlim_{x\\in U} F(U)$."
         },
         {
@@ -177,7 +170,6 @@
             "$s = t$ only if $F$ is a sheaf of abelian groups"
           ],
           "answer": 0,
-          "hint": "Agreement on all stalks produces an open cover on which $s$ and $t$ coincide; the sheaf's locality axiom then forces $s = t$ on $U$.",
           "explain": "Agreement on all stalks produces an open cover on which $s$ and $t$ coincide; the sheaf's locality axiom then forces $s = t$ on $U$."
         },
         {
@@ -185,7 +177,6 @@
           "q": "On a scheme $X = \\mathrm{Spec}\\,R$, the stalk of $\\mathcal{O}_X$ at the prime $\\mathfrak{p}$ is $R_{\\mathfrak{p}}$. For $R = \\mathbb{Z}$ and $\\mathfrak{p} = (5)$, what is the residue field $R_{\\mathfrak{p}}/\\mathfrak{p}R_{\\mathfrak{p}}$'s characteristic?",
           "answer": 5,
           "tol": 0.000001,
-          "hint": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$.",
           "explain": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$."
         }
       ],
@@ -239,7 +230,6 @@
             "stalk maps carry no information about $\\varphi$"
           ],
           "answer": 0,
-          "hint": "Monomorphisms in $\\mathsf{Sh}(X)$ coincide with sectionwise injective, equivalently stalkwise injective.",
           "explain": "Monomorphisms in $\\mathsf{Sh}(X)$ coincide with sectionwise injective, equivalently stalkwise injective. Epimorphisms are stalkwise surjective but NOT sectionwise surjective in general — that asymmetry is the seed of sheaf cohomology."
         },
         {
@@ -252,7 +242,6 @@
             "globally surjective but not stalkwise surjective"
           ],
           "answer": 0,
-          "hint": "Locally on a small disc a holomorphic logarithm exists, so $\\exp_x$ is surjective on every stalk.",
           "explain": "Locally on a small disc a holomorphic logarithm exists, so $\\exp_x$ is surjective on every stalk. But no global holomorphic logarithm of $z$ exists on $\\mathbb{C}^\\times$ (the branch cut obstructs it), so $z \\not\\in \\exp(\\mathcal{O}(\\mathbb{C}^\\times))$."
         },
         {
@@ -260,7 +249,6 @@
           "q": "A short exact sequence $0 \\to F' \\to F \\to F'' \\to 0$ of sheaves of abelian groups on $X$ yields a long exact sequence in sheaf cohomology. The cohomology degree where the first new obstruction to global surjectivity appears is $H^i(X, F')$ for $i = ?$",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$.",
           "explain": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$. The connecting map lands in $H^1$, which measures exactly the failure of $\\Gamma F \\to \\Gamma F''$ to be surjective."
         }
       ],
@@ -314,7 +302,6 @@
             "not a functor in general"
           ],
           "answer": 1,
-          "hint": "Sheafification is the left adjoint to $\\iota$.",
           "explain": "Sheafification is the left adjoint to $\\iota$. The universal property: any presheaf map $F \\to \\iota G$ into a sheaf factors uniquely through the unit $\\eta\\colon F \\to F^\\#$."
         },
         {
@@ -327,7 +314,6 @@
             "nothing — sheafification changes everything"
           ],
           "answer": 2,
-          "hint": "The unit $\\eta\\colon F \\to F^\\#$ induces an isomorphism $F_x \\xrightarrow{\\sim} (F^\\#)_x$ on every stalk.",
           "explain": "The unit $\\eta\\colon F \\to F^\\#$ induces an isomorphism $F_x \\xrightarrow{\\sim} (F^\\#)_x$ on every stalk. Global and sectional data CAN change — e.g. the constant presheaf on a disconnected space has $F(X) = S$ but $F^\\#(X) = S^{\\#(\\mathrm{components})}$."
         },
         {
@@ -335,7 +321,6 @@
           "q": "Let $X = U_1 \\sqcup U_2 \\sqcup U_3$ be a disjoint union of three nonempty opens, and let $F = \\underline{\\mathbb{Z}/2}^{\\mathrm{pre}}$ be the constant presheaf with value $\\mathbb{Z}/2$. How many elements does the sheafified global-sections set $F^\\#(X)$ have?",
           "answer": 8,
           "tol": 0.000001,
-          "hint": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$.",
           "explain": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$. With three components, this is $(\\mathbb{Z}/2)^3$, which has $2^3 = 8$ elements. The unsheafified presheaf $F(X)$ has only $2$ elements, so sheafification has multiplied the global sections from $2$ to $8$."
         }
       ],
@@ -389,7 +374,6 @@
             "$X$ is a topological space and $\\mathcal{O}_X$ is just a ring — the same ring on every open"
           ],
           "answer": 1,
-          "hint": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings).",
           "explain": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings). Examples: $(M, C^\\infty_M)$ for a smooth manifold; $(\\mathrm{Spec}\\,R, \\widetilde{R})$ for an affine scheme."
         },
         {
@@ -402,7 +386,6 @@
             "$\\mathcal{O}_X(U)$ is a local ring for every open $U$"
           ],
           "answer": 1,
-          "hint": "Local ringedness is the stalk-level condition: every $\\mathcal{O}_{X,x}$ is a local ring.",
           "explain": "Local ringedness is the stalk-level condition: every $\\mathcal{O}_{X,x}$ is a local ring. The maximal ideal is 'functions vanishing at $x$', and the residue field $\\kappa(x) = \\mathcal{O}_{X,x}/\\mathfrak{m}_x$ is the field of values at $x$. Smooth manifolds, complex manifolds, and schemes are all locally ringed; general ringed spaces need not be."
         },
         {
@@ -410,7 +393,6 @@
           "q": "For a smooth manifold $M$, the sheaf of sections of the trivial rank-$5$ bundle $M \\times \\mathbb{R}^5 \\to M$ is a locally free $C^\\infty_M$-module of rank equal to what integer?",
           "answer": 5,
           "tol": 0.000001,
-          "hint": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module.",
           "explain": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module. A rank-$n$ bundle corresponds to a locally free $\\mathcal{O}_M$-module of rank $n$; the trivial rank-$5$ bundle gives $(C^\\infty_M)^5$, a free (hence locally free) module of rank $5$."
         }
       ],
@@ -464,7 +446,6 @@
             "$F^+ = F$ whenever $F$ is separated"
           ],
           "answer": 1,
-          "hint": "Sheafification is left-adjoint to the inclusion $\\mathsf{Sh}(X)\\hookrightarrow\\mathsf{PSh}(X)$: it enforces gluing while preserving stalks $(F^+)_x = F_x$.",
           "explain": "Sheafification is left-adjoint to the inclusion $\\mathsf{Sh}(X)\\hookrightarrow\\mathsf{PSh}(X)$: it enforces gluing while preserving stalks $(F^+)_x = F_x$."
         },
         {
@@ -477,7 +458,6 @@
             "always lands in coherent sheaves"
           ],
           "answer": 1,
-          "hint": "The key theorem: $M\\mapsto\\widetilde{M}$ is an equivalence of categories with inverse $\\mathcal{F}\\mapsto\\Gamma(X,\\mathcal{F})$.",
           "explain": "The key theorem: $M\\mapsto\\widetilde{M}$ is an equivalence of categories with inverse $\\mathcal{F}\\mapsto\\Gamma(X,\\mathcal{F})$. This reduces quasi-coherent sheaf theory on an affine scheme to module theory."
         },
         {
@@ -485,7 +465,6 @@
           "q": "For $R=\\mathbb{Z}$, $M = \\mathbb{Z}/6$, and $f = 2$, the section $\\widetilde{M}(D(2)) = M_2 = M[\\tfrac{1}{2}]$ has how many elements?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements.",
           "explain": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements."
         }
       ],

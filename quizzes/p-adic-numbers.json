@@ -14,7 +14,6 @@
             "$|7|_7 = 0$"
           ],
           "answer": 2,
-          "hint": "$v_7(7)=1$, so $|7|_7 = 7^{-1} = 1/7$.",
           "explain": "$v_7(7)=1$, so $|7|_7 = 7^{-1} = 1/7$. Divisibility by $p$ makes a number $p$-adically small."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Compute $|98/3|_7$.",
           "answer": 0.02040816326530612,
           "tol": 0.000001,
-          "hint": "$98 = 2 \\cdot 7^2$ so $v_7(98)=2$ and $v_7(3)=0$.",
           "explain": "$98 = 2 \\cdot 7^2$ so $v_7(98)=2$ and $v_7(3)=0$. Thus $v_7(98/3)=2$ and $|98/3|_7 = 7^{-2} = 1/49 \\approx 0.020408$."
         },
         {
@@ -35,7 +33,6 @@
             "$|xy|_p = |x|_p + |y|_p$"
           ],
           "answer": 1,
-          "hint": "Non-Archimedean absolute values satisfy the strong triangle inequality $|x+y|_p\\le\\max(|x|_p,|y|_p)$, which is strictly stronger than the usual triangle inequality.",
           "explain": "Non-Archimedean absolute values satisfy the strong triangle inequality $|x+y|_p\\le\\max(|x|_p,|y|_p)$, which is strictly stronger than the usual triangle inequality."
         }
       ],
@@ -89,7 +86,6 @@
             "Their union is always a ball"
           ],
           "answer": 1,
-          "hint": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ — so any two balls are either disjoint or nested.",
           "explain": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ — so any two balls are either disjoint or nested."
         },
         {
@@ -102,7 +98,6 @@
             "Cannot be determined without more data"
           ],
           "answer": 1,
-          "hint": "When $|x|_p \\ne |y|_p$, the ultrametric inequality becomes an equality: $|x+y|_p = \\max(|x|_p,|y|_p)$.",
           "explain": "When $|x|_p \\ne |y|_p$, the ultrametric inequality becomes an equality: $|x+y|_p = \\max(|x|_p,|y|_p)$. This is the 'isoceles triangle' principle."
         },
         {
@@ -110,7 +105,6 @@
           "q": "How many connected components does $\\mathbb{Q}_p$ have as a topological space? (Answer with the cardinality of singletons per point, i.e. $1$ per point means totally disconnected — here give the size of the connected component of any fixed point.)",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons.",
           "explain": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons. So each point is its own connected component, of size $1$."
         }
       ],
@@ -164,7 +158,6 @@
             "$-1$ does not lie in $\\mathbb{Z}_5$"
           ],
           "answer": 1,
-          "hint": "Using the geometric series identity $(p-1)\\sum_{i\\ge 0} p^i = -1$ in $|\\cdot|_p$: with $p=5$, $4(1+5+5^2+\\cdots) = -1$ in $\\mathbb{Z}_5$.",
           "explain": "Using the geometric series identity $(p-1)\\sum_{i\\ge 0} p^i = -1$ in $|\\cdot|_p$: with $p=5$, $4(1+5+5^2+\\cdots) = -1$ in $\\mathbb{Z}_5$."
         },
         {
@@ -172,7 +165,6 @@
           "q": "What is the first digit $a_0$ in the $3$-adic expansion of $7$ (i.e. $7 \\bmod 3$)?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$7 = 1 + 2\\cdot 3 + 0\\cdot 3^2 + \\cdots$, so $a_0 = 7 \\bmod 3 = 1$.",
           "explain": "$7 = 1 + 2\\cdot 3 + 0\\cdot 3^2 + \\cdots$, so $a_0 = 7 \\bmod 3 = 1$."
         },
         {
@@ -185,7 +177,6 @@
             "they agree only on $a_0$"
           ],
           "answer": 2,
-          "hint": "Digits agreeing through index $n-1$ is exactly the condition $x\\equiv y\\pmod{p^n}$, and disagreeing at index $n$ means $x\\not\\equiv y\\pmod{p^{n+1}}$.",
           "explain": "Digits agreeing through index $n-1$ is exactly the condition $x\\equiv y\\pmod{p^n}$, and disagreeing at index $n$ means $x\\not\\equiv y\\pmod{p^{n+1}}$. Both descriptions are equivalent."
         }
       ],
@@ -239,7 +230,6 @@
             "$f(x_0) \\equiv 0 \\pmod{p^2}$"
           ],
           "answer": 1,
-          "hint": "The derivative being a unit mod $p$ (i.e.",
           "explain": "The derivative being a unit mod $p$ (i.e. nonzero mod $p$) is what makes Newton's iteration $x_{n+1}=x_n - f(x_n)/f'(x_n)$ well-defined and convergent in $\\mathbb{Z}_p$."
         },
         {
@@ -247,7 +237,6 @@
           "q": "Seeding Hensel for $f(x) = x^2 - 2$ over $\\mathbb{Z}_7$ with $x_0 = 3$, the next iterate $x_1 = x_0 + a_1\\cdot 7$ uses digit $a_1 = -(x_0^2-2)/7 \\cdot (2x_0)^{-1} \\bmod 7$. Compute $a_1$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$(3^2-2)/7 = 1$.",
           "explain": "$(3^2-2)/7 = 1$. Also $2\\cdot 3 = 6$, and $6^{-1} \\equiv 6 \\pmod 7$. So $a_1 \\equiv -1\\cdot 6 \\equiv -6 \\equiv 1 \\pmod 7$. Hence $x_1 = 3 + 1\\cdot 7 = 10$, and indeed $10^2 = 100 \\equiv 2 \\pmod{49}$."
         },
         {
@@ -260,7 +249,6 @@
             "Only in $\\mathbb{Q}_2$"
           ],
           "answer": 1,
-          "hint": "Take $f(x)=x^2+1$.",
           "explain": "Take $f(x)=x^2+1$. Then $f(2)=5\\equiv 0\\pmod 5$ and $f'(2)=4\\not\\equiv 0\\pmod 5$. Hensel produces a unique $i\\in\\mathbb{Z}_5$ with $i\\equiv 2\\pmod 5$."
         }
       ],
@@ -314,7 +302,6 @@
             "its discriminant is a perfect square"
           ],
           "answer": 2,
-          "hint": "Hasse-Minkowski: for quadratic forms, local solvability at all places (the real place plus every $p$-adic place) is equivalent to global solvability over $\\mathbb{Q}$.",
           "explain": "Hasse-Minkowski: for quadratic forms, local solvability at all places (the real place plus every $p$-adic place) is equivalent to global solvability over $\\mathbb{Q}$."
         },
         {
@@ -327,7 +314,6 @@
             "Local obstruction at $p=2$: $x,y$ must both be even, forcing a contradiction"
           ],
           "answer": 1,
-          "hint": "$x^2+y^2=3$ is clearly solvable in $\\mathbb{R}$.",
           "explain": "$x^2+y^2=3$ is clearly solvable in $\\mathbb{R}$. The $3$-adic obstruction: mod $3$, squares are $\\{0,1\\}$, so $x^2+y^2\\in\\{0,1,2\\}\\bmod 3$, never $3\\equiv 0$ with $(x,y)$ primitive. This local failure forces no rational solution."
         },
         {
@@ -340,7 +326,6 @@
             "The j-invariant"
           ],
           "answer": 2,
-          "hint": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$.",
           "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
         }
       ],

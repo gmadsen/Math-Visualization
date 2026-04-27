@@ -18,7 +18,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./smooth-manifolds.html#bundle\">Tangent bundle and vector fields</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n\n\n"
         },
         {
           "type": "raw",
@@ -54,7 +54,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n    <li><a href=\"./smooth-manifolds.html#orientation\">Orientation of manifolds</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n\n\n"
         },
         {
           "type": "raw",
@@ -86,7 +86,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chern-classes\">Chern classes (algebraic geometry)</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n\n\n"
         },
         {
           "type": "raw",
@@ -94,7 +94,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./characteristic-classes.html#pontryagin\">Characteristic classes</a> · Pontryagin classes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./characteristic-classes.html#pontryagin\">Characteristic classes</a> · Pontryagin classes</div>\n    <div><a href=\"./intersection-theory-chow.html#chern-classes\">Intersection theory and Chow groups</a> · Chern classes</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -122,7 +122,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chern-classes\">Chern classes (algebraic geometry)</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n\n\n"
         },
         {
           "type": "quiz",
@@ -150,7 +150,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#chi\">Euler characteristic and cohomology</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n\n\n"
         },
         {
           "type": "raw",
@@ -182,7 +182,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./differential-forms.html#deRham\">Stokes theorem and de Rham cohomology</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n\n\n"
         },
         {
           "type": "raw",

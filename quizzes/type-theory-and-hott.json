@@ -14,7 +14,6 @@
             "$a\\equiv b:A$ (definitional equality of terms)"
           ],
           "answer": 2,
-          "hint": "Type theory replaces set-theoretic membership with the typing judgment $a:A$.",
           "explain": "Type theory replaces set-theoretic membership with the typing judgment $a:A$. The four basic forms are $A\\;\\mathsf{type}$, $A\\equiv B$, $a:A$, and $a\\equiv b:A$ — all derived in a context $\\Gamma$. Membership $\\in$ has no separate role."
         },
         {
@@ -27,7 +26,6 @@
             "$B$ must be independent of $x$."
           ],
           "answer": 1,
-          "hint": "Contexts are built left-to-right.",
           "explain": "Contexts are built left-to-right. Each new variable's type may depend on the earlier ones, but only the earlier ones — so $\\vdash A\\;\\mathsf{type}$ and then $x:A\\vdash B(x)\\;\\mathsf{type}$. Independence of $B$ from $x$ would just give a non-dependent context."
         },
         {
@@ -35,7 +33,6 @@
           "q": "How many free variables appear in the well-formed context $\\Gamma=(n:\\mathbb{N},\\ v:\\mathsf{Vec}(\\mathbb{R},n),\\ f:\\mathsf{Vec}(\\mathbb{R},n)\\to\\mathbb{R})$?",
           "answer": 3,
           "tol": 0,
-          "hint": "Each entry of the context introduces exactly one free variable: $n$, $v$, and $f$ — three in total.",
           "explain": "Each entry of the context introduces exactly one free variable: $n$, $v$, and $f$ — three in total. Note that $\\mathbb{R}$ and $\\mathbb{N}$ are constants, not new variables."
         }
       ]
@@ -53,7 +50,6 @@
             "$A\\land B$"
           ],
           "answer": 1,
-          "hint": "A term of $\\prod_{x:A} B(x)$ is a function assigning, for each $a:A$, a proof of $B(a)$ — exactly the constructive content of $\\forall x.\\ B(x)$.",
           "explain": "A term of $\\prod_{x:A} B(x)$ is a function assigning, for each $a:A$, a proof of $B(a)$ — exactly the constructive content of $\\forall x.\\ B(x)$. The non-dependent special case $\\prod_{x:A} B = A\\to B$ recovers material implication."
         },
         {
@@ -66,7 +62,6 @@
             "$\\lambda x.\\,a$"
           ],
           "answer": 0,
-          "hint": "$(\\lambda x.\\lambda y.x)(a)\\equiv \\lambda y.a$, and applying that to $b$ gives $a$.",
           "explain": "$(\\lambda x.\\lambda y.x)(a)\\equiv \\lambda y.a$, and applying that to $b$ gives $a$. This is the K combinator: discard the second argument."
         },
         {
@@ -74,7 +69,6 @@
           "q": "A term of $\\Sigma_{n:\\mathbb{N}} \\mathsf{Vec}(\\mathbb{R},n)$ is a pair $(n,v)$ with $v$ a vector of length $n$. If we project the second component of $(3,(1.0,2.0,3.0))$, how many real entries does the resulting vector have?",
           "answer": 3,
           "tol": 0,
-          "hint": "$\\mathrm{pr}_2$ of a Σ-pair $(a,b)$ returns $b$, here a vector of length $n=3$.",
           "explain": "$\\mathrm{pr}_2$ of a Σ-pair $(a,b)$ returns $b$, here a vector of length $n=3$. The Σ-type is the dependent generalisation of a Cartesian product: the type of the second component depends on the first."
         }
       ]
@@ -92,7 +86,6 @@
             "Any term, since identity types are always inhabited."
           ],
           "answer": 0,
-          "hint": "The only point-constructor for $\\mathsf{Id}_A$ is $\\mathsf{refl}$.",
           "explain": "The only point-constructor for $\\mathsf{Id}_A$ is $\\mathsf{refl}$. Crucially, $\\mathsf{refl}_a$ has type $\\mathsf{Id}_A(a,a)$ — to inhabit $\\mathsf{Id}_A(a,b)$ for distinct $a,b$ you must derive a witness through other rules (the J-eliminator or transport along earlier identifications)."
         },
         {
@@ -105,7 +98,6 @@
             "An element of the underlying set of $A$."
           ],
           "answer": 1,
-          "hint": "The path interpretation is the central idea of HoTT: types are spaces, terms are points, identifications are paths, identifications between identifications are homotopies, and so on up the tower.",
           "explain": "The path interpretation is the central idea of HoTT: types are spaces, terms are points, identifications are paths, identifications between identifications are homotopies, and so on up the tower."
         },
         {
@@ -113,7 +105,6 @@
           "q": "If $p:\\mathsf{Id}_A(a,b)$ and $q:\\mathsf{Id}_A(b,c)$, the concatenation $p\\cdot q$ has type $\\mathsf{Id}_A(a,?)$. What goes in the blank, given $a$ has 'index' $0$, $b$ has 'index' $1$, $c$ has 'index' $2$?",
           "answer": 2,
           "tol": 0,
-          "hint": "Concatenation of paths $a\\to b$ and $b\\to c$ produces a path $a\\to c$.",
           "explain": "Concatenation of paths $a\\to b$ and $b\\to c$ produces a path $a\\to c$. So $p\\cdot q:\\mathsf{Id}_A(a,c)$, and the answer is the index of $c$, namely $2$."
         }
       ]
@@ -131,7 +122,6 @@
             "Surjective but not injective."
           ],
           "answer": 0,
-          "hint": "Voevodsky's univalence axiom upgrades 'identifications $\\Rightarrow$ equivalences' to a full equivalence of types.",
           "explain": "Voevodsky's univalence axiom upgrades 'identifications $\\Rightarrow$ equivalences' to a full equivalence of types. Equivalent types are then identifiable, and structure transports along this identification."
         },
         {
@@ -144,7 +134,6 @@
             "Type theory is inconsistent."
           ],
           "answer": 1,
-          "hint": "Univalence makes 'isomorphism is identity' a theorem of the foundation, not just a working principle.",
           "explain": "Univalence makes 'isomorphism is identity' a theorem of the foundation, not just a working principle. Anything you can say about $A$ that's invariant under equivalence automatically transfers to any $B\\simeq A$."
         },
         {
@@ -157,7 +146,6 @@
             "Inductive definitions."
           ],
           "answer": 1,
-          "hint": "UIP says every two elements of $\\mathsf{Id}_A(a,b)$ are themselves equal.",
           "explain": "UIP says every two elements of $\\mathsf{Id}_A(a,b)$ are themselves equal. But under univalence, the identity type of the universe at $(\\mathbb{B},\\mathbb{B})$ has two distinct elements — $\\mathsf{refl}$ and the swap equivalence — refuting UIP."
         }
       ]
@@ -175,7 +163,6 @@
             "An infinite list of point constructors $\\mathsf{base}_n$ for $n\\in\\mathbb{Z}$."
           ],
           "answer": 1,
-          "hint": "The HoTT presentation of the circle has a single point $\\mathsf{base}:S^1$ together with a path $\\mathsf{loop}:\\mathsf{Id}_{S^1}(\\mathsf{base},\\mathsf{base})$.",
           "explain": "The HoTT presentation of the circle has a single point $\\mathsf{base}:S^1$ together with a path $\\mathsf{loop}:\\mathsf{Id}_{S^1}(\\mathsf{base},\\mathsf{base})$. Iterating $\\mathsf{loop}$ produces all integer winding numbers."
         },
         {
@@ -188,7 +175,6 @@
             "They're only definable in proof assistants, not on paper."
           ],
           "answer": 1,
-          "hint": "Ordinary inductive types let you specify only point-level data.",
           "explain": "Ordinary inductive types let you specify only point-level data. HITs additionally let you specify path-level identifications, and recursively higher-cell coherences — directly synthesising $n$-cells of a CW complex inside the syntax."
         },
         {
@@ -196,7 +182,6 @@
           "q": "The fundamental group of the circle, computed inside HoTT, is $\\Omega(S^1)\\simeq\\mathbb{Z}$. What is the order of the path $\\mathsf{loop}^3$ in $\\pi_1(S^1)$? (Enter $0$ if it has infinite order.)",
           "answer": 0,
           "tol": 0,
-          "hint": "$\\pi_1(S^1)\\cong\\mathbb{Z}$ is a free abelian group on the generator $\\mathsf{loop}$.",
           "explain": "$\\pi_1(S^1)\\cong\\mathbb{Z}$ is a free abelian group on the generator $\\mathsf{loop}$. The element $\\mathsf{loop}^3$ corresponds to $3\\in\\mathbb{Z}$, which has infinite order."
         }
       ]
@@ -214,7 +199,6 @@
             "A finite category."
           ],
           "answer": 2,
-          "hint": "Types are interpreted as Kan complexes — simplicial sets satisfying the horn-filling condition — which present $\\infty$-groupoids.",
           "explain": "Types are interpreted as Kan complexes — simplicial sets satisfying the horn-filling condition — which present $\\infty$-groupoids. This is the homotopy-theoretic structure that powers identity types and univalence."
         },
         {
@@ -227,7 +211,6 @@
             "Because Kan complexes are sets."
           ],
           "answer": 1,
-          "hint": "Voevodsky constructed a univalent universe of small Kan fibrations: a Kan complex whose paths are exactly equivalences of fibres.",
           "explain": "Voevodsky constructed a univalent universe of small Kan fibrations: a Kan complex whose paths are exactly equivalences of fibres. Inside this universe, $(A=B)$ matches $(A\\simeq B)$ by construction, validating univalence."
         },
         {
@@ -240,7 +223,6 @@
             "It is required to run any proof assistant."
           ],
           "answer": 1,
-          "hint": "Models are how we know the theory is consistent: any contradiction in HoTT would yield a contradiction in the simplicial-set model (and hence in ZFC + inaccessibles).",
           "explain": "Models are how we know the theory is consistent: any contradiction in HoTT would yield a contradiction in the simplicial-set model (and hence in ZFC + inaccessibles). Models also make the homotopy-theoretic intuitions precise."
         }
       ]

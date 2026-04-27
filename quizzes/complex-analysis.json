@@ -9,7 +9,6 @@
           "q": "Compute $|3 + 4i|$.",
           "answer": 5,
           "tol": 0.001,
-          "hint": "$|a+bi| = \\sqrt{a^2 + b^2} = \\sqrt{9+16} = 5$.",
           "explain": "$|a+bi| = \\sqrt{a^2 + b^2} = \\sqrt{9+16} = 5$."
         },
         {
@@ -20,7 +19,6 @@
             1
           ],
           "tol": 0.001,
-          "hint": "$(1+i)(2-i) = 2 - i + 2i - i^2 = 2 + i + 1 = 3 + i$.",
           "explain": "$(1+i)(2-i) = 2 - i + 2i - i^2 = 2 + i + 1 = 3 + i$."
         },
         {
@@ -33,7 +31,6 @@
             "$-3\\pi/4$"
           ],
           "answer": 3,
-          "hint": "$-1-i$ lies in the third quadrant.",
           "explain": "$-1-i$ lies in the third quadrant. Its modulus is $\\sqrt{2}$ and its angle from the positive real axis (measured in $(-\\pi,\\pi]$) is $-3\\pi/4$."
         },
         {
@@ -93,12 +90,17 @@
             "$\\{i,-i\\}$ (two fixed points)"
           ],
           "right": [
-            "$T(z) = 2z$",
             "$T(z) = z + 1$",
             "$T(z) = 1/z$",
-            "$T(z) = -1/z$"
+            "$T(z) = -1/z$",
+            "$T(z) = 2z$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Solve $T(z)=z$ in each case; count $\\infty$ as a fixed point exactly when $c=0$ (and as a double fixed point when $a=d$ and $c=0$).",
           "explain": "$T(z)=z$ becomes $cz^2+(d-a)z-b=0$ in $\\mathbb{C}$, with $\\infty$ as a fixed point iff $c=0$. $2z=z\\Rightarrow z=0$ and $\\infty$ (since $c=0$): fixed points $\\{0,\\infty\\}$. $z+1=z$ has no finite solution and $\\infty$ is a double fixed point (parabolic). $1/z=z\\Rightarrow z^2=1$: fixed points $\\{1,-1\\}$. $-1/z=z\\Rightarrow z^2=-1$: fixed points $\\{i,-i\\}$. A non-identity Möbius always has exactly two fixed points in $\\hat{\\mathbb{C}}$ (counted with multiplicity)."
         },
@@ -110,7 +112,6 @@
             0
           ],
           "tol": 0.001,
-          "hint": "$T(0) = (0-1)/(0+1) = -1$.",
           "explain": "$T(0) = (0-1)/(0+1) = -1$."
         },
         {
@@ -118,7 +119,6 @@
           "q": "How many distinct points must you specify the image of in order to uniquely determine a Möbius transformation?",
           "answer": 3,
           "tol": 0.0001,
-          "hint": "Möbius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation.",
           "explain": "Möbius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation."
         }
       ],
@@ -185,7 +185,6 @@
             "identity (no rotation, no scaling)"
           ],
           "answer": 1,
-          "hint": "$f'(z) = 2z$ so $f'(1+i) = 2 + 2i$.",
           "explain": "$f'(z) = 2z$ so $f'(1+i) = 2 + 2i$. Then $|f'(z_0)| = 2\\sqrt{2}$ and $\\arg f'(z_0) = \\pi/4$."
         },
         {
@@ -196,7 +195,6 @@
             "no — angles get multiplied by the order of vanishing"
           ],
           "answer": 1,
-          "hint": "Where $f'(z_0)=0$, $f$ is not a similarity at first order; if $f$ vanishes to order $n$ at $z_0$, angles between curves through $z_0$ get multiplied by $n$.",
           "explain": "Where $f'(z_0)=0$, $f$ is not a similarity at first order; if $f$ vanishes to order $n$ at $z_0$, angles between curves through $z_0$ get multiplied by $n$."
         },
         {
@@ -204,7 +202,6 @@
           "q": "For $f(z) = z^3$ at $z_0 = i$, what is $|f'(z_0)|$?",
           "answer": 3,
           "tol": 0.001,
-          "hint": "$f'(z) = 3z^2$, so $f'(i) = 3i^2 = -3$ and $|-3| = 3$.",
           "explain": "$f'(z) = 3z^2$, so $f'(i) = 3i^2 = -3$ and $|-3| = 3$."
         }
       ],
@@ -244,7 +241,11 @@
             "$f(z) = z^2 + \\bar z$",
             "$f(z) = \\sin z$"
           ],
-          "answer": [0, 1, 5],
+          "answer": [
+            0,
+            1,
+            5
+          ],
           "hint": "Entire functions are precisely those that satisfy Cauchy–Riemann everywhere; any explicit dependence on $\\bar z$ kills holomorphy.",
           "explain": "Holomorphy means $\\partial_{\\bar z}f=0$. Polynomials in $z$, $e^z$, and $\\sin z$ are entire. $|z|^2 = z\\bar z$ depends on $\\bar z$. $\\bar z$ itself fails CR everywhere. $z^2+\\bar z$ has the offending $\\bar z$ term. So only $z^2+1$, $e^z$, and $\\sin z$ are entire."
         },
@@ -253,7 +254,6 @@
           "q": "Let $u(x,y) = x^2 - y^2$. Find the unique harmonic conjugate $v$ with $v(0,0) = 0$ such that $f = u + iv$ is holomorphic, and compute $v(1, 2)$.",
           "answer": 4,
           "tol": 0.001,
-          "hint": "From $v_y = u_x = 2x$ we get $v = 2xy + g(x)$; then $-v_x = u_y = -2y$ forces $g'(x) = 0$, so $v = 2xy$.",
           "explain": "From $v_y = u_x = 2x$ we get $v = 2xy + g(x)$; then $-v_x = u_y = -2y$ forces $g'(x) = 0$, so $v = 2xy$. Thus $f = z^2$ and $v(1,2) = 4$."
         },
         {
@@ -266,7 +266,6 @@
             "$u_x + u_y = 0, \\quad v_x + v_y = 0$"
           ],
           "answer": 0,
-          "hint": "Equivalently: $\\partial_{\\bar z} f = 0$, where $\\partial_{\\bar z} = \\tfrac12(\\partial_x + i\\partial_y)$.",
           "explain": "Equivalently: $\\partial_{\\bar z} f = 0$, where $\\partial_{\\bar z} = \\tfrac12(\\partial_x + i\\partial_y)$."
         }
       ],
@@ -307,20 +306,26 @@
             -0.5
           ],
           "tol": 0.001,
-          "hint": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$.",
           "explain": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$."
         },
         {
           "type": "ordering",
           "q": "Arrange the steps to compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$ via the residue theorem.",
           "items": [
-            "Apply the residue theorem: integral $= 2\\pi i\\sum_k\\operatorname{Res}(f;z_k)$ with $z_k$ ranging over poles inside $|z|=2$.",
-            "Sum the residues: $-i/2 + i/2 = 0$, hence the integral is $2\\pi i\\cdot 0 = 0$.",
-            "Compute residues at each enclosed pole: $\\operatorname{Res}(f;i)=1/(2i)=-i/2$ and $\\operatorname{Res}(f;-i)=1/(-2i)=i/2$.",
-            "Identify the poles of $f(z)=1/(z^2+1)=1/((z-i)(z+i))$ at $z=\\pm i$ and check both lie inside $|z|=2$."
+            "Identify the contour $\\gamma$ and the region $D$ it encloses; verify $\\gamma$ avoids the singularities of $f$.",
+            "List the singularities $z_1, \\dots, z_n$ of $f$ inside $D$ (poles, removable, essential).",
+            "Compute the residue $\\mathrm{Res}_{z=z_k} f$ at each — by Laurent coefficient, the simple-pole limit, or the higher-order derivative formula.",
+            "Apply the residue theorem: $\\oint_\\gamma f \\, dz = 2\\pi i \\sum_k \\mathrm{Res}_{z=z_k} f$.",
+            "For real-integral problems with arc completion, pass to the limit on the arc piece via Jordan's lemma to extract the real integral."
           ],
-          "answer": [3, 0, 2, 1],
-          "hint": "Locate the poles inside the contour first, then invoke the residue theorem, compute each residue, and sum.",
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Locate the contour and singularities first, compute residues, then sum and apply the theorem.",
           "explain": "Standard contour-integration recipe: (1) find the singularities of $f$ and decide which lie inside $\\gamma$, (2) state the residue theorem, (3) compute each residue (here, simple poles via $\\operatorname{Res}(f;z_0)=\\lim_{z\\to z_0}(z-z_0)f(z)$), (4) sum and multiply by $2\\pi i$. The residues cancel here, so the integral is $0$."
         },
         {
@@ -328,7 +333,6 @@
           "q": "For $f(z) = \\dfrac{1}{z^2(z-1)}$, compute $\\operatorname{Res}(f; 0)$.",
           "answer": -1,
           "tol": 0.001,
-          "hint": "Pole of order 2 at $0$.",
           "explain": "Pole of order 2 at $0$. $\\operatorname{Res}(f;0) = \\lim_{z\\to 0}\\frac{d}{dz}\\!\\left[z^2 f(z)\\right] = \\frac{d}{dz}\\!\\left[\\frac{1}{z-1}\\right]_{z=0} = -\\frac{1}{(0-1)^2} = -1$."
         }
       ],

@@ -14,12 +14,17 @@
             "A single point."
           ],
           "right": [
-            "$R = \\mathbb Z$",
             "$R = \\mathbb Z/12\\mathbb Z$",
             "$R = k[x]$ with $k$ algebraically closed",
-            "$R = \\mathbb Q$"
+            "$R = \\mathbb Q$",
+            "$R = \\mathbb Z$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "$\\operatorname{Spec}(R)=\\{\\text{prime ideals}\\}$. Fields have only $(0)$; $\\mathbb Z/n$'s primes correspond to prime divisors of $n$; $k[x]$ over algebraically closed $k$ has primes $(0)$ and $(x-a)$ for $a\\in k$.",
           "explain": "$\\operatorname{Spec}\\mathbb Z$: primes $(0)$ (generic) and $(p)$ (closed) for each rational prime $p$. $\\operatorname{Spec}\\mathbb Z/12$: only primes $(2),(3)$ survive — note $(0)$ is not prime in $\\mathbb Z/12$ since $\\mathbb Z/12$ has zero-divisors. $\\operatorname{Spec}k[x]$ with $k=\\bar k$: primes are $(0)$ (generic) and $(x-a)$ for $a\\in k$ (closed). $\\operatorname{Spec}\\mathbb Q$: only $(0)$ — every field is a one-point scheme."
         },
@@ -28,7 +33,6 @@
           "q": "How many points does $\\operatorname{Spec}\\mathbb{Z}/12\\mathbb{Z}$ have? (Count prime ideals of $\\mathbb Z/12\\mathbb Z$.)",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$.",
           "explain": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$. So there are $2$ points."
         },
         {
@@ -41,7 +45,6 @@
             "singletons $\\{\\mathfrak p\\}$ for each prime"
           ],
           "answer": 0,
-          "hint": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology.",
           "explain": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology. They are closed under arbitrary intersection and finite union."
         }
       ],
@@ -92,12 +95,17 @@
             "Residue field $\\kappa(\\mathfrak p)$ at $\\mathfrak p$"
           ],
           "right": [
-            "$R$ — the original ring.",
             "Localization $R_f = R[f^{-1}]$ — invert $f$ to allow $1/f$ as a function on $D(f)$.",
             "Localization $R_{\\mathfrak p}$ — a local ring with maximal ideal $\\mathfrak pR_{\\mathfrak p}$.",
-            "$\\operatorname{Frac}(R/\\mathfrak p) = R_{\\mathfrak p}/\\mathfrak pR_{\\mathfrak p}$ — the residue field of the local ring."
+            "$\\operatorname{Frac}(R/\\mathfrak p) = R_{\\mathfrak p}/\\mathfrak pR_{\\mathfrak p}$ — the residue field of the local ring.",
+            "$R$ — the original ring."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "The structure sheaf of $\\operatorname{Spec}(R)$ is engineered so that global sections give back $R$, distinguished-open sections invert the corresponding element, stalks localize at the prime, and residue fields are quotient + Frac.",
           "explain": "On $X=\\operatorname{Spec}(R)$: $\\mathcal O_X(X)=R$, $\\mathcal O_X(D(f))=R_f$, $\\mathcal O_{X,\\mathfrak p}=R_{\\mathfrak p}$, and the residue field is $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$. The first three are the engine of the equivalence $\\operatorname{CommRing}^{\\mathrm{op}}\\cong\\mathrm{AffSch}$; the residue field captures the value of a 'function' at the point $\\mathfrak p$."
         },
@@ -111,7 +119,6 @@
             "the quotient field of $R$"
           ],
           "answer": 2,
-          "hint": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish.",
           "explain": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish."
         },
         {
@@ -119,7 +126,6 @@
           "q": "The residue field $\\kappa(\\mathfrak p)$ at the generic point $\\mathfrak p=(0)$ of $\\operatorname{Spec}\\mathbb{Z}$ is $\\mathbb Q$. What is its characteristic?",
           "answer": 0,
           "tol": 0.000001,
-          "hint": "$\\mathbb Q$ has characteristic $0$.",
           "explain": "$\\mathbb Q$ has characteristic $0$. By contrast $\\kappa((p))=\\mathbb F_p$ at a closed point has characteristic $p$ — different points can have residue fields of different characteristics."
         }
       ],
@@ -170,7 +176,6 @@
             "$y=x^2$"
           ],
           "answer": 2,
-          "hint": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$.",
           "explain": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$. The two origins become $0$ and $\\infty$."
         },
         {
@@ -178,7 +183,6 @@
           "q": "How many closed points does $\\mathbb P^1_{\\mathbb F_q}$ have over a finite field $\\mathbb F_q$? Give the answer for $q=5$.",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$.",
           "explain": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$. For $q=5$ that is $5+1=6$ closed points: the $5$ values of $x\\in\\mathbb F_5$ plus the point at infinity."
         },
         {
@@ -191,7 +195,6 @@
             "$\\mathbb P^1_k$ is disconnected"
           ],
           "answer": 1,
-          "hint": "$\\mathbb P^1_k$ is the classic non-affine scheme.",
           "explain": "$\\mathbb P^1_k$ is the classic non-affine scheme. Global sections of $\\mathcal O$ are just $k$ (too few for an affine of positive dimension), yet it is covered by two affine charts $\\mathbb A^1_k$."
         }
       ],
@@ -256,7 +259,6 @@
             "infinitely many"
           ],
           "answer": 2,
-          "hint": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes.",
           "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\operatorname{Spec}R$ is the union of two irreducible components meeting at the origin."
         },
         {
@@ -264,7 +266,6 @@
           "q": "The ideal $I=(x^2,xy,y^2)\\subset k[x,y]$ has radical $\\sqrt I = (x,y)$. As a $k$-vector space the quotient $k[x,y]/I$ has what dimension (the length of the fat point)?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$.",
           "explain": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$. The reduced point has length $1$, so this is a non-reduced length-$3$ scheme concentrated at the origin."
         }
       ],
@@ -310,7 +311,6 @@
           "q": "What is the Krull dimension of $\\operatorname{Spec} k[x_1,x_2,x_3,x_4]$?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$.",
           "explain": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$. For $n=4$ this gives dimension $4$."
         },
         {
@@ -318,7 +318,6 @@
           "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$.",
           "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\operatorname{Spec}\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
         },
         {
@@ -331,7 +330,6 @@
             "the number of generators of the maximal ideal $\\mathfrak m_x$"
           ],
           "answer": 1,
-          "hint": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$.",
           "explain": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$. The global $\\dim X$ is the supremum over closed points (on a finite-type scheme over a field)."
         }
       ],
@@ -382,7 +380,6 @@
             "the empty set"
           ],
           "answer": 1,
-          "hint": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$.",
           "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\operatorname{Spec}\\mathbb Z[x]$."
         },
         {
@@ -395,7 +392,6 @@
             "the complement of $Z$ in $\\operatorname{Spec}R$"
           ],
           "answer": 1,
-          "hint": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$.",
           "explain": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$. For $Z=V(\\mathfrak p)$ with $\\mathfrak p$ prime minimal with that property, the generic point is exactly $\\mathfrak p$ itself."
         },
         {
@@ -403,7 +399,6 @@
           "q": "How many generic points does the scheme $\\operatorname{Spec}(k[x,y]/(xy))$ have? (Count minimal primes.)",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes).",
           "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes). Each is the generic point of its component, so the scheme has $2$ generic points."
         }
       ],
@@ -454,7 +449,6 @@
             "$\\mathfrak p$ itself as an $R$-module"
           ],
           "answer": 1,
-          "hint": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal.",
           "explain": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal. For a maximal $\\mathfrak p$, $R/\\mathfrak p$ is already a field, but at non-maximal primes you need the fraction field."
         },
         {
@@ -467,7 +461,6 @@
             "$\\mathbb Z[x]$ itself"
           ],
           "answer": 2,
-          "hint": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$.",
           "explain": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$."
         },
         {
@@ -475,7 +468,6 @@
           "q": "At the maximal ideal $\\mathfrak m=(2,x^2+x+1)\\subset\\mathbb Z[x]$, the residue field is $\\mathbb Z[x]/(2,x^2+x+1)\\cong\\mathbb F_2[x]/(x^2+x+1)$. How many elements does $\\kappa(\\mathfrak m)$ have?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible.",
           "explain": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible. Hence $\\kappa(\\mathfrak m)=\\mathbb F_2[x]/(x^2+x+1)=\\mathbb F_4$, a field of $4$ elements."
         }
       ],
@@ -526,7 +518,6 @@
             "$\\mathcal O_X$ has global sections equal to $\\mathbb Z$"
           ],
           "answer": 1,
-          "hint": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal).",
           "explain": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal). Stalks being fields is the much stronger condition that defines a 'sheaf of fields', not the right notion for schemes."
         },
         {
@@ -539,7 +530,6 @@
             "$\\mathcal O_{X,x}\\to\\mathcal O_{Y,f(x)}$ is injective"
           ],
           "answer": 1,
-          "hint": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$.",
           "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\operatorname{Spec}$s would not correspond to ring homomorphisms in the right direction."
         },
         {
@@ -608,7 +598,6 @@
             "all ideals of $S$ containing $S_+$"
           ],
           "answer": 1,
-          "hint": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$.",
           "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
         },
         {
@@ -621,12 +610,17 @@
             "The standard cover of $\\mathbb P^n_k$"
           ],
           "right": [
-            "Homogeneous primes of $S$ not containing the irrelevant ideal $S_+=(x_0,\\dots,x_n)$.",
             "Affine $n$-space $\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (dehomogenize by $x_i=1$).",
             "Empty — excluded by $\\operatorname{Proj}$ since it would correspond to a prime containing $S_+$.",
-            "The $n+1$ charts $D_+(x_0),\\dots,D_+(x_n)$, each isomorphic to $\\mathbb A^n_k$."
+            "The $n+1$ charts $D_+(x_0),\\dots,D_+(x_n)$, each isomorphic to $\\mathbb A^n_k$.",
+            "Homogeneous primes of $S$ not containing the irrelevant ideal $S_+=(x_0,\\dots,x_n)$."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "$\\operatorname{Proj}$ excludes primes containing the irrelevant ideal; each $D_+(x_i)$ is $\\mathbb A^n_k$ obtained by dehomogenizing $x_i\\mapsto 1$; the union covers $\\mathbb P^n_k$.",
           "explain": "$\\operatorname{Proj}S$ takes only homogeneous primes not containing $S_+$, automatically excising the cone vertex. Each basic open $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ identifies with $\\mathbb A^n_k$ — dehomogenize by setting $x_i=1$. The $n+1$ such opens cover $\\mathbb P^n_k$ since any homogeneous prime not containing $S_+$ misses some $x_i$. This is the standard atlas presenting $\\mathbb P^n$ as glued affine $n$-spaces."
         },
@@ -635,7 +629,6 @@
           "q": "How many standard affine charts cover $\\mathbb P^5_k=\\operatorname{Proj}k[x_0,\\dots,x_5]$?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$.",
           "explain": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$. For $n=5$, that is $6$ charts."
         }
       ],
@@ -686,7 +679,6 @@
             "the image of $f$ restricted to a neighborhood of $y$"
           ],
           "answer": 1,
-          "hint": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$.",
           "explain": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
         },
         {
@@ -712,7 +704,6 @@
             "the empty subset of $Y$"
           ],
           "answer": 0,
-          "hint": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$.",
           "explain": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
         }
       ],

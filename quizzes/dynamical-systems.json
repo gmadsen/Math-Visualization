@@ -14,7 +14,6 @@
             "$\\Phi_t$ is orthogonal for every $t$"
           ],
           "answer": 1,
-          "hint": "The flow is a one-parameter group: $\\Phi_{t+s}=\\Phi_t\\circ\\Phi_s$ and $\\Phi_0=\\mathrm{id}$.",
           "explain": "The flow is a one-parameter group: $\\Phi_{t+s}=\\Phi_t\\circ\\Phi_s$ and $\\Phi_0=\\mathrm{id}$. Linearity and orthogonality are special properties of particular vector fields."
         },
         {
@@ -22,7 +21,6 @@
           "q": "For the linear system $\\dot x = -x$ on $\\mathbb{R}$ with $x(0)=4$, compute $x(\\ln 2)$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$.",
           "explain": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$."
         },
         {
@@ -34,16 +32,15 @@
             "converges to $+\\infty$ monotonically"
           ],
           "right": [
-            "$\\dot x = -x$",
             "$\\dot x = x^2$",
-            "$\\dot x = x$"
+            "$\\dot x = x$",
+            "$\\dot x = -x$"
           ],
           "answer": [
+            2,
             0,
-            1,
-            2
+            1
           ],
-          "hint": "$\\dot x=-x$: exponential decay to 0.",
           "explain": "$\\dot x=-x$: exponential decay to 0. $\\dot x=x^2$: $x(t)=x_0/(1-x_0 t)$ blows up at $t=1/x_0$. $\\dot x=x$: exponential growth."
         }
       ],
@@ -99,7 +96,6 @@
             "Every eigenvalue of $DX(p^*)$ has modulus $1$"
           ],
           "answer": 1,
-          "hint": "Hyperbolic = no eigenvalue lies on the imaginary axis.",
           "explain": "Hyperbolic = no eigenvalue lies on the imaginary axis. Hartman–Grobman then conjugates the flow to its linearization on a neighbourhood."
         },
         {
@@ -107,7 +103,6 @@
           "q": "For $\\dot x = \\sin x$, the fixed point at $x=0$ has Jacobian $\\cos 0$. What is its value?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point.",
           "explain": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point."
         },
         {
@@ -120,7 +115,6 @@
             "center"
           ],
           "answer": 2,
-          "hint": "Eigenvalues $1$ and $-2$ have opposite sign, so the origin is a saddle: one expanding direction ($e_1$) and one contracting direction ($e_2$).",
           "explain": "Eigenvalues $1$ and $-2$ have opposite sign, so the origin is a saddle: one expanding direction ($e_1$) and one contracting direction ($e_2$)."
         }
       ],
@@ -176,7 +170,6 @@
             "center"
           ],
           "answer": 1,
-          "hint": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node.",
           "explain": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node."
         },
         {
@@ -192,7 +185,6 @@
             0,
             3
           ],
-          "hint": "Saddle requires $\\det A<0$.",
           "explain": "Saddle requires $\\det A<0$. (a) $\\det=-1$: saddle. (b) $\\det=2$: stable node. (c) $\\det=3$: node. (d) $\\det=-1$: saddle."
         },
         {
@@ -205,7 +197,6 @@
             "a symmetry axis"
           ],
           "answer": 1,
-          "hint": "Nullclines are the zero sets of the components; their intersections are fixed points, and they organize the direction field (on the $x$-nullcline, trajectories move vertically).",
           "explain": "Nullclines are the zero sets of the components; their intersections are fixed points, and they organize the direction field (on the $x$-nullcline, trajectories move vertically)."
         }
       ],
@@ -220,16 +211,16 @@
             "stable node"
           ],
           "right": [
-            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2<4\\det$",
             "$\\det<0$",
             "$\\operatorname{tr}=0,\\ \\det>0$",
-            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2>4\\det$"
+            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2>4\\det$",
+            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2<4\\det$"
           ],
           "answer": [
+            3,
             0,
             1,
-            2,
-            3
+            2
           ],
           "hint": "Spirals have complex eigenvalues (negative discriminant).",
           "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\operatorname{tr}$ separates stable/unstable. Discriminant $\\operatorname{tr}^2-4\\det$ separates node (positive) from spiral (negative)."
@@ -282,7 +273,6 @@
             "empty"
           ],
           "answer": 2,
-          "hint": "In $\\mathbb{R}^2$, the trichotomy is: the $\\omega$-limit set is a fixed point, a periodic orbit, or a union of fixed points joined by heteroclinic/homoclinic connections.",
           "explain": "In $\\mathbb{R}^2$, the trichotomy is: the $\\omega$-limit set is a fixed point, a periodic orbit, or a union of fixed points joined by heteroclinic/homoclinic connections. No fixed point leaves only a periodic orbit."
         },
         {
@@ -295,7 +285,6 @@
             "the flow is conservative"
           ],
           "answer": 0,
-          "hint": "By Green's theorem, along a closed orbit the integral of $\\operatorname{div}(\\phi X)$ over the enclosed region would be zero; if the integrand has constant non-zero sign, no such region can exist.",
           "explain": "By Green's theorem, along a closed orbit the integral of $\\operatorname{div}(\\phi X)$ over the enclosed region would be zero; if the integrand has constant non-zero sign, no such region can exist."
         },
         {
@@ -303,7 +292,6 @@
           "q": "For $\\dot r = r(1-r^2),\\ \\dot\\theta = 1$ in polar coordinates, the unique stable limit cycle is the circle $r = ?$",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle).",
           "explain": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle). Near $r=1$ the radial flow contracts ($\\dot r=r(1-r^2)$ changes sign), so $r=1$ is the stable limit cycle."
         }
       ],
@@ -351,7 +339,6 @@
           "q": "For the logistic map $f_r(x)=rx(1-x)$ with $r=2.5$, compute the non-zero fixed point $x^*\\in(0,1)$.",
           "answer": 0.6,
           "tol": 0.000001,
-          "hint": "$x^*=1-1/r=1-0.4=0.6$.",
           "explain": "$x^*=1-1/r=1-0.4=0.6$."
         },
         {
@@ -364,7 +351,6 @@
             "$f''(x^*)>0$"
           ],
           "answer": 1,
-          "hint": "Linearization near $x^*$: $x_{n+1}-x^*\\approx f'(x^*)(x_n-x^*)$.",
           "explain": "Linearization near $x^*$: $x_{n+1}-x^*\\approx f'(x^*)(x_n-x^*)$. Stability needs $|f'(x^*)|<1$."
         },
         {
@@ -444,7 +430,6 @@
           "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
           "answer": 0.6,
           "tol": 0.000001,
-          "hint": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting.",
           "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
         },
         {
@@ -457,7 +442,6 @@
             "Chaotic (no period)"
           ],
           "answer": 1,
-          "hint": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$.",
           "explain": "The first period-doubling happens at $r=3$, and the second (to a 4-cycle) at $r_2\\approx 3.449$. Between them — including $r=3.2$ — the attractor is a stable 2-cycle."
         },
         {
@@ -470,7 +454,6 @@
             "The orbit becomes chaotic immediately after the first doubling."
           ],
           "answer": 1,
-          "hint": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$.",
           "explain": "Feigenbaum's universal scaling: $(r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\to\\delta\\approx 4.6692$. So gaps between successive bifurcations contract by a constant factor $\\approx 1/\\delta$ each step — geometric convergence in $r$-space, even though $n$ marches up linearly. That is why infinitely many doublings fit into the finite interval $[3, r_\\infty]$."
         }
       ]
@@ -488,7 +471,6 @@
             "Hopf bifurcation at $\\mu=0$"
           ],
           "answer": 2,
-          "hint": "For $\\mu>0$ two fixed points at $\\pm\\sqrt\\mu$; at $\\mu=0$ they collide; for $\\mu<0$ no fixed points.",
           "explain": "For $\\mu>0$ two fixed points at $\\pm\\sqrt\\mu$; at $\\mu=0$ they collide; for $\\mu<0$ no fixed points. That is a saddle-node."
         },
         {
@@ -501,16 +483,16 @@
             "Hopf"
           ],
           "right": [
-            "$\\dot x=\\mu-x^2$",
             "$\\dot x=\\mu x-x^2$",
             "$\\dot x=\\mu x-x^3$",
-            "$\\dot r=\\mu r-r^3,\\ \\dot\\theta=1$"
+            "$\\dot r=\\mu r-r^3,\\ \\dot\\theta=1$",
+            "$\\dot x=\\mu-x^2$"
           ],
           "answer": [
+            3,
             0,
             1,
-            2,
-            3
+            2
           ],
           "hint": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a…",
           "explain": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a limit cycle from a spiral."
@@ -525,7 +507,6 @@
             "It is a continuous limit cycle."
           ],
           "answer": 1,
-          "hint": "At $r=3$ the fixed point loses stability ($f'(x^*)=-1$); a stable 2-cycle emerges via period-doubling and persists for $r>3$ (until $r_2\\approx 3.449$ where it period-doubles again).",
           "explain": "At $r=3$ the fixed point loses stability ($f'(x^*)=-1$); a stable 2-cycle emerges via period-doubling and persists for $r>3$ (until $r_2\\approx 3.449$ where it period-doubles again)."
         }
       ],
@@ -579,7 +560,6 @@
           "q": "Compute the Lyapunov exponent of the doubling map $f(x)=2x\\bmod 1$ on $[0,1)$.",
           "answer": 0.6931471805599453,
           "tol": 0.0001,
-          "hint": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$.",
           "explain": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$."
         },
         {
@@ -592,7 +572,6 @@
             "the system is measure preserving"
           ],
           "answer": 1,
-          "hint": "SDIC: arbitrarily close points eventually separate by at least a fixed amount $\\delta$ under iteration.",
           "explain": "SDIC: arbitrarily close points eventually separate by at least a fixed amount $\\delta$ under iteration."
         },
         {
@@ -608,7 +587,6 @@
             1,
             2
           ],
-          "hint": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC.",
           "explain": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC. Banks–Brooks–Cairns–Davis–Stacey later showed (iii) is implied by (i)+(ii) on infinite metric spaces."
         }
       ],
@@ -665,7 +643,6 @@
             "$X$ is bounded"
           ],
           "answer": 0,
-          "hint": "$\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U))=\\int_U \\operatorname{div}X\\,d\\mathrm{vol}$, so the flow preserves volume iff $\\operatorname{div}X\\equiv 0$.",
           "explain": "$\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U))=\\int_U \\operatorname{div}X\\,d\\mathrm{vol}$, so the flow preserves volume iff $\\operatorname{div}X\\equiv 0$."
         },
         {
@@ -673,7 +650,6 @@
           "q": "For the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=\\rho x-y-xz,\\ \\dot z=xy-\\beta z$, compute $\\operatorname{div}X$ with $\\sigma=10,\\beta=8/3$.",
           "answer": -13.666666666666666,
           "tol": 0.001,
-          "hint": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$.",
           "explain": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$. Strictly negative, so Lorenz is dissipative."
         },
         {
@@ -689,7 +665,6 @@
             0,
             2
           ],
-          "hint": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$.",
           "explain": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$. (b) $\\operatorname{div}=-1<0$: dissipative. (c) Pendulum is Hamiltonian with $H=y^2/2-\\cos x$. (d) Damped oscillator: $\\operatorname{div}=-\\mu<0$."
         }
       ],
@@ -746,7 +721,6 @@
             "the Lyapunov exponent"
           ],
           "answer": 1,
-          "hint": "$\\Sigma$ is locally transversal to $X$; the first-return time $\\tau(x)$ is well-defined nearby, and $P(x)=\\Phi_{\\tau(x)}(x)$ is the return map.",
           "explain": "$\\Sigma$ is locally transversal to $X$; the first-return time $\\tau(x)$ is well-defined nearby, and $P(x)=\\Phi_{\\tau(x)}(x)$ is the return map."
         },
         {
@@ -759,7 +733,6 @@
             "nothing: periodic orbits are invisible to $P$"
           ],
           "answer": 0,
-          "hint": "A closed orbit crossing $\\Sigma$ once per period returns to the same point: $P(x^*)=x^*$.",
           "explain": "A closed orbit crossing $\\Sigma$ once per period returns to the same point: $P(x^*)=x^*$. Its stability as a cycle = stability of $x^*$ as a fixed point of $P$."
         },
         {
@@ -767,7 +740,6 @@
           "q": "For the rigid rotation $\\dot r=0,\\ \\dot\\theta=1$ with section $\\Sigma=\\{\\theta=0\\}$, the first-return map $P\\colon \\Sigma\\to\\Sigma$ has return time equal to:",
           "answer": 6.283185307179586,
           "tol": 0.000001,
-          "hint": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$.",
           "explain": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$."
         }
       ],
@@ -835,7 +807,6 @@
             "the rotation $R_\\alpha$ with $\\alpha$ irrational"
           ],
           "answer": 1,
-          "hint": "Write $x$ in binary $x=0.b_1b_2b_3\\ldots$; then $f(x)=0.b_2b_3\\ldots$, i.e.",
           "explain": "Write $x$ in binary $x=0.b_1b_2b_3\\ldots$; then $f(x)=0.b_2b_3\\ldots$, i.e. the left-shift on binary sequences."
         },
         {
@@ -847,16 +818,15 @@
             "sequence containing every finite word"
           ],
           "right": [
-            "eventually periodic orbit",
             "periodic orbit",
-            "dense orbit"
+            "dense orbit",
+            "eventually periodic orbit"
           ],
           "answer": [
+            2,
             0,
-            1,
-            2
+            1
           ],
-          "hint": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding.",
           "explain": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding."
         },
         {
@@ -864,7 +834,6 @@
           "q": "Count the number of 2-periodic points of the full 2-shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$ (including fixed points).",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$).",
           "explain": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$)."
         }
       ],
@@ -922,7 +891,6 @@
             "it is volume-doubling"
           ],
           "answer": 1,
-          "hint": "Ergodicity = the only invariant sets (up to measure zero) are the trivial ones.",
           "explain": "Ergodicity = the only invariant sets (up to measure zero) are the trivial ones."
         },
         {
@@ -935,7 +903,6 @@
             "$T$ has zero Lyapunov exponent"
           ],
           "answer": 0,
-          "hint": "Time average = space average almost everywhere, when $T$ is ergodic.",
           "explain": "Time average = space average almost everywhere, when $T$ is ergodic. This is why statistical mechanics works."
         },
         {
@@ -951,7 +918,6 @@
             0,
             2
           ],
-          "hint": "Irrational rotations are uniquely ergodic (Weyl).",
           "explain": "Irrational rotations are uniquely ergodic (Weyl). The doubling map is ergodic (even mixing). Rational rotations split $[0,1)$ into finitely many cycles — not ergodic. The identity preserves every set — far from ergodic."
         }
       ],
@@ -1003,7 +969,6 @@
             "is a single periodic orbit"
           ],
           "answer": 1,
-          "hint": "'Strange' = chaotic dynamics on the attractor + fractal/non-integer dimension.",
           "explain": "'Strange' = chaotic dynamics on the attractor + fractal/non-integer dimension. Regular attractors (fixed points, limit cycles, tori) are NOT strange."
         },
         {
@@ -1016,7 +981,6 @@
             "$(\\sigma,\\beta,\\rho)=(10,\\,10,\\,10)$"
           ],
           "answer": 0,
-          "hint": "$(10,8/3,28)$ are Lorenz's original 1963 values, where the butterfly-wing attractor was first discovered.",
           "explain": "$(10,8/3,28)$ are Lorenz's original 1963 values, where the butterfly-wing attractor was first discovered."
         },
         {
@@ -1024,7 +988,6 @@
           "q": "Estimate of the box-counting dimension of the Lorenz attractor (classical parameters), to 2 decimals.",
           "answer": 2.06,
           "tol": 0.05,
-          "hint": "Numerical estimates give $d\\approx 2.05$–$2.07$; it is just above $2$, consistent with an attractor that is almost but not quite a surface.",
           "explain": "Numerical estimates give $d\\approx 2.05$–$2.07$; it is just above $2$, consistent with an attractor that is almost but not quite a surface."
         }
       ],
@@ -1069,16 +1032,16 @@
             "strange attractor"
           ],
           "right": [
-            "single equilibrium, dimension 0",
             "closed periodic orbit, dimension 1",
             "quasi-periodic orbit on $T^2$, dimension 2",
-            "fractal set with chaotic dynamics"
+            "fractal set with chaotic dynamics",
+            "single equilibrium, dimension 0"
           ],
           "answer": [
+            3,
             0,
             1,
-            2,
-            3
+            2
           ],
           "explain": "The four standard asymptotic behaviours of dissipative flows: equilibrium, periodic, quasi-periodic, chaotic. Dimension climbs from 0 to a fractal value."
         }

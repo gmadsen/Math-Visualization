@@ -14,7 +14,6 @@
             "$p$ extends $q$ as a set"
           ],
           "answer": 1,
-          "hint": "By the Cohen/Kunen convention, $p\\le q$ means $p$ extends $q$ — $p$ has more information and rules out more of the unknown object.",
           "explain": "By the Cohen/Kunen convention, $p\\le q$ means $p$ extends $q$ — $p$ has more information and rules out more of the unknown object. Some authors flip the order; we follow the standard 'going down means stronger'."
         },
         {
@@ -27,7 +26,6 @@
             "$D$ is closed under intersections."
           ],
           "answer": 2,
-          "hint": "Density is exactly the property that every condition can be extended into $D$.",
           "explain": "Density is exactly the property that every condition can be extended into $D$. Each dense set encodes a question we want answered; meeting it is committing to an answer."
         },
         {
@@ -35,7 +33,6 @@
           "q": "In Cohen forcing $2^{<\\omega}$ (finite binary strings ordered by extension), how many immediate successors $q\\le p$ does any condition $p$ of length $n$ have at length $n+1$?",
           "answer": 2,
           "tol": 0,
-          "hint": "Each finite string $p$ extends in two ways: append 0 or append 1.",
           "explain": "Each finite string $p$ extends in two ways: append 0 or append 1. So the poset is the infinite binary tree growing downward."
         }
       ]
@@ -53,7 +50,6 @@
             "Be definable inside $M$."
           ],
           "answer": 1,
-          "hint": "Genericity is relative to the ground model: $G$ must meet every dense set that $M$ can see.",
           "explain": "Genericity is relative to the ground model: $G$ must meet every dense set that $M$ can see. Since $M$ is countable, only countably many dense sets need to be met, and a generic $G$ exists by a Baire-category-style diagonalization outside $M$."
         },
         {
@@ -66,7 +62,6 @@
             "To avoid the axiom of choice."
           ],
           "answer": 1,
-          "hint": "Countability of $M$ ensures only countably many dense sets in $M$, so a filter meeting all of them is built by induction along an $\\omega$-enumeration.",
           "explain": "Countability of $M$ ensures only countably many dense sets in $M$, so a filter meeting all of them is built by induction along an $\\omega$-enumeration. Löwenheim–Skolem produces such a countable model."
         },
         {
@@ -79,7 +74,6 @@
             "An inner model of $M$."
           ],
           "answer": 0,
-          "hint": "$M[G]$ is built by interpreting $\\mathbb P$-names from $M$ using $G$.",
           "explain": "$M[G]$ is built by interpreting $\\mathbb P$-names from $M$ using $G$. It is transitive, contains $M$ and $G$, satisfies ZFC, and is the smallest such model — every step is forced from data already in $M$."
         }
       ]
@@ -97,7 +91,6 @@
             "$M[G]\\models\\varphi$ iff no $p\\in\\mathbb P$ forces $\\neg\\varphi$."
           ],
           "answer": 1,
-          "hint": "The truth lemma: a statement holds in $M[G]$ exactly when some condition in the generic filter forces it.",
           "explain": "The truth lemma: a statement holds in $M[G]$ exactly when some condition in the generic filter forces it. The forcing relation is definable inside $M$, so $M$ controls the truth in $M[G]$ from below."
         },
         {
@@ -110,7 +103,6 @@
             "It is the same as classical truth."
           ],
           "answer": 1,
-          "hint": "Forcing is monotone (downward): a stronger condition forces everything its predecessor forced.",
           "explain": "Forcing is monotone (downward): a stronger condition forces everything its predecessor forced. It is also definable inside $M$ (a key technical theorem of Cohen), so $M$ recognises which conditions force what."
         },
         {
@@ -123,7 +115,6 @@
             "Forcing is a meta-theory argument that bypasses ZFC."
           ],
           "answer": 0,
-          "hint": "One proves in $M$ that $\\mathbb 1\\Vdash\\sigma$ for each ZFC axiom $\\sigma$; by the truth lemma each axiom holds in $M[G]$.",
           "explain": "One proves in $M$ that $\\mathbb 1\\Vdash\\sigma$ for each ZFC axiom $\\sigma$; by the truth lemma each axiom holds in $M[G]$. So $M[G]\\models$ ZFC for any generic $G$."
         }
       ]
@@ -141,7 +132,6 @@
             "A copy of $M$."
           ],
           "answer": 1,
-          "hint": "$G$ is a chain of finite binary strings cofinal in length, and $r_G=\\bigcup G\\in 2^\\omega$ is a single new infinite binary sequence — the Cohen real.",
           "explain": "$G$ is a chain of finite binary strings cofinal in length, and $r_G=\\bigcup G\\in 2^\\omega$ is a single new infinite binary sequence — the Cohen real. It is not in $M$ because its membership is decided dense-set by dense-set."
         },
         {
@@ -154,7 +144,6 @@
             "Because the axiom of choice fails in $M[G]$."
           ],
           "answer": 1,
-          "hint": "For each $s\\in (2^\\omega)^M$, the set of conditions disagreeing with $s$ is dense (extend $p$ by flipping the next bit).",
           "explain": "For each $s\\in (2^\\omega)^M$, the set of conditions disagreeing with $s$ is dense (extend $p$ by flipping the next bit). Genericity forces $r_G$ to differ from $s$ — so $r_G\\ne s$ for every old real."
         },
         {
@@ -167,7 +156,6 @@
             "Add a single new ordinal."
           ],
           "answer": 1,
-          "hint": "Cohen's product forcing adds $\\aleph_2$ mutually distinct generic reals indexed by $\\aleph_2$.",
           "explain": "Cohen's product forcing adds $\\aleph_2$ mutually distinct generic reals indexed by $\\aleph_2$. The countable chain condition (ccc) ensures no cardinal is collapsed, so $\\aleph_2^M=\\aleph_2^{M[G]}$ and $2^{\\aleph_0}\\ge\\aleph_2$ in the extension."
         }
       ]
@@ -185,7 +173,6 @@
             "ZFC does not prove CH (so $\\neg$CH is consistent)."
           ],
           "answer": 3,
-          "hint": "Forcing produces a model of ZFC + $\\neg$CH, so $\\neg$CH is consistent with ZFC; equivalently, ZFC does not prove CH.",
           "explain": "Forcing produces a model of ZFC + $\\neg$CH, so $\\neg$CH is consistent with ZFC; equivalently, ZFC does not prove CH. Combined with Gödel's earlier consistency of CH, CH is independent of ZFC."
         },
         {
@@ -198,7 +185,6 @@
             "Skolem and Löwenheim"
           ],
           "answer": 0,
-          "hint": "Gödel built the constructible universe $L$ in 1940 and showed $L\\models$ ZFC + GCH, giving Con(ZFC + CH).",
           "explain": "Gödel built the constructible universe $L$ in 1940 and showed $L\\models$ ZFC + GCH, giving Con(ZFC + CH). Cohen invented forcing in 1963 to build a model of ZFC + $\\neg$CH. Together: independence."
         },
         {
@@ -206,7 +192,6 @@
           "q": "In Cohen's original $\\neg$CH model, what is the value of $2^{\\aleph_0}$ as an aleph index? (Answer the subscript: $2^{\\aleph_0}=\\aleph_n$, give $n$.)",
           "answer": 2,
           "tol": 0,
-          "hint": "Cohen forced $\\aleph_2$ many new reals while preserving cardinals, so the continuum becomes $\\aleph_2$ in the extension.",
           "explain": "Cohen forced $\\aleph_2$ many new reals while preserving cardinals, so the continuum becomes $\\aleph_2$ in the extension. Subsequent work (Solovay, Easton) shows $2^{\\aleph_0}$ can be any cardinal of uncountable cofinality."
         }
       ]
@@ -224,7 +209,6 @@
             "Commutativity of ordinal addition."
           ],
           "answer": 2,
-          "hint": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using countable-support iterated forcing.",
           "explain": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using countable-support iterated forcing. So SH is independent of ZFC."
         },
         {
@@ -237,7 +221,6 @@
             "A large-cardinal axiom."
           ],
           "answer": 1,
-          "hint": "MA says: for any ccc poset $\\mathbb P$ and family $\\mathcal D$ of $<2^{\\aleph_0}$ dense sets, a filter meeting all of $\\mathcal D$ exists.",
           "explain": "MA says: for any ccc poset $\\mathbb P$ and family $\\mathcal D$ of $<2^{\\aleph_0}$ dense sets, a filter meeting all of $\\mathcal D$ exists. Solovay–Tennenbaum (1971) forced MA + $\\neg$CH; under CH it is automatic but uninformative."
         },
         {
@@ -250,7 +233,6 @@
             "Forcing cannot change large cardinals."
           ],
           "answer": 1,
-          "hint": "Laver showed that after a suitable preparatory forcing, a supercompact cardinal $\\kappa$ remains supercompact in any further $<\\kappa$-directed-closed forcing extension.",
           "explain": "Laver showed that after a suitable preparatory forcing, a supercompact cardinal $\\kappa$ remains supercompact in any further $<\\kappa$-directed-closed forcing extension. This is the template for many large-cardinal indestructibility results."
         }
       ]

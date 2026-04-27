@@ -14,7 +14,6 @@
             "$2m$"
           ],
           "answer": 2,
-          "hint": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$).",
           "explain": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$)."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Compute $\\sum_{k=1}^{10} k^2 = \\tfrac{n(n+1)(2n+1)}{6}$ at $n=10$.",
           "answer": 385,
           "tol": 0.000001,
-          "hint": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$.",
           "explain": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$."
         },
         {
@@ -30,7 +28,6 @@
           "q": "Using Faulhaber, $\\sum_{k=1}^{n} k^3 = \\left(\\tfrac{n(n+1)}{2}\\right)^2$. What is its value at $n=5$?",
           "answer": 225,
           "tol": 0.000001,
-          "hint": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$.",
           "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
         },
         {
@@ -121,7 +118,6 @@
             "$B_n$ is always an integer"
           ],
           "answer": 1,
-          "hint": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$.",
           "explain": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$."
         },
         {
@@ -129,7 +125,6 @@
           "q": "What is $B_2$ in the convention $B_1=-\\tfrac12$?",
           "answer": 0.16666666666666666,
           "tol": 0.0001,
-          "hint": "$B_2=1/6$.",
           "explain": "$B_2=1/6$. The low table is $B_0=1$, $B_1=-1/2$, $B_2=1/6$, $B_4=-1/30$, $B_6=1/42$."
         },
         {
@@ -137,7 +132,6 @@
           "q": "What is $B_4$?",
           "answer": -0.03333333333333333,
           "tol": 0.0001,
-          "hint": "$B_4=-1/30\\approx -0.0333$.",
           "explain": "$B_4=-1/30\\approx -0.0333$. Even Bernoulli numbers alternate in sign."
         }
       ],
@@ -191,7 +185,6 @@
             "$\\pi^2/90$"
           ],
           "answer": 1,
-          "hint": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$.",
           "explain": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$."
         },
         {
@@ -199,7 +192,6 @@
           "q": "Using $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_2=1/6$, compute $\\zeta(-1)$.",
           "answer": -0.08333333333333333,
           "tol": 0.0001,
-          "hint": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$.",
           "explain": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$. This is the regularised value behind the infamous $1+2+3+\\cdots\\mapsto -1/12$."
         },
         {
@@ -207,7 +199,6 @@
           "q": "Compute $\\zeta(4)=\\pi^4/90$ to four decimals.",
           "answer": 1.0823,
           "tol": 0.0005,
-          "hint": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$.",
           "explain": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$."
         }
       ],
@@ -261,7 +252,6 @@
             "Factorials only"
           ],
           "answer": 1,
-          "hint": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term.",
           "explain": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term."
         },
         {
@@ -269,7 +259,6 @@
           "q": "Apply Euler-Maclaurin with $f(x)=x$, $a=1$, $b=n$. The integral gives $\\tfrac{n^2-1}{2}$ and the endpoint term gives $\\tfrac{n+1}{2}$, so $\\sum_{k=1}^{n} k=\\tfrac{n(n+1)}{2}$. Compute this at $n=20$.",
           "answer": 210,
           "tol": 0.000001,
-          "hint": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$.",
           "explain": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$."
         },
         {
@@ -277,7 +266,6 @@
           "q": "For the harmonic partial sum $H_n=\\sum_{k=1}^{n}\\tfrac1k$, the Euler-Maclaurin expansion gives $H_n\\approx \\ln n + \\gamma + \\tfrac{1}{2n}-\\tfrac{1}{12 n^2}+\\cdots$. With $\\gamma\\approx 0.5772$, estimate $H_{10}$ to three decimals.",
           "answer": 2.929,
           "tol": 0.005,
-          "hint": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$.",
           "explain": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$."
         }
       ],
@@ -331,7 +319,6 @@
             "$\\xi(s)=\\zeta(s)$"
           ],
           "answer": 1,
-          "hint": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$.",
           "explain": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$."
         },
         {
@@ -339,7 +326,6 @@
           "q": "Using $\\zeta(-1)=-B_2/2=-1/12$ and the reflection $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$, confirm the left-hand side. What is $-1/12$ as a decimal (4 dp)?",
           "answer": -0.0833,
           "tol": 0.0005,
-          "hint": "$-1/12\\approx -0.0833$.",
           "explain": "$-1/12\\approx -0.0833$. Plugging $s=2$ on the right gives $2(2\\pi)^{-2}\\cos(\\pi)\\Gamma(2)\\zeta(2)=-\\pi^2/(2\\pi^2)\\cdot \\pi^2/6\\cdot (6/\\pi^2)\\cdot(-1)$... the Bernoulli book-keeping collapses to $-1/12$."
         },
         {
@@ -347,7 +333,6 @@
           "q": "At the trivial zero $s=-2$, $\\zeta(-2)=-B_3/3$. Since $B_3=0$, what value do you get?",
           "answer": 0,
           "tol": 1e-9,
-          "hint": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$.",
           "explain": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$. These are the *trivial* zeros on the real axis."
         }
       ],

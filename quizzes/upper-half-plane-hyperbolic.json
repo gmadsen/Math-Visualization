@@ -13,7 +13,6 @@
             "$\\{x+iy:x>0\\}$"
           ],
           "answer": 1,
-          "hint": "The boundary $y=0$ is excluded.",
           "explain": "The boundary $y=0$ is excluded."
         },
         {
@@ -21,7 +20,6 @@
           "q": "What is $\\operatorname{Im}(3+4i)$?",
           "answer": 4,
           "tol": 0.001,
-          "hint": "Imaginary part is 4.",
           "explain": "Imaginary part is 4."
         },
         {
@@ -33,7 +31,6 @@
             "It is the set of elliptic fixed points"
           ],
           "answer": 0,
-          "hint": "The boundary is not in the space but appears as ideal points.",
           "explain": "The boundary is not in the space but appears as ideal points."
         }
       ],
@@ -86,7 +83,6 @@
             "$ds^2=y^2(dx^2+dy^2)$"
           ],
           "answer": 1,
-          "hint": "Hyperbolic length scales Euclidean length by 1/y.",
           "explain": "Hyperbolic length scales Euclidean length by 1/y."
         },
         {
@@ -94,7 +90,6 @@
           "q": "At height $y=2$, what is the scaling factor on Euclidean length?",
           "answer": 0.5,
           "tol": 0.001,
-          "hint": "Factor is $1/y=1/2$.",
           "explain": "Factor is $1/y=1/2$."
         },
         {
@@ -106,7 +101,6 @@
             "blowing up"
           ],
           "answer": 2,
-          "hint": "Division by $y$ makes lengths diverge near boundary.",
           "explain": "Division by $y$ makes lengths diverge near boundary."
         }
       ],
@@ -159,7 +153,6 @@
             "All circles"
           ],
           "answer": 1,
-          "hint": "This is the defining geometric picture of the model.",
           "explain": "This is the defining geometric picture of the model."
         },
         {
@@ -171,7 +164,6 @@
             "a horocycle"
           ],
           "answer": 1,
-          "hint": "Every vertical line in H is geodesic.",
           "explain": "Every vertical line in H is geodesic."
         },
         {
@@ -179,7 +171,6 @@
           "q": "How many intersection points can two distinct geodesics in H have inside H?",
           "answer": 1,
           "tol": 0.001,
-          "hint": "Like Euclidean lines, distinct geodesics intersect at most once in the interior.",
           "explain": "Like Euclidean lines, distinct geodesics intersect at most once in the interior."
         }
       ],
@@ -232,7 +223,6 @@
             "$a/(c\\tau+d)$"
           ],
           "answer": 1,
-          "hint": "This is the Möbius (fractional linear) action.",
           "explain": "This is the Möbius (fractional linear) action."
         },
         {
@@ -240,7 +230,6 @@
           "q": "For $T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $\\tau=i$, compute $T\\cdot\\tau$ imaginary part.",
           "answer": 1,
           "tol": 0.001,
-          "hint": "$T\\cdot i=i+1$, whose imaginary part is 1.",
           "explain": "$T\\cdot i=i+1$, whose imaginary part is 1."
         },
         {
@@ -252,7 +241,6 @@
             "only finite orbits"
           ],
           "answer": 1,
-          "hint": "This is the entry point to modular forms.",
           "explain": "This is the entry point to modular forms."
         }
       ],
@@ -305,7 +293,6 @@
             "the upper-triangular subgroup"
           ],
           "answer": 1,
-          "hint": "Both $g$ and $-g$ give the same Möbius map, so the effective group is $PSL_2(\\mathbb R)=SL_2(\\mathbb R)/\\{\\pm I\\}$.",
           "explain": "Both $g$ and $-g$ give the same Möbius map, so the effective group is $PSL_2(\\mathbb R)=SL_2(\\mathbb R)/\\{\\pm I\\}$."
         },
         {
@@ -317,7 +304,6 @@
             "elliptic (a single fixed point inside $\\mathbb H$)"
           ],
           "answer": 2,
-          "hint": "Trace-squared minus 4 is the discriminant of the fixed-point quadratic; negative discriminant puts the fixed point inside $\\mathbb H$.",
           "explain": "Trace-squared minus 4 is the discriminant of the fixed-point quadratic; negative discriminant puts the fixed point inside $\\mathbb H$."
         },
         {
@@ -325,7 +311,6 @@
           "q": "For $g=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$.",
           "answer": 2,
           "tol": 0.001,
-          "hint": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$.",
           "explain": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
         }
       ],

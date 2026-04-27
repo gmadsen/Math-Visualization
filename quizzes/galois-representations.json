@@ -35,7 +35,6 @@
           "q": "For the $\\ell$-adic cyclotomic character $\\chi:G_\\mathbb{Q}\\to\\mathbb{Z}_\\ell^\\times$, what is $\\chi(\\mathrm{Frob}_p)$ when $p\\ne\\ell$ is unramified? (Take $p=7$.)",
           "answer": 7,
           "tol": 0.000001,
-          "hint": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$.",
           "explain": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$. For $p=7$ the value is $7$."
         }
       ],
@@ -89,7 +88,6 @@
             "$t - a_p$"
           ],
           "answer": 1,
-          "hint": "The determinant is the cyclotomic character, so $\\det=p$, and the trace is the Frobenius trace $a_p$: $\\det(tI-\\rho(\\mathrm{Frob}_p))=t^2-a_p t+p$.",
           "explain": "The determinant is the cyclotomic character, so $\\det=p$, and the trace is the Frobenius trace $a_p$: $\\det(tI-\\rho(\\mathrm{Frob}_p))=t^2-a_p t+p$."
         },
         {
@@ -97,7 +95,6 @@
           "q": "An elliptic curve $E/\\mathbb{Q}$ has good reduction at $p=11$ and $|\\tilde E(\\mathbb{F}_{11})|=10$. Compute $a_{11}=p+1-|\\tilde E(\\mathbb{F}_p)|$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$a_{11}=11+1-10=2$.",
           "explain": "$a_{11}=11+1-10=2$. This is the trace of $\\mathrm{Frob}_{11}$ on $V_\\ell E$."
         },
         {
@@ -105,7 +102,6 @@
           "q": "By Hasse, $|a_p|\\le 2\\sqrt{p}$. What is the largest integer $a_p$ can be for $p=37$?",
           "answer": 12,
           "tol": 0.000001,
-          "hint": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$.",
           "explain": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$."
         }
       ],
@@ -159,7 +155,6 @@
             "$\\chi_1$ alone"
           ],
           "answer": 1,
-          "hint": "Semisimplification replaces a Jordan–Hölder filtration by the direct sum of its graded pieces.",
           "explain": "Semisimplification replaces a Jordan–Hölder filtration by the direct sum of its graded pieces. The graded pieces here are $\\chi_1$ and $\\chi_2$, so $\\rho^{\\mathrm{ss}}=\\chi_1\\oplus\\chi_2$."
         },
         {
@@ -172,7 +167,6 @@
             "because $G_\\mathbb{Q}$ is abelian"
           ],
           "answer": 1,
-          "hint": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$.",
           "explain": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$. So the trace only depends on $\\rho^{\\mathrm{ss}}$."
         },
         {
@@ -180,7 +174,6 @@
           "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$.",
           "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
         }
       ],
@@ -234,7 +227,6 @@
             "$\\rho$ is irreducible"
           ],
           "answer": 1,
-          "hint": "Unramified at $p$ means $\\rho(I_p)=1$; only then does $\\rho$ factor through $D_p/I_p$ and $\\mathrm{Frob}_p$ gets a well-defined image.",
           "explain": "Unramified at $p$ means $\\rho(I_p)=1$; only then does $\\rho$ factor through $D_p/I_p$ and $\\mathrm{Frob}_p$ gets a well-defined image."
         },
         {
@@ -247,7 +239,6 @@
             "$f_p=p$"
           ],
           "answer": 1,
-          "hint": "Multiplicative reduction is tame: inertia has a 1-dimensional invariant subspace on $V_\\ell E$, so $f_p=\\dim V-\\dim V^{I_p}=2-1=1$ and the wild term vanishes.",
           "explain": "Multiplicative reduction is tame: inertia has a 1-dimensional invariant subspace on $V_\\ell E$, so $f_p=\\dim V-\\dim V^{I_p}=2-1=1$ and the wild term vanishes."
         },
         {
@@ -255,7 +246,6 @@
           "q": "A representation $\\rho$ has $\\dim V=3$, $\\dim V^{I_p}=2$, and trivial wild ramification at $p$. What is the Artin conductor exponent $f_p(\\rho)$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$.",
           "explain": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$."
         }
       ],
@@ -322,7 +312,6 @@
             "it is reducible"
           ],
           "answer": 1,
-          "hint": "Modularity of a residual (mod-$\\ell$) representation means it comes from a cuspidal eigenform $f$ via $\\bar\\rho\\cong\\bar\\rho_{f,\\lambda}$.",
           "explain": "Modularity of a residual (mod-$\\ell$) representation means it comes from a cuspidal eigenform $f$ via $\\bar\\rho\\cong\\bar\\rho_{f,\\lambda}$. Modularity lifting theorems ($R=T$) propagate modularity from $\\bar\\rho$ to its $\\ell$-adic lifts."
         },
         {
@@ -330,7 +319,6 @@
           "q": "The weight-12 cusp form $\\Delta=\\sum\\tau(n)q^n$ has $\\tau(2)=-24$. By Deligne, what is $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_2)$ for $\\ell\\ne 2$?",
           "answer": -24,
           "tol": 0.000001,
-          "hint": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$.",
           "explain": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
         }
       ],

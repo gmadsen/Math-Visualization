@@ -406,7 +406,7 @@ Replace "$=$" with "$\ge$" for a <em>submartingale</em>, "$\le$" for a <em>super
 <ul>
   <li><strong>Mean-zero random walk</strong>: $S_n=X_1+\cdots+X_n$ with $X_i$ i.i.d., $\mathbb{E}[X_i]=0$. Direct check: $\mathbb{E}[S_{n+1}\mid\mathcal{F}_n]=S_n+\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]=S_n+0$.</li>
   <li><strong>Doob martingale</strong>: $M_n=\mathbb{E}[Z\mid\mathcal{F}_n]$ for any integrable $Z$. The tower property gives $\mathbb{E}[M_{n+1}\mid\mathcal{F}_n]=\mathbb{E}[\mathbb{E}[Z\mid\mathcal{F}_{n+1}]\mid\mathcal{F}_n]=\mathbb{E}[Z\mid\mathcal{F}_n]=M_n$. Every UI martingale is of this form for some terminal $Z=M_\infty$.</li>
-  <li><strong>Squared walk minus drift</strong>: with $\text{Var}(X_i)=\sigma^2$, $S_n^2-n\sigma^2$ is a martingale. Without the $-n\sigma^2$ correction, $S_n^2$ is only a submartingale.</li>
+  <li><strong>Squared walk minus drift</strong>: with $\mathrm{Var}(X_i)=\sigma^2$, $S_n^2-n\sigma^2$ is a martingale. Without the $-n\sigma^2$ correction, $S_n^2$ is only a submartingale.</li>
   <li><strong>Exponential martingale</strong>: for any $\theta\in\mathbb{R}$ such that $\varphi(\theta)=\mathbb{E}[e^{\theta X_1}]<\infty$, the process $M_n=e^{\theta S_n}/\varphi(\theta)^n$ is a martingale (Wald's exponential).</li>
 </ul>
 
@@ -434,6 +434,7 @@ Replace "$=$" with "$\ge$" for a <em>submartingale</em>, "$\le$" for a <em>super
   <div class="ttl">See also</div>
   <ul>
     <li><a href="./probability-theory.html#expectation">Expectation, variance, and moments</a></li>
+    <li><a href="./probability-theory.html#martingales">Martingales</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
@@ -567,7 +568,14 @@ $$0=\mathbb{E}[S_\tau^2-\tau]=p\,b^2+(1-p)\,a^2-\mathbb{E}[\tau]\quad\Rightarrow
   <div class="readout" id="gr-out"></div>
 </div>
 
-<div class="quiz" data-concept="sp-optional-stopping"></div><script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#martingales">Martingales</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="sp-optional-stopping"></div><script>
 /* §3 — gambler's ruin simulator */
 (function(){
   const svg=$('#gr-svg'), out=$('#gr-out');
@@ -687,7 +695,14 @@ Conditionally on $\mathcal{F}_{k-1}$, $\mathbb{E}[2S_{k-1}X_k\mid\mathcal{F}_{k-
   <div class="readout" id="doob-out"></div>
 </div>
 
-<div class="quiz" data-concept="sp-doob-decomposition"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="sp-doob-decomposition"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#martingales">Martingales</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./stochastic-calculus.html#ito-formula">Stochastic calculus</a> · Itô's formula</div>
@@ -825,6 +840,7 @@ For a martingale, $L^1$-convergence is equivalent to UI. When $(M_n)$ is UI, $M_
   <div class="ttl">See also</div>
   <ul>
     <li><a href="./probability-theory.html#conv">Modes of convergence</a></li>
+    <li><a href="./probability-theory.html#martingales">Martingales</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
@@ -957,7 +973,7 @@ The limit is deterministic — the <em>quadratic variation</em> $[W]_t=t$ a.s. C
 $$c_p\,\mathbb{E}\!\left[[M]_t^{p/2}\right]\;\le\;\mathbb{E}\!\left[\sup_{s\le t}|M_s|^p\right]\;\le\;C_p\,\mathbb{E}\!\left[[M]_t^{p/2}\right].$$
 BDG converts maximal-norm estimates of a martingale into estimates of its quadratic variation — the bridge to Itô calculus and SDE theory.</div>
 
-<p><strong>Worked example: Brownian quadratic variation.</strong> Simulate $W$ on $[0,1]$ with mesh $1/N$. Compute $Q_N=\sum_{k=0}^{N-1}(W_{(k+1)/N}-W_{k/N})^2$. As $N$ grows, $Q_N\to 1=t$ in probability — and the variance of the approximation is $\text{Var}(Q_N)=2t^2/N$ by direct calculation (Gaussian fourth moments). The widget plots $Q_N$ as a running sum alongside the constant line at $t$, so you watch the path's quadratic variation accumulate.</p>
+<p><strong>Worked example: Brownian quadratic variation.</strong> Simulate $W$ on $[0,1]$ with mesh $1/N$. Compute $Q_N=\sum_{k=0}^{N-1}(W_{(k+1)/N}-W_{k/N})^2$. As $N$ grows, $Q_N\to 1=t$ in probability — and the variance of the approximation is $\mathrm{Var}(Q_N)=2t^2/N$ by direct calculation (Gaussian fourth moments). The widget plots $Q_N$ as a running sum alongside the constant line at $t$, so you watch the path's quadratic variation accumulate.</p>
 
 <div class="widget" id="w-bm">
   <div class="hd"><div class="ttl">Brownian motion & quadratic variation</div><div class="hint">$W_t$ on $[0,1]$ · running $\sum(\Delta W)^2$ tracks $t$</div></div>

@@ -9,7 +9,6 @@
           "q": "Compute the covolume of the lattice $\\Lambda = \\mathbb{Z}v_1 + \\mathbb{Z}v_2$ with $v_1=(2,0)$ and $v_2=(1,3)$ (i.e. $|\\det[v_1\\,v_2]|$).",
           "answer": 6,
           "tol": 0.001,
-          "hint": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$.",
           "explain": "Stack the basis vectors as columns of a $2\\times 2$ matrix: $\\det\\begin{pmatrix}2&1\\\\0&3\\end{pmatrix} = 2\\cdot 3 - 1\\cdot 0 = 6$. The covolume is the absolute value, $6$. Geometrically this is the area of the fundamental parallelogram, and it is independent of the chosen basis — any other basis of the same $\\Lambda$ differs by a matrix of determinant $\\pm 1$."
         },
         {
@@ -22,7 +21,6 @@
             "$M = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$"
           ],
           "answer": 0,
-          "hint": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$.",
           "explain": "Reading off coefficients: $v_1' = 1\\cdot v_1 + 1\\cdot v_2$ gives the first column $(1,1)^T$; $v_2' = 1\\cdot v_1 + 2\\cdot v_2$ gives the second column $(1,2)^T$. So $M=\\begin{pmatrix}1&1\\\\1&2\\end{pmatrix}$, and $\\det M = 1\\cdot 2 - 1\\cdot 1 = 1$, confirming $M\\in\\mathrm{SL}_2(\\mathbb{Z})$."
         },
         {
@@ -35,7 +33,6 @@
             "$(1,1)$ and $(2,2)$"
           ],
           "answer": 1,
-          "hint": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$.",
           "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
         }
       ]
@@ -53,7 +50,6 @@
             "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ alone"
           ],
           "answer": 0,
-          "hint": "The classical generators are $T:\\tau\\mapsto\\tau+1$ and $S:\\tau\\mapsto -1/\\tau$, satisfying $S^4=I$ and $(ST)^6=I$.",
           "explain": "The classical generators are $T:\\tau\\mapsto\\tau+1$ and $S:\\tau\\mapsto -1/\\tau$, satisfying $S^4=I$ and $(ST)^6=I$. Option B uses $T^2$, which only generates the index-$2$ subgroup of even translations together with $S$ (you cannot reach $T$ itself). Option C generates only the abelian subgroup $\\{\\pm T^n:n\\in\\mathbb{Z}\\}$, which is far from all of $SL_2(\\mathbb{Z})$. Option D (translations only) misses $S$ entirely."
         },
         {
@@ -61,7 +57,6 @@
           "q": "Compute $S(i)=-1/i$.",
           "answer": 1,
           "tol": 0.001,
-          "hint": "$-1/i=i$.",
           "explain": "$-1/i=i$."
         },
         {
@@ -73,7 +68,6 @@
             "different q-variables"
           ],
           "answer": 0,
-          "hint": "Modular invariance identifies orbit-equivalent points.",
           "explain": "Modular invariance identifies orbit-equivalent points."
         }
       ],
@@ -125,7 +119,12 @@
             "$f(\\gamma\\tau)=f(\\tau)$ for all $\\gamma\\in SL_2(\\mathbb Z)$ (i.e., $f$ is $SL_2(\\mathbb Z)$-invariant).",
             "$f(-1/\\tau) = \\tau^k f(\\tau)$ and $f(\\tau+1) = f(\\tau)$, since $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$ and $T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ generate."
           ],
-          "answer": [0, 1, 2, 4],
+          "answer": [
+            0,
+            1,
+            2,
+            4
+          ],
           "hint": "The three pillars: holomorphic on $\\mathcal H$, transforms by the slash $|_k\\gamma$ action with factor $(c\\tau+d)^{-k}$, and holomorphic at the cusp. $SL_2(\\mathbb Z)$-invariance only happens at weight $0$.",
           "explain": "A weight-$k$ modular form satisfies (a) holomorphy on $\\mathcal H$, (b) the transformation law $f(\\gamma\\tau)=(c\\tau+d)^k f(\\tau)$, (c) holomorphy at $\\infty$. (d) — strict invariance under $SL_2(\\mathbb Z)$ — is the weight-$0$ case (modular functions when meromorphic; constants when also holomorphic). (e) is correct because $S$ and $T$ generate $SL_2(\\mathbb Z)$, so checking these two suffices."
         },
@@ -138,7 +137,6 @@
             "$y=\\Im\\tau$"
           ],
           "answer": 0,
-          "hint": "One checks regularity of the Fourier expansion in $q$.",
           "explain": "One checks regularity of the Fourier expansion in $q$."
         },
         {
@@ -146,7 +144,6 @@
           "q": "If $f$ is a cusp form, what is its constant $q^0$ coefficient?",
           "answer": 0,
           "tol": 0.001,
-          "hint": "Cusp forms vanish at the cusp.",
           "explain": "Cusp forms vanish at the cusp."
         }
       ],
@@ -197,12 +194,17 @@
             "weight $12$"
           ],
           "right": [
-            "$E_4(\\tau) = 1 + 240\\sum_{n\\ge 1}\\sigma_3(n)\\,q^n$",
             "$E_6(\\tau) = 1 - 504\\sum_{n\\ge 1}\\sigma_5(n)\\,q^n$",
             "$E_8(\\tau) = 1 + 480\\sum_{n\\ge 1}\\sigma_7(n)\\,q^n$",
-            "$E_{12}(\\tau) = 1 + \\tfrac{65520}{691}\\sum_{n\\ge 1}\\sigma_{11}(n)\\,q^n$"
+            "$E_{12}(\\tau) = 1 + \\tfrac{65520}{691}\\sum_{n\\ge 1}\\sigma_{11}(n)\\,q^n$",
+            "$E_4(\\tau) = 1 + 240\\sum_{n\\ge 1}\\sigma_3(n)\\,q^n$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Normalized $E_k = 1 - (2k/B_k)\\sum\\sigma_{k-1}(n)q^n$; the divisor power equals $k-1$. The $691$ denominator at weight $12$ is the famous Ramanujan congruence input.",
           "explain": "The normalized Eisenstein series of weight $k\\ge 4$ even is $E_k(\\tau)=1-\\frac{2k}{B_k}\\sum_{n\\ge 1}\\sigma_{k-1}(n)q^n$. Coefficients: $-2\\cdot 4/B_4=240$, $-2\\cdot 6/B_6=-504$, $-2\\cdot 8/B_8=480$, $-2\\cdot 12/B_{12}=65520/691$. Note $E_8=E_4^2$ as modular forms (the weight-$8$ space is $1$-dimensional), giving the identity $\\sigma_7(n)=\\sigma_3(n)+120\\sum_{m=1}^{n-1}\\sigma_3(m)\\sigma_3(n-m)$."
         },
@@ -211,7 +213,6 @@
           "q": "What is the constant term of normalized $E_4(q)$?",
           "answer": 1,
           "tol": 0.001,
-          "hint": "Normalized Eisenstein series start with 1.",
           "explain": "Normalized Eisenstein series start with 1."
         },
         {
@@ -223,7 +224,6 @@
             "non-holomorphic Maass forms"
           ],
           "answer": 1,
-          "hint": "They are concrete holomorphic modular forms.",
           "explain": "They are concrete holomorphic modular forms."
         }
       ],
@@ -274,7 +274,6 @@
             "$\\tau^2$"
           ],
           "answer": 1,
-          "hint": "By convention $q=e^{2\\pi i\\tau}$.",
           "explain": "By convention $q=e^{2\\pi i\\tau}$."
         },
         {
@@ -282,7 +281,6 @@
           "q": "If $\\tau=i$, compute $|q|=|e^{2\\pi i\\tau}|$ to 3 decimals.",
           "answer": 0.001867,
           "tol": 0.0005,
-          "hint": "$|q|=e^{-2\\pi}\\approx 0.001867$.",
           "explain": "$|q|=e^{-2\\pi}\\approx 0.001867$."
         },
         {
@@ -295,7 +293,12 @@
             "$q$-expansions only exist for weight-$0$ modular forms.",
             "The product $E_8 = E_4\\cdot E_4$ holds at the level of $q$-expansions, giving the identity $1+480\\sum\\sigma_7(n)q^n = (1+240\\sum\\sigma_3(n)q^n)^2$."
           ],
-          "answer": [0, 1, 2, 4],
+          "answer": [
+            0,
+            1,
+            2,
+            4
+          ],
           "hint": "$q$-expansions exist for any holomorphic modular form (any weight) and convert holomorphic-at-$\\infty$ into a power series in $q$ with $|q|<1$. Cusp forms vanish at $\\infty$, so $a_0=0$. Coefficient products mirror form products.",
           "explain": "$q$-expansions: (a) carry all arithmetic since Hecke acts on coefficients, (b) constant term vanishes iff cusp form, (c) $|q|=e^{-2\\pi\\Im\\tau}<1$ gives convergence on the upper half-plane, (d) is FALSE: every holomorphic modular form at level 1 has a $q$-expansion regardless of weight, (e) is true and yields a beautiful $\\sigma$-convolution identity."
         }
@@ -347,7 +350,6 @@
             "$f(\\tau)\\,g(\\tau)\\, y^{k}$"
           ],
           "answer": 1,
-          "hint": "The factor $y^{k-2}$ combines the weight-$k$ transformation with the hyperbolic measure $y^{-2}dx\\,dy$ so the whole thing is $\\Gamma$-invariant.",
           "explain": "The factor $y^{k-2}$ combines the weight-$k$ transformation with the hyperbolic measure $y^{-2}dx\\,dy$ so the whole thing is $\\Gamma$-invariant."
         },
         {
@@ -359,7 +361,6 @@
             "The measure $y^{-2}dx\\,dy$ vanishes at the cusp"
           ],
           "answer": 1,
-          "hint": "Near $i\\infty$, $|f|\\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable; Eisenstein series lack this decay and the integral diverges.",
           "explain": "Near $i\\infty$, $|f|\\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable; Eisenstein series lack this decay and the integral diverges."
         },
         {
@@ -367,7 +368,6 @@
           "q": "If $f,g$ are two distinct normalized Hecke eigenforms in $S_k$ with different eigenvalue systems, what is $\\langle f,g\\rangle$?",
           "answer": 0,
           "tol": 1e-9,
-          "hint": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal.",
           "explain": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal."
         }
       ],

@@ -14,7 +14,6 @@
             "the global sections $\\Gamma(X,\\mathcal{O}_X)$"
           ],
           "answer": 1,
-          "hint": "Yoneda says $X$ is determined by $h_X$.",
           "explain": "Yoneda says $X$ is determined by $h_X$. Restricting along $\\mathrm{Spec}\\dashv\\Gamma$ gives the functor $R\\mapsto X(R)=\\mathrm{Hom}(\\mathrm{Spec}\\,R,X)$ on commutative rings, which captures $X$ up to unique isomorphism."
         },
         {
@@ -27,7 +26,6 @@
             "always a group of order $|R|$"
           ],
           "answer": 0,
-          "hint": "For an affine $X=\\mathrm{Spec}\\,A$, $X(R)=\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$.",
           "explain": "For an affine $X=\\mathrm{Spec}\\,A$, $X(R)=\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$. A ring hom out of $\\mathbb{Z}[x,y]/(y^2-x^3-1)$ is exactly a choice of $(a,b)\\in R^2$ satisfying the relation."
         },
         {
@@ -35,7 +33,6 @@
           "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, count $|X(\\mathbb{F}_2)|$ by brute force over $a,b\\in\\{0,1\\}$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ ✓; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ ✓; $(1,1): 1 \\ne 0$.",
           "explain": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ ✓; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ ✓; $(1,1): 1 \\ne 0$. So $|X(\\mathbb{F}_2)|=2$."
         }
       ],
@@ -89,7 +86,6 @@
             "$F$ sends fields to groups"
           ],
           "answer": 1,
-          "hint": "Representability by $\\mathrm{Spec}\\,A$ means exactly that $F\\cong h_{\\mathrm{Spec}\\,A}$, i.e.",
           "explain": "Representability by $\\mathrm{Spec}\\,A$ means exactly that $F\\cong h_{\\mathrm{Spec}\\,A}$, i.e. $F(R)\\cong\\mathrm{Hom}(A,R)$ naturally in $R$. The universal element is the image of $\\mathrm{id}_A$."
         },
         {
@@ -102,7 +98,6 @@
             "$\\mathbb{Z}[[t]]$"
           ],
           "answer": 2,
-          "hint": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible).",
           "explain": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible). So $\\mathbb{G}_m=\\mathrm{Spec}\\,\\mathbb{Z}[t,t^{-1}]$."
         },
         {
@@ -110,7 +105,6 @@
           "q": "The functor $\\mathrm{GL}_n$ is represented by $\\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, t]/(t\\det(X)-1)$. How many generators (counting $t$) does this ring have for $n=2$?",
           "answer": 5,
           "tol": 0.000001,
-          "hint": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible.",
           "explain": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible. For $n=2$: $4+1=5$ generators."
         }
       ],
@@ -164,7 +158,6 @@
             "the functor is not covariant"
           ],
           "answer": 1,
-          "hint": "The automorphism $[-1]$ (and extra ones at $j=0,1728$) lets you build nontrivial families that are pointwise isomorphic to the trivial family but globally distinct.",
           "explain": "The automorphism $[-1]$ (and extra ones at $j=0,1728$) lets you build nontrivial families that are pointwise isomorphic to the trivial family but globally distinct. Passing to isomorphism classes forgets this gluing data, breaking the sheaf condition."
         },
         {
@@ -177,7 +170,6 @@
             "the category $\\mathsf{Ring}$ of rings"
           ],
           "answer": 1,
-          "hint": "An algebraic stack is (essentially) a sheaf of groupoids $\\mathrm{CRing}\\to\\mathsf{Grpd}$.",
           "explain": "An algebraic stack is (essentially) a sheaf of groupoids $\\mathrm{CRing}\\to\\mathsf{Grpd}$. Remembering automorphisms as 2-arrows restores descent, which taking isomorphism classes destroyed."
         },
         {
@@ -185,7 +177,6 @@
           "q": "For an elliptic curve $E$ over a field of characteristic $0$ with generic $j$-invariant, what is $|\\mathrm{Aut}(E)|$?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups).",
           "explain": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups)."
         }
       ],
@@ -252,7 +243,6 @@
             "any closed immersion"
           ],
           "answer": 1,
-          "hint": "The Yoneda lemma identifies $\\mathrm{Nat}(h_X,F) \\cong F(X)$ by evaluating on $\\mathrm{id}_X$.",
           "explain": "The Yoneda lemma identifies $\\mathrm{Nat}(h_X,F) \\cong F(X)$ by evaluating on $\\mathrm{id}_X$. So the identity is the universal $X$-point, and every natural transformation is recovered by pushing $\\mathrm{id}_X$ forward."
         },
         {
@@ -260,7 +250,6 @@
           "q": "Let $F(R) = R \\times R$ as a set-valued functor on $\\mathrm{CRing}$. Which scheme represents $F$? Enter the integer $n$ such that $F \\cong h_{\\mathbb{A}^n}$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$.",
           "explain": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
         }
       ],
@@ -314,7 +303,6 @@
             "$X_k(R)$ is always empty when $k$ has characteristic $p$"
           ],
           "answer": 1,
-          "hint": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras.",
           "explain": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras. Equivalently $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure — pulling back along $\\mathrm{Spec}\\,R \\to \\mathrm{Spec}\\,k \\to \\mathrm{Spec}\\,\\mathbb{Z}$."
         },
         {
@@ -327,7 +315,6 @@
             "agrees with the disjoint union $X(T) \\sqcup Y(T)$"
           ],
           "answer": 0,
-          "hint": "Representable functors preserve limits.",
           "explain": "Representable functors preserve limits. So the representable functor of $X \\times_S Y$ is the pointwise fiber product of the representable functors of $X, S, Y$ — this is exactly what lets you compute base changes by solving equations over each test ring."
         },
         {
@@ -335,7 +322,6 @@
           "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\mathrm{Spec}\\,\\mathbb{Z}} \\mathrm{Spec}\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$.",
           "explain": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$. Since $2^2 = 4 \\equiv -1 \\pmod 5$ and $3^2 = 9 \\equiv -1 \\pmod 5$, there are exactly $2$ solutions."
         }
       ],

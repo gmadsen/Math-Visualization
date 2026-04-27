@@ -14,7 +14,6 @@
             "All intervals in $\\mathbb{R}$"
           ],
           "answer": 1,
-          "hint": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions.",
           "explain": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions. Open sets and intervals are not closed under complements, and finite subsets are not closed under countable unions in an infinite set."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Let $\\mu$ be a measure with $\\mu(A)=3$, $\\mu(B)=4$, and $\\mu(A\\cap B)=1$. Compute $\\mu(A\\cup B)$.",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$.",
           "explain": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$."
         },
         {
@@ -33,7 +31,6 @@
             0
           ],
           "tol": 0.000001,
-          "hint": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$.",
           "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
         }
       ],
@@ -84,7 +81,6 @@
             "$m^*(E)=\\sup\\{m(K):K\\subset E,\\ K\\text{ compact}\\}$ for every $E$"
           ],
           "answer": 1,
-          "hint": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate).",
           "explain": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate). Countable additivity fails on non-measurable sets — that is precisely what Carathéodory's criterion diagnoses."
         },
         {
@@ -97,7 +93,6 @@
             "$m^*(A\\cap E)\\le m^*(A)$"
           ],
           "answer": 1,
-          "hint": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure.",
           "explain": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure. The $\\le$ direction is free by subadditivity; the $\\ge$ direction is the substantive requirement."
         },
         {
@@ -105,7 +100,6 @@
           "q": "Compute the Lebesgue outer measure $m^*(\\mathbb{Q}\\cap[0,1])$.",
           "answer": 0,
           "tol": 0.000001,
-          "hint": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$.",
           "explain": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$. Total cover length is $\\varepsilon$, and $\\varepsilon>0$ was arbitrary, so $m^*=0$."
         }
       ],
@@ -157,7 +151,6 @@
             "depends on $x$"
           ],
           "answer": 2,
-          "hint": "Points have zero length, so every singleton has Lebesgue measure $0$.",
           "explain": "Points have zero length, so every singleton has Lebesgue measure $0$."
         },
         {
@@ -165,7 +158,6 @@
           "q": "Compute $m([2,5])$, where $m$ is Lebesgue measure on $\\mathbb{R}$.",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$.",
           "explain": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$."
         },
         {
@@ -176,7 +168,6 @@
             2
           ],
           "tol": 0.000001,
-          "hint": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$.",
           "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
         }
       ],
@@ -227,7 +218,6 @@
             "$f^{-1}(B)$ is finite"
           ],
           "answer": 1,
-          "hint": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$.",
           "explain": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$."
         },
         {
@@ -235,7 +225,6 @@
           "q": "Let $f=\\mathbf 1_{[0,2]}$ on $\\mathbb R$. What is $\\int f\\,dm$?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$.",
           "explain": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$."
         },
         {
@@ -246,7 +235,6 @@
             4
           ],
           "tol": 0.000001,
-          "hint": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$.",
           "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
         }
       ],
@@ -297,7 +285,6 @@
             "the limit of midpoint sums only"
           ],
           "answer": 1,
-          "hint": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$.",
           "explain": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$."
         },
         {
@@ -305,7 +292,6 @@
           "q": "Compute $\\int_0^1 x\\,dx$ (Lebesgue measure).",
           "answer": 0.5,
           "tol": 0.000001,
-          "hint": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$.",
           "explain": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$."
         },
         {
@@ -316,7 +302,6 @@
             0
           ],
           "tol": 0.000001,
-          "hint": "$e^{ix}=\\cos x+i\\sin x$.",
           "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
         }
       ],
@@ -367,12 +352,17 @@
             "Bounded convergence"
           ],
           "right": [
-            "$0\\le f_n\\uparrow f$ pointwise — concludes $\\int f_n\\to\\int f$ in $[0,\\infty]$.",
             "$f_n\\ge 0$ measurable, no monotonicity — concludes $\\int\\liminf f_n\\le\\liminf\\int f_n$ (one-sided).",
             "$f_n\\to f$ a.e. with $|f_n|\\le g$ for some integrable $g$ — concludes $\\int f_n\\to\\int f$.",
-            "$f_n\\to f$ a.e. on a finite-measure space with $|f_n|\\le M$ uniformly — concludes $\\int f_n\\to\\int f$."
+            "$f_n\\to f$ a.e. on a finite-measure space with $|f_n|\\le M$ uniformly — concludes $\\int f_n\\to\\int f$.",
+            "$0\\le f_n\\uparrow f$ pointwise — concludes $\\int f_n\\to\\int f$ in $[0,\\infty]$."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "MCT: monotone increasing nonneg. Fatou: just nonneg, gives one-sided $\\liminf$. DCT: integrable dominator. Bounded: uniform bound on a finite-measure space.",
           "explain": "MCT: $0\\le f_n\\uparrow f$ implies $\\int f_n\\uparrow\\int f$. Fatou: $f_n\\ge 0$ measurable gives the one-sided inequality $\\int\\liminf f_n\\le\\liminf\\int f_n$ — strict in general (e.g. travelling bumps). DCT: dominator $g\\in L^1$ controls $f_n$ pointwise. Bounded convergence: special case of DCT where the dominator is the constant $M\\cdot\\mathbf 1_X$, integrable iff $\\mu(X)<\\infty$."
         },
@@ -381,7 +371,6 @@
           "q": "Let $f_n(x)=x^n$ on $[0,1]$. Compute $\\int_0^1 f_n(x)\\,dx$ in terms of $n$ at $n=9$.",
           "answer": 0.1,
           "tol": 0.000001,
-          "hint": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$.",
           "explain": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$."
         },
         {
@@ -392,7 +381,6 @@
             1
           ],
           "tol": 0.000001,
-          "hint": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$.",
           "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
         }
       ],
@@ -444,7 +432,6 @@
             "$L^p$ is never complete"
           ],
           "answer": 1,
-          "hint": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$.",
           "explain": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$."
         },
         {
@@ -452,16 +439,26 @@
           "q": "On $[0,1]$, let $f(x)=x$. Compute $\\|f\\|_2$.",
           "answer": 0.5773502692,
           "tol": 0.001,
-          "hint": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$.",
           "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
         },
         {
-          "type": "numeric",
-          "q": "Compute $\\left|\\,1-i\\,\\right|$.",
-          "answer": 1.414213562,
-          "tol": 0.001,
-          "hint": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$.",
-          "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
+          "type": "multi-select",
+          "q": "Which of the following are true about the $L^p$ spaces $L^p(\\mathbb{R}, \\lambda)$ for $1 \\le p < \\infty$? Select all that apply.",
+          "choices": [
+            "$L^p$ is a Banach space (complete normed vector space).",
+            "Hölder's inequality $\\|fg\\|_1 \\le \\|f\\|_p \\|g\\|_q$ holds with conjugate exponents $1/p + 1/q = 1$.",
+            "Minkowski's inequality $\\|f+g\\|_p \\le \\|f\\|_p + \\|g\\|_p$ holds for all $p \\ge 1$.",
+            "$L^2$ is a Hilbert space; $L^p$ for $p \\ne 2$ is not.",
+            "$L^p$ is finite-dimensional whenever the underlying measure space is $\\sigma$-finite."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Three classical inequalities define the $L^p$ structure; only one of $\\{1,2,p\\}$ gives a Hilbert space.",
+          "explain": "Banach (Riesz–Fischer completeness), Hölder, and Minkowski are the three pillars of the $L^p$ theory. $L^2$ is the unique Hilbert space among $L^p$ — its inner product $\\langle f,g\\rangle = \\int f\\bar g$ comes from the parallelogram law, which fails for $p \\ne 2$. $L^p$ on Lebesgue measure is infinite-dimensional regardless of $\\sigma$-finiteness; finite-dimensionality requires a finite atomic measure space."
         }
       ],
       "hard": [
@@ -511,7 +508,6 @@
             "Always equal to $\\mathcal{B}(X\\times Y)$ when $X,Y$ are topological spaces"
           ],
           "answer": 1,
-          "hint": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$.",
           "explain": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$. Measurable rectangles alone aren't closed under countable operations, hence the generation step."
         },
         {
@@ -519,7 +515,6 @@
           "q": "On $[0,1]\\times[0,1]$ with Lebesgue $\\otimes$ Lebesgue, compute $(m\\otimes m)([0,0.5]\\times[0,0.4])$.",
           "answer": 0.2,
           "tol": 0.000001,
-          "hint": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$.",
           "explain": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$."
         },
         {
@@ -532,7 +527,6 @@
             "$\\mu$ takes only finite values"
           ],
           "answer": 1,
-          "hint": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$.",
           "explain": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$. Lebesgue measure on $\\mathbb{R}$ is $\\sigma$-finite ($\\mathbb{R}=\\bigcup_n[-n,n]$) but not finite."
         }
       ],
@@ -584,7 +578,6 @@
             "$f$ has compact support"
           ],
           "answer": 1,
-          "hint": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally.",
           "explain": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally. Fubini is the companion statement for complex-valued $f\\in L^1(\\mu\\otimes\\nu)$."
         },
         {
@@ -592,20 +585,26 @@
           "q": "Compute $\\int_0^1\\!\\int_0^1 xy\\,dx\\,dy$.",
           "answer": 0.25,
           "tol": 0.000001,
-          "hint": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$.",
           "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
         },
         {
           "type": "ordering",
           "q": "Arrange the standard workflow for legitimately swapping iterated integrals of a signed/complex function $f(x,y)$ on a $\\sigma$-finite product space.",
           "items": [
-            "Conclude $f\\in L^1(\\mu\\otimes\\nu)$ and apply Fubini's theorem to swap iterated integrals of $f$, knowing the two orders agree.",
-            "Verify $f$ is jointly measurable on $\\mathcal A\\otimes\\mathcal B$.",
-            "Apply Tonelli to $|f|\\ge 0$ to compute $\\int\\!\\int|f|\\,d\\mu\\,d\\nu$ as an unambiguous $[0,\\infty]$ iterated integral.",
-            "Check whether the result is finite."
+            "Verify $f$ is jointly measurable on the product $\\sigma$-algebra $\\mathcal{F} \\otimes \\mathcal{G}$.",
+            "Apply Tonelli to $|f|$: compute $\\int |f| \\, d(\\mu \\otimes \\nu)$ as the iterated integral $\\int \\int |f| \\, d\\mu \\, d\\nu$ (always well-defined for nonneg measurable).",
+            "Check the result is finite ($f \\in L^1(\\mu \\otimes \\nu)$); if infinite, neither Fubini nor the iterated form gives a meaningful equality.",
+            "Now apply Fubini to $f$: the iterated integrals $\\int \\int f \\, d\\mu \\, d\\nu$ and $\\int \\int f \\, d\\nu \\, d\\mu$ both equal $\\int f \\, d(\\mu \\otimes \\nu)$.",
+            "Conclude the two iterated integrals agree — in particular justifying the order swap."
           ],
-          "answer": [1, 2, 3, 0],
-          "hint": "Measurability first; Tonelli on $|f|$; finiteness check; only then Fubini on $f$.",
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Tonelli on $|f|$ first to verify $L^1$, then Fubini on $f$ for the equality.",
           "explain": "Standard Fubini–Tonelli workflow: (1) joint measurability is a prerequisite, (2) Tonelli applies unconditionally to $|f|$ in $[0,\\infty]$, (3) check finiteness — i.e., whether $f\\in L^1$, (4) once $f\\in L^1$, Fubini licenses the swap. Skipping the finiteness check can yield genuinely different iterated integrals (the classical $f(x,y)=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ is the cautionary tale)."
         }
       ],
@@ -657,12 +656,17 @@
             "Radon–Nikodym theorem"
           ],
           "right": [
-            "A partition $X=P\\sqcup N$ where $\\nu(E\\cap P)\\ge 0$ and $\\nu(E\\cap N)\\le 0$ for all measurable $E$.",
             "$\\nu=\\nu^+-\\nu^-$ with $\\nu^+,\\nu^-$ mutually singular positive measures.",
             "$\\nu=\\nu_a+\\nu_s$ with $\\nu_a\\ll\\mu$ and $\\nu_s\\perp\\mu$ on a $\\sigma$-finite space.",
-            "When $\\nu\\ll\\mu$ and $\\mu$ is $\\sigma$-finite, a density $f=d\\nu/d\\mu$ with $\\nu(E)=\\int_E f\\,d\\mu$."
+            "When $\\nu\\ll\\mu$ and $\\mu$ is $\\sigma$-finite, a density $f=d\\nu/d\\mu$ with $\\nu(E)=\\int_E f\\,d\\mu$.",
+            "A partition $X=P\\sqcup N$ where $\\nu(E\\cap P)\\ge 0$ and $\\nu(E\\cap N)\\le 0$ for all measurable $E$."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Hahn = positive/negative set partition; Jordan = $\\pm$ split into singular positive measures; Lebesgue = absolutely continuous + singular; Radon–Nikodym = density.",
           "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set $P$ and a negative set $N$. Jordan defines $\\nu^+(E)=\\nu(E\\cap P)$, $\\nu^-(E)=-\\nu(E\\cap N)$, mutually singular positive measures with $\\nu=\\nu^+-\\nu^-$ and $|\\nu|=\\nu^++\\nu^-$. Lebesgue decomposes any $\\sigma$-finite signed $\\nu$ relative to $\\mu$ as $\\nu_a+\\nu_s$ ($\\nu_a\\ll\\mu$, $\\nu_s\\perp\\mu$). Radon–Nikodym then gives $\\nu_a$ a density $d\\nu_a/d\\mu$."
         },
@@ -676,7 +680,6 @@
             "$\\nu$ is a probability measure"
           ],
           "answer": 0,
-          "hint": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null.",
           "explain": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null. Radon–Nikodym gives a density $f=d\\nu/d\\mu\\ge 0$ with $\\nu(E)=\\int_E f\\,d\\mu$ when $\\mu$ is $\\sigma$-finite and $\\nu\\ll\\mu$."
         },
         {
@@ -684,7 +687,6 @@
           "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=2x\\,dm$. Compute $\\nu([0,1])$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$.",
           "explain": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$. The density $f(x)=2x$ is the Radon–Nikodym derivative $d\\nu/dm$."
         }
       ],
@@ -735,7 +737,6 @@
             "Represented by an $L^\\infty$ function"
           ],
           "answer": 1,
-          "hint": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets).",
           "explain": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets). The bijection is the bridge from functional analysis to measure theory."
         },
         {
@@ -743,7 +744,6 @@
           "q": "On $X=[0,1]$, let $\\Lambda(f)=f(1/3)$ for $f\\in C([0,1])$. What is $\\mu([0,1/2])$ for the representing measure $\\mu$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$.",
           "explain": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$. Since $1/3\\in[0,1/2]$, $\\mu([0,1/2])=1$."
         },
         {
@@ -756,7 +756,6 @@
             "$\\sigma$-finiteness"
           ],
           "answer": 1,
-          "hint": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$.",
           "explain": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$. These conditions pin $\\mu$ down uniquely."
         }
       ],
@@ -808,7 +807,6 @@
             "Always zero for fractals"
           ],
           "answer": 0,
-          "hint": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$.",
           "explain": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$. This limit is monotone decreasing in $\\delta$, hence well-defined in $[0,\\infty]$."
         },
         {
@@ -816,7 +814,6 @@
           "q": "Compute the Hausdorff dimension of the middle-thirds Cantor set $C$. Report as a decimal to 3 places. (Answer: $\\log 2/\\log 3$.)",
           "answer": 0.6309297536,
           "tol": 0.001,
-          "hint": "$C$ is self-similar with two similarities of ratio $1/3$.",
           "explain": "$C$ is self-similar with two similarities of ratio $1/3$. The Moran equation $2\\cdot(1/3)^s=1$ gives $s=\\log 2/\\log 3\\approx 0.6309$."
         },
         {
@@ -829,7 +826,6 @@
             "The Lebesgue measure of $E$"
           ],
           "answer": 0,
-          "hint": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$.",
           "explain": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$. At $s^*$ itself, $\\mathcal{H}^{s^*}(E)$ may take any value in $[0,\\infty]$."
         }
       ],

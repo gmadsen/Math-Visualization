@@ -128,7 +128,6 @@
             "Infinitely many."
           ],
           "answer": 0,
-          "hint": "$H^2(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\mathbb{Z}/2$.",
           "explain": "$H^2(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The zero class gives $V_4=\\mathbb{Z}/2\\times\\mathbb{Z}/2$; the nontrivial class gives $\\mathbb{Z}/4$."
         }
       ]

@@ -9,7 +9,6 @@
           "q": "What is the radius of convergence of $\\sum_{n\\ge 0} z^n/(2^n\\,n)$? (Hint: root test or ratio test.)",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$|c_n|^{1/n} = (1/(2^n n))^{1/n} = (1/2)\\cdot n^{-1/n} \\to 1/2$, so $R = 1/\\limsup|c_n|^{1/n} = 2$.",
           "explain": "$|c_n|^{1/n} = (1/(2^n n))^{1/n} = (1/2)\\cdot n^{-1/n} \\to 1/2$, so $R = 1/\\limsup|c_n|^{1/n} = 2$."
         },
         {
@@ -22,7 +21,6 @@
             "nothing; countable agreement is not enough"
           ],
           "answer": 2,
-          "hint": "The identity theorem: if a holomorphic function on a connected open set vanishes on a set with an accumulation point in $U$, it vanishes identically.",
           "explain": "The identity theorem: if a holomorphic function on a connected open set vanishes on a set with an accumulation point in $U$, it vanishes identically. Apply to $f-g$."
         },
         {
@@ -35,7 +33,6 @@
             "a matter of convention only"
           ],
           "answer": 1,
-          "hint": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem—hence uniqueness.",
           "explain": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem—hence uniqueness."
         }
       ],
@@ -89,7 +86,6 @@
             "$2\\pi i$"
           ],
           "answer": 1,
-          "hint": "$\\log z = \\ln|z| + i\\arg z$; along the upper arc $\\arg$ moves continuously from $0$ to $\\pi$.",
           "explain": "$\\log z = \\ln|z| + i\\arg z$; along the upper arc $\\arg$ moves continuously from $0$ to $\\pi$. So you arrive at $\\ln 1 + i\\pi = i\\pi$."
         },
         {
@@ -110,7 +106,6 @@
           "q": "Starting from the principal branch of $\\sqrt{z}$ near $z=1$, continue along the circle $|z|=1$ once counter-clockwise back to $z=1$. The new value at $1$ is $(-1)^k$ for $k = $?",
           "answer": 1,
           "tol": 0.0001,
-          "hint": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$.",
           "explain": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$."
         }
       ],
@@ -164,7 +159,6 @@
             "$U$ has trivial homology in every degree"
           ],
           "answer": 0,
-          "hint": "Simply connected means any two paths with the same endpoints are homotopic; the continuation is a locally constant function of the homotopy class of the path.",
           "explain": "Simply connected means any two paths with the same endpoints are homotopic; the continuation is a locally constant function of the homotopy class of the path."
         },
         {
@@ -172,7 +166,6 @@
           "q": "Continue the principal branch of $\\log z$ along the loop $\\gamma(t)=e^{2\\pi i t}$, $t\\in[0,1]$. By how much does $\\log z$ change after one loop? Enter the imaginary part divided by $\\pi$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$\\log$ picks up $2\\pi i$ per full loop around $0$; imaginary part / $\\pi = 2$.",
           "explain": "$\\log$ picks up $2\\pi i$ per full loop around $0$; imaginary part / $\\pi = 2$. This is the monodromy generator of $\\pi_1(\\mathbb{C}^*)\\cong\\mathbb{Z}$."
         },
         {
@@ -185,7 +178,6 @@
             "because of analytic continuation around $z=-1$"
           ],
           "answer": 0,
-          "hint": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued.",
           "explain": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued. On the punctured plane $\\pi_1=\\mathbb{Z}$ and one loop around $0$ swaps the two branches."
         }
       ],
@@ -239,7 +231,6 @@
             "$-f(\\bar z)$"
           ],
           "answer": 1,
-          "hint": "Define $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$.",
           "explain": "Define $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$. This is holomorphic there (the composition of two antiholomorphic maps is holomorphic) and matches $f$ on the real boundary because $f$ is real there."
         },
         {
@@ -252,7 +243,6 @@
             "$f$ purely imaginary on a real segment"
           ],
           "answer": 2,
-          "hint": "Schwarz reflection needs continuous boundary values mapping onto a real-analytic arc (line, circle, or general analytic curve after a Möbius twist).",
           "explain": "Schwarz reflection needs continuous boundary values mapping onto a real-analytic arc (line, circle, or general analytic curve after a Möbius twist). Essential singularities do not extend continuously to the boundary, so the principle fails."
         },
         {
@@ -260,7 +250,6 @@
           "q": "If $f$ is holomorphic on $D^+$, continuous on its closure, and takes real values on $(-1,1)$, and $f(i/2)=3+4i$, then the extension satisfies $\\tilde f(-i/2) = a+bi$ with $b = $?",
           "answer": -4,
           "tol": 0.000001,
-          "hint": "$\\tilde f(z) = \\overline{f(\\bar z)}$.",
           "explain": "$\\tilde f(z) = \\overline{f(\\bar z)}$. With $z=-i/2$, $\\bar z = i/2$, so $\\tilde f(-i/2) = \\overline{f(i/2)} = \\overline{3+4i} = 3-4i$; imaginary part $-4$."
         }
       ],
@@ -314,7 +303,6 @@
             "applying the residue theorem to the Mellin kernel"
           ],
           "answer": 1,
-          "hint": "Split $\\int_0^1 + \\int_1^\\infty$, change variable $x\\to 1/x$ on $(0,1)$, and use $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$.",
           "explain": "Split $\\int_0^1 + \\int_1^\\infty$, change variable $x\\to 1/x$ on $(0,1)$, and use $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$. The $\\int_1^\\infty$ piece converges for ALL $s$, and the explicit $1/s(s-1)$ poles show up as boundary terms."
         },
         {
@@ -327,7 +315,6 @@
             "$\\xi(s)\\xi(1-s) = 1$"
           ],
           "answer": 1,
-          "hint": "The Riemann integral is visibly symmetric under $s\\mapsto 1-s$ after the theta-transformation step; the factor $s(s-1)$ clears the two poles.",
           "explain": "The Riemann integral is visibly symmetric under $s\\mapsto 1-s$ after the theta-transformation step; the factor $s(s-1)$ clears the two poles. Result: $\\xi(s)=\\xi(1-s)$."
         },
         {
@@ -335,7 +322,6 @@
           "q": "Use $\\xi(s)=\\xi(1-s)$ and $\\zeta(2)=\\pi^2/6$ to compute $\\zeta(-1)$. (Hint: $\\Gamma(1/2)=\\sqrt\\pi$, $\\Gamma(-1/2)=-2\\sqrt\\pi$.) Enter a decimal.",
           "answer": -0.0833333333,
           "tol": 0.0001,
-          "hint": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$.",
           "explain": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$. Plugging in, $\\pi^{-1}\\cdot\\pi^2/6 = \\pi^{1/2}\\cdot(-2\\sqrt\\pi)\\zeta(-1) = -2\\pi\\,\\zeta(-1)$, so $\\zeta(-1) = -\\pi/(6)\\cdot 1/(2\\pi) = -1/12$."
         }
       ],

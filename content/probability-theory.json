@@ -1052,7 +1052,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probabilistic-method.html#concentration\">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>\n    <div><a href=\"./probability-theory.html#brownian\">Probability theory</a> · Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probabilistic-method.html#concentration\">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>\n    <div><a href=\"./probability-theory.html#brownian\">Probability theory</a> · Brownian motion</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#discrete-martingales\">Stochastic processes and martingales</a> · Discrete-time martingales</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#doob-decomposition\">Stochastic processes and martingales</a> · Doob decomposition and quadratic variation</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#convergence\">Stochastic processes and martingales</a> · Martingale convergence theorem</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#optional-stopping\">Stochastic processes and martingales</a> · Optional stopping theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

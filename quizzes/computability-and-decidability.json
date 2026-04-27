@@ -14,7 +14,6 @@
             "(start state, accept state, reject state)"
           ],
           "answer": 1,
-          "hint": "A snapshot of a running TM is exactly (current state, full tape contents, head index).",
           "explain": "A snapshot of a running TM is exactly (current state, full tape contents, head index). The transition function and the alphabets are part of the machine's static description, not its runtime configuration."
         },
         {
@@ -27,7 +26,6 @@
             "They are restricted to deterministic transitions."
           ],
           "answer": 1,
-          "hint": "Encode $k$ tapes as $k$ tracks of one tape, plus marker symbols for each head.",
           "explain": "Encode $k$ tapes as $k$ tracks of one tape, plus marker symbols for each head. One step of the multitape machine becomes a sweep across the simulated tape — quadratic overhead, but still computable."
         },
         {
@@ -35,7 +33,6 @@
           "q": "A binary-alphabet TM has $|Q|=4$ states (including accept and reject) and tape alphabet $\\{0,1,\\sqcup\\}$. How many distinct $(q,a)$ input pairs does its transition function $\\delta$ need to specify?",
           "answer": 12,
           "tol": 0,
-          "hint": "$|Q|\\times|\\Gamma| = 4\\times 3 = 12$.",
           "explain": "$|Q|\\times|\\Gamma| = 4\\times 3 = 12$. Each pair $(q,a)$ gets one row in the transition table."
         }
       ]
@@ -53,7 +50,6 @@
             "Projection"
           ],
           "answer": 2,
-          "hint": "Composition, primitive recursion, and the basic functions yield the primitive-recursive class — every member is total.",
           "explain": "Composition, primitive recursion, and the basic functions yield the primitive-recursive class — every member is total. Adding the $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$, possibly undefined) produces partiality and matches Turing-computability."
         },
         {
@@ -66,7 +62,6 @@
             "Ackermann's function is not Turing-computable."
           ],
           "answer": 0,
-          "hint": "Ackermann diagonalises against any fixed level of nested recursion, so its growth rate dominates every primitive-recursive function.",
           "explain": "Ackermann diagonalises against any fixed level of nested recursion, so its growth rate dominates every primitive-recursive function. It is still computable — by a Turing machine, or equivalently a $\\mu$-recursive scheme — confirming the proper inclusion PR ⊊ partial-recursive."
         },
         {
@@ -74,7 +69,6 @@
           "q": "Define $f$ by primitive recursion: $f(0)=2$, $f(n+1)=f(n)+3$. Compute $f(4)$.",
           "answer": 14,
           "tol": 0,
-          "hint": "$f$ is the arithmetic progression $2,5,8,11,14,\\ldots$, so $f(4)=2+4\\cdot 3=14$.",
           "explain": "$f$ is the arithmetic progression $2,5,8,11,14,\\ldots$, so $f(4)=2+4\\cdot 3=14$. Primitive recursion is exactly this kind of step-by-step build-up from a base case."
         }
       ]
@@ -92,7 +86,6 @@
             "Counts the states of $M$ and halts iff that count is even."
           ],
           "answer": 1,
-          "hint": "If $h(\\langle M,\\langle M\\rangle\\rangle)=$ \"halts\", $D$ enters an infinite loop; otherwise $D$ halts.",
           "explain": "If $h(\\langle M,\\langle M\\rangle\\rangle)=$ \"halts\", $D$ enters an infinite loop; otherwise $D$ halts. Running $D$ on its own code yields the contradiction \"$D$ halts iff $D$ doesn't halt\"."
         },
         {
@@ -105,7 +98,6 @@
             "It ensures every TM halts on a countable input."
           ],
           "answer": 1,
-          "hint": "Each TM has a finite description, so the set of TMs is countable.",
           "explain": "Each TM has a finite description, so the set of TMs is countable. Cantor's diagonal construction of $D$ depends on enumerating the candidates and disagreeing with each at one diagonal coordinate."
         },
         {
@@ -118,7 +110,6 @@
             "Deciding whether the input length of a TM is even."
           ],
           "answer": 2,
-          "hint": "TM-equivalence is undecidable — Rice's theorem and a direct halting reduction both show it.",
           "explain": "TM-equivalence is undecidable — Rice's theorem and a direct halting reduction both show it. The other three options are decidable: state count is computable, DFA emptiness is graph reachability, parity of input length is trivial."
         }
       ]
@@ -136,7 +127,6 @@
             "$A$ is the language of some non-deterministic TM."
           ],
           "answer": 1,
-          "hint": "If $A$ and $\\mathbb{N}\\setminus A$ both have semi-deciders, run them in parallel — exactly one halts on each input, giving a decider for $A$.",
           "explain": "If $A$ and $\\mathbb{N}\\setminus A$ both have semi-deciders, run them in parallel — exactly one halts on each input, giving a decider for $A$. Conversely a decider trivially yields semi-deciders for both."
         },
         {
@@ -149,7 +139,6 @@
             "Co-r.e. but not r.e."
           ],
           "answer": 1,
-          "hint": "Simulating $M$ on $w$ is a semi-decider for $H$ (halt iff $M$ halts), so $H$ is r.e.",
           "explain": "Simulating $M$ on $w$ is a semi-decider for $H$ (halt iff $M$ halts), so $H$ is r.e. The diagonal proof rules out a decider, so $H$ is not recursive. Its complement is not r.e. — that's a separate diagonal."
         },
         {
@@ -162,7 +151,6 @@
             "The set of even natural numbers."
           ],
           "answer": 2,
-          "hint": "Dovetail $M$ on $0,1,2,\\ldots$; if any branch accepts, halt.",
           "explain": "Dovetail $M$ on $0,1,2,\\ldots$; if any branch accepts, halt. That's a semi-decider. By Rice's theorem the property is undecidable, so it is r.e. but not recursive. The other three are recursive (decided by inspecting the description or input directly)."
         }
       ]
@@ -180,7 +168,6 @@
             "Every TM for $B$ also decides $A$."
           ],
           "answer": 1,
-          "hint": "Many-one reduction wraps each instance of $A$ as an instance of $B$ via a total computable map $f$.",
           "explain": "Many-one reduction wraps each instance of $A$ as an instance of $B$ via a total computable map $f$. A decider for $B$ then composes with $f$ to decide $A$ — so undecidability of $A$ propagates upward to $B$."
         },
         {
@@ -193,7 +180,6 @@
             "No TM can simulate another."
           ],
           "answer": 1,
-          "hint": "Rice rules out semantic decidability — anything that depends only on $L(M)$, that is non-trivial (some TM has it, some doesn't), is undecidable.",
           "explain": "Rice rules out semantic decidability — anything that depends only on $L(M)$, that is non-trivial (some TM has it, some doesn't), is undecidable. Syntactic properties of the description (\"has 7 states\") are unaffected."
         },
         {
@@ -206,7 +192,6 @@
             "$B$ is r.e. but not recursive."
           ],
           "answer": 1,
-          "hint": "Reductions transfer hardness upward.",
           "explain": "Reductions transfer hardness upward. If $B$ were decidable, composition with the reduction would decide halting — a contradiction. We can't conclude anything sharper without more information about $B$."
         }
       ]
@@ -224,7 +209,6 @@
             "Every TM has a Gödel number, so every theorem is provable."
           ],
           "answer": 1,
-          "hint": "\"$M$ halts on $w$\" is $\\Sigma_1$, so a complete sound recursive $T$ would let us search for proofs of either it or its negation, deciding halting.",
           "explain": "\"$M$ halts on $w$\" is $\\Sigma_1$, so a complete sound recursive $T$ would let us search for proofs of either it or its negation, deciding halting. Halting is undecidable, hence $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable."
         },
         {
@@ -237,7 +221,6 @@
             "It eliminates the need for Gödel numbering."
           ],
           "answer": 0,
-          "hint": "Gödel's original proof needed $\\omega$-consistency; Rosser's modified self-referential sentence (\"for every proof of me there is a shorter refutation\") only needs $T$ to be consistent.",
           "explain": "Gödel's original proof needed $\\omega$-consistency; Rosser's modified self-referential sentence (\"for every proof of me there is a shorter refutation\") only needs $T$ to be consistent."
         },
         {
@@ -250,7 +233,6 @@
             "Halting is provable in PA."
           ],
           "answer": 1,
-          "hint": "Formalise the first-theorem proof inside $T$: from $\\mathrm{Con}(T)$, $T$ derives the unprovability of its Gödel sentence $G$, hence $G$ itself — contradicting $T\\not\\vdash G$.",
           "explain": "Formalise the first-theorem proof inside $T$: from $\\mathrm{Con}(T)$, $T$ derives the unprovability of its Gödel sentence $G$, hence $G$ itself — contradicting $T\\not\\vdash G$. So $T\\not\\vdash\\mathrm{Con}(T)$."
         }
       ]

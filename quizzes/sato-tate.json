@@ -9,7 +9,6 @@
           "q": "For $E/\\mathbb{Q}$ of good reduction at $p = 11$, suppose $a_{11} = 4$. Compute $\\theta_{11}$ in radians (principal value in $[0,\\pi]$), rounded to 3 decimals.",
           "answer": 0.928,
           "tol": 0.01,
-          "hint": "$a_p = 2\\sqrt{p}\\cos\\theta_p$ gives $\\cos\\theta_{11} = 4/(2\\sqrt{11}) = 2/\\sqrt{11} \\approx 0.6030$, so $\\theta_{11} = \\arccos(0.6030) \\approx 0.9281$.",
           "explain": "$a_p = 2\\sqrt{p}\\cos\\theta_p$ gives $\\cos\\theta_{11} = 4/(2\\sqrt{11}) = 2/\\sqrt{11} \\approx 0.6030$, so $\\theta_{11} = \\arccos(0.6030) \\approx 0.9281$."
         },
         {
@@ -22,7 +21,6 @@
             "$\\theta_p$ is irrational"
           ],
           "answer": 1,
-          "hint": "Supersingular means $a_p = 0$, i.e.",
           "explain": "Supersingular means $a_p = 0$, i.e. $\\cos\\theta_p = 0$, i.e. $\\theta_p = \\pi/2$. The eigenvalues are then $\\pm i\\sqrt{p}$."
         },
         {
@@ -30,7 +28,6 @@
           "q": "The Hasse bound $|a_p| \\le 2\\sqrt{p}$ forces $\\theta_p$ to lie in which interval? Enter the length of that interval.",
           "answer": 3.14159,
           "tol": 0.01,
-          "hint": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$.",
           "explain": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$."
         }
       ],
@@ -94,7 +91,6 @@
             "Dirichlet characters"
           ],
           "answer": 0,
-          "hint": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$.",
           "explain": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$. Equidistribution of $\\theta_p$ is equivalent to $\\tfrac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$, the content of Sato–Tate."
         },
         {
@@ -102,7 +98,6 @@
           "q": "Compute $\\int_0^\\pi \\chi_1(\\theta)\\,d\\mu_{ST}(\\theta)$ where $\\chi_1(\\theta)=\\sin(2\\theta)/\\sin\\theta=2\\cos\\theta$ and $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
           "answer": 0,
           "tol": 0.000001,
-          "hint": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$).",
           "explain": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$). This is orthogonality of $\\chi_1$ to the trivial representation on $\\mathrm{SU}(2)$."
         }
       ],
@@ -154,7 +149,6 @@
             "$\\tfrac{1}{\\pi}\\sin\\theta\\,d\\theta$"
           ],
           "answer": 1,
-          "hint": "The conjugacy measure on $\\mathrm{SU}(2)$ pushed down to $[0,\\pi]$ is $(2/\\pi)\\sin^2\\theta\\,d\\theta$, integrating to $1$.",
           "explain": "The conjugacy measure on $\\mathrm{SU}(2)$ pushed down to $[0,\\pi]$ is $(2/\\pi)\\sin^2\\theta\\,d\\theta$, integrating to $1$."
         },
         {
@@ -162,7 +156,6 @@
           "q": "Under the Sato–Tate measure, compute $\\Pr\\!\\left[0 \\le \\theta \\le \\tfrac{\\pi}{2}\\right]$.",
           "answer": 0.5,
           "tol": 0.01,
-          "hint": "$\\int_0^{\\pi/2}\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\cdot\\tfrac{\\pi}{4} = \\tfrac12$.",
           "explain": "$\\int_0^{\\pi/2}\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\cdot\\tfrac{\\pi}{4} = \\tfrac12$. The density is symmetric about $\\theta = \\pi/2$."
         },
         {
@@ -175,7 +168,6 @@
             "$a_p$ is uniformly distributed in $[-2\\sqrt{p},2\\sqrt{p}]$"
           ],
           "answer": 1,
-          "hint": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$.",
           "explain": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$."
         }
       ],
@@ -239,7 +231,6 @@
             "a finite subgroup"
           ],
           "answer": 0,
-          "hint": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group.",
           "explain": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group. CM: the Galois image sits inside a non-split torus, so the Sato–Tate group is the normalizer $N(T)$; the two cosets of $T$ in $N(T)$ are the split and non-split (supersingular) primes."
         },
         {
@@ -247,7 +238,6 @@
           "q": "For a CM curve, the density of supersingular primes is $1/2$. Given $\\pi(10^6)=78{,}498$, estimate how many of the first $\\pi(10^6)$ primes would be supersingular for a CM curve with good reduction everywhere.",
           "answer": 39249,
           "tol": 100,
-          "hint": "Half of $78498$ is $39249$.",
           "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ — Chebotarev with error term — so any count within a few hundred is consistent with the CM equidistribution law."
         }
       ],
@@ -299,7 +289,6 @@
             "$(1 - \\alpha_p^n p^{-s})^{-1}(1 - \\beta_p^n p^{-s})^{-1}$"
           ],
           "answer": 0,
-          "hint": "$\\mathrm{Sym}^n$ of the 2-dim Frobenius rep has eigenvalues $\\alpha_p^{n-k}\\beta_p^k$ for $k=0,\\ldots,n$, giving $n+1$ local inverse-linear factors.",
           "explain": "$\\mathrm{Sym}^n$ of the 2-dim Frobenius rep has eigenvalues $\\alpha_p^{n-k}\\beta_p^k$ for $k=0,\\ldots,n$, giving $n+1$ local inverse-linear factors."
         },
         {
@@ -307,7 +296,6 @@
           "q": "If $\\theta_p = \\pi/3$ (so $\\alpha_p = \\sqrt{p}\\,e^{i\\pi/3}$), compute $\\alpha_p^2 + \\alpha_p\\beta_p + \\beta_p^2$ divided by $p$. (This is the trace of $\\mathrm{Sym}^2$ Frobenius divided by $p$.)",
           "answer": 2,
           "tol": 0.01,
-          "hint": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$.",
           "explain": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$. Sum = $4p\\cos^2\\theta_p - p$. Dividing by $p$: $4\\cos^2(\\pi/3) - 1 = 4\\cdot\\tfrac14 - 1 = 0$ … plus $\\alpha\\beta/p = 1$, giving $0 + 1 + 1 = 2$. (Equivalently: $\\sum e^{i(2-2k)\\theta_p} = U_2(\\cos\\theta_p) = 4\\cos^2\\theta_p - 1 + 1 = 2$ at $\\theta = \\pi/3$.)"
         },
         {

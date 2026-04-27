@@ -13,7 +13,10 @@
             "$\\mathbb{G}_a = \\mathrm{Spec}\\,\\mathbb{Z}[t]$ with $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$",
             "$\\mathbb{P}^1 = \\mathrm{Proj}\\,\\mathbb{Z}[x_0, x_1]$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "$\\mathrm{GL}_n$ and $\\mathbb{G}_a$ are group schemes (one comes with matrix multiplication, the other with addition). The bare $\\mathbb{A}^1$ without designated $(m, e, \\iota)$ is just a scheme — same underlying scheme as $\\mathbb{G}_a$ but the group structure is part of the data, not implicit. $\\mathbb{P}^1$ admits no group-scheme structure (it's a non-trivial projective variety; the only connected projective group schemes are abelian varieties, and $\\mathbb{P}^1$ has genus 0 not 1).",
           "hint": "A group scheme is a scheme equipped with $(m, e, \\iota)$, not just a scheme."
         },
@@ -65,7 +68,10 @@
             "$\\alpha_p$",
             "$\\mu_n$ for $\\gcd(n,p) = 1$"
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
           "explain": "Étale over $\\bar{\\mathbb{F}_p}$ ⇔ no $\\bar{\\mathbb{F}_p}$-multiplicity, i.e. the defining polynomial is separable. $\\mu_n$ is étale iff $n$ is invertible in $k$, so for $\\gcd(n,p) = 1$. The constant group scheme $\\mathbb{Z}/n$ is always étale. $\\mu_p$ has $t^p - 1 = (t-1)^p$ — connected, infinitesimal. $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$ is purely connected/infinitesimal.",
           "hint": "Étale ⇔ separable defining polynomial, which fails when char divides the multiplicity."
         },
@@ -97,12 +103,17 @@
             "$t \\otimes 1 + 1 \\otimes t$ (in $k[t]/(t^p)$, char $p$)"
           ],
           "right": [
-            "$\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$",
             "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$",
             "$\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n-1)$",
-            "$\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$"
+            "$\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$",
+            "$\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "explain": "$\\mathbb{G}_m$ and $\\mu_n$ both have $\\Delta(t) = t \\otimes t$ — they encode the same multiplication law on units, just with different relations on $t$. $\\mathbb{G}_a$ and $\\alpha_p$ both have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$ — additive comultiplication, with $\\alpha_p$ adding the relation $t^p = 0$.",
           "hint": "Multiplicative groups have $\\Delta(t) = t \\otimes t$; additive groups have $\\Delta(t) = t \\otimes 1 + 1 \\otimes t$."
         },
@@ -200,7 +211,10 @@
             "Every finite étale group scheme over $k$ is trivial",
             "In char 0, every finite group scheme is étale"
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
           "explain": "(0) is the connected/étale decomposition over a perfect field. (1) is FALSE — $\\alpha_p$ and $\\mu_p$ are non-isomorphic: their Lie algebras are both $k$ (1-dim) but their Cartier duals differ ($\\alpha_p^\\vee = \\alpha_p$, $\\mu_p^\\vee = \\mathbb{Z}/p$). (2) is FALSE — finite étale group schemes over $k$ correspond to finite groups with continuous Galois action; lots of them. (3) is TRUE: in char 0, every finite scheme is reduced (no non-trivial nilpotents), hence étale.",
           "hint": "$\\alpha_p$ and $\\mu_p$ are both purely infinitesimal — but are they the same?"
         }

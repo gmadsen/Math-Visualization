@@ -14,7 +14,6 @@
             "$t_{\\alpha\\beta}+t_{\\alpha\\gamma}+t_{\\beta\\gamma}=0$"
           ],
           "answer": 1,
-          "hint": "The alternating Čech differential gives $(d t)_{\\alpha\\beta\\gamma}=t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}$; setting it to zero is the cocycle condition on triple overlaps.",
           "explain": "The alternating Čech differential gives $(d t)_{\\alpha\\beta\\gamma}=t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}$; setting it to zero is the cocycle condition on triple overlaps."
         },
         {
@@ -27,7 +26,6 @@
             "Because injective sheaves have trivial $H^0$."
           ],
           "answer": 1,
-          "hint": "A $0$-cochain is $\\{s_\\alpha\\in\\mathcal{F}(U_\\alpha)\\}$; $(ds)_{\\alpha\\beta}=s_\\beta-s_\\alpha=0$ forces the $s_\\alpha$ to glue by the sheaf axiom, yielding exactly a global section.",
           "explain": "A $0$-cochain is $\\{s_\\alpha\\in\\mathcal{F}(U_\\alpha)\\}$; $(ds)_{\\alpha\\beta}=s_\\beta-s_\\alpha=0$ forces the $s_\\alpha$ to glue by the sheaf axiom, yielding exactly a global section."
         },
         {
@@ -35,7 +33,6 @@
           "q": "For the circle $S^1$ with the constant sheaf $\\underline{\\mathbb{Z}}$ and a standard good cover by two overlapping arcs whose intersection has two connected components, compute $\\dim_{\\mathbb{Q}} (\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\otimes\\mathbb{Q})$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional.",
           "explain": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional."
         }
       ],
@@ -89,7 +86,6 @@
             "$\\mathcal{F}$ is a constant sheaf"
           ],
           "answer": 1,
-          "hint": "The Leray condition asks that $\\mathcal{F}$ be acyclic on every finite intersection of the cover.",
           "explain": "The Leray condition asks that $\\mathcal{F}$ be acyclic on every finite intersection of the cover. When satisfied, the canonical map $\\check{H}^p(\\mathcal{U},\\mathcal{F}) \\to H^p(X,\\mathcal{F})$ is an isomorphism for every $p$."
         },
         {
@@ -102,7 +98,6 @@
             "The projection formula"
           ],
           "answer": 1,
-          "hint": "Serre proved that affine schemes have no higher quasi-coherent cohomology, so every finite intersection of affine opens (also affine when the scheme is separated) is $\\mathcal{F}$-acyclic.",
           "explain": "Serre proved that affine schemes have no higher quasi-coherent cohomology, so every finite intersection of affine opens (also affine when the scheme is separated) is $\\mathcal{F}$-acyclic. Hence an affine open cover is Leray."
         },
         {
@@ -110,7 +105,6 @@
           "q": "The standard affine cover of $\\mathbb{P}^2$ has three charts $U_0,U_1,U_2$. How many terms does the resulting Čech complex $\\check C^0 \\to \\check C^1 \\to \\check C^2$ have in $\\check C^1$?",
           "answer": 3,
           "tol": 0,
-          "hint": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$.",
           "explain": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$. (Triple intersections contribute $\\binom{3}{3}=1$ term in $\\check C^2$.)"
         }
       ],
@@ -164,7 +158,6 @@
             "$\\delta$ goes between $\\mathcal{F}$ and $\\mathcal{F}''$ at the same degree"
           ],
           "answer": 1,
-          "hint": "The connecting map raises degree by one and jumps from the quotient sheaf back to the subsheaf: $\\delta\\colon H^p(\\mathcal{F}'') \\to H^{p+1}(\\mathcal{F}')$.",
           "explain": "The connecting map raises degree by one and jumps from the quotient sheaf back to the subsheaf: $\\delta\\colon H^p(\\mathcal{F}'') \\to H^{p+1}(\\mathcal{F}')$. In Čech language it lifts a local section of $\\mathcal{F}''$ to one of $\\mathcal{F}$; the failure of the lifts to glue is a class in $H^{p+1}(\\mathcal{F}')$."
         },
         {
@@ -177,7 +170,6 @@
             "$2\\pi i$ as an element of $H^0(\\mathcal{O})$"
           ],
           "answer": 1,
-          "hint": "On $\\mathbb{C}^\\times$ the global section $z$ has no single-valued logarithm, so its image under $\\delta$ is non-trivial.",
           "explain": "On $\\mathbb{C}^\\times$ the global section $z$ has no single-valued logarithm, so its image under $\\delta$ is non-trivial. Concretely the class is $1\\in H^1(\\mathbb{C}^\\times,\\underline{\\mathbb{Z}}) = \\mathbb{Z}$, the winding-number generator."
         },
         {
@@ -185,7 +177,6 @@
           "q": "From $0\\to\\mathcal{O}_{\\mathbb{P}^1}(-1)\\to\\mathcal{O}_{\\mathbb{P}^1}\\to\\mathcal{O}_p\\to 0$ (skyscraper at a point) and the vanishing $H^i(\\mathbb{P}^1,\\mathcal{O}_{\\mathbb{P}^1}(-1))=0$ for all $i$, deduce $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}_p)$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$.",
           "explain": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$. Since $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}) = 1$, we get $\\dim H^0(\\mathcal{O}_p) = 1$ — the stalk at $p$."
         }
       ],
@@ -239,7 +230,6 @@
             "Failure of additivity"
           ],
           "answer": 2,
-          "hint": "$\\Gamma(X,-)$ is left exact but not right exact; $R^i\\Gamma$ measures exactly the right-exactness defect via a long exact sequence.",
           "explain": "$\\Gamma(X,-)$ is left exact but not right exact; $R^i\\Gamma$ measures exactly the right-exactness defect via a long exact sequence."
         },
         {
@@ -252,7 +242,6 @@
             "arbitrary locally constant sheaves"
           ],
           "answer": 3,
-          "hint": "Injective, flabby, and soft (on paracompact Hausdorff) sheaves are all $\\Gamma$-acyclic.",
           "explain": "Injective, flabby, and soft (on paracompact Hausdorff) sheaves are all $\\Gamma$-acyclic. A locally constant sheaf like $\\underline{\\mathbb{Z}}$ on $S^1$ has nonzero $H^1$, so it is not acyclic in general."
         },
         {
@@ -260,7 +249,6 @@
           "q": "On $\\mathbb{P}^1_k$ the line bundle $\\mathcal{O}(-5)$ has $h^0=0$. Using $\\dim_k H^1(\\mathbb{P}^1,\\mathcal{O}(n))=\\max(-n-1,0)$, compute $\\dim_k H^1(\\mathbb{P}^1,\\mathcal{O}(-5))$.",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$\\max(-(-5)-1,0)=\\max(4,0)=4$.",
           "explain": "$\\max(-(-5)-1,0)=\\max(4,0)=4$."
         }
       ],
@@ -314,7 +302,6 @@
             "$\\check{H}^2(X,\\mathcal{O}_X^\\times)$"
           ],
           "answer": 2,
-          "hint": "Line bundles are classified by their transition cocycles in $\\mathcal{O}_X^\\times$ modulo coboundaries: $\\mathrm{Pic}(X)\\cong\\check{H}^1(X,\\mathcal{O}_X^\\times)$.",
           "explain": "Line bundles are classified by their transition cocycles in $\\mathcal{O}_X^\\times$ modulo coboundaries: $\\mathrm{Pic}(X)\\cong\\check{H}^1(X,\\mathcal{O}_X^\\times)$."
         },
         {
@@ -322,7 +309,6 @@
           "q": "On $\\mathbb{P}^1$ with $\\omega_{\\mathbb{P}^1}=\\mathcal{O}(-2)$, Serre duality gives $\\dim H^1(\\mathcal{O}(-7))=\\dim H^0(\\mathcal{O}(7-2))$. Compute this common dimension.",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\dim H^0(\\mathbb{P}^1,\\mathcal{O}(5))=5+1=6$, and $\\max(-(-7)-1,0)=6$, so the duality check holds.",
           "explain": "$\\dim H^0(\\mathbb{P}^1,\\mathcal{O}(5))=5+1=6$, and $\\max(-(-7)-1,0)=6$, so the duality check holds."
         },
         {
@@ -330,7 +316,6 @@
           "q": "Use Riemann–Roch on a smooth projective curve of genus $g=4$ together with Serre duality to compute $\\dim H^0(C,L)-\\dim H^0(C,\\omega_C\\otimes L^{-1})$ for a line bundle $L$ of degree $d=10$.",
           "answer": 7,
           "tol": 0.000001,
-          "hint": "Riemann–Roch: $h^0(L)-h^1(L)=d-g+1=10-4+1=7$, and Serre duality identifies $h^1(L)=h^0(\\omega_C\\otimes L^{-1})$.",
           "explain": "Riemann–Roch: $h^0(L)-h^1(L)=d-g+1=10-4+1=7$, and Serre duality identifies $h^1(L)=h^0(\\omega_C\\otimes L^{-1})$."
         }
       ],

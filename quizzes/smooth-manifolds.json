@@ -14,7 +14,6 @@
             "$M$ is compact"
           ],
           "answer": 1,
-          "hint": "Smoothness of transition maps between Euclidean patches is exactly what lifts calculus from $\\mathbb{R}^n$ to $M$.",
           "explain": "Smoothness of transition maps between Euclidean patches is exactly what lifts calculus from $\\mathbb{R}^n$ to $M$. No disjointness, compactness, or linearity is required."
         },
         {
@@ -22,7 +21,6 @@
           "q": "On $S^2$ with the two-chart stereographic atlas from $N$ and $S$, the overlap $U_N\\cap U_S$ is $S^2$ minus how many points?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "The north chart misses $N$ and the south chart misses $S$, so the overlap is $S^2\\setminus\\{N,S\\}$ — two missing points.",
           "explain": "The north chart misses $N$ and the south chart misses $S$, so the overlap is $S^2\\setminus\\{N,S\\}$ — two missing points."
         },
         {
@@ -35,7 +33,6 @@
             "only continuous, not smooth"
           ],
           "answer": 1,
-          "hint": "Composing the two stereographic projections gives $(u,v)\\mapsto(u,v)/(u^2+v^2)$, a $C^\\infty$ diffeomorphism of $\\mathbb{R}^2\\setminus\\{0\\}$.",
           "explain": "Composing the two stereographic projections gives $(u,v)\\mapsto(u,v)/(u^2+v^2)$, a $C^\\infty$ diffeomorphism of $\\mathbb{R}^2\\setminus\\{0\\}$."
         }
       ],
@@ -81,7 +78,6 @@
           "q": "What is the dimension of the matrix Lie group $\\mathrm{SO}(n)$?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles.",
           "explain": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles."
         },
         {
@@ -94,7 +90,6 @@
             "a compact $(n+1)$-manifold"
           ],
           "answer": 1,
-          "hint": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$ identifies antipodal points; the resulting space is a compact smooth $n$-manifold, with standard affine charts $\\{x_i\\ne 0\\}$.",
           "explain": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$ identifies antipodal points; the resulting space is a compact smooth $n$-manifold, with standard affine charts $\\{x_i\\ne 0\\}$."
         },
         {
@@ -102,7 +97,6 @@
           "q": "The Grassmannian $\\mathrm{Gr}(k,n)$ of $k$-planes in $\\mathbb{R}^n$ has dimension $k(n-k)$. What is $\\dim\\mathrm{Gr}(2,5)$?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$.",
           "explain": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$. The charts are graphs of linear maps $W_0\\to W_0^\\perp$, giving $k(n-k)$ parameters."
         }
       ],
@@ -153,7 +147,6 @@
             "$f$ is linear in some chart"
           ],
           "answer": 1,
-          "hint": "Smoothness of $f$ is smoothness of every coordinate representative $\\hat f = \\psi\\circ f\\circ\\varphi^{-1}$, which is a map between open subsets of Euclidean space.",
           "explain": "Smoothness of $f$ is smoothness of every coordinate representative $\\hat f = \\psi\\circ f\\circ\\varphi^{-1}$, which is a map between open subsets of Euclidean space. Chart compatibility makes this property independent of chart choice."
         },
         {
@@ -166,7 +159,6 @@
             "a linear bijection"
           ],
           "answer": 1,
-          "hint": "Diffeomorphisms are the isomorphisms of the smooth category: smooth, bijective, with smooth inverse.",
           "explain": "Diffeomorphisms are the isomorphisms of the smooth category: smooth, bijective, with smooth inverse. A smooth bijection need not be a diffeomorphism — consider $x\\mapsto x^3$ on $\\mathbb{R}$, whose inverse is not smooth at $0$."
         },
         {
@@ -174,7 +166,6 @@
           "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(x+y,\\,xy)$. At $p=(1,2)$ the Jacobian is $\\begin{pmatrix}1&1\\\\ y&x\\end{pmatrix}_{(1,2)} = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$. What is the rank of $df_p$?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$.",
           "explain": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$."
         }
       ],
@@ -225,7 +216,11 @@
             "The coordinate vectors $\\partial/\\partial x^1|_p,\\dots,\\partial/\\partial x^n|_p$ in any chart form a basis of $T_pM$.",
             "$T_pM$ is canonically a subset of $M$ containing $p$."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "hint": "Three equivalent definitions of $T_pM$ — equivalence-classes of curves, point-derivations, chart-dependent components — all give the same $n$-dimensional vector space, basis-independent.",
           "explain": "$T_pM$ is an intrinsic $n$-dimensional real vector space. The point-derivation definition is one of three standard equivalent ones (the others use velocities of curves through $p$, or component-tuples under chart-change). Coordinate vectors give a basis in any chart, but the space itself is canonical (chart-independent). $T_pM$ is not a subset of $M$ — it is a separate vector space attached to $p$."
         },
@@ -234,7 +229,6 @@
           "q": "What is the dimension of the tangent bundle $TM$ of a smooth $n$-manifold $M$?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$TM$ has dimension $2n$; for $n=3$ this is $6$.",
           "explain": "$TM$ has dimension $2n$; for $n=3$ this is $6$."
         },
         {
@@ -242,7 +236,6 @@
           "q": "Under a chart change $y=y(x)$, a tangent vector with components $X^i$ becomes $\\tilde X^j = (\\partial y^j/\\partial x^i)X^i$. If $X=(2,0)$ in coordinates $x$ and the Jacobian at the point is $\\begin{pmatrix}3&1\\\\0&2\\end{pmatrix}$, what is $\\tilde X^1$?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\tilde X^1 = 3\\cdot 2 + 1\\cdot 0 = 6$.",
           "explain": "$\\tilde X^1 = 3\\cdot 2 + 1\\cdot 0 = 6$."
         }
       ],
@@ -293,7 +286,6 @@
             "the dual of the cotangent bundle only when $M$ is orientable"
           ],
           "answer": 0,
-          "hint": "$TM=\\bigsqcup_{p\\in M}T_pM$ is a rank-$n$ vector bundle over $M$; each fibre is an $n$-plane, and the total space is a smooth manifold of dimension $2n$.",
           "explain": "$TM=\\bigsqcup_{p\\in M}T_pM$ is a rank-$n$ vector bundle over $M$; each fibre is an $n$-plane, and the total space is a smooth manifold of dimension $2n$. $TM$ is trivial ($\\cong M\\times\\mathbb{R}^n$) iff $M$ is parallelizable — false in general (e.g. $S^2$)."
         },
         {
@@ -306,7 +298,6 @@
             "a path $\\gamma\\colon\\mathbb{R}\\to M$"
           ],
           "answer": 1,
-          "hint": "A vector field assigns to each point $p\\in M$ a vector $X_p\\in T_pM$ smoothly, i.e.",
           "explain": "A vector field assigns to each point $p\\in M$ a vector $X_p\\in T_pM$ smoothly, i.e. a smooth section of the projection $\\pi\\colon TM\\to M$. Equivalently, a derivation on $C^\\infty(M)$."
         },
         {
@@ -314,7 +305,6 @@
           "q": "On $\\mathbb{R}^2$, the vector field $X = x\\,\\partial_x + y\\,\\partial_y$ acts on the function $f(x,y)=x^2+y^2$ as $Xf$. What is $(Xf)(1,2)$?",
           "answer": 10,
           "tol": 0.000001,
-          "hint": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$.",
           "explain": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$. At $(1,2)$: $2(1+4) = 10$."
         }
       ],
@@ -365,7 +355,6 @@
             "is the zero map"
           ],
           "answer": 1,
-          "hint": "Immersion = injective differential, rank $m$.",
           "explain": "Immersion = injective differential, rank $m$. Submersion is the surjective case with rank $n$."
         },
         {
@@ -373,7 +362,6 @@
           "q": "By the regular value theorem, if $c$ is a regular value of $g\\colon\\mathbb{R}^{n+1}\\to\\mathbb{R}$ then $g^{-1}(c)$ is a smooth manifold of dimension $n$. For $g(x)=\\|x\\|^2$ on $\\mathbb{R}^4$ and $c=1$, what is the dimension of $g^{-1}(1)=S^3$?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "$g\\colon\\mathbb{R}^4\\to\\mathbb{R}$, and $1$ is regular, so $g^{-1}(1)$ has dimension $4-1=3$.",
           "explain": "$g\\colon\\mathbb{R}^4\\to\\mathbb{R}$, and $1$ is regular, so $g^{-1}(1)$ has dimension $4-1=3$."
         },
         {
@@ -386,7 +374,6 @@
             "no Euclidean space in general"
           ],
           "answer": 2,
-          "hint": "Whitney (1944): every smooth $n$-manifold embeds smoothly in $\\mathbb{R}^{2n}$, and immerses in $\\mathbb{R}^{2n-1}$.",
           "explain": "Whitney (1944): every smooth $n$-manifold embeds smoothly in $\\mathbb{R}^{2n}$, and immerses in $\\mathbb{R}^{2n-1}$."
         }
       ],
@@ -437,7 +424,6 @@
             "$\\gamma(t)\\in\\operatorname{supp}(X)$ for all $t$"
           ],
           "answer": 1,
-          "hint": "An integral curve is a trajectory that follows the vector field: its velocity at every time equals the value of $X$ at the current position, i.e.",
           "explain": "An integral curve is a trajectory that follows the vector field: its velocity at every time equals the value of $X$ at the current position, i.e. $\\gamma'(t)=X_{\\gamma(t)}$."
         },
         {
@@ -445,7 +431,6 @@
           "q": "On $\\mathbb{R}$, the vector field $X=x\\,\\partial_x$ has integral curve through $x_0=1$ given by $\\gamma(t)=e^t$. What is $\\gamma(\\ln 3)$?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$.",
           "explain": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$. Then $\\gamma(\\ln 3)=e^{\\ln 3}=3$."
         },
         {
@@ -458,7 +443,6 @@
             "the gradient of some function"
           ],
           "answer": 1,
-          "hint": "On a compact manifold integral curves cannot escape to infinity in finite time, so the maximal domain of each integral curve is all of $\\mathbb{R}$.",
           "explain": "On a compact manifold integral curves cannot escape to infinity in finite time, so the maximal domain of each integral curve is all of $\\mathbb{R}$. Equivalently, the flow $\\Phi^X_t$ is defined for every real $t$ — $X$ is complete."
         }
       ],
@@ -510,7 +494,6 @@
             "$[X,Y]f = X(f) + Y(f)$"
           ],
           "answer": 1,
-          "hint": "$[X,Y] = XY - YX$ as operators on $C^\\infty(M)$.",
           "explain": "$[X,Y] = XY - YX$ as operators on $C^\\infty(M)$. The second-order terms cancel and the commutator is again a derivation, hence a vector field."
         },
         {
@@ -518,7 +501,6 @@
           "q": "On $\\mathbb{R}^2$ with $X=\\partial_x$ and $Y=x\\,\\partial_y$, the Lie bracket is $[X,Y]=\\partial_y$. Applying $[X,Y]$ to $f(x,y)=y^2$ at the point $(3,4)$ gives what number?",
           "answer": 8,
           "tol": 0.000001,
-          "hint": "$[X,Y]f = \\partial_y(y^2) = 2y$.",
           "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
         },
         {
@@ -531,7 +513,11 @@
             "$[X,Y] = [Y,X]$ (symmetry).",
             "$[X,X] = X$."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "hint": "Antisymmetry + Jacobi makes $\\mathfrak{X}(M)$ a Lie algebra; the bracket is $\\mathbb{R}$-bilinear but not $C^\\infty$-bilinear — pulling out a function picks up a derivation term.",
           "explain": "Antisymmetry and Jacobi together make $\\mathfrak{X}(M)$ a Lie algebra over $\\mathbb{R}$. From antisymmetry, $[X,X]=0$ — so options (3) and (4) fail. The bracket is not $C^\\infty$-bilinear: $[fX,Y]=f[X,Y]-Y(f)X$, with the extra $-Y(f)X$ term reflecting the fact that $Y$ differentiates the coefficient $f$. This is why the Lie bracket is a differential operator, not a tensor."
         }
@@ -609,7 +595,6 @@
           "q": "Suppose $\\{\\rho_1,\\rho_2,\\rho_3\\}$ is a partition of unity on $M$ and at a point $p$, $\\rho_1(p)=0.2$, $\\rho_2(p)=0.5$. What is $\\rho_3(p)$?",
           "answer": 0.3,
           "tol": 0.000001,
-          "hint": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$.",
           "explain": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$."
         }
       ],
@@ -666,7 +651,6 @@
             "real projective 3-space $\\mathbb{RP}^3$"
           ],
           "answer": 2,
-          "hint": "The Möbius band has a single side: going once around the core circle and returning flips a local frame's handedness, so no consistent orientation exists.",
           "explain": "The Möbius band has a single side: going once around the core circle and returning flips a local frame's handedness, so no consistent orientation exists. $S^2$, $T^2$, and $\\mathbb{RP}^3$ are orientable ($\\mathbb{RP}^n$ is orientable iff $n$ is odd)."
         },
         {
@@ -674,7 +658,6 @@
           "q": "How many orientations does a connected orientable smooth manifold admit?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "An orientation is a choice of sign on the top exterior power at each point, varying continuously.",
           "explain": "An orientation is a choice of sign on the top exterior power at each point, varying continuously. On a connected manifold there are exactly two global choices, differing by an overall sign flip."
         }
       ],

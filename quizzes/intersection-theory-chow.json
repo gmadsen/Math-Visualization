@@ -26,14 +26,14 @@
             "$2[\\mathrm{pt}] \\in A_0(\\mathbb{P}^1)$"
           ],
           "right": [
-            "$[5] - [7]$",
             "$[3]$",
-            "$[1] + [2]$"
+            "$[1] + [2]$",
+            "$[5] - [7]$"
           ],
           "answer": [
+            2,
             0,
-            1,
-            2
+            1
           ],
           "explain": "$A_0(\\mathbb{P}^1) = \\mathbb{Z}$ via degree. A degree-$0$ cycle is $0$; a degree-$1$ cycle is $[\\mathrm{pt}]$; a degree-$2$ cycle is $2[\\mathrm{pt}]$.",
           "hint": "Compute the degree of each right-hand cycle."
@@ -90,7 +90,6 @@
             0,
             1
           ],
-          "hint": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities.",
           "explain": "Push-forward (covariant, proper) and pull-back (contravariant, flat) are the two basic functorialities. The cycle map exists but generally fails to be either injective or surjective — Griffiths' work on Fano threefolds gives counterexamples to injectivity, and transcendental Hodge classes obstruct surjectivity. Simple-connectedness has no bearing on $A_*$."
         }
       ],

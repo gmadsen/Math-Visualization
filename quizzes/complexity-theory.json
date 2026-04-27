@@ -14,7 +14,6 @@
             "$f(n)=O(g(n))$ implies $g(n)=O(f(n))$."
           ],
           "answer": 1,
-          "hint": "Big-O hides multiplicative constants and lower-order behaviour: only an asymptotic upper bound, up to a constant factor, beyond some $n_0$.",
           "explain": "Big-O hides multiplicative constants and lower-order behaviour: only an asymptotic upper bound, up to a constant factor, beyond some $n_0$. The other three are stronger (and false in general)."
         },
         {
@@ -27,7 +26,6 @@
             "$\\log n,\\;n,\\;n^2,\\;n\\log n,\\;2^n$"
           ],
           "answer": 0,
-          "hint": "$\\log n \\ll n \\ll n\\log n \\ll n^2 \\ll 2^n$ — each grows strictly faster than the previous.",
           "explain": "$\\log n \\ll n \\ll n\\log n \\ll n^2 \\ll 2^n$ — each grows strictly faster than the previous. The exponential gap from polynomial to $2^n$ is the divide between $\\mathsf{P}$ and the exponential-time problems."
         },
         {
@@ -35,7 +33,6 @@
           "q": "Suppose an algorithm runs in time $T(n)=3n^2+50n+100$. What is the smallest non-negative integer $k$ such that $T(n)=O(n^k)$?",
           "answer": 2,
           "tol": 0,
-          "hint": "The dominant term is $3n^2$, so $T(n)=O(n^2)$.",
           "explain": "The dominant term is $3n^2$, so $T(n)=O(n^2)$. We cannot do $k=1$ because $n^2$ outpaces any constant times $n$. Big-O ignores the coefficient $3$ and the lower-order $50n+100$."
         }
       ]
@@ -53,7 +50,6 @@
             "$L$ is in $\\mathrm{DTIME}(2^{n})$."
           ],
           "answer": 1,
-          "hint": "NP = problems with a short, polynomially-checkable certificate.",
           "explain": "NP = problems with a short, polynomially-checkable certificate. The witness $w$ for SAT is a satisfying assignment; for HAM-CYC a Hamiltonian cycle; for CLIQUE a clique. The other options describe $\\mathsf{P}$, computability, and a much weaker time bound."
         },
         {
@@ -66,7 +62,6 @@
             "$\\mathsf{NP}=\\mathsf{coNP}$"
           ],
           "answer": 2,
-          "hint": "$\\mathsf{P}\\subseteq\\mathsf{NP}$ is trivial: a deterministic decider becomes a verifier that ignores the witness.",
           "explain": "$\\mathsf{P}\\subseteq\\mathsf{NP}$ is trivial: a deterministic decider becomes a verifier that ignores the witness. The strict separation $\\mathsf{P}\\subsetneq\\mathsf{NP}$, $\\mathsf{NP}\\subsetneq\\mathsf{PSPACE}$, and $\\mathsf{NP}=\\mathsf{coNP}$ are all open."
         },
         {
@@ -79,7 +74,6 @@
             "Every undecidable problem becomes decidable."
           ],
           "answer": 0,
-          "hint": "NP-complete problems are exactly the hardest in $\\mathsf{NP}$ under Karp reductions.",
           "explain": "NP-complete problems are exactly the hardest in $\\mathsf{NP}$ under Karp reductions. If $\\mathsf{P}=\\mathsf{NP}$ then every problem in $\\mathsf{NP}$ — including SAT, CLIQUE, HAM-CYC — is in $\\mathsf{P}$. Halting and other undecidable problems lie outside $\\mathsf{NP}$ entirely; PSPACE collapse is a separate (still-open) question."
         }
       ]
@@ -97,7 +91,6 @@
             "SAT is undecidable."
           ],
           "answer": 1,
-          "hint": "Cook (1971) and independently Levin (1973) showed that the boolean satisfiability problem is NP-complete: in $\\mathsf{NP}$, and every $\\mathsf{NP}$ problem reduces to it in polynomial time.",
           "explain": "Cook (1971) and independently Levin (1973) showed that the boolean satisfiability problem is NP-complete: in $\\mathsf{NP}$, and every $\\mathsf{NP}$ problem reduces to it in polynomial time. The proof encodes the run of a polynomial-time NP machine as a boolean formula."
         },
         {
@@ -110,7 +103,6 @@
             "$L$ is decidable in polynomial space."
           ],
           "answer": 1,
-          "hint": "NP-hard captures \"at least as hard as everything in $\\mathsf{NP}$\".",
           "explain": "NP-hard captures \"at least as hard as everything in $\\mathsf{NP}$\". An NP-hard problem need not be in $\\mathsf{NP}$ (TQBF is PSPACE-complete and so NP-hard but probably not in $\\mathsf{NP}$). NP-complete = NP-hard $\\cap$ $\\mathsf{NP}$."
         },
         {
@@ -123,7 +115,6 @@
             "Nothing — SAT is not connected to other NP problems."
           ],
           "answer": 0,
-          "hint": "SAT is NP-complete, so a polynomial-time decider for SAT, composed with the Karp reduction $A\\le_p\\mathrm{SAT}$ for any $A\\in\\mathsf{NP}$, yields a polynomial-time decider for $A$.",
           "explain": "SAT is NP-complete, so a polynomial-time decider for SAT, composed with the Karp reduction $A\\le_p\\mathrm{SAT}$ for any $A\\in\\mathsf{NP}$, yields a polynomial-time decider for $A$. Hence $\\mathsf{NP}\\subseteq\\mathsf{P}$, and combined with $\\mathsf{P}\\subseteq\\mathsf{NP}$ we get equality."
         }
       ]
@@ -141,7 +132,6 @@
             "$A$ and $B$ have the same time complexity."
           ],
           "answer": 1,
-          "hint": "A Karp (polynomial-time many-one) reduction is a polynomial-time function $f$ that maps yes-instances of $A$ to yes-instances of $B$ and no-instances to no-instances.",
           "explain": "A Karp (polynomial-time many-one) reduction is a polynomial-time function $f$ that maps yes-instances of $A$ to yes-instances of $B$ and no-instances to no-instances. Hardness then transfers: a polynomial-time decider for $B$ gives one for $A$ via $f$."
         },
         {
@@ -154,7 +144,6 @@
             "CLIQUE is easier than 3-SAT."
           ],
           "answer": 1,
-          "hint": "$\\le_p$ is transitive: composing two polynomial-time reductions stays polynomial.",
           "explain": "$\\le_p$ is transitive: composing two polynomial-time reductions stays polynomial. So 3-SAT reduces to INDEPENDENT-SET via the composition. Since 3-SAT is NP-hard, so is INDEPENDENT-SET — but we cannot conclude $\\mathsf{P}$-membership or undecidability from these reductions alone."
         },
         {
@@ -167,7 +156,6 @@
             "PRIMALITY"
           ],
           "answer": 3,
-          "hint": "PRIMALITY (\"is $n$ prime?\") is in $\\mathsf{P}$ by AKS (2002), and was suspected to be in $\\mathsf{P}$ long before.",
           "explain": "PRIMALITY (\"is $n$ prime?\") is in $\\mathsf{P}$ by AKS (2002), and was suspected to be in $\\mathsf{P}$ long before. The other three are classical NP-complete problems on Karp's 1972 list."
         }
       ]
@@ -211,7 +199,6 @@
             "Reachability in a directed graph."
           ],
           "answer": 1,
-          "hint": "TQBF — given $\\forall x_1\\exists x_2\\cdots\\,\\varphi$, is it true?",
           "explain": "TQBF — given $\\forall x_1\\exists x_2\\cdots\\,\\varphi$, is it true? — is the canonical PSPACE-complete problem; the alternation matches polynomial-space alternating computation. SAT is NP-complete, PRIMALITY is in $\\mathsf{P}$, and graph reachability is NL-complete."
         }
       ]
@@ -229,7 +216,6 @@
             "$\\mathsf{L}\\subsetneq\\mathsf{NL}$."
           ],
           "answer": 1,
-          "hint": "Hartmanis–Stearns gives $\\mathrm{DTIME}(n^k)\\subsetneq\\mathrm{DTIME}(2^n)$ since $n^k\\log n^k=o(2^n)$.",
           "explain": "Hartmanis–Stearns gives $\\mathrm{DTIME}(n^k)\\subsetneq\\mathrm{DTIME}(2^n)$ since $n^k\\log n^k=o(2^n)$. Taking the union over $k$: $\\mathsf{P}=\\bigcup_k\\mathrm{DTIME}(n^k)\\subsetneq\\mathrm{DTIME}(2^n)\\subseteq\\mathsf{EXP}$. The other separations remain open."
         },
         {
@@ -242,7 +228,6 @@
             "It ensures the function is polynomial."
           ],
           "answer": 1,
-          "hint": "$g$ is time-constructible if there is a TM that, given $1^n$, computes $g(n)$ in time $O(g(n))$.",
           "explain": "$g$ is time-constructible if there is a TM that, given $1^n$, computes $g(n)$ in time $O(g(n))$. The diagonal machine simulates the $i$-th machine but must <em>stop itself</em> after $g(n)$ steps to stay in $\\mathrm{DTIME}(g)$ — and that requires running its own clock alongside the simulation."
         },
         {
@@ -255,7 +240,6 @@
             "Space is always polynomial."
           ],
           "answer": 1,
-          "hint": "A universal TM simulating another in space $f$ uses $O(f)$ tape cells (encode the simulated tape on the universal one with constant overhead).",
           "explain": "A universal TM simulating another in space $f$ uses $O(f)$ tape cells (encode the simulated tape on the universal one with constant overhead). Time simulation, by contrast, costs an extra $\\log f$ factor for tape-management bookkeeping — that is the $f\\log f=o(g)$ in the time theorem."
         }
       ]

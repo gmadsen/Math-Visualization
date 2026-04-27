@@ -166,7 +166,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./category-theory.html#cat\">Category theory · Categories and morphisms</a> — isomorphism in a category is the abstract notion univalence promotes to identity.</li>\n  </ul>\n</aside>"
+          "html": "\n\n"
         },
         {
           "type": "widget-script",
@@ -256,7 +256,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./first-order-logic-and-completeness.html#completeness\">First-order logic · Gödel's completeness theorem</a> — the analogous syntax-vs-semantics bridge for first-order logic.</li>\n  </ul>\n</aside>"
+          "html": "\n\n"
         },
         {
           "type": "widget-script",

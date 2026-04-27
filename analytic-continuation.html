@@ -390,6 +390,7 @@ has radius $R=1$. Already inside the disk we can <em>re-expand</em> it around an
   <div class="ttl">See also</div>
   <ul>
     <li><a href="./algebraic-topology.html#paths">Paths and homotopy</a></li>
+    <li><a href="./algebraic-topology.html#pi1">Paths and homotopy</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end -->
@@ -490,7 +491,7 @@ which is the argument variation plus a real part. Around a loop that winds $n$ t
 <p>On a non-simply-connected $U$, the continuations are indexed by $\pi_1(U)$: each homotopy class of loops acts on the stalk at $p$ by a <em>monodromy representation</em>. For $U=\mathbb{C}^*$, $\pi_1=\mathbb{Z}$, and $\log$'s monodromy is $\mathbb{Z}\to(\mathbb{C},+)$, $n\mapsto 2\pi i n$. For $\sqrt z$ it's $\mathbb{Z}\to\{\pm 1\}$ with generator $\mapsto -1$, a two-sheeted cover.</p>
 
 <div class="widget" id="w-mono">
-  <div class="hd"><div class="ttl">Monodromy of log around 0</div><div class="hint">drag the slider to walk a loop; watch $\operatorname{Im}\log z$ climb by $2\pi$</div></div>
+  <div class="hd"><div class="ttl">Monodromy of log around 0</div><div class="hint">drag the slider to walk a loop; watch $\mathrm{Im}\log z$ climb by $2\pi$</div></div>
   <svg id="mono-svg" viewBox="0 0 620 360" width="620" height="360"><title>Monodromy of log around 0</title></svg>
   <div class="row">
     <label for="mono-t">path (fraction of loop):</label>
@@ -866,15 +867,15 @@ $$F(z) \;=\; \sum_{n=0}^\infty z^{n^2} \;=\; 1+z+z^4+z^9+z^{16}+\cdots$$</p>
 <h2>6. The Riemann zeta functional equation</h2>
 
 <p>The flagship example of analytic continuation is Riemann's 1859 memoir, where he produces a meromorphic extension of
-$$\zeta(s) \;=\; \sum_{n=1}^\infty \frac{1}{n^s}\quad(\operatorname{Re}s>1)$$
+$$\zeta(s) \;=\; \sum_{n=1}^\infty \frac{1}{n^s}\quad(\mathrm{Re}s>1)$$
 to all of $\mathbb{C}\setminus\{1\}$ and discovers its symmetry $s\leftrightarrow 1-s$. The mechanism is a Mellin transform against the <strong>Jacobi theta function</strong>
 $$\theta(x) \;=\; \sum_{n\in\mathbb{Z}} e^{-\pi n^2 x} \;=\; 1 + 2\sum_{n\ge 1}e^{-\pi n^2 x}\quad(x>0).$$</p>
 
 <h3>Step 1 — from Dirichlet series to Mellin integral</h3>
 
-<p>Start with the gamma integral: for $\operatorname{Re}s>0$,
+<p>Start with the gamma integral: for $\mathrm{Re}s>0$,
 $$\Gamma(s/2)\,n^{-s}\pi^{-s/2} \;=\; \int_0^\infty e^{-\pi n^2 x}\,x^{s/2 - 1}\,dx.$$
-Summing over $n\ge 1$ and interchanging (justified for $\operatorname{Re}s>1$),
+Summing over $n\ge 1$ and interchanging (justified for $\mathrm{Re}s>1$),
 $$\pi^{-s/2}\Gamma(s/2)\zeta(s) \;=\; \int_0^\infty \bigl(\tfrac{\theta(x)-1}{2}\bigr)\,x^{s/2 - 1}\,dx.$$
 This is the Mellin transform of the "nontrivial" part $\tfrac{\theta(x)-1}{2} = \sum_{n\ge 1}e^{-\pi n^2 x}$.</p>
 
@@ -895,7 +896,7 @@ the $1/s(1-s)$ pole is cancelled and we obtain Riemann's functional equation:</p
 $$\boxed{\;\xi(s) \;=\; \xi(1-s)\;}$$
 for all $s\in\mathbb{C}$. Equivalently,
 $$\zeta(s) \;=\; 2^s\pi^{s-1}\sin\!\tfrac{\pi s}{2}\,\Gamma(1-s)\,\zeta(1-s).$$
-Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" zeros at $s=-2,-4,-6,\dots$ (from $\sin(\pi s/2)$), and a <em>critical strip</em> $0<\operatorname{Re}s<1$ symmetric about $\operatorname{Re}s=1/2$ containing all nontrivial zeros.</div>
+Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" zeros at $s=-2,-4,-6,\dots$ (from $\sin(\pi s/2)$), and a <em>critical strip</em> $0<\mathrm{Re}s<1$ symmetric about $\mathrm{Re}s=1/2$ containing all nontrivial zeros.</div>
 
 <p>The two pillars — Mellin continuation and theta's modularity — are exactly the two cross-links on this page: the Mellin transform ships in from <a href="./dirichlet-series-euler-products.html#mellin">Dirichlet series</a>, and the theta transformation from <a href="./theta-functions.html#trans">theta functions</a>. Analytic continuation is the glue that turns a divergent-looking series into a global, symmetric object.</p>
 

@@ -35,7 +35,6 @@
           "q": "Let $G$ be a groupoid with three objects, each having automorphism group $\\mathbb{Z}/2$, all connected by isomorphisms. How many isomorphism classes does $\\pi_0(G)$ have?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element.",
           "explain": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element. The three $\\mathbb{Z}/2$ automorphism groups are what is lost when one collapses to $\\pi_0$."
         }
       ],
@@ -89,7 +88,6 @@
             "because $BG$ is never finite type"
           ],
           "answer": 2,
-          "hint": "A scheme's functor of points lands in sets, so its geometric points have trivial automorphism groups.",
           "explain": "A scheme's functor of points lands in sets, so its geometric points have trivial automorphism groups. $BG$ has automorphism group $G$ at its trivial torsor, which records pure automorphism data and prevents representability by any scheme."
         },
         {
@@ -97,7 +95,6 @@
           "q": "How many isomorphism classes of $\\mathbb{Z}/3$-torsors are there on $\\mathrm{Spec}\\,\\mathbb{F}_q$ for a finite field $\\mathbb{F}_q$? (Equivalently, $|H^1(\\mathrm{Spec}\\,\\mathbb{F}_q,\\mathbb{Z}/3)|$, using that the absolute Galois group of $\\mathbb{F}_q$ is $\\widehat{\\mathbb{Z}}$ and $\\mathrm{Hom}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)=\\mathbb{Z}/3$.)",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$.",
           "explain": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$. Hence $|\\pi_0(B(\\mathbb{Z}/3)(\\mathbb{F}_q))|=3$."
         },
         {
@@ -105,7 +102,6 @@
           "q": "For $G=\\mathbb{Z}/2$ over $\\mathbb{R}$: $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R})=\\mathbb{Z}/2$, so $|\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)|=?$ (this counts iso classes of $\\mathbb{Z}/2$-torsors over $\\mathrm{Spec}\\,\\mathbb{R}$).",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$.",
           "explain": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$."
         }
       ],
@@ -159,7 +155,6 @@
             "a free $G$-action on $T$"
           ],
           "answer": 1,
-          "hint": "By definition $[X/G](T)$ is the groupoid of pairs $(P\\to T,\\ \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant.",
           "explain": "By definition $[X/G](T)$ is the groupoid of pairs $(P\\to T,\\ \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant. Setting $X=\\mathrm{pt}$ recovers $BG$; setting $G=\\{e\\}$ recovers $X$ itself."
         },
         {
@@ -172,7 +167,6 @@
             "never, unless $G$ is trivial"
           ],
           "answer": 1,
-          "hint": "If the action is free, every stabiliser is trivial and no automorphism data needs to be remembered, so $[X/G]$ is the ordinary quotient $X/G$.",
           "explain": "If the action is free, every stabiliser is trivial and no automorphism data needs to be remembered, so $[X/G]$ is the ordinary quotient $X/G$. Non-free actions create non-trivial stabilisers and force stacky structure."
         },
         {
@@ -180,7 +174,6 @@
           "q": "For $G=\\mu_3$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x = \\zeta x$, the stabiliser at $x=0$ is all of $\\mu_3$ and is trivial elsewhere. What is the order of the automorphism group of the origin in $[\\mathbb{A}^1/\\mu_3]$?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$.",
           "explain": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$. Geometrically this is the stacky enhancement at the fixed point; away from $0$ the quotient is an ordinary scheme."
         }
       ],
@@ -234,7 +227,6 @@
             "the stack is quasi-compact"
           ],
           "answer": 1,
-          "hint": "Artin requires a smooth atlas and a representable diagonal; DM additionally requires the atlas to be étale, equivalently the diagonal to be unramified.",
           "explain": "Artin requires a smooth atlas and a representable diagonal; DM additionally requires the atlas to be étale, equivalently the diagonal to be unramified. This forces automorphism schemes to be $0$-dimensional (finite and unramified)."
         },
         {
@@ -247,7 +239,6 @@
             "$[\\mathbb{A}^1/\\mu_3]$"
           ],
           "answer": 2,
-          "hint": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$, which is $1$-dimensional — so it is Artin but not DM.",
           "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$, which is $1$-dimensional — so it is Artin but not DM. $B\\mu_n$ and $[\\mathbb{A}^1/\\mu_3]$ have finite automorphism groups, and $\\mathcal{M}_{1,1}$ has finite automorphisms away from char $2,3$."
         },
         {
@@ -255,7 +246,6 @@
           "q": "What is the dimension of the automorphism group at the generic geometric point of $B\\mathbb{G}_m$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional.",
           "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional. That positive dimension is exactly why $B\\mathbb{G}_m$ fails to be DM."
         }
       ],
@@ -309,7 +299,6 @@
             "Artin stacks are not fibered categories"
           ],
           "answer": 1,
-          "hint": "The defining upgrade from Artin to DM is the étale (versus merely smooth) atlas, which forces automorphism schemes to be finite and unramified.",
           "explain": "The defining upgrade from Artin to DM is the étale (versus merely smooth) atlas, which forces automorphism schemes to be finite and unramified. $BG$ for $G$ finite is DM; $BG$ for $G$ positive-dimensional (e.g. $B\\mathbb{G}_m$) is Artin but not DM."
         },
         {
@@ -322,7 +311,6 @@
             "$\\pi$ has no universal property"
           ],
           "answer": 1,
-          "hint": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$.",
           "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}[t]/(12t)\\ne \\mathrm{CH}^*(\\mathbb{A}^1)$."
         },
         {
@@ -330,7 +318,6 @@
           "q": "For $\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$, what is the order of the automorphism group of the elliptic curve $E:y^2=x^3+1$ (the $j=0$ point)?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$.",
           "explain": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$. After quotienting by the generic $\\mu_2$ ($[-1]$), residual automorphism is $\\mu_3$, so locally $\\mathcal{M}_{1,1}$ looks like $[\\mathbb{A}^1/\\mu_3]$ near $j=0$."
         }
       ],

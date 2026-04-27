@@ -102,7 +102,6 @@
             "Therefore $e$ is $p$-cocartesian for every such fibration $p$."
           ],
           "answer": 3,
-          "hint": "Step 4 confuses 'fiberwise lifting' with the cocartesian condition.",
           "explain": "Step 4 confuses 'fiberwise lifting' with the cocartesian condition. The cocartesian property concerns horns whose base extends <em>off</em> the fiber — i.e. into edges of $\\mathcal{B}$ starting from $\\bar{x}$. A fiber-internal edge is cocartesian iff it is an <em>equivalence</em> in the fiber $\\mathcal{E}_{\\bar{x}}$ (HTT 2.4.1.5). A non-equivalence in the fiber is a perfectly valid edge over $\\mathrm{id}_{\\bar{x}}$ and is not cocartesian."
         },
         {
@@ -245,7 +244,6 @@
             "Defined only up to a non-trivial 2-cell, not as a functor."
           ],
           "answer": 1,
-          "hint": "Functoriality of transport sends equivalences in $\\mathcal{B}$ to equivalences in $\\mathrm{Cat}_\\infty$, so $\\bar{e}_!$ is itself an equivalence with inverse $\\bar{e}^{-1}_!$.",
           "explain": "Functoriality of transport sends equivalences in $\\mathcal{B}$ to equivalences in $\\mathrm{Cat}_\\infty$, so $\\bar{e}_!$ is itself an equivalence with inverse $\\bar{e}^{-1}_!$. Identifying it with the literal identity requires choosing a path between $\\bar{x}$ and $\\bar{y}$ — the equivalence depends on the chosen lift."
         }
       ],
@@ -303,7 +301,6 @@
             "The Quillen equivalence between simplicial sets and topological spaces."
           ],
           "answer": 1,
-          "hint": "Restricting both sides to nerves of ordinary categories recovers the classical statement (Grothendieck SGA 1, Exp.",
           "explain": "Restricting both sides to nerves of ordinary categories recovers the classical statement (Grothendieck SGA 1, Exp. VI): Grothendieck (op-)fibrations over $\\mathcal{C}$ = pseudofunctors $\\mathcal{C} \\to \\mathrm{Cat}$. The $\\infty$-version is its homotopy-coherent generalization with strict pseudofunctoriality replaced by coherence-up-to-higher-simplices."
         },
         {
@@ -387,7 +384,6 @@
             "Base $\\mathcal{B}$ is a Kan complex."
           ],
           "answer": 0,
-          "hint": "A cocartesian fibration with $\\mathcal{S}$-valued fibers — equivalently, all fibers being Kan complexes — is exactly a left fibration.",
           "explain": "A cocartesian fibration with $\\mathcal{S}$-valued fibers — equivalently, all fibers being Kan complexes — is exactly a left fibration. The straightening lands in $\\mathrm{Fun}(\\mathcal{B}, \\mathcal{S})$ rather than $\\mathrm{Fun}(\\mathcal{B}, \\mathrm{Cat}_\\infty)$ when this happens (HTT 2.1.1.2)."
         }
       ],
@@ -443,7 +439,6 @@
             0,
             1
           ],
-          "hint": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3).",
           "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
         },
         {

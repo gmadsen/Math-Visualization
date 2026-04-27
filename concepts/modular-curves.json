@@ -50,7 +50,8 @@
       "anchor": "jacobian",
       "prereqs": [
         "mc-hecke-correspondences-curves",
-        "modular-form-definition"
+        "modular-form-definition",
+        "modularity-theorem"
       ],
       "blurb": "The Jacobian $J_0(N) = \\mathrm{Pic}^0(X_0(N))$ is an abelian variety of dimension equal to the genus of $X_0(N)$. Eichler–Shimura identifies its tangent space at the origin with the space of weight-$2$ cusp forms $S_2(\\Gamma_0(N))$, and the Hecke action on the curve matches the Hecke action on forms — the bridge that turns each newform into a modular abelian-variety quotient $A_f$ of $J_0(N)$.",
       "tags": [

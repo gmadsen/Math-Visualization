@@ -14,7 +14,6 @@
             "$3$ distinct lines"
           ],
           "answer": 2,
-          "hint": "The degree-$2$ part at the origin is $y^2 - x^2 = (y-x)(y+x)$, which factors into two distinct linear forms.",
           "explain": "The degree-$2$ part at the origin is $y^2 - x^2 = (y-x)(y+x)$, which factors into two distinct linear forms. So the tangent cone is two lines $y = \\pm x$, exactly the node picture."
         },
         {
@@ -27,7 +26,6 @@
             "identically zero"
           ],
           "answer": 1,
-          "hint": "The lowest-order terms of $y^2 - x^3$ at the origin are just $y^2$, a single repeated factor.",
           "explain": "The lowest-order terms of $y^2 - x^3$ at the origin are just $y^2$, a single repeated factor. That single tangent direction with multiplicity $2$ is what distinguishes a cusp from a node."
         },
         {
@@ -35,7 +33,6 @@
           "q": "For the cuspidal parametrization $(x,y) = (t^2, t^3)$, evaluate $y$ at $t = 3$.",
           "answer": 27,
           "tol": 0.000001,
-          "hint": "$y = t^3 = 3^3 = 27$.",
           "explain": "$y = t^3 = 3^3 = 27$. The cusp $y^2 = x^3$ is parametrized by $t \\mapsto (t^2,t^3)$, with $t=0$ mapping to the singular point."
         }
       ],
@@ -89,7 +86,6 @@
             "$p \\nmid \\Delta$"
           ],
           "answer": 2,
-          "hint": "A Weierstrass cubic is smooth over $\\mathbb{F}_p$ exactly when its discriminant is nonzero mod $p$.",
           "explain": "A Weierstrass cubic is smooth over $\\mathbb{F}_p$ exactly when its discriminant is nonzero mod $p$. So bad reduction at $p$ is the condition $p \\mid \\Delta$; good reduction is $p \\nmid \\Delta$."
         },
         {
@@ -97,7 +93,6 @@
           "q": "For $E : y^2 = x^3 + 1$ (so $a = 0, b = 1$), compute $\\Delta = -16(4a^3 + 27 b^2)$.",
           "answer": -432,
           "tol": 0.000001,
-          "hint": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$.",
           "explain": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$."
         },
         {
@@ -110,7 +105,6 @@
             "every prime is bad"
           ],
           "answer": 2,
-          "hint": "Bad primes are those dividing $\\Delta = -432$, namely $p = 2$ and $p = 3$.",
           "explain": "Bad primes are those dividing $\\Delta = -432$, namely $p = 2$ and $p = 3$. Every other prime, including $p = 5$, is a prime of good reduction."
         }
       ],
@@ -164,7 +158,6 @@
             "an elliptic curve over $\\mathbb{F}_p$"
           ],
           "answer": 1,
-          "hint": "Cuspidal reduction is called <i>additive</i> precisely because the smooth locus is the additive group $\\mathbb{G}_a(\\mathbb{F}_p) = \\mathbb{F}_p$, which has order $p$.",
           "explain": "Cuspidal reduction is called <i>additive</i> precisely because the smooth locus is the additive group $\\mathbb{G}_a(\\mathbb{F}_p) = \\mathbb{F}_p$, which has order $p$."
         },
         {
@@ -177,7 +170,6 @@
             "the singularity is a cusp"
           ],
           "answer": 0,
-          "hint": "Split means the tangent slopes $\\pm s$ lie in $\\mathbb{F}_p$, so the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p) \\cong \\mathbb{F}_p^\\times$ of order $p-1$.",
           "explain": "Split means the tangent slopes $\\pm s$ lie in $\\mathbb{F}_p$, so the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p) \\cong \\mathbb{F}_p^\\times$ of order $p-1$. Non-split means the slopes live in $\\mathbb{F}_{p^2} \\setminus \\mathbb{F}_p$, giving a non-split torus of order $p+1$."
         },
         {
@@ -185,7 +177,6 @@
           "q": "For a non-split multiplicative reduction at $p = 7$, the smooth part of $\\tilde E_p$ has order $p+1$. Compute this order.",
           "answer": 8,
           "tol": 0.000001,
-          "hint": "The non-split torus has order $p + 1 = 7 + 1 = 8$.",
           "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
         }
       ],
@@ -239,7 +230,6 @@
             "$|a_p| \\le p + 1$"
           ],
           "answer": 1,
-          "hint": "Hasse's theorem (a Riemann-hypothesis analogue for $E/\\mathbb{F}_p$) gives $|a_p| \\le 2\\sqrt p$.",
           "explain": "Hasse's theorem (a Riemann-hypothesis analogue for $E/\\mathbb{F}_p$) gives $|a_p| \\le 2\\sqrt p$. Equivalently $|E(\\mathbb{F}_p)|$ lies in the interval $[p + 1 - 2\\sqrt p,\\; p + 1 + 2\\sqrt p]$."
         },
         {
@@ -247,7 +237,6 @@
           "q": "For $E\\colon y^2 = x^3 - x$ over $\\mathbb{F}_5$, direct count gives $|E(\\mathbb{F}_5)| = 8$ (including $O$). Compute $a_5$.",
           "answer": -2,
           "tol": 0,
-          "hint": "$a_5 = p + 1 - |E(\\mathbb{F}_p)| = 5 + 1 - 8 = -2$.",
           "explain": "$a_5 = p + 1 - |E(\\mathbb{F}_p)| = 5 + 1 - 8 = -2$. This satisfies $|a_5| = 2 \\le 2\\sqrt 5 \\approx 4.47$, so Hasse is happy."
         },
         {
@@ -321,7 +310,6 @@
           "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p = 11$ and good reduction at every other prime, the conductor exponent at $11$ is $f_{11} = 1$. Compute the conductor $N(E)$.",
           "answer": 11,
           "tol": 0,
-          "hint": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$.",
           "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. This is the conductor of the curve $y^2 + y = x^3 - x^2$ (Cremona 11a1), the smallest-conductor elliptic curve over $\\mathbb{Q}$."
         },
         {
@@ -334,7 +322,6 @@
             "$f_p = 12$"
           ],
           "answer": 2,
-          "hint": "For $p \\ne 2, 3$ (tame reduction), additive reduction contributes $f_p = 2$ and multiplicative reduction contributes $f_p = 1$.",
           "explain": "For $p \\ne 2, 3$ (tame reduction), additive reduction contributes $f_p = 2$ and multiplicative reduction contributes $f_p = 1$. At $p = 2, 3$ wild ramification in the Galois representation can add a non-negative correction."
         }
       ],

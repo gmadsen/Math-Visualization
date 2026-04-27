@@ -223,6 +223,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./partial-differential-equations.html#heat\">Heat equation and the heat kernel</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#applications\">Stochastic calculus</a> · Applications: Black–Scholes, Kalman, optimal stopping</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

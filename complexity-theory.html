@@ -817,7 +817,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="bad"><strong>Savitch (1970).</strong> For $f(n)\ge\log n$, $\;\mathrm{NSPACE}(f)\subseteq\mathrm{DSPACE}(f^2)$. Hence $\mathsf{PSPACE}=\mathsf{NPSPACE}$.</div>
 
-<p><em>Idea.</em> A nondeterministic $f$-space machine has at most $2^{O(f)}$ configurations. To test whether $C_{\text{start}}$ reaches $C_{\text{accept}}$ in $\le 2^k$ steps, recursively ask whether some midpoint $C'$ is reachable in $\le 2^{k-1}$ steps from $C_{\text{start}}$ and from $C'$ to $C_{\text{accept}}$. Each level of recursion uses $O(f)$ space; depth is $O(f)$; total $O(f^2)$.</p>
+<p><em>Idea.</em> A nondeterministic $f$-space machine has at most $2^{O(f)}$ configurations. To test whether $C_{\text{start}}$ reaches $C_{\text{acc}}$ in $\le 2^k$ steps, recursively ask whether some midpoint $C'$ is reachable in $\le 2^{k-1}$ steps from $C_{\text{start}}$ and from $C'$ to $C_{\text{acc}}$. Each level of recursion uses $O(f)$ space; depth is $O(f)$; total $O(f^2)$.</p>
 
 <p>The canonical PSPACE-complete problem is <strong>TQBF</strong> — given a fully quantified boolean formula $\forall x_1\exists x_2\cdots Q_n x_n\,\varphi$, is it true? The alternating quantifiers correspond to alternating polynomial-space computation. Two-player games with polynomial-length play (geography, Reversi, generalised hex) reduce to TQBF.</p>
 

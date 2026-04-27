@@ -3910,7 +3910,8 @@ window.__MVConcepts = {
           "anchor": "heat",
           "prereqs": [
             "pde-classification",
-            "convergence-theorems"
+            "convergence-theorems",
+            "hf-maximum-principle"
           ],
           "blurb": "$u_t=\\Delta u$ smooths data instantly: the fundamental solution $K_t(x)=(4\\pi t)^{-n/2}e^{-|x|^2/4t}$ converts $\\delta_0$ initial data into a Gaussian whose width scales as $\\sqrt{t}$, and the maximum principle keeps solutions trapped between their initial and boundary extremes.",
           "tags": [
@@ -3935,7 +3936,8 @@ window.__MVConcepts = {
           "anchor": "laplace",
           "prereqs": [
             "pde-classification",
-            "hf-laplace-equation"
+            "hf-laplace-equation",
+            "hf-poisson-kernel"
           ],
           "blurb": "$\\Delta u=0$ is the equilibrium of $u_t=\\Delta u$: solutions enjoy the mean-value property, hit their extremes only on $\\partial\\Omega$, and the Dirichlet/Neumann problems prescribe boundary value or normal flux. On the disk, the Poisson kernel writes the unique solution as a boundary integral.",
           "tags": [
@@ -4284,7 +4286,8 @@ window.__MVConcepts = {
           "anchor": "discrete-martingales",
           "prereqs": [
             "sp-filtrations",
-            "expectation-moments"
+            "expectation-moments",
+            "martingales"
           ],
           "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples."
         },
@@ -4293,7 +4296,8 @@ window.__MVConcepts = {
           "title": "Optional stopping theorem",
           "anchor": "optional-stopping",
           "prereqs": [
-            "sp-discrete-martingales"
+            "sp-discrete-martingales",
+            "martingales"
           ],
           "blurb": "If $\\tau$ is a stopping time and either (a) $\\tau$ is bounded, (b) $M$ is uniformly integrable, or (c) $\\tau<\\infty$ a.s. and $(M_{n\\wedge\\tau})$ is bounded, then $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$; gambler's ruin and Wald's identity drop out as corollaries.",
           "tags": [
@@ -4305,7 +4309,8 @@ window.__MVConcepts = {
           "title": "Doob decomposition and quadratic variation",
           "anchor": "doob-decomposition",
           "prereqs": [
-            "sp-discrete-martingales"
+            "sp-discrete-martingales",
+            "martingales"
           ],
           "blurb": "Every $L^1$ adapted process splits uniquely as $X_n=X_0+M_n+A_n$ with $M$ a martingale and $A$ predictable; for $X=S^2$ with $S$ a mean-zero random walk this recovers $\\langle S\\rangle_n=n$, the discrete quadratic variation.",
           "tags": [
@@ -4318,7 +4323,8 @@ window.__MVConcepts = {
           "anchor": "convergence",
           "prereqs": [
             "sp-discrete-martingales",
-            "convergence-rv"
+            "convergence-rv",
+            "martingales"
           ],
           "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$."
         },
@@ -4391,7 +4397,8 @@ window.__MVConcepts = {
           "anchor": "feynman-kac",
           "prereqs": [
             "sc-ito-formula",
-            "sc-sde-existence"
+            "sc-sde-existence",
+            "pde-heat-equation"
           ],
           "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely."
         },
@@ -4693,7 +4700,7 @@ window.__MVConcepts = {
         {
           "id": "paths",
           "title": "Paths and homotopy",
-          "anchor": "paths",
+          "anchor": "pi1",
           "prereqs": [
             "continuity-topology"
           ],
@@ -4705,7 +4712,7 @@ window.__MVConcepts = {
         {
           "id": "simply-connected",
           "title": "Simply connected domains",
-          "anchor": "simply-connected",
+          "anchor": "pi1",
           "prereqs": [
             "paths"
           ],
@@ -7167,7 +7174,8 @@ window.__MVConcepts = {
           "anchor": "jacobian",
           "prereqs": [
             "mc-hecke-correspondences-curves",
-            "modular-form-definition"
+            "modular-form-definition",
+            "modularity-theorem"
           ],
           "blurb": "The Jacobian $J_0(N) = \\mathrm{Pic}^0(X_0(N))$ is an abelian variety of dimension equal to the genus of $X_0(N)$. Eichler–Shimura identifies its tangent space at the origin with the space of weight-$2$ cusp forms $S_2(\\Gamma_0(N))$, and the Hecke action on the curve matches the Hecke action on forms — the bridge that turns each newform into a modular abelian-variety quotient $A_f$ of $J_0(N)$.",
           "tags": [
@@ -8327,7 +8335,8 @@ window.__MVConcepts = {
           "anchor": "chern-classes",
           "prereqs": [
             "intersection-product",
-            "exact-sequences"
+            "exact-sequences",
+            "cc-chern-classes"
           ],
           "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences.",
           "tags": [
@@ -9909,23 +9918,23 @@ window.__MVConcepts = {
     },
     "Analysis": {
       "concepts": 122,
-      "intra": 198,
+      "intra": 200,
       "crossOut": 16,
-      "crossIn": 32,
+      "crossIn": 33,
       "density": 0.13114754098360656
     },
     "Probability & statistics": {
       "concepts": 41,
-      "intra": 61,
-      "crossOut": 10,
+      "intra": 65,
+      "crossOut": 11,
       "crossIn": 8,
-      "density": 0.24390243902439024
+      "density": 0.2682926829268293
     },
     "Geometry & topology": {
       "concepts": 61,
       "intra": 81,
       "crossOut": 6,
-      "crossIn": 51,
+      "crossIn": 52,
       "density": 0.09836065573770492
     },
     "Number theory": {
@@ -9937,7 +9946,7 @@ window.__MVConcepts = {
     },
     "Modular forms & L-functions": {
       "concepts": 79,
-      "intra": 103,
+      "intra": 104,
       "crossOut": 48,
       "crossIn": 10,
       "density": 0.6075949367088608
@@ -9945,9 +9954,9 @@ window.__MVConcepts = {
     "Algebraic geometry": {
       "concepts": 109,
       "intra": 138,
-      "crossOut": 47,
+      "crossOut": 48,
       "crossIn": 14,
-      "density": 0.43119266055045874
+      "density": 0.44036697247706424
     },
     "Combinatorics & graph theory": {
       "concepts": 39,

@@ -14,7 +14,6 @@
             "proper"
           ],
           "answer": 3,
-          "hint": "Étale = flat + unramified (equivalently: smooth of relative dimension $0$).",
           "explain": "Étale = flat + unramified (equivalently: smooth of relative dimension $0$). Properness is a separate condition; étale morphisms are by definition of finite presentation but need not be proper."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Consider the map $f\\colon \\mathbb{A}^1_{\\mathbb{C}}\\to \\mathbb{A}^1_{\\mathbb{C}}$, $z\\mapsto z^5$. Away from the origin it is étale. Over a point $t\\neq 0$, how many geometric points does the fibre have?",
           "answer": 5,
           "tol": 0.0001,
-          "hint": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e.",
           "explain": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e. $5$ distinct fifth roots, so the étale degree is $5$. Over $t=0$ the fibre collapses to a single ramified point $z=0$."
         },
         {
@@ -35,7 +33,6 @@
             "never"
           ],
           "answer": 1,
-          "hint": "The derivative $nt^{n-1}$ must be invertible on $\\mathbb{G}_m$; over $\\mathbb{F}_p$ that holds iff $p\\nmid n$.",
           "explain": "The derivative $nt^{n-1}$ must be invertible on $\\mathbb{G}_m$; over $\\mathbb{F}_p$ that holds iff $p\\nmid n$. Otherwise the map is inseparable (Frobenius-like) and ramified."
         }
       ],
@@ -89,7 +86,6 @@
             "Because Frobenius has no action when $\\ell = p$."
           ],
           "answer": 0,
-          "hint": "In characteristic $p$, the étale cohomology $H^i_{\\text{ét}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead).",
           "explain": "In characteristic $p$, the étale cohomology $H^i_{\\text{ét}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead). For $\\ell \\neq p$ the theory is well-behaved and gives the right Betti numbers."
         },
         {
@@ -97,7 +93,6 @@
           "q": "Let $E$ be a smooth projective curve of genus $g$ over an algebraically closed field. What is $\\dim_{\\mathbb{Q}_\\ell} H^1_{\\text{ét}}(E, \\mathbb{Q}_\\ell)$ for $g = 3$?",
           "answer": 6,
           "tol": 0.0001,
-          "hint": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{ét}}(E,\\mathbb{Q}_\\ell) = 2g$.",
           "explain": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{ét}}(E,\\mathbb{Q}_\\ell) = 2g$. With $g=3$ this is $6$ — matching the classical Betti number $b_1 = 2g$ for a complex curve."
         },
         {
@@ -164,7 +159,6 @@
             "$\\det(f^* \\mid H^*_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$"
           ],
           "answer": 1,
-          "hint": "The count is an **alternating** sum of traces: odd-degree cohomology contributes with a minus sign, matching the classical topological Lefschetz formula $L(f) = \\sum (-1)^i \\mathrm{Tr}(f^*\\mid H^i)$.",
           "explain": "The count is an **alternating** sum of traces: odd-degree cohomology contributes with a minus sign, matching the classical topological Lefschetz formula $L(f) = \\sum (-1)^i \\mathrm{Tr}(f^*\\mid H^i)$."
         },
         {
@@ -172,7 +166,6 @@
           "q": "Apply the trace formula to $X = \\mathbb{P}^2_{\\mathbb{F}_q}$ with $q=3$ and $f = F_q$ (geometric Frobenius), so $F^*$ acts as $q^i$ on $H^{2i}$ and odd cohomology vanishes. Compute $\\#\\mathbb{P}^2(\\mathbb{F}_3)$.",
           "answer": 13,
           "tol": 0.0001,
-          "hint": "$\\sum_i (-1)^i \\mathrm{Tr}(F^*\\mid H^i) = 1 + q + q^2 = 1+3+9 = 13$, matching $\\#\\mathbb{P}^2(\\mathbb{F}_3) = (3^3-1)/(3-1) = 13$.",
           "explain": "$\\sum_i (-1)^i \\mathrm{Tr}(F^*\\mid H^i) = 1 + q + q^2 = 1+3+9 = 13$, matching $\\#\\mathbb{P}^2(\\mathbb{F}_3) = (3^3-1)/(3-1) = 13$."
         },
         {
@@ -234,7 +227,6 @@
           "q": "Let $E/\\mathbb{F}_q$ be an elliptic curve and write the Frobenius eigenvalues on $H^1_{\\text{ét}}$ as $\\alpha, \\beta$ with $\\alpha\\beta = q$. If $q = 5$ and $\\alpha + \\beta = 3$, compute $\\#E(\\mathbb{F}_5)$.",
           "answer": 3,
           "tol": 0.0001,
-          "hint": "$\\#E(\\mathbb{F}_q) = q + 1 - (\\alpha+\\beta) = 5 + 1 - 3 = 3$.",
           "explain": "$\\#E(\\mathbb{F}_q) = q + 1 - (\\alpha+\\beta) = 5 + 1 - 3 = 3$. The trace $\\alpha+\\beta$ is the standard $a_q$."
         },
         {
@@ -245,7 +237,6 @@
             2
           ],
           "tol": 0.001,
-          "hint": "On $H^1$ with $q=4$ we need $|\\alpha| = \\sqrt{4} = 2$.",
           "explain": "On $H^1$ with $q=4$ we need $|\\alpha| = \\sqrt{4} = 2$. On the positive imaginary axis that is $\\alpha = 2i$."
         },
         {
@@ -258,7 +249,6 @@
             "All of the above."
           ],
           "answer": 3,
-          "hint": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth).",
           "explain": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth). Étale cohomology with its Frobenius action is what makes them provable."
         }
       ],
@@ -312,7 +302,6 @@
             "$H^i_{\\text{ét}}$ depends nontrivially on $\\ell$"
           ],
           "answer": 0,
-          "hint": "Artin's theorem: étale cohomology of a complex variety agrees with topological singular cohomology after tensoring to $\\mathbb{Q}_\\ell$.",
           "explain": "Artin's theorem: étale cohomology of a complex variety agrees with topological singular cohomology after tensoring to $\\mathbb{Q}_\\ell$. In particular $\\dim H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ is the classical Betti number $b_i$, independent of $\\ell$."
         },
         {
@@ -320,7 +309,6 @@
           "q": "Using the comparison theorem, compute the $\\ell$-adic Betti number $b_2 = \\dim_{\\mathbb{Q}_\\ell} H^2_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ for $X = \\mathbb{P}^1 \\times \\mathbb{P}^1$ over $\\mathbb{C}$.",
           "answer": 2,
           "tol": 0.0001,
-          "hint": "By Künneth and comparison, $H^2(\\mathbb{P}^1\\times\\mathbb{P}^1) = H^2(\\mathbb{P}^1)\\otimes H^0(\\mathbb{P}^1) \\oplus H^0\\otimes H^2$, giving $b_2 = 1+1 = 2$.",
           "explain": "By Künneth and comparison, $H^2(\\mathbb{P}^1\\times\\mathbb{P}^1) = H^2(\\mathbb{P}^1)\\otimes H^0(\\mathbb{P}^1) \\oplus H^0\\otimes H^2$, giving $b_2 = 1+1 = 2$. The two classes are the pullbacks of the hyperplane class from each factor."
         },
         {
@@ -333,7 +321,6 @@
             "One uses de Rham cohomology of the generic fiber."
           ],
           "answer": 1,
-          "hint": "Étale cohomology with $\\mathbb{Z}/p^n$ coefficients sees Frobenius-kernel pathology in characteristic $p$.",
           "explain": "Étale cohomology with $\\mathbb{Z}/p^n$ coefficients sees Frobenius-kernel pathology in characteristic $p$. Crystalline cohomology (Berthelot–Grothendieck) replaces it, producing a $W(k)$-module with semi-linear Frobenius whose characteristic polynomial matches the $\\ell$-adic ones for $\\ell\\neq p$."
         }
       ],

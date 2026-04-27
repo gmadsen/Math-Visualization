@@ -14,7 +14,6 @@
             "the order of vanishing of $f$ at $P$"
           ],
           "answer": 1,
-          "hint": "The algebraic definition is $I_P(f,g)=\\dim_k\\bigl(\\mathcal{O}_{P,\\mathbb{A}^2}/(f,g)\\bigr)$ — the $k$-vector space dimension of the local-ring quotient.",
           "explain": "The algebraic definition is $I_P(f,g)=\\dim_k\\bigl(\\mathcal{O}_{P,\\mathbb{A}^2}/(f,g)\\bigr)$ — the $k$-vector space dimension of the local-ring quotient. It captures fatness of the intersection, not just its set-theoretic size."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Compute $I_{(0,0)}(x, y)$ for the two coordinate axes meeting transversely at the origin.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\mathcal{O}_{(0,0)}/(x,y)=k$, which has $k$-dimension $1$.",
           "explain": "$\\mathcal{O}_{(0,0)}/(x,y)=k$, which has $k$-dimension $1$. Transverse smooth crossings always contribute multiplicity $1$."
         },
         {
@@ -30,7 +28,6 @@
           "q": "Compute $I_{(0,0)}(y, y-x^2)$ — the $x$-axis and a parabola tangent to it at the origin.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "In $\\mathcal{O}_{(0,0)}$ the ideal $(y, y-x^2)=(y, x^2)$, and $\\mathcal{O}/(y,x^2)$ has basis $\\{1, x\\}$ over $k$, so the dimension is $2$.",
           "explain": "In $\\mathcal{O}_{(0,0)}$ the ideal $(y, y-x^2)=(y, x^2)$, and $\\mathcal{O}/(y,x^2)$ has basis $\\{1, x\\}$ over $k$, so the dimension is $2$. A simple tangency contributes multiplicity $2$."
         }
       ],
@@ -79,7 +76,6 @@
             "$f$ or $g$ is identically zero"
           ],
           "answer": 1,
-          "hint": "The resultant vanishes exactly when $f,g$ have a common root over the algebraic closure, or when their leading coefficients both vanish (roots at infinity).",
           "explain": "The resultant vanishes exactly when $f,g$ have a common root over the algebraic closure, or when their leading coefficients both vanish (roots at infinity). This is the core fact underlying elimination."
         },
         {
@@ -87,7 +83,6 @@
           "q": "Compute $\\mathrm{Res}_Y(Y-1, Y-2)$ for the two linear polynomials $f=Y-1, g=Y-2$.",
           "answer": -1,
           "tol": 0.000001,
-          "hint": "For two monic linear polynomials $Y-\\alpha, Y-\\beta$, the resultant is $\\alpha-\\beta$.",
           "explain": "For two monic linear polynomials $Y-\\alpha, Y-\\beta$, the resultant is $\\alpha-\\beta$. Here $\\alpha=1,\\beta=2$, so $\\mathrm{Res}=1-2=-1$. It is nonzero because $1\\neq 2$."
         },
         {
@@ -95,7 +90,6 @@
           "q": "If $C$ and $D$ are projective plane curves of degrees $d=3$ and $e=4$ with no common component, what is $\\deg \\mathrm{Res}_Y(F,G)(X,Z)$ as a form in $(X,Z)$?",
           "answer": 12,
           "tol": 0.000001,
-          "hint": "The degree of the resultant as a form in the remaining variables is $de=3\\cdot 4 = 12$, which is precisely why Bézout's count gives $de$ intersections.",
           "explain": "The degree of the resultant as a form in the remaining variables is $de=3\\cdot 4 = 12$, which is precisely why Bézout's count gives $de$ intersections."
         }
       ],
@@ -149,7 +143,6 @@
             "$C\\cap D$ is always empty"
           ],
           "answer": 1,
-          "hint": "The theorem: $\\sum_{P\\in C\\cap D} I_P(C,D) = de$.",
           "explain": "The theorem: $\\sum_{P\\in C\\cap D} I_P(C,D) = de$. The three essential ingredients are working in $\\mathbb{P}^2$, over $\\overline{k}$, and counting with multiplicity."
         },
         {
@@ -157,7 +150,6 @@
           "q": "Two smooth conics in $\\mathbb{P}^2_{\\mathbb{C}}$ with no common component meet in how many points, counted with multiplicity?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$d=e=2$, so Bézout gives $de=4$.",
           "explain": "$d=e=2$, so Bézout gives $de=4$. Real pictures can show 0, 1, 2, 3, or 4 real points, but over $\\mathbb{C}$ and with multiplicity the count is always $4$."
         },
         {
@@ -168,7 +160,6 @@
             0
           ],
           "tol": 0.001,
-          "hint": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$.",
           "explain": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$. The positive solution is $1/\\sqrt{2}\\approx 0.7071$, purely real. Bézout's count $1\\cdot 2 = 2$ matches."
         }
       ],
@@ -212,7 +203,6 @@
           "q": "Two smooth cubics in $\\mathbb{P}^2$ with no common component meet in how many points, counted with multiplicity?",
           "answer": 9,
           "tol": 0.000001,
-          "hint": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$.",
           "explain": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$. Cayley–Bacharach says those nine points are so rigid that any cubic through eight of them passes through the ninth."
         },
         {
@@ -220,7 +210,6 @@
           "q": "The projective space of plane cubics $\\{[F]\\ :\\ F \\text{ homogeneous degree }3\\}$ has projective dimension $\\binom{3+2}{2}-1$. Compute this number.",
           "answer": 9,
           "tol": 0.000001,
-          "hint": "$\\binom{5}{2}-1 = 10-1 = 9$.",
           "explain": "$\\binom{5}{2}-1 = 10-1 = 9$. Eight points generically impose eight independent linear conditions, leaving a $\\mathbb{P}^1$-pencil of cubics through them — inside which the Bézout ninth point lies automatically."
         },
         {
@@ -233,7 +222,6 @@
             "Because projective space is compact"
           ],
           "answer": 1,
-          "hint": "The chord–tangent construction builds $P+Q$ as the third intersection of line $\\overline{PQ}$ with $E$, reflected through $O$.",
           "explain": "The chord–tangent construction builds $P+Q$ as the third intersection of line $\\overline{PQ}$ with $E$, reflected through $O$. Associativity becomes an equality of two points computable from two triples of lines — nine points total, eight already constrained, and Cayley–Bacharach supplies the ninth."
         }
       ],
@@ -282,7 +270,6 @@
           "q": "Three generic quadric surfaces in $\\mathbb{P}^3_{\\mathbb{C}}$ meet in how many points, counted with multiplicity?",
           "answer": 8,
           "tol": 0.000001,
-          "hint": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$.",
           "explain": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$."
         },
         {
@@ -290,7 +277,6 @@
           "q": "Four generic hypersurfaces of degrees $2,3,3,5$ in $\\mathbb{P}^4$ meet in how many points?",
           "answer": 90,
           "tol": 0.000001,
-          "hint": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$.",
           "explain": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$. The Chow-ring computation $(2H)(3H)(3H)(5H) = 90 H^4 = 90\\cdot[\\mathrm{pt}]$ in $A^{\\ast}(\\mathbb{P}^4)=\\mathbb{Z}[H]/(H^5)$."
         },
         {
@@ -303,7 +289,6 @@
             "the hypersurfaces being smooth"
           ],
           "answer": 1,
-          "hint": "If any two hypersurfaces share a positive-dimensional component, $\\sum \\mathrm{length}$ is infinite.",
           "explain": "If any two hypersurfaces share a positive-dimensional component, $\\sum \\mathrm{length}$ is infinite. 'Proper intersection' / 'zero-dimensional intersection' is the substantive hypothesis in $\\mathbb{P}^n$ for $n\\ge 3$. Fulton–MacPherson intersection theory handles the non-proper case via excess intersection."
         }
       ],

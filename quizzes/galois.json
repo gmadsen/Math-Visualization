@@ -14,7 +14,6 @@
             "$9$"
           ],
           "answer": 2,
-          "hint": "The minimal polynomial of $\\sqrt[3]{2}$ has degree $3$ and that of $\\omega$ has degree $2$, so $[L:\\mathbb{Q}]=3\\cdot 2=6$ by the tower law.",
           "explain": "The minimal polynomial of $\\sqrt[3]{2}$ has degree $3$ and that of $\\omega$ has degree $2$, so $[L:\\mathbb{Q}]=3\\cdot 2=6$ by the tower law."
         },
         {
@@ -22,7 +21,6 @@
           "q": "What is the order of $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$, where $\\zeta_5=e^{2\\pi i/5}$?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "The fifth cyclotomic polynomial $\\Phi_5$ has degree $\\varphi(5)=4$, so the Galois group has order $4$ (it is cyclic, isomorphic to $(\\mathbb{Z}/5)^\\times$).",
           "explain": "The fifth cyclotomic polynomial $\\Phi_5$ has degree $\\varphi(5)=4$, so the Galois group has order $4$ (it is cyclic, isomorphic to $(\\mathbb{Z}/5)^\\times$)."
         },
         {
@@ -33,7 +31,6 @@
             -3
           ],
           "tol": 0.000001,
-          "hint": "Complex conjugation fixes $\\mathbb{Q}$ and sends $i\\mapsto -i$, so $2+3i\\mapsto 2-3i$.",
           "explain": "Complex conjugation fixes $\\mathbb{Q}$ and sends $i\\mapsto -i$, so $2+3i\\mapsto 2-3i$."
         }
       ],
@@ -87,7 +84,6 @@
             "elements of $L$ fixed by conjugation"
           ],
           "answer": 1,
-          "hint": "The correspondence $F\\leftrightarrow \\operatorname{Gal}(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups.",
           "explain": "The correspondence $F\\leftrightarrow \\operatorname{Gal}(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups."
         },
         {
@@ -95,7 +91,6 @@
           "q": "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ has $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ of order $4$. How many intermediate fields strictly between $\\mathbb{Q}$ and $L$ are there?",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$.",
           "explain": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$."
         },
         {
@@ -108,12 +103,17 @@
             "$\\langle\\tau\\rangle$ where $\\tau\\colon\\sqrt{2}\\mapsto-\\sqrt{2},\\sqrt{3}\\mapsto-\\sqrt{3}$"
           ],
           "right": [
-            "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$",
             "$\\mathbb{Q}$",
             "$\\mathbb{Q}(\\sqrt{3})$",
-            "$\\mathbb{Q}(\\sqrt{6})$"
+            "$\\mathbb{Q}(\\sqrt{6})$",
+            "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Inclusion-reversing: trivial subgroup fixes all of $L$; whole group fixes only $\\mathbb{Q}$. For each order-$2$ subgroup, find which $\\sqrt{d}$ is fixed.",
           "explain": "By the Galois correspondence: $\\{e\\}\\leftrightarrow L$, $G\\leftrightarrow\\mathbb{Q}$. The subgroup $\\langle\\sigma\\rangle$ fixes $\\sqrt{3}$, hence fixes $\\mathbb{Q}(\\sqrt{3})$; $\\langle\\tau\\rangle$ fixes $\\sqrt{2}\\sqrt{3}=\\sqrt{6}$ (since both signs flip together), hence fixes $\\mathbb{Q}(\\sqrt{6})$. The third order-$2$ subgroup $\\langle\\sigma\\tau\\rangle$ fixes $\\mathbb{Q}(\\sqrt{2})$."
         }
@@ -168,12 +168,17 @@
             "$S_5$ (not solvable: $A_5$ is simple non-abelian)"
           ],
           "right": [
-            "$x^5-1$ (cyclotomic of degree $4$)",
             "$x^3-2$ (irreducible cubic, not all roots real)",
             "general quartic with $S_4$ Galois group",
-            "$x^5-x-1$ (irreducible, two non-real roots)"
+            "$x^5-x-1$ (irreducible, two non-real roots)",
+            "$x^5-1$ (cyclotomic of degree $4$)"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Cyclotomic gives abelian; the irreducible cubic with one real root gives $S_3$; generic quartics give $S_4$; $x^5-x-1$ has $S_5$ via transposition + $5$-cycle.",
           "explain": "$\\Phi_5(x)=x^4+x^3+x^2+x+1$ has Galois group $(\\mathbb{Z}/5)^\\times\\cong\\mathbb{Z}/4$. $x^3-2$ has Galois group $S_3$, solvable via $S_3\\supset A_3\\supset\\{e\\}$. The general quartic has $S_4$, solvable via $S_4\\supset A_4\\supset V_4\\supset\\{e\\}$. $x^5-x-1$ is irreducible with exactly two non-real roots, so complex conjugation is a transposition; combined with a $5$-cycle from transitivity, we get all of $S_5$, which is not solvable."
         },
@@ -187,7 +192,13 @@
             "Apply Galois' criterion: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group.",
             "Note exactly two roots are non-real, so complex conjugation acts as a transposition on the roots; combined with a $5$-cycle from transitivity, this generates $S_5$."
           ],
-          "answer": [3, 2, 4, 0, 1],
+          "answer": [
+            3,
+            2,
+            4,
+            0,
+            1
+          ],
           "hint": "Set up Galois' criterion first, then identify the Galois group as $S_5$, then prove $S_5$ is not solvable.",
           "explain": "The full chain: invoke Galois' criterion, prove the Galois group is $S_5$ (irreducibility gives a $5$-cycle; one transposition from complex conjugation generates the rest), then show $A_5$ is simple via conjugacy-class arithmetic, hence $S_5$ is not solvable."
         },
@@ -201,7 +212,6 @@
             "$(x^2-2)(x^3-2)$"
           ],
           "answer": 1,
-          "hint": "$x^5-x-1$ is irreducible over $\\mathbb{Q}$, has exactly two non-real roots (so complex conjugation is a transposition), and a $5$-cycle from transitivity — these generate $S_5$.",
           "explain": "$x^5-x-1$ is irreducible over $\\mathbb{Q}$, has exactly two non-real roots (so complex conjugation is a transposition), and a $5$-cycle from transitivity — these generate $S_5$."
         }
       ],
@@ -255,7 +265,6 @@
             "$\\mathbb{Q}(\\zeta_7)$"
           ],
           "answer": 2,
-          "hint": "$\\mathbb{Q}(\\sqrt[3]{2})$ contains only one root of $x^3-2$; the other two roots $\\omega\\sqrt[3]{2},\\omega^2\\sqrt[3]{2}$ are complex.",
           "explain": "$\\mathbb{Q}(\\sqrt[3]{2})$ contains only one root of $x^3-2$; the other two roots $\\omega\\sqrt[3]{2},\\omega^2\\sqrt[3]{2}$ are complex. A normal extension must contain all roots of the minimal polynomial of any element."
         },
         {
@@ -263,7 +272,6 @@
           "q": "For a finite Galois extension $L/K$ one has $|\\operatorname{Gal}(L/K)|=[L:K]$. If $[L:K]=12$, what is $|\\operatorname{Gal}(L/K)|$?",
           "answer": 12,
           "tol": 0.000001,
-          "hint": "Galois is exactly the equality $|\\operatorname{Gal}(L/K)|=[L:K]$.",
           "explain": "Galois is exactly the equality $|\\operatorname{Gal}(L/K)|=[L:K]$. If either side is $12$, so is the other."
         },
         {
@@ -276,7 +284,6 @@
             "$\\alpha$ lies in a tower of quadratic extensions"
           ],
           "answer": 1,
-          "hint": "By definition $\\alpha$ is separable over $K$ iff its minimal polynomial over $K$ has no repeated roots in any extension.",
           "explain": "By definition $\\alpha$ is separable over $K$ iff its minimal polynomial over $K$ has no repeated roots in any extension. In characteristic zero this is automatic."
         }
       ],
@@ -330,7 +337,6 @@
             "of prime degree"
           ],
           "answer": 2,
-          "hint": "A finite separable extension admits a primitive element: $L=K(\\theta)$ for some $\\theta\\in L$.",
           "explain": "A finite separable extension admits a primitive element: $L=K(\\theta)$ for some $\\theta\\in L$. Such an extension is called simple."
         },
         {
@@ -338,7 +344,6 @@
           "q": "The element $\\theta=\\sqrt{2}+\\sqrt{3}$ is primitive for $\\mathbb{Q}(\\sqrt{2},\\sqrt{3})/\\mathbb{Q}$. What is the degree of its minimal polynomial over $\\mathbb{Q}$?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]=4$, and if $\\theta$ is primitive then $[\\mathbb{Q}(\\theta):\\mathbb{Q}]=4$, so $m_\\theta$ has degree $4$ (explicitly $x^4-10x^2+1$).",
           "explain": "$[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]=4$, and if $\\theta$ is primitive then $[\\mathbb{Q}(\\theta):\\mathbb{Q}]=4$, so $m_\\theta$ has degree $4$ (explicitly $x^4-10x^2+1$)."
         },
         {
@@ -351,7 +356,6 @@
             "for extensions of degree $2$"
           ],
           "answer": 2,
-          "hint": "Separability is essential.",
           "explain": "Separability is essential. $\\mathbb{F}_p(x,y)/\\mathbb{F}_p(x^p,y^p)$ has degree $p^2$ but every element generates a subfield of degree at most $p$, so it is not simple."
         }
       ],

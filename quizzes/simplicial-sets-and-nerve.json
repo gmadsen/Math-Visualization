@@ -35,7 +35,6 @@
             "A degeneracy followed by a face on the same index undoes the degeneracy."
           ],
           "answer": 0,
-          "hint": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$.",
           "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
         }
       ]
@@ -48,7 +47,6 @@
           "q": "How many non-degenerate $1$-simplices does the standard simplex $\\Delta^3$ have?",
           "answer": 6,
           "tol": 0.5,
-          "hint": "Non-degenerate $k$-simplices of $\\Delta^n$ are injective order-preserving maps $[k] \\to [n]$, counted by $\\binom{n+1}{k+1}$.",
           "explain": "Non-degenerate $k$-simplices of $\\Delta^n$ are injective order-preserving maps $[k] \\to [n]$, counted by $\\binom{n+1}{k+1}$. For $n=3, k=1$: $\\binom{4}{2}=6$ — the six edges of a tetrahedron."
         },
         {
@@ -113,7 +111,6 @@
             "The closed unit ball $D^n$ with no further identifications."
           ],
           "answer": 0,
-          "hint": "By definition $|\\Delta^n|$ is the convex hull of $n+1$ affinely independent points; concretely the standard topological $n$-simplex.",
           "explain": "By definition $|\\Delta^n|$ is the convex hull of $n+1$ affinely independent points; concretely the standard topological $n$-simplex. (It is homeomorphic to $D^n$, but the canonical model is the simplex itself, equipped with barycentric coordinates.)"
         },
         {
@@ -126,7 +123,6 @@
             "A point."
           ],
           "answer": 0,
-          "hint": "$|\\partial \\Delta^n|$ is the boundary of the topological $n$-simplex, which is homeomorphic to $S^{n-1}$.",
           "explain": "$|\\partial \\Delta^n|$ is the boundary of the topological $n$-simplex, which is homeomorphic to $S^{n-1}$. For $n=2$ this is the triangle's boundary $\\cong S^1$; for $n=3$ the tetrahedron's boundary $\\cong S^2$."
         },
         {
@@ -139,7 +135,6 @@
             "A disk $D^2$."
           ],
           "answer": 0,
-          "hint": "$\\Lambda^2_1 \\subset \\Delta^2$ is the union of the two edges through vertex $1$ — i.e., the edges $[0,1]$ and $[1,2]$.",
           "explain": "$\\Lambda^2_1 \\subset \\Delta^2$ is the union of the two edges through vertex $1$ — i.e., the edges $[0,1]$ and $[1,2]$. The realization is two segments joined at a midpoint; contractible (this is what makes the inner-horn extension property a kind of `composability' assertion, not a topological accident)."
         }
       ]
@@ -152,7 +147,6 @@
           "q": "Let $C$ be the poset $\\{a < b < c\\}$ viewed as a category (one arrow $x \\to y$ whenever $x \\le y$). How many $2$-simplices does $N(C)$ have? (Count all of $N(C)_2$, including degeneracies.)",
           "answer": 10,
           "tol": 0.5,
-          "hint": "$N(C)_2$ is the set of composable pairs $(f,g)$, equivalently functors $[2] \\to C$, equivalently order-preserving maps $\\{0,1,2\\} \\to \\{a,b,c\\}$.",
           "explain": "$N(C)_2$ is the set of composable pairs $(f,g)$, equivalently functors $[2] \\to C$, equivalently order-preserving maps $\\{0,1,2\\} \\to \\{a,b,c\\}$. That count is $\\binom{2+2+1}{2+1} = \\binom{5}{3} = 10$."
         },
         {
@@ -160,7 +154,6 @@
           "q": "Let $G$ be the group $\\mathbb{Z}/2$ regarded as a one-object groupoid $BG$. How many non-degenerate $2$-simplices does $N(BG)$ have?",
           "answer": 1,
           "tol": 0.5,
-          "hint": "$N(BG)_n = G^n$, with $(g_1, g_2)$ non-degenerate iff each $g_i \\neq e$.",
           "explain": "$N(BG)_n = G^n$, with $(g_1, g_2)$ non-degenerate iff each $g_i \\neq e$. For $G = \\mathbb{Z}/2$ there is exactly one non-identity element, so the only non-degenerate $2$-simplex is $(g, g)$ — one in total."
         },
         {
@@ -222,7 +215,6 @@
             2,
             4
           ],
-          "hint": "Singular complexes and nerves of groupoids are Kan complexes.",
           "explain": "Singular complexes and nerves of groupoids are Kan complexes. Constant simplicial sets are Kan trivially (every horn factors through the constant). $\\Delta^n$ and $N(C)$ for a non-groupoidal $C$ are NOT Kan: the outer horn $\\Lambda^2_0$ of a composable pair $f, g$ in $N(C)$ would require an arrow $g \\circ f^{-1}$, which need not exist."
         },
         {
@@ -235,7 +227,6 @@
             "Because every simplicial set is a Kan complex."
           ],
           "answer": 0,
-          "hint": "$|\\Lambda^n_k|$ is a strong deformation retract of $|\\Delta^n|$, so any continuous $|\\Lambda^n_k|\\to X$ extends to $|\\Delta^n|\\to X$.",
           "explain": "$|\\Lambda^n_k|$ is a strong deformation retract of $|\\Delta^n|$, so any continuous $|\\Lambda^n_k|\\to X$ extends to $|\\Delta^n|\\to X$. By the realization-singular adjunction this is exactly the lifting property defining Kan complex."
         },
         {
@@ -248,7 +239,6 @@
             "Locally contractible spaces."
           ],
           "answer": 0,
-          "hint": "Quillen's theorem: the adjunction $|{-}| \\dashv \\mathrm{Sing}$ is a Quillen equivalence between $\\mathbf{sSet}_{\\mathrm{Kan}}$ and $\\mathbf{Top}$ with weak equivalences and Serre fibrations.",
           "explain": "Quillen's theorem: the adjunction $|{-}| \\dashv \\mathrm{Sing}$ is a Quillen equivalence between $\\mathbf{sSet}_{\\mathrm{Kan}}$ and $\\mathbf{Top}$ with weak equivalences and Serre fibrations. On homotopy categories: Kan complexes $\\simeq$ CW-complexes."
         }
       ]
@@ -266,7 +256,6 @@
             "$\\Lambda^3_3$"
           ],
           "answer": 0,
-          "hint": "$\\Lambda^n_k$ is inner iff $0 < k < n$.",
           "explain": "$\\Lambda^n_k$ is inner iff $0 < k < n$. For $n=3$: inner horns are $\\Lambda^3_1$ and $\\Lambda^3_2$; $\\Lambda^3_0$ and $\\Lambda^3_3$ are outer. For $n=2$: only $\\Lambda^2_1$ is inner."
         },
         {
@@ -279,7 +268,6 @@
             "$X$ is the singular complex of some space."
           ],
           "answer": 0,
-          "hint": "This is the key characterisation: $X$ is the nerve of a $1$-category iff it is a quasi-category (inner horns extend) AND the extension is unique.",
           "explain": "This is the key characterisation: $X$ is the nerve of a $1$-category iff it is a quasi-category (inner horns extend) AND the extension is unique. Inner-horn fillers in $N(C)$ correspond to compositions $g \\circ f$, which exist and are unique."
         },
         {
@@ -292,7 +280,6 @@
             "All simplicial sets."
           ],
           "answer": 0,
-          "hint": "Fibrant objects in the Joyal model structure are the quasi-categories (inner Kan complexes).",
           "explain": "Fibrant objects in the Joyal model structure are the quasi-categories (inner Kan complexes). Kan complexes are the fibrant objects in the Kan–Quillen model structure (a stricter condition); nerves of $1$-categories are quasi-categories with the additional uniqueness-of-fillers property."
         }
       ],

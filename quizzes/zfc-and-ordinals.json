@@ -14,7 +14,6 @@
             "Choice"
           ],
           "answer": 1,
-          "hint": "Naive comprehension $\\{x : \\varphi(x)\\}$ is replaced by Separation: $\\{x \\in A : \\varphi(x)\\}$ for an already-given set $A$.",
           "explain": "Naive comprehension $\\{x : \\varphi(x)\\}$ is replaced by Separation: $\\{x \\in A : \\varphi(x)\\}$ for an already-given set $A$. Without an ambient set, Russell's $R$ never gets formed; Regularity additionally rules out $x \\in x$."
         },
         {
@@ -27,7 +26,6 @@
             "Replacement"
           ],
           "answer": 2,
-          "hint": "Infinity posits a set $I$ with $\\emptyset \\in I$ and $x \\in I \\Rightarrow x \\cup \\{x\\} \\in I$.",
           "explain": "Infinity posits a set $I$ with $\\emptyset \\in I$ and $x \\in I \\Rightarrow x \\cup \\{x\\} \\in I$. The intersection of all such $I$ is $\\omega$, the set of finite von Neumann ordinals."
         },
         {
@@ -40,7 +38,6 @@
             "Forming $\\mathcal{P}(A)$ from a given set $A$"
           ],
           "answer": 1,
-          "hint": "Separation only filters elements out of an already-given set.",
           "explain": "Separation only filters elements out of an already-given set. Iterating $\\mathcal P$ along $\\omega$ produces the function $n \\mapsto V_n$; collecting its image into a set is exactly Replacement. Power Set then closes us off; Union assembles $V_\\omega$."
         }
       ]
@@ -58,7 +55,6 @@
             "$\\{1,2,3\\}$"
           ],
           "answer": 2,
-          "hint": "$0=\\emptyset$, $1=\\{0\\}=\\{\\emptyset\\}$, $2=\\{0,1\\}=\\{\\emptyset,\\{\\emptyset\\}\\}$, $3=\\{0,1,2\\}=\\{\\emptyset,\\{\\emptyset\\},\\{\\emptyset,\\{\\emptyset\\}\\}\\}$.",
           "explain": "$0=\\emptyset$, $1=\\{0\\}=\\{\\emptyset\\}$, $2=\\{0,1\\}=\\{\\emptyset,\\{\\emptyset\\}\\}$, $3=\\{0,1,2\\}=\\{\\emptyset,\\{\\emptyset\\},\\{\\emptyset,\\{\\emptyset\\}\\}\\}$. Each ordinal is the set of all smaller ordinals."
         },
         {
@@ -71,7 +67,6 @@
             "$\\alpha$ is finite"
           ],
           "answer": 1,
-          "hint": "An ordinal is by definition a transitive set well-ordered by $\\in$.",
           "explain": "An ordinal is by definition a transitive set well-ordered by $\\in$. Regularity rules out $\\alpha\\in\\alpha$. Successor ordinals have a maximum; limit ordinals (like $\\omega$) do not."
         },
         {
@@ -79,7 +74,6 @@
           "q": "Among the ordinals $\\omega,\\;\\omega+1,\\;\\omega\\cdot 2,\\;\\omega^2$, how many are limit ordinals? (Recall: a limit ordinal is nonzero and not a successor.)",
           "answer": 3,
           "tol": 0,
-          "hint": "$\\omega$, $\\omega\\cdot 2 = \\omega+\\omega$, and $\\omega^2$ are all limits — none has an immediate predecessor.",
           "explain": "$\\omega$, $\\omega\\cdot 2 = \\omega+\\omega$, and $\\omega^2$ are all limits — none has an immediate predecessor. Only $\\omega+1$ is a successor (its predecessor is $\\omega$). So the count is $3$."
         }
       ]
@@ -97,7 +91,6 @@
             "$\\omega^2 = 2^\\omega$"
           ],
           "answer": 1,
-          "hint": "$1+\\omega$ is order type $\\bullet,0,1,2,\\dots$, which has the same order type as $\\omega$.",
           "explain": "$1+\\omega$ is order type $\\bullet,0,1,2,\\dots$, which has the same order type as $\\omega$. But $\\omega+1$ has a maximum, so $\\omega+1\\ne\\omega$. Likewise $2\\cdot\\omega = \\omega \\ne \\omega\\cdot 2 = \\omega+\\omega$, and $2^\\omega = \\omega$ as ordinals (not $2^{\\aleph_0}$ as cardinals)."
         },
         {
@@ -110,7 +103,6 @@
             "An inaccessible cardinal"
           ],
           "answer": 2,
-          "hint": "$\\varepsilon_0$ is the supremum (and limit) of the tower $\\omega,\\;\\omega^\\omega,\\;\\omega^{\\omega^\\omega},\\dots$ — equivalently the least fixed point of $\\alpha\\mapsto\\omega^\\alpha$.",
           "explain": "$\\varepsilon_0$ is the supremum (and limit) of the tower $\\omega,\\;\\omega^\\omega,\\;\\omega^{\\omega^\\omega},\\dots$ — equivalently the least fixed point of $\\alpha\\mapsto\\omega^\\alpha$. It is countable but already too large for Peano arithmetic to prove well-founded (Gentzen)."
         },
         {
@@ -118,7 +110,6 @@
           "q": "Compute the ordinal $(\\omega + 3) + (\\omega + 5)$ in Cantor normal form, and enter the coefficient of $\\omega^1$. (E.g. for $\\omega\\cdot 4 + 7$, enter $4$.)",
           "answer": 2,
           "tol": 0,
-          "hint": "$(\\omega+3)+(\\omega+5) = \\omega + (3+\\omega) + 5 = \\omega + \\omega + 5 = \\omega\\cdot 2 + 5$.",
           "explain": "$(\\omega+3)+(\\omega+5) = \\omega + (3+\\omega) + 5 = \\omega + \\omega + 5 = \\omega\\cdot 2 + 5$. The lower term $3$ is absorbed by the next $\\omega$ on its right because addition is left-distributive but not commutative. The coefficient of $\\omega^1$ is $2$."
         }
       ]
@@ -136,7 +127,6 @@
             "Because $\\mathbb R$ is well-ordered by the standard order"
           ],
           "answer": 1,
-          "hint": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$.",
           "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
         },
         {
@@ -149,7 +139,6 @@
             "$\\aleph_1$"
           ],
           "answer": 0,
-          "hint": "$\\aleph_\\omega = \\sup_n \\aleph_n$ is the limit of a countable sequence, so its cofinality is $\\omega = \\aleph_0$.",
           "explain": "$\\aleph_\\omega = \\sup_n \\aleph_n$ is the limit of a countable sequence, so its cofinality is $\\omega = \\aleph_0$. This makes $\\aleph_\\omega$ a singular cardinal — by König's theorem, $2^{\\aleph_0} \\ne \\aleph_\\omega$."
         },
         {
@@ -162,7 +151,6 @@
             "$\\aleph_{\\omega+\\omega}$"
           ],
           "answer": 2,
-          "hint": "Successor cardinals $\\aleph_{\\alpha+1}$ are regular (in ZFC).",
           "explain": "Successor cardinals $\\aleph_{\\alpha+1}$ are regular (in ZFC). Limit cardinals $\\aleph_\\lambda$ have $\\operatorname{cf}(\\aleph_\\lambda) = \\operatorname{cf}(\\lambda)$, so $\\aleph_\\omega$ and $\\aleph_{\\omega+\\omega}$ have cofinality $\\omega$ — singular. $\\aleph_{\\omega_1}$ is singular too (cofinality $\\omega_1 < \\aleph_{\\omega_1}$)."
         }
       ]
@@ -180,7 +168,6 @@
             "Every infinite set is in bijection with $\\omega$"
           ],
           "answer": 3,
-          "hint": "AC is equivalent to Zorn's lemma, the well-ordering theorem, Tychonoff's theorem, and 'every vector space has a basis'.",
           "explain": "AC is equivalent to Zorn's lemma, the well-ordering theorem, Tychonoff's theorem, and 'every vector space has a basis'. But 'every infinite set is countable' is false — Cantor showed $\\mathbb R$ is uncountable, no choice needed."
         },
         {
@@ -193,7 +180,6 @@
             "All of the above need full AC"
           ],
           "answer": 2,
-          "hint": "Finite products of compact spaces are compact in ZF.",
           "explain": "Finite products of compact spaces are compact in ZF. Countable products of compact Hausdorff spaces need countable choice (DC). The general Tychonoff theorem is equivalent to AC (Kelley 1950)."
         },
         {
@@ -206,7 +192,6 @@
             "A continuous function $\\mathbb R\\to\\mathbb R$"
           ],
           "answer": 1,
-          "hint": "Vitali's construction picks one representative from each coset of $\\mathbb Q$ in $\\mathbb R/\\mathbb Q$, an uncountable family of non-empty sets — this is exactly a choice function.",
           "explain": "Vitali's construction picks one representative from each coset of $\\mathbb Q$ in $\\mathbb R/\\mathbb Q$, an uncountable family of non-empty sets — this is exactly a choice function. Solovay (1970) showed it is consistent with ZF+DC that every set of reals is Lebesgue measurable, so the non-measurable set really requires AC."
         }
       ]
@@ -224,7 +209,6 @@
             "Every infinite subset of $\\mathbb R$ is countable"
           ],
           "answer": 1,
-          "hint": "CH is the statement $2^{\\aleph_0}=\\aleph_1$.",
           "explain": "CH is the statement $2^{\\aleph_0}=\\aleph_1$. Equivalently: every infinite subset of $\\mathbb R$ is either countable or in bijection with $\\mathbb R$ — there is no cardinality in between."
         },
         {
@@ -237,7 +221,6 @@
             "An open problem"
           ],
           "answer": 2,
-          "hint": "Gödel (1940) built the constructible universe $L$, an inner model of ZFC where CH (and GCH) hold; this shows ZFC + CH is consistent.",
           "explain": "Gödel (1940) built the constructible universe $L$, an inner model of ZFC where CH (and GCH) hold; this shows ZFC + CH is consistent. Cohen (1963) introduced forcing to build a model where CH fails. Neither half can prove CH itself."
         },
         {
@@ -268,7 +251,6 @@
             "Equal to $\\aleph_\\omega$"
           ],
           "answer": 0,
-          "hint": "Inaccessible = uncountable + regular + strong limit.",
           "explain": "Inaccessible = uncountable + regular + strong limit. Both conditions ensure $V_\\kappa$ is closed under power-set and unions of size $<\\kappa$, so $V_\\kappa\\models$ ZFC."
         },
         {
@@ -281,7 +263,6 @@
             "Because $V_\\kappa$ has size $\\aleph_0$"
           ],
           "answer": 0,
-          "hint": "If ZFC + Inaccessible $\\vdash$ Con(ZFC), then ZFC alone cannot prove the existence of an inaccessible — else ZFC would prove Con(ZFC), violating Gödel II.",
           "explain": "If ZFC + Inaccessible $\\vdash$ Con(ZFC), then ZFC alone cannot prove the existence of an inaccessible — else ZFC would prove Con(ZFC), violating Gödel II. So 'an inaccessible exists' has strictly higher consistency strength than ZFC."
         },
         {

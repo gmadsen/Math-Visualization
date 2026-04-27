@@ -14,7 +14,6 @@
             "every $k$-th power is a sum of $g(k)$ primes"
           ],
           "answer": 1,
-          "hint": "Waring's problem: $g(k)$ is the least $s$ such that every positive integer can be written as $n = x_1^k + \\cdots + x_s^k$ with $x_i\\ge 0$.",
           "explain": "Waring's problem: $g(k)$ is the least $s$ such that every positive integer can be written as $n = x_1^k + \\cdots + x_s^k$ with $x_i\\ge 0$. Hilbert (1909) proved $g(k)<\\infty$ for every $k$."
         },
         {
@@ -22,7 +21,6 @@
           "q": "What is $g(2)$? (Lagrange's theorem.)",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$g(2)=4$: every non-negative integer is a sum of four squares (Lagrange, 1770), and three do not suffice since e.g.",
           "explain": "$g(2)=4$: every non-negative integer is a sum of four squares (Lagrange, 1770), and three do not suffice since e.g. $7$ is not a sum of three squares."
         },
         {
@@ -30,7 +28,6 @@
           "q": "What is $g(3)$? (The integer $n=23$ requires nine cubes: $23=2\\cdot 2^3+7\\cdot 1^3$.)",
           "answer": 9,
           "tol": 0.000001,
-          "hint": "$g(3)=9$ (Wieferich/Kempner).",
           "explain": "$g(3)=9$ (Wieferich/Kempner). The extremal integers are $23$ and $239$, which both require nine cubes; every other $n$ needs at most nine."
         }
       ],
@@ -84,7 +81,6 @@
             "$G(k)\\le \\log k$"
           ],
           "answer": 1,
-          "hint": "$G(k)$ is the least $s$ such that every sufficiently large $n$ is a sum of $s$ $k$-th powers, while $g(k)$ covers all $n\\ge 1$.",
           "explain": "$G(k)$ is the least $s$ such that every sufficiently large $n$ is a sum of $s$ $k$-th powers, while $g(k)$ covers all $n\\ge 1$. A handful of small exceptional integers push $g(k)$ above $G(k)$; e.g. $79=4\\cdot 2^4+15\\cdot 1^4$ forces $g(4)=19$ but $G(4)=16$."
         },
         {
@@ -92,7 +88,6 @@
           "q": "What is $G(2)$? (Hint: the three-squares theorem excludes $4^a(8b+7)$ for every $a$, so three do not suffice even asymptotically.)",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$G(2)=4$: the excluded set $\\{4^a(8b+7)\\}$ is infinite, so even for large $n$ four squares are sometimes necessary.",
           "explain": "$G(2)=4$: the excluded set $\\{4^a(8b+7)\\}$ is infinite, so even for large $n$ four squares are sometimes necessary. Hence $G(2)=g(2)=4$ is one of the rare cases with equality."
         },
         {
@@ -105,7 +100,6 @@
             "$G(k) \\le k^{3/2}$"
           ],
           "answer": 2,
-          "hint": "Vinogradov's mean-value method (refined by Wooley) gives $G(k)\\le k\\log k + k\\log\\log k + O(k)$ — linear up to a log factor.",
           "explain": "Vinogradov's mean-value method (refined by Wooley) gives $G(k)\\le k\\log k + k\\log\\log k + O(k)$ — linear up to a log factor. This is believed to be close to the truth: one expects $G(k)\\asymp k$."
         }
       ],
@@ -159,7 +153,6 @@
             "the Weil conjectures"
           ],
           "answer": 1,
-          "hint": "Hilbert found an identity writing $(\\sum x_i^2)^k$ as a positive rational combination of $(2k)$-th powers of linear forms $L_j(x)$.",
           "explain": "Hilbert found an identity writing $(\\sum x_i^2)^k$ as a positive rational combination of $(2k)$-th powers of linear forms $L_j(x)$. Combined with Lagrange's four-square theorem, this yields the finiteness of $g(k)$ — but gives no explicit bound. Hardy–Littlewood later recovered an asymptotic count via the circle method."
         },
         {
@@ -167,7 +160,6 @@
           "q": "For $k=2$, Hilbert's construction degenerates into Lagrange plus a trivial identity. What is $g(2)$?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$g(2)=4$ — the base case.",
           "explain": "$g(2)=4$ — the base case. Hilbert's induction bootstraps higher $k$ from the fact that four squares suffice."
         },
         {
@@ -180,7 +172,6 @@
             "it requires the Riemann hypothesis"
           ],
           "answer": 1,
-          "hint": "Hilbert's argument is non-constructive in the sense that the bound it produces is astronomical and far from the true $g(k)$.",
           "explain": "Hilbert's argument is non-constructive in the sense that the bound it produces is astronomical and far from the true $g(k)$. Sharpening $g(k)$ for specific $k$ (e.g. $g(3)=9$, $g(4)=19$) took decades of further work."
         }
       ],
@@ -234,7 +225,6 @@
             "$f(\\alpha)=\\sum_n \\Lambda(n) n^{-\\alpha}$"
           ],
           "answer": 1,
-          "hint": "Write $f(\\alpha)=\\sum_{n=1}^{\\lfloor N^{1/k}\\rfloor} e(\\alpha n^k)$.",
           "explain": "Write $f(\\alpha)=\\sum_{n=1}^{\\lfloor N^{1/k}\\rfloor} e(\\alpha n^k)$. Then $f(\\alpha)^s = \\sum_{m} r(m) e(\\alpha m)$ where $r(m)$ counts ordered reps of $m$ as a sum of $s$ $k$-th powers; extracting the coefficient of $e(\\alpha N)$ is an integral over the unit interval."
         },
         {
@@ -247,7 +237,6 @@
             "$\\prod_p (1 + p^{-s})$"
           ],
           "answer": 1,
-          "hint": "By Fourier orthogonality on $\\mathbb{Z}$: $\\int_0^1 e(\\alpha m)\\,d\\alpha = [m=0]$.",
           "explain": "By Fourier orthogonality on $\\mathbb{Z}$: $\\int_0^1 e(\\alpha m)\\,d\\alpha = [m=0]$. So $\\int_0^1 f(\\alpha)^s e(-\\alpha N)\\,d\\alpha$ picks out precisely the coefficient of $e(\\alpha N)$ in $f(\\alpha)^s$, which is $r_{s,k}(N)$."
         },
         {
@@ -255,7 +244,6 @@
           "q": "For $k=2$, $s=4$, the circle method recovers Jacobi's formula $r_4(N)=8\\sum_{d\\mid N,\\,4\\nmid d} d$ (for $N$ odd). What is $r_4(3)$? (Divisors of $3$: $1,3$.)",
           "answer": 32,
           "tol": 0.000001,
-          "hint": "$r_4(3)=8(1+3)=32$ — matching the circle-method asymptotic with singular series $8\\sigma^*(N)$.",
           "explain": "$r_4(3)=8(1+3)=32$ — matching the circle-method asymptotic with singular series $8\\sigma^*(N)$. In the Lagrange/Jacobi case the asymptotic is exact, because the minor arcs vanish."
         }
       ],
@@ -321,7 +309,6 @@
             "$|f(\\alpha)| = N^{1/k}$ for all $\\alpha$"
           ],
           "answer": 2,
-          "hint": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$.",
           "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
         },
         {
@@ -334,7 +321,6 @@
             "the trivial constant $1$"
           ],
           "answer": 1,
-          "hint": "$\\mathfrak{S}(N)$ factors as an Euler product $\\prod_p \\sigma_p(N)$ where $\\sigma_p(N)$ is the $p$-adic density of solutions to $n = x_1^k+\\cdots+x_s^k$.",
           "explain": "$\\mathfrak{S}(N)$ factors as an Euler product $\\prod_p \\sigma_p(N)$ where $\\sigma_p(N)$ is the $p$-adic density of solutions to $n = x_1^k+\\cdots+x_s^k$. Together with the singular integral (the real/archimedean density), Waring is solvable iff every local factor is positive — a Hasse principle for sums of $k$-th powers (for $s$ large enough)."
         }
       ],

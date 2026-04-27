@@ -6,49 +6,76 @@
     {
       "id": "paths",
       "title": "Paths and homotopy",
-      "anchor": "paths",
-      "prereqs": ["continuity-topology"],
+      "anchor": "pi1",
+      "prereqs": [
+        "continuity-topology"
+      ],
       "blurb": "Continuous paths I→X, homotopy rel endpoints, and the concatenation that makes loop classes a group.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "simply-connected",
       "title": "Simply connected domains",
-      "anchor": "simply-connected",
-      "prereqs": ["paths"],
+      "anchor": "pi1",
+      "prereqs": [
+        "paths"
+      ],
       "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis."
     },
     {
       "id": "fundamental-group",
       "title": "Fundamental group",
       "anchor": "pi1",
-      "prereqs": ["paths"],
+      "prereqs": [
+        "paths"
+      ],
       "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality.",
-      "tags": ["functoriality", "foundation"]
+      "tags": [
+        "functoriality",
+        "foundation"
+      ]
     },
     {
       "id": "universal-cover-of-circle",
       "title": "Universal cover of S¹",
       "anchor": "universal-cover-circle",
-      "prereqs": ["fundamental-group"],
+      "prereqs": [
+        "fundamental-group"
+      ],
       "blurb": "The exponential map $p: \\mathbb{R} \\to S^1$, $t \\mapsto e^{2\\pi i t}$, is a covering with discrete fibre $\\mathbb{Z}$. Lifting loops to paths in $\\mathbb{R}$ converts the topology of $S^1$ into integer arithmetic — every loop has a winding number, and that's the iso $\\pi_1(S^1) \\cong \\mathbb{Z}$.",
-      "tags": ["fibration", "lifting"]
+      "tags": [
+        "fibration",
+        "lifting"
+      ]
     },
     {
       "id": "covering-spaces",
       "title": "Covering spaces",
       "anchor": "covers",
-      "prereqs": ["fundamental-group"],
+      "prereqs": [
+        "fundamental-group"
+      ],
       "blurb": "Locally trivial surjections p:E→B with discrete fibers; the Galois correspondence between covers of B and subgroups of π₁(B).",
-      "tags": ["fibration", "classification", "group-action"]
+      "tags": [
+        "fibration",
+        "classification",
+        "group-action"
+      ]
     },
     {
       "id": "singular-homology",
       "title": "Singular homology",
       "anchor": "homology",
-      "prereqs": ["fundamental-group"],
+      "prereqs": [
+        "fundamental-group"
+      ],
       "blurb": "Chains, boundaries, Hₙ(X) as a homotopy invariant; Mayer–Vietoris and the Euler characteristic.",
-      "tags": ["cohomology", "functoriality"]
+      "tags": [
+        "cohomology",
+        "functoriality"
+      ]
     }
   ]
 }

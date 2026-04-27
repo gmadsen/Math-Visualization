@@ -247,6 +247,8 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="morse-functions">
 <h2>1. Morse functions</h2>
+<p>To extract the topology of $M$ from a function $f\colon M\to\mathbb{R}$, we need $f$ to be generic enough that its critical behaviour is non-degenerate everywhere. The <em>Morse condition</em> is the right genericity requirement — strong enough to force a quadratic-form normal form at every critical point, weak enough to be satisfied by a dense set of smooth functions.</p>
+
 <p>Let $M$ be a smooth $n$-manifold and $f\colon M\to\mathbb{R}$ smooth. A point $p\in M$ is a <strong>critical point</strong> of $f$ if $df_p=0$. At a critical point the <em>Hessian</em>
 $$H_p f \colon T_pM\times T_pM \longrightarrow \mathbb{R}$$
 is a well-defined symmetric bilinear form (the choice of chart drops out because $df_p=0$). The critical point is <strong>non-degenerate</strong> if $H_pf$ is non-degenerate as a bilinear form, equivalently the Hessian matrix in any chart is invertible.</p>
@@ -472,6 +474,29 @@ $$HM_*(M) \;\cong\; H_*(M;\mathbb{Z}).$$</div>
 <div class="quiz" data-concept="mt-applications"></div>
 </section>
 
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Morse theory is a hinge between three different ways of looking at a smooth manifold — analysis (gradients, flow), topology (cells, homology), and combinatorics (the index data). Each thread points to a sibling page that picks up where this one stops.</p>
+
+<h3>Differential geometry and gradient flow</h3>
+
+<p>The negative gradient flow $\dot \gamma = -\nabla f$ is the workhorse of <a href="./differential-geometry.html">differential geometry</a> applications: heat-flow regularisation, Łojasiewicz inequalities, mean-curvature-flow analysis. The Morse stratification is the prototype every gradient-flow argument generalises.</p>
+
+<h3>Algebraic topology and CW homology</h3>
+
+<p><a href="./algebraic-topology.html">Singular homology</a>, the Mayer–Vietoris sequence, and CW-complex homology are the algebraic targets — Morse homology is isomorphic to all three for compact $M$. The Morse inequalities are a numerical witness that this isomorphism is non-trivial: $f$ has at least the topology of $M$ baked in.</p>
+
+<h3>Lie groups and homogeneous spaces</h3>
+
+<p>Bott’s theorem on the homotopy of compact <a href="./lie-groups.html">Lie groups</a> uses Morse theory of the energy functional on the loop space of $G$. Equivariant Morse theory (Atiyah–Bott) extends to manifolds with group actions and underlies the Witten-style proofs of Atiyah–Singer.</p>
+
+<h3>Symplectic and Floer-theoretic generalisations</h3>
+
+<p>Floer’s insight: do Morse theory on the symplectic action functional on the loop space of a symplectic manifold. <a href="./characteristic-classes.html">Characteristic classes</a> and pseudo-holomorphic curves take the place of the Hessian; Floer homology generalises Morse homology to infinite-dimensional settings (Lagrangian, Hamiltonian, instanton, monopole, Heegaard).</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: discrete Morse theory and topological data analysis (Forman, persistent homology); $A_\infty$- and $L_\infty$-Morse theory (Fukaya, Kontsevich); equivariant and twisted Floer theories (Seiberg–Witten, Heegaard, embedded contact); the symplectic-cobordism / Khovanov-homology bridge.</p>
+</section>
 </main>
 
 <script>

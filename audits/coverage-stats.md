@@ -5,7 +5,7 @@
 - Topics: **105**, concepts: **711**
 - Widgets: **762** (registry-driven: 569, inline: 193)
 - Quizzes: **3300** (v1: 2064, hard: 1223, expert: 13)
-- Quiz types: mcq: 2106, numeric: 956, multi-select: 94, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 2106, numeric: 955, multi-select: 95, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **111**
 - Concepts lacking a hard-tier quiz: **273**
 
@@ -197,7 +197,7 @@ page has wired one in yet.
   - by dimension: 2d: 70, unknown: 24
   - by gesture: click: 68, unknown: 24, slider: 2
 - Quizzes: **489** (v1: 304, hard: 185, expert: 0)
-  - by type: mcq: 293, numeric: 127, complex: 14, matching: 14, multi-select: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+  - by type: mcq: 293, numeric: 126, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 

@@ -310,7 +310,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois-representations.html#mod\">Galois representations</a> · Residual reps, deformations, modularity</div>\n    <div><a href=\"./modularity-and-flt.html#ribet\">Modularity and FLT</a> · Ribet's level lowering</div>\n    <div><a href=\"./modularity-and-flt.html#rt\">Modularity and FLT</a> · The R = T theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois-representations.html#mod\">Galois representations</a> · Residual reps, deformations, modularity</div>\n    <div><a href=\"./modular-curves.html#jacobian\">Modular curves</a> · The Jacobian $J_0(N)$ and Eichler–Shimura</div>\n    <div><a href=\"./modularity-and-flt.html#ribet\">Modularity and FLT</a> · Ribet's level lowering</div>\n    <div><a href=\"./modularity-and-flt.html#rt\">Modularity and FLT</a> · The R = T theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -14,7 +14,6 @@
             "$\\alpha\\wedge\\beta = \\alpha + \\beta$"
           ],
           "answer": 1,
-          "hint": "The wedge of $1$-forms is antisymmetric: $\\alpha\\wedge\\beta = -\\beta\\wedge\\alpha$.",
           "explain": "The wedge of $1$-forms is antisymmetric: $\\alpha\\wedge\\beta = -\\beta\\wedge\\alpha$. In particular $\\alpha\\wedge\\alpha = 0$, which is exactly the alternating/oriented-area property."
         },
         {
@@ -22,7 +21,6 @@
           "q": "What is $\\dim \\Omega^2(\\mathbb{R}^4)$ over $C^\\infty(\\mathbb{R}^4)$? (Equivalently, $\\binom{4}{2}$.)",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "A basis of $\\Omega^k(\\mathbb{R}^n)$ is $\\{dx^{i_1}\\wedge\\cdots\\wedge dx^{i_k}\\}$ with strictly increasing indices, so the dimension is $\\binom{n}{k}=\\binom{4}{2}=6$.",
           "explain": "A basis of $\\Omega^k(\\mathbb{R}^n)$ is $\\{dx^{i_1}\\wedge\\cdots\\wedge dx^{i_k}\\}$ with strictly increasing indices, so the dimension is $\\binom{n}{k}=\\binom{4}{2}=6$."
         },
         {
@@ -30,7 +28,6 @@
           "q": "Let $v=(2,1)$ and $w=(1,3)$ in $\\mathbb{R}^2$. Compute $(dx\\wedge dy)(v,w) = v_1 w_2 - v_2 w_1$.",
           "answer": 5,
           "tol": 0.000001,
-          "hint": "$(dx\\wedge dy)(v,w)=\\det\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}=2\\cdot 3-1\\cdot 1=5$.",
           "explain": "$(dx\\wedge dy)(v,w)=\\det\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}=2\\cdot 3-1\\cdot 1=5$."
         }
       ],
@@ -76,7 +73,6 @@
             "$d(\\alpha\\wedge\\beta) = d\\alpha\\wedge d\\beta$"
           ],
           "answer": 2,
-          "hint": "The defining axioms are: $df$ is the usual differential on $0$-forms, $d$ is a graded derivation, and $d^2=0$.",
           "explain": "The defining axioms are: $df$ is the usual differential on $0$-forms, $d$ is a graded derivation, and $d^2=0$. The last is dual to $\\partial\\partial=0$ for chains."
         },
         {
@@ -84,7 +80,6 @@
           "q": "For $\\omega = x\\,dy - y\\,dx$ on $\\mathbb{R}^2$, compute the coefficient of $dx\\wedge dy$ in $d\\omega$ (i.e. $Q_x - P_y$ where $\\omega = P\\,dx + Q\\,dy$).",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "Here $P=-y$, $Q=x$, so $Q_x-P_y = 1-(-1)=2$.",
           "explain": "Here $P=-y$, $Q=x$, so $Q_x-P_y = 1-(-1)=2$. Thus $d\\omega = 2\\,dx\\wedge dy$."
         },
         {
@@ -148,7 +143,6 @@
             "$f^*$ is only defined on $0$-forms"
           ],
           "answer": 0,
-          "hint": "Pullback is an algebra homomorphism that commutes with $d$: $f^*(\\alpha\\wedge\\beta)=f^*\\alpha\\wedge f^*\\beta$ and $f^*\\circ d = d\\circ f^*$.",
           "explain": "Pullback is an algebra homomorphism that commutes with $d$: $f^*(\\alpha\\wedge\\beta)=f^*\\alpha\\wedge f^*\\beta$ and $f^*\\circ d = d\\circ f^*$. These two facts are what make differential forms natural."
         },
         {
@@ -156,7 +150,6 @@
           "q": "Let $f(u,v) = (u+v,\\ uv)$ from $\\mathbb{R}^2$ to $\\mathbb{R}^2$ with target coordinates $(x,y)$. Compute the coefficient of $du\\wedge dv$ in $f^*(dx\\wedge dy)$ at $(u,v)=(3,1)$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$f^*dx = du+dv$ and $f^*dy = v\\,du+u\\,dv$, so $f^*(dx\\wedge dy) = (du+dv)\\wedge(v\\,du+u\\,dv) = (u-v)\\,du\\wedge dv$.",
           "explain": "$f^*dx = du+dv$ and $f^*dy = v\\,du+u\\,dv$, so $f^*(dx\\wedge dy) = (du+dv)\\wedge(v\\,du+u\\,dv) = (u-v)\\,du\\wedge dv$. At $(3,1)$ the coefficient is $3-1=2$. (Equivalently, the Jacobian determinant $\\det Df = u-v$.)"
         },
         {
@@ -169,7 +162,6 @@
             "$\\cos\\theta\\,d\\theta$"
           ],
           "answer": 1,
-          "hint": "On $S^1$, $x=\\cos\\theta$, $y=\\sin\\theta$, $x^2+y^2=1$, $dx=-\\sin\\theta\\,d\\theta$, $dy=\\cos\\theta\\,d\\theta$.",
           "explain": "On $S^1$, $x=\\cos\\theta$, $y=\\sin\\theta$, $x^2+y^2=1$, $dx=-\\sin\\theta\\,d\\theta$, $dy=\\cos\\theta\\,d\\theta$. Then $-y\\,dx+x\\,dy=\\sin^2\\theta\\,d\\theta+\\cos^2\\theta\\,d\\theta=d\\theta$. The pullback of the angle form is literally $d\\theta$."
         }
       ],
@@ -215,7 +207,6 @@
             "the supremum of $\\omega$ on the image"
           ],
           "answer": 1,
-          "hint": "Integration over a smooth simplex is $\\int_\\sigma\\omega := \\int_{\\Delta^k}\\sigma^*\\omega$.",
           "explain": "Integration over a smooth simplex is $\\int_\\sigma\\omega := \\int_{\\Delta^k}\\sigma^*\\omega$. This is well-defined because $\\sigma^*\\omega$ is a $k$-form on $\\Delta^k\\subset\\mathbb{R}^k$, which integrates via the standard Lebesgue integral of its $du^1\\wedge\\cdots\\wedge du^k$ coefficient."
         },
         {
@@ -228,7 +219,6 @@
             "Because $M$ is compact"
           ],
           "answer": 2,
-          "hint": "For an orientation-preserving diffeomorphism $\\phi$, change of variables gives $\\int\\phi^*\\eta = \\int\\eta$.",
           "explain": "For an orientation-preserving diffeomorphism $\\phi$, change of variables gives $\\int\\phi^*\\eta = \\int\\eta$. Since forms pull back with a Jacobian determinant, the antisymmetry of $\\wedge$ is exactly what makes integration of forms reparametrization-invariant."
         },
         {
@@ -236,7 +226,6 @@
           "q": "Let $\\sigma:[0,1]\\to\\mathbb{R}^2$, $\\sigma(t)=(t,t^2)$, and $\\omega = dy$. Compute $\\int_\\sigma\\omega$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\sigma^*\\omega = \\sigma^*(dy) = d(t^2) = 2t\\,dt$.",
           "explain": "$\\sigma^*\\omega = \\sigma^*(dy) = d(t^2) = 2t\\,dt$. Then $\\int_\\sigma\\omega = \\int_0^1 2t\\,dt = 1$. Geometrically, $\\int_\\sigma dy$ is just the net vertical displacement of $\\sigma$, $y(1)-y(0)=1-0=1$."
         }
       ],
@@ -282,7 +271,6 @@
             "$\\int_{\\partial M} \\omega = 0$ for every closed $\\omega$"
           ],
           "answer": 1,
-          "hint": "Stokes: $\\int_M d\\omega = \\int_{\\partial M}\\omega$.",
           "explain": "Stokes: $\\int_M d\\omega = \\int_{\\partial M}\\omega$. It unifies the fundamental theorem of calculus, Green, classical Stokes, and divergence theorems."
         },
         {
@@ -290,7 +278,6 @@
           "q": "Let $\\omega = (-y\\,dx + x\\,dy)/(x^2+y^2)$ on $\\mathbb{R}^2\\setminus\\{0\\}$ and let $\\gamma$ be a loop winding $n=3$ times counterclockwise around $0$. Compute $\\oint_\\gamma \\omega / \\pi$.",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\oint_\\gamma \\omega = 2\\pi n = 6\\pi$, so $\\oint_\\gamma\\omega/\\pi = 6$.",
           "explain": "$\\oint_\\gamma \\omega = 2\\pi n = 6\\pi$, so $\\oint_\\gamma\\omega/\\pi = 6$. Nonzero integral means $\\omega$ is closed but not exact."
         },
         {
@@ -298,7 +285,6 @@
           "q": "What is $\\dim H^1_{\\mathrm{dR}}(T^2)$ for the $2$-torus $T^2 = S^1\\times S^1$?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "The torus has two independent $1$-cycles ($d\\theta_1$ and $d\\theta_2$), so $H^1_{\\mathrm{dR}}(T^2)\\cong\\mathbb{R}^2$ and its dimension is $2$.",
           "explain": "The torus has two independent $1$-cycles ($d\\theta_1$ and $d\\theta_2$), so $H^1_{\\mathrm{dR}}(T^2)\\cong\\mathbb{R}^2$ and its dimension is $2$."
         }
       ],

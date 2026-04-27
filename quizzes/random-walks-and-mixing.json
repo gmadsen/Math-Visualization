@@ -14,7 +14,6 @@
             "$P$ is invertible"
           ],
           "answer": 0,
-          "hint": "Row-stochastic means each row is a probability distribution over next states: nonneg entries summing to $1$.",
           "explain": "Row-stochastic means each row is a probability distribution over next states: nonneg entries summing to $1$. Column sums need not be $1$ (that would be doubly stochastic), and $P$ need not be symmetric or invertible."
         },
         {
@@ -22,7 +21,6 @@
           "q": "For the chain with $P=\\begin{pmatrix}0.5&0.5\\\\0.25&0.75\\end{pmatrix}$, compute the $(1,2)$ entry of $P^2$ (probability of going $1\\to 2$ in two steps).",
           "answer": 0.625,
           "tol": 0.005,
-          "hint": "$(P^2)_{12} = P_{11}P_{12}+P_{12}P_{22} = 0.5\\cdot 0.5 + 0.5\\cdot 0.75 = 0.25+0.375 = 0.625$.",
           "explain": "$(P^2)_{12} = P_{11}P_{12}+P_{12}P_{22} = 0.5\\cdot 0.5 + 0.5\\cdot 0.75 = 0.25+0.375 = 0.625$."
         },
         {
@@ -35,7 +33,6 @@
             "the transition probabilities are time-dependent"
           ],
           "answer": 0,
-          "hint": "The Markov / memoryless property: conditional on the current state $X_n$, the future is independent of the past $X_0,\\ldots,X_{n-1}$.",
           "explain": "The Markov / memoryless property: conditional on the current state $X_n$, the future is independent of the past $X_0,\\ldots,X_{n-1}$. Stationarity is a separate condition (time-homogeneity)."
         }
       ]
@@ -53,7 +50,6 @@
             "$P$ has $\\pi$ as a column"
           ],
           "answer": 0,
-          "hint": "Stationarity: applying one step leaves the distribution unchanged.",
           "explain": "Stationarity: applying one step leaves the distribution unchanged. As a row vector, $\\pi P=\\pi$. (Equivalently $P^\\top\\pi^\\top=\\pi^\\top$, but the right-multiplication form is the convention.)"
         },
         {
@@ -61,7 +57,6 @@
           "q": "Two-state chain with $P=\\begin{pmatrix}0.6&0.4\\\\0.2&0.8\\end{pmatrix}$. Solve $\\pi P=\\pi$ for $\\pi_1$ (mass on state 1).",
           "answer": 0.3333,
           "tol": 0.005,
-          "hint": "$0.6\\pi_1+0.2(1-\\pi_1)=\\pi_1$ gives $0.2=0.6\\pi_1$, so $\\pi_1=1/3$.",
           "explain": "$0.6\\pi_1+0.2(1-\\pi_1)=\\pi_1$ gives $0.2=0.6\\pi_1$, so $\\pi_1=1/3$. Check: $\\pi_2=2/3$, and $0.4\\cdot 1/3 + 0.8\\cdot 2/3 = 2/3$."
         },
         {
@@ -74,7 +69,6 @@
             "none, because the chain is reducible"
           ],
           "answer": 2,
-          "hint": "Each closed class contributes a stationary $\\pi^{(k)}$; any convex combination $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$, $\\alpha\\in[0,1]$, is also stationary.",
           "explain": "Each closed class contributes a stationary $\\pi^{(k)}$; any convex combination $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$, $\\alpha\\in[0,1]$, is also stationary. Uniqueness needs irreducibility."
         }
       ]
@@ -92,7 +86,6 @@
             "$\\sum_x (\\mu(x)-\\nu(x))^2$"
           ],
           "answer": 0,
-          "hint": "$\\|\\mu-\\nu\\|_{\\mathrm{TV}}=\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|=\\sup_A|\\mu(A)-\\nu(A)|$.",
           "explain": "$\\|\\mu-\\nu\\|_{\\mathrm{TV}}=\\tfrac{1}{2}\\sum_x|\\mu(x)-\\nu(x)|=\\sup_A|\\mu(A)-\\nu(A)|$. The factor of $\\tfrac{1}{2}$ converts the L¹ norm into the supremum-of-events characterisation."
         },
         {
@@ -100,7 +93,6 @@
           "q": "If $\\mu=(0.6,0.4)$ and $\\nu=(0.3,0.7)$, what is $\\|\\mu-\\nu\\|_{\\mathrm{TV}}$?",
           "answer": 0.3,
           "tol": 0.005,
-          "hint": "$\\tfrac{1}{2}(|0.6-0.3|+|0.4-0.7|)=\\tfrac{1}{2}(0.3+0.3)=0.3$.",
           "explain": "$\\tfrac{1}{2}(|0.6-0.3|+|0.4-0.7|)=\\tfrac{1}{2}(0.3+0.3)=0.3$."
         },
         {
@@ -113,7 +105,6 @@
             "$1/\\lambda_2$"
           ],
           "answer": 0,
-          "hint": "Mixing time is the first time the worst-case TV distance to $\\pi$ drops below $\\varepsilon$ (the convention $\\varepsilon=1/4$ or $1/(2e)$ is common).",
           "explain": "Mixing time is the first time the worst-case TV distance to $\\pi$ drops below $\\varepsilon$ (the convention $\\varepsilon=1/4$ or $1/(2e)$ is common). Return times and the spectral gap are related but distinct."
         }
       ]
@@ -131,7 +122,6 @@
             "$1 - \\det(P)$"
           ],
           "answer": 0,
-          "hint": "The absolute gap is $1$ minus the second-largest eigenvalue in magnitude.",
           "explain": "The absolute gap is $1$ minus the second-largest eigenvalue in magnitude. The relevant nontrivial eigenvalues are $\\lambda_2$ (slow-mixing direction) and $\\lambda_n$ (parity / near-bipartite); both can be the bottleneck."
         },
         {
@@ -139,7 +129,6 @@
           "q": "A reversible chain has $\\lambda_2 = 0.9$ and $\\pi_{\\min}=0.01$. The spectral mixing-time bound is $t_{\\mathrm{mix}}(\\varepsilon)\\le\\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$. With $\\varepsilon=1/4$, give the bound (rounded to nearest integer).",
           "answer": 60,
           "tol": 2,
-          "hint": "$\\frac{1}{1-0.9}=10$, and $\\log\\frac{1}{0.01\\cdot 0.25}=\\log 400\\approx 5.99$, so $t_{\\mathrm{mix}}\\le 10\\cdot 5.99\\approx 60$.",
           "explain": "$\\frac{1}{1-0.9}=10$, and $\\log\\frac{1}{0.01\\cdot 0.25}=\\log 400\\approx 5.99$, so $t_{\\mathrm{mix}}\\le 10\\cdot 5.99\\approx 60$."
         },
         {
@@ -152,7 +141,6 @@
             "the chain has no stationary distribution"
           ],
           "answer": 1,
-          "hint": "$\\lambda_2\\to 1$ corresponds to a near-disconnection (Cheeger): a slowly-decaying mode persists for time $\\sim 1/(1-\\lambda_2)$, so mixing is slow.",
           "explain": "$\\lambda_2\\to 1$ corresponds to a near-disconnection (Cheeger): a slowly-decaying mode persists for time $\\sim 1/(1-\\lambda_2)$, so mixing is slow. Bipartiteness is the $\\lambda_n=-1$ end."
         }
       ]
@@ -170,7 +158,6 @@
             "the chains converge a.s.\\ to the same value"
           ],
           "answer": 0,
-          "hint": "The fundamental coupling inequality: TV distance is bounded by the probability that the two copies have not yet met under the coupling.",
           "explain": "The fundamental coupling inequality: TV distance is bounded by the probability that the two copies have not yet met under the coupling. To prove rapid mixing, design a coupling under which meeting is fast."
         },
         {
@@ -178,7 +165,6 @@
           "q": "Lazy random walk on the hypercube $\\{0,1\\}^n$ with $n=10$: at each step, pick a coordinate uniformly and flip it with probability $1/2$. Coupon-collector heuristics give mixing time $\\Theta(n\\log n)$. Estimate $n\\log n$ for $n=10$ (use natural log, round to integer).",
           "answer": 23,
           "tol": 2,
-          "hint": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$.",
           "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives mixing in time $\\sim \\tfrac{1}{2}n\\log n$ via coupon collector."
         },
         {
@@ -191,7 +177,6 @@
             "couplings only work for reversible chains"
           ],
           "answer": 1,
-          "hint": "There exists an optimal coupling for which the inequality is an equality (Strassen / Aldous).",
           "explain": "There exists an optimal coupling for which the inequality is an equality (Strassen / Aldous). But finding it is usually impossible, so a constructed coupling gives only an upper bound; lower bounds require different tools (conductance, distinguishing statistics)."
         }
       ]
@@ -209,7 +194,6 @@
             "$1$ if $\\pi(y)>\\pi(x)$, else $0$"
           ],
           "answer": 0,
-          "hint": "Metropolis–Hastings acceptance ratio.",
           "explain": "Metropolis–Hastings acceptance ratio. The factor $q(x\\mid y)/q(y\\mid x)$ is the proposal-asymmetry correction; for symmetric proposals (Metropolis) it reduces to $\\pi(y)/\\pi(x)$. Detailed balance with $\\pi$ holds by construction."
         },
         {
@@ -222,7 +206,6 @@
             "mixing time controls memory, not time"
           ],
           "answer": 0,
-          "hint": "After $t_{\\mathrm{mix}}$ steps the chain has 'forgotten' its start — past samples are essentially unrelated to the current one.",
           "explain": "After $t_{\\mathrm{mix}}$ steps the chain has 'forgotten' its start — past samples are essentially unrelated to the current one. So drawing $N$ approximately-independent samples costs $\\sim N\\cdot t_{\\mathrm{mix}}$ chain steps."
         },
         {
@@ -230,7 +213,6 @@
           "q": "A symmetric Metropolis sampler targeting $\\pi(x)\\propto e^{-x^2/2}$ on $\\mathbb{R}$ proposes $y=x+\\eta$ with $\\eta\\sim\\mathcal{N}(0,1)$. From $x=0$, what is the acceptance probability for $y=2$? (Round to 3 decimals.)",
           "answer": 0.135,
           "tol": 0.005,
-          "hint": "$\\pi(2)/\\pi(0) = e^{-2}/e^0 = e^{-2}\\approx 0.135$.",
           "explain": "$\\pi(2)/\\pi(0) = e^{-2}/e^0 = e^{-2}\\approx 0.135$. Symmetric proposal so the $q$-ratio is $1$; acceptance is $\\min(1,\\pi(y)/\\pi(x))=e^{-2}$."
         }
       ]

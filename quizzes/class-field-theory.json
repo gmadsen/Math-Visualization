@@ -14,7 +14,6 @@
             "the additive adele ring $\\mathbb{A}_K$"
           ],
           "answer": 1,
-          "hint": "The idèle group is the restricted product of the local multiplicative groups $K_v^\\times$ with respect to the compact subgroups $\\mathcal{O}_v^\\times$ — almost every component must be a local unit.",
           "explain": "The idèle group is the restricted product of the local multiplicative groups $K_v^\\times$ with respect to the compact subgroups $\\mathcal{O}_v^\\times$ — almost every component must be a local unit."
         },
         {
@@ -27,7 +26,6 @@
             "$C_K = \\widehat{\\mathbb{Z}}^\\times$"
           ],
           "answer": 0,
-          "hint": "By definition $C_K = \\mathbb{A}_K^\\times / K^\\times$, the quotient of the idèles by the diagonally embedded global units $K^\\times$.",
           "explain": "By definition $C_K = \\mathbb{A}_K^\\times / K^\\times$, the quotient of the idèles by the diagonally embedded global units $K^\\times$."
         },
         {
@@ -35,7 +33,6 @@
           "q": "For $K=\\mathbb{Q}(\\sqrt{-5})$, the class number is $h_K=2$. What is the order of $\\operatorname{Cl}(K)$?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "The order of the ideal class group is exactly the class number, so $|\\operatorname{Cl}(K)|=h_K=2$.",
           "explain": "The order of the ideal class group is exactly the class number, so $|\\operatorname{Cl}(K)|=h_K=2$."
         }
       ],
@@ -89,7 +86,6 @@
             "the compositum of all cyclotomic extensions of $K$"
           ],
           "answer": 1,
-          "hint": "By definition $H$ is the maximal abelian extension of $K$ in which every prime (finite and infinite) is unramified.",
           "explain": "By definition $H$ is the maximal abelian extension of $K$ in which every prime (finite and infinite) is unramified. The Artin map then gives $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$."
         },
         {
@@ -97,7 +93,6 @@
           "q": "For $K=\\mathbb{Q}(\\sqrt{-14})$, which has class number $h_K=4$, what is the degree $[H:K]$ of the Hilbert class field over $K$?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "The Artin isomorphism $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$ forces $[H:K]=|\\operatorname{Cl}(K)|=h_K$.",
           "explain": "The Artin isomorphism $\\operatorname{Gal}(H/K)\\cong\\operatorname{Cl}(K)$ forces $[H:K]=|\\operatorname{Cl}(K)|=h_K$. Here $h_K=4$, so $[H:K]=4$."
         },
         {
@@ -110,7 +105,6 @@
             "$\\mathfrak{a}$ ramifies in $H/K$"
           ],
           "answer": 1,
-          "hint": "Furtwängler's principal ideal theorem: every ideal of $\\mathcal{O}_K$ becomes principal when lifted to $\\mathcal{O}_H$.",
           "explain": "Furtwängler's principal ideal theorem: every ideal of $\\mathcal{O}_K$ becomes principal when lifted to $\\mathcal{O}_H$. Ideal classes of $K$ capitulate in the Hilbert class field."
         }
       ],
@@ -164,7 +158,6 @@
             "the identity, always"
           ],
           "answer": 1,
-          "hint": "Cyclotomic reciprocity: $\\operatorname{Frob}_p(\\zeta_n)=\\zeta_n^p$ for $p\\nmid n$.",
           "explain": "Cyclotomic reciprocity: $\\operatorname{Frob}_p(\\zeta_n)=\\zeta_n^p$ for $p\\nmid n$. This identifies $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q})$ with $(\\mathbb{Z}/n)^\\times$ via $\\sigma_p\\leftrightarrow p\\bmod n$."
         },
         {
@@ -172,7 +165,6 @@
           "q": "Take $L=\\mathbb{Q}(\\zeta_{12})/\\mathbb{Q}$, so $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/12)^\\times$. The Frobenius at $p=13$ corresponds to $13\\bmod 12$. Enter that residue.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$13 = 12+1$, so $13\\equiv 1\\pmod{12}$.",
           "explain": "$13 = 12+1$, so $13\\equiv 1\\pmod{12}$. The Frobenius at $p=13$ is the identity, reflecting that $13$ splits completely in $\\mathbb{Q}(\\zeta_{12})$."
         },
         {
@@ -247,7 +239,6 @@
           "q": "For $K=\\mathbb{Q}$, the order of the ray class group $\\operatorname{Cl}_{12\\infty}(\\mathbb{Q})=(\\mathbb{Z}/12)^\\times$ is:",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$\\varphi(12)=\\varphi(4)\\varphi(3)=2\\cdot 2=4$, so $(\\mathbb{Z}/12)^\\times$ has order $4$.",
           "explain": "$\\varphi(12)=\\varphi(4)\\varphi(3)=2\\cdot 2=4$, so $(\\mathbb{Z}/12)^\\times$ has order $4$. Equivalently $[\\mathbb{Q}(\\zeta_{12}):\\mathbb{Q}]=4$."
         },
         {
@@ -314,7 +305,6 @@
             "finite subgroups of $\\operatorname{Gal}(\\overline{K}/K)$"
           ],
           "answer": 1,
-          "hint": "Every finite-index open subgroup $N\\subset C_K$ is the kernel of the Artin map for a unique finite abelian extension $L/K$, and vice versa.",
           "explain": "Every finite-index open subgroup $N\\subset C_K$ is the kernel of the Artin map for a unique finite abelian extension $L/K$, and vice versa. This is the class-field bijection."
         },
         {
@@ -327,7 +317,6 @@
             "$N_L\\cdot N_{L'}=C_K$"
           ],
           "answer": 1,
-          "hint": "The correspondence is order-reversing: a bigger field $L'$ has a smaller kernel $N_{L'}$.",
           "explain": "The correspondence is order-reversing: a bigger field $L'$ has a smaller kernel $N_{L'}$. Equivalently, $L=(K^{\\mathrm{ab}})^{N_L}$, so inclusions of fields flip to reverse inclusions of subgroups."
         },
         {
@@ -389,7 +378,6 @@
             "$\\mathfrak{d}_{L/K}=\\mathcal{O}_K$ whenever $L/K$ is abelian"
           ],
           "answer": 1,
-          "hint": "Hasse's Führerdiskriminantenproduktformel: the relative discriminant of an abelian $L/K$ factors as the product of the Artin conductors of its 1-dimensional characters.",
           "explain": "Hasse's Führerdiskriminantenproduktformel: the relative discriminant of an abelian $L/K$ factors as the product of the Artin conductors of its 1-dimensional characters."
         },
         {
@@ -410,7 +398,6 @@
             "$\\chi(\\operatorname{Frob}_\\mathfrak{p})=1$ for every $\\chi$"
           ],
           "answer": 1,
-          "hint": "A prime ramifies in $L$ iff some character $\\chi$ of $\\operatorname{Gal}(L/K)$ is non-trivial on its inertia subgroup, iff $\\mathfrak{p}\\mid\\mathfrak{f}(\\chi)$ for some non-trivial $\\chi$.",
           "explain": "A prime ramifies in $L$ iff some character $\\chi$ of $\\operatorname{Gal}(L/K)$ is non-trivial on its inertia subgroup, iff $\\mathfrak{p}\\mid\\mathfrak{f}(\\chi)$ for some non-trivial $\\chi$. Unramified primes appear in no conductor and hence contribute nothing to the discriminant."
         }
       ],

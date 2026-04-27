@@ -14,7 +14,6 @@
             "they have equal winding number in every space"
           ],
           "answer": 1,
-          "hint": "Homotopy rel endpoints is exactly a continuous deformation $H$ through paths with endpoints fixed for all deformation times.",
           "explain": "Homotopy rel endpoints is exactly a continuous deformation $H$ through paths with endpoints fixed for all deformation times."
         },
         {
@@ -22,7 +21,6 @@
           "q": "How many boundary points does the interval $[0,1]$ have?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points.",
           "explain": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points."
         },
         {
@@ -33,7 +31,6 @@
             1
           ],
           "tol": 0.000001,
-          "hint": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$.",
           "explain": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$."
         }
       ],
@@ -85,7 +82,11 @@
             "$\\mathbb{R}^n$ for any $n\\ge 1$",
             "the torus $T^2 = S^1\\times S^1$"
           ],
-          "answer": [0, 2, 4],
+          "answer": [
+            0,
+            2,
+            4
+          ],
           "hint": "Simply connected means path-connected with $\\pi_1=0$. Convex/contractible Euclidean spaces are simply connected; spheres $S^n$ are simply connected for $n\\ge 2$; circles, punctured planes, and tori carry non-contractible loops.",
           "explain": "$\\mathbb R^n$ is contractible, hence simply connected. $S^2$ has $\\pi_1=0$ (every loop contracts; $S^n$ is simply connected for $n\\ge 2$). $S^1$ has $\\pi_1\\cong\\mathbb Z$ (winding number). $\\mathbb R^2\\setminus\\{0\\}$ deformation-retracts onto $S^1$, so $\\pi_1\\cong\\mathbb Z$. $T^2$ has $\\pi_1\\cong\\mathbb Z^2$."
         },
@@ -94,7 +95,6 @@
           "q": "What is the rank of $\\pi_1(\\mathbb{R}^2)$ as an abelian group?",
           "answer": 0,
           "tol": 0.000001,
-          "hint": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$.",
           "explain": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$."
         },
         {
@@ -105,7 +105,6 @@
             0
           ],
           "tol": 0.000001,
-          "hint": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$.",
           "explain": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$."
         }
       ],
@@ -157,7 +156,6 @@
             "$\\pi_1(S^1)$ is not a group"
           ],
           "answer": 1,
-          "hint": "Loops on $S^1$ are classified by winding number, giving an isomorphism with $\\mathbb{Z}$.",
           "explain": "Loops on $S^1$ are classified by winding number, giving an isomorphism with $\\mathbb{Z}$."
         },
         {
@@ -165,7 +163,6 @@
           "q": "If a loop winds $-3$ times around $S^1$, what integer does it represent in $\\pi_1(S^1)\\cong\\mathbb{Z}$?",
           "answer": -3,
           "tol": 0.000001,
-          "hint": "The winding number itself is the class in $\\mathbb{Z}$.",
           "explain": "The winding number itself is the class in $\\mathbb{Z}$."
         },
         {
@@ -176,7 +173,6 @@
             0
           ],
           "tol": 0.000001,
-          "hint": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$.",
           "explain": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$."
         }
       ],
@@ -227,7 +223,6 @@
             "$\\mathbb{Q}$"
           ],
           "answer": 1,
-          "hint": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover.",
           "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so the fibre over the basepoint is the integer lattice $\\mathbb{Z}\\subset\\mathbb{R}$ — the discrete set whose elements label the sheets of the cover."
         },
         {
@@ -235,7 +230,6 @@
           "q": "Lift the loop $\\gamma(t)=e^{4\\pi i t}$ to a path in $\\mathbb{R}$ starting at $0$. What integer winding number $\\tilde\\gamma(1)$ do you get?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$.",
           "explain": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$. Its endpoint is $\\tilde\\gamma(1)=2$, so the loop winds twice."
         },
         {
@@ -265,11 +259,15 @@
             "$1\\cdot\\mathbb Z=\\mathbb Z$ (full group)"
           ],
           "right": [
-            "$p\\colon\\mathbb R\\to S^1$, $p(t)=e^{2\\pi it}$ (universal cover, infinite-sheeted)",
             "$p_n\\colon S^1\\to S^1$, $p_n(z)=z^n$ ($n$-sheeted cover)",
-            "$\\mathrm{id}\\colon S^1\\to S^1$ (trivial cover)"
+            "$\\mathrm{id}\\colon S^1\\to S^1$ (trivial cover)",
+            "$p\\colon\\mathbb R\\to S^1$, $p(t)=e^{2\\pi it}$ (universal cover, infinite-sheeted)"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            2,
+            0,
+            1
+          ],
           "hint": "Cover sheets equal $[\\pi_1(X):H]$. Universal cover ↔ trivial subgroup, $n$-sheeted ↔ index-$n$ subgroup, trivial cover ↔ full group.",
           "explain": "Galois theory of covering spaces: covers of $X$ correspond to subgroups of $\\pi_1(X)$, with sheet count equal to index. For $X=S^1$, $\\pi_1=\\mathbb Z$. The universal cover $\\mathbb R\\to S^1$ has fiber $\\mathbb Z$ over each point — corresponds to trivial subgroup $\\{0\\}$. The $n$-sheeted cover $z\\mapsto z^n$ corresponds to $n\\mathbb Z$ (index $n$). The identity is the cover for $\\mathbb Z$ itself (index 1)."
         },
@@ -278,7 +276,6 @@
           "q": "For $p_n:S^1\\to S^1$, $p_n(z)=z^n$, how many points lie over a generic point of the target circle when $n=5$?",
           "answer": 5,
           "tol": 0.000001,
-          "hint": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points.",
           "explain": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points."
         },
         {
@@ -289,7 +286,6 @@
             -1
           ],
           "tol": 0.000001,
-          "hint": "Solutions to $z^2=-1$ are $\\pm i$.",
           "explain": "Solutions to $z^2=-1$ are $\\pm i$. If one is $i$, the other is $-i$."
         }
       ],
@@ -339,7 +335,12 @@
             "Verify the sequence of chain complexes is exact: $\\beta\\alpha=0$, $\\ker\\beta=\\operatorname{im}\\alpha$, and $\\beta$ is surjective onto $C_*(A)+C_*(B)$.",
             "Use the small-simplices theorem (barycentric subdivision) to identify $H_n(C_*(A)+C_*(B))$ with $H_n(X)$."
           ],
-          "answer": [0, 2, 3, 1],
+          "answer": [
+            0,
+            2,
+            3,
+            1
+          ],
           "hint": "Build the SES of chain complexes, verify exactness, identify the third term with $C_*(X)$ via subdivision, then take homology.",
           "explain": "Mayer–Vietoris flow: (a) build the SES of chain complexes from the inclusion data, (b) check exactness, (c) replace the third term $C_*(A)+C_*(B)$ by $C_*(X)$ in homology — content of the small-simplices theorem (every chain in $X$ is homologous to one supported in $A$ or $B$), (d) the snake lemma converts the SES of chain complexes into the LES in homology with connecting morphism $\\partial_*\\colon H_n(X)\\to H_{n-1}(A\\cap B)$."
         },
@@ -348,7 +349,6 @@
           "q": "Using reduced homology ranks for a torus $T^2$ ($\\beta_0,\\beta_1,\\beta_2)=(1,2,1)$, compute $\\chi(T^2)=\\beta_0-\\beta_1+\\beta_2$.",
           "answer": 0,
           "tol": 0.000001,
-          "hint": "$\\chi(T^2)=1-2+1=0$.",
           "explain": "$\\chi(T^2)=1-2+1=0$."
         },
         {
@@ -359,7 +359,6 @@
             1
           ],
           "tol": 0.000001,
-          "hint": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$.",
           "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
         }
       ],

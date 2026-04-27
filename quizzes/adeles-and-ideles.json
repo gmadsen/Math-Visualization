@@ -14,7 +14,6 @@
             "Uncountably many"
           ],
           "answer": 2,
-          "hint": "By Ostrowski's theorem, every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to either the usual archimedean $|\\cdot|_\\infty$ or a $p$-adic absolute value $|\\cdot|_p$ for some prime $p$.",
           "explain": "By Ostrowski's theorem, every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to either the usual archimedean $|\\cdot|_\\infty$ or a $p$-adic absolute value $|\\cdot|_p$ for some prime $p$. Since there are infinitely many primes, $\\mathbb{Q}$ has countably infinitely many places."
         },
         {
@@ -22,7 +21,6 @@
           "q": "Compute $|12|_3$ (the $3$-adic absolute value of $12$). Note $12 = 3 \\cdot 4 = 3^1 \\cdot 4$.",
           "answer": 0.3333333333,
           "tol": 0.0001,
-          "hint": "$v_3(12) = v_3(3^1 \\cdot 4) = 1$, so $|12|_3 = 3^{-1} = 1/3 \\approx 0.333$.",
           "explain": "$v_3(12) = v_3(3^1 \\cdot 4) = 1$, so $|12|_3 = 3^{-1} = 1/3 \\approx 0.333$."
         },
         {
@@ -35,7 +33,6 @@
             "It vanishes only at zero"
           ],
           "answer": 1,
-          "hint": "A non-archimedean absolute value satisfies the stronger ultrametric (strong triangle) inequality $|x+y| \\le \\max(|x|,|y|)$.",
           "explain": "A non-archimedean absolute value satisfies the stronger ultrametric (strong triangle) inequality $|x+y| \\le \\max(|x|,|y|)$. Archimedean absolute values also satisfy the ordinary triangle inequality but not the ultrametric one in general."
         }
       ],
@@ -89,7 +86,6 @@
             "The full product is uncountable"
           ],
           "answer": 1,
-          "hint": "Local compactness is the key property.",
           "explain": "Local compactness is the key property. In the restricted product, a basic open set requires the $p$-adic component to lie in $\\mathbb{Z}_p$ for all but finitely many primes; this forces local compactness by Tychonoff applied to the compact $\\mathbb{Z}_p$ factors."
         },
         {
@@ -102,7 +98,6 @@
             "Because the archimedean component is always an integer"
           ],
           "answer": 1,
-          "hint": "For $q = a/b$ (lowest terms), $|q|_p < 1$ iff $p \\mid b$.",
           "explain": "For $q = a/b$ (lowest terms), $|q|_p < 1$ iff $p \\mid b$. Since $b$ has finitely many prime divisors, $q \\in \\mathbb{Z}_p$ for all but finitely many $p$, exactly the admissibility condition."
         },
         {
@@ -115,7 +110,6 @@
             "$\\hat{\\mathbb{Z}}$ is a local ring"
           ],
           "answer": 1,
-          "hint": "Each $\\mathbb{Z}_p$ is compact, so the full product $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ is compact by Tychonoff.",
           "explain": "Each $\\mathbb{Z}_p$ is compact, so the full product $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ is compact by Tychonoff. It equals the inverse limit $\\varprojlim \\mathbb{Z}/n\\mathbb{Z}$, which is the profinite completion of $\\mathbb{Z}$. It is not a field (e.g. $2 \\in \\hat{\\mathbb{Z}}$ is not invertible in $\\hat{\\mathbb{Z}}$ since $2 \\notin \\mathbb{Z}_2^\\times$)."
         }
       ],
@@ -169,7 +163,6 @@
             "The archimedean component must be positive"
           ],
           "answer": 0,
-          "hint": "An adele $(x_v)$ is an idele iff $(x_v^{-1})$ is also an admissible adele, meaning $x_v \\in \\mathbb{Z}_p^\\times$ for all but finitely many $p$.",
           "explain": "An adele $(x_v)$ is an idele iff $(x_v^{-1})$ is also an admissible adele, meaning $x_v \\in \\mathbb{Z}_p^\\times$ for all but finitely many $p$. The restricted product topology on ideles is strictly finer than the subspace topology from $\\mathbb{A}_\\mathbb{Q}$."
         },
         {
@@ -182,7 +175,6 @@
             "It says $C_\\mathbb{Q}$ is trivial"
           ],
           "answer": 1,
-          "hint": "The content (or idelic norm) is $\\|x\\| = \\prod_v |x_v|_v$.",
           "explain": "The content (or idelic norm) is $\\|x\\| = \\prod_v |x_v|_v$. The product formula $\\prod_v |q|_v = 1$ says the diagonal embedding lands in $\\ker(\\|\\cdot\\|)$. The quotient $C_\\mathbb{Q}^1 = \\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ is compact, a key structural fact."
         },
         {
@@ -195,7 +187,6 @@
             "The absolute Galois group $\\operatorname{Gal}(\\bar{\\mathbb{Q}}/\\mathbb{Q})$"
           ],
           "answer": 1,
-          "hint": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$.",
           "explain": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$. For $\\mathbb{Q}$ this recovers the Kronecker-Weber theorem: every abelian extension is cyclotomic."
         }
       ],
@@ -254,7 +245,6 @@
             "Both (B) and (C) are correct"
           ],
           "answer": 3,
-          "hint": "Both statements are correct: $\\mathbb{Q}$ is dense in the finite adeles $\\mathbb{A}^\\infty$ (strong approximation), and $\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}}$ (its profinite completion).",
           "explain": "Both statements are correct: $\\mathbb{Q}$ is dense in the finite adeles $\\mathbb{A}^\\infty$ (strong approximation), and $\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}}$ (its profinite completion). Statement (A) is also true but $\\mathbb{Q}$ is not dense in the full $\\mathbb{A}_\\mathbb{Q}$ because $\\mathbb{Q}$ is discrete as a cocompact subgroup."
         },
         {
@@ -267,7 +257,6 @@
             "It replaces integers with rational numbers"
           ],
           "answer": 1,
-          "hint": "Strong approximation says: given any finite set $S$ of primes and elements $a_p \\in \\mathbb{Q}_p$ for $p \\in S$, there exists $q \\in \\mathbb{Q}$ with $|q - a_p|_p < \\varepsilon$ for all $p \\in S$.",
           "explain": "Strong approximation says: given any finite set $S$ of primes and elements $a_p \\in \\mathbb{Q}_p$ for $p \\in S$, there exists $q \\in \\mathbb{Q}$ with $|q - a_p|_p < \\varepsilon$ for all $p \\in S$. This is CRT in the limit: infinitely many simultaneous approximations, but only finitely many non-trivial ones at a time."
         },
         {
@@ -275,7 +264,6 @@
           "q": "By strong approximation (or CRT), there exists an integer $n$ with $n \\equiv 1 \\pmod{5}$ and $n \\equiv 0 \\pmod{7}$. The smallest positive such $n$ is?",
           "answer": 21,
           "tol": 0.5,
-          "hint": "We need $n \\equiv 0 \\pmod{7}$, so $n = 7k$.",
           "explain": "We need $n \\equiv 0 \\pmod{7}$, so $n = 7k$. Then $7k \\equiv 1 \\pmod{5}$ means $2k \\equiv 1 \\pmod{5}$, so $k \\equiv 3 \\pmod{5}$ (since $2 \\cdot 3 = 6 \\equiv 1$). The smallest positive $k = 3$, giving $n = 21$."
         }
       ],
@@ -342,7 +330,6 @@
             "Strong approximation"
           ],
           "answer": 1,
-          "hint": "Poisson summation on $\\mathbb{A}_\\mathbb{Q}$ (with $\\mathbb{Q}$ as the discrete cocompact subgroup) gives $\\sum_{q \\in \\mathbb{Q}} f(q) = \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q)$.",
           "explain": "Poisson summation on $\\mathbb{A}_\\mathbb{Q}$ (with $\\mathbb{Q}$ as the discrete cocompact subgroup) gives $\\sum_{q \\in \\mathbb{Q}} f(q) = \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q)$. Applied inside the global zeta integral, this swaps $s \\leftrightarrow 1-s$ and $f \\leftrightarrow \\hat{f}$, yielding the functional equation."
         },
         {
@@ -355,7 +342,6 @@
             "$(1 - p^{-s})^{-1}$"
           ],
           "answer": 1,
-          "hint": "With $f_\\infty(x) = e^{-\\pi x^2}$, the local archimedean integral is $\\int_{\\mathbb{R}^\\times} e^{-\\pi x^2} |x|^s \\frac{dx}{|x|} = 2\\int_0^\\infty e^{-\\pi t^2} t^{s-1} dt = \\pi^{-s/2} \\Gamma(s/2)$.",
           "explain": "With $f_\\infty(x) = e^{-\\pi x^2}$, the local archimedean integral is $\\int_{\\mathbb{R}^\\times} e^{-\\pi x^2} |x|^s \\frac{dx}{|x|} = 2\\int_0^\\infty e^{-\\pi t^2} t^{s-1} dt = \\pi^{-s/2} \\Gamma(s/2)$. This is exactly the gamma factor appearing in the completed zeta function $\\xi(s)$."
         }
       ],

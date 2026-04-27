@@ -14,7 +14,6 @@
             "$x$ and $z$"
           ],
           "answer": 2,
-          "hint": "$x$ is bound by $\\forall x$ inside the first conjunct; $y$ is bound by $\\exists y$.",
           "explain": "$x$ is bound by $\\forall x$ inside the first conjunct; $y$ is bound by $\\exists y$. $Q(z)$ is outside any quantifier scope, so $z$ is the only free variable."
         },
         {
@@ -22,7 +21,6 @@
           "q": "How many distinct terms of depth at most $1$ can be built from one constant $c$, one unary function $f$, and one variable $x$? (Depth $0$: variable or constant. Depth $1$: $f$ applied to a depth-$0$ term.)",
           "answer": 4,
           "tol": 0,
-          "hint": "Depth-$0$ terms: $c, x$ (2).",
           "explain": "Depth-$0$ terms: $c, x$ (2). Depth-$1$ terms: $f(c), f(x)$ (2). Total $2 + 2 = 4$."
         },
         {
@@ -35,7 +33,6 @@
             "$\\forall x\\,(x)$"
           ],
           "answer": 0,
-          "hint": "The first is a sentence: 'every $x$ has an additive complement to $1$'.",
           "explain": "The first is a sentence: 'every $x$ has an additive complement to $1$'. The others misuse symbols: relation/function symbols cannot be quantified over (that would be second-order), and $(x)$ is not a formula."
         }
       ]
@@ -53,7 +50,6 @@
             "$\\forall x\\,(x = 0)$"
           ],
           "answer": 0,
-          "hint": "Every integer has an additive inverse: $y = -x$.",
           "explain": "Every integer has an additive inverse: $y = -x$. The second fails for $x = 1$. The third asks for a non-zero additive identity. The fourth is trivially false."
         },
         {
@@ -61,7 +57,6 @@
           "q": "Let $\\mathfrak{A}$ be the structure on $\\{a,b,c\\}$ where $R$ is interpreted as the relation $\\{(a,b),(b,c),(a,c)\\}$. How many ordered pairs $(x,y)$ satisfy $\\mathfrak{A}\\models R(x,y) \\lor R(y,x)$?",
           "answer": 6,
           "tol": 0,
-          "hint": "The relation $R \\cup R^{-1}$ has $3$ pairs each from $R$ and $R^{-1}$, all distinct: $(a,b),(b,c),(a,c),(b,a),(c,b),(c,a)$.",
           "explain": "The relation $R \\cup R^{-1}$ has $3$ pairs each from $R$ and $R^{-1}$, all distinct: $(a,b),(b,c),(a,c),(b,a),(c,b),(c,a)$. So $6$ pairs."
         },
         {
@@ -74,7 +69,6 @@
             "$\\mathfrak{A}\\models \\varphi(x)$ when $s$ is the empty assignment."
           ],
           "answer": 1,
-          "hint": "The semantic clause for $\\forall x$ is: $\\varphi$ holds for every value of $x$ ranging over the domain — i.e.",
           "explain": "The semantic clause for $\\forall x$ is: $\\varphi$ holds for every value of $x$ ranging over the domain — i.e. for the modified assignment $s[x\\mapsto a]$ as $a$ varies. Restricting to closed terms is wrong: domains may contain elements named by no closed term."
         }
       ]
@@ -92,7 +86,6 @@
             "The compactness theorem applied to $\\Gamma \\cup \\{\\neg\\varphi\\}$."
           ],
           "answer": 1,
-          "hint": "Soundness is proved by induction on proofs.",
           "explain": "Soundness is proved by induction on proofs. Logical axioms are tautologies, hence valid; rules like modus ponens preserve truth in every structure. Therefore every theorem of the calculus is semantically valid."
         },
         {
@@ -105,7 +98,6 @@
             "From $\\Gamma\\vdash\\exists x\\,\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$."
           ],
           "answer": 0,
-          "hint": "The side condition '$x$ not free in $\\Gamma$' is essential: from $\\{P(x)\\}$ we must NOT conclude $\\forall x\\,P(x)$, since $x$ is being used as a name.",
           "explain": "The side condition '$x$ not free in $\\Gamma$' is essential: from $\\{P(x)\\}$ we must NOT conclude $\\forall x\\,P(x)$, since $x$ is being used as a name. Dropping the side condition gives an unsound rule."
         },
         {
@@ -113,7 +105,6 @@
           "q": "In a Hilbert system with modus ponens as the only inference rule, how many premises does an application of MP take?",
           "answer": 2,
           "tol": 0,
-          "hint": "Modus ponens: from $\\varphi$ and $\\varphi\\to\\psi$ infer $\\psi$.",
           "explain": "Modus ponens: from $\\varphi$ and $\\varphi\\to\\psi$ infer $\\psi$. Two premises."
         }
       ]
@@ -131,7 +122,6 @@
             "Every formula is equivalent to a quantifier-free formula."
           ],
           "answer": 1,
-          "hint": "Completeness equates syntactic provability with semantic entailment.",
           "explain": "Completeness equates syntactic provability with semantic entailment. The first option is the (false) statement that Gödel's incompleteness theorem refutes. The third and fourth are unrelated."
         },
         {
@@ -152,7 +142,6 @@
           "q": "A consistent theory $T$ has at least how many models? (By the completeness theorem, the minimum guaranteed.)",
           "answer": 1,
           "tol": 0,
-          "hint": "Consistency $\\iff$ existence of a model.",
           "explain": "Consistency $\\iff$ existence of a model. So at least $1$."
         }
       ]
@@ -170,7 +159,6 @@
             "$\\Sigma$ is decidable."
           ],
           "answer": 1,
-          "hint": "Finite-satisfiability of every finite subset implies global satisfiability.",
           "explain": "Finite-satisfiability of every finite subset implies global satisfiability. Proof: by completeness, satisfiability $\\iff$ consistency, and inconsistency requires a finite proof, hence a finite inconsistent subset."
         },
         {
@@ -191,7 +179,6 @@
           "q": "Downward Löwenheim–Skolem: a satisfiable theory in a countable language has a model of cardinality $\\aleph_n$ for some $n$. Enter the smallest such $n$.",
           "answer": 0,
           "tol": 0,
-          "hint": "A countable model has cardinality $\\aleph_0$, so $n=0$.",
           "explain": "A countable model has cardinality $\\aleph_0$, so $n=0$."
         }
       ]
@@ -209,7 +196,6 @@
             "Every model has a countable elementary extension."
           ],
           "answer": 1,
-          "hint": "Downward LS: countable language + satisfiable $\\Rightarrow$ countable model.",
           "explain": "Downward LS: countable language + satisfiable $\\Rightarrow$ countable model. Upward LS would say models can be made arbitrarily large. Uniqueness of models is categoricity, a separate notion."
         },
         {
@@ -222,7 +208,6 @@
             "Cantor's theorem fails in non-standard models."
           ],
           "answer": 1,
-          "hint": "Skolem's resolution: 'uncountable in $M$' means 'no bijection $\\mathbb{N}^M\\to\\mathbb{R}^M$ exists inside $M$'.",
           "explain": "Skolem's resolution: 'uncountable in $M$' means 'no bijection $\\mathbb{N}^M\\to\\mathbb{R}^M$ exists inside $M$'. The external bijection is invisible to $M$. Uncountability is not absolute between models."
         },
         {
@@ -230,7 +215,6 @@
           "q": "If a first-order theory in a countable language has an infinite model, by upward Löwenheim–Skolem it has models of every cardinality $\\kappa \\ge \\aleph_n$. Enter the smallest such $n$.",
           "answer": 0,
           "tol": 0,
-          "hint": "Upward LS: an infinite model implies models of every cardinality $\\kappa \\ge \\max(\\aleph_0, |\\mathcal{L}|) = \\aleph_0$.",
           "explain": "Upward LS: an infinite model implies models of every cardinality $\\kappa \\ge \\max(\\aleph_0, |\\mathcal{L}|) = \\aleph_0$. So $n=0$."
         }
       ]
@@ -248,7 +232,6 @@
             "Finite."
           ],
           "answer": 1,
-          "hint": "Algorithm: enumerate proofs from the recursive axioms.",
           "explain": "Algorithm: enumerate proofs from the recursive axioms. Since $T$ is complete, exactly one of $\\varphi, \\neg\\varphi$ is a theorem; whichever appears first is the answer. Without completeness, some sentences are independent; without recursive axiomatisation we cannot enumerate proofs."
         },
         {
@@ -261,7 +244,6 @@
             "True arithmetic $\\mathrm{Th}(\\mathbb{N}, +, \\cdot, 0, 1)$."
           ],
           "answer": 2,
-          "hint": "ACF$_p$ admits QE in the language of rings: every formula is equivalent to a Boolean combination of polynomial equations (Tarski–Chevalley).",
           "explain": "ACF$_p$ admits QE in the language of rings: every formula is equivalent to a Boolean combination of polynomial equations (Tarski–Chevalley). PA and ZFC are incomplete; true arithmetic is undecidable (Tarski), so it does not admit QE."
         },
         {
@@ -269,7 +251,6 @@
           "q": "DLO (dense linear orders without endpoints) is $\\aleph_0$-categorical. How many countable models does DLO have, up to isomorphism?",
           "answer": 1,
           "tol": 0,
-          "hint": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$.",
           "explain": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$. Exactly $1$ countable model up to isomorphism."
         }
       ]

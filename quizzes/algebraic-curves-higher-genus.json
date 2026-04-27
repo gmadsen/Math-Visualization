@@ -74,7 +74,6 @@
             "they define isomorphic algebraic curves."
           ],
           "answer": 2,
-          "hint": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e.",
           "explain": "Linear equivalence is by definition: $D \\sim D'$ iff $D - D'$ is a principal divisor, i.e. the divisor of some rational function. This is the equivalence relation defining $\\mathrm{Pic}(C)$."
         }
       ]
@@ -95,7 +94,6 @@
           "q": "On a curve of genus $g = 2$, $D = K_C$ (the canonical divisor). Compute $h^0(D)$.",
           "answer": 2,
           "tol": 0,
-          "hint": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$.",
           "explain": "$h^0(K_C) = g = 2$ — this is the definition of genus restated, and Riemann–Roch with $D = K$ recovers it: $h^0(K) - h^0(0) = (2g-2) - g + 1 = g - 1$, with $h^0(0) = 1$ giving $h^0(K) = g$."
         },
         {
@@ -138,7 +136,6 @@
           "q": "On a smooth projective curve of genus $g = 5$, what is $\\deg K_C$?",
           "answer": 8,
           "tol": 0,
-          "hint": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$.",
           "explain": "$\\deg K_C = 2g - 2 = 2 \\cdot 5 - 2 = 8$."
         },
         {
@@ -159,7 +156,6 @@
             "$C$ has trivial automorphism group."
           ],
           "answer": 2,
-          "hint": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$).",
           "explain": "Max Noether/Enriques–Babbage: $\\varphi_K$ is an embedding ⇔ $C$ is non-hyperelliptic (assuming $g \\ge 2$). For hyperelliptic $C$, $\\varphi_K$ factors through the $2:1$ map to $\\mathbb{P}^1$ followed by the rational normal curve."
         }
       ],

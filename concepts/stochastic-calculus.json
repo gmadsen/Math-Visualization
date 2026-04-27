@@ -7,44 +7,67 @@
       "id": "sc-ito-integral",
       "title": "Itô integral",
       "anchor": "ito-integral",
-      "prereqs": ["sp-continuous-martingales", "brownian-motion"],
+      "prereqs": [
+        "sp-continuous-martingales",
+        "brownian-motion"
+      ],
       "blurb": "For predictable $H$ with $\\mathbb{E}\\int_0^T H_s^2\\,ds<\\infty$, the Itô integral $\\int_0^t H_s\\,dB_s$ is built as the $L^2$ limit of left-endpoint Riemann sums on simple processes; the resulting process is a continuous $L^2$-martingale and the choice of evaluation point is what distinguishes Itô from Stratonovich.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "sc-ito-formula",
       "title": "Itô's formula",
       "anchor": "ito-formula",
-      "prereqs": ["sc-ito-integral", "sp-doob-decomposition"],
+      "prereqs": [
+        "sc-ito-integral",
+        "sp-doob-decomposition"
+      ],
       "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$."
     },
     {
       "id": "sc-sde-existence",
       "title": "Stochastic differential equations",
       "anchor": "sde",
-      "prereqs": ["sc-ito-integral", "sc-ito-formula"],
+      "prereqs": [
+        "sc-ito-integral",
+        "sc-ito-formula"
+      ],
       "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example."
     },
     {
       "id": "sc-girsanov",
       "title": "Girsanov's theorem",
       "anchor": "girsanov",
-      "prereqs": ["sc-ito-formula", "sc-sde-existence"],
+      "prereqs": [
+        "sc-ito-formula",
+        "sc-sde-existence"
+      ],
       "blurb": "The exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ defines a measure $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$ under which $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is Brownian — drifts are absorbed into the measure, the workhorse behind risk-neutral pricing.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "sc-feynman-kac",
       "title": "Feynman–Kac formula",
       "anchor": "feynman-kac",
-      "prereqs": ["sc-ito-formula", "sc-sde-existence"],
+      "prereqs": [
+        "sc-ito-formula",
+        "sc-sde-existence",
+        "pde-heat-equation"
+      ],
       "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely."
     },
     {
       "id": "sc-applications",
       "title": "Applications: Black–Scholes, Kalman, optimal stopping",
       "anchor": "applications",
-      "prereqs": ["sc-girsanov", "sc-feynman-kac"],
+      "prereqs": [
+        "sc-girsanov",
+        "sc-feynman-kac"
+      ],
       "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE."
     }
   ]

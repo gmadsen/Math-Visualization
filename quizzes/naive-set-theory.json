@@ -9,7 +9,6 @@
           "q": "If $|A| = 7$, $|B| = 9$, and $|A \\cap B| = 4$, what is $|A \\cup B|$?",
           "answer": 12,
           "tol": 0,
-          "hint": "Inclusion–exclusion: $|A \\cup B| = |A| + |B| - |A \\cap B| = 7 + 9 - 4 = 12$.",
           "explain": "Inclusion–exclusion: $|A \\cup B| = |A| + |B| - |A \\cap B| = 7 + 9 - 4 = 12$."
         },
         {
@@ -22,7 +21,6 @@
             "neither injective nor surjective"
           ],
           "answer": 1,
-          "hint": "The image is $\\{a,b,c\\}$, the whole codomain, so $f$ is surjective.",
           "explain": "The image is $\\{a,b,c\\}$, the whole codomain, so $f$ is surjective. But $f(1) = f(3) = a$ shows $f$ is not injective. With $|A|=4 > 3 = |B|$ no function $A \\to B$ can be injective (pigeonhole)."
         },
         {
@@ -30,7 +28,6 @@
           "q": "How many subsets does a set of size $6$ have? (That is, compute $|\\mathcal{P}(A)|$ for $|A| = 6$.)",
           "answer": 64,
           "tol": 0,
-          "hint": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$.",
           "explain": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$."
         }
       ],
@@ -76,7 +73,6 @@
           "q": "If $|A| = 5$ and $|B| = 4$, how many functions are there from $A$ to $B$? (That is, compute $|B^A|$.)",
           "answer": 1024,
           "tol": 0,
-          "hint": "Each of the $|A|=5$ elements picks a value in $B$ independently, so $|B^A| = |B|^{|A|} = 4^5 = 1024$.",
           "explain": "Each of the $|A|=5$ elements picks a value in $B$ independently, so $|B^A| = |B|^{|A|} = 4^5 = 1024$."
         },
         {
@@ -89,7 +85,6 @@
             "$S \\mapsto A \\setminus S$ (which is not a bijection to $\\{0,1\\}^A$)"
           ],
           "answer": 1,
-          "hint": "A subset $S\\subseteq A$ is determined by, and determines, its indicator function $\\mathbf{1}_S\\colon A\\to\\{0,1\\}$.",
           "explain": "A subset $S\\subseteq A$ is determined by, and determines, its indicator function $\\mathbf{1}_S\\colon A\\to\\{0,1\\}$. This bijection is also why $|\\mathcal{P}(A)|=2^{|A|}$."
         },
         {
@@ -97,7 +92,6 @@
           "q": "Let $|A|=3$ and $|B|=2$. How many elements are in $\\mathcal{P}(A\\times B)$?",
           "answer": 64,
           "tol": 0,
-          "hint": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$.",
           "explain": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$."
         }
       ],
@@ -138,7 +132,6 @@
           "q": "How many equivalence classes does the relation '$a \\sim b$ iff $5 \\mid a - b$' on $\\mathbb{Z}$ have?",
           "answer": 5,
           "tol": 0,
-          "hint": "The classes are $[0], [1], [2], [3], [4]$ — the residue classes modulo $5$.",
           "explain": "The classes are $[0], [1], [2], [3], [4]$ — the residue classes modulo $5$. So $|\\mathbb{Z}/5\\mathbb{Z}| = 5$."
         },
         {
@@ -151,7 +144,6 @@
             "$a \\sim b \\iff a \\mid b$"
           ],
           "answer": 2,
-          "hint": "$a \\sim b \\iff a^2 = b^2$ is reflexive ($a^2 = a^2$), symmetric ($a^2 = b^2 \\Rightarrow b^2 = a^2$), and transitive.",
           "explain": "$a \\sim b \\iff a^2 = b^2$ is reflexive ($a^2 = a^2$), symmetric ($a^2 = b^2 \\Rightarrow b^2 = a^2$), and transitive. The others fail: $\\le$ is not symmetric, $\\ne$ is not reflexive (and not transitive), and $\\mid$ is not symmetric."
         },
         {
@@ -164,7 +156,6 @@
             "A function $X/{\\sim} \\to Y$ factors through $\\pi$ iff it is surjective."
           ],
           "answer": 1,
-          "hint": "The universal property: $f\\colon X \\to Y$ descends to a (unique) $\\bar f\\colon X/{\\sim} \\to Y$ with $\\bar f \\circ \\pi = f$ exactly when $f$ respects the equivalence — i.e.",
           "explain": "The universal property: $f\\colon X \\to Y$ descends to a (unique) $\\bar f\\colon X/{\\sim} \\to Y$ with $\\bar f \\circ \\pi = f$ exactly when $f$ respects the equivalence — i.e. $x \\sim x' \\Rightarrow f(x) = f(x')$."
         }
       ],
@@ -215,7 +206,6 @@
             "$\\mathcal{P}(\\mathbb{N})$"
           ],
           "answer": 3,
-          "hint": "By Cantor's theorem $|\\mathcal{P}(\\mathbb{N})| > |\\mathbb{N}|$, so $\\mathcal{P}(\\mathbb{N})$ is uncountable (in fact $|\\mathcal{P}(\\mathbb{N})| = 2^{\\aleph_0} = \\mathfrak{c} = |\\mathbb{R}|$).",
           "explain": "By Cantor's theorem $|\\mathcal{P}(\\mathbb{N})| > |\\mathbb{N}|$, so $\\mathcal{P}(\\mathbb{N})$ is uncountable (in fact $|\\mathcal{P}(\\mathbb{N})| = 2^{\\aleph_0} = \\mathfrak{c} = |\\mathbb{R}|$). The other three are countable: $\\mathbb{Q}$ injects into $\\mathbb{Z}^2$; $\\mathbb{Z}^3$ is a finite product of countables; the algebraic numbers are a countable union of finite root-sets of integer polynomials."
         },
         {
@@ -228,7 +218,6 @@
             "$0011$"
           ],
           "answer": 1,
-          "hint": "The diagonal entries are $s_0(0) = 0$, $s_1(1) = 0$, $s_2(2) = 1$, $s_3(3) = 1$.",
           "explain": "The diagonal entries are $s_0(0) = 0$, $s_1(1) = 0$, $s_2(2) = 1$, $s_3(3) = 1$. Flipping each bit gives $d = 1100\\dots$, which differs from each $s_n$ in position $n$."
         },
         {
@@ -236,7 +225,6 @@
           "q": "Under the Cantor zigzag pairing $\\langle i, j \\rangle = \\tfrac{(i+j)(i+j+1)}{2} + i$ (with $i, j \\ge 0$), what is $\\langle 2, 1 \\rangle$?",
           "answer": 8,
           "tol": 0,
-          "hint": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$.",
           "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
         }
       ],
@@ -288,7 +276,6 @@
             "Russell's paradox: there is no set of all sets."
           ],
           "answer": 1,
-          "hint": "Zorn's lemma is one of the standard equivalents of AC, alongside the well-ordering theorem and Tukey's lemma.",
           "explain": "Zorn's lemma is one of the standard equivalents of AC, alongside the well-ordering theorem and Tukey's lemma. The other choices are theorems of ZF or ZFC but are not equivalent to AC — the continuum hypothesis is independent of ZFC, and Cantor's theorem is provable in ZF with no choice at all."
         },
         {
@@ -301,7 +288,6 @@
             "The axiom of choice is equivalent to the well-ordering of $\\mathbb{R}$ only for ordered pairs."
           ],
           "answer": 1,
-          "hint": "With shoes there is a uniform rule ('pick the left one'), so no AC is needed.",
           "explain": "With shoes there is a uniform rule ('pick the left one'), so no AC is needed. With socks there is no such rule, yet AC still asserts the product $\\prod_i A_i$ is non-empty. The point is that for infinite families we can always produce a choice function under AC, even when we cannot write down an explicit one."
         },
         {
@@ -314,7 +300,6 @@
             "A countable union of countable sets is countable."
           ],
           "answer": 3,
-          "hint": "The first three all use full AC (or Zorn's lemma, which is equivalent).",
           "explain": "The first three all use full AC (or Zorn's lemma, which is equivalent). The countable-union-of-countable-sets statement only needs the weaker <em>countable choice</em>, and over ZF plus <em>countable</em> choice it is provable — but in ZF alone it is not. The question asks for the statement that is 'not known to require <em>AC</em>' (i.e. full choice)."
         }
       ],

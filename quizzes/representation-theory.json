@@ -14,7 +14,6 @@
             "a subset of $G$ closed under conjugation"
           ],
           "answer": 1,
-          "hint": "A representation is a group homomorphism $\\rho\\colon G\\to\\mathrm{GL}(V)$; equivalently, a linear $G$-action on $V$, or a left $\\mathbb{C}[G]$-module structure.",
           "explain": "A representation is a group homomorphism $\\rho\\colon G\\to\\mathrm{GL}(V)$; equivalently, a linear $G$-action on $V$, or a left $\\mathbb{C}[G]$-module structure."
         },
         {
@@ -22,7 +21,6 @@
           "q": "The cyclic group $C_6$ has how many non-isomorphic irreducible complex representations? (Recall every irrep of an abelian group is $1$-dimensional.)",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "For any finite abelian group $G$, the number of irreducible complex representations equals $|G|$; for $C_6$ that is $6$, one for each $6$th root of unity.",
           "explain": "For any finite abelian group $G$, the number of irreducible complex representations equals $|G|$; for $C_6$ that is $6$, one for each $6$th root of unity."
         },
         {
@@ -33,7 +31,6 @@
             0.8660254037844387
           ],
           "tol": 0.000001,
-          "hint": "$\\chi_1(g^2)=\\zeta_6^2=e^{2\\pi i/3}=-\\tfrac12+\\tfrac{\\sqrt3}{2}i$.",
           "explain": "$\\chi_1(g^2)=\\zeta_6^2=e^{2\\pi i/3}=-\\tfrac12+\\tfrac{\\sqrt3}{2}i$."
         }
       ],
@@ -87,7 +84,6 @@
             "$\\chi_{V\\otimes W}(g) = \\chi_V(g)/\\chi_W(g)$"
           ],
           "answer": 1,
-          "hint": "Since $\\rho_{V\\otimes W}(g) = \\rho_V(g)\\otimes\\rho_W(g)$ and the trace of a tensor product is the product of traces, characters multiply pointwise under $\\otimes$.",
           "explain": "Since $\\rho_{V\\otimes W}(g) = \\rho_V(g)\\otimes\\rho_W(g)$ and the trace of a tensor product is the product of traces, characters multiply pointwise under $\\otimes$."
         },
         {
@@ -100,7 +96,6 @@
             "To force $V^*$ to be irreducible"
           ],
           "answer": 1,
-          "hint": "Using $\\rho(g)$ instead of $\\rho(g^{-1})$ would give $((gh)\\cdot f)(v) = f(\\rho(gh)v) = f(\\rho(g)\\rho(h)v) = (h\\cdot(g\\cdot f))(v)$, the opposite order — a right action.",
           "explain": "Using $\\rho(g)$ instead of $\\rho(g^{-1})$ would give $((gh)\\cdot f)(v) = f(\\rho(gh)v) = f(\\rho(g)\\rho(h)v) = (h\\cdot(g\\cdot f))(v)$, the opposite order — a right action. The inverse restores left-action compatibility."
         },
         {
@@ -108,7 +103,6 @@
           "q": "For the standard $2$-dim irrep $V$ of $S_3$ with character $(2,0,-1)$ on classes $\\{e,(12),(123)\\}$, compute $\\chi_{V\\otimes V}((123))$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\chi_{V\\otimes V}(g) = \\chi_V(g)^2$, so $\\chi_{V\\otimes V}((123)) = (-1)^2 = 1$.",
           "explain": "$\\chi_{V\\otimes V}(g) = \\chi_V(g)^2$, so $\\chi_{V\\otimes V}((123)) = (-1)^2 = 1$."
         }
       ],
@@ -161,7 +155,6 @@
             "$|G|$ is prime"
           ],
           "answer": 2,
-          "hint": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$.",
           "explain": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$."
         },
         {
@@ -174,7 +167,6 @@
             "$g\\mapsto\\mathrm{diag}(1,\\zeta_p)$"
           ],
           "answer": 2,
-          "hint": "The unipotent $2\\times 2$ rep has the line $\\mathbb{F}_p\\cdot e_1$ as a subrep with no $G$-stable complement: over $\\mathbb{F}_p$ it is indecomposable but not irreducible.",
           "explain": "The unipotent $2\\times 2$ rep has the line $\\mathbb{F}_p\\cdot e_1$ as a subrep with no $G$-stable complement: over $\\mathbb{F}_p$ it is indecomposable but not irreducible."
         },
         {
@@ -182,7 +174,6 @@
           "q": "By Maschke, a finite-dimensional complex rep $V$ of a finite group $G$ decomposes as $V\\cong\\bigoplus_\\lambda V_\\lambda^{\\oplus m_\\lambda}$. If $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=5$ and each multiplicity is $1$ or $2$, how many distinct irreducibles appear with multiplicity $1$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\sum m_\\lambda^2=5$ with entries in $\\{1,2\\}$ forces one multiplicity-$2$ summand ($4$) plus one multiplicity-$1$ summand ($1$).",
           "explain": "$\\sum m_\\lambda^2=5$ with entries in $\\{1,2\\}$ forces one multiplicity-$2$ summand ($4$) plus one multiplicity-$1$ summand ($1$). Hence exactly $1$ distinct irreducible appears with $m_\\lambda=1$."
         }
       ],
@@ -235,7 +226,6 @@
             "$T$ preserves a Hermitian inner product"
           ],
           "answer": 1,
-          "hint": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility.",
           "explain": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility."
         },
         {
@@ -243,7 +233,6 @@
           "q": "For $G$ abelian and $V$ a finite-dimensional complex irrep of $G$, Schur forces $\\dim V = ?$",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "Every $\\rho(h)$ commutes with every $\\rho(g)$, so by Schur $\\rho(h)$ acts as a scalar on the irrep $V$.",
           "explain": "Every $\\rho(h)$ commutes with every $\\rho(g)$, so by Schur $\\rho(h)$ acts as a scalar on the irrep $V$. Any subspace is then $G$-stable, so $V$ being irreducible forces $\\dim V=1$."
         },
         {
@@ -251,7 +240,6 @@
           "q": "Let $V = 2V_1 \\oplus 3V_2$ where $V_1,V_2$ are non-isomorphic irreps of $G$. By the commutant formula $\\mathrm{End}_G(V)\\cong\\prod_\\lambda M_{m_\\lambda}(\\mathbb{C})$, compute $\\dim_{\\mathbb{C}}\\mathrm{End}_G(V)$.",
           "answer": 13,
           "tol": 0.000001,
-          "hint": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$.",
           "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$."
         }
       ],
@@ -304,7 +292,11 @@
             "$\\sum_g\\chi_\\lambda(g)\\overline{\\chi_\\mu(g)}$ summed only over a single conjugacy class always vanishes for $\\lambda\\ne\\mu$.",
             "The number of irreducible characters of $G$ equals the number of conjugacy classes (column orthogonality)."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "hint": "Rows of the character table are orthonormal; column orthogonality forces the irreducible count to equal the conjugacy-class count. Single-class sums need not vanish.",
           "explain": "First orthogonality $\\langle\\chi_\\lambda,\\chi_\\mu\\rangle=\\delta_{\\lambda\\mu}$ gives (0) and (1). Column orthogonality across the full table forces (3): irreducible count = conjugacy-class count. (3) is true and (2) is false: orthogonality holds when summed (with weights $|c|/|G|$) over all classes, not within a single class."
         },
@@ -313,7 +305,6 @@
           "q": "For $S_3$ with classes $\\{e\\},\\{(12)\\},\\{(123)\\}$ of sizes $1,3,2$, the $3$-dimensional permutation rep has character $(3,1,0)$. Compute the multiplicity $\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle$ of the standard $2$-dim irrep $V$ (whose character is $(2,0,-1)$).",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=1$.",
           "explain": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=1$."
         },
         {
@@ -321,7 +312,6 @@
           "q": "Using $|G|=\\sum_\\lambda (\\dim V_\\lambda)^2$, a group of order $8$ has five conjugacy classes. If four of its irreducibles are $1$-dimensional, what is the dimension of the fifth irreducible?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$1+1+1+1+d^2=8$, so $d=2$.",
           "explain": "$1+1+1+1+d^2=8$, so $d=2$. This is the pattern for $D_4$ and $Q_8$."
         }
       ],
@@ -356,7 +346,6 @@
           "q": "How many irreducible complex representations does $S_4$ have?",
           "answer": 5,
           "tol": 0.000001,
-          "hint": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$.",
           "explain": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$."
         },
         {
@@ -369,12 +358,17 @@
             "$\\{1,1,2,3,3\\}$"
           ],
           "right": [
-            "$C_3$ (cyclic of order $3$)",
             "$S_3$",
             "$D_4$ (dihedral of order $8$)",
-            "$S_4$"
+            "$S_4$",
+            "$C_3$ (cyclic of order $3$)"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Use $|G|=\\sum d_\\lambda^2$ and the fact that abelian groups have only $1$-dim irreps; for non-abelian groups, the number of $1$-dim irreps equals $|G/[G,G]|$.",
           "explain": "$C_3$ is abelian of order $3$: three $1$-dim irreps, $1+1+1=3$. $S_3$: dimensions $1,1,2$, $1+1+4=6$. $D_4$: abelianization is $(\\mathbb{Z}/2)^2$ giving four $1$-dim irreps, plus one $2$-dim, $1+1+1+1+4=8$. $S_4$: dimensions $1,1,2,3,3$, $1+1+4+9+9=24$."
         },
@@ -383,7 +377,6 @@
           "q": "The character table of $S_3$ has rows $\\chi_\\mathbf{1}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$ on classes $\\{e\\},\\{(12)\\},\\{(123)\\}$. Verify the $|G| = \\sum_\\lambda (\\dim V_\\lambda)^2$ identity by computing $\\sum_\\lambda (\\dim V_\\lambda)^2$.",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$1^2 + 1^2 + 2^2 = 6 = |S_3|$.",
           "explain": "$1^2 + 1^2 + 2^2 = 6 = |S_3|$. The dimension column of the character table squares to $|G|$."
         }
       ],
@@ -437,7 +430,6 @@
             "$\\chi_{V_X}(g) = 0$ unless $g=e$"
           ],
           "answer": 1,
-          "hint": "The matrix of $\\rho(g)$ in the basis $\\{e_x\\}$ has a $1$ on the diagonal exactly at fixed points $x = g\\cdot x$, so its trace counts fixed points.",
           "explain": "The matrix of $\\rho(g)$ in the basis $\\{e_x\\}$ has a $1$ on the diagonal exactly at fixed points $x = g\\cdot x$, so its trace counts fixed points."
         },
         {
@@ -445,7 +437,6 @@
           "q": "By Burnside's lemma, the number of orbits of $G$ on $X$ equals $\\frac{1}{|G|}\\sum_{g\\in G}\\#\\mathrm{Fix}_X(g)$. For $G=S_3$ acting on $X=\\{1,2,3\\}$ (transitively), this gives:",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "Fix counts: $e$ fixes $3$, each of the three transpositions fixes $1$, each $3$-cycle fixes $0$.",
           "explain": "Fix counts: $e$ fixes $3$, each of the three transpositions fixes $1$, each $3$-cycle fixes $0$. Sum $= 3+3+0 = 6$. Divided by $|S_3|=6$ gives $1$ orbit."
         },
         {
@@ -453,7 +444,6 @@
           "q": "For $S_4$ acting on the $6$ two-element subsets of $\\{1,2,3,4\\}$, the stabilizer of $\\{1,2\\}$ is $S_{\\{1,2\\}}\\times S_{\\{3,4\\}} \\cong S_2\\times S_2$ of order $4$. By orbit-stabilizer, the orbit of $\\{1,2\\}$ has size:",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$|G|/|\\mathrm{Stab}| = 24/4 = 6$, matching the $6$ two-element subsets (single orbit).",
           "explain": "$|G|/|\\mathrm{Stab}| = 24/4 = 6$, matching the $6$ two-element subsets (single orbit)."
         }
       ],
@@ -494,12 +484,17 @@
             "$S_4$ (dimensions $1,1,2,3,3$)"
           ],
           "right": [
-            "regular rep of dimension $3$, irreps $V_\\lambda$ each appearing $1$ time",
             "regular rep of dimension $6$, with $1+1+4 = 6$",
             "regular rep of dimension $8$, with $1+1+1+1+4 = 8$",
-            "regular rep of dimension $24$, with $1+1+4+9+9 = 24$"
+            "regular rep of dimension $24$, with $1+1+4+9+9 = 24$",
+            "regular rep of dimension $3$, irreps $V_\\lambda$ each appearing $1$ time"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "$\\mathbb{C}[G]\\cong\\bigoplus_\\lambda(\\dim V_\\lambda)V_\\lambda$, so $|G|=\\sum(\\dim V_\\lambda)^2$. Match each group's $\\sum d_\\lambda^2$ with $|G|$.",
           "explain": "The regular rep contains each irrep $V_\\lambda$ with multiplicity $\\dim V_\\lambda$, so the total dimension is $\\sum(\\dim V_\\lambda)^2=|G|$. $C_3$: $1+1+1=3$. $S_3$: $1+1+4=6$. $D_4$: $1+1+1+1+4=8$. $S_4$: $1+1+4+9+9=24$."
         },
@@ -508,7 +503,6 @@
           "q": "The regular representation of $S_3$ has dimension $6$. Verify: how many copies of each irrep does it contain in total (summed dimensions)? Compute $\\sum_\\lambda \\dim V_\\lambda$ for $S_3$ (sum of one of each irrep).",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$S_3$ has irreducibles of dimensions $1, 1, 2$, summing to $4$.",
           "explain": "$S_3$ has irreducibles of dimensions $1, 1, 2$, summing to $4$. (Compare to $\\sum (\\dim V_\\lambda)^2 = 1+1+4 = 6 = |S_3|$.)"
         },
         {
@@ -516,7 +510,6 @@
           "q": "The character of the regular representation of any finite group $G$ satisfies $\\chi_{\\mathrm{reg}}(e) = |G|$ and $\\chi_{\\mathrm{reg}}(g) = 0$ for $g\\ne e$. For $|G|=12$, compute $\\langle \\chi_{\\mathrm{reg}}, \\chi_\\lambda\\rangle$ for a $3$-dimensional irrep $V_\\lambda$.",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "$\\langle\\chi_{\\mathrm{reg}},\\chi_\\lambda\\rangle = \\tfrac{1}{|G|}\\cdot|G|\\cdot\\chi_\\lambda(e) = \\chi_\\lambda(e) = \\dim V_\\lambda = 3$.",
           "explain": "$\\langle\\chi_{\\mathrm{reg}},\\chi_\\lambda\\rangle = \\tfrac{1}{|G|}\\cdot|G|\\cdot\\chi_\\lambda(e) = \\chi_\\lambda(e) = \\dim V_\\lambda = 3$."
         }
       ],
@@ -556,7 +549,6 @@
             "$\\dim\\mathrm{Ind}_H^G W = \\dim W$"
           ],
           "answer": 0,
-          "hint": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$.",
           "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$."
         },
         {
@@ -564,7 +556,6 @@
           "q": "Let $H=\\langle(123)\\rangle\\cong C_3\\le S_3$, $[S_3:H]=2$. If $W$ is any $1$-dimensional rep of $C_3$, compute $\\dim\\mathrm{Ind}_H^{S_3}W$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$.",
           "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$."
         },
         {
@@ -572,7 +563,6 @@
           "q": "For $H = A_4 \\le G = S_4$ with $[G:H] = 2$, compute $\\dim \\mathrm{Ind}_H^G \\mathbf{1}_H$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$\\dim\\mathrm{Ind}_{A_4}^{S_4}\\mathbf{1} = [S_4:A_4]\\cdot 1 = 2\\cdot 1 = 2$.",
           "explain": "$\\dim\\mathrm{Ind}_{A_4}^{S_4}\\mathbf{1} = [S_4:A_4]\\cdot 1 = 2\\cdot 1 = 2$. This induced rep is $\\mathbf{1}\\oplus\\varepsilon$ (the trivial rep plus the sign rep of $S_4$)."
         }
       ],
@@ -621,7 +611,6 @@
           "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(3,1)\\vdash 4$. The hook lengths are $4,2,1$ in the first row and $1$ in the second row.",
           "answer": 3,
           "tol": 0.000001,
-          "hint": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$.",
           "explain": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$."
         },
         {
@@ -629,7 +618,6 @@
           "q": "How many partitions does $5$ have, i.e., how many irreducible representations does $S_5$ have?",
           "answer": 7,
           "tol": 0.000001,
-          "hint": "Partitions of $5$: $(5), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1)$.",
           "explain": "Partitions of $5$: $(5), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1)$. Seven partitions, seven irreducible representations."
         },
         {
@@ -637,7 +625,6 @@
           "q": "For $\\lambda = (2,2) \\vdash 4$, the hook lengths are $3, 2, 2, 1$. Compute $\\dim V_{(2,2)}$.",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$f^{(2,2)} = 4!/(3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$.",
           "explain": "$f^{(2,2)} = 4!/(3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$."
         }
       ],
@@ -678,7 +665,6 @@
             "Simply connected Lie groups"
           ],
           "answer": 1,
-          "hint": "Peter–Weyl requires compactness (ensures Haar measure is finite and irreps are finite-dimensional) plus Hausdorff (ensures unique Haar measure).",
           "explain": "Peter–Weyl requires compactness (ensures Haar measure is finite and irreps are finite-dimensional) plus Hausdorff (ensures unique Haar measure). For non-compact groups like $\\mathrm{SL}_2(\\mathbb{R})$, infinite-dim irreps enter via the Plancherel theorem."
         },
         {
@@ -686,7 +672,6 @@
           "q": "The irreducible unitary representations of $\\mathrm{SU}(2)$ are $V_n$ of dimension $n+1$ for $n = 0, 1, 2, \\ldots$. How many linearly independent matrix coefficients does $V_3$ contribute to $L^2(\\mathrm{SU}(2))$ (i.e., what is $\\dim V_3 \\cdot \\dim V_3^* = (\\dim V_3)^2$)?",
           "answer": 16,
           "tol": 0.000001,
-          "hint": "$V_3$ has dimension $4$, so $V_3\\otimes V_3^*$ contributes $4\\cdot 4 = 16$ matrix coefficients.",
           "explain": "$V_3$ has dimension $4$, so $V_3\\otimes V_3^*$ contributes $4\\cdot 4 = 16$ matrix coefficients."
         },
         {
@@ -752,7 +737,6 @@
             "$Hv = Ev = Fv = 0$"
           ],
           "answer": 1,
-          "hint": "A highest-weight vector is annihilated by the raising operator $E$ (so its weight cannot be increased) and is a simultaneous eigenvector of the Cartan $H$.",
           "explain": "A highest-weight vector is annihilated by the raising operator $E$ (so its weight cannot be increased) and is a simultaneous eigenvector of the Cartan $H$."
         },
         {
@@ -760,7 +744,6 @@
           "q": "If $v$ is a highest-weight vector of weight $n = 5$ in a finite-dimensional irreducible $\\mathfrak{sl}_2$-rep, how many linearly independent vectors are in $\\{v, Fv, F^2 v, \\ldots, F^5 v\\}$?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "The chain has $n+1 = 6$ linearly independent vectors, and their $H$-weights $5, 3, 1, -1, -3, -5$ are distinct.",
           "explain": "The chain has $n+1 = 6$ linearly independent vectors, and their $H$-weights $5, 3, 1, -1, -3, -5$ are distinct."
         },
         {
@@ -773,7 +756,6 @@
             "Because the exponential map sends $\\lambda$ to a complex number"
           ],
           "answer": 1,
-          "hint": "Finite dimensionality gives $F^{n+1}v = 0$ for some $n$.",
           "explain": "Finite dimensionality gives $F^{n+1}v = 0$ for some $n$. Applying $E$ and using $EF^k v = k(\\lambda - k + 1)F^{k-1}v$ at $k = n+1$ gives $0 = (n+1)(\\lambda-n)F^n v$. Since $F^n v \\ne 0$ and $n+1 \\ne 0$, $\\lambda = n$."
         }
       ],
@@ -827,7 +809,6 @@
             "$\\{\\pm n\\}$"
           ],
           "answer": 1,
-          "hint": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$.",
           "explain": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$."
         },
         {
@@ -835,7 +816,6 @@
           "q": "Using Clebsch–Gordan $V_m\\otimes V_n = V_{m+n}\\oplus V_{m+n-2}\\oplus\\cdots\\oplus V_{|m-n|}$, compute $\\dim V_2\\otimes V_3$ and verify by summing the dimensions of the irreducible summands.",
           "answer": 12,
           "tol": 0.000001,
-          "hint": "$\\dim V_2\\otimes V_3 = 3\\cdot 4 = 12$.",
           "explain": "$\\dim V_2\\otimes V_3 = 3\\cdot 4 = 12$. Clebsch–Gordan gives $V_5\\oplus V_3\\oplus V_1$ with dimensions $6+4+2=12$. ✓"
         },
         {
@@ -843,7 +823,6 @@
           "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n-m)(n+m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
           "answer": 6,
           "tol": 0.000001,
-          "hint": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$.",
           "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$."
         }
       ],

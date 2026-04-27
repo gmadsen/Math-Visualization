@@ -13,7 +13,6 @@
             "$a_p=\\#E(\\mathbb{F}_p)-p-1$ only when $p=2$"
           ],
           "answer": 1,
-          "hint": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$.",
           "explain": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$."
         },
         {
@@ -21,7 +20,6 @@
           "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
           "answer": -3,
           "tol": 1e-9,
-          "hint": "$a_5=5+1-9=-3$.",
           "explain": "$a_5=5+1-9=-3$."
         },
         {
@@ -33,7 +31,6 @@
             "Only bad primes"
           ],
           "answer": 0,
-          "hint": "An $L$-function is assembled from local data prime-by-prime.",
           "explain": "An $L$-function is assembled from local data prime-by-prime."
         }
       ],
@@ -86,7 +83,6 @@
             "$L(f,s)=\\prod_n (1-a_nn^{-s})$"
           ],
           "answer": 0,
-          "hint": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$.",
           "explain": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$."
         },
         {
@@ -98,7 +94,6 @@
             "Trivial functional equation"
           ],
           "answer": 0,
-          "hint": "Multiplicativity is exactly what supports an Euler product.",
           "explain": "Multiplicativity is exactly what supports an Euler product."
         },
         {
@@ -106,7 +101,6 @@
           "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
           "answer": 1,
           "tol": 1e-9,
-          "hint": "Normalization sets the first coefficient to 1.",
           "explain": "Normalization sets the first coefficient to 1."
         }
       ],
@@ -159,7 +153,6 @@
             "$\\Lambda(E,s)=\\Lambda(E,s+1)$"
           ],
           "answer": 1,
-          "hint": "In the elliptic-curve normalization, the involution is $s\\leftrightarrow 2-s$, centered at $s=1$.",
           "explain": "In the elliptic-curve normalization, the involution is $s\\leftrightarrow 2-s$, centered at $s=1$."
         },
         {
@@ -171,7 +164,6 @@
             "class number"
           ],
           "answer": 1,
-          "hint": "The root number controls parity phenomena at the center.",
           "explain": "The root number controls parity phenomena at the center."
         },
         {
@@ -179,7 +171,6 @@
           "q": "The central point of $s\\leftrightarrow 2-s$ symmetry is $s=$ ?",
           "answer": 1,
           "tol": 1e-9,
-          "hint": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry.",
           "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
         }
       ],
@@ -233,7 +224,6 @@
             "only at integers"
           ],
           "answer": 1,
-          "hint": "The Hasse bound $|a_p|\\le 2\\sqrt{p}$ gives absolute convergence on $\\mathrm{Re}\\,s > 3/2$; continuation past that needs modularity.",
           "explain": "The Hasse bound $|a_p|\\le 2\\sqrt{p}$ gives absolute convergence on $\\mathrm{Re}\\,s > 3/2$; continuation past that needs modularity."
         },
         {
@@ -246,7 +236,6 @@
             "Applying the Cauchy residue theorem at integers"
           ],
           "answer": 1,
-          "hint": "Split the Mellin integral at $y=1$, apply $y\\mapsto 1/y$, and the modular transformation of $f$ makes the integral entire in $s$.",
           "explain": "Split the Mellin integral at $y=1$, apply $y\\mapsto 1/y$, and the modular transformation of $f$ makes the integral entire in $s$."
         },
         {
@@ -254,7 +243,6 @@
           "q": "How many poles does the completed $\\Lambda(f,s)$ of a weight-$k$ cusp form have in $\\mathbb{C}$?",
           "answer": 0,
           "tol": 1e-9,
-          "hint": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$.",
           "explain": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$."
         }
       ],
@@ -303,7 +291,6 @@
           "q": "Euler's evaluation gives $\\zeta(2)=\\pi^2/k$ for which integer $k$?",
           "answer": 6,
           "tol": 1e-9,
-          "hint": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant.",
           "explain": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant."
         },
         {
@@ -316,7 +303,6 @@
             "$L(E,2)$ is always zero"
           ],
           "answer": 1,
-          "hint": "BSD ties the order of vanishing of $L(E,s)$ at the center $s=1$ of the functional equation to the Mordell–Weil rank.",
           "explain": "BSD ties the order of vanishing of $L(E,s)$ at the center $s=1$ of the functional equation to the Mordell–Weil rank."
         },
         {
@@ -329,7 +315,6 @@
             "the discriminant alone, with no arithmetic invariant"
           ],
           "answer": 0,
-          "hint": "Special values of $L(s,\\chi)$ at $s=1$ encode class numbers, regulators, and unit information of the corresponding abelian extension of $\\mathbb{Q}$.",
           "explain": "Special values of $L(s,\\chi)$ at $s=1$ encode class numbers, regulators, and unit information of the corresponding abelian extension of $\\mathbb{Q}$."
         }
       ],

@@ -338,7 +338,7 @@ function drawNode(svg, x, y, label, opts={}){
     const skew = "[" + c + "," + r + "] = " + fmtVec(v.map(x=>-x));
     out.textContent = sym + "\n" + skew + (r===c ? "\n(skew-symmetry forces this to vanish.)" : "");
     [...t.querySelectorAll("td")].forEach(x => x.style.background = "");
-    td.style.background = "rgba(255,216,102,0.15)";
+    td.style.background = "color-mix(in srgb, var(--yellow) 15%, transparent)";
   });
 })();
 </script>

@@ -14,7 +14,6 @@
             "$f^{\\#}$ is surjective on every open set"
           ],
           "answer": 1,
-          "hint": "A morphism of schemes is a morphism of locally ringed spaces: the stalk maps $f^{\\#}_x$ must be local, i.e.",
           "explain": "A morphism of schemes is a morphism of locally ringed spaces: the stalk maps $f^{\\#}_x$ must be local, i.e. send the maximal ideal $\\mathfrak{m}_{f(x)}$ into $\\mathfrak{m}_x$. Without this, arbitrary ringed-space maps between spectra don't correspond to ring maps."
         },
         {
@@ -35,7 +34,6 @@
           "q": "How many morphisms $\\operatorname{Spec}\\mathbb{F}_5\\to \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-1)$ over $\\operatorname{Spec}\\mathbb{Z}$ are there? (Equivalently, how many ring maps $\\mathbb{Z}[x]/(x^2-1)\\to \\mathbb{F}_5$ fixing $\\mathbb{Z}$?)",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "Such a ring map is determined by the image of $x$, which must satisfy $x^2=1$ in $\\mathbb{F}_5$.",
           "explain": "Such a ring map is determined by the image of $x$, which must satisfy $x^2=1$ in $\\mathbb{F}_5$. The solutions are $x=\\pm 1$, so there are $2$ morphisms."
         }
       ],
@@ -89,7 +87,6 @@
             "$i$ is proper and finite"
           ],
           "answer": 1,
-          "hint": "Closed immersion = topological closed inclusion + surjective map of structure sheaves.",
           "explain": "Closed immersion = topological closed inclusion + surjective map of structure sheaves. The kernel of $i^{\\#}$ is the ideal sheaf cutting out $Z$."
         },
         {
@@ -102,7 +99,6 @@
             "$A\\to A\\otimes_{\\mathbb{Z}} A$ (tensor square)"
           ],
           "answer": 1,
-          "hint": "Open immersions onto a basic open come from localization: $A\\to A_f = A[1/f]$ inverts $f$, and primes of $A_f$ correspond exactly to primes of $A$ not containing $f$.",
           "explain": "Open immersions onto a basic open come from localization: $A\\to A_f = A[1/f]$ inverts $f$, and primes of $A_f$ correspond exactly to primes of $A$ not containing $f$."
         },
         {
@@ -110,7 +106,6 @@
           "q": "The closed subscheme $V((x^2))\\hookrightarrow \\operatorname{Spec} k[x]$ has the same underlying topological space as $V((x))$ (just the origin), but a different structure sheaf. What is $\\dim_k \\Gamma(V((x^2)),\\mathcal{O}) = \\dim_k k[x]/(x^2)$?",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$.",
           "explain": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$. This is the 'fat point' / tangent direction attached to the origin — a non-reduced closed subscheme."
         }
       ],
@@ -176,7 +171,6 @@
             "having exactly one point in every fiber"
           ],
           "answer": 1,
-          "hint": "Closed immersions are preserved by base change: if $Z\\hookrightarrow X$ is closed and $X'\\to X$ any morphism, then $Z\\times_X X'\\hookrightarrow X'$ is again a closed immersion.",
           "explain": "Closed immersions are preserved by base change: if $Z\\hookrightarrow X$ is closed and $X'\\to X$ any morphism, then $Z\\times_X X'\\hookrightarrow X'$ is again a closed immersion. Topological bijectivity and point-count in fibers are not stable under base change."
         },
         {
@@ -184,7 +178,6 @@
           "q": "As a $\\mathbb{Q}$-vector space, what is the dimension of $\\mathbb{Q}(\\sqrt{2})\\otimes_{\\mathbb{Q}} \\mathbb{Q}(\\sqrt{2})$?",
           "answer": 4,
           "tol": 0.000001,
-          "hint": "$\\mathbb{Q}(\\sqrt 2)$ has $\\mathbb{Q}$-dimension $2$, so the tensor product has dimension $2\\cdot 2 = 4$.",
           "explain": "$\\mathbb{Q}(\\sqrt 2)$ has $\\mathbb{Q}$-dimension $2$, so the tensor product has dimension $2\\cdot 2 = 4$. Geometrically, $\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)\\times_{\\operatorname{Spec}\\mathbb{Q}}\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)$ is $4$-dimensional over $\\mathbb{Q}$ and splits as two points over $\\mathbb{Q}(\\sqrt 2)$."
         }
       ],
@@ -238,7 +231,6 @@
             "$\\operatorname{Spec}(\\mathcal{O}_{Y,y}/\\mathfrak{m}_y)$"
           ],
           "answer": 1,
-          "hint": "The scheme-theoretic fiber is the base change $X\\times_Y \\operatorname{Spec}\\kappa(y)$.",
           "explain": "The scheme-theoretic fiber is the base change $X\\times_Y \\operatorname{Spec}\\kappa(y)$. Its underlying topological space is $f^{-1}(y)$, but the scheme structure records multiplicities and nilpotents."
         },
         {
@@ -246,7 +238,6 @@
           "q": "Consider $f\\colon \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to \\operatorname{Spec}\\mathbb{Z}$. How many (geometric, i.e. over $\\overline{\\mathbb{F}_p}$) points does the fiber above the closed point $(5)\\in\\operatorname{Spec}\\mathbb{Z}$ have, counted without multiplicity?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "The fiber over $(5)$ is $\\operatorname{Spec}\\mathbb{F}_5[x]/(x^2)$, a single point with a nilpotent — ramified.",
           "explain": "The fiber over $(5)$ is $\\operatorname{Spec}\\mathbb{F}_5[x]/(x^2)$, a single point with a nilpotent — ramified. Topologically the fiber has $1$ point; scheme-theoretically its length is $2$."
         },
         {
@@ -254,7 +245,6 @@
           "q": "For the same family $f\\colon \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to \\operatorname{Spec}\\mathbb{Z}$, how many geometric points does the fiber over $(11)$ have? (Hint: is $5$ a square mod $11$? Check $4^2=16\\equiv 5$.)",
           "answer": 2,
           "tol": 0.000001,
-          "hint": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points.",
           "explain": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points. The prime $11$ splits in $\\mathbb{Z}[\\sqrt 5]$."
         }
       ],
@@ -308,7 +298,6 @@
             "an isomorphism"
           ],
           "answer": 1,
-          "hint": "Separatedness = closed diagonal.",
           "explain": "Separatedness = closed diagonal. This is the scheme-theoretic analog of Hausdorff, where in topology the diagonal is closed iff limits are unique."
         },
         {
@@ -321,7 +310,6 @@
             "$\\operatorname{Spec} k[x,y]/(xy)$"
           ],
           "answer": 2,
-          "hint": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed.",
           "explain": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed. All other options are separated."
         },
         {
@@ -334,7 +322,6 @@
             "a non-closed open immersion"
           ],
           "answer": 1,
-          "hint": "Projective space is the prototype proper morphism over a field.",
           "explain": "Projective space is the prototype proper morphism over a field. Affine space fails the valuative criterion (a $K$-point like $1/t\\in\\mathbb{A}^1_K$ does not extend to the DVR), as does $\\mathbb{G}_m$."
         }
       ],

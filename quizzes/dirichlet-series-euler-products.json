@@ -13,7 +13,6 @@
             "$\\Re(s)=\\sigma_a$ only"
           ],
           "answer": 1,
-          "hint": "Absolute convergence occurs in a right half-plane $\\Re(s)>\\sigma_a$.",
           "explain": "Absolute convergence occurs in a right half-plane $\\Re(s)>\\sigma_a$."
         },
         {
@@ -21,7 +20,6 @@
           "q": "For $\\zeta(s)=\\sum n^{-s}$, the abscissa of absolute convergence is $\\sigma_a=$ ?",
           "answer": 1,
           "tol": 1e-9,
-          "hint": "The $p$-series test gives convergence for $\\Re(s)>1$.",
           "explain": "The $p$-series test gives convergence for $\\Re(s)>1$."
         },
         {
@@ -33,7 +31,6 @@
             "They converge more slowly / become less stable"
           ],
           "answer": 2,
-          "hint": "Near the boundary of convergence, tails decay more slowly.",
           "explain": "Near the boundary of convergence, tails decay more slowly."
         }
       ],
@@ -86,7 +83,6 @@
             "Quadratic reciprocity"
           ],
           "answer": 0,
-          "hint": "Expanding the product picks one prime power term per prime, encoding unique factorization.",
           "explain": "Expanding the product picks one prime power term per prime, encoding unique factorization."
         },
         {
@@ -94,7 +90,6 @@
           "q": "Compute $(1-2^{-2})^{-1}$.",
           "answer": 1.3333333333,
           "tol": 0.000001,
-          "hint": "$(1-1/4)^{-1}=4/3$.",
           "explain": "$(1-1/4)^{-1}=4/3$."
         },
         {
@@ -106,7 +101,6 @@
             "A product over zeros only"
           ],
           "answer": 1,
-          "hint": "Multiplicativity organizes terms by prime powers, giving an Euler product.",
           "explain": "Multiplicativity organizes terms by prime powers, giving an Euler product."
         }
       ],
@@ -159,7 +153,6 @@
             "Always composite"
           ],
           "answer": 1,
-          "hint": "Each reduced residue class contains infinitely many primes.",
           "explain": "Each reduced residue class contains infinitely many primes."
         },
         {
@@ -171,7 +164,6 @@
             "Continued fractions"
           ],
           "answer": 1,
-          "hint": "Characters diagonalize class functions modulo $q$.",
           "explain": "Characters diagonalize class functions modulo $q$."
         },
         {
@@ -179,7 +171,6 @@
           "q": "How many reduced residue classes are modulo $8$?",
           "answer": 4,
           "tol": 1e-9,
-          "hint": "$\\varphi(8)=4$ (classes $1,3,5,7$).",
           "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
         }
       ],
@@ -233,7 +224,6 @@
             "$\\int_{-\\infty}^\\infty f(x)\\,e^{-isx}\\,dx$"
           ],
           "answer": 1,
-          "hint": "Mellin is the multiplicative Fourier transform on $(0,\\infty)$ with kernel $x^{s-1}\\,dx$; it turns dilation into translation in the $s$-variable.",
           "explain": "Mellin is the multiplicative Fourier transform on $(0,\\infty)$ with kernel $x^{s-1}\\,dx$; it turns dilation into translation in the $s$-variable."
         },
         {
@@ -241,7 +231,6 @@
           "q": "The Mellin transform of $e^{-x}$ on $(0,\\infty)$ equals $\\Gamma(s)$. Evaluate $\\Gamma(5)$.",
           "answer": 24,
           "tol": 0.000001,
-          "hint": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$.",
           "explain": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$."
         },
         {
@@ -321,7 +310,6 @@
             "the Euler factor at $p=2$"
           ],
           "answer": 0,
-          "hint": "The pole of $\\zeta(s)$ at $s=1$ becomes a simple pole of $-\\zeta'/\\zeta$ at $s=1$ with residue $+1$; its contribution in the Perron contour is $x$, giving $\\psi(x)\\sim x$ (the prime-number theorem).",
           "explain": "The pole of $\\zeta(s)$ at $s=1$ becomes a simple pole of $-\\zeta'/\\zeta$ at $s=1$ with residue $+1$; its contribution in the Perron contour is $x$, giving $\\psi(x)\\sim x$ (the prime-number theorem). The zeros of $\\zeta$ contribute lower-order oscillations."
         },
         {
@@ -329,7 +317,6 @@
           "q": "At a simple pole of $D(s)$ at $s=s_0$ with residue $\\rho$, the residue of $D(s)\\,x^s/s$ at $s=s_0$ (for $s_0\\ne 0$) is $\\rho\\cdot x^{s_0}/s_0$. For $D(s)=\\zeta(s)$, $s_0=1$, $\\rho=1$, and $x=e$, what is this residue to 4 decimals?",
           "answer": 2.7183,
           "tol": 0.001,
-          "hint": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$.",
           "explain": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$. This is exactly the leading term in Perron for $\\sum_{n\\le e}1 = $ counting function, with correction terms from the other poles/zeros."
         }
       ],
