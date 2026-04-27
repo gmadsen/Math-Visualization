@@ -273,7 +273,7 @@ Concretely, $\Omega^1_{A/k}$ is generated as an $A$-module by symbols $\{da : a 
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-kahler-scrub', {
+  const __h = MVProofScrubber.init('#w-kahler-scrub', {
     title: "$\\Omega^1_{A/k}$ as the universal recipient of $k$-derivations",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
@@ -311,6 +311,19 @@ Concretely, $\Omega^1_{A/k}$ is generated as an $A$-module by symbols $\{da : a 
       }
     ]
   });
+  const __r = document.getElementById('w-kahler-scrub');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -359,7 +372,7 @@ which on a smooth projective variety over $\mathbb{C}$ degenerates at $E_1$ (Del
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-derham-scrub', {
+  const __h = MVProofScrubber.init('#w-derham-scrub', {
     title: "$d^2 = 0$ on $\\Omega^\\bullet_{X/k}$, then $H^*_{dR}(\\mathbb{A}^1)$ and $H^*_{dR}(\\mathbb{P}^1)$",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
@@ -397,6 +410,19 @@ which on a smooth projective variety over $\mathbb{C}$ degenerates at $E_1$ (Del
       }
     ]
   });
+  const __r = document.getElementById('w-derham-scrub');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -443,7 +469,7 @@ where the right-hand side is the singular cohomology of the underlying complex-a
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-betti-scrub', {
+  const __h = MVProofScrubber.init('#w-betti-scrub', {
     title: "Comparison on $\\mathbb{C}^*$: $H^1_{dR} \\xrightarrow{\\sim} H^1(\\mathbb{C}^*; \\mathbb{C})$ via $\\frac{dz}{z}$",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
@@ -476,6 +502,19 @@ where the right-hand side is the singular cohomology of the underlying complex-a
       }
     ]
   });
+  const __r = document.getElementById('w-betti-scrub');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 

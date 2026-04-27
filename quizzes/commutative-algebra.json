@@ -590,17 +590,17 @@
       "title": "Flatness and Tor",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which $\\mathbb{Z}$-module is NOT flat?",
-          "choices": [
-            "$\\mathbb{Q}$",
-            "$\\mathbb{Z}[1/2]$",
-            "$\\mathbb{Z}/3\\mathbb{Z}$",
-            "$\\mathbb{Z}^{\\oplus 5}$"
+          "type": "spot-the-error",
+          "q": "A student claims $\\mathbb{Z}/3$ is a flat $\\mathbb{Z}$-module. Identify the flawed step in their argument.",
+          "steps": [
+            "Tensor the injection $\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}$ with $\\mathbb{Z}/3$ to test flatness of $\\mathbb{Z}/3$.",
+            "The induced map $\\mathbb{Z}/3\\xrightarrow{3}\\mathbb{Z}/3$ is the zero map (since $3\\equiv 0\\pmod 3$).",
+            "Since the original map $\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}$ is injective and tensoring preserves injectivity in general, the induced map $\\mathbb{Z}/3\\xrightarrow{3}\\mathbb{Z}/3$ is also injective.",
+            "Therefore $\\mathbb{Z}/3$ is flat over $\\mathbb{Z}$."
           ],
           "answer": 2,
-          "hint": "Over a PID, flat = torsion-free.",
-          "explain": "Over a PID, flat = torsion-free. $\\mathbb{Z}/3$ has torsion."
+          "hint": "Tensor product is right exact, not exact in general — preserving injectivity is exactly the flatness hypothesis we are trying to verify.",
+          "explain": "Step 2 is the flaw. Tensor product is only right exact; preserving injections IS the definition of flatness, so claiming it 'in general' begs the question. In fact step 1 reveals the issue concretely: the induced map is multiplication by $3$ on $\\mathbb{Z}/3$, which is the zero map — not injective. So $\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/3,\\mathbb{Z}/3) = \\mathbb{Z}/3 \\ne 0$, witnessing non-flatness. Over a PID, flat $=$ torsion-free, and $\\mathbb{Z}/3$ has torsion."
         },
         {
           "type": "numeric",
@@ -663,17 +663,22 @@
       "title": "Nakayama's lemma and Zariski tangent spaces",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian, $M$ f.g. Elements $m_1,\\dots,m_r\\in M$ generate $M$ iff:",
-          "choices": [
-            "$m_1,\\dots,m_r$ are $A$-linearly independent",
-            "their images span $M/\\mathfrak{m}M$ as a $k$-vector space",
-            "they generate $\\mathfrak{m}M$",
-            "$M$ is free of rank $r$"
+          "type": "proof-completion",
+          "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian and $M$ a f.g. $A$-module. We want to show: if $\\bar m_1,\\dots,\\bar m_r$ span $M/\\mathfrak{m}M$ over $k$, then $m_1,\\dots,m_r$ generate $M$ over $A$. Pick the correct next step.",
+          "steps": [
+            "Suppose $\\bar m_1,\\dots,\\bar m_r$ span $M/\\mathfrak{m}M$ over $k$.",
+            "Let $N = A m_1 + \\cdots + A m_r \\subseteq M$ be the submodule they generate.",
+            "Then $N + \\mathfrak{m}M = M$, since $\\bar m_i$ already span $M/\\mathfrak{m}M$, so passing to $M/N$ gives $M/N = \\mathfrak{m}\\cdot(M/N)$."
           ],
-          "answer": 1,
-          "hint": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$.",
-          "explain": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$."
+          "choices": [
+            "Conclude $M/N$ is f.g. and satisfies $M/N = \\mathfrak{m}\\cdot(M/N)$, then apply Nakayama's lemma to $M/N$ to deduce $M/N = 0$, i.e. $M = N$.",
+            "Conclude $N = \\mathfrak{m}M$ and so $N = 0$.",
+            "Apply the Hilbert basis theorem to deduce $A[m_1,\\dots,m_r]$ is Noetherian.",
+            "Pass to the completion $\\hat A$ and use faithful flatness."
+          ],
+          "answer": 0,
+          "hint": "Nakayama: a f.g. module $N'$ with $\\mathfrak{m}\\cdot N' = N'$ must vanish.",
+          "explain": "Nakayama corollary: if $M/N$ is f.g. and equals $\\mathfrak{m}\\cdot(M/N)$, then $M/N = 0$, so $N = M$ and $m_1,\\dots,m_r$ generate $M$. Equivalently, minimal generators of $M$ biject with a basis of $M/\\mathfrak{m}M$."
         },
         {
           "type": "numeric",
@@ -684,17 +689,17 @@
           "explain": "Both partials of $y^2-x^3-x^2$ vanish at origin; Jacobian zero. Zariski tangent space has dimension $2$ while the curve is $1$-dim: singular."
         },
         {
-          "type": "mcq",
-          "q": "A Noetherian local ring $(A,\\mathfrak{m},k)$ is regular when:",
+          "type": "multi-select",
+          "q": "Select every Noetherian local ring $(A,\\mathfrak{m},k)$ that is regular, i.e. has $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$.",
           "choices": [
-            "$A$ is a domain",
-            "$\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$",
-            "$\\mathfrak{m}$ is principal",
-            "$A$ is a UFD"
+            "$\\mathbb{Z}_{(p)}$ (the localization of $\\mathbb{Z}$ at a prime $p$)",
+            "$k[x,y]_{(x,y)}$ (the localization of $k[x,y]$ at the origin)",
+            "$k[x,y]/(xy)$ localized at the origin (the node)",
+            "$k[[x_1,\\dots,x_n]]$ (formal power series ring)"
           ],
-          "answer": 1,
-          "hint": "Regularity: embedding dimension = Krull dimension.",
-          "explain": "Regularity: embedding dimension = Krull dimension. $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, equality iff regular."
+          "answer": [0, 1, 3],
+          "hint": "Regularity: embedding dimension equals Krull dimension. The node has $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = 2$ but Krull dimension $1$.",
+          "explain": "Regularity means $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$. $\\mathbb{Z}_{(p)}$ is a DVR (dim 1, $\\mathfrak{m}/\\mathfrak{m}^2$ 1-dim). $k[x,y]_{(x,y)}$ is regular of dim 2. $k[[x_1,\\dots,x_n]]$ is regular of dim $n$. The node $k[x,y]/(xy)$ at the origin has Krull dim $1$ but $\\mathfrak{m}/\\mathfrak{m}^2$ is spanned by $x,y$ (dim 2), so it is singular."
         }
       ],
       "hard": [

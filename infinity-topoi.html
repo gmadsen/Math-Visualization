@@ -294,7 +294,7 @@ where $\mathrm{Fun}^L$ denotes colimit-preserving functors. Every functor $F\col
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-presheaf-universal-property', {
+  const __h = MVProofScrubber.init('#w-presheaf-universal-property', {
     title: "$\\mathcal{P}(C)$ as free cocompletion: the universal property unpacked",
     hint: "drag the slider — or press play",
     viewBox: "0 0 460 220",
@@ -337,6 +337,19 @@ where $\mathrm{Fun}^L$ denotes colimit-preserving functors. Every functor $F\col
       },
     ],
   });
+  const __r = document.getElementById('w-presheaf-universal-property');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -460,7 +473,7 @@ where $C$ is a small $\infty$-category, $i$ is the fully faithful inclusion of a
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-giraud-axioms', {
+  const __h = MVProofScrubber.init('#w-giraud-axioms', {
     title: "$\\infty$-Giraud, axiom by axiom — verified on $\\mathcal{X} = \\mathcal{S}$ (spaces)",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
@@ -498,6 +511,19 @@ where $C$ is a small $\infty$-category, $i$ is the fully faithful inclusion of a
       },
     ],
   });
+  const __r = document.getElementById('w-giraud-axioms');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -697,7 +723,7 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
 <script>
 (function(){
   if(!window.MVCounterexampleExplorer) return;
-  MVCounterexampleExplorer.init('#w-hyp-cases', {
+  const __h = MVCounterexampleExplorer.init('#w-hyp-cases', {
     title: "Hypercomplete vs non-hypercomplete: a case library",
     hint: "pick a case — see whether each hypothesis holds",
     viewBox: "0 0 320 160",
@@ -776,6 +802,18 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
       },
     ],
   });
+  const __r = document.getElementById('w-hyp-cases');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev case'), __n = __mk('next case →');
+    __p.addEventListener('click', () => __h.select(__h.index - 1));
+    __n.addEventListener('click', () => __h.select(__h.index + 1));
+    __nav.append(__p, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 

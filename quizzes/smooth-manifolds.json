@@ -216,17 +216,18 @@
       "title": "Tangent spaces and bundles",
       "questions": [
         {
-          "type": "mcq",
-          "q": "For a smooth $n$-manifold $M$ and $p\\in M$, the tangent space $T_pM$ is:",
+          "type": "multi-select",
+          "q": "Select every statement that is true of the tangent space $T_pM$ at a point $p$ of a smooth $n$-manifold $M$.",
           "choices": [
-            "an $n$-dimensional real vector space",
-            "the tangent line to a fixed curve through $p$",
-            "a subset of $M$ near $p$",
-            "the kernel of some linear map on $M$"
+            "$T_pM$ is an $n$-dimensional real vector space.",
+            "Equivalently, $T_pM$ is the space of point-derivations $D\\colon C^\\infty_p(M)\\to\\mathbb{R}$ at $p$ — linear maps satisfying the Leibniz rule $D(fg)=D(f)g(p)+f(p)D(g)$.",
+            "$T_pM$ depends on the choice of chart: different charts give non-isomorphic tangent spaces.",
+            "The coordinate vectors $\\partial/\\partial x^1|_p,\\dots,\\partial/\\partial x^n|_p$ in any chart form a basis of $T_pM$.",
+            "$T_pM$ is canonically a subset of $M$ containing $p$."
           ],
-          "answer": 0,
-          "hint": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space.",
-          "explain": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space."
+          "answer": [0, 1, 3],
+          "hint": "Three equivalent definitions of $T_pM$ — equivalence-classes of curves, point-derivations, chart-dependent components — all give the same $n$-dimensional vector space, basis-independent.",
+          "explain": "$T_pM$ is an intrinsic $n$-dimensional real vector space. The point-derivation definition is one of three standard equivalent ones (the others use velocities of curves through $p$, or component-tuples under chart-change). Coordinate vectors give a basis in any chart, but the space itself is canonical (chart-independent). $T_pM$ is not a subset of $M$ — it is a separate vector space attached to $p$."
         },
         {
           "type": "numeric",
@@ -521,17 +522,18 @@
           "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
         },
         {
-          "type": "mcq",
-          "q": "Which identity does the Lie bracket satisfy, making $\\mathfrak{X}(M)$ a Lie algebra?",
+          "type": "multi-select",
+          "q": "Select every identity that holds for the Lie bracket on $\\mathfrak{X}(M)$ for arbitrary $X,Y,Z\\in\\mathfrak{X}(M)$ and $f\\in C^\\infty(M)$.",
           "choices": [
-            "$[X,Y] = [Y,X]$ (symmetry)",
-            "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity) and $[X,Y]=-[Y,X]$ (antisymmetry)",
-            "$[X,Y]\\cdot[Y,Z] = [X,Z]$",
-            "$[X,X] = X$"
+            "$[X,Y] = -[Y,X]$ (antisymmetry).",
+            "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity).",
+            "$[fX,Y] = f[X,Y] - Y(f)X$ (failure of $C^\\infty$-bilinearity).",
+            "$[X,Y] = [Y,X]$ (symmetry).",
+            "$[X,X] = X$."
           ],
-          "answer": 1,
-          "hint": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity.",
-          "explain": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity. Those two axioms define a Lie algebra over $\\mathbb{R}$."
+          "answer": [0, 1, 2],
+          "hint": "Antisymmetry + Jacobi makes $\\mathfrak{X}(M)$ a Lie algebra; the bracket is $\\mathbb{R}$-bilinear but not $C^\\infty$-bilinear — pulling out a function picks up a derivation term.",
+          "explain": "Antisymmetry and Jacobi together make $\\mathfrak{X}(M)$ a Lie algebra over $\\mathbb{R}$. From antisymmetry, $[X,X]=0$ — so options (3) and (4) fail. The bracket is not $C^\\infty$-bilinear: $[fX,Y]=f[X,Y]-Y(f)X$, with the extra $-Y(f)X$ term reflecting the fact that $Y$ differentiates the coefficient $f$. This is why the Lie bracket is a differential operator, not a tensor."
         }
       ],
       "hard": [
@@ -572,17 +574,22 @@
       "title": "Partitions of unity",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of $M$ is a family $\\{\\rho_\\alpha\\colon M\\to[0,1]\\}$ such that:",
+          "type": "proof-completion",
+          "q": "A standard construction of a smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of a paracompact smooth manifold $M$ proceeds as follows. Pick the correct next step.",
+          "steps": [
+            "Pass to a locally finite refinement $\\{V_\\beta\\}$ of $\\{U_\\alpha\\}$ — possible because $M$ is paracompact.",
+            "For each $V_\\beta$, choose a smooth bump function $\\psi_\\beta\\colon M\\to[0,1]$ with $\\operatorname{supp}\\psi_\\beta\\subset V_\\beta$ and $\\psi_\\beta>0$ on a smaller open set $W_\\beta\\subset V_\\beta$ such that $\\{W_\\beta\\}$ still covers $M$.",
+            "Form the locally finite sum $\\Psi = \\sum_\\beta \\psi_\\beta$, which is smooth and strictly positive everywhere on $M$ since the $\\{W_\\beta\\}$ cover $M$."
+          ],
           "choices": [
-            "$\\operatorname{supp}\\rho_\\alpha\\subseteq U_\\alpha$, the family is locally finite, and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$",
-            "each $\\rho_\\alpha$ is a constant function summing to $1$",
-            "exactly one $\\rho_\\alpha$ is $1$ at each point, the others $0$",
-            "$\\rho_\\alpha$ is the characteristic function of $U_\\alpha$"
+            "Define $\\rho_\\beta = \\psi_\\beta / \\Psi$; then each $\\rho_\\beta$ is smooth with $\\operatorname{supp}\\rho_\\beta\\subset V_\\beta$, $0\\le\\rho_\\beta\\le 1$, and $\\sum_\\beta\\rho_\\beta = 1$.",
+            "Define $\\rho_\\beta = \\psi_\\beta$; the locally finite sum being everywhere positive already gives $\\sum_\\beta\\psi_\\beta = 1$.",
+            "Replace each $\\psi_\\beta$ by the characteristic function $\\mathbf{1}_{V_\\beta}$ to ensure $\\sum = 1$.",
+            "Use a metric to define $\\rho_\\beta$ as the distance to the complement of $V_\\beta$."
           ],
           "answer": 0,
-          "hint": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum…",
-          "explain": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum makes sense pointwise), and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$ on $M$. Characteristic functions of open sets are not even continuous, so (D) fails."
+          "hint": "Normalize each bump by the locally finite (smooth, positive) sum.",
+          "explain": "The final step is normalization: $\\rho_\\beta := \\psi_\\beta/\\Psi$ is smooth (denominator is smooth and positive), satisfies $\\operatorname{supp}\\rho_\\beta\\subset V_\\beta$, and $\\sum_\\beta\\rho_\\beta = \\Psi/\\Psi = 1$. Local finiteness of $\\{V_\\beta\\}$ guarantees the pointwise sum has only finitely many nonzero terms. The result is a smooth partition of unity subordinate to the (refined) cover."
         },
         {
           "type": "mcq",

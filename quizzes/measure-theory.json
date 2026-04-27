@@ -358,17 +358,23 @@
       "title": "Monotone and dominated convergence",
       "questions": [
         {
-          "type": "mcq",
-          "q": "If $0\\le f_n\\uparrow f$ pointwise, which theorem gives $\\int f_n\\to\\int f$?",
-          "choices": [
-            "Fatou lemma",
-            "Monotone convergence theorem",
-            "Fubini theorem",
-            "Jensen inequality"
+          "type": "matching",
+          "q": "Match each Lebesgue convergence theorem with the precise hypothesis it requires on the sequence $\\{f_n\\}$ of measurable functions.",
+          "left": [
+            "Monotone convergence (MCT)",
+            "Fatou's lemma",
+            "Dominated convergence (DCT)",
+            "Bounded convergence"
           ],
-          "answer": 1,
-          "hint": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit.",
-          "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
+          "right": [
+            "$0\\le f_n\\uparrow f$ pointwise — concludes $\\int f_n\\to\\int f$ in $[0,\\infty]$.",
+            "$f_n\\ge 0$ measurable, no monotonicity — concludes $\\int\\liminf f_n\\le\\liminf\\int f_n$ (one-sided).",
+            "$f_n\\to f$ a.e. with $|f_n|\\le g$ for some integrable $g$ — concludes $\\int f_n\\to\\int f$.",
+            "$f_n\\to f$ a.e. on a finite-measure space with $|f_n|\\le M$ uniformly — concludes $\\int f_n\\to\\int f$."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "MCT: monotone increasing nonneg. Fatou: just nonneg, gives one-sided $\\liminf$. DCT: integrable dominator. Bounded: uniform bound on a finite-measure space.",
+          "explain": "MCT: $0\\le f_n\\uparrow f$ implies $\\int f_n\\uparrow\\int f$. Fatou: $f_n\\ge 0$ measurable gives the one-sided inequality $\\int\\liminf f_n\\le\\liminf\\int f_n$ — strict in general (e.g. travelling bumps). DCT: dominator $g\\in L^1$ controls $f_n$ pointwise. Bounded convergence: special case of DCT where the dominator is the constant $M\\cdot\\mathbf 1_X$, integrable iff $\\mu(X)<\\infty$."
         },
         {
           "type": "numeric",
@@ -590,17 +596,17 @@
           "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
         },
         {
-          "type": "mcq",
-          "q": "The operational protocol before swapping iterated integrals of a signed function $f(x,y)$ is:",
-          "choices": [
-            "Swap freely — Tonelli always applies to measurable functions",
-            "Compute $\\int\\int|f|$ via Tonelli first; if finite, invoke Fubini to swap",
-            "Swap only when $f$ is continuous",
-            "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
+          "type": "ordering",
+          "q": "Arrange the standard workflow for legitimately swapping iterated integrals of a signed/complex function $f(x,y)$ on a $\\sigma$-finite product space.",
+          "items": [
+            "Conclude $f\\in L^1(\\mu\\otimes\\nu)$ and apply Fubini's theorem to swap iterated integrals of $f$, knowing the two orders agree.",
+            "Verify $f$ is jointly measurable on $\\mathcal A\\otimes\\mathcal B$.",
+            "Apply Tonelli to $|f|\\ge 0$ to compute $\\int\\!\\int|f|\\,d\\mu\\,d\\nu$ as an unambiguous $[0,\\infty]$ iterated integral.",
+            "Check whether the result is finite."
           ],
-          "answer": 1,
-          "hint": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral.",
-          "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
+          "answer": [1, 2, 3, 0],
+          "hint": "Measurability first; Tonelli on $|f|$; finiteness check; only then Fubini on $f$.",
+          "explain": "Standard Fubini–Tonelli workflow: (1) joint measurability is a prerequisite, (2) Tonelli applies unconditionally to $|f|$ in $[0,\\infty]$, (3) check finiteness — i.e., whether $f\\in L^1$, (4) once $f\\in L^1$, Fubini licenses the swap. Skipping the finiteness check can yield genuinely different iterated integrals (the classical $f(x,y)=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ is the cautionary tale)."
         }
       ],
       "hard": [
@@ -642,17 +648,23 @@
       "title": "Signed measures & Radon–Nikodym",
       "questions": [
         {
-          "type": "mcq",
-          "q": "The Jordan decomposition of a signed measure $\\nu$ expresses $\\nu$ as:",
-          "choices": [
-            "$\\nu=\\nu^+-\\nu^-$ with mutually singular positive measures $\\nu^+,\\nu^-$",
-            "$\\nu=\\nu^+\\cdot\\nu^-$",
-            "$\\nu=\\nu^+/\\nu^-$",
-            "$\\nu=\\nu^+\\circ\\nu^-$"
+          "type": "matching",
+          "q": "Match each decomposition theorem for a signed measure $\\nu$ with the structure it produces.",
+          "left": [
+            "Hahn decomposition",
+            "Jordan decomposition",
+            "Lebesgue decomposition (relative to $\\mu$)",
+            "Radon–Nikodym theorem"
           ],
-          "answer": 0,
-          "hint": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to…",
-          "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
+          "right": [
+            "A partition $X=P\\sqcup N$ where $\\nu(E\\cap P)\\ge 0$ and $\\nu(E\\cap N)\\le 0$ for all measurable $E$.",
+            "$\\nu=\\nu^+-\\nu^-$ with $\\nu^+,\\nu^-$ mutually singular positive measures.",
+            "$\\nu=\\nu_a+\\nu_s$ with $\\nu_a\\ll\\mu$ and $\\nu_s\\perp\\mu$ on a $\\sigma$-finite space.",
+            "When $\\nu\\ll\\mu$ and $\\mu$ is $\\sigma$-finite, a density $f=d\\nu/d\\mu$ with $\\nu(E)=\\int_E f\\,d\\mu$."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Hahn = positive/negative set partition; Jordan = $\\pm$ split into singular positive measures; Lebesgue = absolutely continuous + singular; Radon–Nikodym = density.",
+          "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set $P$ and a negative set $N$. Jordan defines $\\nu^+(E)=\\nu(E\\cap P)$, $\\nu^-(E)=-\\nu(E\\cap N)$, mutually singular positive measures with $\\nu=\\nu^+-\\nu^-$ and $|\\nu|=\\nu^++\\nu^-$. Lebesgue decomposes any $\\sigma$-finite signed $\\nu$ relative to $\\mu$ as $\\nu_a+\\nu_s$ ($\\nu_a\\ll\\mu$, $\\nu_s\\perp\\mu$). Radon–Nikodym then gives $\\nu_a$ a density $d\\nu_a/d\\mu$."
         },
         {
           "type": "mcq",

@@ -573,17 +573,23 @@ window.MVQuizBank = {
         "title": "Quotients and finite fields",
         "questions": [
           {
-            "type": "mcq",
-            "q": "The First Isomorphism Theorem says for a homomorphism $\\varphi:G\\to H$:",
+            "type": "multi-select",
+            "q": "Select every statement that is true for an arbitrary group homomorphism $\\varphi\\colon G\\to H$.",
             "choices": [
-              "$G/\\ker\\varphi \\cong \\operatorname{im}\\varphi$",
-              "$G/\\operatorname{im}\\varphi \\cong \\ker\\varphi$",
-              "$\\ker\\varphi \\cong H/G$",
-              "$G\\cong H$ always"
+              "$\\ker\\varphi$ is a normal subgroup of $G$.",
+              "$\\operatorname{im}\\varphi$ is a subgroup of $H$.",
+              "$G/\\ker\\varphi \\cong \\operatorname{im}\\varphi$ (First Isomorphism Theorem).",
+              "$\\varphi$ is necessarily injective.",
+              "$|G| = |\\ker\\varphi| \\cdot |\\operatorname{im}\\varphi|$ when $G$ is finite."
             ],
-            "answer": 0,
-            "hint": "Quotienting by the kernel identifies exactly elements with equal image.",
-            "explain": "Quotienting by the kernel identifies exactly elements with equal image."
+            "answer": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "hint": "Kernels are normal; images are subgroups; the First Isomorphism Theorem ties them together; Lagrange via the quotient gives the size identity. Injectivity is special — equivalent to trivial kernel.",
+            "explain": "(0) $\\ker\\varphi\\trianglelefteq G$ (kernels of group homomorphisms are always normal). (1) $\\operatorname{im}\\varphi\\le H$ (the image is a subgroup). (2) First Isomorphism Theorem: $G/\\ker\\varphi\\cong\\operatorname{im}\\varphi$. (3) is FALSE in general — $\\varphi$ injective iff $\\ker\\varphi$ trivial. (4) follows from Lagrange: $|G|=|\\ker\\varphi|\\cdot[G:\\ker\\varphi]=|\\ker\\varphi|\\cdot|\\operatorname{im}\\varphi|$."
           },
           {
             "type": "numeric",
@@ -947,17 +953,24 @@ window.MVQuizBank = {
             "explain": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$. The stabilizer of $1$ is the subgroup of permutations fixing $1$, isomorphic to $S_3$ on $\\{2,3,4\\}$ — of order $6$."
           },
           {
-            "type": "mcq",
-            "q": "Burnside's lemma says the number of orbits of $G$ on $X$ equals",
-            "choices": [
-              "$\\frac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$",
-              "$\\frac{1}{|X|}\\sum_{x\\in X}|\\mathrm{Stab}(x)|$",
-              "$|G|\\cdot|X|$",
-              "$\\max_{g\\in G}|\\mathrm{Fix}(g)|$"
+            "type": "ordering",
+            "q": "Arrange the steps in the standard derivation of Burnside's lemma: $\\#\\text{orbits} = \\tfrac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$.",
+            "items": [
+              "Apply orbit-stabilizer: $|\\mathrm{Stab}(x)| = |G|/|\\mathrm{orbit}(x)|$, so $\\sum_{x\\in X}|\\mathrm{Stab}(x)| = \\sum_{\\text{orbits}\\,\\mathcal O}\\sum_{x\\in\\mathcal O}|G|/|\\mathcal O| = |G|\\cdot\\#\\text{orbits}$.",
+              "Count the size of $S = \\{(g,x)\\in G\\times X : g\\cdot x = x\\}$ in two ways.",
+              "Counting by $g$ first: $|S| = \\sum_{g\\in G}|\\mathrm{Fix}(g)|$.",
+              "Counting by $x$ first: $|S| = \\sum_{x\\in X}|\\mathrm{Stab}(x)|$.",
+              "Combine the two expressions: $\\sum_{g\\in G}|\\mathrm{Fix}(g)| = |G|\\cdot\\#\\text{orbits}$, divide by $|G|$."
             ],
-            "answer": 0,
-            "hint": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements.",
-            "explain": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements."
+            "answer": [
+              1,
+              2,
+              3,
+              0,
+              4
+            ],
+            "hint": "Define the incidence set, count two ways, apply orbit-stabilizer, divide by $|G|$.",
+            "explain": "Burnside's lemma is the classic two-way counting argument. (1) Set $S = \\{(g,x): g\\cdot x = x\\}$. (2) Counting by $g$: $|S| = \\sum_g |\\mathrm{Fix}(g)|$. (3) Counting by $x$: $|S| = \\sum_x |\\mathrm{Stab}(x)|$. (4) By orbit-stabilizer, $\\sum_x |\\mathrm{Stab}(x)| = \\sum_{\\mathcal O}\\sum_{x\\in\\mathcal O}|G|/|\\mathcal O| = \\sum_{\\mathcal O}|G| = |G|\\cdot\\#\\text{orbits}$. (5) Equating and dividing by $|G|$ gives the result — orbits = average fixed-point count."
           },
           {
             "type": "numeric",
@@ -1003,17 +1016,22 @@ window.MVQuizBank = {
         "title": "Sylow theorems",
         "questions": [
           {
-            "type": "mcq",
-            "q": "For a group of order $|G|=15=3\\cdot 5$, the number $n_3$ of Sylow $3$-subgroups satisfies $n_3\\mid 5$ and $n_3\\equiv 1\\pmod 3$. What must $n_3$ be?",
+            "type": "proof-completion",
+            "q": "We are proving every group of order $15$ is cyclic. Pick the correct next step.",
+            "steps": [
+              "Let $|G|=15=3\\cdot 5$. By Sylow III, the number $n_3$ of Sylow $3$-subgroups satisfies $n_3\\mid 5$ and $n_3\\equiv 1\\pmod 3$.",
+              "Divisors of $5$ are $\\{1,5\\}$; only $1\\equiv 1\\pmod 3$, so $n_3=1$. Similarly $n_5\\mid 3$ and $n_5\\equiv 1\\pmod 5$ force $n_5=1$.",
+              "Hence $G$ has a unique (therefore normal) Sylow $3$-subgroup $P_3\\cong\\mathbb Z/3$ and a unique normal Sylow $5$-subgroup $P_5\\cong\\mathbb Z/5$. Since $\\gcd(3,5)=1$, $P_3\\cap P_5=\\{e\\}$, and $|P_3 P_5|=15=|G|$, so $G=P_3 P_5$."
+            ],
             "choices": [
-              "$n_3=1$",
-              "$n_3=5$",
-              "$n_3=3$",
-              "$n_3=15$"
+              "Two normal subgroups of coprime orders with trivial intersection and full product give a direct product, so $G\\cong P_3\\times P_5\\cong\\mathbb Z/3\\times\\mathbb Z/5\\cong\\mathbb Z/15$ — cyclic.",
+              "Conclude $G\\cong S_3$ since $|S_3|=6$ has Sylow structure compatible with order $15$.",
+              "Conclude $G\\cong P_3\\rtimes P_5$ for some nontrivial action.",
+              "Conclude $G$ is non-abelian since both Sylow subgroups are normal."
             ],
             "answer": 0,
-            "hint": "Divisors of $5$ are $1,5$.",
-            "explain": "Divisors of $5$ are $1,5$. Only $1\\equiv 1\\pmod 3$, so $n_3=1$ — a unique Sylow $3$-subgroup, hence normal. Similarly $n_5=1$, and $G\\cong\\mathbb{Z}/15\\mathbb{Z}$."
+            "hint": "Two normal subgroups of coprime orders with trivial intersection and full product give an internal direct product.",
+            "explain": "When $N,M\\trianglelefteq G$ satisfy $N\\cap M=\\{e\\}$ and $NM=G$, we have $G\\cong N\\times M$. Here $G\\cong\\mathbb Z/3\\times\\mathbb Z/5\\cong\\mathbb Z/15$ (Chinese Remainder), the unique group of order $15$ — necessarily abelian and cyclic."
           },
           {
             "type": "numeric",
@@ -2773,17 +2791,23 @@ window.MVQuizBank = {
         "title": "Simply connected domains",
         "questions": [
           {
-            "type": "mcq",
-            "q": "Which space is simply connected?",
+            "type": "multi-select",
+            "q": "Select every space that is simply connected.",
             "choices": [
-              "$S^1$",
-              "$\\mathbb{R}^2\\setminus\\{0\\}$",
               "$\\mathbb{R}^2$",
-              "the torus $T^2$"
+              "$S^1$ (circle)",
+              "$S^2$ (sphere)",
+              "$\\mathbb{R}^2\\setminus\\{0\\}$ (punctured plane)",
+              "$\\mathbb{R}^n$ for any $n\\ge 1$",
+              "the torus $T^2 = S^1\\times S^1$"
             ],
-            "answer": 2,
-            "hint": "$\\mathbb{R}^2$ has trivial fundamental group.",
-            "explain": "$\\mathbb{R}^2$ has trivial fundamental group. The other listed spaces have nontrivial loops that cannot be contracted."
+            "answer": [
+              0,
+              2,
+              4
+            ],
+            "hint": "Simply connected means path-connected with $\\pi_1=0$. Convex/contractible Euclidean spaces are simply connected; spheres $S^n$ are simply connected for $n\\ge 2$; circles, punctured planes, and tori carry non-contractible loops.",
+            "explain": "$\\mathbb R^n$ is contractible, hence simply connected. $S^2$ has $\\pi_1=0$ (every loop contracts; $S^n$ is simply connected for $n\\ge 2$). $S^1$ has $\\pi_1\\cong\\mathbb Z$ (winding number). $\\mathbb R^2\\setminus\\{0\\}$ deformation-retracts onto $S^1$, so $\\pi_1\\cong\\mathbb Z$. $T^2$ has $\\pi_1\\cong\\mathbb Z^2$."
           },
           {
             "type": "numeric",
@@ -2953,17 +2977,25 @@ window.MVQuizBank = {
         "title": "Covering spaces",
         "questions": [
           {
-            "type": "mcq",
-            "q": "For the covering map $p:\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, the fiber over $1\\in S^1$ is:",
-            "choices": [
-              "$\\{0\\}$",
-              "$\\mathbb{Z}$",
-              "$\\mathbb{R}$",
-              "empty"
+            "type": "matching",
+            "q": "By the Galois correspondence for covering spaces, connected covers of a (suitable) base $X$ biject with conjugacy classes of subgroups of $\\pi_1(X)$. For $X=S^1$ with $\\pi_1(X)\\cong\\mathbb Z$, match each cover with the subgroup $H\\le\\mathbb Z$ to which it corresponds.",
+            "left": [
+              "$\\{0\\}\\le\\mathbb Z$ (trivial subgroup)",
+              "$n\\mathbb Z\\le\\mathbb Z$ for some $n\\ge 2$",
+              "$1\\cdot\\mathbb Z=\\mathbb Z$ (full group)"
             ],
-            "answer": 1,
-            "hint": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$.",
-            "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$."
+            "right": [
+              "$p\\colon\\mathbb R\\to S^1$, $p(t)=e^{2\\pi it}$ (universal cover, infinite-sheeted)",
+              "$p_n\\colon S^1\\to S^1$, $p_n(z)=z^n$ ($n$-sheeted cover)",
+              "$\\mathrm{id}\\colon S^1\\to S^1$ (trivial cover)"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Cover sheets equal $[\\pi_1(X):H]$. Universal cover ↔ trivial subgroup, $n$-sheeted ↔ index-$n$ subgroup, trivial cover ↔ full group.",
+            "explain": "Galois theory of covering spaces: covers of $X$ correspond to subgroups of $\\pi_1(X)$, with sheet count equal to index. For $X=S^1$, $\\pi_1=\\mathbb Z$. The universal cover $\\mathbb R\\to S^1$ has fiber $\\mathbb Z$ over each point — corresponds to trivial subgroup $\\{0\\}$. The $n$-sheeted cover $z\\mapsto z^n$ corresponds to $n\\mathbb Z$ (index $n$). The identity is the cover for $\\mathbb Z$ itself (index 1)."
           },
           {
             "type": "numeric",
@@ -3023,17 +3055,22 @@ window.MVQuizBank = {
         "title": "Singular homology",
         "questions": [
           {
-            "type": "mcq",
-            "q": "Which equality encodes the chain-complex condition?",
-            "choices": [
-              "$\\partial_n\\partial_n=0$",
-              "$\\partial_{n-1}\\circ\\partial_n=0$",
-              "$\\partial_n=\\mathrm{id}$",
-              "$\\partial_n$ is invertible"
+            "type": "ordering",
+            "q": "Arrange the steps to set up the Mayer–Vietoris long exact sequence for a space $X = A\\cup B$ with $A,B$ open.",
+            "items": [
+              "Form the short exact sequence of chain complexes $0\\to C_*(A\\cap B)\\xrightarrow{\\alpha}C_*(A)\\oplus C_*(B)\\xrightarrow{\\beta}C_*(A)+C_*(B)\\to 0$, where $\\alpha(c)=(c,-c)$ and $\\beta(a,b)=a+b$.",
+              "Apply the snake lemma / zig-zag lemma to extract the long exact sequence in homology: $\\cdots\\to H_n(A\\cap B)\\to H_n(A)\\oplus H_n(B)\\to H_n(X)\\to H_{n-1}(A\\cap B)\\to\\cdots$",
+              "Verify the sequence of chain complexes is exact: $\\beta\\alpha=0$, $\\ker\\beta=\\operatorname{im}\\alpha$, and $\\beta$ is surjective onto $C_*(A)+C_*(B)$.",
+              "Use the small-simplices theorem (barycentric subdivision) to identify $H_n(C_*(A)+C_*(B))$ with $H_n(X)$."
             ],
-            "answer": 1,
-            "hint": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$.",
-            "explain": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$. This ensures $\\operatorname{im}\\partial_n\\subseteq\\ker\\partial_{n-1}$."
+            "answer": [
+              0,
+              2,
+              3,
+              1
+            ],
+            "hint": "Build the SES of chain complexes, verify exactness, identify the third term with $C_*(X)$ via subdivision, then take homology.",
+            "explain": "Mayer–Vietoris flow: (a) build the SES of chain complexes from the inclusion data, (b) check exactness, (c) replace the third term $C_*(A)+C_*(B)$ by $C_*(X)$ in homology — content of the small-simplices theorem (every chain in $X$ is homologous to one supported in $A$ or $B$), (d) the snake lemma converts the SES of chain complexes into the LES in homology with connecting morphism $\\partial_*\\colon H_n(X)\\to H_{n-1}(A\\cap B)$."
           },
           {
             "type": "numeric",
@@ -7463,17 +7500,17 @@ window.MVQuizBank = {
         "title": "Flatness and Tor",
         "questions": [
           {
-            "type": "mcq",
-            "q": "Which $\\mathbb{Z}$-module is NOT flat?",
-            "choices": [
-              "$\\mathbb{Q}$",
-              "$\\mathbb{Z}[1/2]$",
-              "$\\mathbb{Z}/3\\mathbb{Z}$",
-              "$\\mathbb{Z}^{\\oplus 5}$"
+            "type": "spot-the-error",
+            "q": "A student claims $\\mathbb{Z}/3$ is a flat $\\mathbb{Z}$-module. Identify the flawed step in their argument.",
+            "steps": [
+              "Tensor the injection $\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}$ with $\\mathbb{Z}/3$ to test flatness of $\\mathbb{Z}/3$.",
+              "The induced map $\\mathbb{Z}/3\\xrightarrow{3}\\mathbb{Z}/3$ is the zero map (since $3\\equiv 0\\pmod 3$).",
+              "Since the original map $\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}$ is injective and tensoring preserves injectivity in general, the induced map $\\mathbb{Z}/3\\xrightarrow{3}\\mathbb{Z}/3$ is also injective.",
+              "Therefore $\\mathbb{Z}/3$ is flat over $\\mathbb{Z}$."
             ],
             "answer": 2,
-            "hint": "Over a PID, flat = torsion-free.",
-            "explain": "Over a PID, flat = torsion-free. $\\mathbb{Z}/3$ has torsion."
+            "hint": "Tensor product is right exact, not exact in general — preserving injectivity is exactly the flatness hypothesis we are trying to verify.",
+            "explain": "Step 2 is the flaw. Tensor product is only right exact; preserving injections IS the definition of flatness, so claiming it 'in general' begs the question. In fact step 1 reveals the issue concretely: the induced map is multiplication by $3$ on $\\mathbb{Z}/3$, which is the zero map — not injective. So $\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/3,\\mathbb{Z}/3) = \\mathbb{Z}/3 \\ne 0$, witnessing non-flatness. Over a PID, flat $=$ torsion-free, and $\\mathbb{Z}/3$ has torsion."
           },
           {
             "type": "numeric",
@@ -7536,17 +7573,22 @@ window.MVQuizBank = {
         "title": "Nakayama's lemma and Zariski tangent spaces",
         "questions": [
           {
-            "type": "mcq",
-            "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian, $M$ f.g. Elements $m_1,\\dots,m_r\\in M$ generate $M$ iff:",
-            "choices": [
-              "$m_1,\\dots,m_r$ are $A$-linearly independent",
-              "their images span $M/\\mathfrak{m}M$ as a $k$-vector space",
-              "they generate $\\mathfrak{m}M$",
-              "$M$ is free of rank $r$"
+            "type": "proof-completion",
+            "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian and $M$ a f.g. $A$-module. We want to show: if $\\bar m_1,\\dots,\\bar m_r$ span $M/\\mathfrak{m}M$ over $k$, then $m_1,\\dots,m_r$ generate $M$ over $A$. Pick the correct next step.",
+            "steps": [
+              "Suppose $\\bar m_1,\\dots,\\bar m_r$ span $M/\\mathfrak{m}M$ over $k$.",
+              "Let $N = A m_1 + \\cdots + A m_r \\subseteq M$ be the submodule they generate.",
+              "Then $N + \\mathfrak{m}M = M$, since $\\bar m_i$ already span $M/\\mathfrak{m}M$, so passing to $M/N$ gives $M/N = \\mathfrak{m}\\cdot(M/N)$."
             ],
-            "answer": 1,
-            "hint": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$.",
-            "explain": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$."
+            "choices": [
+              "Conclude $M/N$ is f.g. and satisfies $M/N = \\mathfrak{m}\\cdot(M/N)$, then apply Nakayama's lemma to $M/N$ to deduce $M/N = 0$, i.e. $M = N$.",
+              "Conclude $N = \\mathfrak{m}M$ and so $N = 0$.",
+              "Apply the Hilbert basis theorem to deduce $A[m_1,\\dots,m_r]$ is Noetherian.",
+              "Pass to the completion $\\hat A$ and use faithful flatness."
+            ],
+            "answer": 0,
+            "hint": "Nakayama: a f.g. module $N'$ with $\\mathfrak{m}\\cdot N' = N'$ must vanish.",
+            "explain": "Nakayama corollary: if $M/N$ is f.g. and equals $\\mathfrak{m}\\cdot(M/N)$, then $M/N = 0$, so $N = M$ and $m_1,\\dots,m_r$ generate $M$. Equivalently, minimal generators of $M$ biject with a basis of $M/\\mathfrak{m}M$."
           },
           {
             "type": "numeric",
@@ -7557,17 +7599,21 @@ window.MVQuizBank = {
             "explain": "Both partials of $y^2-x^3-x^2$ vanish at origin; Jacobian zero. Zariski tangent space has dimension $2$ while the curve is $1$-dim: singular."
           },
           {
-            "type": "mcq",
-            "q": "A Noetherian local ring $(A,\\mathfrak{m},k)$ is regular when:",
+            "type": "multi-select",
+            "q": "Select every Noetherian local ring $(A,\\mathfrak{m},k)$ that is regular, i.e. has $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$.",
             "choices": [
-              "$A$ is a domain",
-              "$\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$",
-              "$\\mathfrak{m}$ is principal",
-              "$A$ is a UFD"
+              "$\\mathbb{Z}_{(p)}$ (the localization of $\\mathbb{Z}$ at a prime $p$)",
+              "$k[x,y]_{(x,y)}$ (the localization of $k[x,y]$ at the origin)",
+              "$k[x,y]/(xy)$ localized at the origin (the node)",
+              "$k[[x_1,\\dots,x_n]]$ (formal power series ring)"
             ],
-            "answer": 1,
-            "hint": "Regularity: embedding dimension = Krull dimension.",
-            "explain": "Regularity: embedding dimension = Krull dimension. $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, equality iff regular."
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Regularity: embedding dimension equals Krull dimension. The node has $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = 2$ but Krull dimension $1$.",
+            "explain": "Regularity means $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$. $\\mathbb{Z}_{(p)}$ is a DVR (dim 1, $\\mathfrak{m}/\\mathfrak{m}^2$ 1-dim). $k[x,y]_{(x,y)}$ is regular of dim 2. $k[[x_1,\\dots,x_n]]$ is regular of dim $n$. The node $k[x,y]/(xy)$ at the origin has Krull dim $1$ but $\\mathfrak{m}/\\mathfrak{m}^2$ is spanned by $x,y$ (dim 2), so it is singular."
           }
         ],
         "hard": [
@@ -7901,17 +7947,28 @@ window.MVQuizBank = {
         "title": "Möbius transformations",
         "questions": [
           {
-            "type": "mcq",
-            "q": "How many fixed points does a non-identity Möbius transformation have on $\\hat{\\mathbb{C}}$?",
-            "choices": [
-              "always 0",
-              "always 1",
-              "always 2 (counted with multiplicity)",
-              "always infinitely many"
+            "type": "matching",
+            "q": "Match each non-identity Möbius transformation $T(z)=\\frac{az+b}{cz+d}$ with its fixed points on $\\hat{\\mathbb{C}}$.",
+            "left": [
+              "$\\{0,\\infty\\}$ (two fixed points)",
+              "$\\{\\infty\\}$ only (parabolic with double fixed point at $\\infty$)",
+              "$\\{1,-1\\}$ (two fixed points)",
+              "$\\{i,-i\\}$ (two fixed points)"
             ],
-            "answer": 2,
-            "hint": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$.",
-            "explain": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$. Always exactly two roots in $\\hat{\\mathbb{C}}$ counted with multiplicity."
+            "right": [
+              "$T(z) = 2z$",
+              "$T(z) = z + 1$",
+              "$T(z) = 1/z$",
+              "$T(z) = -1/z$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Solve $T(z)=z$ in each case; count $\\infty$ as a fixed point exactly when $c=0$ (and as a double fixed point when $a=d$ and $c=0$).",
+            "explain": "$T(z)=z$ becomes $cz^2+(d-a)z-b=0$ in $\\mathbb{C}$, with $\\infty$ as a fixed point iff $c=0$. $2z=z\\Rightarrow z=0$ and $\\infty$ (since $c=0$): fixed points $\\{0,\\infty\\}$. $z+1=z$ has no finite solution and $\\infty$ is a double fixed point (parabolic). $1/z=z\\Rightarrow z^2=1$: fixed points $\\{1,-1\\}$. $-1/z=z\\Rightarrow z^2=-1$: fixed points $\\{i,-i\\}$. A non-identity Möbius always has exactly two fixed points in $\\hat{\\mathbb{C}}$ (counted with multiplicity)."
           },
           {
             "type": "complex",
@@ -8045,17 +8102,23 @@ window.MVQuizBank = {
         "title": "Cauchy–Riemann equations",
         "questions": [
           {
-            "type": "mcq",
-            "q": "Which of these functions is holomorphic on all of $\\mathbb{C}$?",
+            "type": "multi-select",
+            "q": "Select every function that is holomorphic on all of $\\mathbb{C}$ (entire).",
             "choices": [
+              "$f(z) = z^2 + 1$",
+              "$f(z) = e^z$",
               "$f(z) = |z|^2$",
               "$f(z) = \\bar z$",
               "$f(z) = z^2 + \\bar z$",
-              "$f(z) = z^2 + 1$"
+              "$f(z) = \\sin z$"
             ],
-            "answer": 3,
-            "hint": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations.",
-            "explain": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations. Polynomials in $z$ alone are entire."
+            "answer": [
+              0,
+              1,
+              5
+            ],
+            "hint": "Entire functions are precisely those that satisfy Cauchy–Riemann everywhere; any explicit dependence on $\\bar z$ kills holomorphy.",
+            "explain": "Holomorphy means $\\partial_{\\bar z}f=0$. Polynomials in $z$, $e^z$, and $\\sin z$ are entire. $|z|^2 = z\\bar z$ depends on $\\bar z$. $\\bar z$ itself fails CR everywhere. $z^2+\\bar z$ has the offending $\\bar z$ term. So only $z^2+1$, $e^z$, and $\\sin z$ are entire."
           },
           {
             "type": "numeric",
@@ -8120,12 +8183,22 @@ window.MVQuizBank = {
             "explain": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$."
           },
           {
-            "type": "numeric",
-            "q": "Compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$.",
-            "answer": 0,
-            "tol": 0.001,
-            "hint": "Both poles $\\pm i$ are inside the contour.",
-            "explain": "Both poles $\\pm i$ are inside the contour. $\\operatorname{Res}(\\cdot;i) = -i/2$, $\\operatorname{Res}(\\cdot;-i) = i/2$, sum $0$. So the integral is $2\\pi i \\cdot 0 = 0$."
+            "type": "ordering",
+            "q": "Arrange the steps to compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$ via the residue theorem.",
+            "items": [
+              "Apply the residue theorem: integral $= 2\\pi i\\sum_k\\operatorname{Res}(f;z_k)$ with $z_k$ ranging over poles inside $|z|=2$.",
+              "Sum the residues: $-i/2 + i/2 = 0$, hence the integral is $2\\pi i\\cdot 0 = 0$.",
+              "Compute residues at each enclosed pole: $\\operatorname{Res}(f;i)=1/(2i)=-i/2$ and $\\operatorname{Res}(f;-i)=1/(-2i)=i/2$.",
+              "Identify the poles of $f(z)=1/(z^2+1)=1/((z-i)(z+i))$ at $z=\\pm i$ and check both lie inside $|z|=2$."
+            ],
+            "answer": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "hint": "Locate the poles inside the contour first, then invoke the residue theorem, compute each residue, and sum.",
+            "explain": "Standard contour-integration recipe: (1) find the singularities of $f$ and decide which lie inside $\\gamma$, (2) state the residue theorem, (3) compute each residue (here, simple poles via $\\operatorname{Res}(f;z_0)=\\lim_{z\\to z_0}(z-z_0)f(z)$), (4) sum and multiply by $2\\pi i$. The residues cancel here, so the integral is $0$."
           },
           {
             "type": "numeric",
@@ -16658,16 +16731,28 @@ window.MVQuizBank = {
             "explain": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$."
           },
           {
-            "type": "mcq",
-            "q": "Under the Galois correspondence, an intermediate field $F$ is a <em>normal</em> extension of the base $K$ iff:",
-            "choices": [
-              "$\\operatorname{Gal}(L/F)$ is cyclic",
-              "$\\operatorname{Gal}(L/F)$ is abelian",
-              "$\\operatorname{Gal}(L/F)$ is a normal subgroup of $\\operatorname{Gal}(L/K)$",
-              "$F=L$"
+            "type": "matching",
+            "q": "Match each subgroup of $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ for $L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ with its fixed field.",
+            "left": [
+              "the trivial subgroup $\\{e\\}$",
+              "the whole group $(\\mathbb{Z}/2)^2$",
+              "$\\langle\\sigma\\rangle$ where $\\sigma\\colon\\sqrt{2}\\mapsto-\\sqrt{2},\\sqrt{3}\\mapsto\\sqrt{3}$",
+              "$\\langle\\tau\\rangle$ where $\\tau\\colon\\sqrt{2}\\mapsto-\\sqrt{2},\\sqrt{3}\\mapsto-\\sqrt{3}$"
             ],
-            "answer": 2,
-            "explain": "Normality in the tower matches normal subgroups in the group: $F/K$ is Galois iff $\\operatorname{Gal}(L/F)\\trianglelefteq \\operatorname{Gal}(L/K)$, and then $\\operatorname{Gal}(F/K)\\cong \\operatorname{Gal}(L/K)/\\operatorname{Gal}(L/F)$."
+            "right": [
+              "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$",
+              "$\\mathbb{Q}$",
+              "$\\mathbb{Q}(\\sqrt{3})$",
+              "$\\mathbb{Q}(\\sqrt{6})$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Inclusion-reversing: trivial subgroup fixes all of $L$; whole group fixes only $\\mathbb{Q}$. For each order-$2$ subgroup, find which $\\sqrt{d}$ is fixed.",
+            "explain": "By the Galois correspondence: $\\{e\\}\\leftrightarrow L$, $G\\leftrightarrow\\mathbb{Q}$. The subgroup $\\langle\\sigma\\rangle$ fixes $\\sqrt{3}$, hence fixes $\\mathbb{Q}(\\sqrt{3})$; $\\langle\\tau\\rangle$ fixes $\\sqrt{2}\\sqrt{3}=\\sqrt{6}$ (since both signs flip together), hence fixes $\\mathbb{Q}(\\sqrt{6})$. The third order-$2$ subgroup $\\langle\\sigma\\tau\\rangle$ fixes $\\mathbb{Q}(\\sqrt{2})$."
           }
         ],
         "hard": [
@@ -16711,25 +16796,48 @@ window.MVQuizBank = {
         "title": "Solvability by radicals",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A polynomial $f\\in\\mathbb{Q}[x]$ is solvable by radicals iff:",
-            "choices": [
-              "its Galois group is abelian",
-              "its Galois group is cyclic",
-              "its Galois group is solvable (has an abelian tower)",
-              "it has a real root"
+            "type": "matching",
+            "q": "Match each polynomial with its Galois group over $\\mathbb{Q}$, and conclude solvability accordingly.",
+            "left": [
+              "$\\mathbb{Z}/4$ (cyclic, solvable)",
+              "$S_3$ (solvable via $S_3\\supset A_3\\supset\\{e\\}$)",
+              "$S_4$ (solvable via $S_4\\supset A_4\\supset V_4\\supset\\{e\\}$)",
+              "$S_5$ (not solvable: $A_5$ is simple non-abelian)"
             ],
-            "answer": 2,
-            "hint": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients.",
-            "explain": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients."
+            "right": [
+              "$x^5-1$ (cyclotomic of degree $4$)",
+              "$x^3-2$ (irreducible cubic, not all roots real)",
+              "general quartic with $S_4$ Galois group",
+              "$x^5-x-1$ (irreducible, two non-real roots)"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Cyclotomic gives abelian; the irreducible cubic with one real root gives $S_3$; generic quartics give $S_4$; $x^5-x-1$ has $S_5$ via transposition + $5$-cycle.",
+            "explain": "$\\Phi_5(x)=x^4+x^3+x^2+x+1$ has Galois group $(\\mathbb{Z}/5)^\\times\\cong\\mathbb{Z}/4$. $x^3-2$ has Galois group $S_3$, solvable via $S_3\\supset A_3\\supset\\{e\\}$. The general quartic has $S_4$, solvable via $S_4\\supset A_4\\supset V_4\\supset\\{e\\}$. $x^5-x-1$ is irreducible with exactly two non-real roots, so complex conjugation is a transposition; combined with a $5$-cycle from transitivity, we get all of $S_5$, which is not solvable."
           },
           {
-            "type": "numeric",
-            "q": "What is $|A_5|$, the order of the alternating group that obstructs solving the general quintic?",
-            "answer": 60,
-            "tol": 0.000001,
-            "hint": "$|A_5|=5!/2=60$.",
-            "explain": "$|A_5|=5!/2=60$. Since $A_5$ is simple and non-abelian, $S_5$ is not solvable, so the general quintic has no radical formula."
+            "type": "ordering",
+            "q": "Arrange the steps that prove the general quintic $x^5-x-1$ is not solvable by radicals.",
+            "items": [
+              "Show $A_5$ is simple by ruling out every union of conjugacy classes (sizes $1,15,20,12,12$) summing to a proper divisor of $60$.",
+              "Conclude $S_5$ is not solvable, hence $f$ has no radical formula.",
+              "Verify $x^5-x-1$ is irreducible over $\\mathbb{Q}$, so the Galois group acts transitively on five roots.",
+              "Apply Galois' criterion: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group.",
+              "Note exactly two roots are non-real, so complex conjugation acts as a transposition on the roots; combined with a $5$-cycle from transitivity, this generates $S_5$."
+            ],
+            "answer": [
+              3,
+              2,
+              4,
+              0,
+              1
+            ],
+            "hint": "Set up Galois' criterion first, then identify the Galois group as $S_5$, then prove $S_5$ is not solvable.",
+            "explain": "The full chain: invoke Galois' criterion, prove the Galois group is $S_5$ (irreducibility gives a $5$-cycle; one transposition from complex conjugation generates the rest), then show $A_5$ is simple via conjugacy-class arithmetic, hence $S_5$ is not solvable."
           },
           {
             "type": "mcq",
@@ -19699,17 +19807,21 @@ window.MVQuizBank = {
         "title": "Exact sequences",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A sequence $A \\xrightarrow{f} B \\xrightarrow{g} C$ is exact at $B$ when:",
+            "type": "multi-select",
+            "q": "Select every condition that is equivalent to $0\\to A\\xrightarrow{f}B\\xrightarrow{g}C\\to 0$ being a short exact sequence.",
             "choices": [
-              "$g\\circ f = 0$",
-              "$\\operatorname{im} f \\subseteq \\ker g$",
-              "$\\operatorname{im} f = \\ker g$",
-              "$f$ is injective and $g$ is surjective"
+              "$f$ is injective, $g$ is surjective, and $\\operatorname{im}f=\\ker g$.",
+              "$g\\circ f=0$, $f$ is injective, and $g$ is surjective.",
+              "$f$ identifies $A$ with $\\ker g$, and $g$ induces an isomorphism $B/f(A)\\xrightarrow{\\sim}C$.",
+              "Just $g\\circ f=0$.",
+              "$f$ and $g$ are both isomorphisms."
             ],
-            "answer": 2,
-            "hint": "Exactness at $B$ is the equality $\\operatorname{im} f = \\ker g$.",
-            "explain": "Exactness at $B$ is the equality $\\operatorname{im} f = \\ker g$. The weaker condition $g\\circ f=0$ only gives $\\operatorname{im} f\\subseteq\\ker g$; the reverse inclusion is the substantive content."
+            "answer": [
+              0,
+              2
+            ],
+            "hint": "Short exactness needs $f$ injective, $g$ surjective, AND $\\operatorname{im}f=\\ker g$. Just $g\\circ f=0$ gives only the inclusion $\\operatorname{im}f\\subseteq\\ker g$.",
+            "explain": "Short exactness asserts $f$ injective, $g$ surjective, and $\\operatorname{im}f=\\ker g$ — equivalently, $f$ identifies $A$ with $\\ker g$ and $g$ induces $B/f(A)\\cong C$. (1) is false: $g\\circ f=0$ gives only $\\operatorname{im}f\\subseteq\\ker g$, missing the reverse inclusion. (3) is too weak. (4) describes a (very) special split case. So (0) and (2) are correct."
           },
           {
             "type": "mcq",
@@ -19785,17 +19897,26 @@ window.MVQuizBank = {
             "explain": "The snake connects $\\ker\\gamma$ (on the right of the top row) to $\\operatorname{coker}\\alpha$ (on the left of the bottom row) via the recipe lift $\\to$ $\\beta$ $\\to$ pull back along $i'$."
           },
           {
-            "type": "mcq",
-            "q": "Which six-term exact sequence does the snake lemma produce?",
-            "choices": [
-              "$0\\to\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma\\xrightarrow{\\delta}\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma\\to 0$",
-              "$0\\to\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma\\to\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma\\to 0$",
-              "$0\\to A\\to B\\to C\\to A'\\to B'\\to C'\\to 0$",
-              "$0\\to\\ker\\alpha\\to A\\to\\operatorname{coker}\\alpha\\to 0$"
+            "type": "ordering",
+            "q": "Arrange the six middle terms of the snake-lemma exact sequence in their canonical order. The sequence has the shape $0\\to\\bullet\\to\\bullet\\to\\bullet\\xrightarrow{\\delta}\\bullet\\to\\bullet\\to\\bullet\\to 0$.",
+            "items": [
+              "$\\operatorname{coker}\\beta$",
+              "$\\operatorname{coker}\\alpha$",
+              "$\\ker\\beta$",
+              "$\\operatorname{coker}\\gamma$",
+              "$\\ker\\alpha$",
+              "$\\ker\\gamma$"
             ],
-            "answer": 0,
-            "hint": "Kernels first (reading left-to-right), then $\\delta$, then cokernels (again left-to-right).",
-            "explain": "Kernels first (reading left-to-right), then $\\delta$, then cokernels (again left-to-right). The 0 on the left encodes 'left-most kernel arrow is injective' and the 0 on the right encodes 'right-most cokernel arrow is surjective'."
+            "answer": [
+              4,
+              2,
+              5,
+              1,
+              0,
+              3
+            ],
+            "hint": "Kernels first (left-to-right: $\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma$), then the connecting $\\delta$, then cokernels (left-to-right: $\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma$).",
+            "explain": "The snake-lemma sequence is $0\\to\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma\\xrightarrow{\\delta}\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma\\to 0$. Kernels appear first (in the same left-to-right order as the original columns), the connecting $\\delta$ jumps from $\\ker\\gamma$ to $\\operatorname{coker}\\alpha$, then the cokernels finish in the same left-to-right order."
           },
           {
             "type": "numeric",
@@ -19942,17 +20063,22 @@ window.MVQuizBank = {
         "title": "Long exact sequence in homology",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A short exact sequence of chain complexes $0\\to A_\\bullet\\to B_\\bullet\\to C_\\bullet\\to 0$ induces a long exact sequence whose connecting map $\\partial$ has which degree?",
-            "choices": [
-              "$\\partial:H_n(C)\\to H_n(A)$",
-              "$\\partial:H_n(A)\\to H_n(C)$",
-              "$\\partial:H_n(C)\\to H_{n-1}(A)$",
-              "$\\partial:H_n(A)\\to H_{n+1}(C)$"
+            "type": "ordering",
+            "q": "Arrange the consecutive terms of the long exact sequence in homology induced by a short exact sequence of chain complexes $0\\to A_\\bullet\\to B_\\bullet\\to C_\\bullet\\to 0$, starting from $H_n(A)$.",
+            "items": [
+              "$H_{n-1}(A)$",
+              "$H_n(C)$",
+              "$H_n(B)$",
+              "$H_n(A)$"
             ],
-            "answer": 2,
-            "hint": "The snake lemma applied degree-by-degree produces $\\partial:H_n(C)\\to H_{n-1}(A)$, lowering homological degree by 1 (for a cohomologically indexed complex the analogous map raises degree by 1).",
-            "explain": "The snake lemma applied degree-by-degree produces $\\partial:H_n(C)\\to H_{n-1}(A)$, lowering homological degree by 1 (for a cohomologically indexed complex the analogous map raises degree by 1)."
+            "answer": [
+              3,
+              2,
+              1,
+              0
+            ],
+            "hint": "$H_n(A)\\to H_n(B)\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)$. The connecting map lowers homological degree by 1.",
+            "explain": "The LES of homology runs $\\cdots\\to H_n(A)\\to H_n(B)\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)\\to\\cdots$. The connecting map $\\partial$ comes from applying the snake lemma degree-by-degree, and lowers homological degree by $1$ (for cohomological complexes the analogous $\\delta$ raises degree by $1$)."
           },
           {
             "type": "numeric",
@@ -23922,17 +24048,28 @@ window.MVQuizBank = {
         "title": "Monotone and dominated convergence",
         "questions": [
           {
-            "type": "mcq",
-            "q": "If $0\\le f_n\\uparrow f$ pointwise, which theorem gives $\\int f_n\\to\\int f$?",
-            "choices": [
-              "Fatou lemma",
-              "Monotone convergence theorem",
-              "Fubini theorem",
-              "Jensen inequality"
+            "type": "matching",
+            "q": "Match each Lebesgue convergence theorem with the precise hypothesis it requires on the sequence $\\{f_n\\}$ of measurable functions.",
+            "left": [
+              "Monotone convergence (MCT)",
+              "Fatou's lemma",
+              "Dominated convergence (DCT)",
+              "Bounded convergence"
             ],
-            "answer": 1,
-            "hint": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit.",
-            "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
+            "right": [
+              "$0\\le f_n\\uparrow f$ pointwise — concludes $\\int f_n\\to\\int f$ in $[0,\\infty]$.",
+              "$f_n\\ge 0$ measurable, no monotonicity — concludes $\\int\\liminf f_n\\le\\liminf\\int f_n$ (one-sided).",
+              "$f_n\\to f$ a.e. with $|f_n|\\le g$ for some integrable $g$ — concludes $\\int f_n\\to\\int f$.",
+              "$f_n\\to f$ a.e. on a finite-measure space with $|f_n|\\le M$ uniformly — concludes $\\int f_n\\to\\int f$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "MCT: monotone increasing nonneg. Fatou: just nonneg, gives one-sided $\\liminf$. DCT: integrable dominator. Bounded: uniform bound on a finite-measure space.",
+            "explain": "MCT: $0\\le f_n\\uparrow f$ implies $\\int f_n\\uparrow\\int f$. Fatou: $f_n\\ge 0$ measurable gives the one-sided inequality $\\int\\liminf f_n\\le\\liminf\\int f_n$ — strict in general (e.g. travelling bumps). DCT: dominator $g\\in L^1$ controls $f_n$ pointwise. Bounded convergence: special case of DCT where the dominator is the constant $M\\cdot\\mathbf 1_X$, integrable iff $\\mu(X)<\\infty$."
           },
           {
             "type": "numeric",
@@ -24154,17 +24291,22 @@ window.MVQuizBank = {
             "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
           },
           {
-            "type": "mcq",
-            "q": "The operational protocol before swapping iterated integrals of a signed function $f(x,y)$ is:",
-            "choices": [
-              "Swap freely — Tonelli always applies to measurable functions",
-              "Compute $\\int\\int|f|$ via Tonelli first; if finite, invoke Fubini to swap",
-              "Swap only when $f$ is continuous",
-              "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
+            "type": "ordering",
+            "q": "Arrange the standard workflow for legitimately swapping iterated integrals of a signed/complex function $f(x,y)$ on a $\\sigma$-finite product space.",
+            "items": [
+              "Conclude $f\\in L^1(\\mu\\otimes\\nu)$ and apply Fubini's theorem to swap iterated integrals of $f$, knowing the two orders agree.",
+              "Verify $f$ is jointly measurable on $\\mathcal A\\otimes\\mathcal B$.",
+              "Apply Tonelli to $|f|\\ge 0$ to compute $\\int\\!\\int|f|\\,d\\mu\\,d\\nu$ as an unambiguous $[0,\\infty]$ iterated integral.",
+              "Check whether the result is finite."
             ],
-            "answer": 1,
-            "hint": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral.",
-            "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
+            "answer": [
+              1,
+              2,
+              3,
+              0
+            ],
+            "hint": "Measurability first; Tonelli on $|f|$; finiteness check; only then Fubini on $f$.",
+            "explain": "Standard Fubini–Tonelli workflow: (1) joint measurability is a prerequisite, (2) Tonelli applies unconditionally to $|f|$ in $[0,\\infty]$, (3) check finiteness — i.e., whether $f\\in L^1$, (4) once $f\\in L^1$, Fubini licenses the swap. Skipping the finiteness check can yield genuinely different iterated integrals (the classical $f(x,y)=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ is the cautionary tale)."
           }
         ],
         "hard": [
@@ -24206,17 +24348,28 @@ window.MVQuizBank = {
         "title": "Signed measures & Radon–Nikodym",
         "questions": [
           {
-            "type": "mcq",
-            "q": "The Jordan decomposition of a signed measure $\\nu$ expresses $\\nu$ as:",
-            "choices": [
-              "$\\nu=\\nu^+-\\nu^-$ with mutually singular positive measures $\\nu^+,\\nu^-$",
-              "$\\nu=\\nu^+\\cdot\\nu^-$",
-              "$\\nu=\\nu^+/\\nu^-$",
-              "$\\nu=\\nu^+\\circ\\nu^-$"
+            "type": "matching",
+            "q": "Match each decomposition theorem for a signed measure $\\nu$ with the structure it produces.",
+            "left": [
+              "Hahn decomposition",
+              "Jordan decomposition",
+              "Lebesgue decomposition (relative to $\\mu$)",
+              "Radon–Nikodym theorem"
             ],
-            "answer": 0,
-            "hint": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to…",
-            "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
+            "right": [
+              "A partition $X=P\\sqcup N$ where $\\nu(E\\cap P)\\ge 0$ and $\\nu(E\\cap N)\\le 0$ for all measurable $E$.",
+              "$\\nu=\\nu^+-\\nu^-$ with $\\nu^+,\\nu^-$ mutually singular positive measures.",
+              "$\\nu=\\nu_a+\\nu_s$ with $\\nu_a\\ll\\mu$ and $\\nu_s\\perp\\mu$ on a $\\sigma$-finite space.",
+              "When $\\nu\\ll\\mu$ and $\\mu$ is $\\sigma$-finite, a density $f=d\\nu/d\\mu$ with $\\nu(E)=\\int_E f\\,d\\mu$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Hahn = positive/negative set partition; Jordan = $\\pm$ split into singular positive measures; Lebesgue = absolutely continuous + singular; Radon–Nikodym = density.",
+            "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set $P$ and a negative set $N$. Jordan defines $\\nu^+(E)=\\nu(E\\cap P)$, $\\nu^-(E)=-\\nu(E\\cap N)$, mutually singular positive measures with $\\nu=\\nu^+-\\nu^-$ and $|\\nu|=\\nu^++\\nu^-$. Lebesgue decomposes any $\\sigma$-finite signed $\\nu$ relative to $\\mu$ as $\\nu_a+\\nu_s$ ($\\nu_a\\ll\\mu$, $\\nu_s\\perp\\mu$). Radon–Nikodym then gives $\\nu_a$ a density $d\\nu_a/d\\mu$."
           },
           {
             "type": "mcq",
@@ -25024,16 +25177,23 @@ window.MVQuizBank = {
         "title": "Definition of modular forms",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A weight-$k$ modular form satisfies:",
+            "type": "multi-select",
+            "q": "Select every statement that is part of the definition of a weight-$k$ modular form $f$ on $SL_2(\\mathbb Z)$ with $\\gamma=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in SL_2(\\mathbb Z)$.",
             "choices": [
-              "$f(\\gamma\\tau)=f(\\tau)$",
-              "$f(\\gamma\\tau)=(c\\tau+d)^k f(\\tau)$",
-              "$f(\\gamma\\tau)=(a\\tau+b)^k f(\\tau)$"
+              "$f$ is holomorphic on the upper half-plane $\\mathcal H=\\{\\tau:\\Im\\tau>0\\}$.",
+              "$f(\\gamma\\tau)=(c\\tau+d)^k f(\\tau)$ for all $\\gamma\\in SL_2(\\mathbb Z)$.",
+              "$f$ is holomorphic at the cusp $\\tau=i\\infty$ — equivalently, the Fourier expansion $f(\\tau)=\\sum_{n\\ge 0}a_n q^n$ has only nonnegative powers of $q=e^{2\\pi i\\tau}$.",
+              "$f(\\gamma\\tau)=f(\\tau)$ for all $\\gamma\\in SL_2(\\mathbb Z)$ (i.e., $f$ is $SL_2(\\mathbb Z)$-invariant).",
+              "$f(-1/\\tau) = \\tau^k f(\\tau)$ and $f(\\tau+1) = f(\\tau)$, since $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$ and $T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ generate."
             ],
-            "answer": 1,
-            "hint": "This is the transformation law for $\\gamma=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$.",
-            "explain": "This is the transformation law for $\\gamma=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$."
+            "answer": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "hint": "The three pillars: holomorphic on $\\mathcal H$, transforms by the slash $|_k\\gamma$ action with factor $(c\\tau+d)^{-k}$, and holomorphic at the cusp. $SL_2(\\mathbb Z)$-invariance only happens at weight $0$.",
+            "explain": "A weight-$k$ modular form satisfies (a) holomorphy on $\\mathcal H$, (b) the transformation law $f(\\gamma\\tau)=(c\\tau+d)^k f(\\tau)$, (c) holomorphy at $\\infty$. (d) — strict invariance under $SL_2(\\mathbb Z)$ — is the weight-$0$ case (modular functions when meromorphic; constants when also holomorphic). (e) is correct because $S$ and $T$ generate $SL_2(\\mathbb Z)$, so checking these two suffices."
           },
           {
             "type": "mcq",
@@ -25094,16 +25254,28 @@ window.MVQuizBank = {
         "title": "Eisenstein series",
         "questions": [
           {
-            "type": "mcq",
-            "q": "At level 1, which pair is emphasized as basic generators?",
-            "choices": [
-              "$E_2,E_4$",
-              "$E_4,E_6$",
-              "$E_6,E_8$"
+            "type": "matching",
+            "q": "Match each level-$1$ Eisenstein series with its weight (where $\\sigma_k(n)=\\sum_{d\\mid n}d^k$).",
+            "left": [
+              "weight $4$",
+              "weight $6$",
+              "weight $8$",
+              "weight $12$"
             ],
-            "answer": 1,
-            "hint": "The graded ring is generated by $E_4$ and $E_6$.",
-            "explain": "The graded ring is generated by $E_4$ and $E_6$."
+            "right": [
+              "$E_4(\\tau) = 1 + 240\\sum_{n\\ge 1}\\sigma_3(n)\\,q^n$",
+              "$E_6(\\tau) = 1 - 504\\sum_{n\\ge 1}\\sigma_5(n)\\,q^n$",
+              "$E_8(\\tau) = 1 + 480\\sum_{n\\ge 1}\\sigma_7(n)\\,q^n$",
+              "$E_{12}(\\tau) = 1 + \\tfrac{65520}{691}\\sum_{n\\ge 1}\\sigma_{11}(n)\\,q^n$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Normalized $E_k = 1 - (2k/B_k)\\sum\\sigma_{k-1}(n)q^n$; the divisor power equals $k-1$. The $691$ denominator at weight $12$ is the famous Ramanujan congruence input.",
+            "explain": "The normalized Eisenstein series of weight $k\\ge 4$ even is $E_k(\\tau)=1-\\frac{2k}{B_k}\\sum_{n\\ge 1}\\sigma_{k-1}(n)q^n$. Coefficients: $-2\\cdot 4/B_4=240$, $-2\\cdot 6/B_6=-504$, $-2\\cdot 8/B_8=480$, $-2\\cdot 12/B_{12}=65520/691$. Note $E_8=E_4^2$ as modular forms (the weight-$8$ space is $1$-dimensional), giving the identity $\\sigma_7(n)=\\sigma_3(n)+120\\sum_{m=1}^{n-1}\\sigma_3(m)\\sigma_3(n-m)$."
           },
           {
             "type": "numeric",
@@ -25185,16 +25357,23 @@ window.MVQuizBank = {
             "explain": "$|q|=e^{-2\\pi}\\approx 0.001867$."
           },
           {
-            "type": "mcq",
-            "q": "Why are q-expansions central in arithmetic applications?",
+            "type": "multi-select",
+            "q": "Select every statement that is true about $q$-expansions $f(\\tau)=\\sum_{n\\ge 0}a_n q^n$ of holomorphic modular forms at level $1$.",
             "choices": [
-              "They remove all group actions",
-              "They package modular forms into coefficient sequences used by Hecke and L-functions",
-              "They only work for weight 0"
+              "The Fourier coefficients $a_n$ encode all arithmetic information used by Hecke operators and L-functions.",
+              "The constant term $a_0$ vanishes for cusp forms.",
+              "Convergence on the upper half-plane $\\Im\\tau>0$ corresponds to $|q|<1$.",
+              "$q$-expansions only exist for weight-$0$ modular forms.",
+              "The product $E_8 = E_4\\cdot E_4$ holds at the level of $q$-expansions, giving the identity $1+480\\sum\\sigma_7(n)q^n = (1+240\\sum\\sigma_3(n)q^n)^2$."
             ],
-            "answer": 1,
-            "hint": "Arithmetic information is encoded in Fourier coefficients.",
-            "explain": "Arithmetic information is encoded in Fourier coefficients."
+            "answer": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "hint": "$q$-expansions exist for any holomorphic modular form (any weight) and convert holomorphic-at-$\\infty$ into a power series in $q$ with $|q|<1$. Cusp forms vanish at $\\infty$, so $a_0=0$. Coefficient products mirror form products.",
+            "explain": "$q$-expansions: (a) carry all arithmetic since Hecke acts on coefficients, (b) constant term vanishes iff cusp form, (c) $|q|=e^{-2\\pi\\Im\\tau}<1$ gives convergence on the upper half-plane, (d) is FALSE: every holomorphic modular form at level 1 has a $q$-expansion regardless of weight, (e) is true and yields a beautiful $\\sigma$-convolution identity."
           }
         ],
         "hard": [
@@ -29634,17 +29813,28 @@ window.MVQuizBank = {
         "title": "Compactness",
         "questions": [
           {
-            "type": "mcq",
-            "q": "Heine–Borel: in $\\mathbb{R}^n$ with the Euclidean topology, a subset is compact iff it is:",
-            "choices": [
-              "open",
-              "closed",
-              "bounded",
-              "closed and bounded"
+            "type": "matching",
+            "q": "Match each characterization of compactness with the setting in which it is equivalent to the open-cover definition (every open cover has a finite subcover).",
+            "left": [
+              "Closed and bounded",
+              "Sequential compactness: every sequence has a convergent subsequence",
+              "Limit-point compactness: every infinite subset has a limit point",
+              "Finite intersection property (FIP): every collection of closed sets with the FIP has nonempty intersection"
             ],
-            "answer": 3,
-            "hint": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded.",
-            "explain": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded. Warning — this equivalence is specific to $\\mathbb{R}^n$. In infinite-dimensional Banach spaces the closed unit ball is bounded and closed but not compact."
+            "right": [
+              "Heine–Borel — equivalent to compactness in $\\mathbb{R}^n$.",
+              "Equivalent to compactness in metric spaces (and more generally in second-countable spaces).",
+              "Strictly weaker than compactness in general; equivalent in metric spaces.",
+              "Equivalent to compactness in any topological space (a clean reformulation by complementation)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Heine–Borel is the metric-Euclidean shortcut; FIP is the universal reformulation; sequential and limit-point compactness coincide with open-cover compactness in metric spaces.",
+            "explain": "Compactness has many faces. (a) Heine–Borel is specific to $\\mathbb{R}^n$ — closed unit balls in infinite-dimensional Banach spaces are closed and bounded but not compact. (b) Sequential compactness coincides with compactness in metric spaces but not in general (e.g. $\\beta\\mathbb{N}$ is compact but not sequentially compact). (c) Limit-point compactness is strictly weaker without metrizability. (d) FIP is the universal reformulation: $X$ compact $\\iff$ every collection of closed sets with the finite intersection property has nonempty intersection."
           },
           {
             "type": "mcq",
@@ -29788,17 +29978,28 @@ window.MVQuizBank = {
         "title": "Separation and countability",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A space is Hausdorff ($T_2$) iff:",
-            "choices": [
-              "every singleton is closed",
-              "any two distinct points have disjoint open neighborhoods",
-              "every pair of disjoint closed sets has disjoint open neighborhoods",
-              "every open cover has a finite subcover"
+            "type": "matching",
+            "q": "Match each separation axiom with its defining condition.",
+            "left": [
+              "$T_1$",
+              "$T_2$ (Hausdorff)",
+              "$T_3$ (regular Hausdorff)",
+              "$T_4$ (normal Hausdorff)"
             ],
-            "answer": 1,
-            "hint": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens.",
-            "explain": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens. Option (a) is $T_1$, option (c) is normality ($T_4$), option (d) is compactness."
+            "right": [
+              "Every singleton is closed.",
+              "Any two distinct points have disjoint open neighborhoods.",
+              "$T_1$, plus any closed set $C$ and point $x\\notin C$ have disjoint open neighborhoods.",
+              "$T_1$, plus any two disjoint closed sets have disjoint open neighborhoods."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "$T_n$ separates progressively richer pairs: distinct points (singletons closed → points-by-opens → point-from-closed → closed-from-closed).",
+            "explain": "$T_1$: singletons are closed (equivalently, distinct points $x\\ne y$ admit opens $U\\ni x$ with $y\\notin U$ and vice versa). $T_2$: distinct points can be separated by disjoint open neighborhoods. $T_3$: regular + $T_1$ — closed set and external point separated. $T_4$: normal + $T_1$ — disjoint closed sets separated. Note compactness ('every open cover has a finite subcover') is unrelated to the $T_n$ ladder."
           },
           {
             "type": "mcq",
@@ -29814,17 +30015,22 @@ window.MVQuizBank = {
             "explain": "The cofinite topology on $\\mathbb{R}$: every singleton is closed (hence $T_1$), but any two nonempty opens have finite complements, so they must intersect — failing Hausdorff. Sierpiński is $T_0$ but not even $T_1$."
           },
           {
-            "type": "mcq",
-            "q": "Urysohn's metrization theorem says a topological space is metrizable if it is:",
+            "type": "multi-select",
+            "q": "Select every set of hypotheses that suffices for a topological space $X$ to be metrizable.",
             "choices": [
-              "Hausdorff and compact",
-              "regular, Hausdorff, and second-countable",
-              "connected and path-connected",
-              "$T_0$ and separable"
+              "$X$ is regular, Hausdorff, and second-countable (Urysohn metrization).",
+              "$X$ is compact and Hausdorff (Tychonoff alone — no countability axiom).",
+              "$X$ is paracompact, Hausdorff, and locally metrizable (Smirnov metrization).",
+              "$X$ is $T_0$ and separable.",
+              "$X$ is compact Hausdorff and second-countable (a special case of Urysohn)."
             ],
-            "answer": 1,
-            "hint": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable.",
-            "explain": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable. The converse (metric $\\Rightarrow$ regular Hausdorff) holds but metric spaces need not be second-countable in general — second-countability is the bite here."
+            "answer": [
+              0,
+              2,
+              4
+            ],
+            "hint": "Urysohn requires regular + $T_2$ + second-countable; compact $T_2$ alone fails (e.g. uncountable products $\\{0,1\\}^I$ are compact $T_2$ but not metrizable). Smirnov is the standard non-second-countable upgrade.",
+            "explain": "Urysohn: regular + $T_2$ + second-countable $\\Rightarrow$ metrizable. (a) and (e) are direct applications. Smirnov metrization: paracompact $T_2$ + locally metrizable $\\Rightarrow$ metrizable. (b) fails: $\\{0,1\\}^{2^{\\mathbb{N}}}$ is compact Hausdorff but not metrizable (not second-countable). (d) is far too weak: $T_0$ is the bottom of the separation ladder."
           }
         ],
         "hard": [
@@ -34135,17 +34341,21 @@ window.MVQuizBank = {
         "title": "Characters and orthogonality",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A representation $V$ of a finite group $G$ is irreducible if and only if:",
+            "type": "multi-select",
+            "q": "Select every statement that is a direct consequence of the orthogonality relations for irreducible characters of a finite group $G$.",
             "choices": [
-              "$\\langle \\chi_V,\\chi_V\\rangle = 0$",
-              "$\\langle \\chi_V,\\chi_V\\rangle = 1$",
-              "$\\dim V = |G|$",
-              "$\\chi_V(g)=0$ for all $g\\ne e$"
+              "Distinct irreducible characters $\\chi_\\lambda,\\chi_\\mu$ satisfy $\\langle\\chi_\\lambda,\\chi_\\mu\\rangle=0$ (first orthogonality, rows).",
+              "$V$ is irreducible iff $\\langle\\chi_V,\\chi_V\\rangle=1$.",
+              "$\\sum_g\\chi_\\lambda(g)\\overline{\\chi_\\mu(g)}$ summed only over a single conjugacy class always vanishes for $\\lambda\\ne\\mu$.",
+              "The number of irreducible characters of $G$ equals the number of conjugacy classes (column orthogonality)."
             ],
-            "answer": 1,
-            "hint": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand.",
-            "explain": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand."
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Rows of the character table are orthonormal; column orthogonality forces the irreducible count to equal the conjugacy-class count. Single-class sums need not vanish.",
+            "explain": "First orthogonality $\\langle\\chi_\\lambda,\\chi_\\mu\\rangle=\\delta_{\\lambda\\mu}$ gives (0) and (1). Column orthogonality across the full table forces (3): irreducible count = conjugacy-class count. (3) is true and (2) is false: orthogonality holds when summed (with weights $|c|/|G|$) over all classes, not within a single class."
           },
           {
             "type": "numeric",
@@ -34199,17 +34409,28 @@ window.MVQuizBank = {
             "explain": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$."
           },
           {
-            "type": "mcq",
-            "q": "For $D_4 = \\langle r, s \\mid r^4 = s^2 = 1, srs = r^{-1}\\rangle$, how many $1$-dimensional irreducible representations are there?",
-            "choices": [
-              "$1$",
-              "$2$",
-              "$4$",
-              "$5$"
+            "type": "matching",
+            "q": "Match each finite group with the multiset of dimensions of its irreducible complex representations.",
+            "left": [
+              "$\\{1,1,1\\}$",
+              "$\\{1,1,2\\}$",
+              "$\\{1,1,1,1,2\\}$",
+              "$\\{1,1,2,3,3\\}$"
             ],
-            "answer": 2,
-            "hint": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters.",
-            "explain": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters. So $D_4$ has $4$ one-dimensional irreps plus one $2$-dimensional."
+            "right": [
+              "$C_3$ (cyclic of order $3$)",
+              "$S_3$",
+              "$D_4$ (dihedral of order $8$)",
+              "$S_4$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Use $|G|=\\sum d_\\lambda^2$ and the fact that abelian groups have only $1$-dim irreps; for non-abelian groups, the number of $1$-dim irreps equals $|G/[G,G]|$.",
+            "explain": "$C_3$ is abelian of order $3$: three $1$-dim irreps, $1+1+1=3$. $S_3$: dimensions $1,1,2$, $1+1+4=6$. $D_4$: abelianization is $(\\mathbb{Z}/2)^2$ giving four $1$-dim irreps, plus one $2$-dim, $1+1+1+1+4=8$. $S_4$: dimensions $1,1,2,3,3$, $1+1+4+9+9=24$."
           },
           {
             "type": "numeric",
@@ -34318,17 +34539,28 @@ window.MVQuizBank = {
         "title": "The regular representation",
         "questions": [
           {
-            "type": "mcq",
-            "q": "The regular representation $\\mathbb{C}[G]$ of a finite group $G$ decomposes as:",
-            "choices": [
-              "$\\mathbb{C}[G] = \\bigoplus_\\lambda V_\\lambda$ (each irrep once)",
-              "$\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$",
-              "$\\mathbb{C}[G]$ is irreducible",
-              "$\\mathbb{C}[G] = \\mathbf{1}^{\\oplus|G|}$ (trivially)"
+            "type": "matching",
+            "q": "Each finite group below has a regular representation $\\mathbb{C}[G]$ that decomposes as $\\bigoplus_\\lambda(\\dim V_\\lambda)\\cdot V_\\lambda$. Match each group with the multiset of irrep dimensions appearing in this decomposition (each irrep $V_\\lambda$ contributing $\\dim V_\\lambda$ copies of dimension $\\dim V_\\lambda$).",
+            "left": [
+              "$C_3$ (cyclic of order $3$, dimensions $1,1,1$)",
+              "$S_3$ (dimensions $1,1,2$)",
+              "$D_4$ (dimensions $1,1,1,1,2$)",
+              "$S_4$ (dimensions $1,1,2,3,3$)"
             ],
-            "answer": 1,
-            "hint": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$.",
-            "explain": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$."
+            "right": [
+              "regular rep of dimension $3$, irreps $V_\\lambda$ each appearing $1$ time",
+              "regular rep of dimension $6$, with $1+1+4 = 6$",
+              "regular rep of dimension $8$, with $1+1+1+1+4 = 8$",
+              "regular rep of dimension $24$, with $1+1+4+9+9 = 24$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "$\\mathbb{C}[G]\\cong\\bigoplus_\\lambda(\\dim V_\\lambda)V_\\lambda$, so $|G|=\\sum(\\dim V_\\lambda)^2$. Match each group's $\\sum d_\\lambda^2$ with $|G|$.",
+            "explain": "The regular rep contains each irrep $V_\\lambda$ with multiplicity $\\dim V_\\lambda$, so the total dimension is $\\sum(\\dim V_\\lambda)^2=|G|$. $C_3$: $1+1+1=3$. $S_3$: $1+1+4=6$. $D_4$: $1+1+1+1+4=8$. $S_4$: $1+1+4+9+9=24$."
           },
           {
             "type": "numeric",
@@ -35814,17 +36046,28 @@ window.MVQuizBank = {
         "title": "Prime spectrum and Zariski topology",
         "questions": [
           {
-            "type": "mcq",
-            "q": "For a commutative ring $R$, the underlying set of $\\operatorname{Spec}(R)$ consists of:",
-            "choices": [
-              "all ideals of $R$",
-              "all maximal ideals of $R$",
-              "all prime ideals of $R$",
-              "all elements of $R$"
+            "type": "matching",
+            "q": "Match each ring with its prime spectrum $\\operatorname{Spec}(R)$ as a set of points.",
+            "left": [
+              "$\\{(0)\\}\\cup\\{(p):p\\text{ prime}\\}$ — one generic point plus countably many closed points.",
+              "Two closed points — corresponding to the prime divisors of $12$.",
+              "$\\{(0)\\}\\cup\\{(x-a):a\\in k\\}$ — one generic point plus one closed point for each $a\\in k$.",
+              "A single point."
             ],
-            "answer": 2,
-            "hint": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$.",
-            "explain": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$. Maximal ideals are closed points, but non-maximal primes (like $(0)$ in $\\mathbb Z$) give generic points."
+            "right": [
+              "$R = \\mathbb Z$",
+              "$R = \\mathbb Z/12\\mathbb Z$",
+              "$R = k[x]$ with $k$ algebraically closed",
+              "$R = \\mathbb Q$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "$\\operatorname{Spec}(R)=\\{\\text{prime ideals}\\}$. Fields have only $(0)$; $\\mathbb Z/n$'s primes correspond to prime divisors of $n$; $k[x]$ over algebraically closed $k$ has primes $(0)$ and $(x-a)$ for $a\\in k$.",
+            "explain": "$\\operatorname{Spec}\\mathbb Z$: primes $(0)$ (generic) and $(p)$ (closed) for each rational prime $p$. $\\operatorname{Spec}\\mathbb Z/12$: only primes $(2),(3)$ survive — note $(0)$ is not prime in $\\mathbb Z/12$ since $\\mathbb Z/12$ has zero-divisors. $\\operatorname{Spec}k[x]$ with $k=\\bar k$: primes are $(0)$ (generic) and $(x-a)$ for $a\\in k$ (closed). $\\operatorname{Spec}\\mathbb Q$: only $(0)$ — every field is a one-point scheme."
           },
           {
             "type": "numeric",
@@ -35886,16 +36129,28 @@ window.MVQuizBank = {
         "title": "Structure sheaf and affine schemes",
         "questions": [
           {
-            "type": "mcq",
-            "q": "On an affine scheme $\\operatorname{Spec}(R)$, the stalk of the structure sheaf $\\mathcal O$ at a prime $\\mathfrak p$ is:",
-            "choices": [
-              "the quotient $R/\\mathfrak p$",
-              "the localization $R_{\\mathfrak p}$",
-              "the residue field $\\kappa(\\mathfrak p)$",
-              "the ring $R$ itself"
+            "type": "matching",
+            "q": "Match each piece of structure on the affine scheme $X=\\operatorname{Spec}(R)$ with the algebraic object it corresponds to.",
+            "left": [
+              "Global sections $\\mathcal O_X(X)$",
+              "Sections on a distinguished open $\\mathcal O_X(D(f))$ for $f\\in R$",
+              "Stalk $\\mathcal O_{X,\\mathfrak p}$ at a prime $\\mathfrak p$",
+              "Residue field $\\kappa(\\mathfrak p)$ at $\\mathfrak p$"
             ],
-            "answer": 1,
-            "explain": "By construction the stalk $\\mathcal O_{\\mathfrak p}$ is the localization $R_{\\mathfrak p}$, a local ring with maximal ideal $\\mathfrak p R_{\\mathfrak p}$ and residue field $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$."
+            "right": [
+              "$R$ — the original ring.",
+              "Localization $R_f = R[f^{-1}]$ — invert $f$ to allow $1/f$ as a function on $D(f)$.",
+              "Localization $R_{\\mathfrak p}$ — a local ring with maximal ideal $\\mathfrak pR_{\\mathfrak p}$.",
+              "$\\operatorname{Frac}(R/\\mathfrak p) = R_{\\mathfrak p}/\\mathfrak pR_{\\mathfrak p}$ — the residue field of the local ring."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "The structure sheaf of $\\operatorname{Spec}(R)$ is engineered so that global sections give back $R$, distinguished-open sections invert the corresponding element, stalks localize at the prime, and residue fields are quotient + Frac.",
+            "explain": "On $X=\\operatorname{Spec}(R)$: $\\mathcal O_X(X)=R$, $\\mathcal O_X(D(f))=R_f$, $\\mathcal O_{X,\\mathfrak p}=R_{\\mathfrak p}$, and the residue field is $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$. The first three are the engine of the equivalence $\\operatorname{CommRing}^{\\mathrm{op}}\\cong\\mathrm{AffSch}$; the residue field captures the value of a 'function' at the point $\\mathfrak p$."
           },
           {
             "type": "mcq",
@@ -36408,17 +36663,28 @@ window.MVQuizBank = {
             "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
           },
           {
-            "type": "mcq",
-            "q": "For $S=k[x_0,x_1,\\dots,x_n]$, the basic open $D_+(x_i)\\subset\\operatorname{Proj}S$ is canonically isomorphic to:",
-            "choices": [
-              "$\\operatorname{Spec}k$",
-              "$\\mathbb A^{n+1}_k=\\operatorname{Spec}k[x_0,\\dots,x_n]$",
-              "$\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (omitting $x_i/x_i=1$)",
-              "$\\operatorname{Proj}k$"
+            "type": "matching",
+            "q": "For $S=k[x_0,x_1,\\dots,x_n]$, match each piece of structure on $\\operatorname{Proj}S=\\mathbb P^n_k$ with its affine analog.",
+            "left": [
+              "The full underlying set",
+              "A basic open chart $D_+(x_i)$",
+              "The subset where all of $x_0,\\dots,x_n$ vanish",
+              "The standard cover of $\\mathbb P^n_k$"
             ],
-            "answer": 2,
-            "hint": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$.",
-            "explain": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$. Formally $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ and the degree-$0$ part of $S_{x_i}$ is generated by $x_j/x_i$ for $j\\ne i$, giving $\\mathbb A^n_k$."
+            "right": [
+              "Homogeneous primes of $S$ not containing the irrelevant ideal $S_+=(x_0,\\dots,x_n)$.",
+              "Affine $n$-space $\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (dehomogenize by $x_i=1$).",
+              "Empty — excluded by $\\operatorname{Proj}$ since it would correspond to a prime containing $S_+$.",
+              "The $n+1$ charts $D_+(x_0),\\dots,D_+(x_n)$, each isomorphic to $\\mathbb A^n_k$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "$\\operatorname{Proj}$ excludes primes containing the irrelevant ideal; each $D_+(x_i)$ is $\\mathbb A^n_k$ obtained by dehomogenizing $x_i\\mapsto 1$; the union covers $\\mathbb P^n_k$.",
+            "explain": "$\\operatorname{Proj}S$ takes only homogeneous primes not containing $S_+$, automatically excising the cone vertex. Each basic open $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ identifies with $\\mathbb A^n_k$ — dehomogenize by setting $x_i=1$. The $n+1$ such opens cover $\\mathbb P^n_k$ since any homogeneous prime not containing $S_+$ misses some $x_i$. This is the standard atlas presenting $\\mathbb P^n$ as glued affine $n$-spaces."
           },
           {
             "type": "numeric",
@@ -38626,17 +38892,22 @@ window.MVQuizBank = {
         "title": "Tangent spaces and bundles",
         "questions": [
           {
-            "type": "mcq",
-            "q": "For a smooth $n$-manifold $M$ and $p\\in M$, the tangent space $T_pM$ is:",
+            "type": "multi-select",
+            "q": "Select every statement that is true of the tangent space $T_pM$ at a point $p$ of a smooth $n$-manifold $M$.",
             "choices": [
-              "an $n$-dimensional real vector space",
-              "the tangent line to a fixed curve through $p$",
-              "a subset of $M$ near $p$",
-              "the kernel of some linear map on $M$"
+              "$T_pM$ is an $n$-dimensional real vector space.",
+              "Equivalently, $T_pM$ is the space of point-derivations $D\\colon C^\\infty_p(M)\\to\\mathbb{R}$ at $p$ — linear maps satisfying the Leibniz rule $D(fg)=D(f)g(p)+f(p)D(g)$.",
+              "$T_pM$ depends on the choice of chart: different charts give non-isomorphic tangent spaces.",
+              "The coordinate vectors $\\partial/\\partial x^1|_p,\\dots,\\partial/\\partial x^n|_p$ in any chart form a basis of $T_pM$.",
+              "$T_pM$ is canonically a subset of $M$ containing $p$."
             ],
-            "answer": 0,
-            "hint": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space.",
-            "explain": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space."
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Three equivalent definitions of $T_pM$ — equivalence-classes of curves, point-derivations, chart-dependent components — all give the same $n$-dimensional vector space, basis-independent.",
+            "explain": "$T_pM$ is an intrinsic $n$-dimensional real vector space. The point-derivation definition is one of three standard equivalent ones (the others use velocities of curves through $p$, or component-tuples under chart-change). Coordinate vectors give a basis in any chart, but the space itself is canonical (chart-independent). $T_pM$ is not a subset of $M$ — it is a separate vector space attached to $p$."
           },
           {
             "type": "numeric",
@@ -38931,17 +39202,22 @@ window.MVQuizBank = {
             "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
           },
           {
-            "type": "mcq",
-            "q": "Which identity does the Lie bracket satisfy, making $\\mathfrak{X}(M)$ a Lie algebra?",
+            "type": "multi-select",
+            "q": "Select every identity that holds for the Lie bracket on $\\mathfrak{X}(M)$ for arbitrary $X,Y,Z\\in\\mathfrak{X}(M)$ and $f\\in C^\\infty(M)$.",
             "choices": [
-              "$[X,Y] = [Y,X]$ (symmetry)",
-              "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity) and $[X,Y]=-[Y,X]$ (antisymmetry)",
-              "$[X,Y]\\cdot[Y,Z] = [X,Z]$",
-              "$[X,X] = X$"
+              "$[X,Y] = -[Y,X]$ (antisymmetry).",
+              "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity).",
+              "$[fX,Y] = f[X,Y] - Y(f)X$ (failure of $C^\\infty$-bilinearity).",
+              "$[X,Y] = [Y,X]$ (symmetry).",
+              "$[X,X] = X$."
             ],
-            "answer": 1,
-            "hint": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity.",
-            "explain": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity. Those two axioms define a Lie algebra over $\\mathbb{R}$."
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Antisymmetry + Jacobi makes $\\mathfrak{X}(M)$ a Lie algebra; the bracket is $\\mathbb{R}$-bilinear but not $C^\\infty$-bilinear — pulling out a function picks up a derivation term.",
+            "explain": "Antisymmetry and Jacobi together make $\\mathfrak{X}(M)$ a Lie algebra over $\\mathbb{R}$. From antisymmetry, $[X,X]=0$ — so options (3) and (4) fail. The bracket is not $C^\\infty$-bilinear: $[fX,Y]=f[X,Y]-Y(f)X$, with the extra $-Y(f)X$ term reflecting the fact that $Y$ differentiates the coefficient $f$. This is why the Lie bracket is a differential operator, not a tensor."
           }
         ],
         "hard": [
@@ -38982,17 +39258,22 @@ window.MVQuizBank = {
         "title": "Partitions of unity",
         "questions": [
           {
-            "type": "mcq",
-            "q": "A smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of $M$ is a family $\\{\\rho_\\alpha\\colon M\\to[0,1]\\}$ such that:",
+            "type": "proof-completion",
+            "q": "A standard construction of a smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of a paracompact smooth manifold $M$ proceeds as follows. Pick the correct next step.",
+            "steps": [
+              "Pass to a locally finite refinement $\\{V_\\beta\\}$ of $\\{U_\\alpha\\}$ — possible because $M$ is paracompact.",
+              "For each $V_\\beta$, choose a smooth bump function $\\psi_\\beta\\colon M\\to[0,1]$ with $\\operatorname{supp}\\psi_\\beta\\subset V_\\beta$ and $\\psi_\\beta>0$ on a smaller open set $W_\\beta\\subset V_\\beta$ such that $\\{W_\\beta\\}$ still covers $M$.",
+              "Form the locally finite sum $\\Psi = \\sum_\\beta \\psi_\\beta$, which is smooth and strictly positive everywhere on $M$ since the $\\{W_\\beta\\}$ cover $M$."
+            ],
             "choices": [
-              "$\\operatorname{supp}\\rho_\\alpha\\subseteq U_\\alpha$, the family is locally finite, and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$",
-              "each $\\rho_\\alpha$ is a constant function summing to $1$",
-              "exactly one $\\rho_\\alpha$ is $1$ at each point, the others $0$",
-              "$\\rho_\\alpha$ is the characteristic function of $U_\\alpha$"
+              "Define $\\rho_\\beta = \\psi_\\beta / \\Psi$; then each $\\rho_\\beta$ is smooth with $\\operatorname{supp}\\rho_\\beta\\subset V_\\beta$, $0\\le\\rho_\\beta\\le 1$, and $\\sum_\\beta\\rho_\\beta = 1$.",
+              "Define $\\rho_\\beta = \\psi_\\beta$; the locally finite sum being everywhere positive already gives $\\sum_\\beta\\psi_\\beta = 1$.",
+              "Replace each $\\psi_\\beta$ by the characteristic function $\\mathbf{1}_{V_\\beta}$ to ensure $\\sum = 1$.",
+              "Use a metric to define $\\rho_\\beta$ as the distance to the complement of $V_\\beta$."
             ],
             "answer": 0,
-            "hint": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum…",
-            "explain": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum makes sense pointwise), and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$ on $M$. Characteristic functions of open sets are not even continuous, so (D) fails."
+            "hint": "Normalize each bump by the locally finite (smooth, positive) sum.",
+            "explain": "The final step is normalization: $\\rho_\\beta := \\psi_\\beta/\\Psi$ is smooth (denominator is smooth and positive), satisfies $\\operatorname{supp}\\rho_\\beta\\subset V_\\beta$, and $\\sum_\\beta\\rho_\\beta = \\Psi/\\Psi = 1$. Local finiteness of $\\{V_\\beta\\}$ guarantees the pointwise sum has only finitely many nonzero terms. The result is a smooth partition of unity subordinate to the (refined) cover."
           },
           {
             "type": "mcq",

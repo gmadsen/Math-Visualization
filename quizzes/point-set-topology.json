@@ -227,17 +227,23 @@
       "title": "Compactness",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Heine–Borel: in $\\mathbb{R}^n$ with the Euclidean topology, a subset is compact iff it is:",
-          "choices": [
-            "open",
-            "closed",
-            "bounded",
-            "closed and bounded"
+          "type": "matching",
+          "q": "Match each characterization of compactness with the setting in which it is equivalent to the open-cover definition (every open cover has a finite subcover).",
+          "left": [
+            "Closed and bounded",
+            "Sequential compactness: every sequence has a convergent subsequence",
+            "Limit-point compactness: every infinite subset has a limit point",
+            "Finite intersection property (FIP): every collection of closed sets with the FIP has nonempty intersection"
           ],
-          "answer": 3,
-          "hint": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded.",
-          "explain": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded. Warning — this equivalence is specific to $\\mathbb{R}^n$. In infinite-dimensional Banach spaces the closed unit ball is bounded and closed but not compact."
+          "right": [
+            "Heine–Borel — equivalent to compactness in $\\mathbb{R}^n$.",
+            "Equivalent to compactness in metric spaces (and more generally in second-countable spaces).",
+            "Strictly weaker than compactness in general; equivalent in metric spaces.",
+            "Equivalent to compactness in any topological space (a clean reformulation by complementation)."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Heine–Borel is the metric-Euclidean shortcut; FIP is the universal reformulation; sequential and limit-point compactness coincide with open-cover compactness in metric spaces.",
+          "explain": "Compactness has many faces. (a) Heine–Borel is specific to $\\mathbb{R}^n$ — closed unit balls in infinite-dimensional Banach spaces are closed and bounded but not compact. (b) Sequential compactness coincides with compactness in metric spaces but not in general (e.g. $\\beta\\mathbb{N}$ is compact but not sequentially compact). (c) Limit-point compactness is strictly weaker without metrizability. (d) FIP is the universal reformulation: $X$ compact $\\iff$ every collection of closed sets with the finite intersection property has nonempty intersection."
         },
         {
           "type": "mcq",
@@ -381,17 +387,23 @@
       "title": "Separation and countability",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A space is Hausdorff ($T_2$) iff:",
-          "choices": [
-            "every singleton is closed",
-            "any two distinct points have disjoint open neighborhoods",
-            "every pair of disjoint closed sets has disjoint open neighborhoods",
-            "every open cover has a finite subcover"
+          "type": "matching",
+          "q": "Match each separation axiom with its defining condition.",
+          "left": [
+            "$T_1$",
+            "$T_2$ (Hausdorff)",
+            "$T_3$ (regular Hausdorff)",
+            "$T_4$ (normal Hausdorff)"
           ],
-          "answer": 1,
-          "hint": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens.",
-          "explain": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens. Option (a) is $T_1$, option (c) is normality ($T_4$), option (d) is compactness."
+          "right": [
+            "Every singleton is closed.",
+            "Any two distinct points have disjoint open neighborhoods.",
+            "$T_1$, plus any closed set $C$ and point $x\\notin C$ have disjoint open neighborhoods.",
+            "$T_1$, plus any two disjoint closed sets have disjoint open neighborhoods."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "$T_n$ separates progressively richer pairs: distinct points (singletons closed → points-by-opens → point-from-closed → closed-from-closed).",
+          "explain": "$T_1$: singletons are closed (equivalently, distinct points $x\\ne y$ admit opens $U\\ni x$ with $y\\notin U$ and vice versa). $T_2$: distinct points can be separated by disjoint open neighborhoods. $T_3$: regular + $T_1$ — closed set and external point separated. $T_4$: normal + $T_1$ — disjoint closed sets separated. Note compactness ('every open cover has a finite subcover') is unrelated to the $T_n$ ladder."
         },
         {
           "type": "mcq",
@@ -407,17 +419,18 @@
           "explain": "The cofinite topology on $\\mathbb{R}$: every singleton is closed (hence $T_1$), but any two nonempty opens have finite complements, so they must intersect — failing Hausdorff. Sierpiński is $T_0$ but not even $T_1$."
         },
         {
-          "type": "mcq",
-          "q": "Urysohn's metrization theorem says a topological space is metrizable if it is:",
+          "type": "multi-select",
+          "q": "Select every set of hypotheses that suffices for a topological space $X$ to be metrizable.",
           "choices": [
-            "Hausdorff and compact",
-            "regular, Hausdorff, and second-countable",
-            "connected and path-connected",
-            "$T_0$ and separable"
+            "$X$ is regular, Hausdorff, and second-countable (Urysohn metrization).",
+            "$X$ is compact and Hausdorff (Tychonoff alone — no countability axiom).",
+            "$X$ is paracompact, Hausdorff, and locally metrizable (Smirnov metrization).",
+            "$X$ is $T_0$ and separable.",
+            "$X$ is compact Hausdorff and second-countable (a special case of Urysohn)."
           ],
-          "answer": 1,
-          "hint": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable.",
-          "explain": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable. The converse (metric $\\Rightarrow$ regular Hausdorff) holds but metric spaces need not be second-countable in general — second-countability is the bite here."
+          "answer": [0, 2, 4],
+          "hint": "Urysohn requires regular + $T_2$ + second-countable; compact $T_2$ alone fails (e.g. uncountable products $\\{0,1\\}^I$ are compact $T_2$ but not metrizable). Smirnov is the standard non-second-countable upgrade.",
+          "explain": "Urysohn: regular + $T_2$ + second-countable $\\Rightarrow$ metrizable. (a) and (e) are direct applications. Smirnov metrization: paracompact $T_2$ + locally metrizable $\\Rightarrow$ metrizable. (b) fails: $\\{0,1\\}^{2^{\\mathbb{N}}}$ is compact Hausdorff but not metrizable (not second-countable). (d) is far too weak: $T_0$ is the bottom of the separation ladder."
         }
       ],
       "hard": [

@@ -18,7 +18,15 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">Skew-symmetry is the antisymmetric part of the commutator; the Jacobi identity is the trace of associativity that survives. Together they are the only two axioms.</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n    <li><a href=\"./lie-groups.html#intro\">Lie groups and matrix examples</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n\n<div class=\"note\">Skew-symmetry is the antisymmetric part of the commutator; the Jacobi identity is the trace of associativity that survives. Together they are the only two axioms.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n    <li><a href=\"./lie-groups.html#intro\">Lie groups and matrix examples</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -46,7 +54,15 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">$\\mathrm{ad}(h)$ is diagonalizable; $\\mathrm{ad}(e)$ and $\\mathrm{ad}(f)$ are nilpotent. The combination \"diagonalizable + nilpotent\" is exactly the Jordan decomposition that makes semisimple Lie algebras tractable.</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#bracket\">Bracket, commutators, and BCH</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#cartan-killing\">Lie algebras</a> · Cartan, Killing, and semisimplicity</div>\n    <div><a href=\"./lie-algebras.html#solvable-nilpotent\">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n\n<div class=\"note\">$\\mathrm{ad}(h)$ is diagonalizable; $\\mathrm{ad}(e)$ and $\\mathrm{ad}(f)$ are nilpotent. The combination \"diagonalizable + nilpotent\" is exactly the Jordan decomposition that makes semisimple Lie algebras tractable.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#bracket\">Bracket, commutators, and BCH</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#cartan-killing\">Lie algebras</a> · Cartan, Killing, and semisimplicity</div>\n    <div><a href=\"./lie-algebras.html#solvable-nilpotent\">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -74,7 +90,15 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">$\\mathfrak{sl}_2$ is its own derived algebra — $[\\mathfrak{sl}_2,\\mathfrak{sl}_2]=\\mathfrak{sl}_2$ — so the derived series never collapses. This is the cleanest signal of <em>semisimplicity</em>.</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#finite\">Quotients and finite fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#cartan-killing\">Lie algebras</a> · Cartan, Killing, and semisimplicity</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n\n<div class=\"note\">$\\mathfrak{sl}_2$ is its own derived algebra — $[\\mathfrak{sl}_2,\\mathfrak{sl}_2]=\\mathfrak{sl}_2$ — so the derived series never collapses. This is the cleanest signal of <em>semisimplicity</em>.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#finite\">Quotients and finite fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#cartan-killing\">Lie algebras</a> · Cartan, Killing, and semisimplicity</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -111,7 +135,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#sl2-roots\">Lie algebras</a> · $\\mathfrak{sl}_2$-triples, root spaces, weights</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#sl2-roots\">Lie algebras</a> · $\\mathfrak{sl}_2$-triples, root spaces, weights</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
         }
       ]
     },
@@ -130,7 +158,15 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">In a general semisimple $\\mathfrak{g}$, the simultaneous $\\mathfrak{h}$-eigenspaces of an arbitrary representation $V$ are its <em>weight spaces</em>; restricting along each $\\mathfrak{sl}_2$-triple recovers an $\\mathfrak{sl}_2$-weight string. The combinatorics of root systems plus this $\\mathfrak{sl}_2$ rule is enough to classify all irreducible reps.</div>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./representation-theory.html#hw\">Highest-weight vectors for $\\mathfrak{sl}_2$</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#classification\">Lie algebras</a> · Classification of simple Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n\n<div class=\"note\">In a general semisimple $\\mathfrak{g}$, the simultaneous $\\mathfrak{h}$-eigenspaces of an arbitrary representation $V$ are its <em>weight spaces</em>; restricting along each $\\mathfrak{sl}_2$-triple recovers an $\\mathfrak{sl}_2$-weight string. The combinatorics of root systems plus this $\\mathfrak{sl}_2$ rule is enough to classify all irreducible reps.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./representation-theory.html#hw\">Highest-weight vectors for $\\mathfrak{sl}_2$</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#classification\">Lie algebras</a> · Classification of simple Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

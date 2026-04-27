@@ -418,12 +418,36 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-mu-n-clock"></div><script>
 (function(){
   if(!window.MVModularArithmeticClock) return;
-  MVModularArithmeticClock.init('#w-mu-n-clock', {
+  const __h = MVModularArithmeticClock.init('#w-mu-n-clock', {
     kind: "multiplication",
     title: "$\\mu_n$ as the cyclic group of $n$-th roots of unity",
     hint: "drag $n$ and $a$ — orbits visit $\\mu_d$ for $d = n/\\gcd(a,n)$",
     params: {"n":12, "a":5},
   });
+  const __r = document.getElementById('w-mu-n-clock');
+  if (__r && __h) {
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __rand = document.createElement('button');
+    __rand.type = 'button';
+    __rand.textContent = '🎲 randomize a';
+    __rand.setAttribute('aria-label', 'Pick a random multiplier a');
+    __rand.style.cssText = 'min-width:9rem';
+    __rand.addEventListener('click', () => {
+      const n = (__h.params && __h.params.n) || 12;
+      const a = 1 + Math.floor(Math.random() * Math.max(1, n - 1));
+      const sliders = __r.querySelectorAll('input[type="range"]');
+      let aSlider = null;
+      sliders.forEach((s) => { if (s.getAttribute('aria-label') === 'a') aSlider = s; });
+      if (aSlider) {
+        aSlider.value = String(a);
+        aSlider.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+    __nav.appendChild(__rand);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -481,7 +505,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-hopf-scrub"></div><script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-hopf-scrub', {
+  const __h = MVProofScrubber.init('#w-hopf-scrub', {
     title: "$G$ a group object $\\Leftrightarrow$ $A = \\mathcal{O}(G)$ a Hopf algebra",
     hint: "scrub or play — six steps, end-to-end",
     viewBox: "0 0 360 200",
@@ -519,6 +543,19 @@ function drawNode(svg, x, y, label, opts={}){
       },
     ],
   });
+  const __r = document.getElementById('w-hopf-scrub');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -746,7 +783,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-torsor-cases"></div><script>
 (function(){
   if(!window.MVCounterexampleExplorer) return;
-  MVCounterexampleExplorer.init('#w-torsor-cases', {
+  const __h = MVCounterexampleExplorer.init('#w-torsor-cases', {
     title: "Torsors over a few standard bases",
     hint: "pick a $(G, X)$ pair — see whether $H^1_{ét}(X, G)$ is trivial",
     viewBox: "0 0 320 160",
@@ -814,6 +851,18 @@ function drawNode(svg, x, y, label, opts={}){
       },
     ],
   });
+  const __r = document.getElementById('w-torsor-cases');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev case'), __n = __mk('next case →');
+    __p.addEventListener('click', () => __h.select(__h.index - 1));
+    __n.addEventListener('click', () => __h.select(__h.index + 1));
+    __nav.append(__p, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 

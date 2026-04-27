@@ -296,17 +296,17 @@
       "title": "Characters and orthogonality",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A representation $V$ of a finite group $G$ is irreducible if and only if:",
+          "type": "multi-select",
+          "q": "Select every statement that is a direct consequence of the orthogonality relations for irreducible characters of a finite group $G$.",
           "choices": [
-            "$\\langle \\chi_V,\\chi_V\\rangle = 0$",
-            "$\\langle \\chi_V,\\chi_V\\rangle = 1$",
-            "$\\dim V = |G|$",
-            "$\\chi_V(g)=0$ for all $g\\ne e$"
+            "Distinct irreducible characters $\\chi_\\lambda,\\chi_\\mu$ satisfy $\\langle\\chi_\\lambda,\\chi_\\mu\\rangle=0$ (first orthogonality, rows).",
+            "$V$ is irreducible iff $\\langle\\chi_V,\\chi_V\\rangle=1$.",
+            "$\\sum_g\\chi_\\lambda(g)\\overline{\\chi_\\mu(g)}$ summed only over a single conjugacy class always vanishes for $\\lambda\\ne\\mu$.",
+            "The number of irreducible characters of $G$ equals the number of conjugacy classes (column orthogonality)."
           ],
-          "answer": 1,
-          "hint": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand.",
-          "explain": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand."
+          "answer": [0, 1, 3],
+          "hint": "Rows of the character table are orthonormal; column orthogonality forces the irreducible count to equal the conjugacy-class count. Single-class sums need not vanish.",
+          "explain": "First orthogonality $\\langle\\chi_\\lambda,\\chi_\\mu\\rangle=\\delta_{\\lambda\\mu}$ gives (0) and (1). Column orthogonality across the full table forces (3): irreducible count = conjugacy-class count. (3) is true and (2) is false: orthogonality holds when summed (with weights $|c|/|G|$) over all classes, not within a single class."
         },
         {
           "type": "numeric",
@@ -360,17 +360,23 @@
           "explain": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$."
         },
         {
-          "type": "mcq",
-          "q": "For $D_4 = \\langle r, s \\mid r^4 = s^2 = 1, srs = r^{-1}\\rangle$, how many $1$-dimensional irreducible representations are there?",
-          "choices": [
-            "$1$",
-            "$2$",
-            "$4$",
-            "$5$"
+          "type": "matching",
+          "q": "Match each finite group with the multiset of dimensions of its irreducible complex representations.",
+          "left": [
+            "$\\{1,1,1\\}$",
+            "$\\{1,1,2\\}$",
+            "$\\{1,1,1,1,2\\}$",
+            "$\\{1,1,2,3,3\\}$"
           ],
-          "answer": 2,
-          "hint": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters.",
-          "explain": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters. So $D_4$ has $4$ one-dimensional irreps plus one $2$-dimensional."
+          "right": [
+            "$C_3$ (cyclic of order $3$)",
+            "$S_3$",
+            "$D_4$ (dihedral of order $8$)",
+            "$S_4$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Use $|G|=\\sum d_\\lambda^2$ and the fact that abelian groups have only $1$-dim irreps; for non-abelian groups, the number of $1$-dim irreps equals $|G/[G,G]|$.",
+          "explain": "$C_3$ is abelian of order $3$: three $1$-dim irreps, $1+1+1=3$. $S_3$: dimensions $1,1,2$, $1+1+4=6$. $D_4$: abelianization is $(\\mathbb{Z}/2)^2$ giving four $1$-dim irreps, plus one $2$-dim, $1+1+1+1+4=8$. $S_4$: dimensions $1,1,2,3,3$, $1+1+4+9+9=24$."
         },
         {
           "type": "numeric",
@@ -479,17 +485,23 @@
       "title": "The regular representation",
       "questions": [
         {
-          "type": "mcq",
-          "q": "The regular representation $\\mathbb{C}[G]$ of a finite group $G$ decomposes as:",
-          "choices": [
-            "$\\mathbb{C}[G] = \\bigoplus_\\lambda V_\\lambda$ (each irrep once)",
-            "$\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$",
-            "$\\mathbb{C}[G]$ is irreducible",
-            "$\\mathbb{C}[G] = \\mathbf{1}^{\\oplus|G|}$ (trivially)"
+          "type": "matching",
+          "q": "Each finite group below has a regular representation $\\mathbb{C}[G]$ that decomposes as $\\bigoplus_\\lambda(\\dim V_\\lambda)\\cdot V_\\lambda$. Match each group with the multiset of irrep dimensions appearing in this decomposition (each irrep $V_\\lambda$ contributing $\\dim V_\\lambda$ copies of dimension $\\dim V_\\lambda$).",
+          "left": [
+            "$C_3$ (cyclic of order $3$, dimensions $1,1,1$)",
+            "$S_3$ (dimensions $1,1,2$)",
+            "$D_4$ (dimensions $1,1,1,1,2$)",
+            "$S_4$ (dimensions $1,1,2,3,3$)"
           ],
-          "answer": 1,
-          "hint": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$.",
-          "explain": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$."
+          "right": [
+            "regular rep of dimension $3$, irreps $V_\\lambda$ each appearing $1$ time",
+            "regular rep of dimension $6$, with $1+1+4 = 6$",
+            "regular rep of dimension $8$, with $1+1+1+1+4 = 8$",
+            "regular rep of dimension $24$, with $1+1+4+9+9 = 24$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "$\\mathbb{C}[G]\\cong\\bigoplus_\\lambda(\\dim V_\\lambda)V_\\lambda$, so $|G|=\\sum(\\dim V_\\lambda)^2$. Match each group's $\\sum d_\\lambda^2$ with $|G|$.",
+          "explain": "The regular rep contains each irrep $V_\\lambda$ with multiplicity $\\dim V_\\lambda$, so the total dimension is $\\sum(\\dim V_\\lambda)^2=|G|$. $C_3$: $1+1+1=3$. $S_3$: $1+1+4=6$. $D_4$: $1+1+1+1+4=8$. $S_4$: $1+1+4+9+9=24$."
         },
         {
           "type": "numeric",

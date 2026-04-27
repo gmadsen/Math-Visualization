@@ -84,17 +84,23 @@
       "title": "Möbius transformations",
       "questions": [
         {
-          "type": "mcq",
-          "q": "How many fixed points does a non-identity Möbius transformation have on $\\hat{\\mathbb{C}}$?",
-          "choices": [
-            "always 0",
-            "always 1",
-            "always 2 (counted with multiplicity)",
-            "always infinitely many"
+          "type": "matching",
+          "q": "Match each non-identity Möbius transformation $T(z)=\\frac{az+b}{cz+d}$ with its fixed points on $\\hat{\\mathbb{C}}$.",
+          "left": [
+            "$\\{0,\\infty\\}$ (two fixed points)",
+            "$\\{\\infty\\}$ only (parabolic with double fixed point at $\\infty$)",
+            "$\\{1,-1\\}$ (two fixed points)",
+            "$\\{i,-i\\}$ (two fixed points)"
           ],
-          "answer": 2,
-          "hint": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$.",
-          "explain": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$. Always exactly two roots in $\\hat{\\mathbb{C}}$ counted with multiplicity."
+          "right": [
+            "$T(z) = 2z$",
+            "$T(z) = z + 1$",
+            "$T(z) = 1/z$",
+            "$T(z) = -1/z$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Solve $T(z)=z$ in each case; count $\\infty$ as a fixed point exactly when $c=0$ (and as a double fixed point when $a=d$ and $c=0$).",
+          "explain": "$T(z)=z$ becomes $cz^2+(d-a)z-b=0$ in $\\mathbb{C}$, with $\\infty$ as a fixed point iff $c=0$. $2z=z\\Rightarrow z=0$ and $\\infty$ (since $c=0$): fixed points $\\{0,\\infty\\}$. $z+1=z$ has no finite solution and $\\infty$ is a double fixed point (parabolic). $1/z=z\\Rightarrow z^2=1$: fixed points $\\{1,-1\\}$. $-1/z=z\\Rightarrow z^2=-1$: fixed points $\\{i,-i\\}$. A non-identity Möbius always has exactly two fixed points in $\\hat{\\mathbb{C}}$ (counted with multiplicity)."
         },
         {
           "type": "complex",
@@ -228,17 +234,19 @@
       "title": "Cauchy–Riemann equations",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which of these functions is holomorphic on all of $\\mathbb{C}$?",
+          "type": "multi-select",
+          "q": "Select every function that is holomorphic on all of $\\mathbb{C}$ (entire).",
           "choices": [
+            "$f(z) = z^2 + 1$",
+            "$f(z) = e^z$",
             "$f(z) = |z|^2$",
             "$f(z) = \\bar z$",
             "$f(z) = z^2 + \\bar z$",
-            "$f(z) = z^2 + 1$"
+            "$f(z) = \\sin z$"
           ],
-          "answer": 3,
-          "hint": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations.",
-          "explain": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations. Polynomials in $z$ alone are entire."
+          "answer": [0, 1, 5],
+          "hint": "Entire functions are precisely those that satisfy Cauchy–Riemann everywhere; any explicit dependence on $\\bar z$ kills holomorphy.",
+          "explain": "Holomorphy means $\\partial_{\\bar z}f=0$. Polynomials in $z$, $e^z$, and $\\sin z$ are entire. $|z|^2 = z\\bar z$ depends on $\\bar z$. $\\bar z$ itself fails CR everywhere. $z^2+\\bar z$ has the offending $\\bar z$ term. So only $z^2+1$, $e^z$, and $\\sin z$ are entire."
         },
         {
           "type": "numeric",
@@ -303,12 +311,17 @@
           "explain": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$."
         },
         {
-          "type": "numeric",
-          "q": "Compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$.",
-          "answer": 0,
-          "tol": 0.001,
-          "hint": "Both poles $\\pm i$ are inside the contour.",
-          "explain": "Both poles $\\pm i$ are inside the contour. $\\operatorname{Res}(\\cdot;i) = -i/2$, $\\operatorname{Res}(\\cdot;-i) = i/2$, sum $0$. So the integral is $2\\pi i \\cdot 0 = 0$."
+          "type": "ordering",
+          "q": "Arrange the steps to compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$ via the residue theorem.",
+          "items": [
+            "Apply the residue theorem: integral $= 2\\pi i\\sum_k\\operatorname{Res}(f;z_k)$ with $z_k$ ranging over poles inside $|z|=2$.",
+            "Sum the residues: $-i/2 + i/2 = 0$, hence the integral is $2\\pi i\\cdot 0 = 0$.",
+            "Compute residues at each enclosed pole: $\\operatorname{Res}(f;i)=1/(2i)=-i/2$ and $\\operatorname{Res}(f;-i)=1/(-2i)=i/2$.",
+            "Identify the poles of $f(z)=1/(z^2+1)=1/((z-i)(z+i))$ at $z=\\pm i$ and check both lie inside $|z|=2$."
+          ],
+          "answer": [3, 0, 2, 1],
+          "hint": "Locate the poles inside the contour first, then invoke the residue theorem, compute each residue, and sum.",
+          "explain": "Standard contour-integration recipe: (1) find the singularities of $f$ and decide which lie inside $\\gamma$, (2) state the residue theorem, (3) compute each residue (here, simple poles via $\\operatorname{Res}(f;z_0)=\\lim_{z\\to z_0}(z-z_0)f(z)$), (4) sum and multiply by $2\\pi i$. The residues cancel here, so the integral is $0$."
         },
         {
           "type": "numeric",

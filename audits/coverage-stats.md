@@ -5,7 +5,7 @@
 - Topics: **105**, concepts: **711**
 - Widgets: **762** (registry-driven: 569, inline: 193)
 - Quizzes: **3300** (v1: 2064, hard: 1223, expert: 13)
-- Quiz types: mcq: 2140, numeric: 958, multi-select: 83, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 2106, numeric: 956, multi-select: 94, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **111**
 - Concepts lacking a hard-tier quiz: **273**
 
@@ -177,7 +177,7 @@ page has wired one in yet.
   - by dimension: 2d: 73, unknown: 19
   - by gesture: click: 60, unknown: 19, select: 9, scrub: 2, slider+click: 1, interactive: 1
 - Quizzes: **451** (v1: 265, hard: 186, expert: 0)
-  - by type: mcq: 280, numeric: 141, multi-select: 16, ordering: 4, spot-the-error: 4, matching: 3, proof-completion: 2, complex: 1
+  - by type: mcq: 268, numeric: 141, multi-select: 20, ordering: 7, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
@@ -197,7 +197,7 @@ page has wired one in yet.
   - by dimension: 2d: 70, unknown: 24
   - by gesture: click: 68, unknown: 24, slider: 2
 - Quizzes: **489** (v1: 304, hard: 185, expert: 0)
-  - by type: mcq: 298, numeric: 128, complex: 14, multi-select: 13, matching: 11, ordering: 10, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+  - by type: mcq: 293, numeric: 127, complex: 14, matching: 14, multi-select: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -217,7 +217,7 @@ page has wired one in yet.
   - by dimension: 2d: 45, unknown: 12, 3d: 6
   - by gesture: click: 40, unknown: 12, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
 - Quizzes: **325** (v1: 183, hard: 142, expert: 0)
-  - by type: mcq: 205, numeric: 113, complex: 7
+  - by type: mcq: 196, numeric: 113, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
 ### Number theory
 
@@ -227,7 +227,7 @@ page has wired one in yet.
   - by dimension: 2d: 85, unknown: 13
   - by gesture: click: 72, unknown: 13, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
 - Quizzes: **409** (v1: 226, hard: 183, expert: 0)
-  - by type: mcq: 272, numeric: 133, complex: 3, guess-my-rule: 1
+  - by type: mcq: 270, numeric: 132, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -237,7 +237,7 @@ page has wired one in yet.
   - by dimension: 2d: 100, unknown: 13
   - by gesture: click: 89, unknown: 13, slider: 7, static: 4
 - Quizzes: **432** (v1: 237, hard: 195, expert: 0)
-  - by type: mcq: 283, numeric: 146, multi-select: 2, ordering: 1
+  - by type: mcq: 280, numeric: 146, multi-select: 4, matching: 1, ordering: 1
 
 ### Algebraic geometry
 
@@ -247,7 +247,7 @@ page has wired one in yet.
   - by dimension: 2d: 127
   - by gesture: click: 97, interact: 15, scrub: 7, select: 3, drag: 2, slider: 1, read: 1, slide: 1
 - Quizzes: **572** (v1: 327, hard: 245, expert: 0)
-  - by type: mcq: 347, numeric: 186, multi-select: 16, matching: 8, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
+  - by type: mcq: 344, numeric: 186, multi-select: 16, matching: 11, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 

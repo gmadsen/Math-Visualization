@@ -75,17 +75,19 @@
       "title": "Simply connected domains",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which space is simply connected?",
+          "type": "multi-select",
+          "q": "Select every space that is simply connected.",
           "choices": [
-            "$S^1$",
-            "$\\mathbb{R}^2\\setminus\\{0\\}$",
             "$\\mathbb{R}^2$",
-            "the torus $T^2$"
+            "$S^1$ (circle)",
+            "$S^2$ (sphere)",
+            "$\\mathbb{R}^2\\setminus\\{0\\}$ (punctured plane)",
+            "$\\mathbb{R}^n$ for any $n\\ge 1$",
+            "the torus $T^2 = S^1\\times S^1$"
           ],
-          "answer": 2,
-          "hint": "$\\mathbb{R}^2$ has trivial fundamental group.",
-          "explain": "$\\mathbb{R}^2$ has trivial fundamental group. The other listed spaces have nontrivial loops that cannot be contracted."
+          "answer": [0, 2, 4],
+          "hint": "Simply connected means path-connected with $\\pi_1=0$. Convex/contractible Euclidean spaces are simply connected; spheres $S^n$ are simply connected for $n\\ge 2$; circles, punctured planes, and tori carry non-contractible loops.",
+          "explain": "$\\mathbb R^n$ is contractible, hence simply connected. $S^2$ has $\\pi_1=0$ (every loop contracts; $S^n$ is simply connected for $n\\ge 2$). $S^1$ has $\\pi_1\\cong\\mathbb Z$ (winding number). $\\mathbb R^2\\setminus\\{0\\}$ deformation-retracts onto $S^1$, so $\\pi_1\\cong\\mathbb Z$. $T^2$ has $\\pi_1\\cong\\mathbb Z^2$."
         },
         {
           "type": "numeric",
@@ -255,17 +257,21 @@
       "title": "Covering spaces",
       "questions": [
         {
-          "type": "mcq",
-          "q": "For the covering map $p:\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, the fiber over $1\\in S^1$ is:",
-          "choices": [
-            "$\\{0\\}$",
-            "$\\mathbb{Z}$",
-            "$\\mathbb{R}$",
-            "empty"
+          "type": "matching",
+          "q": "By the Galois correspondence for covering spaces, connected covers of a (suitable) base $X$ biject with conjugacy classes of subgroups of $\\pi_1(X)$. For $X=S^1$ with $\\pi_1(X)\\cong\\mathbb Z$, match each cover with the subgroup $H\\le\\mathbb Z$ to which it corresponds.",
+          "left": [
+            "$\\{0\\}\\le\\mathbb Z$ (trivial subgroup)",
+            "$n\\mathbb Z\\le\\mathbb Z$ for some $n\\ge 2$",
+            "$1\\cdot\\mathbb Z=\\mathbb Z$ (full group)"
           ],
-          "answer": 1,
-          "hint": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$.",
-          "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$."
+          "right": [
+            "$p\\colon\\mathbb R\\to S^1$, $p(t)=e^{2\\pi it}$ (universal cover, infinite-sheeted)",
+            "$p_n\\colon S^1\\to S^1$, $p_n(z)=z^n$ ($n$-sheeted cover)",
+            "$\\mathrm{id}\\colon S^1\\to S^1$ (trivial cover)"
+          ],
+          "answer": [0, 1, 2],
+          "hint": "Cover sheets equal $[\\pi_1(X):H]$. Universal cover ↔ trivial subgroup, $n$-sheeted ↔ index-$n$ subgroup, trivial cover ↔ full group.",
+          "explain": "Galois theory of covering spaces: covers of $X$ correspond to subgroups of $\\pi_1(X)$, with sheet count equal to index. For $X=S^1$, $\\pi_1=\\mathbb Z$. The universal cover $\\mathbb R\\to S^1$ has fiber $\\mathbb Z$ over each point — corresponds to trivial subgroup $\\{0\\}$. The $n$-sheeted cover $z\\mapsto z^n$ corresponds to $n\\mathbb Z$ (index $n$). The identity is the cover for $\\mathbb Z$ itself (index 1)."
         },
         {
           "type": "numeric",
@@ -325,17 +331,17 @@
       "title": "Singular homology",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which equality encodes the chain-complex condition?",
-          "choices": [
-            "$\\partial_n\\partial_n=0$",
-            "$\\partial_{n-1}\\circ\\partial_n=0$",
-            "$\\partial_n=\\mathrm{id}$",
-            "$\\partial_n$ is invertible"
+          "type": "ordering",
+          "q": "Arrange the steps to set up the Mayer–Vietoris long exact sequence for a space $X = A\\cup B$ with $A,B$ open.",
+          "items": [
+            "Form the short exact sequence of chain complexes $0\\to C_*(A\\cap B)\\xrightarrow{\\alpha}C_*(A)\\oplus C_*(B)\\xrightarrow{\\beta}C_*(A)+C_*(B)\\to 0$, where $\\alpha(c)=(c,-c)$ and $\\beta(a,b)=a+b$.",
+            "Apply the snake lemma / zig-zag lemma to extract the long exact sequence in homology: $\\cdots\\to H_n(A\\cap B)\\to H_n(A)\\oplus H_n(B)\\to H_n(X)\\to H_{n-1}(A\\cap B)\\to\\cdots$",
+            "Verify the sequence of chain complexes is exact: $\\beta\\alpha=0$, $\\ker\\beta=\\operatorname{im}\\alpha$, and $\\beta$ is surjective onto $C_*(A)+C_*(B)$.",
+            "Use the small-simplices theorem (barycentric subdivision) to identify $H_n(C_*(A)+C_*(B))$ with $H_n(X)$."
           ],
-          "answer": 1,
-          "hint": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$.",
-          "explain": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$. This ensures $\\operatorname{im}\\partial_n\\subseteq\\ker\\partial_{n-1}$."
+          "answer": [0, 2, 3, 1],
+          "hint": "Build the SES of chain complexes, verify exactness, identify the third term with $C_*(X)$ via subdivision, then take homology.",
+          "explain": "Mayer–Vietoris flow: (a) build the SES of chain complexes from the inclusion data, (b) check exactness, (c) replace the third term $C_*(A)+C_*(B)$ by $C_*(X)$ in homology — content of the small-simplices theorem (every chain in $X$ is homologous to one supported in $A$ or $B$), (d) the snake lemma converts the SES of chain complexes into the LES in homology with connecting morphism $\\partial_*\\colon H_n(X)\\to H_{n-1}(A\\cap B)$."
         },
         {
           "type": "numeric",

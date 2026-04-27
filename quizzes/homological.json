@@ -72,17 +72,18 @@
       "title": "Exact sequences",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A sequence $A \\xrightarrow{f} B \\xrightarrow{g} C$ is exact at $B$ when:",
+          "type": "multi-select",
+          "q": "Select every condition that is equivalent to $0\\to A\\xrightarrow{f}B\\xrightarrow{g}C\\to 0$ being a short exact sequence.",
           "choices": [
-            "$g\\circ f = 0$",
-            "$\\operatorname{im} f \\subseteq \\ker g$",
-            "$\\operatorname{im} f = \\ker g$",
-            "$f$ is injective and $g$ is surjective"
+            "$f$ is injective, $g$ is surjective, and $\\operatorname{im}f=\\ker g$.",
+            "$g\\circ f=0$, $f$ is injective, and $g$ is surjective.",
+            "$f$ identifies $A$ with $\\ker g$, and $g$ induces an isomorphism $B/f(A)\\xrightarrow{\\sim}C$.",
+            "Just $g\\circ f=0$.",
+            "$f$ and $g$ are both isomorphisms."
           ],
-          "answer": 2,
-          "hint": "Exactness at $B$ is the equality $\\operatorname{im} f = \\ker g$.",
-          "explain": "Exactness at $B$ is the equality $\\operatorname{im} f = \\ker g$. The weaker condition $g\\circ f=0$ only gives $\\operatorname{im} f\\subseteq\\ker g$; the reverse inclusion is the substantive content."
+          "answer": [0, 2],
+          "hint": "Short exactness needs $f$ injective, $g$ surjective, AND $\\operatorname{im}f=\\ker g$. Just $g\\circ f=0$ gives only the inclusion $\\operatorname{im}f\\subseteq\\ker g$.",
+          "explain": "Short exactness asserts $f$ injective, $g$ surjective, and $\\operatorname{im}f=\\ker g$ — equivalently, $f$ identifies $A$ with $\\ker g$ and $g$ induces $B/f(A)\\cong C$. (1) is false: $g\\circ f=0$ gives only $\\operatorname{im}f\\subseteq\\ker g$, missing the reverse inclusion. (3) is too weak. (4) describes a (very) special split case. So (0) and (2) are correct."
         },
         {
           "type": "mcq",
@@ -158,17 +159,19 @@
           "explain": "The snake connects $\\ker\\gamma$ (on the right of the top row) to $\\operatorname{coker}\\alpha$ (on the left of the bottom row) via the recipe lift $\\to$ $\\beta$ $\\to$ pull back along $i'$."
         },
         {
-          "type": "mcq",
-          "q": "Which six-term exact sequence does the snake lemma produce?",
-          "choices": [
-            "$0\\to\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma\\xrightarrow{\\delta}\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma\\to 0$",
-            "$0\\to\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma\\to\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma\\to 0$",
-            "$0\\to A\\to B\\to C\\to A'\\to B'\\to C'\\to 0$",
-            "$0\\to\\ker\\alpha\\to A\\to\\operatorname{coker}\\alpha\\to 0$"
+          "type": "ordering",
+          "q": "Arrange the six middle terms of the snake-lemma exact sequence in their canonical order. The sequence has the shape $0\\to\\bullet\\to\\bullet\\to\\bullet\\xrightarrow{\\delta}\\bullet\\to\\bullet\\to\\bullet\\to 0$.",
+          "items": [
+            "$\\operatorname{coker}\\beta$",
+            "$\\operatorname{coker}\\alpha$",
+            "$\\ker\\beta$",
+            "$\\operatorname{coker}\\gamma$",
+            "$\\ker\\alpha$",
+            "$\\ker\\gamma$"
           ],
-          "answer": 0,
-          "hint": "Kernels first (reading left-to-right), then $\\delta$, then cokernels (again left-to-right).",
-          "explain": "Kernels first (reading left-to-right), then $\\delta$, then cokernels (again left-to-right). The 0 on the left encodes 'left-most kernel arrow is injective' and the 0 on the right encodes 'right-most cokernel arrow is surjective'."
+          "answer": [4, 2, 5, 1, 0, 3],
+          "hint": "Kernels first (left-to-right: $\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma$), then the connecting $\\delta$, then cokernels (left-to-right: $\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma$).",
+          "explain": "The snake-lemma sequence is $0\\to\\ker\\alpha\\to\\ker\\beta\\to\\ker\\gamma\\xrightarrow{\\delta}\\operatorname{coker}\\alpha\\to\\operatorname{coker}\\beta\\to\\operatorname{coker}\\gamma\\to 0$. Kernels appear first (in the same left-to-right order as the original columns), the connecting $\\delta$ jumps from $\\ker\\gamma$ to $\\operatorname{coker}\\alpha$, then the cokernels finish in the same left-to-right order."
         },
         {
           "type": "numeric",
@@ -315,17 +318,17 @@
       "title": "Long exact sequence in homology",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A short exact sequence of chain complexes $0\\to A_\\bullet\\to B_\\bullet\\to C_\\bullet\\to 0$ induces a long exact sequence whose connecting map $\\partial$ has which degree?",
-          "choices": [
-            "$\\partial:H_n(C)\\to H_n(A)$",
-            "$\\partial:H_n(A)\\to H_n(C)$",
-            "$\\partial:H_n(C)\\to H_{n-1}(A)$",
-            "$\\partial:H_n(A)\\to H_{n+1}(C)$"
+          "type": "ordering",
+          "q": "Arrange the consecutive terms of the long exact sequence in homology induced by a short exact sequence of chain complexes $0\\to A_\\bullet\\to B_\\bullet\\to C_\\bullet\\to 0$, starting from $H_n(A)$.",
+          "items": [
+            "$H_{n-1}(A)$",
+            "$H_n(C)$",
+            "$H_n(B)$",
+            "$H_n(A)$"
           ],
-          "answer": 2,
-          "hint": "The snake lemma applied degree-by-degree produces $\\partial:H_n(C)\\to H_{n-1}(A)$, lowering homological degree by 1 (for a cohomologically indexed complex the analogous map raises degree by 1).",
-          "explain": "The snake lemma applied degree-by-degree produces $\\partial:H_n(C)\\to H_{n-1}(A)$, lowering homological degree by 1 (for a cohomologically indexed complex the analogous map raises degree by 1)."
+          "answer": [3, 2, 1, 0],
+          "hint": "$H_n(A)\\to H_n(B)\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)$. The connecting map lowers homological degree by 1.",
+          "explain": "The LES of homology runs $\\cdots\\to H_n(A)\\to H_n(B)\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)\\to\\cdots$. The connecting map $\\partial$ comes from applying the snake lemma degree-by-degree, and lowers homological degree by $1$ (for cohomological complexes the analogous $\\delta$ raises degree by $1$)."
         },
         {
           "type": "numeric",

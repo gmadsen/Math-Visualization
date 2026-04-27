@@ -99,16 +99,23 @@
           "explain": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$."
         },
         {
-          "type": "mcq",
-          "q": "Under the Galois correspondence, an intermediate field $F$ is a <em>normal</em> extension of the base $K$ iff:",
-          "choices": [
-            "$\\operatorname{Gal}(L/F)$ is cyclic",
-            "$\\operatorname{Gal}(L/F)$ is abelian",
-            "$\\operatorname{Gal}(L/F)$ is a normal subgroup of $\\operatorname{Gal}(L/K)$",
-            "$F=L$"
+          "type": "matching",
+          "q": "Match each subgroup of $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ for $L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ with its fixed field.",
+          "left": [
+            "the trivial subgroup $\\{e\\}$",
+            "the whole group $(\\mathbb{Z}/2)^2$",
+            "$\\langle\\sigma\\rangle$ where $\\sigma\\colon\\sqrt{2}\\mapsto-\\sqrt{2},\\sqrt{3}\\mapsto\\sqrt{3}$",
+            "$\\langle\\tau\\rangle$ where $\\tau\\colon\\sqrt{2}\\mapsto-\\sqrt{2},\\sqrt{3}\\mapsto-\\sqrt{3}$"
           ],
-          "answer": 2,
-          "explain": "Normality in the tower matches normal subgroups in the group: $F/K$ is Galois iff $\\operatorname{Gal}(L/F)\\trianglelefteq \\operatorname{Gal}(L/K)$, and then $\\operatorname{Gal}(F/K)\\cong \\operatorname{Gal}(L/K)/\\operatorname{Gal}(L/F)$."
+          "right": [
+            "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$",
+            "$\\mathbb{Q}$",
+            "$\\mathbb{Q}(\\sqrt{3})$",
+            "$\\mathbb{Q}(\\sqrt{6})$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Inclusion-reversing: trivial subgroup fixes all of $L$; whole group fixes only $\\mathbb{Q}$. For each order-$2$ subgroup, find which $\\sqrt{d}$ is fixed.",
+          "explain": "By the Galois correspondence: $\\{e\\}\\leftrightarrow L$, $G\\leftrightarrow\\mathbb{Q}$. The subgroup $\\langle\\sigma\\rangle$ fixes $\\sqrt{3}$, hence fixes $\\mathbb{Q}(\\sqrt{3})$; $\\langle\\tau\\rangle$ fixes $\\sqrt{2}\\sqrt{3}=\\sqrt{6}$ (since both signs flip together), hence fixes $\\mathbb{Q}(\\sqrt{6})$. The third order-$2$ subgroup $\\langle\\sigma\\tau\\rangle$ fixes $\\mathbb{Q}(\\sqrt{2})$."
         }
       ],
       "hard": [
@@ -152,25 +159,37 @@
       "title": "Solvability by radicals",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A polynomial $f\\in\\mathbb{Q}[x]$ is solvable by radicals iff:",
-          "choices": [
-            "its Galois group is abelian",
-            "its Galois group is cyclic",
-            "its Galois group is solvable (has an abelian tower)",
-            "it has a real root"
+          "type": "matching",
+          "q": "Match each polynomial with its Galois group over $\\mathbb{Q}$, and conclude solvability accordingly.",
+          "left": [
+            "$\\mathbb{Z}/4$ (cyclic, solvable)",
+            "$S_3$ (solvable via $S_3\\supset A_3\\supset\\{e\\}$)",
+            "$S_4$ (solvable via $S_4\\supset A_4\\supset V_4\\supset\\{e\\}$)",
+            "$S_5$ (not solvable: $A_5$ is simple non-abelian)"
           ],
-          "answer": 2,
-          "hint": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients.",
-          "explain": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients."
+          "right": [
+            "$x^5-1$ (cyclotomic of degree $4$)",
+            "$x^3-2$ (irreducible cubic, not all roots real)",
+            "general quartic with $S_4$ Galois group",
+            "$x^5-x-1$ (irreducible, two non-real roots)"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Cyclotomic gives abelian; the irreducible cubic with one real root gives $S_3$; generic quartics give $S_4$; $x^5-x-1$ has $S_5$ via transposition + $5$-cycle.",
+          "explain": "$\\Phi_5(x)=x^4+x^3+x^2+x+1$ has Galois group $(\\mathbb{Z}/5)^\\times\\cong\\mathbb{Z}/4$. $x^3-2$ has Galois group $S_3$, solvable via $S_3\\supset A_3\\supset\\{e\\}$. The general quartic has $S_4$, solvable via $S_4\\supset A_4\\supset V_4\\supset\\{e\\}$. $x^5-x-1$ is irreducible with exactly two non-real roots, so complex conjugation is a transposition; combined with a $5$-cycle from transitivity, we get all of $S_5$, which is not solvable."
         },
         {
-          "type": "numeric",
-          "q": "What is $|A_5|$, the order of the alternating group that obstructs solving the general quintic?",
-          "answer": 60,
-          "tol": 0.000001,
-          "hint": "$|A_5|=5!/2=60$.",
-          "explain": "$|A_5|=5!/2=60$. Since $A_5$ is simple and non-abelian, $S_5$ is not solvable, so the general quintic has no radical formula."
+          "type": "ordering",
+          "q": "Arrange the steps that prove the general quintic $x^5-x-1$ is not solvable by radicals.",
+          "items": [
+            "Show $A_5$ is simple by ruling out every union of conjugacy classes (sizes $1,15,20,12,12$) summing to a proper divisor of $60$.",
+            "Conclude $S_5$ is not solvable, hence $f$ has no radical formula.",
+            "Verify $x^5-x-1$ is irreducible over $\\mathbb{Q}$, so the Galois group acts transitively on five roots.",
+            "Apply Galois' criterion: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group.",
+            "Note exactly two roots are non-real, so complex conjugation acts as a transposition on the roots; combined with a $5$-cycle from transitivity, this generates $S_5$."
+          ],
+          "answer": [3, 2, 4, 0, 1],
+          "hint": "Set up Galois' criterion first, then identify the Galois group as $S_5$, then prove $S_5$ is not solvable.",
+          "explain": "The full chain: invoke Galois' criterion, prove the Galois group is $S_5$ (irreducibility gives a $5$-cycle; one transposition from complex conjugation generates the rest), then show $A_5$ is simple via conjugacy-class arithmetic, hence $S_5$ is not solvable."
         },
         {
           "type": "mcq",

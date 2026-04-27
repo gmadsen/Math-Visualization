@@ -5,17 +5,23 @@
       "title": "Prime spectrum and Zariski topology",
       "questions": [
         {
-          "type": "mcq",
-          "q": "For a commutative ring $R$, the underlying set of $\\operatorname{Spec}(R)$ consists of:",
-          "choices": [
-            "all ideals of $R$",
-            "all maximal ideals of $R$",
-            "all prime ideals of $R$",
-            "all elements of $R$"
+          "type": "matching",
+          "q": "Match each ring with its prime spectrum $\\operatorname{Spec}(R)$ as a set of points.",
+          "left": [
+            "$\\{(0)\\}\\cup\\{(p):p\\text{ prime}\\}$ — one generic point plus countably many closed points.",
+            "Two closed points — corresponding to the prime divisors of $12$.",
+            "$\\{(0)\\}\\cup\\{(x-a):a\\in k\\}$ — one generic point plus one closed point for each $a\\in k$.",
+            "A single point."
           ],
-          "answer": 2,
-          "hint": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$.",
-          "explain": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$. Maximal ideals are closed points, but non-maximal primes (like $(0)$ in $\\mathbb Z$) give generic points."
+          "right": [
+            "$R = \\mathbb Z$",
+            "$R = \\mathbb Z/12\\mathbb Z$",
+            "$R = k[x]$ with $k$ algebraically closed",
+            "$R = \\mathbb Q$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "$\\operatorname{Spec}(R)=\\{\\text{prime ideals}\\}$. Fields have only $(0)$; $\\mathbb Z/n$'s primes correspond to prime divisors of $n$; $k[x]$ over algebraically closed $k$ has primes $(0)$ and $(x-a)$ for $a\\in k$.",
+          "explain": "$\\operatorname{Spec}\\mathbb Z$: primes $(0)$ (generic) and $(p)$ (closed) for each rational prime $p$. $\\operatorname{Spec}\\mathbb Z/12$: only primes $(2),(3)$ survive — note $(0)$ is not prime in $\\mathbb Z/12$ since $\\mathbb Z/12$ has zero-divisors. $\\operatorname{Spec}k[x]$ with $k=\\bar k$: primes are $(0)$ (generic) and $(x-a)$ for $a\\in k$ (closed). $\\operatorname{Spec}\\mathbb Q$: only $(0)$ — every field is a one-point scheme."
         },
         {
           "type": "numeric",
@@ -77,16 +83,23 @@
       "title": "Structure sheaf and affine schemes",
       "questions": [
         {
-          "type": "mcq",
-          "q": "On an affine scheme $\\operatorname{Spec}(R)$, the stalk of the structure sheaf $\\mathcal O$ at a prime $\\mathfrak p$ is:",
-          "choices": [
-            "the quotient $R/\\mathfrak p$",
-            "the localization $R_{\\mathfrak p}$",
-            "the residue field $\\kappa(\\mathfrak p)$",
-            "the ring $R$ itself"
+          "type": "matching",
+          "q": "Match each piece of structure on the affine scheme $X=\\operatorname{Spec}(R)$ with the algebraic object it corresponds to.",
+          "left": [
+            "Global sections $\\mathcal O_X(X)$",
+            "Sections on a distinguished open $\\mathcal O_X(D(f))$ for $f\\in R$",
+            "Stalk $\\mathcal O_{X,\\mathfrak p}$ at a prime $\\mathfrak p$",
+            "Residue field $\\kappa(\\mathfrak p)$ at $\\mathfrak p$"
           ],
-          "answer": 1,
-          "explain": "By construction the stalk $\\mathcal O_{\\mathfrak p}$ is the localization $R_{\\mathfrak p}$, a local ring with maximal ideal $\\mathfrak p R_{\\mathfrak p}$ and residue field $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$."
+          "right": [
+            "$R$ — the original ring.",
+            "Localization $R_f = R[f^{-1}]$ — invert $f$ to allow $1/f$ as a function on $D(f)$.",
+            "Localization $R_{\\mathfrak p}$ — a local ring with maximal ideal $\\mathfrak pR_{\\mathfrak p}$.",
+            "$\\operatorname{Frac}(R/\\mathfrak p) = R_{\\mathfrak p}/\\mathfrak pR_{\\mathfrak p}$ — the residue field of the local ring."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "The structure sheaf of $\\operatorname{Spec}(R)$ is engineered so that global sections give back $R$, distinguished-open sections invert the corresponding element, stalks localize at the prime, and residue fields are quotient + Frac.",
+          "explain": "On $X=\\operatorname{Spec}(R)$: $\\mathcal O_X(X)=R$, $\\mathcal O_X(D(f))=R_f$, $\\mathcal O_{X,\\mathfrak p}=R_{\\mathfrak p}$, and the residue field is $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$. The first three are the engine of the equivalence $\\operatorname{CommRing}^{\\mathrm{op}}\\cong\\mathrm{AffSch}$; the residue field captures the value of a 'function' at the point $\\mathfrak p$."
         },
         {
           "type": "mcq",
@@ -599,17 +612,23 @@
           "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
         },
         {
-          "type": "mcq",
-          "q": "For $S=k[x_0,x_1,\\dots,x_n]$, the basic open $D_+(x_i)\\subset\\operatorname{Proj}S$ is canonically isomorphic to:",
-          "choices": [
-            "$\\operatorname{Spec}k$",
-            "$\\mathbb A^{n+1}_k=\\operatorname{Spec}k[x_0,\\dots,x_n]$",
-            "$\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (omitting $x_i/x_i=1$)",
-            "$\\operatorname{Proj}k$"
+          "type": "matching",
+          "q": "For $S=k[x_0,x_1,\\dots,x_n]$, match each piece of structure on $\\operatorname{Proj}S=\\mathbb P^n_k$ with its affine analog.",
+          "left": [
+            "The full underlying set",
+            "A basic open chart $D_+(x_i)$",
+            "The subset where all of $x_0,\\dots,x_n$ vanish",
+            "The standard cover of $\\mathbb P^n_k$"
           ],
-          "answer": 2,
-          "hint": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$.",
-          "explain": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$. Formally $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ and the degree-$0$ part of $S_{x_i}$ is generated by $x_j/x_i$ for $j\\ne i$, giving $\\mathbb A^n_k$."
+          "right": [
+            "Homogeneous primes of $S$ not containing the irrelevant ideal $S_+=(x_0,\\dots,x_n)$.",
+            "Affine $n$-space $\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (dehomogenize by $x_i=1$).",
+            "Empty — excluded by $\\operatorname{Proj}$ since it would correspond to a prime containing $S_+$.",
+            "The $n+1$ charts $D_+(x_0),\\dots,D_+(x_n)$, each isomorphic to $\\mathbb A^n_k$."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "$\\operatorname{Proj}$ excludes primes containing the irrelevant ideal; each $D_+(x_i)$ is $\\mathbb A^n_k$ obtained by dehomogenizing $x_i\\mapsto 1$; the union covers $\\mathbb P^n_k$.",
+          "explain": "$\\operatorname{Proj}S$ takes only homogeneous primes not containing $S_+$, automatically excising the cone vertex. Each basic open $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ identifies with $\\mathbb A^n_k$ — dehomogenize by setting $x_i=1$. The $n+1$ such opens cover $\\mathbb P^n_k$ since any homogeneous prime not containing $S_+$ misses some $x_i$. This is the standard atlas presenting $\\mathbb P^n$ as glued affine $n$-spaces."
         },
         {
           "type": "numeric",

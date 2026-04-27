@@ -169,17 +169,18 @@
       "title": "Quotients and finite fields",
       "questions": [
         {
-          "type": "mcq",
-          "q": "The First Isomorphism Theorem says for a homomorphism $\\varphi:G\\to H$:",
+          "type": "multi-select",
+          "q": "Select every statement that is true for an arbitrary group homomorphism $\\varphi\\colon G\\to H$.",
           "choices": [
-            "$G/\\ker\\varphi \\cong \\operatorname{im}\\varphi$",
-            "$G/\\operatorname{im}\\varphi \\cong \\ker\\varphi$",
-            "$\\ker\\varphi \\cong H/G$",
-            "$G\\cong H$ always"
+            "$\\ker\\varphi$ is a normal subgroup of $G$.",
+            "$\\operatorname{im}\\varphi$ is a subgroup of $H$.",
+            "$G/\\ker\\varphi \\cong \\operatorname{im}\\varphi$ (First Isomorphism Theorem).",
+            "$\\varphi$ is necessarily injective.",
+            "$|G| = |\\ker\\varphi| \\cdot |\\operatorname{im}\\varphi|$ when $G$ is finite."
           ],
-          "answer": 0,
-          "hint": "Quotienting by the kernel identifies exactly elements with equal image.",
-          "explain": "Quotienting by the kernel identifies exactly elements with equal image."
+          "answer": [0, 1, 2, 4],
+          "hint": "Kernels are normal; images are subgroups; the First Isomorphism Theorem ties them together; Lagrange via the quotient gives the size identity. Injectivity is special — equivalent to trivial kernel.",
+          "explain": "(0) $\\ker\\varphi\\trianglelefteq G$ (kernels of group homomorphisms are always normal). (1) $\\operatorname{im}\\varphi\\le H$ (the image is a subgroup). (2) First Isomorphism Theorem: $G/\\ker\\varphi\\cong\\operatorname{im}\\varphi$. (3) is FALSE in general — $\\varphi$ injective iff $\\ker\\varphi$ trivial. (4) follows from Lagrange: $|G|=|\\ker\\varphi|\\cdot[G:\\ker\\varphi]=|\\ker\\varphi|\\cdot|\\operatorname{im}\\varphi|$."
         },
         {
           "type": "numeric",
@@ -543,17 +544,18 @@
           "explain": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$. The stabilizer of $1$ is the subgroup of permutations fixing $1$, isomorphic to $S_3$ on $\\{2,3,4\\}$ — of order $6$."
         },
         {
-          "type": "mcq",
-          "q": "Burnside's lemma says the number of orbits of $G$ on $X$ equals",
-          "choices": [
-            "$\\frac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$",
-            "$\\frac{1}{|X|}\\sum_{x\\in X}|\\mathrm{Stab}(x)|$",
-            "$|G|\\cdot|X|$",
-            "$\\max_{g\\in G}|\\mathrm{Fix}(g)|$"
+          "type": "ordering",
+          "q": "Arrange the steps in the standard derivation of Burnside's lemma: $\\#\\text{orbits} = \\tfrac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$.",
+          "items": [
+            "Apply orbit-stabilizer: $|\\mathrm{Stab}(x)| = |G|/|\\mathrm{orbit}(x)|$, so $\\sum_{x\\in X}|\\mathrm{Stab}(x)| = \\sum_{\\text{orbits}\\,\\mathcal O}\\sum_{x\\in\\mathcal O}|G|/|\\mathcal O| = |G|\\cdot\\#\\text{orbits}$.",
+            "Count the size of $S = \\{(g,x)\\in G\\times X : g\\cdot x = x\\}$ in two ways.",
+            "Counting by $g$ first: $|S| = \\sum_{g\\in G}|\\mathrm{Fix}(g)|$.",
+            "Counting by $x$ first: $|S| = \\sum_{x\\in X}|\\mathrm{Stab}(x)|$.",
+            "Combine the two expressions: $\\sum_{g\\in G}|\\mathrm{Fix}(g)| = |G|\\cdot\\#\\text{orbits}$, divide by $|G|$."
           ],
-          "answer": 0,
-          "hint": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements.",
-          "explain": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements."
+          "answer": [1, 2, 3, 0, 4],
+          "hint": "Define the incidence set, count two ways, apply orbit-stabilizer, divide by $|G|$.",
+          "explain": "Burnside's lemma is the classic two-way counting argument. (1) Set $S = \\{(g,x): g\\cdot x = x\\}$. (2) Counting by $g$: $|S| = \\sum_g |\\mathrm{Fix}(g)|$. (3) Counting by $x$: $|S| = \\sum_x |\\mathrm{Stab}(x)|$. (4) By orbit-stabilizer, $\\sum_x |\\mathrm{Stab}(x)| = \\sum_{\\mathcal O}\\sum_{x\\in\\mathcal O}|G|/|\\mathcal O| = \\sum_{\\mathcal O}|G| = |G|\\cdot\\#\\text{orbits}$. (5) Equating and dividing by $|G|$ gives the result — orbits = average fixed-point count."
         },
         {
           "type": "numeric",
@@ -599,17 +601,22 @@
       "title": "Sylow theorems",
       "questions": [
         {
-          "type": "mcq",
-          "q": "For a group of order $|G|=15=3\\cdot 5$, the number $n_3$ of Sylow $3$-subgroups satisfies $n_3\\mid 5$ and $n_3\\equiv 1\\pmod 3$. What must $n_3$ be?",
+          "type": "proof-completion",
+          "q": "We are proving every group of order $15$ is cyclic. Pick the correct next step.",
+          "steps": [
+            "Let $|G|=15=3\\cdot 5$. By Sylow III, the number $n_3$ of Sylow $3$-subgroups satisfies $n_3\\mid 5$ and $n_3\\equiv 1\\pmod 3$.",
+            "Divisors of $5$ are $\\{1,5\\}$; only $1\\equiv 1\\pmod 3$, so $n_3=1$. Similarly $n_5\\mid 3$ and $n_5\\equiv 1\\pmod 5$ force $n_5=1$.",
+            "Hence $G$ has a unique (therefore normal) Sylow $3$-subgroup $P_3\\cong\\mathbb Z/3$ and a unique normal Sylow $5$-subgroup $P_5\\cong\\mathbb Z/5$. Since $\\gcd(3,5)=1$, $P_3\\cap P_5=\\{e\\}$, and $|P_3 P_5|=15=|G|$, so $G=P_3 P_5$."
+          ],
           "choices": [
-            "$n_3=1$",
-            "$n_3=5$",
-            "$n_3=3$",
-            "$n_3=15$"
+            "Two normal subgroups of coprime orders with trivial intersection and full product give a direct product, so $G\\cong P_3\\times P_5\\cong\\mathbb Z/3\\times\\mathbb Z/5\\cong\\mathbb Z/15$ — cyclic.",
+            "Conclude $G\\cong S_3$ since $|S_3|=6$ has Sylow structure compatible with order $15$.",
+            "Conclude $G\\cong P_3\\rtimes P_5$ for some nontrivial action.",
+            "Conclude $G$ is non-abelian since both Sylow subgroups are normal."
           ],
           "answer": 0,
-          "hint": "Divisors of $5$ are $1,5$.",
-          "explain": "Divisors of $5$ are $1,5$. Only $1\\equiv 1\\pmod 3$, so $n_3=1$ — a unique Sylow $3$-subgroup, hence normal. Similarly $n_5=1$, and $G\\cong\\mathbb{Z}/15\\mathbb{Z}$."
+          "hint": "Two normal subgroups of coprime orders with trivial intersection and full product give an internal direct product.",
+          "explain": "When $N,M\\trianglelefteq G$ satisfy $N\\cap M=\\{e\\}$ and $NM=G$, we have $G\\cong N\\times M$. Here $G\\cong\\mathbb Z/3\\times\\mathbb Z/5\\cong\\mathbb Z/15$ (Chinese Remainder), the unique group of order $15$ — necessarily abelian and cyclic."
         },
         {
           "type": "numeric",

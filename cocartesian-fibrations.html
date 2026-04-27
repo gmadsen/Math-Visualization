@@ -267,7 +267,7 @@ function drawNode(svg, x, y, label, opts={}){
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-leftright-scrubber', {
+  const __h = MVProofScrubber.init('#w-leftright-scrubber', {
     title: "Left vs. right fibrations: anatomy of the horn condition",
     hint: "scrub the slider — or press play",
     viewBox: "0 0 460 220",
@@ -300,6 +300,19 @@ function drawNode(svg, x, y, label, opts={}){
       },
     ],
   });
+  const __r = document.getElementById('w-leftright-scrubber');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -340,7 +353,7 @@ is a homotopy equivalence (HTT 2.4.1.5; Kerodon 5.1.1). Equivalently, every $\La
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-cocartesian-edge-scrubber', {
+  const __h = MVProofScrubber.init('#w-cocartesian-edge-scrubber', {
     title: "The cocartesian lifting condition, step by step",
     hint: "scrub through the lift",
     viewBox: "0 0 460 220",
@@ -373,6 +386,19 @@ is a homotopy equivalence (HTT 2.4.1.5; Kerodon 5.1.1). Equivalently, every $\La
       },
     ],
   });
+  const __r = document.getElementById('w-cocartesian-edge-scrubber');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -643,7 +669,7 @@ recovering §6. Restricted to right fibrations, one gets $\mathrm{RFib}(\mathcal
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-grothendieck-scrubber', {
+  const __h = MVProofScrubber.init('#w-grothendieck-scrubber', {
     title: "The Grothendieck equivalence, walked through both directions",
     hint: "scrub through unstraightening then straightening",
     viewBox: "0 0 460 220",
@@ -676,6 +702,19 @@ recovering §6. Restricted to right fibrations, one gets $\mathrm{RFib}(\mathcal
       },
     ],
   });
+  const __r = document.getElementById('w-grothendieck-scrubber');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
