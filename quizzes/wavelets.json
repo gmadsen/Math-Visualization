@@ -1,4 +1,236 @@
 {
   "topic": "wavelets",
-  "quizzes": {}
+  "quizzes": {
+    "w-multiresolution": {
+      "title": "Multiresolution analysis",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which axiom is NOT part of Mallat's definition of an MRA on $L^2(\\mathbb{R})$?",
+          "choices": [
+            "$V_j\\subset V_{j+1}$ for every $j\\in\\mathbb{Z}$",
+            "$\\bigcap_j V_j=\\{0\\}$ and $\\overline{\\bigcup_j V_j}=L^2(\\mathbb{R})$",
+            "$f(x)\\in V_j\\iff f(2x)\\in V_{j+1}$",
+            "Each $V_j$ is finite-dimensional"
+          ],
+          "answer": 3,
+          "explain": "An MRA explicitly violates finite-dimensionality: $V_0$ already has the integer translates of $\\phi$ as an orthonormal basis, so $\\dim V_0=\\aleph_0$. The other three are exactly Mallat's nesting, density-and-separation, and dyadic-dilation axioms."
+        },
+        {
+          "type": "mcq",
+          "q": "If $\\phi$ is the scaling function of an MRA and $\\psi$ the associated wavelet, what is $W_0=V_1\\ominus V_0$?",
+          "choices": [
+            "Span of integer translates of $\\phi$",
+            "Span of integer translates of $\\psi$",
+            "All of $V_1$",
+            "The zero subspace"
+          ],
+          "answer": 1,
+          "explain": "By construction $\\psi\\in V_1$ is orthogonal to $V_0$, and $\\{\\psi(\\cdot-k)\\}_{k\\in\\mathbb{Z}}$ is an orthonormal basis of the orthogonal complement $W_0$. Iterating dilations gives $\\{\\psi_{j,k}\\}$ as an orthonormal basis of $L^2(\\mathbb{R})=\\bigoplus_j W_j$."
+        },
+        {
+          "type": "numeric",
+          "q": "Take $V_j=\\{f\\in L^2(\\mathbb{R}): f$ is constant on every dyadic interval $[2^{-j}k,2^{-j}(k+1))\\}$ (the Haar MRA). What is the integral $\\int_{\\mathbb{R}}\\phi(x)\\,dx$ for the canonical scaling function $\\phi=\\chi_{[0,1)}$?",
+          "answer": 1,
+          "tol": 0.000001,
+          "explain": "$\\phi$ is the indicator of a unit interval, so $\\int\\phi=1$. The normalisation $\\int\\phi=1$ is forced (up to sign) by $\\sum_k\\phi(\\cdot-k)\\equiv 1$ — a partition-of-unity condition any MRA scaling function satisfies."
+        }
+      ]
+    },
+    "w-haar-wavelet": {
+      "title": "The Haar wavelet",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the Haar wavelet coefficient $\\langle f,\\psi_{0,0}\\rangle$ for $f(x)=x$ on $[0,1)$ and $0$ elsewhere, where $\\psi_{0,0}=\\psi=\\chi_{[0,1/2)}-\\chi_{[1/2,1)}$.",
+          "answer": -0.25,
+          "tol": 0.001,
+          "explain": "$\\langle f,\\psi\\rangle=\\int_0^{1/2}x\\,dx-\\int_{1/2}^1 x\\,dx=\\tfrac{1}{8}-\\tfrac{3}{8}=-\\tfrac{1}{4}$. The first half of the ramp averages to $1/4$, the second half to $3/4$; the Haar coefficient is half their difference times the interval width."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property of $\\{\\psi_{j,k}\\}_{j,k\\in\\mathbb{Z}}$ with $\\psi$ the Haar wavelet is FALSE?",
+          "choices": [
+            "It is an orthonormal basis of $L^2(\\mathbb{R})$",
+            "Each $\\psi_{j,k}$ has compact support",
+            "Every $\\psi_{j,k}$ is continuous",
+            "$\\int\\psi_{j,k}=0$ for every $j,k$"
+          ],
+          "answer": 2,
+          "explain": "The Haar wavelet is $\\chi_{[0,1/2)}-\\chi_{[1/2,1)}$ — a step function with two jump discontinuities. The other claims hold: it is the standard textbook example of a compactly supported orthonormal wavelet basis with one vanishing moment."
+        },
+        {
+          "type": "mcq",
+          "q": "How many vanishing moments does the Haar wavelet have?",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$2$",
+            "Infinitely many"
+          ],
+          "answer": 1,
+          "explain": "$\\int\\psi(x)\\,dx=\\tfrac12-\\tfrac12=0$, so the $0$th moment vanishes. But $\\int x\\psi(x)\\,dx=\\int_0^{1/2}x\\,dx-\\int_{1/2}^1 x\\,dx=-1/4\\ne 0$, so the $1$st moment does not. Exactly one vanishing moment — that's why Haar barely sees linear trends; Daubechies-$N$ wavelets are designed to kill the first $N$ moments."
+        }
+      ]
+    },
+    "w-daubechies": {
+      "title": "Daubechies wavelets",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does it mean for an orthonormal wavelet $\\psi$ to have $N$ vanishing moments?",
+          "choices": [
+            "$\\psi$ is supported on an interval of length $N$",
+            "$\\int x^k\\psi(x)\\,dx=0$ for $k=0,1,\\ldots,N-1$",
+            "$\\hat\\psi$ has $N$ zeros",
+            "$\\psi$ is $N$ times continuously differentiable"
+          ],
+          "answer": 1,
+          "explain": "Vanishing-moment conditions are about $\\int x^k\\psi=0$ for $k<N$. Equivalently $\\hat\\psi(\\xi)$ has a zero of order $N$ at $\\xi=0$. They control how fast wavelet coefficients decay on smooth signals: if $f\\in C^N$ near $2^{-j}k$, then $|\\langle f,\\psi_{j,k}\\rangle|=O(2^{-j(N+1/2)})$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Daubechies-$N$ wavelet $\\psi_N$ is supported on which interval?",
+          "choices": [
+            "$[0,N]$",
+            "$[0,2N-1]$",
+            "$[-N,N]$",
+            "All of $\\mathbb{R}$"
+          ],
+          "answer": 1,
+          "explain": "Daubechies's filter $h_n$ has $2N$ non-zero taps, $n=0,\\ldots,2N-1$, so the scaling and wavelet functions have support $[0,2N-1]$. Daubechies-$1$ is the Haar wavelet (support $[0,1]$, one vanishing moment); higher $N$ trades support length for smoothness and more vanishing moments."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does Daubechies require the QMF condition $|m_0(\\xi)|^2+|m_0(\\xi+1/2)|^2=1$ on the filter symbol $m_0(\\xi)=\\tfrac{1}{\\sqrt 2}\\sum_n h_n e^{-2\\pi in\\xi}$?",
+          "choices": [
+            "To make the filter real-valued",
+            "To force compact support",
+            "To make $\\{\\phi(\\cdot-k)\\}$ an orthonormal set",
+            "To impose $N$ vanishing moments"
+          ],
+          "answer": 2,
+          "explain": "Orthonormality of integer translates of $\\phi$ is equivalent (via Poisson summation) to $\\sum_k|\\hat\\phi(\\xi+k)|^2=1$, and propagating that through the refinement equation $\\hat\\phi(2\\xi)=m_0(\\xi)\\hat\\phi(\\xi)$ produces the QMF identity. Compact support and vanishing moments are independent design knobs imposed on $h_n$ separately."
+        }
+      ]
+    },
+    "w-discrete-transform": {
+      "title": "Discrete wavelet transform",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Apply one step of the Haar DWT to the length-$4$ signal $(8,2,4,6)$. What is the first detail coefficient $d_1$ (the high-pass output at position $0$, computed as $(x_0-x_1)/\\sqrt 2$)?",
+          "answer": 4.2426,
+          "tol": 0.01,
+          "explain": "The Haar high-pass filter takes pairwise differences and rescales by $1/\\sqrt 2$: $d_1=(8-2)/\\sqrt 2=6/\\sqrt 2=3\\sqrt 2\\approx 4.243$. The low-pass branch yields $(8+2)/\\sqrt 2=5\\sqrt 2$ at the same position; together they reconstruct $(8,2)$ via inverse rotation."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the asymptotic cost of the Mallat pyramid DWT on a length-$n$ signal with a fixed filter of $L$ taps?",
+          "choices": [
+            "$O(n)$",
+            "$O(n\\log n)$",
+            "$O(n^2)$",
+            "$O(L^n)$"
+          ],
+          "answer": 0,
+          "explain": "Each level convolves with a fixed $L$-tap filter and downsamples by $2$, so level $j$ costs $O(L\\cdot n/2^j)$; summing the geometric series gives $O(Ln)=O(n)$. Strictly cheaper than the FFT's $O(n\\log n)$ — and because each level halves the data, the whole transform is genuinely linear-time."
+        },
+        {
+          "type": "mcq",
+          "q": "In the standard pyramid algorithm, what does the inverse DWT do at each level?",
+          "choices": [
+            "Convolve and downsample by $2$",
+            "Upsample by $2$ then convolve with the dual filters and sum",
+            "Take a direct FFT",
+            "Solve a linear system of size $n\\times n$"
+          ],
+          "answer": 1,
+          "explain": "Inversion mirrors analysis: the low-pass and high-pass coefficient streams are upsampled (zero-stuffed to twice their length), each is convolved with its dual reconstruction filter, and the two streams are added. For an orthonormal wavelet the dual filters are time-reversals of the analysis filters; the algorithm stays $O(n)$ overall."
+        }
+      ]
+    },
+    "w-wavelet-vs-fourier": {
+      "title": "Time-frequency localisation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A wavelet atom $\\psi_{j,k}$ occupies a Heisenberg cell of approximate dimensions",
+          "choices": [
+            "$\\Delta x\\sim 2^{-j}$, $\\Delta\\xi\\sim 2^{-j}$",
+            "$\\Delta x\\sim 2^{-j}$, $\\Delta\\xi\\sim 2^j$",
+            "$\\Delta x\\sim 1$, $\\Delta\\xi\\sim 1$ (independent of $j$)",
+            "$\\Delta x\\sim 2^j$, $\\Delta\\xi\\sim 2^j$"
+          ],
+          "answer": 1,
+          "explain": "Dilation by $2^j$ shrinks support by $2^{-j}$ in space and stretches frequency content by $2^j$. The Heisenberg product $\\Delta x\\,\\Delta\\xi\\sim 1$ — saturating the uncertainty principle — but the cell shape adapts: high-frequency atoms are short and tall, low-frequency atoms are long and narrow. Gabor windows, by contrast, force a fixed cell shape at every frequency."
+        },
+        {
+          "type": "mcq",
+          "q": "For which signal class do wavelet expansions outperform Fourier expansions most dramatically?",
+          "choices": [
+            "Pure sinusoids on a long interval",
+            "Stationary signals (translation-invariant statistics)",
+            "Signals with isolated singularities or sharp edges",
+            "Bandlimited signals"
+          ],
+          "answer": 2,
+          "explain": "A jump discontinuity smears across all Fourier coefficients (Gibbs phenomenon, $|\\hat f(\\xi)|\\sim 1/|\\xi|$), but only the wavelets whose support touches the jump have large coefficients — a logarithmic number of them. Stationary or bandlimited signals are exactly where Fourier shines; wavelets give up phase coherence in exchange for spatial localisation."
+        },
+        {
+          "type": "mcq",
+          "q": "If $f\\in C^N$ on a neighbourhood of $2^{-j}k$ and $\\psi$ has $N$ vanishing moments, the wavelet coefficient satisfies",
+          "choices": [
+            "$|\\langle f,\\psi_{j,k}\\rangle|=O(1)$",
+            "$|\\langle f,\\psi_{j,k}\\rangle|=O(2^{-j(N+1/2)})$",
+            "$|\\langle f,\\psi_{j,k}\\rangle|=O(2^{j N})$",
+            "It vanishes identically"
+          ],
+          "answer": 1,
+          "explain": "Taylor-expand $f$ to order $N$ at the centre and pair against $\\psi_{j,k}$: the first $N$ terms vanish by the moment conditions, leaving a remainder bounded by $\\|f^{(N)}\\|_\\infty\\cdot 2^{-j(N+1/2)}$ (the extra $1/2$ is the $L^2$ normalisation $2^{j/2}$). This is the decay engine behind wavelet compression of smooth signals."
+        }
+      ]
+    },
+    "w-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does JPEG2000 use a wavelet transform instead of the blocked $8\\times 8$ DCT of legacy JPEG?",
+          "choices": [
+            "Wavelets compress better in the worst case for every image",
+            "Wavelets eliminate the blocking artefacts of fixed-tile DCT and degrade smoothly under aggressive quantisation",
+            "Wavelets are faster than the FFT-based DCT",
+            "Wavelets are easier to implement in hardware"
+          ],
+          "answer": 1,
+          "explain": "JPEG's tiling produces visible $8\\times 8$ blocks at low bitrates because each tile quantises independently. The CDF 9/7 biorthogonal wavelet in JPEG2000 is global and multi-scale, so high quantisation looks like overall smoothing rather than mosaic. Speed and worst-case ratio are not the differentiator."
+        },
+        {
+          "type": "mcq",
+          "q": "Donoho–Johnstone soft-thresholding denoises a signal by transforming, applying $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ to each wavelet coefficient $c$, and inverting. Why does this work?",
+          "choices": [
+            "Wavelet coefficients of white noise are concentrated on a few atoms",
+            "Smooth signals have most wavelet coefficients near zero, while white noise spreads i.i.d. Gaussian mass over all coefficients — thresholding kills the noise floor",
+            "Soft-thresholding is the orthogonal projection onto the closest signal in $L^2$",
+            "Wavelet coefficients of white noise are exactly zero"
+          ],
+          "answer": 1,
+          "explain": "The wavelet transform of white Gaussian noise is again white Gaussian (orthogonal change of basis). Smooth signals concentrate energy in few large coefficients; thresholding at $\\lambda\\sim\\sigma\\sqrt{2\\log n}$ removes the noise floor while keeping signal spikes. Donoho–Johnstone proved this is asymptotically minimax over Besov balls."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are wavelets a natural basis for Calderón–Zygmund operators (e.g. the Hilbert transform, $-\\Delta^{-1}$)?",
+          "choices": [
+            "Wavelets diagonalise every CZ operator",
+            "Vanishing moments make $\\langle T\\psi_{j,k},\\psi_{j',k'}\\rangle$ decay rapidly off the diagonal $(j,k)=(j',k')$, compressing $T$ to a sparse matrix",
+            "CZ operators commute with translation and dilation",
+            "Wavelet coefficients are always real-valued"
+          ],
+          "answer": 1,
+          "explain": "Beylkin–Coifman–Rokhlin showed that for a CZ operator $T$ and a wavelet with $N$ vanishing moments, $|\\langle T\\psi_{j,k},\\psi_{j',k'}\\rangle|\\le C 2^{-(N+1)|j-j'|}(1+|2^j k-2^{j'}k'|)^{-N-1}$. Most entries are negligibly small, so $T$ is approximated by an $O(n)$-entry sparse matrix — wavelets do not diagonalise $T$ exactly, but they nearly do."
+        }
+      ]
+    }
+  }
 }

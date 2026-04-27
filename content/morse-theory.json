@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./morse-theory.html#handle-decomp\">Morse theory</a> · Handle decomposition via sublevel sets</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./morse-theory.html#handle-decomp\">Morse theory</a> · Handle decomposition via sublevel sets</div>\n    <div><a href=\"./symplectic-manifolds.html#floer\">Symplectic manifolds</a> · Floer homology — a preview</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

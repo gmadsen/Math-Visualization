@@ -86,7 +86,6 @@
     display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
   nav.toc a{color:var(--mute);text-decoration:none}
   nav.toc a:hover{color:var(--yellow)}
-  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
   aside.sidetoc{position:fixed;top:4.2rem;
     left:max(1rem, calc(50% - 440px - 220px));
     width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
@@ -191,7 +190,6 @@ const SVG = (tag,attrs={})=>{
   for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
   return e;
 };
-// draw an arrow marker def once per svg (idempotent)
 function ensureArrow(svg, id, color){
   let defs = svg.querySelector('defs');
   if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
@@ -200,7 +198,6 @@ function ensureArrow(svg, id, color){
   mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
   defs.appendChild(mk);
 }
-// curved arrow between two pixel points, with optional label
 function drawArrow(svg, p1, p2, opts={}){
   const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
   ensureArrow(svg, markerId, color);
@@ -208,7 +205,6 @@ function drawArrow(svg, p1, p2, opts={}){
   const dx=x2-x1, dy=y2-y1;
   const L = Math.hypot(dx,dy) || 1;
   const ux=dx/L, uy=dy/L;
-  // shorten endpoints
   const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
   const ax=x1+ux*pad1, ay=y1+uy*pad1;
   const bx=x2-ux*pad2, by=y2-uy*pad2;
@@ -238,7 +234,12 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <!-- TODO: per-section anchor links (e.g. <a href="#intro">1&nbsp;Intro</a>) -->
+  <a href="#multiresolution">1&nbsp;MRA</a>
+  <a href="#haar">2&nbsp;Haar</a>
+  <a href="#daubechies">3&nbsp;Daubechies</a>
+  <a href="#dwt">4&nbsp;DWT</a>
+  <a href="#vs-fourier">5&nbsp;Time–frequency</a>
+  <a href="#applications">6&nbsp;Applications</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -248,38 +249,233 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Wavelets</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">Bases of $L^2(\mathbb{R})$ that see *where* a signal changes — not just *which frequencies* it contains. Mallat's nested-subspace recipe, the Haar prototype, Daubechies' compactly supported family, the linear-time pyramid algorithm, and what happens when you replace JPEG's blocked DCT with a global wavelet basis.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<!-- TODO: content goes here — prose, widgets, and a quiz placeholder:
-     <div class="quiz" data-concept="<concept-id>"></div>
--->
+<section id="multiresolution">
+<h2>1. Multiresolution analysis</h2>
+
+<p>A Fourier basis spreads a localised event — a cliff, a transient — across infinitely many coefficients. Mallat's <em>multiresolution analysis</em> (MRA) builds a different basis, one organised by <em>scale</em>: at each dyadic resolution we keep a closed subspace $V_j\subset L^2(\mathbb{R})$ of "functions visible at scale $2^{-j}$", and we look at what extra detail $W_j=V_{j+1}\ominus V_j$ adds when we double the resolution.</p>
+
+<p>The MRA axioms — nesting, density, separation, dyadic dilation, and a scaling function $\phi$ whose integer translates orthonormally span $V_0$ — together force $L^2(\mathbb{R})=\bigoplus_{j\in\mathbb{Z}} W_j$ and produce a single function $\psi$ (the wavelet) whose dilations and translations $\psi_{j,k}(x)=2^{j/2}\psi(2^j x-k)$ form an orthonormal basis of all of $L^2(\mathbb{R})$.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">MRA tower</div><div class="hint">Slide $j$ to refine.</div></div>
+  <div class="row"><label>resolution $j$ <span id="mra-j">3</span></label>
+    <input id="mra-slider" type="range" min="0" max="6" value="3" step="1">
+  </div>
+  <svg id="mra-svg" viewBox="0 0 760 240" width="100%" height="240"></svg>
+  <div class="readout" id="mra-readout"></div>
+</div>
+
+<p>The picture above projects a smooth bump $f(x)=e^{-(x-0.5)^2/0.05}$ onto the Haar $V_j$: at $j=0$ the projection is one constant on $[0,1]$; each step $j\to j+1$ halves the cell width and the projection looks more like $f$. The detail subspace $W_j=V_{j+1}\ominus V_j$ is what got added. As $j\to\infty$ the projections converge in $L^2$ (and pointwise a.e. by Lebesgue differentiation) to $f$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier transform on $\mathbb{R}$</a></li>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#haar">Wavelets</a> · The Haar wavelet</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="w-multiresolution"></div>
 </section>
 
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     Connections outro — pedagogy reviewer's templated closure pattern.
-     Strong-corpus topics (measure-theory, functional-analysis, elliptic-
-     curves, commutative-algebra) all end with a short "where this leads"
-     section. Bottom-quartile topics tend to skip it; the scaffolder now
-     emits this stub so the no-closure habit doesn't recur on new topics.
-     Authoring agents: replace the bullet list with 3-5 real cross-topic
-     pointers and write 1-2 sentences naming open frontiers.
-═══════════════════════════════════════════════════════════════════ -->
+<section id="haar">
+<h2>2. The Haar wavelet</h2>
+
+<p>The simplest MRA: take $V_j$ to be all $L^2$ functions that are constant on each dyadic interval $[2^{-j}k,\,2^{-j}(k+1))$. The scaling function is $\phi=\chi_{[0,1)}$ — its integer translates tile the line, orthonormally in $L^2$. The associated wavelet is the difference of two halves,</p>
+
+<p>$$\psi(x) = \chi_{[0,1/2)}(x) - \chi_{[1/2,1)}(x).$$</p>
+
+<p>Then $\{\psi_{j,k}\}_{j,k\in\mathbb{Z}}$ with $\psi_{j,k}(x)=2^{j/2}\psi(2^j x-k)$ is an orthonormal basis of $L^2(\mathbb{R})$ — the <em>Haar basis</em>, discovered in 1909 a quarter-century before Fourier–Plancherel even had a name.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">Haar coefficient</div><div class="hint">Pick scale $j$ and translation $k$.</div></div>
+  <div class="row"><label>$j$ <span id="haar-j">2</span></label>
+    <input id="haar-jslider" type="range" min="0" max="4" value="2" step="1">
+  </div>
+  <div class="row"><label>$k$ <span id="haar-k">3</span></label>
+    <input id="haar-kslider" type="range" min="0" max="15" value="3" step="1">
+  </div>
+  <svg id="haar-svg" viewBox="0 0 760 240" width="100%" height="240"></svg>
+  <div class="readout" id="haar-readout"></div>
+</div>
+
+<p>Each Haar coefficient $\langle f,\psi_{j,k}\rangle$ is a (rescaled) <em>difference of two block averages</em>: average of $f$ on the left half of the dyadic cell minus the average on the right half. So the Haar coefficient sees local <em>change</em>, while a Fourier coefficient $\hat f(n)$ sees global <em>oscillation</em>. The price the Haar basis pays: only one vanishing moment ($\int\psi=0$, but $\int x\psi\ne 0$), so it barely sees linear trends.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#convergence">Monotone and dominated convergence</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#daubechies">Wavelets</a> · Daubechies wavelets</div>
+    <div><a href="./wavelets.html#vs-fourier">Wavelets</a> · Time-frequency localisation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="w-haar-wavelet"></div>
+</section>
+
+
+<section id="daubechies">
+<h2>3. Daubechies wavelets</h2>
+
+<p>The Haar wavelet is short but rough — a step function. To get a wavelet that is both compactly supported <em>and</em> smooth, Ingrid Daubechies (1988) ran the MRA construction backwards: start from a finite filter $h_n$, ask for the refinement equation $\phi(x)=\sqrt 2\sum_n h_n\,\phi(2x-n)$ to produce a valid scaling function, and impose enough algebraic conditions on $h_n$ to force orthonormality plus $N$ vanishing moments.</p>
+
+<p>The result is a family $\mathrm{db}N$ ($N=1,2,3,\ldots$) of compactly supported orthonormal wavelets with $\operatorname{supp}\psi=[0,2N-1]$ and $N$ vanishing moments. $\mathrm{db}1$ is Haar; $\mathrm{db}2$ is the first non-trivial member with the iconic asymmetric, fractal-looking graph below.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">Daubechies family</div><div class="hint">Trade-off: smoothness vs. support.</div></div>
+  <div class="row" id="db-buttons">
+    <button data-db="1" class="active">db1 (Haar)</button>
+    <button data-db="2">db2</button>
+    <button data-db="3">db3</button>
+    <button data-db="4">db4</button>
+  </div>
+  <svg id="db-svg" viewBox="0 0 760 240" width="100%" height="240"></svg>
+  <div class="readout" id="db-readout"></div>
+</div>
+
+<p>The QMF condition $|m_0(\xi)|^2+|m_0(\xi+\tfrac12)|^2=1$ on the filter symbol $m_0(\xi)=\tfrac{1}{\sqrt 2}\sum_n h_n e^{-2\pi i n\xi}$ is what guarantees the integer translates of $\phi$ stay orthonormal under refinement. Daubechies's brilliant move: spectral-factor the polynomial $P(y)=\sum_{k=0}^{N-1}\binom{N-1+k}{k}y^k$ to extract a minimum-phase filter $h_n$ realising $N$ vanishing moments with the shortest possible support.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier transform on $\mathbb{R}$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#dwt">Wavelets</a> · Discrete wavelet transform</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="w-daubechies"></div>
+</section>
+
+
+<section id="dwt">
+<h2>4. Discrete wavelet transform</h2>
+
+<p>Mallat's pyramid algorithm computes wavelet coefficients faster than the FFT computes Fourier coefficients. The trick: nesting $V_j\subset V_{j+1}$ means the level-$j$ scaling coefficients $a_j$ are obtained from the level-$(j{+}1)$ scaling coefficients $a_{j+1}$ by convolution with a fixed low-pass filter $h$ then downsampling by $2$. Symmetrically, the level-$j$ wavelet (detail) coefficients $d_j$ come from convolving with the high-pass mirror filter $g$ and downsampling.</p>
+
+<p>$$a_j[k] = \sum_n h[n-2k]\,a_{j+1}[n], \qquad d_j[k] = \sum_n g[n-2k]\,a_{j+1}[n].$$</p>
+
+<p>Iterate on the low-pass branch only. After $\log_2 n$ levels you've replaced the original length-$n$ signal with one scalar (the global average) plus $n-1$ detail coefficients organised by scale. Total cost: $L\cdot n + L\cdot n/2 + L\cdot n/4 + \cdots = 2Ln = O(n)$ for an $L$-tap filter — strictly faster than the FFT's $O(n\log n)$.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">DWT pyramid (Haar)</div><div class="hint">Click "step" to recurse one level.</div></div>
+  <div class="row">
+    <button id="dwt-step">step ▶</button>
+    <button id="dwt-reset">reset</button>
+    <span class="pill" id="dwt-level">level 0 of 4</span>
+  </div>
+  <svg id="dwt-svg" viewBox="0 0 760 280" width="100%" height="280"></svg>
+  <div class="readout" id="dwt-readout"></div>
+</div>
+
+<p>Inverse DWT mirrors analysis: upsample $a_j,d_j$ by inserting zeros, convolve with the dual reconstruction filters, and sum. For an orthonormal wavelet the reconstruction filters are the time-reversals of the analysis filters, so the inverse pyramid is also $O(n)$. Software libraries (PyWavelets, MATLAB Wavelet Toolbox) implement this in a hundred lines of straight loops.</p>
+
+<div class="quiz" data-concept="w-discrete-transform"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#applications">Wavelets</a> · Applications</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+
+<section id="vs-fourier">
+<h2>5. Time–frequency localisation</h2>
+
+<p>The Fourier transform $\hat f(\xi)$ tells you what frequencies are present in $f$ — but every frequency coefficient depends on the entire signal, so a transient at $x_0$ is invisible to $|\hat f(\xi)|$ alone. The windowed Fourier (Gabor) transform fixes this by using a window of fixed width $\sigma$, but then high-frequency events get over-resolved in space and low-frequency events under-resolved.</p>
+
+<p>Wavelets adapt: the atom $\psi_{j,k}$ has spatial width $\sim 2^{-j}$ and frequency width $\sim 2^j$, saturating the Heisenberg inequality $\Delta x\,\Delta\xi\gtrsim 1$. Cells are tall-and-thin at high frequency, short-and-wide at low frequency — exactly the trade-off needed to track jumps and oscillations in the same basis.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">Heisenberg tiling</div><div class="hint">Toggle Gabor vs. wavelet.</div></div>
+  <div class="row" id="tile-mode">
+    <button data-mode="wavelet" class="active">Wavelet (dyadic)</button>
+    <button data-mode="gabor">Gabor (uniform)</button>
+  </div>
+  <svg id="tile-svg" viewBox="0 0 760 320" width="100%" height="320"></svg>
+  <div class="readout" id="tile-readout"></div>
+</div>
+
+<p>The vanishing-moment payoff is quantitative. If $f\in C^N$ in a neighbourhood of $2^{-j}k$ and $\psi$ has $N$ vanishing moments, Taylor expansion plus integration kills the first $N$ terms and leaves $|\langle f,\psi_{j,k}\rangle|=O(2^{-j(N+1/2)})$. So smooth signals concentrate their wavelet energy in a small number of large coefficients near singularities — this is the engine behind every wavelet-based compression and denoising scheme.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier transform on $\mathbb{R}$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#applications">Wavelets</a> · Applications</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="w-wavelet-vs-fourier"></div>
+</section>
+
+
+<section id="applications">
+<h2>6. Applications</h2>
+
+<p>Wavelets are not just a theoretical curiosity. Three vignettes:</p>
+
+<h3>Image compression (JPEG2000)</h3>
+
+<p>Legacy JPEG quantises the DCT of each $8\times 8$ tile independently — at low bitrates, you see block boundaries because each tile rounds independently. JPEG2000 replaces the blocked DCT with a global Cohen–Daubechies–Feauveau (CDF) 9/7 biorthogonal DWT applied to the whole image, then quantises and entropy-codes the wavelet coefficients. Aggressive compression looks like overall smoothing, not mosaic artefacts.</p>
+
+<h3>Signal denoising (Donoho–Johnstone soft-thresholding)</h3>
+
+<p>Take a noisy signal $y=f+\varepsilon$, $\varepsilon\sim\mathcal{N}(0,\sigma^2 I)$. Apply DWT, soft-threshold each coefficient via $\hat c=\operatorname{sgn}(c)(|c|-\lambda)_+$ with $\lambda=\sigma\sqrt{2\log n}$, invert. Why it works: the wavelet transform of white Gaussian noise is again white Gaussian (orthonormal change of basis), spread thinly over all coefficients; smooth $f$ concentrates its energy in a few large coefficients. Thresholding kills the noise floor and keeps the spikes — Donoho–Johnstone proved this estimator is asymptotically minimax over Besov balls.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">Soft-threshold denoiser</div><div class="hint">Slide threshold; watch the reconstruction sharpen, then over-smooth.</div></div>
+  <div class="row"><label>noise $\sigma$ <span id="den-s">0.30</span></label>
+    <input id="den-sigma" type="range" min="0" max="60" value="30" step="1">
+  </div>
+  <div class="row"><label>threshold $\lambda$ <span id="den-l">0.30</span></label>
+    <input id="den-lambda" type="range" min="0" max="100" value="30" step="1">
+  </div>
+  <svg id="den-svg" viewBox="0 0 760 280" width="100%" height="280"></svg>
+  <div class="readout" id="den-readout"></div>
+</div>
+
+<h3>Calderón–Zygmund operators</h3>
+
+<p>If $T$ is a Calderón–Zygmund operator (the Hilbert transform, the Riesz transforms, $-\Delta^{-1}$, and other singular-integral cousins) and $\psi$ has $N$ vanishing moments, Beylkin–Coifman–Rokhlin showed the matrix entries $\langle T\psi_{j,k},\psi_{j',k'}\rangle$ decay as $2^{-(N+1)|j-j'|}(1+|2^j k-2^{j'}k'|)^{-N-1}$. The matrix of $T$ in a wavelet basis is therefore <em>sparse</em>: only $O(n)$ entries are non-negligible. Applying $T$ to a signal in the wavelet basis costs $O(n)$ instead of $O(n^2)$ — the engine behind fast multipole and adaptive PDE solvers.</p>
+
+<div class="quiz" data-concept="w-applications"></div>
+</section>
+
+
 <section id="connections">
 <h2>Connections</h2>
 
-<p><!-- TODO: 1-2 sentences naming the open frontier this topic opens onto.
-What is being researched? What's still hard? What surprises a beginner who
-expects the area to be settled? --></p>
+<p>Wavelets sit at the junction of harmonic analysis, signal processing, and PDE numerics. The frontier is partly geometric — wavelets on graphs, manifolds, and groups (continuous wavelet transforms attached to Lie group representations) — and partly statistical: optimal-rate adaptive estimation in Besov spaces, sparse recovery via $\ell^1$ relaxations, and the deeper connection between vanishing moments and approximation theory.</p>
 
 <ul>
-<!-- TODO: 3-5 sibling topics this one feeds into / reaches back from.
-Format: <li><a href="./<other-topic>.html#<anchor>">Other topic — concept</a> — one-clause why this concept matters there.</li>
--->
+  <li><a href="./harmonic-analysis-fourier.html#fourier-transform">Harmonic analysis &amp; Fourier — Fourier transform</a> — wavelets refine the Fourier picture by adding spatial localisation; the QMF condition lives on the Fourier side.</li>
+  <li><a href="./harmonic-analysis-fourier.html#uncertainty">Harmonic analysis &amp; Fourier — Heisenberg uncertainty</a> — every wavelet atom saturates the lower bound; Gabor and wavelet are two ways to tile $(\Delta x)\times(\Delta\xi)$ space.</li>
+  <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces — $W^{k,p}$ and $H^s$</a> — wavelet coefficient decay characterises Besov and Sobolev regularity by sequence-space norms.</li>
+  <li><a href="./functional-analysis.html#hilbert-bases">Functional analysis — orthonormal bases</a> — the wavelet expansion theorem is a Hilbert basis statement.</li>
+  <li><a href="./partial-differential-equations.html">PDE</a> — adaptive wavelet methods solve elliptic problems with optimal $N\log N$ complexity by exploiting CZ-operator sparsity.</li>
 </ul>
+
 </section>
 
 </main>
@@ -302,7 +498,7 @@ Format: <li><a href="./<other-topic>.html#<anchor>">Other topic — concept</a> 
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);
@@ -331,6 +527,569 @@ Format: <li><a href="./<other-topic>.html#<anchor>">Other topic — concept</a> 
   else build();
 })();
 </script>
+
+<script>
+/* ---- Widget 1: MRA tower ---- */
+(function(){
+  const svg = document.getElementById("mra-svg");
+  const slider = document.getElementById("mra-slider");
+  const jLabel = document.getElementById("mra-j");
+  const readout = document.getElementById("mra-readout");
+  if(!svg || !slider) return;
+  const W = 760, H = 240;
+  const padL = 50, padR = 20, padT = 20, padB = 30;
+  const xmin = 0, xmax = 1;
+  function f(x){ return Math.exp(-Math.pow((x-0.5),2)/0.05); }
+  function projectHaar(j){
+    const N = 1 << j;
+    const out = [];
+    for(let k=0; k<N; k++){
+      const a = k/N, b = (k+1)/N;
+      const M = 64;
+      let sum = 0;
+      for(let i=0; i<M; i++){
+        const x = a + (i+0.5)*(b-a)/M;
+        sum += f(x);
+      }
+      out.push(sum/M);
+    }
+    return out;
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const j = +slider.value;
+    jLabel.textContent = j;
+    const xs = (x)=> padL + (x-xmin)/(xmax-xmin) * (W-padL-padR);
+    const ys = (y)=> padT + (1 - y) * (H-padT-padB);
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
+    // smooth f(x)
+    let d = "";
+    for(let i=0;i<=200;i++){
+      const x = xmin + i/200*(xmax-xmin);
+      const y = f(x);
+      d += (i===0?"M":"L")+xs(x)+" "+ys(y)+" ";
+    }
+    svg.appendChild(SVG("path",{d,fill:"none",stroke:"var(--mute)","stroke-width":1.4,"stroke-dasharray":"4 4"}));
+    // projection: piecewise constant
+    const proj = projectHaar(j);
+    const N = proj.length;
+    for(let k=0;k<N;k++){
+      const x0 = k/N, x1 = (k+1)/N, val = proj[k];
+      svg.appendChild(SVG("rect",{
+        x: xs(x0), y: ys(val),
+        width: xs(x1)-xs(x0), height: ys(0)-ys(val),
+        fill:"var(--blue)", "fill-opacity":"0.18",
+        stroke:"var(--blue)","stroke-width":1.5
+      }));
+    }
+    // labels
+    const t = SVG("text",{x:padL+8,y:padT+14,"font-size":12,fill:"var(--mute)"});
+    t.textContent = "f (dashed) and its projection onto V_"+j+" (blue)";
+    svg.appendChild(t);
+    const t2 = SVG("text",{x:W-padR-8,y:H-padB+18,"font-size":11,fill:"var(--mute)","text-anchor":"end"});
+    t2.textContent = "x";
+    svg.appendChild(t2);
+    // readout: l2 error
+    let err = 0;
+    const M = 400;
+    for(let i=0;i<M;i++){
+      const x = (i+0.5)/M;
+      const k = Math.min(N-1, Math.floor(x*N));
+      const dy = f(x)-proj[k];
+      err += dy*dy;
+    }
+    err = Math.sqrt(err/M);
+    readout.textContent = "V_"+j+" has 2^"+j+" = "+N+" cells of width 2^-"+j+" = "+(1/N).toFixed(4)+
+      "  •  ‖f − P_j f‖₂ ≈ "+err.toFixed(4);
+  }
+  slider.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* ---- Widget 2: Haar coefficient ---- */
+(function(){
+  const svg = document.getElementById("haar-svg");
+  const jSlide = document.getElementById("haar-jslider");
+  const kSlide = document.getElementById("haar-kslider");
+  const jLabel = document.getElementById("haar-j");
+  const kLabel = document.getElementById("haar-k");
+  const readout = document.getElementById("haar-readout");
+  if(!svg) return;
+  const W = 760, H = 240;
+  const padL = 50, padR = 20, padT = 20, padB = 30;
+  function f(x){
+    if(x<0 || x>1) return 0;
+    return 0.6 + 0.35*Math.sin(4*Math.PI*x) + (x>0.7 ? 0.4 : 0);
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const j = +jSlide.value, kMax = (1<<j) - 1;
+    kSlide.max = kMax;
+    if(+kSlide.value > kMax) kSlide.value = kMax;
+    const k = +kSlide.value;
+    jLabel.textContent = j;
+    kLabel.textContent = k;
+    const xs = (x)=> padL + x * (W-padL-padR);
+    const ys = (y)=> padT + (1.4 - y)/2.6 * (H-padT-padB);
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:ys(0),x2:W-padR,y2:ys(0),stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
+    // f(x)
+    let d = "";
+    for(let i=0;i<=300;i++){
+      const x = i/300;
+      const y = f(x);
+      d += (i===0?"M":"L")+xs(x)+" "+ys(y)+" ";
+    }
+    svg.appendChild(SVG("path",{d,fill:"none",stroke:"var(--mute)","stroke-width":1.4}));
+    // ψ_{j,k}: support [k/2^j, (k+1)/2^j], amplitude ±2^{j/2}
+    const a = k/(1<<j), b = (k+1)/(1<<j);
+    const mid = (a+b)/2;
+    const amp = Math.pow(2, j/2);
+    // left half +amp
+    svg.appendChild(SVG("rect",{
+      x:xs(a), y:ys(amp), width:xs(mid)-xs(a), height:ys(0)-ys(amp),
+      fill:"var(--yellow)","fill-opacity":"0.25",stroke:"var(--yellow)","stroke-width":1.5
+    }));
+    // right half -amp
+    svg.appendChild(SVG("rect",{
+      x:xs(mid), y:ys(0), width:xs(b)-xs(mid), height:ys(0)-ys(-amp),
+      fill:"var(--pink)","fill-opacity":"0.25",stroke:"var(--pink)","stroke-width":1.5
+    }));
+    // compute coefficient
+    const M = 400;
+    let coef = 0;
+    for(let i=0;i<M;i++){
+      const x = a + (i+0.5)*(b-a)/M;
+      const y = f(x);
+      const psi = (x<mid? amp : -amp);
+      coef += y*psi;
+    }
+    coef *= (b-a)/M;
+    // labels
+    const t = SVG("text",{x:padL+8,y:padT+14,"font-size":12,fill:"var(--mute)"});
+    t.textContent = "f(x) (gray) and ψ_{"+j+","+k+"} (yellow / pink)";
+    svg.appendChild(t);
+    readout.textContent = "support [" + a.toFixed(4) + ", " + b.toFixed(4) + "]   amplitude ±2^(j/2) = ±" +
+      amp.toFixed(3) + "    ⟨f, ψ_{"+j+","+k+"}⟩ ≈ " + coef.toFixed(4);
+  }
+  jSlide.addEventListener("input", draw);
+  kSlide.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* ---- Widget 3: Daubechies family (cascade approximation) ---- */
+(function(){
+  const svg = document.getElementById("db-svg");
+  const buttons = document.querySelectorAll("#db-buttons button");
+  const readout = document.getElementById("db-readout");
+  if(!svg) return;
+  const W = 760, H = 240;
+  const padL = 50, padR = 20, padT = 20, padB = 30;
+  // Daubechies low-pass filters (sqrt(2)-normalized so sum = sqrt(2))
+  const filters = {
+    1: [0.7071067811865475, 0.7071067811865475],
+    2: [0.4829629131445341, 0.8365163037378079, 0.2241438680420134, -0.1294095225512604],
+    3: [0.3326705529500825, 0.8068915093110924, 0.4598775021184914,
+       -0.1350110200102546, -0.0854412738820267, 0.0352262918857095],
+    4: [0.2303778133088964, 0.7148465705529154, 0.6308807679298587,
+       -0.0279837694168599, -0.1870348117190931, 0.0308413818355607,
+        0.0328830116668852, -0.0105974017850690]
+  };
+  function cascade(h, levels){
+    // Generate phi by iterated cascade: phi_0 = box; phi_{k+1}(x) = sqrt(2) sum_n h[n] phi_k(2x - n)
+    // Implemented on a fine grid using upsample-and-convolve.
+    const L = h.length;
+    let phi = [1];
+    let dt = 1; // current sample spacing
+    for(let it=0; it<levels; it++){
+      // upsample phi by 2 (insert zeros between samples)
+      const up = [];
+      for(let i=0;i<phi.length;i++){ up.push(phi[i]); up.push(0); }
+      // convolve with h and scale by sqrt(2)
+      const out = new Array(up.length + L - 1).fill(0);
+      for(let i=0;i<up.length;i++){
+        for(let j=0;j<L;j++){
+          out[i+j] += up[i]*h[j]*Math.SQRT2;
+        }
+      }
+      phi = out;
+      dt = dt/2;
+    }
+    return {phi, dt, support: (L-1)};
+  }
+  function psiFromPhi(h, phi){
+    // psi(x) = sqrt(2) sum_n g[n] phi(2x - n), g[n] = (-1)^n h[L-1-n]
+    const L = h.length;
+    const g = h.map((_,n)=> ((n%2===0)?1:-1)*h[L-1-n]);
+    // upsample phi by 2
+    const up = [];
+    for(let i=0;i<phi.length;i++){ up.push(phi[i]); up.push(0); }
+    const out = new Array(up.length + L - 1).fill(0);
+    for(let i=0;i<up.length;i++){
+      for(let j=0;j<L;j++){
+        out[i+j] += up[i]*g[j]*Math.SQRT2;
+      }
+    }
+    return out;
+  }
+  function draw(N){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const h = filters[N];
+    const levels = (N<=2)? 8 : (N===3? 7 : 6);
+    const {phi, dt, support} = cascade(h, levels);
+    const psi = psiFromPhi(h, phi);
+    // Determine plot extent: x from 0 to support
+    const xmax = support;
+    let yMin = Infinity, yMax = -Infinity;
+    for(const v of phi){ if(v<yMin)yMin=v; if(v>yMax)yMax=v; }
+    for(const v of psi){ if(v<yMin)yMin=v; if(v>yMax)yMax=v; }
+    yMin -= 0.1; yMax += 0.1;
+    const xs = (x)=> padL + x/xmax*(W-padL-padR);
+    const ys = (y)=> padT + (yMax - y)/(yMax-yMin)*(H-padT-padB);
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:ys(0),x2:W-padR,y2:ys(0),stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
+    // phi
+    let dPhi = "";
+    for(let i=0;i<phi.length;i++){
+      const x = i*dt;
+      if(x>xmax) break;
+      dPhi += (i===0?"M":"L")+xs(x)+" "+ys(phi[i])+" ";
+    }
+    svg.appendChild(SVG("path",{d:dPhi,fill:"none",stroke:"var(--cyan)","stroke-width":1.6}));
+    // psi
+    let dPsi = "";
+    for(let i=0;i<psi.length;i++){
+      const x = i*dt;
+      if(x>xmax) break;
+      dPsi += (i===0?"M":"L")+xs(x)+" "+ys(psi[i])+" ";
+    }
+    svg.appendChild(SVG("path",{d:dPsi,fill:"none",stroke:"var(--yellow)","stroke-width":1.6}));
+    // legend
+    const lg = SVG("text",{x:padL+8,y:padT+14,"font-size":12,fill:"var(--cyan)"});
+    lg.textContent = "scaling φ"; svg.appendChild(lg);
+    const lg2 = SVG("text",{x:padL+90,y:padT+14,"font-size":12,fill:"var(--yellow)"});
+    lg2.textContent = "wavelet ψ"; svg.appendChild(lg2);
+    // x label
+    const xl = SVG("text",{x:W-padR,y:H-padB+18,"font-size":11,fill:"var(--mute)","text-anchor":"end"});
+    xl.textContent = "x ∈ [0, "+support+"]"; svg.appendChild(xl);
+    // readout
+    readout.textContent = "db"+N+":  filter taps = "+(2*N)+"   support [0, "+(2*N-1)+"]   vanishing moments = "+N+
+      "   smoothness ≈ "+(N===1? "0 (step)": (N===2? "0.55": (N===3? "1.09": "1.62")));
+  }
+  buttons.forEach(b=>{
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      draw(+b.dataset.db);
+    });
+  });
+  draw(1);
+})();
+</script>
+
+<script>
+/* ---- Widget 4: DWT pyramid ---- */
+(function(){
+  const svg = document.getElementById("dwt-svg");
+  const stepBtn = document.getElementById("dwt-step");
+  const resetBtn = document.getElementById("dwt-reset");
+  const levelLabel = document.getElementById("dwt-level");
+  const readout = document.getElementById("dwt-readout");
+  if(!svg) return;
+  const W = 760, H = 280;
+  const initial = [4, 6, 10, 12, 8, 6, 5, 5, 3, 2, 6, 8, 10, 9, 4, 1];
+  const maxLevels = Math.log2(initial.length);
+  let approx = initial.slice();
+  let history = [{level:0, a: initial.slice(), d: []}];
+  function haarStep(a){
+    const n = a.length;
+    const out_a = new Array(n/2);
+    const out_d = new Array(n/2);
+    for(let k=0;k<n/2;k++){
+      out_a[k] = (a[2*k] + a[2*k+1])/Math.SQRT2;
+      out_d[k] = (a[2*k] - a[2*k+1])/Math.SQRT2;
+    }
+    return {a: out_a, d: out_d};
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const padL = 30, padR = 30, padT = 30, padB = 20;
+    const rowH = 40;
+    let allMax = 0;
+    history.forEach(row=>{
+      row.a.forEach(v=>{ if(Math.abs(v)>allMax) allMax = Math.abs(v); });
+      row.d.forEach(v=>{ if(Math.abs(v)>allMax) allMax = Math.abs(v); });
+    });
+    if(allMax === 0) allMax = 1;
+    history.forEach((row, idx)=>{
+      const y = padT + idx*rowH;
+      // approx coefficients
+      const aN = row.a.length;
+      const cellW = (W - padL - padR) / initial.length;
+      const aWidth = cellW * (1<<idx);
+      for(let i=0;i<aN;i++){
+        const x = padL + i*aWidth;
+        const v = row.a[i];
+        const intensity = Math.min(1, Math.abs(v)/allMax);
+        svg.appendChild(SVG("rect",{
+          x, y, width: aWidth, height: rowH-6,
+          fill: "var(--cyan)", "fill-opacity": (0.15 + 0.5*intensity).toFixed(3),
+          stroke: "var(--cyan)", "stroke-width": 1
+        }));
+        const t = SVG("text",{x: x + aWidth/2, y: y + rowH/2 + 1,
+          "text-anchor":"middle","font-size":11, fill:"var(--ink)"});
+        t.textContent = v.toFixed(2);
+        svg.appendChild(t);
+      }
+      // detail coefficients (right side, same width as approx)
+      if(row.d.length){
+        const dN = row.d.length;
+        const dWidth = aWidth;
+        for(let i=0;i<dN;i++){
+          const x = padL + (aN)*aWidth + i*dWidth;
+          const v = row.d[i];
+          const intensity = Math.min(1, Math.abs(v)/allMax);
+          svg.appendChild(SVG("rect",{
+            x, y, width: dWidth, height: rowH-6,
+            fill: "var(--yellow)", "fill-opacity": (0.15 + 0.5*intensity).toFixed(3),
+            stroke: "var(--yellow)", "stroke-width": 1
+          }));
+          const t = SVG("text",{x: x + dWidth/2, y: y + rowH/2 + 1,
+            "text-anchor":"middle","font-size":11, fill:"var(--ink)"});
+          t.textContent = v.toFixed(2);
+          svg.appendChild(t);
+        }
+      }
+      // row label
+      const lbl = SVG("text",{x: 4, y: y + rowH/2 + 1, "font-size": 11, fill: "var(--mute)"});
+      lbl.textContent = "L"+idx;
+      svg.appendChild(lbl);
+    });
+    // header
+    const h1 = SVG("text",{x: padL+5, y: padT-8, "font-size":11, fill:"var(--cyan)"});
+    h1.textContent = "approx (low-pass)"; svg.appendChild(h1);
+    const h2 = SVG("text",{x: W-padR-100, y: padT-8, "font-size":11, fill:"var(--yellow)"});
+    h2.textContent = "detail (high-pass)"; svg.appendChild(h2);
+  }
+  function step(){
+    const last = history[history.length-1];
+    if(last.a.length <= 1) return;
+    const {a, d} = haarStep(last.a);
+    history.push({level: last.level+1, a, d});
+    levelLabel.textContent = "level "+(history.length-1)+" of "+maxLevels;
+    draw();
+    const energy = (last.a.reduce((s,v)=>s+v*v,0)).toFixed(2);
+    const newEnergy = (a.reduce((s,v)=>s+v*v,0) + d.reduce((s,v)=>s+v*v,0)).toFixed(2);
+    readout.textContent = "After step "+history.length+":  ‖a‖² + ‖d‖² = "+newEnergy+"  (was ‖prev‖² = "+energy+", energy preserved)";
+  }
+  function reset(){
+    history = [{level:0, a: initial.slice(), d: []}];
+    levelLabel.textContent = "level 0 of "+maxLevels;
+    readout.textContent = "Initial signal length "+initial.length+".  Click step to apply Haar low/high-pass + downsample by 2.";
+    draw();
+  }
+  stepBtn.addEventListener("click", step);
+  resetBtn.addEventListener("click", reset);
+  reset();
+})();
+</script>
+
+<script>
+/* ---- Widget 5: Heisenberg tiling ---- */
+(function(){
+  const svg = document.getElementById("tile-svg");
+  const buttons = document.querySelectorAll("#tile-mode button");
+  const readout = document.getElementById("tile-readout");
+  if(!svg) return;
+  const W = 760, H = 320;
+  const padL = 60, padR = 20, padT = 20, padB = 40;
+  function draw(mode){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const xMin = 0, xMax = 1;
+    const fMin = 0, fMax = 64;
+    const xs = (x)=> padL + (x-xMin)/(xMax-xMin)*(W-padL-padR);
+    const ys = (f)=> padT + (1 - (f-fMin)/(fMax-fMin))*(H-padT-padB);
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
+    const xlbl = SVG("text",{x: (W-padR+padL)/2, y: H-padB+30, "font-size":12, "text-anchor":"middle", fill:"var(--mute)"});
+    xlbl.textContent = "time x"; svg.appendChild(xlbl);
+    const ylbl = SVG("text",{x: 12, y: (H-padB+padT)/2, "font-size":12, "text-anchor":"middle", fill:"var(--mute)",
+      transform:"rotate(-90 12 "+((H-padB+padT)/2)+")"});
+    ylbl.textContent = "frequency ξ"; svg.appendChild(ylbl);
+    if(mode === "wavelet"){
+      // Dyadic tiles: at scale j there are 2^j tiles each of x-width 2^-j and frequency band [2^j, 2^{j+1}]
+      const colors = ["var(--blue)","var(--cyan)","var(--green)","var(--yellow)","var(--pink)","var(--violet)"];
+      for(let j=0; j<6; j++){
+        const fLo = (1<<j) - 1;
+        const fHi = (1<<(j+1)) - 1;
+        const N = 1 << j;
+        for(let k=0;k<N;k++){
+          const x0 = k/N, x1 = (k+1)/N;
+          svg.appendChild(SVG("rect",{
+            x: xs(x0), y: ys(fHi),
+            width: xs(x1)-xs(x0), height: ys(fLo)-ys(fHi),
+            fill: colors[j], "fill-opacity":"0.18",
+            stroke: colors[j], "stroke-width":1
+          }));
+        }
+      }
+      readout.textContent = "Wavelet tiling: at scale j, 2^j atoms of width 2^-j and bandwidth ~2^j. Tall-thin at high frequency, wide-short at low frequency.";
+    } else {
+      // Gabor: uniform grid, e.g. 8 time x 8 freq cells
+      const NX = 8, NF = 8;
+      const dxC = (xMax-xMin)/NX, dfC = (fMax-fMin)/NF;
+      for(let i=0;i<NX;i++){
+        for(let k=0;k<NF;k++){
+          const x0 = xMin + i*dxC, x1 = x0+dxC;
+          const f0 = fMin + k*dfC, f1 = f0+dfC;
+          svg.appendChild(SVG("rect",{
+            x: xs(x0), y: ys(f1),
+            width: xs(x1)-xs(x0), height: ys(f0)-ys(f1),
+            fill: "var(--blue)", "fill-opacity":"0.15",
+            stroke: "var(--blue)", "stroke-width":1
+          }));
+        }
+      }
+      readout.textContent = "Gabor (windowed Fourier) tiling: uniform cells of fixed window width σ. Same shape at every frequency — over-resolves slow events, under-resolves fast ones.";
+    }
+  }
+  buttons.forEach(b=>{
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      draw(b.dataset.mode);
+    });
+  });
+  draw("wavelet");
+})();
+</script>
+
+<script>
+/* ---- Widget 6: Soft-threshold denoiser ---- */
+(function(){
+  const svg = document.getElementById("den-svg");
+  const sigSlide = document.getElementById("den-sigma");
+  const lamSlide = document.getElementById("den-lambda");
+  const sLabel = document.getElementById("den-s");
+  const lLabel = document.getElementById("den-l");
+  const readout = document.getElementById("den-readout");
+  if(!svg) return;
+  const W = 760, H = 280;
+  const padL = 50, padR = 20, padT = 20, padB = 30;
+  const N = 256;
+  // Truth signal: piecewise smooth + jump
+  const truth = [];
+  for(let i=0;i<N;i++){
+    const x = i/N;
+    let v = Math.sin(3*Math.PI*x) * 0.6;
+    if(x>0.55) v += 0.7;
+    truth.push(v);
+  }
+  // Pseudo-random Gaussian via Box-Muller, deterministic seed
+  const noise = [];
+  let s = 12345;
+  function rand(){ s = (s*1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }
+  for(let i=0;i<N;i+=2){
+    const u1 = Math.max(rand(), 1e-9), u2 = rand();
+    const r = Math.sqrt(-2*Math.log(u1)), th = 2*Math.PI*u2;
+    noise.push(r*Math.cos(th));
+    noise.push(r*Math.sin(th));
+  }
+  function fullHaarDWT(a){
+    const coefs = []; // levels of detail
+    let cur = a.slice();
+    while(cur.length > 1){
+      const n = cur.length;
+      const A = new Array(n/2), D = new Array(n/2);
+      for(let k=0;k<n/2;k++){
+        A[k] = (cur[2*k]+cur[2*k+1])/Math.SQRT2;
+        D[k] = (cur[2*k]-cur[2*k+1])/Math.SQRT2;
+      }
+      coefs.unshift(D); // store details from coarse to fine
+      cur = A;
+    }
+    return {a: cur, details: coefs};
+  }
+  function inverseHaarDWT(a, details){
+    let cur = a.slice();
+    for(const D of details){
+      const n = cur.length;
+      const out = new Array(2*n);
+      for(let k=0;k<n;k++){
+        out[2*k] = (cur[k]+D[k])/Math.SQRT2;
+        out[2*k+1] = (cur[k]-D[k])/Math.SQRT2;
+      }
+      cur = out;
+    }
+    return cur;
+  }
+  function softThreshold(c, lam){
+    if(c > lam) return c - lam;
+    if(c < -lam) return c + lam;
+    return 0;
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const sigma = (+sigSlide.value)/100;
+    const lam = (+lamSlide.value)/100;
+    sLabel.textContent = sigma.toFixed(2);
+    lLabel.textContent = lam.toFixed(2);
+    // Build noisy signal
+    const noisy = truth.map((v,i)=> v + sigma*noise[i]);
+    // DWT
+    const {a, details} = fullHaarDWT(noisy);
+    // Threshold all detail levels
+    const dThresh = details.map(D => D.map(c => softThreshold(c, lam)));
+    const recon = inverseHaarDWT(a, dThresh);
+    // RMS error
+    let mseN = 0, mseR = 0;
+    for(let i=0;i<N;i++){
+      mseN += (noisy[i]-truth[i])**2;
+      mseR += (recon[i]-truth[i])**2;
+    }
+    mseN = Math.sqrt(mseN/N); mseR = Math.sqrt(mseR/N);
+    // Plot
+    const xs = (i)=> padL + i/(N-1)*(W-padL-padR);
+    const ys = (y)=> padT + (1.5 - y)/3 * (H-padT-padB);
+    // axis at zero
+    svg.appendChild(SVG("line",{x1:padL,y1:ys(0),x2:W-padR,y2:ys(0),stroke:"var(--line)"}));
+    function plot(arr, color, width, opacity){
+      let d = "";
+      for(let i=0;i<N;i++){
+        d += (i===0?"M":"L")+xs(i)+" "+ys(arr[i])+" ";
+      }
+      svg.appendChild(SVG("path",{d, fill:"none", stroke:color, "stroke-width":width, "stroke-opacity":opacity}));
+    }
+    plot(noisy, "var(--mute)", 1, "0.6");
+    plot(truth, "var(--blue)", 1.6, "1");
+    plot(recon, "var(--yellow)", 1.6, "1");
+    // Legend
+    const lg = SVG("text",{x:padL+8,y:padT+14,"font-size":12,fill:"var(--mute)"});
+    lg.textContent = "noisy"; svg.appendChild(lg);
+    const lg2 = SVG("text",{x:padL+70,y:padT+14,"font-size":12,fill:"var(--blue)"});
+    lg2.textContent = "truth"; svg.appendChild(lg2);
+    const lg3 = SVG("text",{x:padL+130,y:padT+14,"font-size":12,fill:"var(--yellow)"});
+    lg3.textContent = "denoised"; svg.appendChild(lg3);
+    const universal = sigma * Math.sqrt(2*Math.log(N));
+    readout.textContent = "RMS noisy = "+mseN.toFixed(3)+"   RMS denoised = "+mseR.toFixed(3)+
+      "   universal threshold σ√(2 log N) = "+universal.toFixed(3)+
+      ((Math.abs(lam-universal)<0.04)? "  ← near optimum" : "");
+  }
+  sigSlide.addEventListener("input", draw);
+  lamSlide.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
 <script>
 (function(){
   function start(){ if(window.MVQuiz) MVQuiz.init('wavelets'); }

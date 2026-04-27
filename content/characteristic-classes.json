@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern\">Characteristic classes</a> · Chern classes</div>\n    <div><a href=\"./characteristic-classes.html#euler\">Characteristic classes</a> · Euler class</div>\n    <div><a href=\"./characteristic-classes.html#stiefel-whitney\">Characteristic classes</a> · Stiefel–Whitney classes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern\">Characteristic classes</a> · Chern classes</div>\n    <div><a href=\"./characteristic-classes.html#euler\">Characteristic classes</a> · Euler class</div>\n    <div><a href=\"./characteristic-classes.html#stiefel-whitney\">Characteristic classes</a> · Stiefel–Whitney classes</div>\n    <div><a href=\"./k-theory.html#vector-bundles\">K-theory</a> · Topological $K^0(X)$ from vector bundles</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -94,7 +94,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./characteristic-classes.html#pontryagin\">Characteristic classes</a> · Pontryagin classes</div>\n    <div><a href=\"./intersection-theory-chow.html#chern-classes\">Intersection theory and Chow groups</a> · Chern classes</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./characteristic-classes.html#pontryagin\">Characteristic classes</a> · Pontryagin classes</div>\n    <div><a href=\"./intersection-theory-chow.html#chern-classes\">Intersection theory and Chow groups</a> · Chern classes</div>\n    <div><a href=\"./k-theory.html#chern-character\">K-theory</a> · Chern character</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

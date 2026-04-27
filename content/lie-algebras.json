@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n    <div><a href=\"./quaternions-octonions-and-division-algebras.html#rotations\">Quaternions, octonions, and division algebras</a> · Unit quaternions and $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

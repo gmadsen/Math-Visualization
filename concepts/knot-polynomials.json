@@ -4,11 +4,87 @@
   "page": "knot-polynomials.html",
   "concepts": [
     {
-      "id": "knot-polynomials-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "kp-knots-and-links",
+      "title": "Knots and links",
+      "anchor": "knots",
+      "prereqs": [
+        "fundamental-group"
+      ],
+      "blurb": "An embedding $S^1 \\hookrightarrow S^3$ up to ambient isotopy; a link is the same with finitely many disjoint circles. Orientations distinguish a knot from its mirror and reverse, and the unknot is the equivalence class containing the round circle.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "kp-reidemeister-moves",
+      "title": "Reidemeister moves",
+      "anchor": "reidemeister",
+      "prereqs": [
+        "kp-knots-and-links"
+      ],
+      "blurb": "Two planar diagrams represent ambient-isotopic knots iff they are connected by a finite sequence of three local moves R1 (twist/untwist), R2 (poke), R3 (slide). Reidemeister's theorem turns 3D isotopy into a combinatorial rewrite system on diagrams.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "kp-alexander-polynomial",
+      "title": "Alexander polynomial",
+      "anchor": "alexander",
+      "prereqs": [
+        "kp-reidemeister-moves",
+        "singular-homology",
+        "algebraic-structures"
+      ],
+      "blurb": "The first knot polynomial: $\\Delta_K(t) \\in \\mathbb{Z}[t, t^{-1}]$ extracted from a Seifert matrix $V$ via $\\det(V - tV^T)$, well-defined up to $\\pm t^k$. Symmetric: $\\Delta_K(t^{-1}) = \\Delta_K(t)$ up to sign and a power of $t$. Detects unknotting only sometimes — fails on the Conway and Kinoshita–Terasaka knots.",
+      "tags": [
+        "duality",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "kp-jones-polynomial",
+      "title": "Jones polynomial",
+      "anchor": "jones",
+      "prereqs": [
+        "kp-reidemeister-moves",
+        "algebraic-structures"
+      ],
+      "blurb": "$V_K(q) \\in \\mathbb{Z}[q^{1/2}, q^{-1/2}]$ defined by Kauffman's state-sum bracket plus a writhe normalization. Distinguishes the trefoil from its mirror — something Alexander cannot do — and is categorified by Khovanov homology, whose graded Euler characteristic recovers $V_K$.",
+      "tags": [
+        "classification",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "kp-homfly-polynomial",
+      "title": "HOMFLY polynomial",
+      "anchor": "homfly",
+      "prereqs": [
+        "kp-alexander-polynomial",
+        "kp-jones-polynomial"
+      ],
+      "blurb": "A two-variable invariant $P_K(\\alpha, z) \\in \\mathbb{Z}[\\alpha^{\\pm 1}, z^{\\pm 1}]$ defined by a single skein relation $\\alpha P(L_+) - \\alpha^{-1} P(L_-) = z\\, P(L_0)$ with $P(\\text{unknot}) = 1$. Specialises to Alexander at $\\alpha = 1$ and to Jones at $\\alpha = q^{-1}$, $z = q^{1/2} - q^{-1/2}$.",
+      "tags": [
+        "classification",
+        "duality"
+      ]
+    },
+    {
+      "id": "kp-quantum-invariants",
+      "title": "Quantum invariants",
+      "anchor": "quantum",
+      "prereqs": [
+        "kp-jones-polynomial"
+      ],
+      "blurb": "Each ribbon (modular tensor) category supplies a knot invariant by reading a diagram as a morphism: each crossing becomes the $R$-matrix, each cap/cup becomes evaluation/coevaluation. The Jones polynomial is the invariant for $U_q(\\mathfrak{sl}_2)$ on the standard 2-dim rep; HOMFLY comes from $U_q(\\mathfrak{sl}_n)$.",
+      "tags": [
+        "functoriality",
+        "group-action",
+        "classification"
+      ]
     }
   ]
 }

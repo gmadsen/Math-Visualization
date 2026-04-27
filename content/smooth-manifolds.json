@@ -52,7 +52,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-groups.html#intro\">Lie groups</a> · Lie groups and matrix examples</div>\n    <div><a href=\"./morse-theory.html#morse-functions\">Morse theory</a> · Morse functions and non-degenerate critical points</div>\n    <div><a href=\"./riemann-surfaces.html#intro\">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#examples\">Smooth manifolds</a> · Examples: spheres, projective spaces, matrix groups</div>\n    <div><a href=\"./smooth-manifolds.html#partition\">Smooth manifolds</a> · Partitions of unity</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-groups.html#intro\">Lie groups</a> · Lie groups and matrix examples</div>\n    <div><a href=\"./morse-theory.html#morse-functions\">Morse theory</a> · Morse functions and non-degenerate critical points</div>\n    <div><a href=\"./riemann-surfaces.html#intro\">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#examples\">Smooth manifolds</a> · Examples: spheres, projective spaces, matrix groups</div>\n    <div><a href=\"./smooth-manifolds.html#partition\">Smooth manifolds</a> · Partitions of unity</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -271,7 +271,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./differential-forms.html#wedge\">Differential forms</a> · Differential forms and wedge product</div>\n    <div><a href=\"./lie-groups.html#algebra\">Lie groups</a> · Lie algebra as tangent space at the identity</div>\n    <div><a href=\"./morse-theory.html#morse-functions\">Morse theory</a> · Morse functions and non-degenerate critical points</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#sub\">Smooth manifolds</a> · Immersions, submersions, and submanifolds</div>\n    <div><a href=\"./smooth-manifolds.html#bundle\">Smooth manifolds</a> · Tangent bundle and vector fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./differential-forms.html#wedge\">Differential forms</a> · Differential forms and wedge product</div>\n    <div><a href=\"./lie-groups.html#algebra\">Lie groups</a> · Lie algebra as tangent space at the identity</div>\n    <div><a href=\"./morse-theory.html#morse-functions\">Morse theory</a> · Morse functions and non-degenerate critical points</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#sub\">Smooth manifolds</a> · Immersions, submersions, and submanifolds</div>\n    <div><a href=\"./smooth-manifolds.html#bundle\">Smooth manifolds</a> · Tangent bundle and vector fields</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -467,7 +467,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#orbits\">Dynamical systems</a> · Orbits, flows, and vector fields</div>\n    <div><a href=\"./morse-theory.html#handle-decomp\">Morse theory</a> · Handle decomposition via sublevel sets</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#orbits\">Dynamical systems</a> · Orbits, flows, and vector fields</div>\n    <div><a href=\"./morse-theory.html#handle-decomp\">Morse theory</a> · Handle decomposition via sublevel sets</div>\n    <div><a href=\"./symplectic-manifolds.html#hamiltonian\">Symplectic manifolds</a> · Hamiltonian vector fields and flows</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

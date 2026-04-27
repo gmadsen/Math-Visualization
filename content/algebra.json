@@ -21,7 +21,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./additive-number-theory.html#faulhaber\">Additive number theory</a> · Faulhaber's formula for power sums</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div class=\"more\">… and 9 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./additive-number-theory.html#faulhaber\">Additive number theory</a> · Faulhaber's formula for power sums</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div class=\"more\">… and 12 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -448,7 +448,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Splitting fields</div>\n    <div><a href=\"./model-theory-basics.html#applications\">Model theory</a> · Applications to algebra</div>\n    <div><a href=\"./projective-plane.html#cross-ratio\">Projective plane</a> · The cross-ratio</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Splitting fields</div>\n    <div><a href=\"./model-theory-basics.html#applications\">Model theory</a> · Applications to algebra</div>\n    <div><a href=\"./projective-plane.html#cross-ratio\">Projective plane</a> · The cross-ratio</div>\n    <div><a href=\"./quaternions-octonions-and-division-algebras.html#frobenius\">Quaternions, octonions, and division algebras</a> · Frobenius's theorem</div>\n    <div><a href=\"./quaternions-octonions-and-division-algebras.html#quaternions\">Quaternions, octonions, and division algebras</a> · Quaternions $\\mathbb{H}$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

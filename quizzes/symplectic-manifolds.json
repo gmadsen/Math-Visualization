@@ -1,4 +1,269 @@
 {
   "topic": "symplectic-manifolds",
-  "quizzes": {}
+  "quizzes": {
+    "sm-symplectic-form": {
+      "title": "Symplectic forms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A symplectic form $\\omega$ on $M$ is a 2-form satisfying which two conditions?",
+          "choices": [
+            "Closed and pointwise non-degenerate",
+            "Exact and pointwise positive definite",
+            "Harmonic and integer-valued",
+            "Closed and rank one"
+          ],
+          "answer": 0,
+          "hint": "$d\\omega=0$ plus invertibility of $\\omega_p\\colon T_pM\\to T_p^*M$.",
+          "explain": "By definition $\\omega$ is symplectic when $d\\omega=0$ (closed) and $\\omega_p$ is non-degenerate at every $p$ (the induced map $T_pM\\to T_p^*M$, $v\\mapsto \\iota_v\\omega$, is an isomorphism). Positive definiteness is the wrong condition — $\\omega$ is alternating, not symmetric."
+        },
+        {
+          "type": "mcq",
+          "q": "Why must a symplectic manifold have even dimension?",
+          "choices": [
+            "Closed forms only exist in even dimensions.",
+            "An alternating non-degenerate bilinear form on $\\mathbb{R}^d$ exists only when $d$ is even.",
+            "Stokes's theorem fails in odd dimensions.",
+            "The Lie bracket vanishes in odd dimensions."
+          ],
+          "answer": 1,
+          "hint": "Think about the determinant of an antisymmetric matrix in odd size.",
+          "explain": "An antisymmetric $d\\times d$ matrix $A$ satisfies $\\det A = (-1)^d\\det A$, so $\\det A = 0$ when $d$ is odd. Non-degeneracy of $\\omega_p$ (an antisymmetric bilinear form on $T_pM$) is impossible in odd dimension."
+        },
+        {
+          "type": "mcq",
+          "q": "On a symplectic $2n$-manifold, the top exterior power $\\omega^n = \\omega\\wedge\\cdots\\wedge\\omega$ is...",
+          "choices": [
+            "always zero",
+            "a nowhere-vanishing volume form, so $M$ is canonically oriented",
+            "exact whenever $M$ is closed",
+            "a closed 1-form"
+          ],
+          "answer": 1,
+          "hint": "Non-degeneracy of $\\omega$ is equivalent to $\\omega^n\\ne 0$ pointwise.",
+          "explain": "Non-degeneracy of $\\omega$ at $p$ is equivalent to $\\omega_p^n\\ne 0\\in\\Lambda^{2n}T_p^*M$. So $\\omega^n$ is a nowhere-vanishing top form — a volume form — and it gives $M$ a canonical orientation. (When $M$ is closed, $\\omega$ cannot itself be exact: if $\\omega=d\\alpha$ then $\\omega^n=d(\\alpha\\wedge\\omega^{n-1})$ would integrate to $0$.)"
+        }
+      ]
+    },
+    "sm-darboux": {
+      "title": "Darboux's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Darboux's theorem states that around every point of $(M^{2n},\\omega)$ there is a chart in which $\\omega$ equals which canonical form?",
+          "choices": [
+            "$\\sum_i x_i\\,dx_i$",
+            "$\\sum_i dp_i\\wedge dq_i$",
+            "$dx_1\\wedge dx_2\\wedge\\cdots\\wedge dx_{2n}$",
+            "$\\sum_i p_i\\,dq_i$"
+          ],
+          "answer": 1,
+          "hint": "Pairs of coordinates wedged together.",
+          "explain": "Darboux: there exist local coordinates $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_{i=1}^n dp_i\\wedge dq_i$. The form $\\sum p_i\\,dq_i$ is the Liouville/tautological 1-form whose exterior derivative is the canonical $\\omega$ on $T^*N$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the most striking pedagogical consequence of Darboux's theorem?",
+          "choices": [
+            "Symplectic manifolds are classified by their dimension.",
+            "There are no local invariants — all symplectic manifolds of dimension $2n$ are locally the same.",
+            "Every symplectic manifold is parallelisable.",
+            "Symplectic manifolds admit a Riemannian metric uniquely."
+          ],
+          "answer": 1,
+          "hint": "Compare with the Riemannian case (curvature) or the Kähler case (complex structure).",
+          "explain": "Darboux says there is no symplectic analogue of curvature: locally every $(M^{2n},\\omega)$ looks like $(\\mathbb{R}^{2n},\\omega_0)$. All symplectic invariants are global. Dimension alone does not classify globally — Gromov capacities, symplectic homology, and Floer-theoretic invariants distinguish symplectic manifolds with the same dimension."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a corollary of Darboux's theorem?",
+          "choices": [
+            "Every symplectic manifold of dimension $2$ is locally area-preserving-equivalent to $(\\mathbb{R}^2, dx\\wedge dy)$.",
+            "Every symplectic chart can be chosen so that $\\omega = \\sum dp_i\\wedge dq_i$ on its domain.",
+            "Every closed symplectic manifold is symplectomorphic to a torus.",
+            "There is no local symplectic curvature invariant."
+          ],
+          "answer": 2,
+          "hint": "Darboux is local; classification of closed symplectic manifolds is wide open.",
+          "explain": "Darboux gives local equivalence only. Globally, classifying closed symplectic manifolds is a hard, open problem (think Kähler vs non-Kähler, Gromov non-squeezing, exotic symplectic structures on $\\mathbb{R}^{2n}$). Tori are very far from being the only example."
+        }
+      ]
+    },
+    "sm-hamiltonian-flow": {
+      "title": "Hamiltonian flow",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given $H\\colon M\\to\\mathbb{R}$, the Hamiltonian vector field $X_H$ is defined by which equation?",
+          "choices": [
+            "$X_H = \\nabla H$",
+            "$\\iota_{X_H}\\omega = dH$",
+            "$dX_H = H\\cdot\\omega$",
+            "$\\mathcal{L}_{X_H} H = \\omega$"
+          ],
+          "answer": 1,
+          "hint": "Use non-degeneracy of $\\omega$ to invert the differential of $H$.",
+          "explain": "The defining identity is $\\iota_{X_H}\\omega = dH$. Non-degeneracy of $\\omega$ means the bundle map $TM\\to T^*M$, $v\\mapsto\\iota_v\\omega$, is an isomorphism, so $dH$ has a unique pre-image $X_H$. The gradient $\\nabla H$ requires a metric, not a symplectic form."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the energy $H$ conserved along the flow of $X_H$?",
+          "choices": [
+            "Because $X_H$ is the gradient of $H$.",
+            "Because $X_H(H) = dH(X_H) = \\omega(X_H,X_H) = 0$ by antisymmetry.",
+            "Because $X_H$ vanishes wherever $H$ does.",
+            "Because $\\omega$ is exact."
+          ],
+          "answer": 1,
+          "hint": "Use the defining identity $\\iota_{X_H}\\omega = dH$ and that $\\omega$ is alternating.",
+          "explain": "$\\dot H = X_H(H) = dH(X_H) = (\\iota_{X_H}\\omega)(X_H) = \\omega(X_H,X_H) = 0$ since $\\omega$ is alternating. Energy conservation is automatic — built into the geometry, not an extra hypothesis."
+        },
+        {
+          "type": "mcq",
+          "q": "The flow of $X_H$ preserves the symplectic form $\\omega$ because Cartan's magic formula gives $\\mathcal{L}_{X_H}\\omega = $...",
+          "choices": [
+            "$d(\\iota_{X_H}\\omega) + \\iota_{X_H}d\\omega = ddH + 0 = 0$",
+            "$X_H\\cdot\\omega \\ne 0$",
+            "$\\iota_{X_H}\\omega = H$",
+            "$dH\\wedge\\omega$"
+          ],
+          "answer": 0,
+          "hint": "Cartan: $\\mathcal{L}_X = d\\iota_X + \\iota_X d$. Use $d\\omega=0$.",
+          "explain": "Cartan's formula gives $\\mathcal{L}_{X_H}\\omega = d(\\iota_{X_H}\\omega) + \\iota_{X_H}d\\omega = d(dH) + \\iota_{X_H}\\cdot 0 = 0+0 = 0$. So the flow $\\Phi_t^{X_H}$ is a symplectomorphism for every $t$ — Liouville's theorem in geometric form."
+        }
+      ]
+    },
+    "sm-poisson-bracket": {
+      "title": "Poisson bracket",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a symplectic manifold the Poisson bracket of $f,g\\in C^\\infty(M)$ is defined as...",
+          "choices": [
+            "$\\{f,g\\} = fg - gf$",
+            "$\\{f,g\\} = \\omega(X_f, X_g)$",
+            "$\\{f,g\\} = df\\wedge dg$",
+            "$\\{f,g\\} = \\nabla f\\cdot\\nabla g$"
+          ],
+          "answer": 1,
+          "hint": "Plug the two Hamiltonian vector fields into $\\omega$.",
+          "explain": "By definition $\\{f,g\\} = \\omega(X_f,X_g) = X_f(g) = -X_g(f)$. The first equality is the definition; the others use $\\iota_{X_f}\\omega = df$. The bracket of ordinary functions is identically zero — they need to come from $\\omega$ to interact."
+        },
+        {
+          "type": "mcq",
+          "q": "Which structural property does $(C^\\infty(M),\\{\\cdot,\\cdot\\})$ NOT satisfy automatically?",
+          "choices": [
+            "Antisymmetry: $\\{f,g\\} = -\\{g,f\\}$",
+            "Jacobi identity",
+            "Leibniz rule: $\\{f,gh\\} = \\{f,g\\}h + g\\{f,h\\}$",
+            "Commutativity: $\\{f,g\\} = \\{g,f\\}$"
+          ],
+          "answer": 3,
+          "hint": "It's a Lie bracket, not a commutative product.",
+          "explain": "Antisymmetry, Jacobi, and Leibniz hold (the first two make it a Lie algebra; Leibniz makes it a Poisson algebra). Commutativity fails — the whole point of the bracket is to be antisymmetric, the opposite of commutative."
+        },
+        {
+          "type": "mcq",
+          "q": "Quantisation replaces the Poisson bracket of classical observables with which quantum object?",
+          "choices": [
+            "The product of operators $\\hat A\\hat B$",
+            "The commutator divided by $i\\hbar$, $[\\hat A,\\hat B]/(i\\hbar)$",
+            "The trace of $\\hat A\\hat B$",
+            "The expectation value $\\langle\\hat A\\hat B\\rangle$"
+          ],
+          "answer": 1,
+          "hint": "Dirac's correspondence principle.",
+          "explain": "The Dirac correspondence: $\\{f,g\\}\\leadsto [\\hat A,\\hat B]/(i\\hbar)$ where $\\hat A,\\hat B$ are the operators quantising $f,g$. To leading order in $\\hbar$ the quantum commutator reproduces the classical bracket — that is what makes geometric quantisation a quantisation."
+        }
+      ]
+    },
+    "sm-lagrangian-submanifolds": {
+      "title": "Lagrangian submanifolds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A submanifold $L$ of a symplectic $(M^{2n},\\omega)$ is Lagrangian when which two conditions hold?",
+          "choices": [
+            "$\\dim L = 2n$ and $\\omega|_L = \\omega$",
+            "$\\dim L = n$ and $\\omega|_L = 0$",
+            "$\\dim L = n+1$ and $L$ is closed",
+            "$\\dim L = 1$ and $\\omega|_L\\ne 0$"
+          ],
+          "answer": 1,
+          "hint": "Half the dimension of $M$, and $\\omega$ vanishes on tangent vectors of $L$.",
+          "explain": "A Lagrangian is a maximal isotropic submanifold: $\\omega$ vanishes on $TL\\times TL$ (\"isotropic\") and $\\dim L = \\frac12\\dim M = n$ (\"maximal\"). Smaller-than-$n$ isotropics exist but are not Lagrangian."
+        },
+        {
+          "type": "mcq",
+          "q": "On the cotangent bundle $T^*N$ with its canonical $\\omega = -d\\lambda$, the zero section $\\{(x,0):x\\in N\\}$ is...",
+          "choices": [
+            "an open subset",
+            "a Lagrangian submanifold",
+            "a symplectic submanifold of half-rank",
+            "never embedded"
+          ],
+          "answer": 1,
+          "hint": "Compute $\\dim$ and check $\\omega$ on tangent vectors of the zero section.",
+          "explain": "The zero section has dimension $\\dim N = n = \\frac12\\dim T^*N$, and its tangent vectors all have momentum coordinate zero, so $\\omega = \\sum dp_i\\wedge dq_i$ vanishes on them. More generally the graph of any closed 1-form $\\alpha\\in\\Omega^1(N)$ is a Lagrangian in $T^*N$."
+        },
+        {
+          "type": "mcq",
+          "q": "A canonical relation between $(M_1,\\omega_1)$ and $(M_2,\\omega_2)$ is a Lagrangian submanifold of which symplectic manifold?",
+          "choices": [
+            "$(M_1\\times M_2,\\omega_1+\\omega_2)$",
+            "$(M_1\\times M_2,\\omega_1\\ominus\\omega_2)$ — i.e. $\\omega_1$ on the first factor minus $\\omega_2$ on the second",
+            "$(M_1\\sqcup M_2, \\omega_1\\sqcup\\omega_2)$",
+            "$(\\mathrm{Hom}(M_1,M_2),0)$"
+          ],
+          "answer": 1,
+          "hint": "Graphs of symplectomorphisms are the prototype — try $\\omega_1 - f^*\\omega_2$.",
+          "explain": "The product $(M_1\\times M_2,\\omega_1\\ominus\\omega_2 := \\pi_1^*\\omega_1 - \\pi_2^*\\omega_2)$ is the right symplectic structure: the graph of a symplectomorphism $f\\colon M_1\\to M_2$ is then a Lagrangian. Canonical relations compose Lagrangians and turn $\\mathbf{Symp}$ into a symplectic category."
+        }
+      ]
+    },
+    "sm-floer-homology-preview": {
+      "title": "Floer homology preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hamiltonian Floer homology applies Morse-theoretic ideas to which functional, on which space?",
+          "choices": [
+            "The Dirichlet energy on the loop space of a Riemannian manifold",
+            "The symplectic action functional on the free loop space of a symplectic manifold",
+            "The Euler characteristic on configuration space",
+            "The Chern–Simons functional on a 3-manifold"
+          ],
+          "answer": 1,
+          "hint": "Hamiltonian flow has periodic orbits; those should be the critical points.",
+          "explain": "Floer studied $\\mathcal{A}_H(\\gamma) = \\int_{D^2}\\bar u^*\\omega - \\int_0^1 H(t,\\gamma(t))\\,dt$ on the free loop space $\\mathcal{L}M$. Critical points of $\\mathcal{A}_H$ are exactly the 1-periodic orbits of $X_{H_t}$, recovering Hamiltonian dynamics as a variational problem."
+        },
+        {
+          "type": "mcq",
+          "q": "In Lagrangian Floer homology of two Lagrangians $L_0,L_1\\subset M$, the chain complex is generated by...",
+          "choices": [
+            "the connected components of $L_0\\cup L_1$",
+            "the transverse intersection points $L_0\\pitchfork L_1$",
+            "the closed geodesics on $M$",
+            "the symplectic capacities of $M$"
+          ],
+          "answer": 1,
+          "hint": "Where does the action functional on paths from $L_0$ to $L_1$ have its critical points?",
+          "explain": "The action functional on paths $\\gamma\\colon [0,1]\\to M$ with $\\gamma(0)\\in L_0,\\gamma(1)\\in L_1$ has critical points exactly at constant paths sitting at intersection points of $L_0$ and $L_1$. Generically the intersection is transverse and finite, giving a finite-rank chain complex."
+        },
+        {
+          "type": "mcq",
+          "q": "What does Hamiltonian Floer homology of a closed symplectic manifold $M$ compute (Arnold conjecture)?",
+          "choices": [
+            "It vanishes identically.",
+            "It recovers the singular homology $H_*(M;\\mathbb{Z}/2)$ (or $\\mathbb{Z}$ under suitable hypotheses).",
+            "It computes the fundamental group $\\pi_1(M)$.",
+            "It is unrelated to the topology of $M$."
+          ],
+          "answer": 1,
+          "hint": "The Arnold conjecture lower-bounds periodic orbit counts by Betti numbers.",
+          "explain": "Floer (and later Fukaya–Ono, Liu–Tian) proved $HF_*(M;H) \\cong H_*(M)$ as an invariant. Comparing chain ranks gives the Arnold lower bound: the number of 1-periodic orbits of any non-degenerate $H$ is at least $\\sum_k b_k(M)$ — the Morse-inequality analogue, in infinite dimensions."
+        }
+      ]
+    }
+  }
 }

@@ -264,11 +264,84 @@ window.__MVConcepts = {
       "page": "symplectic-manifolds.html",
       "concepts": [
         {
-          "id": "symplectic-manifolds-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "sm-symplectic-form",
+          "title": "Symplectic form",
+          "anchor": "form",
+          "prereqs": [
+            "forms-and-wedge",
+            "exterior-derivative",
+            "smooth-manifold-definition"
+          ],
+          "blurb": "A symplectic form on $M^{2n}$ is a closed ($d\\omega=0$) non-degenerate 2-form $\\omega$. Non-degeneracy forces even dimension; the top power $\\omega^n$ is a nowhere-vanishing volume form, so symplectic manifolds are canonically oriented. The pair $(M,\\omega)$ is the geometric stage on which Hamiltonian mechanics lives.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sm-darboux",
+          "title": "Darboux's theorem",
+          "anchor": "darboux",
+          "prereqs": [
+            "sm-symplectic-form",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "Around any point of $(M^{2n},\\omega)$ there is a chart $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_i dp_i\\wedge dq_i$. So symplectic manifolds have no local invariants — every Darboux chart looks like every other. All the geometry is global.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "sm-hamiltonian-flow",
+          "title": "Hamiltonian vector fields and flows",
+          "anchor": "hamiltonian",
+          "prereqs": [
+            "sm-symplectic-form",
+            "vector-field-flows"
+          ],
+          "blurb": "A smooth $H\\colon M\\to\\mathbb{R}$ defines its Hamiltonian vector field $X_H$ by $\\iota_{X_H}\\omega = dH$ (non-degeneracy makes this unique). The flow of $X_H$ preserves $\\omega$ ($\\mathcal{L}_{X_H}\\omega = 0$) and conserves $H$ along trajectories — energy conservation is geometry, not a separate axiom.",
+          "tags": [
+            "functoriality"
+          ]
+        },
+        {
+          "id": "sm-poisson-bracket",
+          "title": "Poisson bracket",
+          "anchor": "poisson",
+          "prereqs": [
+            "sm-hamiltonian-flow"
+          ],
+          "blurb": "The Poisson bracket $\\{f,g\\} = \\omega(X_f,X_g)$ makes $C^\\infty(M)$ into a Lie algebra, and the assignment $f\\mapsto X_f$ is a Lie-algebra homomorphism into vector fields. Quantisation replaces $\\{f,g\\}$ by $[\\hat A,\\hat B]/(i\\hbar)$ — the bracket is the classical shadow of the commutator.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sm-lagrangian-submanifolds",
+          "title": "Lagrangian submanifolds",
+          "anchor": "lagrangian",
+          "prereqs": [
+            "sm-symplectic-form",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "A submanifold $L\\subset M^{2n}$ is Lagrangian when $\\dim L = n$ and $\\omega|_L=0$. The graph of a closed 1-form on $N$ sits in $T^*N$ as a Lagrangian; canonical relations are Lagrangians in $(M_1\\times M_2,\\omega_1\\ominus\\omega_2)$, and generating functions are how symplectomorphisms package as Lagrangian graphs. \"Everything is Lagrangian\" (Weinstein).",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "sm-floer-homology-preview",
+          "title": "Floer homology — a preview",
+          "anchor": "floer",
+          "prereqs": [
+            "sm-hamiltonian-flow",
+            "sm-lagrangian-submanifolds",
+            "mt-morse-functions"
+          ],
+          "blurb": "Floer's idea: do Morse theory on the symplectic action functional defined on the free loop space (Hamiltonian Floer) or on a path space between two Lagrangians (Lagrangian Floer). Critical points are 1-periodic Hamiltonian orbits, or intersections of two Lagrangians; gradient-flow lines are pseudo-holomorphic cylinders/strips. The resulting $HF_*$ proved the Arnold conjecture.",
+          "tags": [
+            "cohomology"
+          ]
         }
       ]
     },
@@ -288,15 +361,88 @@ window.__MVConcepts = {
     },
     "quaternions-octonions-and-division-algebras": {
       "topic": "quaternions-octonions-and-division-algebras",
-      "title": "Quaternions octonions and division algebras",
+      "title": "Quaternions, octonions, and division algebras",
       "page": "quaternions-octonions-and-division-algebras.html",
       "concepts": [
         {
-          "id": "quaternions-octonions-and-division-algebras-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "qoda-quaternions",
+          "title": "Quaternions $\\mathbb{H}$",
+          "anchor": "quaternions",
+          "prereqs": [
+            "algebraic-structures",
+            "field-extensions-basics"
+          ],
+          "blurb": "Hamilton's $\\mathbb{H}=\\mathbb{R}\\langle 1,i,j,k\\rangle$ is the 4-dimensional real algebra with $i^2=j^2=k^2=ijk=-1$. It is associative but non-commutative, with conjugate $\\overline{q}=a-bi-cj-dk$, norm $|q|^2=q\\overline{q}=a^2+b^2+c^2+d^2$, and inverse $q^{-1}=\\overline{q}/|q|^2$ for $q\\neq 0$ — making $\\mathbb{H}\\cong\\mathbb{R}^4$ a (skew) division algebra.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "qoda-rotations",
+          "title": "Unit quaternions and $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$",
+          "anchor": "rotations",
+          "prereqs": [
+            "qoda-quaternions",
+            "la-axioms"
+          ],
+          "blurb": "The unit quaternions $\\{q:|q|=1\\}\\cong S^3$ form a Lie group $\\mathrm{Sp}(1)\\cong\\mathrm{SU}(2)$. They act on the imaginary part $\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathbb{R}^3$ by conjugation $v\\mapsto qvq^{-1}$, giving the double cover $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$ (kernel $\\{\\pm 1\\}$); at the Lie-algebra level $\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathfrak{so}(3)$.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
+        },
+        {
+          "id": "qoda-cayley-dickson",
+          "title": "The Cayley–Dickson tower",
+          "anchor": "cayley-dickson",
+          "prereqs": [
+            "qoda-quaternions"
+          ],
+          "blurb": "The Cayley–Dickson construction doubles a $*$-algebra $A$ to $A\\oplus A$ with multiplication $(a,b)(c,d)=(ac-d^*b,\\,da+bc^*)$ and conjugate $(a,b)^*=(a^*,-b)$. Iterating from $\\mathbb{R}$ produces $\\mathbb{R}\\subset\\mathbb{C}\\subset\\mathbb{H}\\subset\\mathbb{O}\\subset\\mathbb{S}$; each step doubles dimension and loses one structure (real $\\to$ complex loses self-conjugation, $\\mathbb{C}\\to\\mathbb{H}$ loses commutativity, $\\mathbb{H}\\to\\mathbb{O}$ loses associativity, $\\mathbb{O}\\to\\mathbb{S}$ loses the division-algebra property).",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "qoda-octonions",
+          "title": "Octonions $\\mathbb{O}$",
+          "anchor": "octonions",
+          "prereqs": [
+            "qoda-cayley-dickson"
+          ],
+          "blurb": "$\\mathbb{O}=\\mathbb{R}^8$ with basis $\\{1,e_1,\\dots,e_7\\}$ is the 8-dimensional real division algebra obtained by doubling $\\mathbb{H}$. Multiplication is non-associative — $(e_1 e_2)e_4\\neq e_1(e_2 e_4)$ in general — but every two-element subalgebra is associative; this is the $\\textbf{alternative}$ law $x(xy)=(xx)y$ and $(yx)x=y(xx)$. Multiplication is encoded by the Fano plane: 7 oriented lines, each a copy of $\\mathbb{H}$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "qoda-frobenius-theorem",
+          "title": "Frobenius's theorem",
+          "anchor": "frobenius",
+          "prereqs": [
+            "qoda-quaternions",
+            "field-extensions-basics"
+          ],
+          "blurb": "Frobenius (1877): the only finite-dimensional associative division algebras over $\\mathbb{R}$ are $\\mathbb{R}$, $\\mathbb{C}$, and $\\mathbb{H}$. Idea: pick $x\\notin\\mathbb{R}$; its minimal polynomial is irreducible of degree $\\le 2$, so $\\mathbb{R}[x]\\cong\\mathbb{C}$. The orthogonal complement of $\\mathbb{R}$ inside the algebra carries a negative-definite form; choosing two anticommuting unit vectors $i,j$ forces $k=ij$ and the relations of $\\mathbb{H}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "qoda-hurwitz-theorem",
+          "title": "Hurwitz's theorem",
+          "anchor": "hurwitz",
+          "prereqs": [
+            "qoda-octonions",
+            "qoda-frobenius-theorem"
+          ],
+          "blurb": "Hurwitz (1898): the only finite-dimensional real $\\textbf{composition}$ algebras — unital algebras with a quadratic norm satisfying $|xy|=|x||y|$ — are $\\mathbb{R}$, $\\mathbb{C}$, $\\mathbb{H}$, and $\\mathbb{O}$, with dimensions $1,2,4,8$. The dimension restriction is the same that makes $\\mathbb{R}^n$ admit a continuous bilinear product without zero divisors only for $n\\in\\{1,2,4,8\\}$ (Bott–Milnor / Kervaire, via topology).",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -320,11 +466,79 @@ window.__MVConcepts = {
       "page": "wavelets.html",
       "concepts": [
         {
-          "id": "wavelets-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "w-multiresolution",
+          "title": "Multiresolution analysis",
+          "anchor": "multiresolution",
+          "prereqs": [
+            "lp-spaces",
+            "fourier-transform-real-line"
+          ],
+          "tags": [
+            "completion",
+            "duality"
+          ],
+          "blurb": "Mallat's MRA: a nested chain $\\cdots\\subset V_{-1}\\subset V_0\\subset V_1\\subset\\cdots$ of closed subspaces of $L^2(\\mathbb{R})$ with $\\bigcap V_j=\\{0\\}$, $\\overline{\\bigcup V_j}=L^2$, dilation symmetry $f\\in V_j\\iff f(2\\cdot)\\in V_{j+1}$, and a scaling function $\\phi$ whose integer translates form an orthonormal basis of $V_0$. The orthogonal complements $W_j=V_{j+1}\\ominus V_j$ are spanned by the wavelet $\\psi$ at scale $j$."
+        },
+        {
+          "id": "w-haar-wavelet",
+          "title": "The Haar wavelet",
+          "anchor": "haar",
+          "prereqs": [
+            "w-multiresolution",
+            "convergence-theorems"
+          ],
+          "tags": [
+            "foundation"
+          ],
+          "blurb": "The simplest MRA: $\\phi=\\chi_{[0,1)}$ and $\\psi=\\chi_{[0,1/2)}-\\chi_{[1/2,1)}$. Then $\\{\\psi_{j,k}(x)=2^{j/2}\\psi(2^j x-k):j,k\\in\\mathbb{Z}\\}$ is an orthonormal basis of $L^2(\\mathbb{R})$. Each Haar coefficient is a difference of two block averages — wavelets see local *change* the way Fourier coefficients see global oscillation."
+        },
+        {
+          "id": "w-daubechies",
+          "title": "Daubechies wavelets",
+          "anchor": "daubechies",
+          "prereqs": [
+            "w-haar-wavelet",
+            "fourier-transform-real-line"
+          ],
+          "tags": [
+            "classification"
+          ],
+          "blurb": "Compactly supported orthonormal wavelets with $N$ vanishing moments, $\\int x^k\\psi(x)\\,dx=0$ for $k<N$. Daubechies constructed them by spectral-factoring the polynomial $P(y)=\\sum_{k=0}^{N-1}\\binom{N-1+k}{k}y^k$ to obtain a quadrature mirror filter $h_n$ — the smoother the wavelet, the longer its support ($\\operatorname{supp}\\psi=[0,2N-1]$)."
+        },
+        {
+          "id": "w-discrete-transform",
+          "title": "Discrete wavelet transform",
+          "anchor": "dwt",
+          "prereqs": [
+            "w-daubechies"
+          ],
+          "tags": [
+            "functoriality"
+          ],
+          "blurb": "Mallat's pyramid algorithm computes the wavelet expansion of a length-$n$ signal in $O(n)$ time — strictly faster than the FFT's $O(n\\log n)$. At each level the input is convolved with the QMF pair $(h,g)$ and downsampled by $2$; the low-pass branch recurses, the high-pass branch stores detail coefficients. Inverse: upsample, convolve with the dual filters, sum."
+        },
+        {
+          "id": "w-wavelet-vs-fourier",
+          "title": "Time-frequency localisation",
+          "anchor": "vs-fourier",
+          "prereqs": [
+            "w-haar-wavelet",
+            "fourier-transform-real-line"
+          ],
+          "tags": [
+            "duality"
+          ],
+          "blurb": "Each wavelet $\\psi_{j,k}$ occupies a Heisenberg box of area $\\Delta x\\,\\Delta\\xi\\gtrsim 1$ centred at $(2^{-j}k,\\,2^j\\xi_0)$: high-frequency atoms are short and many, low-frequency atoms are long and few. This dyadic tiling tracks transients sharply where windowed Fourier (Gabor) — using a fixed-width window for every frequency — cannot."
+        },
+        {
+          "id": "w-applications",
+          "title": "Applications",
+          "anchor": "applications",
+          "prereqs": [
+            "w-discrete-transform",
+            "w-wavelet-vs-fourier"
+          ],
+          "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
         }
       ]
     },
@@ -376,11 +590,87 @@ window.__MVConcepts = {
       "page": "knot-polynomials.html",
       "concepts": [
         {
-          "id": "knot-polynomials-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "kp-knots-and-links",
+          "title": "Knots and links",
+          "anchor": "knots",
+          "prereqs": [
+            "fundamental-group"
+          ],
+          "blurb": "An embedding $S^1 \\hookrightarrow S^3$ up to ambient isotopy; a link is the same with finitely many disjoint circles. Orientations distinguish a knot from its mirror and reverse, and the unknot is the equivalence class containing the round circle.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "kp-reidemeister-moves",
+          "title": "Reidemeister moves",
+          "anchor": "reidemeister",
+          "prereqs": [
+            "kp-knots-and-links"
+          ],
+          "blurb": "Two planar diagrams represent ambient-isotopic knots iff they are connected by a finite sequence of three local moves R1 (twist/untwist), R2 (poke), R3 (slide). Reidemeister's theorem turns 3D isotopy into a combinatorial rewrite system on diagrams.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "kp-alexander-polynomial",
+          "title": "Alexander polynomial",
+          "anchor": "alexander",
+          "prereqs": [
+            "kp-reidemeister-moves",
+            "singular-homology",
+            "algebraic-structures"
+          ],
+          "blurb": "The first knot polynomial: $\\Delta_K(t) \\in \\mathbb{Z}[t, t^{-1}]$ extracted from a Seifert matrix $V$ via $\\det(V - tV^T)$, well-defined up to $\\pm t^k$. Symmetric: $\\Delta_K(t^{-1}) = \\Delta_K(t)$ up to sign and a power of $t$. Detects unknotting only sometimes — fails on the Conway and Kinoshita–Terasaka knots.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "kp-jones-polynomial",
+          "title": "Jones polynomial",
+          "anchor": "jones",
+          "prereqs": [
+            "kp-reidemeister-moves",
+            "algebraic-structures"
+          ],
+          "blurb": "$V_K(q) \\in \\mathbb{Z}[q^{1/2}, q^{-1/2}]$ defined by Kauffman's state-sum bracket plus a writhe normalization. Distinguishes the trefoil from its mirror — something Alexander cannot do — and is categorified by Khovanov homology, whose graded Euler characteristic recovers $V_K$.",
+          "tags": [
+            "classification",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "kp-homfly-polynomial",
+          "title": "HOMFLY polynomial",
+          "anchor": "homfly",
+          "prereqs": [
+            "kp-alexander-polynomial",
+            "kp-jones-polynomial"
+          ],
+          "blurb": "A two-variable invariant $P_K(\\alpha, z) \\in \\mathbb{Z}[\\alpha^{\\pm 1}, z^{\\pm 1}]$ defined by a single skein relation $\\alpha P(L_+) - \\alpha^{-1} P(L_-) = z\\, P(L_0)$ with $P(\\text{unknot}) = 1$. Specialises to Alexander at $\\alpha = 1$ and to Jones at $\\alpha = q^{-1}$, $z = q^{1/2} - q^{-1/2}$.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "kp-quantum-invariants",
+          "title": "Quantum invariants",
+          "anchor": "quantum",
+          "prereqs": [
+            "kp-jones-polynomial"
+          ],
+          "blurb": "Each ribbon (modular tensor) category supplies a knot invariant by reading a diagram as a morphism: each crossing becomes the $R$-matrix, each cap/cup becomes evaluation/coevaluation. The Jones polynomial is the invariant for $U_q(\\mathfrak{sl}_2)$ on the standard 2-dim rep; HOMFLY comes from $U_q(\\mathfrak{sl}_n)$.",
+          "tags": [
+            "functoriality",
+            "group-action",
+            "classification"
+          ]
         }
       ]
     },
@@ -400,15 +690,97 @@ window.__MVConcepts = {
     },
     "k-theory": {
       "topic": "k-theory",
-      "title": "K theory",
+      "title": "K-theory",
       "page": "k-theory.html",
       "concepts": [
         {
-          "id": "k-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "k-vector-bundles",
+          "title": "Topological $K^0(X)$ from vector bundles",
+          "anchor": "vector-bundles",
+          "prereqs": [
+            "cc-vector-bundles"
+          ],
+          "blurb": "$K^0(X)$ is the Grothendieck group of the abelian monoid $\\mathrm{Vect}_\\mathbb{C}(X)$ of complex vector bundles on $X$ under direct sum, formal differences $[E]-[F]$. Tensor product makes it a commutative ring; pullback makes it a contravariant functor; rank gives a ring homomorphism $K^0(X)\\to\\mathbb{Z}$ whose kernel is the reduced theory $\\widetilde K^0(X)$.",
+          "tags": [
+            "foundation",
+            "functoriality",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "k-grothendieck-group",
+          "title": "Grothendieck group $K_0$ of an exact category",
+          "anchor": "grothendieck",
+          "prereqs": [
+            "k-vector-bundles",
+            "exact-sequences"
+          ],
+          "blurb": "For any exact (or abelian) category $\\mathcal{C}$, $K_0(\\mathcal{C})$ is the free abelian group on isomorphism classes $[X]$ modulo $[B]=[A]+[C]$ for every short exact sequence $0\\to A\\to B\\to C\\to 0$ — Quillen's $K_0$. For $\\mathcal{C}=\\mathrm{Vect}(X)$ the relation reduces to $[E\\oplus F]=[E]+[F]$ since bundles are split-exact, recovering $K^0(X)$. For the category of finitely generated projective $R$-modules this is $K_0(R)$.",
+          "tags": [
+            "universal-property",
+            "exact-sequence",
+            "foundation"
+          ]
+        },
+        {
+          "id": "k-bott-periodicity",
+          "title": "Bott periodicity",
+          "anchor": "bott",
+          "prereqs": [
+            "k-vector-bundles",
+            "fundamental-group"
+          ],
+          "blurb": "Complex topological K-theory is $2$-periodic: $K^n(X)\\cong K^{n+2}(X)$, with the iso induced by external product with the Bott class $\\beta=[\\mathcal{O}(1)]-[\\mathbf 1]\\in\\widetilde K^0(S^2)$. Real K-theory $KO$ is $8$-periodic. The periodicity makes $K^*$ a $\\mathbb{Z}/2$-graded cohomology theory and is the engine behind the Atiyah–Singer index theorem.",
+          "tags": [
+            "classification",
+            "fibration"
+          ]
+        },
+        {
+          "id": "k-chern-character",
+          "title": "Chern character",
+          "anchor": "chern-character",
+          "prereqs": [
+            "k-vector-bundles",
+            "cc-chern-classes",
+            "singular-homology"
+          ],
+          "blurb": "The Chern character $\\mathrm{ch}\\colon K^0(X)\\to H^{\\text{even}}(X;\\mathbb{Q})$, $\\mathrm{ch}(E)=\\sum_i e^{x_i}$ on Chern roots, is a ring homomorphism — additive on $\\oplus$ and multiplicative on $\\otimes$. After tensoring with $\\mathbb{Q}$ it becomes an iso $K^0(X)\\otimes\\mathbb{Q}\\xrightarrow{\\sim} H^{\\text{even}}(X;\\mathbb{Q})$ for finite CW $X$. Rationally K-theory carries no information beyond ordinary cohomology; the integral torsion is the new invariant.",
+          "tags": [
+            "cohomology",
+            "functoriality",
+            "duality"
+          ]
+        },
+        {
+          "id": "k-algebraic-k-theory",
+          "title": "Algebraic K-theory $K_n(R)$",
+          "anchor": "algebraic-k",
+          "prereqs": [
+            "k-grothendieck-group"
+          ],
+          "blurb": "Quillen's higher K-groups $K_n(R) = \\pi_n(BGL(R)^+)$ via the plus-construction on $BGL_\\infty(R)$. Low-degree concrete pictures: $K_0(R)$ is the projective class group; $K_1(R) = GL_\\infty(R)^{\\mathrm{ab}}$, agreeing with $\\det$ for fields and with units for commutative local rings; $K_2(R)$ is the Steinberg group's centre, encoding universal central extensions and explicit symbols $\\{a,b\\}$.",
+          "tags": [
+            "foundation",
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "k-applications",
+          "title": "Applications: index theorem & K-theory of $\\mathcal{O}_F$",
+          "anchor": "applications",
+          "prereqs": [
+            "k-bott-periodicity",
+            "k-chern-character",
+            "k-algebraic-k-theory"
+          ],
+          "blurb": "Atiyah–Singer: an elliptic operator $D$ on a closed manifold $M$ has a topological symbol class $[\\sigma(D)]\\in K^0(T^*M)$, and $\\ind(D)=\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$. On the algebraic side, Borel computed $K_n(\\mathcal{O}_F)\\otimes\\mathbb{Q}$ for a number field $F$: ranks given by the number of real and complex places, with Quillen's calculation of $K_n(\\mathbb{F}_q)$ as input.",
+          "tags": [
+            "duality",
+            "cohomology",
+            "classification"
+          ]
         }
       ]
     },
@@ -9681,6 +10053,13 @@ window.__MVConcepts = {
         "title": "$\\infty$-topoi (Lurie's higher topos theory)",
         "goal": "infty-topos-definition",
         "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
+      },
+      {
+        "id": "capstone-atiyah-singer",
+        "section": "Geometry & topology",
+        "title": "The Atiyah–Singer index theorem",
+        "goal": "atiyah-singer-index-theorem-intro",
+        "blurb": "Index of an elliptic operator equals a topological invariant — the cohomological / K-theoretic capstone unifying analysis, topology, and geometry."
       }
     ]
   },
@@ -10097,11 +10476,11 @@ window.__MVConcepts = {
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
-      "concepts": 91,
-      "intra": 126,
+      "concepts": 96,
+      "intra": 136,
       "crossOut": 13,
-      "crossIn": 61,
-      "density": 0.14285714285714285
+      "crossIn": 64,
+      "density": 0.13541666666666666
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -10111,11 +10490,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 124,
-      "intra": 200,
+      "concepts": 129,
+      "intra": 211,
       "crossOut": 16,
       "crossIn": 33,
-      "density": 0.12903225806451613
+      "density": 0.12403100775193798
     },
     "Probability & statistics": {
       "concepts": 41,
@@ -10125,11 +10504,11 @@ window.__MVConcepts = {
       "density": 0.2682926829268293
     },
     "Geometry & topology": {
-      "concepts": 66,
-      "intra": 81,
-      "crossOut": 6,
+      "concepts": 81,
+      "intra": 113,
+      "crossOut": 9,
       "crossIn": 52,
-      "density": 0.09090909090909091
+      "density": 0.1111111111111111
     },
     "Number theory": {
       "concepts": 79,
