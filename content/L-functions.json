@@ -40,7 +40,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#lfunction\">Automorphic forms (adelic)</a> · Automorphic $L$-functions</div>\n    <div><a href=\"./L-functions.html#completed\">L-functions</a> · Completion and functional equations</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#bombieri\">Analytic number theory</a> · Bombieri–Vinogradov on average</div>\n    <div><a href=\"./automorphic-forms-adelic.html#lfunction\">Automorphic forms (adelic)</a> · Automorphic $L$-functions</div>\n    <div><a href=\"./L-functions.html#completed\">L-functions</a> · Completion and functional equations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

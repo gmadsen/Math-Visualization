@@ -4,11 +4,86 @@
   "page": "modular-curves.html",
   "concepts": [
     {
-      "id": "modular-curves-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "mc-y0-x0",
+      "title": "Y0(N), X0(N), and the cusps",
+      "anchor": "y0-x0",
+      "prereqs": [
+        "sl2z-on-H",
+        "riemann-surface-definition"
+      ],
+      "blurb": "The congruence subgroup $\\Gamma_0(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$ consists of matrices with $c \\equiv 0 \\pmod N$. The quotient $Y_0(N) = \\mathcal{H}/\\Gamma_0(N)$ is a non-compact Riemann surface whose missing points — the cusps — sit at rational numbers and $i\\infty$. Adding finitely many cusps yields the smooth compact modular curve $X_0(N)$, the central object of the Langlands–Eichler–Shimura story.",
+      "tags": [
+        "compactness",
+        "group-action"
+      ]
+    },
+    {
+      "id": "mc-moduli-of-elliptic-curves",
+      "title": "$Y_0(N)$ as a moduli space",
+      "anchor": "moduli",
+      "prereqs": [
+        "mc-y0-x0",
+        "lattices-in-C"
+      ],
+      "blurb": "Points of $Y_0(N)$ correspond bijectively to isomorphism classes of pairs $(E, C)$, where $E$ is an elliptic curve over $\\mathbb{C}$ and $C \\subset E$ is a cyclic subgroup of order $N$. The complex-analytic version says $\\tau \\in \\mathcal{H}/\\Gamma_0(N)$ encodes the lattice $\\Lambda_\\tau = \\mathbb{Z} + \\mathbb{Z}\\tau$ together with the distinguished cyclic subgroup $\\frac{1}{N}\\mathbb{Z}/\\mathbb{Z} \\subset \\mathbb{C}/\\Lambda_\\tau$.",
+      "tags": [
+        "moduli",
+        "universal-property"
+      ]
+    },
+    {
+      "id": "mc-hecke-correspondences-curves",
+      "title": "Hecke correspondences on $X_0(N)$",
+      "anchor": "hecke-corr",
+      "prereqs": [
+        "mc-moduli-of-elliptic-curves"
+      ],
+      "blurb": "For a prime $p \\nmid N$, the Hecke correspondence $T_p$ on $X_0(N)$ sends the moduli point $(E,C)$ to the formal sum over the $p+1$ subgroups $D \\subset E$ of order $p$ disjoint from $C$, mapping to $(E/D, (C+D)/D)$. As an algebraic correspondence — a curve inside $X_0(N) \\times X_0(N)$ — it induces both the classical Hecke operator on modular forms and an endomorphism of the Jacobian.",
+      "tags": [
+        "group-action",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "mc-jacobian-J0",
+      "title": "The Jacobian $J_0(N)$ and Eichler–Shimura",
+      "anchor": "jacobian",
+      "prereqs": [
+        "mc-hecke-correspondences-curves",
+        "modular-form-definition"
+      ],
+      "blurb": "The Jacobian $J_0(N) = \\mathrm{Pic}^0(X_0(N))$ is an abelian variety of dimension equal to the genus of $X_0(N)$. Eichler–Shimura identifies its tangent space at the origin with the space of weight-$2$ cusp forms $S_2(\\Gamma_0(N))$, and the Hecke action on the curve matches the Hecke action on forms — the bridge that turns each newform into a modular abelian-variety quotient $A_f$ of $J_0(N)$.",
+      "tags": [
+        "moduli",
+        "duality"
+      ]
+    },
+    {
+      "id": "mc-genus-formula",
+      "title": "Genus formulas for $X_0(N)$, $X_1(N)$, $X(N)$",
+      "anchor": "genus",
+      "prereqs": [
+        "mc-y0-x0"
+      ],
+      "blurb": "Riemann–Hurwitz applied to $X_0(N) \\to X(1)$ gives $$g(X_0(N)) = 1 + \\frac{[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]}{12} - \\frac{\\nu_2}{4} - \\frac{\\nu_3}{3} - \\frac{\\nu_\\infty}{2},$$ where $\\nu_2,\\nu_3$ count elliptic points of orders $2,3$ and $\\nu_\\infty$ counts cusps. The first level with $g \\ge 1$ is $N=11$, and $X_0(N)$ has genus $0$ exactly for the fifteen levels $N \\in \\{1\\text{–}10, 12, 13, 16, 18, 25\\}$.",
+      "tags": [
+        "classification",
+        "compactness"
+      ]
+    },
+    {
+      "id": "mc-cusps-galois",
+      "title": "Cusps and rationality over $\\mathbb{Q}$",
+      "anchor": "cusps-galois",
+      "prereqs": [
+        "mc-y0-x0",
+        "mc-moduli-of-elliptic-curves"
+      ],
+      "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
+      "tags": [
+        "group-action",
+        "classification"
+      ]
     }
   ]
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Enumerative combinatorics</title>
+<title>Enumerative combinatorics — counting cleverly</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -230,7 +230,12 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+  <a href="#basics">1&nbsp;Binomials&nbsp;&amp;&nbsp;stars-and-bars</a>
+  <a href="#inclusion-exclusion">2&nbsp;Inclusion–exclusion</a>
+  <a href="#generating-functions">3&nbsp;Generating&nbsp;functions</a>
+  <a href="#permutation-stats">4&nbsp;Permutation&nbsp;statistics</a>
+  <a href="#partitions">5&nbsp;Integer&nbsp;partitions</a>
+  <a href="#bijections">6&nbsp;Bijective&nbsp;proofs</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -240,14 +245,859 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Enumerative combinatorics</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">How many things are there? From $\binom{n}{k}$ and stars-and-bars through inclusion–exclusion, generating functions, and permutation statistics, the engine of counting is bijection: turn a hard count into an easy one by mapping onto something you already know.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="enumerative-combinatorics-intro"></div>
+<section id="basics">
+<h2>1. Binomials, multinomials, and stars-and-bars</h2>
+
+<p>The most fundamental count is the <strong>binomial coefficient</strong> $\binom{n}{k}$ — the number of $k$-element subsets of $\{1,\ldots,n\}$. Two equivalent definitions:</p>
+
+<p style="text-align:center">$\displaystyle \binom{n}{k} \;=\; \frac{n!}{k!\,(n-k)!} \;=\; \frac{n(n-1)\cdots(n-k+1)}{k!}.$</p>
+
+<p>The first version is symmetric: $\binom{n}{k}=\binom{n}{n-k}$, mirroring the bijection "subset $\leftrightarrow$ complement". The second is the recipe: arrange $k$ distinguishable choices in $n(n-1)\cdots(n-k+1)$ ways, then quotient by $k!$ to forget the order. The two together yield Pascal's recurrence:</p>
+
+<p style="text-align:center">$\displaystyle \binom{n}{k} \;=\; \binom{n-1}{k-1} + \binom{n-1}{k},$</p>
+
+<p>by partitioning $k$-subsets of $[n]$ according to whether they contain the element $n$ or not.</p>
+
+<div class="widget" id="w-pascal">
+  <div class="hd"><div class="ttl">Pascal's triangle</div><div class="hint">click any cell · highlights its two parents and shows the recursive sum</div></div>
+  <svg id="pascal-svg" viewBox="0 0 720 380" width="720" height="380"><title>Pascal's triangle with parent-cell highlighting</title></svg>
+  <div class="readout" id="pascal-out">Click a cell to see Pascal's recurrence in action.</div>
+</div>
+
+<h3>Multinomials</h3>
+
+<p>If you want to split $n$ distinguishable objects into ordered bins of sizes $k_1, \ldots, k_r$ (with $k_1+\cdots+k_r = n$), the count is the <strong>multinomial coefficient</strong>:</p>
+
+<p style="text-align:center">$\displaystyle \binom{n}{k_1, k_2, \ldots, k_r} \;=\; \frac{n!}{k_1!\,k_2!\cdots k_r!}.$</p>
+
+<p>It is symmetric in the $k_i$'s. Setting $r=2$ recovers the binomial. The classic application: the number of distinct anagrams of MISSISSIPPI is $\binom{11}{1,4,4,2} = 11!/(1!\,4!\,4!\,2!) = 34650$.</p>
+
+<h3>Stars-and-bars</h3>
+
+<p>How many ways are there to write $n$ as an ordered sum $x_1 + \cdots + x_r$ with each $x_i \ge 0$? The bijection is the <em>stars-and-bars</em> trick: line up $n$ stars, then drop $r-1$ bars among them to mark the boundaries between bins. Each bin can be empty, and the bars can sit anywhere among the $n+r-1$ slots:</p>
+
+<p style="text-align:center">$\displaystyle \#\{\text{weak compositions of }n\text{ into }r\text{ parts}\} \;=\; \binom{n+r-1}{r-1}.$</p>
+
+<p>Example: $n=4, r=3$ gives $\binom{6}{2}=15$ solutions to $x_1+x_2+x_3=4$. Counts of multisets, monomials of fixed degree in fixed variables, and lattice points in simplices all reduce to stars-and-bars.</p>
+
+<div class="quiz" data-concept="ec-binomial-and-stars-bars"></div>
 </section>
+
+<script>
+(function(){
+  /* SECTION 1: Pascal's triangle clicker */
+  const svg = $('#pascal-svg'), out = $('#pascal-out');
+  const N = 9; // rows 0..N-1
+  const cellW = 56, cellH = 38;
+  const padL = 360, padT = 18;
+
+  function binom(n, k){
+    if(k < 0 || k > n) return 0;
+    if(k === 0 || k === n) return 1;
+    k = Math.min(k, n - k);
+    let v = 1;
+    for(let i = 0; i < k; i++) v = v * (n - i) / (i + 1);
+    return Math.round(v);
+  }
+
+  let highlight = null; // {n, k}
+  function cellPos(n, k){
+    const x = padL + (k - n / 2) * cellW;
+    const y = padT + n * cellH;
+    return [x, y];
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    for(let n = 0; n < N; n++){
+      for(let k = 0; k <= n; k++){
+        const [cx, cy] = cellPos(n, k);
+        let fill = "var(--panel2)", stroke = "var(--line)", textColor = "var(--ink)";
+        if(highlight){
+          const isCell = (highlight.n === n && highlight.k === k);
+          const isLeftParent = (highlight.n === n + 1 && highlight.k === k + 1);
+          const isRightParent = (highlight.n === n + 1 && highlight.k === k);
+          if(isCell){ fill = "var(--yellow)"; textColor = "#111"; stroke = "var(--yellow)"; }
+          else if(isLeftParent || isRightParent){ fill = "var(--cyan)"; textColor = "#111"; stroke = "var(--cyan)"; }
+        }
+        const rect = SVG("rect", {
+          x: cx - cellW/2 + 2, y: cy - cellH/2 + 2,
+          width: cellW - 4, height: cellH - 4, rx: 4,
+          fill, stroke, "stroke-width": 1.2,
+          "data-n": n, "data-k": k, style: "cursor:pointer"
+        });
+        svg.appendChild(rect);
+        const t = SVG("text", {
+          x: cx, y: cy + 4, "text-anchor": "middle",
+          "font-size": 13, "font-weight": 600, fill: textColor,
+          "pointer-events": "none"
+        });
+        t.textContent = String(binom(n, k));
+        svg.appendChild(t);
+      }
+    }
+  }
+
+  svg.addEventListener("click", (ev) => {
+    const t = ev.target;
+    if(t.tagName !== "rect") return;
+    const n = +t.getAttribute("data-n"), k = +t.getAttribute("data-k");
+    highlight = {n, k};
+    const v = binom(n, k);
+    if(n === 0){
+      out.textContent = `C(0,0) = 1 — the empty subset of the empty set.`;
+    } else if(k === 0 || k === n){
+      out.textContent = `C(${n},${k}) = ${v} — boundary cell (the unique ${k===0 ? "empty" : "full"} subset).`;
+    } else {
+      const a = binom(n-1, k-1), b = binom(n-1, k);
+      out.textContent =
+        `C(${n},${k}) = C(${n-1},${k-1}) + C(${n-1},${k}) = ${a} + ${b} = ${v}.\n` +
+        `Bijection: ${k}-subsets of [${n}] split by whether element ${n} is in (${a}) or out (${b}).`;
+    }
+    render();
+  });
+
+  render();
+})();
+</script>
+
+<section id="inclusion-exclusion">
+<h2>2. Inclusion–exclusion and derangements</h2>
+
+<p>How big is a union? For two sets, $|A \cup B| = |A| + |B| - |A \cap B|$. The general formula corrects for over-counting at every level of intersection:</p>
+
+<p style="text-align:center">$\displaystyle \left| \bigcup_{i=1}^n A_i \right| \;=\; \sum_{\emptyset \ne S \subseteq [n]} (-1)^{|S|+1} \left| \bigcap_{i \in S} A_i \right|.$</p>
+
+<p>Equivalently — and often more useful — the count of elements in <em>none</em> of the $A_i$ is</p>
+
+<p style="text-align:center">$\displaystyle \left| \overline{A_1} \cap \cdots \cap \overline{A_n} \right| \;=\; \sum_{S \subseteq [n]} (-1)^{|S|} \left| \bigcap_{i \in S} A_i \right|.$</p>
+
+<p>The proof is one line: each element $x$ in the universe contributes $(1 - 1)^{|T(x)|} = 0$ if it lies in any $A_i$ (where $T(x) = \{i : x \in A_i\}$) and $1$ if it lies in none.</p>
+
+<h3>The derangement count</h3>
+
+<p>A <strong>derangement</strong> of $[n]$ is a permutation $\sigma$ with $\sigma(i) \ne i$ for every $i$. Let $A_i$ be the set of permutations fixing $i$. Then $|A_i| = (n-1)!$, $|A_i \cap A_j| = (n-2)!$, and in general $|\bigcap_{i \in S} A_i| = (n-|S|)!$. Inclusion–exclusion:</p>
+
+<p style="text-align:center">$\displaystyle D_n \;=\; \sum_{k=0}^n (-1)^k \binom{n}{k} (n-k)! \;=\; n!\sum_{k=0}^n \frac{(-1)^k}{k!}.$</p>
+
+<p>So $D_n / n! \to e^{-1} \approx 0.3679$: the probability that a uniformly random permutation has no fixed points stabilises to $1/e$. The first few values are $D_1=0, D_2=1, D_3=2, D_4=9, D_5=44, D_6=265, \ldots$.</p>
+
+<div class="widget" id="w-venn">
+  <div class="hd"><div class="ttl">Venn-diagram count visualiser</div><div class="hint">toggle each region · check the inclusion–exclusion bookkeeping</div></div>
+  <div class="row">
+    <label>$|A|$:</label> <input type="number" id="ie-a" min="0" max="200" value="60" style="width:5em">
+    <label>$|B|$:</label> <input type="number" id="ie-b" min="0" max="200" value="50" style="width:5em">
+    <label>$|C|$:</label> <input type="number" id="ie-c" min="0" max="200" value="40" style="width:5em">
+    <label>$|A\cap B|$:</label> <input type="number" id="ie-ab" min="0" max="200" value="20" style="width:5em">
+    <label>$|A\cap C|$:</label> <input type="number" id="ie-ac" min="0" max="200" value="15" style="width:5em">
+    <label>$|B\cap C|$:</label> <input type="number" id="ie-bc" min="0" max="200" value="10" style="width:5em">
+    <label>$|A\cap B\cap C|$:</label> <input type="number" id="ie-abc" min="0" max="200" value="5" style="width:5em">
+  </div>
+  <svg id="venn-svg" viewBox="0 0 720 320" width="720" height="320"><title>Three-set Venn diagram with region sizes</title></svg>
+  <div class="readout" id="venn-out"></div>
+</div>
+
+<div class="quiz" data-concept="ec-inclusion-exclusion"></div>
+</section>
+
+<script>
+(function(){
+  /* SECTION 2: three-set Venn count visualiser */
+  const svg = $('#venn-svg'), out = $('#venn-out');
+  const ids = ["ie-a","ie-b","ie-c","ie-ab","ie-ac","ie-bc","ie-abc"];
+  const inputs = ids.map(id => $('#' + id));
+
+  // circle centres for a Venn-3 (rough symmetric layout)
+  const cx = 360, cy = 160, R = 90;
+  const centres = [
+    [cx - 50, cy - 30],
+    [cx + 50, cy - 30],
+    [cx,      cy + 40]
+  ];
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const [A, B, C, AB, AC, BC, ABC] = inputs.map(i => Math.max(0, +i.value || 0));
+    // sizes of the seven disjoint regions
+    const onlyABC = ABC;
+    const onlyAB = Math.max(0, AB - ABC);
+    const onlyAC = Math.max(0, AC - ABC);
+    const onlyBC = Math.max(0, BC - ABC);
+    const onlyA = Math.max(0, A - AB - AC + ABC);
+    const onlyB = Math.max(0, B - AB - BC + ABC);
+    const onlyC = Math.max(0, C - AC - BC + ABC);
+    const colours = ["var(--yellow)", "var(--cyan)", "var(--pink)"];
+    centres.forEach(([x,y], k) => {
+      svg.appendChild(SVG("circle", {
+        cx: x, cy: y, r: R,
+        fill: colours[k], "fill-opacity": 0.18,
+        stroke: colours[k], "stroke-width": 1.5
+      }));
+    });
+    // labels
+    const lbl = (x, y, txt, colour) => {
+      const t = SVG("text", {x, y, "text-anchor":"middle", "font-size":13, fill:colour, "font-weight":600});
+      t.textContent = txt;
+      svg.appendChild(t);
+    };
+    lbl(centres[0][0]-70, centres[0][1]-70, "A", "var(--yellow)");
+    lbl(centres[1][0]+70, centres[1][1]-70, "B", "var(--cyan)");
+    lbl(centres[2][0]+70, centres[2][1]+80, "C", "var(--pink)");
+    // region size labels
+    lbl(centres[0][0]-35, centres[0][1]-15, String(onlyA), "var(--ink)");
+    lbl(centres[1][0]+35, centres[1][1]-15, String(onlyB), "var(--ink)");
+    lbl(centres[2][0],    centres[2][1]+45, String(onlyC), "var(--ink)");
+    lbl(cx,        centres[0][1]-15, String(onlyAB), "var(--mute)");
+    lbl(cx-30,     cy+30, String(onlyAC), "var(--mute)");
+    lbl(cx+30,     cy+30, String(onlyBC), "var(--mute)");
+    lbl(cx,        cy+8,  String(onlyABC), "#fff");
+    const union = A + B + C - AB - AC - BC + ABC;
+    out.textContent =
+      `|A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|\n` +
+      `        = ${A} + ${B} + ${C} − ${AB} − ${AC} − ${BC} + ${ABC} = ${union}\n` +
+      `region sizes: A only ${onlyA}, B only ${onlyB}, C only ${onlyC}, A∩B only ${onlyAB}, A∩C only ${onlyAC}, B∩C only ${onlyBC}, A∩B∩C ${onlyABC}`;
+  }
+  inputs.forEach(i => i.addEventListener("input", render));
+  render();
+})();
+</script>
+
+<section id="generating-functions">
+<h2>3. Recurrences and generating functions</h2>
+
+<p>A sequence $a_0, a_1, a_2, \ldots$ becomes a single object once you encode it as a power series. Two encodings are standard:</p>
+
+<p style="text-align:center">$\displaystyle A(x) \;=\; \sum_{n\ge 0} a_n x^n \quad (\text{ordinary}), \qquad \hat A(x) \;=\; \sum_{n\ge 0} a_n \frac{x^n}{n!} \quad (\text{exponential}).$</p>
+
+<p>Operations on sequences become operations on series: shifting, convolution, scaling. A linear recurrence becomes a rational function; a convolution recurrence becomes a polynomial equation in $A(x)$.</p>
+
+<h3>The Catalan numbers</h3>
+
+<p>The Catalan numbers $C_0, C_1, C_2, \ldots = 1, 1, 2, 5, 14, 42, \ldots$ count many things: Dyck paths, triangulations, binary trees, non-crossing partitions. The fundamental recurrence is</p>
+
+<p style="text-align:center">$\displaystyle C_{n+1} \;=\; \sum_{k=0}^{n} C_k\,C_{n-k}.$</p>
+
+<p>(A non-empty Dyck path of $2(n+1)$ steps starts with an up-step, returns to the axis at some point, splitting into a Dyck path of length $2k$ and one of length $2(n-k)$.) Multiplying by $x^{n+1}$ and summing,</p>
+
+<p style="text-align:center">$\displaystyle C(x) - 1 \;=\; x\,C(x)^2.$</p>
+
+<p>This is a quadratic in $C(x)$, with the branch chosen so $C(0)=1$:</p>
+
+<p style="text-align:center">$\displaystyle C(x) \;=\; \frac{1 - \sqrt{1 - 4x}}{2x}.$</p>
+
+<p>Expanding $\sqrt{1 - 4x}$ via the generalised binomial theorem and simplifying yields the closed form:</p>
+
+<p style="text-align:center">$\displaystyle C_n \;=\; \frac{1}{n+1}\binom{2n}{n}.$</p>
+
+<div class="widget" id="w-genfun">
+  <div class="hd"><div class="ttl">Generating-function coefficient extractor</div><div class="hint">pick a series · read off $[x^n]$ as $n$ varies</div></div>
+  <div class="row">
+    <label>series:</label>
+    <select id="gf-series">
+      <option value="geom">$1/(1-x) = \sum x^n$</option>
+      <option value="exp">$e^x = \sum x^n/n!$</option>
+      <option value="catalan" selected>$C(x) = (1-\sqrt{1-4x})/(2x)$</option>
+      <option value="fib">$x/(1-x-x^2) = \sum F_n x^n$</option>
+      <option value="binom4">$(1+x)^4$</option>
+    </select>
+    <label style="margin-left:.6rem">$n$:</label>
+    <input type="range" id="gf-n" min="0" max="12" step="1" value="4">
+    <span id="gf-ndisp" style="color:var(--yellow);min-width:1.6em;text-align:right">4</span>
+  </div>
+  <svg id="gf-svg" viewBox="0 0 720 220" width="720" height="220"><title>Generating-function coefficients $a_n$</title></svg>
+  <div class="readout" id="gf-out"></div>
+</div>
+
+<div class="quiz" data-concept="ec-recurrences-and-gen-fun"></div>
+</section>
+
+<script>
+(function(){
+  /* SECTION 3: generating-function coefficient extractor */
+  const sel = $('#gf-series'), nIn = $('#gf-n'), nDisp = $('#gf-ndisp');
+  const svg = $('#gf-svg'), out = $('#gf-out');
+
+  function fact(k){ let v=1; for(let i=2;i<=k;i++) v *= i; return v; }
+  function binom(n, k){
+    if(k < 0 || k > n) return 0;
+    let v = 1;
+    for(let i = 0; i < k; i++) v = v * (n - i) / (i + 1);
+    return Math.round(v);
+  }
+  function fib(n){ if(n<=0) return 0; let a=1, b=1; for(let i=2;i<=n;i++){ const c=a+b; a=b; b=c; } return n===1?1:b; }
+  function catalan(n){ return Math.round(binom(2*n, n) / (n + 1)); }
+
+  function coef(name, n){
+    if(name === "geom") return 1;
+    if(name === "exp"){
+      // a_n = 1, since e^x = sum x^n / n! and the coefficient of x^n / n! is 1; we display a_n = 1
+      return 1;
+    }
+    if(name === "catalan") return catalan(n);
+    if(name === "fib") return fib(n);
+    if(name === "binom4") return n <= 4 ? binom(4, n) : 0;
+    return 0;
+  }
+  function label(name){
+    return ({
+      geom: "[x^n] 1/(1-x) = 1 (constant sequence)",
+      exp: "[x^n/n!] e^x = 1 (so [x^n] = 1/n!)",
+      catalan: "[x^n] C(x) = C_n = (1/(n+1)) * C(2n, n)",
+      fib: "[x^n] x/(1-x-x^2) = F_n (Fibonacci, F_1=F_2=1)",
+      binom4: "[x^n] (1+x)^4 = C(4,n)"
+    })[name] || "";
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const name = sel.value;
+    const n = +nIn.value;
+    nDisp.textContent = n;
+    const maxN = 12;
+    const vals = [];
+    let maxV = 1;
+    for(let i = 0; i <= maxN; i++){
+      const v = coef(name, i);
+      vals.push(v);
+      if(v > maxV) maxV = v;
+    }
+    // bar chart
+    const W = 720, H = 220, padX = 60, padY = 30;
+    const bw = (W - 2*padX) / (maxN + 1);
+    // axis
+    svg.appendChild(SVG("line", {x1:padX, y1:H-padY, x2:W-padX, y2:H-padY, stroke:"var(--line)", "stroke-width":1}));
+    for(let i = 0; i <= maxN; i++){
+      const x = padX + i*bw + 4;
+      const v = vals[i];
+      const h = v > 0 ? (H - 2*padY) * v / maxV : 0;
+      const y = H - padY - h;
+      const isActive = (i === n);
+      svg.appendChild(SVG("rect", {
+        x, y, width: bw - 8, height: h,
+        fill: isActive ? "var(--yellow)" : "var(--cyan)",
+        "fill-opacity": isActive ? 0.95 : 0.35,
+        stroke: isActive ? "var(--yellow)" : "var(--cyan)",
+        "stroke-width": 1
+      }));
+      const t = SVG("text", {
+        x: x + (bw-8)/2, y: H - padY + 14,
+        "text-anchor": "middle", "font-size": 11,
+        fill: isActive ? "var(--yellow)" : "var(--mute)"
+      });
+      t.textContent = String(i);
+      svg.appendChild(t);
+      if(isActive){
+        const tv = SVG("text", {
+          x: x + (bw-8)/2, y: y - 6,
+          "text-anchor": "middle", "font-size": 11,
+          fill: "var(--yellow)", "font-weight": 700
+        });
+        tv.textContent = String(v);
+        svg.appendChild(tv);
+      }
+    }
+    out.textContent =
+      `${label(name)}\n` +
+      `a_${n} = ${vals[n]}` +
+      (name === "exp" ? `   (so 1/${fact(n)} = ${(1/fact(n)).toExponential(3)})` : "");
+  }
+  sel.addEventListener("change", render);
+  nIn.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<section id="permutation-stats">
+<h2>4. Permutation statistics</h2>
+
+<p>$|S_n| = n!$ is the trivial count. The interesting questions are <em>refined</em>: how many permutations have $k$ inversions, $k$ descents, $k$ cycles? Each statistic gives a polynomial whose specialisation at $x=1$ is $n!$.</p>
+
+<h3>Inversions</h3>
+
+<p>An <strong>inversion</strong> of $\sigma \in S_n$ is a pair $i < j$ with $\sigma(i) > \sigma(j)$. The total inversion count $\mathrm{inv}(\sigma)$ measures how far $\sigma$ is from the identity. The generating polynomial</p>
+
+<p style="text-align:center">$\displaystyle \sum_{\sigma \in S_n} q^{\mathrm{inv}(\sigma)} \;=\; [n]_q! \;=\; \prod_{k=1}^n \frac{1 - q^k}{1 - q}$</p>
+
+<p>is the $q$-factorial. At $q=1$ it specialises to $n!$; at $q=0$ it gives $1$ (only the identity has zero inversions).</p>
+
+<h3>Descents and Eulerian numbers</h3>
+
+<p>A <strong>descent</strong> of $\sigma$ is a position $i$ with $\sigma(i) > \sigma(i+1)$. The Eulerian number $\langle {n\atop k}\rangle$ counts permutations with exactly $k$ descents. Worpitzky's identity packages them: $x^n = \sum_k \langle {n\atop k}\rangle \binom{x+k}{n}$.</p>
+
+<h3>Cycles and Stirling numbers</h3>
+
+<p>The (signless) <strong>Stirling number of the first kind</strong> $c(n, k)$ counts permutations of $[n]$ with exactly $k$ cycles. Their generating identity is the rising factorial:</p>
+
+<p style="text-align:center">$\displaystyle x(x+1)(x+2)\cdots(x+n-1) \;=\; \sum_{k=0}^{n} c(n,k)\,x^k.$</p>
+
+<p>At $x=1$ this is $n!$, recovering $\sum_k c(n,k) = n!$. The cycle-index polynomial of $S_n$ encodes the full cycle-type distribution and is the engine behind Pólya enumeration of colourings under group actions.</p>
+
+<div class="widget" id="w-perm">
+  <div class="hd"><div class="ttl">Permutation statistics</div><div class="hint">edit the one-line notation · inversions, descents, and cycles update live</div></div>
+  <div class="row">
+    <label>$\sigma$ in one-line notation:</label>
+    <input type="text" id="perm-input" value="3 1 4 1 5 9 2 6" style="width:14em;font-family:ui-monospace,monospace">
+    <button id="perm-rand">randomise</button>
+    <button id="perm-id">reset to identity</button>
+  </div>
+  <svg id="perm-svg" viewBox="0 0 720 200" width="720" height="200"><title>Permutation diagram with inversion crossings</title></svg>
+  <div class="readout" id="perm-out"></div>
+</div>
+
+<div class="quiz" data-concept="ec-permutation-statistics"></div>
+</section>
+
+<script>
+(function(){
+  /* SECTION 4: permutation-statistics calculator */
+  const inp = $('#perm-input'), btnRand = $('#perm-rand'), btnId = $('#perm-id');
+  const svg = $('#perm-svg'), out = $('#perm-out');
+
+  function parsePerm(s){
+    const toks = s.trim().split(/[\s,]+/).filter(Boolean).map(Number);
+    if(toks.some(x => !Number.isFinite(x) || x < 1 || !Number.isInteger(x))) return null;
+    const seen = new Set(toks);
+    if(seen.size !== toks.length) return null;
+    const n = toks.length;
+    for(let i = 1; i <= n; i++) if(!seen.has(i)) return null;
+    return toks;
+  }
+  function inversions(p){
+    let c = 0;
+    for(let i = 0; i < p.length; i++) for(let j = i+1; j < p.length; j++) if(p[i] > p[j]) c++;
+    return c;
+  }
+  function descents(p){
+    let c = 0;
+    for(let i = 0; i < p.length - 1; i++) if(p[i] > p[i+1]) c++;
+    return c;
+  }
+  function cycles(p){
+    const n = p.length, seen = Array(n).fill(false);
+    const cs = [];
+    for(let i = 0; i < n; i++){
+      if(seen[i]) continue;
+      const cyc = [];
+      let j = i;
+      while(!seen[j]){ seen[j] = true; cyc.push(j+1); j = p[j] - 1; }
+      cs.push(cyc);
+    }
+    return cs;
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const p = parsePerm(inp.value);
+    if(!p){
+      out.textContent = "Not a valid permutation of [1..n]: enter each integer 1..n exactly once.";
+      return;
+    }
+    const n = p.length;
+    const W = 720, H = 200, padX = 60, padY = 30;
+    const dx = (W - 2*padX) / Math.max(1, n - 1);
+    const yTop = padY, yBot = H - padY;
+    // crossing diagram: top row = i, bottom row = sigma(i)
+    for(let i = 0; i < n; i++){
+      const xTop = padX + i*dx;
+      const xBot = padX + (p[i] - 1)*dx;
+      svg.appendChild(SVG("line", {
+        x1: xTop, y1: yTop, x2: xBot, y2: yBot,
+        stroke: "var(--cyan)", "stroke-width": 1.4, "stroke-opacity": 0.7
+      }));
+    }
+    // top labels
+    for(let i = 0; i < n; i++){
+      const x = padX + i*dx;
+      const t = SVG("text", {x, y: yTop - 8, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+      t.textContent = String(i+1);
+      svg.appendChild(t);
+      svg.appendChild(SVG("circle", {cx:x, cy:yTop, r:3, fill:"var(--ink)"}));
+    }
+    // bottom labels
+    for(let j = 0; j < n; j++){
+      const x = padX + j*dx;
+      const t = SVG("text", {x, y: yBot + 18, "text-anchor":"middle", "font-size":12, fill:"var(--yellow)"});
+      t.textContent = String(j+1);
+      svg.appendChild(t);
+      svg.appendChild(SVG("circle", {cx:x, cy:yBot, r:3, fill:"var(--yellow)"}));
+    }
+    const inv = inversions(p), des = descents(p), cs = cycles(p);
+    const cyc = cs.map(c => "(" + c.join(" ") + ")").join(" ");
+    out.textContent =
+      `n = ${n}\n` +
+      `one-line: ${p.join(" ")}\n` +
+      `inversions = ${inv}    descents = ${des}    cycles = ${cs.length}: ${cyc}`;
+  }
+
+  inp.addEventListener("input", render);
+  btnRand.addEventListener("click", () => {
+    const n = 6 + Math.floor(Math.random()*4);
+    const arr = [];
+    for(let i = 1; i <= n; i++) arr.push(i);
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    inp.value = arr.join(" ");
+    render();
+  });
+  btnId.addEventListener("click", () => {
+    inp.value = "1 2 3 4 5 6";
+    render();
+  });
+  render();
+})();
+</script>
+
+<section id="partitions">
+<h2>5. Integer partitions and Euler's product</h2>
+
+<p>A <strong>partition</strong> of $n$ is a way to write $n = \lambda_1 + \lambda_2 + \cdots + \lambda_r$ with $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_r \ge 1$. The function $p(n)$ counts these. The first few values:</p>
+
+<p style="text-align:center">$\displaystyle p(0) = 1,\; p(1) = 1,\; p(2) = 2,\; p(3) = 3,\; p(4) = 5,\; p(5) = 7,\; p(6) = 11,\; p(7) = 15,\; \ldots$</p>
+
+<p>There is no closed form, but Hardy–Ramanujan's asymptotic formula $p(n) \sim \frac{1}{4n\sqrt{3}}\,e^{\pi\sqrt{2n/3}}$ is one of the gems of analytic combinatorics. The starting point is Euler's <strong>infinite product</strong>:</p>
+
+<p style="text-align:center">$\displaystyle \sum_{n\ge 0} p(n)\,q^n \;=\; \prod_{k\ge 1} \frac{1}{1 - q^k}.$</p>
+
+<p>The factor $1/(1-q^k) = 1 + q^k + q^{2k} + \cdots$ chooses how many parts of size $k$ to use; multiplying across all $k$ enumerates partitions exactly.</p>
+
+<h3>Young diagrams</h3>
+
+<p>A partition $\lambda$ is drawn as a left-justified array of boxes, the <strong>Young diagram</strong>. Conjugation — reflecting across the main diagonal — gives a bijection $\lambda \mapsto \lambda'$ between partitions of $n$ that preserves the count but swaps "number of parts" with "largest part".</p>
+
+<div class="widget" id="w-young">
+  <div class="hd"><div class="ttl">Young-diagram drawer</div><div class="hint">click to add or remove a box · the partition stays left- and top-justified</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <input type="range" id="young-n" min="1" max="10" step="1" value="6">
+    <span id="young-ndisp" style="color:var(--yellow);min-width:1.6em;text-align:right">6</span>
+    <button id="young-conj">conjugate $\lambda \to \lambda'$</button>
+    <button id="young-staircase">staircase 4+3+2+1</button>
+    <button id="young-rect">rectangle</button>
+  </div>
+  <svg id="young-svg" viewBox="0 0 720 320" width="720" height="320"><title>Young diagram for partition lambda</title></svg>
+  <div class="readout" id="young-out"></div>
+</div>
+
+<h3>Rogers–Ramanujan</h3>
+
+<p>The deepest classical partition identities are due to Rogers and Ramanujan. They assert the surprising equinumeration:</p>
+
+<div class="ok"><strong>Rogers–Ramanujan (first identity).</strong> For each $n$, the partitions of $n$ in which any two parts differ by at least $2$ equal the partitions of $n$ into parts congruent to $\pm 1 \pmod 5$.</div>
+
+<p>Equivalently, as power-series identities,</p>
+
+<p style="text-align:center">$\displaystyle \sum_{n\ge 0} \frac{q^{n^2}}{(1-q)(1-q^2)\cdots(1-q^n)} \;=\; \prod_{n\ge 0}\frac{1}{(1-q^{5n+1})(1-q^{5n+4})}.$</p>
+
+<p>Both sides equal $\sum_{n} a_n q^n$ where $a_n$ is the common count. There is no easy combinatorial bijection between the two families — the original proofs are analytic, and a bijective proof (Garsia–Milne) is genuinely intricate.</p>
+
+<div class="quiz" data-concept="ec-partition-theory"></div>
+</section>
+
+<script>
+(function(){
+  /* SECTION 5: Young-diagram drawer */
+  const nIn = $('#young-n'), nDisp = $('#young-ndisp');
+  const svg = $('#young-svg'), out = $('#young-out');
+  const btnConj = $('#young-conj'), btnSt = $('#young-staircase'), btnRect = $('#young-rect');
+
+  let lambda = [3, 2, 1]; // current partition
+
+  function setN(n){ nIn.value = String(n); nDisp.textContent = n; }
+  function totalSize(l){ return l.reduce((a,b)=>a+b, 0); }
+  function fitToN(l, n){
+    // truncate to total size <= n, padding with single boxes where possible
+    let s = totalSize(l);
+    while(s > n){
+      // shrink last column or last part
+      const i = l.length - 1;
+      if(l[i] > 1) l[i] -= 1; else l.pop();
+      s = totalSize(l);
+    }
+    while(s < n){
+      // grow: add a box where it preserves weak-decreasing order
+      if(l.length === 0 || l[l.length-1] === 1) l.push(1);
+      else if(l[0] === Infinity) break;
+      else { l[l.length-1] += 1; }
+      s = totalSize(l);
+    }
+    return l;
+  }
+  function conjugate(l){
+    if(l.length === 0) return [];
+    const m = l[0];
+    const c = [];
+    for(let i = 1; i <= m; i++){
+      let r = 0;
+      for(const part of l) if(part >= i) r++;
+      c.push(r);
+    }
+    return c;
+  }
+  function staircase(n){
+    // 4+3+2+1 = 10 baseline; otherwise greedy staircase for n
+    const l = [];
+    let k = 1, s = 0;
+    while(true){
+      const cand = [];
+      let total = 0;
+      for(let i = k; i >= 1; i--){ cand.push(i); total += i; }
+      if(total <= n){ l.length = 0; l.push(...cand); k++; }
+      else break;
+    }
+    return fitToN(l.length ? l : [1], n);
+  }
+  function rectangle(n){
+    if(n === 1) return [1];
+    if(n === 2) return [2];
+    if(n === 3) return [3];
+    if(n === 4) return [2,2];
+    if(n === 5) return [3,2];
+    if(n === 6) return [3,3];
+    if(n === 7) return [4,3];
+    if(n === 8) return [4,4];
+    if(n === 9) return [3,3,3];
+    if(n === 10) return [5,5];
+    return [n];
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = +nIn.value;
+    nDisp.textContent = n;
+    if(totalSize(lambda) !== n){ lambda = fitToN(lambda.slice(), n); }
+    const W = 720, H = 320, cell = 36, padL = 60, padT = 30;
+    const colours = ["var(--yellow)", "var(--cyan)", "var(--pink)", "var(--violet)", "var(--green)"];
+    lambda.forEach((part, i) => {
+      const colour = colours[i % colours.length];
+      for(let j = 0; j < part; j++){
+        const x = padL + j * cell, y = padT + i * cell;
+        svg.appendChild(SVG("rect", {
+          x, y, width: cell - 2, height: cell - 2, rx: 3,
+          fill: colour, "fill-opacity": 0.25, stroke: colour, "stroke-width": 1.2
+        }));
+      }
+    });
+    // axis hints
+    const ax = SVG("text", {x: padL, y: padT - 8, "font-size": 11, fill: "var(--mute)"});
+    ax.textContent = `λ = (${lambda.join(", ")})`;
+    svg.appendChild(ax);
+    out.textContent =
+      `n = ${n},  λ = (${lambda.join(", ")}),  parts = ${lambda.length},  largest = ${lambda[0] || 0}\n` +
+      `conjugate λ' = (${conjugate(lambda).join(", ")})`;
+  }
+
+  nIn.addEventListener("input", () => {
+    const n = +nIn.value;
+    lambda = fitToN(lambda.slice(), n);
+    render();
+  });
+  btnConj.addEventListener("click", () => { lambda = conjugate(lambda); render(); });
+  btnSt.addEventListener("click", () => { lambda = staircase(+nIn.value); render(); });
+  btnRect.addEventListener("click", () => { lambda = rectangle(+nIn.value); render(); });
+  render();
+})();
+</script>
+
+<section id="bijections">
+<h2>6. Bijective proofs</h2>
+
+<p>The most satisfying proof of $|A| = |B|$ is a bijection $\varphi : A \to B$ — an explicit invertible map. Such a proof gives more than the count: it transports structure from one side to the other. The Catalan numbers are the prime example, with at least 200 known Catalan-counted families and a forest of bijections among them.</p>
+
+<h3>Dyck paths and triangulations</h3>
+
+<p>A <strong>Dyck path</strong> of length $2n$ is a lattice path from $(0,0)$ to $(2n,0)$ using steps $(+1,+1)$ (up) and $(+1,-1)$ (down) that never dips below the $x$-axis. There are $C_n$ of them.</p>
+
+<p>A <strong>triangulation</strong> of a convex $(n+2)$-gon is a maximal set of non-crossing diagonals; equivalently, a way to cut the polygon into $n$ triangles. There are also $C_n$ of these.</p>
+
+<p>The bijection: fix a base edge of the polygon. Walk the triangulation tree rooted at that edge in pre-order, recording an "up" step whenever you enter a child triangle and a "down" step whenever you back out. The resulting word of length $2n$ is a Dyck path.</p>
+
+<div class="widget" id="w-bij">
+  <div class="hd"><div class="ttl">Catalan path ↔ triangulation</div><div class="hint">step through the $C_n$ pairs · watch the bijection synchronise</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <select id="bij-n"><option value="3">3 (C₃ = 5)</option><option value="4" selected>4 (C₄ = 14)</option></select>
+    <label style="margin-left:.6rem">index:</label>
+    <input type="range" id="bij-i" min="0" max="13" step="1" value="0">
+    <span id="bij-idx" style="color:var(--yellow);min-width:2.4em;text-align:right">0</span>
+    <button id="bij-prev">‹ prev</button>
+    <button id="bij-next">next ›</button>
+  </div>
+  <svg id="bij-svg" viewBox="0 0 720 320" width="720" height="320"><title>Dyck path paired with the corresponding triangulation</title></svg>
+  <div class="readout" id="bij-out"></div>
+</div>
+
+<h3>RSK and Young tableaux</h3>
+
+<p>The <strong>Robinson–Schensted–Knuth correspondence</strong> is a bijection between non-negative integer matrices and pairs $(P, Q)$ of semistandard Young tableaux of the same shape. Restricted to permutation matrices it bijects $S_n$ with pairs of <em>standard</em> tableaux of the same shape, yielding the spectacular identity</p>
+
+<p style="text-align:center">$\displaystyle n! \;=\; \sum_{\lambda \vdash n} f^\lambda \cdot f^\lambda \;=\; \sum_{\lambda \vdash n} (f^\lambda)^2,$</p>
+
+<p>where $f^\lambda$ is the number of standard Young tableaux of shape $\lambda$. The tableau pair carries an enormous amount of structure: the shape determines the longest increasing subsequence (Schensted's theorem), and RSK underlies the entire combinatorics of symmetric functions, Schur polynomials, and representations of $S_n$.</p>
+
+<div class="quiz" data-concept="ec-bijective-proofs"></div>
+</section>
+
+<script>
+(function(){
+  /* SECTION 6: Catalan path <-> triangulation bijection */
+  const nSel = $('#bij-n'), iIn = $('#bij-i'), iDisp = $('#bij-idx');
+  const btnPrev = $('#bij-prev'), btnNext = $('#bij-next');
+  const svg = $('#bij-svg'), out = $('#bij-out');
+
+  // generate all Dyck words of length 2n in lex order
+  function dyckWords(n){
+    const out = [];
+    function rec(w, ups, downs){
+      if(w.length === 2*n){ out.push(w); return; }
+      if(ups < n) rec(w + "U", ups + 1, downs);
+      if(downs < ups) rec(w + "D", ups, downs + 1);
+    }
+    rec("", 0, 0);
+    return out;
+  }
+
+  // For a Dyck word w of length 2n, build a binary tree (left = first child of triangulation under base edge, right = sibling).
+  // Then convert to a triangulation of an (n+2)-gon by recording the recursive splits.
+  // We use the standard recursive bijection: a Dyck word w = U w1 D w2 corresponds to a triangulation built from two sub-triangulations.
+  // For drawing, we compute, for each non-empty Dyck word, the "split index" k such that the apex triangle of the polygon has vertex k.
+  function dyckToTriangulation(w, baseStart, baseEnd){
+    // returns list of triangles as triples [i,j,k] (vertex indices around the polygon)
+    if(w.length === 0) return [];
+    // split: U w1 D w2  -> w1 is balanced
+    let bal = 0;
+    let split = -1;
+    for(let i = 1; i < w.length; i++){
+      if(w[i-1] === "U") bal++; else bal--;
+      // first time we return to depth 0 corresponds to closing the initial U
+      // but our word starts with U at index 0; depth after position 0 is 1.
+      // After the matching D, depth returns to 0.
+      if(bal === 0){ split = i; break; }
+    }
+    if(split === -1) return [];
+    const w1 = w.slice(1, split);
+    const w2 = w.slice(split + 1);
+    const n1 = w1.length / 2;
+    // The apex of the polygon over baseStart..baseEnd is at vertex baseStart + 1 + n1
+    const apex = baseStart + 1 + n1;
+    const tri = [[baseStart, apex, baseEnd]];
+    return tri.concat(
+      dyckToTriangulation(w1, baseStart, apex),
+      dyckToTriangulation(w2, apex, baseEnd)
+    );
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = +nSel.value;
+    const words = dyckWords(n);
+    iIn.max = String(words.length - 1);
+    let idx = +iIn.value;
+    if(idx >= words.length) { idx = words.length - 1; iIn.value = String(idx); }
+    iDisp.textContent = String(idx);
+    const w = words[idx];
+
+    // left half: Dyck path
+    const padL = 50, padT = 50, cell = 30;
+    const baseY = padT + n * cell;
+    // axis
+    svg.appendChild(SVG("line", {
+      x1: padL, y1: baseY, x2: padL + 2*n*cell, y2: baseY,
+      stroke: "var(--line)", "stroke-width": 1.2
+    }));
+    let x = padL, y = baseY;
+    let path = `M${x} ${y}`;
+    for(const c of w){
+      const dy = (c === "U") ? -cell : cell;
+      x += cell; y += dy;
+      path += ` L${x} ${y}`;
+    }
+    svg.appendChild(SVG("path", {
+      d: path, fill: "none", stroke: "var(--cyan)", "stroke-width": 2
+    }));
+    // markers
+    let cx = padL, cy = baseY;
+    svg.appendChild(SVG("circle", {cx, cy, r: 3, fill: "var(--cyan)"}));
+    for(const c of w){
+      cx += cell; cy += (c === "U") ? -cell : cell;
+      svg.appendChild(SVG("circle", {cx, cy, r: 3, fill: "var(--cyan)"}));
+    }
+    // word label
+    const wt = SVG("text", {
+      x: padL, y: padT - 18, "font-size": 12, fill: "var(--yellow)",
+      "font-family": "ui-monospace,monospace"
+    });
+    wt.textContent = "Dyck word: " + w;
+    svg.appendChild(wt);
+
+    // right half: polygon + triangulation
+    const N = n + 2;
+    const polyCx = 540, polyCy = 160, R = 110;
+    const verts = [];
+    // place vertex 0 at the bottom-right and 1 at the bottom-left so the "base edge" 0..1 is at the bottom
+    for(let k = 0; k < N; k++){
+      const angle = -Math.PI/2 + 2*Math.PI*k/N + Math.PI; // start near bottom
+      verts.push([polyCx + R*Math.cos(angle), polyCy + R*Math.sin(angle)]);
+    }
+    // polygon edges
+    for(let k = 0; k < N; k++){
+      const a = verts[k], b = verts[(k+1) % N];
+      svg.appendChild(SVG("line", {
+        x1:a[0], y1:a[1], x2:b[0], y2:b[1],
+        stroke: "var(--violet)", "stroke-width": 1.5
+      }));
+    }
+    // diagonals from triangulation
+    const triangles = dyckToTriangulation(w, 0, N - 1);
+    const diagSet = new Set();
+    for(const [i,j,k] of triangles){
+      for(const [a,b] of [[i,j],[j,k],[i,k]]){
+        const lo = Math.min(a,b), hi = Math.max(a,b);
+        if(hi - lo > 1 && !(lo === 0 && hi === N - 1)) diagSet.add(`${lo}-${hi}`);
+      }
+    }
+    for(const key of diagSet){
+      const [lo, hi] = key.split("-").map(Number);
+      const a = verts[lo], b = verts[hi];
+      svg.appendChild(SVG("line", {
+        x1:a[0], y1:a[1], x2:b[0], y2:b[1],
+        stroke: "var(--yellow)", "stroke-width": 1.6, "stroke-opacity": 0.85
+      }));
+    }
+    // vertex markers
+    verts.forEach((v, k) => {
+      svg.appendChild(SVG("circle", {cx:v[0], cy:v[1], r: 4, fill: "var(--violet)"}));
+      const t = SVG("text", {
+        x: polyCx + (v[0]-polyCx)*1.18, y: polyCy + (v[1]-polyCy)*1.18 + 4,
+        "text-anchor": "middle", "font-size": 11, fill: "var(--mute)"
+      });
+      t.textContent = String(k);
+      svg.appendChild(t);
+    });
+
+    out.textContent =
+      `n = ${n}, total Catalan triangulations C_${n} = ${words.length}\n` +
+      `index ${idx} of ${words.length - 1}    Dyck word: ${w}\n` +
+      `triangulation diagonals: ${diagSet.size === 0 ? "(none — already a triangle)" : [...diagSet].map(s => "(" + s.replace("-", ",") + ")").join(" ")}`;
+  }
+
+  nSel.addEventListener("change", () => { iIn.value = "0"; render(); });
+  iIn.addEventListener("input", render);
+  btnPrev.addEventListener("click", () => {
+    const v = +iIn.value;
+    if(v > 0){ iIn.value = String(v - 1); render(); }
+  });
+  btnNext.addEventListener("click", () => {
+    const v = +iIn.value, max = +iIn.max;
+    if(v < max){ iIn.value = String(v + 1); render(); }
+  });
+  render();
+})();
+</script>
 
 </main>
 

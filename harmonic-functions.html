@@ -179,58 +179,83 @@
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
 const SVG = (tag,attrs={})=>{
-  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  const e = document.createElementNS("http://www.w3.org/2000/svg",tag);
   for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
   return e;
 };
 // draw an arrow marker def once per svg (idempotent)
 function ensureArrow(svg, id, color){
-  let defs = svg.querySelector('defs');
-  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
-  if(defs.querySelector('#'+id)) return;
-  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
-  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  let defs = svg.querySelector("defs");
+  if(!defs){ defs = SVG("defs"); svg.appendChild(defs); }
+  if(defs.querySelector("#"+id)) return;
+  const mk = SVG("marker",{id,viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:6,markerHeight:6,orient:"auto"});
+  mk.appendChild(SVG("path",{d:"M0,0 L10,5 L0,10 z",fill:color}));
   defs.appendChild(mk);
 }
-// curved arrow between two pixel points, with optional label
 function drawArrow(svg, p1, p2, opts={}){
-  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  const {color="var(--ink)", curve=0, label=null, labelSide=1, markerId="arr-default", dash=null, width=1.5} = opts;
   ensureArrow(svg, markerId, color);
   const [x1,y1]=p1, [x2,y2]=p2;
   const dx=x2-x1, dy=y2-y1;
   const L = Math.hypot(dx,dy) || 1;
   const ux=dx/L, uy=dy/L;
-  // shorten endpoints
   const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
   const ax=x1+ux*pad1, ay=y1+uy*pad1;
   const bx=x2-ux*pad2, by=y2-uy*pad2;
   const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
-  const path = SVG('path',{
+  const path = SVG("path",{
     d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
-    fill:'none', stroke:color, 'stroke-width':width,
-    'marker-end':`url(#${markerId})`
+    fill:"none", stroke:color, "stroke-width":width,
+    "marker-end":`url(#${markerId})`
   });
-  if(dash) path.setAttribute('stroke-dasharray', dash);
+  if(dash) path.setAttribute("stroke-dasharray", dash);
   svg.appendChild(path);
   if(label){
-    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
-      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    const t = SVG("text",{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      "text-anchor":"middle","font-size":12, fill:color, "font-style":"italic"});
     t.textContent = label;
     svg.appendChild(t);
   }
   return path;
 }
 function drawNode(svg, x, y, label, opts={}){
-  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
-  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
-  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  const {r=18, fill="var(--panel2)", stroke="var(--blue)", textColor="#fff", fontSize=14} = opts;
+  svg.appendChild(SVG("circle",{cx:x,cy:y,r,fill,stroke,"stroke-width":1.5}));
+  const t = SVG("text",{x,y:y+fontSize*0.35,"text-anchor":"middle","font-size":fontSize,fill:textColor,"font-weight":600});
   t.textContent = label;
   svg.appendChild(t);
+}
+// shared HSL → hex helper for the heatmap widgets
+function hslToHex(h, s, l){
+  s/=100; l/=100;
+  const k = n => (n + h/30) % 12;
+  const a = s*Math.min(l, 1-l);
+  const f = n => {
+    const c = l - a*Math.max(-1, Math.min(k(n)-3, Math.min(9-k(n), 1)));
+    return Math.round(255*c).toString(16).padStart(2,"0");
+  };
+  return "#"+f(0)+f(8)+f(4);
+}
+function heatColor(t){
+  // t in [-1,1]: blue (cold) → white → red (hot)
+  const tc = Math.max(-1, Math.min(1, t));
+  if(tc >= 0){
+    const l = 100 - 35*tc; // 100 → 65
+    return hslToHex(15, 80, l);
+  } else {
+    const l = 100 + 35*tc; // 100 → 65
+    return hslToHex(210, 70, l);
+  }
 }
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+  <a href="#laplace-equation">1&nbsp;Laplace's&nbsp;equation</a>
+  <a href="#mvp">2&nbsp;Mean&nbsp;value</a>
+  <a href="#maximum">3&nbsp;Maximum&nbsp;principle</a>
+  <a href="#poisson">4&nbsp;Poisson&nbsp;kernel</a>
+  <a href="#harnack">5&nbsp;Harnack</a>
+  <a href="#subharmonic">6&nbsp;Subharmonic&nbsp;&amp;&nbsp;Perron</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -240,14 +265,866 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Harmonic functions</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">Solutions of $\Delta u = 0$ — averaging, rigidity, and the Dirichlet problem. The bridge between complex analysis, electrostatics, and elliptic PDE.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="harmonic-functions-intro"></div>
+<section id="laplace-equation">
+<h2>1. Laplace's equation</h2>
+<p>A function $u\colon \Omega \subseteq \mathbb{R}^n \to \mathbb{R}$ of class $C^2$ is called <strong>harmonic</strong> when</p>
+<p>$$\Delta u \;=\; \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2} \;=\; 0.$$</p>
+<p>This is the simplest elliptic PDE, and it shows up everywhere: the steady-state heat distribution on a body whose boundary temperature is fixed; the electrostatic potential outside the supports of charges; the gravitational potential outside a mass distribution; the velocity potential of an incompressible irrotational fluid.</p>
+<p>In two dimensions there is a magic bridge to <a href="./complex-analysis.html#cons">complex analysis</a>: if $f = u + iv$ is holomorphic on an open $\Omega \subseteq \mathbb{C}$, then differentiating the Cauchy–Riemann equations $u_x = v_y$, $u_y = -v_x$ once more gives $u_{xx} + u_{yy} = v_{yx} - v_{xy} = 0$. Both the real and imaginary part of any holomorphic function are harmonic. Conversely, on a simply connected $\Omega$, every harmonic $u$ has a <em>harmonic conjugate</em> $v$ — the unique-up-to-constant real function making $u + iv$ holomorphic.</p>
+
+<div class="note"><strong>Examples.</strong> Some staple harmonic functions on $\mathbb{R}^2$: linear $ax + by + c$; the real and imaginary parts of $z^n$ (so $\mathrm{Re}\,z^2 = x^2 - y^2$, $\mathrm{Im}\,z^2 = 2xy$, etc.); $\log|z|$ on $\mathbb{R}^2 \setminus \{0\}$; and $\arg z$ on any simply connected slit domain. Linear combinations are harmonic too. Polynomial harmonic functions of degree $\le n$ form a finite-dimensional space — the spherical harmonics in disguise.</div>
+
+<div class="widget" id="w-laplace">
+  <div class="hd"><div class="ttl">Pick a function — meet its Laplacian</div><div class="hint">choose a candidate $u$; the heatmap shows $\Delta u$. Harmonic ⇔ uniformly white.</div></div>
+  <div class="row">
+    <label>$u(x,y) =$</label>
+    <select id="lap-fn">
+      <option value="x2y2">x² + y²</option>
+      <option value="x2my2" selected>x² − y² (= Re z²)</option>
+      <option value="2xy">2xy (= Im z²)</option>
+      <option value="x2y">x²y</option>
+      <option value="exp">eˣ cos y</option>
+      <option value="log">½ log(x² + y²)</option>
+      <option value="re_z3">Re z³ = x³ − 3xy²</option>
+    </select>
+  </div>
+  <svg id="lap-svg" viewBox="0 0 760 320" width="760" height="320"><title>Function and its Laplacian, side by side</title></svg>
+  <div class="readout" id="lap-readout"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#holo">Cauchy–Riemann equations</a></li>
+    <li><a href="./real-analysis.html#real-differentiation">Differentiation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="hf-laplace-equation"></div>
 </section>
+
+<section id="mvp">
+<h2>2. The mean value property</h2>
+<p>Here is the single property that distils what "harmonic" really means. If $u$ is harmonic on $\Omega$ and the closed ball $\overline{B(x_0, r)} \subset \Omega$, then</p>
+<p>$$u(x_0) \;=\; \frac{1}{|\partial B(x_0,r)|}\int_{\partial B(x_0,r)} u\,dS \;=\; \frac{1}{|B(x_0,r)|}\int_{B(x_0,r)} u\,dV.$$</p>
+<p>The value at the center equals the spherical average — and equivalently the volume average over the ball. <strong>Harmonic = balanced.</strong></p>
+<p>The proof is one application of the divergence theorem: differentiate the average $\overline u(r) = \tfrac{1}{|\partial B(x_0,r)|}\int_{\partial B(x_0,r)} u\,dS$ with respect to $r$, get $\overline u'(r) = \tfrac{r}{n} \cdot \overline{\Delta u}(r) = 0$, so the average is independent of $r$. Sending $r \to 0$ recovers $u(x_0)$.</p>
+<div class="note"><strong>Converse — Koebe's theorem.</strong> The MVP <em>characterises</em> harmonicity. If $u$ is continuous on $\Omega$ and satisfies $u(x) = $ ball average for every admissible ball, then $u$ is harmonic — and in particular $C^\infty$. So a single integral identity, applied at every scale, forces all derivatives to exist and a PDE to hold. This is the cleanest example of <em>elliptic regularity</em>.</div>
+<p>Two consequences fall out for free:</p>
+<p>(i) <strong>Smoothing.</strong> Convolution with a radial bump, or even just averaging on small balls, takes a continuous harmonic function to itself — but for a generic $u$ it strictly improves regularity. Iterated averaging is therefore a route to constructing harmonic approximations.</p>
+<p>(ii) <strong>Real analyticity.</strong> Going further: every harmonic function on a connected open set is real-analytic. Knowing $u$ on a tiny open ball pins it down everywhere, exactly as for holomorphic functions.</p>
+
+<div class="widget" id="w-mvp">
+  <div class="hd"><div class="ttl">Center value vs. circle average</div><div class="hint">drag the center / change the radius; compare $u(x_0)$ with the boundary average</div></div>
+  <div class="row">
+    <label>$u =$</label>
+    <select id="mvp-fn">
+      <option value="harm" selected>x² − y² (harmonic)</option>
+      <option value="re_z3">x³ − 3xy² (harmonic)</option>
+      <option value="non1">x² + y² (NOT harmonic)</option>
+      <option value="non2">x² y (NOT harmonic)</option>
+    </select>
+    <label>r:</label>
+    <input id="mvp-r" type="range" min="0.2" max="2.0" step="0.05" value="1.0">
+    <span class="small" id="mvp-rlabel">1.00</span>
+  </div>
+  <svg id="mvp-svg" viewBox="0 0 600 320" width="600" height="320"><title>Mean value property visualizer</title></svg>
+  <div class="readout" id="mvp-readout"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#contour">Cauchy's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="hf-mean-value-property"></div>
+</section>
+
+<section id="maximum">
+<h2>3. The maximum principle</h2>
+<p>From the mean value property the maximum principle drops out almost for free. If $u$ takes a value at $x_0$ which is its supremum on $\Omega$, then $u(x_0) = $ the average over any small ball around $x_0$, but the average can equal the maximum only if $u$ is constant on that ball. A connectedness argument propagates the constancy.</p>
+<p><strong>Weak maximum principle.</strong> Let $u$ be harmonic on a bounded $\Omega$ and continuous on $\overline\Omega$. Then</p>
+<p>$$\max_{\overline\Omega} u \;=\; \max_{\partial\Omega} u, \qquad \min_{\overline\Omega} u \;=\; \min_{\partial\Omega} u.$$</p>
+<p><strong>Strong maximum principle.</strong> If $u$ attains its supremum at any interior point of a connected $\Omega$, then $u$ is constant on $\Omega$.</p>
+<p>The strong form sharpens the weak: not only does the boundary realise the extremes, the interior can <em>never</em> do so unless $u$ is trivial.</p>
+
+<div class="ok"><strong>Uniqueness for the Dirichlet problem.</strong> Suppose $u_1, u_2$ are both harmonic on $\Omega$ and continuous up to $\partial\Omega$, with $u_1 = u_2$ on $\partial\Omega$. The difference $w = u_1 - u_2$ is harmonic and zero on $\partial\Omega$. The weak maximum principle, applied to $\pm w$, forces $|w| \le 0$ on $\overline\Omega$. So $u_1 = u_2$. <em>Boundary values determine harmonic functions.</em></div>
+
+<div class="widget" id="w-maxp">
+  <div class="hd"><div class="ttl">Where does the max live?</div><div class="hint">isolines of harmonic vs. non-harmonic; the orange dot tracks the running max as you scan</div></div>
+  <div class="row">
+    <label>$u =$</label>
+    <select id="max-fn">
+      <option value="harm" selected>x² − y² (harmonic)</option>
+      <option value="re_z3">x³ − 3xy² (harmonic)</option>
+      <option value="cosex">eˣ cos y (harmonic)</option>
+      <option value="bump">x² + y² (NOT harmonic, has interior min)</option>
+      <option value="bell">−(x² + y²) (NOT harmonic, has interior max)</option>
+    </select>
+    <label>scan radius:</label>
+    <input id="max-r" type="range" min="0.2" max="1.8" step="0.02" value="1.0">
+    <span class="small" id="max-rlabel">1.00</span>
+  </div>
+  <svg id="max-svg" viewBox="0 0 600 360" width="600" height="360"><title>Maximum principle visualizer</title></svg>
+  <div class="readout" id="max-readout"></div>
+</div>
+
+<div class="quiz" data-concept="hf-maximum-principle"></div>
+</section>
+
+<section id="poisson">
+<h2>4. The Poisson kernel and the disk Dirichlet problem</h2>
+<p>For the <em>unit disk</em> $\mathbb{D} = \{|z| < 1\}$ the Dirichlet problem has an explicit, beautiful solution. Given continuous boundary data $g\colon \partial \mathbb{D} \to \mathbb{R}$, the unique harmonic extension is</p>
+<p>$$u(re^{i\theta}) \;=\; \frac{1}{2\pi}\int_0^{2\pi} P_r(\theta - \varphi)\,g(\varphi)\,d\varphi, \qquad P_r(\theta) \;=\; \frac{1 - r^2}{1 - 2r\cos\theta + r^2}.$$</p>
+<p>The kernel $P_r$ is the <strong>Poisson kernel</strong>. Three facts make it useful:</p>
+<p>(i) <strong>Positivity.</strong> $1 - 2r\cos\theta + r^2 = |1 - re^{i\theta}|^2 > 0$, so $P_r > 0$.<br>
+(ii) <strong>Mass one.</strong> $\frac{1}{2\pi}\int_0^{2\pi} P_r(\theta)\,d\theta = 1$ for every $r \in [0,1)$.<br>
+(iii) <strong>Concentration.</strong> As $r \to 1^-$, $P_r$ concentrates a unit mass at $\theta = 0$ — it is an <em>approximate identity</em>.</p>
+<p>So $u = P_r * g$ is convolution against an approximate identity: the values of $u$ deep in the disk are weighted averages of $g$ over the whole circle, while values close to the boundary look at nearby boundary points only.</p>
+<div class="note"><strong>Boundary recovery.</strong> Convergence to the boundary data has different flavours depending on how regular $g$ is:
+<br>• If $g$ is continuous, $u(re^{i\theta}) \to g(\theta)$ uniformly as $r \to 1^-$.
+<br>• If $g \in L^p$ for $1 \le p < \infty$, the radial limit equals $g$ <em>almost everywhere</em> — this is <strong>Fatou's theorem</strong>, the cleanest example of a measure-theoretic boundary value.
+<br>The MVP is the special case $r = 0$: $u(0) = \frac{1}{2\pi}\int g$, the simplest boundary integral.</div>
+
+<div class="widget" id="w-poisson">
+  <div class="hd"><div class="ttl">Poisson extension on the disk</div><div class="hint">paint boundary values $g(\theta)$; watch the harmonic interior light up</div></div>
+  <div class="row">
+    <label>$g(\theta) =$</label>
+    <select id="poi-data">
+      <option value="cos" selected>cos θ</option>
+      <option value="cos2">cos 2θ</option>
+      <option value="step">step: +1 on top, −1 on bottom</option>
+      <option value="bump">bump near θ = 0</option>
+      <option value="3cos2">2 + 3 cos 2θ</option>
+    </select>
+    <label>radial slice r:</label>
+    <input id="poi-r" type="range" min="0" max="0.98" step="0.01" value="0.5">
+    <span class="small" id="poi-rlabel">0.50</span>
+  </div>
+  <svg id="poi-svg" viewBox="0 0 720 360" width="720" height="360"><title>Poisson kernel disk extension</title></svg>
+  <div class="readout" id="poi-readout"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="hf-poisson-kernel"></div>
+</section>
+
+<section id="harnack">
+<h2>5. Harnack's inequality</h2>
+<p>The Poisson formula gives an <em>uniform</em> control on the oscillation of positive harmonic functions. Suppose $u \ge 0$ is harmonic on $B(0, R)$ in $\mathbb{R}^n$. Then for every $|x| = r < R$,</p>
+<p>$$\frac{R - r}{R + r}\cdot\Big(\frac{R}{R+r}\Big)^{\!n-2} u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\cdot\Big(\frac{R}{R-r}\Big)^{\!n-2} u(0).$$</p>
+<p>In two dimensions this collapses to the textbook form</p>
+<p>$$\frac{R - r}{R + r}\,u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\,u(0).$$</p>
+<p>The proof on the disk is one line from the Poisson kernel. For $|y| = R$ and $|x| = r$,</p>
+<p>$$P_{r/R}(\theta) \cdot \frac{1}{R^{n-2}} \;\le\; \text{Poisson kernel}(x, y) \;\le\; \text{(upper)},$$</p>
+<p>and the <em>positivity</em> of $u$ on the boundary lets us pull the bound through the integral. Without positivity the bound is meaningless: the Poisson kernel at one point can be huge, and a sign-changing $u$ can have $u(0) = 0$ while $u$ is large elsewhere.</p>
+
+<div class="ok"><strong>Liouville for harmonic functions.</strong> If $u \ge 0$ is harmonic on all of $\mathbb{R}^n$, apply Harnack on $B(0, R)$ with $r$ fixed and let $R \to \infty$. The factor $\tfrac{R-r}{R+r}$ tends to $1$, and the upper bound's $\tfrac{R+r}{R-r}$ also tends to $1$. Both bounds pinch to $u(0)$, so $u(x) = u(0)$ for every $x$ — a positive harmonic function on $\mathbb{R}^n$ is constant. The complex-analysis Liouville (bounded entire ⇒ constant) is the analogous statement for holomorphic functions; both are theorems about rigidity from a one-sided bound.</div>
+
+<div class="widget" id="w-harnack">
+  <div class="hd"><div class="ttl">Harnack bounds on positive harmonic functions</div><div class="hint">$u(0)$ pins down a corridor for $u(x)$; slide $r$, watch the corridor shrink to a point at $r = 0$</div></div>
+  <div class="row">
+    <label>boundary mass concentration:</label>
+    <select id="har-data">
+      <option value="uniform">uniform g(θ) = 1</option>
+      <option value="bump1" selected>bump near θ = 0</option>
+      <option value="bump2">narrow bump near θ = 0</option>
+      <option value="two">two opposite bumps</option>
+    </select>
+    <label>R = 1, r:</label>
+    <input id="har-r" type="range" min="0.01" max="0.95" step="0.01" value="0.5">
+    <span class="small" id="har-rlabel">0.50</span>
+  </div>
+  <svg id="har-svg" viewBox="0 0 720 360" width="720" height="360"><title>Harnack inequality corridor</title></svg>
+  <div class="readout" id="har-readout"></div>
+</div>
+
+<div class="quiz" data-concept="hf-harnack-inequality"></div>
+</section>
+
+<section id="subharmonic">
+<h2>6. Subharmonic functions and Perron's method</h2>
+<p>Replace $\Delta v = 0$ with the inequality $\Delta v \ge 0$ — equivalently, replace the MVP equation $v(x) = $ ball average by the inequality $v(x) \le $ ball average. The resulting class of upper semicontinuous functions is the class of <strong>subharmonic functions</strong>. (Sign convention is a coin-flip; we follow the standard "sub" = below convention, so $v$ is subharmonic when its values sit below the harmonic majorant.)</p>
+<p>Examples:</p>
+<p>• If $f$ is holomorphic, $\log|f|$ is subharmonic — the elementary proof is the Jensen formula.<br>
+• Any convex function of a harmonic function is subharmonic (Jensen's inequality at the level of averages).<br>
+• Maxima of finitely many subharmonic functions are subharmonic.</p>
+<p>The maximum principle still holds for subharmonic functions: $\sup_{\overline\Omega} v = \sup_{\partial\Omega} v$. This is the property that makes them useful — they let us <em>build</em> harmonic functions from below.</p>
+
+<h3>Perron's method</h3>
+<p>Given continuous boundary data $g$ on $\partial \Omega$, define the <em>Perron family</em></p>
+<p>$$\mathcal{S}_g \;=\; \{v\colon\Omega\to\mathbb{R} \;:\; v \text{ subharmonic},\ \limsup_{y\to\zeta} v(y) \le g(\zeta)\ \forall\zeta\in\partial\Omega\}.$$</p>
+<p>and set</p>
+<p>$$u(x) \;=\; \sup\,\{v(x) \;:\; v \in \mathcal{S}_g\}.$$</p>
+<p>Two near-miraculous facts:</p>
+<p>(i) <strong>$u$ is harmonic on $\Omega$.</strong> The proof is "harmonic lifting": on any small ball $B \subset\Omega$, replace $v$ by its Poisson integral on $B$, get a larger element of $\mathcal{S}_g$, and conclude that $u$ equals the Poisson integral of itself on every small ball.<br>
+(ii) <strong>$u$ achieves $g$ on $\partial\Omega$ at every <em>regular boundary point</em>.</strong> A boundary point $\zeta$ is regular when there is a <em>barrier</em> — a subharmonic function near $\zeta$ that vanishes at $\zeta$ and is strictly negative everywhere else. For "nice" domains (e.g. bounded with $C^1$ boundary in $\mathbb{R}^n$, or simply connected planar domains with more than one boundary point) every boundary point is regular.</p>
+
+<div class="note"><strong>The classical bad point: Lebesgue spine.</strong> In $\mathbb{R}^3$ remove a thin spike pointing into a region. The tip of the spike is a boundary point that admits no barrier — Perron's $u$ exists, but it does not achieve the boundary value at the tip. Pathologies of this kind delineate the boundary regularity theory and motivate Wiener's criterion.</div>
+
+<div class="widget" id="w-perron">
+  <div class="hd"><div class="ttl">Perron's sup of subharmonic competitors</div><div class="hint">add competing subharmonic candidates, watch the supremum approach the harmonic Poisson extension</div></div>
+  <div class="row">
+    <label>boundary data:</label>
+    <select id="per-data">
+      <option value="cos" selected>cos θ</option>
+      <option value="cos2">cos 2θ</option>
+      <option value="step">step ±1</option>
+    </select>
+    <label>family size:</label>
+    <input id="per-n" type="range" min="1" max="20" step="1" value="6">
+    <span class="small" id="per-nlabel">6</span>
+  </div>
+  <svg id="per-svg" viewBox="0 0 720 320" width="720" height="320"><title>Perron supremum visualizer</title></svg>
+  <div class="readout" id="per-readout"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#cons">Analyticity = holomorphy</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="hf-subharmonic"></div>
+</section>
+
+<script>
+/* ---------- Section 1: Laplace heatmap ---------- */
+(function(){
+  const svg = document.getElementById("lap-svg");
+  if(!svg) return;
+  const fns = {
+    x2y2:    {u:(x,y)=>x*x+y*y,           lap:(x,y)=>4,                 lbl:"x² + y²",         delLbl:"Δu = 4"},
+    x2my2:   {u:(x,y)=>x*x-y*y,           lap:(x,y)=>0,                 lbl:"x² − y²",          delLbl:"Δu = 0  ✓ harmonic"},
+    "2xy":   {u:(x,y)=>2*x*y,             lap:(x,y)=>0,                 lbl:"2xy",             delLbl:"Δu = 0  ✓ harmonic"},
+    x2y:     {u:(x,y)=>x*x*y,             lap:(x,y)=>2*y,               lbl:"x² y",            delLbl:"Δu = 2y"},
+    exp:     {u:(x,y)=>Math.exp(x)*Math.cos(y), lap:(x,y)=>0,           lbl:"eˣ cos y",        delLbl:"Δu = 0  ✓ harmonic"},
+    log:     {u:(x,y)=>0.5*Math.log(x*x+y*y+1e-9), lap:(x,y)=>(x*x+y*y<1e-3?NaN:0), lbl:"½ log(x²+y²)", delLbl:"Δu = 0 off origin"},
+    re_z3:   {u:(x,y)=>x*x*x-3*x*y*y,     lap:(x,y)=>0,                 lbl:"x³ − 3xy²",       delLbl:"Δu = 0  ✓ harmonic"}
+  };
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const sel = document.getElementById("lap-fn").value;
+    const cur = fns[sel];
+    const N = 36;
+    const cellW = 280/N, cellH = 280/N;
+    const xMin=-2, xMax=2, yMin=-2, yMax=2;
+    let uMin=Infinity, uMax=-Infinity, lMin=Infinity, lMax=-Infinity;
+    const grid = [];
+    for(let j=0;j<N;j++){
+      const y = yMax - (j+0.5)*(yMax-yMin)/N;
+      const row=[];
+      for(let i=0;i<N;i++){
+        const x = xMin + (i+0.5)*(xMax-xMin)/N;
+        const u = cur.u(x,y), l = cur.lap(x,y);
+        if(isFinite(u)){ uMin=Math.min(uMin,u); uMax=Math.max(uMax,u); }
+        if(isFinite(l)){ lMin=Math.min(lMin,l); lMax=Math.max(lMax,l); }
+        row.push({u,l});
+      }
+      grid.push(row);
+    }
+    const uAbs = Math.max(Math.abs(uMin), Math.abs(uMax), 1e-3);
+    const lAbs = Math.max(Math.abs(lMin), Math.abs(lMax), 1e-3);
+    // left panel: u
+    const xLeft = 60;
+    const xRight = 420;
+    const top = 20;
+    for(let j=0;j<N;j++){
+      for(let i=0;i<N;i++){
+        const cell = grid[j][i];
+        const tu = cell.u/uAbs;
+        const tl = cell.l/lAbs;
+        if(isFinite(cell.u)){
+          svg.appendChild(SVG("rect",{x:xLeft+i*cellW, y:top+j*cellH, width:cellW+0.6, height:cellH+0.6,
+            fill:heatColor(tu)}));
+        }
+        if(isFinite(cell.l)){
+          svg.appendChild(SVG("rect",{x:xRight+i*cellW, y:top+j*cellH, width:cellW+0.6, height:cellH+0.6,
+            fill:heatColor(tl)}));
+        }
+      }
+    }
+    // borders + axes labels
+    for(const [xx, ttl] of [[xLeft, "u(x,y) = "+cur.lbl], [xRight, "Δu(x,y)"]]){
+      svg.appendChild(SVG("rect",{x:xx, y:top, width:280, height:280, fill:"none", stroke:"var(--line)", "stroke-width":1}));
+      const t = SVG("text",{x:xx+140, y:top+296, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+      t.textContent = ttl;
+      svg.appendChild(t);
+    }
+    // axis ticks
+    for(let xx of [xLeft, xRight]){
+      const yA = top+280;
+      const labels = [-2,-1,0,1,2];
+      for(const v of labels){
+        const px = xx + (v-xMin)/(xMax-xMin)*280;
+        svg.appendChild(SVG("line",{x1:px, y1:yA, x2:px, y2:yA+4, stroke:"var(--mute)"}));
+      }
+    }
+    // colorbar legend
+    const cbX = 720, cbY = top+10, cbH = 260, cbW = 14;
+    for(let k=0;k<60;k++){
+      const t = 1 - 2*k/59;
+      svg.appendChild(SVG("rect",{x:cbX, y:cbY+k*(cbH/60), width:cbW, height:cbH/60+0.6, fill:heatColor(t)}));
+    }
+    const tHi = SVG("text",{x:cbX+7, y:cbY-4, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+    tHi.textContent = "+max"; svg.appendChild(tHi);
+    const t0 = SVG("text",{x:cbX+7, y:cbY+cbH/2+3, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+    t0.textContent = "0"; svg.appendChild(t0);
+    const tLo = SVG("text",{x:cbX+7, y:cbY+cbH+12, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+    tLo.textContent = "−max"; svg.appendChild(tLo);
+
+    document.getElementById("lap-readout").textContent =
+      cur.delLbl + " · range over [-2,2]²: u ∈ ["+uMin.toFixed(2)+", "+uMax.toFixed(2)+"], Δu ∈ ["+lMin.toFixed(2)+", "+lMax.toFixed(2)+"]";
+  }
+  document.getElementById("lap-fn").addEventListener("change", draw);
+  draw();
+})();
+
+/* ---------- Section 2: MVP center vs. circle average ---------- */
+(function(){
+  const svg = document.getElementById("mvp-svg");
+  if(!svg) return;
+  const fns = {
+    harm:   {u:(x,y)=>x*x-y*y,         lbl:"x² − y²",     harm:true},
+    re_z3:  {u:(x,y)=>x*x*x-3*x*y*y,   lbl:"x³ − 3xy²",   harm:true},
+    non1:   {u:(x,y)=>x*x+y*y,         lbl:"x² + y²",     harm:false},
+    non2:   {u:(x,y)=>x*x*y,           lbl:"x² y",        harm:false}
+  };
+  let cx = 0.5, cy = 0.3;
+  let dragging = false;
+  function plot(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const fn = fns[document.getElementById("mvp-fn").value];
+    const r  = parseFloat(document.getElementById("mvp-r").value);
+    document.getElementById("mvp-rlabel").textContent = r.toFixed(2);
+    const xMin=-3, xMax=3, yMin=-3, yMax=3;
+    const W=300, H=300, padX=40, padY=10;
+    function px(x){return padX + (x-xMin)/(xMax-xMin)*W;}
+    function py(y){return padY + (yMax-y)/(yMax-yMin)*H;}
+    // heatmap of u
+    const N = 60;
+    let uMin=Infinity, uMax=-Infinity;
+    const cells = [];
+    for(let j=0;j<N;j++){
+      const y = yMax - (j+0.5)*(yMax-yMin)/N;
+      const row=[];
+      for(let i=0;i<N;i++){
+        const x = xMin + (i+0.5)*(xMax-xMin)/N;
+        const u = fn.u(x,y);
+        uMin=Math.min(uMin,u); uMax=Math.max(uMax,u);
+        row.push(u);
+      }
+      cells.push(row);
+    }
+    const uAbs = Math.max(Math.abs(uMin), Math.abs(uMax), 1e-3);
+    for(let j=0;j<N;j++){
+      for(let i=0;i<N;i++){
+        const x0 = xMin + i*(xMax-xMin)/N;
+        const x1 = xMin + (i+1)*(xMax-xMin)/N;
+        const y0 = yMax - j*(yMax-yMin)/N;
+        const y1 = yMax - (j+1)*(yMax-yMin)/N;
+        svg.appendChild(SVG("rect",{x:px(x0), y:py(y0), width:px(x1)-px(x0)+0.6, height:py(y1)-py(y0)+0.6,
+          fill:heatColor(cells[j][i]/uAbs)}));
+      }
+    }
+    svg.appendChild(SVG("rect",{x:padX, y:padY, width:W, height:H, fill:"none", stroke:"var(--line)"}));
+    // sample circle
+    const samples = 200;
+    let sum = 0;
+    for(let k=0;k<samples;k++){
+      const t = 2*Math.PI*k/samples;
+      sum += fn.u(cx+r*Math.cos(t), cy+r*Math.sin(t));
+    }
+    const avg = sum/samples;
+    const center = fn.u(cx, cy);
+    // draw circle
+    svg.appendChild(SVG("circle",{cx:px(cx), cy:py(cy), r:Math.abs(px(cx+r)-px(cx)),
+      fill:"none", stroke:"var(--yellow)", "stroke-width":2, "stroke-dasharray":"4 3"}));
+    svg.appendChild(SVG("circle",{cx:px(cx), cy:py(cy), r:5, fill:"var(--yellow)"}));
+    // info panel right
+    const ix = padX + W + 30;
+    const labels = [
+      "u = " + fn.lbl,
+      "harmonic? " + (fn.harm?"YES":"no"),
+      "",
+      "center  u(x₀)        = " + center.toFixed(3),
+      "circle average      = " + avg.toFixed(3),
+      "difference          = " + (avg - center).toFixed(4)
+    ];
+    let yy = padY + 30;
+    for(const s of labels){
+      const t = SVG("text",{x:ix, y:yy, "font-size":13, fill:s.startsWith("difference")?(fn.harm?"var(--green)":"var(--pink)"):"var(--ink)", "font-family":"ui-monospace,monospace"});
+      t.textContent = s; svg.appendChild(t);
+      yy += 18;
+    }
+    // verdict
+    const verdict = fn.harm ? "MVP holds: avg = u(x₀) (up to discretisation)" : "MVP fails: avg ≠ u(x₀) — not harmonic";
+    const tv = SVG("text",{x:ix, y:yy+14, "font-size":12, fill:fn.harm?"var(--green)":"var(--pink)", "font-style":"italic"});
+    tv.textContent = verdict; svg.appendChild(tv);
+    // hint text
+    const th = SVG("text",{x:padX, y:padY+H+22, "font-size":11, fill:"var(--mute)"});
+    th.textContent = "drag the yellow center · slide r"; svg.appendChild(th);
+  }
+  function svgPoint(evt){
+    const rect = svg.getBoundingClientRect();
+    const xMin=-3, xMax=3, yMin=-3, yMax=3;
+    const W=300, H=300, padX=40, padY=10;
+    const sx = (evt.clientX-rect.left)*(svg.viewBox.baseVal.width/rect.width);
+    const sy = (evt.clientY-rect.top )*(svg.viewBox.baseVal.height/rect.height);
+    const x = xMin + (sx-padX)/W*(xMax-xMin);
+    const y = yMax - (sy-padY)/H*(yMax-yMin);
+    return [x,y];
+  }
+  svg.addEventListener("pointerdown", e=>{ dragging=true; const [x,y]=svgPoint(e); cx=x; cy=y; plot(); });
+  svg.addEventListener("pointermove", e=>{ if(!dragging) return; const [x,y]=svgPoint(e); cx=x; cy=y; plot(); });
+  window.addEventListener("pointerup", ()=>{ dragging=false; });
+  document.getElementById("mvp-fn").addEventListener("change", plot);
+  document.getElementById("mvp-r").addEventListener("input", plot);
+  plot();
+})();
+
+/* ---------- Section 3: Maximum principle ---------- */
+(function(){
+  const svg = document.getElementById("max-svg");
+  if(!svg) return;
+  const fns = {
+    harm:   {u:(x,y)=>x*x-y*y,           lbl:"x² − y²",     harm:true},
+    re_z3:  {u:(x,y)=>x*x*x-3*x*y*y,     lbl:"x³ − 3xy²",   harm:true},
+    cosex:  {u:(x,y)=>Math.exp(x)*Math.cos(y), lbl:"eˣ cos y", harm:true},
+    bump:   {u:(x,y)=>x*x+y*y,           lbl:"x² + y²",     harm:false},
+    bell:   {u:(x,y)=>-(x*x+y*y),        lbl:"−(x² + y²)",  harm:false}
+  };
+  function plot(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const fn = fns[document.getElementById("max-fn").value];
+    const R  = parseFloat(document.getElementById("max-r").value);
+    document.getElementById("max-rlabel").textContent = R.toFixed(2);
+    const xMin=-2, xMax=2, yMin=-2, yMax=2;
+    const W=300, H=300, padX=40, padY=20;
+    function px(x){return padX + (x-xMin)/(xMax-xMin)*W;}
+    function py(y){return padY + (yMax-y)/(yMax-yMin)*H;}
+    // heatmap
+    const N=60;
+    let uMin=Infinity,uMax=-Infinity;
+    const cells=[];
+    for(let j=0;j<N;j++){
+      const y = yMax - (j+0.5)*(yMax-yMin)/N;
+      const row=[];
+      for(let i=0;i<N;i++){
+        const x = xMin + (i+0.5)*(xMax-xMin)/N;
+        const u = fn.u(x,y);
+        if(x*x+y*y <= R*R){
+          uMin=Math.min(uMin,u); uMax=Math.max(uMax,u);
+        }
+        row.push(u);
+      }
+      cells.push(row);
+    }
+    const uAbs = Math.max(Math.abs(uMin), Math.abs(uMax), 1e-3);
+    for(let j=0;j<N;j++){
+      for(let i=0;i<N;i++){
+        const x0 = xMin + i*(xMax-xMin)/N;
+        const x1 = xMin + (i+1)*(xMax-xMin)/N;
+        const y0 = yMax - j*(yMax-yMin)/N;
+        const y1 = yMax - (j+1)*(yMax-yMin)/N;
+        const xc = (x0+x1)/2, yc=(y0+y1)/2;
+        const inside = (xc*xc+yc*yc <= R*R);
+        svg.appendChild(SVG("rect",{x:px(x0), y:py(y0),
+          width:px(x1)-px(x0)+0.6, height:py(y1)-py(y0)+0.6,
+          fill:inside?heatColor(cells[j][i]/uAbs):"#0b0f16",
+          opacity:inside?1:0.4}));
+      }
+    }
+    svg.appendChild(SVG("rect",{x:padX, y:padY, width:W, height:H, fill:"none", stroke:"var(--line)"}));
+    // domain circle
+    svg.appendChild(SVG("circle",{cx:px(0), cy:py(0), r:Math.abs(px(R)-px(0)),
+      fill:"none", stroke:"var(--yellow)", "stroke-width":2}));
+    // find boundary max + interior max (numerically)
+    let bMax=-Infinity, bx=0, by=0, iMax=-Infinity, ix=0, iy=0;
+    for(let k=0;k<360;k++){
+      const t = 2*Math.PI*k/360;
+      const x = R*Math.cos(t), y = R*Math.sin(t);
+      const u = fn.u(x,y);
+      if(u>bMax){ bMax=u; bx=x; by=y; }
+    }
+    const M = 80;
+    for(let j=0;j<M;j++){
+      for(let i=0;i<M;i++){
+        const x = -R + 2*R*(i+0.5)/M, y = -R + 2*R*(j+0.5)/M;
+        if(x*x+y*y <= R*R*0.97){
+          const u = fn.u(x,y);
+          if(u>iMax){ iMax=u; ix=x; iy=y; }
+        }
+      }
+    }
+    // mark max points
+    svg.appendChild(SVG("circle",{cx:px(bx), cy:py(by), r:7, fill:"var(--yellow)", stroke:"#111", "stroke-width":1.5}));
+    const tb = SVG("text",{x:px(bx)+12, y:py(by)+4, "font-size":11, fill:"var(--yellow)"});
+    tb.textContent = "boundary max"; svg.appendChild(tb);
+    if(Math.abs(iMax-bMax) > 1e-3 && (ix*ix+iy*iy) < R*R*0.85){
+      svg.appendChild(SVG("circle",{cx:px(ix), cy:py(iy), r:7, fill:"var(--pink)", stroke:"#111", "stroke-width":1.5}));
+      const ti = SVG("text",{x:px(ix)+12, y:py(iy)+4, "font-size":11, fill:"var(--pink)"});
+      ti.textContent = "interior max!"; svg.appendChild(ti);
+    }
+    // summary
+    const sx = padX+W+30;
+    const lines = [
+      "u = " + fn.lbl,
+      "harmonic? " + (fn.harm?"YES":"no"),
+      "",
+      "max on ∂B(0,R) = " + bMax.toFixed(3),
+      "max on B(0,R)  = " + iMax.toFixed(3),
+      ""
+    ];
+    let yy = padY+20;
+    for(const s of lines){
+      const t = SVG("text",{x:sx, y:yy, "font-size":13, fill:"var(--ink)", "font-family":"ui-monospace,monospace"});
+      t.textContent = s; svg.appendChild(t);
+      yy += 18;
+    }
+    const verdict = fn.harm
+      ? "Max attained on boundary  ✓  (max principle)"
+      : "Interior max strictly above boundary — non-harmonic";
+    const tv = SVG("text",{x:sx, y:yy+8, "font-size":12, fill:fn.harm?"var(--green)":"var(--pink)", "font-style":"italic"});
+    tv.textContent = verdict; svg.appendChild(tv);
+  }
+  document.getElementById("max-fn").addEventListener("change", plot);
+  document.getElementById("max-r").addEventListener("input", plot);
+  plot();
+})();
+
+/* ---------- Section 4: Poisson kernel disk extension ---------- */
+(function(){
+  const svg = document.getElementById("poi-svg");
+  if(!svg) return;
+  const datasets = {
+    cos:   th=>Math.cos(th),
+    cos2:  th=>Math.cos(2*th),
+    step:  th=>(Math.sin(th)>0?1:-1),
+    bump:  th=>Math.exp(-Math.pow((((th+Math.PI)%(2*Math.PI))-Math.PI)/0.5, 2)),
+    "3cos2": th=>2 + 3*Math.cos(2*th)
+  };
+  function poisson(r, theta, g){
+    const N = 360;
+    let s = 0;
+    for(let k=0;k<N;k++){
+      const phi = 2*Math.PI*k/N;
+      const Pr = (1 - r*r)/(1 - 2*r*Math.cos(theta-phi) + r*r);
+      s += Pr * g(phi);
+    }
+    return s/N;
+  }
+  function plot(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = datasets[document.getElementById("poi-data").value];
+    const r0 = parseFloat(document.getElementById("poi-r").value);
+    document.getElementById("poi-rlabel").textContent = r0.toFixed(2);
+    // left: disk heatmap of u
+    const cx = 180, cy = 180, R = 150;
+    // sample boundary range
+    let gMin=Infinity,gMax=-Infinity;
+    for(let k=0;k<400;k++){ const v=g(2*Math.PI*k/400); gMin=Math.min(gMin,v); gMax=Math.max(gMax,v); }
+    const gAbs = Math.max(Math.abs(gMin), Math.abs(gMax), 1e-3);
+    const N = 50;
+    for(let j=0;j<N;j++){
+      const py = 1 - 2*(j+0.5)/N;
+      for(let i=0;i<N;i++){
+        const px = -1 + 2*(i+0.5)/N;
+        const r = Math.hypot(px,py);
+        if(r >= 0.985) continue;
+        const th = Math.atan2(py, px);
+        const u = poisson(r, th, g);
+        const X = cx + px*R, Y = cy - py*R;
+        const dx = (2/N)*R*0.55;
+        svg.appendChild(SVG("rect",{x:X-dx, y:Y-dx, width:2*dx+0.6, height:2*dx+0.6,
+          fill:heatColor(u/gAbs)}));
+      }
+    }
+    // disk boundary
+    svg.appendChild(SVG("circle",{cx, cy, r:R, fill:"none", stroke:"var(--line)", "stroke-width":1}));
+    // boundary data colored ring
+    const M = 120;
+    for(let k=0;k<M;k++){
+      const t1 = 2*Math.PI*k/M, t2 = 2*Math.PI*(k+1)/M;
+      const tm = (t1+t2)/2;
+      const v = g(tm)/gAbs;
+      const x1 = cx+R*Math.cos(t1), y1 = cy-R*Math.sin(t1);
+      const x2 = cx+(R+12)*Math.cos(t1), y2 = cy-(R+12)*Math.sin(t1);
+      const x3 = cx+(R+12)*Math.cos(t2), y3 = cy-(R+12)*Math.sin(t2);
+      const x4 = cx+R*Math.cos(t2), y4 = cy-R*Math.sin(t2);
+      svg.appendChild(SVG("path",{d:`M${x1} ${y1} L${x2} ${y2} A12 12 0 0 0 ${x3} ${y3} L${x4} ${y4} Z`,
+        fill:heatColor(v), stroke:"none"}));
+    }
+    // radial slice circle
+    svg.appendChild(SVG("circle",{cx, cy, r:R*r0, fill:"none", stroke:"var(--yellow)", "stroke-width":1.5, "stroke-dasharray":"3 3"}));
+    // labels
+    const tL = SVG("text",{x:cx, y:cy-R-22, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+    tL.textContent = "u(re^{iθ}) on disk"; svg.appendChild(tL);
+
+    // right: radial slice u(r₀ e^{iθ}) vs θ (and boundary g)
+    const px0 = 380, py0 = 30, pW = 320, pH = 280;
+    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"#0b0f16", stroke:"var(--line)"}));
+    // axes
+    const yMid = py0+pH/2;
+    svg.appendChild(SVG("line",{x1:px0, y1:yMid, x2:px0+pW, y2:yMid, stroke:"var(--line)", "stroke-dasharray":"3 3"}));
+    // tick markers θ ∈ [0, 2π]
+    for(let k=0;k<=4;k++){
+      const x = px0 + pW*k/4;
+      svg.appendChild(SVG("line",{x1:x, y1:py0+pH-2, x2:x, y2:py0+pH+4, stroke:"var(--mute)"}));
+      const t = SVG("text",{x, y:py0+pH+16, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+      t.textContent = ["0","π/2","π","3π/2","2π"][k];
+      svg.appendChild(t);
+    }
+    // plot boundary g and slice
+    const samp = 200;
+    let dG = "M", dU = "M";
+    for(let k=0;k<=samp;k++){
+      const th = 2*Math.PI*k/samp;
+      const gv = g(th)/gAbs;
+      const uv = poisson(r0, th, g)/gAbs;
+      const X = px0 + pW*k/samp;
+      const Yg = yMid - gv*(pH/2-10);
+      const Yu = yMid - uv*(pH/2-10);
+      dG += (k===0?"":"L") + X + " " + Yg + " ";
+      dU += (k===0?"":"L") + X + " " + Yu + " ";
+    }
+    svg.appendChild(SVG("path",{d:dG, fill:"none", stroke:"var(--mute)", "stroke-width":1.5, "stroke-dasharray":"4 3"}));
+    svg.appendChild(SVG("path",{d:dU, fill:"none", stroke:"var(--yellow)", "stroke-width":2}));
+    const lg = SVG("text",{x:px0+8, y:py0+18, "font-size":11, fill:"var(--mute)"});
+    lg.textContent = "boundary g(θ)"; svg.appendChild(lg);
+    const lu = SVG("text",{x:px0+8, y:py0+34, "font-size":11, fill:"var(--yellow)"});
+    lu.textContent = "u at radius r = " + r0.toFixed(2); svg.appendChild(lu);
+    // u(0) by mvp
+    const uCenter = poisson(0, 0, g);
+    const tc = SVG("text",{x:px0+pW-8, y:py0+18, "text-anchor":"end", "font-size":11, fill:"var(--cyan)"});
+    tc.textContent = "u(0) = avg(g) = " + uCenter.toFixed(3); svg.appendChild(tc);
+
+    document.getElementById("poi-readout").textContent =
+      "At r = "+r0.toFixed(2)+", the slice is the convolution P_r * g. As r → 1, P_r concentrates at θ = 0 and the yellow curve overlays the dashed boundary; as r → 0, the slice flattens to the constant u(0) = "+uCenter.toFixed(3)+".";
+  }
+  document.getElementById("poi-data").addEventListener("change", plot);
+  document.getElementById("poi-r").addEventListener("input", plot);
+  plot();
+})();
+
+/* ---------- Section 5: Harnack corridor ---------- */
+(function(){
+  const svg = document.getElementById("har-svg");
+  if(!svg) return;
+  const datasets = {
+    uniform:  th=>1,
+    bump1:    th=>1 + 4*Math.exp(-Math.pow((((th+Math.PI)%(2*Math.PI))-Math.PI)/0.6, 2)),
+    bump2:    th=>1 + 12*Math.exp(-Math.pow((((th+Math.PI)%(2*Math.PI))-Math.PI)/0.2, 2)),
+    two:      th=>1 + 4*Math.exp(-Math.pow((((th+Math.PI)%(2*Math.PI))-Math.PI)/0.4, 2))
+                    + 4*Math.exp(-Math.pow((((th)%(2*Math.PI))-Math.PI)/0.4, 2))
+  };
+  function poisson(r, theta, g){
+    const N = 400;
+    let s = 0;
+    for(let k=0;k<N;k++){
+      const phi = 2*Math.PI*k/N;
+      const Pr = (1 - r*r)/(1 - 2*r*Math.cos(theta-phi) + r*r);
+      s += Pr * g(phi);
+    }
+    return s/N;
+  }
+  function plot(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = datasets[document.getElementById("har-data").value];
+    const r = parseFloat(document.getElementById("har-r").value);
+    document.getElementById("har-rlabel").textContent = r.toFixed(2);
+    // left: disk + sample circle of radius r where u is sampled
+    const cx = 180, cy = 180, R = 150;
+    let gMin=Infinity,gMax=-Infinity;
+    for(let k=0;k<400;k++){ const v=g(2*Math.PI*k/400); gMin=Math.min(gMin,v); gMax=Math.max(gMax,v); }
+    const gAbs = Math.max(Math.abs(gMin), Math.abs(gMax), 1e-3);
+    const N = 44;
+    for(let j=0;j<N;j++){
+      const py = 1 - 2*(j+0.5)/N;
+      for(let i=0;i<N;i++){
+        const px = -1 + 2*(i+0.5)/N;
+        const rr = Math.hypot(px,py);
+        if(rr >= 0.985) continue;
+        const th = Math.atan2(py, px);
+        const u = poisson(rr, th, g);
+        const X = cx + px*R, Y = cy - py*R;
+        const dx = (2/N)*R*0.55;
+        svg.appendChild(SVG("rect",{x:X-dx, y:Y-dx, width:2*dx+0.6, height:2*dx+0.6,
+          fill:heatColor(u/gAbs)}));
+      }
+    }
+    svg.appendChild(SVG("circle",{cx, cy, r:R, fill:"none", stroke:"var(--line)"}));
+    svg.appendChild(SVG("circle",{cx, cy, r:R*r, fill:"none", stroke:"var(--yellow)", "stroke-width":2, "stroke-dasharray":"3 3"}));
+    // sample u at center and on circle of radius r
+    const u0 = poisson(0, 0, g);
+    let uSampMin=Infinity, uSampMax=-Infinity;
+    for(let k=0;k<200;k++){
+      const th = 2*Math.PI*k/200;
+      const uu = poisson(r, th, g);
+      uSampMin = Math.min(uSampMin, uu);
+      uSampMax = Math.max(uSampMax, uu);
+    }
+    // Harnack bounds (n=2)
+    const lo = (1 - r)/(1 + r) * u0;
+    const hi = (1 + r)/(1 - r) * u0;
+    // right: bar graph
+    const px0 = 380, py0 = 30, pW = 320, pH = 280;
+    const yMax = Math.max(hi*1.05, uSampMax*1.05, 5);
+    function bary(v){ return py0 + pH - (v/yMax)*pH; }
+    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"#0b0f16", stroke:"var(--line)"}));
+    // Harnack corridor band
+    svg.appendChild(SVG("rect",{x:px0+30, y:bary(hi), width:pW-60, height:bary(lo)-bary(hi),
+      fill:"var(--cyan)", opacity:0.15}));
+    // bounds lines
+    svg.appendChild(SVG("line",{x1:px0+30, y1:bary(lo), x2:px0+pW-30, y2:bary(lo), stroke:"var(--cyan)", "stroke-width":2, "stroke-dasharray":"4 3"}));
+    svg.appendChild(SVG("line",{x1:px0+30, y1:bary(hi), x2:px0+pW-30, y2:bary(hi), stroke:"var(--cyan)", "stroke-width":2, "stroke-dasharray":"4 3"}));
+    // u(0) line
+    svg.appendChild(SVG("line",{x1:px0+30, y1:bary(u0), x2:px0+pW-30, y2:bary(u0), stroke:"var(--violet)", "stroke-width":2}));
+    // sample range bracket
+    svg.appendChild(SVG("rect",{x:px0+pW/2-20, y:bary(uSampMax), width:40, height:bary(uSampMin)-bary(uSampMax),
+      fill:"var(--yellow)", opacity:0.85}));
+    // labels
+    const yL = py0+10;
+    const lt = SVG("text",{x:px0+8, y:yL, "font-size":11, fill:"var(--cyan)"}); lt.textContent = "Harnack corridor"; svg.appendChild(lt);
+    const lv = SVG("text",{x:px0+8, y:yL+16, "font-size":11, fill:"var(--violet)"}); lv.textContent = "u(0)"; svg.appendChild(lv);
+    const ly = SVG("text",{x:px0+8, y:yL+32, "font-size":11, fill:"var(--yellow)"}); ly.textContent = "actual range of u on |x|=r"; svg.appendChild(ly);
+    // numerics
+    let yy = py0+pH-100;
+    const lines = [
+      "u(0)             = " + u0.toFixed(3),
+      "lower Harnack    = " + lo.toFixed(3),
+      "upper Harnack    = " + hi.toFixed(3),
+      "min u on |x|=r   = " + uSampMin.toFixed(3),
+      "max u on |x|=r   = " + uSampMax.toFixed(3)
+    ];
+    for(const s of lines){
+      const t = SVG("text",{x:px0+pW-8, y:yy, "text-anchor":"end", "font-size":11, fill:"var(--ink)", "font-family":"ui-monospace,monospace"});
+      t.textContent = s; svg.appendChild(t);
+      yy += 16;
+    }
+    const ok = (uSampMin >= lo - 1e-6) && (uSampMax <= hi + 1e-6);
+    const tv = SVG("text",{x:px0+pW-8, y:py0+pH+18, "text-anchor":"end", "font-size":12,
+      fill:ok?"var(--green)":"var(--pink)", "font-style":"italic"});
+    tv.textContent = ok ? "actual range ⊆ Harnack corridor  ✓" : "anomaly: corridor breached"; svg.appendChild(tv);
+    document.getElementById("har-readout").textContent =
+      "Bound: ("+((1-r)/(1+r)).toFixed(3)+") u(0) ≤ u(x) ≤ ("+((1+r)/(1-r)).toFixed(3)+") u(0). As r→0 the corridor collapses to {u(0)}; as r→1 it widens unboundedly.";
+  }
+  document.getElementById("har-data").addEventListener("change", plot);
+  document.getElementById("har-r").addEventListener("input", plot);
+  plot();
+})();
+
+/* ---------- Section 6: Perron supremum ---------- */
+(function(){
+  const svg = document.getElementById("per-svg");
+  if(!svg) return;
+  const datasets = {
+    cos:   th=>Math.cos(th),
+    cos2:  th=>Math.cos(2*th),
+    step:  th=>(Math.sin(th)>0?1:-1)
+  };
+  function poisson(r, theta, g){
+    const N = 200;
+    let s = 0;
+    for(let k=0;k<N;k++){
+      const phi = 2*Math.PI*k/N;
+      const Pr = (1 - r*r)/(1 - 2*r*Math.cos(theta-phi) + r*r);
+      s += Pr * g(phi);
+    }
+    return s/N;
+  }
+  // a "subharmonic competitor": cone tip at θ_k on the boundary, value g(θ_k); subharmonic on disk by max of linear functions
+  function buildSub(family, x, y){
+    let best = -Infinity;
+    for(const c of family){
+      // candidate v(z) = g(θ_k) − M*|z − e^{iθ_k}|^2 (a subharmonic paraboloid below the boundary value at one point)
+      const dx = x - Math.cos(c.th), dy = y - Math.sin(c.th);
+      const d2 = dx*dx + dy*dy;
+      const v = c.val - c.M*d2;
+      if(v>best) best=v;
+    }
+    return best;
+  }
+  function plot(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = datasets[document.getElementById("per-data").value];
+    const n = parseInt(document.getElementById("per-n").value, 10);
+    document.getElementById("per-nlabel").textContent = String(n);
+    // sample boundary range
+    let gMin=Infinity,gMax=-Infinity;
+    for(let k=0;k<400;k++){ const v=g(2*Math.PI*k/400); gMin=Math.min(gMin,v); gMax=Math.max(gMax,v); }
+    const gAbs = Math.max(Math.abs(gMin), Math.abs(gMax), 1e-3);
+    // build family: n equally spaced θ_k, each contributes a subharmonic paraboloid v_k = g(θ_k) - M|z-e^{iθ_k}|²
+    const family = [];
+    const M = 1.5;
+    for(let k=0;k<n;k++){
+      const th = 2*Math.PI*k/n;
+      family.push({th, val:g(th), M});
+    }
+    // diametral plot u along the real diameter [-1,1]
+    const px0 = 50, py0 = 30, pW = 300, pH = 240;
+    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"#0b0f16", stroke:"var(--line)"}));
+    const yMid = py0+pH/2;
+    svg.appendChild(SVG("line",{x1:px0, y1:yMid, x2:px0+pW, y2:yMid, stroke:"var(--line)", "stroke-dasharray":"3 3"}));
+    // exact harmonic Poisson extension on diameter (along the x-axis, θ = 0 / π)
+    const samp = 200;
+    let dExact = "M", dPerron = "M";
+    for(let k=0;k<=samp;k++){
+      const x = -0.99 + 1.98*k/samp;
+      // Poisson at point (x,0)
+      const r = Math.abs(x), th = (x>=0?0:Math.PI);
+      const ue = poisson(r, th, g)/gAbs;
+      const us = buildSub(family, x, 0)/gAbs;
+      const X = px0 + pW*k/samp;
+      const Ye = yMid - ue*(pH/2-10);
+      const Ys = yMid - us*(pH/2-10);
+      dExact += (k===0?"":"L") + X + " " + Ye + " ";
+      dPerron += (k===0?"":"L") + X + " " + Ys + " ";
+    }
+    svg.appendChild(SVG("path",{d:dExact, fill:"none", stroke:"var(--cyan)", "stroke-width":2}));
+    svg.appendChild(SVG("path",{d:dPerron, fill:"none", stroke:"var(--yellow)", "stroke-width":1.8, "stroke-dasharray":"4 3"}));
+    // labels
+    const tg = SVG("text",{x:px0+8, y:py0+16, "font-size":11, fill:"var(--cyan)"}); tg.textContent = "harmonic Poisson extension u(x,0)"; svg.appendChild(tg);
+    const tp = SVG("text",{x:px0+8, y:py0+32, "font-size":11, fill:"var(--yellow)"}); tp.textContent = "Perron sup of "+n+" subharmonic competitors"; svg.appendChild(tp);
+    // x ticks
+    for(const v of [-1,-0.5,0,0.5,1]){
+      const X = px0 + pW*(v+1)/2;
+      svg.appendChild(SVG("line",{x1:X, y1:py0+pH-2, x2:X, y2:py0+pH+4, stroke:"var(--mute)"}));
+      const tt = SVG("text",{x:X, y:py0+pH+16, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+      tt.textContent = String(v); svg.appendChild(tt);
+    }
+    // disk picture on right showing competitor locations
+    const cx = 530, cy = 170, R = 110;
+    svg.appendChild(SVG("circle",{cx, cy, r:R, fill:"none", stroke:"var(--line)"}));
+    for(const c of family){
+      const X = cx + R*Math.cos(c.th), Y = cy - R*Math.sin(c.th);
+      const v = c.val/gAbs;
+      svg.appendChild(SVG("circle",{cx:X, cy:Y, r:5, fill:heatColor(v), stroke:"var(--ink)", "stroke-width":1}));
+    }
+    const td = SVG("text",{x:cx, y:cy-R-12, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+    td.textContent = "competitor pegs on ∂D"; svg.appendChild(td);
+    document.getElementById("per-readout").textContent =
+      "As n grows, the Perron supremum (yellow) climbs toward the harmonic Poisson extension (cyan). For continuous g and a regular domain, equality holds in the limit — that's Perron's theorem.";
+  }
+  document.getElementById("per-data").addEventListener("change", plot);
+  document.getElementById("per-n").addEventListener("input", plot);
+  plot();
+})();
+</script>
 
 </main>
 
@@ -255,28 +1132,28 @@ function drawNode(svg, x, y, label, opts={}){
 /* sidebar TOC builder + active-section highlighting */
 (function(){
   function build(){
-    const aside = document.querySelector('aside.sidetoc');
-    const topnav = document.querySelector('nav.toc');
+    const aside = document.querySelector("aside.sidetoc");
+    const topnav = document.querySelector("nav.toc");
     if(!aside || !topnav) return;
-    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    const srcs = [...topnav.querySelectorAll("a[href^='#']")];
     if(!srcs.length) return;
-    const title = document.createElement('div');
-    title.className = 'sidetoc-title';
-    title.textContent = 'On this page';
+    const title = document.createElement("div");
+    title.className = "sidetoc-title";
+    title.textContent = "On this page";
     aside.appendChild(title);
-    const ol = document.createElement('ol');
+    const ol = document.createElement("ol");
     srcs.forEach(src => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = src.getAttribute("href");
+      a.textContent = src.textContent.replace(/ /g," ").trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);
-    const links = [...aside.querySelectorAll('a')];
+    const links = [...aside.querySelectorAll("a")];
     const sections = [];
     links.forEach(a => {
-      const id = a.getAttribute('href').slice(1);
+      const id = a.getAttribute("href").slice(1);
       const s = document.getElementById(id);
       if(s) sections.push({a, s});
     });
@@ -287,21 +1164,21 @@ function drawNode(svg, x, y, label, opts={}){
       for(const {a,s} of sections){
         if(s.getBoundingClientRect().top <= threshold) activeLink = a;
       }
-      links.forEach(x => x.classList.remove('active'));
-      activeLink.classList.add('active');
+      links.forEach(x => x.classList.remove("active"));
+      activeLink.classList.add("active");
     }
     update();
-    window.addEventListener('scroll', update, {passive:true});
-    window.addEventListener('resize', update);
+    window.addEventListener("scroll", update, {passive:true});
+    window.addEventListener("resize", update);
   }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
   else build();
 })();
 </script>
 <script>
 (function(){
-  function start(){ if(window.MVQuiz) MVQuiz.init('harmonic-functions'); }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  function start(){ if(window.MVQuiz) MVQuiz.init("harmonic-functions"); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
 })();
 </script>

@@ -227,10 +227,22 @@ function drawNode(svg, x, y, label, opts={}){
   t.textContent = label;
   svg.appendChild(t);
 }
+// standard-normal helpers (used in several widgets)
+function randn(){
+  let u=0,v=0;
+  while(u===0) u=Math.random();
+  while(v===0) v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+}
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+  <a href="#ito-integral">1&nbsp;Itô&nbsp;integral</a>
+  <a href="#ito-formula">2&nbsp;Itô's&nbsp;formula</a>
+  <a href="#sde">3&nbsp;SDEs</a>
+  <a href="#girsanov">4&nbsp;Girsanov</a>
+  <a href="#feynman-kac">5&nbsp;Feynman–Kac</a>
+  <a href="#applications">6&nbsp;Applications</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -240,14 +252,804 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Stochastic calculus</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">Brownian motion has infinite total variation but finite quadratic variation $[B]_t=t$ — classical Riemann–Stieltjes calculus breaks, and a new integral is required. The Itô integral chooses the left endpoint, gains a martingale, and pays in a chain rule with a curvature correction. Out of this come SDEs, Girsanov's drift change, Feynman–Kac's PDE bridge, and the toolbox behind Black–Scholes, the Kalman filter, and optimal stopping.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="stochastic-calculus-intro"></div>
+<section id="ito-integral">
+<h2>1. The Itô integral</h2>
+
+<p>Brownian motion's paths are continuous but nowhere differentiable, with quadratic variation $\sum (B_{t_{k+1}}-B_{t_k})^2\to t$ in $L^2$ as the partition $\{t_k\}$ refines. That blows up the total variation, so $\int H_s\,dB_s$ <em>cannot</em> be defined pathwise as a Riemann–Stieltjes integral. Itô's idea: build the integral in $L^2$ by approximation on simple processes, then choose an evaluation rule that keeps the integrand <strong>predictable</strong>.</p>
+
+<p><strong>Simple processes.</strong> A process is simple if it has the form $H_s=\sum_{k=0}^{n-1}\xi_k\mathbf{1}_{(t_k,t_{k+1}]}(s)$ with $\xi_k$ being $\mathcal{F}_{t_k}$-measurable and bounded. For such $H$, define
+$$\int_0^t H_s\,dB_s\;=\;\sum_{k=0}^{n-1}\xi_k\,(B_{t_{k+1}\wedge t}-B_{t_k\wedge t}).$$
+The key fact is the <strong>Itô isometry</strong>: $\mathbb{E}\big[(\int_0^t H_s\,dB_s)^2\big]=\mathbb{E}\int_0^t H_s^2\,ds$. This makes the simple-process map $H\mapsto\int H\,dB$ an isometry from $L^2(\Omega\times[0,T],ds\,d\mathbb{P})$ into $L^2(\mathbb{P})$, and density of simple processes in this $L^2$ extends the integral uniquely.</p>
+
+<p><strong>The result is a martingale.</strong> Predictability of $H$ is what kills drift: $\mathbb{E}\big[\xi_k(B_{t_{k+1}}-B_{t_k})\mid\mathcal{F}_{t_k}\big]=\xi_k\cdot\mathbb{E}[B_{t_{k+1}}-B_{t_k}\mid\mathcal{F}_{t_k}]=0$. So $\int_0^t H_s\,dB_s$ is a continuous $L^2$-martingale.</p>
+
+<p><strong>Itô vs. Stratonovich.</strong> Choosing the <em>midpoint</em> $\tfrac{1}{2}(H_{t_k}+H_{t_{k+1}})$ yields the <strong>Stratonovich</strong> integral $\int H\circ dB$. It obeys the classical chain rule, but is no longer a martingale; the right-endpoint convention ($H_{t_{k+1}}$) is even worse — it correlates with the increment and adds a drift. The widget below lets you compute $\int_0^t B_s\,dB_s$ under each convention on a single Brownian path and see the gap converging to $\pm t/2$.</p>
+
+<div class="widget" id="w-ito">
+  <div class="hd"><div class="ttl">Riemann sums for $\int_0^t B_s\,dB_s$</div><div class="hint">left = Itô · midpoint = Stratonovich · right adds drift</div></div>
+  <svg id="ito-svg" viewBox="0 0 760 320" width="760" height="320"><title>Comparison of left, midpoint, and right endpoint Riemann sums against Brownian motion</title></svg>
+  <div class="row">
+    <label for="ito-N">partition $N$</label>
+    <input id="ito-N" type="range" min="10" max="500" step="5" value="100">
+    <span id="ito-Nv" class="small">N = 100</span>
+    <button id="ito-new">new path</button>
+  </div>
+  <div class="readout" id="ito-out"></div>
+</div>
+
+<div class="quiz" data-concept="sc-ito-integral"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./stochastic-processes-and-martingales.html#continuous-martingales">Continuous-time martingales and Brownian motion</a></li>
+    <li><a href="./probability-theory.html#brownian">Brownian motion</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
 </section>
+
+<script>
+/* §1 — Itô vs Stratonovich vs right-endpoint Riemann sums */
+(function(){
+  const svg=$('#ito-svg'), out=$('#ito-out');
+  const NIn=$('#ito-N'), NV=$('#ito-Nv');
+  const W=760, H=320, x0=60, x1=W-30, y0=30, y1=H-40;
+  const T=1.0, M=2000; // master fine grid for path
+  let path=null;
+  function genPath(){
+    const dt=T/M, B=new Float64Array(M+1);
+    for(let i=1;i<=M;i++) B[i]=B[i-1]+Math.sqrt(dt)*randn();
+    path=B;
+  }
+  function sums(N){
+    // sample path at N+1 points evenly
+    const idx=k=>Math.round(k*M/N);
+    const Bs=new Array(N+1);
+    for(let k=0;k<=N;k++) Bs[k]=path[idx(k)];
+    let SL=0, SM=0, SR=0;
+    for(let k=0;k<N;k++){
+      const dB=Bs[k+1]-Bs[k];
+      SL += Bs[k]*dB;
+      SM += 0.5*(Bs[k]+Bs[k+1])*dB;
+      SR += Bs[k+1]*dB;
+    }
+    return {SL,SM,SR,Bs};
+  }
+  function draw(){
+    const N=+NIn.value; NV.textContent='N = '+N;
+    const {SL,SM,SR,Bs}=sums(N);
+    svg.innerHTML='';
+    // axes
+    let bmin=Infinity, bmax=-Infinity;
+    for(const v of Bs){ if(v<bmin)bmin=v; if(v>bmax)bmax=v; }
+    const pad=0.3;
+    bmin-=pad; bmax+=pad;
+    const X=k=>x0 + (k/N)*(x1-x0);
+    const Y=v=>y1 - (v-bmin)/(bmax-bmin)*(y1-y0);
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // zero
+    if(bmin<0 && bmax>0){
+      const yz=Y(0);
+      svg.appendChild(SVG('line',{x1:x0,y1:yz,x2:x1,y2:yz,stroke:'var(--mute)','stroke-dasharray':'2 4'}));
+    }
+    // path polyline
+    let d='';
+    for(let k=0;k<=N;k++){ d += (k===0?'M':'L')+X(k)+','+Y(Bs[k])+' '; }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));
+    // little dots at sample points (downsample if N huge)
+    const showDots = N<=120;
+    if(showDots){
+      for(let k=0;k<=N;k++){
+        svg.appendChild(SVG('circle',{cx:X(k),cy:Y(Bs[k]),r:1.8,fill:'var(--yellow)'}));
+      }
+    }
+    // overlay rectangles: left-endpoint blocks (Itô)
+    for(let k=0;k<N;k++){
+      const xa=X(k), xb=X(k+1);
+      const va=Bs[k];
+      const yV=Y(va), yZ=Y(0);
+      const yTop=Math.min(yV,yZ), yBot=Math.max(yV,yZ);
+      svg.appendChild(SVG('rect',{x:xa,y:yTop,width:Math.max(0,xb-xa),height:Math.max(0,yBot-yTop),
+        fill: va>=0 ? 'rgba(125,224,214,0.10)' : 'rgba(224,122,95,0.10)',
+        stroke:'var(--cyan)','stroke-width':0.4}));
+    }
+    // title
+    const cap=SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    cap.textContent = `Brownian path Bₜ on [0,1] · rectangles use left endpoint (Itô) — same widths, different heights for L/M/R`;
+    svg.appendChild(cap);
+    // limits annotation
+    const limit = 0.5*(Bs[N]*Bs[N] - T); // = SL by Itô
+    out.textContent =
+      `Sample sums for ∫₀¹ Bₛ dBₛ at N = ${N}\n`+
+      `  Itô      (left)     SL = ${SL.toFixed(4)}\n`+
+      `  Stratonovich (mid)  SM = ${SM.toFixed(4)}\n`+
+      `  right endpoint      SR = ${SR.toFixed(4)}\n\n`+
+      `expected limits as N→∞ on this path:\n`+
+      `  SL → (B_T² − T)/2  = ${limit.toFixed(4)}   (Itô)\n`+
+      `  SM → SL + T/2      = ${(limit+T/2).toFixed(4)}   (Stratonovich)\n`+
+      `  SR → SL + T        = ${(limit+T).toFixed(4)}     (drift = T)`;
+  }
+  $('#ito-new').addEventListener('click',()=>{genPath(); draw();});
+  NIn.addEventListener('input', draw);
+  genPath(); draw();
+})();
+</script>
+
+<section id="ito-formula">
+<h2>2. Itô's formula</h2>
+
+<p>For a $C^2$ function $f\colon\mathbb{R}\to\mathbb{R}$ and an Itô process $X_t$ with $dX_t=b_t\,dt+\sigma_t\,dB_t$, Itô's formula states
+$$df(X_t)=f'(X_t)\,dX_t+\tfrac{1}{2}f''(X_t)\,(dX_t)^2,\qquad (dX_t)^2=\sigma_t^2\,dt.$$
+The chain rule of ordinary calculus is the first term; the second term is the <strong>Itô correction</strong>, a Taylor remainder $\tfrac{1}{2}f''(X)\,d\langle X\rangle$ that is invisible for smooth $X$ but unavoidable when the quadratic variation is non-zero.</p>
+
+<p><strong>The pedagogical case: $f(x)=x^2$, $X_t=B_t$.</strong> Naive calculus would say $d(B_t^2)=2B_t\,dB_t$ and conclude $B_t^2=2\int_0^t B_s\,dB_s$. Itô gives
+$$d(B_t^2)=2B_t\,dB_t+dt\quad\Longrightarrow\quad B_t^2 = 2\int_0^t B_s\,dB_s + t.$$
+The discrepancy is exactly the quadratic variation: along any partition $\sum(B_{t_{k+1}}-B_{t_k})^2\to t$. The widget below plots $B_t^2$ in yellow against the naive prediction $2\int_0^t B_s\,dB_s$ in pink — the gap fills in to $t$ as time advances.</p>
+
+<p><strong>Time-dependent version.</strong> For $f(t,x)\in C^{1,2}$,
+$$df(t,X_t)=\partial_t f\,dt+\partial_x f\,dX_t+\tfrac{1}{2}\partial_{xx} f\,(dX_t)^2.$$
+This is what makes the exponential martingale work: applying Itô to $f(t,B)=\exp(\theta B - \tfrac{1}{2}\theta^2 t)$ gives $df=\theta f\,dB$, i.e. zero drift. Time-dependent $f$ is also what links SDEs to PDEs in §5.</p>
+
+<div class="note"><strong>Mnemonic: $(dB)^2=dt$, $dt\,dB=0$, $(dt)^2=0$.</strong> All Itô calculations reduce to a Taylor expansion using these multiplication rules. The first is the only one that's surprising; it's the heart of stochastic calculus.</div>
+
+<div class="widget" id="w-itof">
+  <div class="hd"><div class="ttl">$B_t^2$ vs. naive $2\int B\,dB$</div><div class="hint">gap = $t$ = quadratic variation</div></div>
+  <svg id="itof-svg" viewBox="0 0 760 320" width="760" height="320"><title>Plot of B_t squared, twice the Ito integral, and their difference t</title></svg>
+  <div class="row">
+    <button id="itof-new">new path</button>
+    <label for="itof-K">step count</label>
+    <input id="itof-K" type="range" min="200" max="4000" step="100" value="2000">
+    <span id="itof-Kv" class="small">K = 2000</span>
+  </div>
+  <div class="readout" id="itof-out"></div>
+</div>
+
+<div class="quiz" data-concept="sc-ito-formula"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./stochastic-processes-and-martingales.html#doob-decomposition">Doob decomposition and quadratic variation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+</section>
+
+<script>
+/* §2 — Itô's formula via B_t² versus 2∫B dB */
+(function(){
+  const svg=$('#itof-svg'), out=$('#itof-out');
+  const KIn=$('#itof-K'), KV=$('#itof-Kv');
+  const W=760, H=320, x0=60, x1=W-30, y0=30, y1=H-40;
+  const T=1.0;
+  let B=null, K0=2000;
+  function genPath(K){
+    const dt=T/K; const arr=new Float64Array(K+1);
+    for(let i=1;i<=K;i++) arr[i]=arr[i-1]+Math.sqrt(dt)*randn();
+    return arr;
+  }
+  function compute(){
+    const K=+KIn.value; KV.textContent='K = '+K;
+    if(!B || B.length-1!==K) B = genPath(K);
+    const dt=T/K;
+    const sq=new Float64Array(K+1);
+    const I=new Float64Array(K+1); // 2*∫B dB cumulative
+    for(let i=1;i<=K;i++){
+      sq[i]=B[i]*B[i];
+      I[i]=I[i-1] + 2*B[i-1]*(B[i]-B[i-1]);
+    }
+    return {K, sq, I};
+  }
+  function draw(){
+    const {K, sq, I}=compute();
+    svg.innerHTML='';
+    // y range
+    let mn=Infinity, mx=-Infinity;
+    for(let i=0;i<=K;i++){
+      if(sq[i]<mn)mn=sq[i]; if(sq[i]>mx)mx=sq[i];
+      if(I[i]<mn)mn=I[i]; if(I[i]>mx)mx=I[i];
+    }
+    if(mn>0)mn=0;
+    if(mx<T)mx=T;
+    const pad=(mx-mn)*0.08+0.05; mn-=pad; mx+=pad;
+    const X=i=>x0 + (i/K)*(x1-x0);
+    const Y=v=>y1 - (v-mn)/(mx-mn)*(y1-y0);
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // zero
+    if(mn<0&&mx>0){ const yz=Y(0); svg.appendChild(SVG('line',{x1:x0,y1:yz,x2:x1,y2:yz,stroke:'var(--mute)','stroke-dasharray':'2 4'})); }
+    // y = t reference line (the gap)
+    let dt='';
+    for(let i=0;i<=K;i++){ const t=i/K*T; dt += (i===0?'M':'L')+X(i)+','+Y(t)+' '; }
+    svg.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+    // 2*∫B dB
+    let dI='';
+    for(let i=0;i<=K;i++){ dI += (i===0?'M':'L')+X(i)+','+Y(I[i])+' '; }
+    svg.appendChild(SVG('path',{d:dI,fill:'none',stroke:'var(--pink)','stroke-width':1.4}));
+    // B^2
+    let ds='';
+    for(let i=0;i<=K;i++){ ds += (i===0?'M':'L')+X(i)+','+Y(sq[i])+' '; }
+    svg.appendChild(SVG('path',{d:ds,fill:'none',stroke:'var(--yellow)','stroke-width':1.6}));
+    // legend (viewport coords)
+    const lg=SVG('g',{transform:'translate(80,40)'});
+    function le(y,col,lab){
+      lg.appendChild(SVG('line',{x1:0,y1:y,x2:18,y2:y,stroke:col,'stroke-width':2}));
+      const t=SVG('text',{x:24,y:y+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);
+    }
+    le(0,'var(--yellow)','B²ₜ (Itô prediction)');
+    le(16,'var(--pink)','2 ∫ Bₛ dBₛ (naive)');
+    le(32,'var(--cyan)','y = t (the Itô correction)');
+    svg.appendChild(lg);
+    // x ticks
+    for(let k=0;k<=4;k++){
+      const xp=X(k*K/4);
+      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=(k/4).toFixed(2); svg.appendChild(t);
+    }
+    const cap=SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    cap.textContent='time t ∈ [0,1]';
+    svg.appendChild(cap);
+    // readout
+    const i=K, gap=sq[i]-I[i];
+    out.textContent =
+      `at t = 1.000 on this path:\n`+
+      `  B² = ${sq[i].toFixed(4)}\n`+
+      `  2 ∫ B dB = ${I[i].toFixed(4)}\n`+
+      `  gap = ${gap.toFixed(4)}   (theory: t = 1.000)\n\n`+
+      `the gap ≈ t holds path-by-path (it's the quadratic variation, deterministic).`;
+  }
+  $('#itof-new').addEventListener('click',()=>{B=null; draw();});
+  KIn.addEventListener('input',()=>{B=null; draw();});
+  draw();
+})();
+</script>
+
+<section id="sde">
+<h2>3. Stochastic differential equations</h2>
+
+<p>An SDE writes a process as the sum of a drift and a diffusion:
+$$dX_t=b(t,X_t)\,dt+\sigma(t,X_t)\,dB_t,\qquad X_0=x_0.$$
+Solutions come in two flavours. A <strong>strong</strong> solution is a process $X$ adapted to the filtration of a <em>given</em> Brownian motion $B$ that satisfies the integrated form $X_t=x_0+\int_0^t b\,ds+\int_0^t\sigma\,dB_s$. A <strong>weak</strong> solution only requires producing some probability space carrying $(X,B)$ jointly satisfying the equation in law — the driving Brownian motion is constructed along with the solution.</p>
+
+<p><strong>Picard iteration and Lipschitz uniqueness.</strong> If $b,\sigma$ are globally Lipschitz with linear growth, the operator $T(X)_t=x_0+\int_0^t b(s,X_s)\,ds+\int_0^t\sigma(s,X_s)\,dB_s$ is a contraction in $L^2$ on $[0,T]$ (use Itô isometry on the diffusion piece, Cauchy–Schwarz on the drift). Iterating gives a unique strong solution; the existence proof is parallel to ODE Picard, with the Itô isometry replacing $|\int|\le\int|\,|$.</p>
+
+<p><strong>Geometric Brownian motion.</strong> The canonical financial example is $dX_t=\mu X_t\,dt+\sigma X_t\,dB_t$. Apply Itô to $\log X_t$: with $f(x)=\log x$, $f'=1/x$, $f''=-1/x^2$,
+$$d\log X_t=\frac{1}{X_t}\,dX_t-\frac{1}{2X_t^2}\,(dX_t)^2 = \mu\,dt+\sigma\,dB_t-\tfrac{1}{2}\sigma^2\,dt = (\mu-\tfrac{1}{2}\sigma^2)\,dt+\sigma\,dB_t.$$
+Integrating, $X_t=x_0\exp((\mu-\sigma^2/2)t+\sigma B_t)$. Two surprises live here: (1) $X_t$ stays positive a.s.; (2) $\mathbb{E}[X_t]=x_0 e^{\mu t}$ but the median grows like $x_0 e^{(\mu-\sigma^2/2)t}$ — the lognormal mean–median gap is a real phenomenon, "volatility drag".</p>
+
+<div class="widget" id="w-gbm">
+  <div class="hd"><div class="ttl">Geometric Brownian motion</div><div class="hint">drift $\mu$ · vol $\sigma$ · ensemble of paths</div></div>
+  <svg id="gbm-svg" viewBox="0 0 760 320" width="760" height="320"><title>Sample paths of geometric Brownian motion with mean and median curves</title></svg>
+  <div class="row">
+    <label for="gbm-mu">$\mu$</label>
+    <input id="gbm-mu" type="range" min="-0.3" max="0.3" step="0.01" value="0.05">
+    <span id="gbm-muv" class="small">μ = 0.05</span>
+    <label for="gbm-sig">$\sigma$</label>
+    <input id="gbm-sig" type="range" min="0.05" max="0.6" step="0.01" value="0.2">
+    <span id="gbm-sigv" class="small">σ = 0.20</span>
+    <label for="gbm-K">paths</label>
+    <input id="gbm-K" type="range" min="3" max="50" step="1" value="20">
+    <span id="gbm-Kv" class="small">K = 20</span>
+    <button id="gbm-new">new sample</button>
+  </div>
+  <div class="readout" id="gbm-out"></div>
+</div>
+
+<div class="quiz" data-concept="sc-sde-existence"></div>
+
+</section>
+
+<script>
+/* §3 — geometric Brownian motion ensemble */
+(function(){
+  const svg=$('#gbm-svg'), out=$('#gbm-out');
+  const muIn=$('#gbm-mu'), sigIn=$('#gbm-sig'), KIn=$('#gbm-K');
+  const muV=$('#gbm-muv'), sigV=$('#gbm-sigv'), KV=$('#gbm-Kv');
+  const W=760, H=320, x0=60, x1=W-30, y0=30, y1=H-40;
+  const T=2.0, N=400, x_init=1.0;
+  let seed=null;
+  function genSeeds(K){
+    const arr=[];
+    for(let k=0;k<K;k++){
+      const z=new Float64Array(N);
+      for(let i=0;i<N;i++) z[i]=randn();
+      arr.push(z);
+    }
+    return arr;
+  }
+  function path(z, mu, sig){
+    const dt=T/N; const X=new Float64Array(N+1); X[0]=x_init;
+    for(let i=1;i<=N;i++){
+      // exact: X_i = X_{i-1} * exp((mu-sig^2/2) dt + sig sqrt(dt) z_{i-1})
+      X[i] = X[i-1]*Math.exp((mu-0.5*sig*sig)*dt + sig*Math.sqrt(dt)*z[i-1]);
+    }
+    return X;
+  }
+  function draw(){
+    const mu=+muIn.value, sig=+sigIn.value, K=+KIn.value;
+    muV.textContent='μ = '+mu.toFixed(2);
+    sigV.textContent='σ = '+sig.toFixed(2);
+    KV.textContent='K = '+K;
+    if(!seed || seed.length<K) seed=genSeeds(Math.max(K,50));
+    const paths=[];
+    for(let k=0;k<K;k++) paths.push(path(seed[k], mu, sig));
+    svg.innerHTML='';
+    let mn=Infinity, mx=-Infinity;
+    for(const p of paths) for(const v of p){ if(v<mn)mn=v; if(v>mx)mx=v; }
+    mn=Math.max(0, mn-0.1*(mx-mn));
+    mx=mx+0.1*(mx-mn);
+    const X=i=>x0 + (i/N)*(x1-x0);
+    const Y=v=>y1 - (v-mn)/(mx-mn)*(y1-y0);
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // ensemble paths in muted colour
+    for(let k=0;k<K;k++){
+      let d='';
+      for(let i=0;i<=N;i++){ d += (i===0?'M':'L')+X(i)+','+Y(paths[k][i])+' '; }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.55}));
+    }
+    // theoretical mean curve  E[X_t] = x0 exp(mu t)
+    let dm=''; for(let i=0;i<=N;i++){ const t=i/N*T; dm+=(i===0?'M':'L')+X(i)+','+Y(x_init*Math.exp(mu*t))+' '; }
+    svg.appendChild(SVG('path',{d:dm,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // median curve  exp((mu-sig^2/2) t)
+    let dmd=''; for(let i=0;i<=N;i++){ const t=i/N*T; dmd+=(i===0?'M':'L')+X(i)+','+Y(x_init*Math.exp((mu-0.5*sig*sig)*t))+' '; }
+    svg.appendChild(SVG('path',{d:dmd,fill:'none',stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'4 3'}));
+    // legend
+    const lg=SVG('g',{transform:'translate(80,40)'});
+    function le(y,col,dash,lab){
+      const ln=SVG('line',{x1:0,y1:y,x2:18,y2:y,stroke:col,'stroke-width':2});
+      if(dash) ln.setAttribute('stroke-dasharray', dash);
+      lg.appendChild(ln);
+      const t=SVG('text',{x:24,y:y+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);
+    }
+    le(0,'var(--violet)',null,'sample paths');
+    le(16,'var(--pink)',null,'mean  E[Xₜ] = x₀ eᵘᵗ');
+    le(32,'var(--cyan)','4 3','median  x₀ exp((μ−σ²/2)t)');
+    svg.appendChild(lg);
+    // x ticks
+    for(let k=0;k<=4;k++){
+      const xp=X(k*N/4);
+      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=(k/4*T).toFixed(1); svg.appendChild(t);
+    }
+    // empirical stats at t = T
+    let s=0, ss=0;
+    for(let k=0;k<K;k++){ const v=paths[k][N]; s+=v; ss+=v*v; }
+    const m=s/K, va=ss/K - m*m;
+    const meanTh=x_init*Math.exp(mu*T);
+    const medTh=x_init*Math.exp((mu-0.5*sig*sig)*T);
+    out.textContent =
+      `dXₜ = μ Xₜ dt + σ Xₜ dBₜ,  X₀ = ${x_init},  T = ${T}\n`+
+      `closed form:  Xₜ = X₀ exp((μ − σ²/2) t + σ Bₜ)\n\n`+
+      `at t = T:   theory mean = ${meanTh.toFixed(3)},  theory median = ${medTh.toFixed(3)}\n`+
+      `              gap (volatility drag) = ${(meanTh-medTh).toFixed(3)}\n`+
+      `   empirical mean (K=${K})  = ${m.toFixed(3)},  empirical var = ${va.toFixed(3)}`;
+  }
+  muIn.addEventListener('input', draw);
+  sigIn.addEventListener('input', draw);
+  KIn.addEventListener('input', draw);
+  $('#gbm-new').addEventListener('click',()=>{seed=null; draw();});
+  draw();
+})();
+</script>
+
+<section id="girsanov">
+<h2>4. Girsanov's theorem and change of measure</h2>
+
+<p>Drift is measure-relative. Given a real-valued adapted process $\theta_s$ satisfying Novikov's condition $\mathbb{E}\exp(\tfrac{1}{2}\int_0^T\theta_s^2\,ds)<\infty$, define
+$$Z_t=\exp\!\Big(\int_0^t\theta_s\,dB_s-\tfrac{1}{2}\int_0^t\theta_s^2\,ds\Big).$$
+By Itô on $\log Z$, $dZ_t=Z_t\,\theta_t\,dB_t$ — a strict Itô integral with no drift, hence $Z$ is a positive martingale with $\mathbb{E}[Z_t]=1$. Use $Z_T$ to define a new probability measure $\mathbb{Q}$ on $\mathcal{F}_T$ by $d\mathbb{Q}=Z_T\,d\mathbb{P}$. <strong>Girsanov's theorem</strong> says that under $\mathbb{Q}$,
+$$\tilde B_t = B_t - \int_0^t\theta_s\,ds$$
+is a standard Brownian motion. The drift $\int\theta\,ds$ has been absorbed into the change of measure.</p>
+
+<p><strong>Risk-neutral pricing.</strong> If the asset solves $dS_t=\mu S_t\,dt+\sigma S_t\,dB_t$ under the real-world measure $\mathbb{P}$, set $\theta=(\mu-r)/\sigma$ (the <em>market price of risk</em>). Under $\mathbb{Q}$,
+$$dS_t = \mu S_t\,dt + \sigma S_t(d\tilde B_t+\theta\,dt) = r S_t\,dt + \sigma S_t\,d\tilde B_t,$$
+so the discounted asset $e^{-rt}S_t$ becomes a martingale. Volatility $\sigma$ is unchanged; only the drift shifts. This is why the Black–Scholes price doesn't depend on $\mu$.</p>
+
+<p>The widget below shifts mass between two measures via a single $\theta$ slider: same Brownian path, two laws of $B_T$. The base law is $\mathcal{N}(0,T)$; under $\mathbb{Q}$ the law of $B_T$ becomes $\mathcal{N}(\theta T, T)$ — equivalently, $\tilde B_T=B_T-\theta T\sim\mathcal{N}(0,T)$.</p>
+
+<div class="widget" id="w-gir">
+  <div class="hd"><div class="ttl">Girsanov: density of $B_T$ under $\mathbb{P}$ vs $\mathbb{Q}$</div><div class="hint">$\theta$ shifts the mean</div></div>
+  <svg id="gir-svg" viewBox="0 0 760 300" width="760" height="300"><title>Densities of B_T under P (centered) and Q (shifted by theta T) overlaid with Radon-Nikodym density</title></svg>
+  <div class="row">
+    <label for="gir-th">$\theta$</label>
+    <input id="gir-th" type="range" min="-1.5" max="1.5" step="0.05" value="0.6">
+    <span id="gir-thv" class="small">θ = 0.60</span>
+    <label for="gir-T">$T$</label>
+    <input id="gir-T" type="range" min="0.2" max="3" step="0.1" value="1.0">
+    <span id="gir-Tv" class="small">T = 1.0</span>
+  </div>
+  <div class="readout" id="gir-out"></div>
+</div>
+
+<div class="quiz" data-concept="sc-girsanov"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#expectation">Expectation, variance, and moments</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+</section>
+
+<script>
+/* §4 — Girsanov density-shift visualization */
+(function(){
+  const svg=$('#gir-svg'), out=$('#gir-out');
+  const thIn=$('#gir-th'), TIn=$('#gir-T');
+  const thV=$('#gir-thv'), TV=$('#gir-Tv');
+  const W=760, H=300, x0=60, x1=W-30, y0=30, y1=H-40;
+  function phi(x,m,v){ return Math.exp(-((x-m)*(x-m))/(2*v))/Math.sqrt(2*Math.PI*v); }
+  function draw(){
+    const th=+thIn.value, T=+TIn.value;
+    thV.textContent='θ = '+th.toFixed(2);
+    TV.textContent='T = '+T.toFixed(1);
+    svg.innerHTML='';
+    // x-axis range
+    const sd=Math.sqrt(T);
+    const xmin=Math.min(-3*sd, th*T-3*sd) - 0.3;
+    const xmax=Math.max( 3*sd, th*T+3*sd) + 0.3;
+    const ymax=phi(0,0,T)*1.15;
+    const X=v=>x0+(v-xmin)/(xmax-xmin)*(x1-x0);
+    const Y=v=>y1-(v/ymax)*(y1-y0);
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // P density (centered)
+    let dP='', dQ='';
+    const STEPS=200;
+    for(let i=0;i<=STEPS;i++){
+      const x=xmin+(i/STEPS)*(xmax-xmin);
+      const yP=phi(x,0,T);
+      const yQ=phi(x,th*T,T);
+      dP += (i===0?'M':'L')+X(x)+','+Y(yP)+' ';
+      dQ += (i===0?'M':'L')+X(x)+','+Y(yQ)+' ';
+    }
+    // fill under P slightly
+    const dPfill = dP + 'L'+X(xmax)+','+Y(0)+' L'+X(xmin)+','+Y(0)+' Z';
+    svg.appendChild(SVG('path',{d:dPfill,fill:'rgba(255,216,102,0.10)',stroke:'none'}));
+    svg.appendChild(SVG('path',{d:dP,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:dQ,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    // shift arrow at peaks
+    const pkP=[X(0), Y(phi(0,0,T))];
+    const pkQ=[X(th*T), Y(phi(th*T,th*T,T))];
+    drawArrow(svg, pkP, pkQ, {color:'var(--pink)', label:'shift = θT', markerId:'gir-arr', width:1.5});
+    // x ticks
+    for(let k=0;k<=4;k++){
+      const v=xmin+(k/4)*(xmax-xmin);
+      const xp=X(v);
+      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=v.toFixed(1); svg.appendChild(t);
+    }
+    // legend (viewport coords)
+    const lg=SVG('g',{transform:'translate(80,40)'});
+    function le(y,col,lab){
+      lg.appendChild(SVG('line',{x1:0,y1:y,x2:18,y2:y,stroke:col,'stroke-width':2}));
+      const t=SVG('text',{x:24,y:y+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);
+    }
+    le(0,'var(--yellow)','Bᴛ ~ 𝒩(0, T)   under ℙ');
+    le(16,'var(--cyan)', 'Bᴛ ~ 𝒩(θT, T)  under ℚ');
+    svg.appendChild(lg);
+    const cap=SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    cap.textContent='dℚ/dℙ = exp(θ Bᴛ − ½θ²T) — same path, different mass';
+    svg.appendChild(cap);
+    // readout
+    const ZbarMean = 1; // E_P[Z_T] = 1 by martingale prop
+    const tildeMean = 0; // E_Q[ B_T - θT ] = 0
+    out.textContent =
+      `density:  Zᴛ = exp(θ Bᴛ − ½θ²T),  𝔼ℙ[Zᴛ] = ${ZbarMean}\n`+
+      `under ℚ:  𝔼ℚ[Bᴛ] = θT = ${(th*T).toFixed(3)},  𝔼ℚ[Bᴛ − θT] = ${tildeMean}\n`+
+      `Brownian motion under ℚ:  ̃Bₜ = Bₜ − θ t  (drift absorbed into the measure)`;
+  }
+  thIn.addEventListener('input', draw);
+  TIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="feynman-kac">
+<h2>5. Feynman–Kac formula</h2>
+
+<p>Itô gives a direct dictionary between SDEs and second-order parabolic PDEs. Suppose $u(t,x)\in C^{1,2}$ solves the backward heat-type equation
+$$\partial_t u + b(x)\partial_x u + \tfrac{1}{2}\sigma(x)^2\partial_{xx}u - r(x)u = 0,\qquad u(T,x)=g(x),$$
+and let $X_t$ be the diffusion with drift $b$ and volatility $\sigma$. Apply Itô to $e^{-\int_0^s r\,dr}u(s,X_s)$: the $dt$ pieces cancel by the PDE, leaving a martingale. Taking expectations gives the <strong>Feynman–Kac formula</strong>:
+$$u(t,x)=\mathbb{E}\!\left[e^{-\int_t^T r(X_s)\,ds}\,g(X_T)\;\Big|\;X_t=x\right].$$
+The PDE evaluation problem reduces to averaging over Brownian paths.</p>
+
+<p><strong>The simplest case.</strong> With $b=0$, $\sigma=1$, $r=0$ this is just $\partial_t u+\tfrac{1}{2}\partial_{xx}u=0$, $u(T,x)=g(x)$ — the backward heat equation solved by Brownian convolution:
+$$u(t,x)=\mathbb{E}[g(B_T)\mid B_t=x]=\int_{-\infty}^\infty g(y)\,\frac{e^{-(y-x)^2/2(T-t)}}{\sqrt{2\pi(T-t)}}\,dy.$$
+The Brownian heat kernel is the Green's function. The widget below draws the heat-equation solution at a slider time $t$, both as the analytic Gaussian convolution (yellow) and as a Monte-Carlo estimate over Brownian paths (cyan dots) — visually the law of large numbers walking the PDE forward.</p>
+
+<div class="widget" id="w-fk">
+  <div class="hd"><div class="ttl">Heat-equation solution as Brownian expectation</div><div class="hint">$u(t,x)=\mathbb{E}[g(B_T)\mid B_t=x]$ · $g$ a bump</div></div>
+  <svg id="fk-svg" viewBox="0 0 760 320" width="760" height="320"><title>Solution u(t,x) of the backward heat equation displayed as analytic Gaussian convolution and as Monte Carlo Brownian estimate</title></svg>
+  <div class="row">
+    <label for="fk-t">$t$</label>
+    <input id="fk-t" type="range" min="0" max="0.99" step="0.01" value="0.30">
+    <span id="fk-tv" class="small">t = 0.30 (T = 1)</span>
+    <label for="fk-M">paths</label>
+    <input id="fk-M" type="range" min="50" max="2000" step="50" value="400">
+    <span id="fk-Mv" class="small">M = 400</span>
+    <button id="fk-new">resample</button>
+  </div>
+  <div class="readout" id="fk-out"></div>
+</div>
+
+<div class="quiz" data-concept="sc-feynman-kac"></div>
+
+</section>
+
+<script>
+/* §5 — Feynman–Kac: heat equation = Brownian expectation, with MC overlay */
+(function(){
+  const svg=$('#fk-svg'), out=$('#fk-out');
+  const tIn=$('#fk-t'), MIn=$('#fk-M');
+  const tV=$('#fk-tv'), MV=$('#fk-Mv');
+  const W=760, H=320, x0=60, x1=W-30, y0=30, y1=H-40;
+  const T=1.0;
+  // terminal condition g(x): a smooth bump centered at 1
+  function g(y){ return Math.exp(-2*(y-1)*(y-1)); }
+  // analytic u(t,x) = E[g(B_T)|B_t=x] = ∫ g(y) phi(y; x, T-t) dy
+  function uAnalytic(t,x){
+    const v=T-t;
+    if(v<=1e-6) return g(x);
+    let s=0;
+    const N=200, ymin=-4, ymax=4;
+    for(let i=0;i<=N;i++){
+      const y=ymin+(i/N)*(ymax-ymin);
+      const w=(i===0||i===N)?0.5:1;
+      const k=Math.exp(-((y-x)*(y-x))/(2*v))/Math.sqrt(2*Math.PI*v);
+      s += w * g(y) * k;
+    }
+    return s * (ymax-ymin)/N;
+  }
+  // MC: for each x, simulate M Brownian increments to T-t, average g(x + sqrt(T-t) Z)
+  let mcCache=null;
+  function uMC(t,xs,M){
+    const v=T-t;
+    if(v<=0) return xs.map(g);
+    if(!mcCache || mcCache.length<M){
+      mcCache=new Float64Array(M);
+      for(let k=0;k<M;k++) mcCache[k]=randn();
+    }
+    return xs.map(x=>{
+      let s=0;
+      for(let k=0;k<M;k++) s += g(x + Math.sqrt(v)*mcCache[k]);
+      return s/M;
+    });
+  }
+  function draw(){
+    const t=+tIn.value, M=+MIn.value;
+    tV.textContent=`t = ${t.toFixed(2)} (T = ${T.toFixed(0)})`;
+    MV.textContent='M = '+M;
+    svg.innerHTML='';
+    // x range
+    const xmin=-2.5, xmax=4.5, ymin=0, ymax=1.05;
+    const X=v=>x0+(v-xmin)/(xmax-xmin)*(x1-x0);
+    const Y=v=>y1-(v-ymin)/(ymax-ymin)*(y1-y0);
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // grid for x
+    const xs=[];
+    const SN=200;
+    for(let i=0;i<=SN;i++) xs.push(xmin+(i/SN)*(xmax-xmin));
+    // analytic u(t,x)
+    let dU='';
+    xs.forEach((x,i)=>{ dU += (i===0?'M':'L')+X(x)+','+Y(uAnalytic(t,x))+' '; });
+    svg.appendChild(SVG('path',{d:dU,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // terminal g(x) faint
+    let dg='';
+    xs.forEach((x,i)=>{ dg += (i===0?'M':'L')+X(x)+','+Y(g(x))+' '; });
+    svg.appendChild(SVG('path',{d:dg,fill:'none',stroke:'var(--mute)','stroke-width':1.2,'stroke-dasharray':'3 3'}));
+    // MC dots at sparser x
+    const xsMC=[];
+    for(let i=0;i<=20;i++) xsMC.push(xmin+(i/20)*(xmax-xmin));
+    const uMCv = uMC(t, xsMC, M);
+    xsMC.forEach((x,i)=>{
+      svg.appendChild(SVG('circle',{cx:X(x),cy:Y(uMCv[i]),r:3,fill:'var(--cyan)'}));
+    });
+    // ticks
+    for(let k=0;k<=6;k++){
+      const v=xmin+(k/6)*(xmax-xmin);
+      const xp=X(v);
+      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));
+      const tt=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      tt.textContent=v.toFixed(1); svg.appendChild(tt);
+    }
+    // legend (viewport)
+    const lg=SVG('g',{transform:'translate(80,40)'});
+    function le(y,col,dash,lab){
+      const ln=SVG('line',{x1:0,y1:y,x2:18,y2:y,stroke:col,'stroke-width':2});
+      if(dash) ln.setAttribute('stroke-dasharray', dash);
+      lg.appendChild(ln);
+      const t=SVG('text',{x:24,y:y+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);
+    }
+    le(0,'var(--yellow)',null,'u(t,x) — heat-equation solution');
+    le(16,'var(--cyan)',null,'Monte-Carlo Brownian average');
+    le(32,'var(--mute)','3 3','g(x) terminal data');
+    svg.appendChild(lg);
+    const cap=SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    cap.textContent='backward heat:  ∂ₜu + ½ ∂ₓₓu = 0,  u(T,x) = g(x) = exp(−2(x−1)²)';
+    svg.appendChild(cap);
+    // readout — sample at x = 1
+    const xstar=1.0;
+    const aA=uAnalytic(t,xstar);
+    const aM = uMC(t, [xstar], M)[0];
+    out.textContent =
+      `at t = ${t.toFixed(2)}, x = 1:\n`+
+      `  analytic u(t,1)  = ${aA.toFixed(4)}\n`+
+      `  Monte-Carlo (M=${M}) = ${aM.toFixed(4)}\n\n`+
+      `as t → T the curve collapses onto g(x); as t → 0 the bump diffuses outward.`;
+  }
+  tIn.addEventListener('input', draw);
+  MIn.addEventListener('input',()=>{mcCache=null; draw();});
+  $('#fk-new').addEventListener('click',()=>{mcCache=null; draw();});
+  draw();
+})();
+</script>
+
+<section id="applications">
+<h2>6. Applications: Black–Scholes, Kalman, optimal stopping</h2>
+
+<p>The three pieces — Itô's formula, SDE solutions, Girsanov, Feynman–Kac — assemble into the workhorses of mathematical finance, signal processing, and decision theory.</p>
+
+<h3>Black–Scholes</h3>
+<p>Under the risk-neutral measure $\mathbb{Q}$, $S_T = S_0\exp((r-\sigma^2/2)T+\sigma\tilde B_T)$. The price of a European call $C=e^{-rT}\mathbb{E}_\mathbb{Q}[(S_T-K)^+]$ admits a closed form
+$$C = S_0\,\Phi(d_1) - K e^{-rT}\,\Phi(d_2),\qquad d_{1,2} = \frac{\log(S_0/K) + (r\pm\sigma^2/2)T}{\sigma\sqrt T}.$$
+Equivalently, $C$ solves the Black–Scholes PDE $\partial_t C+\tfrac{1}{2}\sigma^2 S^2\partial_{SS}C+rS\,\partial_S C-rC=0$ with terminal $C(T,S)=(S-K)^+$. The widget below visualises the discrete-time binomial tree that converges (under the right parameters) to Black–Scholes.</p>
+
+<h3>Kalman filter</h3>
+<p>For the linear-Gaussian state-space SDE $dX_t=A X_t\,dt+\sigma\,dB_t$ with linear noisy observation $Y_t$, the conditional distribution of $X_t$ given $\mathcal{F}_t^Y$ remains Gaussian. The conditional mean $\hat X_t=\mathbb{E}[X_t\mid\mathcal{F}_t^Y]$ and covariance $P_t$ obey the closed Kalman–Bucy ODEs — recursive, online, and exact. This is the canonical example of conditional expectations as an orthogonal projection.</p>
+
+<h3>Optimal stopping</h3>
+<p>An American option pays $g(X_\tau)$ at any stopping time $\tau\in[0,T]$ chosen by the holder, so
+$$V(t,x)=\sup_{\tau\in[t,T]}\mathbb{E}_\mathbb{Q}\!\left[e^{-r(\tau-t)}g(X_\tau)\,\big|\,X_t=x\right].$$
+$V$ solves a <em>variational</em> PDE: $\min(\,-\partial_t V-\mathcal{L}V+rV,\;V-g\,)=0$, with a free boundary separating the continuation region (where the PDE part is active) from the exercise region (where $V=g$). This pattern — Brownian-driven SDE, Bellman/HJB, free boundary — is the prototype for stochastic control.</p>
+
+<div class="widget" id="w-bs">
+  <div class="hd"><div class="ttl">Binomial tree → Black–Scholes</div><div class="hint">$N$-step CRR tree backward-induced</div></div>
+  <svg id="bs-svg" viewBox="0 0 760 360" width="760" height="360"><title>Cox-Ross-Rubinstein binomial tree for European call with backward induction</title></svg>
+  <div class="row">
+    <label for="bs-N">tree depth $N$</label>
+    <input id="bs-N" type="range" min="3" max="9" step="1" value="5">
+    <span id="bs-Nv" class="small">N = 5</span>
+    <label for="bs-K">strike $K$</label>
+    <input id="bs-K" type="range" min="60" max="140" step="1" value="100">
+    <span id="bs-Kv" class="small">K = 100</span>
+    <label for="bs-sig">$\sigma$</label>
+    <input id="bs-sig" type="range" min="0.1" max="0.6" step="0.01" value="0.25">
+    <span id="bs-sigv" class="small">σ = 0.25</span>
+  </div>
+  <div class="readout" id="bs-out"></div>
+</div>
+
+<div class="quiz" data-concept="sc-applications"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./stochastic-processes-and-martingales.html#optional-stopping">Optional stopping theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+</section>
+
+<script>
+/* §6 — CRR binomial tree visualization with backward induction */
+(function(){
+  const svg=$('#bs-svg'), out=$('#bs-out');
+  const NIn=$('#bs-N'), KIn=$('#bs-K'), sigIn=$('#bs-sig');
+  const NV=$('#bs-Nv'), KV=$('#bs-Kv'), sigV=$('#bs-sigv');
+  const W=760, H=360, x0=60, x1=W-50, y0=30, y1=H-30;
+  const S0=100, T=1.0, r=0.05;
+  function bsCall(S,K,r,sig,T){
+    if(T<=0) return Math.max(S-K,0);
+    const d1=(Math.log(S/K)+(r+0.5*sig*sig)*T)/(sig*Math.sqrt(T));
+    const d2=d1-sig*Math.sqrt(T);
+    function Phi(x){
+      // Abramowitz–Stegun 7.1.26
+      const sign=x<0?-1:1; x=Math.abs(x)/Math.SQRT2;
+      const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+      const t=1/(1+p*x);
+      const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);
+      return 0.5*(1+sign*y);
+    }
+    return S*Phi(d1) - K*Math.exp(-r*T)*Phi(d2);
+  }
+  function draw(){
+    const N=+NIn.value, K=+KIn.value, sig=+sigIn.value;
+    NV.textContent='N = '+N;
+    KV.textContent='K = '+K;
+    sigV.textContent='σ = '+sig.toFixed(2);
+    svg.innerHTML='';
+    const dt=T/N;
+    const u=Math.exp(sig*Math.sqrt(dt));
+    const d=1/u;
+    const p=(Math.exp(r*dt)-d)/(u-d);
+    // build stock tree S[i][j], j = number of ups, i = step
+    const S=[]; for(let i=0;i<=N;i++){ S.push([]); for(let j=0;j<=i;j++) S[i].push(S0*Math.pow(u,j)*Math.pow(d,i-j)); }
+    // option tree by backward induction
+    const C=[]; for(let i=0;i<=N;i++) C.push(new Array(i+1).fill(0));
+    for(let j=0;j<=N;j++) C[N][j]=Math.max(S[N][j]-K,0);
+    for(let i=N-1;i>=0;i--){
+      for(let j=0;j<=i;j++){
+        C[i][j] = Math.exp(-r*dt)*(p*C[i+1][j+1] + (1-p)*C[i+1][j]);
+      }
+    }
+    // layout: each step at fixed x, nodes vertically spread
+    const X=i=>x0 + (i/N)*(x1-x0);
+    const Y=(i,j)=>{
+      // center at (y0+y1)/2; spread half-height = (y1-y0)/2 - 14
+      const half=(y1-y0)/2 - 18;
+      return (y0+y1)/2 - (j - i/2)*(half*2/Math.max(N,1));
+    };
+    // edges
+    for(let i=0;i<N;i++){
+      for(let j=0;j<=i;j++){
+        const a=[X(i),Y(i,j)];
+        const bUp=[X(i+1),Y(i+1,j+1)];
+        const bDn=[X(i+1),Y(i+1,j)];
+        svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:bUp[0],y2:bUp[1],stroke:'var(--green)','stroke-width':1,'stroke-opacity':0.55}));
+        svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:bDn[0],y2:bDn[1],stroke:'var(--pink)','stroke-width':1,'stroke-opacity':0.55}));
+      }
+    }
+    // nodes
+    for(let i=0;i<=N;i++){
+      for(let j=0;j<=i;j++){
+        const cx=X(i), cy=Y(i,j);
+        const itm = S[i][j] > K;
+        svg.appendChild(SVG('circle',{cx,cy,r:13, fill:'var(--panel2)', stroke: itm?'var(--green)':'var(--mute)','stroke-width':1.2}));
+        const t1=SVG('text',{x:cx,y:cy-1,'text-anchor':'middle','font-size':9,fill:'var(--ink)'});
+        t1.textContent='S='+S[i][j].toFixed(0);
+        svg.appendChild(t1);
+        const t2=SVG('text',{x:cx,y:cy+9,'text-anchor':'middle','font-size':9,fill:'var(--cyan)'});
+        t2.textContent='C='+C[i][j].toFixed(2);
+        svg.appendChild(t2);
+      }
+    }
+    // axis labels
+    for(let i=0;i<=N;i++){
+      const xp=X(i);
+      const t=SVG('text',{x:xp,y:y1+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent='t='+ (i*dt).toFixed(2);
+      svg.appendChild(t);
+    }
+    const cap=SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    cap.textContent=`CRR tree:  u = e^(σ√Δt) = ${u.toFixed(3)},  d = 1/u = ${d.toFixed(3)},  p = ${p.toFixed(3)}`;
+    svg.appendChild(cap);
+    const treePrice = C[0][0];
+    const bsPrice = bsCall(S0,K,r,sig,T);
+    out.textContent =
+      `parameters:  S₀ = ${S0},  K = ${K},  r = ${r},  σ = ${sig.toFixed(2)},  T = ${T.toFixed(1)}\n`+
+      `tree price (N = ${N}):  C₀ = ${treePrice.toFixed(4)}\n`+
+      `Black–Scholes limit:    C₀ = ${bsPrice.toFixed(4)}\n`+
+      `relative error:          ${(Math.abs(treePrice-bsPrice)/bsPrice*100).toFixed(2)} %`;
+  }
+  NIn.addEventListener('input', draw);
+  KIn.addEventListener('input', draw);
+  sigIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 </main>
 
@@ -269,7 +1071,7 @@ function drawNode(svg, x, y, label, opts={}){
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

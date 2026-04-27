@@ -1,19 +1,203 @@
 {
   "topic": "large-deviations",
   "quizzes": {
-    "large-deviations-intro": {
-      "title": "Intro",
+    "ld-cramer-theorem": {
+      "title": "Cramér's theorem",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "For i.i.d. $X_i$ with $\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X_1}]$, Cramér's theorem says the rate function is:",
           "choices": [
-            "A",
-            "B"
+            "$I(x)=\\Lambda(x)$",
+            "$I(x)=\\sup_{\\theta}\\{\\theta x-\\Lambda(\\theta)\\}$",
+            "$I(x)=\\Lambda(x)-x$",
+            "$I(x)=\\inf_{\\theta}\\{\\theta x+\\Lambda(\\theta)\\}$"
           ],
-          "answer": 0,
-          "hint": "Placeholder.",
-          "explain": "Placeholder."
+          "answer": 1,
+          "hint": "It is the Legendre–Fenchel transform of $\\Lambda$.",
+          "explain": "Cramér's theorem states $\\frac{1}{n}\\log\\mathbb{P}(\\bar X_n\\ge x)\\to -I(x)$ where $I(x)=\\Lambda^*(x)=\\sup_\\theta\\{\\theta x-\\Lambda(\\theta)\\}$ is the Legendre transform of the log-MGF."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X_i\\sim\\mathcal{N}(0,1)$. Compute the Cramér rate function at $x=2$, i.e. $I(2)$.",
+          "answer": 2.0,
+          "tol": 0.01,
+          "hint": "For the standard normal, $\\Lambda(\\theta)=\\theta^2/2$, so $I(x)=x^2/2$.",
+          "explain": "$\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X}]=\\theta^2/2$. Maximising $\\theta x-\\theta^2/2$ in $\\theta$ gives $\\theta^*=x$ and $I(x)=x^2/2$. At $x=2$: $I(2)=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Cramér's theorem requires which condition on the distribution of $X_1$?",
+          "choices": [
+            "Bounded support",
+            "Finite variance",
+            "$\\Lambda(\\theta)<\\infty$ in a neighbourhood of $0$",
+            "Symmetric density"
+          ],
+          "answer": 2,
+          "hint": "We need exponential moments to even define the Legendre transform.",
+          "explain": "The classical statement requires the log-MGF $\\Lambda(\\theta)$ to be finite in an open neighbourhood of the origin (the so-called Cramér condition). Heavy-tailed laws like Cauchy fail this and have no Cramér-style LDP."
+        }
+      ]
+    },
+    "ld-rate-function": {
+      "title": "Rate functions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A rate function $I$ produced as a Legendre transform of a convex log-MGF must be:",
+          "choices": [
+            "Concave",
+            "Convex and lower semicontinuous",
+            "Bounded",
+            "Differentiable everywhere"
+          ],
+          "answer": 1,
+          "hint": "Legendre transforms of convex functions are convex; the sup of affine functions is lsc.",
+          "explain": "Since $\\Lambda(\\theta)$ is convex, its Legendre transform $I=\\Lambda^*$ is the supremum of affine functions $\\theta\\mapsto\\theta x-\\Lambda(\\theta)$ — hence convex and lower semicontinuous. It need not be bounded or differentiable."
+        },
+        {
+          "type": "numeric",
+          "q": "For $X_i\\sim\\text{Bernoulli}(1/2)$, the rate function is $I(x)=x\\log(2x)+(1-x)\\log(2(1-x))$ on $[0,1]$. Compute $I(0.75)$ in nats (round to 3 decimals).",
+          "answer": 0.13,
+          "tol": 0.01,
+          "hint": "$I(x)$ is the KL divergence $H(\\text{Ber}(x)\\,\\|\\,\\text{Ber}(1/2))$. Plug $x=0.75$.",
+          "explain": "$I(0.75)=0.75\\log(1.5)+0.25\\log(0.5)=0.75\\cdot 0.4055-0.25\\cdot 0.6931\\approx 0.3041-0.1733\\approx 0.1308$ nats."
+        },
+        {
+          "type": "mcq",
+          "q": "At which point does a rate function $I$ for the empirical mean of i.i.d.\\ $X_i$ with mean $\\mu$ vanish?",
+          "choices": [
+            "$x=0$",
+            "$x=\\mu$",
+            "$x=\\mathbb{E}[X^2]$",
+            "Nowhere — $I>0$ always"
+          ],
+          "answer": 1,
+          "hint": "The LLN says $\\bar X_n\\to\\mu$ — so deviations from $\\mu$ are not large.",
+          "explain": "By the law of large numbers $\\bar X_n\\to\\mu$ a.s., so $\\mathbb{P}(\\bar X_n\\approx\\mu)\\to 1$ and the exponential rate vanishes. Equivalently, $\\theta=0$ achieves the sup in $\\theta\\mu-\\Lambda(\\theta)$ since $\\Lambda'(0)=\\mu$."
+        }
+      ]
+    },
+    "ld-sanov-theorem": {
+      "title": "Sanov's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Sanov's theorem identifies the rate function for the empirical distribution $L_n$ of i.i.d.\\ samples from $\\mu$ as:",
+          "choices": [
+            "Total variation $\\|\\nu-\\mu\\|_{TV}$",
+            "Wasserstein distance $W_2(\\nu,\\mu)$",
+            "KL divergence $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$",
+            "Hellinger distance"
+          ],
+          "answer": 2,
+          "hint": "The exponential family / Gibbs heuristic.",
+          "explain": "Sanov: $\\mathbb{P}(L_n\\in A)\\asymp e^{-n\\inf_{\\nu\\in A}H(\\nu\\,\\|\\,\\mu)}$. Relative entropy / KL divergence is the unique rate function consistent with i.i.d.\\ exponential families."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mu=\\text{Ber}(1/2)$ and $\\nu=\\text{Ber}(0.9)$. Compute the KL divergence $H(\\nu\\,\\|\\,\\mu)$ in nats (round to 3 decimals).",
+          "answer": 0.368,
+          "tol": 0.01,
+          "hint": "$H(\\nu\\,\\|\\,\\mu)=0.9\\log(0.9/0.5)+0.1\\log(0.1/0.5)$.",
+          "explain": "$H=0.9\\log(1.8)+0.1\\log(0.2)=0.9\\cdot 0.5878+0.1\\cdot(-1.6094)\\approx 0.5290-0.1609\\approx 0.368$ nats."
+        },
+        {
+          "type": "mcq",
+          "q": "Cramér's theorem can be recovered from Sanov's by which mechanism?",
+          "choices": [
+            "Taking a Fourier transform",
+            "The contraction principle applied to $\\nu\\mapsto\\int x\\,d\\nu$",
+            "Differentiating the rate function",
+            "Setting $n=1$"
+          ],
+          "answer": 1,
+          "hint": "The empirical mean is a continuous functional of the empirical measure.",
+          "explain": "The contraction principle: if $L_n$ satisfies an LDP with rate $J$ and $f$ is continuous, then $f(L_n)$ satisfies an LDP with rate $I(y)=\\inf\\{J(\\nu):f(\\nu)=y\\}$. Applying $f(\\nu)=\\int x\\,d\\nu$ to Sanov recovers Cramér."
+        }
+      ]
+    },
+    "ld-gartner-ellis": {
+      "title": "Gärtner–Ellis",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Gärtner–Ellis theorem extends Cramér by replacing the i.i.d.\\ log-MGF with:",
+          "choices": [
+            "The Fourier transform",
+            "$\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$",
+            "The variance",
+            "The cumulant of order $4$"
+          ],
+          "answer": 1,
+          "hint": "It is a scaled limit of log-MGFs.",
+          "explain": "Gärtner–Ellis assumes the limiting log-MGF $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth — then the LDP holds with rate $I=\\Lambda^*$. Cramér is the i.i.d.\\ special case."
+        },
+        {
+          "type": "mcq",
+          "q": "An additional regularity hypothesis Gärtner–Ellis requires (beyond existence of $\\Lambda$) is:",
+          "choices": [
+            "$\\Lambda$ is bounded",
+            "$\\Lambda$ is essentially smooth (steep at the boundary of its effective domain)",
+            "$\\Lambda$ is monotone",
+            "$\\Lambda$ has compact support"
+          ],
+          "answer": 1,
+          "hint": "Without steepness the lower bound can fail — exposed points become inaccessible.",
+          "explain": "Essential smoothness: $\\Lambda$ is differentiable in the interior of its effective domain and $|\\Lambda'(\\theta)|\\to\\infty$ as $\\theta$ approaches the boundary. This guarantees every point in the relevant range is exposed and the lower LDP bound holds."
+        },
+        {
+          "type": "numeric",
+          "q": "For a stationary AR(1) chain $X_n=\\rho X_{n-1}+\\xi_n$ with $\\xi_n\\sim\\mathcal{N}(0,1)$ i.i.d.\\ and $\\rho\\in(-1,1)$, the limiting $\\Lambda(\\theta)$ for $\\bar X_n$ equals $\\theta^2/(2(1-\\rho)^2)$. With $\\rho=0.5$, compute $I(1)$.",
+          "answer": 0.125,
+          "tol": 0.005,
+          "hint": "$I=\\Lambda^*$, so $I(x)=x^2/2 \\cdot (1-\\rho)^2$.",
+          "explain": "$\\Lambda(\\theta)=\\theta^2/(2(1-\\rho)^2)$ is quadratic, so $I(x)=\\tfrac{1}{2}(1-\\rho)^2 x^2$. With $\\rho=0.5$, $I(1)=\\tfrac{1}{2}\\cdot 0.25=0.125$."
+        }
+      ]
+    },
+    "ld-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Schilder's theorem gives an LDP for $\\sqrt{\\varepsilon}\\,W$ (scaled Brownian motion) on path space with rate function:",
+          "choices": [
+            "$I(\\phi)=\\sup_t|\\phi(t)|$",
+            "$I(\\phi)=\\tfrac{1}{2}\\int_0^T|\\dot\\phi(t)|^2\\,dt$ for absolutely continuous $\\phi$ with $\\phi(0)=0$",
+            "$I(\\phi)=\\int_0^T\\phi(t)\\,dt$",
+            "$I(\\phi)=\\|\\phi\\|_\\infty^2$"
+          ],
+          "answer": 1,
+          "hint": "It is the Cameron–Martin / Dirichlet energy of the path.",
+          "explain": "Schilder: $\\mathbb{P}(\\sqrt\\varepsilon W\\in\\cdot)$ satisfies an LDP at speed $1/\\varepsilon$ with rate $I(\\phi)=\\tfrac{1}{2}\\int_0^T|\\dot\\phi|^2 dt$ on the Cameron–Martin space (and $+\\infty$ otherwise). Most-likely paths minimise kinetic energy."
+        },
+        {
+          "type": "mcq",
+          "q": "Freidlin–Wentzell theory studies the small-noise SDE $dX^\\varepsilon_t=b(X^\\varepsilon_t)\\,dt+\\sqrt\\varepsilon\\,dW_t$. The most-likely exit path from a basin minimises:",
+          "choices": [
+            "The travel time alone",
+            "The action $S(\\phi)=\\tfrac{1}{2}\\int_0^T|\\dot\\phi-b(\\phi)|^2\\,dt$",
+            "The Euclidean length",
+            "The supremum norm"
+          ],
+          "answer": 1,
+          "hint": "Replace $\\dot\\phi$ in Schilder's rate by the deviation from the deterministic flow.",
+          "explain": "Freidlin–Wentzell: the rate function is $S(\\phi)=\\tfrac{1}{2}\\int|\\dot\\phi-b(\\phi)|^2\\,dt$. Mean exit times grow like $\\exp(V/\\varepsilon)$ where $V$ is the quasi-potential — the action minimum over paths from the attractor to the boundary."
+        },
+        {
+          "type": "mcq",
+          "q": "Boltzmann's entropy formula $S=k\\log W$ is recovered from large deviations as:",
+          "choices": [
+            "The CLT correction term",
+            "Sanov's theorem applied to the empirical occupation distribution of an ideal gas — entropy is $-H(\\nu\\,\\|\\,\\mu)$",
+            "A Fourier coefficient of the partition function",
+            "The variance of the energy"
+          ],
+          "answer": 1,
+          "hint": "The Gibbs measure is the minimiser of free energy = energy minus entropy.",
+          "explain": "Sanov's rate $H(\\nu\\,\\|\\,\\mu)$ is — up to sign and the Boltzmann constant — Boltzmann–Gibbs entropy. The most likely macrostate maximises entropy subject to energy constraints, recovering the canonical ensemble. This is the rigorous probabilistic foundation of statistical mechanics."
         }
       ]
     }

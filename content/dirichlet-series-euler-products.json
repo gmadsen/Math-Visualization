@@ -53,7 +53,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#tate\">Adèles and idèles</a> · Tate's thesis sketch</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#euler\">Dirichlet series and Euler products</a> · Euler products and multiplicativity</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#mellin\">Dirichlet series and Euler products</a> · Mellin transform and the gamma integral</div>\n    <div><a href=\"./L-functions.html#continuation\">L-functions</a> · Analytic continuation of $L$-functions</div>\n    <div><a href=\"./power-sums-bernoulli.html#zeta\">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Euler's formula for $\\zeta(2n)$</div>\n    <div><a href=\"./waring.html#circle\">Waring's problem and the circle method</a> · Circle method setup</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#tate\">Adèles and idèles</a> · Tate's thesis sketch</div>\n    <div><a href=\"./analytic-number-theory.html#sieves\">Analytic number theory</a> · Sieve methods</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#euler\">Dirichlet series and Euler products</a> · Euler products and multiplicativity</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#mellin\">Dirichlet series and Euler products</a> · Mellin transform and the gamma integral</div>\n    <div><a href=\"./L-functions.html#continuation\">L-functions</a> · Analytic continuation of $L$-functions</div>\n    <div><a href=\"./power-sums-bernoulli.html#zeta\">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Euler's formula for $\\zeta(2n)$</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -724,6 +724,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#explicit\">Analytic number theory</a> · $\\zeta(s)$ and the explicit formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n\n</section>\n\n"
         },
         {
@@ -827,7 +831,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./L-functions.html#unified\">L-functions</a> · Prototype L-functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#dirichlet\">Analytic number theory</a> · Dirichlet's theorem on primes in AP</div>\n    <div><a href=\"./L-functions.html#unified\">L-functions</a> · Prototype L-functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

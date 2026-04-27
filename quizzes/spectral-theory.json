@@ -1,19 +1,266 @@
 {
   "topic": "spectral-theory",
   "quizzes": {
-    "spectral-theory-intro": {
-      "title": "Intro",
+    "st-bounded-operators-spectrum": {
+      "title": "Spectrum of a bounded operator",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "Which set is $\\lambda$ in the spectrum $\\sigma(T)$ of a bounded operator $T$?",
           "choices": [
-            "A",
-            "B"
+            "$\\{\\lambda : T-\\lambda I \\text{ has non-trivial kernel}\\}$",
+            "$\\{\\lambda : T-\\lambda I \\text{ is not invertible in } B(H)\\}$",
+            "$\\{\\lambda : \\|\\lambda\\|<\\|T\\|\\}$",
+            "$\\{\\lambda : T\\varphi=\\lambda\\varphi \\text{ for some unit vector }\\varphi\\}$"
+          ],
+          "answer": 1,
+          "hint": "On infinite-dimensional spaces, $T-\\lambda I$ can be injective without being invertible.",
+          "explain": "The spectrum is the set of $\\lambda$ for which $T-\\lambda I$ fails to be invertible as an element of $B(H)$. Choices (a) and (d) describe the point spectrum (eigenvalues), which is generally a proper subset of $\\sigma(T)$."
+        },
+        {
+          "type": "mcq",
+          "q": "On $\\ell^2(\\mathbb{N})$, the right shift $S(x_1,x_2,\\dots)=(0,x_1,x_2,\\dots)$ has what spectrum?",
+          "choices": [
+            "Just $\\{0\\}$",
+            "The unit circle $\\{\\lambda:|\\lambda|=1\\}$",
+            "The closed unit disk $\\{\\lambda:|\\lambda|\\le 1\\}$",
+            "Empty"
+          ],
+          "answer": 2,
+          "hint": "$S$ is an isometry so $\\|S\\|=1$, and $\\sigma(S)$ is closed inside the disk of radius $\\|S\\|$.",
+          "explain": "The right shift has no eigenvalues (point spectrum is empty), but $\\sigma(S)$ equals the closed unit disk: every $|\\lambda|<1$ lies in the residual spectrum (range not dense), and $|\\lambda|=1$ in the continuous spectrum. By contrast the left shift has the open disk in point spectrum."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $\\sigma(T)$ always non-empty for $T\\in B(H)$?",
+          "choices": [
+            "Because $T$ has at least one eigenvalue",
+            "Because $0\\in\\sigma(T)$ for every operator",
+            "Because the resolvent $\\lambda\\mapsto(T-\\lambda I)^{-1}$ is a bounded entire function vanishing at infinity if $\\sigma(T)=\\emptyset$, contradicting Liouville",
+            "Because the spectral radius formula forces it"
+          ],
+          "answer": 2,
+          "hint": "Apply Liouville's theorem to the operator-valued resolvent.",
+          "explain": "If $\\sigma(T)=\\emptyset$ then the resolvent $R(\\lambda)=(T-\\lambda I)^{-1}$ is entire as a $B(H)$-valued function, and $R(\\lambda)\\to 0$ as $|\\lambda|\\to\\infty$. Liouville (in the Banach-space-valued form) forces $R\\equiv 0$, contradicting $R(\\lambda)(T-\\lambda I)=I$. So $\\sigma(T)$ is non-empty."
+        }
+      ]
+    },
+    "st-self-adjoint-spectrum": {
+      "title": "Self-adjoint spectrum",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $T=T^*$ on a Hilbert space, what does $\\sigma(T)$ look like?",
+          "choices": [
+            "Always finite",
+            "Contained in $\\mathbb{R}$",
+            "Contained in the unit disk",
+            "Contained in $i\\mathbb{R}$ (imaginary axis)"
+          ],
+          "answer": 1,
+          "hint": "Use $\\langle T\\varphi,\\varphi\\rangle=\\langle\\varphi,T\\varphi\\rangle$ to constrain Im $\\lambda$.",
+          "explain": "If $T=T^*$ and $\\lambda=a+ib$ with $b\\ne 0$, then $\\|(T-\\lambda)\\varphi\\|^2=\\|(T-a)\\varphi\\|^2+b^2\\|\\varphi\\|^2\\ge b^2\\|\\varphi\\|^2$, so $T-\\lambda$ is bounded below and has closed range; the same holds for $T-\\bar\\lambda=(T-\\lambda)^*$, so the range is dense, hence $T-\\lambda$ is invertible. Therefore $\\sigma(T)\\subset\\mathbb{R}$."
+        },
+        {
+          "type": "mcq",
+          "q": "For self-adjoint $T$, the spectral radius $r(T)=\\sup_{\\lambda\\in\\sigma(T)}|\\lambda|$ equals:",
+          "choices": [
+            "$\\|T\\|^{1/2}$",
+            "$\\|T\\|$ exactly",
+            "Strictly less than $\\|T\\|$",
+            "$\\sqrt{\\|T^*T\\|}$"
+          ],
+          "answer": 1,
+          "hint": "Combine the spectral radius formula $r(T)=\\lim\\|T^n\\|^{1/n}$ with $\\|T^2\\|=\\|T\\|^2$ for self-adjoint $T$.",
+          "explain": "For self-adjoint $T$, $\\|T^2\\|=\\|T\\|^2$ (because $\\|T^2\\|=\\|T^*T\\|=\\|T\\|^2$), and inductively $\\|T^{2^k}\\|=\\|T\\|^{2^k}$. Thus $r(T)=\\lim\\|T^n\\|^{1/n}=\\|T\\|$. (For general operators only $r(T)\\le\\|T\\|$.)"
+        },
+        {
+          "type": "multi-select",
+          "q": "Which parts of the spectrum can a bounded self-adjoint operator have?",
+          "choices": [
+            "Point spectrum",
+            "Continuous spectrum",
+            "Residual spectrum"
+          ],
+          "answer": [0, 1],
+          "hint": "Use that $\\overline{\\mathrm{Ran}(T-\\lambda)}^\\perp = \\ker(T-\\bar\\lambda)$ when $T$ is self-adjoint and $\\lambda\\in\\mathbb{R}$.",
+          "explain": "Self-adjoint operators have empty residual spectrum: if $\\lambda\\in\\mathbb{R}$ and $T-\\lambda$ has range not dense, then $\\ker(T-\\lambda)^*=\\ker(T-\\lambda)\\ne 0$, so $\\lambda$ is actually in the point spectrum, contradiction. Point and continuous spectrum are both possible."
+        }
+      ]
+    },
+    "st-spectral-theorem-compact": {
+      "title": "Spectral theorem (compact)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A compact self-adjoint operator $K\\ne 0$ on a separable Hilbert space admits:",
+          "choices": [
+            "An orthonormal basis of eigenvectors with eigenvalues in $\\mathbb{R}\\setminus\\{0\\}$ accumulating only at 0",
+            "An orthonormal basis of eigenvectors all with eigenvalue 0",
+            "No eigenvectors in general",
+            "Eigenvalues all bounded away from 0"
           ],
           "answer": 0,
-          "hint": "Placeholder.",
-          "explain": "Placeholder."
+          "hint": "Riesz–Schauder forces a discrete non-zero spectrum.",
+          "explain": "By the spectral theorem for compact self-adjoint operators, $K=\\sum_n\\lambda_n\\langle\\varphi_n,\\cdot\\rangle\\varphi_n$ with $(\\varphi_n)$ orthonormal eigenvectors, $\\lambda_n\\in\\mathbb{R}$, and $\\lambda_n\\to 0$. The eigenspace at 0 may be infinite-dimensional (the kernel)."
+        },
+        {
+          "type": "mcq",
+          "q": "Why must each non-zero eigenvalue $\\lambda_n$ of a compact operator have finite-dimensional eigenspace?",
+          "choices": [
+            "Because $K$ is bounded",
+            "Because the unit ball of an infinite-dimensional eigenspace is mapped to itself, contradicting compactness of $K$ (since $K$ acts as $\\lambda_n\\cdot I$ there)",
+            "Because eigenspaces are always finite-dimensional",
+            "Because of the open mapping theorem"
+          ],
+          "answer": 1,
+          "hint": "On the eigenspace, $K$ acts as a non-zero scalar.",
+          "explain": "On the eigenspace $E_{\\lambda_n}$, $K$ acts as multiplication by $\\lambda_n\\ne 0$. If $E_{\\lambda_n}$ were infinite-dimensional, the unit ball (closed and bounded but not compact) would map under $K$ to a bounded set whose closure contains $\\lambda_n\\cdot$(unit ball), which fails to be compact, contradicting compactness of $K$."
+        },
+        {
+          "type": "mcq",
+          "q": "The integral operator $(Kf)(x)=\\int_0^1 k(x,y)f(y)\\,dy$ on $L^2[0,1]$ is compact and self-adjoint when $k$ is:",
+          "choices": [
+            "Bounded and measurable",
+            "$L^2([0,1]^2)$ and $k(x,y)=\\overline{k(y,x)}$",
+            "Continuous and skew-symmetric",
+            "Real-analytic"
+          ],
+          "answer": 1,
+          "hint": "Hilbert–Schmidt $\\Rightarrow$ compact; symmetric kernel $\\Rightarrow$ self-adjoint.",
+          "explain": "If $k\\in L^2([0,1]^2)$, the integral operator is Hilbert–Schmidt with $\\|K\\|_{HS}^2=\\iint|k(x,y)|^2\\,dx\\,dy$, hence compact. Self-adjointness $\\langle Kf,g\\rangle=\\langle f,Kg\\rangle$ is equivalent to $k(x,y)=\\overline{k(y,x)}$."
+        }
+      ]
+    },
+    "st-spectral-theorem-bounded": {
+      "title": "Spectral theorem (bounded)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The bounded spectral theorem expresses a self-adjoint operator $T$ as:",
+          "choices": [
+            "A finite sum $T=\\sum\\lambda_k P_k$ of eigenprojections",
+            "$T=\\int_{\\sigma(T)}\\lambda\\,dE_\\lambda$ for a unique projection-valued measure $E$ on the Borel sets of $\\sigma(T)$",
+            "$T=U|T|$ (polar decomposition)",
+            "A power series in $T$"
+          ],
+          "answer": 1,
+          "hint": "Functional calculus produces a PVM, not a discrete sum, when the spectrum is continuous.",
+          "explain": "Every bounded self-adjoint operator admits a unique projection-valued measure $E$ supported on $\\sigma(T)\\subset\\mathbb{R}$ with $T=\\int\\lambda\\,dE_\\lambda$. The discrete sum form is the special case where the spectrum is a finite or countable set of eigenvalues (e.g. compact)."
+        },
+        {
+          "type": "mcq",
+          "q": "If $T$ is the multiplication operator $(Tf)(x)=x\\cdot f(x)$ on $L^2[0,1]$, what is $\\sigma(T)$ and the PVM?",
+          "choices": [
+            "$\\sigma(T)=\\{0\\}$, no PVM",
+            "$\\sigma(T)=[0,1]$ continuous, $E_\\Omega f=\\mathbf{1}_\\Omega\\cdot f$",
+            "$\\sigma(T)=\\mathbb{N}$, point spectrum",
+            "$\\sigma(T)=[0,1]$, but PVM is identity"
+          ],
+          "answer": 1,
+          "hint": "For multiplication operators, the PVM is multiplication by indicator functions.",
+          "explain": "$T$ is self-adjoint with purely continuous spectrum $\\sigma(T)=[0,1]$. The associated PVM is $E_\\Omega f = \\mathbf{1}_\\Omega(x) f(x)$ for Borel $\\Omega\\subset[0,1]$, and $T=\\int_0^1\\lambda\\,dE_\\lambda$. Every bounded self-adjoint operator is unitarily equivalent to such a multiplication operator on some $L^2(\\mu)$."
+        },
+        {
+          "type": "mcq",
+          "q": "The continuous functional calculus $f\\mapsto f(T)$ for $f\\in C(\\sigma(T))$ satisfies:",
+          "choices": [
+            "$\\|f(T)\\|\\le\\|f\\|_{L^2}$",
+            "$\\|f(T)\\|=\\|f\\|_{C(\\sigma(T))}=\\sup_{\\lambda\\in\\sigma(T)}|f(\\lambda)|$ (isometry)",
+            "$f(T)$ is always invertible",
+            "It is only defined for polynomials"
+          ],
+          "answer": 1,
+          "hint": "The Gelfand transform is an isometric *-isomorphism.",
+          "explain": "For $T$ self-adjoint (or normal), the map $f\\mapsto f(T)$ is an isometric *-homomorphism from $C(\\sigma(T))$ to $C^*(T,1)\\subset B(H)$: $\\|f(T)\\|=\\sup_{\\lambda\\in\\sigma(T)}|f(\\lambda)|$. This is the Gelfand–Naimark theorem applied to the unital commutative $C^*$-algebra generated by $T$."
+        }
+      ]
+    },
+    "st-unbounded-operators": {
+      "title": "Unbounded operators",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A symmetric operator $A$ ($\\langle A\\varphi,\\psi\\rangle=\\langle\\varphi,A\\psi\\rangle$ for $\\varphi,\\psi\\in\\mathrm{Dom}(A)$) is self-adjoint when:",
+          "choices": [
+            "Always — symmetric and self-adjoint coincide",
+            "$\\mathrm{Dom}(A)=\\mathrm{Dom}(A^*)$, in addition to symmetry",
+            "$A$ is bounded",
+            "$A$ is densely defined"
+          ],
+          "answer": 1,
+          "hint": "For unbounded operators, domain matters as much as the formula.",
+          "explain": "Symmetric ($A\\subset A^*$) is weaker than self-adjoint ($A=A^*$). The latter requires the additional domain equality $\\mathrm{Dom}(A)=\\mathrm{Dom}(A^*)$. Symmetric extensions of $A$ correspond to self-adjoint extensions only when defect indices match — a delicate issue famously solved by von Neumann."
+        },
+        {
+          "type": "mcq",
+          "q": "The Laplacian $-\\Delta$ on $L^2[0,1]$ with Dirichlet boundary conditions ($u(0)=u(1)=0$) is self-adjoint with eigenvalues:",
+          "choices": [
+            "$\\lambda_n = n$ for $n\\ge 0$",
+            "$\\lambda_n = (n\\pi)^2$ for $n\\ge 1$, eigenfunctions $\\sin(n\\pi x)$",
+            "$\\lambda_n = e^{-n}$ exponentially decaying",
+            "Continuous spectrum $[0,\\infty)$"
+          ],
+          "answer": 1,
+          "hint": "Solve $-u''=\\lambda u$ with $u(0)=u(1)=0$.",
+          "explain": "The Dirichlet Laplacian on $[0,1]$ has compact resolvent and discrete spectrum $\\lambda_n=(n\\pi)^2$ ($n\\ge 1$) with $L^2$-orthonormal eigenfunctions $\\sqrt{2}\\sin(n\\pi x)$. Note: on $\\mathbb{R}$ (no boundary) the spectrum is $[0,\\infty)$ continuous — boundary conditions matter."
+        },
+        {
+          "type": "mcq",
+          "q": "Stone's theorem says: strongly continuous one-parameter unitary groups $U(t)=e^{itA}$ on $H$ are in bijection with:",
+          "choices": [
+            "Bounded self-adjoint operators",
+            "Self-adjoint operators (possibly unbounded), via $A=-i\\frac{d}{dt}U(t)|_{t=0}$",
+            "Unitary operators",
+            "Compact normal operators"
+          ],
+          "answer": 1,
+          "hint": "The generator of a unitary group must be self-adjoint and is generally unbounded.",
+          "explain": "Stone's theorem: for any strongly continuous unitary group $U(t)$ on $H$ there is a unique self-adjoint $A$ (possibly unbounded) with $U(t)=e^{itA}$, and $A\\varphi=-i\\,\\frac{d}{dt}U(t)\\varphi|_{t=0}$ on the natural domain. This is the analytic underpinning of quantum dynamics."
+        }
+      ]
+    },
+    "st-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In quantum mechanics, the energy levels of the harmonic oscillator $H=-\\tfrac{\\hbar^2}{2m}\\partial_x^2+\\tfrac{1}{2}m\\omega^2 x^2$ are:",
+          "choices": [
+            "$E_n = n\\hbar\\omega$ for $n\\ge 0$",
+            "$E_n = (n+\\tfrac12)\\hbar\\omega$ for $n\\ge 0$",
+            "Continuous on $[0,\\infty)$",
+            "$E_n = \\hbar\\omega/n^2$"
+          ],
+          "answer": 1,
+          "hint": "The ladder operators give equally spaced eigenvalues with a non-zero ground-state energy.",
+          "explain": "The harmonic oscillator Hamiltonian has discrete spectrum $E_n=(n+\\tfrac12)\\hbar\\omega$ with $n\\ge 0$, evenly spaced by $\\hbar\\omega$. The ground-state energy $\\tfrac12\\hbar\\omega$ is non-zero — a quantum effect with no classical analogue."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does diagonalizing the Laplacian solve the heat equation $\\partial_t u = \\Delta u$ on a compact domain?",
+          "choices": [
+            "Because the heat equation is linear",
+            "Because expanding $u_0=\\sum c_n\\varphi_n$ in the eigenbasis gives $u(t)=\\sum c_n e^{-\\lambda_n t}\\varphi_n$, reducing PDE to a decoupled ODE per mode",
+            "Because the eigenfunctions are orthogonal",
+            "Because of Fubini's theorem"
+          ],
+          "answer": 1,
+          "hint": "The exponential of a diagonalized operator is diagonal in the same basis.",
+          "explain": "If $\\Delta\\varphi_n=-\\lambda_n\\varphi_n$ and $u_0=\\sum c_n\\varphi_n$, then $u(t)=e^{t\\Delta}u_0=\\sum c_n e^{-\\lambda_n t}\\varphi_n$ solves the heat equation. The compact spectral theorem gives the eigenbasis; the unbounded functional calculus defines $e^{t\\Delta}$ as a contraction semigroup."
+        },
+        {
+          "type": "mcq",
+          "q": "On $L^2(\\mathbb{R})$, the translation operators $(T_y f)(x)=f(x-y)$ are simultaneously diagonalized by:",
+          "choices": [
+            "The Hermite functions",
+            "The Fourier transform: $\\widehat{T_y f}(\\xi)=e^{-2\\pi i y\\xi}\\hat f(\\xi)$",
+            "The wavelet transform",
+            "The Legendre polynomials"
+          ],
+          "answer": 1,
+          "hint": "Translation has multiplicative character $e^{-2\\pi i y\\xi}$ in the Fourier domain.",
+          "explain": "Translations on $\\mathbb{R}$ form a unitary group whose Stone generator is $-i\\partial_x$. The Fourier transform $\\mathcal{F}\\colon L^2(\\mathbb{R})\\to L^2(\\hat{\\mathbb{R}})$ diagonalizes $-i\\partial_x$ as multiplication by $2\\pi\\xi$, so $T_y$ becomes multiplication by $e^{-2\\pi i y\\xi}$. This is the spectral theorem for the abelian group $\\mathbb{R}$."
         }
       ]
     }

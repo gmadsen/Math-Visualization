@@ -1,19 +1,262 @@
 {
   "topic": "characteristic-classes",
   "quizzes": {
-    "characteristic-classes-intro": {
-      "title": "Intro",
+    "cc-vector-bundles": {
+      "title": "Vector bundles",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "Which datum determines a rank-$n$ vector bundle $E \\to X$ up to isomorphism, given an open cover $\\{U_\\alpha\\}$ of $X$?",
           "choices": [
-            "A",
-            "B"
+            "A choice of basis for each fibre $E_x$",
+            "Transition functions $g_{\\alpha\\beta}\\colon U_\\alpha \\cap U_\\beta \\to GL_n$ satisfying the cocycle condition $g_{\\alpha\\beta} g_{\\beta\\gamma} = g_{\\alpha\\gamma}$",
+            "A global section $s\\colon X \\to E$",
+            "A trivialisation $E \\cong X \\times \\mathbb{R}^n$"
           ],
+          "answer": 1,
+          "hint": "Local triviality plus how the trivialisations agree on overlaps.",
+          "explain": "A bundle is glued from local trivialisations $E|_{U_\\alpha} \\cong U_\\alpha\\times\\mathbb{R}^n$, and the transition data $g_{\\alpha\\beta}$ — subject to the cocycle condition — determines the bundle. Global sections need not exist (a global trivialisation is too strong)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which bundle is non-trivial?",
+          "choices": [
+            "The trivial bundle $S^1 \\times \\mathbb{R} \\to S^1$",
+            "The Möbius line bundle on $S^1$",
+            "$T\\mathbb{R}^n \\to \\mathbb{R}^n$",
+            "$T S^3 \\to S^3$"
+          ],
+          "answer": 1,
+          "hint": "Which one has no nowhere-vanishing section that returns to the same value after one loop?",
+          "explain": "The Möbius bundle is the rank-$1$ bundle on $S^1$ whose monodromy multiplies by $-1$; it admits no nowhere-vanishing section, hence is non-trivial. $T\\mathbb{R}^n$ is trivial, and $TS^3$ is trivial because $S^3$ is parallelisable (it is a Lie group)."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $M$ be a smooth manifold and $f\\colon N \\to M$ a smooth map. The pullback $f^*TM$ is naturally identified with which bundle on $N$?",
+          "choices": [
+            "$TN$",
+            "The bundle whose fibre over $p\\in N$ is $T_{f(p)}M$",
+            "The normal bundle of $f$",
+            "The trivial bundle $N\\times\\mathbb{R}^{\\dim M}$"
+          ],
+          "answer": 1,
+          "hint": "Pullback rebuilds the fibres above $f(p)$ over $p$.",
+          "explain": "By definition $(f^*TM)_p = T_{f(p)}M$. When $f$ is an immersion, $f^*TM \\cong TN \\oplus \\nu_f$, but in general $f^*TM \\ne TN$."
+        }
+      ]
+    },
+    "cc-stiefel-whitney": {
+      "title": "Stiefel–Whitney classes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does the vanishing of $w_1(E)$ measure for a real vector bundle $E \\to X$?",
+          "choices": [
+            "Triviality of $E$",
+            "Orientability of $E$",
+            "Existence of a spin structure on $E$",
+            "Existence of a nowhere-vanishing section"
+          ],
+          "answer": 1,
+          "hint": "It is the mod-$2$ obstruction to a coherent choice of frame orientation.",
+          "explain": "$w_1(E) \\in H^1(X;\\mathbb{Z}/2)$ classifies the determinant line bundle $\\det E$ up to isomorphism; it vanishes iff $E$ is orientable. Triviality is much stronger; a spin structure requires $w_2 = 0$ on top of $w_1 = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "By the Whitney sum formula, $w(E \\oplus F) = w(E) \\smile w(F)$. What is $w_2(E\\oplus F)$ in terms of the $w_i$?",
+          "choices": [
+            "$w_2(E) + w_2(F)$",
+            "$w_2(E) + w_1(E)\\smile w_1(F) + w_2(F)$",
+            "$w_1(E)\\smile w_1(F)$",
+            "$w_2(E) \\smile w_2(F)$"
+          ],
+          "answer": 1,
+          "hint": "Expand $(1 + w_1(E) + w_2(E) + \\cdots)(1 + w_1(F) + w_2(F) + \\cdots)$ and read off the degree-$2$ piece.",
+          "explain": "Multiplying total classes and collecting degree-$2$ terms gives $w_2(E\\oplus F) = w_2(E) + w_1(E) w_1(F) + w_2(F)$. The cross term $w_1 \\smile w_1$ is exactly what $w_2$ feels under direct sum."
+        },
+        {
+          "type": "mcq",
+          "q": "For the tangent bundle of $\\mathbb{RP}^2$, which Stiefel–Whitney class is non-zero?",
+          "choices": [
+            "All $w_i$ vanish",
+            "$w_1(T\\mathbb{RP}^2) \\ne 0$ only",
+            "$w_2(T\\mathbb{RP}^2) \\ne 0$ only",
+            "Both $w_1$ and $w_2$ are non-zero"
+          ],
+          "answer": 3,
+          "hint": "$\\mathbb{RP}^2$ is non-orientable, and $\\chi(\\mathbb{RP}^2) = 1$ is odd.",
+          "explain": "$T\\mathbb{RP}^2 \\oplus \\mathbb{R} \\cong (\\gamma^*)^{\\oplus 3}$ gives $w(T\\mathbb{RP}^2) = (1+a)^3 = 1 + 3a + 3a^2 = 1 + a + a^2$ in $H^*(\\mathbb{RP}^2;\\mathbb{Z}/2) = \\mathbb{Z}/2[a]/(a^3)$, so $w_1 = a \\ne 0$ (non-orientable) and $w_2 = a^2 \\ne 0$ (no spin structure)."
+        }
+      ]
+    },
+    "cc-chern-classes": {
+      "title": "Chern classes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In which cohomology group does the Chern class $c_i(E)$ of a complex rank-$n$ bundle $E \\to X$ live?",
+          "choices": [
+            "$H^i(X; \\mathbb{Z})$",
+            "$H^{2i}(X; \\mathbb{Z})$",
+            "$H^i(X; \\mathbb{Z}/2)$",
+            "$H^{2i}(X; \\mathbb{R})$"
+          ],
+          "answer": 1,
+          "hint": "Complex bundles double the cohomological degree compared with real ones.",
+          "explain": "Each Chern class lives in even integral degree: $c_i(E) \\in H^{2i}(X;\\mathbb{Z})$. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_n$ assembles them in $H^{\\mathrm{even}}(X;\\mathbb{Z})$."
+        },
+        {
+          "type": "mcq",
+          "q": "On $X = \\mathbb{CP}^1 = S^2$, complex line bundles are classified by which integer invariant?",
+          "choices": [
+            "The rank, always $1$",
+            "The integer $\\langle c_1(L), [\\mathbb{CP}^1] \\rangle \\in \\mathbb{Z}$",
+            "The Euler characteristic $\\chi(\\mathbb{CP}^1) = 2$",
+            "The signature"
+          ],
+          "answer": 1,
+          "hint": "$H^2(\\mathbb{CP}^1;\\mathbb{Z}) \\cong \\mathbb{Z}$ and $c_1$ is the universal characteristic class.",
+          "explain": "Pic$(\\mathbb{CP}^1) \\cong \\mathbb{Z}$, with the isomorphism $L \\mapsto \\deg L = \\langle c_1(L), [\\mathbb{CP}^1]\\rangle$. The line bundle $\\mathcal{O}(d)$ has $c_1 = d \\cdot h$ where $h$ is the generator of $H^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "If $E \\to X$ is a complex rank-$n$ bundle, the top Chern class $c_n(E)$ agrees with which other class of the underlying real bundle?",
+          "choices": [
+            "$w_n(E_\\mathbb{R})$",
+            "$p_n(E_\\mathbb{R})$",
+            "The Euler class $e(E_\\mathbb{R})$ of the underlying oriented real $2n$-bundle",
+            "It has no real-bundle counterpart"
+          ],
+          "answer": 2,
+          "hint": "Both classes obstruct the existence of a nowhere-vanishing section.",
+          "explain": "A complex structure on a real bundle gives a canonical orientation, and the top Chern class $c_n(E) \\in H^{2n}(X;\\mathbb{Z})$ equals the Euler class $e(E_\\mathbb{R}) \\in H^{2n}(X;\\mathbb{Z})$ — both count zeros of a generic section."
+        }
+      ]
+    },
+    "cc-pontryagin": {
+      "title": "Pontryagin classes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "By definition, $p_i(E) = ?$ for a real bundle $E$.",
+          "choices": [
+            "$c_i(E\\otimes\\mathbb{C})$",
+            "$(-1)^i c_{2i}(E\\otimes\\mathbb{C})$",
+            "$c_i(E)^2$",
+            "$w_{2i}(E)$ lifted to $\\mathbb{Z}$"
+          ],
+          "answer": 1,
+          "hint": "Take the complexification, keep only even Chern classes, and absorb a sign.",
+          "explain": "$p_i(E) := (-1)^i c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$. The sign is conventional; odd Chern classes of $E\\otimes\\mathbb{C}$ are 2-torsion because $E\\otimes\\mathbb{C}\\cong \\overline{E\\otimes\\mathbb{C}}$ as complex bundles."
+        },
+        {
+          "type": "mcq",
+          "q": "What cohomological degree does $p_i(E)$ live in?",
+          "choices": [
+            "$H^i(X;\\mathbb{Z})$",
+            "$H^{2i}(X;\\mathbb{Z})$",
+            "$H^{4i}(X;\\mathbb{Z})$",
+            "$H^{4i}(X;\\mathbb{Z}/2)$"
+          ],
+          "answer": 2,
+          "hint": "Complexification doubles degrees, and we keep only even Chern classes.",
+          "explain": "Since $c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$, Pontryagin classes are concentrated in degrees divisible by $4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are the odd Chern classes $c_{2i+1}(E\\otimes\\mathbb{C})$ ignored in defining Pontryagin classes?",
+          "choices": [
+            "They vanish identically",
+            "They are 2-torsion (annihilated by $2$), and the integral lift is captured by the even classes",
+            "They equal $w_{2i+1}$",
+            "They equal the Euler class"
+          ],
+          "answer": 1,
+          "hint": "$E\\otimes\\mathbb{C}$ is isomorphic to its conjugate as a complex bundle.",
+          "explain": "The complexification of a real bundle is isomorphic to its complex conjugate, so $c_k(E\\otimes\\mathbb{C}) = (-1)^k c_k(E\\otimes\\mathbb{C})$, forcing $2 c_{2i+1}(E\\otimes\\mathbb{C}) = 0$. The honest integral information lives in even degrees."
+        }
+      ]
+    },
+    "cc-euler-class": {
+      "title": "Euler class",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a closed oriented smooth manifold $M^n$, what does $\\langle e(TM), [M] \\rangle$ compute?",
+          "choices": [
+            "The signature $\\sigma(M)$",
+            "The Euler characteristic $\\chi(M)$",
+            "The first Pontryagin number $p_1(M)$",
+            "The first Stiefel–Whitney number $w_1(M)$"
+          ],
+          "answer": 1,
+          "hint": "Poincaré–Hopf: count signed zeros of any vector field.",
+          "explain": "By Poincaré–Hopf, for any vector field $X$ on $M$ with isolated zeros, $\\sum_p \\mathrm{ind}_p(X) = \\chi(M)$, and the same number is computed by pairing the Euler class with the fundamental class."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\chi(T^2)$ for the $2$-torus.",
           "answer": 0,
-          "hint": "Placeholder.",
-          "explain": "Placeholder."
+          "tol": 0,
+          "hint": "$T^2 = S^1 \\times S^1$ is parallelisable, so $TT^2$ admits a nowhere-vanishing section.",
+          "explain": "The torus has a nowhere-vanishing vector field (e.g. $\\partial/\\partial\\theta_1$), so by Poincaré–Hopf $\\chi(T^2) = 0$. Equivalently, the Betti numbers $1,2,1$ give $\\chi = 1-2+1 = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "On which space does an oriented rank-$n$ bundle fail to have a nowhere-vanishing section iff $e(E) \\ne 0$?",
+          "choices": [
+            "Only on contractible spaces",
+            "On any reasonable base — the Euler class is the universal primary obstruction in $H^n$",
+            "Only on closed manifolds of dimension $n$",
+            "Only on simply connected spaces"
+          ],
+          "answer": 1,
+          "hint": "Obstruction theory expresses non-vanishing of a rank-$n$ section as an obstruction in $H^n$.",
+          "explain": "For an oriented rank-$n$ bundle on a CW base, the primary obstruction to a nowhere-vanishing section is exactly the Euler class $e(E) \\in H^n(X;\\mathbb{Z})$. Higher obstructions can appear but the first one is always $e(E)$."
+        }
+      ]
+    },
+    "cc-chern-weil": {
+      "title": "Chern–Weil theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given a connection $\\nabla$ with curvature $F_\\nabla$ on a complex bundle, which polynomial gives the total Chern class?",
+          "choices": [
+            "$\\mathrm{tr}(F_\\nabla)$",
+            "$\\det(F_\\nabla)$",
+            "$\\det\\!\\left(I + \\frac{i}{2\\pi}F_\\nabla\\right)$",
+            "$\\mathrm{tr}(F_\\nabla^2)$"
+          ],
+          "answer": 2,
+          "hint": "The factor $\\frac{i}{2\\pi}$ is exactly the normalisation that produces integral classes.",
+          "explain": "Chern–Weil: $c(E) = \\det\\!\\big(I + \\frac{i}{2\\pi}F_\\nabla\\big)$ as a closed $\\mathrm{Ad}$-invariant form on $M$, whose de Rham class is independent of $\\nabla$. Expanding in degrees gives $c_k$."
+        },
+        {
+          "type": "mcq",
+          "q": "On a closed oriented surface $\\Sigma$ with Riemannian metric, the Gauss–Bonnet theorem $\\int_\\Sigma K\\,dA = 2\\pi\\,\\chi(\\Sigma)$ is which Chern–Weil identity?",
+          "choices": [
+            "$c_2(T\\Sigma\\otimes\\mathbb{C})$ in degree $4$",
+            "$e(T\\Sigma)$ paired against $[\\Sigma]$, i.e. the rank-$1$ Chern–Weil formula",
+            "$p_1(T\\Sigma)$ paired against $[\\Sigma]$",
+            "$w_2(T\\Sigma)$ paired against $[\\Sigma]$"
+          ],
+          "answer": 1,
+          "hint": "$\\Sigma$ is $2$-dimensional, so we need a degree-$2$ class — and we are computing $\\chi$.",
+          "explain": "$T\\Sigma$ is an oriented rank-$2$ real bundle, equivalently a complex line bundle; the curvature $2$-form is $-K\\,dA$ (up to sign), and $\\frac{1}{2\\pi}\\int_\\Sigma K\\,dA = \\chi(\\Sigma)$ is the Chern–Weil expression of the Euler/first-Chern number."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the de Rham class of $P(F_\\nabla)$ independent of the connection $\\nabla$?",
+          "choices": [
+            "Because $F_\\nabla = 0$ for any connection",
+            "Because $F_{\\nabla} = F_{\\nabla'}$ for any two connections",
+            "Because $P(F_{\\nabla'}) - P(F_\\nabla) = d\\,(\\text{transgression form})$ is exact",
+            "Because $P$ vanishes on commutators"
+          ],
+          "answer": 2,
+          "hint": "Two connections differ by an $\\mathrm{End}(E)$-valued $1$-form; build a path between them.",
+          "explain": "If $\\nabla_t = \\nabla + t(\\nabla' - \\nabla)$ is a path of connections, integrating $\\frac{d}{dt}P(F_{\\nabla_t})$ over $t \\in [0,1]$ produces an explicit primitive, the Chern–Simons / transgression form, so $[P(F_\\nabla)]$ is independent of $\\nabla$ in de Rham cohomology."
         }
       ]
     }

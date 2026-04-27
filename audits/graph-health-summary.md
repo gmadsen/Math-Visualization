@@ -1,12 +1,12 @@
 # Concept graph health — summary
 
-- Total concepts: **642**
-- Total prereq edges: **1049**
-- Implicit prereq candidates (total across all concepts): **169**
+- Total concepts: **647**
+- Total prereq edges: **1059**
+- Implicit prereq candidates (total across all concepts): **170**
 - Multi-topic candidates (title appears in prose of ≥ 3 other topics): **22**
 - Atomicity-split candidates (blurb ≥ 3 sentences AND > 200 chars): **57**
 - Dangling proper-noun phrases (in ≥ 2 topics, no matching concept): **22**
-- Orphan concepts (zero edges in or out): **14**
+- Orphan concepts (zero edges in or out): **13**
 
 ## Decision framework
 
@@ -86,7 +86,7 @@
 
 ## Per-topic scorecard
 
-Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1 dead-end), 🟡 minor, 🔴 attention. Summary: 24 🟢 · 66 🟡 · 15 🔴.
+Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1 dead-end), 🟡 minor, 🔴 attention. Summary: 23 🟢 · 67 🟡 · 15 🔴.
 
 | topic | concepts | dead-ends | orphans | implicit | multi-topic | bucket |
 |---|---:|---:|---:|---:|---:|:---:|
@@ -150,7 +150,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `p-adic-numbers` | 5 | 2 | 0 | 0 | 0 | 🟡 |
 | `partitions-generating-functions` | 5 | 1 | 0 | 1 | 0 | 🟡 |
 | `point-set-topology` | 6 | 2 | 0 | 3 | 3 | 🟡 |
-| `probability-theory` | 12 | 3 | 0 | 1 | 0 | 🟡 |
+| `probability-theory` | 12 | 2 | 0 | 2 | 0 | 🟡 |
 | `projective-plane` | 5 | 2 | 0 | 0 | 0 | 🟡 |
 | `quadratic-forms-genus-theory` | 5 | 1 | 0 | 3 | 0 | 🟡 |
 | `quadratic-reciprocity` | 6 | 1 | 0 | 3 | 1 | 🟡 |
@@ -166,6 +166,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `smooth-manifolds` | 10 | 3 | 0 | 4 | 2 | 🟡 |
 | `sobolev-spaces-distributions` | 7 | 3 | 0 | 0 | 0 | 🟡 |
 | `spectral-graph-theory` | 7 | 2 | 0 | 1 | 0 | 🟡 |
+| `stochastic-processes-and-martingales` | 6 | 3 | 0 | 0 | 0 | 🟡 |
 | `sums-of-squares` | 5 | 1 | 0 | 2 | 0 | 🟡 |
 | `upper-half-plane-hyperbolic` | 5 | 1 | 0 | 3 | 0 | 🟡 |
 | `waring` | 5 | 2 | 0 | 0 | 0 | 🟡 |
@@ -192,6 +193,5 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `spectral-theory` | 1 | 1 | 1 | 0 | 0 | 🟢 |
 | `stacks` | 5 | 0 | 0 | 0 | 0 | 🟢 |
 | `stochastic-calculus` | 1 | 1 | 1 | 0 | 0 | 🟢 |
-| `stochastic-processes-and-martingales` | 1 | 1 | 1 | 0 | 0 | 🟢 |
 | `theta-functions` | 5 | 0 | 0 | 0 | 0 | 🟢 |
 | `type-theory-and-hott` | 6 | 1 | 0 | 0 | 0 | 🟢 |

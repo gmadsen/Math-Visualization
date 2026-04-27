@@ -89,7 +89,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./extremal-combinatorics.html#ramsey\">Extremal combinatorics</a> · Ramsey numbers</div>\n    <div><a href=\"./probability-theory.html#bayes\">Probability theory</a> · Conditional probability and Bayes' rule</div>\n    <div><a href=\"./probability-theory.html#rv\">Probability theory</a> · Random variables</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./extremal-combinatorics.html#ramsey\">Extremal combinatorics</a> · Ramsey numbers</div>\n    <div><a href=\"./probability-theory.html#bayes\">Probability theory</a> · Conditional probability and Bayes' rule</div>\n    <div><a href=\"./probability-theory.html#rv\">Probability theory</a> · Random variables</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#filtrations\">Stochastic processes and martingales</a> · Filtrations and adapted processes</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -515,7 +515,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probabilistic-method.html#concentration\">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>\n    <div><a href=\"./probabilistic-method.html#existence\">Probabilistic method</a> · Existence by expectation</div>\n    <div><a href=\"./probabilistic-method.html#linearity\">Probabilistic method</a> · Linearity of expectation</div>\n    <div><a href=\"./probabilistic-method.html#thresholds\">Probabilistic method</a> · Thresholds in $G(n,p)$</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div><a href=\"./probability-theory.html#gen-fun\">Probability theory</a> · Moment and characteristic functions</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./large-deviations.html#cramer\">Large deviations</a> · Cramér's theorem</div>\n    <div><a href=\"./probabilistic-method.html#concentration\">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>\n    <div><a href=\"./probabilistic-method.html#existence\">Probabilistic method</a> · Existence by expectation</div>\n    <div><a href=\"./probabilistic-method.html#linearity\">Probabilistic method</a> · Linearity of expectation</div>\n    <div><a href=\"./probabilistic-method.html#thresholds\">Probabilistic method</a> · Thresholds in $G(n,p)$</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -662,7 +662,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#clt\">Probability theory</a> · Central limit theorem</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div><a href=\"./probability-theory.html#martingales\">Probability theory</a> · Martingales</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./large-deviations.html#gartner-ellis\">Large deviations</a> · Gärtner–Ellis theorem</div>\n    <div><a href=\"./probability-theory.html#clt\">Probability theory</a> · Central limit theorem</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div><a href=\"./probability-theory.html#martingales\">Probability theory</a> · Martingales</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#convergence\">Stochastic processes and martingales</a> · Martingale convergence theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -724,6 +724,10 @@
           "type": "quiz",
           "concept": "law-of-large-numbers",
           "html": "<div class=\"quiz\" data-concept=\"law-of-large-numbers\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./large-deviations.html#cramer\">Large deviations</a> · Cramér's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -1065,6 +1069,10 @@
           "type": "quiz",
           "concept": "brownian-motion",
           "html": "<div class=\"quiz\" data-concept=\"brownian-motion\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

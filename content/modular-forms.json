@@ -106,7 +106,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-forms.html#sl2z\">Modular forms</a> · SL2(Z) action on the upper half-plane</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-curves.html#moduli\">Modular curves</a> · $Y_0(N)$ as a moduli space</div>\n    <div><a href=\"./modular-forms.html#sl2z\">Modular forms</a> · SL2(Z) action on the upper half-plane</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -214,7 +214,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#strong-approx\">Automorphic forms (adelic)</a> · Strong approximation and $\\Gamma_0(N) \\backslash \\mathbb{H}$</div>\n    <div><a href=\"./modular-forms.html#forms\">Modular forms</a> · Definition of modular forms</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#strong-approx\">Automorphic forms (adelic)</a> · Strong approximation and $\\Gamma_0(N) \\backslash \\mathbb{H}$</div>\n    <div><a href=\"./modular-curves.html#y0-x0\">Modular curves</a> · Y0(N), X0(N), and the cusps</div>\n    <div><a href=\"./modular-forms.html#forms\">Modular forms</a> · Definition of modular forms</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -390,7 +390,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#auto-form\">Automorphic forms (adelic)</a> · Adelic automorphic forms</div>\n    <div><a href=\"./modular-forms.html#eisen\">Modular forms</a> · Eisenstein series</div>\n    <div><a href=\"./modular-forms.html#qexp\">Modular forms</a> · q-expansions and arithmetic data</div>\n    <div><a href=\"./modularity-and-flt.html#modularity\">Modularity and FLT</a> · Modularity theorem</div>\n    <div><a href=\"./moduli-spaces.html#level\">Moduli spaces</a> · Level structure and compactification ideas</div>\n    <div><a href=\"./moonshine.html#j\">Monstrous moonshine</a> · The j-invariant's q-expansion</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#auto-form\">Automorphic forms (adelic)</a> · Adelic automorphic forms</div>\n    <div><a href=\"./modular-curves.html#jacobian\">Modular curves</a> · The Jacobian $J_0(N)$ and Eichler–Shimura</div>\n    <div><a href=\"./modular-forms.html#eisen\">Modular forms</a> · Eisenstein series</div>\n    <div><a href=\"./modular-forms.html#qexp\">Modular forms</a> · q-expansions and arithmetic data</div>\n    <div><a href=\"./modularity-and-flt.html#modularity\">Modularity and FLT</a> · Modularity theorem</div>\n    <div><a href=\"./moduli-spaces.html#level\">Moduli spaces</a> · Level structure and compactification ideas</div>\n    <div class=\"more\">… and 5 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

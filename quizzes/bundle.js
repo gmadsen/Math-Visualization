@@ -3462,19 +3462,252 @@ window.MVQuizBank = {
   "analytic-number-theory": {
     "topic": "analytic-number-theory",
     "quizzes": {
-      "analytic-number-theory-intro": {
-        "title": "Intro",
+      "ant-prime-counting": {
+        "title": "$\\pi(x)$ and the prime number theorem",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "The prime number theorem is the statement that, as $x \\to \\infty$,",
             "choices": [
-              "A",
-              "B"
+              "$\\pi(x) \\sim x \\log x$",
+              "$\\pi(x) \\sim x / \\log x$",
+              "$\\pi(x) \\sim \\sqrt{x}$",
+              "$\\pi(x) \\sim x$"
+            ],
+            "answer": 1,
+            "hint": "Primes thin out logarithmically: roughly one in $\\log x$ integers near $x$ is prime.",
+            "explain": "PNT says $\\pi(x)/(x/\\log x) \\to 1$. Equivalently $\\pi(x) \\sim \\mathrm{Li}(x)$, which is a numerically tighter approximation."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of $\\pi(x)$, $x/\\log x$, $\\mathrm{Li}(x)$ is the closest numerical approximation to $\\pi(x)$ for moderate $x$ (say $x = 10^9$)?",
+            "choices": [
+              "$x/\\log x$ (under-shoots by $\\sim 4\\%$)",
+              "$\\mathrm{Li}(x)$ (typically agrees to several leading digits)",
+              "$x$ itself",
+              "$\\sqrt{x}$"
+            ],
+            "answer": 1,
+            "hint": "$\\mathrm{Li}(x) = \\int_2^x dt/\\log t$ matches the harmonic-density heuristic better than $x/\\log x$.",
+            "explain": "$\\mathrm{Li}(x)$ has the same leading term as $x/\\log x$ but absorbs the correction $x/(\\log x)^2 + \\cdots$, so it tracks $\\pi(x)$ much more tightly."
+          },
+          {
+            "type": "numeric",
+            "q": "$\\pi(100) = ?$ (the number of primes up to $100$)",
+            "answer": 25,
+            "tol": 0,
+            "hint": "Count: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.",
+            "explain": "There are $25$ primes $\\le 100$. The PNT estimate $100/\\log 100 \\approx 21.7$, while $\\mathrm{Li}(100) \\approx 30.1$ — both are in the right ballpark."
+          }
+        ]
+      },
+      "ant-riemann-zeta-from-pnt": {
+        "title": "$\\zeta(s)$ and the explicit formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these directly links the non-trivial zeros of $\\zeta(s)$ to the prime-counting error?",
+            "choices": [
+              "The Euler product $\\zeta(s) = \\prod_p (1-p^{-s})^{-1}$",
+              "The functional equation $\\zeta(s) = \\zeta(1-s)$ (after gamma factors)",
+              "The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$",
+              "The reflection $\\Gamma(s)\\Gamma(1-s) = \\pi/\\sin(\\pi s)$"
+            ],
+            "answer": 2,
+            "hint": "The explicit formula sums $x^\\rho/\\rho$ over zeros $\\rho$.",
+            "explain": "Apply Perron's formula to $-\\zeta'/\\zeta$: shifting the contour past the non-trivial zeros picks up a residue $-x^\\rho/\\rho$ at each, and the trivial pole at $s=1$ contributes $+x$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Riemann hypothesis ($\\mathrm{Re}\\,\\rho = 1/2$ for every non-trivial zero $\\rho$) is equivalent to which sharpening of PNT?",
+            "choices": [
+              "$\\psi(x) - x = O(\\log x)$",
+              "$\\psi(x) - x = O(x^{1/2}(\\log x)^2)$",
+              "$\\psi(x) - x = O(x^{1-\\varepsilon})$ for some $\\varepsilon > 0$",
+              "$\\psi(x) - x = O(1)$"
+            ],
+            "answer": 1,
+            "hint": "Each zero $\\rho$ contributes a term $x^\\rho/\\rho$; if all $\\rho$ have real part $1/2$ the total is $O(x^{1/2}\\cdot \\#\\{\\text{zeros up to height }T\\})$.",
+            "explain": "RH is equivalent to $\\psi(x) - x \\ll x^{1/2}(\\log x)^2$. This is the sharpest possible error, because zeros on the critical line force at least $x^{1/2}$ oscillation."
+          },
+          {
+            "type": "numeric",
+            "q": "The unique pole of $\\zeta(s)$ in $\\mathbb{C}$ is simple and located at $s = ?$",
+            "answer": 1,
+            "tol": 1e-9,
+            "hint": "It is the value of $s$ at which the harmonic series $\\sum 1/n$ would diverge.",
+            "explain": "$\\zeta(s)$ has a simple pole with residue $1$ at $s = 1$; the explicit formula's leading term $+x$ in $\\psi(x)$ comes from this pole."
+          }
+        ]
+      },
+      "ant-zero-free-region": {
+        "title": "Zero-free regions and PNT proofs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hadamard and de la Vallée Poussin's proof of PNT (1896) hinges on which property of $\\zeta(s)$?",
+            "choices": [
+              "$\\zeta(s)$ has no zeros on the line $\\mathrm{Re}\\,s = 1$",
+              "$\\zeta(s)$ has only finitely many zeros in the critical strip",
+              "$\\zeta(s)$ has no zeros with $\\mathrm{Re}\\,s > 1/2$",
+              "$\\zeta(s)$ has a double pole at $s = 1$"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Pushing a zero off the line $\\mathrm{Re}\\,s = 1$ is the analytic content of PNT.",
+            "explain": "The classical proof uses the inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$ applied to $|\\zeta(\\sigma)^3 \\zeta(\\sigma + it)^4 \\zeta(\\sigma + 2it)|$ to rule out $\\zeta(1+it) = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "The classical zero-free region pushes $\\zeta$'s zeros into",
+            "choices": [
+              "$\\sigma > 1$ (no zeros to the right of the line)",
+              "$\\sigma < 1 - c/\\log|t|$ for some constant $c > 0$",
+              "$\\sigma = 1/2$ exactly",
+              "$\\sigma < 0$"
+            ],
+            "answer": 1,
+            "hint": "It is a thin sliver to the left of $\\sigma = 1$ that narrows as $|t| \\to \\infty$.",
+            "explain": "The de la Vallée Poussin region is $\\sigma > 1 - c/\\log|t|$, narrowing logarithmically; combined with the explicit formula it gives PNT with error $O(x e^{-c\\sqrt{\\log x}})$."
+          },
+          {
+            "type": "mcq",
+            "q": "Improving the zero-free region from $\\sigma > 1 - c/\\log|t|$ to $\\sigma > 1/2$ would imply",
+            "choices": [
+              "Dirichlet's theorem on primes in AP",
+              "the Riemann hypothesis (and the optimal PNT remainder)",
+              "the twin-prime conjecture",
+              "Goldbach's conjecture"
+            ],
+            "answer": 1,
+            "hint": "The zero-free region's right edge is the location of the rightmost zero.",
+            "explain": "Pushing all non-trivial zeros to $\\sigma \\le 1/2$ is RH; via the explicit formula this yields $\\psi(x) - x = O(x^{1/2}(\\log x)^2)$."
+          }
+        ]
+      },
+      "ant-dirichlet-theorem": {
+        "title": "Dirichlet's theorem on primes in AP",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Dirichlet's theorem (1837) states that for $\\gcd(a, q) = 1$, the progression $a, a+q, a+2q, \\ldots$ contains",
+            "choices": [
+              "exactly $\\pi(x)/\\varphi(q)$ primes up to $x$ (no error)",
+              "infinitely many primes",
+              "only finitely many primes",
+              "primes only when $q$ is itself prime"
+            ],
+            "answer": 1,
+            "hint": "It is a qualitative, not asymptotic, statement.",
+            "explain": "Dirichlet showed there are infinitely many primes $\\equiv a \\pmod q$ whenever $\\gcd(a, q) = 1$. The quantitative refinement $\\pi(x; q, a) \\sim \\frac{1}{\\varphi(q)} x/\\log x$ is PNT for APs."
+          },
+          {
+            "type": "mcq",
+            "q": "The crucial analytic input in Dirichlet's proof is",
+            "choices": [
+              "$L(1, \\chi) \\ne 0$ for every non-trivial character $\\chi$ mod $q$",
+              "the functional equation of $\\zeta$",
+              "the residue theorem applied to $\\zeta'/\\zeta$",
+              "the Cauchy integral formula"
+            ],
+            "answer": 0,
+            "hint": "If $L(1, \\chi) = 0$ for some $\\chi$, the prime sums over the progression would not diverge.",
+            "explain": "Orthogonality $\\frac{1}{\\varphi(q)} \\sum_\\chi \\bar\\chi(a) \\chi(p) = \\mathbf 1_{p \\equiv a}$ converts $\\sum_{p \\equiv a} p^{-s}$ into a sum over $\\log L(s, \\chi)$. Each non-trivial $L(s, \\chi)$ stays finite at $s = 1$ provided $L(1, \\chi) \\ne 0$, and the trivial character contributes the $\\log \\zeta(s)$ blow-up."
+          },
+          {
+            "type": "numeric",
+            "q": "How many residue classes $a \\bmod 12$ with $\\gcd(a, 12) = 1$ are there? (This is $\\varphi(12)$, the number of primes-in-AP classes mod 12.)",
+            "answer": 4,
+            "tol": 0,
+            "hint": "List units mod 12: $1, 5, 7, 11$.",
+            "explain": "$\\varphi(12) = \\varphi(4)\\varphi(3) = 2 \\cdot 2 = 4$. Each class $1, 5, 7, 11 \\pmod{12}$ contains $\\sim x/(4 \\log x)$ primes up to $x$."
+          }
+        ]
+      },
+      "ant-sieve-methods": {
+        "title": "Sieve methods",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Naive Möbius-weighted inclusion–exclusion $\\sum_{d \\mid P(z)} \\mu(d) \\lfloor x/d \\rfloor$ counts integers up to $x$ with no prime factor $\\le z$. Why does it fail to count primes directly?",
+            "choices": [
+              "The Möbius function is undefined on primes",
+              "The error term grows like $2^{\\pi(z)}$ when $z$ approaches $\\sqrt{x}$, swamping the main term",
+              "It only counts prime powers, not primes",
+              "It always gives a negative answer"
+            ],
+            "answer": 1,
+            "hint": "The sum has $2^{\\pi(z)}$ terms, each contributing an $O(1)$ error.",
+            "explain": "Each $\\lfloor x/d \\rfloor$ has error $O(1)$, and there are $2^{\\pi(z)}$ divisors of $P(z) = \\prod_{p \\le z} p$. Truncating the sum at small $d$ (Brun, Selberg) is the modern fix."
+          },
+          {
+            "type": "mcq",
+            "q": "Brun's sieve famously gives which conditional twin-prime result?",
+            "choices": [
+              "There are infinitely many twin primes",
+              "$\\sum_{p, p+2 \\text{ both prime}} (1/p + 1/(p+2))$ converges (Brun's constant)",
+              "There are no twin primes above $10^{18}$",
+              "The twin-prime constant equals $\\pi$"
+            ],
+            "answer": 1,
+            "hint": "Convergence of the reciprocal sum is the celebrated 1919 Brun bound.",
+            "explain": "Brun (1919) proved $\\#\\{p \\le x : p, p+2 \\text{ both prime}\\} \\ll x/(\\log x)^2$, which makes the reciprocal sum converge to Brun's constant $B_2 \\approx 1.902\\ldots$ — strikingly, this stops short of proving infinitude either way."
+          },
+          {
+            "type": "mcq",
+            "q": "The Selberg upper-bound sieve finds the optimal weights $\\lambda_d$ in",
+            "choices": [
+              "$\\sum_{n \\le x} \\bigl(\\sum_{d \\mid n} \\lambda_d\\bigr)^2 \\ge \\#\\{\\text{sifted } n\\}$",
+              "$\\sum_{n \\le x} \\bigl(\\sum_{d \\mid n} \\lambda_d\\bigr)^2 \\le \\#\\{\\text{sifted } n\\}$",
+              "$\\sum_{n \\le x} \\sum_{d \\mid n} \\lambda_d \\cdot \\mu(d)$ exactly",
+              "$\\prod_{p \\le z} (1 - 1/p)$"
+            ],
+            "answer": 0,
+            "hint": "Squares are non-negative, so the LHS is an automatic upper bound for any indicator-truncation of the divisor sum.",
+            "explain": "Selberg's $\\Lambda^2$ trick: $\\bigl(\\sum_{d \\mid n} \\lambda_d\\bigr)^2 \\ge 1$ whenever $\\lambda_1 = 1$, so the squared sum is an upper bound. Optimizing $\\lambda$ subject to $\\lambda_d = 0$ for $d > z$ becomes a quadratic program with a clean closed form."
+          }
+        ]
+      },
+      "ant-bombieri-vinogradov": {
+        "title": "Bombieri–Vinogradov on average",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Bombieri–Vinogradov theorem (1965) bounds $\\sum_{q \\le Q} \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ for which range of $Q$?",
+            "choices": [
+              "$Q \\le \\log x$",
+              "$Q \\le x^{1/2}/(\\log x)^A$",
+              "$Q \\le x$",
+              "$Q \\le x^{1-\\varepsilon}$"
+            ],
+            "answer": 1,
+            "hint": "The barrier is $Q \\le \\sqrt{x}$, the same threshold GRH would yield individually.",
+            "explain": "Bombieri–Vinogradov works up to $Q \\le x^{1/2}/(\\log x)^A$ and gives a bound $\\ll x/(\\log x)^B$. This is GRH-quality on average — pushing $Q$ past $x^{1/2}$ is the Elliott–Halberstam conjecture."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Bombieri–Vinogradov as strong as GRH for many applications?",
+            "choices": [
+              "It implies GRH directly",
+              "Most arithmetic applications only need an average bound over moduli, not a pointwise bound for each $q$",
+              "It bounds the zeros of $\\zeta(s)$",
+              "It eliminates the need for sieve weights"
+            ],
+            "answer": 1,
+            "hint": "Sieve and prime-distribution arguments typically sum errors over $q$, so $\\ell^1$-on-average is the relevant norm.",
+            "explain": "Many sieve applications (e.g. Chen's theorem, twin almost-primes, bounded gaps) need $\\sum_q E(x; q, a)$ small, not each individual $E(x; q, a)$. Bombieri–Vinogradov supplies exactly that, hence the slogan 'GRH on average'."
+          },
+          {
+            "type": "mcq",
+            "q": "The Elliott–Halberstam conjecture extends Bombieri–Vinogradov by allowing",
+            "choices": [
+              "$Q$ up to $x^{1-\\varepsilon}$ for any fixed $\\varepsilon > 0$",
+              "complex residue classes $a$",
+              "weighted sums with Möbius coefficients",
+              "moduli that are prime powers only"
+            ],
+            "answer": 0,
+            "hint": "It pushes the cutoff from $\\sqrt{x}$ to nearly $x$.",
+            "explain": "Elliott–Halberstam (1968) conjectures the same average bound holds for $Q \\le x^{1-\\varepsilon}$. Conditional on it, sieve methods give bounded prime gaps as small as $12$ (Maynard); Zhang's unconditional gap of $70 \\cdot 10^6$ used a weakened EH result."
           }
         ]
       }
@@ -17397,19 +17630,242 @@ window.MVQuizBank = {
   "harmonic-functions": {
     "topic": "harmonic-functions",
     "quizzes": {
-      "harmonic-functions-intro": {
-        "title": "Intro",
+      "hf-laplace-equation": {
+        "title": "Laplace's equation",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which of the following functions on $\\mathbb{R}^2$ is harmonic?",
             "choices": [
-              "A",
-              "B"
+              "$u(x,y) = x^2 + y^2$",
+              "$u(x,y) = x^2 - y^2$",
+              "$u(x,y) = x^2 y$",
+              "$u(x,y) = e^{x+y}$"
+            ],
+            "answer": 1,
+            "hint": "Compute $u_{xx} + u_{yy}$ and look for the one that vanishes.",
+            "explain": "$u = x^2 - y^2$ has $u_{xx}=2$, $u_{yy}=-2$, so $\\Delta u = 0$. It is the real part of $z^2$. The first option has $\\Delta u = 4$, the third $\\Delta u = 2y$, the fourth $\\Delta u = 2e^{x+y}$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $u(x,y) = \\log(x^2 + y^2)$ on $\\mathbb{R}^2 \\setminus \\{0\\}$, compute $\\Delta u$ at the point $(1, 0)$.",
+            "answer": 0,
+            "tol": 1e-9,
+            "hint": "$\\log(x^2+y^2) = 2\\log r$ in polar coordinates, and $\\Delta(\\log r) = 0$ off the origin.",
+            "explain": "In polar form $u = 2\\log r$, and the radial Laplacian gives $\\Delta(2\\log r) = 2(r^{-1})' + 2(r^{-1})\\cdot r^{-1} = -2r^{-2} + 2r^{-2} = 0$. So $u$ is harmonic on the punctured plane (its singularity at the origin is the fundamental solution)."
+          },
+          {
+            "type": "mcq",
+            "q": "If $f = u + iv$ is holomorphic on a connected open $\\Omega \\subseteq \\mathbb{C}$, which statement is correct?",
+            "choices": [
+              "Only $u$ is harmonic; $v$ need not be.",
+              "Both $u$ and $v$ are harmonic, and they are harmonic conjugates of each other.",
+              "$u$ and $v$ are harmonic only if $f$ is bounded.",
+              "Neither $u$ nor $v$ is harmonic in general."
+            ],
+            "answer": 1,
+            "hint": "Differentiate the Cauchy–Riemann equations $u_x = v_y$, $u_y = -v_x$ once more.",
+            "explain": "From $u_x = v_y$ and $u_y = -v_x$, differentiating gives $u_{xx} = v_{yx}$ and $u_{yy} = -v_{xy}$, so $\\Delta u = 0$ (and similarly $\\Delta v = 0$). The pair $(u,v)$ are called harmonic conjugates."
+          }
+        ]
+      },
+      "hf-mean-value-property": {
+        "title": "Mean value property",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The mean value property says that if $u$ is harmonic on $\\Omega$ and $\\overline{B(x_0,r)} \\subset \\Omega$, then $u(x_0)$ equals…",
+            "choices": [
+              "the maximum of $u$ on the sphere $\\partial B(x_0,r)$.",
+              "the average of $u$ on the sphere $\\partial B(x_0,r)$.",
+              "zero, by the divergence theorem.",
+              "the integral $\\int_{B(x_0,r)} \\Delta u \\, dV$."
+            ],
+            "answer": 1,
+            "hint": "Harmonic = balanced — at the center $u$ takes the same value as the average of its neighbours.",
+            "explain": "The MVP states $u(x_0) = \\frac{1}{|\\partial B(x_0,r)|}\\int_{\\partial B(x_0,r)} u\\,dS$, and equivalently the volume average over the ball. This holds for every admissible ball and characterises harmonicity for continuous $u$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $u(x,y) = x^2 - y^2$ (harmonic on $\\mathbb{R}^2$). What is the average value of $u$ on the circle of radius $2$ centered at the origin?",
+            "answer": 0,
+            "tol": 0.000001,
+            "hint": "Use the MVP: the circular average equals $u(0,0)$.",
+            "explain": "By the MVP the average of a harmonic function on any sphere centered at a point is the value at that point. Here $u(0,0)=0$, so the average is $0$. (Direct computation with $x = 2\\cos\\theta$, $y = 2\\sin\\theta$ gives $\\int_0^{2\\pi} 4\\cos 2\\theta \\, d\\theta / (2\\pi) = 0$, confirming.)"
+          },
+          {
+            "type": "mcq",
+            "q": "If a continuous $u$ on an open set satisfies the mean value property on every admissible ball, what can we conclude?",
+            "choices": [
+              "$u$ is bounded.",
+              "$u$ is harmonic and $C^\\infty$.",
+              "$u$ is monotone in each variable.",
+              "$u$ has compact support."
+            ],
+            "answer": 1,
+            "hint": "MVP characterises harmonicity, and harmonic functions enjoy elliptic regularity.",
+            "explain": "The mean value property is equivalent to harmonicity for continuous functions, and any harmonic $u$ is automatically $C^\\infty$ (in fact real-analytic) by the Poisson integral formula or elliptic regularity."
+          }
+        ]
+      },
+      "hf-maximum-principle": {
+        "title": "Maximum principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Suppose $u$ is harmonic on a bounded open $\\Omega \\subset \\mathbb{R}^n$ and continuous on $\\overline{\\Omega}$. Where can $u$ attain its maximum?",
+            "choices": [
+              "Only at an interior critical point.",
+              "Always on the boundary $\\partial\\Omega$ — and in the interior only if $u$ is constant.",
+              "At the centroid of $\\Omega$.",
+              "At the point where $\\nabla u = 0$."
+            ],
+            "answer": 1,
+            "hint": "Strong maximum principle: an interior max forces constancy on the connected component.",
+            "explain": "The weak max principle gives $\\sup_{\\overline\\Omega} u = \\sup_{\\partial\\Omega} u$. The strong form sharpens this: if $u$ attains its supremum at some interior point, then $u$ is constant on that component. Hence non-constant harmonic functions take their max only on the boundary."
+          },
+          {
+            "type": "mcq",
+            "q": "Two harmonic functions $u_1, u_2$ on a bounded $\\Omega$ are continuous on $\\overline{\\Omega}$ and agree on $\\partial\\Omega$. What follows?",
+            "choices": [
+              "$u_1 = u_2$ everywhere on $\\overline{\\Omega}$.",
+              "$u_1$ and $u_2$ may differ by a non-zero constant.",
+              "$u_1 = u_2$ only if both are bounded.",
+              "Nothing — boundary values do not determine harmonic functions."
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Apply the maximum principle to $u_1 - u_2$, which is harmonic and zero on $\\partial\\Omega$.",
+            "explain": "The difference $w = u_1 - u_2$ is harmonic on $\\Omega$ and vanishes on $\\partial\\Omega$. By the weak max principle (applied to $\\pm w$), $\\sup |w| \\le \\sup_{\\partial\\Omega}|w| = 0$, so $w \\equiv 0$. This is uniqueness for the Dirichlet problem."
+          },
+          {
+            "type": "numeric",
+            "q": "$u$ is harmonic on the open unit disk and continuous on the closed disk, with boundary values $u(e^{i\\theta}) = 3 + 5\\cos\\theta$. Determine $u(0)$.",
+            "answer": 3,
+            "tol": 0.000001,
+            "hint": "Use the MVP at the center of the disk; integrate the boundary data over $[0, 2\\pi]$ and divide by $2\\pi$.",
+            "explain": "By the MVP, $u(0) = \\frac{1}{2\\pi}\\int_0^{2\\pi}(3 + 5\\cos\\theta)\\,d\\theta = 3$. Equivalently, $u(z) = 3 + 5\\,\\mathrm{Re}(z) = 3 + \\tfrac{5}{2}(z+\\bar z)$ is the harmonic extension and $u(0)=3$."
+          }
+        ]
+      },
+      "hf-poisson-kernel": {
+        "title": "Poisson kernel",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Poisson kernel on the unit disk is $P_r(\\theta) = \\dfrac{1-r^2}{1 - 2r\\cos\\theta + r^2}$ for $0\\le r<1$. Which property does it satisfy?",
+            "choices": [
+              "$P_r$ is positive and $\\frac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta)\\,d\\theta = 1$ for every $r$.",
+              "$P_r$ vanishes identically on the boundary $r=1$.",
+              "$P_r$ has total mass $1-r$ on $[0,2\\pi]$.",
+              "$P_r$ is harmonic in $\\theta$ for fixed $r$."
+            ],
+            "answer": 0,
+            "hint": "It is an approximate identity: a positive kernel of total mass 1 concentrating at $\\theta = 0$ as $r \\to 1$.",
+            "explain": "Direct integration gives $\\frac{1}{2\\pi}\\int_0^{2\\pi} P_r\\,d\\theta = 1$, and $1 - 2r\\cos\\theta + r^2 = |1 - re^{i\\theta}|^2 > 0$ shows positivity. As $r\\to 1$, $P_r$ concentrates at $\\theta=0$, recovering the boundary data of a continuous $g$ pointwise."
+          },
+          {
+            "type": "numeric",
+            "q": "The Dirichlet problem on the unit disk has boundary data $g(\\theta) = \\cos(2\\theta)$. The Poisson integral solution evaluated at $z = re^{i\\theta}$ is $u(re^{i\\theta}) = r^2\\cos(2\\theta)$. Compute $u(\\tfrac{1}{2}, 0)$.",
+            "answer": 0.25,
+            "tol": 0.000001,
+            "hint": "$z = \\tfrac{1}{2}$ means $r = \\tfrac{1}{2}$, $\\theta = 0$.",
+            "explain": "Plug in $r=\\tfrac{1}{2}$, $\\theta=0$: $u = (\\tfrac{1}{2})^2 \\cdot \\cos 0 = \\tfrac{1}{4}$. More generally, the Poisson integral acts on $e^{in\\theta}$ as multiplication by $r^{|n|}$, so $\\cos(n\\theta) = \\tfrac{1}{2}(e^{in\\theta}+e^{-in\\theta})$ extends to $r^n\\cos(n\\theta)$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Fatou's theorem say about the Poisson integral $u$ of an $L^1$ boundary function $g$ on the unit circle?",
+            "choices": [
+              "$u$ has continuous radial limits everywhere.",
+              "$u(re^{i\\theta}) \\to g(\\theta)$ as $r \\to 1^-$ for almost every $\\theta$.",
+              "$u$ extends to a holomorphic function on $|z|<1$.",
+              "$u$ vanishes identically on the boundary."
+            ],
+            "answer": 1,
+            "hint": "Boundary recovery is almost everywhere, not everywhere — measure-theoretic limits.",
+            "explain": "Fatou's theorem: for $g\\in L^1$ on the circle, the Poisson integral $u = P*g$ converges nontangentially (in particular radially) to $g$ at almost every boundary point. Continuity is not needed — only $L^1$."
+          }
+        ]
+      },
+      "hf-harnack-inequality": {
+        "title": "Harnack's inequality",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $u$ be positive and harmonic on the disk $B(0, R)$ in $\\mathbb{R}^2$, with $u(0) = 1$. Use Harnack's inequality at $r = R/2$ to give the largest possible value of $u(x)$ for $|x| = R/2$.",
+            "answer": 3,
+            "tol": 0.000001,
+            "hint": "Plug $r = R/2$ into the Harnack bound $\\tfrac{R+r}{R-r} u(0)$.",
+            "explain": "Harnack: $u(x) \\le \\tfrac{R+r}{R-r}u(0) = \\tfrac{R + R/2}{R - R/2}\\cdot 1 = \\tfrac{3R/2}{R/2} = 3$. Sharpness is achieved (in the limit) by Poisson kernels with mass concentrated near a single boundary point."
+          },
+          {
+            "type": "mcq",
+            "q": "A positive harmonic function on all of $\\mathbb{R}^n$ must be…",
+            "choices": [
+              "constant.",
+              "radially symmetric.",
+              "bounded but possibly nonconstant.",
+              "linear in each coordinate."
+            ],
+            "answer": 0,
+            "hint": "Apply Harnack on balls of radius $R \\to \\infty$.",
+            "explain": "For positive harmonic $u$ on $\\mathbb{R}^n$, Harnack on $B(0,R)$ gives $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$ for $|x|<R$. Letting $R\\to\\infty$ with $r$ fixed pinches both bounds to $u(0)$, so $u\\equiv u(0)$. This is the harmonic Liouville theorem."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Harnack's inequality fail without the positivity assumption?",
+            "choices": [
+              "It actually still holds — positivity is not needed.",
+              "Without positivity the multiplicative bounds become meaningless: a sign change makes $u(0)$ small while $u(x)$ stays large in absolute value.",
+              "The Laplacian is not linear without positivity.",
+              "The mean value property requires positivity."
+            ],
+            "answer": 1,
+            "hint": "Consider $u(x,y) = x$ on the disk: $u(0)=0$ but $u$ ranges over $[-1,1]$.",
+            "explain": "Harnack bounds are multiplicative in $u(0)$. If $u$ changes sign, $u(0)$ may equal $0$ while $u$ is large elsewhere; the bound $u(x) \\le C\\cdot u(0) = 0$ is then false. The proof via the Poisson kernel uses positivity of the kernel to compare oscillation."
+          }
+        ]
+      },
+      "hf-subharmonic": {
+        "title": "Subharmonic functions and Perron's method",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function $v$ is subharmonic on $\\Omega$ when…",
+            "choices": [
+              "$\\Delta v \\le 0$ (in the classical or distributional sense).",
+              "$\\Delta v \\ge 0$, equivalently $v(x) \\le$ the ball average over every admissible $B(x,r)$.",
+              "$v$ is bounded above by every harmonic function.",
+              "$v$ has no local maxima."
+            ],
+            "answer": 1,
+            "hint": "Subharmonic = below harmonic majorants. Replace 'equals' in the MVP with 'less than or equal'.",
+            "explain": "Subharmonicity is $\\Delta v \\ge 0$ (sign convention: think of $-\\Delta$ as positive operator). Equivalently, an upper semicontinuous $v$ is subharmonic iff $v(x) \\le \\frac{1}{|B|}\\int_B v$ for every admissible ball. Every $|f|^p$ for holomorphic $f$ is subharmonic — a key source of examples."
+          },
+          {
+            "type": "mcq",
+            "q": "Perron's method constructs a candidate Dirichlet solution as…",
+            "choices": [
+              "the limit of Newton's method on $\\Delta u = 0$.",
+              "the supremum of all subharmonic functions on $\\Omega$ that are $\\le g$ on $\\partial\\Omega$.",
+              "the average of $g$ over $\\partial\\Omega$.",
+              "the harmonic conjugate of the boundary data."
+            ],
+            "answer": 1,
+            "hint": "Build the largest subharmonic function below the boundary data; harmonicity follows from sub-mean-value pushforward.",
+            "explain": "Perron defines $u(x) = \\sup\\{v(x) : v \\text{ subharmonic on } \\Omega,\\ \\limsup_{y\\to\\zeta} v(y) \\le g(\\zeta)\\ \\forall \\zeta\\in\\partial\\Omega\\}$. Local 'harmonic lifting' on small balls (replace $v$ by its Poisson integral) shows $u$ is harmonic. Boundary regularity $u(\\zeta)=g(\\zeta)$ requires a barrier at $\\zeta$ — domains where every boundary point has a barrier are called regular."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about subharmonic functions and the maximum principle is correct?",
+            "choices": [
+              "Subharmonic functions can attain interior maxima only on regular domains.",
+              "A subharmonic $v$ on a bounded $\\Omega$, continuous on $\\overline\\Omega$, satisfies $\\sup_{\\overline\\Omega} v = \\sup_{\\partial\\Omega} v$ — and an interior max forces constancy.",
+              "The maximum principle fails for subharmonic functions.",
+              "Subharmonic functions are bounded below by harmonic majorants only when $\\Omega$ is convex."
+            ],
+            "answer": 1,
+            "hint": "The MVP-style inequality $v(x) \\le$ ball average drives the max principle the same way.",
+            "explain": "Sub-mean-value implies the same max principle as for harmonic functions: $\\sup v$ is attained on the boundary, and an interior max forces local constancy. (Sub' for max — 'sub'harmonic functions sit below harmonic ones, and so can only push their values up to the boundary.) This is exactly the property Perron's method exploits."
           }
         ]
       }
@@ -20954,19 +21410,203 @@ window.MVQuizBank = {
   "large-deviations": {
     "topic": "large-deviations",
     "quizzes": {
-      "large-deviations-intro": {
-        "title": "Intro",
+      "ld-cramer-theorem": {
+        "title": "Cramér's theorem",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "For i.i.d. $X_i$ with $\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X_1}]$, Cramér's theorem says the rate function is:",
             "choices": [
-              "A",
-              "B"
+              "$I(x)=\\Lambda(x)$",
+              "$I(x)=\\sup_{\\theta}\\{\\theta x-\\Lambda(\\theta)\\}$",
+              "$I(x)=\\Lambda(x)-x$",
+              "$I(x)=\\inf_{\\theta}\\{\\theta x+\\Lambda(\\theta)\\}$"
             ],
-            "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "answer": 1,
+            "hint": "It is the Legendre–Fenchel transform of $\\Lambda$.",
+            "explain": "Cramér's theorem states $\\frac{1}{n}\\log\\mathbb{P}(\\bar X_n\\ge x)\\to -I(x)$ where $I(x)=\\Lambda^*(x)=\\sup_\\theta\\{\\theta x-\\Lambda(\\theta)\\}$ is the Legendre transform of the log-MGF."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X_i\\sim\\mathcal{N}(0,1)$. Compute the Cramér rate function at $x=2$, i.e. $I(2)$.",
+            "answer": 2,
+            "tol": 0.01,
+            "hint": "For the standard normal, $\\Lambda(\\theta)=\\theta^2/2$, so $I(x)=x^2/2$.",
+            "explain": "$\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X}]=\\theta^2/2$. Maximising $\\theta x-\\theta^2/2$ in $\\theta$ gives $\\theta^*=x$ and $I(x)=x^2/2$. At $x=2$: $I(2)=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Cramér's theorem requires which condition on the distribution of $X_1$?",
+            "choices": [
+              "Bounded support",
+              "Finite variance",
+              "$\\Lambda(\\theta)<\\infty$ in a neighbourhood of $0$",
+              "Symmetric density"
+            ],
+            "answer": 2,
+            "hint": "We need exponential moments to even define the Legendre transform.",
+            "explain": "The classical statement requires the log-MGF $\\Lambda(\\theta)$ to be finite in an open neighbourhood of the origin (the so-called Cramér condition). Heavy-tailed laws like Cauchy fail this and have no Cramér-style LDP."
+          }
+        ]
+      },
+      "ld-rate-function": {
+        "title": "Rate functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A rate function $I$ produced as a Legendre transform of a convex log-MGF must be:",
+            "choices": [
+              "Concave",
+              "Convex and lower semicontinuous",
+              "Bounded",
+              "Differentiable everywhere"
+            ],
+            "answer": 1,
+            "hint": "Legendre transforms of convex functions are convex; the sup of affine functions is lsc.",
+            "explain": "Since $\\Lambda(\\theta)$ is convex, its Legendre transform $I=\\Lambda^*$ is the supremum of affine functions $\\theta\\mapsto\\theta x-\\Lambda(\\theta)$ — hence convex and lower semicontinuous. It need not be bounded or differentiable."
+          },
+          {
+            "type": "numeric",
+            "q": "For $X_i\\sim\\text{Bernoulli}(1/2)$, the rate function is $I(x)=x\\log(2x)+(1-x)\\log(2(1-x))$ on $[0,1]$. Compute $I(0.75)$ in nats (round to 3 decimals).",
+            "answer": 0.13,
+            "tol": 0.01,
+            "hint": "$I(x)$ is the KL divergence $H(\\text{Ber}(x)\\,\\|\\,\\text{Ber}(1/2))$. Plug $x=0.75$.",
+            "explain": "$I(0.75)=0.75\\log(1.5)+0.25\\log(0.5)=0.75\\cdot 0.4055-0.25\\cdot 0.6931\\approx 0.3041-0.1733\\approx 0.1308$ nats."
+          },
+          {
+            "type": "mcq",
+            "q": "At which point does a rate function $I$ for the empirical mean of i.i.d.\\ $X_i$ with mean $\\mu$ vanish?",
+            "choices": [
+              "$x=0$",
+              "$x=\\mu$",
+              "$x=\\mathbb{E}[X^2]$",
+              "Nowhere — $I>0$ always"
+            ],
+            "answer": 1,
+            "hint": "The LLN says $\\bar X_n\\to\\mu$ — so deviations from $\\mu$ are not large.",
+            "explain": "By the law of large numbers $\\bar X_n\\to\\mu$ a.s., so $\\mathbb{P}(\\bar X_n\\approx\\mu)\\to 1$ and the exponential rate vanishes. Equivalently, $\\theta=0$ achieves the sup in $\\theta\\mu-\\Lambda(\\theta)$ since $\\Lambda'(0)=\\mu$."
+          }
+        ]
+      },
+      "ld-sanov-theorem": {
+        "title": "Sanov's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Sanov's theorem identifies the rate function for the empirical distribution $L_n$ of i.i.d.\\ samples from $\\mu$ as:",
+            "choices": [
+              "Total variation $\\|\\nu-\\mu\\|_{TV}$",
+              "Wasserstein distance $W_2(\\nu,\\mu)$",
+              "KL divergence $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$",
+              "Hellinger distance"
+            ],
+            "answer": 2,
+            "hint": "The exponential family / Gibbs heuristic.",
+            "explain": "Sanov: $\\mathbb{P}(L_n\\in A)\\asymp e^{-n\\inf_{\\nu\\in A}H(\\nu\\,\\|\\,\\mu)}$. Relative entropy / KL divergence is the unique rate function consistent with i.i.d.\\ exponential families."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mu=\\text{Ber}(1/2)$ and $\\nu=\\text{Ber}(0.9)$. Compute the KL divergence $H(\\nu\\,\\|\\,\\mu)$ in nats (round to 3 decimals).",
+            "answer": 0.368,
+            "tol": 0.01,
+            "hint": "$H(\\nu\\,\\|\\,\\mu)=0.9\\log(0.9/0.5)+0.1\\log(0.1/0.5)$.",
+            "explain": "$H=0.9\\log(1.8)+0.1\\log(0.2)=0.9\\cdot 0.5878+0.1\\cdot(-1.6094)\\approx 0.5290-0.1609\\approx 0.368$ nats."
+          },
+          {
+            "type": "mcq",
+            "q": "Cramér's theorem can be recovered from Sanov's by which mechanism?",
+            "choices": [
+              "Taking a Fourier transform",
+              "The contraction principle applied to $\\nu\\mapsto\\int x\\,d\\nu$",
+              "Differentiating the rate function",
+              "Setting $n=1$"
+            ],
+            "answer": 1,
+            "hint": "The empirical mean is a continuous functional of the empirical measure.",
+            "explain": "The contraction principle: if $L_n$ satisfies an LDP with rate $J$ and $f$ is continuous, then $f(L_n)$ satisfies an LDP with rate $I(y)=\\inf\\{J(\\nu):f(\\nu)=y\\}$. Applying $f(\\nu)=\\int x\\,d\\nu$ to Sanov recovers Cramér."
+          }
+        ]
+      },
+      "ld-gartner-ellis": {
+        "title": "Gärtner–Ellis",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Gärtner–Ellis theorem extends Cramér by replacing the i.i.d.\\ log-MGF with:",
+            "choices": [
+              "The Fourier transform",
+              "$\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$",
+              "The variance",
+              "The cumulant of order $4$"
+            ],
+            "answer": 1,
+            "hint": "It is a scaled limit of log-MGFs.",
+            "explain": "Gärtner–Ellis assumes the limiting log-MGF $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth — then the LDP holds with rate $I=\\Lambda^*$. Cramér is the i.i.d.\\ special case."
+          },
+          {
+            "type": "mcq",
+            "q": "An additional regularity hypothesis Gärtner–Ellis requires (beyond existence of $\\Lambda$) is:",
+            "choices": [
+              "$\\Lambda$ is bounded",
+              "$\\Lambda$ is essentially smooth (steep at the boundary of its effective domain)",
+              "$\\Lambda$ is monotone",
+              "$\\Lambda$ has compact support"
+            ],
+            "answer": 1,
+            "hint": "Without steepness the lower bound can fail — exposed points become inaccessible.",
+            "explain": "Essential smoothness: $\\Lambda$ is differentiable in the interior of its effective domain and $|\\Lambda'(\\theta)|\\to\\infty$ as $\\theta$ approaches the boundary. This guarantees every point in the relevant range is exposed and the lower LDP bound holds."
+          },
+          {
+            "type": "numeric",
+            "q": "For a stationary AR(1) chain $X_n=\\rho X_{n-1}+\\xi_n$ with $\\xi_n\\sim\\mathcal{N}(0,1)$ i.i.d.\\ and $\\rho\\in(-1,1)$, the limiting $\\Lambda(\\theta)$ for $\\bar X_n$ equals $\\theta^2/(2(1-\\rho)^2)$. With $\\rho=0.5$, compute $I(1)$.",
+            "answer": 0.125,
+            "tol": 0.005,
+            "hint": "$I=\\Lambda^*$, so $I(x)=x^2/2 \\cdot (1-\\rho)^2$.",
+            "explain": "$\\Lambda(\\theta)=\\theta^2/(2(1-\\rho)^2)$ is quadratic, so $I(x)=\\tfrac{1}{2}(1-\\rho)^2 x^2$. With $\\rho=0.5$, $I(1)=\\tfrac{1}{2}\\cdot 0.25=0.125$."
+          }
+        ]
+      },
+      "ld-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Schilder's theorem gives an LDP for $\\sqrt{\\varepsilon}\\,W$ (scaled Brownian motion) on path space with rate function:",
+            "choices": [
+              "$I(\\phi)=\\sup_t|\\phi(t)|$",
+              "$I(\\phi)=\\tfrac{1}{2}\\int_0^T|\\dot\\phi(t)|^2\\,dt$ for absolutely continuous $\\phi$ with $\\phi(0)=0$",
+              "$I(\\phi)=\\int_0^T\\phi(t)\\,dt$",
+              "$I(\\phi)=\\|\\phi\\|_\\infty^2$"
+            ],
+            "answer": 1,
+            "hint": "It is the Cameron–Martin / Dirichlet energy of the path.",
+            "explain": "Schilder: $\\mathbb{P}(\\sqrt\\varepsilon W\\in\\cdot)$ satisfies an LDP at speed $1/\\varepsilon$ with rate $I(\\phi)=\\tfrac{1}{2}\\int_0^T|\\dot\\phi|^2 dt$ on the Cameron–Martin space (and $+\\infty$ otherwise). Most-likely paths minimise kinetic energy."
+          },
+          {
+            "type": "mcq",
+            "q": "Freidlin–Wentzell theory studies the small-noise SDE $dX^\\varepsilon_t=b(X^\\varepsilon_t)\\,dt+\\sqrt\\varepsilon\\,dW_t$. The most-likely exit path from a basin minimises:",
+            "choices": [
+              "The travel time alone",
+              "The action $S(\\phi)=\\tfrac{1}{2}\\int_0^T|\\dot\\phi-b(\\phi)|^2\\,dt$",
+              "The Euclidean length",
+              "The supremum norm"
+            ],
+            "answer": 1,
+            "hint": "Replace $\\dot\\phi$ in Schilder's rate by the deviation from the deterministic flow.",
+            "explain": "Freidlin–Wentzell: the rate function is $S(\\phi)=\\tfrac{1}{2}\\int|\\dot\\phi-b(\\phi)|^2\\,dt$. Mean exit times grow like $\\exp(V/\\varepsilon)$ where $V$ is the quasi-potential — the action minimum over paths from the attractor to the boundary."
+          },
+          {
+            "type": "mcq",
+            "q": "Boltzmann's entropy formula $S=k\\log W$ is recovered from large deviations as:",
+            "choices": [
+              "The CLT correction term",
+              "Sanov's theorem applied to the empirical occupation distribution of an ideal gas — entropy is $-H(\\nu\\,\\|\\,\\mu)$",
+              "A Fourier coefficient of the partition function",
+              "The variance of the energy"
+            ],
+            "answer": 1,
+            "hint": "The Gibbs measure is the minimiser of free energy = energy minus entropy.",
+            "explain": "Sanov's rate $H(\\nu\\,\\|\\,\\mu)$ is — up to sign and the Boltzmann constant — Boltzmann–Gibbs entropy. The most likely macrostate maximises entropy subject to energy constraints, recovering the canonical ensemble. This is the rigorous probabilistic foundation of statistical mechanics."
           }
         ]
       }
@@ -22900,19 +23540,237 @@ window.MVQuizBank = {
   "modular-curves": {
     "topic": "modular-curves",
     "quizzes": {
-      "modular-curves-intro": {
-        "title": "Intro",
+      "mc-y0-x0": {
+        "title": "Y0(N), X0(N), cusps",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which condition defines the congruence subgroup $\\Gamma_0(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$?",
             "choices": [
-              "A",
-              "B"
+              "$a \\equiv d \\equiv 1 \\pmod N$ and $b \\equiv c \\equiv 0 \\pmod N$",
+              "$c \\equiv 0 \\pmod N$",
+              "$b \\equiv 0 \\pmod N$",
+              "$\\det \\equiv 1 \\pmod N$"
+            ],
+            "answer": 1,
+            "hint": "$\\Gamma_0(N)$ is the upper-triangular-mod-$N$ condition: only the lower-left entry must vanish modulo $N$.",
+            "explain": "$\\Gamma_0(N) = \\{\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in\\mathrm{SL}_2(\\mathbb{Z}) : c\\equiv 0\\pmod N\\}$. The stronger condition $a\\equiv d\\equiv 1$, $b\\equiv c\\equiv 0$ defines the principal congruence subgroup $\\Gamma(N)$, and $b\\equiv 0$ alone gives a different (lower-triangular) congruence group, while $\\det\\equiv 1\\pmod N$ is automatic since the determinant is already $1$ in $\\mathbb{Z}$."
+          },
+          {
+            "type": "numeric",
+            "q": "The index $[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]$ equals $N\\prod_{p\\mid N}(1+1/p)$. Compute this index for $N=11$.",
+            "answer": 12,
+            "tol": 0.001,
+            "hint": "$N=11$ is prime, so the product collapses to $11(1 + 1/11) = 11 + 1 = 12$.",
+            "explain": "For prime $N=p$, the formula simplifies to $p(1+1/p) = p+1$. So $[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(11)] = 12$. This index will reappear as the degree of the natural map $X_0(11) \\to X(1)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must we add cusps to $Y_0(N) = \\mathcal{H}/\\Gamma_0(N)$ to obtain $X_0(N)$?",
+            "choices": [
+              "$Y_0(N)$ is not Hausdorff",
+              "$Y_0(N)$ is non-compact; cusps compactify it to a Riemann surface",
+              "$Y_0(N)$ has the wrong dimension",
+              "Cusps repair singular points of $Y_0(N)$"
+            ],
+            "answer": 1,
+            "hint": "Sequences in $\\mathcal{H}$ tending to a rational on the boundary or to $i\\infty$ have no limit in $\\mathcal{H}/\\Gamma_0(N)$ — those missing limits are exactly the cusps.",
+            "explain": "$Y_0(N)$ is already a smooth Hausdorff Riemann surface — it just is not compact. The boundary $\\mathbb{Q} \\cup \\{i\\infty\\}$ of $\\mathcal{H}$ projects to finitely many missing points modulo $\\Gamma_0(N)$, called cusps. Adjoining them and giving each cusp a local chart $q = e^{2\\pi i \\tau/h}$ produces the smooth compact $X_0(N)$."
+          }
+        ]
+      },
+      "mc-moduli-of-elliptic-curves": {
+        "title": "Moduli interpretation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A non-cuspidal point of $Y_0(N)$ corresponds to which kind of object?",
+            "choices": [
+              "An elliptic curve $E$ alone",
+              "A pair $(E, P)$ where $P \\in E$ has order $N$",
+              "A pair $(E, C)$ where $C \\subset E$ is a cyclic subgroup of order $N$",
+              "An $N$-isogeny $E \\to E'$ together with a basepoint"
+            ],
+            "answer": 2,
+            "hint": "The level structure for $\\Gamma_0(N)$ remembers a cyclic order-$N$ subgroup, not a chosen point on it.",
+            "explain": "$Y_0(N)$ parametrizes pairs $(E,C)$ with $C\\subset E$ cyclic of order $N$, up to isomorphism. The variant $Y_1(N)$ rigidifies further to $(E,P)$ with $P$ of order $N$, and $Y(N)$ uses a full level-$N$ basis. The choice $(E,C)$ is equivalent to a cyclic $N$-isogeny $E \\to E/C$, but the moduli problem is phrased without picking a basepoint on the kernel."
+          },
+          {
+            "type": "mcq",
+            "q": "For $\\tau \\in \\mathcal{H}$, write $E_\\tau = \\mathbb{C}/(\\mathbb{Z} + \\mathbb{Z}\\tau)$. Which subgroup of $E_\\tau$ provides the canonical cyclic order-$N$ subgroup attached to $\\tau \\bmod \\Gamma_0(N)$?",
+            "choices": [
+              "$\\langle 1/N \\rangle = \\frac{1}{N}\\mathbb{Z}/\\mathbb{Z}$",
+              "$\\langle \\tau/N \\rangle$",
+              "The full $N$-torsion $E_\\tau[N]$",
+              "$\\langle (1+\\tau)/N \\rangle$"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Modulo the lattice, the points $0, 1/N, 2/N, \\ldots, (N-1)/N$ form a cyclic subgroup of order $N$.",
+            "explain": "The image of $\\frac{1}{N}\\mathbb{Z}$ in $\\mathbb{C}/\\Lambda_\\tau$ is the cyclic subgroup of order $N$ singled out by $\\Gamma_0(N)$. Two values $\\tau, \\tau'$ produce isomorphic pairs $(E_\\tau, \\langle 1/N\\rangle) \\cong (E_{\\tau'}, \\langle 1/N\\rangle)$ iff $\\tau' = \\gamma\\tau$ for some $\\gamma \\in \\Gamma_0(N)$ — that is exactly the moduli claim."
+          },
+          {
+            "type": "numeric",
+            "q": "Take $N=2$. The subgroups of $E_\\tau$ of order $2$ are exactly the three nonzero $2$-torsion points. How many such subgroups are there?",
+            "answer": 3,
+            "tol": 0.001,
+            "hint": "$E[2] \\cong (\\mathbb{Z}/2)^2$ has $4$ elements, so $3$ nonzero ones, each generating a distinct order-$2$ subgroup.",
+            "explain": "$E[2]$ has $4$ elements (one of them the origin), and any nonzero $2$-torsion point generates a cyclic subgroup of order $2$. These $3$ subgroups are exactly the level-$2$ structures, so the natural map $X_0(2)\\to X(1)$ has degree $3 = [\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(2)]$."
+          }
+        ]
+      },
+      "mc-hecke-correspondences-curves": {
+        "title": "Hecke correspondences",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For a prime $p \\nmid N$, the Hecke correspondence $T_p$ sends $(E,C)$ to the sum over the order-$p$ subgroups $D\\subset E$ disjoint from $C$ of the pairs $(E/D, (C+D)/D)$. How many summands appear?",
+            "answer": 4,
+            "tol": 0.001,
+            "hint": "There are $p+1$ subgroups of $E[p]$ of order $p$, and (since $p\\nmid N$) all of them meet $C$ trivially. Take $p=3$.",
+            "explain": "$E[p]\\cong(\\mathbb{Z}/p)^2$ has $p^2-1$ nonzero points partitioned into $p+1$ cyclic subgroups of order $p$. When $p\\nmid N$, each is automatically disjoint from $C$, so $T_p$ has $p+1$ summands. For $p=3$ that is $4$."
+          },
+          {
+            "type": "mcq",
+            "q": "On $q$-expansions, the same operator $T_p$ for $p\\nmid N$ acts on a weight-$k$ form $f = \\sum a_n q^n$ by:",
+            "choices": [
+              "$T_p f = \\sum a_{pn} q^n$",
+              "$T_p f = \\sum a_{n/p} q^n$ (with $a_{n/p}=0$ if $p\\nmid n$)",
+              "$T_p f = \\sum (a_{pn} + p^{k-1} a_{n/p})\\, q^n$",
+              "$T_p f = p\\,f$"
+            ],
+            "answer": 2,
+            "hint": "The two terms come from the two kinds of summands: the unique $D = E[p] \\cap (\\text{kernel of multiplication})$-like piece and the subgroups disjoint from a chosen reference.",
+            "explain": "The geometric correspondence translates on $q$-expansions to $T_p f = \\sum_n (a_{pn} + p^{k-1}a_{n/p})\\, q^n$, with $a_{n/p}$ understood to vanish unless $p\\mid n$. Eigenforms with $T_p f = a_p f$ then satisfy the recursion $a_{pn} = a_p a_n - p^{k-1} a_{n/p}$, the engine behind Euler products."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $T_p$ called a 'correspondence' rather than a 'morphism' from $X_0(N)$ to itself?",
+            "choices": [
+              "Because it depends on a choice of base point",
+              "Because it is a curve inside $X_0(N) \\times X_0(N)$, not the graph of a function",
+              "Because it is only defined modulo the cusps",
+              "Because it does not preserve Hecke eigenforms"
+            ],
+            "answer": 1,
+            "hint": "A correspondence is multi-valued: a single $(E,C)$ has $p+1$ images, recorded as a divisor in the product.",
+            "explain": "$T_p$ is the projection of the modular curve $X_0(Np)$ along its two natural maps to $X_0(N)$ — equivalently the divisor $\\{((E,C), (E/D, (C+D)/D)) : D\\subset E, |D|=p, D\\cap C=0\\}$ inside $X_0(N)\\times X_0(N)$. As a multi-valued map it cannot be a morphism, but it pushes forward divisors and so acts on $\\mathrm{Pic}^0$."
+          }
+        ]
+      },
+      "mc-jacobian-J0": {
+        "title": "Jacobian J0(N)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a smooth projective curve $X$ over $\\mathbb{C}$ of genus $g$, the Jacobian $J(X) = \\mathrm{Pic}^0(X)$ is an abelian variety of dimension:",
+            "choices": [
+              "$1$",
+              "$g$",
+              "$2g$",
+              "$g(g-1)/2$"
+            ],
+            "answer": 1,
+            "hint": "$\\mathrm{Pic}^0(X) \\cong H^0(X, \\Omega^1)^* / H_1(X,\\mathbb{Z})$, and the holomorphic-1-form space has dimension $g$.",
+            "explain": "$J(X)$ is the quotient of the $g$-dimensional vector space $H^0(X,\\Omega^1)^*$ by the rank-$2g$ lattice $H_1(X,\\mathbb{Z})$ embedded via integration. Hence $\\dim J(X) = g$. Applied to $X_0(N)$ this matches Eichler–Shimura: the tangent space $H^0(X_0(N),\\Omega^1)$ is canonically $S_2(\\Gamma_0(N))$, so $\\dim J_0(N) = \\dim S_2(\\Gamma_0(N)) = g(X_0(N))$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Eichler–Shimura isomorphism identifies $H^0(X_0(N), \\Omega^1)$ with which space of modular forms?",
+            "choices": [
+              "All forms $M_2(\\Gamma_0(N))$",
+              "Cusp forms $S_2(\\Gamma_0(N))$",
+              "Cusp forms $S_k(\\Gamma_0(N))$ for all $k$ at once",
+              "Eisenstein series $E_2$ only"
+            ],
+            "answer": 1,
+            "hint": "$f(\\tau)\\,d\\tau$ is a holomorphic differential on $X_0(N)$ exactly when $f$ vanishes at every cusp.",
+            "explain": "The map $f \\mapsto f(\\tau)\\,d\\tau$ sends $S_2(\\Gamma_0(N))$ isomorphically to $H^0(X_0(N),\\Omega^1)$. The cusp condition is essential: an Eisenstein series in $M_2 \\setminus S_2$ would give a meromorphic, not holomorphic, differential at the cusps. Higher weights $k \\ge 4$ correspond instead to sections of $\\Omega^1(\\text{cusps})^{\\otimes(k-1)}$, but only $k=2$ is the literal cotangent space."
+          },
+          {
+            "type": "numeric",
+            "q": "The genus of $X_0(11)$ is $1$. What is $\\dim_{\\mathbb{C}} S_2(\\Gamma_0(11))$?",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "Eichler–Shimura: $\\dim S_2(\\Gamma_0(N)) = g(X_0(N))$.",
+            "explain": "By Eichler–Shimura, $\\dim S_2(\\Gamma_0(N))$ equals the genus of $X_0(N)$. For $N=11$ this is $1$, and the unique normalized cusp form is $\\eta(\\tau)^2 \\eta(11\\tau)^2 = q\\prod_{n\\ge 1}(1-q^n)^2(1-q^{11n})^2$, which is the modular form attached to the elliptic curve $11a$."
+          }
+        ]
+      },
+      "mc-genus-formula": {
+        "title": "Genus formulas",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "The genus formula gives $g(X_0(N)) = 1 + \\frac{[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]}{12} - \\frac{\\nu_2}{4} - \\frac{\\nu_3}{3} - \\frac{\\nu_\\infty}{2}$. For $N=11$ the data are $[\\mathrm{SL}_2:\\Gamma_0(11)]=12$, $\\nu_2=0$, $\\nu_3=0$, $\\nu_\\infty=2$. Compute $g(X_0(11))$.",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "$g = 1 + 12/12 - 0 - 0 - 2/2 = 1 + 1 - 1 = 1$.",
+            "explain": "Plug in: $g(X_0(11)) = 1 + 1 - 0 - 0 - 1 = 1$. So $X_0(11)$ is an elliptic curve over $\\mathbb{Q}$ — explicitly the curve $y^2 + y = x^3 - x^2 - 10x - 20$ of conductor $11$, the lowest-conductor non-CM elliptic curve."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is the smallest prime $N$ for which $X_0(N)$ has genus at least $1$?",
+            "choices": [
+              "$N=5$",
+              "$N=7$",
+              "$N=11$",
+              "$N=13$"
+            ],
+            "answer": 2,
+            "hint": "$X_0(N)$ has genus $0$ for $N\\in\\{1,2,3,5,7,13\\}$ among the primes; $11$ is the first exception.",
+            "explain": "Among primes, $X_0(N)$ has genus $0$ for $N\\in\\{2,3,5,7,13\\}$ and genus $\\ge 1$ for $N=11$ and all $N\\ge 17$. The list of genus-$0$ levels of any kind is finite (the $15$ values $1\\text{–}10, 12, 13, 16, 18, 25$); after that the curves carry interesting cusp forms."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the genus formula for $X_0(N)$ have terms with denominators $4$ and $3$?",
+            "choices": [
+              "From the order-$2$ and order-$3$ stabilizers $S$ and $ST$ in $\\mathrm{PSL}_2(\\mathbb{Z})$",
+              "Because $X(1)$ has Euler characteristic $1/12$",
+              "Because $X_0(N)$ has $4$ cusps for $N$ even and $3$ for $N$ odd",
+              "From the action of $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ on cusps"
+            ],
+            "answer": 0,
+            "hint": "The map $X_0(N) \\to X(1)$ ramifies above the elliptic points of $X(1)$, which are stabilized by elements of orders $2$ and $3$.",
+            "explain": "The orbifold $X(1)$ has cone points of orders $2$ and $3$ (the orbits of $i$ and $\\rho = e^{2\\pi i/3}$ in $\\mathcal{H}$). Riemann–Hurwitz applied to $X_0(N) \\to X(1)$ produces fractional contributions of size $1/4$ and $1/3$ from the elliptic points, plus a $1/2$ contribution from each cusp."
+          }
+        ]
+      },
+      "mc-cusps-galois": {
+        "title": "Cusps and Galois action",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "$X_0(N)$ for prime $N$ has exactly $2$ cusps. How many cusps does $X_0(6)$ have? (Use the formula $\\nu_\\infty(X_0(N)) = \\sum_{d\\mid N} \\varphi(\\gcd(d, N/d))$.)",
+            "answer": 4,
+            "tol": 0.001,
+            "hint": "Divisors of $6$ are $1,2,3,6$. Compute $\\gcd(d,N/d)$ and $\\varphi$ for each: $\\varphi(1)+\\varphi(1)+\\varphi(1)+\\varphi(1) = 4$.",
+            "explain": "For $d\\in\\{1,2,3,6\\}$, the values $\\gcd(d, 6/d)$ are $1,1,1,1$. Each contributes $\\varphi(1)=1$, totaling $4$ cusps. They are usually labelled $0, 1/2, 1/3, \\infty$, all rational over $\\mathbb{Q}$."
+          },
+          {
+            "type": "mcq",
+            "q": "On $X_0(N)$ over $\\mathbb{Q}$, which two cusps are always individually $\\mathbb{Q}$-rational?",
+            "choices": [
+              "All cusps are $\\mathbb{Q}$-rational",
+              "Only $0$ and $\\infty$ are always $\\mathbb{Q}$-rational",
+              "Only $\\infty$ is always $\\mathbb{Q}$-rational",
+              "No cusp is $\\mathbb{Q}$-rational unless $N=1$"
+            ],
+            "answer": 1,
+            "hint": "The cusps $0$ and $\\infty$ correspond to degenerations of the level structure that are defined over $\\mathbb{Q}$; intermediate cusps for non-prime $N$ may only be defined over a cyclotomic extension.",
+            "explain": "In the moduli interpretation $\\infty$ is the cusp where the elliptic curve degenerates with the cyclic subgroup specializing to the connected component of the Néron model, and $0$ is the Atkin–Lehner image. Both are $\\mathbb{Q}$-rational. For prime $N$ those are the only two cusps and there is nothing more to say, but for composite $N$ the remaining cusps generally form Galois orbits over $\\mathbb{Q}(\\zeta_N)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Atkin–Lehner involution $w_N$ on $X_0(N)$ acts on the moduli interpretation as:",
+            "choices": [
+              "$(E, C) \\mapsto (E, C)$",
+              "$(E, C) \\mapsto (E/C, E[N]/C)$",
+              "$(E, C) \\mapsto (E, E[N])$",
+              "$(E, C) \\mapsto (E, -C)$"
+            ],
+            "answer": 1,
+            "hint": "$w_N$ swaps $E$ with the isogenous curve $E/C$ and replaces $C$ with the kernel of the dual isogeny.",
+            "explain": "$w_N$ is the involution induced by $\\tau\\mapsto -1/(N\\tau)$ on $\\mathcal{H}$. In moduli terms it sends $(E,C)$ to $(E/C, E[N]/C)$: the dual cyclic order-$N$ subgroup of the isogenous curve. It exchanges the two rational cusps $0\\leftrightarrow \\infty$ and is the simplest of the modular involutions whose quotients $X_0(N)/w_N$ are themselves arithmetically rich curves."
           }
         ]
       }
@@ -37678,19 +38536,247 @@ window.MVQuizBank = {
   "stochastic-processes-and-martingales": {
     "topic": "stochastic-processes-and-martingales",
     "quizzes": {
-      "stochastic-processes-and-martingales-intro": {
-        "title": "Intro",
+      "sp-filtrations": {
+        "title": "Filtrations and adapted processes",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "A filtration $(\\mathcal{F}_n)_{n\\ge 0}$ on $(\\Omega,\\mathcal{F},\\mathbb{P})$ is required to satisfy:",
             "choices": [
-              "A",
-              "B"
+              "$\\mathcal{F}_n\\subseteq\\mathcal{F}_{n+1}\\subseteq\\mathcal{F}$ for every $n$",
+              "$\\mathcal{F}_n=\\mathcal{F}$ for every $n$",
+              "$\\mathcal{F}_n\\cap\\mathcal{F}_{n+1}=\\varnothing$",
+              "$\\mathcal{F}_n$ is finite for every $n$"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "A filtration is an increasing chain of sub-$\\sigma$-algebras: information accumulates over time.",
+            "explain": "By definition the filtration is increasing: $\\mathcal{F}_n\\subseteq\\mathcal{F}_{n+1}$, and each $\\mathcal{F}_n$ is a sub-$\\sigma$-algebra of $\\mathcal{F}$. Information accumulates; nothing is forgotten."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $(X_n)$ be a sequence of random variables and $\\mathcal{F}_n=\\sigma(X_0,\\ldots,X_n)$ the natural filtration. Which random time is a stopping time?",
+            "choices": [
+              "$\\tau=\\inf\\{n:X_n\\ge 5\\}$",
+              "$\\tau=\\sup\\{n\\le 100:X_n\\ge 5\\}$",
+              "$\\tau=$ the time at which $\\sum X_n$ achieves its all-time maximum",
+              "$\\tau=$ the last $n$ at which $X_n=0$"
+            ],
+            "answer": 0,
+            "hint": "A stopping time $\\tau$ requires $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$ — you can decide at time $n$ whether stopping has happened, using only the information available so far.",
+            "explain": "$\\{\\tau\\le n\\}=\\{\\exists k\\le n: X_k\\ge 5\\}\\in\\mathcal{F}_n$, so the first hitting time is a stopping time. The other three involve looking into the future (last visit, all-time max), which $\\mathcal{F}_n$ cannot decide."
+          },
+          {
+            "type": "numeric",
+            "q": "Symmetric simple random walk $S_n$ on $\\mathbb{Z}$ starts at $S_0=0$. Let $\\tau=\\min\\{n\\ge 0: S_n\\in\\{-2,3\\}\\}$. What is $\\mathbb{P}(S_\\tau=3)$?",
+            "answer": 0.4,
+            "tol": 0.005,
+            "hint": "Gambler's ruin on $\\{-2,\\ldots,3\\}$: the probability of hitting $b=3$ before $a=-2$ starting at $0$ is $(0-(-2))/(3-(-2))=2/5$.",
+            "explain": "Gambler's ruin formula for symmetric walk on $\\{-2,\\ldots,3\\}$: $\\mathbb{P}(\\text{hit }3\\text{ first})=(0-(-2))/(3-(-2))=2/5=0.4$. The fact that $\\tau$ is a stopping time is what lets the formula apply."
+          }
+        ]
+      },
+      "sp-discrete-martingales": {
+        "title": "Discrete-time martingales",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An adapted, integrable process $(M_n)$ is a martingale when:",
+            "choices": [
+              "$\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$ for every $n$",
+              "$\\mathbb{E}[M_n]=0$ for every $n$",
+              "$M_{n+1}-M_n$ is independent of $\\mathcal{F}_n$",
+              "$M_n$ is monotone in $n$"
+            ],
+            "answer": 0,
+            "hint": "The martingale identity is the conditional one: given everything up to time $n$, the best predictor of $M_{n+1}$ is $M_n$.",
+            "explain": "The defining property is $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$. Constant mean and independent increments are consequences (or stronger conditions) but not equivalent. Monotonicity contradicts the fair-game intuition."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $(X_i)$ be i.i.d.\\ with $\\mathbb{P}(X_i=+1)=\\mathbb{P}(X_i=-1)=1/2$ and $S_n=X_1+\\cdots+X_n$. Which of the following is also a martingale w.r.t. $\\mathcal{F}_n=\\sigma(X_1,\\ldots,X_n)$?",
+            "choices": [
+              "$M_n=S_n^2-n$",
+              "$M_n=S_n^2$",
+              "$M_n=|S_n|$",
+              "$M_n=n\\cdot S_n$"
+            ],
+            "answer": 0,
+            "hint": "Compute $\\mathbb{E}[S_{n+1}^2\\mid\\mathcal{F}_n]=\\mathbb{E}[(S_n+X_{n+1})^2\\mid\\mathcal{F}_n]=S_n^2+1$.",
+            "explain": "$\\mathbb{E}[S_{n+1}^2\\mid\\mathcal{F}_n]=S_n^2+\\mathbb{E}[X_{n+1}^2]+2S_n\\mathbb{E}[X_{n+1}]=S_n^2+1$, so $S_n^2-n$ subtracts off the predictable drift to give a martingale. $S_n^2$ is a submartingale; $|S_n|$ likewise; $nS_n$ has drift $S_n$."
+          },
+          {
+            "type": "mcq",
+            "q": "A Doob martingale is the process",
+            "choices": [
+              "$M_n=\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ for an integrable $Z$",
+              "$M_n=Z_1+\\cdots+Z_n$ for i.i.d.\\ mean-zero $Z_i$",
+              "$M_n=\\prod_i Z_i$ for i.i.d.\\ mean-one $Z_i$",
+              "$M_n=$ the running maximum of an i.i.d.\\ sequence"
+            ],
+            "answer": 0,
+            "hint": "The Doob martingale of a random variable $Z$ is its sequence of conditional expectations along an increasing filtration; the tower property gives the martingale identity automatically.",
+            "explain": "By the tower property $\\mathbb{E}[\\mathbb{E}[Z\\mid\\mathcal{F}_{n+1}]\\mid\\mathcal{F}_n]=\\mathbb{E}[Z\\mid\\mathcal{F}_n]$, so $M_n=\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ is a martingale. Sums and products of i.i.d.\\ variables can be martingales too, but those are not the Doob construction."
+          }
+        ]
+      },
+      "sp-optional-stopping": {
+        "title": "Optional stopping theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Doob's optional-stopping theorem $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$ holds when $M$ is a martingale and $\\tau$ a stopping time provided",
+            "choices": [
+              "at least one of: $\\tau$ is bounded, $M$ is uniformly integrable, or $\\tau<\\infty$ a.s. and $(M_{n\\wedge\\tau})$ is bounded",
+              "always — no extra hypotheses needed",
+              "$\\tau$ is a constant",
+              "$\\tau<\\infty$ almost surely (and nothing else)"
+            ],
+            "answer": 0,
+            "hint": "Three classical sufficient hypotheses: bounded $\\tau$, uniform integrability of $M$, or a.s.-finite $\\tau$ with $(M_{n\\wedge\\tau})$ uniformly bounded.",
+            "explain": "All three are sufficient; the symmetric random walk stopped at $\\tau=\\inf\\{n:S_n=1\\}$ has $\\tau<\\infty$ a.s. but $\\mathbb{E}[S_\\tau]=1\\ne 0$, showing none of the hypotheses can be dropped."
+          },
+          {
+            "type": "numeric",
+            "q": "Symmetric random walk $S_0=0$, $\\tau=\\inf\\{n:S_n\\in\\{-3,5\\}\\}$. Use optional stopping on $S_n$ to compute $\\mathbb{P}(S_\\tau=5)$.",
+            "answer": 0.375,
+            "tol": 0.005,
+            "hint": "$\\tau$ is bounded a.s.\\ and $(S_{n\\wedge\\tau})$ is bounded by $\\max(|-3|,5)=5$, so optional stopping gives $0=\\mathbb{E}[S_\\tau]=5p+(-3)(1-p)$.",
+            "explain": "Optional stopping (case (c)): $0=\\mathbb{E}[S_0]=\\mathbb{E}[S_\\tau]=5p-3(1-p)=8p-3$, so $p=3/8=0.375$. The same trick with $S_n^2-n$ gives $\\mathbb{E}[\\tau]=15$."
+          },
+          {
+            "type": "mcq",
+            "q": "Wald's identity says: for i.i.d.\\ integrable $X_i$ with $\\mathbb{E}[X_i]=\\mu$ and a stopping time $\\tau$ with $\\mathbb{E}[\\tau]<\\infty$,",
+            "choices": [
+              "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=\\mu\\,\\mathbb{E}[\\tau]$",
+              "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=0$",
+              "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=\\mu^\\tau$",
+              "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=\\mu\\,\\sqrt{\\mathbb{E}[\\tau]}$"
+            ],
+            "answer": 0,
+            "hint": "Apply optional stopping to the centred martingale $S_n-n\\mu$: under $\\mathbb{E}\\tau<\\infty$ one gets $\\mathbb{E}[S_\\tau-\\mu\\tau]=0$.",
+            "explain": "The martingale $M_n=S_n-n\\mu$ has $\\mathbb{E}[M_\\tau]=0$ by optional stopping (under $\\mathbb{E}\\tau<\\infty$ and appropriate integrability), giving $\\mathbb{E}[S_\\tau]=\\mu\\,\\mathbb{E}[\\tau]$. This is Wald's identity."
+          }
+        ]
+      },
+      "sp-doob-decomposition": {
+        "title": "Doob decomposition and quadratic variation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Doob decomposition writes an adapted $L^1$ process $X_n$ uniquely as",
+            "choices": [
+              "$X_n=X_0+M_n+A_n$ with $M$ a martingale and $A$ predictable, $A_0=0$",
+              "$X_n=M_n\\cdot A_n$ with $M$ a martingale and $A$ a stopping time",
+              "$X_n=X_0+M_n$ with $M$ a martingale",
+              "$X_n=A_n-M_n$ with $M$ and $A$ both martingales"
+            ],
+            "answer": 0,
+            "hint": "Doob: every adapted $L^1$ process splits uniquely as a martingale plus a predictable compensator (with $A_0=0$).",
+            "explain": "The compensator is $A_n=\\sum_{k=1}^n\\mathbb{E}[X_k-X_{k-1}\\mid\\mathcal{F}_{k-1}]$ (predictable with $A_0=0$); subtracting it gives the martingale part. Sub/super-martingales are exactly those for which $A$ is non-decreasing/non-increasing."
+          },
+          {
+            "type": "numeric",
+            "q": "Symmetric simple random walk $S_n$, $X_n=S_n^2$. The predictable compensator is $A_n=n$. What is $\\mathbb{E}[A_{10}]$?",
+            "answer": 10,
+            "tol": 0.001,
+            "hint": "Each step contributes $\\mathbb{E}[(S_k-S_{k-1})^2\\mid\\mathcal{F}_{k-1}]=1$, so $A_n=n$ deterministically.",
+            "explain": "$\\mathbb{E}[X_k-X_{k-1}\\mid\\mathcal{F}_{k-1}]=\\mathbb{E}[2S_{k-1}X_k+X_k^2\\mid\\mathcal{F}_{k-1}]=0+1=1$, so $A_n=n$. In particular $\\mathbb{E}[A_{10}]=10$, and $S_n^2-n$ is the martingale part."
+          },
+          {
+            "type": "mcq",
+            "q": "For a square-integrable martingale $M$ with $M_0=0$, the predictable quadratic variation $\\langle M\\rangle_n$ is",
+            "choices": [
+              "the predictable compensator of $M_n^2$",
+              "$\\sum_{k=1}^n(M_k-M_{k-1})^2$ (always)",
+              "$\\mathbb{E}[M_n^2]$",
+              "$M_n^2$ itself"
+            ],
+            "answer": 0,
+            "hint": "By definition $\\langle M\\rangle$ is the unique predictable increasing process making $M_n^2-\\langle M\\rangle_n$ a martingale.",
+            "explain": "$\\langle M\\rangle_n$ is the Doob compensator of the submartingale $M_n^2$: predictable, increasing, $\\langle M\\rangle_0=0$, and $M_n^2-\\langle M\\rangle_n$ is a martingale. The pathwise sum $[M]_n=\\sum(\\Delta M_k)^2$ is the (different) optional quadratic variation."
+          }
+        ]
+      },
+      "sp-martingale-convergence": {
+        "title": "Martingale convergence theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Doob's martingale convergence theorem says: if $(M_n)$ is a martingale with $\\sup_n\\mathbb{E}|M_n|<\\infty$, then",
+            "choices": [
+              "$M_n\\to M_\\infty$ almost surely for some $M_\\infty\\in L^1$",
+              "$M_n\\to\\mathbb{E}[M_0]$ almost surely",
+              "$M_n$ converges in $L^1$",
+              "$M_n$ is bounded"
+            ],
+            "answer": 0,
+            "hint": "$L^1$-boundedness gives a.s. convergence to an $L^1$ limit; $L^1$-convergence requires the stronger uniform-integrability hypothesis.",
+            "explain": "$L^1$-boundedness implies a.s. convergence (Doob's upcrossing inequality) to an $L^1$ random variable $M_\\infty$. Without UI, $L^1$-convergence can fail and the limit need not equal $M_0$ in expectation."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X_i$ be i.i.d.\\ with $\\mathbb{P}(X_i=2)=\\mathbb{P}(X_i=0)=1/2$, and $M_n=\\prod_{i=1}^n X_i$ (product martingale). Which is true?",
+            "choices": [
+              "$\\mathbb{E}[M_n]=1$ for all $n$ but $M_n\\to 0$ a.s.",
+              "$M_n\\to 1$ a.s. by the strong law",
+              "$M_n$ converges in $L^1$ to a random variable with mean $1$",
+              "$M_n$ does not converge"
+            ],
+            "answer": 0,
+            "hint": "$\\mathbb{E}[X_i]=1$ so $\\mathbb{E}[M_n]=1$ by independence. But $M_n=0$ as soon as any $X_i=0$, which happens a.s.\\ in finitely many steps.",
+            "explain": "$M_n$ is a non-negative martingale with $\\mathbb{E}[M_n]=1$, but $M_n=0$ once any $X_i$ takes the value $0$, which happens a.s. So $M_n\\to 0$ almost surely. The convergence is not in $L^1$ — this is the canonical $L^1$-bounded-but-not-UI example."
+          },
+          {
+            "type": "mcq",
+            "q": "For the $L^1$-convergence $M_n\\to M_\\infty$ in $L^1$ to hold, the additional hypothesis required is",
+            "choices": [
+              "uniform integrability of $(M_n)$",
+              "$M_n\\ge 0$",
+              "$M$ has independent increments",
+              "$\\sup_n\\mathbb{E}|M_n|^2<\\infty$ (this is necessary)"
+            ],
+            "answer": 0,
+            "hint": "UI is exactly what closes the gap between $L^1$-bounded and $L^1$-convergent: $M_n\\to M_\\infty$ in $L^1$ iff $(M_n)$ is UI.",
+            "explain": "Uniform integrability is the precise condition: a martingale converges in $L^1$ iff it is uniformly integrable, in which case $M_n=\\mathbb{E}[M_\\infty\\mid\\mathcal{F}_n]$. $L^2$-boundedness is sufficient but stronger than necessary."
+          }
+        ]
+      },
+      "sp-continuous-martingales": {
+        "title": "Continuous-time martingales and Brownian motion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Standard Brownian motion $W_t$ has",
+            "choices": [
+              "independent stationary increments with $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ and continuous paths a.s.",
+              "differentiable paths with derivative $W_t'\\sim\\mathcal{N}(0,1)$",
+              "increments uniformly distributed on $[-1,1]$",
+              "paths of finite total variation"
+            ],
+            "answer": 0,
+            "hint": "$W_0=0$, increments are independent and $\\mathcal{N}(0,t-s)$-distributed for $0\\le s<t$, and paths are continuous but nowhere differentiable.",
+            "explain": "Independent stationary Gaussian increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ and continuous (but nowhere differentiable, infinite total variation) paths characterise Brownian motion."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a martingale w.r.t.\\ the natural filtration of Brownian motion?",
+            "choices": [
+              "$W_t^2$",
+              "$W_t$",
+              "$W_t^2-t$",
+              "$\\exp(\\theta W_t-\\theta^2 t/2)$ for fixed $\\theta\\in\\mathbb{R}$"
+            ],
+            "answer": 0,
+            "hint": "$W_t^2$ is a submartingale; subtracting the predictable $t$ gives the martingale $W_t^2-t$.",
+            "explain": "$\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]=W_s^2+(t-s)>W_s^2$, so $W_t^2$ is a submartingale, not a martingale. The compensator $t$ subtracts off, leaving $W_t^2-t$ as the martingale; the exponential martingale is the engine of Girsanov."
+          },
+          {
+            "type": "numeric",
+            "q": "For Brownian motion on $[0,T]$, the quadratic variation $[W]_T$ along a refining partition converges (in probability) to what value when $T=2$?",
+            "answer": 2,
+            "tol": 0.001,
+            "hint": "$[W]_t=t$ a.s.\\ — quadratic variation along any sequence of partitions with mesh $\\to 0$ converges in probability to $t$.",
+            "explain": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability as the mesh shrinks; at $t=T=2$ this equals $2$. This is the signature of Brownian paths: finite quadratic variation, infinite total variation."
           }
         ]
       }

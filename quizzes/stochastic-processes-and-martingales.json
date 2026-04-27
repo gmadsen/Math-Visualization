@@ -1,19 +1,247 @@
 {
   "topic": "stochastic-processes-and-martingales",
   "quizzes": {
-    "stochastic-processes-and-martingales-intro": {
-      "title": "Intro",
+    "sp-filtrations": {
+      "title": "Filtrations and adapted processes",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "A filtration $(\\mathcal{F}_n)_{n\\ge 0}$ on $(\\Omega,\\mathcal{F},\\mathbb{P})$ is required to satisfy:",
           "choices": [
-            "A",
-            "B"
+            "$\\mathcal{F}_n\\subseteq\\mathcal{F}_{n+1}\\subseteq\\mathcal{F}$ for every $n$",
+            "$\\mathcal{F}_n=\\mathcal{F}$ for every $n$",
+            "$\\mathcal{F}_n\\cap\\mathcal{F}_{n+1}=\\varnothing$",
+            "$\\mathcal{F}_n$ is finite for every $n$"
           ],
           "answer": 0,
-          "hint": "Placeholder.",
-          "explain": "Placeholder."
+          "hint": "A filtration is an increasing chain of sub-$\\sigma$-algebras: information accumulates over time.",
+          "explain": "By definition the filtration is increasing: $\\mathcal{F}_n\\subseteq\\mathcal{F}_{n+1}$, and each $\\mathcal{F}_n$ is a sub-$\\sigma$-algebra of $\\mathcal{F}$. Information accumulates; nothing is forgotten."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $(X_n)$ be a sequence of random variables and $\\mathcal{F}_n=\\sigma(X_0,\\ldots,X_n)$ the natural filtration. Which random time is a stopping time?",
+          "choices": [
+            "$\\tau=\\inf\\{n:X_n\\ge 5\\}$",
+            "$\\tau=\\sup\\{n\\le 100:X_n\\ge 5\\}$",
+            "$\\tau=$ the time at which $\\sum X_n$ achieves its all-time maximum",
+            "$\\tau=$ the last $n$ at which $X_n=0$"
+          ],
+          "answer": 0,
+          "hint": "A stopping time $\\tau$ requires $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$ — you can decide at time $n$ whether stopping has happened, using only the information available so far.",
+          "explain": "$\\{\\tau\\le n\\}=\\{\\exists k\\le n: X_k\\ge 5\\}\\in\\mathcal{F}_n$, so the first hitting time is a stopping time. The other three involve looking into the future (last visit, all-time max), which $\\mathcal{F}_n$ cannot decide."
+        },
+        {
+          "type": "numeric",
+          "q": "Symmetric simple random walk $S_n$ on $\\mathbb{Z}$ starts at $S_0=0$. Let $\\tau=\\min\\{n\\ge 0: S_n\\in\\{-2,3\\}\\}$. What is $\\mathbb{P}(S_\\tau=3)$?",
+          "answer": 0.4,
+          "tol": 0.005,
+          "hint": "Gambler's ruin on $\\{-2,\\ldots,3\\}$: the probability of hitting $b=3$ before $a=-2$ starting at $0$ is $(0-(-2))/(3-(-2))=2/5$.",
+          "explain": "Gambler's ruin formula for symmetric walk on $\\{-2,\\ldots,3\\}$: $\\mathbb{P}(\\text{hit }3\\text{ first})=(0-(-2))/(3-(-2))=2/5=0.4$. The fact that $\\tau$ is a stopping time is what lets the formula apply."
+        }
+      ]
+    },
+    "sp-discrete-martingales": {
+      "title": "Discrete-time martingales",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An adapted, integrable process $(M_n)$ is a martingale when:",
+          "choices": [
+            "$\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$ for every $n$",
+            "$\\mathbb{E}[M_n]=0$ for every $n$",
+            "$M_{n+1}-M_n$ is independent of $\\mathcal{F}_n$",
+            "$M_n$ is monotone in $n$"
+          ],
+          "answer": 0,
+          "hint": "The martingale identity is the conditional one: given everything up to time $n$, the best predictor of $M_{n+1}$ is $M_n$.",
+          "explain": "The defining property is $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$. Constant mean and independent increments are consequences (or stronger conditions) but not equivalent. Monotonicity contradicts the fair-game intuition."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $(X_i)$ be i.i.d.\\ with $\\mathbb{P}(X_i=+1)=\\mathbb{P}(X_i=-1)=1/2$ and $S_n=X_1+\\cdots+X_n$. Which of the following is also a martingale w.r.t. $\\mathcal{F}_n=\\sigma(X_1,\\ldots,X_n)$?",
+          "choices": [
+            "$M_n=S_n^2-n$",
+            "$M_n=S_n^2$",
+            "$M_n=|S_n|$",
+            "$M_n=n\\cdot S_n$"
+          ],
+          "answer": 0,
+          "hint": "Compute $\\mathbb{E}[S_{n+1}^2\\mid\\mathcal{F}_n]=\\mathbb{E}[(S_n+X_{n+1})^2\\mid\\mathcal{F}_n]=S_n^2+1$.",
+          "explain": "$\\mathbb{E}[S_{n+1}^2\\mid\\mathcal{F}_n]=S_n^2+\\mathbb{E}[X_{n+1}^2]+2S_n\\mathbb{E}[X_{n+1}]=S_n^2+1$, so $S_n^2-n$ subtracts off the predictable drift to give a martingale. $S_n^2$ is a submartingale; $|S_n|$ likewise; $nS_n$ has drift $S_n$."
+        },
+        {
+          "type": "mcq",
+          "q": "A Doob martingale is the process",
+          "choices": [
+            "$M_n=\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ for an integrable $Z$",
+            "$M_n=Z_1+\\cdots+Z_n$ for i.i.d.\\ mean-zero $Z_i$",
+            "$M_n=\\prod_i Z_i$ for i.i.d.\\ mean-one $Z_i$",
+            "$M_n=$ the running maximum of an i.i.d.\\ sequence"
+          ],
+          "answer": 0,
+          "hint": "The Doob martingale of a random variable $Z$ is its sequence of conditional expectations along an increasing filtration; the tower property gives the martingale identity automatically.",
+          "explain": "By the tower property $\\mathbb{E}[\\mathbb{E}[Z\\mid\\mathcal{F}_{n+1}]\\mid\\mathcal{F}_n]=\\mathbb{E}[Z\\mid\\mathcal{F}_n]$, so $M_n=\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ is a martingale. Sums and products of i.i.d.\\ variables can be martingales too, but those are not the Doob construction."
+        }
+      ]
+    },
+    "sp-optional-stopping": {
+      "title": "Optional stopping theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Doob's optional-stopping theorem $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$ holds when $M$ is a martingale and $\\tau$ a stopping time provided",
+          "choices": [
+            "at least one of: $\\tau$ is bounded, $M$ is uniformly integrable, or $\\tau<\\infty$ a.s. and $(M_{n\\wedge\\tau})$ is bounded",
+            "always — no extra hypotheses needed",
+            "$\\tau$ is a constant",
+            "$\\tau<\\infty$ almost surely (and nothing else)"
+          ],
+          "answer": 0,
+          "hint": "Three classical sufficient hypotheses: bounded $\\tau$, uniform integrability of $M$, or a.s.-finite $\\tau$ with $(M_{n\\wedge\\tau})$ uniformly bounded.",
+          "explain": "All three are sufficient; the symmetric random walk stopped at $\\tau=\\inf\\{n:S_n=1\\}$ has $\\tau<\\infty$ a.s. but $\\mathbb{E}[S_\\tau]=1\\ne 0$, showing none of the hypotheses can be dropped."
+        },
+        {
+          "type": "numeric",
+          "q": "Symmetric random walk $S_0=0$, $\\tau=\\inf\\{n:S_n\\in\\{-3,5\\}\\}$. Use optional stopping on $S_n$ to compute $\\mathbb{P}(S_\\tau=5)$.",
+          "answer": 0.375,
+          "tol": 0.005,
+          "hint": "$\\tau$ is bounded a.s.\\ and $(S_{n\\wedge\\tau})$ is bounded by $\\max(|-3|,5)=5$, so optional stopping gives $0=\\mathbb{E}[S_\\tau]=5p+(-3)(1-p)$.",
+          "explain": "Optional stopping (case (c)): $0=\\mathbb{E}[S_0]=\\mathbb{E}[S_\\tau]=5p-3(1-p)=8p-3$, so $p=3/8=0.375$. The same trick with $S_n^2-n$ gives $\\mathbb{E}[\\tau]=15$."
+        },
+        {
+          "type": "mcq",
+          "q": "Wald's identity says: for i.i.d.\\ integrable $X_i$ with $\\mathbb{E}[X_i]=\\mu$ and a stopping time $\\tau$ with $\\mathbb{E}[\\tau]<\\infty$,",
+          "choices": [
+            "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=\\mu\\,\\mathbb{E}[\\tau]$",
+            "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=0$",
+            "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=\\mu^\\tau$",
+            "$\\mathbb{E}[X_1+\\cdots+X_\\tau]=\\mu\\,\\sqrt{\\mathbb{E}[\\tau]}$"
+          ],
+          "answer": 0,
+          "hint": "Apply optional stopping to the centred martingale $S_n-n\\mu$: under $\\mathbb{E}\\tau<\\infty$ one gets $\\mathbb{E}[S_\\tau-\\mu\\tau]=0$.",
+          "explain": "The martingale $M_n=S_n-n\\mu$ has $\\mathbb{E}[M_\\tau]=0$ by optional stopping (under $\\mathbb{E}\\tau<\\infty$ and appropriate integrability), giving $\\mathbb{E}[S_\\tau]=\\mu\\,\\mathbb{E}[\\tau]$. This is Wald's identity."
+        }
+      ]
+    },
+    "sp-doob-decomposition": {
+      "title": "Doob decomposition and quadratic variation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Doob decomposition writes an adapted $L^1$ process $X_n$ uniquely as",
+          "choices": [
+            "$X_n=X_0+M_n+A_n$ with $M$ a martingale and $A$ predictable, $A_0=0$",
+            "$X_n=M_n\\cdot A_n$ with $M$ a martingale and $A$ a stopping time",
+            "$X_n=X_0+M_n$ with $M$ a martingale",
+            "$X_n=A_n-M_n$ with $M$ and $A$ both martingales"
+          ],
+          "answer": 0,
+          "hint": "Doob: every adapted $L^1$ process splits uniquely as a martingale plus a predictable compensator (with $A_0=0$).",
+          "explain": "The compensator is $A_n=\\sum_{k=1}^n\\mathbb{E}[X_k-X_{k-1}\\mid\\mathcal{F}_{k-1}]$ (predictable with $A_0=0$); subtracting it gives the martingale part. Sub/super-martingales are exactly those for which $A$ is non-decreasing/non-increasing."
+        },
+        {
+          "type": "numeric",
+          "q": "Symmetric simple random walk $S_n$, $X_n=S_n^2$. The predictable compensator is $A_n=n$. What is $\\mathbb{E}[A_{10}]$?",
+          "answer": 10,
+          "tol": 0.001,
+          "hint": "Each step contributes $\\mathbb{E}[(S_k-S_{k-1})^2\\mid\\mathcal{F}_{k-1}]=1$, so $A_n=n$ deterministically.",
+          "explain": "$\\mathbb{E}[X_k-X_{k-1}\\mid\\mathcal{F}_{k-1}]=\\mathbb{E}[2S_{k-1}X_k+X_k^2\\mid\\mathcal{F}_{k-1}]=0+1=1$, so $A_n=n$. In particular $\\mathbb{E}[A_{10}]=10$, and $S_n^2-n$ is the martingale part."
+        },
+        {
+          "type": "mcq",
+          "q": "For a square-integrable martingale $M$ with $M_0=0$, the predictable quadratic variation $\\langle M\\rangle_n$ is",
+          "choices": [
+            "the predictable compensator of $M_n^2$",
+            "$\\sum_{k=1}^n(M_k-M_{k-1})^2$ (always)",
+            "$\\mathbb{E}[M_n^2]$",
+            "$M_n^2$ itself"
+          ],
+          "answer": 0,
+          "hint": "By definition $\\langle M\\rangle$ is the unique predictable increasing process making $M_n^2-\\langle M\\rangle_n$ a martingale.",
+          "explain": "$\\langle M\\rangle_n$ is the Doob compensator of the submartingale $M_n^2$: predictable, increasing, $\\langle M\\rangle_0=0$, and $M_n^2-\\langle M\\rangle_n$ is a martingale. The pathwise sum $[M]_n=\\sum(\\Delta M_k)^2$ is the (different) optional quadratic variation."
+        }
+      ]
+    },
+    "sp-martingale-convergence": {
+      "title": "Martingale convergence theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Doob's martingale convergence theorem says: if $(M_n)$ is a martingale with $\\sup_n\\mathbb{E}|M_n|<\\infty$, then",
+          "choices": [
+            "$M_n\\to M_\\infty$ almost surely for some $M_\\infty\\in L^1$",
+            "$M_n\\to\\mathbb{E}[M_0]$ almost surely",
+            "$M_n$ converges in $L^1$",
+            "$M_n$ is bounded"
+          ],
+          "answer": 0,
+          "hint": "$L^1$-boundedness gives a.s. convergence to an $L^1$ limit; $L^1$-convergence requires the stronger uniform-integrability hypothesis.",
+          "explain": "$L^1$-boundedness implies a.s. convergence (Doob's upcrossing inequality) to an $L^1$ random variable $M_\\infty$. Without UI, $L^1$-convergence can fail and the limit need not equal $M_0$ in expectation."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $X_i$ be i.i.d.\\ with $\\mathbb{P}(X_i=2)=\\mathbb{P}(X_i=0)=1/2$, and $M_n=\\prod_{i=1}^n X_i$ (product martingale). Which is true?",
+          "choices": [
+            "$\\mathbb{E}[M_n]=1$ for all $n$ but $M_n\\to 0$ a.s.",
+            "$M_n\\to 1$ a.s. by the strong law",
+            "$M_n$ converges in $L^1$ to a random variable with mean $1$",
+            "$M_n$ does not converge"
+          ],
+          "answer": 0,
+          "hint": "$\\mathbb{E}[X_i]=1$ so $\\mathbb{E}[M_n]=1$ by independence. But $M_n=0$ as soon as any $X_i=0$, which happens a.s.\\ in finitely many steps.",
+          "explain": "$M_n$ is a non-negative martingale with $\\mathbb{E}[M_n]=1$, but $M_n=0$ once any $X_i$ takes the value $0$, which happens a.s. So $M_n\\to 0$ almost surely. The convergence is not in $L^1$ — this is the canonical $L^1$-bounded-but-not-UI example."
+        },
+        {
+          "type": "mcq",
+          "q": "For the $L^1$-convergence $M_n\\to M_\\infty$ in $L^1$ to hold, the additional hypothesis required is",
+          "choices": [
+            "uniform integrability of $(M_n)$",
+            "$M_n\\ge 0$",
+            "$M$ has independent increments",
+            "$\\sup_n\\mathbb{E}|M_n|^2<\\infty$ (this is necessary)"
+          ],
+          "answer": 0,
+          "hint": "UI is exactly what closes the gap between $L^1$-bounded and $L^1$-convergent: $M_n\\to M_\\infty$ in $L^1$ iff $(M_n)$ is UI.",
+          "explain": "Uniform integrability is the precise condition: a martingale converges in $L^1$ iff it is uniformly integrable, in which case $M_n=\\mathbb{E}[M_\\infty\\mid\\mathcal{F}_n]$. $L^2$-boundedness is sufficient but stronger than necessary."
+        }
+      ]
+    },
+    "sp-continuous-martingales": {
+      "title": "Continuous-time martingales and Brownian motion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Standard Brownian motion $W_t$ has",
+          "choices": [
+            "independent stationary increments with $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ and continuous paths a.s.",
+            "differentiable paths with derivative $W_t'\\sim\\mathcal{N}(0,1)$",
+            "increments uniformly distributed on $[-1,1]$",
+            "paths of finite total variation"
+          ],
+          "answer": 0,
+          "hint": "$W_0=0$, increments are independent and $\\mathcal{N}(0,t-s)$-distributed for $0\\le s<t$, and paths are continuous but nowhere differentiable.",
+          "explain": "Independent stationary Gaussian increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ and continuous (but nowhere differentiable, infinite total variation) paths characterise Brownian motion."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a martingale w.r.t.\\ the natural filtration of Brownian motion?",
+          "choices": [
+            "$W_t^2$",
+            "$W_t$",
+            "$W_t^2-t$",
+            "$\\exp(\\theta W_t-\\theta^2 t/2)$ for fixed $\\theta\\in\\mathbb{R}$"
+          ],
+          "answer": 0,
+          "hint": "$W_t^2$ is a submartingale; subtracting the predictable $t$ gives the martingale $W_t^2-t$.",
+          "explain": "$\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]=W_s^2+(t-s)>W_s^2$, so $W_t^2$ is a submartingale, not a martingale. The compensator $t$ subtracts off, leaving $W_t^2-t$ as the martingale; the exponential martingale is the engine of Girsanov."
+        },
+        {
+          "type": "numeric",
+          "q": "For Brownian motion on $[0,T]$, the quadratic variation $[W]_T$ along a refining partition converges (in probability) to what value when $T=2$?",
+          "answer": 2,
+          "tol": 0.001,
+          "hint": "$[W]_t=t$ a.s.\\ — quadratic variation along any sequence of partitions with mesh $\\to 0$ converges in probability to $t$.",
+          "explain": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability as the mesh shrinks; at $t=T=2$ this equals $2$. This is the signature of Brownian paths: finite quadratic variation, infinite total variation."
         }
       ]
     }

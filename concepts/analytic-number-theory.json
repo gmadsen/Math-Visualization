@@ -4,11 +4,67 @@
   "page": "analytic-number-theory.html",
   "concepts": [
     {
-      "id": "analytic-number-theory-intro",
-      "title": "Intro",
-      "anchor": "intro",
+      "id": "ant-prime-counting",
+      "title": "$\\pi(x)$ and the prime number theorem",
+      "anchor": "pnt",
       "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "ant-riemann-zeta-from-pnt",
+      "title": "$\\zeta(s)$ and the explicit formula",
+      "anchor": "explicit",
+      "prereqs": [
+        "ant-prime-counting",
+        "residue-theorem",
+        "perron-formula"
+      ],
+      "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$."
+    },
+    {
+      "id": "ant-zero-free-region",
+      "title": "Zero-free regions and PNT proofs",
+      "anchor": "zerofree",
+      "prereqs": [
+        "ant-riemann-zeta-from-pnt"
+      ],
+      "blurb": "Hadamard and de la Vallée Poussin (1896) showed $\\zeta(s) \\ne 0$ on $\\mathrm{Re}\\,s = 1$ via the trigonometric inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$, then extended this to a region $\\sigma > 1 - c/\\log|t|$. Pushing zeros away from the line $\\mathrm{Re}\\,s = 1$ controls the error in $\\psi(x) - x$ and yields PNT with effective remainder $O(x e^{-c\\sqrt{\\log x}})$.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "ant-dirichlet-theorem",
+      "title": "Dirichlet's theorem on primes in AP",
+      "anchor": "dirichlet",
+      "prereqs": [
+        "ant-prime-counting",
+        "dirichlet-characters-lseries"
+      ],
+      "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$."
+    },
+    {
+      "id": "ant-sieve-methods",
+      "title": "Sieve methods",
+      "anchor": "sieves",
+      "prereqs": [
+        "ant-prime-counting",
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
+    },
+    {
+      "id": "ant-bombieri-vinogradov",
+      "title": "Bombieri–Vinogradov on average",
+      "anchor": "bombieri",
+      "prereqs": [
+        "ant-dirichlet-theorem",
+        "lfunction-prototype"
+      ],
+      "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
     }
   ]
 }

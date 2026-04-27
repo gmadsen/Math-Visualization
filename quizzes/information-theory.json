@@ -1,19 +1,227 @@
 {
   "topic": "information-theory",
   "quizzes": {
-    "information-theory-intro": {
-      "title": "Intro",
+    "it-shannon-entropy": {
+      "title": "Shannon entropy",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $H(X)$ in bits for the fair coin: $X\\in\\{0,1\\}$ with $p_0=p_1=1/2$.",
+          "answer": 1,
+          "tol": 0.0001,
+          "hint": "$H = -2\\cdot\\tfrac{1}{2}\\log_2\\tfrac{1}{2} = 1$ bit.",
+          "explain": "$H(X) = -\\sum_i p_i \\log_2 p_i = -2\\cdot\\tfrac{1}{2}\\log_2(1/2) = 1$ bit. The fair coin is the maximum-entropy law on two symbols."
+        },
+        {
+          "type": "mcq",
+          "q": "Which distribution on $\\{1,\\ldots,n\\}$ maximises $H(X)$?",
+          "choices": [
+            "Point mass at $i=1$",
+            "Geometric with parameter $1/n$",
+            "Uniform: $p_i=1/n$ for all $i$",
+            "Whichever puts most mass at the largest $i$"
+          ],
+          "answer": 2,
+          "hint": "Concavity of $-x\\log x$ with the constraint $\\sum p_i=1$ pushes mass to spread out.",
+          "explain": "By Jensen / Lagrange multipliers, the unique maximiser is uniform with $H = \\log n$. Point masses give $H = 0$ (the minimum)."
+        },
+        {
+          "type": "numeric",
+          "q": "Binary entropy $h(p) = -p\\log_2 p - (1-p)\\log_2(1-p)$. Compute $h(1/4)$ in bits (round to 3 decimals).",
+          "answer": 0.811,
+          "tol": 0.005,
+          "hint": "$h(1/4) = -\\tfrac{1}{4}\\log_2\\tfrac{1}{4} - \\tfrac{3}{4}\\log_2\\tfrac{3}{4} = \\tfrac{1}{2} + \\tfrac{3}{4}\\log_2(4/3)$.",
+          "explain": "$h(1/4) = 0.5 + 0.75\\cdot 0.4150 \\approx 0.8113$ bits. The binary entropy peaks at $p=1/2$ with value $1$ and is symmetric in $p\\leftrightarrow 1-p$."
+        }
+      ]
+    },
+    "it-mutual-information": {
+      "title": "Mutual information",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "Which identity for mutual information is FALSE?",
           "choices": [
-            "A",
-            "B"
+            "$I(X;Y) = H(X) - H(X\\mid Y)$",
+            "$I(X;Y) = H(X) + H(Y) - H(X,Y)$",
+            "$I(X;Y) = D(p_{XY}\\,\\|\\,p_X p_Y)$",
+            "$I(X;Y) = H(X,Y) - H(X\\mid Y) - H(Y\\mid X)$"
+          ],
+          "answer": 3,
+          "hint": "Subtracting both conditionals from $H(X,Y)$ double-counts the overlap.",
+          "explain": "$H(X,Y) - H(X\\mid Y) - H(Y\\mid X) = I(X;Y)$ would require subtracting only one conditional, not both. The correct identity is $H(X,Y) = H(X\\mid Y) + H(Y) = H(Y\\mid X) + H(X)$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $X$ and $Y$ are independent, what is $I(X;Y)$?",
+          "answer": 0,
+          "tol": 0.0001,
+          "hint": "Independence means the joint factors as $p_{XY} = p_X p_Y$, so the KL distance to the product is $0$.",
+          "explain": "Independence is exactly $p_{XY} = p_X p_Y$, hence $D(p_{XY}\\,\\|\\,p_X p_Y) = 0$. Conversely $I(X;Y) = 0$ implies independence."
+        },
+        {
+          "type": "mcq",
+          "q": "The data-processing inequality states that for a Markov chain $X\\to Y\\to Z$:",
+          "choices": [
+            "$I(X;Z) \\ge I(X;Y)$",
+            "$I(X;Z) \\le I(X;Y)$",
+            "$I(X;Z) = I(Y;Z)$",
+            "$I(X;Z) = H(Z)$"
+          ],
+          "answer": 1,
+          "hint": "Post-processing $Y$ into $Z$ cannot create information about $X$ that $Y$ did not already carry.",
+          "explain": "For any Markov chain $X\\to Y\\to Z$, $I(X;Z) \\le I(X;Y)$ — passing through $Y$ is a bottleneck that can only lose information about $X$. This is the data-processing inequality."
+        }
+      ]
+    },
+    "it-kl-divergence": {
+      "title": "Kullback–Leibler divergence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which property of $D(p\\,\\|\\,q)$ is FALSE?",
+          "choices": [
+            "$D(p\\,\\|\\,q) \\ge 0$ (Gibbs' inequality)",
+            "$D(p\\,\\|\\,q) = 0 \\iff p = q$",
+            "$D(p\\,\\|\\,q) = D(q\\,\\|\\,p)$",
+            "$D(p\\,\\|\\,q) = \\infty$ when $p$ has support outside $q$"
+          ],
+          "answer": 2,
+          "hint": "$D$ is not symmetric — it's not a metric.",
+          "explain": "$D(p\\,\\|\\,q)$ is generally not symmetric: e.g. with $p=(1/2,1/2)$ and $q=(1,0)$, $D(p\\,\\|\\,q)=\\infty$ but $D(q\\,\\|\\,p)=1$ bit. The other three properties hold."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $D(p\\,\\|\\,q)$ in bits for $p=(1/2,1/2)$ and $q=(1/4,3/4)$.",
+          "answer": 0.2075,
+          "tol": 0.005,
+          "hint": "$D = \\tfrac{1}{2}\\log_2(2) + \\tfrac{1}{2}\\log_2(2/3) = 1 - \\tfrac{1}{2}\\log_2 3$.",
+          "explain": "$D(p\\,\\|\\,q) = \\tfrac{1}{2}\\log_2((1/2)/(1/4)) + \\tfrac{1}{2}\\log_2((1/2)/(3/4)) = \\tfrac{1}{2}(1) + \\tfrac{1}{2}(\\log_2(2/3)) \\approx 0.2075$ bits."
+        },
+        {
+          "type": "mcq",
+          "q": "In Sanov's theorem, the empirical distribution of $n$ i.i.d.\\ samples from $\\mu$ deviates to a set $A$ of distributions with probability decaying like $e^{-n\\cdot(\\,\\cdot\\,)}$. The exponent is:",
+          "choices": [
+            "$H(\\mu)$",
+            "$\\inf_{\\nu\\in A} D(\\nu\\,\\|\\,\\mu)$",
+            "$\\inf_{\\nu\\in A} D(\\mu\\,\\|\\,\\nu)$",
+            "Variance of $\\mu$"
+          ],
+          "answer": 1,
+          "hint": "Sanov picks the closest distribution in $A$ to the truth $\\mu$, in KL distance from the candidate $\\nu$ to $\\mu$.",
+          "explain": "Sanov's theorem: $\\mathbb{P}(L_n \\in A) \\asymp \\exp(-n\\inf_{\\nu\\in A} D(\\nu\\,\\|\\,\\mu))$. KL divergence is the canonical large-deviations rate for empirical measures."
+        }
+      ]
+    },
+    "it-source-coding": {
+      "title": "Source coding",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Shannon's source-coding theorem says: for an i.i.d.\\ source with entropy $H(X)$, the minimum expected bits per symbol of any lossless code is:",
+          "choices": [
+            "Exactly $H(X)$",
+            "At least $H(X)$, and rates approaching $H(X)$ are achievable as block length grows",
+            "Always $\\log_2 n$ where $n$ is the alphabet size",
+            "Bounded above by $H(X)$"
+          ],
+          "answer": 1,
+          "hint": "$H(X)$ is a lower bound on average code length, achievable in the limit.",
+          "explain": "$H(X)$ is the sharp asymptotic rate: any lossless code uses at least $H(X)$ bits per symbol on average, and block-coding achieves $H(X) + \\varepsilon$ for any $\\varepsilon > 0$ as the block length grows."
+        },
+        {
+          "type": "numeric",
+          "q": "A source emits symbols $\\{a,b,c,d\\}$ with probabilities $(1/2, 1/4, 1/8, 1/8)$. Compute $H(X)$ in bits.",
+          "answer": 1.75,
+          "tol": 0.001,
+          "hint": "$H = \\tfrac{1}{2}(1) + \\tfrac{1}{4}(2) + \\tfrac{1}{8}(3) + \\tfrac{1}{8}(3)$.",
+          "explain": "$H(X) = \\tfrac{1}{2}\\log_2 2 + \\tfrac{1}{4}\\log_2 4 + \\tfrac{1}{8}\\log_2 8 + \\tfrac{1}{8}\\log_2 8 = 0.5 + 0.5 + 0.375 + 0.375 = 1.75$ bits. The Huffman code $\\{0, 10, 110, 111\\}$ achieves exactly this."
+        },
+        {
+          "type": "mcq",
+          "q": "The asymptotic equipartition property (AEP) states that for $n$ i.i.d.\\ samples from $X$, the typical set has size approximately:",
+          "choices": [
+            "$2^{nH(X)}$",
+            "$n^{H(X)}$",
+            "$2^{n}$",
+            "$H(X)^n$"
           ],
           "answer": 0,
-          "hint": "Placeholder.",
-          "explain": "Placeholder."
+          "hint": "Each typical sequence has probability about $2^{-nH(X)}$, and the total mass is close to $1$.",
+          "explain": "The AEP says most probability mass concentrates on $\\approx 2^{nH(X)}$ \"typical\" sequences, each with probability $\\approx 2^{-nH(X)}$. Source coding then needs $\\approx nH(X)$ bits to index them."
+        }
+      ]
+    },
+    "it-channel-coding": {
+      "title": "Channel coding",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "The binary symmetric channel with cross-over probability $p$ has capacity $C = 1 - h(p)$ bits, where $h$ is binary entropy. Compute $C$ for $p = 0$.",
+          "answer": 1,
+          "tol": 0.0001,
+          "hint": "A noiseless binary channel transmits one bit per use.",
+          "explain": "$h(0) = 0$, so $C = 1 - 0 = 1$ bit per channel use — the noiseless binary channel is perfectly clear."
+        },
+        {
+          "type": "numeric",
+          "q": "For the BSC, what is the capacity $C$ in bits when $p = 1/2$?",
+          "answer": 0,
+          "tol": 0.0001,
+          "hint": "$h(1/2) = 1$, so $C = 1 - 1 = 0$.",
+          "explain": "At $p = 1/2$ the output is independent of the input — every transmitted bit is randomised — so $C = 0$. The BSC capacity is symmetric around $1/2$ and minimised there."
+        },
+        {
+          "type": "mcq",
+          "q": "Shannon's noisy-channel theorem implies which of the following?",
+          "choices": [
+            "Every channel can transmit data with zero error at any rate",
+            "Rates $R < C$ admit codes with vanishing error; rates $R > C$ have error bounded below",
+            "$C$ is achieved only by uniform input distributions",
+            "Capacity decreases with block length"
+          ],
+          "answer": 1,
+          "hint": "Capacity is the sharp threshold between achievable and unachievable rates.",
+          "explain": "Shannon's theorem: for any $R < C$, there exist block codes whose error probability tends to $0$ as block length grows; for $R > C$, error is bounded away from $0$. $C$ is a sharp threshold."
+        }
+      ]
+    },
+    "it-rate-distortion": {
+      "title": "Rate–distortion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The rate–distortion function $R(D)$ for a source $X$ and distortion $d$ is defined as:",
+          "choices": [
+            "$\\max_{p_{\\hat X\\mid X}} I(X;\\hat X)$ subject to $\\mathbb{E}[d(X,\\hat X)]\\le D$",
+            "$\\min_{p_{\\hat X\\mid X}} I(X;\\hat X)$ subject to $\\mathbb{E}[d(X,\\hat X)]\\le D$",
+            "$H(X) - D$",
+            "$\\min_{p_{\\hat X\\mid X}} H(\\hat X)$"
+          ],
+          "answer": 1,
+          "hint": "We minimise the bits used while keeping expected distortion below $D$.",
+          "explain": "$R(D) = \\min_{p_{\\hat X\\mid X}: \\mathbb{E}[d(X,\\hat X)]\\le D} I(X;\\hat X)$. This is the smallest mutual information (≈ bits per symbol) needed to reconstruct $X$ within average distortion $D$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a Gaussian source $X\\sim\\mathcal{N}(0,\\sigma^2)$ with squared-error distortion, $R(D) = \\tfrac{1}{2}\\log_2(\\sigma^2/D)$ for $0 < D \\le \\sigma^2$. Compute $R(\\sigma^2)$ in bits.",
+          "answer": 0,
+          "tol": 0.0001,
+          "hint": "When $D = \\sigma^2$, the constant $\\hat X = 0$ already achieves the distortion bound.",
+          "explain": "$R(\\sigma^2) = \\tfrac{1}{2}\\log_2 1 = 0$ bits — at distortion equal to source variance, the trivial reconstruction $\\hat X = 0$ suffices and no information needs to be transmitted."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $R(D)$ monotonically non-increasing in $D$?",
+          "choices": [
+            "Because $I$ is symmetric",
+            "Because relaxing the distortion constraint enlarges the feasible set, so the minimum can only decrease",
+            "Because $H(X)$ does not depend on $D$",
+            "Because $R(0) = 0$"
+          ],
+          "answer": 1,
+          "hint": "Larger $D$ admits more reconstruction laws, so the minimum over a larger set is smaller.",
+          "explain": "Increasing $D$ expands the feasible set $\\{p_{\\hat X\\mid X}: \\mathbb{E}[d]\\le D\\}$, so $\\min I(X;\\hat X)$ over a larger set is no larger. Hence $R$ is non-increasing in $D$."
         }
       ]
     }

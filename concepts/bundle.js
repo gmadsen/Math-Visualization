@@ -3739,11 +3739,81 @@ window.__MVConcepts = {
       "page": "partial-differential-equations.html",
       "concepts": [
         {
-          "id": "partial-differential-equations-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "pde-classification",
+          "title": "Classification: elliptic / parabolic / hyperbolic",
+          "anchor": "classification",
+          "prereqs": [
+            "multivariable-differentiation"
+          ],
+          "blurb": "Second-order linear PDEs $a u_{xx}+2b u_{xy}+c u_{yy}+\\cdots=0$ split by the discriminant $b^2-ac$: elliptic ($<0$, Laplace), parabolic ($=0$, heat), hyperbolic ($>0$, wave). The sign controls characteristic curves and the well-posed boundary data.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "pde-heat-equation",
+          "title": "Heat equation and the heat kernel",
+          "anchor": "heat",
+          "prereqs": [
+            "pde-classification",
+            "convergence-theorems"
+          ],
+          "blurb": "$u_t=\\Delta u$ smooths data instantly: the fundamental solution $K_t(x)=(4\\pi t)^{-n/2}e^{-|x|^2/4t}$ converts $\\delta_0$ initial data into a Gaussian whose width scales as $\\sqrt{t}$, and the maximum principle keeps solutions trapped between their initial and boundary extremes.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-wave-equation",
+          "title": "Wave equation and d'Alembert",
+          "anchor": "wave",
+          "prereqs": [
+            "pde-classification"
+          ],
+          "blurb": "$u_{tt}=c^2\\Delta u$ has finite speed $c$: in 1D, d'Alembert writes $u(x,t)=\\tfrac12[f(x-ct)+f(x+ct)]+\\tfrac{1}{2c}\\!\\int_{x-ct}^{x+ct}\\!g$, two travelling waves carrying the data along characteristics; in odd $n\\ge3$ Huygens' principle gives sharp wavefronts.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-laplace-equation",
+          "title": "Laplace equation and the Dirichlet problem",
+          "anchor": "laplace",
+          "prereqs": [
+            "pde-classification",
+            "hf-laplace-equation"
+          ],
+          "blurb": "$\\Delta u=0$ is the equilibrium of $u_t=\\Delta u$: solutions enjoy the mean-value property, hit their extremes only on $\\partial\\Omega$, and the Dirichlet/Neumann problems prescribe boundary value or normal flux. On the disk, the Poisson kernel writes the unique solution as a boundary integral.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-weak-solutions",
+          "title": "Weak solutions and Galerkin approximation",
+          "anchor": "weak-solutions",
+          "prereqs": [
+            "pde-laplace-equation",
+            "lp-spaces",
+            "lebesgue-measure"
+          ],
+          "blurb": "Multiply $-\\Delta u=f$ by a test function and integrate by parts: a weak solution lives in $H^1_0(\\Omega)$ and satisfies $\\int\\nabla u\\cdot\\nabla v=\\int fv$ for every test $v$. Galerkin's method picks finite-dimensional subspaces, solves the projected system, and passes to the limit.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-existence-and-regularity",
+          "title": "Lax–Milgram, elliptic regularity, embedding",
+          "anchor": "regularity",
+          "prereqs": [
+            "pde-weak-solutions",
+            "riesz-representation"
+          ],
+          "blurb": "Coercivity + continuity of the bilinear form gives a unique weak solution by Lax–Milgram; elliptic regularity then trades smoothness of $f$ for smoothness of $u$ ($f\\in H^k\\Rightarrow u\\in H^{k+2}$), and Sobolev embedding turns enough weak derivatives into classical continuity.",
+          "tags": [
+            "compactness"
+          ]
         }
       ]
     },
@@ -3753,11 +3823,65 @@ window.__MVConcepts = {
       "page": "harmonic-functions.html",
       "concepts": [
         {
-          "id": "harmonic-functions-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "hf-laplace-equation",
+          "title": "Laplace's equation",
+          "anchor": "laplace-equation",
+          "prereqs": [
+            "real-differentiation",
+            "cauchy-riemann"
+          ],
+          "blurb": "A $C^2$ function $u\\colon\\Omega\\subseteq\\mathbb{R}^n\\to\\mathbb{R}$ is harmonic when $\\Delta u = \\sum \\partial_{x_i}^2 u = 0$. In two dimensions every real or imaginary part of a holomorphic function is harmonic, and every harmonic $u$ on a simply connected domain admits a harmonic conjugate.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "hf-mean-value-property",
+          "title": "Mean value property",
+          "anchor": "mvp",
+          "prereqs": [
+            "hf-laplace-equation",
+            "cauchy-theorem"
+          ],
+          "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$."
+        },
+        {
+          "id": "hf-maximum-principle",
+          "title": "Maximum principle",
+          "anchor": "maximum",
+          "prereqs": [
+            "hf-mean-value-property"
+          ],
+          "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem."
+        },
+        {
+          "id": "hf-poisson-kernel",
+          "title": "Poisson kernel",
+          "anchor": "poisson",
+          "prereqs": [
+            "hf-mean-value-property",
+            "lebesgue-measure"
+          ],
+          "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem."
+        },
+        {
+          "id": "hf-harnack-inequality",
+          "title": "Harnack's inequality",
+          "anchor": "harnack",
+          "prereqs": [
+            "hf-poisson-kernel"
+          ],
+          "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions)."
+        },
+        {
+          "id": "hf-subharmonic",
+          "title": "Subharmonic functions and Perron's method",
+          "anchor": "subharmonic",
+          "prereqs": [
+            "hf-maximum-principle",
+            "analyticity"
+          ],
+          "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data."
         }
       ]
     },
@@ -3918,11 +4042,71 @@ window.__MVConcepts = {
       "page": "stochastic-processes-and-martingales.html",
       "concepts": [
         {
-          "id": "stochastic-processes-and-martingales-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "sp-filtrations",
+          "title": "Filtrations and adapted processes",
+          "anchor": "filtrations",
+          "prereqs": [
+            "sigma-algebras",
+            "sample-spaces-events"
+          ],
+          "blurb": "A filtration $(\\mathcal{F}_n)$ is an increasing family of sub-$\\sigma$-algebras encoding the information available at time $n$; a process is adapted when each $X_n$ is $\\mathcal{F}_n$-measurable, and a stopping time $\\tau$ satisfies $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sp-discrete-martingales",
+          "title": "Discrete-time martingales",
+          "anchor": "discrete-martingales",
+          "prereqs": [
+            "sp-filtrations",
+            "expectation-moments"
+          ],
+          "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples."
+        },
+        {
+          "id": "sp-optional-stopping",
+          "title": "Optional stopping theorem",
+          "anchor": "optional-stopping",
+          "prereqs": [
+            "sp-discrete-martingales"
+          ],
+          "blurb": "If $\\tau$ is a stopping time and either (a) $\\tau$ is bounded, (b) $M$ is uniformly integrable, or (c) $\\tau<\\infty$ a.s. and $(M_{n\\wedge\\tau})$ is bounded, then $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$; gambler's ruin and Wald's identity drop out as corollaries.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sp-doob-decomposition",
+          "title": "Doob decomposition and quadratic variation",
+          "anchor": "doob-decomposition",
+          "prereqs": [
+            "sp-discrete-martingales"
+          ],
+          "blurb": "Every $L^1$ adapted process splits uniquely as $X_n=X_0+M_n+A_n$ with $M$ a martingale and $A$ predictable; for $X=S^2$ with $S$ a mean-zero random walk this recovers $\\langle S\\rangle_n=n$, the discrete quadratic variation.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "sp-martingale-convergence",
+          "title": "Martingale convergence theorem",
+          "anchor": "convergence",
+          "prereqs": [
+            "sp-discrete-martingales",
+            "convergence-rv"
+          ],
+          "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$."
+        },
+        {
+          "id": "sp-continuous-martingales",
+          "title": "Continuous-time martingales and Brownian motion",
+          "anchor": "continuous-martingales",
+          "prereqs": [
+            "sp-martingale-convergence",
+            "brownian-motion"
+          ],
+          "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus."
         }
       ]
     },
@@ -3932,11 +4116,70 @@ window.__MVConcepts = {
       "page": "stochastic-calculus.html",
       "concepts": [
         {
-          "id": "stochastic-calculus-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "sc-ito-integral",
+          "title": "Itô integral",
+          "anchor": "ito-integral",
+          "prereqs": [
+            "sp-continuous-martingales",
+            "brownian-motion"
+          ],
+          "blurb": "For predictable $H$ with $\\mathbb{E}\\int_0^T H_s^2\\,ds<\\infty$, the Itô integral $\\int_0^t H_s\\,dB_s$ is built as the $L^2$ limit of left-endpoint Riemann sums on simple processes; the resulting process is a continuous $L^2$-martingale and the choice of evaluation point is what distinguishes Itô from Stratonovich.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sc-ito-formula",
+          "title": "Itô's formula",
+          "anchor": "ito-formula",
+          "prereqs": [
+            "sc-ito-integral",
+            "sp-doob-decomposition"
+          ],
+          "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$."
+        },
+        {
+          "id": "sc-sde-existence",
+          "title": "Stochastic differential equations",
+          "anchor": "sde",
+          "prereqs": [
+            "sc-ito-integral",
+            "sc-ito-formula"
+          ],
+          "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example."
+        },
+        {
+          "id": "sc-girsanov",
+          "title": "Girsanov's theorem",
+          "anchor": "girsanov",
+          "prereqs": [
+            "sc-ito-formula",
+            "sc-sde-existence"
+          ],
+          "blurb": "The exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ defines a measure $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$ under which $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is Brownian — drifts are absorbed into the measure, the workhorse behind risk-neutral pricing.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "sc-feynman-kac",
+          "title": "Feynman–Kac formula",
+          "anchor": "feynman-kac",
+          "prereqs": [
+            "sc-ito-formula",
+            "sc-sde-existence"
+          ],
+          "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely."
+        },
+        {
+          "id": "sc-applications",
+          "title": "Applications: Black–Scholes, Kalman, optimal stopping",
+          "anchor": "applications",
+          "prereqs": [
+            "sc-girsanov",
+            "sc-feynman-kac"
+          ],
+          "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE."
         }
       ]
     },
@@ -4030,11 +4273,58 @@ window.__MVConcepts = {
       "page": "large-deviations.html",
       "concepts": [
         {
-          "id": "large-deviations-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "ld-cramer-theorem",
+          "title": "Cramér's theorem",
+          "anchor": "cramer",
+          "prereqs": [
+            "expectation-moments",
+            "law-of-large-numbers"
+          ],
+          "blurb": "For i.i.d.\\ $X_i$ with finite log-MGF $\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X}]$, the empirical mean $\\bar X_n$ satisfies $\\mathbb{P}(\\bar X_n\\ge x)\\asymp e^{-nI(x)}$, where $I(x)=\\sup_\\theta\\{\\theta x-\\Lambda(\\theta)\\}$ is the Legendre transform of $\\Lambda$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ld-rate-function",
+          "title": "Rate functions and convex duality",
+          "anchor": "rate-function",
+          "prereqs": [
+            "ld-cramer-theorem"
+          ],
+          "blurb": "A rate function $I:\\mathcal{X}\\to[0,\\infty]$ is lower semicontinuous, equals $0$ at the LLN limit, and is convex when produced by a Legendre transform; its level sets are the compacts that govern the LDP.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "ld-sanov-theorem",
+          "title": "Sanov's theorem",
+          "anchor": "sanov",
+          "prereqs": [
+            "ld-rate-function"
+          ],
+          "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function."
+        },
+        {
+          "id": "ld-gartner-ellis",
+          "title": "Gärtner–Ellis theorem",
+          "anchor": "gartner-ellis",
+          "prereqs": [
+            "ld-rate-function",
+            "convergence-rv"
+          ],
+          "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums."
+        },
+        {
+          "id": "ld-applications",
+          "title": "Applications: Schilder, Freidlin–Wentzell, entropy",
+          "anchor": "applications",
+          "prereqs": [
+            "ld-sanov-theorem",
+            "ld-gartner-ellis"
+          ],
+          "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics."
         }
       ]
     },
@@ -5543,11 +5833,67 @@ window.__MVConcepts = {
       "page": "analytic-number-theory.html",
       "concepts": [
         {
-          "id": "analytic-number-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
+          "id": "ant-prime-counting",
+          "title": "$\\pi(x)$ and the prime number theorem",
+          "anchor": "pnt",
           "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ant-riemann-zeta-from-pnt",
+          "title": "$\\zeta(s)$ and the explicit formula",
+          "anchor": "explicit",
+          "prereqs": [
+            "ant-prime-counting",
+            "residue-theorem",
+            "perron-formula"
+          ],
+          "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$."
+        },
+        {
+          "id": "ant-zero-free-region",
+          "title": "Zero-free regions and PNT proofs",
+          "anchor": "zerofree",
+          "prereqs": [
+            "ant-riemann-zeta-from-pnt"
+          ],
+          "blurb": "Hadamard and de la Vallée Poussin (1896) showed $\\zeta(s) \\ne 0$ on $\\mathrm{Re}\\,s = 1$ via the trigonometric inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$, then extended this to a region $\\sigma > 1 - c/\\log|t|$. Pushing zeros away from the line $\\mathrm{Re}\\,s = 1$ controls the error in $\\psi(x) - x$ and yields PNT with effective remainder $O(x e^{-c\\sqrt{\\log x}})$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "ant-dirichlet-theorem",
+          "title": "Dirichlet's theorem on primes in AP",
+          "anchor": "dirichlet",
+          "prereqs": [
+            "ant-prime-counting",
+            "dirichlet-characters-lseries"
+          ],
+          "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$."
+        },
+        {
+          "id": "ant-sieve-methods",
+          "title": "Sieve methods",
+          "anchor": "sieves",
+          "prereqs": [
+            "ant-prime-counting",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
+        },
+        {
+          "id": "ant-bombieri-vinogradov",
+          "title": "Bombieri–Vinogradov on average",
+          "anchor": "bombieri",
+          "prereqs": [
+            "ant-dirichlet-theorem",
+            "lfunction-prototype"
+          ],
+          "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
         }
       ]
     },
@@ -6344,11 +6690,86 @@ window.__MVConcepts = {
       "page": "modular-curves.html",
       "concepts": [
         {
-          "id": "modular-curves-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "mc-y0-x0",
+          "title": "Y0(N), X0(N), and the cusps",
+          "anchor": "y0-x0",
+          "prereqs": [
+            "sl2z-on-H",
+            "riemann-surface-definition"
+          ],
+          "blurb": "The congruence subgroup $\\Gamma_0(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$ consists of matrices with $c \\equiv 0 \\pmod N$. The quotient $Y_0(N) = \\mathcal{H}/\\Gamma_0(N)$ is a non-compact Riemann surface whose missing points — the cusps — sit at rational numbers and $i\\infty$. Adding finitely many cusps yields the smooth compact modular curve $X_0(N)$, the central object of the Langlands–Eichler–Shimura story.",
+          "tags": [
+            "compactness",
+            "group-action"
+          ]
+        },
+        {
+          "id": "mc-moduli-of-elliptic-curves",
+          "title": "$Y_0(N)$ as a moduli space",
+          "anchor": "moduli",
+          "prereqs": [
+            "mc-y0-x0",
+            "lattices-in-C"
+          ],
+          "blurb": "Points of $Y_0(N)$ correspond bijectively to isomorphism classes of pairs $(E, C)$, where $E$ is an elliptic curve over $\\mathbb{C}$ and $C \\subset E$ is a cyclic subgroup of order $N$. The complex-analytic version says $\\tau \\in \\mathcal{H}/\\Gamma_0(N)$ encodes the lattice $\\Lambda_\\tau = \\mathbb{Z} + \\mathbb{Z}\\tau$ together with the distinguished cyclic subgroup $\\frac{1}{N}\\mathbb{Z}/\\mathbb{Z} \\subset \\mathbb{C}/\\Lambda_\\tau$.",
+          "tags": [
+            "moduli",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "mc-hecke-correspondences-curves",
+          "title": "Hecke correspondences on $X_0(N)$",
+          "anchor": "hecke-corr",
+          "prereqs": [
+            "mc-moduli-of-elliptic-curves"
+          ],
+          "blurb": "For a prime $p \\nmid N$, the Hecke correspondence $T_p$ on $X_0(N)$ sends the moduli point $(E,C)$ to the formal sum over the $p+1$ subgroups $D \\subset E$ of order $p$ disjoint from $C$, mapping to $(E/D, (C+D)/D)$. As an algebraic correspondence — a curve inside $X_0(N) \\times X_0(N)$ — it induces both the classical Hecke operator on modular forms and an endomorphism of the Jacobian.",
+          "tags": [
+            "group-action",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "mc-jacobian-J0",
+          "title": "The Jacobian $J_0(N)$ and Eichler–Shimura",
+          "anchor": "jacobian",
+          "prereqs": [
+            "mc-hecke-correspondences-curves",
+            "modular-form-definition"
+          ],
+          "blurb": "The Jacobian $J_0(N) = \\mathrm{Pic}^0(X_0(N))$ is an abelian variety of dimension equal to the genus of $X_0(N)$. Eichler–Shimura identifies its tangent space at the origin with the space of weight-$2$ cusp forms $S_2(\\Gamma_0(N))$, and the Hecke action on the curve matches the Hecke action on forms — the bridge that turns each newform into a modular abelian-variety quotient $A_f$ of $J_0(N)$.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "mc-genus-formula",
+          "title": "Genus formulas for $X_0(N)$, $X_1(N)$, $X(N)$",
+          "anchor": "genus",
+          "prereqs": [
+            "mc-y0-x0"
+          ],
+          "blurb": "Riemann–Hurwitz applied to $X_0(N) \\to X(1)$ gives $$g(X_0(N)) = 1 + \\frac{[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]}{12} - \\frac{\\nu_2}{4} - \\frac{\\nu_3}{3} - \\frac{\\nu_\\infty}{2},$$ where $\\nu_2,\\nu_3$ count elliptic points of orders $2,3$ and $\\nu_\\infty$ counts cusps. The first level with $g \\ge 1$ is $N=11$, and $X_0(N)$ has genus $0$ exactly for the fifteen levels $N \\in \\{1\\text{–}10, 12, 13, 16, 18, 25\\}$.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "mc-cusps-galois",
+          "title": "Cusps and rationality over $\\mathbb{Q}$",
+          "anchor": "cusps-galois",
+          "prereqs": [
+            "mc-y0-x0",
+            "mc-moduli-of-elliptic-curves"
+          ],
+          "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
         }
       ]
     },
@@ -9005,39 +9426,39 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 107,
-      "intra": 166,
+      "concepts": 117,
+      "intra": 187,
       "crossOut": 16,
-      "crossIn": 30,
-      "density": 0.14953271028037382
+      "crossIn": 32,
+      "density": 0.13675213675213677
     },
     "Probability & statistics": {
-      "concepts": 22,
-      "intra": 22,
-      "crossOut": 9,
+      "concepts": 36,
+      "intra": 51,
+      "crossOut": 10,
       "crossIn": 8,
-      "density": 0.4090909090909091
+      "density": 0.2777777777777778
     },
     "Geometry & topology": {
       "concepts": 51,
       "intra": 60,
       "crossOut": 6,
-      "crossIn": 48,
+      "crossIn": 49,
       "density": 0.11764705882352941
     },
     "Number theory": {
-      "concepts": 73,
-      "intra": 96,
-      "crossOut": 25,
+      "concepts": 78,
+      "intra": 101,
+      "crossOut": 30,
       "crossIn": 22,
-      "density": 0.3424657534246575
+      "density": 0.38461538461538464
     },
     "Modular forms & L-functions": {
-      "concepts": 74,
-      "intra": 94,
-      "crossOut": 47,
-      "crossIn": 6,
-      "density": 0.6351351351351351
+      "concepts": 79,
+      "intra": 103,
+      "crossOut": 48,
+      "crossIn": 10,
+      "density": 0.6075949367088608
     },
     "Algebraic geometry": {
       "concepts": 109,

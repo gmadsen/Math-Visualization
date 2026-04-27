@@ -174,63 +174,65 @@
 <script src="./js/display-prefs.js"></script>
 <!-- display-prefs-head-auto-end -->
 </head>
-<body data-section="Modular forms & L-functions" data-level="intermediate">
+<body data-section="Modular forms & L-functions" data-level="advanced">
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
 const SVG = (tag,attrs={})=>{
-  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  const e = document.createElementNS("http://www.w3.org/2000/svg",tag);
   for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
   return e;
 };
-// draw an arrow marker def once per svg (idempotent)
 function ensureArrow(svg, id, color){
-  let defs = svg.querySelector('defs');
-  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
-  if(defs.querySelector('#'+id)) return;
-  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
-  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  let defs = svg.querySelector("defs");
+  if(!defs){ defs = SVG("defs"); svg.appendChild(defs); }
+  if(defs.querySelector("#"+id)) return;
+  const mk = SVG("marker",{id,viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:6,markerHeight:6,orient:"auto"});
+  mk.appendChild(SVG("path",{d:"M0,0 L10,5 L0,10 z",fill:color}));
   defs.appendChild(mk);
 }
-// curved arrow between two pixel points, with optional label
 function drawArrow(svg, p1, p2, opts={}){
-  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  const {color="var(--ink)", curve=0, label=null, labelSide=1, markerId="arr-default", dash=null, width=1.5} = opts;
   ensureArrow(svg, markerId, color);
   const [x1,y1]=p1, [x2,y2]=p2;
   const dx=x2-x1, dy=y2-y1;
   const L = Math.hypot(dx,dy) || 1;
   const ux=dx/L, uy=dy/L;
-  // shorten endpoints
   const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
   const ax=x1+ux*pad1, ay=y1+uy*pad1;
   const bx=x2-ux*pad2, by=y2-uy*pad2;
   const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
-  const path = SVG('path',{
+  const path = SVG("path",{
     d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
-    fill:'none', stroke:color, 'stroke-width':width,
-    'marker-end':`url(#${markerId})`
+    fill:"none", stroke:color, "stroke-width":width,
+    "marker-end":`url(#${markerId})`
   });
-  if(dash) path.setAttribute('stroke-dasharray', dash);
+  if(dash) path.setAttribute("stroke-dasharray", dash);
   svg.appendChild(path);
   if(label){
-    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
-      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    const t = SVG("text",{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      "text-anchor":"middle","font-size":12, fill:color, "font-style":"italic"});
     t.textContent = label;
     svg.appendChild(t);
   }
   return path;
 }
 function drawNode(svg, x, y, label, opts={}){
-  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
-  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
-  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  const {r=18, fill="var(--panel2)", stroke="var(--blue)", textColor="#fff", fontSize=14} = opts;
+  svg.appendChild(SVG("circle",{cx:x,cy:y,r,fill,stroke,"stroke-width":1.5}));
+  const t = SVG("text",{x,y:y+fontSize*0.35,"text-anchor":"middle","font-size":fontSize,fill:textColor,"font-weight":600});
   t.textContent = label;
   svg.appendChild(t);
 }
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+  <a href="#y0-x0">1&nbsp;Y0(N), X0(N)</a>
+  <a href="#moduli">2&nbsp;Moduli</a>
+  <a href="#hecke-corr">3&nbsp;Hecke</a>
+  <a href="#jacobian">4&nbsp;Jacobian</a>
+  <a href="#genus">5&nbsp;Genus</a>
+  <a href="#cusps-galois">6&nbsp;Cusps</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -240,13 +242,866 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Modular curves</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">Quotients of $\mathcal{H}$ by congruence subgroups, compactified to Riemann surfaces, parametrize elliptic curves with level structure — the geometric stage where Hecke operators, Jacobians, and modular forms meet.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="modular-curves-intro"></div>
+<section id="y0-x0">
+<h2>1. $Y_0(N)$, $X_0(N)$, and the cusps</h2>
+<p>Inside the modular group $\mathrm{SL}_2(\mathbb{Z})$ sit the <strong>congruence subgroups</strong>. The most important for our story is
+$$\Gamma_0(N) \;=\; \Bigl\{ \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathrm{SL}_2(\mathbb{Z}) \,:\, c \equiv 0 \pmod N \Bigr\}.$$
+It is a finite-index subgroup; the index can be computed with Möbius inversion to give
+$$[\mathrm{SL}_2(\mathbb{Z}) : \Gamma_0(N)] \;=\; N \prod_{p \mid N} \!\Bigl(1 + \tfrac{1}{p}\Bigr).$$</p>
+
+<p>The quotient $Y_0(N) = \mathcal{H}/\Gamma_0(N)$ is a smooth, non-compact Riemann surface. It fails to be compact in exactly the way a punctured plane fails: certain sequences in $\mathcal{H}$ — those tending to $i\infty$ or to a rational point on $\mathbb{R} \cup \{\infty\}$ — have no limit in $Y_0(N)$. The orbits of $\Gamma_0(N)$ on $\mathbb{P}^1(\mathbb{Q}) = \mathbb{Q} \cup \{\infty\}$ form a finite set; we call its elements <strong>cusps</strong>. Adjoining the cusps and giving each one a chart $q = e^{2\pi i \tau / h}$ (where $h$ is the cusp's <em>width</em>) produces the smooth compact <strong>modular curve</strong>
+$$X_0(N) \;=\; Y_0(N) \,\cup\, \{\text{cusps}\}.$$</p>
+
+<div class="widget" id="w-fund">
+  <div class="hd"><span class="ttl">Widget 1 · Fundamental domain for $\Gamma_0(N)$</span><span class="hint">build $\mathcal{F}_{\Gamma_0(N)}$ as a union of $\mathrm{SL}_2(\mathbb{Z})$-tiles via coset reps</span></div>
+  <div class="row">
+    <label for="w-fund-N">level $N$:</label>
+    <select id="w-fund-N">
+      <option value="2">N = 2</option>
+      <option value="3">N = 3</option>
+      <option value="5">N = 5</option>
+      <option value="7">N = 7</option>
+      <option value="11" selected>N = 11</option>
+    </select>
+    <span id="w-fund-idx" class="pill">[SL2:Γ0(11)] = 12</span>
+    <span id="w-fund-cusps" class="pill">cusps: 2</span>
+  </div>
+  <svg id="w-fund-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="fundamental domain of Gamma0(N)"></svg>
+  <div class="readout small" id="w-fund-out">A union of $[\mathrm{SL}_2(\mathbb{Z}):\Gamma_0(N)]$ copies of the canonical $\mathcal{F}$, one per coset representative. Cusps sit at $0$ and $\infty$ for prime $N$.</div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-fund-svg");
+  const sel = document.getElementById("w-fund-N");
+  const idxLbl = document.getElementById("w-fund-idx");
+  const cuspLbl = document.getElementById("w-fund-cusps");
+  const W = 720, H = 320;
+  const xmin = -2.5, xmax = 2.5, ymax = 2.5;
+  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }
+
+  function applyMobius(M, t){
+    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];
+    const nr = a*t.re + b, ni = a*t.im;
+    const dr = c*t.re + d, di = c*t.im;
+    const denom = dr*dr + di*di;
+    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };
+  }
+
+  // boundary of standard F
+  const Fbdry = (function(){
+    const pts = [];
+    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.04) pts.push({re:-0.5, im:y});
+    for(let k=0;k<=30;k++){
+      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;
+      pts.push({re:Math.cos(th), im:Math.sin(th)});
+    }
+    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.04) pts.push({re:0.5, im:y});
+    return pts;
+  })();
+
+  function polyPath(pts){
+    let d = "";
+    pts.forEach((p,i)=>{
+      const [X,Y] = px(p);
+      d += (i===0?"M":"L") + X.toFixed(1) + " " + Y.toFixed(1) + " ";
+    });
+    return d + "Z";
+  }
+
+  // For prime N, coset reps for SL2(Z)/Gamma0(N) are I and S T^k for k=0..N-1.
+  // (This is the standard description.) Total of N+1 cosets.
+  function cosetReps(N){
+    const reps = [ [[1,0],[0,1]] ];
+    const S = [[0,-1],[1,0]];
+    for(let k=0;k<N;k++){
+      const Tk = [[1,k],[0,1]];
+      // rep = S * T^k
+      const r = [
+        [S[0][0]*Tk[0][0]+S[0][1]*Tk[1][0], S[0][0]*Tk[0][1]+S[0][1]*Tk[1][1]],
+        [S[1][0]*Tk[0][0]+S[1][1]*Tk[1][0], S[1][0]*Tk[0][1]+S[1][1]*Tk[1][1]]
+      ];
+      reps.push(r);
+    }
+    return reps;
+  }
+
+  function indexFormula(N){
+    // For prime N: N+1. We restrict the menu to primes for clarity.
+    return N + 1;
+  }
+
+  function cuspsCountPrime(){
+    return 2; // 0 and infinity
+  }
+
+  function render(){
+    svg.innerHTML = "";
+    const N = parseInt(sel.value, 10);
+    idxLbl.textContent = `[SL2:Γ0(${N})] = ${indexFormula(N)}`;
+    cuspLbl.textContent = `cusps: ${cuspsCountPrime()}`;
+
+    // axis
+    svg.appendChild(SVG("line",{x1:0,y1:H-1,x2:W,y2:H-1,stroke:"var(--mute)","stroke-width":1.5}));
+    for(let x=-2;x<=2;x++){
+      const [X] = px({re:x,im:0});
+      svg.appendChild(SVG("line",{x1:X,y1:0,x2:X,y2:H,stroke:"var(--line)","stroke-width":0.6}));
+    }
+
+    // Draw N+1 tiles
+    const reps = cosetReps(N);
+    const colors = ["var(--yellow)","var(--cyan)","var(--green)","var(--pink)","var(--violet)","var(--blue)"];
+    reps.forEach((M, i) => {
+      const pts = Fbdry.map(p => applyMobius(M, p));
+      const visible = pts.some(p => p.im > 0.02 && Math.abs(p.re) < 3);
+      if(!visible) return;
+      const col = colors[i % colors.length];
+      svg.appendChild(SVG("path",{
+        d: polyPath(pts),
+        fill: col,
+        "fill-opacity": i===0 ? 0.28 : 0.12,
+        stroke: "var(--line)",
+        "stroke-width": 1
+      }));
+    });
+
+    // Mark cusps 0 and infinity
+    const [x0X, x0Y] = px({re:0, im:0});
+    svg.appendChild(SVG("circle",{cx:x0X,cy:x0Y-2,r:5,fill:"var(--pink)",stroke:"#000","stroke-width":1}));
+    const t0 = SVG("text",{x:x0X+8, y:x0Y-6, "font-size":12, fill:"var(--pink)"});
+    t0.textContent = "cusp 0"; svg.appendChild(t0);
+    const tInf = SVG("text",{x:W-90, y:18, "font-size":12, fill:"var(--pink)"});
+    tInf.textContent = "cusp ∞"; svg.appendChild(tInf);
+    svg.appendChild(SVG("line",{x1:W-100,y1:8,x2:W-30,y2:8,stroke:"var(--pink)","stroke-dasharray":"3 3"}));
+  }
+
+  sel.addEventListener("change", render);
+  render();
+})();
+</script>
+
+<p class="note">For prime $N$, the index is $N+1$ and there are exactly two cusps, traditionally called $0$ and $\infty$. The coset representatives for $\mathrm{SL}_2(\mathbb{Z})/\Gamma_0(N)$ can be taken to be $I, ST^0, ST^1, \ldots, ST^{N-1}$, and the fundamental domain of $\Gamma_0(N)$ is the union of these $N+1$ images of the canonical $\mathcal{F}$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#sl2z">SL2(Z) action on the upper half-plane</a></li>
+    <li><a href="./riemann-surfaces.html#intro">Riemann surfaces as 1D complex manifolds</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mc-y0-x0"></div>
+</section>
+
+<section id="moduli">
+<h2>2. $Y_0(N)$ as a moduli space of elliptic curves</h2>
+<p>The reason modular curves are central to number theory is that $Y_0(N)$ is not just a quotient — it is a <em>moduli space</em>. A point of $Y_0(N)$ encodes a piece of geometric data:</p>
+<p>$$Y_0(N)(\mathbb{C}) \;\longleftrightarrow\; \{\text{pairs } (E, C) : E \text{ an elliptic curve}/\mathbb{C},\ C \subset E \text{ cyclic of order } N\} / \cong.$$</p>
+
+<p>The bijection is explicit. Given $\tau \in \mathcal{H}$ with class in $\mathcal{H}/\Gamma_0(N)$, attach the lattice $\Lambda_\tau = \mathbb{Z} + \mathbb{Z}\tau$, the elliptic curve $E_\tau = \mathbb{C}/\Lambda_\tau$, and the cyclic subgroup
+$$C_\tau \;=\; \Bigl\langle \tfrac{1}{N} \Bigr\rangle \;=\; \tfrac{1}{N}\mathbb{Z}/\mathbb{Z} \;\subset\; \mathbb{C}/\Lambda_\tau.$$
+This subgroup has order exactly $N$ — it is generated by the image of $1/N$ — and it is canonical: any element of $\Gamma_0(N)$ preserves the pair $(\Lambda_\tau, C_\tau)$ up to scaling, and conversely two pairs are isomorphic iff their $\tau$ values are $\Gamma_0(N)$-equivalent.</p>
+
+<div class="widget" id="w-mod">
+  <div class="hd"><span class="ttl">Widget 2 · The lattice $\Lambda_\tau$ and its order-$N$ subgroup</span><span class="hint">drag $\tau$, change $N$, watch the cyclic subgroup $\langle 1/N \rangle$ inside the torus $\mathbb{C}/\Lambda_\tau$</span></div>
+  <div class="row">
+    <label for="w-mod-tre">$\mathrm{Re}(\tau)$:</label>
+    <input id="w-mod-tre" type="range" min="-0.5" max="0.5" step="0.01" value="0.2">
+    <span id="w-mod-trev" class="pill">0.20</span>
+  </div>
+  <div class="row">
+    <label for="w-mod-tim">$\mathrm{Im}(\tau)$:</label>
+    <input id="w-mod-tim" type="range" min="0.6" max="2.2" step="0.02" value="1.1">
+    <span id="w-mod-timv" class="pill">1.10</span>
+  </div>
+  <div class="row">
+    <label for="w-mod-N">$N$:</label>
+    <select id="w-mod-N">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4" selected>4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>
+    <span class="small" style="margin-left:.5rem">subgroup $C = \langle 1/N \rangle$ has order $N$</span>
+  </div>
+  <svg id="w-mod-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="lattice and cyclic subgroup"></svg>
+  <div class="readout small" id="w-mod-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-mod-svg");
+  const reSl = document.getElementById("w-mod-tre");
+  const imSl = document.getElementById("w-mod-tim");
+  const reLbl = document.getElementById("w-mod-trev");
+  const imLbl = document.getElementById("w-mod-timv");
+  const NSel = document.getElementById("w-mod-N");
+  const out = document.getElementById("w-mod-out");
+  const W = 720, H = 300;
+
+  function render(){
+    svg.innerHTML = "";
+    const tre = parseFloat(reSl.value);
+    const tim = parseFloat(imSl.value);
+    const N = parseInt(NSel.value, 10);
+    reLbl.textContent = tre.toFixed(2);
+    imLbl.textContent = tim.toFixed(2);
+
+    // Map fundamental parallelogram to pixels
+    const cx = W*0.32, cy = H*0.55;
+    const scale = 70;
+
+    // basis vectors in pixels
+    const v1 = { x: scale, y: 0 };
+    const v2 = { x: scale*tre, y: -scale*tim };
+
+    // Draw lattice points as a grid
+    for(let m=-3;m<=3;m++){
+      for(let n=-3;n<=3;n++){
+        const X = cx + m*v1.x + n*v2.x;
+        const Y = cy + m*v1.y + n*v2.y;
+        if(X>20 && X<W*0.62 && Y>20 && Y<H-20){
+          svg.appendChild(SVG("circle",{cx:X,cy:Y,r:2.5,fill:"var(--mute)"}));
+        }
+      }
+    }
+
+    // Draw fundamental parallelogram
+    const corners = [
+      {x:cx, y:cy},
+      {x:cx+v1.x, y:cy+v1.y},
+      {x:cx+v1.x+v2.x, y:cy+v1.y+v2.y},
+      {x:cx+v2.x, y:cy+v2.y}
+    ];
+    let d = "M" + corners[0].x.toFixed(1) + " " + corners[0].y.toFixed(1);
+    for(let i=1;i<4;i++) d += " L" + corners[i].x.toFixed(1) + " " + corners[i].y.toFixed(1);
+    d += " Z";
+    svg.appendChild(SVG("path",{d, fill:"var(--cyan)","fill-opacity":0.06,stroke:"var(--cyan)","stroke-width":1.4}));
+
+    // Highlight cyclic subgroup C = <1/N> mod Lambda
+    // These are points k/N for k=0..N-1 (along the v1 direction).
+    for(let k=0;k<N;k++){
+      const X = cx + (k/N) * v1.x;
+      const Y = cy + (k/N) * v1.y;
+      svg.appendChild(SVG("circle",{cx:X,cy:Y,r:5,fill:"var(--yellow)",stroke:"#000","stroke-width":0.8}));
+      const lab = SVG("text",{x:X, y:Y+18, "text-anchor":"middle", "font-size":10, fill:"var(--yellow)"});
+      lab.textContent = k===0 ? "0" : `${k}/${N}`;
+      svg.appendChild(lab);
+    }
+
+    // Origin
+    svg.appendChild(SVG("circle",{cx:cx,cy:cy,r:3.5,fill:"var(--pink)"}));
+    const orig = SVG("text",{x:cx-10, y:cy+4, "text-anchor":"end", "font-size":11, fill:"var(--pink)"});
+    orig.textContent = "0";
+    svg.appendChild(orig);
+
+    // Label tau at v2 endpoint
+    const tEnd = SVG("text",{x:cx+v2.x+6, y:cy+v2.y, "font-size":12, fill:"var(--cyan)"});
+    tEnd.textContent = "τ";
+    svg.appendChild(tEnd);
+    const oneEnd = SVG("text",{x:cx+v1.x+6, y:cy+v1.y+12, "font-size":12, fill:"var(--cyan)"});
+    oneEnd.textContent = "1";
+    svg.appendChild(oneEnd);
+
+    // Side panel: schematic torus with subgroup
+    const panelX = W*0.72, panelY = H*0.5, R = 90;
+    svg.appendChild(SVG("ellipse",{cx:panelX,cy:panelY,rx:R,ry:R*0.55,fill:"var(--panel2)",stroke:"var(--violet)","stroke-width":1.4}));
+    svg.appendChild(SVG("ellipse",{cx:panelX,cy:panelY,rx:R*0.55,ry:R*0.20,fill:"none",stroke:"var(--violet)","stroke-width":1,"stroke-dasharray":"3 3"}));
+    for(let k=0;k<N;k++){
+      const angle = 2*Math.PI*k/N;
+      const X = panelX + R*Math.cos(angle);
+      const Y = panelY - R*0.55*Math.sin(angle);
+      svg.appendChild(SVG("circle",{cx:X,cy:Y,r:4,fill:"var(--yellow)"}));
+    }
+    const lblE = SVG("text",{x:panelX, y:panelY-R*0.55-12, "text-anchor":"middle", "font-size":12, fill:"var(--violet)"});
+    lblE.textContent = "E_τ = ℂ/Λ_τ";
+    svg.appendChild(lblE);
+    const lblC = SVG("text",{x:panelX, y:panelY+R*0.55+22, "text-anchor":"middle", "font-size":11, fill:"var(--yellow)"});
+    lblC.textContent = `|C| = ${N}`;
+    svg.appendChild(lblC);
+
+    out.textContent = `τ = ${tre.toFixed(3)} + ${tim.toFixed(3)} i ; Λ_τ = ℤ + ℤτ
+N = ${N};  cyclic subgroup C = ⟨1/N⟩ has order ${N}
+class in Y_0(${N}) ↔ pair (E_τ, C) up to isomorphism`;
+  }
+
+  reSl.addEventListener("input", render);
+  imSl.addEventListener("input", render);
+  NSel.addEventListener("change", render);
+  render();
+})();
+</script>
+
+<p>Two facts make this a true moduli interpretation:</p>
+<ul>
+  <li><strong>Surjectivity.</strong> Every pair $(E, C)$ over $\mathbb{C}$ comes from some $\tau$: pick any uniformization $E \cong \mathbb{C}/\Lambda$ with $\Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2$, scale to get $\Lambda = \mathbb{Z} + \mathbb{Z}\tau$, and adjust the basis so that $C = \langle 1/N \rangle$.</li>
+  <li><strong>Quotient by exactly $\Gamma_0(N)$.</strong> Two values $\tau, \tau'$ give isomorphic pairs iff they differ by $\Gamma_0(N)$ — the upper-triangular-mod-$N$ condition is precisely what preserves the distinguished cyclic subgroup.</li>
+</ul>
+
+<p>This is the level-$N$ analogue of the classical $j$-invariant moduli interpretation $Y(1) = \mathcal{H}/\mathrm{SL}_2(\mathbb{Z}) \cong \mathbb{C}$ (parametrizing elliptic curves alone). Replacing $\mathrm{SL}_2(\mathbb{Z})$ with $\Gamma_0(N)$ adds the level structure $C$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#lattices-in-C">Lattices in C</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mc-moduli-of-elliptic-curves"></div>
+</section>
+
+<section id="hecke-corr">
+<h2>3. Hecke correspondences on $X_0(N)$</h2>
+<p>Once $X_0(N)$ is realized as a moduli space, the Hecke operators acquire a beautifully geometric incarnation. For a prime $p \nmid N$, define</p>
+<p>$$T_p \colon (E, C) \;\longmapsto\; \sum_{\substack{D \subset E \\ |D| = p,\ D \cap C = 0}} \bigl(E/D,\ (C+D)/D\bigr).$$</p>
+
+<p>The right-hand side is a formal sum over the $p+1$ cyclic subgroups of $E$ of order $p$ (since $E[p] \cong (\mathbb{Z}/p)^2$ and $p \nmid N$ guarantees $D \cap C = 0$ automatically). Each summand is again a pair (elliptic curve, cyclic order-$N$ subgroup), so it lives in $X_0(N)$. The map $T_p$ is therefore not a single-valued morphism but a <strong>correspondence</strong>: a divisor inside the product $X_0(N) \times X_0(N)$.</p>
+
+<div class="widget" id="w-hecke">
+  <div class="hd"><span class="ttl">Widget 3 · The $p+1$ summands of $T_p$</span><span class="hint">view the $p+1$ order-$p$ subgroups of $E[p]$ and the resulting quotients</span></div>
+  <div class="row">
+    <label for="w-hecke-p">prime $p$:</label>
+    <select id="w-hecke-p">
+      <option value="2">p = 2</option>
+      <option value="3" selected>p = 3</option>
+      <option value="5">p = 5</option>
+      <option value="7">p = 7</option>
+    </select>
+    <span id="w-hecke-cnt" class="pill">summands: 4</span>
+  </div>
+  <svg id="w-hecke-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="p-torsion subgroups"></svg>
+  <div class="readout small" id="w-hecke-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-hecke-svg");
+  const sel = document.getElementById("w-hecke-p");
+  const cnt = document.getElementById("w-hecke-cnt");
+  const out = document.getElementById("w-hecke-out");
+  const W = 720, H = 320;
+
+  function render(){
+    svg.innerHTML = "";
+    const p = parseInt(sel.value, 10);
+    cnt.textContent = `summands: ${p+1}`;
+
+    // Left panel: the p-torsion lattice (Z/p)^2 with all p+1 lines through origin
+    const cx = 180, cy = H/2, R = 110;
+
+    // Draw a p x p grid of points
+    for(let i=0;i<p;i++){
+      for(let j=0;j<p;j++){
+        const X = cx + (i - (p-1)/2) * (R*1.6/p);
+        const Y = cy + (j - (p-1)/2) * (R*1.6/p);
+        const isOrigin = i===0 && j===0;
+        svg.appendChild(SVG("circle",{
+          cx:X, cy:Y, r:isOrigin?5:3,
+          fill:isOrigin?"var(--pink)":"var(--mute)"
+        }));
+      }
+    }
+
+    // Draw the p+1 lines (cyclic subgroups). A line is determined by a primitive (a,b) mod p.
+    const colors = ["var(--yellow)","var(--cyan)","var(--green)","var(--violet)","var(--blue)","var(--pink)","#ffaa66","#aaff66"];
+    const lines = [];
+    // include (1,0), (0,1), and (1,k) for k=1..p-1
+    lines.push([1,0]);
+    lines.push([0,1]);
+    for(let k=1;k<p;k++) lines.push([1,k]);
+
+    lines.forEach((dir, idx) => {
+      const [a, b] = dir;
+      const col = colors[idx % colors.length];
+      // draw the points of this subgroup
+      const pts = [];
+      for(let t=0;t<p;t++){
+        const i = ((t*a) % p + p) % p;
+        const j = ((t*b) % p + p) % p;
+        // re-center
+        const ic = i < p/2 ? i : i - p;
+        const jc = j < p/2 ? j : j - p;
+        const X = cx + ic * (R*1.6/p);
+        const Y = cy + jc * (R*1.6/p);
+        pts.push({X, Y});
+      }
+      // connect with a polyline through origin
+      const ic = a < p/2 ? a : a - p;
+      const jc = b < p/2 ? b : b - p;
+      const len = R * 1.4;
+      const norm = Math.hypot(ic, jc) || 1;
+      const dx = ic/norm * len, dy = jc/norm * len;
+      svg.appendChild(SVG("line",{x1:cx-dx, y1:cy-dy, x2:cx+dx, y2:cy+dy, stroke:col, "stroke-width":1.5, "stroke-opacity":0.6}));
+      // points on the subgroup
+      pts.forEach(P => {
+        svg.appendChild(SVG("circle",{cx:P.X, cy:P.Y, r:4.5, fill:col, "fill-opacity":0.85, stroke:"#000", "stroke-width":0.5}));
+      });
+    });
+
+    const lblE = SVG("text",{x:cx, y:cy-R-22, "text-anchor":"middle", "font-size":12, fill:"var(--violet)"});
+    lblE.textContent = `E[${p}] ≅ (ℤ/${p})²`;
+    svg.appendChild(lblE);
+    const lblBelow = SVG("text",{x:cx, y:cy+R+22, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    lblBelow.textContent = `${p+1} order-${p} subgroups (lines through origin)`;
+    svg.appendChild(lblBelow);
+
+    // Right panel: list the p+1 quotient pairs
+    const px0 = 420;
+    const py0 = 50;
+    const lblR = SVG("text",{x:px0, y:py0-20, "font-size":12, fill:"var(--yellow)"});
+    lblR.textContent = `T_${p} (E, C) = sum of ${p+1} pairs`;
+    svg.appendChild(lblR);
+    for(let i=0;i<lines.length;i++){
+      const Y = py0 + i * 26;
+      const col = colors[i % colors.length];
+      svg.appendChild(SVG("circle",{cx:px0+10, cy:Y+10, r:5, fill:col}));
+      const t = SVG("text",{x:px0+25, y:Y+15, "font-size":12, fill:"var(--ink)"});
+      t.textContent = `(E/D_${i+1},  (C+D_${i+1})/D_${i+1})`;
+      svg.appendChild(t);
+    }
+
+    out.textContent = `Hecke operator T_${p} on X_0(N), p=${p}, p∤N
+E[${p}] = (ℤ/${p})² has ${p*p}-1 = ${p*p-1} nonzero points → ${p+1} cyclic order-${p} subgroups
+each gives one summand (E/D_i, (C+D_i)/D_i) in T_${p}(E,C)`;
+  }
+
+  sel.addEventListener("change", render);
+  render();
+})();
+</script>
+
+<p>Translated to $q$-expansions of weight-$k$ modular forms, $T_p$ becomes
+$$T_p\!\left( \sum_{n \ge 0} a_n q^n \right) \;=\; \sum_{n \ge 0} \!\Bigl( a_{pn} + p^{k-1} a_{n/p} \Bigr) q^n,$$
+with the convention $a_{n/p} = 0$ unless $p \mid n$. The two terms come from the geometric setup: $a_{pn}$ from the "spread out" subgroups disjoint from a chosen reference, and $p^{k-1}a_{n/p}$ from the diagonal-twisted contribution. This is the bridge that makes Hecke eigenforms — forms with $T_p f = a_p f$ for all $p$ — generate Euler products for L-functions.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="mc-hecke-correspondences-curves"></div>
+</section>
+
+<section id="jacobian">
+<h2>4. The Jacobian $J_0(N)$ and Eichler–Shimura</h2>
+<p>For any smooth compact Riemann surface $X$ of genus $g$, the <strong>Jacobian</strong>
+$$J(X) \;=\; \mathrm{Pic}^0(X) \;\cong\; H^0(X, \Omega^1)^* \,/\, H_1(X, \mathbb{Z})$$
+is a complex torus of dimension $g$ — and in fact an abelian variety, because $X$ being projective gives the lattice a polarization. Applied to $X_0(N)$ this gives the <strong>modular Jacobian</strong>
+$$J_0(N) \;=\; \mathrm{Pic}^0(X_0(N)),$$
+a $g(X_0(N))$-dimensional abelian variety defined over $\mathbb{Q}$ (descended from the moduli interpretation).</p>
+
+<p>The Eichler–Shimura isomorphism is the bridge:</p>
+<p>$$H^0(X_0(N), \Omega^1) \;\xrightarrow{\sim}\; S_2(\Gamma_0(N)), \qquad \omega \;\longmapsto\; f(\tau)\, d\tau \text{ where } \omega = f(\tau)\,d\tau.$$</p>
+
+<p>The cusp condition on the right matches the holomorphicity of $\omega$ at the cusps on the left — an Eisenstein series of weight $2$ would give a meromorphic differential with poles at the cusps, not a holomorphic one. Consequently
+$$\dim_{\mathbb{C}} S_2(\Gamma_0(N)) \;=\; g(X_0(N)) \;=\; \dim J_0(N).$$</p>
+
+<div class="widget" id="w-jac">
+  <div class="hd"><span class="ttl">Widget 4 · Eichler–Shimura: forms ↔ differentials ↔ Jacobian</span><span class="hint">click levels to see $g$, $\dim S_2$, and $\dim J_0(N)$ matched</span></div>
+  <div class="row" id="w-jac-buttons">
+    <button data-N="11" class="active">N = 11</button>
+    <button data-N="14">N = 14</button>
+    <button data-N="15">N = 15</button>
+    <button data-N="17">N = 17</button>
+    <button data-N="23">N = 23</button>
+    <button data-N="37">N = 37</button>
+  </div>
+  <svg id="w-jac-svg" viewBox="0 0 720 280" width="720" height="280" aria-label="Eichler-Shimura diagram"></svg>
+  <div class="readout small" id="w-jac-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-jac-svg");
+  const buttons = document.getElementById("w-jac-buttons");
+  const out = document.getElementById("w-jac-out");
+  const W = 720, H = 280;
+
+  // (genus of X0(N), known small N)
+  const data = {
+    11: { g:1,  cusps:2, idx:12,  newforms:1 },
+    14: { g:1,  cusps:4, idx:24,  newforms:1 },
+    15: { g:1,  cusps:4, idx:24,  newforms:1 },
+    17: { g:1,  cusps:2, idx:18,  newforms:1 },
+    23: { g:2,  cusps:2, idx:24,  newforms:2 },
+    37: { g:2,  cusps:2, idx:38,  newforms:2 }
+  };
+
+  let activeN = 11;
+
+  function render(){
+    svg.innerHTML = "";
+    const d = data[activeN];
+
+    // three big nodes: X_0(N), S_2, J_0(N)
+    const yMid = H/2;
+    const x1 = 130, x2 = W/2, x3 = W - 130;
+
+    // node X_0(N)
+    drawNode(svg, x1, yMid, `X₀(${activeN})`, {r:46, fill:"var(--panel2)", stroke:"var(--cyan)", textColor:"#fff", fontSize:14});
+    const lbl1 = SVG("text",{x:x1, y:yMid+62, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    lbl1.textContent = `genus g = ${d.g}`;
+    svg.appendChild(lbl1);
+
+    // node S_2
+    drawNode(svg, x2, yMid, "S₂(Γ₀)", {r:46, fill:"var(--panel2)", stroke:"var(--yellow)", textColor:"#fff", fontSize:14});
+    const lbl2 = SVG("text",{x:x2, y:yMid+62, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    lbl2.textContent = `dim = ${d.g}`;
+    svg.appendChild(lbl2);
+
+    // node J_0(N)
+    drawNode(svg, x3, yMid, `J₀(${activeN})`, {r:46, fill:"var(--panel2)", stroke:"var(--violet)", textColor:"#fff", fontSize:14});
+    const lbl3 = SVG("text",{x:x3, y:yMid+62, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    lbl3.textContent = `dim = ${d.g}`;
+    svg.appendChild(lbl3);
+
+    // arrows
+    drawArrow(svg, [x1, yMid-10], [x2, yMid-10], {color:"var(--yellow)", label:"Ω¹ ↔ f dτ", labelSide:1, markerId:"arr-1"});
+    drawArrow(svg, [x2, yMid+10], [x1, yMid+10], {color:"var(--yellow)", labelSide:0, markerId:"arr-2"});
+    drawArrow(svg, [x2, yMid-10], [x3, yMid-10], {color:"var(--violet)", label:"Pic⁰", labelSide:1, markerId:"arr-3"});
+    drawArrow(svg, [x3, yMid+10], [x2, yMid+10], {color:"var(--violet)", labelSide:0, markerId:"arr-4"});
+
+    // top label
+    const top = SVG("text",{x:W/2, y:30, "text-anchor":"middle", "font-size":13, fill:"var(--ink)"});
+    top.textContent = "Eichler–Shimura:  H⁰(X₀(N), Ω¹) ≅ S₂(Γ₀(N)),  Jacobian ≅ S₂*/lattice";
+    svg.appendChild(top);
+
+    out.textContent = `level N = ${activeN}
+[SL₂:Γ₀(N)] = ${d.idx},  cusps = ${d.cusps}
+genus g(X₀(N)) = ${d.g}
+dim S₂(Γ₀(N)) = ${d.g}    (Eichler–Shimura)
+dim J₀(N) = ${d.g}        (Jacobian dimension = genus)
+newforms (dim S₂^new) = ${d.newforms}`;
+  }
+
+  buttons.addEventListener("click", (e) => {
+    const n = e.target.dataset && e.target.dataset.N;
+    if(!n) return;
+    activeN = parseInt(n, 10);
+    [...buttons.children].forEach(b => b.classList.toggle("active", b.dataset.N === n));
+    render();
+  });
+  render();
+})();
+</script>
+
+<p>Crucially, the Hecke correspondences from §3 act on $J_0(N)$ as endomorphisms (push-forward of divisor classes). Each newform $f \in S_2(\Gamma_0(N))$ is a simultaneous Hecke eigenform, and Eichler–Shimura associates to $f$ a quotient abelian variety
+$$A_f \;\subseteq\; J_0(N),$$
+whose $\ell$-adic Tate module recovers exactly the Galois representation attached to $f$. For weight-$2$ newforms with rational eigenvalues, $A_f$ is one-dimensional — an elliptic curve over $\mathbb{Q}$, the modular incarnation that is the heart of the modularity theorem.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="mc-jacobian-J0"></div>
+</section>
+
+<section id="genus">
+<h2>5. Genus formulas for $X_0(N)$, $X_1(N)$, $X(N)$</h2>
+<p>Riemann–Hurwitz applied to the cover $X_0(N) \to X(1) = \mathbb{P}^1$ gives the explicit genus formula:</p>
+<p>$$g(X_0(N)) \;=\; 1 \;+\; \frac{[\mathrm{SL}_2(\mathbb{Z}):\Gamma_0(N)]}{12} \;-\; \frac{\nu_2(N)}{4} \;-\; \frac{\nu_3(N)}{3} \;-\; \frac{\nu_\infty(N)}{2}.$$</p>
+
+<p>Here:</p>
+<ul>
+  <li>$\nu_2(N)$ counts <em>elliptic points of order $2$</em> on $X_0(N)$. By a classical computation, $\nu_2(N) = \prod_{p \mid N}\bigl(1 + \bigl(\tfrac{-1}{p}\bigr)\bigr)$ if $4 \nmid N$, and $0$ otherwise.</li>
+  <li>$\nu_3(N)$ counts elliptic points of order $3$, given by $\nu_3(N) = \prod_{p \mid N}\bigl(1 + \bigl(\tfrac{-3}{p}\bigr)\bigr)$ if $9 \nmid N$, and $0$ otherwise.</li>
+  <li>$\nu_\infty(N) = \sum_{d \mid N} \varphi\bigl(\gcd(d, N/d)\bigr)$ counts cusps.</li>
+</ul>
+
+<p>The fractional denominators $4, 3, 2$ are not arbitrary: they record the orders of the stabilizers in $\mathrm{PSL}_2(\mathbb{Z})$ at the elliptic fixed points $i$ (order $2$) and $\rho = e^{2\pi i/3}$ (order $3$), and the parabolic stabilizer at each cusp (which has infinite order in $\mathrm{PSL}_2$ but contributes a $\frac{1}{2}$ from the boundary geometry).</p>
+
+<div class="widget" id="w-gen">
+  <div class="hd"><span class="ttl">Widget 5 · Genus growth $g(X_0(N))$ for small $N$</span><span class="hint">drag $N$ from $1$ to $50$ and watch the formula spit out the genus, with genus-$0$ levels highlighted</span></div>
+  <div class="row">
+    <label for="w-gen-N">level $N$:</label>
+    <input id="w-gen-N" type="range" min="1" max="50" step="1" value="11">
+    <span id="w-gen-Nv" class="pill">N = 11</span>
+  </div>
+  <svg id="w-gen-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="genus chart"></svg>
+  <div class="readout" id="w-gen-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-gen-svg");
+  const sl = document.getElementById("w-gen-N");
+  const lbl = document.getElementById("w-gen-Nv");
+  const out = document.getElementById("w-gen-out");
+  const W = 720, H = 320;
+
+  // Precomputed table of (index, nu2, nu3, nu_inf, genus) for N=1..50
+  // Source: standard tables (e.g. Diamond-Shurman, Apostol).
+  const TBL = {
+    1:[1,1,1,1,0], 2:[3,1,0,2,0], 3:[4,0,1,2,0], 4:[6,0,0,3,0], 5:[6,2,0,2,0],
+    6:[12,0,0,4,0], 7:[8,0,2,2,0], 8:[12,0,0,4,0], 9:[12,0,0,4,0], 10:[18,2,0,4,0],
+    11:[12,0,0,2,1], 12:[24,0,0,6,0], 13:[14,2,2,2,0], 14:[24,0,0,4,1],
+    15:[24,0,0,4,1], 16:[24,0,0,6,0], 17:[18,2,0,2,1], 18:[36,0,0,8,0],
+    19:[20,0,2,2,1], 20:[36,0,0,6,1], 21:[32,0,2,4,1], 22:[36,0,0,4,2],
+    23:[24,0,0,2,2], 24:[48,0,0,8,1], 25:[30,2,0,6,0], 26:[42,2,0,4,2],
+    27:[36,0,0,6,1], 28:[48,0,0,6,2], 29:[30,2,0,2,2], 30:[72,0,0,8,3],
+    31:[32,0,2,2,2], 32:[48,0,0,8,1], 33:[48,0,0,4,3], 34:[54,2,0,4,3],
+    35:[48,0,2,4,3], 36:[72,0,0,12,1], 37:[38,2,2,2,2], 38:[60,0,0,4,4],
+    39:[56,0,2,4,3], 40:[72,0,0,8,3], 41:[42,2,0,2,3], 42:[96,0,0,8,5],
+    43:[44,0,2,2,3], 44:[72,0,0,6,4], 45:[72,0,0,8,3], 46:[72,0,0,4,5],
+    47:[48,0,0,2,4], 48:[96,0,0,12,3], 49:[56,0,0,8,1], 50:[90,2,0,12,2]
+  };
+
+  function render(){
+    svg.innerHTML = "";
+    const N = parseInt(sl.value, 10);
+    lbl.textContent = `N = ${N}`;
+    const row = TBL[N];
+    if(!row){ out.textContent = "no data"; return; }
+    const [idx, nu2, nu3, nuInf, g] = row;
+
+    // Bar chart: g for N=1..50
+    const padL = 50, padR = 20, padT = 30, padB = 36;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+    const maxG = 6;
+    const bw = innerW / 50;
+
+    // axes
+    svg.appendChild(SVG("line",{x1:padL, y1:H-padB, x2:W-padR, y2:H-padB, stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL, y1:padT, x2:padL, y2:H-padB, stroke:"var(--line)"}));
+
+    // y-axis labels
+    for(let gi=0; gi<=maxG; gi++){
+      const y = padT + innerH * (1 - gi/maxG);
+      svg.appendChild(SVG("line",{x1:padL-4, y1:y, x2:padL, y2:y, stroke:"var(--mute)"}));
+      const t = SVG("text",{x:padL-8, y:y+4, "text-anchor":"end", "font-size":10, fill:"var(--mute)"});
+      t.textContent = gi;
+      svg.appendChild(t);
+    }
+    const ylab = SVG("text",{x:padL-30, y:padT+innerH/2, "text-anchor":"middle", "font-size":11, fill:"var(--mute)", transform:`rotate(-90, ${padL-30}, ${padT+innerH/2})`});
+    ylab.textContent = "genus g(X₀(N))";
+    svg.appendChild(ylab);
+
+    // x-axis labels (every 5)
+    for(let xi=5; xi<=50; xi+=5){
+      const X = padL + (xi-0.5) * bw;
+      svg.appendChild(SVG("line",{x1:X, y1:H-padB, x2:X, y2:H-padB+4, stroke:"var(--mute)"}));
+      const t = SVG("text",{x:X, y:H-padB+16, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+      t.textContent = xi;
+      svg.appendChild(t);
+    }
+    const xlab = SVG("text",{x:padL+innerW/2, y:H-6, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    xlab.textContent = "level N";
+    svg.appendChild(xlab);
+
+    // bars
+    const genus0 = [1,2,3,4,5,6,7,8,9,10,12,13,16,18,25];
+    for(let n=1; n<=50; n++){
+      const r = TBL[n];
+      if(!r) continue;
+      const gi = Math.min(r[4], maxG);
+      const X = padL + (n-1) * bw;
+      const Y = padT + innerH * (1 - gi/maxG);
+      const isG0 = genus0.includes(n);
+      const isActive = n === N;
+      const fill = isActive ? "var(--yellow)" : (isG0 ? "var(--cyan)" : "var(--violet)");
+      const opacity = isActive ? 1 : 0.55;
+      svg.appendChild(SVG("rect",{
+        x: X+1, y: Y, width: bw-2, height: H-padB-Y,
+        fill, "fill-opacity": opacity
+      }));
+    }
+
+    // active marker
+    const Xa = padL + (N-1) * bw + bw/2;
+    const Ya = padT + innerH * (1 - Math.min(g,maxG)/maxG);
+    svg.appendChild(SVG("circle",{cx:Xa, cy:Ya-8, r:4, fill:"var(--yellow)"}));
+
+    // legend
+    svg.appendChild(SVG("rect",{x:W-padR-150, y:padT, width:14, height:12, fill:"var(--cyan)","fill-opacity":0.55}));
+    const tg0 = SVG("text",{x:W-padR-130, y:padT+10, "font-size":11, fill:"var(--mute)"});
+    tg0.textContent = "genus 0 (15 values)";
+    svg.appendChild(tg0);
+
+    out.textContent = `N = ${N}
+[SL₂:Γ₀(N)] = ${idx}
+ν₂ = ${nu2},  ν₃ = ${nu3},  ν_∞ = ${nuInf}
+g(X₀(N)) = 1 + ${idx}/12 − ${nu2}/4 − ${nu3}/3 − ${nuInf}/2 = ${g}`;
+  }
+
+  sl.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<p>The smallest prime $N$ for which $X_0(N)$ has positive genus is $N = 11$, where $g = 1$ — making $X_0(11)$ itself an elliptic curve. After that, the genus tends to grow linearly: for prime $N \ge 17$ one has $g(X_0(N)) \approx (N+1)/12$ (the elliptic-point and cusp corrections become negligible).</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./riemann-surfaces.html#intro">Riemann surfaces as 1D complex manifolds</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="mc-genus-formula"></div>
+</section>
+
+<section id="cusps-galois">
+<h2>6. Cusps and Galois action over $\mathbb{Q}$</h2>
+<p>The moduli interpretation of $Y_0(N)$ — pairs $(E, C)$ with $E$ an elliptic curve and $C$ cyclic of order $N$ — descends to give a model of $X_0(N)$ over $\mathbb{Q}$. So $\mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q})$ acts on $X_0(N)(\overline{\mathbb{Q}})$, and one can ask which cusps are individually $\mathbb{Q}$-rational.</p>
+
+<p>The cusps of $X_0(N)$ are parametrized by</p>
+<p>$$\bigl\{(d, a) \,:\, d \mid N,\ a \in (\mathbb{Z}/\gcd(d, N/d))^\times / \{\pm 1\}\bigr\},$$
+giving the count
+$$\nu_\infty(N) \;=\; \sum_{d \mid N} \varphi\bigl(\gcd(d, N/d)\bigr).$$
+The cusps $0$ (corresponding to $d = N$) and $\infty$ (corresponding to $d = 1$) are always individually $\mathbb{Q}$-rational, but for general $d$ the Galois group acts non-trivially on the parameter $a$.</p>
+
+<div class="widget" id="w-cusp">
+  <div class="hd"><span class="ttl">Widget 6 · Cusps of $X_0(N)$ and the Atkin–Lehner involution</span><span class="hint">choose $N$, see all cusps and the action of $w_N$</span></div>
+  <div class="row" id="w-cusp-buttons">
+    <button data-N="6" class="active">N = 6</button>
+    <button data-N="12">N = 12</button>
+    <button data-N="15">N = 15</button>
+    <button data-N="30">N = 30</button>
+    <button data-N="36">N = 36</button>
+  </div>
+  <svg id="w-cusp-svg" viewBox="0 0 720 280" width="720" height="280" aria-label="cusps of X0(N)"></svg>
+  <div class="readout small" id="w-cusp-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-cusp-svg");
+  const buttons = document.getElementById("w-cusp-buttons");
+  const out = document.getElementById("w-cusp-out");
+  const W = 720, H = 280;
+
+  function divisors(N){
+    const res = [];
+    for(let d=1; d<=N; d++) if(N % d === 0) res.push(d);
+    return res;
+  }
+  function phi(n){
+    let r = n;
+    for(let p=2; p*p<=n; p++){
+      if(n%p===0){
+        while(n%p===0) n /= p;
+        r -= r/p;
+      }
+    }
+    if(n > 1) r -= r/n;
+    return Math.round(r);
+  }
+  function gcd(a,b){ return b===0 ? a : gcd(b, a%b); }
+
+  let activeN = 6;
+
+  function render(){
+    svg.innerHTML = "";
+
+    const divs = divisors(activeN);
+    const items = []; // each: {d, contribution, label}
+    let total = 0;
+    divs.forEach(d => {
+      const g = gcd(d, activeN/d);
+      const c = phi(g);
+      total += c;
+      items.push({d, gd:g, count:c});
+    });
+
+    // top label
+    const top = SVG("text",{x:W/2, y:28, "text-anchor":"middle", "font-size":14, fill:"var(--ink)"});
+    top.textContent = `Cusps of X₀(${activeN}):  ${total} total`;
+    svg.appendChild(top);
+
+    // Lay out the cusps along a horizontal axis, grouping by d
+    const padL = 60, padR = 60;
+    const innerW = W - padL - padR;
+    const baseY = H - 80;
+    let curX = padL;
+    const slotW = innerW / total;
+
+    let slotIdx = 0;
+    items.forEach(item => {
+      // label group
+      const groupX = padL + slotIdx * slotW + (item.count * slotW)/2;
+      const tg = SVG("text",{x:groupX, y:baseY+30, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      tg.textContent = `d=${item.d}, gcd=${item.gd}, φ=${item.count}`;
+      svg.appendChild(tg);
+
+      for(let k=0; k<item.count; k++){
+        const X = padL + (slotIdx + 0.5) * slotW;
+        const isRational = (item.d === 1) || (item.d === activeN) || item.gd === 1 || item.gd === 2;
+        const col = isRational ? "var(--cyan)" : "var(--pink)";
+        svg.appendChild(SVG("circle",{cx:X, cy:baseY, r:7, fill:col, stroke:"#000", "stroke-width":1}));
+        // label cusp 0 and inf specially
+        let label = "";
+        if(item.d === 1) label = "∞";
+        else if(item.d === activeN) label = "0";
+        else label = `1/${item.d}`;
+        if(item.count === 1){
+          const t = SVG("text",{x:X, y:baseY-12, "text-anchor":"middle", "font-size":11, fill:col});
+          t.textContent = label;
+          svg.appendChild(t);
+        } else if(k===0){
+          const t = SVG("text",{x:X, y:baseY-12, "text-anchor":"middle", "font-size":11, fill:col});
+          t.textContent = `${label} class`;
+          svg.appendChild(t);
+        }
+        slotIdx++;
+      }
+    });
+
+    // Atkin-Lehner arrow: w_N swaps 0 and infinity
+    const xInf = padL + 0.5 * slotW;
+    const x0X = padL + (total - 0.5) * slotW;
+    drawArrow(svg, [xInf, baseY-30], [x0X, baseY-30], {color:"var(--yellow)", curve:-25, label:"w_N", labelSide:0, markerId:"arr-wN"});
+    drawArrow(svg, [x0X, baseY-26], [xInf, baseY-26], {color:"var(--yellow)", curve:25, labelSide:1, markerId:"arr-wN2"});
+
+    // Legend
+    svg.appendChild(SVG("circle",{cx:padL+10, cy:60, r:6, fill:"var(--cyan)"}));
+    const lg1 = SVG("text",{x:padL+22, y:64, "font-size":11, fill:"var(--mute)"});
+    lg1.textContent = "ℚ-rational cusp";
+    svg.appendChild(lg1);
+    svg.appendChild(SVG("circle",{cx:padL+150, cy:60, r:6, fill:"var(--pink)"}));
+    const lg2 = SVG("text",{x:padL+162, y:64, "font-size":11, fill:"var(--mute)"});
+    lg2.textContent = "Galois orbit (size > 1)";
+    svg.appendChild(lg2);
+
+    out.textContent = `N = ${activeN}
+divisors d|N → cusp count φ(gcd(d, N/d)):
+${items.map(it => `  d=${it.d}: gcd=${it.gd}, φ(${it.gd})=${it.count}`).join("\n")}
+total cusps = ${total}
+Atkin–Lehner w_N swaps cusps 0 ↔ ∞`;
+  }
+
+  buttons.addEventListener("click", (e) => {
+    const n = e.target.dataset && e.target.dataset.N;
+    if(!n) return;
+    activeN = parseInt(n, 10);
+    [...buttons.children].forEach(b => b.classList.toggle("active", b.dataset.N === n));
+    render();
+  });
+  render();
+})();
+</script>
+
+<p>The <strong>Atkin–Lehner involution</strong> $w_N \colon \tau \mapsto -1/(N\tau)$ acts on $X_0(N)$ as an involutive automorphism. In moduli terms it sends the pair $(E, C)$ to $(E/C, E[N]/C)$, the "dual" pair under the cyclic $N$-isogeny $E \to E/C$. It exchanges the two cusps $0$ and $\infty$, and its quotient $X_0(N) / w_N$ is itself a curve of arithmetic interest — for instance $X_0(11)/w_{11}$ has genus $0$, even though $X_0(11)$ has genus $1$.</p>
+
+<p>The Galois action on cusps and the action of the Atkin–Lehner involutions are the first arithmetic structures one encounters on $X_0(N)$. Together with the Hecke action they generate the rich endomorphism algebra of the Jacobian $J_0(N)$, which is where modular forms, Galois representations, and elliptic curves all converge.</p>
+
+<div class="quiz" data-concept="mc-cusps-galois"></div>
 </section>
 
 </main>
@@ -255,28 +1110,28 @@ function drawNode(svg, x, y, label, opts={}){
 /* sidebar TOC builder + active-section highlighting */
 (function(){
   function build(){
-    const aside = document.querySelector('aside.sidetoc');
-    const topnav = document.querySelector('nav.toc');
+    const aside = document.querySelector("aside.sidetoc");
+    const topnav = document.querySelector("nav.toc");
     if(!aside || !topnav) return;
     const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
     if(!srcs.length) return;
-    const title = document.createElement('div');
-    title.className = 'sidetoc-title';
-    title.textContent = 'On this page';
+    const title = document.createElement("div");
+    title.className = "sidetoc-title";
+    title.textContent = "On this page";
     aside.appendChild(title);
-    const ol = document.createElement('ol');
+    const ol = document.createElement("ol");
     srcs.forEach(src => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = src.getAttribute("href");
+      a.textContent = src.textContent.replace(/ /g," ").trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);
-    const links = [...aside.querySelectorAll('a')];
+    const links = [...aside.querySelectorAll("a")];
     const sections = [];
     links.forEach(a => {
-      const id = a.getAttribute('href').slice(1);
+      const id = a.getAttribute("href").slice(1);
       const s = document.getElementById(id);
       if(s) sections.push({a, s});
     });
@@ -287,21 +1142,21 @@ function drawNode(svg, x, y, label, opts={}){
       for(const {a,s} of sections){
         if(s.getBoundingClientRect().top <= threshold) activeLink = a;
       }
-      links.forEach(x => x.classList.remove('active'));
-      activeLink.classList.add('active');
+      links.forEach(x => x.classList.remove("active"));
+      activeLink.classList.add("active");
     }
     update();
-    window.addEventListener('scroll', update, {passive:true});
-    window.addEventListener('resize', update);
+    window.addEventListener("scroll", update, {passive:true});
+    window.addEventListener("resize", update);
   }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
   else build();
 })();
 </script>
 <script>
 (function(){
-  function start(){ if(window.MVQuiz) MVQuiz.init('modular-curves'); }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  function start(){ if(window.MVQuiz) MVQuiz.init("modular-curves"); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
 })();
 </script>
@@ -309,7 +1164,7 @@ function drawNode(svg, x, y, label, opts={}){
   <summary>changelog</summary>
   <table>
     <tbody>
-      <tr><td>2026-04-27</td><td>initial version</td></tr>
+      <tr><td>2026-04-26</td><td>initial version: 6 concepts (Y₀/X₀, moduli, Hecke correspondences, J₀(N), genus formulas, cusps & Galois) with bespoke widgets</td></tr>
     </tbody>
   </table>
 </details>

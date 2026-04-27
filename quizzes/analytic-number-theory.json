@@ -1,19 +1,252 @@
 {
   "topic": "analytic-number-theory",
   "quizzes": {
-    "analytic-number-theory-intro": {
-      "title": "Intro",
+    "ant-prime-counting": {
+      "title": "$\\pi(x)$ and the prime number theorem",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "The prime number theorem is the statement that, as $x \\to \\infty$,",
           "choices": [
-            "A",
-            "B"
+            "$\\pi(x) \\sim x \\log x$",
+            "$\\pi(x) \\sim x / \\log x$",
+            "$\\pi(x) \\sim \\sqrt{x}$",
+            "$\\pi(x) \\sim x$"
+          ],
+          "answer": 1,
+          "hint": "Primes thin out logarithmically: roughly one in $\\log x$ integers near $x$ is prime.",
+          "explain": "PNT says $\\pi(x)/(x/\\log x) \\to 1$. Equivalently $\\pi(x) \\sim \\mathrm{Li}(x)$, which is a numerically tighter approximation."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of $\\pi(x)$, $x/\\log x$, $\\mathrm{Li}(x)$ is the closest numerical approximation to $\\pi(x)$ for moderate $x$ (say $x = 10^9$)?",
+          "choices": [
+            "$x/\\log x$ (under-shoots by $\\sim 4\\%$)",
+            "$\\mathrm{Li}(x)$ (typically agrees to several leading digits)",
+            "$x$ itself",
+            "$\\sqrt{x}$"
+          ],
+          "answer": 1,
+          "hint": "$\\mathrm{Li}(x) = \\int_2^x dt/\\log t$ matches the harmonic-density heuristic better than $x/\\log x$.",
+          "explain": "$\\mathrm{Li}(x)$ has the same leading term as $x/\\log x$ but absorbs the correction $x/(\\log x)^2 + \\cdots$, so it tracks $\\pi(x)$ much more tightly."
+        },
+        {
+          "type": "numeric",
+          "q": "$\\pi(100) = ?$ (the number of primes up to $100$)",
+          "answer": 25,
+          "tol": 0,
+          "hint": "Count: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.",
+          "explain": "There are $25$ primes $\\le 100$. The PNT estimate $100/\\log 100 \\approx 21.7$, while $\\mathrm{Li}(100) \\approx 30.1$ — both are in the right ballpark."
+        }
+      ]
+    },
+    "ant-riemann-zeta-from-pnt": {
+      "title": "$\\zeta(s)$ and the explicit formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of these directly links the non-trivial zeros of $\\zeta(s)$ to the prime-counting error?",
+          "choices": [
+            "The Euler product $\\zeta(s) = \\prod_p (1-p^{-s})^{-1}$",
+            "The functional equation $\\zeta(s) = \\zeta(1-s)$ (after gamma factors)",
+            "The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$",
+            "The reflection $\\Gamma(s)\\Gamma(1-s) = \\pi/\\sin(\\pi s)$"
+          ],
+          "answer": 2,
+          "hint": "The explicit formula sums $x^\\rho/\\rho$ over zeros $\\rho$.",
+          "explain": "Apply Perron's formula to $-\\zeta'/\\zeta$: shifting the contour past the non-trivial zeros picks up a residue $-x^\\rho/\\rho$ at each, and the trivial pole at $s=1$ contributes $+x$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Riemann hypothesis ($\\mathrm{Re}\\,\\rho = 1/2$ for every non-trivial zero $\\rho$) is equivalent to which sharpening of PNT?",
+          "choices": [
+            "$\\psi(x) - x = O(\\log x)$",
+            "$\\psi(x) - x = O(x^{1/2}(\\log x)^2)$",
+            "$\\psi(x) - x = O(x^{1-\\varepsilon})$ for some $\\varepsilon > 0$",
+            "$\\psi(x) - x = O(1)$"
+          ],
+          "answer": 1,
+          "hint": "Each zero $\\rho$ contributes a term $x^\\rho/\\rho$; if all $\\rho$ have real part $1/2$ the total is $O(x^{1/2}\\cdot \\#\\{\\text{zeros up to height }T\\})$.",
+          "explain": "RH is equivalent to $\\psi(x) - x \\ll x^{1/2}(\\log x)^2$. This is the sharpest possible error, because zeros on the critical line force at least $x^{1/2}$ oscillation."
+        },
+        {
+          "type": "numeric",
+          "q": "The unique pole of $\\zeta(s)$ in $\\mathbb{C}$ is simple and located at $s = ?$",
+          "answer": 1,
+          "tol": 1e-9,
+          "hint": "It is the value of $s$ at which the harmonic series $\\sum 1/n$ would diverge.",
+          "explain": "$\\zeta(s)$ has a simple pole with residue $1$ at $s = 1$; the explicit formula's leading term $+x$ in $\\psi(x)$ comes from this pole."
+        }
+      ]
+    },
+    "ant-zero-free-region": {
+      "title": "Zero-free regions and PNT proofs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hadamard and de la Vallée Poussin's proof of PNT (1896) hinges on which property of $\\zeta(s)$?",
+          "choices": [
+            "$\\zeta(s)$ has no zeros on the line $\\mathrm{Re}\\,s = 1$",
+            "$\\zeta(s)$ has only finitely many zeros in the critical strip",
+            "$\\zeta(s)$ has no zeros with $\\mathrm{Re}\\,s > 1/2$",
+            "$\\zeta(s)$ has a double pole at $s = 1$"
           ],
           "answer": 0,
-          "hint": "Placeholder.",
-          "explain": "Placeholder."
+          "hint": "Pushing a zero off the line $\\mathrm{Re}\\,s = 1$ is the analytic content of PNT.",
+          "explain": "The classical proof uses the inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$ applied to $|\\zeta(\\sigma)^3 \\zeta(\\sigma + it)^4 \\zeta(\\sigma + 2it)|$ to rule out $\\zeta(1+it) = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "The classical zero-free region pushes $\\zeta$'s zeros into",
+          "choices": [
+            "$\\sigma > 1$ (no zeros to the right of the line)",
+            "$\\sigma < 1 - c/\\log|t|$ for some constant $c > 0$",
+            "$\\sigma = 1/2$ exactly",
+            "$\\sigma < 0$"
+          ],
+          "answer": 1,
+          "hint": "It is a thin sliver to the left of $\\sigma = 1$ that narrows as $|t| \\to \\infty$.",
+          "explain": "The de la Vallée Poussin region is $\\sigma > 1 - c/\\log|t|$, narrowing logarithmically; combined with the explicit formula it gives PNT with error $O(x e^{-c\\sqrt{\\log x}})$."
+        },
+        {
+          "type": "mcq",
+          "q": "Improving the zero-free region from $\\sigma > 1 - c/\\log|t|$ to $\\sigma > 1/2$ would imply",
+          "choices": [
+            "Dirichlet's theorem on primes in AP",
+            "the Riemann hypothesis (and the optimal PNT remainder)",
+            "the twin-prime conjecture",
+            "Goldbach's conjecture"
+          ],
+          "answer": 1,
+          "hint": "The zero-free region's right edge is the location of the rightmost zero.",
+          "explain": "Pushing all non-trivial zeros to $\\sigma \\le 1/2$ is RH; via the explicit formula this yields $\\psi(x) - x = O(x^{1/2}(\\log x)^2)$."
+        }
+      ]
+    },
+    "ant-dirichlet-theorem": {
+      "title": "Dirichlet's theorem on primes in AP",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Dirichlet's theorem (1837) states that for $\\gcd(a, q) = 1$, the progression $a, a+q, a+2q, \\ldots$ contains",
+          "choices": [
+            "exactly $\\pi(x)/\\varphi(q)$ primes up to $x$ (no error)",
+            "infinitely many primes",
+            "only finitely many primes",
+            "primes only when $q$ is itself prime"
+          ],
+          "answer": 1,
+          "hint": "It is a qualitative, not asymptotic, statement.",
+          "explain": "Dirichlet showed there are infinitely many primes $\\equiv a \\pmod q$ whenever $\\gcd(a, q) = 1$. The quantitative refinement $\\pi(x; q, a) \\sim \\frac{1}{\\varphi(q)} x/\\log x$ is PNT for APs."
+        },
+        {
+          "type": "mcq",
+          "q": "The crucial analytic input in Dirichlet's proof is",
+          "choices": [
+            "$L(1, \\chi) \\ne 0$ for every non-trivial character $\\chi$ mod $q$",
+            "the functional equation of $\\zeta$",
+            "the residue theorem applied to $\\zeta'/\\zeta$",
+            "the Cauchy integral formula"
+          ],
+          "answer": 0,
+          "hint": "If $L(1, \\chi) = 0$ for some $\\chi$, the prime sums over the progression would not diverge.",
+          "explain": "Orthogonality $\\frac{1}{\\varphi(q)} \\sum_\\chi \\bar\\chi(a) \\chi(p) = \\mathbf 1_{p \\equiv a}$ converts $\\sum_{p \\equiv a} p^{-s}$ into a sum over $\\log L(s, \\chi)$. Each non-trivial $L(s, \\chi)$ stays finite at $s = 1$ provided $L(1, \\chi) \\ne 0$, and the trivial character contributes the $\\log \\zeta(s)$ blow-up."
+        },
+        {
+          "type": "numeric",
+          "q": "How many residue classes $a \\bmod 12$ with $\\gcd(a, 12) = 1$ are there? (This is $\\varphi(12)$, the number of primes-in-AP classes mod 12.)",
+          "answer": 4,
+          "tol": 0,
+          "hint": "List units mod 12: $1, 5, 7, 11$.",
+          "explain": "$\\varphi(12) = \\varphi(4)\\varphi(3) = 2 \\cdot 2 = 4$. Each class $1, 5, 7, 11 \\pmod{12}$ contains $\\sim x/(4 \\log x)$ primes up to $x$."
+        }
+      ]
+    },
+    "ant-sieve-methods": {
+      "title": "Sieve methods",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Naive Möbius-weighted inclusion–exclusion $\\sum_{d \\mid P(z)} \\mu(d) \\lfloor x/d \\rfloor$ counts integers up to $x$ with no prime factor $\\le z$. Why does it fail to count primes directly?",
+          "choices": [
+            "The Möbius function is undefined on primes",
+            "The error term grows like $2^{\\pi(z)}$ when $z$ approaches $\\sqrt{x}$, swamping the main term",
+            "It only counts prime powers, not primes",
+            "It always gives a negative answer"
+          ],
+          "answer": 1,
+          "hint": "The sum has $2^{\\pi(z)}$ terms, each contributing an $O(1)$ error.",
+          "explain": "Each $\\lfloor x/d \\rfloor$ has error $O(1)$, and there are $2^{\\pi(z)}$ divisors of $P(z) = \\prod_{p \\le z} p$. Truncating the sum at small $d$ (Brun, Selberg) is the modern fix."
+        },
+        {
+          "type": "mcq",
+          "q": "Brun's sieve famously gives which conditional twin-prime result?",
+          "choices": [
+            "There are infinitely many twin primes",
+            "$\\sum_{p, p+2 \\text{ both prime}} (1/p + 1/(p+2))$ converges (Brun's constant)",
+            "There are no twin primes above $10^{18}$",
+            "The twin-prime constant equals $\\pi$"
+          ],
+          "answer": 1,
+          "hint": "Convergence of the reciprocal sum is the celebrated 1919 Brun bound.",
+          "explain": "Brun (1919) proved $\\#\\{p \\le x : p, p+2 \\text{ both prime}\\} \\ll x/(\\log x)^2$, which makes the reciprocal sum converge to Brun's constant $B_2 \\approx 1.902\\ldots$ — strikingly, this stops short of proving infinitude either way."
+        },
+        {
+          "type": "mcq",
+          "q": "The Selberg upper-bound sieve finds the optimal weights $\\lambda_d$ in",
+          "choices": [
+            "$\\sum_{n \\le x} \\bigl(\\sum_{d \\mid n} \\lambda_d\\bigr)^2 \\ge \\#\\{\\text{sifted } n\\}$",
+            "$\\sum_{n \\le x} \\bigl(\\sum_{d \\mid n} \\lambda_d\\bigr)^2 \\le \\#\\{\\text{sifted } n\\}$",
+            "$\\sum_{n \\le x} \\sum_{d \\mid n} \\lambda_d \\cdot \\mu(d)$ exactly",
+            "$\\prod_{p \\le z} (1 - 1/p)$"
+          ],
+          "answer": 0,
+          "hint": "Squares are non-negative, so the LHS is an automatic upper bound for any indicator-truncation of the divisor sum.",
+          "explain": "Selberg's $\\Lambda^2$ trick: $\\bigl(\\sum_{d \\mid n} \\lambda_d\\bigr)^2 \\ge 1$ whenever $\\lambda_1 = 1$, so the squared sum is an upper bound. Optimizing $\\lambda$ subject to $\\lambda_d = 0$ for $d > z$ becomes a quadratic program with a clean closed form."
+        }
+      ]
+    },
+    "ant-bombieri-vinogradov": {
+      "title": "Bombieri–Vinogradov on average",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Bombieri–Vinogradov theorem (1965) bounds $\\sum_{q \\le Q} \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ for which range of $Q$?",
+          "choices": [
+            "$Q \\le \\log x$",
+            "$Q \\le x^{1/2}/(\\log x)^A$",
+            "$Q \\le x$",
+            "$Q \\le x^{1-\\varepsilon}$"
+          ],
+          "answer": 1,
+          "hint": "The barrier is $Q \\le \\sqrt{x}$, the same threshold GRH would yield individually.",
+          "explain": "Bombieri–Vinogradov works up to $Q \\le x^{1/2}/(\\log x)^A$ and gives a bound $\\ll x/(\\log x)^B$. This is GRH-quality on average — pushing $Q$ past $x^{1/2}$ is the Elliott–Halberstam conjecture."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is Bombieri–Vinogradov as strong as GRH for many applications?",
+          "choices": [
+            "It implies GRH directly",
+            "Most arithmetic applications only need an average bound over moduli, not a pointwise bound for each $q$",
+            "It bounds the zeros of $\\zeta(s)$",
+            "It eliminates the need for sieve weights"
+          ],
+          "answer": 1,
+          "hint": "Sieve and prime-distribution arguments typically sum errors over $q$, so $\\ell^1$-on-average is the relevant norm.",
+          "explain": "Many sieve applications (e.g. Chen's theorem, twin almost-primes, bounded gaps) need $\\sum_q E(x; q, a)$ small, not each individual $E(x; q, a)$. Bombieri–Vinogradov supplies exactly that, hence the slogan 'GRH on average'."
+        },
+        {
+          "type": "mcq",
+          "q": "The Elliott–Halberstam conjecture extends Bombieri–Vinogradov by allowing",
+          "choices": [
+            "$Q$ up to $x^{1-\\varepsilon}$ for any fixed $\\varepsilon > 0$",
+            "complex residue classes $a$",
+            "weighted sums with Möbius coefficients",
+            "moduli that are prime powers only"
+          ],
+          "answer": 0,
+          "hint": "It pushes the cutoff from $\\sqrt{x}$ to nearly $x$.",
+          "explain": "Elliott–Halberstam (1968) conjectures the same average bound holds for $Q \\le x^{1-\\varepsilon}$. Conditional on it, sieve methods give bounded prime gaps as small as $12$ (Maynard); Zhang's unconditional gap of $70 \\cdot 10^6$ used a weakened EH result."
         }
       ]
     }

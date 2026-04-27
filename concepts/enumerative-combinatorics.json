@@ -4,11 +4,62 @@
   "page": "enumerative-combinatorics.html",
   "concepts": [
     {
-      "id": "enumerative-combinatorics-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "ec-binomial-and-stars-bars",
+      "title": "Binomial coefficients, multinomials, and stars-and-bars",
+      "anchor": "basics",
+      "prereqs": [
+        "sets-functions"
+      ],
+      "blurb": "$\\binom{n}{k}$ counts $k$-subsets of $[n]$; the multinomial $\\binom{n}{k_1,\\ldots,k_r}$ counts ordered partitions into bins of sizes $k_i$. Stars-and-bars: weak compositions of $n$ into $r$ parts are counted by $\\binom{n+r-1}{r-1}$, the canonical bijection between non-negative integer solutions and binary strings."
+    },
+    {
+      "id": "ec-inclusion-exclusion",
+      "title": "Inclusion–exclusion and derangements",
+      "anchor": "inclusion-exclusion",
+      "prereqs": [
+        "ec-binomial-and-stars-bars"
+      ],
+      "blurb": "$|A_1\\cup\\cdots\\cup A_n| = \\sum |A_i| - \\sum |A_i\\cap A_j| + \\cdots + (-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|$. Applied to permutations avoiding fixed points gives the derangement count $D_n = n!\\sum_{k=0}^n (-1)^k/k!$, with $D_n/n! \\to 1/e$."
+    },
+    {
+      "id": "ec-recurrences-and-gen-fun",
+      "title": "Recurrences and generating functions",
+      "anchor": "generating-functions",
+      "prereqs": [
+        "ec-binomial-and-stars-bars"
+      ],
+      "blurb": "Encode a sequence $a_n$ as either an ordinary generating function $A(x)=\\sum a_n x^n$ or an exponential one $\\hat A(x)=\\sum a_n x^n/n!$. Recurrences become functional equations; the Catalan recurrence $C_{n+1}=\\sum C_k C_{n-k}$ becomes $C(x)=1+xC(x)^2$, solved to $C(x)=(1-\\sqrt{1-4x})/(2x)$ giving $C_n=\\frac{1}{n+1}\\binom{2n}{n}$."
+    },
+    {
+      "id": "ec-permutation-statistics",
+      "title": "Permutation statistics",
+      "anchor": "permutation-stats",
+      "prereqs": [
+        "ec-binomial-and-stars-bars"
+      ],
+      "blurb": "Inversions, cycles, and descents partition $S_n$ into refined classes. Eulerian numbers $\\langle n \\atop k\\rangle$ count permutations with $k$ descents; (signless) Stirling numbers of the first kind $c(n,k)$ count those with $k$ cycles. Cycle index polynomials package $S_n$'s cycle structure for Pólya enumeration of colourings under group actions.",
+      "tags": [
+        "group-action"
+      ]
+    },
+    {
+      "id": "ec-partition-theory",
+      "title": "Integer partitions and Euler's product",
+      "anchor": "partitions",
+      "prereqs": [
+        "ec-recurrences-and-gen-fun"
+      ],
+      "blurb": "$p(n)$ counts ways to write $n=\\lambda_1+\\cdots+\\lambda_r$ with $\\lambda_1\\ge\\cdots\\ge\\lambda_r\\ge 1$. Euler's product $\\sum p(n) q^n = \\prod_{k\\ge 1}(1-q^k)^{-1}$ is the generating-function identity that bootstraps everything. Rogers–Ramanujan: partitions with parts differing by at least $2$ are equinumerous with partitions into parts $\\equiv \\pm 1\\pmod 5$."
+    },
+    {
+      "id": "ec-bijective-proofs",
+      "title": "Bijective proofs",
+      "anchor": "bijections",
+      "prereqs": [
+        "ec-partition-theory",
+        "ec-permutation-statistics"
+      ],
+      "blurb": "When two sequences agree, find a bijection. Catalan-counted families — Dyck paths, triangulations of an $(n{+}2)$-gon, binary trees, non-crossing partitions — all carry explicit bijections. Stirling's formula $n!\\sim \\sqrt{2\\pi n}(n/e)^n$ has a bijective shadow via lattice-path arguments. The RSK correspondence biject ions matrices with pairs of standard Young tableaux of the same shape, the bedrock of symmetric-function combinatorics."
     }
   ]
 }

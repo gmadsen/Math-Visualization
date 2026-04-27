@@ -4,11 +4,69 @@
   "page": "morse-theory.html",
   "concepts": [
     {
-      "id": "morse-theory-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "mt-morse-functions",
+      "title": "Morse functions and non-degenerate critical points",
+      "anchor": "morse-functions",
+      "prereqs": [
+        "smooth-manifold-definition",
+        "tangent-space-manifolds"
+      ],
+      "blurb": "A smooth $f\\colon M\\to\\mathbb{R}$ is Morse when every critical point is non-degenerate (Hessian invertible). The Morse lemma gives a chart in which $f = -x_1^2-\\cdots-x_k^2 + x_{k+1}^2+\\cdots+x_n^2 + c$, where the index $k$ is the number of negative eigenvalues. Morse functions are dense in $C^\\infty(M)$.",
+      "tags": ["foundation", "classification"]
+    },
+    {
+      "id": "mt-handle-decomposition",
+      "title": "Handle decomposition via sublevel sets",
+      "anchor": "handle-decomp",
+      "prereqs": [
+        "mt-morse-functions",
+        "vector-field-flows"
+      ],
+      "blurb": "As $c$ increases, the sublevel set $M^c=\\{f\\le c\\}$ deforms by gradient flow except when $c$ crosses a critical value: there it gains a $k$-handle $D^k\\times D^{n-k}$, where $k$ is the Morse index. Cells, not points, are how the topology changes.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "mt-cw-structure",
+      "title": "CW structure from a Morse function",
+      "anchor": "cw-structure",
+      "prereqs": [
+        "mt-handle-decomposition",
+        "singular-homology"
+      ],
+      "blurb": "Up to homotopy each $k$-handle attached to $M^{c-\\epsilon}$ is a $k$-cell, so $M$ has the homotopy type of a CW complex with one cell of dimension $k$ for every critical point of index $k$. This is the bridge from differential topology to cellular homology.",
+      "tags": ["functoriality"]
+    },
+    {
+      "id": "mt-morse-inequalities",
+      "title": "Morse inequalities",
+      "anchor": "inequalities",
+      "prereqs": [
+        "mt-cw-structure"
+      ],
+      "blurb": "If $c_k(f)$ counts index-$k$ critical points and $b_k(M)$ are Betti numbers, then $b_k(M)\\le c_k(f)$ (weak) and $\\sum_k(-1)^k c_k = \\chi(M)$ (Morse–Reeb). The strong inequalities $\\sum_{k\\le j}(-1)^{j-k}(c_k - b_k)\\ge 0$ refine the count via the chain complex.",
+      "tags": ["cohomology", "exact-sequence"]
+    },
+    {
+      "id": "mt-morse-homology",
+      "title": "Morse homology",
+      "anchor": "morse-homology",
+      "prereqs": [
+        "mt-cw-structure",
+        "exterior-derivative"
+      ],
+      "blurb": "Pick a Morse–Smale gradient: the chain complex has critical points as generators in degree equal to their index, and the boundary $\\partial$ counts signed gradient flow lines between consecutive-index critical points. The resulting homology is canonically isomorphic to singular homology — a hands-on model of $H_*(M)$.",
+      "tags": ["cohomology", "exact-sequence"]
+    },
+    {
+      "id": "mt-applications",
+      "title": "Applications and generalisations",
+      "anchor": "applications",
+      "prereqs": [
+        "mt-morse-inequalities",
+        "mt-morse-homology"
+      ],
+      "blurb": "Reeb's sphere theorem (a closed manifold with exactly two critical points is homeomorphic to a sphere), Bott's perfect Morse functions on Lie groups, and the infinite-dimensional analogue — Floer homology on path/loop spaces — all flow from this machinery.",
+      "tags": ["classification"]
     }
   ]
 }

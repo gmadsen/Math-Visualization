@@ -4,11 +4,41 @@
   "page": "large-deviations.html",
   "concepts": [
     {
-      "id": "large-deviations-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "ld-cramer-theorem",
+      "title": "Cramér's theorem",
+      "anchor": "cramer",
+      "prereqs": ["expectation-moments", "law-of-large-numbers"],
+      "blurb": "For i.i.d.\\ $X_i$ with finite log-MGF $\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X}]$, the empirical mean $\\bar X_n$ satisfies $\\mathbb{P}(\\bar X_n\\ge x)\\asymp e^{-nI(x)}$, where $I(x)=\\sup_\\theta\\{\\theta x-\\Lambda(\\theta)\\}$ is the Legendre transform of $\\Lambda$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "ld-rate-function",
+      "title": "Rate functions and convex duality",
+      "anchor": "rate-function",
+      "prereqs": ["ld-cramer-theorem"],
+      "blurb": "A rate function $I:\\mathcal{X}\\to[0,\\infty]$ is lower semicontinuous, equals $0$ at the LLN limit, and is convex when produced by a Legendre transform; its level sets are the compacts that govern the LDP.",
+      "tags": ["duality"]
+    },
+    {
+      "id": "ld-sanov-theorem",
+      "title": "Sanov's theorem",
+      "anchor": "sanov",
+      "prereqs": ["ld-rate-function"],
+      "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function."
+    },
+    {
+      "id": "ld-gartner-ellis",
+      "title": "Gärtner–Ellis theorem",
+      "anchor": "gartner-ellis",
+      "prereqs": ["ld-rate-function", "convergence-rv"],
+      "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums."
+    },
+    {
+      "id": "ld-applications",
+      "title": "Applications: Schilder, Freidlin–Wentzell, entropy",
+      "anchor": "applications",
+      "prereqs": ["ld-sanov-theorem", "ld-gartner-ellis"],
+      "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics."
     }
   ]
 }

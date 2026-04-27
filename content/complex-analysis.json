@@ -310,7 +310,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#arg\">Complex Analysis</a> · Argument principle</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#perron\">Dirichlet series and Euler products</a> · Perron's formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#explicit\">Analytic number theory</a> · $\\zeta(s)$ and the explicit formula</div>\n    <div><a href=\"./complex-analysis.html#arg\">Complex Analysis</a> · Argument principle</div>\n    <div><a href=\"./dirichlet-series-euler-products.html#perron\">Dirichlet series and Euler products</a> · Perron's formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

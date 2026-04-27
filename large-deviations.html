@@ -230,7 +230,11 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+  <a href="#cramer">1&nbsp;Cramér</a>
+  <a href="#rate-function">2&nbsp;Rate&nbsp;functions</a>
+  <a href="#sanov">3&nbsp;Sanov</a>
+  <a href="#gartner-ellis">4&nbsp;Gärtner–Ellis</a>
+  <a href="#applications">5&nbsp;Applications</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -240,16 +244,784 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Large deviations</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <p class="sub">The law of large numbers says $\bar X_n\to\mu$. Large-deviation theory asks <em>how unlikely</em> the rare excursion $\bar X_n\approx x\ne\mu$ actually is — and answers $\mathbb{P}(\bar X_n\approx x)\asymp e^{-nI(x)}$, where the rate function $I$ is the Legendre transform of the log-MGF. Cramér, Sanov, Gärtner–Ellis, Schilder, and Freidlin–Wentzell are five faces of one principle.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="large-deviations-intro"></div>
+<section id="cramer">
+<h2>1. Cramér's theorem</h2>
+
+<p>Let $X_1,X_2,\ldots$ be i.i.d.\ real random variables with finite log-MGF
+$$\Lambda(\theta)=\log\mathbb{E}[e^{\theta X_1}]<\infty\quad\text{for }\theta\text{ in a neighbourhood of }0,$$
+and write $\bar X_n=\tfrac{1}{n}\sum_{i=1}^n X_i$ and $\mu=\mathbb{E}[X_1]$. The strong law gives $\bar X_n\to\mu$ a.s.; <strong>Cramér's theorem</strong> quantifies the rare event $\{\bar X_n\ge x\}$ for $x>\mu$:
+$$\lim_{n\to\infty}\frac{1}{n}\log\mathbb{P}(\bar X_n\ge x)=-I(x),\qquad I(x)=\sup_{\theta\in\mathbb{R}}\bigl\{\theta x-\Lambda(\theta)\bigr\}.$$
+The right-hand side is the <strong>Legendre–Fenchel transform</strong> of $\Lambda$. Tail probabilities decay <em>exponentially</em> in $n$ at rate $I(x)$.</p>
+
+<p><strong>Two-sided:</strong> the same identity holds for $\mathbb{P}(\bar X_n\le x)$ when $x<\mu$, and the joint statement
+$\mathbb{P}(\bar X_n\in F)\lesssim e^{-n\inf_F I}$ (closed $F$), $\mathbb{P}(\bar X_n\in G)\gtrsim e^{-n\inf_G I}$ (open $G$) is the <strong>large-deviation principle</strong> (LDP) — the canonical packaging.</p>
+
+<div class="note"><strong>Why a Legendre transform?</strong> The exponential tilt $\mathbb{P}_\theta(dx)=e^{\theta x-\Lambda(\theta)}\mathbb{P}(dx)$ makes $x$ the <em>typical</em> mean: choose $\theta=\theta^*$ so $\Lambda'(\theta^*)=x$. Under $\mathbb{P}_\theta$ the event becomes typical and a Radon–Nikodym change of measure costs $e^{-n(\theta x-\Lambda(\theta))}=e^{-nI(x)}$. The Legendre sup is "pick the cheapest tilt that makes $x$ typical."</div>
+
+<p><strong>Worked Gaussian example.</strong> If $X_i\sim\mathcal{N}(0,1)$, then $\Lambda(\theta)=\theta^2/2$. Maximising $\theta x-\theta^2/2$ gives $\theta^*=x$ and $I(x)=x^2/2$. So $\mathbb{P}(\bar X_n\ge x)\sim e^{-nx^2/2}$ — exactly the Gaussian tail bound, but now the constant is sharp on the log scale.</p>
+
+<p><strong>Bernoulli example.</strong> If $X_i\sim\text{Bernoulli}(p)$, $\Lambda(\theta)=\log(1-p+pe^\theta)$ and
+$$I(x)=x\log\tfrac{x}{p}+(1-x)\log\tfrac{1-x}{1-p}=H(\text{Ber}(x)\,\|\,\text{Ber}(p))$$
+on $[0,1]$ — exactly the Kullback–Leibler divergence. Coin tossing is the simplest non-Gaussian instance and already exposes the link to information theory.</p>
+
+<div class="widget" id="w-cramer">
+  <div class="hd"><div class="ttl">Cramér rate via Legendre tilt</div><div class="hint">drag the slider — see the supporting line $\theta x-\Lambda(\theta)$</div></div>
+  <svg id="cramer-svg" viewBox="0 0 760 320" width="760" height="320"><title>Cramér's theorem: Legendre transform of the log-MGF</title></svg>
+  <div class="row">
+    <label for="cr-dist">law of $X_1$</label>
+    <select id="cr-dist">
+      <option value="gauss">$X_1\sim\mathcal{N}(0,1)$ (so $\Lambda=\theta^2/2$)</option>
+      <option value="bern">$X_1\sim\text{Ber}(0.5)$</option>
+      <option value="exp">$X_1\sim\text{Exp}(1)$ (mean 1)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="cr-x">target $x$</label>
+    <input id="cr-x" type="range" min="-1.5" max="3" step="0.01" value="1.5">
+    <span id="cr-x-v" class="small"></span>
+  </div>
+  <div class="readout" id="cr-out"></div>
+</div>
+
+<div class="quiz" data-concept="ld-cramer-theorem"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</li>
+    <li><a href="./probability-theory.html#lln">Probability theory</a> · Law of large numbers</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./large-deviations.html#rate-function">Large deviations</a> · Rate functions and convex duality</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §1 Cramér: Legendre transform =============================== */
+(function(){
+  const svg = $("#cramer-svg"), out = $("#cr-out");
+  const dist = $("#cr-dist"), xs = $("#cr-x"), xv = $("#cr-x-v");
+  const W = 760, H = 320, padL = 60, padR = 30, padT = 30, padB = 50;
+  // inner plot is the Legendre construction in (theta, value)-space.
+  const tMin = -2, tMax = 2;
+  function lambda(theta, kind){
+    if(kind === "gauss") return theta*theta/2;
+    if(kind === "bern")  return Math.log(0.5 + 0.5*Math.exp(theta));
+    if(kind === "exp")   return theta < 1 ? -Math.log(1 - theta) : Infinity;
+    return 0;
+  }
+  function lambdaDeriv(theta, kind){
+    if(kind === "gauss") return theta;
+    if(kind === "bern"){ const e = Math.exp(theta); return e/(1+e); }
+    if(kind === "exp")   return theta < 1 ? 1/(1 - theta) : Infinity;
+    return 0;
+  }
+  // numerical Legendre sup
+  function rate(x, kind){
+    let best = -Infinity, bestT = 0;
+    const N = 800;
+    for(let i = 0; i <= N; i++){
+      const t = tMin + (tMax - tMin)*i/N;
+      const v = t*x - lambda(t, kind);
+      if(isFinite(v) && v > best){ best = v; bestT = t; }
+    }
+    return {I: best, theta: bestT};
+  }
+  function px(t){ return padL + (t - tMin)/(tMax - tMin) * (W - padL - padR); }
+  function py(v, vMin, vMax){ return H - padB - (v - vMin)/(vMax - vMin) * (H - padT - padB); }
+  function draw(){
+    const kind = dist.value;
+    const x = +xs.value;
+    xv.textContent = x.toFixed(2);
+    svg.innerHTML = "";
+    // determine y-range from samples of Lambda and theta*x
+    let vMin = Infinity, vMax = -Infinity;
+    const samples = [];
+    const N = 240;
+    for(let i = 0; i <= N; i++){
+      const t = tMin + (tMax - tMin)*i/N;
+      const Lt = lambda(t, kind);
+      const Tx = t*x;
+      samples.push({t, Lt, Tx});
+      if(isFinite(Lt)){ vMin = Math.min(vMin, Lt); vMax = Math.max(vMax, Lt); }
+      if(isFinite(Tx)){ vMin = Math.min(vMin, Tx); vMax = Math.max(vMax, Tx); }
+    }
+    vMin = Math.min(vMin, -2); vMax = Math.max(vMax, 3);
+    // axes
+    const xAxisY = py(0, vMin, vMax);
+    svg.appendChild(SVG("line",{x1:padL,y1:xAxisY,x2:W-padR,y2:xAxisY,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:px(0),y1:padT,x2:px(0),y2:H-padB,stroke:"var(--line)"}));
+    // axis labels
+    let lbl = SVG("text",{x:W-padR,y:xAxisY-6,"text-anchor":"end","font-size":12,fill:"var(--mute)"});
+    lbl.textContent = "θ"; svg.appendChild(lbl);
+    lbl = SVG("text",{x:px(0)+6,y:padT+12,"text-anchor":"start","font-size":12,fill:"var(--mute)"});
+    lbl.textContent = "value"; svg.appendChild(lbl);
+    // Lambda(theta) curve
+    let d = "";
+    for(const s of samples){
+      if(!isFinite(s.Lt)) continue;
+      d += (d ? "L" : "M") + px(s.t) + " " + py(s.Lt, vMin, vMax) + " ";
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--cyan)", "stroke-width":2}));
+    // theta*x line (the affine being maximised)
+    let d2 = "";
+    for(const s of samples){
+      d2 += (d2 ? "L" : "M") + px(s.t) + " " + py(s.Tx, vMin, vMax) + " ";
+    }
+    svg.appendChild(SVG("path",{d:d2, fill:"none", stroke:"var(--violet)", "stroke-width":1.5, "stroke-dasharray":"4 4"}));
+    // sup gap = theta*x - Lambda(theta)
+    let d3 = "";
+    for(const s of samples){
+      if(!isFinite(s.Lt)) continue;
+      d3 += (d3 ? "L" : "M") + px(s.t) + " " + py(s.Tx - s.Lt, vMin, vMax) + " ";
+    }
+    svg.appendChild(SVG("path",{d:d3, fill:"none", stroke:"var(--yellow)", "stroke-width":2}));
+    // mark the maximiser
+    const r = rate(x, kind);
+    const mx = px(r.theta), myG = py(r.theta*x - lambda(r.theta, kind), vMin, vMax);
+    svg.appendChild(SVG("circle",{cx:mx, cy:myG, r:5, fill:"var(--yellow)"}));
+    // vertical drop showing I(x)
+    svg.appendChild(SVG("line",{x1:mx, y1:myG, x2:mx, y2:py(0, vMin, vMax),
+      stroke:"var(--yellow)", "stroke-dasharray":"3 3"}));
+    // legend
+    const legend = [
+      {color:"var(--cyan)",   label:"Λ(θ) log-MGF"},
+      {color:"var(--violet)", label:"θ·x affine"},
+      {color:"var(--yellow)", label:"θx − Λ(θ)"}
+    ];
+    legend.forEach((it, i) => {
+      const ly = padT + 8 + i*16;
+      svg.appendChild(SVG("rect",{x:W-padR-150, y:ly-9, width:14, height:3, fill:it.color}));
+      const t = SVG("text",{x:W-padR-130, y:ly-3, "font-size":11, fill:"var(--mute)"});
+      t.textContent = it.label;
+      svg.appendChild(t);
+    });
+    out.textContent =
+      "Λ(θ*) = " + lambda(r.theta, kind).toFixed(4) + ", θ* = " + r.theta.toFixed(3) + "\n" +
+      "I(x) = sup_θ [θ·x − Λ(θ)] = " + r.I.toFixed(4) + "\n" +
+      "P(̄X_n ≥ x) ≍ exp(−n · " + r.I.toFixed(3) + ")";
+  }
+  dist.addEventListener("change", draw);
+  xs.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<section id="rate-function">
+<h2>2. Rate functions and convex duality</h2>
+
+<p>Cramér gives a recipe; the rate function $I$ has structural properties worth isolating. A <strong>(good) rate function</strong> on a Polish space $\mathcal{X}$ is $I:\mathcal{X}\to[0,\infty]$ with:</p>
+
+<ul>
+  <li><strong>Lower semicontinuity</strong>: level sets $\{x:I(x)\le\alpha\}$ are closed.</li>
+  <li><strong>Compactness of level sets</strong> (the <em>good</em> qualifier): closed and bounded in $\mathcal{X}$.</li>
+  <li><strong>Vanishing at the LLN limit</strong>: $I(\mu)=0$, since $\theta=0$ achieves the sup when $\Lambda'(0)=\mu$.</li>
+</ul>
+
+<p>When $I=\Lambda^*$ for a convex $\Lambda$, the <strong>Legendre involution</strong> $(\Lambda^*)^*=\Lambda$ holds wherever $\Lambda$ is convex and lower semicontinuous. Geometrically, $\Lambda$ and $I$ are dual: each is the supporting-hyperplane envelope of the other.</p>
+
+<p><strong>Quadratic example.</strong> Gaussian: $\Lambda(\theta)=\sigma^2\theta^2/2+\mu\theta\Rightarrow I(x)=(x-\mu)^2/(2\sigma^2)$. The rate function is the squared Mahalanobis distance — Gaussian tails are exactly quadratic.</p>
+
+<p><strong>Bernoulli/binomial.</strong> $I(x)=H(\text{Ber}(x)\,\|\,\text{Ber}(p))$ on $[0,1]$, $+\infty$ off $[0,1]$. The infinite values force support: the empirical mean cannot exceed $1$, no matter how rare we are willing to consider.</p>
+
+<p><strong>Exponential.</strong> If $X_i\sim\text{Exp}(1)$ (mean $1$), $\Lambda(\theta)=-\log(1-\theta)$ for $\theta<1$ and $I(x)=x-1-\log x$ on $(0,\infty)$ — the <em>Itakura–Saito</em> divergence from $1$. Note $I(x)$ is asymmetric: large $x$ is more punishing than small $x$.</p>
+
+<div class="note"><strong>Reading off probabilities.</strong> If $I$ is strictly convex with minimum at $\mu$, a quadratic Taylor expansion $I(x)\approx\tfrac{1}{2}I''(\mu)(x-\mu)^2$ recovers the central limit theorem: $\sqrt n(\bar X_n-\mu)\Rightarrow\mathcal{N}(0,1/I''(\mu))$. The CLT is the LDP <em>linearised</em> at $\mu$, and $I''(\mu)=1/\sigma^2$.</div>
+
+<div class="widget" id="w-rate">
+  <div class="hd"><div class="ttl">Rate-function gallery</div><div class="hint">compare $I$ across families and zoom on the LLN minimum</div></div>
+  <svg id="rate-svg" viewBox="0 0 760 320" width="760" height="320"><title>Rate function I(x) for several i.i.d. families</title></svg>
+  <div class="row">
+    <button id="r-gauss" class="active">Gaussian I(x)=x²/2</button>
+    <button id="r-bern">Bernoulli p=½</button>
+    <button id="r-exp">Exp(1)</button>
+    <button id="r-poisson">Poisson(1)</button>
+  </div>
+  <div class="row">
+    <label for="r-zoom">zoom near minimum</label>
+    <input id="r-zoom" type="range" min="0" max="1" step="0.01" value="0">
+    <span id="r-zoom-v" class="small"></span>
+  </div>
+  <div class="readout" id="r-out"></div>
+</div>
+
+<div class="quiz" data-concept="ld-rate-function"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./large-deviations.html#gartner-ellis">Large deviations</a> · Gärtner–Ellis theorem</div>
+    <div><a href="./large-deviations.html#sanov">Large deviations</a> · Sanov's theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §2 Rate-function gallery =============================== */
+(function(){
+  const svg = $("#rate-svg"), out = $("#r-out");
+  const zoom = $("#r-zoom"), zv = $("#r-zoom-v");
+  const W = 760, H = 320, padL = 50, padR = 30, padT = 25, padB = 45;
+  const families = {
+    gauss:   {mean:0, fn:x=> x*x/2,                   xMin:-3, xMax:3,   label:"Gaussian"},
+    bern:    {mean:0.5, fn:x=> (x<=0||x>=1)? Infinity : x*Math.log(2*x)+(1-x)*Math.log(2*(1-x)),
+              xMin:0, xMax:1,   label:"Bernoulli p=½"},
+    exp:     {mean:1, fn:x=> x<=0 ? Infinity : x - 1 - Math.log(x), xMin:0.05, xMax:4, label:"Exp(1)"},
+    poisson: {mean:1, fn:x=> x<=0 ? Infinity : x*Math.log(x) - x + 1, xMin:0.05, xMax:4, label:"Poisson(1)"}
+  };
+  let active = "gauss";
+  function draw(){
+    svg.innerHTML = "";
+    const F = families[active];
+    const z = +zoom.value;
+    zv.textContent = "×" + (1 + 4*z).toFixed(2);
+    // x range collapses toward the mean as z→1
+    const half = (F.xMax - F.xMin)/2 / (1 + 4*z);
+    const xMin = F.mean - half, xMax = F.mean + half;
+    const N = 320;
+    let yMax = 0;
+    const pts = [];
+    for(let i = 0; i <= N; i++){
+      const x = xMin + (xMax - xMin)*i/N;
+      const y = F.fn(x);
+      pts.push({x, y});
+      if(isFinite(y)) yMax = Math.max(yMax, y);
+    }
+    yMax = Math.max(yMax, 0.4);
+    function px(x){ return padL + (x - xMin)/(xMax - xMin) * (W - padL - padR); }
+    function py(y){ return H - padB - Math.min(y, yMax)/yMax * (H - padT - padB); }
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
+    // gridlines / ticks
+    for(let k = 0; k <= 4; k++){
+      const yv = yMax*k/4;
+      const yp = py(yv);
+      svg.appendChild(SVG("line",{x1:padL, y1:yp, x2:W-padR, y2:yp,
+        stroke:"var(--line)", "stroke-dasharray":"2 4", opacity:0.4}));
+      const t = SVG("text",{x:padL-8, y:yp+4, "text-anchor":"end", "font-size":10, fill:"var(--mute)"});
+      t.textContent = yv.toFixed(2);
+      svg.appendChild(t);
+    }
+    // x ticks
+    for(let k = 0; k <= 4; k++){
+      const xv = xMin + (xMax - xMin)*k/4;
+      const xp = px(xv);
+      const t = SVG("text",{x:xp, y:H-padB+14, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+      t.textContent = xv.toFixed(2);
+      svg.appendChild(t);
+    }
+    // curve
+    let d = "";
+    for(const p of pts){
+      if(!isFinite(p.y)) continue;
+      d += (d ? "L" : "M") + px(p.x) + " " + py(p.y) + " ";
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--yellow)", "stroke-width":2.2}));
+    // mean marker
+    const mp = px(F.mean);
+    if(mp >= padL && mp <= W - padR){
+      svg.appendChild(SVG("line",{x1:mp, y1:padT, x2:mp, y2:H-padB,
+        stroke:"var(--green)", "stroke-dasharray":"3 3", opacity:0.7}));
+      const t = SVG("text",{x:mp + 4, y:padT + 12, "font-size":11, fill:"var(--green)"});
+      t.textContent = "μ = " + F.mean;
+      svg.appendChild(t);
+    }
+    // axis labels
+    const xl = SVG("text",{x:W - padR, y:H - padB - 6, "text-anchor":"end", "font-size":12, fill:"var(--mute)"});
+    xl.textContent = "x"; svg.appendChild(xl);
+    const yl = SVG("text",{x:padL + 6, y:padT + 12, "font-size":12, fill:"var(--mute)"});
+    yl.textContent = "I(x)"; svg.appendChild(yl);
+    // family label
+    const fl = SVG("text",{x:W - padR - 10, y:padT + 14, "text-anchor":"end", "font-size":12, fill:"var(--yellow)", "font-weight":600});
+    fl.textContent = F.label;
+    svg.appendChild(fl);
+    // sample I-values
+    const xs = [F.mean - half/2, F.mean + half/2];
+    out.textContent = "I(" + xs[0].toFixed(3) + ") = " + F.fn(xs[0]).toFixed(4) +
+                      "    I(" + xs[1].toFixed(3) + ") = " + F.fn(xs[1]).toFixed(4) +
+                      "\nI(μ) = " + F.fn(F.mean).toFixed(4) + "  (LLN minimum is 0)";
+  }
+  document.querySelectorAll("#w-rate .row button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      document.querySelectorAll("#w-rate .row button").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      active = b.id.replace("r-","");
+      draw();
+    });
+  });
+  zoom.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<section id="sanov">
+<h2>3. Sanov's theorem and KL divergence</h2>
+
+<p>Cramér tracks the empirical mean $\bar X_n$. <strong>Sanov's theorem</strong> tracks the <em>full empirical distribution</em>
+$$L_n=\frac{1}{n}\sum_{i=1}^n\delta_{X_i}\in\mathcal{P}(\mathcal{X})$$
+of i.i.d.\ samples from $\mu$. It is the LDP on the space of probability measures: for measurable $A\subset\mathcal{P}(\mathcal{X})$,
+$$\mathbb{P}(L_n\in A)\asymp\exp\Bigl(-n\inf_{\nu\in A}H(\nu\,\|\,\mu)\Bigr),$$
+where $H(\nu\,\|\,\mu)=\int\log(d\nu/d\mu)\,d\nu$ (= $+\infty$ if $\nu\not\ll\mu$) is the <strong>Kullback–Leibler divergence</strong>.</p>
+
+<p>This is the most basic instance of the slogan "<em>entropy is the rate function of i.i.d.\ statistics</em>." On a finite alphabet $\mathcal{X}=\{a_1,\ldots,a_k\}$, $L_n$ is just the histogram, and
+$$H(\nu\,\|\,\mu)=\sum_{i=1}^k\nu_i\log\frac{\nu_i}{\mu_i}.$$
+By Pinsker, $H\ge 2\|\nu-\mu\|_{TV}^2$, so KL controls every weaker metric.</p>
+
+<div class="note"><strong>Cramér from Sanov via contraction.</strong> The empirical mean is a continuous functional of $L_n$: $\bar X_n=\int x\,dL_n(x)$. The <strong>contraction principle</strong> says: if $L_n$ satisfies an LDP with rate $H(\,\cdot\,\|\,\mu)$ and $f$ is continuous, then $f(L_n)$ has rate $I(y)=\inf\{H(\nu\,\|\,\mu):\int x\,d\nu(x)=y\}$. Solving the constrained minimisation by Lagrange multipliers reproduces $I(y)=\sup_\theta\{\theta y-\Lambda(\theta)\}$.</div>
+
+<p><strong>Worked example: biased coin.</strong> $\mu=\text{Ber}(1/2)$, target $\nu=\text{Ber}(p)$. Then $H(\nu\,\|\,\mu)=p\log(2p)+(1-p)\log(2(1-p))$. The probability that $n$ fair coin flips produce a fraction-of-heads close to $p=0.9$ is approximately $e^{-n\cdot 0.368}$. For $n=100$ this is $\approx e^{-36.8}\approx 10^{-16}$ — astronomically rare, but the rate is sharp.</p>
+
+<div class="widget" id="w-sanov">
+  <div class="hd"><div class="ttl">Empirical histogram vs.\ KL rate</div><div class="hint">edit target $\nu$ on a 4-letter alphabet</div></div>
+  <svg id="sanov-svg" viewBox="0 0 760 280" width="760" height="280"><title>Sanov's theorem: empirical histogram and KL divergence</title></svg>
+  <div class="row">
+    <label for="s-q1">ν(a) <span id="s-q1-v" class="small"></span></label>
+    <input id="s-q1" type="range" min="0.02" max="0.92" step="0.01" value="0.4">
+  </div>
+  <div class="row">
+    <label for="s-q2">ν(b) <span id="s-q2-v" class="small"></span></label>
+    <input id="s-q2" type="range" min="0.02" max="0.92" step="0.01" value="0.3">
+  </div>
+  <div class="row">
+    <label for="s-q3">ν(c) <span id="s-q3-v" class="small"></span></label>
+    <input id="s-q3" type="range" min="0.02" max="0.92" step="0.01" value="0.2">
+  </div>
+  <div class="readout" id="s-out"></div>
+</div>
+
+<div class="quiz" data-concept="ld-sanov-theorem"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./large-deviations.html#applications">Large deviations</a> · Applications: Schilder, Freidlin–Wentzell, entropy</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §3 Sanov: empirical histogram + KL =============================== */
+(function(){
+  const svg = $("#sanov-svg"), out = $("#s-out");
+  const q1 = $("#s-q1"), q2 = $("#s-q2"), q3 = $("#s-q3");
+  const v1 = $("#s-q1-v"), v2 = $("#s-q2-v"), v3 = $("#s-q3-v");
+  const W = 760, H = 280, padT = 30, padB = 60;
+  const mu = [0.25, 0.25, 0.25, 0.25]; // reference uniform
+  const labels = ["a","b","c","d"];
+  function normalise(){
+    let a = +q1.value, b = +q2.value, c = +q3.value;
+    let d = 1 - a - b - c;
+    if(d < 0.02){
+      const s = a + b + c;
+      const scale = 0.98/s;
+      a *= scale; b *= scale; c *= scale; d = 0.02;
+    }
+    return [a, b, c, d];
+  }
+  function kl(nu, mu){
+    let s = 0;
+    for(let i = 0; i < nu.length; i++){
+      if(nu[i] <= 0) continue;
+      s += nu[i] * Math.log(nu[i]/mu[i]);
+    }
+    return s;
+  }
+  function draw(){
+    const nu = normalise();
+    v1.textContent = nu[0].toFixed(2);
+    v2.textContent = nu[1].toFixed(2);
+    v3.textContent = nu[2].toFixed(2);
+    svg.innerHTML = "";
+    // 2 grouped bars per letter: mu and nu
+    const groupW = 130, gap = 40;
+    const startX = (W - 4*groupW - 3*gap)/2;
+    const barH = 160;
+    const baseY = H - padB;
+    const topY = baseY - barH;
+    // baseline
+    svg.appendChild(SVG("line",{x1:30, y1:baseY, x2:W-30, y2:baseY, stroke:"var(--line)"}));
+    for(let i = 0; i < 4; i++){
+      const gx = startX + i*(groupW + gap);
+      const muH = mu[i] * barH;
+      const nuH = nu[i] * barH;
+      // mu bar (left half)
+      svg.appendChild(SVG("rect",{x:gx, y:baseY - muH, width:groupW/2 - 4, height:muH,
+        fill:"var(--violet)", opacity:0.85}));
+      // nu bar (right half)
+      svg.appendChild(SVG("rect",{x:gx + groupW/2 + 4, y:baseY - nuH, width:groupW/2 - 4, height:nuH,
+        fill:"var(--yellow)", opacity:0.9}));
+      // letter label
+      const lt = SVG("text",{x:gx + groupW/2, y:baseY + 18, "text-anchor":"middle", "font-size":13, fill:"var(--ink)", "font-weight":600});
+      lt.textContent = labels[i];
+      svg.appendChild(lt);
+      // value labels
+      const mt = SVG("text",{x:gx + groupW/4 - 2, y:baseY - muH - 4, "text-anchor":"middle", "font-size":10, fill:"var(--violet)"});
+      mt.textContent = mu[i].toFixed(2);
+      svg.appendChild(mt);
+      const nt = SVG("text",{x:gx + 3*groupW/4 + 4, y:baseY - nuH - 4, "text-anchor":"middle", "font-size":10, fill:"var(--yellow)"});
+      nt.textContent = nu[i].toFixed(2);
+      svg.appendChild(nt);
+    }
+    // legend at top
+    svg.appendChild(SVG("rect",{x:50, y:padT, width:14, height:10, fill:"var(--violet)"}));
+    let lt = SVG("text",{x:70, y:padT + 9, "font-size":11, fill:"var(--mute)"});
+    lt.textContent = "μ (uniform reference)";
+    svg.appendChild(lt);
+    svg.appendChild(SVG("rect",{x:240, y:padT, width:14, height:10, fill:"var(--yellow)"}));
+    lt = SVG("text",{x:260, y:padT + 9, "font-size":11, fill:"var(--mute)"});
+    lt.textContent = "ν (target)";
+    svg.appendChild(lt);
+    const klv = kl(nu, mu);
+    // P(L_n ≈ ν) ≈ e^{-n·KL}
+    const ns = [10, 100, 1000];
+    const probs = ns.map(n => "n=" + n + ": ≍ exp(−" + (n*klv).toFixed(2) + ") ≈ " +
+      (n*klv > 30 ? "e^−" + (n*klv).toFixed(1) : Math.exp(-n*klv).toExponential(2))).join("    ");
+    out.textContent = "H(ν‖μ) = " + klv.toFixed(4) + " nats    " + probs +
+      "\nUniform μ achieves H = 0; the further ν is from μ in KL, the rarer the empirical histogram.";
+  }
+  q1.addEventListener("input", draw);
+  q2.addEventListener("input", draw);
+  q3.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<section id="gartner-ellis">
+<h2>4. Gärtner–Ellis: beyond i.i.d.</h2>
+
+<p>Cramér assumes i.i.d.\ summands, which is a strong restriction. The <strong>Gärtner–Ellis theorem</strong> replaces "i.i.d.\ log-MGF" with a <em>limiting log-MGF at scale $n$</em>:
+$$\Lambda(\theta)\ :=\ \lim_{n\to\infty}\frac{1}{n}\log\mathbb{E}\bigl[e^{n\theta\bar X_n}\bigr].$$
+If this limit exists, is finite on a neighbourhood of $0$, and is <strong>essentially smooth</strong> (differentiable in the interior of its effective domain with $|\Lambda'|\to\infty$ at the boundary), then $\bar X_n$ satisfies an LDP with rate $I=\Lambda^*$.</p>
+
+<p>This covers a wide zoo: ergodic Markov chains (where $\Lambda$ comes from the Perron eigenvalue of the tilted transition operator), stationary Gaussian processes (where $\Lambda$ involves the spectral density), and bounded weakly dependent sums.</p>
+
+<p><strong>Worked example: AR(1) chain.</strong> Let $X_n=\rho X_{n-1}+\xi_n$ with $\xi_n\sim\mathcal{N}(0,1)$ i.i.d., stationary mean $0$, variance $1/(1-\rho^2)$. The limiting log-MGF for $\bar X_n$ is
+$$\Lambda(\theta)=\frac{\theta^2}{2(1-\rho)^2},\qquad I(x)=\frac{(1-\rho)^2 x^2}{2}.$$
+Persistence ($\rho>0$) <em>flattens</em> the rate function — large deviations become less rare because the chain "drifts" coherently rather than averaging out.</p>
+
+<div class="note"><strong>Why essential smoothness?</strong> Without it, the upper bound of the LDP still holds, but the lower bound can fail at <em>exposed</em> points $x$ where $I(x)$ is achieved only at the boundary of $\Lambda$'s domain. A classic counterexample: $\Lambda$ piecewise linear (e.g.\ for rare-event-conditioned chains) — then $\Lambda^*$ has flat regions and some atypical values are unreachable by tilting.</div>
+
+<div class="widget" id="w-gartner">
+  <div class="hd"><div class="ttl">AR(1): how persistence reshapes $I(x)$</div><div class="hint">$\rho=0$ recovers Cramér; $\rho\to 1$ flattens</div></div>
+  <svg id="gartner-svg" viewBox="0 0 760 320" width="760" height="320"><title>Gärtner–Ellis: rate function for AR(1) chain at varying persistence</title></svg>
+  <div class="row">
+    <label for="g-rho">persistence ρ</label>
+    <input id="g-rho" type="range" min="-0.95" max="0.95" step="0.01" value="0.5">
+    <span id="g-rho-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="g-x">target $x$</label>
+    <input id="g-x" type="range" min="-3" max="3" step="0.01" value="1">
+    <span id="g-x-v" class="small"></span>
+  </div>
+  <div class="readout" id="g-out"></div>
+</div>
+
+<div class="quiz" data-concept="ld-gartner-ellis"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./large-deviations.html#applications">Large deviations</a> · Applications: Schilder, Freidlin–Wentzell, entropy</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §4 Gärtner–Ellis: AR(1) =============================== */
+(function(){
+  const svg = $("#gartner-svg"), out = $("#g-out");
+  const rho = $("#g-rho"), rv = $("#g-rho-v");
+  const xs = $("#g-x"), xv = $("#g-x-v");
+  const W = 760, H = 320, padL = 60, padR = 40, padT = 25, padB = 50;
+  const xMin = -3, xMax = 3;
+  function rateFor(r){
+    const k = (1 - r)*(1 - r) / 2;
+    return x => k*x*x;
+  }
+  function px(x){ return padL + (x - xMin)/(xMax - xMin) * (W - padL - padR); }
+  function draw(){
+    const r = +rho.value;
+    const x = +xs.value;
+    rv.textContent = r.toFixed(2);
+    xv.textContent = x.toFixed(2);
+    svg.innerHTML = "";
+    const yMax = 4;
+    function py(y){ return H - padB - Math.min(y, yMax)/yMax * (H - padT - padB); }
+    // axes
+    svg.appendChild(SVG("line",{x1:padL, y1:H-padB, x2:W-padR, y2:H-padB, stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL, y1:padT, x2:padL, y2:H-padB, stroke:"var(--line)"}));
+    // gridlines
+    for(let k = 1; k <= 4; k++){
+      const yp = py(k);
+      svg.appendChild(SVG("line",{x1:padL, y1:yp, x2:W-padR, y2:yp,
+        stroke:"var(--line)", "stroke-dasharray":"2 4", opacity:0.4}));
+      const t = SVG("text",{x:padL-8, y:yp+4, "text-anchor":"end", "font-size":10, fill:"var(--mute)"});
+      t.textContent = String(k);
+      svg.appendChild(t);
+    }
+    for(let k = -3; k <= 3; k++){
+      const xp = px(k);
+      const t = SVG("text",{x:xp, y:H-padB+14, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+      t.textContent = String(k);
+      svg.appendChild(t);
+    }
+    // ghost rho=0 (Cramér / Gaussian)
+    const ghostFn = rateFor(0);
+    let dg = "";
+    for(let i = 0; i <= 240; i++){
+      const xx = xMin + (xMax - xMin)*i/240;
+      dg += (dg ? "L" : "M") + px(xx) + " " + py(ghostFn(xx)) + " ";
+    }
+    svg.appendChild(SVG("path",{d:dg, fill:"none", stroke:"var(--mute)", "stroke-width":1.4, "stroke-dasharray":"4 4"}));
+    // active rate function
+    const fn = rateFor(r);
+    let d = "";
+    for(let i = 0; i <= 240; i++){
+      const xx = xMin + (xMax - xMin)*i/240;
+      d += (d ? "L" : "M") + px(xx) + " " + py(fn(xx)) + " ";
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--cyan)", "stroke-width":2.4}));
+    // marker at target x
+    const mp = px(x), mq = py(fn(x));
+    svg.appendChild(SVG("circle",{cx:mp, cy:mq, r:5, fill:"var(--yellow)"}));
+    svg.appendChild(SVG("line",{x1:mp, y1:mq, x2:mp, y2:py(0),
+      stroke:"var(--yellow)", "stroke-dasharray":"3 3"}));
+    // axis labels and legend
+    let l = SVG("text",{x:W-padR, y:H-padB-6, "text-anchor":"end", "font-size":12, fill:"var(--mute)"});
+    l.textContent = "x"; svg.appendChild(l);
+    l = SVG("text",{x:padL+6, y:padT+12, "font-size":12, fill:"var(--mute)"});
+    l.textContent = "I(x)"; svg.appendChild(l);
+    svg.appendChild(SVG("rect",{x:W-padR-180, y:padT, width:14, height:3, fill:"var(--mute)"}));
+    l = SVG("text",{x:W-padR-160, y:padT+6, "font-size":11, fill:"var(--mute)"});
+    l.textContent = "ρ=0 (i.i.d.)"; svg.appendChild(l);
+    svg.appendChild(SVG("rect",{x:W-padR-180, y:padT+18, width:14, height:3, fill:"var(--cyan)"}));
+    l = SVG("text",{x:W-padR-160, y:padT+24, "font-size":11, fill:"var(--cyan)"});
+    l.textContent = "ρ=" + r.toFixed(2); svg.appendChild(l);
+    out.textContent =
+      "Λ(θ) = θ²/(2(1−ρ)²),  I(x) = (1−ρ)²·x²/2\n" +
+      "ρ = " + r.toFixed(3) + ",  I(" + x.toFixed(2) + ") = " + fn(x).toFixed(4) +
+      "    (i.i.d. baseline I(x) = " + ghostFn(x).toFixed(4) + ")\n" +
+      "Persistence ratio I_ρ / I_0 = " + (fn(x)/Math.max(ghostFn(x),1e-9)).toFixed(3);
+  }
+  rho.addEventListener("input", draw);
+  xs.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<section id="applications">
+<h2>5. Applications: Schilder, Freidlin–Wentzell, entropy</h2>
+
+<p>The same machinery scales up to path space and to thermodynamics.</p>
+
+<h3>Schilder's theorem</h3>
+<p>Scaled Brownian motion $\sqrt\varepsilon\,W$ on $C([0,T];\mathbb{R}^d)$ satisfies an LDP at speed $1/\varepsilon$ with rate
+$$I(\phi)=\frac{1}{2}\int_0^T|\dot\phi(t)|^2\,dt\qquad(\phi\text{ absolutely continuous, }\phi(0)=0)$$
+and $I(\phi)=+\infty$ otherwise. The minimum-action path between two points is a straight line — Brownian sample paths "want" to stay still, and any deviation costs Dirichlet energy.</p>
+
+<h3>Freidlin–Wentzell</h3>
+<p>For the small-noise SDE $dX^\varepsilon_t=b(X^\varepsilon_t)\,dt+\sqrt\varepsilon\,dW_t$, replace $\dot\phi$ in Schilder's rate by the deviation from the deterministic flow:
+$$S(\phi)=\frac{1}{2}\int_0^T|\dot\phi(t)-b(\phi(t))|^2\,dt.$$
+The <strong>quasi-potential</strong> $V(x_0,y)=\inf\{S(\phi):\phi(0)=x_0,\phi(T)=y,T\ge 0\}$ governs rare exit times: if $D$ is a basin of an attractor $x_0$, the mean exit time satisfies
+$$\mathbb{E}_{x_0}[\tau_D]\asymp\exp\bigl(V(x_0,\partial D)/\varepsilon\bigr).$$
+Eyring–Kramers refines the prefactor; transition pathways concentrate on the <em>instanton</em>, the action minimiser through the saddle.</p>
+
+<h3>Boltzmann entropy</h3>
+<p>For an ideal gas with $n$ particles in $k$ momentum cells, the empirical occupation $L_n$ satisfies Sanov: $\mathbb{P}(L_n\approx\nu)\asymp e^{-nH(\nu\,\|\,\mu)}$. Equivalently, the number of microstates compatible with macrostate $\nu$ is $W\asymp e^{nS(\nu)}$ where $S=-H(\nu\,\|\,\mu)$ — recovering Boltzmann's $S=k\log W$ with $k=k_B$ the conversion to physical units. The <strong>Gibbs measure</strong> $e^{-\beta E}/Z$ is the maximiser of $S-\beta\langle E\rangle$, i.e.\ the minimiser of free energy. Statistical mechanics, entirely from large deviations.</p>
+
+<div class="widget" id="w-app">
+  <div class="hd"><div class="ttl">Schilder paths and Freidlin–Wentzell action</div><div class="hint">drag the endpoint — minimum-action path adjusts</div></div>
+  <svg id="app-svg" viewBox="0 0 760 360" width="760" height="360"><title>Schilder/Freidlin-Wentzell: minimum-action path under drift</title></svg>
+  <div class="row">
+    <label for="a-mode">drift $b(x)$</label>
+    <select id="a-mode">
+      <option value="zero">zero (Schilder)</option>
+      <option value="linear">linear pull to 0 ($b=-x$)</option>
+      <option value="double">double-well $b=x-x^3$</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="a-y">endpoint $y$</label>
+    <input id="a-y" type="range" min="-2" max="2" step="0.01" value="1.5">
+    <span id="a-y-v" class="small"></span>
+  </div>
+  <div class="readout" id="a-out"></div>
+</div>
+
+<div class="quiz" data-concept="ld-applications"></div>
+
 </section>
 
 </main>
+
+<script>
+/* =============================== §5 Schilder / Freidlin–Wentzell paths =============================== */
+(function(){
+  const svg = $("#app-svg"), out = $("#a-out");
+  const mode = $("#a-mode"), ys = $("#a-y"), yv = $("#a-y-v");
+  const W = 760, H = 360, padL = 60, padR = 30, padT = 30, padB = 50;
+  const T = 1, N = 80;
+  function bDrift(x, kind){
+    if(kind === "zero")   return 0;
+    if(kind === "linear") return -x;
+    if(kind === "double") return x - x*x*x;
+    return 0;
+  }
+  function buildPath(yEnd, kind){
+    // Schilder: zero-drift minimum-action path is the straight line
+    // (φ(t) = (t/T) y_end). Under non-zero drift we approximate the
+    // Freidlin–Wentzell minimiser by Newton-style relaxation of
+    // S(φ) = (1/2) ∫ |dφ/dt − b(φ)|² dt with fixed endpoints. A few
+    // gradient steps suffice for a visual minimiser.
+    const dt = T/N;
+    const phi = new Array(N+1);
+    for(let i = 0; i <= N; i++) phi[i] = (i/N) * yEnd;
+    if(kind === "zero") return phi;
+    const lr = 0.05;
+    for(let it = 0; it < 200; it++){
+      const grad = new Array(N+1).fill(0);
+      for(let i = 0; i < N; i++){
+        const phidot = (phi[i+1] - phi[i])/dt;
+        const mid = 0.5*(phi[i] + phi[i+1]);
+        const v = phidot - bDrift(mid, kind);
+        // contribution to S: 0.5 * v^2 * dt; dS/dphi[i+1] = v · (1/dt − 0.5 b'(mid))
+        const bDeriv = (kind === "linear") ? -1 : (1 - 3*mid*mid);
+        const dSdMid = -v * bDeriv * 0.5 * dt;
+        const dSdPhi_ip1 = v * 1.0;
+        const dSdPhi_i   = -v * 1.0;
+        grad[i+1] += dSdPhi_ip1 + dSdMid;
+        grad[i]   += dSdPhi_i   + dSdMid;
+      }
+      // fix endpoints
+      grad[0] = 0; grad[N] = 0;
+      for(let i = 1; i < N; i++) phi[i] -= lr * grad[i];
+    }
+    return phi;
+  }
+  function action(phi, kind){
+    const dt = T/N;
+    let S = 0;
+    for(let i = 0; i < N; i++){
+      const phidot = (phi[i+1] - phi[i])/dt;
+      const mid = 0.5*(phi[i] + phi[i+1]);
+      const v = phidot - bDrift(mid, kind);
+      S += 0.5 * v*v * dt;
+    }
+    return S;
+  }
+  function draw(){
+    const kind = mode.value;
+    const yEnd = +ys.value;
+    yv.textContent = yEnd.toFixed(2);
+    svg.innerHTML = "";
+    const xMin = 0, xMax = T;
+    const yMin = -2.2, yMax = 2.2;
+    function px(t){ return padL + (t - xMin)/(xMax - xMin) * (W - padL - padR); }
+    function py(y){ return H - padB - (y - yMin)/(yMax - yMin) * (H - padT - padB); }
+    // axes
+    svg.appendChild(SVG("line",{x1:padL, y1:py(0), x2:W-padR, y2:py(0), stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL, y1:padT, x2:padL, y2:H-padB, stroke:"var(--line)"}));
+    // y ticks
+    for(let v = -2; v <= 2; v++){
+      const yp = py(v);
+      svg.appendChild(SVG("line",{x1:padL, y1:yp, x2:W-padR, y2:yp,
+        stroke:"var(--line)", "stroke-dasharray":"2 4", opacity:0.3}));
+      const t = SVG("text",{x:padL-8, y:yp+4, "text-anchor":"end", "font-size":10, fill:"var(--mute)"});
+      t.textContent = String(v);
+      svg.appendChild(t);
+    }
+    // background drift field as horizontal arrows on a coarse grid
+    if(kind !== "zero"){
+      ensureArrow(svg, "drift-arrow", "var(--mute)");
+      const tg = 4, yg = 6;
+      for(let i = 0; i < tg; i++){
+        for(let j = 0; j < yg; j++){
+          const tt = (i + 0.5)/tg * T;
+          const yy = -2 + (j + 0.5) * (4/yg);
+          const b = bDrift(yy, kind);
+          const len = Math.max(-30, Math.min(30, b*30));
+          const x1 = px(tt), y1 = py(yy);
+          const y2 = py(yy + b*0.12);
+          svg.appendChild(SVG("line",{x1, y1, x2:x1, y2, stroke:"var(--mute)", opacity:0.45,
+            "marker-end":"url(#drift-arrow)"}));
+        }
+      }
+    }
+    // Schilder reference: straight line
+    const lineD = "M" + px(0) + " " + py(0) + " L" + px(T) + " " + py(yEnd);
+    svg.appendChild(SVG("path",{d:lineD, fill:"none", stroke:"var(--violet)",
+      "stroke-width":1.6, "stroke-dasharray":"4 4"}));
+    // minimum-action path
+    const phi = buildPath(yEnd, kind);
+    let d = "";
+    for(let i = 0; i <= N; i++){
+      d += (i === 0 ? "M" : "L") + px(i/N * T) + " " + py(phi[i]) + " ";
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--yellow)", "stroke-width":2.4}));
+    // start and end
+    svg.appendChild(SVG("circle",{cx:px(0), cy:py(0), r:5, fill:"var(--green)"}));
+    svg.appendChild(SVG("circle",{cx:px(T), cy:py(yEnd), r:5, fill:"var(--cyan)"}));
+    // sample noisy paths around the minimiser
+    for(let s = 0; s < 4; s++){
+      let pd = "M" + px(0) + " " + py(0);
+      let cur = 0;
+      const dt = T/N;
+      const eps = 0.06;
+      for(let i = 1; i <= N; i++){
+        const drift = bDrift(cur, kind);
+        // bridge term to land near yEnd by t=T (linear interpolation toward target)
+        const tnow = i/N * T;
+        const remaining = (T - tnow);
+        const bridge = remaining > 0 ? (yEnd - cur)/remaining : 0;
+        cur += (drift + bridge*0.6) * dt + Math.sqrt(eps*dt) * (Math.random() - 0.5) * 3;
+        pd += " L" + px(tnow) + " " + py(cur);
+      }
+      svg.appendChild(SVG("path",{d:pd, fill:"none", stroke:"var(--mute)", "stroke-width":0.8, opacity:0.45}));
+    }
+    // axis labels
+    let l = SVG("text",{x:W-padR, y:py(0)-6, "text-anchor":"end", "font-size":12, fill:"var(--mute)"});
+    l.textContent = "t"; svg.appendChild(l);
+    l = SVG("text",{x:padL+6, y:padT+12, "font-size":12, fill:"var(--mute)"});
+    l.textContent = "φ(t)"; svg.appendChild(l);
+    // legend
+    svg.appendChild(SVG("rect",{x:W-padR-220, y:padT, width:14, height:3, fill:"var(--violet)"}));
+    l = SVG("text",{x:W-padR-200, y:padT+6, "font-size":11, fill:"var(--mute)"});
+    l.textContent = "Schilder reference (line)"; svg.appendChild(l);
+    svg.appendChild(SVG("rect",{x:W-padR-220, y:padT+18, width:14, height:3, fill:"var(--yellow)"}));
+    l = SVG("text",{x:W-padR-200, y:padT+24, "font-size":11, fill:"var(--cyan)"});
+    l.textContent = "min-action path"; svg.appendChild(l);
+    svg.appendChild(SVG("rect",{x:W-padR-220, y:padT+36, width:14, height:3, fill:"var(--mute)"}));
+    l = SVG("text",{x:W-padR-200, y:padT+42, "font-size":11, fill:"var(--mute)"});
+    l.textContent = "noisy ε-paths"; svg.appendChild(l);
+    const S = action(phi, kind);
+    const Slin = action(phi.map((_,i)=> i/N * yEnd), kind);
+    out.textContent =
+      "Action S(φ*) = " + S.toFixed(4) + "    (Schilder line: " + Slin.toFixed(4) + ")\n" +
+      "P(X^ε reaches y by T=1) ≍ exp(−S/ε)\n" +
+      "Drift mode: " + kind + ".  Increase persistence away from b's flow to raise the action.";
+  }
+  mode.addEventListener("change", draw);
+  ys.addEventListener("input", draw);
+  draw();
+})();
+</script>
 
 <script>
 /* sidebar TOC builder + active-section highlighting */

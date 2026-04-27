@@ -4,11 +4,49 @@
   "page": "information-theory.html",
   "concepts": [
     {
-      "id": "information-theory-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "it-shannon-entropy",
+      "title": "Shannon entropy",
+      "anchor": "entropy",
+      "prereqs": ["expectation-moments", "random-variables"],
+      "blurb": "For a discrete random variable $X$ with pmf $p$, $H(X)=-\\sum_i p_i\\log p_i$ measures average uncertainty in bits (log base $2$) or nats (log base $e$); it is concave in $p$, vanishes on point masses, and is maximised at $\\log n$ by the uniform law on $n$ symbols.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "it-mutual-information",
+      "title": "Mutual information",
+      "anchor": "mutual-info",
+      "prereqs": ["it-shannon-entropy", "conditional-bayes"],
+      "blurb": "$I(X;Y)=H(X)-H(X\\mid Y)=H(X)+H(Y)-H(X,Y)$ measures the bits about $X$ revealed by observing $Y$; equivalently $I(X;Y)=D(p_{XY}\\,\\|\\,p_X p_Y)$, the KL distance from the joint to the product of marginals.",
+      "tags": ["duality"]
+    },
+    {
+      "id": "it-kl-divergence",
+      "title": "Kullback–Leibler divergence",
+      "anchor": "kl-divergence",
+      "prereqs": ["it-shannon-entropy", "ld-sanov-theorem"],
+      "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem."
+    },
+    {
+      "id": "it-source-coding",
+      "title": "Source coding",
+      "anchor": "source-coding",
+      "prereqs": ["it-shannon-entropy"],
+      "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$."
+    },
+    {
+      "id": "it-channel-coding",
+      "title": "Channel coding",
+      "anchor": "channel-coding",
+      "prereqs": ["it-mutual-information"],
+      "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold."
+    },
+    {
+      "id": "it-rate-distortion",
+      "title": "Rate–distortion",
+      "anchor": "rate-distortion",
+      "prereqs": ["it-mutual-information", "it-source-coding"],
+      "blurb": "For lossy compression with distortion measure $d$ and tolerance $D$, the rate–distortion function is $R(D)=\\min\\{I(X;\\hat X):\\mathbb{E}[d(X,\\hat X)]\\le D\\}$ — the minimum bits per symbol that still keep expected distortion under $D$. For a Gaussian source with squared-error distortion, $R(D)=\\tfrac{1}{2}\\log(\\sigma^2/D)$ on $[0,\\sigma^2]$.",
+      "tags": ["duality"]
     }
   ]
 }
