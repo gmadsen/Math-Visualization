@@ -1,4 +1,269 @@
 {
   "topic": "ricci-flow",
-  "quizzes": {}
+  "quizzes": {
+    "rf-equation": {
+      "title": "The Ricci flow equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hamilton's Ricci flow equation reads:",
+          "choices": [
+            "$\\partial_t g_{ij} = +2 R_{ij}$",
+            "$\\partial_t g_{ij} = -2 R_{ij}$",
+            "$\\partial_t g_{ij} = -\\Delta g_{ij}$",
+            "$\\partial_t g_{ij} = R\\,g_{ij}$"
+          ],
+          "answer": 1,
+          "hint": "The metric evolves opposite to the Ricci curvature.",
+          "explain": "The flow is $\\partial_t g_{ij}=-2R_{ij}$. The minus sign tries to round out positive curvature and stretch out negative curvature; the factor of 2 matches the Bianchi identity normalisation that makes the equation parabolic."
+        },
+        {
+          "type": "mcq",
+          "q": "On an Einstein metric $\\mathrm{Ric}=\\lambda g$, the Ricci flow starting from $g_0$ is given by:",
+          "choices": [
+            "$g(t) = g_0$ (stationary)",
+            "$g(t) = (1 - 2\\lambda t)\\,g_0$",
+            "$g(t) = e^{-2\\lambda t}\\,g_0$",
+            "$g(t) = g_0 + t\\cdot\\mathrm{Ric}(g_0)$"
+          ],
+          "answer": 1,
+          "hint": "Try the ansatz $g(t)=\\rho(t)g_0$ and substitute.",
+          "explain": "If $g(t)=\\rho(t)g_0$ then $R_{ij}(g(t))=R_{ij}(g_0)=\\lambda g_0{}_{ij}$ (Ricci is invariant under constant rescaling). So $\\rho'(t)=-2\\lambda$, giving $\\rho(t)=1-2\\lambda t$. Spheres ($\\lambda>0$) shrink to a point at $t=1/(2\\lambda)$; hyperbolic metrics ($\\lambda<0$) expand."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is Ricci flow described as a 'heat equation for the metric'?",
+          "choices": [
+            "It dissipates energy by the heat-kernel formula.",
+            "In harmonic coordinates the principal part is $\\partial_t g_{ij}=\\Delta g_{ij}+\\text{lower order}$.",
+            "It is identical to the heat equation $u_t=\\Delta u$.",
+            "It satisfies the maximum principle for $g$ itself."
+          ],
+          "answer": 1,
+          "hint": "Look at the linearisation in a good coordinate gauge.",
+          "explain": "In harmonic coordinates $-2R_{ij}=\\Delta g_{ij}+Q(g,\\partial g)$ where $Q$ collects nonlinear lower-order terms. So Ricci flow is a quasilinear parabolic system whose principal symbol is the rough Laplacian — that is the precise sense in which it is a heat equation for $g$."
+        }
+      ]
+    },
+    "rf-short-time": {
+      "title": "Short-time existence and DeTurck",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hamilton's short-time existence theorem says that for any smooth initial metric $g_0$ on a closed manifold:",
+          "choices": [
+            "the Ricci flow exists for all time $t\\ge 0$",
+            "a smooth solution exists on a maximal interval $[0,T)$ with $T>0$, and is unique",
+            "a solution exists only if $g_0$ has positive Ricci curvature",
+            "no smooth solution exists in general"
+          ],
+          "answer": 1,
+          "hint": "Compactness and parabolic-system theory give existence + uniqueness up to a maximal time.",
+          "explain": "On a closed manifold there is a unique smooth solution on some $[0,T)$ with $T>0$, and $T$ is maximal: either $T=\\infty$ or curvature blows up as $t\\to T$. The proof requires repairing parabolicity via DeTurck."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the bare Ricci flow equation NOT strictly parabolic?",
+          "choices": [
+            "Its symbol has a positive eigenvalue.",
+            "Diffeomorphism invariance produces a kernel in the principal symbol along gauge directions.",
+            "$R_{ij}$ is a rank-2 tensor, so the equation has too many components.",
+            "It is third order, not second order."
+          ],
+          "answer": 1,
+          "hint": "If $\\phi_t$ is a 1-parameter family of diffeomorphisms, $\\phi_t^* g(t)$ also solves Ricci flow.",
+          "explain": "Because Ricci flow is invariant under pull-back by diffeomorphisms, infinitesimal gauge changes $\\mathcal{L}_X g$ lie in the kernel of the linearised principal symbol. So the system is only weakly parabolic; strict parabolicity (and standard PDE theory) fails until the gauge is fixed."
+        },
+        {
+          "type": "mcq",
+          "q": "DeTurck's trick repairs parabolicity by:",
+          "choices": [
+            "discretising time with implicit Euler",
+            "adding $\\mathcal{L}_W g$ for a vector field $W$ chosen so the modified flow is strictly parabolic, then pulling back by $\\phi_t^{-1}$ to recover Ricci flow",
+            "switching to harmonic coordinates everywhere on $M$",
+            "subtracting the trace $-\\tfrac{1}{n}R\\,g$"
+          ],
+          "answer": 1,
+          "hint": "The added term is a Lie derivative chosen to cancel the gauge degeneracy.",
+          "explain": "DeTurck adds $\\mathcal{L}_W g$ where $W^k = g^{ij}(\\Gamma^k_{ij}-\\tilde\\Gamma^k_{ij})$ relative to a fixed background metric. The modified flow is strictly parabolic and has a unique solution by standard theory; pulling back along the diffeomorphisms generated by $-W$ recovers an honest Ricci flow."
+        }
+      ]
+    },
+    "rf-singularities": {
+      "title": "Singularities and ancient solutions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If a Ricci flow on a closed manifold reaches its maximal time $T<\\infty$, what must happen?",
+          "choices": [
+            "the volume goes to zero",
+            "$\\sup_M |\\mathrm{Rm}|(\\cdot,t)\\to\\infty$ as $t\\to T$",
+            "the diameter stays bounded",
+            "nothing — solutions can simply stop"
+          ],
+          "answer": 1,
+          "hint": "Smooth solutions extend past $T$ unless a quantity blows up.",
+          "explain": "Hamilton's continuation criterion: a smooth Ricci flow on a closed manifold extends past $T$ unless $\\sup |\\mathrm{Rm}|\\to\\infty$ as $t\\to T$. Curvature blow-up is the only obstruction to long-time existence."
+        },
+        {
+          "type": "mcq",
+          "q": "A Type I singularity is one where, near the singular time $T$:",
+          "choices": [
+            "$|\\mathrm{Rm}|(T-t)\\to 0$",
+            "$\\sup |\\mathrm{Rm}|(T-t)$ stays bounded",
+            "$\\sup |\\mathrm{Rm}| \\le C/(T-t)$ for some constant $C$",
+            "$\\sup |\\mathrm{Rm}| \\ge C/(T-t)^2$"
+          ],
+          "answer": 2,
+          "hint": "Type I = the natural parabolic blow-up rate.",
+          "explain": "$|\\mathrm{Rm}|$ scales like $1/\\text{(distance to singular time)}$ under parabolic rescaling. Type I means this rate is achieved as an upper bound; Type II is supercritical (e.g. degenerate neckpinches); Type III is for immortal flows."
+        },
+        {
+          "type": "mcq",
+          "q": "Parabolic rescaling about a singular point produces, in the limit, a solution defined for all $t\\in(-\\infty,0]$. Such a solution is called:",
+          "choices": [
+            "an Einstein flow",
+            "an ancient solution",
+            "an immortal solution",
+            "a heat kernel"
+          ],
+          "answer": 1,
+          "hint": "It exists arbitrarily far back in time.",
+          "explain": "An ancient solution is a Ricci flow defined on $(-\\infty,T_0]$. Hamilton and Perelman showed that blow-up limits at Type I/II singularities are $\\kappa$-noncollapsed ancient solutions, and tangent flows of these encode the local geometry of the singularity."
+        }
+      ]
+    },
+    "rf-soliton": {
+      "title": "Ricci solitons",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Ricci soliton is a metric $g_0$ together with a vector field $X$ and constant $\\lambda$ such that:",
+          "choices": [
+            "$\\mathrm{Ric}(g_0) = 0$",
+            "$\\mathrm{Ric}(g_0) + \\tfrac12 \\mathcal{L}_X g_0 = \\lambda\\, g_0$",
+            "$\\mathrm{Ric}(g_0) = \\lambda\\, g_0$ only",
+            "$\\Delta g_0 = -2\\,\\mathrm{Ric}(g_0)$"
+          ],
+          "answer": 1,
+          "hint": "The metric should evolve only by scaling and pull-back along $X$'s flow.",
+          "explain": "The soliton equation $\\mathrm{Ric}+\\tfrac12\\mathcal{L}_X g=\\lambda g$ encodes self-similarity: $g(t)=\\sigma(t)\\phi_t^* g_0$ with $\\sigma(t)=1-2\\lambda t$ and $\\phi_t$ the flow of $X/\\sigma(t)$ solves Ricci flow. Einstein metrics are the special case $X=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "A soliton is called shrinking, steady, or expanding according to the sign of $\\lambda$. Which is which?",
+          "choices": [
+            "shrinking $\\lambda<0$, steady $\\lambda=0$, expanding $\\lambda>0$",
+            "shrinking $\\lambda>0$, steady $\\lambda=0$, expanding $\\lambda<0$",
+            "shrinking $\\lambda=0$, steady $\\lambda>0$, expanding $\\lambda<0$",
+            "the sign of $\\lambda$ does not determine the type"
+          ],
+          "answer": 1,
+          "hint": "Recall $\\sigma(t)=1-2\\lambda t$.",
+          "explain": "$\\lambda>0$ gives $\\sigma(t)$ decreasing — the metric shrinks (and goes singular at $t=1/(2\\lambda)$); $\\lambda=0$ gives $\\sigma\\equiv 1$ — translating soliton; $\\lambda<0$ gives $\\sigma$ increasing — the metric expands."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a steady Ricci soliton?",
+          "choices": [
+            "the round sphere $S^n$",
+            "Hamilton's cigar soliton on $\\mathbb{R}^2$",
+            "hyperbolic space $\\mathbb{H}^n$",
+            "the standard Euclidean metric on $\\mathbb{R}^n$"
+          ],
+          "answer": 1,
+          "hint": "Steady = $\\lambda=0$, gradient soliton on a non-compact surface.",
+          "explain": "Hamilton's cigar $g=\\frac{dx^2+dy^2}{1+x^2+y^2}$ on $\\mathbb{R}^2$ is the canonical 2-D steady gradient soliton. The round sphere is shrinking ($\\lambda>0$, Einstein); hyperbolic space is expanding ($\\lambda<0$); flat $\\mathbb{R}^n$ is static (also a degenerate soliton)."
+        }
+      ]
+    },
+    "rf-surgery": {
+      "title": "Surgery on $\\epsilon$-necks",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An $\\epsilon$-neck in a 3-D Ricci flow is a region of the manifold which, after rescaling so that the curvature is order 1, is $\\epsilon$-close in $C^k$ to:",
+          "choices": [
+            "a piece of round 3-sphere $S^3$",
+            "a piece of round cylinder $S^2\\times\\mathbb{R}$",
+            "the Bryant soliton",
+            "flat $\\mathbb{R}^3$"
+          ],
+          "answer": 1,
+          "hint": "Necks look long and thin — one dimension is stretched.",
+          "explain": "An $\\epsilon$-neck is a region modelled on $S^{n-1}\\times[-\\epsilon^{-1},\\epsilon^{-1}]$ (in 3-D: $S^2\\times\\mathbb{R}$) after parabolic rescaling. Singular regions in 3-D Ricci flow develop $\\epsilon$-necks generically."
+        },
+        {
+          "type": "mcq",
+          "q": "Surgery on an $\\epsilon$-neck consists of:",
+          "choices": [
+            "smoothing the metric by averaging",
+            "cutting the neck along a 2-sphere cross-section and gluing in two standard caps",
+            "removing the entire connected component containing the neck",
+            "letting the flow evolve through the singularity unmodified"
+          ],
+          "answer": 1,
+          "hint": "Topologically: cut $S^2\\times\\mathbb{R}$ at a slice, cap off both pieces with $D^3$.",
+          "explain": "Cut along a cross-sectional $S^2$ inside the neck and glue a standard cap (a $D^3$ with a controlled metric) onto each side. The resulting manifold may have more components, but each surgery is a simple topological operation: removal of a $S^2\\times I$ and attachment of two 3-balls."
+        },
+        {
+          "type": "mcq",
+          "q": "On any finite time interval, Hamilton–Perelman surgery requires:",
+          "choices": [
+            "uncountably many surgeries",
+            "only finitely many surgeries, and they have no accumulation point",
+            "exactly one surgery per singular time",
+            "infinitely many surgeries that accumulate at every singular time"
+          ],
+          "answer": 1,
+          "hint": "Volume bounds and noncollapsing limit how often surgery can fire.",
+          "explain": "Perelman's noncollapsing and curvature estimates ensure that surgery scales stay bounded below on each finite interval and that volume drops by a fixed amount per surgery, so surgery times are isolated and finite-in-number on any $[0,T]$."
+        }
+      ]
+    },
+    "rf-poincare-thurston": {
+      "title": "Poincaré conjecture and geometrisation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Perelman's proof of the Poincaré conjecture shows that on any closed simply connected 3-manifold $M$, Ricci flow with surgery:",
+          "choices": [
+            "exists for all time without surgery",
+            "becomes extinct (the manifold disappears) in finite time",
+            "converges to a hyperbolic metric",
+            "produces a flat metric in the limit"
+          ],
+          "answer": 1,
+          "hint": "Extinction means $M$ becomes empty after finitely many surgeries.",
+          "explain": "Perelman proved that Ricci flow with surgery on a closed simply connected 3-manifold becomes extinct in finite time. The path of surgeries shows $M$ is a connected sum of finitely many $S^3$'s and $S^2\\times S^1$'s; simple connectivity forces $M\\cong S^3$, proving Poincaré."
+        },
+        {
+          "type": "mcq",
+          "q": "Two of Perelman's monotone quantities along Ricci flow are:",
+          "choices": [
+            "the Euler characteristic and the genus",
+            "the $\\mathcal{F}$-entropy and the $\\mathcal{W}$-entropy (reduced volume)",
+            "the volume and the diameter",
+            "the first Betti number and the signature"
+          ],
+          "answer": 1,
+          "hint": "Both are functionals on metrics introduced specifically for Ricci flow.",
+          "explain": "The $\\mathcal{F}$-functional is monotone along Ricci flow (steady-soliton energy); the $\\mathcal{W}$-entropy is monotone along the flow combined with rescaling and gives the noncollapsing theorem. The reduced volume is the geometric counterpart."
+        },
+        {
+          "type": "mcq",
+          "q": "Thurston's geometrisation conjecture, proved by Perelman, says every closed orientable 3-manifold decomposes (along spheres and tori) into pieces each carrying one of:",
+          "choices": [
+            "exactly two model geometries",
+            "the eight Thurston geometries",
+            "infinitely many distinct geometries",
+            "either spherical or hyperbolic geometry only"
+          ],
+          "answer": 1,
+          "hint": "The list includes $S^3$, $\\mathbb{E}^3$, $\\mathbb{H}^3$, $S^2\\times\\mathbb{R}$, $\\mathbb{H}^2\\times\\mathbb{R}$, $\\widetilde{SL_2\\mathbb{R}}$, Nil, Sol.",
+          "explain": "Thurston's eight model geometries are the maximal simply connected homogeneous 3-spaces with cocompact isometry group. Geometrisation says every prime 3-manifold is built from pieces locally isometric to one of these; Ricci flow with surgery realises the decomposition geometrically."
+        }
+      ]
+    }
+  }
 }

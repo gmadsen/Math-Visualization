@@ -396,6 +396,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./vertex-operator-algebras.html#moonshine-mod\">Vertex operator algebras</a> · The moonshine module $V^\\natural$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n\n"
         },
         {

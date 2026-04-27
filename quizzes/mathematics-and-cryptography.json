@@ -1,4 +1,236 @@
 {
   "topic": "mathematics-and-cryptography",
-  "quizzes": {}
+  "quizzes": {
+    "crypto-modular-arithmetic": {
+      "title": "Modular arithmetic and Euler's theorem",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $\\phi(35)$.",
+          "answer": 24,
+          "tol": 0.5,
+          "explain": "$35=5\\cdot 7$, so $\\phi(35)=(5-1)(7-1)=24$."
+        },
+        {
+          "type": "mcq",
+          "q": "By Fermat–Euler, $7^{40} \\bmod 100$ equals which of the following?",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$7$",
+            "$49$"
+          ],
+          "answer": 1,
+          "explain": "$\\gcd(7,100)=1$ and $\\phi(100)=40$, so $7^{40}\\equiv 1 \\pmod{100}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which integer is a primitive root modulo $7$?",
+          "choices": [
+            "$2$",
+            "$3$",
+            "$6$",
+            "$1$"
+          ],
+          "answer": 1,
+          "explain": "Powers of $3$ mod $7$ cycle through $3,2,6,4,5,1$ — all six nonzero residues. The order of $3$ is $\\phi(7)=6$, so $3$ is primitive. ($2$ has order $3$; $6\\equiv -1$ has order $2$.)"
+        }
+      ]
+    },
+    "crypto-rsa": {
+      "title": "RSA",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "RSA toy: $p=11,q=13$, so $n=143$ and $\\phi(n)=120$. Take $e=7$. Compute the private exponent $d=e^{-1} \\bmod 120$.",
+          "answer": 103,
+          "tol": 0.5,
+          "explain": "Extended Euclid: $7\\cdot 103=721=6\\cdot 120+1$, so $7\\cdot 103\\equiv 1 \\pmod{120}$, giving $d=103$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is RSA decryption $c^d\\equiv m \\pmod n$ correct?",
+          "choices": [
+            "Because $c=m^e$ and $ed\\equiv 1 \\pmod n$",
+            "Because $ed\\equiv 1 \\pmod{\\phi(n)}$, so $m^{ed}=m^{1+k\\phi(n)}\\equiv m \\pmod n$ by Fermat–Euler",
+            "Because $d$ is the multiplicative inverse of $c$ mod $n$",
+            "Because every $m$ is a primitive root mod $n$"
+          ],
+          "answer": 1,
+          "explain": "The key identity is $ed\\equiv 1 \\pmod{\\phi(n)}$ (not mod $n$); Fermat–Euler then collapses $m^{k\\phi(n)}$ to $1$ when $\\gcd(m,n)=1$, and a CRT argument handles the remaining cases."
+        },
+        {
+          "type": "mcq",
+          "q": "Knowing $\\phi(n)$ for an RSA modulus $n=pq$ is equivalent to knowing what?",
+          "choices": [
+            "Just the public exponent $e$",
+            "The factorization of $n$ into $p$ and $q$",
+            "The discrete log of $e$ base $2$",
+            "Nothing extra — $\\phi(n)$ is public"
+          ],
+          "answer": 1,
+          "explain": "From $n=pq$ and $\\phi(n)=(p-1)(q-1)=n-(p+q)+1$ one recovers $p+q$, and combined with $pq=n$ this gives a quadratic whose roots are $p$ and $q$. So $\\phi(n)$ and the factorization are polynomial-time equivalent."
+        }
+      ]
+    },
+    "crypto-discrete-log": {
+      "title": "Discrete logarithm and Diffie–Hellman",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "In $(\\mathbb{Z}/23)^\\times$ with primitive root $g=5$, find $\\log_5 10$ (i.e. the smallest $x\\ge 0$ with $5^x \\equiv 10 \\pmod{23}$).",
+          "answer": 3,
+          "tol": 0.5,
+          "explain": "$5^1=5,\\ 5^2=25\\equiv 2,\\ 5^3=10 \\pmod{23}$. So $\\log_5 10 = 3$."
+        },
+        {
+          "type": "mcq",
+          "q": "In Diffie–Hellman, Alice sends $A=g^a$, Bob sends $B=g^b$. The shared secret is:",
+          "choices": [
+            "$g^{a+b}$, computed as $A\\cdot B$",
+            "$g^{ab}$, computed by Alice as $B^a$ and by Bob as $A^b$",
+            "$g^{a/b}$, computed using Euclid",
+            "$g^{a\\oplus b}$"
+          ],
+          "answer": 1,
+          "explain": "Both parties compute $g^{ab}$: Alice raises Bob's $B=g^b$ to her secret $a$, Bob raises $A=g^a$ to his secret $b$. The eavesdropper sees $g^a, g^b$ and faces the computational Diffie–Hellman problem to recover $g^{ab}$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the asymptotic complexity of the index calculus for the discrete log in $\\mathbb{F}_p^\\times$?",
+          "choices": [
+            "Polynomial in $\\log p$",
+            "Sub-exponential, of the form $L_p[1/3, c]$",
+            "Fully exponential, $\\Theta(p)$",
+            "Square-root, $O(\\sqrt p)$"
+          ],
+          "answer": 1,
+          "explain": "Index calculus runs in sub-exponential time $L_p[1/3,c]=\\exp((c+o(1))(\\log p)^{1/3}(\\log\\log p)^{2/3})$. This is faster than Pollard's $\\rho$ ($O(\\sqrt p)$) on $\\mathbb{F}_p^\\times$ but exploits the smooth-factorization structure unique to the multiplicative group of a field."
+        }
+      ]
+    },
+    "crypto-elliptic-curve": {
+      "title": "Elliptic-curve cryptography",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does ECC achieve smaller key sizes than finite-field DH for the same security level?",
+          "choices": [
+            "Elliptic-curve points are encoded with fewer bits per element",
+            "On a generic curve $E(\\mathbb{F}_p)$ no index-calculus attack is known, so the best DLP algorithm is $O(\\sqrt p)$ Pollard $\\rho$ rather than sub-exponential",
+            "Elliptic curves have a faster group law than $(\\mathbb{Z}/p)^\\times$",
+            "Elliptic curves are post-quantum secure"
+          ],
+          "answer": 1,
+          "explain": "On generic elliptic curves no sub-exponential DLP algorithm is known, so a key length matching $O(\\sqrt p)$ rather than $L_p[1/3]$ suffices. 256-bit ECC ≈ 3072-bit RSA/DH. (ECC is not post-quantum — Shor breaks it just as it breaks RSA.)"
+        },
+        {
+          "type": "mcq",
+          "q": "By Hasse's theorem, the order $\\#E(\\mathbb{F}_p)$ satisfies which bound?",
+          "choices": [
+            "$\\#E(\\mathbb{F}_p) = p$ exactly",
+            "$|\\#E(\\mathbb{F}_p) - (p+1)| \\le 2\\sqrt p$",
+            "$\\#E(\\mathbb{F}_p) \\le \\log p$",
+            "$\\#E(\\mathbb{F}_p) = p^2$"
+          ],
+          "answer": 1,
+          "explain": "Hasse: $\\#E(\\mathbb{F}_p)=p+1-a_p$ with $|a_p|\\le 2\\sqrt p$. So the curve order is approximately $p$, with a $\\sqrt p$-sized fluctuation."
+        },
+        {
+          "type": "mcq",
+          "q": "The MOV attack reduces the elliptic-curve discrete log on a curve $E/\\mathbb{F}_p$ to the discrete log in which group?",
+          "choices": [
+            "$(\\mathbb{Z}/p)^\\times$",
+            "$\\mathbb{F}_{p^k}^\\times$ for some embedding degree $k$, via the Weil pairing",
+            "$\\mathbb{Z}/(p-1)\\mathbb{Z}$",
+            "$E(\\mathbb{Q})$"
+          ],
+          "answer": 1,
+          "explain": "The Weil/Tate pairing embeds $E[\\ell]$ into $\\mathbb{F}_{p^k}^\\times$ where $k$ is the smallest integer with $\\ell\\mid p^k-1$. When $k$ is small, sub-exponential index calculus on $\\mathbb{F}_{p^k}^\\times$ beats $O(\\sqrt p)$ on $E$. Standard curves (P-256, Curve25519) have $k$ astronomically large."
+        }
+      ]
+    },
+    "crypto-lattice-based": {
+      "title": "Lattice-based and post-quantum cryptography",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is RSA / ECC considered \"quantum-broken\" in principle?",
+          "choices": [
+            "Quantum computers can brute-force any cipher",
+            "Shor's algorithm factors integers and computes discrete logs in polynomial time on a fault-tolerant quantum computer",
+            "Quantum computers solve every NP problem in polynomial time",
+            "Grover's algorithm fully breaks RSA"
+          ],
+          "answer": 1,
+          "explain": "Shor (1994) gives polynomial-time quantum algorithms for integer factorization and the discrete log in any abelian group — so RSA, DH, and ECC all fall once a sufficiently large fault-tolerant quantum machine exists. Grover gives only a quadratic speedup on generic search, far weaker."
+        },
+        {
+          "type": "mcq",
+          "q": "The Learning With Errors (LWE) problem asks the solver to:",
+          "choices": [
+            "Factor a random matrix",
+            "Recover a secret vector $\\mathbf{s}\\in\\mathbb{Z}_q^n$ from samples $(\\mathbf{a}_i, \\langle\\mathbf{a}_i,\\mathbf{s}\\rangle + e_i \\bmod q)$ where $e_i$ is small Gaussian noise",
+            "Find the shortest vector in $\\mathbb{R}^n$",
+            "Decide whether $P=NP$"
+          ],
+          "answer": 1,
+          "explain": "LWE is exactly noisy linear algebra mod $q$: without the error term you would solve for $\\mathbf{s}$ by Gaussian elimination, but small Gaussian $e_i$ destroys that. Regev showed (quantum reduction) that average-case LWE is at least as hard as worst-case approximate-SVP / GapSVP."
+        },
+        {
+          "type": "mcq",
+          "q": "Which cryptosystem was selected by NIST in 2022/2024 as the primary post-quantum key-encapsulation standard (FIPS 203)?",
+          "choices": [
+            "NTRU",
+            "CRYSTALS-Kyber",
+            "SIKE (supersingular isogeny)",
+            "McEliece"
+          ],
+          "answer": 1,
+          "explain": "CRYSTALS-Kyber, a Module-LWE KEM, became FIPS 203 in 2024. SIKE was a candidate but was broken in 2022 by the Castryck–Decru attack. Classic McEliece (code-based) and HQC are alternates; NTRU is closely related to Kyber but not the chosen primary standard."
+        }
+      ]
+    },
+    "crypto-zero-knowledge": {
+      "title": "Zero-knowledge proofs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An interactive proof system has three properties. Which set is correct?",
+          "choices": [
+            "Confidentiality, integrity, availability",
+            "Completeness, soundness, zero-knowledge",
+            "Polynomial, deterministic, verifiable",
+            "Public, private, hashed"
+          ],
+          "answer": 1,
+          "explain": "Completeness (true statements are accepted by an honest prover), soundness (false statements are rejected with high probability against any prover), and zero-knowledge (the verifier learns nothing beyond the truth of the statement — formalised by transcript simulatability)."
+        },
+        {
+          "type": "mcq",
+          "q": "Schnorr's protocol proves knowledge of a discrete log $x$ with $h=g^x$. The prover sends $t=g^r$, the verifier sends a random challenge $c$, the prover replies with $s=r+cx$. The verifier accepts iff:",
+          "choices": [
+            "$g^s = t \\cdot h^c$",
+            "$g^s = t + h^c$",
+            "$h^s = g^c$",
+            "$s = r \\cdot c$"
+          ],
+          "answer": 0,
+          "explain": "$g^s = g^{r+cx} = g^r \\cdot (g^x)^c = t\\cdot h^c$. Soundness: a prover who can answer two distinct challenges $c\\ne c'$ for the same $t$ reveals $x=(s-s')/(c-c')$. Zero-knowledge: the simulator picks $s, c$ first and sets $t = g^s/h^c$."
+        },
+        {
+          "type": "mcq",
+          "q": "The acronym SNARK in zk-SNARK stands for which property set?",
+          "choices": [
+            "Symmetric, Non-interactive, Authenticated, Robust, Keyed",
+            "Succinct, Non-interactive Argument of Knowledge",
+            "Stateless Non-malleable Random-Access Knowledge",
+            "Sound, Negligible, Adaptive, Ring-based, Knowledgeable"
+          ],
+          "answer": 1,
+          "explain": "Succinct (proof size and verification time poly-logarithmic in the witness), Non-interactive (one message from prover to verifier, often via Fiat–Shamir), Argument of Knowledge (computational soundness, with an extractor pulling out a witness from any convincing prover). Groth16 and PLONK are the workhorses."
+        }
+      ]
+    }
+  }
 }

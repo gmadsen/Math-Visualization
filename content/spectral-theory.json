@@ -42,7 +42,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-theory.html#spectral-compact\">Spectral theory</a> · Spectral theorem (compact self-adjoint)</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./schrodinger-equation.html#scattering\">Schrödinger equation</a> · Scattering states and barrier transmission</div>\n    <div><a href=\"./spectral-theory.html#spectral-compact\">Spectral theory</a> · Spectral theorem (compact self-adjoint)</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -94,7 +94,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-theory.html#unbounded\">Spectral theory</a> · Unbounded self-adjoint operators</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./schrodinger-equation.html#stationary\">Schrödinger equation</a> · Stationary states and the eigenvalue problem</div>\n    <div><a href=\"./spectral-theory.html#unbounded\">Spectral theory</a> · Unbounded self-adjoint operators</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

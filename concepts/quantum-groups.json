@@ -4,11 +4,70 @@
   "page": "quantum-groups.html",
   "concepts": [
     {
-      "id": "quantum-groups-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "qg-hopf-algebras",
+      "title": "Hopf algebras",
+      "anchor": "hopf",
+      "prereqs": [
+        "categories-morphisms",
+        "tensor-and-dual-reps"
+      ],
+      "blurb": "A Hopf algebra packages multiplication $m$, unit $\\eta$, comultiplication $\\Delta$, counit $\\varepsilon$, and antipode $S$ with compatibility axioms; the group ring $\\mathbb{C}[G]$ with $\\Delta(g)=g\\otimes g$ and $S(g)=g^{-1}$ is the prototypical example, while $U(\\mathfrak g)$ is the cocommutative Lie counterpart.",
+      "tags": ["foundation", "duality"]
+    },
+    {
+      "id": "qg-uq-sl2",
+      "title": "Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$",
+      "anchor": "uq-sl2",
+      "prereqs": [
+        "qg-hopf-algebras",
+        "la-axioms",
+        "la-sl2-and-roots"
+      ],
+      "blurb": "Generators $E,F,K^{\\pm 1}$ with $KEK^{-1}=q^2 E$, $KFK^{-1}=q^{-2} F$, and $[E,F]=(K-K^{-1})/(q-q^{-1})$ define the quantized enveloping algebra; the parameter $q\\to 1$ recovers $U(\\mathfrak{sl}_2)$ as a deformation.",
+      "tags": ["foundation", "classification"]
+    },
+    {
+      "id": "qg-r-matrix",
+      "title": "Universal $R$-matrix and Yang–Baxter",
+      "anchor": "r-matrix",
+      "prereqs": [
+        "qg-uq-sl2"
+      ],
+      "blurb": "$U_q(\\mathfrak{g})$ is quasitriangular: there is $R\\in U_q(\\mathfrak{g})\\otimes U_q(\\mathfrak{g})$ intertwining $\\Delta$ with its opposite and satisfying the Yang–Baxter equation $R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}$ — the algebraic engine behind braid statistics.",
+      "tags": ["duality", "group-action"]
+    },
+    {
+      "id": "qg-representations",
+      "title": "Representations and crystal bases",
+      "anchor": "reps",
+      "prereqs": [
+        "qg-uq-sl2",
+        "la-cartan-killing-classification",
+        "group-representations"
+      ],
+      "blurb": "For $q$ generic, finite-dimensional $U_q(\\mathfrak g)$-modules of type 1 are parametrized by dominant weights exactly as in the classical case; Lusztig's canonical basis and Kashiwara's crystal basis specialize at $q=0$ to a coloured graph encoding tensor decompositions combinatorially.",
+      "tags": ["classification", "functoriality"]
+    },
+    {
+      "id": "qg-knot-invariants",
+      "title": "Reshetikhin–Turaev knot invariants",
+      "anchor": "knots",
+      "prereqs": [
+        "qg-r-matrix",
+        "qg-representations"
+      ],
+      "blurb": "Assigning the $R$-matrix to each crossing turns a labelled tangle diagram into a $U_q(\\mathfrak{g})$-equivariant operator; the resulting trace is a polynomial knot invariant — Jones from $U_q(\\mathfrak{sl}_2)$, HOMFLY from $U_q(\\mathfrak{sl}_n)$, Kauffman from $U_q(\\mathfrak{so}_n)$.",
+      "tags": ["duality", "classification"]
+    },
+    {
+      "id": "qg-applications",
+      "title": "Affine, KZ, and categorification",
+      "anchor": "applications",
+      "prereqs": [
+        "qg-knot-invariants"
+      ],
+      "blurb": "Affine quantum groups $U_q(\\widehat{\\mathfrak g})$ govern integrable lattice models and the Knizhnik–Zamolodchikov equations whose monodromy is the $R$-matrix (Drinfeld–Kohno); quantum geometric Langlands and Khovanov–Lauda–Rouquier categorification lift these structures to derived and 2-categorical settings.",
+      "tags": ["duality", "cohomology"]
     }
   ]
 }

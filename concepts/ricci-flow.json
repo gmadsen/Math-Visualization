@@ -4,11 +4,68 @@
   "page": "ricci-flow.html",
   "concepts": [
     {
-      "id": "ricci-flow-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "rf-equation",
+      "title": "The Ricci flow equation",
+      "anchor": "equation",
+      "prereqs": [
+        "ricci-curvature",
+        "pde-classification",
+        "pde-heat-equation"
+      ],
+      "blurb": "Hamilton's equation $\\partial_t g_{ij}=-2R_{ij}$ evolves a Riemannian metric in the direction opposite its Ricci curvature. In harmonic coordinates the principal symbol is the rough Laplacian, so Ricci flow is a (weakly parabolic, gauge-degenerate) heat equation for the metric.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "rf-short-time",
+      "title": "Short-time existence and the DeTurck trick",
+      "anchor": "short-time",
+      "prereqs": [
+        "rf-equation",
+        "smooth-manifold-definition"
+      ],
+      "blurb": "On a closed manifold $(M,g_0)$ Ricci flow has a unique smooth solution on a maximal interval $[0,T)$. Diffeomorphism invariance breaks parabolicity, but DeTurck's trick adds a Lie-derivative gauge term $\\mathcal{L}_W g$ to obtain a strictly parabolic system whose solutions push back to genuine Ricci flows.",
+      "tags": ["lifting"]
+    },
+    {
+      "id": "rf-singularities",
+      "title": "Singularity formation and ancient solutions",
+      "anchor": "singularities",
+      "prereqs": [
+        "rf-short-time"
+      ],
+      "blurb": "If $T<\\infty$ the curvature blows up: $\\sup_M|\\mathrm{Rm}|(t)\\to\\infty$. Hamilton classifies singularities as Type I, IIa/b, or III by the rate. Parabolic rescaling near a singular point produces a $\\kappa$-noncollapsed limit on $(-\\infty,0]$ — an ancient solution — whose tangent flow encodes the local model.",
+      "tags": ["classification", "compactness"]
+    },
+    {
+      "id": "rf-soliton",
+      "title": "Ricci solitons",
+      "anchor": "soliton",
+      "prereqs": [
+        "rf-equation"
+      ],
+      "blurb": "A self-similar solution $g(t)=\\sigma(t)\\,\\phi_t^*g_0$ satisfies $\\mathrm{Ric}+\\tfrac12\\mathcal{L}_X g=\\lambda g$ for a vector field $X$ and constant $\\lambda$ (shrinking, steady, expanding for $\\lambda>0,=0,<0$). Bryant's rotationally symmetric steady soliton, the cigar, and the Kähler–Ricci soliton on $\\mathbb{CP}^2\\#\\overline{\\mathbb{CP}^2}$ are the canonical examples.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "rf-surgery",
+      "title": "Surgery on $\\epsilon$-necks",
+      "anchor": "surgery",
+      "prereqs": [
+        "rf-singularities",
+        "rf-soliton"
+      ],
+      "blurb": "Hamilton–Perelman surgery: when a high-curvature region develops as an $\\epsilon$-thin neck modelled on a cylinder $S^{n-1}\\times\\mathbb{R}$, cut along the neck, glue in two standard caps, and continue the flow on the modified manifold. Finitely many surgeries suffice on any time interval, and the surgery times have no accumulation point.",
+      "tags": ["compactness"]
+    },
+    {
+      "id": "rf-poincare-thurston",
+      "title": "Poincaré conjecture and geometrisation",
+      "anchor": "poincare",
+      "prereqs": [
+        "rf-surgery"
+      ],
+      "blurb": "Perelman's $\\mathcal{F}$- and $\\mathcal{W}$-entropy and the reduced volume control noncollapsing and singularity formation, so Ricci flow with surgery on a closed simply connected $3$-manifold becomes extinct in finite time, proving the Poincaré conjecture. The same machinery decomposes any closed $3$-manifold into the eight Thurston geometric pieces.",
+      "tags": ["classification"]
     }
   ]
 }

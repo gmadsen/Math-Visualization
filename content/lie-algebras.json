@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n    <div><a href=\"./quaternions-octonions-and-division-algebras.html#rotations\">Quaternions, octonions, and division algebras</a> · Unit quaternions and $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n    <div><a href=\"./quantum-groups.html#uq-sl2\">Quantum groups</a> · Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$</div>\n    <div><a href=\"./quaternions-octonions-and-division-algebras.html#rotations\">Quaternions, octonions, and division algebras</a> · Unit quaternions and $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$</div>\n    <div><a href=\"./vertex-operator-algebras.html#vertex-ops\">Vertex operator algebras</a> · Vertex operators and locality</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -135,7 +135,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#sl2-roots\">Lie algebras</a> · $\\mathfrak{sl}_2$-triples, root spaces, weights</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#sl2-roots\">Lie algebras</a> · $\\mathfrak{sl}_2$-triples, root spaces, weights</div>\n    <div><a href=\"./quantum-groups.html#reps\">Quantum groups</a> · Representations and crystal bases</div>\n    <div><a href=\"./vertex-operator-algebras.html#virasoro\">Vertex operator algebras</a> · Virasoro algebra and central charge</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -166,7 +166,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#classification\">Lie algebras</a> · Classification of simple Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#classification\">Lie algebras</a> · Classification of simple Lie algebras</div>\n    <div><a href=\"./quantum-groups.html#uq-sl2\">Quantum groups</a> · Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

@@ -1,4 +1,22 @@
 {
   "topic": "atiyah-singer-index-theorem",
-  "quizzes": {}
+  "quizzes": {
+    "atiyah-singer-index-theorem-intro": {
+      "title": "Intro",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Placeholder — page is a stub awaiting authoring.",
+          "choices": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "answer": 0,
+          "explain": "Stub."
+        }
+      ]
+    }
+  }
 }

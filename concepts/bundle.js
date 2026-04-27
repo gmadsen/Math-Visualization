@@ -351,11 +351,88 @@ window.__MVConcepts = {
       "page": "quantum-groups.html",
       "concepts": [
         {
-          "id": "quantum-groups-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "qg-hopf-algebras",
+          "title": "Hopf algebras",
+          "anchor": "hopf",
+          "prereqs": [
+            "categories-morphisms",
+            "tensor-and-dual-reps"
+          ],
+          "blurb": "A Hopf algebra packages multiplication $m$, unit $\\eta$, comultiplication $\\Delta$, counit $\\varepsilon$, and antipode $S$ with compatibility axioms; the group ring $\\mathbb{C}[G]$ with $\\Delta(g)=g\\otimes g$ and $S(g)=g^{-1}$ is the prototypical example, while $U(\\mathfrak g)$ is the cocommutative Lie counterpart.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "qg-uq-sl2",
+          "title": "Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$",
+          "anchor": "uq-sl2",
+          "prereqs": [
+            "qg-hopf-algebras",
+            "la-axioms",
+            "la-sl2-and-roots"
+          ],
+          "blurb": "Generators $E,F,K^{\\pm 1}$ with $KEK^{-1}=q^2 E$, $KFK^{-1}=q^{-2} F$, and $[E,F]=(K-K^{-1})/(q-q^{-1})$ define the quantized enveloping algebra; the parameter $q\\to 1$ recovers $U(\\mathfrak{sl}_2)$ as a deformation.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "qg-r-matrix",
+          "title": "Universal $R$-matrix and Yang–Baxter",
+          "anchor": "r-matrix",
+          "prereqs": [
+            "qg-uq-sl2"
+          ],
+          "blurb": "$U_q(\\mathfrak{g})$ is quasitriangular: there is $R\\in U_q(\\mathfrak{g})\\otimes U_q(\\mathfrak{g})$ intertwining $\\Delta$ with its opposite and satisfying the Yang–Baxter equation $R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}$ — the algebraic engine behind braid statistics.",
+          "tags": [
+            "duality",
+            "group-action"
+          ]
+        },
+        {
+          "id": "qg-representations",
+          "title": "Representations and crystal bases",
+          "anchor": "reps",
+          "prereqs": [
+            "qg-uq-sl2",
+            "la-cartan-killing-classification",
+            "group-representations"
+          ],
+          "blurb": "For $q$ generic, finite-dimensional $U_q(\\mathfrak g)$-modules of type 1 are parametrized by dominant weights exactly as in the classical case; Lusztig's canonical basis and Kashiwara's crystal basis specialize at $q=0$ to a coloured graph encoding tensor decompositions combinatorially.",
+          "tags": [
+            "classification",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "qg-knot-invariants",
+          "title": "Reshetikhin–Turaev knot invariants",
+          "anchor": "knots",
+          "prereqs": [
+            "qg-r-matrix",
+            "qg-representations"
+          ],
+          "blurb": "Assigning the $R$-matrix to each crossing turns a labelled tangle diagram into a $U_q(\\mathfrak{g})$-equivariant operator; the resulting trace is a polynomial knot invariant — Jones from $U_q(\\mathfrak{sl}_2)$, HOMFLY from $U_q(\\mathfrak{sl}_n)$, Kauffman from $U_q(\\mathfrak{so}_n)$.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "qg-applications",
+          "title": "Affine, KZ, and categorification",
+          "anchor": "applications",
+          "prereqs": [
+            "qg-knot-invariants"
+          ],
+          "blurb": "Affine quantum groups $U_q(\\widehat{\\mathfrak g})$ govern integrable lattice models and the Knizhnik–Zamolodchikov equations whose monodromy is the $R$-matrix (Drinfeld–Kohno); quantum geometric Langlands and Khovanov–Lauda–Rouquier categorification lift these structures to derived and 2-categorical settings.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
         }
       ]
     },
@@ -548,25 +625,164 @@ window.__MVConcepts = {
       "page": "vertex-operator-algebras.html",
       "concepts": [
         {
-          "id": "vertex-operator-algebras-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "voa-vertex-operators",
+          "title": "Vertex operators and locality",
+          "anchor": "vertex-ops",
+          "prereqs": [
+            "la-axioms",
+            "q-expansions-mf"
+          ],
+          "blurb": "A vertex operator $Y(a, z) = \\sum_{n} a_n z^{-n-1}$ is a formal Laurent series of operators on a state space $V$ assigned to each $a \\in V$; the axiom of locality $(z-w)^N [Y(a,z), Y(b,w)] = 0$ for $N \\gg 0$ replaces commutativity with mutual asymptotic vanishing.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "voa-axioms",
+          "title": "VOA axioms — vacuum, translation, locality, Jacobi",
+          "anchor": "axioms",
+          "prereqs": [
+            "voa-vertex-operators"
+          ],
+          "blurb": "A vertex operator algebra is $(V, Y, \\mathbf{1}, \\omega)$ satisfying vacuum ($Y(\\mathbf{1}, z) = \\mathrm{id}$), translation ($[T, Y(a,z)] = \\partial_z Y(a,z)$), locality, and the Borcherds–Jacobi identity that ties operator-product expansion to a single equation; all four are equivalent characterisations under mild hypotheses."
+        },
+        {
+          "id": "voa-virasoro",
+          "title": "Virasoro algebra and central charge",
+          "anchor": "virasoro",
+          "prereqs": [
+            "voa-axioms",
+            "la-cartan-killing-classification"
+          ],
+          "blurb": "The conformal vector $\\omega \\in V$ produces operators $L_n$ with $[L_m, L_n] = (m-n) L_{m+n} + \\tfrac{c}{12}(m^3 - m)\\,\\delta_{m+n,0}$; the central charge $c$ is a numerical invariant of the VOA and $L_0$ supplies the integer grading that turns $V$ into a graded module.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "voa-modular-invariance",
+          "title": "Modular invariance — Zhu's theorem",
+          "anchor": "modular",
+          "prereqs": [
+            "voa-virasoro",
+            "modular-form-definition"
+          ],
+          "blurb": "For a $C_2$-cofinite rational VOA, the graded character $\\mathrm{ch}_M(\\tau) = \\tr_M q^{L_0 - c/24}$ of an irreducible module is a component of a vector-valued modular form for $\\mathrm{SL}_2(\\mathbb{Z})$; Zhu's theorem (1996) is the bridge between two-dimensional CFT and modular forms.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "voa-moonshine-module",
+          "title": "The moonshine module $V^\\natural$",
+          "anchor": "moonshine-mod",
+          "prereqs": [
+            "voa-modular-invariance",
+            "characters-orthogonality",
+            "borcherds-proof-sketch"
+          ],
+          "blurb": "Frenkel–Lepowsky–Meurman constructed $V^\\natural$ — a $\\mathbb{Z}$-graded VOA of central charge $24$ whose graded dimension is $J(\\tau) = j(\\tau) - 744$ and whose automorphism group is the Monster; Borcherds' proof of Conway–Norton uses the Monster Lie algebra built from $V^\\natural$ via the Goddard–Thorn no-ghost theorem.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
+        },
+        {
+          "id": "voa-applications",
+          "title": "Applications — chiral CFT and chiral algebras",
+          "anchor": "applications",
+          "prereqs": [
+            "voa-modular-invariance",
+            "group-representations"
+          ],
+          "blurb": "VOAs axiomatise the chiral half of two-dimensional conformal field theory; Beilinson–Drinfeld's chiral algebras globalise the construction over algebraic curves, replacing formal power series with $\\mathcal{D}$-modules and giving the framework underlying the geometric Langlands program."
         }
       ]
     },
     "schrodinger-equation": {
       "topic": "schrodinger-equation",
-      "title": "Schrodinger equation",
+      "title": "Schrödinger equation",
       "page": "schrodinger-equation.html",
       "concepts": [
         {
-          "id": "schrodinger-equation-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "se-time-dependent",
+          "title": "Time-dependent Schrödinger equation",
+          "anchor": "time-dep",
+          "prereqs": [
+            "pde-classification",
+            "bounded-operators-fa",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "$i\\hbar\\,\\partial_t\\psi = H\\psi$ with $H = -\\frac{\\hbar^2}{2m}\\Delta + V$ governs unitary evolution on $L^2(\\mathbb{R}^n)$: self-adjointness of $H$ makes $U_t = e^{-itH/\\hbar}$ a one-parameter unitary group, so $\\|\\psi(t)\\|_{L^2} \\equiv \\|\\psi(0)\\|_{L^2}$ — total probability is conserved.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "se-stationary",
+          "title": "Stationary states and the eigenvalue problem",
+          "anchor": "stationary",
+          "prereqs": [
+            "se-time-dependent",
+            "st-spectral-theorem-bounded"
+          ],
+          "blurb": "Separating $\\psi(x,t) = e^{-iEt/\\hbar}\\varphi(x)$ reduces the dynamics to $H\\varphi = E\\varphi$. Energy eigenstates are the spectral resolution of the Hamiltonian: bound states sit in the point spectrum, scattering states in the continuous spectrum, and any wavefunction is the superposition $\\psi = \\sum c_n \\varphi_n + \\int c(E)\\varphi_E\\,dE$.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "se-harmonic-oscillator",
+          "title": "Harmonic oscillator and ladder operators",
+          "anchor": "ho",
+          "prereqs": [
+            "se-stationary"
+          ],
+          "blurb": "For $V = \\tfrac{1}{2}m\\omega^2 x^2$, the operators $a = \\sqrt{m\\omega/2\\hbar}\\,(x + ip/m\\omega)$ and $a^\\dagger$ satisfy $[a,a^\\dagger]=1$ and $H = \\hbar\\omega(a^\\dagger a + \\tfrac{1}{2})$. The spectrum is $E_n = \\hbar\\omega(n + \\tfrac{1}{2})$, $n=0,1,2,\\dots$, with eigenstates $\\varphi_n \\propto (a^\\dagger)^n \\varphi_0$ — Hermite functions.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "se-hydrogen",
+          "title": "Hydrogen atom",
+          "anchor": "hydrogen",
+          "prereqs": [
+            "se-stationary",
+            "pde-laplace-equation"
+          ],
+          "blurb": "With Coulomb potential $V = -e^2/r$, the equation separates in spherical coordinates: $\\varphi_{n\\ell m}(r,\\theta,\\phi) = R_{n\\ell}(r)\\,Y_\\ell^m(\\theta,\\phi)$. The radial problem yields bound-state energies $E_n = -E_0/n^2$ with $E_0 = me^4/2\\hbar^2 \\approx 13.6\\,\\mathrm{eV}$, each $n^2$-fold degenerate — the spectrum that Bohr guessed.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
+        },
+        {
+          "id": "se-scattering",
+          "title": "Scattering states and barrier transmission",
+          "anchor": "scattering",
+          "prereqs": [
+            "se-stationary",
+            "st-self-adjoint-spectrum"
+          ],
+          "blurb": "Above the potential's asymptotic value, plane waves $e^{ikx}$ are generalized eigenstates of $-\\Delta + V$: continuous spectrum. A barrier of height $V_0$ and width $a$ produces transmission $T(E)$ — non-zero even for $E < V_0$ (tunneling). The Schwinger formula and Lippmann–Schwinger expansion bridge this to the spectral theory of the half-line Schrödinger operator.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "se-path-integral-preview",
+          "title": "Path integral and the classical limit",
+          "anchor": "path-integral",
+          "prereqs": [
+            "se-time-dependent"
+          ],
+          "blurb": "Feynman's reformulation writes the propagator $\\langle x_f | e^{-iHT/\\hbar} | x_i \\rangle = \\int e^{iS[q]/\\hbar}\\,\\mathcal{D}q$, summing $e^{iS/\\hbar}$ over all paths $q(t)$ from $x_i$ to $x_f$ with action $S = \\int L\\,dt$. As $\\hbar \\to 0$, stationary phase concentrates the integral on $\\delta S = 0$ — the Euler–Lagrange path — recovering classical mechanics.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -576,11 +792,85 @@ window.__MVConcepts = {
       "page": "mathematics-and-cryptography.html",
       "concepts": [
         {
-          "id": "mathematics-and-cryptography-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "crypto-modular-arithmetic",
+          "title": "Modular arithmetic and Euler's theorem",
+          "anchor": "mod-arith",
+          "prereqs": [
+            "algebra:algebraic-structures",
+            "algebra:quotients-homomorphisms"
+          ],
+          "blurb": "Public-key cryptography lives in the multiplicative group $(\\mathbb{Z}/n)^\\times$. Its order is Euler's totient $\\phi(n)$, and Fermat–Euler gives $a^{\\phi(n)} \\equiv 1 \\pmod n$ whenever $\\gcd(a,n)=1$. When $n=p$ is prime the group is cyclic of order $p-1$ and admits a primitive root $g$; powers of $g$ enumerate every residue. This algebraic substrate — the finite cyclic group with a hard inverse — is what every classical cryptosystem rents.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "crypto-rsa",
+          "title": "RSA",
+          "anchor": "rsa",
+          "prereqs": [
+            "crypto-modular-arithmetic"
+          ],
+          "blurb": "Choose primes $p,q$, set $n=pq$ and $\\phi(n)=(p-1)(q-1)$. Pick a public exponent $e$ coprime to $\\phi(n)$ and compute the private $d \\equiv e^{-1} \\pmod{\\phi(n)}$. Encryption is $c=m^e \\bmod n$, decryption $m=c^d \\bmod n$ — Fermat–Euler guarantees $(m^e)^d=m^{ed}=m^{1+k\\phi(n)}\\equiv m$. Security rests on the conjectured hardness of factoring $n$: a factoriser exposes $\\phi(n)$, hence $d$. The RSA assumption is slightly weaker — extracting $e$-th roots mod $n$ — but no separation is known.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "crypto-discrete-log",
+          "title": "Discrete logarithm and Diffie–Hellman",
+          "anchor": "dlog",
+          "prereqs": [
+            "crypto-modular-arithmetic",
+            "complexity-theory:cx-p-and-np"
+          ],
+          "blurb": "Fix a prime $p$ and primitive root $g\\in(\\mathbb{Z}/p)^\\times$. The discrete log $\\log_g h$ is the exponent $x$ with $g^x\\equiv h \\pmod p$ — easy to verify, conjecturally hard to invert. Diffie–Hellman key exchange (1976) leverages the asymmetry: Alice sends $g^a$, Bob sends $g^b$, both compute $g^{ab}$. The best classical attack is the index calculus, sub-exponential $L_p[1/3,c]$. The DLP underpins ElGamal encryption, DSA signatures, and the entire pre-elliptic public-key stack.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "crypto-elliptic-curve",
+          "title": "Elliptic-curve cryptography",
+          "anchor": "ecc",
+          "prereqs": [
+            "crypto-discrete-log",
+            "elliptic-curves:elliptic-curve-definition"
+          ],
+          "blurb": "Replace $(\\mathbb{Z}/p)^\\times$ with $E(\\mathbb{F}_p)$ — points of an elliptic curve over a prime field. The chord-tangent group law gives a finite abelian group of order $\\approx p$ (Hasse bound), and on suitable curves the only known DLP attack is Pollard's $\\rho$ in $O(\\sqrt{p})$ — no index calculus. So 256-bit ECC matches 3072-bit RSA. ECDH and ECDSA are the elliptic analogues of Diffie–Hellman and DSA. Pitfalls: weak curves where the MOV attack pulls the DLP into $\\mathbb{F}_{p^k}^\\times$, or anomalous curves where the lift to $\\mathbb{Z}_p$ is linear. NIST P-256, Curve25519, and secp256k1 (Bitcoin) are the standard hardened choices.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
+        },
+        {
+          "id": "crypto-lattice-based",
+          "title": "Lattice-based and post-quantum cryptography",
+          "anchor": "lattice",
+          "prereqs": [
+            "crypto-discrete-log",
+            "complexity-theory:cx-np-completeness"
+          ],
+          "blurb": "Shor's algorithm (1994) breaks factoring and discrete log on a quantum computer in polynomial time, dragging RSA, DH, and ECC down with it. The leading replacement is lattice cryptography. The Shortest Vector Problem (SVP) and Closest Vector Problem (CVP) on a lattice $\\Lambda\\subset\\mathbb{R}^n$ are NP-hard in worst case; Regev's Learning With Errors (LWE, 2005) reduces average-case LWE to worst-case lattice problems via a quantum reduction. CRYSTALS-Kyber, the NIST PQC KEM standard (FIPS 203, 2024), is built on Module-LWE. Signatures (Dilithium / FIPS 204) follow the same blueprint: encode a secret as a short lattice vector, hide it under a noisy linear map.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "crypto-zero-knowledge",
+          "title": "Zero-knowledge proofs",
+          "anchor": "zk",
+          "prereqs": [
+            "crypto-discrete-log",
+            "complexity-theory:cx-np-completeness"
+          ],
+          "blurb": "An interactive proof for a language $L$ is a protocol between prover $P$ and verifier $V$ such that (a) <strong>completeness</strong>: $x\\in L$ ⇒ honest $P$ convinces $V$ with probability $\\ge 2/3$; (b) <strong>soundness</strong>: $x\\notin L$ ⇒ no $P^*$ convinces $V$ with probability $> 1/3$; (c) <strong>zero-knowledge</strong>: the verifier's transcript is simulatable from $x$ alone. Schnorr's protocol (1989) is the canonical example for the discrete-log relation. Modern zk-SNARKs (Groth16, PLONK) compile arbitrary NP statements into a few-kilobyte non-interactive proof — the engine behind Zcash, zk-Rollups, and verifiable computation.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
         }
       ]
     },
@@ -680,11 +970,81 @@ window.__MVConcepts = {
       "page": "ricci-flow.html",
       "concepts": [
         {
-          "id": "ricci-flow-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "rf-equation",
+          "title": "The Ricci flow equation",
+          "anchor": "equation",
+          "prereqs": [
+            "ricci-curvature",
+            "pde-classification",
+            "pde-heat-equation"
+          ],
+          "blurb": "Hamilton's equation $\\partial_t g_{ij}=-2R_{ij}$ evolves a Riemannian metric in the direction opposite its Ricci curvature. In harmonic coordinates the principal symbol is the rough Laplacian, so Ricci flow is a (weakly parabolic, gauge-degenerate) heat equation for the metric.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rf-short-time",
+          "title": "Short-time existence and the DeTurck trick",
+          "anchor": "short-time",
+          "prereqs": [
+            "rf-equation",
+            "smooth-manifold-definition"
+          ],
+          "blurb": "On a closed manifold $(M,g_0)$ Ricci flow has a unique smooth solution on a maximal interval $[0,T)$. Diffeomorphism invariance breaks parabolicity, but DeTurck's trick adds a Lie-derivative gauge term $\\mathcal{L}_W g$ to obtain a strictly parabolic system whose solutions push back to genuine Ricci flows.",
+          "tags": [
+            "lifting"
+          ]
+        },
+        {
+          "id": "rf-singularities",
+          "title": "Singularity formation and ancient solutions",
+          "anchor": "singularities",
+          "prereqs": [
+            "rf-short-time"
+          ],
+          "blurb": "If $T<\\infty$ the curvature blows up: $\\sup_M|\\mathrm{Rm}|(t)\\to\\infty$. Hamilton classifies singularities as Type I, IIa/b, or III by the rate. Parabolic rescaling near a singular point produces a $\\kappa$-noncollapsed limit on $(-\\infty,0]$ — an ancient solution — whose tangent flow encodes the local model.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "rf-soliton",
+          "title": "Ricci solitons",
+          "anchor": "soliton",
+          "prereqs": [
+            "rf-equation"
+          ],
+          "blurb": "A self-similar solution $g(t)=\\sigma(t)\\,\\phi_t^*g_0$ satisfies $\\mathrm{Ric}+\\tfrac12\\mathcal{L}_X g=\\lambda g$ for a vector field $X$ and constant $\\lambda$ (shrinking, steady, expanding for $\\lambda>0,=0,<0$). Bryant's rotationally symmetric steady soliton, the cigar, and the Kähler–Ricci soliton on $\\mathbb{CP}^2\\#\\overline{\\mathbb{CP}^2}$ are the canonical examples.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rf-surgery",
+          "title": "Surgery on $\\epsilon$-necks",
+          "anchor": "surgery",
+          "prereqs": [
+            "rf-singularities",
+            "rf-soliton"
+          ],
+          "blurb": "Hamilton–Perelman surgery: when a high-curvature region develops as an $\\epsilon$-thin neck modelled on a cylinder $S^{n-1}\\times\\mathbb{R}$, cut along the neck, glue in two standard caps, and continue the flow on the modified manifold. Finitely many surgeries suffice on any time interval, and the surgery times have no accumulation point.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "rf-poincare-thurston",
+          "title": "Poincaré conjecture and geometrisation",
+          "anchor": "poincare",
+          "prereqs": [
+            "rf-surgery"
+          ],
+          "blurb": "Perelman's $\\mathcal{F}$- and $\\mathcal{W}$-entropy and the reduced volume control noncollapsing and singularity formation, so Ricci flow with surgery on a closed simply connected $3$-manifold becomes extinct in finite time, proving the Poincaré conjecture. The same machinery decomposes any closed $3$-manifold into the eight Thurston geometric pieces.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -10476,11 +10836,11 @@ window.__MVConcepts = {
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
-      "concepts": 96,
-      "intra": 136,
+      "concepts": 101,
+      "intra": 148,
       "crossOut": 13,
-      "crossIn": 64,
-      "density": 0.13541666666666666
+      "crossIn": 68,
+      "density": 0.12871287128712872
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -10490,11 +10850,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 129,
-      "intra": 211,
+      "concepts": 134,
+      "intra": 222,
       "crossOut": 16,
-      "crossIn": 33,
-      "density": 0.12403100775193798
+      "crossIn": 35,
+      "density": 0.11940298507462686
     },
     "Probability & statistics": {
       "concepts": 41,
@@ -10504,25 +10864,25 @@ window.__MVConcepts = {
       "density": 0.2682926829268293
     },
     "Geometry & topology": {
-      "concepts": 81,
-      "intra": 113,
-      "crossOut": 9,
+      "concepts": 86,
+      "intra": 121,
+      "crossOut": 11,
       "crossIn": 52,
-      "density": 0.1111111111111111
+      "density": 0.12790697674418605
     },
     "Number theory": {
-      "concepts": 79,
-      "intra": 101,
+      "concepts": 84,
+      "intra": 106,
       "crossOut": 30,
       "crossIn": 24,
-      "density": 0.379746835443038
+      "density": 0.35714285714285715
     },
     "Modular forms & L-functions": {
-      "concepts": 80,
-      "intra": 104,
-      "crossOut": 48,
+      "concepts": 85,
+      "intra": 112,
+      "crossOut": 52,
       "crossIn": 10,
-      "density": 0.6
+      "density": 0.611764705882353
     },
     "Algebraic geometry": {
       "concepts": 109,

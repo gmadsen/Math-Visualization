@@ -26,7 +26,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#heat\">Partial differential equations</a> · Heat equation and the heat kernel</div>\n    <div><a href=\"./partial-differential-equations.html#laplace\">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>\n    <div><a href=\"./partial-differential-equations.html#wave\">Partial differential equations</a> · Wave equation and d'Alembert</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#heat\">Partial differential equations</a> · Heat equation and the heat kernel</div>\n    <div><a href=\"./partial-differential-equations.html#laplace\">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>\n    <div><a href=\"./partial-differential-equations.html#wave\">Partial differential equations</a> · Wave equation and d'Alembert</div>\n    <div><a href=\"./ricci-flow.html#equation\">Ricci flow</a> · The Ricci flow equation</div>\n    <div><a href=\"./schrodinger-equation.html#time-dep\">Schrödinger equation</a> · Time-dependent Schrödinger equation</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -75,7 +75,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./ricci-flow.html#equation\">Ricci flow</a> · The Ricci flow equation</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -169,7 +169,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#weak-solutions\">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#weak-solutions\">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>\n    <div><a href=\"./schrodinger-equation.html#hydrogen\">Schrödinger equation</a> · Hydrogen atom</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

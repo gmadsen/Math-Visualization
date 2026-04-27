@@ -1,4 +1,241 @@
 {
   "topic": "vertex-operator-algebras",
-  "quizzes": {}
+  "quizzes": {
+    "voa-vertex-operators": {
+      "title": "Vertex operators and locality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A vertex operator $Y(a, z)$ associated to a state $a$ in a VOA is:",
+          "choices": [
+            "a single linear operator on the state space $V$",
+            "a formal Laurent series $\\sum_n a_n z^{-n-1}$ whose coefficients are linear operators on $V$",
+            "a holomorphic function on the punctured disc valued in $V$",
+            "an element of the Lie algebra of automorphisms of $V$"
+          ],
+          "answer": 1,
+          "explain": "$Y(\\cdot, z) : V \\to \\mathrm{End}(V)[[z, z^{-1}]]$ is a state–field correspondence: each $a \\in V$ gives the formal series $Y(a, z) = \\sum_{n \\in \\mathbb{Z}} a_n z^{-n-1}$. The mode $a_n$ is the coefficient of $z^{-n-1}$, so $a_{-1}\\mathbf{1} = a$ recovers the state."
+        },
+        {
+          "type": "mcq",
+          "q": "The locality axiom for two vertex operators $Y(a, z)$ and $Y(b, w)$ says:",
+          "choices": [
+            "$[Y(a, z), Y(b, w)] = 0$ identically",
+            "$Y(a, z) Y(b, w) = Y(b, w) Y(a, z)$ as formal series",
+            "there exists $N \\gg 0$ with $(z - w)^N [Y(a, z), Y(b, w)] = 0$",
+            "$Y(a, z) Y(b, w)$ converges absolutely for $|z| > |w|$"
+          ],
+          "answer": 2,
+          "explain": "Two fields are mutually local if some power $(z-w)^N$ kills their commutator. This is weaker than commutativity: it allows OPE singularities at $z = w$ but forces them to be of finite order, recovering an algebraic shadow of the physicists' radial-ordering."
+        },
+        {
+          "type": "numeric",
+          "q": "If $Y(a, z) = \\sum_n a_n z^{-n-1}$, what is the index $n$ of the mode whose action on the vacuum returns $a$ — i.e. the $n$ for which $a_n \\mathbf{1} = a$?",
+          "answer": -1,
+          "tol": 0,
+          "explain": "By the creation axiom, $Y(a, z)\\mathbf{1}|_{z=0} = a$. Reading off the constant term in $z$ (the coefficient of $z^0$) and matching against $\\sum_n a_n z^{-n-1}$ forces $-n - 1 = 0$, so $n = -1$. Thus $a = a_{-1}\\mathbf{1}$, the standard 'state-from-mode' identification."
+        }
+      ]
+    },
+    "voa-axioms": {
+      "title": "VOA axioms — vacuum, translation, locality, Jacobi",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The vacuum axiom of a VOA requires that:",
+          "choices": [
+            "$Y(\\mathbf{1}, z) = \\mathrm{id}_V$, the constant series of the identity operator",
+            "$Y(a, z)\\mathbf{1} = 0$ for every $a \\in V$",
+            "$\\mathbf{1}$ is annihilated by every mode $a_n$",
+            "$Y(\\mathbf{1}, z) = z^{-1}\\, \\mathrm{id}_V$"
+          ],
+          "answer": 0,
+          "explain": "The vacuum vector $\\mathbf{1}$ is the unit: $Y(\\mathbf{1}, z) = \\mathrm{id}_V$ (no $z$-dependence). The companion axiom $Y(a, z)\\mathbf{1} \\in V[[z]]$ with $Y(a, z)\\mathbf{1}|_{z=0} = a$ encodes the state–field correspondence."
+        },
+        {
+          "type": "mcq",
+          "q": "The translation operator $T$ in a VOA satisfies:",
+          "choices": [
+            "$[T, Y(a, z)] = z\\, Y(a, z)$",
+            "$[T, Y(a, z)] = \\partial_z Y(a, z)$",
+            "$T \\cdot Y(a, z) = Y(Ta, z)$",
+            "$T = L_{-1} L_1$"
+          ],
+          "answer": 1,
+          "explain": "Translation covariance: differentiating with respect to the formal variable $z$ is realised by the inner derivation $[T, -]$. The infinitesimal translation $T$ is identified with $L_{-1}$ once a Virasoro element is fixed."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the Borcherds–Jacobi identity often preferred over locality plus the vacuum axiom as the definition of a VOA?",
+          "choices": [
+            "It is strictly weaker, allowing more examples",
+            "It packages locality, associativity, and skew-symmetry into a single equation among modes, which is convenient for proofs",
+            "It avoids any reference to formal power series",
+            "It is the only axiom that makes sense in positive characteristic"
+          ],
+          "answer": 1,
+          "explain": "The Jacobi identity $\\sum (\\cdots) Y(a, z_1) Y(b, z_2) c = \\cdots$ is equivalent to locality plus weak associativity (under standard hypotheses) and reduces to a single mode-level relation. It makes algebraic manipulations — computing OPE coefficients, deriving commutator formulas — purely combinatorial."
+        }
+      ]
+    },
+    "voa-virasoro": {
+      "title": "Virasoro algebra and central charge",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Virasoro algebra commutation relation in a VOA reads:",
+          "choices": [
+            "$[L_m, L_n] = (m + n) L_{m+n}$",
+            "$[L_m, L_n] = (m - n) L_{m+n} + \\tfrac{c}{12}(m^3 - m)\\,\\delta_{m+n, 0}$",
+            "$[L_m, L_n] = m\\, L_{m+n} + c\\, \\delta_{m+n, 0}$",
+            "$[L_m, L_n] = (m - n) L_{m+n}$ (no central term)"
+          ],
+          "answer": 1,
+          "explain": "The Virasoro algebra is the unique non-trivial central extension of the Witt algebra of vector fields on $S^1$. The cocycle $\\tfrac{c}{12}(m^3 - m)\\,\\delta_{m+n,0}$ scales with the central charge $c$, vanishing on $L_{-1}, L_0, L_1$ (the $\\mathfrak{sl}_2$ subalgebra) since $m^3 - m = m(m-1)(m+1)$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the central charge of the moonshine module $V^\\natural$, what is $c$?",
+          "answer": 24,
+          "tol": 0,
+          "explain": "$V^\\natural$ has central charge $c = 24$. This is forced by modular invariance: the graded character $\\tr q^{L_0 - c/24}$ must transform like a weight-$0$ modular function on $\\mathrm{SL}_2(\\mathbb{Z})$, which requires the shift $-c/24 = -1$ so that $L_0 - c/24$ has integer eigenvalues starting at $-1$, matching $J(\\tau) = q^{-1} + 196884\\, q + \\cdots$."
+        },
+        {
+          "type": "mcq",
+          "q": "The conformal vector $\\omega \\in V$ supplies the operators $L_n$ via:",
+          "choices": [
+            "$Y(\\omega, z) = \\sum_n L_n z^{-n}$",
+            "$Y(\\omega, z) = \\sum_n L_n z^{-n - 2}$",
+            "$L_n = \\omega \\cdot (-z)^n$",
+            "$L_n$ is unrelated to $\\omega$"
+          ],
+          "answer": 1,
+          "explain": "By convention $Y(\\omega, z) = \\sum_n L_n z^{-n - 2}$ — the shift by $2$ comes from $\\omega$ having conformal weight $2$ (it is the stress–energy tensor in CFT language). Then $L_0$ is the coefficient of $z^{-2}$ and acts as the grading operator."
+        }
+      ]
+    },
+    "voa-modular-invariance": {
+      "title": "Modular invariance — Zhu's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Zhu's theorem (1996) states that for a $C_2$-cofinite rational VOA $V$, the graded characters $\\mathrm{ch}_M(\\tau) = \\tr_M q^{L_0 - c/24}$ of irreducible modules:",
+          "choices": [
+            "are individually modular forms for $\\mathrm{SL}_2(\\mathbb{Z})$",
+            "form the components of a vector-valued modular form for $\\mathrm{SL}_2(\\mathbb{Z})$, with the modules permuted by the modular action",
+            "are constant in $\\tau$",
+            "are Dirichlet series rather than $q$-series"
+          ],
+          "answer": 1,
+          "explain": "Zhu showed that the span of the graded characters of irreducible $V$-modules is preserved by the $\\mathrm{SL}_2(\\mathbb{Z})$-action $\\tau \\mapsto (a\\tau + b)/(c\\tau + d)$; together they assemble into a vector-valued modular form. Individual characters mix under $S : \\tau \\mapsto -1/\\tau$ — that mixing is the fusion-rules data."
+        },
+        {
+          "type": "mcq",
+          "q": "The shift by $-c/24$ in $\\tr q^{L_0 - c/24}$ is necessary because:",
+          "choices": [
+            "without it the trace diverges",
+            "it adjusts the modular weight so the character has good $\\mathrm{SL}_2(\\mathbb{Z})$ transformation properties (the $\\eta$-function shift)",
+            "it makes the leading coefficient equal $1$",
+            "it is a normalisation choice with no mathematical content"
+          ],
+          "answer": 1,
+          "explain": "The $-c/24$ shift comes from the Casimir of the Virasoro vacuum representation; it is exactly the shift in $\\eta(\\tau) = q^{1/24} \\prod(1 - q^n)$. Without it, the character is a $q$-series with no good modular transformation; with it, the character lives on the modular curve $X(1)$ rather than its universal cover."
+        },
+        {
+          "type": "mcq",
+          "q": "$C_2$-cofiniteness is the requirement that:",
+          "choices": [
+            "$V$ has finite central charge",
+            "the quotient $V / C_2(V)$ is finite-dimensional, where $C_2(V)$ is spanned by $a_{-2} b$ for $a, b \\in V$",
+            "$V$ has only countably many irreducible modules",
+            "$V$ admits a non-degenerate invariant bilinear form"
+          ],
+          "answer": 1,
+          "explain": "$C_2(V)$ is the span of $\\{a_{-2} b : a, b \\in V\\}$; finite-dimensionality of $V / C_2(V)$ is a strong finiteness condition that, combined with rationality, gives Zhu's theorem and the Verlinde formula. Every VOA appearing in moonshine satisfies it."
+        }
+      ]
+    },
+    "voa-moonshine-module": {
+      "title": "The moonshine module $V^\\natural$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The moonshine module $V^\\natural$ of Frenkel–Lepowsky–Meurman is:",
+          "choices": [
+            "a finite-dimensional representation of the Monster",
+            "a $\\mathbb{Z}$-graded VOA of central charge $24$ whose graded dimension is $J(\\tau) = j(\\tau) - 744$",
+            "the Lie algebra of the Monster",
+            "the affinisation of the Leech lattice"
+          ],
+          "answer": 1,
+          "explain": "$V^\\natural$ is built as a $\\mathbb{Z}/2$-orbifold of the lattice VOA on the Leech lattice. Its graded dimension is $\\sum_n (\\dim V^\\natural_n)\\, q^n = J(\\tau)$, and the Monster $\\mathbb{M}$ acts as its full automorphism group — the cleanest realisation of McKay's observation."
+        },
+        {
+          "type": "mcq",
+          "q": "The Conway–Norton conjecture, proved by Borcherds, asserts that for each $g \\in \\mathbb{M}$ the McKay–Thompson series $T_g(\\tau) = \\sum_n \\tr(g \\mid V^\\natural_n)\\, q^n$ is:",
+          "choices": [
+            "a polynomial in $j(\\tau)$",
+            "the Hauptmodul of a genus-zero subgroup of $\\mathrm{SL}_2(\\mathbb{R})$ commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$",
+            "always equal to $J(\\tau)$",
+            "a cusp form of weight $24$"
+          ],
+          "answer": 1,
+          "explain": "For each conjugacy class $[g] \\subset \\mathbb{M}$, $T_g$ is the Hauptmodul of a specific genus-zero subgroup $\\Gamma_g \\subset \\mathrm{SL}_2(\\mathbb{R})$. The 'genus-zero' constraint is what made the conjecture so striking: it pins out a finite list of subgroups out of an infinite family."
+        },
+        {
+          "type": "mcq",
+          "q": "Borcherds' proof routes through the Monster Lie algebra, which is built from $V^\\natural$ via:",
+          "choices": [
+            "the BRST cohomology of the Goddard–Thorn no-ghost theorem",
+            "Lie's third theorem applied to $V^\\natural$",
+            "the universal enveloping algebra of $V^\\natural$",
+            "the Drinfeld–Jimbo quantum-group construction"
+          ],
+          "answer": 0,
+          "explain": "Borcherds tensors $V^\\natural$ with a rank-$2$ Lorentzian-lattice VOA, then applies the Goddard–Thorn no-ghost theorem to extract a generalised Kac–Moody (Borcherds–Kac–Moody) Lie algebra. Its denominator identity furnishes the replication formulas that pin each Thompson series to its Conway–Norton Hauptmodul."
+        }
+      ]
+    },
+    "voa-applications": {
+      "title": "Applications — chiral CFT and chiral algebras",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In two-dimensional conformal field theory, a vertex operator algebra encodes:",
+          "choices": [
+            "the full physical Hilbert space",
+            "the chiral (holomorphic) half of the theory; the antichiral half is a separate VOA",
+            "the partition function only",
+            "the spectrum of conformal weights up to integer shifts"
+          ],
+          "answer": 1,
+          "explain": "A 2D CFT factorises (subject to modular invariance) into a chiral and an antichiral half. Each half is a VOA — the same axioms that codify locality of fields on $S^1$ at fixed time. The full theory is a tensor product of the two halves modulo gluing data."
+        },
+        {
+          "type": "mcq",
+          "q": "Beilinson–Drinfeld's chiral algebras generalise VOAs by:",
+          "choices": [
+            "replacing formal power series with $\\mathcal{D}$-modules on an algebraic curve",
+            "passing to characteristic $p$",
+            "dropping the conformal vector",
+            "adding a second translation operator"
+          ],
+          "answer": 0,
+          "explain": "A chiral algebra on a curve $X$ is a $\\mathcal{D}$-module on $X$ with a chiral product on $\\mathcal{A} \\boxtimes \\mathcal{A}$ over $X \\times X$ off the diagonal. Restriction to the formal disc near a point recovers a VOA; the global data is what makes geometric Langlands work."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT an example of a vertex operator algebra?",
+          "choices": [
+            "the lattice VOA $V_L$ for an even positive-definite lattice $L$",
+            "the affine Kac–Moody VOA at a positive integer level",
+            "the Heisenberg (free-boson) VOA",
+            "the universal enveloping algebra of an arbitrary finite-dimensional Lie algebra"
+          ],
+          "answer": 3,
+          "explain": "Lattice, affine Kac–Moody (at admissible levels), and Heisenberg VOAs are the standard VOA constructions. The universal enveloping algebra $U(\\mathfrak{g})$ of an arbitrary finite-dimensional Lie algebra is an associative algebra, not a VOA — to get a VOA from $\\mathfrak{g}$ you affinise to $\\widehat{\\mathfrak{g}}$ and pass to a vacuum module at a chosen level."
+        }
+      ]
+    }
+  }
 }

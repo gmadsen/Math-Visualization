@@ -1,4 +1,251 @@
 {
   "topic": "quantum-groups",
-  "quizzes": {}
+  "quizzes": {
+    "qg-hopf-algebras": {
+      "questions": [
+        {
+          "type": "mcq",
+          "choices": [
+            "$\\Delta(g) = g\\otimes g$",
+            "$\\Delta(g) = g\\otimes 1 + 1\\otimes g$",
+            "$\\Delta(g) = g\\otimes g^{-1}$",
+            "$\\Delta(g) = 1\\otimes 1$"
+          ],
+          "answer": 0,
+          "explain": "Group elements are the grouplike elements: $\\Delta(g)=g\\otimes g$ and $\\varepsilon(g)=1$. The primitive form $x\\otimes 1+1\\otimes x$ is what Lie algebra elements satisfy inside $U(\\mathfrak g)$.",
+          "q": "In the group Hopf algebra $\\mathbb{C}[G]$, what is the comultiplication on a basis element $g\\in G$?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "It is a two-sided convolution inverse of the identity in $\\mathrm{End}(H)$.",
+            "It is an algebra homomorphism.",
+            "It is its own inverse, $S^2=\\mathrm{id}$.",
+            "It satisfies $S(1)=1$."
+          ],
+          "answer": 0,
+          "explain": "$S$ is defined by $m\\circ(S\\otimes\\mathrm{id})\\circ\\Delta = m\\circ(\\mathrm{id}\\otimes S)\\circ\\Delta = \\eta\\circ\\varepsilon$ — a convolution inverse, hence unique. $S$ is an antihomomorphism, and $S^2=\\mathrm{id}$ only in the cocommutative case.",
+          "q": "Which axiom forces the antipode $S$ to be unique once it exists?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "Because $\\Delta(x)=x\\otimes 1+1\\otimes x$, $S(x)=-x$, $\\varepsilon(x)=0$ extend uniquely to algebra (anti)homomorphisms.",
+            "Because $\\mathfrak g$ is a vector space.",
+            "Because $U(\\mathfrak g)$ is commutative.",
+            "Because Lie brackets are skew-symmetric."
+          ],
+          "answer": 0,
+          "explain": "The primitive coproduct on Lie generators extends by the universal property of $U(\\mathfrak g)$. Cocommutativity reflects that $\\mathfrak g$ has no braiding — quantization breaks exactly that symmetry.",
+          "q": "Why is $U(\\mathfrak g)$ a Hopf algebra?"
+        }
+      ],
+      "title": "Hopf algebras"
+    },
+    "qg-uq-sl2": {
+      "questions": [
+        {
+          "type": "mcq",
+          "choices": [
+            "$[E,F] = H$",
+            "$[E,F] = 0$",
+            "$[E,F] = K$",
+            "$[E,F] = q H$"
+          ],
+          "answer": 0,
+          "explain": "Expanding $K=q^H = 1 + (\\log q) H + \\cdots$ gives $(K-K^{-1})/(q-q^{-1}) \\to H$ in the limit, recovering the classical $\\mathfrak{sl}_2$ relation.",
+          "q": "In $U_q(\\mathfrak{sl}_2)$, what does the relation $[E,F]=(K-K^{-1})/(q-q^{-1})$ become as $q\\to 1$ with $K=q^H$?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "$KEK^{-1} = q^2 E$",
+            "$KEK^{-1} = q E$",
+            "$KE = EK$",
+            "$E^2 = K$"
+          ],
+          "answer": 0,
+          "explain": "Conjugation by the grouplike $K=q^H$ replaces the additive eigenvalue $2$ with the multiplicative $q^2$. Differentiating at $q=1$ recovers the classical bracket.",
+          "q": "Which relation is the quantum analogue of $[H,E]=2E$?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "$\\Delta(E) = E\\otimes 1 + K\\otimes E$",
+            "$\\Delta(E) = E\\otimes 1 + 1\\otimes E$",
+            "$\\Delta(E) = E\\otimes E$",
+            "$\\Delta(E) = K\\otimes K$"
+          ],
+          "answer": 0,
+          "explain": "The Drinfeld–Jimbo coproduct twists primitivity by the Cartan element: $\\Delta(E)=E\\otimes 1+K\\otimes E$ and $\\Delta(F)=F\\otimes K^{-1}+1\\otimes F$. This is what kills cocommutativity and produces a braiding.",
+          "q": "What is the comultiplication $\\Delta(E)$ in $U_q(\\mathfrak{sl}_2)$?"
+        }
+      ],
+      "title": "Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$"
+    },
+    "qg-r-matrix": {
+      "questions": [
+        {
+          "type": "mcq",
+          "choices": [
+            "$\\sigma_1\\sigma_2\\sigma_1 = \\sigma_2\\sigma_1\\sigma_2$",
+            "$\\sigma_i\\sigma_j = \\sigma_j\\sigma_i$ for $|i-j|\\ge 2$",
+            "$\\sigma_i^2 = 1$",
+            "$\\sigma_1\\sigma_2 = \\sigma_2\\sigma_1$"
+          ],
+          "answer": 0,
+          "explain": "Reidemeister III / the third braid relation is exactly Yang–Baxter on three strands. The $R$-matrix gives a representation of the braid group $B_n$ on $V^{\\otimes n}$.",
+          "q": "The Yang–Baxter equation $R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}$ corresponds geometrically to which braid identity?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "Quasitriangularity: $\\Delta^{op} = R\\,\\Delta\\,R^{-1}$.",
+            "Cocommutativity.",
+            "Commutativity.",
+            "Being a free module."
+          ],
+          "answer": 0,
+          "explain": "Drinfeld's definition: a quasitriangular Hopf algebra carries an invertible $R$ intertwining $\\Delta$ and the flipped $\\Delta^{op}$. Cocommutative means $\\Delta=\\Delta^{op}$, so $R=1\\otimes 1$ and the braiding is trivial.",
+          "q": "What property of $U_q(\\mathfrak g)$ does the universal $R$-matrix witness?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "Module isomorphism $V\\otimes W\\to W\\otimes V$ giving a braiding on $\\mathrm{Rep}(U_q(\\mathfrak g))$.",
+            "A scalar.",
+            "The identity map.",
+            "An algebra homomorphism $U_q(\\mathfrak g)\\to U_q(\\mathfrak g)$."
+          ],
+          "answer": 0,
+          "explain": "$c_{V,W}=\\tau\\circ R_{V,W}$ is exactly the braiding making $\\mathrm{Rep}(U_q(\\mathfrak g))$ a braided monoidal category. Generic $q$ gives a non-symmetric braiding — the swap is no longer an involution.",
+          "q": "On a tensor product of two $U_q(\\mathfrak g)$-modules, the operator $\\tau\\circ R$ (flip composed with $R$) is a/an…"
+        }
+      ],
+      "title": "Universal $R$-matrix and Yang–Baxter"
+    },
+    "qg-representations": {
+      "questions": [
+        {
+          "type": "mcq",
+          "choices": [
+            "The non-negative integers $n$, with $\\dim V_n = n+1$ — exactly as in the classical case.",
+            "Roots of unity only.",
+            "Real numbers $\\lambda\\ge 0$.",
+            "Conjugacy classes of $\\mathrm{SL}_2(\\mathbb{C})$."
+          ],
+          "answer": 0,
+          "explain": "At generic $q$ the representation theory is a deformation of the classical one — same labels, same dimensions, $K$ acts on the highest-weight vector by $q^n$. Roots of unity bring genuinely new phenomena (small quantum groups, tilting modules).",
+          "q": "For generic $q$, the irreducible type-1 finite-dimensional $U_q(\\mathfrak{sl}_2)$-modules are parametrized by…"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "A combinatorial graph (with coloured edges) computing tensor product decompositions.",
+            "The classical Lie algebra $\\mathfrak g$ itself.",
+            "The center of $U_q(\\mathfrak g)$.",
+            "The Killing form."
+          ],
+          "answer": 0,
+          "explain": "Crystals are coloured graphs where vertices are basis elements and edges record the $q\\to 0$ shadow of $E_i,F_i$. The tensor product rule becomes a simple combinatorial recipe — Littelmann paths, Young tableaux, etc.",
+          "q": "What does Kashiwara's crystal basis recover when one specializes at $q=0$?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "It is bar-invariant ($\\overline{q}=q^{-1}$) and has positive integer structure constants for tensor products and multiplication.",
+            "It diagonalizes the antipode $S$.",
+            "It consists of grouplike elements.",
+            "It is preserved by the comultiplication."
+          ],
+          "answer": 0,
+          "explain": "Bar-invariance plus an integral lattice condition pin the canonical basis uniquely. The positivity of structure constants is a deep theorem (and the seed of categorification — these integers count dimensions of $\\mathrm{Hom}$ spaces in a categorical lift).",
+          "q": "Lusztig's canonical basis is distinguished from an arbitrary highest-weight basis by which property?"
+        }
+      ],
+      "title": "Representations and crystal bases"
+    },
+    "qg-knot-invariants": {
+      "questions": [
+        {
+          "type": "mcq",
+          "choices": [
+            "$\\tau\\circ R_{V,V}\\colon V\\otimes V\\to V\\otimes V$",
+            "The identity $\\mathrm{id}_{V\\otimes V}$",
+            "The antipode $S\\otimes S$",
+            "A scalar projector"
+          ],
+          "answer": 0,
+          "explain": "Each crossing becomes the braiding $c_{V,V}=\\tau R$; the inverse crossing gets $c^{-1}$. Closing the braid and taking a quantum trace gives the knot invariant.",
+          "q": "Reshetikhin–Turaev assigns to a positive crossing of two strands labelled by $V$ which operator?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "The Jones polynomial.",
+            "The Alexander polynomial.",
+            "The Conway polynomial.",
+            "The HOMFLY polynomial in two variables."
+          ],
+          "answer": 0,
+          "explain": "Jones falls out of $U_q(\\mathfrak{sl}_2)$ on $V_1$. HOMFLY comes from $U_q(\\mathfrak{sl}_n)$ for variable $n$, and Kauffman / two-variable Kauffman from $U_q(\\mathfrak{so}_n)$ or $U_q(\\mathfrak{sp}_{2n})$.",
+          "q": "Which knot polynomial arises from $U_q(\\mathfrak{sl}_2)$ acting on its 2-dimensional standard representation?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "Because $R$ satisfies Yang–Baxter (Reidemeister III) and the cap/cup data make the construction Reidemeister I and II invariant.",
+            "Because $R$ is symmetric.",
+            "Because all knots are isotopic.",
+            "Because $R$ commutes with the antipode."
+          ],
+          "answer": 0,
+          "explain": "Yang–Baxter is exactly Reidemeister III. The Markov-style framing fix and the rigid duality of $U_q(\\mathfrak g)$-mod handle Reidemeister II and (up to a framing factor) Reidemeister I.",
+          "q": "Why is the assignment 'crossing $\\mapsto R$' well-defined as a knot invariant?"
+        }
+      ],
+      "title": "Reshetikhin–Turaev knot invariants"
+    },
+    "qg-applications": {
+      "questions": [
+        {
+          "type": "mcq",
+          "choices": [
+            "The $R$-matrix action of a quantum group on tensor products of representations.",
+            "The Galois action on étale cohomology.",
+            "The Hodge decomposition.",
+            "The Frobenius eigenvalues of an L-function."
+          ],
+          "answer": 0,
+          "explain": "KZ is a flat connection on configuration space valued in $\\mathfrak g\\otimes\\mathfrak g$; transporting around braids gives exactly the $U_q(\\mathfrak g)$ braiding, with $q=e^{i\\pi\\hbar}$ for the deformation parameter $\\hbar$.",
+          "q": "The Drinfeld–Kohno theorem identifies the monodromy of the Knizhnik–Zamolodchikov equation with…"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "Integrable lattice models and quantum spin chains (XXZ, six-vertex).",
+            "Non-relativistic Schrödinger evolution on $\\mathbb R^3$.",
+            "Brownian motion on a graph.",
+            "Classical Hamiltonian flows on cotangent bundles."
+          ],
+          "answer": 0,
+          "explain": "The $R$-matrix of $U_q(\\widehat{\\mathfrak{sl}_2})$ on a tensor power of the standard rep is the Boltzmann weight of the six-vertex model; commuting transfer matrices come from the universal $R$ in the second tensor slot.",
+          "q": "Affine quantum groups $U_q(\\widehat{\\mathfrak g})$ govern which family of physical models?"
+        },
+        {
+          "type": "mcq",
+          "choices": [
+            "The integers (dimensions, multiplicities) by graded vector spaces or chain complexes — promoting $U_q(\\mathfrak g)$ to a 2-category.",
+            "Quantum groups by classical Lie algebras.",
+            "The $R$-matrix by the identity.",
+            "Knot polynomials by knot groups."
+          ],
+          "answer": 0,
+          "explain": "KLR (and Khovanov for $\\mathfrak{sl}_2$) builds a graded 2-category whose Grothendieck group is $U_q(\\mathfrak g)$; Khovanov homology categorifies the Jones polynomial, with Euler characteristic recovering it.",
+          "q": "What does Khovanov–Lauda–Rouquier (KLR) categorification replace?"
+        }
+      ],
+      "title": "Affine, KZ, and categorification"
+    }
+  }
 }
