@@ -254,7 +254,7 @@
           "choices": [
             "The forgetful functor $\\mathrm{Mod}_S \\to \\mathrm{Mod}_R$ (restriction of scalars).",
             "The base-change functor $S \\otimes_R (-): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
-            "The internal-Hom $\\mathrm{Hom}_R(S, -): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
+            "The internal-Hom $\\Hom_R(S, -): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
             "Tensoring with the kernel of $\\bar{f}$."
           ],
           "answer": 1,

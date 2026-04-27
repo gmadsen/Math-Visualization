@@ -20,18 +20,18 @@
           "type": "mcq",
           "q": "For affine schemes, what is the anti-equivalence between rings and affine schemes?",
           "choices": [
-            "Ring homomorphisms $A\\to B$ correspond to scheme morphisms $\\operatorname{Spec} A\\to \\operatorname{Spec} B$ (same direction)",
-            "Ring homomorphisms $A\\to B$ correspond to scheme morphisms $\\operatorname{Spec} B\\to \\operatorname{Spec} A$ (reversed direction)",
+            "Ring homomorphisms $A\\to B$ correspond to scheme morphisms $\\Spec A\\to \\Spec B$ (same direction)",
+            "Ring homomorphisms $A\\to B$ correspond to scheme morphisms $\\Spec B\\to \\Spec A$ (reversed direction)",
             "Ring homomorphisms correspond to continuous maps only, not scheme morphisms",
             "Every continuous map of spectra comes from a unique ring map"
           ],
           "answer": 1,
-          "hint": "$\\operatorname{Spec}$ is a contravariant functor: a ring map $\\varphi\\colon A\\to B$ induces $\\operatorname{Spec}\\varphi\\colon \\operatorname{Spec} B\\to\\operatorname{Spec} A$ by pulling back prime…",
-          "explain": "$\\operatorname{Spec}$ is a contravariant functor: a ring map $\\varphi\\colon A\\to B$ induces $\\operatorname{Spec}\\varphi\\colon \\operatorname{Spec} B\\to\\operatorname{Spec} A$ by pulling back prime ideals via $\\mathfrak{q}\\mapsto \\varphi^{-1}(\\mathfrak{q})$."
+          "hint": "$\\Spec$ is a contravariant functor: a ring map $\\varphi\\colon A\\to B$ induces $\\Spec\\varphi\\colon \\Spec B\\to\\Spec A$ by pulling back prime…",
+          "explain": "$\\Spec$ is a contravariant functor: a ring map $\\varphi\\colon A\\to B$ induces $\\Spec\\varphi\\colon \\Spec B\\to\\Spec A$ by pulling back prime ideals via $\\mathfrak{q}\\mapsto \\varphi^{-1}(\\mathfrak{q})$."
         },
         {
           "type": "numeric",
-          "q": "How many morphisms $\\operatorname{Spec}\\mathbb{F}_5\\to \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-1)$ over $\\operatorname{Spec}\\mathbb{Z}$ are there? (Equivalently, how many ring maps $\\mathbb{Z}[x]/(x^2-1)\\to \\mathbb{F}_5$ fixing $\\mathbb{Z}$?)",
+          "q": "How many morphisms $\\Spec\\mathbb{F}_5\\to \\Spec\\mathbb{Z}[x]/(x^2-1)$ over $\\Spec\\mathbb{Z}$ are there? (Equivalently, how many ring maps $\\mathbb{Z}[x]/(x^2-1)\\to \\mathbb{F}_5$ fixing $\\mathbb{Z}$?)",
           "answer": 2,
           "tol": 0.000001,
           "explain": "Such a ring map is determined by the image of $x$, which must satisfy $x^2=1$ in $\\mathbb{F}_5$. The solutions are $x=\\pm 1$, so there are $2$ morphisms."
@@ -40,16 +40,16 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Consider the ringed-space map $f\\colon \\operatorname{Spec}\\mathbb{C}\\to\\operatorname{Spec}\\mathbb{C}$ defined on the underlying space as the identity but with $f^{\\#}\\colon \\mathbb{C}\\to\\mathbb{C}$ being complex conjugation. Why is this NOT a morphism of schemes over $\\operatorname{Spec}\\mathbb{Q}$?",
+          "q": "Consider the ringed-space map $f\\colon \\Spec\\mathbb{C}\\to\\Spec\\mathbb{C}$ defined on the underlying space as the identity but with $f^{\\#}\\colon \\mathbb{C}\\to\\mathbb{C}$ being complex conjugation. Why is this NOT a morphism of schemes over $\\Spec\\mathbb{Q}$?",
           "choices": [
             "Complex conjugation is not a ring homomorphism",
-            "Complex conjugation is a ring automorphism of $\\mathbb{C}$ over $\\mathbb{Q}$, so this IS a valid scheme morphism over $\\operatorname{Spec}\\mathbb{Q}$",
+            "Complex conjugation is a ring automorphism of $\\mathbb{C}$ over $\\mathbb{Q}$, so this IS a valid scheme morphism over $\\Spec\\mathbb{Q}$",
             "The stalk map is not local because it sends the maximal ideal to zero",
             "The underlying continuous map is not the identity"
           ],
           "answer": 1,
           "hint": "Morphisms of affine schemes correspond to opposite ring maps.",
-          "explain": "Complex conjugation $\\sigma\\colon\\mathbb{C}\\to\\mathbb{C}$ is a $\\mathbb{Q}$-algebra automorphism (it fixes $\\mathbb{Q}\\subset\\mathbb{R}$) and sends the unique maximal ideal $(0)$ to $(0)$, so the stalk map is local. It defines a perfectly valid non-trivial automorphism of $\\operatorname{Spec}\\mathbb{C}$ over $\\operatorname{Spec}\\mathbb{Q}$."
+          "explain": "Complex conjugation $\\sigma\\colon\\mathbb{C}\\to\\mathbb{C}$ is a $\\mathbb{Q}$-algebra automorphism (it fixes $\\mathbb{Q}\\subset\\mathbb{R}$) and sends the unique maximal ideal $(0)$ to $(0)$, so the stalk map is local. It defines a perfectly valid non-trivial automorphism of $\\Spec\\mathbb{C}$ over $\\Spec\\mathbb{Q}$."
         },
         {
           "type": "numeric",
@@ -57,7 +57,7 @@
           "answer": 0,
           "tol": 0.000001,
           "hint": "Solve $x^2 \\equiv -1 \\pmod 3$: check $x = 0, 1, 2$.",
-          "explain": "We need $x^2\\equiv -1\\equiv 2\\pmod 3$. Checking: $0^2=0$, $1^2=1$, $2^2=4\\equiv 1$. None equals $2$, so $x^2+1$ has no roots in $\\mathbb{F}_3$, and there are $0$ ring maps, meaning no morphisms $\\operatorname{Spec}\\mathbb{F}_3\\to\\operatorname{Spec}\\mathbb{Z}[i]$."
+          "explain": "We need $x^2\\equiv -1\\equiv 2\\pmod 3$. Checking: $0^2=0$, $1^2=1$, $2^2=4\\equiv 1$. None equals $2$, so $x^2+1$ has no roots in $\\mathbb{F}_3$, and there are $0$ ring maps, meaning no morphisms $\\Spec\\mathbb{F}_3\\to\\Spec\\mathbb{Z}[i]$."
         },
         {
           "type": "mcq",
@@ -91,7 +91,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which ring map corresponds to the open immersion $D(f)\\hookrightarrow \\operatorname{Spec} A$?",
+          "q": "Which ring map corresponds to the open immersion $D(f)\\hookrightarrow \\Spec A$?",
           "choices": [
             "$A\\twoheadrightarrow A/(f)$ (quotient)",
             "$A\\to A_f$ (localization at $f$)",
@@ -103,7 +103,7 @@
         },
         {
           "type": "numeric",
-          "q": "The closed subscheme $V((x^2))\\hookrightarrow \\operatorname{Spec} k[x]$ has the same underlying topological space as $V((x))$ (just the origin), but a different structure sheaf. What is $\\dim_k \\Gamma(V((x^2)),\\mathcal{O}) = \\dim_k k[x]/(x^2)$?",
+          "q": "The closed subscheme $V((x^2))\\hookrightarrow \\Spec k[x]$ has the same underlying topological space as $V((x))$ (just the origin), but a different structure sheaf. What is $\\dim_k \\Gamma(V((x^2)),\\mathcal{O}) = \\dim_k k[x]/(x^2)$?",
           "answer": 2,
           "tol": 0.000001,
           "explain": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$. This is the 'fat point' / tangent direction attached to the origin — a non-reduced closed subscheme."
@@ -127,18 +127,18 @@
           "type": "mcq",
           "q": "Which is a valid counterexample showing that open immersions need NOT be affine?",
           "choices": [
-            "$D(f)\\hookrightarrow\\operatorname{Spec} A$ — this is always affine",
+            "$D(f)\\hookrightarrow\\Spec A$ — this is always affine",
             "The complement of a codimension-$2$ closed subvariety in $\\mathbb{A}^n_k$ for $n\\ge 2$ is an open immersion that is not affine when $n=2$ and the removed set is a point",
             "Every open immersion of affine schemes is again affine",
             "The open subscheme $\\mathbb{P}^1_k\\setminus\\{P\\}\\cong\\mathbb{A}^1_k$ — this is not affine"
           ],
           "answer": 1,
           "hint": "The line $\\mathbb{A}^2 \\setminus \\{0\\}$ is not affine.",
-          "explain": "$\\mathbb{A}^2_k\\setminus\\{(0,0)\\}$ is an open subscheme of $\\mathbb{A}^2_k$ but is not affine: its global sections are still $k[x,y]$ (by Hartogs), yet it is not isomorphic to $\\operatorname{Spec} k[x,y]$ because it is not affine (the structure sheaf has the right global sections but the space is not affine by Serre's criterion)."
+          "explain": "$\\mathbb{A}^2_k\\setminus\\{(0,0)\\}$ is an open subscheme of $\\mathbb{A}^2_k$ but is not affine: its global sections are still $k[x,y]$ (by Hartogs), yet it is not isomorphic to $\\Spec k[x,y]$ because it is not affine (the structure sheaf has the right global sections but the space is not affine by Serre's criterion)."
         },
         {
           "type": "numeric",
-          "q": "The $n$-th infinitesimal neighborhood of the origin in $\\mathbb{A}^1_k$ is $\\operatorname{Spec} k[x]/(x^n)$. What is $\\dim_k k[x]/(x^3)$?",
+          "q": "The $n$-th infinitesimal neighborhood of the origin in $\\mathbb{A}^1_k$ is $\\Spec k[x]/(x^n)$. What is $\\dim_k k[x]/(x^3)$?",
           "answer": 3,
           "tol": 0.000001,
           "hint": "Compute dimension as $n$ using the basis $1, x, \\ldots, x^{n-1}$.",
@@ -151,7 +151,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "In the category of affine schemes, the fiber product $\\operatorname{Spec} A \\times_{\\operatorname{Spec} R} \\operatorname{Spec} B$ is represented by which ring?",
+          "q": "In the category of affine schemes, the fiber product $\\Spec A \\times_{\\Spec R} \\Spec B$ is represented by which ring?",
           "choices": [
             "$A\\times B$ (direct product)",
             "$A\\oplus_R B$ (direct sum as $R$-modules)",
@@ -159,7 +159,7 @@
             "$A/R \\cdot B/R$"
           ],
           "answer": 2,
-          "explain": "Fiber product is the categorical pullback; on affines it's dual to the pushout in rings, which is the tensor product: $\\operatorname{Spec} A\\times_{\\operatorname{Spec} R}\\operatorname{Spec} B = \\operatorname{Spec}(A\\otimes_R B)$."
+          "explain": "Fiber product is the categorical pullback; on affines it's dual to the pushout in rings, which is the tensor product: $\\Spec A\\times_{\\Spec R}\\Spec B = \\Spec(A\\otimes_R B)$."
         },
         {
           "type": "mcq",
@@ -178,7 +178,7 @@
           "q": "As a $\\mathbb{Q}$-vector space, what is the dimension of $\\mathbb{Q}(\\sqrt{2})\\otimes_{\\mathbb{Q}} \\mathbb{Q}(\\sqrt{2})$?",
           "answer": 4,
           "tol": 0.000001,
-          "explain": "$\\mathbb{Q}(\\sqrt 2)$ has $\\mathbb{Q}$-dimension $2$, so the tensor product has dimension $2\\cdot 2 = 4$. Geometrically, $\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)\\times_{\\operatorname{Spec}\\mathbb{Q}}\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)$ is $4$-dimensional over $\\mathbb{Q}$ and splits as two points over $\\mathbb{Q}(\\sqrt 2)$."
+          "explain": "$\\mathbb{Q}(\\sqrt 2)$ has $\\mathbb{Q}$-dimension $2$, so the tensor product has dimension $2\\cdot 2 = 4$. Geometrically, $\\Spec\\mathbb{Q}(\\sqrt 2)\\times_{\\Spec\\mathbb{Q}}\\Spec\\mathbb{Q}(\\sqrt 2)$ is $4$-dimensional over $\\mathbb{Q}$ and splits as two points over $\\mathbb{Q}(\\sqrt 2)$."
         }
       ],
       "hard": [
@@ -193,15 +193,15 @@
           ],
           "answer": 1,
           "hint": "The tensor product over $\\mathbb{Z}$ of $\\mathbb{F}_p$ with itself is $\\mathbb{F}_p$.",
-          "explain": "$\\mathbb{Z}/p\\mathbb{Z}\\otimes_{\\mathbb{Z}}\\mathbb{Z}/p\\mathbb{Z}\\cong\\mathbb{Z}/p\\mathbb{Z}$ because $\\mathbb{Z}/p\\otimes_{\\mathbb{Z}}\\mathbb{Z}/p\\cong\\mathbb{Z}/\\gcd(p,p)\\mathbb{Z}=\\mathbb{Z}/p\\mathbb{Z}=\\mathbb{F}_p$. Geometrically, $\\operatorname{Spec}\\mathbb{F}_p\\times_{\\operatorname{Spec}\\mathbb{Z}}\\operatorname{Spec}\\mathbb{F}_p=\\operatorname{Spec}\\mathbb{F}_p$: both copies lie over the same closed point $(p)\\in\\operatorname{Spec}\\mathbb{Z}$."
+          "explain": "$\\mathbb{Z}/p\\mathbb{Z}\\otimes_{\\mathbb{Z}}\\mathbb{Z}/p\\mathbb{Z}\\cong\\mathbb{Z}/p\\mathbb{Z}$ because $\\mathbb{Z}/p\\otimes_{\\mathbb{Z}}\\mathbb{Z}/p\\cong\\mathbb{Z}/\\gcd(p,p)\\mathbb{Z}=\\mathbb{Z}/p\\mathbb{Z}=\\mathbb{F}_p$. Geometrically, $\\Spec\\mathbb{F}_p\\times_{\\Spec\\mathbb{Z}}\\Spec\\mathbb{F}_p=\\Spec\\mathbb{F}_p$: both copies lie over the same closed point $(p)\\in\\Spec\\mathbb{Z}$."
         },
         {
           "type": "numeric",
-          "q": "The fiber product $\\operatorname{Spec}\\mathbb{C}\\times_{\\operatorname{Spec}\\mathbb{R}}\\operatorname{Spec}\\mathbb{C}$ corresponds to $\\mathbb{C}\\otimes_{\\mathbb{R}}\\mathbb{C}$. As a $\\mathbb{C}$-algebra this splits as $\\mathbb{C}\\times\\mathbb{C}$ (two points). What is $\\dim_{\\mathbb{R}}(\\mathbb{C}\\otimes_{\\mathbb{R}}\\mathbb{C})$?",
+          "q": "The fiber product $\\Spec\\mathbb{C}\\times_{\\Spec\\mathbb{R}}\\Spec\\mathbb{C}$ corresponds to $\\mathbb{C}\\otimes_{\\mathbb{R}}\\mathbb{C}$. As a $\\mathbb{C}$-algebra this splits as $\\mathbb{C}\\times\\mathbb{C}$ (two points). What is $\\dim_{\\mathbb{R}}(\\mathbb{C}\\otimes_{\\mathbb{R}}\\mathbb{C})$?",
           "answer": 4,
           "tol": 0.000001,
           "hint": "Compute $\\mathbb{C} \\otimes_\\mathbb{R} \\mathbb{C}$ as $\\mathbb{C}[x]/(x^2+1)$.",
-          "explain": "$\\mathbb{C}\\cong\\mathbb{R}[x]/(x^2+1)$, so $\\mathbb{C}\\otimes_{\\mathbb{R}}\\mathbb{C}\\cong\\mathbb{C}[x]/(x^2+1)\\cong\\mathbb{C}[x]/(x-i)(x+i)\\cong\\mathbb{C}\\times\\mathbb{C}$, which has $\\mathbb{R}$-dimension $4$. The base-change from $\\mathbb{R}$ to $\\mathbb{C}$ splits the single $\\mathbb{R}$-point of $\\operatorname{Spec}\\mathbb{C}$ into two $\\mathbb{C}$-conjugate points."
+          "explain": "$\\mathbb{C}\\cong\\mathbb{R}[x]/(x^2+1)$, so $\\mathbb{C}\\otimes_{\\mathbb{R}}\\mathbb{C}\\cong\\mathbb{C}[x]/(x^2+1)\\cong\\mathbb{C}[x]/(x-i)(x+i)\\cong\\mathbb{C}\\times\\mathbb{C}$, which has $\\mathbb{R}$-dimension $4$. The base-change from $\\mathbb{R}$ to $\\mathbb{C}$ splits the single $\\mathbb{R}$-point of $\\Spec\\mathbb{C}$ into two $\\mathbb{C}$-conjugate points."
         },
         {
           "type": "mcq",
@@ -226,32 +226,32 @@
           "q": "For a morphism $f\\colon X\\to Y$ and a point $y\\in Y$ with residue field $\\kappa(y)$, the scheme-theoretic fiber $X_y$ is defined as:",
           "choices": [
             "$f^{-1}(y)$ with the subspace topology only",
-            "$X\\times_Y \\operatorname{Spec}\\kappa(y)$",
-            "$X\\sqcup \\operatorname{Spec}\\kappa(y)$",
-            "$\\operatorname{Spec}(\\mathcal{O}_{Y,y}/\\mathfrak{m}_y)$"
+            "$X\\times_Y \\Spec\\kappa(y)$",
+            "$X\\sqcup \\Spec\\kappa(y)$",
+            "$\\Spec(\\mathcal{O}_{Y,y}/\\mathfrak{m}_y)$"
           ],
           "answer": 1,
-          "explain": "The scheme-theoretic fiber is the base change $X\\times_Y \\operatorname{Spec}\\kappa(y)$. Its underlying topological space is $f^{-1}(y)$, but the scheme structure records multiplicities and nilpotents."
+          "explain": "The scheme-theoretic fiber is the base change $X\\times_Y \\Spec\\kappa(y)$. Its underlying topological space is $f^{-1}(y)$, but the scheme structure records multiplicities and nilpotents."
         },
         {
           "type": "numeric",
-          "q": "Consider $f\\colon \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to \\operatorname{Spec}\\mathbb{Z}$. How many (geometric, i.e. over $\\overline{\\mathbb{F}_p}$) points does the fiber above the closed point $(5)\\in\\operatorname{Spec}\\mathbb{Z}$ have, counted without multiplicity?",
+          "q": "Consider $f\\colon \\Spec\\mathbb{Z}[x]/(x^2-5)\\to \\Spec\\mathbb{Z}$. How many (geometric, i.e. over $\\overline{\\mathbb{F}_p}$) points does the fiber above the closed point $(5)\\in\\Spec\\mathbb{Z}$ have, counted without multiplicity?",
           "answer": 1,
           "tol": 0.000001,
-          "explain": "The fiber over $(5)$ is $\\operatorname{Spec}\\mathbb{F}_5[x]/(x^2)$, a single point with a nilpotent — ramified. Topologically the fiber has $1$ point; scheme-theoretically its length is $2$."
+          "explain": "The fiber over $(5)$ is $\\Spec\\mathbb{F}_5[x]/(x^2)$, a single point with a nilpotent — ramified. Topologically the fiber has $1$ point; scheme-theoretically its length is $2$."
         },
         {
           "type": "numeric",
-          "q": "For the same family $f\\colon \\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to \\operatorname{Spec}\\mathbb{Z}$, how many geometric points does the fiber over $(11)$ have? (Hint: is $5$ a square mod $11$? Check $4^2=16\\equiv 5$.)",
+          "q": "For the same family $f\\colon \\Spec\\mathbb{Z}[x]/(x^2-5)\\to \\Spec\\mathbb{Z}$, how many geometric points does the fiber over $(11)$ have? (Hint: is $5$ a square mod $11$? Check $4^2=16\\equiv 5$.)",
           "answer": 2,
           "tol": 0.000001,
-          "explain": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points. The prime $11$ splits in $\\mathbb{Z}[\\sqrt 5]$."
+          "explain": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\Spec\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points. The prime $11$ splits in $\\mathbb{Z}[\\sqrt 5]$."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "For $f\\colon\\operatorname{Spec}\\mathbb{Z}[x]/(x^2-5)\\to\\operatorname{Spec}\\mathbb{Z}$, the fiber over the generic point $(0)$ is $\\operatorname{Spec}\\mathbb{Q}(\\sqrt{5})$. What is the correct sequence of fiber types as the prime $p$ varies?",
+          "q": "For $f\\colon\\Spec\\mathbb{Z}[x]/(x^2-5)\\to\\Spec\\mathbb{Z}$, the fiber over the generic point $(0)$ is $\\Spec\\mathbb{Q}(\\sqrt{5})$. What is the correct sequence of fiber types as the prime $p$ varies?",
           "choices": [
             "All fibers are two distinct geometric points",
             "The fiber over $p=5$ is a single point of multiplicity $2$ (ramified); over a prime $p$ with $5$ a non-square mod $p$ it is a single closed point (inert); over a prime $p$ with $5$ a square mod $p$ it is two distinct points (split)",
@@ -264,7 +264,7 @@
         },
         {
           "type": "numeric",
-          "q": "The fiber of $f\\colon\\operatorname{Spec}\\mathbb{Z}[x]/(x^2+1)\\to\\operatorname{Spec}\\mathbb{Z}$ over the inert prime $(3)$ (since $-1$ is not a square mod $3$) is $\\operatorname{Spec}\\mathbb{F}_9$. What is $\\dim_{\\mathbb{F}_3}\\mathbb{F}_9$?",
+          "q": "The fiber of $f\\colon\\Spec\\mathbb{Z}[x]/(x^2+1)\\to\\Spec\\mathbb{Z}$ over the inert prime $(3)$ (since $-1$ is not a square mod $3$) is $\\Spec\\mathbb{F}_9$. What is $\\dim_{\\mathbb{F}_3}\\mathbb{F}_9$?",
           "answer": 2,
           "tol": 0.000001,
           "hint": "At $(3)$: $\\mathbb{F}_3[x]/(x^2+1)$ is the field $\\mathbb{F}_9$.",
@@ -274,14 +274,14 @@
           "type": "mcq",
           "q": "A morphism $f\\colon X\\to Y$ has geometrically connected fibers if $X_y\\times_{\\kappa(y)}\\overline{\\kappa(y)}$ is connected for every $y\\in Y$. Which is a counterexample where fibers are connected but NOT geometrically connected?",
           "choices": [
-            "$\\mathbb{A}^1_{\\mathbb{R}}\\to\\operatorname{Spec}\\mathbb{R}$ — the fiber over the unique point is $\\mathbb{A}^1_{\\mathbb{R}}$, which is geometrically connected",
-            "$\\operatorname{Spec}\\mathbb{Q}(\\sqrt{2})\\to\\operatorname{Spec}\\mathbb{Q}$ — the fiber is one point over $\\mathbb{Q}$, but after base change to $\\overline{\\mathbb{Q}}$ it becomes two points",
-            "$\\mathbb{P}^1_{\\mathbb{Q}}\\to\\operatorname{Spec}\\mathbb{Q}$ — the fiber is $\\mathbb{P}^1_{\\mathbb{Q}}$, which is geometrically connected",
-            "$\\operatorname{Spec}\\mathbb{Q}\\to\\operatorname{Spec}\\mathbb{Q}$ — the fiber is a single point, trivially geometrically connected"
+            "$\\mathbb{A}^1_{\\mathbb{R}}\\to\\Spec\\mathbb{R}$ — the fiber over the unique point is $\\mathbb{A}^1_{\\mathbb{R}}$, which is geometrically connected",
+            "$\\Spec\\mathbb{Q}(\\sqrt{2})\\to\\Spec\\mathbb{Q}$ — the fiber is one point over $\\mathbb{Q}$, but after base change to $\\overline{\\mathbb{Q}}$ it becomes two points",
+            "$\\mathbb{P}^1_{\\mathbb{Q}}\\to\\Spec\\mathbb{Q}$ — the fiber is $\\mathbb{P}^1_{\\mathbb{Q}}$, which is geometrically connected",
+            "$\\Spec\\mathbb{Q}\\to\\Spec\\mathbb{Q}$ — the fiber is a single point, trivially geometrically connected"
           ],
           "answer": 1,
           "hint": "Base change to the algebraic closure to test geometric connectedness.",
-          "explain": "$\\operatorname{Spec}\\mathbb{Q}(\\sqrt 2)\\to\\operatorname{Spec}\\mathbb{Q}$ has a single-point fiber (connected) but $\\mathbb{Q}(\\sqrt 2)\\otimes_{\\mathbb{Q}}\\overline{\\mathbb{Q}}\\cong\\overline{\\mathbb{Q}}\\times\\overline{\\mathbb{Q}}$, which has two connected components. Thus the fiber is connected but not geometrically connected."
+          "explain": "$\\Spec\\mathbb{Q}(\\sqrt 2)\\to\\Spec\\mathbb{Q}$ has a single-point fiber (connected) but $\\mathbb{Q}(\\sqrt 2)\\otimes_{\\mathbb{Q}}\\overline{\\mathbb{Q}}\\cong\\overline{\\mathbb{Q}}\\times\\overline{\\mathbb{Q}}$, which has two connected components. Thus the fiber is connected but not geometrically connected."
         }
       ]
     },
@@ -302,12 +302,12 @@
         },
         {
           "type": "mcq",
-          "q": "Which of the following schemes over $\\operatorname{Spec} k$ fails to be separated?",
+          "q": "Which of the following schemes over $\\Spec k$ fails to be separated?",
           "choices": [
             "$\\mathbb{A}^1_k$",
             "$\\mathbb{P}^1_k$",
             "the affine line with doubled origin (two copies of $\\mathbb{A}^1_k$ glued along $\\mathbb{A}^1_k\\setminus\\{0\\}$)",
-            "$\\operatorname{Spec} k[x,y]/(xy)$"
+            "$\\Spec k[x,y]/(xy)$"
           ],
           "answer": 2,
           "explain": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed. All other options are separated."
@@ -316,9 +316,9 @@
           "type": "mcq",
           "q": "Which of these morphisms is proper?",
           "choices": [
-            "$\\mathbb{A}^n_k\\to \\operatorname{Spec} k$",
-            "$\\mathbb{P}^n_k\\to \\operatorname{Spec} k$",
-            "$\\mathbb{G}_m = \\operatorname{Spec} k[x,x^{-1}]\\to \\operatorname{Spec} k$",
+            "$\\mathbb{A}^n_k\\to \\Spec k$",
+            "$\\mathbb{P}^n_k\\to \\Spec k$",
+            "$\\mathbb{G}_m = \\Spec k[x,x^{-1}]\\to \\Spec k$",
             "a non-closed open immersion"
           ],
           "answer": 1,
@@ -328,16 +328,16 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "The valuative criterion for properness states: $f\\colon X\\to S$ is proper (separated + finite type + universally closed) iff for every DVR $R$ with fraction field $K$, every commutative square $\\operatorname{Spec} K\\to X$, $\\operatorname{Spec} R\\to S$ has a unique filling $\\operatorname{Spec} R\\to X$. Which example demonstrates that $\\mathbb{A}^1_k\\to\\operatorname{Spec} k$ fails this criterion?",
+          "q": "The valuative criterion for properness states: $f\\colon X\\to S$ is proper (separated + finite type + universally closed) iff for every DVR $R$ with fraction field $K$, every commutative square $\\Spec K\\to X$, $\\Spec R\\to S$ has a unique filling $\\Spec R\\to X$. Which example demonstrates that $\\mathbb{A}^1_k\\to\\Spec k$ fails this criterion?",
           "choices": [
-            "The $K$-point $\\operatorname{Spec} K\\to\\mathbb{A}^1_k$ given by $t\\mapsto 0$ does not extend over $R=k[[t]]$",
-            "The $K$-point $\\operatorname{Spec} K\\to\\mathbb{A}^1_k$ given by $x=1/t$ does not extend over $R=k[[t]]$ since $1/t\\notin k[[t]]$",
+            "The $K$-point $\\Spec K\\to\\mathbb{A}^1_k$ given by $t\\mapsto 0$ does not extend over $R=k[[t]]$",
+            "The $K$-point $\\Spec K\\to\\mathbb{A}^1_k$ given by $x=1/t$ does not extend over $R=k[[t]]$ since $1/t\\notin k[[t]]$",
             "$\\mathbb{A}^1_k$ is not of finite type over $k$",
             "Every DVR filling exists but is not unique"
           ],
           "answer": 1,
           "hint": "Existence first, then uniqueness of the extension.",
-          "explain": "The $K$-rational point $x=1/t\\in K=k((t))$ gives a map $\\operatorname{Spec} K\\to\\mathbb{A}^1_k$. To extend to $R=k[[t]]$ we would need $1/t\\in k[[t]]$, which is false since $1/t$ has a pole. So no filling exists, and $\\mathbb{A}^1_k\\to\\operatorname{Spec} k$ is not proper."
+          "explain": "The $K$-rational point $x=1/t\\in K=k((t))$ gives a map $\\Spec K\\to\\mathbb{A}^1_k$. To extend to $R=k[[t]]$ we would need $1/t\\in k[[t]]$, which is false since $1/t$ has a pole. So no filling exists, and $\\mathbb{A}^1_k\\to\\Spec k$ is not proper."
         },
         {
           "type": "mcq",

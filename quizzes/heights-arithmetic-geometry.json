@@ -239,13 +239,13 @@
           "type": "mcq",
           "q": "Arakelov geometry's basic move is to:",
           "choices": [
-            "Replace $\\operatorname{Spec}\\mathbb{Z}$ by its $p$-adic completion at every prime.",
-            "Compactify $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place, encoded by Hermitian metrics on line bundles.",
-            "Pass to étale cohomology on $\\operatorname{Spec}\\mathbb{Z}$.",
+            "Replace $\\Spec\\mathbb{Z}$ by its $p$-adic completion at every prime.",
+            "Compactify $\\Spec\\mathbb{Z}$ by adjoining the archimedean place, encoded by Hermitian metrics on line bundles.",
+            "Pass to étale cohomology on $\\Spec\\mathbb{Z}$.",
             "Resolve all singularities of arithmetic surfaces."
           ],
           "answer": 1,
-          "explain": "$\\operatorname{Spec}\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity. Arakelov fills it by demanding Hermitian metrics on line bundles over $X(\\mathbb{C})$; the resulting compactified geometry supports an arithmetic intersection theory."
+          "explain": "$\\Spec\\mathbb{Z}$ has a 'missing' archimedean fibre at infinity. Arakelov fills it by demanding Hermitian metrics on line bundles over $X(\\mathbb{C})$; the resulting compactified geometry supports an arithmetic intersection theory."
         },
         {
           "type": "mcq",
@@ -257,8 +257,8 @@
             "The Faltings height of the Jacobian."
           ],
           "answer": 1,
-          "hint": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ —…",
-          "explain": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\operatorname{Spec}\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ — heights as intersection numbers in disguise."
+          "hint": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\Spec\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ —…",
+          "explain": "Pulling the metrised line bundle $\\bar L$ along the section $P:\\Spec\\mathcal{O}_K\\to X$, the arithmetic degree $\\widehat{\\deg}(P^*\\bar L)$ recovers $\\hat h(P)\\cdot[K:\\mathbb{Q}]$ — heights as intersection numbers in disguise."
         },
         {
           "type": "mcq",

@@ -273,7 +273,7 @@
             "the group of Borel measures on $G$"
           ],
           "answer": 1,
-          "explain": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
+          "explain": "$\\widehat G = \\Hom_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
         },
         {
           "type": "matching",

@@ -254,7 +254,7 @@
           "type": "multi-select",
           "q": "Select all examples of algebraic spaces that are <em>not</em> schemes.",
           "choices": [
-            "$\\operatorname{Spec}\\mathbb{Z}$",
+            "$\\Spec\\mathbb{Z}$",
             "$\\mathbb{A}^1_k / \\mathbb{Z}$ over a field $k$",
             "$\\mathbb{P}^n_k$",
             "Hironaka's smooth proper 3-fold $H$",
@@ -264,7 +264,7 @@
             1,
             3
           ],
-          "explain": "$\\operatorname{Spec}\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
+          "explain": "$\\Spec\\mathbb{Z}$ and $\\mathbb{P}^n$ are obviously schemes. An étale double cover of $\\mathbb{P}^1$ is also a scheme (it's a smooth curve). Only $\\mathbb{A}^1/\\mathbb{Z}$ (not quasi-separated) and Hironaka's $H$ (smooth proper non-projective) are genuine non-scheme algebraic spaces."
         }
       ],
       "hard": [
@@ -273,12 +273,12 @@
           "q": "Let $G$ be a finite group acting freely on a quasi-projective scheme $U$ over a field. Why is the quotient $U/G$ <em>always</em> a scheme in this case?",
           "choices": [
             "Because finite groups act trivially on étale cohomology.",
-            "Because every $G$-orbit on $U$ lies in a $G$-stable affine open subset, so the quotient can be glued from $\\operatorname{Spec}$s of $G$-invariants.",
+            "Because every $G$-orbit on $U$ lies in a $G$-stable affine open subset, so the quotient can be glued from $\\Spec$s of $G$-invariants.",
             "Because $\\mathbb{A}^1/\\mathbb{Z}$ is a scheme.",
             "Because $G$ acts on cohomology by an automorphism."
           ],
           "answer": 1,
-          "explain": "The classical theorem (SGA 1 or [EGA III]) says that if $G$ is finite and every orbit on $U$ is contained in some affine open (which is automatic for quasi-projective $U$, since one can take a $G$-stable affine using ample-line-bundle averaging), then $U/G$ exists as a scheme. The Zariski-local structure is $\\mathrm{Spec}(R^G)$. Without quasi-projectivity, the conclusion can fail."
+          "explain": "The classical theorem (SGA 1 or [EGA III]) says that if $G$ is finite and every orbit on $U$ is contained in some affine open (which is automatic for quasi-projective $U$, since one can take a $G$-stable affine using ample-line-bundle averaging), then $U/G$ exists as a scheme. The Zariski-local structure is $\\Spec(R^G)$. Without quasi-projectivity, the conclusion can fail."
         },
         {
           "type": "spot-the-error",
@@ -338,13 +338,13 @@
           "type": "mcq",
           "q": "Let $\\mathcal X = [\\mathbb{A}^1 / \\mathbb{Z}/2]$ where $\\mathbb{Z}/2$ acts by $x \\mapsto -x$. What kind of geometric object is $\\mathcal X$?",
           "choices": [
-            "An algebraic space (in fact, a scheme): the quotient $\\mathbb{A}^1 / (\\mathbb{Z}/2) = \\operatorname{Spec} k[x^2]$.",
+            "An algebraic space (in fact, a scheme): the quotient $\\mathbb{A}^1 / (\\mathbb{Z}/2) = \\Spec k[x^2]$.",
             "An algebraic space but not a scheme — like Hironaka's example.",
             "A DM stack but not an algebraic space — the action has a fixed point at $0$, so the geometric stabiliser there is nontrivial.",
             "An Artin stack but not a DM stack."
           ],
           "answer": 2,
-          "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\operatorname{Spec} k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
+          "explain": "The action is <em>not</em> free: the origin $0 \\in \\mathbb{A}^1$ is fixed, with stabiliser $\\mathbb{Z}/2$. So $\\mathcal X = [\\mathbb{A}^1/(\\mathbb{Z}/2)]$ has nontrivial isotropy at the origin, making it a DM stack, not an algebraic space. (The naïve geometric quotient $\\Spec k[x^2] \\cong \\mathbb{A}^1$ is the <em>coarse moduli space</em>, which loses the stabiliser information.)"
         }
       ],
       "hard": [

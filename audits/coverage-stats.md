@@ -2,8 +2,8 @@
 
 ## Corpus totals
 
-- Topics: **105**, concepts: **711**
-- Widgets: **762** (registry-driven: 569, inline: 193)
+- Topics: **103**, concepts: **711**
+- Widgets: **761** (registry-driven: 568, inline: 193)
 - Quizzes: **3300** (v1: 2064, hard: 1223, expert: 13)
 - Quiz types: mcq: 2106, numeric: 955, multi-select: 95, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **111**
@@ -18,16 +18,16 @@ page has wired one in yet.
 
 | slug | family | gesture | dimension | instances | topics |
 |---|---|---|---|---:|---|
-| `button-stepper` | button-stepper | click | 2d | 337 | L-functions, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, power-sums-bernoulli, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, sums-of-squares, theta-functions, upper-half-plane-hyperbolic, waring, zeta-values |
+| `button-stepper` | button-stepper | click | 2d | 336 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `clickable-diagram` | clickable-diagram | click | 2d | 69 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `parametric-plot` | parametric-plot | slider | 2d | 5 | analytic-continuation |
-| `input-form` | input-form | input | 2d | 4 | sums-of-squares |
+| `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
-| `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity, sums-of-squares |
-| `declarative-host` | declarative-host | interactive | 2d | 3 | category-theory, power-sums-bernoulli |
+| `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
+| `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
 | `algebraic-curves-canonical-embedding-scrubber` | algebraic-curves-canonical-embedding-scrubber | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-hyperelliptic-cover` | algebraic-curves-hyperelliptic-cover | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-jacobian-lattice` | algebraic-curves-jacobian-lattice | interact | 2d | 1 | algebraic-curves-higher-genus |
@@ -221,11 +221,11 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **14**, concepts: **78**
-- Widgets: **98** (registry-driven: 85, inline: 13)
-  - by family: button-stepper: 67, unknown: 13, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
-  - by dimension: 2d: 85, unknown: 13
-  - by gesture: click: 72, unknown: 13, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
+- Topics: **12**, concepts: **78**
+- Widgets: **97** (registry-driven: 84, inline: 13)
+  - by family: button-stepper: 66, unknown: 13, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
+  - by dimension: 2d: 84, unknown: 13
+  - by gesture: click: 71, unknown: 13, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
 - Quizzes: **409** (v1: 226, hard: 183, expert: 0)
   - by type: mcq: 270, numeric: 132, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
@@ -315,9 +315,7 @@ page has wired one in yet.
 - `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `sums-of-squares` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `power-sums-bernoulli` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=31 (v1=16, hard=15, expert=0)
-- `waring` (Number theory) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
+- `additive-number-theory` (Number theory) — concepts=15, widgets=20 (slug=20), quiz=91 (v1=46, hard=45, expert=0)
 - `algebraic-number-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `p-adic-numbers` (Number theory) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)

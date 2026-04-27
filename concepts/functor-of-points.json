@@ -66,7 +66,7 @@
         "yoneda-functor-points",
         "fiber-products"
       ],
-      "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
+      "blurb": "Reading $X_S(T) = X(T) \\times_{\\Spec\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
       "tags": [
         "functoriality"
       ]

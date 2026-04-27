@@ -290,7 +290,7 @@
             "Compute the Chern character $\\mathrm{ch}(\\mathcal{O}(d)) = e^{dh} = 1 + dh + (d^2/2) h^2$.",
             "Compute the Todd class $\\mathrm{td}(T_{\\mathbb{P}^2}) = 1 + (3/2)h + h^2$ from the Euler sequence.",
             "Multiply $\\mathrm{ch} \\cdot \\mathrm{td}$ in $A^*(\\mathbb{P}^2) \\otimes \\mathbb{Q}$ and read off the coefficient of $h^2$.",
-            "Push forward to a point via $f_*\\colon A^*(\\mathbb{P}^2) \\to A^*(\\mathrm{Spec}\\, k) = \\mathbb{Z}$ to obtain $\\chi$."
+            "Push forward to a point via $f_*\\colon A^*(\\mathbb{P}^2) \\to A^*(\\Spec\\, k) = \\mathbb{Z}$ to obtain $\\chi$."
           ],
           "answer": [
             0,

@@ -297,7 +297,7 @@
         },
         {
           "type": "mcq",
-          "q": "An element $g\\in PSL_2(\\mathbb R)$ with $|\\operatorname{tr} g|<2$ is:",
+          "q": "An element $g\\in PSL_2(\\mathbb R)$ with $|\\tr g|<2$ is:",
           "choices": [
             "hyperbolic (two fixed points on $\\partial\\mathbb H$)",
             "parabolic (one fixed point at the boundary)",
@@ -308,33 +308,33 @@
         },
         {
           "type": "numeric",
-          "q": "For $g=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$.",
+          "q": "For $g=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, compute $|\\tr g|$.",
           "answer": 2,
           "tol": 0.001,
-          "explain": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
+          "explain": "$\\tr g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "Which is a correct counterexample showing that a hyperbolic element $g$ (with $|\\operatorname{tr} g|>2$) cannot have a fixed point inside $\\mathbb{H}$?",
+          "q": "Which is a correct counterexample showing that a hyperbolic element $g$ (with $|\\tr g|>2$) cannot have a fixed point inside $\\mathbb{H}$?",
           "choices": [
-            "The fixed-point equation $(c\\tau^2+(d-a)\\tau-b)=0$ has discriminant $(d-a)^2+4bc=(\\operatorname{tr} g)^2-4$; for $|\\operatorname{tr} g|>2$ this is positive, so both roots are real and lie on $\\partial\\mathbb{H}$",
+            "The fixed-point equation $(c\\tau^2+(d-a)\\tau-b)=0$ has discriminant $(d-a)^2+4bc=(\\tr g)^2-4$; for $|\\tr g|>2$ this is positive, so both roots are real and lie on $\\partial\\mathbb{H}$",
             "Hyperbolic elements always fix the point $i$ inside $\\mathbb{H}$",
             "A positive discriminant means complex roots, which lie inside $\\mathbb{H}$",
             "The trace condition only applies over $\\mathbb{F}_p$, not over $\\mathbb{R}$"
           ],
           "answer": 0,
           "hint": "Hyperbolic elements fix only the two ideal boundary points.",
-          "explain": "The fixed-point equation is $c\\tau^2+(d-a)\\tau-b=0$. Its discriminant is $(d-a)^2+4bc=(a+d)^2-4(ad-bc)=(\\operatorname{tr} g)^2-4$. For $|\\operatorname{tr} g|>2$ the discriminant is positive, giving two distinct real fixed points on the real axis — none inside $\\mathbb{H}$."
+          "explain": "The fixed-point equation is $c\\tau^2+(d-a)\\tau-b=0$. Its discriminant is $(d-a)^2+4bc=(a+d)^2-4(ad-bc)=(\\tr g)^2-4$. For $|\\tr g|>2$ the discriminant is positive, giving two distinct real fixed points on the real axis — none inside $\\mathbb{H}$."
         },
         {
           "type": "numeric",
-          "q": "For $g=\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$ and classify $g$. Enter just $|\\operatorname{tr} g|$.",
+          "q": "For $g=\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$, compute $|\\tr g|$ and classify $g$. Enter just $|\\tr g|$.",
           "answer": 3,
           "tol": 0.001,
-          "hint": "Trace is $2 + 1 = 3$; classify by $|\\mathrm{tr}| > 2$.",
-          "explain": "$\\operatorname{tr} g=2+1=3$, so $|\\operatorname{tr} g|=3>2$. The element is hyperbolic with two real fixed points."
+          "hint": "Trace is $2 + 1 = 3$; classify by $|\\tr| > 2$.",
+          "explain": "$\\tr g=2+1=3$, so $|\\tr g|=3>2$. The element is hyperbolic with two real fixed points."
         },
         {
           "type": "mcq",

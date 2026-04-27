@@ -117,7 +117,7 @@
           ],
           "answer": 1,
           "hint": "What direction does $(-)^*$ send a linear map $f\\colon V\\to W$?",
-          "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
+          "explain": "$(-)^*=\\Hom(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
         },
         {
           "type": "mcq",
@@ -165,7 +165,7 @@
             "Neither preserves limits or colimits"
           ],
           "answer": 1,
-          "explain": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL). The adjunction $\\operatorname{Hom}(F(-),-)\\cong\\operatorname{Hom}(-,G(-))$ together with Yoneda makes this immediate."
+          "explain": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL). The adjunction $\\Hom(F(-),-)\\cong\\Hom(-,G(-))$ together with Yoneda makes this immediate."
         },
         {
           "type": "numeric",
@@ -186,7 +186,7 @@
             "$\\operatorname{Nat}(h_X,h_Y)$ is always a singleton"
           ],
           "answer": 0,
-          "explain": "Full faithfulness gives $\\operatorname{Hom}_{\\mathcal{C}}(X,Y)\\cong\\operatorname{Nat}(h_X,h_Y)$ (by Yoneda with $F=h_Y$). In particular $X\\cong Y\\Leftrightarrow h_X\\cong h_Y$: objects are determined up to isomorphism by their functor of points. Not every presheaf need be representable (that would make the embedding an equivalence, which is usually false)."
+          "explain": "Full faithfulness gives $\\Hom_{\\mathcal{C}}(X,Y)\\cong\\operatorname{Nat}(h_X,h_Y)$ (by Yoneda with $F=h_Y$). In particular $X\\cong Y\\Leftrightarrow h_X\\cong h_Y$: objects are determined up to isomorphism by their functor of points. Not every presheaf need be representable (that would make the embedding an equivalence, which is usually false)."
         },
         {
           "type": "mcq",
@@ -217,7 +217,7 @@
           "type": "mcq",
           "q": "A functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ is called representable if:",
           "choices": [
-            "$F$ is naturally isomorphic to $\\operatorname{Hom}_{\\mathcal{C}}(-,X)$ for some $X\\in\\mathcal{C}$",
+            "$F$ is naturally isomorphic to $\\Hom_{\\mathcal{C}}(-,X)$ for some $X\\in\\mathcal{C}$",
             "$F$ is surjective on objects",
             "$F$ factors through the inclusion $\\mathsf{FinSet}\\hookrightarrow\\mathsf{Set}$",
             "$F$ has a left adjoint"
@@ -229,9 +229,9 @@
           "type": "mcq",
           "q": "The tensor product $M\\otimes_R N$ of two $R$-modules represents which functor (on $R$-modules $P$)?",
           "choices": [
-            "$P\\mapsto \\operatorname{Hom}_R(M,P)\\times\\operatorname{Hom}_R(N,P)$",
+            "$P\\mapsto \\Hom_R(M,P)\\times\\Hom_R(N,P)$",
             "$P\\mapsto \\operatorname{Bilin}_R(M\\times N, P)$",
-            "$P\\mapsto \\operatorname{Hom}_R(M\\oplus N, P)$",
+            "$P\\mapsto \\Hom_R(M\\oplus N, P)$",
             "$P\\mapsto M\\otimes_R P\\otimes_R N$"
           ],
           "answer": 1,
@@ -278,7 +278,7 @@
         },
         {
           "type": "numeric",
-          "q": "Let $\\mathcal{C}$ be a category with exactly one object $*$ and $\\operatorname{Hom}(*,*)=\\{\\mathrm{id}\\}$. How many distinct functors $F\\colon\\mathcal{C}\\to\\mathcal{C}$ are there?",
+          "q": "Let $\\mathcal{C}$ be a category with exactly one object $*$ and $\\Hom(*,*)=\\{\\mathrm{id}\\}$. How many distinct functors $F\\colon\\mathcal{C}\\to\\mathcal{C}$ are there?",
           "answer": 1,
           "tol": 0.000001,
           "explain": "There is only one object, so $F(*)=*$ is forced. The only morphism $\\mathrm{id}_*$ must map to a morphism $*\\to*$, i.e. to $\\mathrm{id}_*$ itself. So the only functor is the identity — exactly $1$."
@@ -367,7 +367,7 @@
             "the natural transformation itself, coerced to a set"
           ],
           "answer": 0,
-          "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\mathrm{Hom}(A,A)$. That single value determines every other component via naturality."
+          "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\Hom(A,A)$. That single value determines every other component via naturality."
         },
         {
           "type": "multi-select",
@@ -383,11 +383,11 @@
             1,
             3
           ],
-          "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
+          "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\Hom(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
         },
         {
           "type": "numeric",
-          "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\mathrm{Hom}(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
+          "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\Hom(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
           "answer": 4,
           "tol": 0.000001,
           "explain": "Yoneda: $\\mathrm{Nat}(h_1,F)\\cong F(1)$, so the count is $|F(1)|=4$."
@@ -413,7 +413,7 @@
         },
         {
           "type": "mcq",
-          "q": "An object $X\\in\\mathcal{C}$ is called a $\\textit{projective generator}$ if $\\mathrm{Hom}(X,-)$ is faithful and preserves epimorphisms. By Yoneda, this is equivalent to saying:",
+          "q": "An object $X\\in\\mathcal{C}$ is called a $\\textit{projective generator}$ if $\\Hom(X,-)$ is faithful and preserves epimorphisms. By Yoneda, this is equivalent to saying:",
           "choices": [
             "$h_X$ is naturally isomorphic to the identity functor.",
             "$h_X\\colon\\mathcal{C}\\to\\mathsf{Set}$ reflects isomorphisms, and the class $\\{X\\}$ is 'enough projectives'.",
@@ -421,7 +421,7 @@
             "Every object is a quotient of $X$."
           ],
           "answer": 1,
-          "explain": "Faithfulness of $\\mathrm{Hom}(X,-)$ forces $h_X$ to separate morphisms, and preservation of epis under a representable makes $X$ projective. Together they are the standard 'enough projectives' condition."
+          "explain": "Faithfulness of $\\Hom(X,-)$ forces $h_X$ to separate morphisms, and preservation of epis under a representable makes $X$ projective. Together they are the standard 'enough projectives' condition."
         },
         {
           "type": "numeric",
@@ -525,8 +525,8 @@
           "type": "mcq",
           "q": "$F\\dashv G$ means, by definition, that there is an isomorphism, natural in $A$ and $B$:",
           "choices": [
-            "$\\mathrm{Hom}_{\\mathcal{C}}(G(B),A)\\cong\\mathrm{Hom}_{\\mathcal{D}}(B,F(A))$",
-            "$\\mathrm{Hom}_{\\mathcal{D}}(F(A),B)\\cong\\mathrm{Hom}_{\\mathcal{C}}(A,G(B))$",
+            "$\\Hom_{\\mathcal{C}}(G(B),A)\\cong\\Hom_{\\mathcal{D}}(B,F(A))$",
+            "$\\Hom_{\\mathcal{D}}(F(A),B)\\cong\\Hom_{\\mathcal{C}}(A,G(B))$",
             "$F\\circ G\\cong\\mathrm{id}_{\\mathcal{D}}$",
             "$G\\circ F\\cong\\mathrm{id}_{\\mathcal{C}}$"
           ],
@@ -538,7 +538,7 @@
           "q": "Select every example of an adjunction.",
           "choices": [
             "Free group $\\dashv$ forgetful $\\mathsf{Grp}\\to\\mathsf{Set}$",
-            "$(-)\\times A\\dashv\\mathrm{Hom}(A,-)$ in $\\mathsf{Set}$ (currying)",
+            "$(-)\\times A\\dashv\\Hom(A,-)$ in $\\mathsf{Set}$ (currying)",
             "Abelianization $\\dashv$ inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$",
             "The identity functor $\\mathrm{id}\\colon\\mathsf{Grp}\\to\\mathsf{Grp}$ is left adjoint to the double-dual $(-)^{**}$"
           ],
@@ -551,10 +551,10 @@
         },
         {
           "type": "numeric",
-          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
+          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\Hom_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
           "answer": 5,
           "tol": 0.000001,
-          "explain": "By the Hom-iso, $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\mathrm{Hom}_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
+          "explain": "By the Hom-iso, $|\\Hom_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\Hom_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
         }
       ],
       "hard": [
@@ -580,15 +580,15 @@
             "Neither slogan has content: it depends on the category."
           ],
           "answer": 1,
-          "hint": "Left adjoint to $G$ means 'left side of a hom-iso' — which side of $\\mathrm{Hom}$ is covariant in its second argument and commutes with limits?",
-          "explain": "$\\mathrm{Hom}(-,X)$ turns colimits into limits, so $\\mathrm{Hom}(F-,-)\\cong\\mathrm{Hom}(-,G-)$ combined with Yoneda forces $F$ to preserve colimits and $G$ to preserve limits."
+          "hint": "Left adjoint to $G$ means 'left side of a hom-iso' — which side of $\\Hom$ is covariant in its second argument and commutes with limits?",
+          "explain": "$\\Hom(-,X)$ turns colimits into limits, so $\\Hom(F-,-)\\cong\\Hom(-,G-)$ combined with Yoneda forces $F$ to preserve colimits and $G$ to preserve limits."
         },
         {
           "type": "numeric",
-          "q": "Let $D\\dashv U$ where $D\\colon\\mathsf{Set}\\to\\mathsf{Top}$ gives the discrete topology and $U$ is underlying set. For $X=\\{0,1\\}$ and $Y$ a three-point space with the indiscrete topology, compute $|\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)|$.",
+          "q": "Let $D\\dashv U$ where $D\\colon\\mathsf{Set}\\to\\mathsf{Top}$ gives the discrete topology and $U$ is underlying set. For $X=\\{0,1\\}$ and $Y$ a three-point space with the indiscrete topology, compute $|\\Hom_{\\mathsf{Top}}(D(X),Y)|$.",
           "answer": 9,
           "tol": 0.000001,
-          "explain": "By the adjunction, $\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)\\cong\\mathrm{Hom}_{\\mathsf{Set}}(X,U(Y))$ — every function $X\\to U(Y)$ is automatically continuous out of a discrete domain. So the count is $|U(Y)|^{|X|}=3^2=9$."
+          "explain": "By the adjunction, $\\Hom_{\\mathsf{Top}}(D(X),Y)\\cong\\Hom_{\\mathsf{Set}}(X,U(Y))$ — every function $X\\to U(Y)$ is automatically continuous out of a discrete domain. So the count is $|U(Y)|^{|X|}=3^2=9$."
         }
       ]
     },
@@ -643,7 +643,7 @@
         },
         {
           "type": "mcq",
-          "q": "The Kleisli category $\\mathcal{C}_T$ of a monad $T$ on $\\mathcal{C}$ has the same objects as $\\mathcal{C}$, but $\\mathrm{Hom}_{\\mathcal{C}_T}(X,Y)=\\mathrm{Hom}_{\\mathcal{C}}(X,T(Y))$. Which adjunction does $\\mathcal{C}_T$ realize?",
+          "q": "The Kleisli category $\\mathcal{C}_T$ of a monad $T$ on $\\mathcal{C}$ has the same objects as $\\mathcal{C}$, but $\\Hom_{\\mathcal{C}_T}(X,Y)=\\Hom_{\\mathcal{C}}(X,T(Y))$. Which adjunction does $\\mathcal{C}_T$ realize?",
           "choices": [
             "A right adjoint to the Eilenberg–Moore category with no left adjoint.",
             "The $\\textit{initial}$ adjunction generating $T$: $F_T\\dashv U_T$ where $F_T\\colon\\mathcal{C}\\to\\mathcal{C}_T$ sends $X\\mapsto X$ and $U_T X=T(X)$.",
@@ -669,7 +669,7 @@
           "type": "mcq",
           "q": "Given functors $F\\colon\\mathcal{A}\\to\\mathcal{C}$ and $K\\colon\\mathcal{A}\\to\\mathcal{B}$, the $\\textit{left Kan extension}$ $\\mathrm{Lan}_K F$ is characterized by:",
           "choices": [
-            "a natural iso $\\mathrm{Hom}(\\mathrm{Lan}_K F, G)\\cong\\mathrm{Hom}(F, G\\circ K)$ for $G\\colon\\mathcal{B}\\to\\mathcal{C}$",
+            "a natural iso $\\Hom(\\mathrm{Lan}_K F, G)\\cong\\Hom(F, G\\circ K)$ for $G\\colon\\mathcal{B}\\to\\mathcal{C}$",
             "$\\mathrm{Lan}_K F=F\\circ K$",
             "$\\mathrm{Lan}_K F\\cong K\\circ F$",
             "any extension of $F$ to $\\mathcal{B}$"
@@ -807,11 +807,11 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Enriched categories replace Hom-SETS by Hom-OBJECTS in a monoidal category $(\\mathcal{V},\\otimes,I)$. Composition becomes a morphism $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ in $\\mathcal{V}$. Identity becomes:",
+          "q": "Enriched categories replace Hom-SETS by Hom-OBJECTS in a monoidal category $(\\mathcal{V},\\otimes,I)$. Composition becomes a morphism $\\Hom(B,C)\\otimes\\Hom(A,B)\\to\\Hom(A,C)$ in $\\mathcal{V}$. Identity becomes:",
           "choices": [
-            "a morphism $I\\to\\mathrm{Hom}(A,A)$",
-            "a morphism $\\mathrm{Hom}(A,A)\\to I$",
-            "an isomorphism $\\mathrm{Hom}(A,A)\\cong I$",
+            "a morphism $I\\to\\Hom(A,A)$",
+            "a morphism $\\Hom(A,A)\\to I$",
+            "an isomorphism $\\Hom(A,A)\\cong I$",
             "not needed; enriched categories have no identities"
           ],
           "answer": 0,
@@ -838,8 +838,8 @@
             1,
             2
           ],
-          "hint": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle…",
-          "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
+          "hint": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\Hom(x,y)=d(x,y)$, composition = triangle…",
+          "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\Hom(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
         },
         {
           "type": "numeric",
@@ -852,7 +852,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "In Lawvere's enriched-category interpretation, composition $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ becomes the inequality:",
+          "q": "In Lawvere's enriched-category interpretation, composition $\\Hom(B,C)\\otimes\\Hom(A,B)\\to\\Hom(A,C)$ becomes the inequality:",
           "choices": [
             "$d(B,C)+d(A,B)\\ge d(A,C)$ (triangle inequality)",
             "$d(B,C)\\cdot d(A,B)\\ge d(A,C)$",

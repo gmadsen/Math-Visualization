@@ -87,7 +87,7 @@
             "$\\Omega$ is initial in $\\mathcal{E}$."
           ],
           "answer": 1,
-          "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\mathrm{Hom}(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
+          "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\Hom(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
           "hint": "Yoneda: a representable functor determines its representing object up to unique iso."
         },
         {
@@ -111,7 +111,7 @@
           "choices": [
             "Because $\\mathbf{Ab}$ is not finitely complete.",
             "Because $\\mathbf{Ab}$ has no terminal object.",
-            "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\mathrm{Hom}(X, X/S)$ — varying with $S$, hence not by a single object.",
+            "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\Hom(X, X/S)$ — varying with $S$, hence not by a single object.",
             "Because in $\\mathbf{Ab}$ subobjects of $X$ correspond to quotients $X \\twoheadrightarrow X/S$, and the family of quotient maps is parameterised by $S$ itself rather than by maps to a fixed $\\Omega$. A representing $\\Omega$ would have to be additive, forcing the only candidate ($\\mathbb{Z}/2$) to fail the universal pullback property."
           ],
           "answer": 3,
@@ -122,9 +122,9 @@
           "type": "mcq",
           "q": "Let $C = \\{a, b\\}$ be the discrete category with two objects (no non-identity morphisms). What is $\\Omega$ in $\\hat{C} = \\mathbf{Set}^C$?",
           "choices": [
-            "$\\Omega(a) = \\Omega(b) = \\{\\bot, \\top\\}$, with $|\\mathrm{Hom}(1, \\Omega)| = 4$.",
+            "$\\Omega(a) = \\Omega(b) = \\{\\bot, \\top\\}$, with $|\\Hom(1, \\Omega)| = 4$.",
             "$\\Omega(a) = \\Omega(b) = \\{*\\}$, the terminal object.",
-            "$\\Omega$ has $|\\mathrm{Hom}(1, \\Omega)| = 2$.",
+            "$\\Omega$ has $|\\Hom(1, \\Omega)| = 2$.",
             "$\\Omega$ does not exist."
           ],
           "answer": 0,
@@ -195,7 +195,7 @@
         },
         {
           "type": "mcq",
-          "q": "The bijection $\\mathrm{Hom}(X \\times A, \\Omega) \\cong \\mathrm{Hom}(X, P(A))$ comes from which categorical principle?",
+          "q": "The bijection $\\Hom(X \\times A, \\Omega) \\cong \\Hom(X, P(A))$ comes from which categorical principle?",
           "choices": [
             "The Yoneda lemma applied to $X$.",
             "Cartesian closure: $(-)\\times A \\dashv (-)^A$, with $P(A) := \\Omega^A$.",
@@ -203,7 +203,7 @@
             "The fact that $\\Omega$ is a terminal object."
           ],
           "answer": 1,
-          "explain": "Cartesian closure provides $\\mathrm{Hom}(X \\times A, B) \\cong \\mathrm{Hom}(X, B^A)$ for every $B$. Plugging $B = \\Omega$ gives the displayed bijection with $P(A) = \\Omega^A$.",
+          "explain": "Cartesian closure provides $\\Hom(X \\times A, B) \\cong \\Hom(X, B^A)$ for every $B$. Plugging $B = \\Omega$ gives the displayed bijection with $P(A) = \\Omega^A$.",
           "hint": "It's currying — the right-adjoint of $(-) \\times A$."
         },
         {
@@ -237,12 +237,12 @@
           "q": "In the presheaf topos $\\hat{C}$ for $C$ a small category, exponentials $G^F$ are computed by which formula?",
           "choices": [
             "$G^F(c) = G(c)^{F(c)}$ (pointwise).",
-            "$G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$ (Yoneda-tied).",
-            "$G^F(c) = \\mathrm{Hom}(F(c), G(c))$.",
+            "$G^F(c) = \\Hom_{\\hat C}(F \\times \\Hom(-, c), G)$ (Yoneda-tied).",
+            "$G^F(c) = \\Hom(F(c), G(c))$.",
             "$G^F(c) = G(c) \\times F(c)$."
           ],
           "answer": 1,
-          "explain": "Pointwise definitions don't give the right adjoint. The correct formula uses the representable $よ(c) = \\mathrm{Hom}(-, c)$ and natural transformations: $G^F(c) = \\mathrm{Hom}_{\\hat C}(F \\times \\mathrm{Hom}(-, c), G)$. Limits in $\\hat C$ are pointwise; exponentials are not.",
+          "explain": "Pointwise definitions don't give the right adjoint. The correct formula uses the representable $よ(c) = \\Hom(-, c)$ and natural transformations: $G^F(c) = \\Hom_{\\hat C}(F \\times \\Hom(-, c), G)$. Limits in $\\hat C$ are pointwise; exponentials are not.",
           "hint": "Limits in $\\hat C$ are pointwise. Exponentials need Yoneda."
         },
         {
@@ -283,8 +283,8 @@
             "Always infinite."
           ],
           "answer": 2,
-          "explain": "$\\mathrm{Hom}_{\\hat C}(1, \\Omega) = \\mathrm{Sub}_{\\hat C}(1)$: subobjects of the terminal presheaf. These correspond to *closed sieves on the whole category* — equivalently, idempotent natural transformations $1 \\to 1$. For $C = \\mathbf{B}G$ this gives 2 (only $\\emptyset$ and the maximal sieve survive); for a poset it gives the number of down-closed subsets of $\\mathrm{Ob}(C)$.",
-          "hint": "$\\mathrm{Hom}(1, \\Omega) = \\mathrm{Sub}(1)$ — subobjects of the terminal."
+          "explain": "$\\Hom_{\\hat C}(1, \\Omega) = \\mathrm{Sub}_{\\hat C}(1)$: subobjects of the terminal presheaf. These correspond to *closed sieves on the whole category* — equivalently, idempotent natural transformations $1 \\to 1$. For $C = \\mathbf{B}G$ this gives 2 (only $\\emptyset$ and the maximal sieve survive); for a poset it gives the number of down-closed subsets of $\\mathrm{Ob}(C)$.",
+          "hint": "$\\Hom(1, \\Omega) = \\mathrm{Sub}(1)$ — subobjects of the terminal."
         }
       ]
     },

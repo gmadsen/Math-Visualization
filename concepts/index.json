@@ -54,9 +54,7 @@
     "galois",
     "quadratic-reciprocity",
     "quadratic-forms-genus-theory",
-    "sums-of-squares",
-    "power-sums-bernoulli",
-    "waring",
+    "additive-number-theory",
     "algebraic-number-theory",
     "p-adic-numbers",
     "adeles-and-ideles",
@@ -161,9 +159,6 @@
     "galois": "standard",
     "quadratic-reciprocity": "standard",
     "quadratic-forms-genus-theory": "standard",
-    "sums-of-squares": "standard",
-    "power-sums-bernoulli": "standard",
-    "waring": "standard",
     "algebraic-number-theory": "standard",
     "p-adic-numbers": "standard",
     "adeles-and-ideles": "standard",
@@ -230,6 +225,7 @@
     "morse-theory": "standard",
     "analytic-number-theory": "standard",
     "modular-curves": "advanced",
-    "enumerative-combinatorics": "standard"
+    "enumerative-combinatorics": "standard",
+    "additive-number-theory": "standard"
   }
 }

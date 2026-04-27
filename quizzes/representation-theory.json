@@ -63,7 +63,7 @@
         },
         {
           "type": "numeric",
-          "q": "Let $\\rho\\colon\\mathbb{Z}/4\\mathbb{Z}\\to\\mathrm{GL}_2(\\mathbb{C})$ be defined by $\\rho(1)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. Compute $\\mathrm{tr}(\\rho(2))$.",
+          "q": "Let $\\rho\\colon\\mathbb{Z}/4\\mathbb{Z}\\to\\mathrm{GL}_2(\\mathbb{C})$ be defined by $\\rho(1)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. Compute $\\tr(\\rho(2))$.",
           "answer": -2,
           "tol": 0.000001,
           "hint": "Square the generator.",
@@ -543,13 +543,13 @@
           "type": "mcq",
           "q": "Frobenius reciprocity states that for $H\\le G$, $W\\in\\mathbf{Rep}(H)$, $V\\in\\mathbf{Rep}(G)$:",
           "choices": [
-            "$\\mathrm{Hom}_G(\\mathrm{Ind}_H^G W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}^G_H V)$",
-            "$\\mathrm{Hom}_G(V,\\mathrm{Ind}_H^G W) \\cong \\mathrm{Hom}_G(\\mathrm{Res}^G_H V,W)$",
+            "$\\Hom_G(\\mathrm{Ind}_H^G W,V) \\cong \\Hom_H(W,\\mathrm{Res}^G_H V)$",
+            "$\\Hom_G(V,\\mathrm{Ind}_H^G W) \\cong \\Hom_G(\\mathrm{Res}^G_H V,W)$",
             "$\\mathrm{Ind}_H^G W \\cong \\mathrm{Res}^G_H W$",
             "$\\dim\\mathrm{Ind}_H^G W = \\dim W$"
           ],
           "answer": 0,
-          "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$."
+          "explain": "Induction is left adjoint to restriction: $\\Hom_G(\\mathrm{Ind}W,V)\\cong\\Hom_H(W,\\mathrm{Res}V)$."
         },
         {
           "type": "numeric",
@@ -584,7 +584,7 @@
           "type": "mcq",
           "q": "Which is the correct order of steps in the proof that induction is left adjoint to restriction?",
           "choices": [
-            "Define $\\mathrm{Ind}_H^G W=\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}W$ → show the natural map $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\to\\mathrm{Hom}_H(W,\\mathrm{Res}V)$ is $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ → show the inverse sends $f\\colon W\\to\\mathrm{Res}V$ to $\\tilde f(g\\otimes w)=gf(w)$",
+            "Define $\\mathrm{Ind}_H^G W=\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}W$ → show the natural map $\\Hom_G(\\mathrm{Ind}W,V)\\to\\Hom_H(W,\\mathrm{Res}V)$ is $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ → show the inverse sends $f\\colon W\\to\\mathrm{Res}V$ to $\\tilde f(g\\otimes w)=gf(w)$",
             "Restrict $V$ first → induce → check dimensions match",
             "Use Mackey's theorem → conclude adjointness as a special case",
             "Average a map $W\\to V|_H$ over cosets to produce a $G$-map"

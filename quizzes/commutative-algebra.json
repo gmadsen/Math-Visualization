@@ -25,7 +25,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which ideal of $\\mathbb{Z}$ has zero set $V(I) = \\{(2),(3),(5)\\}\\subset\\mathrm{Spec}(\\mathbb{Z})$?",
+          "q": "Which ideal of $\\mathbb{Z}$ has zero set $V(I) = \\{(2),(3),(5)\\}\\subset\\Spec(\\mathbb{Z})$?",
           "choices": [
             "$(2\\cdot 3\\cdot 5)=(30)$",
             "$(2+3+5)=(10)$",
@@ -140,40 +140,40 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "In $\\mathrm{Spec}(\\mathbb{Z})$, the closure $\\overline{\\{(0)\\}}$ equals:",
+          "q": "In $\\Spec(\\mathbb{Z})$, the closure $\\overline{\\{(0)\\}}$ equals:",
           "choices": [
             "$\\{(0)\\}$",
-            "$\\mathrm{Spec}(\\mathbb{Z})$",
+            "$\\Spec(\\mathbb{Z})$",
             "the set of maximal ideals $(p)$",
             "the empty set"
           ],
           "answer": 1,
-          "explain": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$. Since $(0)\\subseteq\\mathfrak{q}$ for all primes, $\\overline{\\{(0)\\}}=\\mathrm{Spec}(\\mathbb{Z})$: the generic point is dense."
+          "explain": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$. Since $(0)\\subseteq\\mathfrak{q}$ for all primes, $\\overline{\\{(0)\\}}=\\Spec(\\mathbb{Z})$: the generic point is dense."
         },
         {
           "type": "numeric",
-          "q": "How many points does the distinguished open set $D(6) = \\{\\mathfrak{p}:6\\notin\\mathfrak{p}\\} \\subset \\mathrm{Spec}(\\mathbb{Z}/30)$ contain?",
+          "q": "How many points does the distinguished open set $D(6) = \\{\\mathfrak{p}:6\\notin\\mathfrak{p}\\} \\subset \\Spec(\\mathbb{Z}/30)$ contain?",
           "answer": 1,
           "tol": 0.000001,
           "explain": "Primes of $\\mathbb{Z}/30$ are $(2),(3),(5)$. $D(6)$ excludes primes containing $6$, i.e. containing $2$ or $3$, so it excludes $(2)$ and $(3)$, leaving $\\{(5)\\}$: $1$ point."
         },
         {
           "type": "mcq",
-          "q": "Which subset of $\\mathrm{Spec}(\\mathbb{Z})$ is NOT closed in the Zariski topology?",
+          "q": "Which subset of $\\Spec(\\mathbb{Z})$ is NOT closed in the Zariski topology?",
           "choices": [
             "$\\{(2),(3)\\}$",
             "$\\{(0)\\}$",
-            "$\\mathrm{Spec}(\\mathbb{Z})$",
+            "$\\Spec(\\mathbb{Z})$",
             "$\\emptyset$"
           ],
           "answer": 1,
-          "explain": "Closed sets are $V(I)$ for ideals $I$. $\\{(2),(3)\\}=V((6))$ is closed; $\\mathrm{Spec}=V((0))$; $\\emptyset=V((1))$. But $\\{(0)\\}$ would be $V(I)$ only if $I=(0)$, and $V((0))=\\mathrm{Spec}$, not $\\{(0)\\}$. The generic point $(0)$ is not closed."
+          "explain": "Closed sets are $V(I)$ for ideals $I$. $\\{(2),(3)\\}=V((6))$ is closed; $\\Spec=V((0))$; $\\emptyset=V((1))$. But $\\{(0)\\}$ would be $V(I)$ only if $I=(0)$, and $V((0))=\\Spec$, not $\\{(0)\\}$. The generic point $(0)$ is not closed."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "For a ring $A$, the map $\\mathrm{Spec}(A/I)\\to\\mathrm{Spec}(A)$ induced by $A\\twoheadrightarrow A/I$ is:",
+          "q": "For a ring $A$, the map $\\Spec(A/I)\\to\\Spec(A)$ induced by $A\\twoheadrightarrow A/I$ is:",
           "choices": [
             "a homeomorphism onto $V(I)$",
             "always surjective",
@@ -182,11 +182,11 @@
           ],
           "answer": 0,
           "hint": "Primes of $A/I$ correspond to primes of $A$ containing $I$.",
-          "explain": "Primes of $A/I$ biject with primes of $A$ containing $I$, i.e. with $V(I)$; the bijection is a Zariski homeomorphism. Similarly $\\mathrm{Spec}(S^{-1}A)$ embeds as the open set of primes disjoint from $S$."
+          "explain": "Primes of $A/I$ biject with primes of $A$ containing $I$, i.e. with $V(I)$; the bijection is a Zariski homeomorphism. Similarly $\\Spec(S^{-1}A)$ embeds as the open set of primes disjoint from $S$."
         },
         {
           "type": "multi-select",
-          "q": "Select all properties that $\\mathrm{Spec}(A)$ always satisfies as a topological space.",
+          "q": "Select all properties that $\\Spec(A)$ always satisfies as a topological space.",
           "choices": [
             "quasi-compact (every open cover has a finite subcover)",
             "Hausdorff",
@@ -197,11 +197,11 @@
             0,
             2
           ],
-          "explain": "$\\mathrm{Spec}(A)$ is always quasi-compact and $T_0$, never Hausdorff unless zero-dimensional (non-closed generic points). Connectedness fails for $A\\times B$: $\\mathrm{Spec}(A\\times B)=\\mathrm{Spec}(A)\\sqcup\\mathrm{Spec}(B)$."
+          "explain": "$\\Spec(A)$ is always quasi-compact and $T_0$, never Hausdorff unless zero-dimensional (non-closed generic points). Connectedness fails for $A\\times B$: $\\Spec(A\\times B)=\\Spec(A)\\sqcup\\Spec(B)$."
         },
         {
           "type": "numeric",
-          "q": "How many irreducible components does $\\mathrm{Spec}(k[x,y]/(xy(x-1)))$ have?",
+          "q": "How many irreducible components does $\\Spec(k[x,y]/(xy(x-1)))$ have?",
           "answer": 3,
           "tol": 0.000001,
           "hint": "Decompose $(xy(x-1))$ into its prime components.",
@@ -321,7 +321,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $M, N$ be finitely generated modules over a commutative ring $A$. The canonical map $M^\\vee \\otimes N \\to \\mathrm{Hom}(M, N)$ (where $M^\\vee = \\mathrm{Hom}(M, A)$) is an isomorphism when:",
+          "q": "Let $M, N$ be finitely generated modules over a commutative ring $A$. The canonical map $M^\\vee \\otimes N \\to \\Hom(M, N)$ (where $M^\\vee = \\Hom(M, A)$) is an isomorphism when:",
           "choices": [
             "always",
             "$M$ is finitely generated projective",
@@ -330,13 +330,13 @@
           ],
           "answer": 1,
           "hint": "The isomorphism requires dualizability of $M$.",
-          "explain": "$M^\\vee\\otimes N\\to\\mathrm{Hom}(M,N)$ is an iso when $M$ is f.g. projective (dualizable in $A\\mathbf{-Mod}$). It fails for general f.g. $M$ (e.g. torsion modules over a domain)."
+          "explain": "$M^\\vee\\otimes N\\to\\Hom(M,N)$ is an iso when $M$ is f.g. projective (dualizable in $A\\mathbf{-Mod}$). It fails for general f.g. $M$ (e.g. torsion modules over a domain)."
         },
         {
           "type": "multi-select",
           "q": "Select all statements that hold for modules $M$ over a commutative ring $A$.",
           "choices": [
-            "$\\mathrm{Hom}_A(A, M) \\cong M$ for every $M$",
+            "$\\Hom_A(A, M) \\cong M$ for every $M$",
             "$M\\otimes_A A \\cong M$ for every $M$",
             "Direct sum is a left adjoint to the diagonal functor",
             "Every finitely generated module over a PID is free"
@@ -346,7 +346,7 @@
             1,
             2
           ],
-          "explain": "$\\mathrm{Hom}(A,-)$ and $-\\otimes A$ are both the identity functor on $A\\mathbf{-Mod}$. Coproducts (direct sums) are left adjoint to diagonal. The last is false: $\\mathbb{Z}/n$ is f.g. over $\\mathbb{Z}$ but not free."
+          "explain": "$\\Hom(A,-)$ and $-\\otimes A$ are both the identity functor on $A\\mathbf{-Mod}$. Coproducts (direct sums) are left adjoint to diagonal. The last is false: $\\mathbb{Z}/n$ is f.g. over $\\mathbb{Z}$ but not free."
         },
         {
           "type": "numeric",
@@ -479,7 +479,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which Artinian local $k$-algebra is the universal first-order thickening — the test ring for first-order deformations of $\\mathrm{Spec}\\,k$?",
+          "q": "Which Artinian local $k$-algebra is the universal first-order thickening — the test ring for first-order deformations of $\\Spec\\,k$?",
           "choices": [
             "$k$ itself",
             "$k[\\epsilon]/(\\epsilon^2)$",
@@ -487,7 +487,7 @@
             "$k[\\epsilon]/(\\epsilon^3)$"
           ],
           "answer": 1,
-          "explain": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$. A morphism $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) \\to X_0$ is exactly a $k$-point together with a tangent vector; flat lifts of $X_0$ to $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2)$ are first-order deformations."
+          "explain": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$. A morphism $\\Spec\\,k[\\epsilon]/(\\epsilon^2) \\to X_0$ is exactly a $k$-point together with a tangent vector; flat lifts of $X_0$ to $\\Spec\\,k[\\epsilon]/(\\epsilon^2)$ are first-order deformations."
         }
       ]
     },
@@ -740,7 +740,7 @@
           "q": "If $A\\subseteq B$ is integral of domains, which fails in general?",
           "choices": [
             "$\\dim A=\\dim B$",
-            "$\\mathrm{Spec}(B)\\to\\mathrm{Spec}(A)$ is surjective",
+            "$\\Spec(B)\\to\\Spec(A)$ is surjective",
             "$A$ is a field iff $B$ is a field",
             "$B$ is a finitely generated $A$-module"
           ],

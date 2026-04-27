@@ -95,7 +95,7 @@
           "q": "What is the real dimension of $\\mathfrak{sl}_3(\\mathbb{R})$ (the traceless $3\\times 3$ real matrices)?",
           "answer": 8,
           "tol": 0.000001,
-          "explain": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$: $9-1=8$."
+          "explain": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\tr{}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$: $9-1=8$."
         }
       ],
       "hard": [
@@ -145,7 +145,7 @@
             "the ordinary matrix product $XY$",
             "the commutator $[X,Y]=XY-YX$",
             "the anticommutator $XY+YX$",
-            "the Frobenius inner product $\\mathrm{tr}(X^\\top Y)$"
+            "the Frobenius inner product $\\tr(X^\\top Y)$"
           ],
           "answer": 1,
           "explain": "For matrix groups the Lie bracket on $\\mathfrak{g}$ is the matrix commutator $[X,Y]=XY-YX$, which is automatically antisymmetric and satisfies the Jacobi identity."
@@ -159,10 +159,10 @@
         },
         {
           "type": "numeric",
-          "q": "If $X\\in\\mathfrak{sl}_n(\\mathbb{R})$ has $\\operatorname{tr}(X)=0$, what is $\\det(\\exp X)$?",
+          "q": "If $X\\in\\mathfrak{sl}_n(\\mathbb{R})$ has $\\tr(X)=0$, what is $\\det(\\exp X)$?",
           "answer": 1,
           "tol": 0.000001,
-          "explain": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix. With $\\operatorname{tr} X=0$ we get $\\det(\\exp X)=e^0=1$, confirming $\\exp$ maps $\\mathfrak{sl}_n$ into $\\mathrm{SL}_n$."
+          "explain": "The identity $\\det(e^X)=e^{\\tr(X)}$ holds for any square matrix. With $\\tr X=0$ we get $\\det(\\exp X)=e^0=1$, confirming $\\exp$ maps $\\mathfrak{sl}_n$ into $\\mathrm{SL}_n$."
         }
       ],
       "hard": [
@@ -239,13 +239,13 @@
           "q": "The Jacobi identity $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ is equivalent to the assertion that:",
           "choices": [
             "the bracket is associative",
-            "$\\operatorname{ad}_X=[X,\\cdot]$ is a derivation of the bracket: $\\operatorname{ad}_X[Y,Z]=[\\operatorname{ad}_X Y,Z]+[Y,\\operatorname{ad}_X Z]$",
+            "$\\ad_X=[X,\\cdot]$ is a derivation of the bracket: $\\ad_X[Y,Z]=[\\ad_X Y,Z]+[Y,\\ad_X Z]$",
             "every bracket $[X,Y]$ equals zero",
             "$\\mathfrak{g}$ is commutative"
           ],
           "answer": 1,
-          "hint": "Rewrite Jacobi as a Leibniz rule for $\\operatorname{ad}_X$.",
-          "explain": "Rearranging Jacobi: $[X,[Y,Z]]=[[X,Y],Z]+[Y,[X,Z]]$, which is exactly the Leibniz rule stating $\\operatorname{ad}_X$ differentiates the bracket. This is the conceptual content of Jacobi — it is the 'weak associativity' replacement that makes $\\operatorname{ad}$ a Lie algebra homomorphism into $\\operatorname{Der}(\\mathfrak{g})$."
+          "hint": "Rewrite Jacobi as a Leibniz rule for $\\ad_X$.",
+          "explain": "Rearranging Jacobi: $[X,[Y,Z]]=[[X,Y],Z]+[Y,[X,Z]]$, which is exactly the Leibniz rule stating $\\ad_X$ differentiates the bracket. This is the conceptual content of Jacobi — it is the 'weak associativity' replacement that makes $\\ad$ a Lie algebra homomorphism into $\\operatorname{Der}(\\mathfrak{g})$."
         },
         {
           "type": "numeric",
@@ -359,22 +359,22 @@
         },
         {
           "type": "mcq",
-          "q": "Differentiating $\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ at the identity yields the map $\\operatorname{ad}:\\mathfrak{g}\\to\\mathrm{End}(\\mathfrak{g})$ given by:",
+          "q": "Differentiating $\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ at the identity yields the map $\\ad:\\mathfrak{g}\\to\\mathrm{End}(\\mathfrak{g})$ given by:",
           "choices": [
-            "$\\operatorname{ad}_X(Y)=XY$",
-            "$\\operatorname{ad}_X(Y)=[X,Y]$",
-            "$\\operatorname{ad}_X(Y)=\\exp(X)Y\\exp(-X)$",
-            "$\\operatorname{ad}_X(Y)=X+Y$"
+            "$\\ad_X(Y)=XY$",
+            "$\\ad_X(Y)=[X,Y]$",
+            "$\\ad_X(Y)=\\exp(X)Y\\exp(-X)$",
+            "$\\ad_X(Y)=X+Y$"
           ],
           "answer": 1,
-          "explain": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$. So the differential of $\\mathrm{Ad}$ at $e$ is the adjoint action $\\operatorname{ad}_X=[X,\\cdot]$ on the algebra."
+          "explain": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$. So the differential of $\\mathrm{Ad}$ at $e$ is the adjoint action $\\ad_X=[X,\\cdot]$ on the algebra."
         },
         {
           "type": "numeric",
-          "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute $B(h,h)=\\operatorname{tr}(\\operatorname{ad}_h\\circ\\operatorname{ad}_h)$ (the Killing form value).",
+          "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute $B(h,h)=\\tr(\\ad_h\\circ\\ad_h)$ (the Killing form value).",
           "answer": 8,
           "tol": 0.000001,
-          "explain": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$. Hence $\\operatorname{ad}_h^2$ has eigenvalues $0,4,4$, and the trace is $0+4+4=8$."
+          "explain": "$\\ad_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$. Hence $\\ad_h^2$ has eigenvalues $0,4,4$, and the trace is $0+4+4=8$."
         }
       ],
       "hard": [
@@ -427,7 +427,7 @@
             "$\\mathrm{Ad}(g)X=\\exp(X)g$"
           ],
           "answer": 1,
-          "explain": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups. Its differential at $e$ is $\\operatorname{ad}_X(Y)=[X,Y]$."
+          "explain": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups. Its differential at $e$ is $\\ad_X(Y)=[X,Y]$."
         },
         {
           "type": "numeric",
@@ -438,16 +438,16 @@
         },
         {
           "type": "numeric",
-          "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ satisfying $[h,e]=2e$, what is the eigenvalue of $\\operatorname{ad}_h$ on $e$?",
+          "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ satisfying $[h,e]=2e$, what is the eigenvalue of $\\ad_h$ on $e$?",
           "answer": 2,
           "tol": 0.000001,
-          "explain": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$. This eigenvalue is the root $\\alpha(h)=2$ for $A_1$."
+          "explain": "$\\ad_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\ad_h$ with eigenvalue $2$. This eigenvalue is the root $\\alpha(h)=2$ for $A_1$."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "The Killing form $B(X,Y)=\\operatorname{tr}(\\operatorname{ad}_X\\circ\\operatorname{ad}_Y)$ is used to classify semisimple Lie algebras. Which criterion uses it directly?",
+          "q": "The Killing form $B(X,Y)=\\tr(\\ad_X\\circ\\ad_Y)$ is used to classify semisimple Lie algebras. Which criterion uses it directly?",
           "choices": [
             "Cartan's criterion: $\\mathfrak{g}$ is semisimple if and only if $B$ is non-degenerate",
             "Cartan's criterion: $\\mathfrak{g}$ is semisimple if and only if $B$ is positive definite",
@@ -471,13 +471,13 @@
           "q": "The correct order of steps to derive the root-space decomposition of a semisimple Lie algebra $\\mathfrak{g}$ is:",
           "choices": [
             "Choose a Borel subalgebra → define roots as weights of the adjoint action on $\\mathfrak{g}$ → recover $\\mathfrak{h}$",
-            "Choose a maximal toral subalgebra $\\mathfrak{h}$ → simultaneously diagonalise $\\operatorname{ad}_H$ for $H\\in\\mathfrak{h}$ → define roots $\\alpha\\in\\mathfrak{h}^*$ as nonzero simultaneous eigenvalues → decompose $\\mathfrak{g}=\\mathfrak{h}\\oplus\\bigoplus_\\alpha\\mathfrak{g}_\\alpha$",
+            "Choose a maximal toral subalgebra $\\mathfrak{h}$ → simultaneously diagonalise $\\ad_H$ for $H\\in\\mathfrak{h}$ → define roots $\\alpha\\in\\mathfrak{h}^*$ as nonzero simultaneous eigenvalues → decompose $\\mathfrak{g}=\\mathfrak{h}\\oplus\\bigoplus_\\alpha\\mathfrak{g}_\\alpha$",
             "Pick any element $X\\in\\mathfrak{g}$ → exponentiate → read off roots from the spectrum of $\\exp(X)$",
             "Compute the center of $\\mathfrak{g}$ → quotient by it → apply Weyl's theorem"
           ],
           "answer": 1,
-          "hint": "Start from a Cartan subalgebra and simultaneously diagonalise $\\operatorname{ad}$.",
-          "explain": "The standard construction: (1) fix a maximal toral (Cartan) subalgebra $\\mathfrak{h}$; (2) the elements of $\\mathfrak{h}$ act semisimply via $\\operatorname{ad}$, so $\\mathfrak{g}$ decomposes into simultaneous eigenspaces; (3) the nonzero eigenvalues are the roots $\\alpha\\in\\mathfrak{h}^*$; (4) each root space $\\mathfrak{g}_\\alpha=\\{X\\in\\mathfrak{g}\\mid[H,X]=\\alpha(H)X\\;\\forall H\\in\\mathfrak{h}\\}$ is one-dimensional for semisimple $\\mathfrak{g}$."
+          "hint": "Start from a Cartan subalgebra and simultaneously diagonalise $\\ad$.",
+          "explain": "The standard construction: (1) fix a maximal toral (Cartan) subalgebra $\\mathfrak{h}$; (2) the elements of $\\mathfrak{h}$ act semisimply via $\\ad$, so $\\mathfrak{g}$ decomposes into simultaneous eigenspaces; (3) the nonzero eigenvalues are the roots $\\alpha\\in\\mathfrak{h}^*$; (4) each root space $\\mathfrak{g}_\\alpha=\\{X\\in\\mathfrak{g}\\mid[H,X]=\\alpha(H)X\\;\\forall H\\in\\mathfrak{h}\\}$ is one-dimensional for semisimple $\\mathfrak{g}$."
         }
       ]
     }

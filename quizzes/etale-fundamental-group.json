@@ -24,7 +24,7 @@
         },
         {
           "type": "numeric",
-          "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Q}[t,t^{-1}] = \\mathbb{G}_{m,\\mathbb{Q}}$ and let $Y = \\mathrm{Spec}\\,\\mathbb{Q}[s,s^{-1}]$ with $s^5 = t$. What is the degree (i.e. rank of $f_*\\mathcal{O}_Y$) of this finite étale cover $f\\colon Y \\to X$?",
+          "q": "Let $X = \\Spec\\,\\mathbb{Q}[t,t^{-1}] = \\mathbb{G}_{m,\\mathbb{Q}}$ and let $Y = \\Spec\\,\\mathbb{Q}[s,s^{-1}]$ with $s^5 = t$. What is the degree (i.e. rank of $f_*\\mathcal{O}_Y$) of this finite étale cover $f\\colon Y \\to X$?",
           "answer": 5,
           "tol": 0.0001,
           "explain": "$\\mathbb{Q}[s,s^{-1}]$ is free of rank 5 over $\\mathbb{Q}[t,t^{-1}]$ with basis $1, s, s^2, s^3, s^4$. The fiber over any geometric point has 5 elements (the 5 fifth roots of the chosen value of $t$).",
@@ -32,7 +32,7 @@
         },
         {
           "type": "spot-the-error",
-          "q": "Where does this argument that $f\\colon \\mathrm{Spec}\\,\\mathbb{F}_p[s] \\to \\mathrm{Spec}\\,\\mathbb{F}_p[t]$, $t = s^p$, is finite étale go wrong?",
+          "q": "Where does this argument that $f\\colon \\Spec\\,\\mathbb{F}_p[s] \\to \\Spec\\,\\mathbb{F}_p[t]$, $t = s^p$, is finite étale go wrong?",
           "steps": [
             "$f$ is finite: $\\mathbb{F}_p[s]$ is free of rank $p$ over $\\mathbb{F}_p[t]$ with basis $1, s, \\ldots, s^{p-1}$.",
             "$f$ is flat: free implies flat.",
@@ -50,7 +50,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Q}$ and $\\bar{x} = \\mathrm{Spec}\\,\\overline{\\mathbb{Q}}$, what is the cardinality of $F_{\\bar{x}}(\\mathrm{Spec}\\,\\mathbb{Q}(\\sqrt[3]{2}))$?",
+          "q": "For $X = \\Spec\\,\\mathbb{Q}$ and $\\bar{x} = \\Spec\\,\\overline{\\mathbb{Q}}$, what is the cardinality of $F_{\\bar{x}}(\\Spec\\,\\mathbb{Q}(\\sqrt[3]{2}))$?",
           "choices": [
             "1",
             "2",
@@ -58,7 +58,7 @@
             "6"
           ],
           "answer": 2,
-          "explain": "$F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}_{\\mathbb{Q}}(L, \\overline{\\mathbb{Q}})$, which has cardinality $[L:\\mathbb{Q}] = 3$ for $L = \\mathbb{Q}(\\sqrt[3]{2})$ (the embeddings send $\\sqrt[3]{2}$ to $\\sqrt[3]{2}$, $\\omega\\sqrt[3]{2}$, or $\\omega^2\\sqrt[3]{2}$). Note that $L/\\mathbb{Q}$ is not Galois — $|\\mathrm{Aut}(L/\\mathbb{Q})| = 1$, but the fiber still has 3 points.",
+          "explain": "$F_{\\bar{x}}(\\Spec\\,L) = \\Hom_{\\mathbb{Q}}(L, \\overline{\\mathbb{Q}})$, which has cardinality $[L:\\mathbb{Q}] = 3$ for $L = \\mathbb{Q}(\\sqrt[3]{2})$ (the embeddings send $\\sqrt[3]{2}$ to $\\sqrt[3]{2}$, $\\omega\\sqrt[3]{2}$, or $\\omega^2\\sqrt[3]{2}$). Note that $L/\\mathbb{Q}$ is not Galois — $|\\mathrm{Aut}(L/\\mathbb{Q})| = 1$, but the fiber still has 3 points.",
           "hint": "Count $\\mathbb{Q}$-algebra embeddings of $\\mathbb{Q}(\\sqrt[3]{2})$ into $\\overline{\\mathbb{Q}}$."
         },
         {
@@ -76,11 +76,11 @@
         },
         {
           "type": "matching",
-          "q": "Match each cover of $\\mathrm{Spec}\\,\\mathbb{R}$ with $|F_{\\bar{x}}(\\,\\cdot\\,)|$ for $\\bar{x} = \\mathrm{Spec}\\,\\mathbb{C}$.",
+          "q": "Match each cover of $\\Spec\\,\\mathbb{R}$ with $|F_{\\bar{x}}(\\,\\cdot\\,)|$ for $\\bar{x} = \\Spec\\,\\mathbb{C}$.",
           "left": [
-            "the trivial cover (i.e. $\\mathrm{Spec}\\,\\mathbb{R}$ over itself)",
-            "$\\mathrm{Spec}\\,\\mathbb{C} \\to \\mathrm{Spec}\\,\\mathbb{R}$",
-            "$\\mathrm{Spec}(\\mathbb{C} \\times \\mathbb{R}) \\to \\mathrm{Spec}\\,\\mathbb{R}$"
+            "the trivial cover (i.e. $\\Spec\\,\\mathbb{R}$ over itself)",
+            "$\\Spec\\,\\mathbb{C} \\to \\Spec\\,\\mathbb{R}$",
+            "$\\Spec(\\mathbb{C} \\times \\mathbb{R}) \\to \\Spec\\,\\mathbb{R}$"
           ],
           "right": [
             "2 points",
@@ -92,8 +92,8 @@
             0,
             1
           ],
-          "explain": "$|F_{\\bar{x}}(\\mathrm{Spec}\\,A)| = \\dim_{\\mathbb{R}} A$ for a finite étale $\\mathbb{R}$-algebra $A$. Trivial cover: 1. $\\mathbb{C}/\\mathbb{R}$: 2. $\\mathbb{C}\\times\\mathbb{R}$: $2+1 = 3$. The fiber sees the underlying rank, not the field-theoretic structure.",
-          "hint": "$|F_{\\bar{x}}(\\mathrm{Spec}\\,A)| = \\mathrm{rank}_{\\mathbb{R}}(A)$ for finite étale $A$."
+          "explain": "$|F_{\\bar{x}}(\\Spec\\,A)| = \\dim_{\\mathbb{R}} A$ for a finite étale $\\mathbb{R}$-algebra $A$. Trivial cover: 1. $\\mathbb{C}/\\mathbb{R}$: 2. $\\mathbb{C}\\times\\mathbb{R}$: $2+1 = 3$. The fiber sees the underlying rank, not the field-theoretic structure.",
+          "hint": "$|F_{\\bar{x}}(\\Spec\\,A)| = \\mathrm{rank}_{\\mathbb{R}}(A)$ for finite étale $A$."
         }
       ],
       "hard": [
@@ -112,16 +112,16 @@
         },
         {
           "type": "spot-the-error",
-          "q": "Where does this 'proof' that the fiber functor on $\\mathrm{Spec}\\,k$ is representable by a single finite étale cover go wrong (assume $k$ is a field with infinite absolute Galois group)?",
+          "q": "Where does this 'proof' that the fiber functor on $\\Spec\\,k$ is representable by a single finite étale cover go wrong (assume $k$ is a field with infinite absolute Galois group)?",
           "steps": [
-            "$F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/\\mathrm{Spec}\\,k \\to \\mathrm{FinSet}$ is a functor with values in finite sets.",
-            "By the Yoneda lemma applied to corepresentable functors, $F_{\\bar{x}}(\\mathrm{Spec}\\,L) = \\mathrm{Hom}(\\mathrm{Spec}\\,L, P)$ for some object $P$.",
-            "Since $F_{\\bar{x}}$ takes values in finite sets and $\\mathrm{F\\acute{E}t}/\\mathrm{Spec}\\,k$ is closed under products, $P$ is itself finite étale over $\\mathrm{Spec}\\,k$.",
+            "$F_{\\bar{x}}\\colon \\mathrm{F\\acute{E}t}/\\Spec\\,k \\to \\mathrm{FinSet}$ is a functor with values in finite sets.",
+            "By the Yoneda lemma applied to corepresentable functors, $F_{\\bar{x}}(\\Spec\\,L) = \\Hom(\\Spec\\,L, P)$ for some object $P$.",
+            "Since $F_{\\bar{x}}$ takes values in finite sets and $\\mathrm{F\\acute{E}t}/\\Spec\\,k$ is closed under products, $P$ is itself finite étale over $\\Spec\\,k$.",
             "So the fiber functor is representable by a single finite étale cover."
           ],
           "answer": 2,
-          "explain": "Step 3 is wrong. $P$ exists only as a <em>pro-object</em>: $P = \\varprojlim_{L} \\mathrm{Spec}\\,L$ over all finite separable $L/k^{\\mathrm{sep}}$. This is $\\mathrm{Spec}\\,k^{\\mathrm{sep}}$, which has infinite-dimensional structure sheaf when $k^{\\mathrm{sep}}/k$ is an infinite extension (e.g. $k = \\mathbb{Q}$). It is not a finite étale cover. The closure-under-products argument fails because finite étale covers form a category closed under finite products but not arbitrary pro-objects.",
-          "hint": "Could $P = \\mathrm{Spec}\\,\\overline{\\mathbb{Q}}$ ever be finite étale over $\\mathrm{Spec}\\,\\mathbb{Q}$?"
+          "explain": "Step 3 is wrong. $P$ exists only as a <em>pro-object</em>: $P = \\varprojlim_{L} \\Spec\\,L$ over all finite separable $L/k^{\\mathrm{sep}}$. This is $\\Spec\\,k^{\\mathrm{sep}}$, which has infinite-dimensional structure sheaf when $k^{\\mathrm{sep}}/k$ is an infinite extension (e.g. $k = \\mathbb{Q}$). It is not a finite étale cover. The closure-under-products argument fails because finite étale covers form a category closed under finite products but not arbitrary pro-objects.",
+          "hint": "Could $P = \\Spec\\,\\overline{\\mathbb{Q}}$ ever be finite étale over $\\Spec\\,\\mathbb{Q}$?"
         }
       ]
     },
@@ -132,7 +132,7 @@
           "type": "ordering",
           "q": "Arrange the steps of Grothendieck's construction of $\\pi_1^{\\acute{e}t}$ in their logical order.",
           "items": [
-            "Choose a geometric point $\\bar{x}\\colon \\mathrm{Spec}\\,\\Omega \\to X$.",
+            "Choose a geometric point $\\bar{x}\\colon \\Spec\\,\\Omega \\to X$.",
             "Define the fiber functor $F_{\\bar{x}}(Y) = Y_{\\bar{x}}(\\Omega)$ on $\\mathrm{F\\acute{E}t}/X$.",
             "Take $\\pi_1^{\\acute{e}t}(X,\\bar{x}) := \\mathrm{Aut}(F_{\\bar{x}})$ as a group.",
             "Endow $\\pi_1^{\\acute{e}t}$ with the inverse-limit topology from $\\prod_Y \\mathrm{Sym}(F_{\\bar{x}}(Y))$.",
@@ -192,7 +192,7 @@
             "$G = \\pi_1^{\\acute{e}t}(Y, \\bar{x})$."
           ],
           "answer": 1,
-          "explain": "A Galois cover with group $G$ corresponds to an open <em>normal</em> subgroup $H \\triangleleft \\pi_1^{\\acute{e}t}$ with $\\pi_1^{\\acute{e}t}/H = G$. So $G$ is a finite continuous quotient — exactly the way $\\mathrm{Gal}(L/k)$ is a quotient of $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$.",
+          "explain": "A Galois cover with group $G$ corresponds to an open <em>normal</em> subgroup $H \\tr{}iangleleft \\pi_1^{\\acute{e}t}$ with $\\pi_1^{\\acute{e}t}/H = G$. So $G$ is a finite continuous quotient — exactly the way $\\Gal(L/k)$ is a quotient of $\\Gal(k^{\\mathrm{sep}}/k)$.",
           "hint": "Galois covers correspond to open normal subgroups; what does the quotient look like?"
         },
         {
@@ -215,11 +215,11 @@
       ]
     },
     "spec-field-galois": {
-      "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+      "title": "$\\pi_1^{\\acute{e}t}(\\Spec\\,k) = \\Gal(\\bar{k}/k)$",
       "questions": [
         {
           "type": "mcq",
-          "q": "What is $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{R})$?",
+          "q": "What is $\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{R})$?",
           "choices": [
             "trivial",
             "$\\mathbb{Z}/2$",
@@ -227,60 +227,60 @@
             "$\\hat{\\mathbb{Z}}$"
           ],
           "answer": 1,
-          "explain": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(k^{\\mathrm{sep}}/k)$. For $k = \\mathbb{R}$, $k^{\\mathrm{sep}} = \\mathbb{C}$ and $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R}) = \\mathbb{Z}/2$, generated by complex conjugation. The only nontrivial connected finite étale cover of $\\mathrm{Spec}\\,\\mathbb{R}$ is $\\mathrm{Spec}\\,\\mathbb{C}$.",
+          "explain": "$\\pi_1^{\\acute{e}t}(\\Spec\\,k) = \\Gal(k^{\\mathrm{sep}}/k)$. For $k = \\mathbb{R}$, $k^{\\mathrm{sep}} = \\mathbb{C}$ and $\\Gal(\\mathbb{C}/\\mathbb{R}) = \\mathbb{Z}/2$, generated by complex conjugation. The only nontrivial connected finite étale cover of $\\Spec\\,\\mathbb{R}$ is $\\Spec\\,\\mathbb{C}$.",
           "hint": "List the finite separable extensions of $\\mathbb{R}$."
         },
         {
           "type": "matching",
-          "q": "Match each open subgroup of $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ with the connected finite étale cover of $\\mathrm{Spec}\\,\\mathbb{Q}$ it corresponds to.",
+          "q": "Match each open subgroup of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ with the connected finite étale cover of $\\Spec\\,\\mathbb{Q}$ it corresponds to.",
           "left": [
-            "the full group $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
-            "$\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}(i))$",
-            "$\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}(\\sqrt[3]{2}))$"
+            "the full group $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+            "$\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}(i))$",
+            "$\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}(\\sqrt[3]{2}))$"
           ],
           "right": [
-            "$\\mathrm{Spec}\\,\\mathbb{Q}(i)$ (degree 2)",
-            "$\\mathrm{Spec}\\,\\mathbb{Q}(\\sqrt[3]{2})$ (degree 3, not Galois)",
-            "$\\mathrm{Spec}\\,\\mathbb{Q}$ (trivial cover, degree 1)"
+            "$\\Spec\\,\\mathbb{Q}(i)$ (degree 2)",
+            "$\\Spec\\,\\mathbb{Q}(\\sqrt[3]{2})$ (degree 3, not Galois)",
+            "$\\Spec\\,\\mathbb{Q}$ (trivial cover, degree 1)"
           ],
           "answer": [
             2,
             0,
             1
           ],
-          "explain": "Open $H \\le \\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ ↔ finite separable $L \\subset \\overline{\\mathbb{Q}}$ via $L = \\overline{\\mathbb{Q}}^H$, with $[L:\\mathbb{Q}] = [\\mathrm{Gal}:H]$. Note that $\\mathbb{Q}(\\sqrt[3]{2})/\\mathbb{Q}$ is not Galois — the corresponding subgroup is not normal — but the equivalence works on all (connected) covers, not just Galois ones.",
+          "explain": "Open $H \\le \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ ↔ finite separable $L \\subset \\overline{\\mathbb{Q}}$ via $L = \\overline{\\mathbb{Q}}^H$, with $[L:\\mathbb{Q}] = [\\Gal:H]$. Note that $\\mathbb{Q}(\\sqrt[3]{2})/\\mathbb{Q}$ is not Galois — the corresponding subgroup is not normal — but the equivalence works on all (connected) covers, not just Galois ones.",
           "hint": "Index of $H$ = degree of the cover."
         },
         {
           "type": "numeric",
-          "q": "How many connected finite étale covers does $\\mathrm{Spec}\\,\\mathbb{F}_5$ have of degree dividing 4 (counting up to isomorphism, i.e. counting subgroups of $\\mathrm{Gal}(\\overline{\\mathbb{F}_5}/\\mathbb{F}_5)$ of index dividing 4)?",
+          "q": "How many connected finite étale covers does $\\Spec\\,\\mathbb{F}_5$ have of degree dividing 4 (counting up to isomorphism, i.e. counting subgroups of $\\Gal(\\overline{\\mathbb{F}_5}/\\mathbb{F}_5)$ of index dividing 4)?",
           "answer": 3,
           "tol": 0.0001,
-          "explain": "Connected covers of degree $n$ ↔ open subgroups of index $n$ in $\\hat{\\mathbb{Z}}$, of which there is exactly one (corresponding to $\\mathrm{Spec}\\,\\mathbb{F}_{5^n}$). Indices dividing 4: $n=1,2,4$, giving 3 covers (no $n=3$ contribution since $3 \\nmid 4$).",
+          "explain": "Connected covers of degree $n$ ↔ open subgroups of index $n$ in $\\hat{\\mathbb{Z}}$, of which there is exactly one (corresponding to $\\Spec\\,\\mathbb{F}_{5^n}$). Indices dividing 4: $n=1,2,4$, giving 3 covers (no $n=3$ contribution since $3 \\nmid 4$).",
           "hint": "How many open subgroups of $\\hat{\\mathbb{Z}}$ have index $n$ exactly?"
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "Why do we use $k^{\\mathrm{sep}}$ rather than $\\bar{k}$ in defining the geometric basepoint $\\bar{x} = \\mathrm{Spec}\\,k^{\\mathrm{sep}}$?",
+          "q": "Why do we use $k^{\\mathrm{sep}}$ rather than $\\bar{k}$ in defining the geometric basepoint $\\bar{x} = \\Spec\\,k^{\\mathrm{sep}}$?",
           "choices": [
             "Because $\\bar{k}/k$ is rarely Galois.",
             "Because the étale site sees only separable extensions — purely inseparable extensions are not étale.",
             "Because $k^{\\mathrm{sep}}$ is always Galois over $k$ but $\\bar{k}$ is not.",
-            "Because the absolute Galois group of $k$ is by convention $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$, not $\\mathrm{Aut}(\\bar{k}/k)$."
+            "Because the absolute Galois group of $k$ is by convention $\\Gal(k^{\\mathrm{sep}}/k)$, not $\\mathrm{Aut}(\\bar{k}/k)$."
           ],
           "answer": 1,
-          "explain": "Finite étale extensions of fields are exactly finite separable extensions. Purely inseparable extensions $k(t^{1/p})/k(t)$ in characteristic $p$ are <em>not</em> étale — they fail unramifiedness ($\\Omega^1 \\ne 0$). So the étale fundamental group only sees finite quotients of $\\mathrm{Gal}(k^{\\mathrm{sep}}/k)$; the difference between $k^{\\mathrm{sep}}$ and $\\bar{k}$ disappears for perfect $k$ (e.g. characteristic 0 or finite fields)."
+          "explain": "Finite étale extensions of fields are exactly finite separable extensions. Purely inseparable extensions $k(t^{1/p})/k(t)$ in characteristic $p$ are <em>not</em> étale — they fail unramifiedness ($\\Omega^1 \\ne 0$). So the étale fundamental group only sees finite quotients of $\\Gal(k^{\\mathrm{sep}}/k)$; the difference between $k^{\\mathrm{sep}}$ and $\\bar{k}$ disappears for perfect $k$ (e.g. characteristic 0 or finite fields)."
         }
       ]
     },
     "frobenius-and-pi1": {
-      "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+      "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{F}_q)$",
       "questions": [
         {
           "type": "mcq",
-          "q": "What is $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$ as an abstract topological group?",
+          "q": "What is $\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{F}_q)$ as an abstract topological group?",
           "choices": [
             "$\\mathbb{Z}$",
             "$\\hat{\\mathbb{Z}} = \\varprojlim \\mathbb{Z}/n$",
@@ -288,12 +288,12 @@
             "$\\mathrm{GL}_1(\\mathbb{F}_q)$"
           ],
           "answer": 1,
-          "explain": "$\\mathbb{F}_q$ has a unique extension $\\mathbb{F}_{q^n}/\\mathbb{F}_q$ in each degree $n$, and they fit into a tower with $\\mathrm{Gal}(\\mathbb{F}_{q^n}/\\mathbb{F}_q) = \\mathbb{Z}/n$ (generated by Frobenius). The inverse limit is $\\hat{\\mathbb{Z}}$. Note: NOT $\\mathbb{Z}$ — $\\hat{\\mathbb{Z}}$ is the profinite completion of $\\mathbb{Z}$ and is uncountable.",
+          "explain": "$\\mathbb{F}_q$ has a unique extension $\\mathbb{F}_{q^n}/\\mathbb{F}_q$ in each degree $n$, and they fit into a tower with $\\Gal(\\mathbb{F}_{q^n}/\\mathbb{F}_q) = \\mathbb{Z}/n$ (generated by Frobenius). The inverse limit is $\\hat{\\mathbb{Z}}$. Note: NOT $\\mathbb{Z}$ — $\\hat{\\mathbb{Z}}$ is the profinite completion of $\\mathbb{Z}$ and is uncountable.",
           "hint": "Take an inverse limit over all finite extensions of $\\mathbb{F}_q$."
         },
         {
           "type": "numeric",
-          "q": "Frobenius $\\mathrm{Frob}_q$ acts on the geometric fiber of $\\mathrm{Spec}\\,\\mathbb{F}_{q^{12}} \\to \\mathrm{Spec}\\,\\mathbb{F}_q$. How many orbits does $\\mathrm{Frob}_q^4$ have on this 12-point fiber?",
+          "q": "Frobenius $\\mathrm{Frob}_q$ acts on the geometric fiber of $\\Spec\\,\\mathbb{F}_{q^{12}} \\to \\Spec\\,\\mathbb{F}_q$. How many orbits does $\\mathrm{Frob}_q^4$ have on this 12-point fiber?",
           "answer": 4,
           "tol": 0.0001,
           "explain": "Frobenius $\\mathrm{Frob}_q$ acts as a 12-cycle on the fiber (the cover is connected, of degree 12). Its 4th power $\\mathrm{Frob}_q^4$ acts as a permutation with $\\gcd(4, 12) = 4$ disjoint cycles, each of length $12 / 4 = 3$. So 4 orbits.",
@@ -301,7 +301,7 @@
         },
         {
           "type": "multi-select",
-          "q": "Which integers $a \\in \\{1, 2, 3, 4, 5, 6\\}$ have the property that $\\mathrm{Frob}_q^a$ generates the same cyclic group $\\mathbb{Z}/6$ as $\\mathrm{Frob}_q$ on the 6-point fiber of $\\mathrm{Spec}\\,\\mathbb{F}_{q^6} \\to \\mathrm{Spec}\\,\\mathbb{F}_q$?",
+          "q": "Which integers $a \\in \\{1, 2, 3, 4, 5, 6\\}$ have the property that $\\mathrm{Frob}_q^a$ generates the same cyclic group $\\mathbb{Z}/6$ as $\\mathrm{Frob}_q$ on the 6-point fiber of $\\Spec\\,\\mathbb{F}_{q^6} \\to \\Spec\\,\\mathbb{F}_q$?",
           "choices": [
             "1",
             "2",
@@ -379,7 +379,7 @@
           "q": "Let $X$ be a smooth proper variety over $\\overline{\\mathbb{Q}}$. Embed $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ to form $X_{\\mathbb{C}}$. What is the relationship between $\\pi_1^{\\acute{e}t}(X)$ and $\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$?",
           "choices": [
             "They are equal.",
-            "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is a closed normal subgroup of $\\pi_1^{\\acute{e}t}(X)$, with quotient $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\overline{\\mathbb{Q}})$ — but this is trivial since $\\overline{\\mathbb{Q}}$ is algebraically closed.",
+            "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is a closed normal subgroup of $\\pi_1^{\\acute{e}t}(X)$, with quotient $\\Gal(\\overline{\\mathbb{Q}}/\\overline{\\mathbb{Q}})$ — but this is trivial since $\\overline{\\mathbb{Q}}$ is algebraically closed.",
             "$\\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ is strictly larger than $\\pi_1^{\\acute{e}t}(X)$.",
             "There is no general comparison."
           ],

@@ -6,7 +6,7 @@
       "questions": [
         {
           "type": "matching",
-          "q": "Match each ring with its prime spectrum $\\operatorname{Spec}(R)$ as a set of points.",
+          "q": "Match each ring with its prime spectrum $\\Spec(R)$ as a set of points.",
           "left": [
             "$\\{(0)\\}\\cup\\{(p):p\\text{ prime}\\}$ — one generic point plus countably many closed points.",
             "Two closed points — corresponding to the prime divisors of $12$.",
@@ -25,19 +25,19 @@
             1,
             2
           ],
-          "hint": "$\\operatorname{Spec}(R)=\\{\\text{prime ideals}\\}$. Fields have only $(0)$; $\\mathbb Z/n$'s primes correspond to prime divisors of $n$; $k[x]$ over algebraically closed $k$ has primes $(0)$ and $(x-a)$ for $a\\in k$.",
-          "explain": "$\\operatorname{Spec}\\mathbb Z$: primes $(0)$ (generic) and $(p)$ (closed) for each rational prime $p$. $\\operatorname{Spec}\\mathbb Z/12$: only primes $(2),(3)$ survive — note $(0)$ is not prime in $\\mathbb Z/12$ since $\\mathbb Z/12$ has zero-divisors. $\\operatorname{Spec}k[x]$ with $k=\\bar k$: primes are $(0)$ (generic) and $(x-a)$ for $a\\in k$ (closed). $\\operatorname{Spec}\\mathbb Q$: only $(0)$ — every field is a one-point scheme."
+          "hint": "$\\Spec(R)=\\{\\text{prime ideals}\\}$. Fields have only $(0)$; $\\mathbb Z/n$'s primes correspond to prime divisors of $n$; $k[x]$ over algebraically closed $k$ has primes $(0)$ and $(x-a)$ for $a\\in k$.",
+          "explain": "$\\Spec\\mathbb Z$: primes $(0)$ (generic) and $(p)$ (closed) for each rational prime $p$. $\\Spec\\mathbb Z/12$: only primes $(2),(3)$ survive — note $(0)$ is not prime in $\\mathbb Z/12$ since $\\mathbb Z/12$ has zero-divisors. $\\Spec{}k[x]$ with $k=\\bar k$: primes are $(0)$ (generic) and $(x-a)$ for $a\\in k$ (closed). $\\Spec\\mathbb Q$: only $(0)$ — every field is a one-point scheme."
         },
         {
           "type": "numeric",
-          "q": "How many points does $\\operatorname{Spec}\\mathbb{Z}/12\\mathbb{Z}$ have? (Count prime ideals of $\\mathbb Z/12\\mathbb Z$.)",
+          "q": "How many points does $\\Spec\\mathbb{Z}/12\\mathbb{Z}$ have? (Count prime ideals of $\\mathbb Z/12\\mathbb Z$.)",
           "answer": 2,
           "tol": 0.000001,
           "explain": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$. So there are $2$ points."
         },
         {
           "type": "mcq",
-          "q": "The Zariski-closed sets of $\\operatorname{Spec}(R)$ are:",
+          "q": "The Zariski-closed sets of $\\Spec(R)$ are:",
           "choices": [
             "$V(I)=\\{\\mathfrak p : I\\subseteq \\mathfrak p\\}$ for ideals $I\\subseteq R$",
             "finite subsets only",
@@ -51,7 +51,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Consider $R=k[x,y]/(xy)$. Which of the following correctly describes $\\operatorname{Spec}(R)$ and its irreducible components?",
+          "q": "Consider $R=k[x,y]/(xy)$. Which of the following correctly describes $\\Spec(R)$ and its irreducible components?",
           "choices": [
             "It is irreducible with a single generic point $(xy)$",
             "It has two irreducible components corresponding to $(x)$ and $(y)$, meeting at the maximal ideal $(x,y)$",
@@ -59,18 +59,18 @@
             "It has no closed points because $k[x,y]/(xy)$ is not Noetherian"
           ],
           "answer": 1,
-          "explain": "$xy=0$ means any prime contains $x$ or $y$. The minimal primes are $(x)$ and $(y)$, giving two irreducible components (the two coordinate axes). They meet at the closed point $(x,y)$, making $\\operatorname{Spec}(R)$ reducible."
+          "explain": "$xy=0$ means any prime contains $x$ or $y$. The minimal primes are $(x)$ and $(y)$, giving two irreducible components (the two coordinate axes). They meet at the closed point $(x,y)$, making $\\Spec(R)$ reducible."
         },
         {
           "type": "numeric",
-          "q": "How many points does $\\operatorname{Spec}(\\mathbb{Z}[x]/(x^2+1))$ have that lie over the prime $(2)\\subset\\mathbb{Z}$? (Count prime ideals of $\\mathbb{Z}[x]/(x^2+1)$ above $2$.)",
+          "q": "How many points does $\\Spec(\\mathbb{Z}[x]/(x^2+1))$ have that lie over the prime $(2)\\subset\\mathbb{Z}$? (Count prime ideals of $\\mathbb{Z}[x]/(x^2+1)$ above $2$.)",
           "answer": 1,
           "tol": 0.000001,
           "explain": "Over $(2)$: $\\mathbb{F}_2[x]/(x^2+1)=\\mathbb{F}_2[x]/(x+1)^2$ since $x^2+1=(x+1)^2$ in characteristic $2$. This quotient has a unique prime $(x+1)$, so there is exactly $1$ prime above $2$."
         },
         {
           "type": "mcq",
-          "q": "Let $I=(x^2,y)\\subset k[x,y]$. Which statement about $V(I)\\subset\\operatorname{Spec}(k[x,y])$ is correct?",
+          "q": "Let $I=(x^2,y)\\subset k[x,y]$. Which statement about $V(I)\\subset\\Spec(k[x,y])$ is correct?",
           "choices": [
             "$V(I)=V(\\sqrt{I})=V((x,y))$ as sets, even though $I\\ne\\sqrt{I}$",
             "$V(I)=V((x^2,y))$ consists of two distinct closed points",
@@ -87,7 +87,7 @@
       "questions": [
         {
           "type": "matching",
-          "q": "Match each piece of structure on the affine scheme $X=\\operatorname{Spec}(R)$ with the algebraic object it corresponds to.",
+          "q": "Match each piece of structure on the affine scheme $X=\\Spec(R)$ with the algebraic object it corresponds to.",
           "left": [
             "Global sections $\\mathcal O_X(X)$",
             "Sections on a distinguished open $\\mathcal O_X(D(f))$ for $f\\in R$",
@@ -106,12 +106,12 @@
             1,
             2
           ],
-          "hint": "The structure sheaf of $\\operatorname{Spec}(R)$ is engineered so that global sections give back $R$, distinguished-open sections invert the corresponding element, stalks localize at the prime, and residue fields are quotient + Frac.",
-          "explain": "On $X=\\operatorname{Spec}(R)$: $\\mathcal O_X(X)=R$, $\\mathcal O_X(D(f))=R_f$, $\\mathcal O_{X,\\mathfrak p}=R_{\\mathfrak p}$, and the residue field is $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$. The first three are the engine of the equivalence $\\operatorname{CommRing}^{\\mathrm{op}}\\cong\\mathrm{AffSch}$; the residue field captures the value of a 'function' at the point $\\mathfrak p$."
+          "hint": "The structure sheaf of $\\Spec(R)$ is engineered so that global sections give back $R$, distinguished-open sections invert the corresponding element, stalks localize at the prime, and residue fields are quotient + Frac.",
+          "explain": "On $X=\\Spec(R)$: $\\mathcal O_X(X)=R$, $\\mathcal O_X(D(f))=R_f$, $\\mathcal O_{X,\\mathfrak p}=R_{\\mathfrak p}$, and the residue field is $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$. The first three are the engine of the equivalence $\\operatorname{CommRing}^{\\mathrm{op}}\\cong\\mathrm{AffSch}$; the residue field captures the value of a 'function' at the point $\\mathfrak p$."
         },
         {
           "type": "mcq",
-          "q": "For the distinguished open $D(f)=\\{\\mathfrak p : f\\notin \\mathfrak p\\}\\subset \\operatorname{Spec}(R)$, the ring of sections is:",
+          "q": "For the distinguished open $D(f)=\\{\\mathfrak p : f\\notin \\mathfrak p\\}\\subset \\Spec(R)$, the ring of sections is:",
           "choices": [
             "$R/(f)$",
             "$R[f]$",
@@ -123,7 +123,7 @@
         },
         {
           "type": "numeric",
-          "q": "The residue field $\\kappa(\\mathfrak p)$ at the generic point $\\mathfrak p=(0)$ of $\\operatorname{Spec}\\mathbb{Z}$ is $\\mathbb Q$. What is its characteristic?",
+          "q": "The residue field $\\kappa(\\mathfrak p)$ at the generic point $\\mathfrak p=(0)$ of $\\Spec\\mathbb{Z}$ is $\\mathbb Q$. What is its characteristic?",
           "answer": 0,
           "tol": 0.000001,
           "explain": "$\\mathbb Q$ has characteristic $0$. By contrast $\\kappa((p))=\\mathbb F_p$ at a closed point has characteristic $p$ — different points can have residue fields of different characteristics."
@@ -132,19 +132,19 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "For $R=k[x]/(x^2)$ (the dual numbers), $\\operatorname{Spec}(R)$ has a single point $\\mathfrak m=(x)$. The stalk $\\mathcal{O}_{\\mathfrak m}$ equals $R_{\\mathfrak m}$. Which statement about sections on the unique non-empty open set is correct?",
+          "q": "For $R=k[x]/(x^2)$ (the dual numbers), $\\Spec(R)$ has a single point $\\mathfrak m=(x)$. The stalk $\\mathcal{O}_{\\mathfrak m}$ equals $R_{\\mathfrak m}$. Which statement about sections on the unique non-empty open set is correct?",
           "choices": [
-            "$\\mathcal{O}(\\operatorname{Spec}R)=R$ and there are nilpotents: $x^2=0$ in $R$",
-            "$\\mathcal{O}(\\operatorname{Spec}R)=k$ because sheaves always see reduced rings",
-            "$\\mathcal{O}(\\operatorname{Spec}R)=k[x]$ since we must invert all elements",
+            "$\\mathcal{O}(\\Spec{}R)=R$ and there are nilpotents: $x^2=0$ in $R$",
+            "$\\mathcal{O}(\\Spec{}R)=k$ because sheaves always see reduced rings",
+            "$\\mathcal{O}(\\Spec{}R)=k[x]$ since we must invert all elements",
             "The structure sheaf is undefined when $R$ has nilpotents"
           ],
           "answer": 0,
-          "explain": "Global sections of $\\mathcal{O}$ on $\\operatorname{Spec}(R)$ equal $R$ itself. The nilpotent $x$ is a legitimate global section; scheme theory allows non-reduced rings and their nilpotents encode infinitesimal thickening."
+          "explain": "Global sections of $\\mathcal{O}$ on $\\Spec(R)$ equal $R$ itself. The nilpotent $x$ is a legitimate global section; scheme theory allows non-reduced rings and their nilpotents encode infinitesimal thickening."
         },
         {
           "type": "mcq",
-          "q": "Let $f:\\operatorname{Spec}(B)\\to\\operatorname{Spec}(A)$ be the morphism induced by a ring map $\\phi:A\\to B$. The image of a prime $\\mathfrak q\\subset B$ under $f$ is:",
+          "q": "Let $f:\\Spec(B)\\to\\Spec(A)$ be the morphism induced by a ring map $\\phi:A\\to B$. The image of a prime $\\mathfrak q\\subset B$ under $f$ is:",
           "choices": [
             "$\\phi(\\mathfrak q)$, the direct image ideal",
             "$\\phi^{-1}(\\mathfrak q)$, the contraction of $\\mathfrak q$ to $A$",
@@ -168,7 +168,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The projective line $\\mathbb P^1_k$ is built by gluing two copies of $\\mathbb A^1_k=\\operatorname{Spec}k[x]$ and $\\operatorname{Spec}k[y]$ along the overlap $\\{x\\ne 0\\}\\cong\\{y\\ne 0\\}$ via:",
+          "q": "The projective line $\\mathbb P^1_k$ is built by gluing two copies of $\\mathbb A^1_k=\\Spec{}k[x]$ and $\\Spec{}k[y]$ along the overlap $\\{x\\ne 0\\}\\cong\\{y\\ne 0\\}$ via:",
           "choices": [
             "$y=x$",
             "$y=-x$",
@@ -176,7 +176,7 @@
             "$y=x^2$"
           ],
           "answer": 2,
-          "explain": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$. The two origins become $0$ and $\\infty$."
+          "explain": "The transition is $y=1/x$: on the overlap $\\Spec{}k[x,x^{-1}]=\\Spec{}k[y,y^{-1}]$ with $y$ inverse to $x$. The two origins become $0$ and $\\infty$."
         },
         {
           "type": "numeric",
@@ -201,7 +201,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "To glue two affine schemes $X_1=\\operatorname{Spec}(A_1)$ and $X_2=\\operatorname{Spec}(A_2)$ along open subsets $U_{12}\\subset X_1$ and $U_{21}\\subset X_2$ via an isomorphism $\\varphi:U_{12}\\xrightarrow{\\sim}U_{21}$, which cocycle condition must hold when gluing three affines $X_1,X_2,X_3$?",
+          "q": "To glue two affine schemes $X_1=\\Spec(A_1)$ and $X_2=\\Spec(A_2)$ along open subsets $U_{12}\\subset X_1$ and $U_{21}\\subset X_2$ via an isomorphism $\\varphi:U_{12}\\xrightarrow{\\sim}U_{21}$, which cocycle condition must hold when gluing three affines $X_1,X_2,X_3$?",
           "choices": [
             "No condition is needed; any collection of pairwise gluing data yields a scheme",
             "The overlap isomorphisms must satisfy $\\varphi_{31}=\\varphi_{32}\\circ\\varphi_{21}$ on $U_{12}\\cap U_{13}$",
@@ -224,7 +224,7 @@
           "choices": [
             "$\\mathbb{P}^1_k$ — the diagonal $\\Delta\\subset\\mathbb{P}^1_k\\times\\mathbb{P}^1_k$ is not closed",
             "The affine line with doubled origin: glue two copies of $\\mathbb{A}^1_k$ along $\\mathbb{A}^1_k\\setminus\\{0\\}$ via the identity; the diagonal is not closed",
-            "$\\operatorname{Spec}(k)$ — a point is not separated",
+            "$\\Spec(k)$ — a point is not separated",
             "$\\mathbb{A}^2_k$ — it fails the valuative criterion of separatedness"
           ],
           "answer": 1,
@@ -238,7 +238,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Closed subschemes of $\\operatorname{Spec} R$ correspond bijectively to:",
+          "q": "Closed subschemes of $\\Spec R$ correspond bijectively to:",
           "choices": [
             "prime ideals of $R$",
             "arbitrary ideals $I\\subseteq R$",
@@ -246,12 +246,12 @@
             "radical ideals of $R$ only"
           ],
           "answer": 1,
-          "explain": "Each ideal $I\\subseteq R$ gives a closed subscheme $\\operatorname{Spec}(R/I)\\hookrightarrow\\operatorname{Spec}R$, and distinct ideals give distinct subschemes (even when their radicals — hence underlying sets — agree). Radical ideals pick out only the reduced closed subschemes.",
+          "explain": "Each ideal $I\\subseteq R$ gives a closed subscheme $\\Spec(R/I)\\hookrightarrow\\Spec{}R$, and distinct ideals give distinct subschemes (even when their radicals — hence underlying sets — agree). Radical ideals pick out only the reduced closed subschemes.",
           "hint": "Different ideals with the same $\\sqrt{I}$ can still define different subschemes."
         },
         {
           "type": "mcq",
-          "q": "The ring $R=k[x,y]/(xy)$ has how many irreducible components when viewed as $\\operatorname{Spec}R$?",
+          "q": "The ring $R=k[x,y]/(xy)$ has how many irreducible components when viewed as $\\Spec{}R$?",
           "choices": [
             "0",
             "1",
@@ -259,7 +259,7 @@
             "infinitely many"
           ],
           "answer": 2,
-          "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\operatorname{Spec}R$ is the union of two irreducible components meeting at the origin."
+          "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\Spec{}R$ is the union of two irreducible components meeting at the origin."
         },
         {
           "type": "numeric",
@@ -274,32 +274,32 @@
           "type": "mcq",
           "q": "Let $R = k[x,y]/(x^2-y^3)$ (cuspidal cubic). Which statement is TRUE?",
           "choices": [
-            "$R$ is reduced and $\\operatorname{Spec}R$ is irreducible",
-            "$R$ has nilpotents, so $\\operatorname{Spec}R$ is non-reduced",
-            "$\\operatorname{Spec}R$ is reducible with two components",
-            "$R$ is a field, so $\\operatorname{Spec}R$ is a single reduced point"
+            "$R$ is reduced and $\\Spec{}R$ is irreducible",
+            "$R$ has nilpotents, so $\\Spec{}R$ is non-reduced",
+            "$\\Spec{}R$ is reducible with two components",
+            "$R$ is a field, so $\\Spec{}R$ is a single reduced point"
           ],
           "answer": 0,
-          "explain": "$x^2-y^3$ is irreducible in $k[x,y]$ (it is a prime, since $k[x,y]$ is a UFD and the polynomial is irreducible), so $R=k[x,y]/(x^2-y^3)$ is an integral domain — reduced, and $\\operatorname{Spec}R$ is irreducible with generic point $(0)$. The cusp at the origin is a singular point, but singular $\\ne$ non-reduced."
+          "explain": "$x^2-y^3$ is irreducible in $k[x,y]$ (it is a prime, since $k[x,y]$ is a UFD and the polynomial is irreducible), so $R=k[x,y]/(x^2-y^3)$ is an integral domain — reduced, and $\\Spec{}R$ is irreducible with generic point $(0)$. The cusp at the origin is a singular point, but singular $\\ne$ non-reduced."
         },
         {
           "type": "mcq",
-          "q": "The reduced subscheme underlying the closed subscheme $V(I)\\subset\\operatorname{Spec}R$ is:",
+          "q": "The reduced subscheme underlying the closed subscheme $V(I)\\subset\\Spec{}R$ is:",
           "choices": [
-            "$\\operatorname{Spec}(R/I)$",
-            "$\\operatorname{Spec}(R/\\sqrt{I})$",
-            "$\\operatorname{Spec}(R_{I})$ (localization at $I$)",
-            "$\\operatorname{Spec}(R/I^2)$"
+            "$\\Spec(R/I)$",
+            "$\\Spec(R/\\sqrt{I})$",
+            "$\\Spec(R_{I})$ (localization at $I$)",
+            "$\\Spec(R/I^2)$"
           ],
           "answer": 1,
-          "explain": "Passing to the radical $\\sqrt I$ kills all nilpotents in the quotient. The reduced subscheme with the same underlying set $V(I)$ is $\\operatorname{Spec}(R/\\sqrt I)$; the inclusion $\\sqrt I\\supseteq I$ induces a natural closed immersion $\\operatorname{Spec}(R/\\sqrt I)\\hookrightarrow\\operatorname{Spec}(R/I)$."
+          "explain": "Passing to the radical $\\sqrt I$ kills all nilpotents in the quotient. The reduced subscheme with the same underlying set $V(I)$ is $\\Spec(R/\\sqrt I)$; the inclusion $\\sqrt I\\supseteq I$ induces a natural closed immersion $\\Spec(R/\\sqrt I)\\hookrightarrow\\Spec(R/I)$."
         },
         {
           "type": "numeric",
-          "q": "How many minimal primes does $R=\\mathbb Z[x]/(6x) = \\mathbb Z[x]/(2\\cdot 3\\cdot x)$ have? (Equivalently, how many irreducible components does $\\operatorname{Spec}R$ have?)",
+          "q": "How many minimal primes does $R=\\mathbb Z[x]/(6x) = \\mathbb Z[x]/(2\\cdot 3\\cdot x)$ have? (Equivalently, how many irreducible components does $\\Spec{}R$ have?)",
           "answer": 3,
           "tol": 0.000001,
-          "explain": "In $\\mathbb Z[x]$, the prime $(6x)=(2)\\cap(3)\\cap(x)$ factors as a meet of three minimal primes over $(6x)$: $(2)$, $(3)$, and $(x)$. In $\\mathbb Z[x]/(6x)$ these become the three minimal primes, so $\\operatorname{Spec}R$ has $3$ irreducible components."
+          "explain": "In $\\mathbb Z[x]$, the prime $(6x)=(2)\\cap(3)\\cap(x)$ factors as a meet of three minimal primes over $(6x)$: $(2)$, $(3)$, and $(x)$. In $\\mathbb Z[x]/(6x)$ these become the three minimal primes, so $\\Spec{}R$ has $3$ irreducible components."
         }
       ]
     },
@@ -308,17 +308,17 @@
       "questions": [
         {
           "type": "numeric",
-          "q": "What is the Krull dimension of $\\operatorname{Spec} k[x_1,x_2,x_3,x_4]$?",
+          "q": "What is the Krull dimension of $\\Spec k[x_1,x_2,x_3,x_4]$?",
           "answer": 4,
           "tol": 0.000001,
           "explain": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$. For $n=4$ this gives dimension $4$."
         },
         {
           "type": "numeric",
-          "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z$?",
+          "q": "What is $\\dim\\Spec\\mathbb Z$?",
           "answer": 1,
           "tol": 0.000001,
-          "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\operatorname{Spec}\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
+          "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\Spec\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
         },
         {
           "type": "mcq",
@@ -336,14 +336,14 @@
       "hard": [
         {
           "type": "numeric",
-          "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z[x_1,x_2]$?",
+          "q": "What is $\\dim\\Spec\\mathbb Z[x_1,x_2]$?",
           "answer": 3,
           "tol": 0.000001,
           "explain": "For a Noetherian ring $A$, $\\dim A[x]=\\dim A + 1$. Starting from $\\dim\\mathbb Z = 1$: $\\dim\\mathbb Z[x_1]=2$, $\\dim\\mathbb Z[x_1,x_2]=3$. A maximal chain is $(0)\\subsetneq(p)\\subsetneq(p,x_1)\\subsetneq(p,x_1,x_2)$ for any prime $p$."
         },
         {
           "type": "mcq",
-          "q": "Let $X=\\operatorname{Spec}(k[x,y]/(xy))$ be the union of two coordinate axes. Which statement is TRUE?",
+          "q": "Let $X=\\Spec(k[x,y]/(xy))$ be the union of two coordinate axes. Which statement is TRUE?",
           "choices": [
             "$\\dim X=2$ because $X\\subset\\mathbb A^2_k$",
             "$\\dim X=1$, and $X$ is equidimensional",
@@ -372,31 +372,31 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, the closure of the prime $(x)$ equals:",
+          "q": "In $\\Spec\\mathbb Z[x]$, the closure of the prime $(x)$ equals:",
           "choices": [
             "the single point $(x)$ itself",
             "the 'axis' $V(x) = \\{\\mathfrak p : x\\in\\mathfrak p\\}$, e.g. all primes of the form $(x,p)$ or $(x)$",
-            "all of $\\operatorname{Spec}\\mathbb Z[x]$",
+            "all of $\\Spec\\mathbb Z[x]$",
             "the empty set"
           ],
           "answer": 1,
-          "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\operatorname{Spec}\\mathbb Z[x]$."
+          "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\Spec\\mathbb Z[x]$."
         },
         {
           "type": "mcq",
-          "q": "A generic point of an irreducible closed subset $Z\\subseteq\\operatorname{Spec}R$ is:",
+          "q": "A generic point of an irreducible closed subset $Z\\subseteq\\Spec{}R$ is:",
           "choices": [
             "any closed point of $Z$",
             "the unique point $\\eta\\in Z$ whose closure is all of $Z$",
             "the set of all maximal ideals in $Z$",
-            "the complement of $Z$ in $\\operatorname{Spec}R$"
+            "the complement of $Z$ in $\\Spec{}R$"
           ],
           "answer": 1,
           "explain": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$. For $Z=V(\\mathfrak p)$ with $\\mathfrak p$ prime minimal with that property, the generic point is exactly $\\mathfrak p$ itself."
         },
         {
           "type": "numeric",
-          "q": "How many generic points does the scheme $\\operatorname{Spec}(k[x,y]/(xy))$ have? (Count minimal primes.)",
+          "q": "How many generic points does the scheme $\\Spec(k[x,y]/(xy))$ have? (Count minimal primes.)",
           "answer": 2,
           "tol": 0.000001,
           "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes). Each is the generic point of its component, so the scheme has $2$ generic points."
@@ -405,7 +405,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $\\mathfrak p\\leadsto\\mathfrak q$ denote specialization (i.e. $\\mathfrak p\\subseteq\\mathfrak q$). Which statement about specialization in $\\operatorname{Spec}\\mathbb Z[x]$ is correct?",
+          "q": "Let $\\mathfrak p\\leadsto\\mathfrak q$ denote specialization (i.e. $\\mathfrak p\\subseteq\\mathfrak q$). Which statement about specialization in $\\Spec\\mathbb Z[x]$ is correct?",
           "choices": [
             "$(0)\\leadsto(p)\\leadsto(p,x-a)$ for every prime $p$ and integer $a$",
             "Specialization is symmetric: $\\mathfrak p\\leadsto\\mathfrak q$ implies $\\mathfrak q\\leadsto\\mathfrak p$",
@@ -417,7 +417,7 @@
         },
         {
           "type": "numeric",
-          "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, what is the maximum length of a specialization chain $\\mathfrak p_0\\subsetneq\\mathfrak p_1\\subsetneq\\cdots\\subsetneq\\mathfrak p_n$? (Give $n$, the number of strict inclusions.)",
+          "q": "In $\\Spec\\mathbb Z[x]$, what is the maximum length of a specialization chain $\\mathfrak p_0\\subsetneq\\mathfrak p_1\\subsetneq\\cdots\\subsetneq\\mathfrak p_n$? (Give $n$, the number of strict inclusions.)",
           "answer": 2,
           "tol": 0.000001,
           "explain": "$\\dim\\mathbb Z[x]=2$, achieved by e.g. $(0)\\subsetneq(p)\\subsetneq(p,x-a)$: three primes, two strict inclusions. So the longest specialization chain has length $n=2$."
@@ -453,7 +453,7 @@
         },
         {
           "type": "mcq",
-          "q": "At the generic point $(0)\\in\\operatorname{Spec}\\mathbb Z[x]$, the residue field is:",
+          "q": "At the generic point $(0)\\in\\Spec\\mathbb Z[x]$, the residue field is:",
           "choices": [
             "$\\mathbb F_p$ for some $p$",
             "$\\mathbb Q$",
@@ -474,7 +474,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Consider $f=x^2+1\\in\\mathbb Z[x]$, regarded as a 'function' on $\\operatorname{Spec}\\mathbb Z[x]$. At which of the following points does $f$ vanish, in the sense $f\\in\\mathfrak p$?",
+          "q": "Consider $f=x^2+1\\in\\mathbb Z[x]$, regarded as a 'function' on $\\Spec\\mathbb Z[x]$. At which of the following points does $f$ vanish, in the sense $f\\in\\mathfrak p$?",
           "choices": [
             "The closed point $\\mathfrak m=(3,x-1)$ (since $1^2+1=2\\not\\equiv 0\\pmod 3$)",
             "The closed point $\\mathfrak m=(5,x-2)$ (since $2^2+1=5\\equiv 0\\pmod 5$)",
@@ -486,7 +486,7 @@
         },
         {
           "type": "mcq",
-          "q": "A $k$-point of a $k$-scheme $X$ — a morphism $\\operatorname{Spec}k\\to X$ — corresponds to:",
+          "q": "A $k$-point of a $k$-scheme $X$ — a morphism $\\Spec{}k\\to X$ — corresponds to:",
           "choices": [
             "any closed point $x\\in X$",
             "a closed point $x$ together with an embedding $\\kappa(x)\\hookrightarrow k$",
@@ -494,14 +494,14 @@
             "an open subscheme of $X$"
           ],
           "answer": 1,
-          "explain": "A morphism $\\operatorname{Spec}k\\to X$ picks out a point $x\\in X$ and, since its image lies in the residue field, a $k$-algebra map $\\kappa(x)\\to k$, i.e. an embedding $\\kappa(x)\\hookrightarrow k$. When $k$ is algebraically closed and $\\kappa(x)=k$ this recovers 'classical points', but in general the extra choice of embedding matters (Galois conjugate points)."
+          "explain": "A morphism $\\Spec{}k\\to X$ picks out a point $x\\in X$ and, since its image lies in the residue field, a $k$-algebra map $\\kappa(x)\\to k$, i.e. an embedding $\\kappa(x)\\hookrightarrow k$. When $k$ is algebraically closed and $\\kappa(x)=k$ this recovers 'classical points', but in general the extra choice of embedding matters (Galois conjugate points)."
         },
         {
           "type": "numeric",
           "q": "In $\\mathbb Z[x]$, consider the maximal ideal $\\mathfrak m=(p)$ of the height-$1$ prime $(p)\\subset\\mathbb Z[x]$ — i.e. the prime $(p)$ itself, height $1$, not a closed point. The residue field $\\kappa((p))=\\mathbb F_p(x)$. What is its transcendence degree over $\\mathbb F_p$?",
           "answer": 1,
           "tol": 0.000001,
-          "explain": "$\\kappa((p))=\\operatorname{Frac}(\\mathbb Z[x]/(p))=\\operatorname{Frac}(\\mathbb F_p[x])=\\mathbb F_p(x)$. The transcendence degree of $\\mathbb F_p(x)$ over $\\mathbb F_p$ is $1$ — one transcendental generator $x$. (This matches the intuition that $(p)$ is a 'curve' in $\\operatorname{Spec}\\mathbb Z[x]$.)"
+          "explain": "$\\kappa((p))=\\operatorname{Frac}(\\mathbb Z[x]/(p))=\\operatorname{Frac}(\\mathbb F_p[x])=\\mathbb F_p(x)$. The transcendence degree of $\\mathbb F_p(x)$ over $\\mathbb F_p$ is $1$ — one transcendental generator $x$. (This matches the intuition that $(p)$ is a 'curve' in $\\Spec\\mathbb Z[x]$.)"
         }
       ]
     },
@@ -530,26 +530,26 @@
             "$\\mathcal O_{X,x}\\to\\mathcal O_{Y,f(x)}$ is injective"
           ],
           "answer": 1,
-          "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\operatorname{Spec}$s would not correspond to ring homomorphisms in the right direction."
+          "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\Spec$s would not correspond to ring homomorphisms in the right direction."
         },
         {
           "type": "mcq",
           "q": "A scheme is a locally ringed space that is:",
           "choices": [
             "compact and Hausdorff",
-            "locally isomorphic (as a locally ringed space) to $\\operatorname{Spec}R$ for some commutative ring $R$",
-            "globally isomorphic to $\\operatorname{Spec}R$ for a single $R$",
+            "locally isomorphic (as a locally ringed space) to $\\Spec{}R$ for some commutative ring $R$",
+            "globally isomorphic to $\\Spec{}R$ for a single $R$",
             "a topological manifold"
           ],
           "answer": 1,
-          "hint": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$…",
-          "explain": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$ (depending on $U$). Globally isomorphic to a single $\\operatorname{Spec}R$ is the stronger 'affine' condition."
+          "hint": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\Spec{}R,\\mathcal O_{\\Spec{}R})$ for some ring $R$…",
+          "explain": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\Spec{}R,\\mathcal O_{\\Spec{}R})$ for some ring $R$ (depending on $U$). Globally isomorphic to a single $\\Spec{}R$ is the stronger 'affine' condition."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "Consider the ring map $\\iota\\colon k\\hookrightarrow k[x]_{(x)}$ (inclusion of $k$ into the localization at $(x)$). The induced map on spectra sends the unique point of $\\operatorname{Spec}k[x]_{(x)}\\cong\\{(0),(x)\\}$ to a point of $\\operatorname{Spec}k=\\{*\\}$. Which stalk map fails to be local if we mistakenly use a non-local ring homomorphism here?",
+          "q": "Consider the ring map $\\iota\\colon k\\hookrightarrow k[x]_{(x)}$ (inclusion of $k$ into the localization at $(x)$). The induced map on spectra sends the unique point of $\\Spec{}k[x]_{(x)}\\cong\\{(0),(x)\\}$ to a point of $\\Spec{}k=\\{*\\}$. Which stalk map fails to be local if we mistakenly use a non-local ring homomorphism here?",
           "choices": [
             "Any $k$-algebra map $k\\to k[x]_{(x)}$ is automatically local",
             "The map $k\\to k[x]_{(x)}$ is local (the zero ideal of $k$ maps into $(x)k[x]_{(x)}$); the locality condition is automatic because $k$ is a field",
@@ -563,19 +563,19 @@
           "type": "mcq",
           "q": "Let $X$ be the topological space $\\{\\eta,s\\}$ with $\\{s\\}$ closed (so $\\eta$ is generic). Equip it with a sheaf $\\mathcal O$ such that $\\mathcal O(X)=R$, $\\mathcal O(\\{\\eta\\})=K$ where $R$ is a DVR with fraction field $K$, and restriction is the localization. Is $(X,\\mathcal O)$ a scheme?",
           "choices": [
-            "Yes — it is canonically isomorphic to $\\operatorname{Spec}R$",
+            "Yes — it is canonically isomorphic to $\\Spec{}R$",
             "No — the stalk at $s$ is not local",
             "Yes, but only if $R=K$",
             "No — a DVR has $3$ primes, not $2$"
           ],
           "answer": 0,
-          "explain": "A DVR $R$ has exactly two primes: $(0)$ and the unique maximal $\\mathfrak m$. So $\\operatorname{Spec}R=\\{(0),\\mathfrak m\\}$ with $\\{\\mathfrak m\\}$ closed and $\\{(0)\\}$ generic, and $\\mathcal O(X)=R$, $\\mathcal O(\\{(0)\\})=\\operatorname{Frac}R=K$. The described $(X,\\mathcal O)$ matches $\\operatorname{Spec}R$ exactly, and the stalks are $R_{\\mathfrak m}=R$ and $R_{(0)}=K$, both local."
+          "explain": "A DVR $R$ has exactly two primes: $(0)$ and the unique maximal $\\mathfrak m$. So $\\Spec{}R=\\{(0),\\mathfrak m\\}$ with $\\{\\mathfrak m\\}$ closed and $\\{(0)\\}$ generic, and $\\mathcal O(X)=R$, $\\mathcal O(\\{(0)\\})=\\operatorname{Frac}R=K$. The described $(X,\\mathcal O)$ matches $\\Spec{}R$ exactly, and the stalks are $R_{\\mathfrak m}=R$ and $R_{(0)}=K$, both local."
         },
         {
           "type": "mcq",
           "q": "Which of the following is an example of a ringed space that is NOT a locally ringed space?",
           "choices": [
-            "$(\\operatorname{Spec}\\mathbb Z,\\mathcal O)$ with its usual structure sheaf",
+            "$(\\Spec\\mathbb Z,\\mathcal O)$ with its usual structure sheaf",
             "A point $\\{*\\}$ equipped with the ring $\\mathbb Z\\times\\mathbb Z$ (so the unique stalk is $\\mathbb Z\\times\\mathbb Z$, which has two maximal ideals)",
             "An affine line over $k$ with its usual structure sheaf",
             "A projective line over $k$ with its usual structure sheaf"
@@ -610,7 +610,7 @@
             "The standard cover of $\\mathbb P^n_k$"
           ],
           "right": [
-            "Affine $n$-space $\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (dehomogenize by $x_i=1$).",
+            "Affine $n$-space $\\mathbb A^n_k=\\Spec{}k[x_0/x_i,\\dots,x_n/x_i]$ (dehomogenize by $x_i=1$).",
             "Empty — excluded by $\\operatorname{Proj}$ since it would correspond to a prime containing $S_+$.",
             "The $n+1$ charts $D_+(x_0),\\dots,D_+(x_n)$, each isomorphic to $\\mathbb A^n_k$.",
             "Homogeneous primes of $S$ not containing the irrelevant ideal $S_+=(x_0,\\dots,x_n)$."
@@ -622,7 +622,7 @@
             2
           ],
           "hint": "$\\operatorname{Proj}$ excludes primes containing the irrelevant ideal; each $D_+(x_i)$ is $\\mathbb A^n_k$ obtained by dehomogenizing $x_i\\mapsto 1$; the union covers $\\mathbb P^n_k$.",
-          "explain": "$\\operatorname{Proj}S$ takes only homogeneous primes not containing $S_+$, automatically excising the cone vertex. Each basic open $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ identifies with $\\mathbb A^n_k$ — dehomogenize by setting $x_i=1$. The $n+1$ such opens cover $\\mathbb P^n_k$ since any homogeneous prime not containing $S_+$ misses some $x_i$. This is the standard atlas presenting $\\mathbb P^n$ as glued affine $n$-spaces."
+          "explain": "$\\operatorname{Proj}S$ takes only homogeneous primes not containing $S_+$, automatically excising the cone vertex. Each basic open $D_+(x_i)=\\Spec((S_{x_i})_0)$ identifies with $\\mathbb A^n_k$ — dehomogenize by setting $x_i=1$. The $n+1$ such opens cover $\\mathbb P^n_k$ since any homogeneous prime not containing $S_+$ misses some $x_i$. This is the standard atlas presenting $\\mathbb P^n$ as glued affine $n$-spaces."
         },
         {
           "type": "numeric",
@@ -652,7 +652,7 @@
             "$\\mathbb P^2_k$ itself",
             "a smooth conic in $\\mathbb P^2_k$ (over an algebraically closed $k$ of characteristic $\\ne 2$), isomorphic to $\\mathbb P^1_k$",
             "empty because $I$ contains a non-zero element",
-            "$\\operatorname{Spec}S/I$, an affine conic"
+            "$\\Spec{}S/I$, an affine conic"
           ],
           "answer": 1,
           "explain": "$x_0^2+x_1^2-x_2^2$ is a non-degenerate homogeneous quadratic form; over algebraically closed $k$ with $\\operatorname{char}k\\ne 2$ it defines a smooth conic in $\\mathbb P^2_k$. All smooth plane conics are isomorphic to $\\mathbb P^1_k$ (e.g. via stereographic projection from any rational point)."
@@ -674,53 +674,53 @@
           "q": "For a morphism $f\\colon X\\to Y$ and $y\\in Y$, the scheme-theoretic fiber $X_y$ is defined as:",
           "choices": [
             "$f^{-1}(y)$ with the subspace topology, no extra structure",
-            "the fiber product $X\\times_Y \\operatorname{Spec}\\kappa(y)$",
-            "the affine scheme $\\operatorname{Spec}\\mathcal O_{Y,y}$",
+            "the fiber product $X\\times_Y \\Spec\\kappa(y)$",
+            "the affine scheme $\\Spec\\mathcal O_{Y,y}$",
             "the image of $f$ restricted to a neighborhood of $y$"
           ],
           "answer": 1,
-          "explain": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
+          "explain": "The fiber over $y$ is $X_y = X\\times_Y \\Spec\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
         },
         {
           "type": "mcq",
-          "q": "Consider the structural morphism $\\operatorname{Spec}\\mathbb Z[x]\\to\\operatorname{Spec}\\mathbb Z$. The fiber over the closed point $(5)\\in\\operatorname{Spec}\\mathbb Z$ is:",
+          "q": "Consider the structural morphism $\\Spec\\mathbb Z[x]\\to\\Spec\\mathbb Z$. The fiber over the closed point $(5)\\in\\Spec\\mathbb Z$ is:",
           "choices": [
-            "$\\operatorname{Spec}\\mathbb Z$",
-            "$\\operatorname{Spec}\\mathbb F_5$",
-            "$\\operatorname{Spec}\\mathbb F_5[x]=\\mathbb A^1_{\\mathbb F_5}$",
-            "$\\operatorname{Spec}\\mathbb Q[x]$"
+            "$\\Spec\\mathbb Z$",
+            "$\\Spec\\mathbb F_5$",
+            "$\\Spec\\mathbb F_5[x]=\\mathbb A^1_{\\mathbb F_5}$",
+            "$\\Spec\\mathbb Q[x]$"
           ],
           "answer": 2,
-          "explain": "The fiber over $(p)$ is $\\operatorname{Spec}(\\mathbb Z[x]\\otimes_{\\mathbb Z}\\mathbb F_p)=\\operatorname{Spec}\\mathbb F_p[x]=\\mathbb A^1_{\\mathbb F_p}$. For $p=5$ this is the affine line over $\\mathbb F_5$.",
+          "explain": "The fiber over $(p)$ is $\\Spec(\\mathbb Z[x]\\otimes_{\\mathbb Z}\\mathbb F_p)=\\Spec\\mathbb F_p[x]=\\mathbb A^1_{\\mathbb F_p}$. For $p=5$ this is the affine line over $\\mathbb F_5$.",
           "hint": "Tensor $\\mathbb Z[x]$ with the residue field $\\kappa((5))=\\mathbb F_5$."
         },
         {
           "type": "mcq",
           "q": "The <em>generic fiber</em> of a morphism $X\\to Y$ (with $Y$ integral) is the fiber over:",
           "choices": [
-            "the generic point $\\eta\\in Y$, i.e. $X\\times_Y\\operatorname{Spec}K(Y)$ where $K(Y)$ is the function field",
+            "the generic point $\\eta\\in Y$, i.e. $X\\times_Y\\Spec{}K(Y)$ where $K(Y)$ is the function field",
             "every closed point simultaneously",
             "a random chosen closed point",
             "the empty subset of $Y$"
           ],
           "answer": 0,
-          "explain": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
+          "explain": "The generic fiber is $X_\\eta = X\\times_Y \\Spec{}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
         }
       ],
       "hard": [
         {
           "type": "numeric",
-          "q": "Consider $f\\colon\\operatorname{Spec}\\mathbb Z[i]\\to\\operatorname{Spec}\\mathbb Z$. How many closed points does the fiber over $(5)\\in\\operatorname{Spec}\\mathbb Z$ have?",
+          "q": "Consider $f\\colon\\Spec\\mathbb Z[i]\\to\\Spec\\mathbb Z$. How many closed points does the fiber over $(5)\\in\\Spec\\mathbb Z$ have?",
           "answer": 2,
           "tol": 0.000001,
-          "explain": "Fiber over $(5)$ is $\\operatorname{Spec}(\\mathbb Z[i]\\otimes_{\\mathbb Z}\\mathbb F_5)=\\operatorname{Spec}\\mathbb F_5[x]/(x^2+1)$. Over $\\mathbb F_5$, $x^2+1=(x-2)(x+2)$ (since $2^2=4\\equiv-1$), so the fiber is $\\operatorname{Spec}(\\mathbb F_5\\times\\mathbb F_5)$: two closed points. ($5$ splits in $\\mathbb Z[i]$.)"
+          "explain": "Fiber over $(5)$ is $\\Spec(\\mathbb Z[i]\\otimes_{\\mathbb Z}\\mathbb F_5)=\\Spec\\mathbb F_5[x]/(x^2+1)$. Over $\\mathbb F_5$, $x^2+1=(x-2)(x+2)$ (since $2^2=4\\equiv-1$), so the fiber is $\\Spec(\\mathbb F_5\\times\\mathbb F_5)$: two closed points. ($5$ splits in $\\mathbb Z[i]$.)"
         },
         {
           "type": "mcq",
-          "q": "For the family $X=\\operatorname{Spec}k[t,x]/(x^2-t)\\to Y=\\operatorname{Spec}k[t]$ (with $k$ algebraically closed of characteristic $\\ne 2$), which statement correctly compares the fibers?",
+          "q": "For the family $X=\\Spec{}k[t,x]/(x^2-t)\\to Y=\\Spec{}k[t]$ (with $k$ algebraically closed of characteristic $\\ne 2$), which statement correctly compares the fibers?",
           "choices": [
             "All fibers are two reduced points",
-            "The fiber over $t=a\\ne 0$ is two reduced closed points ($x=\\pm\\sqrt a$); the fiber over $t=0$ is a single non-reduced point $\\operatorname{Spec}k[x]/(x^2)$",
+            "The fiber over $t=a\\ne 0$ is two reduced closed points ($x=\\pm\\sqrt a$); the fiber over $t=0$ is a single non-reduced point $\\Spec{}k[x]/(x^2)$",
             "All fibers are empty",
             "The generic fiber is two reduced points, but every closed-point fiber is empty"
           ],
@@ -730,15 +730,15 @@
         },
         {
           "type": "mcq",
-          "q": "Let $f\\colon\\mathbb P^1_{\\mathbb Z}\\to\\operatorname{Spec}\\mathbb Z$. Which statement about the fibers is TRUE?",
+          "q": "Let $f\\colon\\mathbb P^1_{\\mathbb Z}\\to\\Spec\\mathbb Z$. Which statement about the fibers is TRUE?",
           "choices": [
             "The fiber over $(p)$ is $\\mathbb P^1_{\\mathbb F_p}$; the generic fiber is $\\mathbb P^1_{\\mathbb Q}$",
-            "All fibers are $\\operatorname{Spec}\\mathbb Z$",
+            "All fibers are $\\Spec\\mathbb Z$",
             "The generic fiber is empty because $(0)$ is not a closed point",
             "The fiber over $(p)$ is $\\mathbb A^1_{\\mathbb F_p}$, not $\\mathbb P^1_{\\mathbb F_p}$"
           ],
           "answer": 0,
-          "explain": "Base change commutes with Proj: $\\mathbb P^1_{\\mathbb Z}\\times_{\\operatorname{Spec}\\mathbb Z}\\operatorname{Spec}\\kappa((p))=\\mathbb P^1_{\\mathbb F_p}$, and similarly the generic fiber is $\\mathbb P^1_{\\mathbb Q}$. The fibers are genuine $\\mathbb P^1$'s over each residue field — the 'arithmetic surface' $\\mathbb P^1_{\\mathbb Z}$ is a family of projective lines parametrized by $\\operatorname{Spec}\\mathbb Z$."
+          "explain": "Base change commutes with Proj: $\\mathbb P^1_{\\mathbb Z}\\times_{\\Spec\\mathbb Z}\\Spec\\kappa((p))=\\mathbb P^1_{\\mathbb F_p}$, and similarly the generic fiber is $\\mathbb P^1_{\\mathbb Q}$. The fibers are genuine $\\mathbb P^1$'s over each residue field — the 'arithmetic surface' $\\mathbb P^1_{\\mathbb Z}$ is a family of projective lines parametrized by $\\Spec\\mathbb Z$."
         }
       ]
     }

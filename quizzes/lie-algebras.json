@@ -14,8 +14,8 @@
             "Bracket squares to zero: $[x,x]=0$ alone"
           ],
           "answer": 1,
-          "explain": "The Jacobi identity is the third bracket axiom. ($[x,x]=0$ is equivalent to skew-symmetry in characteristic $\\neq 2$ and is therefore not the extra defining condition.) Lie algebras are typically not associative — $\\mathrm{ad}$ is a derivation, not a homomorphism.",
-          "hint": "It is the cyclic-sum identity that makes $\\mathrm{ad}(x)$ a derivation of the bracket."
+          "explain": "The Jacobi identity is the third bracket axiom. ($[x,x]=0$ is equivalent to skew-symmetry in characteristic $\\neq 2$ and is therefore not the extra defining condition.) Lie algebras are typically not associative — $\\ad$ is a derivation, not a homomorphism.",
+          "hint": "It is the cyclic-sum identity that makes $\\ad(x)$ a derivation of the bracket."
         },
         {
           "type": "numeric",
@@ -45,20 +45,20 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Why is $\\mathrm{ad}\\colon\\mathfrak g\\to\\mathrm{End}(\\mathfrak g)$ a Lie algebra homomorphism?",
+          "q": "Why is $\\ad\\colon\\mathfrak g\\to\\mathrm{End}(\\mathfrak g)$ a Lie algebra homomorphism?",
           "choices": [
-            "Because $\\mathrm{ad}(x)\\mathrm{ad}(y)=\\mathrm{ad}(xy)$ by associativity",
-            "Because $[\\mathrm{ad}(x),\\mathrm{ad}(y)]=\\mathrm{ad}([x,y])$ — exactly the Jacobi identity",
+            "Because $\\ad(x)\\ad(y)=\\ad(xy)$ by associativity",
+            "Because $[\\ad(x),\\ad(y)]=\\ad([x,y])$ — exactly the Jacobi identity",
             "Because the Killing form is bilinear",
             "Because every derivation is inner"
           ],
           "answer": 1,
-          "explain": "Apply both sides to $z$: $[\\mathrm{ad}(x),\\mathrm{ad}(y)]\\,z=[x,[y,z]]-[y,[x,z]]$, while $\\mathrm{ad}([x,y])\\,z=[[x,y],z]$. These agree iff $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$, the Jacobi identity. So $\\mathrm{ad}$ is a Lie homomorphism precisely because of Jacobi.",
-          "hint": "Expand $[\\mathrm{ad}(x),\\mathrm{ad}(y)]$ acting on a third element $z$."
+          "explain": "Apply both sides to $z$: $[\\ad(x),\\ad(y)]\\,z=[x,[y,z]]-[y,[x,z]]$, while $\\ad([x,y])\\,z=[[x,y],z]$. These agree iff $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$, the Jacobi identity. So $\\ad$ is a Lie homomorphism precisely because of Jacobi.",
+          "hint": "Expand $[\\ad(x),\\ad(y)]$ acting on a third element $z$."
         },
         {
           "type": "mcq",
-          "q": "The Killing form $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$ is $\\mathfrak g$-invariant in the sense:",
+          "q": "The Killing form $B(x,y)=\\tr(\\ad(x)\\ad(y))$ is $\\mathfrak g$-invariant in the sense:",
           "choices": [
             "$B([z,x],y)+B(x,[z,y])=0$ for all $x,y,z$",
             "$B([z,x],y)=B(x,[z,y])$ for all $x,y,z$",
@@ -66,7 +66,7 @@
             "$B$ is positive-definite on every Lie algebra"
           ],
           "answer": 0,
-          "explain": "Invariance means $B$ is annihilated by the adjoint action: differentiating $B(\\mathrm{Ad}(g)x,\\mathrm{Ad}(g)y)=B(x,y)$ gives $B([z,x],y)+B(x,[z,y])=0$. Equivalently, $\\mathrm{ad}(z)$ is skew with respect to $B$. The Killing form is rarely positive-definite (it is on compact real forms only).",
+          "explain": "Invariance means $B$ is annihilated by the adjoint action: differentiating $B(\\mathrm{Ad}(g)x,\\mathrm{Ad}(g)y)=B(x,y)$ gives $B([z,x],y)+B(x,[z,y])=0$. Equivalently, $\\ad(z)$ is skew with respect to $B$. The Killing form is rarely positive-definite (it is on compact real forms only).",
           "hint": "Differentiate the group-level identity $B(\\mathrm{Ad}(g)x,\\mathrm{Ad}(g)y)=B(x,y)$ at $g=e$."
         },
         {
@@ -79,8 +79,8 @@
             "The standard inner product on $\\mathbb R^n$"
           ],
           "answer": 0,
-          "explain": "If $\\mathfrak g$ is abelian then $\\mathrm{ad}(x)=0$ for every $x$, so $B(x,y)=\\mathrm{tr}(0\\cdot 0)=0$ identically. This is the cleanest example of a degenerate Killing form — abelian Lie algebras are the opposite of semisimple.",
-          "hint": "$\\mathrm{ad}(x)=[x,-]$; what is it when the bracket vanishes?"
+          "explain": "If $\\mathfrak g$ is abelian then $\\ad(x)=0$ for every $x$, so $B(x,y)=\\tr(0\\cdot 0)=0$ identically. This is the cleanest example of a degenerate Killing form — abelian Lie algebras are the opposite of semisimple.",
+          "hint": "$\\ad(x)=[x,-]$; what is it when the bracket vanishes?"
         }
       ]
     },
@@ -93,7 +93,7 @@
           "choices": [
             "$\\mathfrak g^{(k)}=\\mathfrak g$ for all $k$",
             "$\\mathfrak g^{(k)}=0$ for some $k$",
-            "Every $\\mathrm{ad}(x)$ is nilpotent",
+            "Every $\\ad(x)$ is nilpotent",
             "The Killing form is nondegenerate"
           ],
           "answer": 1,
@@ -105,13 +105,13 @@
           "q": "Engel's theorem says: $\\mathfrak g$ is nilpotent iff",
           "choices": [
             "$\\mathfrak g$ is abelian",
-            "$\\mathrm{ad}(x)$ is a nilpotent endomorphism for every $x\\in\\mathfrak g$",
+            "$\\ad(x)$ is a nilpotent endomorphism for every $x\\in\\mathfrak g$",
             "Every element of $\\mathfrak g$ is itself a nilpotent matrix",
             "$\\mathfrak g$ has trivial center"
           ],
           "answer": 1,
-          "explain": "Engel: $\\mathfrak g$ is nilpotent precisely when each $\\mathrm{ad}(x)$ is a nilpotent endomorphism — pointwise nilpotence of the adjoint forces uniform nilpotence of the lower-central series. (Even though abstract elements need not be matrices, $\\mathrm{ad}(x)$ always is.) Lie's theorem is the parallel statement for solvable: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
-          "hint": "It is a statement purely about the operators $\\mathrm{ad}(x)$, not about the abstract elements."
+          "explain": "Engel: $\\mathfrak g$ is nilpotent precisely when each $\\ad(x)$ is a nilpotent endomorphism — pointwise nilpotence of the adjoint forces uniform nilpotence of the lower-central series. (Even though abstract elements need not be matrices, $\\ad(x)$ always is.) Lie's theorem is the parallel statement for solvable: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+          "hint": "It is a statement purely about the operators $\\ad(x)$, not about the abstract elements."
         },
         {
           "type": "mcq",
@@ -123,8 +123,8 @@
             "Diagonal matrices (any size)"
           ],
           "answer": 2,
-          "explain": "Upper-triangular $2\\times 2$ matrices form the Borel $\\mathfrak b_2$. Its derived algebra is the strictly upper-triangular line, which is abelian, so the derived series terminates — solvable. But $\\mathrm{ad}(\\mathrm{diag}(a,b))$ acting on $E_{12}$ has eigenvalue $a-b\\neq 0$, so $\\mathrm{ad}$ is not nilpotent. The Heisenberg algebra is nilpotent (so also solvable); diagonals are abelian; $\\mathfrak{sl}_2$ is semisimple, not solvable.",
-          "hint": "Look at a Borel — derived once, then abelian, but $\\mathrm{ad}$ has nonzero eigenvalues."
+          "explain": "Upper-triangular $2\\times 2$ matrices form the Borel $\\mathfrak b_2$. Its derived algebra is the strictly upper-triangular line, which is abelian, so the derived series terminates — solvable. But $\\ad(\\mathrm{diag}(a,b))$ acting on $E_{12}$ has eigenvalue $a-b\\neq 0$, so $\\ad$ is not nilpotent. The Heisenberg algebra is nilpotent (so also solvable); diagonals are abelian; $\\mathfrak{sl}_2$ is semisimple, not solvable.",
+          "hint": "Look at a Borel — derived once, then abelian, but $\\ad$ has nonzero eigenvalues."
         }
       ]
     },
@@ -142,7 +142,7 @@
           ],
           "answer": 1,
           "explain": "A finite-dimensional Lie algebra over a field of characteristic zero is semisimple iff its Killing form $B$ is nondegenerate. Equivalently, the radical (largest solvable ideal) is zero. Trivial center is necessary but not sufficient; semisimple Lie algebras do have only inner derivations, but that is a consequence, not the criterion.",
-          "hint": "It is the bilinear-form condition on $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$."
+          "hint": "It is the bilinear-form condition on $B(x,y)=\\tr(\\ad(x)\\ad(y))$."
         },
         {
           "type": "mcq",

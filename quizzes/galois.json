@@ -18,7 +18,7 @@
         },
         {
           "type": "numeric",
-          "q": "What is the order of $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$, where $\\zeta_5=e^{2\\pi i/5}$?",
+          "q": "What is the order of $\\Gal(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$, where $\\zeta_5=e^{2\\pi i/5}$?",
           "answer": 4,
           "tol": 0.000001,
           "explain": "The fifth cyclotomic polynomial $\\Phi_5$ has degree $\\varphi(5)=4$, so the Galois group has order $4$ (it is cyclic, isomorphic to $(\\mathbb{Z}/5)^\\times$)."
@@ -37,7 +37,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $\\sigma\\in\\operatorname{Gal}(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$ be defined by $\\sigma(\\zeta_5)=\\zeta_5^2$. Which power of $\\sigma$ is the identity automorphism?",
+          "q": "Let $\\sigma\\in\\Gal(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$ be defined by $\\sigma(\\zeta_5)=\\zeta_5^2$. Which power of $\\sigma$ is the identity automorphism?",
           "choices": [
             "$\\sigma^2$",
             "$\\sigma^3$",
@@ -50,7 +50,7 @@
         },
         {
           "type": "numeric",
-          "q": "How many intermediate fields $F$ satisfy $\\mathbb{Q}\\subsetneq F\\subsetneq\\mathbb{Q}(\\zeta_5)$? (Use the Galois correspondence with $\\operatorname{Gal}\\cong\\mathbb{Z}/4$.)",
+          "q": "How many intermediate fields $F$ satisfy $\\mathbb{Q}\\subsetneq F\\subsetneq\\mathbb{Q}(\\zeta_5)$? (Use the Galois correspondence with $\\Gal\\cong\\mathbb{Z}/4$.)",
           "answer": 1,
           "tol": 0.000001,
           "hint": "Count proper nontrivial subgroups of $\\mathbb{Z}/4$.",
@@ -78,24 +78,24 @@
           "type": "mcq",
           "q": "The Galois correspondence for a Galois extension $L/K$ matches intermediate fields $K\\subseteq F\\subseteq L$ with:",
           "choices": [
-            "subgroups of $\\operatorname{Gal}(L/K)$, order-preserving",
-            "subgroups of $\\operatorname{Gal}(L/K)$, order-reversing",
-            "quotients of $\\operatorname{Gal}(L/K)$ only",
+            "subgroups of $\\Gal(L/K)$, order-preserving",
+            "subgroups of $\\Gal(L/K)$, order-reversing",
+            "quotients of $\\Gal(L/K)$ only",
             "elements of $L$ fixed by conjugation"
           ],
           "answer": 1,
-          "explain": "The correspondence $F\\leftrightarrow \\operatorname{Gal}(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups."
+          "explain": "The correspondence $F\\leftrightarrow \\Gal(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups."
         },
         {
           "type": "numeric",
-          "q": "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ has $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ of order $4$. How many intermediate fields strictly between $\\mathbb{Q}$ and $L$ are there?",
+          "q": "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ has $\\Gal(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ of order $4$. How many intermediate fields strictly between $\\mathbb{Q}$ and $L$ are there?",
           "answer": 3,
           "tol": 0.000001,
           "explain": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$."
         },
         {
           "type": "matching",
-          "q": "Match each subgroup of $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ for $L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ with its fixed field.",
+          "q": "Match each subgroup of $\\Gal(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ for $L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ with its fixed field.",
           "left": [
             "the trivial subgroup $\\{e\\}$",
             "the whole group $(\\mathbb{Z}/2)^2$",
@@ -121,7 +121,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "In the extension $L=\\mathbb{Q}(\\sqrt[3]{2},\\omega)/\\mathbb{Q}$ with $\\operatorname{Gal}(L/\\mathbb{Q})\\cong S_3$, the fixed field of the unique normal subgroup $A_3\\cong\\mathbb{Z}/3$ is:",
+          "q": "In the extension $L=\\mathbb{Q}(\\sqrt[3]{2},\\omega)/\\mathbb{Q}$ with $\\Gal(L/\\mathbb{Q})\\cong S_3$, the fixed field of the unique normal subgroup $A_3\\cong\\mathbb{Z}/3$ is:",
           "choices": [
             "$\\mathbb{Q}(\\sqrt[3]{2})$",
             "$\\mathbb{Q}(\\omega)$",
@@ -134,7 +134,7 @@
         },
         {
           "type": "numeric",
-          "q": "Let $G=\\operatorname{Gal}(L/\\mathbb{Q})\\cong S_3$ for $L=\\mathbb{Q}(\\sqrt[3]{2},\\omega)$. How many subgroups does $S_3$ have in total (including trivial and whole group)?",
+          "q": "Let $G=\\Gal(L/\\mathbb{Q})\\cong S_3$ for $L=\\mathbb{Q}(\\sqrt[3]{2},\\omega)$. How many subgroups does $S_3$ have in total (including trivial and whole group)?",
           "answer": 6,
           "tol": 0.000001,
           "hint": "Count subgroups by order: 1, 2, 3, 6.",
@@ -144,14 +144,14 @@
           "type": "mcq",
           "q": "Which is the correct chain of subgroup inclusions encoding the tower $\\mathbb{Q}\\subset\\mathbb{Q}(\\omega)\\subset L$ via the Galois correspondence (groups listed large to small as fields go small to large)?",
           "choices": [
-            "$\\{e\\}\\trianglelefteq A_3\\trianglelefteq S_3$",
-            "$S_3\\trianglerighteq A_3\\trianglerighteq\\{e\\}$",
+            "$\\{e\\}\\tr{}ianglelefteq A_3\\tr{}ianglelefteq S_3$",
+            "$S_3\\tr{}ianglerighteq A_3\\tr{}ianglerighteq\\{e\\}$",
             "$\\{e\\}\\subset\\langle(12)\\rangle\\subset S_3$",
             "$A_3\\subset S_3\\subset\\{e\\}$"
           ],
           "answer": 1,
           "hint": "Field inclusions reverse on the group side.",
-          "explain": "The correspondence reverses inclusion: $\\mathbb{Q}\\subset\\mathbb{Q}(\\omega)\\subset L$ corresponds to $S_3\\supset A_3\\supset\\{e\\}$. Since $A_3\\trianglelefteq S_3$, the intermediate field $\\mathbb{Q}(\\omega)$ is indeed normal over $\\mathbb{Q}$, with $\\operatorname{Gal}(\\mathbb{Q}(\\omega)/\\mathbb{Q})\\cong S_3/A_3\\cong\\mathbb{Z}/2$."
+          "explain": "The correspondence reverses inclusion: $\\mathbb{Q}\\subset\\mathbb{Q}(\\omega)\\subset L$ corresponds to $S_3\\supset A_3\\supset\\{e\\}$. Since $A_3\\tr{}ianglelefteq S_3$, the intermediate field $\\mathbb{Q}(\\omega)$ is indeed normal over $\\mathbb{Q}$, with $\\Gal(\\mathbb{Q}(\\omega)/\\mathbb{Q})\\cong S_3/A_3\\cong\\mathbb{Z}/2$."
         }
       ]
     },
@@ -189,7 +189,7 @@
             "Show $A_5$ is simple by ruling out every union of conjugacy classes (sizes $1,15,20,12,12$) summing to a proper divisor of $60$.",
             "Conclude $S_5$ is not solvable, hence $f$ has no radical formula.",
             "Verify $x^5-x-1$ is irreducible over $\\mathbb{Q}$, so the Galois group acts transitively on five roots.",
-            "Apply Galois' criterion: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group.",
+            "Apply Galois' criterion: $f$ is solvable by radicals iff $\\Gal(f/\\mathbb{Q})$ is a solvable group.",
             "Note exactly two roots are non-real, so complex conjugation acts as a transposition on the roots; combined with a $5$-cycle from transitivity, this generates $S_5$."
           ],
           "answer": [
@@ -233,7 +233,7 @@
           "type": "mcq",
           "q": "A key step in proving $A_5$ is not solvable is showing it is simple (no normal subgroups). Which argument is correct?",
           "choices": [
-            "Any normal subgroup $N\\trianglelefteq A_5$ must be a union of conjugacy classes including $\\{e\\}$; the class sizes in $A_5$ are $1,15,20,12,12$ and no sub-sum including $1$ divides $60$ except $1$ and $60$",
+            "Any normal subgroup $N\\tr{}ianglelefteq A_5$ must be a union of conjugacy classes including $\\{e\\}$; the class sizes in $A_5$ are $1,15,20,12,12$ and no sub-sum including $1$ divides $60$ except $1$ and $60$",
             "$A_5$ has order $60$, and all groups of prime-squared order are simple",
             "$A_5$ contains no elements of order $2$, so it cannot have proper normal subgroups",
             "$A_5$ is generated by $3$-cycles, hence simple"
@@ -269,10 +269,10 @@
         },
         {
           "type": "numeric",
-          "q": "For a finite Galois extension $L/K$ one has $|\\operatorname{Gal}(L/K)|=[L:K]$. If $[L:K]=12$, what is $|\\operatorname{Gal}(L/K)|$?",
+          "q": "For a finite Galois extension $L/K$ one has $|\\Gal(L/K)|=[L:K]$. If $[L:K]=12$, what is $|\\Gal(L/K)|$?",
           "answer": 12,
           "tol": 0.000001,
-          "explain": "Galois is exactly the equality $|\\operatorname{Gal}(L/K)|=[L:K]$. If either side is $12$, so is the other."
+          "explain": "Galois is exactly the equality $|\\Gal(L/K)|=[L:K]$. If either side is $12$, so is the other."
         },
         {
           "type": "mcq",
@@ -303,11 +303,11 @@
         },
         {
           "type": "numeric",
-          "q": "Let $L/\\mathbb{Q}$ be Galois with $\\operatorname{Gal}(L/\\mathbb{Q})\\cong S_3$. The unique normal subgroup $A_3\\cong\\mathbb{Z}/3$ has index $2$ in $S_3$. What is $[L^{A_3}:\\mathbb{Q}]$, the degree of the fixed field of $A_3$ over $\\mathbb{Q}$?",
+          "q": "Let $L/\\mathbb{Q}$ be Galois with $\\Gal(L/\\mathbb{Q})\\cong S_3$. The unique normal subgroup $A_3\\cong\\mathbb{Z}/3$ has index $2$ in $S_3$. What is $[L^{A_3}:\\mathbb{Q}]$, the degree of the fixed field of $A_3$ over $\\mathbb{Q}$?",
           "answer": 2,
           "tol": 0.000001,
           "hint": "Fixed-field degree equals the index of the subgroup.",
-          "explain": "The Galois correspondence gives $[L^H:K]=[G:H]$ for $G=\\operatorname{Gal}(L/K)$. Here $[S_3:A_3]=2$, so $[L^{A_3}:\\mathbb{Q}]=2$. The fixed field is a quadratic extension of $\\mathbb{Q}$."
+          "explain": "The Galois correspondence gives $[L^H:K]=[G:H]$ for $G=\\Gal(L/K)$. Here $[S_3:A_3]=2$, so $[L^{A_3}:\\mathbb{Q}]=2$. The fixed field is a quadratic extension of $\\mathbb{Q}$."
         },
         {
           "type": "mcq",

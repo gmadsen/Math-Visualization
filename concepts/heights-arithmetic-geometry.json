@@ -88,7 +88,7 @@
         "weil-height-line-bundle",
         "neron-tate-canonical-height"
       ],
-      "blurb": "Arakelov geometry compactifies $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
+      "blurb": "Arakelov geometry compactifies $\\Spec\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
       "tags": [
         "duality",
         "cohomology"

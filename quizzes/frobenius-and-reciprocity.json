@@ -39,7 +39,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $K=\\mathbb{Q}(\\zeta_p)$ for an odd prime $p$, so $\\mathrm{Gal}(K/\\mathbb{Q})\\cong(\\mathbb{Z}/p)^\\times$. For a prime $\\ell\\ne p$, the Frobenius $\\mathrm{Frob}_\\ell$ corresponds to which element of $(\\mathbb{Z}/p)^\\times$?",
+          "q": "Let $K=\\mathbb{Q}(\\zeta_p)$ for an odd prime $p$, so $\\Gal(K/\\mathbb{Q})\\cong(\\mathbb{Z}/p)^\\times$. For a prime $\\ell\\ne p$, the Frobenius $\\mathrm{Frob}_\\ell$ corresponds to which element of $(\\mathbb{Z}/p)^\\times$?",
           "choices": [
             "The class of $p$ modulo $\\ell$",
             "The class of $\\ell$ modulo $p$",
@@ -48,14 +48,14 @@
           ],
           "answer": 1,
           "hint": "Frobenius acts by $\\ell$-th powers on roots of unity.",
-          "explain": "The automorphism $\\sigma_\\ell:\\zeta_p\\mapsto\\zeta_p^\\ell$ is the Frobenius at $\\ell$, since $\\sigma_\\ell(\\zeta_p)=\\zeta_p^\\ell\\equiv\\zeta_p^\\ell\\pmod{\\mathfrak{P}}$ realizes the $\\ell$-power Frobenius on the residue field. Under the identification $\\mathrm{Gal}(K/\\mathbb{Q})\\cong(\\mathbb{Z}/p)^\\times$, $\\mathrm{Frob}_\\ell$ is the class of $\\ell\\bmod p$."
+          "explain": "The automorphism $\\sigma_\\ell:\\zeta_p\\mapsto\\zeta_p^\\ell$ is the Frobenius at $\\ell$, since $\\sigma_\\ell(\\zeta_p)=\\zeta_p^\\ell\\equiv\\zeta_p^\\ell\\pmod{\\mathfrak{P}}$ realizes the $\\ell$-power Frobenius on the residue field. Under the identification $\\Gal(K/\\mathbb{Q})\\cong(\\mathbb{Z}/p)^\\times$, $\\mathrm{Frob}_\\ell$ is the class of $\\ell\\bmod p$."
         },
         {
           "type": "mcq",
           "q": "Which of the following is the correct chain of inclusions and quotients linking inertia, decomposition group, and the full Galois group for a prime $\\mathfrak{P}$ above an unramified $p$ in $K/\\mathbb{Q}$ Galois?",
           "choices": [
-            "$1 = I(\\mathfrak{P}) \\trianglelefteq D(\\mathfrak{P}) \\hookrightarrow G$, with $D(\\mathfrak{P})/I(\\mathfrak{P}) \\cong \\langle\\mathrm{Frob}_\\mathfrak{P}\\rangle \\cong \\mathbb{Z}/f\\mathbb{Z}$",
-            "$I(\\mathfrak{P}) \\trianglelefteq G$ and $G/I(\\mathfrak{P}) \\cong D(\\mathfrak{P})$",
+            "$1 = I(\\mathfrak{P}) \\tr{}ianglelefteq D(\\mathfrak{P}) \\hookrightarrow G$, with $D(\\mathfrak{P})/I(\\mathfrak{P}) \\cong \\langle\\mathrm{Frob}_\\mathfrak{P}\\rangle \\cong \\mathbb{Z}/f\\mathbb{Z}$",
+            "$I(\\mathfrak{P}) \\tr{}ianglelefteq G$ and $G/I(\\mathfrak{P}) \\cong D(\\mathfrak{P})$",
             "$D(\\mathfrak{P}) = G$ always for unramified primes",
             "$I(\\mathfrak{P}) = G$ and $D(\\mathfrak{P}) = 1$ when $p$ is unramified"
           ],
@@ -65,7 +65,7 @@
         },
         {
           "type": "numeric",
-          "q": "For $K=\\mathbb{Q}(\\sqrt{-23})$, the ring of integers is a non-UFD with class number $3$. The prime $p=2$ has $\\mathrm{Frob}_2$ of order $3$ in $\\mathrm{Gal}(K/\\mathbb{Q})\\cong\\mathbb{Z}/2\\mathbb{Z}$... but wait: this is a degree-$2$ extension so $|G|=2$. Instead consider the Hilbert class field $H/\\mathbb{Q}$ of $K$, which has $\\mathrm{Gal}(H/\\mathbb{Q})\\cong S_3$ and degree $6$. What is the order of $\\mathrm{Frob}_2$ in $S_3$ if $2$ has residue degree $f=3$ in $H/\\mathbb{Q}$?",
+          "q": "For $K=\\mathbb{Q}(\\sqrt{-23})$, the ring of integers is a non-UFD with class number $3$. The prime $p=2$ has $\\mathrm{Frob}_2$ of order $3$ in $\\Gal(K/\\mathbb{Q})\\cong\\mathbb{Z}/2\\mathbb{Z}$... but wait: this is a degree-$2$ extension so $|G|=2$. Instead consider the Hilbert class field $H/\\mathbb{Q}$ of $K$, which has $\\Gal(H/\\mathbb{Q})\\cong S_3$ and degree $6$. What is the order of $\\mathrm{Frob}_2$ in $S_3$ if $2$ has residue degree $f=3$ in $H/\\mathbb{Q}$?",
           "answer": 3,
           "tol": 0.000001,
           "hint": "Order of Frobenius equals the residue degree $f$ of the prime.",
@@ -111,7 +111,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "For $K=\\mathbb{Q}(\\zeta_7)$ with $[K:\\mathbb{Q}]=6$ and $\\mathrm{Gal}(K/\\mathbb{Q})\\cong(\\mathbb{Z}/7)^\\times\\cong\\mathbb{Z}/6\\mathbb{Z}$, the prime $p=2$ has residue degree $f$ equal to the multiplicative order of $2$ modulo $7$. Which splitting type $(r,f)$ does $p=2$ have?",
+          "q": "For $K=\\mathbb{Q}(\\zeta_7)$ with $[K:\\mathbb{Q}]=6$ and $\\Gal(K/\\mathbb{Q})\\cong(\\mathbb{Z}/7)^\\times\\cong\\mathbb{Z}/6\\mathbb{Z}$, the prime $p=2$ has residue degree $f$ equal to the multiplicative order of $2$ modulo $7$. Which splitting type $(r,f)$ does $p=2$ have?",
           "choices": [
             "$(1,6)$ — $2$ is inert",
             "$(6,1)$ — $2$ splits completely",
@@ -172,13 +172,13 @@
           "q": "Which statement about inertia is TRUE?",
           "choices": [
             "$I(\\mathfrak{P})=D(\\mathfrak{P})$ always",
-            "$I(\\mathfrak{P})$ is the kernel of $D(\\mathfrak{P})\\to\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$, and is trivial exactly when $p$ is unramified",
+            "$I(\\mathfrak{P})$ is the kernel of $D(\\mathfrak{P})\\to\\Gal(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$, and is trivial exactly when $p$ is unramified",
             "$I(\\mathfrak{P})$ is generated by the Frobenius element",
             "$I(\\mathfrak{P})$ has order $f$"
           ],
           "answer": 1,
           "hint": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does,…",
-          "explain": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does, $D/I\\cong\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$ is generated by Frobenius."
+          "explain": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does, $D/I\\cong\\Gal(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$ is generated by Frobenius."
         }
       ],
       "hard": [
@@ -193,7 +193,7 @@
           ],
           "answer": 0,
           "hint": "Size is $ef$, and inertia sits normally with cyclic residue-field quotient.",
-          "explain": "$|D(\\mathfrak{P})|=ef=2\\cdot 3=6$ and $[G:D]=r=24/6=4$. \\checkmark. The inertia $I(\\mathfrak{P})$ has order $e=2$, is normal in $D$, and $D/I\\cong\\mathrm{Gal}(\\mathbb{F}_{p^3}/\\mathbb{F}_p)\\cong\\mathbb{Z}/3\\mathbb{Z}$. So $D$ is a group of order $6$ with a normal $\\mathbb{Z}/2$ and quotient $\\mathbb{Z}/3$; it is $\\mathbb{Z}/6\\mathbb{Z}$ or $S_3$."
+          "explain": "$|D(\\mathfrak{P})|=ef=2\\cdot 3=6$ and $[G:D]=r=24/6=4$. \\checkmark. The inertia $I(\\mathfrak{P})$ has order $e=2$, is normal in $D$, and $D/I\\cong\\Gal(\\mathbb{F}_{p^3}/\\mathbb{F}_p)\\cong\\mathbb{Z}/3\\mathbb{Z}$. So $D$ is a group of order $6$ with a normal $\\mathbb{Z}/2$ and quotient $\\mathbb{Z}/3$; it is $\\mathbb{Z}/6\\mathbb{Z}$ or $S_3$."
         },
         {
           "type": "mcq",
@@ -251,7 +251,7 @@
       "hard": [
         {
           "type": "numeric",
-          "q": "For $K=\\mathbb{Q}(\\zeta_{11})$ with $G=\\mathrm{Gal}(K/\\mathbb{Q})\\cong(\\mathbb{Z}/11)^\\times\\cong\\mathbb{Z}/10\\mathbb{Z}$, Chebotarev predicts the density of primes $p$ with $\\mathrm{Frob}_p$ of exact order $5$ in $G$. How many elements of $(\\mathbb{Z}/11)^\\times$ have order $5$? (Give the count as an integer.)",
+          "q": "For $K=\\mathbb{Q}(\\zeta_{11})$ with $G=\\Gal(K/\\mathbb{Q})\\cong(\\mathbb{Z}/11)^\\times\\cong\\mathbb{Z}/10\\mathbb{Z}$, Chebotarev predicts the density of primes $p$ with $\\mathrm{Frob}_p$ of exact order $5$ in $G$. How many elements of $(\\mathbb{Z}/11)^\\times$ have order $5$? (Give the count as an integer.)",
           "answer": 4,
           "tol": 0.000001,
           "hint": "Elements of exact order $5$ in $\\mathbb{Z}/10\\mathbb{Z}$ are those coprime-to-$5$-times-$2$.",
@@ -262,7 +262,7 @@
           "q": "Chebotarev's theorem implies Dirichlet's theorem on primes in arithmetic progressions as a special case. Which Galois extension witnesses this?",
           "choices": [
             "$K=\\mathbb{Q}(\\sqrt{-1})$ for primes $\\equiv 1\\pmod 4$, with $G\\cong\\mathbb{Z}/2\\mathbb{Z}$",
-            "$K=\\mathbb{Q}(\\zeta_N)$ for primes $\\equiv a\\pmod N$, via $\\mathrm{Gal}(K/\\mathbb{Q})\\cong(\\mathbb{Z}/N)^\\times$ and the identification $\\mathrm{Frob}_p\\leftrightarrow [p]$",
+            "$K=\\mathbb{Q}(\\zeta_N)$ for primes $\\equiv a\\pmod N$, via $\\Gal(K/\\mathbb{Q})\\cong(\\mathbb{Z}/N)^\\times$ and the identification $\\mathrm{Frob}_p\\leftrightarrow [p]$",
             "$K=\\mathbb{Q}$, since all primes are rational",
             "$K$ must be a non-abelian extension for Dirichlet's theorem to follow"
           ],
@@ -305,7 +305,7 @@
           "q": "Strong (Langlands-style) reciprocity attaches to a Galois representation $\\rho:G\\to\\mathrm{GL}_n(\\mathbb{C})$ an automorphic object $\\pi_\\rho$ matching Frobenius traces. The identity is:",
           "choices": [
             "$\\det\\rho(\\mathrm{Frob}_p)=a_p(\\pi_\\rho)$",
-            "$\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=a_p(\\pi_\\rho)$ for unramified $p$",
+            "$\\tr\\rho(\\mathrm{Frob}_p)=a_p(\\pi_\\rho)$ for unramified $p$",
             "$\\rho(\\mathrm{Frob}_p)=\\pi_\\rho$",
             "$a_p(\\pi_\\rho)=p$ for all unramified $p$"
           ],
@@ -314,16 +314,16 @@
         },
         {
           "type": "numeric",
-          "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), the associated weight-1 cusp form $\\eta(z)\\eta(23z)=\\sum a_n q^n$ has $a_p=2$ exactly when $p$ splits completely. For such a splitting prime $p$, what is $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$ where $\\rho$ is the standard $2$-dim representation of $S_3$?",
+          "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), the associated weight-1 cusp form $\\eta(z)\\eta(23z)=\\sum a_n q^n$ has $a_p=2$ exactly when $p$ splits completely. For such a splitting prime $p$, what is $\\tr\\rho(\\mathrm{Frob}_p)$ where $\\rho$ is the standard $2$-dim representation of $S_3$?",
           "answer": 2,
           "tol": 0.000001,
-          "explain": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$. This matches $a_p=2$ for the modular form, illustrating $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=a_p$."
+          "explain": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$. This matches $a_p=2$ for the modular form, illustrating $\\tr\\rho(\\mathrm{Frob}_p)=a_p$."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "For $K=\\mathbb{Q}(\\sqrt{5})$ with conductor $N=5$, the Artin map sends $p\\mapsto\\left(\\frac{5}{p}\\right)\\in\\{\\pm 1\\}\\cong\\mathrm{Gal}(K/\\mathbb{Q})$. For $p=11$, what is $\\mathrm{Frob}_{11}$?",
+          "q": "For $K=\\mathbb{Q}(\\sqrt{5})$ with conductor $N=5$, the Artin map sends $p\\mapsto\\left(\\frac{5}{p}\\right)\\in\\{\\pm 1\\}\\cong\\Gal(K/\\mathbb{Q})$. For $p=11$, what is $\\mathrm{Frob}_{11}$?",
           "choices": [
             "$+1$ (trivial automorphism), since $11\\equiv 1\\pmod 5$",
             "$-1$ (non-trivial automorphism), since $11\\equiv 1\\pmod 5$",
@@ -352,13 +352,13 @@
           "q": "The correct order of logical steps in deriving that $p$ splits completely in an abelian extension $K/\\mathbb{Q}$ of conductor $N$ if and only if $p\\equiv 1\\pmod N$ (for $K=\\mathbb{Q}(\\zeta_N)$) is:",
           "choices": [
             "Use Chebotarev $\\Rightarrow$ define Frobenius $\\Rightarrow$ note $\\mathrm{Frob}_p=\\mathrm{id}\\Leftrightarrow p^1\\equiv 1\\pmod N$ in $(\\mathbb{Z}/N)^\\times$",
-            "Identify $\\mathrm{Gal}(\\mathbb{Q}(\\zeta_N)/\\mathbb{Q})\\cong(\\mathbb{Z}/N)^\\times$ via $\\sigma_a:\\zeta_N\\mapsto\\zeta_N^a$ $\\Rightarrow$ note $\\mathrm{Frob}_p=\\sigma_p$ $\\Rightarrow$ $p$ splits completely iff $\\sigma_p=\\mathrm{id}$ iff $p\\equiv 1\\pmod N$",
+            "Identify $\\Gal(\\mathbb{Q}(\\zeta_N)/\\mathbb{Q})\\cong(\\mathbb{Z}/N)^\\times$ via $\\sigma_a:\\zeta_N\\mapsto\\zeta_N^a$ $\\Rightarrow$ note $\\mathrm{Frob}_p=\\sigma_p$ $\\Rightarrow$ $p$ splits completely iff $\\sigma_p=\\mathrm{id}$ iff $p\\equiv 1\\pmod N$",
             "Show Galois group is abelian $\\Rightarrow$ all primes split $\\Rightarrow$ conclude $p\\equiv 1\\pmod N$",
             "Apply Dirichlet's theorem directly without any reference to Galois theory"
           ],
           "answer": 1,
           "hint": "Identify $\\sigma_p$ with the class of $p$ in $(\\mathbb{Z}/N)^\\times$.",
-          "explain": "Step 1: the standard isomorphism $\\mathrm{Gal}(\\mathbb{Q}(\\zeta_N)/\\mathbb{Q})\\cong(\\mathbb{Z}/N)^\\times$ sends $\\sigma_a$ to $[a]$. Step 2: for unramified $p\\nmid N$, the Frobenius is $\\sigma_p$ (since $\\sigma_p(\\zeta_N)=\\zeta_N^p\\equiv\\zeta_N^p\\pmod{\\mathfrak{P}}$). Step 3: $p$ splits completely iff $\\mathrm{Frob}_p=\\mathrm{id}$ iff $\\sigma_p=\\sigma_1$ iff $p\\equiv 1\\pmod N$."
+          "explain": "Step 1: the standard isomorphism $\\Gal(\\mathbb{Q}(\\zeta_N)/\\mathbb{Q})\\cong(\\mathbb{Z}/N)^\\times$ sends $\\sigma_a$ to $[a]$. Step 2: for unramified $p\\nmid N$, the Frobenius is $\\sigma_p$ (since $\\sigma_p(\\zeta_N)=\\zeta_N^p\\equiv\\zeta_N^p\\pmod{\\mathfrak{P}}$). Step 3: $p$ splits completely iff $\\mathrm{Frob}_p=\\mathrm{id}$ iff $\\sigma_p=\\sigma_1$ iff $p\\equiv 1\\pmod N$."
         }
       ]
     }

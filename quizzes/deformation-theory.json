@@ -6,12 +6,12 @@
       "questions": [
         {
           "type": "multi-select",
-          "q": "Which of the following are first-order deformations of $X_0 = \\mathrm{Spec}\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
+          "q": "Which of the following are first-order deformations of $X_0 = \\Spec\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
           "choices": [
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
+            "$\\Spec\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
+            "$\\Spec\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
+            "$\\Spec\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\Spec\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
+            "$\\Spec\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
           ],
           "answer": [
             0,
@@ -22,15 +22,15 @@
         },
         {
           "type": "mcq",
-          "q": "What is the trivial first-order deformation of $X_0 = \\mathrm{Spec}\\,k$ (a single $k$-point)?",
+          "q": "What is the trivial first-order deformation of $X_0 = \\Spec\\,k$ (a single $k$-point)?",
           "choices": [
-            "$\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) = \\mathrm{Spec}\\,D$ itself",
-            "$\\mathrm{Spec}\\,k$",
-            "$\\mathrm{Spec}\\,k \\sqcup \\mathrm{Spec}\\,k$ (two disjoint points)",
+            "$\\Spec\\,k[\\epsilon]/(\\epsilon^2) = \\Spec\\,D$ itself",
+            "$\\Spec\\,k$",
+            "$\\Spec\\,k \\sqcup \\Spec\\,k$ (two disjoint points)",
             "$\\mathbb{A}^1_k$ (the affine line over $k$)"
           ],
           "answer": 0,
-          "explain": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
+          "explain": "$X_0 \\times_k \\Spec\\,D = \\Spec\\,(k \\otimes_k D) = \\Spec\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
         },
         {
           "type": "mcq",
@@ -42,7 +42,7 @@
             "There is any $k$-isomorphism $X \\to X'$"
           ],
           "answer": 0,
-          "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\mathrm{Spec}$ of a 4-dimensional $k$-vector space)."
+          "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\Spec$ of a 4-dimensional $k$-vector space)."
         }
       ]
     },
@@ -277,7 +277,7 @@
         },
         {
           "type": "mcq",
-          "q": "On a fat point $X_0 = \\mathrm{Spec}\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
+          "q": "On a fat point $X_0 = \\Spec\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
           "choices": [
             "$0$ — fat points are rigid",
             "$1$ — one direction of smoothing $x^2 = t$",

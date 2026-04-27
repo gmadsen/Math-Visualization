@@ -399,11 +399,11 @@
             "$P$ is a free module",
             "$P$ is a direct summand of a free module",
             "$P$ is torsion-free",
-            "$\\operatorname{Hom}(P,-)$ is right exact"
+            "$\\Hom(P,-)$ is right exact"
           ],
           "answer": 1,
-          "hint": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\operatorname{Hom}(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free…",
-          "explain": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\operatorname{Hom}(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free module. Free is strictly stronger in general (though not over a PID)."
+          "hint": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\Hom(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free…",
+          "explain": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\Hom(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free module. Free is strictly stronger in general (though not over a PID)."
         },
         {
           "type": "mcq",
@@ -436,7 +436,7 @@
           "q": "Over $R=\\mathbb{Z}[x,y]/(xy)$, the module $R/(x)\\cong\\mathbb{Z}[y]$ is projective but not free. Which invariant distinguishes projective-not-free?",
           "choices": [
             "rank — free modules have well-defined rank equal to generator count",
-            "a module can be locally free (projective) without being globally free if $\\operatorname{Spec} R$ is disconnected or has nontrivial line bundles",
+            "a module can be locally free (projective) without being globally free if $\\Spec R$ is disconnected or has nontrivial line bundles",
             "torsion — projectives can be torsion while free cannot",
             "projectives are always free over commutative rings"
           ],
@@ -474,11 +474,11 @@
           "choices": [
             "every injection $I\\hookrightarrow M$ splits",
             "every injection $A\\hookrightarrow B$ and map $f\\colon A\\to I$ extends to $\\tilde f\\colon B\\to I$",
-            "$\\operatorname{Hom}(-,I)$ is right exact",
+            "$\\Hom(-,I)$ is right exact",
             "$I$ is finitely generated"
           ],
           "answer": 1,
-          "explain": "Injectivity: for every injection $A\\hookrightarrow B$ and map $A\\to I$, there is an extension $B\\to I$. Equivalently $\\operatorname{Hom}(-,I)$ is exact (both left and right). The 'every injection from $I$ splits' form is also an equivalent formulation."
+          "explain": "Injectivity: for every injection $A\\hookrightarrow B$ and map $A\\to I$, there is an extension $B\\to I$. Equivalently $\\Hom(-,I)$ is exact (both left and right). The 'every injection from $I$ splits' form is also an equivalent formulation."
         },
         {
           "type": "mcq",
@@ -549,7 +549,7 @@
           "choices": [
             "$-\\otimes_R M$ is exact",
             "$M$ is finitely generated",
-            "$\\operatorname{Hom}(M,-)$ is exact",
+            "$\\Hom(M,-)$ is exact",
             "$M$ is free"
           ],
           "answer": 0,
@@ -634,8 +634,8 @@
           "q": "Compute $\\dim_{\\mathbb{F}_2} \\operatorname{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/2,\\mathbb{Z}/2)$.",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\operatorname{Hom}(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is…",
-          "explain": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\operatorname{Hom}(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is $\\mathbb{Z}/2$. So $\\operatorname{Ext}^1_\\mathbb{Z}(\\mathbb{Z}/2,\\mathbb{Z}/2)\\cong\\mathbb{Z}/2$, dimension $1$ over $\\mathbb{F}_2$."
+          "hint": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\Hom(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is…",
+          "explain": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\Hom(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is $\\mathbb{Z}/2$. So $\\operatorname{Ext}^1_\\mathbb{Z}(\\mathbb{Z}/2,\\mathbb{Z}/2)\\cong\\mathbb{Z}/2$, dimension $1$ over $\\mathbb{F}_2$."
         },
         {
           "type": "numeric",
@@ -656,7 +656,7 @@
             "$0\\to\\mathbb{Z}\\to\\mathbb{Q}\\to\\mathbb{Q}/\\mathbb{Z}\\to 0$, a flat resolution"
           ],
           "answer": 0,
-          "explain": "$0\\to\\mathbb{Z}\\xrightarrow{\\cdot p}\\mathbb{Z}\\to\\mathbb{Z}/p\\to 0$ is a free resolution of $\\mathbb{Z}/p$ of length $1$. Applying $\\operatorname{Hom}(-,M)$ and taking cohomology gives $\\operatorname{Ext}^0=M^p$ (fixed by $p$) and $\\operatorname{Ext}^1=M/pM$; higher Ext groups vanish."
+          "explain": "$0\\to\\mathbb{Z}\\xrightarrow{\\cdot p}\\mathbb{Z}\\to\\mathbb{Z}/p\\to 0$ is a free resolution of $\\mathbb{Z}/p$ of length $1$. Applying $\\Hom(-,M)$ and taking cohomology gives $\\operatorname{Ext}^0=M^p$ (fixed by $p$) and $\\operatorname{Ext}^1=M/pM$; higher Ext groups vanish."
         },
         {
           "type": "numeric",
@@ -670,12 +670,12 @@
           "q": "Which of the following functors is NOT right exact (and hence genuinely requires derived functors to fix)?",
           "choices": [
             "$M\\otimes_R -$ for a flat module $M$",
-            "$\\operatorname{Hom}_R(M,-)$ for a non-projective module $M$",
+            "$\\Hom_R(M,-)$ for a non-projective module $M$",
             "$M\\otimes_R -$ for an arbitrary module $M$",
             "The identity functor on $R$-modules"
           ],
           "answer": 1,
-          "explain": "$\\operatorname{Hom}_R(M,-)$ is left exact but not right exact in general: $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$ applied with $M=\\mathbb{Z}$ gives $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$, which fails surjectivity. Its right derived functors are the $\\operatorname{Ext}^n$ groups."
+          "explain": "$\\Hom_R(M,-)$ is left exact but not right exact in general: $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$ applied with $M=\\mathbb{Z}$ gives $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$, which fails surjectivity. Its right derived functors are the $\\operatorname{Ext}^n$ groups."
         }
       ]
     },
@@ -818,14 +818,14 @@
           "type": "mcq",
           "q": "Which statement about $\\operatorname{Ext}$ in the derived category is correct?",
           "choices": [
-            "$\\operatorname{Hom}_{D(\\mathcal{A})}(X,Y[i]) = \\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ when $X,Y\\in\\mathcal{A}$ are viewed as complexes concentrated in degree $0$.",
-            "$\\operatorname{Hom}_{D(\\mathcal{A})}$ equals $\\operatorname{Hom}_\\mathcal{A}$.",
+            "$\\Hom_{D(\\mathcal{A})}(X,Y[i]) = \\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ when $X,Y\\in\\mathcal{A}$ are viewed as complexes concentrated in degree $0$.",
+            "$\\Hom_{D(\\mathcal{A})}$ equals $\\Hom_\\mathcal{A}$.",
             "Ext is not visible in $D(\\mathcal{A})$.",
             "All Ext groups vanish in $D(\\mathcal{A})$."
           ],
           "answer": 0,
           "hint": "Derived category maps read off all Ext groups via shifts.",
-          "explain": "The fundamental identification: $\\operatorname{Hom}_{D(\\mathcal{A})}(X,Y[i])\\cong\\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ for $X,Y\\in\\mathcal{A}$. This is why the derived category is 'the right place' to do homological algebra: all Ext/Tor appear as hom-sets after shifts."
+          "explain": "The fundamental identification: $\\Hom_{D(\\mathcal{A})}(X,Y[i])\\cong\\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ for $X,Y\\in\\mathcal{A}$. This is why the derived category is 'the right place' to do homological algebra: all Ext/Tor appear as hom-sets after shifts."
         }
       ]
     },

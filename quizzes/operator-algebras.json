@@ -43,7 +43,7 @@
           "choices": [
             "The disk algebra $A(\\mathbb{D})$ with $f^*(z)=\\overline{f(\\bar z)}$ satisfies $\\|f^*f\\|=\\|f\\|^2$",
             "On $\\ell^1(\\mathbb{Z})$ with convolution and involution $f^*(n)=\\overline{f(-n)}$, the element $f=\\delta_1$ gives $\\|f^*f\\|=\\|\\delta_0\\|=1$ while $\\|f\\|^2=1$, so it DOES hold here",
-            "The algebra $M_2(\\mathbb{C})$ with the Frobenius norm $\\|A\\|_F=\\sqrt{\\mathrm{tr}(A^*A)}$ fails the $C^*$-identity: for $A=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$, $\\|A^*A\\|_F=\\sqrt{3}\\ne\\|A\\|_F^2=2$",
+            "The algebra $M_2(\\mathbb{C})$ with the Frobenius norm $\\|A\\|_F=\\sqrt{\\tr(A^*A)}$ fails the $C^*$-identity: for $A=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$, $\\|A^*A\\|_F=\\sqrt{3}\\ne\\|A\\|_F^2=2$",
             "No Banach $*$-algebra can fail the $C^*$-identity"
           ],
           "answer": 2,
@@ -621,7 +621,7 @@
           "q": "In $M_4(\\mathbb{C})$ (a type I$_4$ factor), let $p=\\mathrm{diag}(1,1,0,0)$ and $q=\\mathrm{diag}(1,0,1,0)$. How many 1's do $p$ and $q$ have in common in their rank? (this is $\\min(\\mathrm{rank}(p),\\mathrm{rank}(q))$; they are MvN-equivalent iff equal)",
           "answer": 2,
           "tol": 0.000001,
-          "explain": "$\\mathrm{rank}(p)=2=\\mathrm{rank}(q)$, so $p\\sim q$ in $M_4(\\mathbb{C})$. In type I$_n$, MvN-equivalence is detected by rank: $p\\sim q\\iff\\mathrm{tr}(p)=\\mathrm{tr}(q)$, i.e., same rank."
+          "explain": "$\\mathrm{rank}(p)=2=\\mathrm{rank}(q)$, so $p\\sim q$ in $M_4(\\mathbb{C})$. In type I$_n$, MvN-equivalence is detected by rank: $p\\sim q\\iff\\tr(p)=\\tr(q)$, i.e., same rank."
         },
         {
           "type": "mcq",
@@ -712,10 +712,10 @@
         },
         {
           "type": "numeric",
-          "q": "In $M_2(\\mathbb{C})$ the trace state $\\tau(a)=\\tfrac12\\mathrm{tr}(a)$ is a state. Compute $\\tau\\!\\left(\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}\\right)$.",
+          "q": "In $M_2(\\mathbb{C})$ the trace state $\\tau(a)=\\tfrac12\\tr(a)$ is a state. Compute $\\tau\\!\\left(\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}\\right)$.",
           "answer": 4,
           "tol": 0.000001,
-          "explain": "$\\tfrac12\\mathrm{tr}\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$. This matrix is self-adjoint with eigenvalues $4\\pm\\sqrt{2}>0$, so it's positive; a state sends positive elements to $\\ge 0$ and sends $1$ to $1$, both verified here."
+          "explain": "$\\tfrac12\\tr\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$. This matrix is self-adjoint with eigenvalues $4\\pm\\sqrt{2}>0$, so it's positive; a state sends positive elements to $\\ge 0$ and sends $1$ to $1$, both verified here."
         }
       ],
       "hard": [
@@ -734,10 +734,10 @@
         },
         {
           "type": "numeric",
-          "q": "On $M_2(\\mathbb{C})$, every state is $\\phi_\\rho(a)=\\mathrm{tr}(\\rho a)$ for a density matrix $\\rho$ (positive, trace 1). Pure states correspond to rank-1 $\\rho$. For the pure state $\\phi_\\rho$ with $\\rho=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$, compute $\\phi_\\rho\\!\\left(\\begin{pmatrix}7&2\\\\3&4\\end{pmatrix}\\right)$.",
+          "q": "On $M_2(\\mathbb{C})$, every state is $\\phi_\\rho(a)=\\tr(\\rho a)$ for a density matrix $\\rho$ (positive, trace 1). Pure states correspond to rank-1 $\\rho$. For the pure state $\\phi_\\rho$ with $\\rho=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$, compute $\\phi_\\rho\\!\\left(\\begin{pmatrix}7&2\\\\3&4\\end{pmatrix}\\right)$.",
           "answer": 7,
           "tol": 0.000001,
-          "explain": "$\\rho a=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}\\begin{pmatrix}7&2\\\\3&4\\end{pmatrix}=\\begin{pmatrix}7&2\\\\0&0\\end{pmatrix}$, so $\\mathrm{tr}(\\rho a)=7$. Pure states on $M_n(\\mathbb{C})$ are evaluations at unit vectors: $\\phi_\\rho(a)=\\langle a e_1,e_1\\rangle=a_{11}=7$."
+          "explain": "$\\rho a=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}\\begin{pmatrix}7&2\\\\3&4\\end{pmatrix}=\\begin{pmatrix}7&2\\\\0&0\\end{pmatrix}$, so $\\tr(\\rho a)=7$. Pure states on $M_n(\\mathbb{C})$ are evaluations at unit vectors: $\\phi_\\rho(a)=\\langle a e_1,e_1\\rangle=a_{11}=7$."
         },
         {
           "type": "mcq",
@@ -779,7 +779,7 @@
         },
         {
           "type": "numeric",
-          "q": "On $A=M_n(\\mathbb{C})$ with the normalized trace $\\tau(a)=\\tfrac1n\\mathrm{tr}(a)$, the GNS Hilbert space $H_\\tau$ has dimension equal to:",
+          "q": "On $A=M_n(\\mathbb{C})$ with the normalized trace $\\tau(a)=\\tfrac1n\\tr(a)$, the GNS Hilbert space $H_\\tau$ has dimension equal to:",
           "answer": 9,
           "tol": 0.000001,
           "explain": "For $A=M_3(\\mathbb{C})$ (choose $n=3$ to get answer 9): the trace is faithful, so $N_\\tau=0$, and $H_\\tau=A$ completed in the inner product — but $A$ is already finite-dimensional, so $\\dim H_\\tau=\\dim_\\mathbb{C} M_3=9$. This is the Hilbert–Schmidt inner product picture. (For general $n$: $\\dim H_\\tau=n^2$.)"

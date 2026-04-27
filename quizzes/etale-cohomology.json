@@ -25,7 +25,7 @@
         },
         {
           "type": "mcq",
-          "q": "The map $\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]\\to\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]$ sending $t\\mapsto t^n$ is étale exactly when:",
+          "q": "The map $\\Spec\\mathbb{F}_p[t,t^{-1}]\\to\\Spec\\mathbb{F}_p[t,t^{-1}]$ sending $t\\mapsto t^n$ is étale exactly when:",
           "choices": [
             "always",
             "$n$ is coprime to $p$",
@@ -52,7 +52,7 @@
         },
         {
           "type": "mcq",
-          "q": "Let $f:\\operatorname{Spec}\\mathbb{C}[[t]]\\to\\operatorname{Spec}\\mathbb{C}[[s]]$ be given by $s\\mapsto t^2$. This map is **not** étale at the closed point. Which failure is the direct obstruction?",
+          "q": "Let $f:\\Spec\\mathbb{C}[[t]]\\to\\Spec\\mathbb{C}[[s]]$ be given by $s\\mapsto t^2$. This map is **not** étale at the closed point. Which failure is the direct obstruction?",
           "choices": [
             "Failure of flatness: $\\mathbb{C}[[t]]$ is not a flat $\\mathbb{C}[[s]]$-module.",
             "Failure of unramifiedness: $\\Omega^1_{\\mathbb{C}[[t]]/\\mathbb{C}[[s]]}\\neq 0$ because the residue field extension $\\mathbb{C}/\\mathbb{C}$ is inseparable.",

@@ -174,7 +174,7 @@
         },
         {
           "type": "numeric",
-          "q": "On a scheme $X = \\mathrm{Spec}\\,R$, the stalk of $\\mathcal{O}_X$ at the prime $\\mathfrak{p}$ is $R_{\\mathfrak{p}}$. For $R = \\mathbb{Z}$ and $\\mathfrak{p} = (5)$, what is the residue field $R_{\\mathfrak{p}}/\\mathfrak{p}R_{\\mathfrak{p}}$'s characteristic?",
+          "q": "On a scheme $X = \\Spec\\,R$, the stalk of $\\mathcal{O}_X$ at the prime $\\mathfrak{p}$ is $R_{\\mathfrak{p}}$. For $R = \\mathbb{Z}$ and $\\mathfrak{p} = (5)$, what is the residue field $R_{\\mathfrak{p}}/\\mathfrak{p}R_{\\mathfrak{p}}$'s characteristic?",
           "answer": 5,
           "tol": 0.000001,
           "explain": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$."
@@ -297,7 +297,7 @@
           "q": "The sheafification functor $(-)^\\#\\colon \\mathsf{PSh}(X) \\to \\mathsf{Sh}(X)$ is:",
           "choices": [
             "right adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$",
-            "left adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$, so $\\mathrm{Hom}_{\\mathsf{Sh}}(F^\\#, G) \\cong \\mathrm{Hom}_{\\mathsf{PSh}}(F, \\iota G)$",
+            "left adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$, so $\\Hom_{\\mathsf{Sh}}(F^\\#, G) \\cong \\Hom_{\\mathsf{PSh}}(F, \\iota G)$",
             "an equivalence of categories $\\mathsf{PSh}(X) \\simeq \\mathsf{Sh}(X)$",
             "not a functor in general"
           ],
@@ -374,7 +374,7 @@
             "$X$ is a topological space and $\\mathcal{O}_X$ is just a ring — the same ring on every open"
           ],
           "answer": 1,
-          "explain": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings). Examples: $(M, C^\\infty_M)$ for a smooth manifold; $(\\mathrm{Spec}\\,R, \\widetilde{R})$ for an affine scheme."
+          "explain": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings). Examples: $(M, C^\\infty_M)$ for a smooth manifold; $(\\Spec\\,R, \\widetilde{R})$ for an affine scheme."
         },
         {
           "type": "mcq",
@@ -408,7 +408,7 @@
           ],
           "answer": 0,
           "hint": "Local ring maps respect maximal ideals.",
-          "explain": "Without the local-ring condition on stalks, one gets 'ring-valued' morphisms that don't correspond to anything geometric — e.g. between schemes one could otherwise construct a map $\\mathrm{Spec}\\,k(t) \\to \\mathrm{Spec}\\,k[t]_{(t)}$ that inverts the inclusion, which is not a scheme morphism. Locality of the stalk map is exactly what pins down 'the point goes to the point it should.'"
+          "explain": "Without the local-ring condition on stalks, one gets 'ring-valued' morphisms that don't correspond to anything geometric — e.g. between schemes one could otherwise construct a map $\\Spec\\,k(t) \\to \\Spec\\,k[t]_{(t)}$ that inverts the inclusion, which is not a scheme morphism. Locality of the stalk map is exactly what pins down 'the point goes to the point it should.'"
         },
         {
           "type": "mcq",
@@ -425,7 +425,7 @@
         },
         {
           "type": "numeric",
-          "q": "On $\\mathrm{Spec}\\,\\mathbb{Z}$ with structure sheaf $\\mathcal{O}_X$, the stalk at the prime $(0)$ is $\\mathbb{Q}$. What is the residue field $\\kappa((0)) = \\mathcal{O}_{X,(0)}/\\mathfrak{m}_{(0)}$? (Enter $0$ if it is zero, or the characteristic of the residue field otherwise.)",
+          "q": "On $\\Spec\\,\\mathbb{Z}$ with structure sheaf $\\mathcal{O}_X$, the stalk at the prime $(0)$ is $\\mathbb{Q}$. What is the residue field $\\kappa((0)) = \\mathcal{O}_{X,(0)}/\\mathfrak{m}_{(0)}$? (Enter $0$ if it is zero, or the characteristic of the residue field otherwise.)",
           "answer": 0,
           "tol": 0.000001,
           "hint": "At the generic point the structure sheaf localizes to the field of fractions.",
@@ -450,10 +450,10 @@
         },
         {
           "type": "mcq",
-          "q": "On $X = \\mathrm{Spec}\\,R$, the functor $M\\mapsto \\widetilde{M}$ taking an $R$-module to its associated quasi-coherent sheaf:",
+          "q": "On $X = \\Spec\\,R$, the functor $M\\mapsto \\widetilde{M}$ taking an $R$-module to its associated quasi-coherent sheaf:",
           "choices": [
             "is fully faithful but not essentially surjective",
-            "is an equivalence $R\\text{-}\\mathsf{Mod} \\xrightarrow{\\sim} \\mathsf{QCoh}(\\mathrm{Spec}\\,R)$",
+            "is an equivalence $R\\text{-}\\mathsf{Mod} \\xrightarrow{\\sim} \\mathsf{QCoh}(\\Spec\\,R)$",
             "is only defined for Noetherian $R$",
             "always lands in coherent sheaves"
           ],
@@ -495,7 +495,7 @@
           "q": "A coherent sheaf on a Noetherian scheme $X$ is a quasi-coherent sheaf $\\mathcal{F}$ that is additionally:",
           "choices": [
             "globally generated by finitely many sections",
-            "locally finitely presented: on each affine $\\mathrm{Spec}\\,R_i$ the corresponding module $M_i$ is finitely generated over $R_i$",
+            "locally finitely presented: on each affine $\\Spec\\,R_i$ the corresponding module $M_i$ is finitely generated over $R_i$",
             "a direct sum of line bundles",
             "flat over $\\mathcal{O}_X$"
           ],

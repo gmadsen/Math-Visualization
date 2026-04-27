@@ -172,7 +172,7 @@
             "a Hecke eigenform space"
           ],
           "answer": 1,
-          "explain": "The conjecture: there is a graded $\\mathbb{M}$-module $V^\\natural = \\bigoplus_n V^\\natural_n$ with $\\dim V^\\natural_n = c_n$. Its graded character (replacing dimension by $\\mathrm{tr}\\,g$) gives Thompson series; Frenkel–Lepowsky–Meurman built $V^\\natural$ explicitly as a vertex operator algebra."
+          "explain": "The conjecture: there is a graded $\\mathbb{M}$-module $V^\\natural = \\bigoplus_n V^\\natural_n$ with $\\dim V^\\natural_n = c_n$. Its graded character (replacing dimension by $\\tr\\,g$) gives Thompson series; Frenkel–Lepowsky–Meurman built $V^\\natural$ explicitly as a vertex operator algebra."
         }
       ],
       "hard": [
@@ -237,14 +237,14 @@
             "$E_4(\\tau)$"
           ],
           "answer": 1,
-          "explain": "$\\mathrm{tr}(e | V^\\natural_n) = \\dim V^\\natural_n = c_n$, the $q^n$-coefficient of $J = j - 744$. The constant term vanishes because $V^\\natural_0 = 0$ (the 'vacuum' lives in degree $-1$)."
+          "explain": "$\\tr(e | V^\\natural_n) = \\dim V^\\natural_n = c_n$, the $q^n$-coefficient of $J = j - 744$. The constant term vanishes because $V^\\natural_0 = 0$ (the 'vacuum' lives in degree $-1$)."
         },
         {
           "type": "numeric",
           "q": "For the class 2A in $\\mathbb{M}$, the character values are $\\chi_1(g) = 1$ and $\\chi_2(g) = 4371$. Compute the coefficient of $q$ in $T_{2A}(\\tau)$.",
           "answer": 4372,
           "tol": 0,
-          "explain": "$V^\\natural_1 = V_1 \\oplus V_2$ (McKay's decomposition), so $\\mathrm{tr}(g | V^\\natural_1) = \\chi_1(g) + \\chi_2(g) = 1 + 4371 = 4372$. This is the $q$-coefficient of the Hauptmodul of $\\Gamma_0(2)+$."
+          "explain": "$V^\\natural_1 = V_1 \\oplus V_2$ (McKay's decomposition), so $\\tr(g | V^\\natural_1) = \\chi_1(g) + \\chi_2(g) = 1 + 4371 = 4372$. This is the $q$-coefficient of the Hauptmodul of $\\Gamma_0(2)+$."
         }
       ],
       "hard": [
@@ -259,7 +259,7 @@
           ],
           "answer": 1,
           "hint": "The coefficient is the character sum $\\chi_1(g) + \\chi_2(g) = 1 + (-1)$.",
-          "explain": "$\\mathrm{tr}(g_{2B}|V^\\natural_1) = \\chi_1(g_{2B}) + \\chi_2(g_{2B}) = 1 + (-1) = 0$. The Hauptmodul for $\\Gamma_0(2)+$ (class 2B) indeed has vanishing $q^1$-coefficient, in contrast to class 2A's value of $4372$."
+          "explain": "$\\tr(g_{2B}|V^\\natural_1) = \\chi_1(g_{2B}) + \\chi_2(g_{2B}) = 1 + (-1) = 0$. The Hauptmodul for $\\Gamma_0(2)+$ (class 2B) indeed has vanishing $q^1$-coefficient, in contrast to class 2A's value of $4372$."
         },
         {
           "type": "mcq",
@@ -306,7 +306,7 @@
             "$p^{-1}\\prod_{m > 0,\\, n \\in \\mathbb{Z}}(1 - p^m q^n)^{c(mn)} = J(p) - J(q)$",
             "$\\sum c(n) q^n = \\eta(\\tau)^{24}$",
             "$L(\\mathbb{M}, s) = \\prod_p (1 - p^{-s})^{-1}$",
-            "$\\mathrm{tr}(g | V^\\natural) = j(\\tau)$"
+            "$\\tr(g | V^\\natural) = j(\\tau)$"
           ],
           "answer": 0,
           "explain": "This infinite product, viewed as a formal power series in $p$ and $q$, equals $J(p) - J(q)$. Equating coefficients of $p^m q^n$ produces 'replication' recursions; each Thompson series satisfies the same recursion with character values in place of dimensions, forcing it to be a Hauptmodul."

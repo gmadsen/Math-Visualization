@@ -80,11 +80,11 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The classifying stack $BG$ is defined by $BG(R)=$ groupoid of $G$-torsors on $\\mathrm{Spec}\\,R$. Why can $BG$ not be a scheme?",
+          "q": "The classifying stack $BG$ is defined by $BG(R)=$ groupoid of $G$-torsors on $\\Spec\\,R$. Why can $BG$ not be a scheme?",
           "choices": [
             "because torsors are not quasi-coherent sheaves",
             "because $G$-torsors form a set, not a groupoid",
-            "because the unique geometric point $\\mathrm{Spec}\\,\\overline{k}\\to BG$ (the trivial torsor) has automorphism group $G$, and schemes cannot have non-trivial automorphisms at a geometric point",
+            "because the unique geometric point $\\Spec\\,\\overline{k}\\to BG$ (the trivial torsor) has automorphism group $G$, and schemes cannot have non-trivial automorphisms at a geometric point",
             "because $BG$ is never finite type"
           ],
           "answer": 2,
@@ -92,17 +92,17 @@
         },
         {
           "type": "numeric",
-          "q": "How many isomorphism classes of $\\mathbb{Z}/3$-torsors are there on $\\mathrm{Spec}\\,\\mathbb{F}_q$ for a finite field $\\mathbb{F}_q$? (Equivalently, $|H^1(\\mathrm{Spec}\\,\\mathbb{F}_q,\\mathbb{Z}/3)|$, using that the absolute Galois group of $\\mathbb{F}_q$ is $\\widehat{\\mathbb{Z}}$ and $\\mathrm{Hom}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)=\\mathbb{Z}/3$.)",
+          "q": "How many isomorphism classes of $\\mathbb{Z}/3$-torsors are there on $\\Spec\\,\\mathbb{F}_q$ for a finite field $\\mathbb{F}_q$? (Equivalently, $|H^1(\\Spec\\,\\mathbb{F}_q,\\mathbb{Z}/3)|$, using that the absolute Galois group of $\\mathbb{F}_q$ is $\\widehat{\\mathbb{Z}}$ and $\\Hom(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)=\\mathbb{Z}/3$.)",
           "answer": 3,
           "tol": 0.000001,
-          "explain": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$. Hence $|\\pi_0(B(\\mathbb{Z}/3)(\\mathbb{F}_q))|=3$."
+          "explain": "$\\Hom_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$. Hence $|\\pi_0(B(\\mathbb{Z}/3)(\\mathbb{F}_q))|=3$."
         },
         {
           "type": "numeric",
-          "q": "For $G=\\mathbb{Z}/2$ over $\\mathbb{R}$: $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R})=\\mathbb{Z}/2$, so $|\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)|=?$ (this counts iso classes of $\\mathbb{Z}/2$-torsors over $\\mathrm{Spec}\\,\\mathbb{R}$).",
+          "q": "For $G=\\mathbb{Z}/2$ over $\\mathbb{R}$: $\\Gal(\\mathbb{C}/\\mathbb{R})=\\mathbb{Z}/2$, so $|\\Hom(\\mathbb{Z}/2,\\mathbb{Z}/2)|=?$ (this counts iso classes of $\\mathbb{Z}/2$-torsors over $\\Spec\\,\\mathbb{R}$).",
           "answer": 2,
           "tol": 0.000001,
-          "explain": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$."
+          "explain": "$\\Hom(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\Spec\\,\\mathbb{C}\\to\\Spec\\,\\mathbb{R}$."
         }
       ],
       "hard": [
@@ -121,11 +121,11 @@
         },
         {
           "type": "numeric",
-          "q": "For $G=\\mathbb{Z}/5$ over an algebraically closed field $k$ with $\\mathrm{char}(k)\\ne 5$, how many isomorphism classes of $G$-torsors are there over $\\mathrm{Spec}\\,k$?",
+          "q": "For $G=\\mathbb{Z}/5$ over an algebraically closed field $k$ with $\\mathrm{char}(k)\\ne 5$, how many isomorphism classes of $G$-torsors are there over $\\Spec\\,k$?",
           "answer": 1,
           "tol": 0.000001,
-          "hint": "Use $|H^1(\\mathrm{Spec}\\,k, \\mathbb{Z}/5)| = 1$.",
-          "explain": "Over an algebraically closed field, $H^1_{\\text{ét}}(\\mathrm{Spec}\\,k,G)=0$ for any finite group $G$ of order coprime to the characteristic. So there is exactly $1$ isomorphism class: the trivial torsor."
+          "hint": "Use $|H^1(\\Spec\\,k, \\mathbb{Z}/5)| = 1$.",
+          "explain": "Over an algebraically closed field, $H^1_{\\text{ét}}(\\Spec\\,k,G)=0$ for any finite group $G$ of order coprime to the characteristic. So there is exactly $1$ isomorphism class: the trivial torsor."
         },
         {
           "type": "mcq",
@@ -234,7 +234,7 @@
           "q": "Which of the following stacks is Artin but NOT Deligne-Mumford?",
           "choices": [
             "$B\\mu_n$ for $n\\ge 1$",
-            "$\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$",
+            "$\\mathcal{M}_{1,1}$ over $\\Spec\\,\\mathbb{Z}[1/6]$",
             "$B\\mathbb{G}_m$",
             "$[\\mathbb{A}^1/\\mu_3]$"
           ],
@@ -315,7 +315,7 @@
         },
         {
           "type": "numeric",
-          "q": "For $\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$, what is the order of the automorphism group of the elliptic curve $E:y^2=x^3+1$ (the $j=0$ point)?",
+          "q": "For $\\mathcal{M}_{1,1}$ over $\\Spec\\,\\mathbb{Z}[1/6]$, what is the order of the automorphism group of the elliptic curve $E:y^2=x^3+1$ (the $j=0$ point)?",
           "answer": 6,
           "tol": 0.000001,
           "explain": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$. After quotienting by the generic $\\mu_2$ ($[-1]$), residual automorphism is $\\mu_3$, so locally $\\mathcal{M}_{1,1}$ looks like $[\\mathbb{A}^1/\\mu_3]$ near $j=0$."

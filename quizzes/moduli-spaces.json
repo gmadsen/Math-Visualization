@@ -78,8 +78,8 @@
           "type": "mcq",
           "q": "Which statement characterises a fine moduli space $M$ for $\\mathcal{M}$?",
           "choices": [
-            "$\\mathcal{M}(\\mathrm{Spec}\\,\\bar k)\\to M(\\bar k)$ is a bijection for every algebraically closed $k$",
-            "$\\mathcal{M}$ is naturally isomorphic to $h_M=\\operatorname{Hom}(-,M)$, so there exists a universal family $\\mathcal{E}\\to M$",
+            "$\\mathcal{M}(\\Spec\\,\\bar k)\\to M(\\bar k)$ is a bijection for every algebraically closed $k$",
+            "$\\mathcal{M}$ is naturally isomorphic to $h_M=\\Hom(-,M)$, so there exists a universal family $\\mathcal{E}\\to M$",
             "$M$ is proper and smooth",
             "$M$ is the quotient of a scheme by a finite group"
           ],
@@ -111,7 +111,7 @@
           "type": "mcq",
           "q": "Let $\\mathcal{F}$ be a moduli functor with a coarse moduli space $M$. Which combination of properties does $M$ satisfy, but a fine moduli space additionally requires?",
           "choices": [
-            "Coarse: $\\mathcal{F}(\\operatorname{Spec}\\bar{k})\\to M(\\bar{k})$ bijective for all alg. closed $k$, and $M$ is initial among such schemes. Fine additionally requires a universal family $\\mathcal{U}\\to M$ inducing a natural isomorphism $\\mathcal{F}\\cong h_M$",
+            "Coarse: $\\mathcal{F}(\\Spec\\bar{k})\\to M(\\bar{k})$ bijective for all alg. closed $k$, and $M$ is initial among such schemes. Fine additionally requires a universal family $\\mathcal{U}\\to M$ inducing a natural isomorphism $\\mathcal{F}\\cong h_M$",
             "Coarse: $M$ is proper. Fine: $M$ is affine",
             "Coarse: $M$ is smooth. Fine: $M$ is reduced",
             "Both are the same; fine just has a nicer name"
@@ -138,7 +138,7 @@
             "Elliptic curves over finite fields do not have $j$-invariants"
           ],
           "answer": 1,
-          "hint": "Twist families over $\\mathrm{Spec}\\,k[t, t^{-1}]$ break fine representability.",
+          "hint": "Twist families over $\\Spec\\,k[t, t^{-1}]$ break fine representability.",
           "explain": "Both families send every point to $j=0$ ($j(y^2=x^3+c)=0$ for any $c\\ne 0$), yet twisting by $t$ gives a non-trivial $\\mathbb{Z}/6$-torsor. If $\\mathbb{A}^1_j$ were fine, the two families would be pulled back from the universal one via the same map and hence isomorphic — contradiction."
         }
       ]
@@ -202,7 +202,7 @@
         },
         {
           "type": "mcq",
-          "q": "Consider a $\\mathbb{Z}/2$-torsor $P\\to S$ twisted by a class in $H^1(S,\\mathbb{Z}/2)$. If $S=\\mathbb{A}^1_t\\setminus\\{0\\}$ and the torsor is $\\operatorname{Spec}\\mathcal{O}_S[u]/(u^2-t)$, this class is:",
+          "q": "Consider a $\\mathbb{Z}/2$-torsor $P\\to S$ twisted by a class in $H^1(S,\\mathbb{Z}/2)$. If $S=\\mathbb{A}^1_t\\setminus\\{0\\}$ and the torsor is $\\Spec\\mathcal{O}_S[u]/(u^2-t)$, this class is:",
           "choices": [
             "trivial, since $t$ is a unit on $S$",
             "nontrivial, since $\\sqrt{t}$ does not exist globally on $S$ (it would require adjoining $\\sqrt{t}$, changing the ring)",

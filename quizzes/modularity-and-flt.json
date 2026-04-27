@@ -218,7 +218,7 @@
           "type": "mcq",
           "q": "Mazur's universal deformation ring $R^{\\mathrm{univ}}$ of an absolutely irreducible residual representation $\\overline\\rho : G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ represents which functor?",
           "choices": [
-            "$A \\mapsto \\mathrm{Hom}(G_\\mathbb{Q}, A^\\times)$",
+            "$A \\mapsto \\Hom(G_\\mathbb{Q}, A^\\times)$",
             "$A \\mapsto \\{\\text{continuous lifts } \\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A) \\text{ of } \\overline\\rho\\}/\\!\\sim$ on complete Noetherian local $\\mathbb{Z}_p$-algebras with residue field $\\mathbb{F}_p$",
             "$A \\mapsto \\mathrm{GL}_2(A)$",
             "$A \\mapsto A \\otimes_{\\mathbb{Z}_p} \\mathbb{Q}_p$"
@@ -233,7 +233,7 @@
             "$H^0(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
             "$H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$, the Selmer group with local conditions at $\\Sigma$",
             "$H^2(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
-            "$\\pi_1^{\\text{ét}}(\\mathrm{Spec}\\,\\mathbb{Z}[1/\\Sigma])$"
+            "$\\pi_1^{\\text{ét}}(\\Spec\\,\\mathbb{Z}[1/\\Sigma])$"
           ],
           "answer": 1,
           "hint": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint…",

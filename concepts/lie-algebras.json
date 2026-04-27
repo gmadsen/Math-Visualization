@@ -22,7 +22,7 @@
         "la-axioms",
         "lie-bracket-bch"
       ],
-      "blurb": "The adjoint $\\mathrm{ad}(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
+      "blurb": "The adjoint $\\ad(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\tr(\\ad(x)\\ad(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
       "tags": ["group-action", "duality"]
     },
     {
@@ -33,7 +33,7 @@
         "la-derivations-and-adjoint",
         "quotients-homomorphisms"
       ],
-      "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\mathrm{ad}\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+      "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\ad\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
       "tags": ["classification"]
     },
     {
@@ -44,7 +44,7 @@
         "la-derivations-and-adjoint",
         "la-solvable-and-nilpotent"
       ],
-      "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\mathrm{ad}$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
+      "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\ad$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
       "tags": ["classification", "duality"]
     },
     {

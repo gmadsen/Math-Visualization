@@ -80,7 +80,7 @@
         "mc-y0-x0",
         "mc-moduli-of-elliptic-curves"
       ],
-      "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
+      "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
       "tags": [
         "group-action",
         "classification"

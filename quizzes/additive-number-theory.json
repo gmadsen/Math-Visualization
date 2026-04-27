@@ -1,0 +1,1090 @@
+{
+  "topic": "additive-number-theory",
+  "quizzes": {
+    "two-squares-theorem": {
+      "title": "Sum of two squares",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "By Fermat's theorem, an odd prime $p$ is a sum of two squares iff:",
+          "choices": [
+            "$p\\equiv 3\\pmod 4$",
+            "$p\\equiv 1\\pmod 4$",
+            "$p$ is a twin prime",
+            "$p\\equiv 1\\pmod 3$"
+          ],
+          "answer": 1,
+          "explain": "Odd primes that are sums of two squares are exactly those with $p\\equiv 1\\pmod 4$. Equivalently, $(-1/p)=+1$, so $p$ splits in $\\mathbb{Z}[i]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using Jacobi's formula $r_2(n)=4(d_1(n)-d_3(n))$ for $n=5$ (divisors $1,5$, both $\\equiv 1\\pmod 4$), what is $r_2(5)$?",
+          "answer": 8,
+          "tol": 0.000001,
+          "explain": "$d_1(5)=2$, $d_3(5)=0$, so $r_2(5)=4(2-0)=8$. The reps are the $8$ signed ordered pairs $(\\pm 1,\\pm 2),(\\pm 2,\\pm 1)$."
+        },
+        {
+          "type": "complex",
+          "q": "In $\\mathbb{Z}[i]$, the prime $5$ splits as $5=(2+i)(2-i)$. Compute the product $(2+i)(2-i)$ as $a+bi$.",
+          "answer": [
+            5,
+            0
+          ],
+          "tol": 0.000001,
+          "explain": "$(2+i)(2-i)=4-i^2=4+1=5$, i.e. $5+0i$. This is the norm $N(2+i)=2^2+1^2=5$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which integer CANNOT be expressed as a sum of two squares, and why does the proof use $\\mathbb{Z}[i]$?",
+          "choices": [
+            "$n=3$: because $3\\equiv 3\\pmod 4$ means $3$ stays inert in $\\mathbb{Z}[i]$, so it cannot be a norm",
+            "$n=5$: because $5\\equiv 1\\pmod 4$ means $5$ splits in $\\mathbb{Z}[i]$",
+            "$n=13$: because $13$ is prime",
+            "$n=25$: because $25$ is a perfect square"
+          ],
+          "answer": 0,
+          "hint": "Norms in $\\mathbb{Z}[i]$ skip inert primes of shape $3\\bmod 4$.",
+          "explain": "A positive integer $n$ is a sum of two squares iff every prime $p\\equiv 3\\pmod 4$ divides $n$ to an even power. Since $3\\equiv 3\\pmod 4$ and $3^1\\|3$, we have $3$ is not a sum of two squares. The Gaussian-integer proof: $3$ is inert (norm-irreducible), so $N(\\alpha)=3$ has no solution in $\\mathbb{Z}[i]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Apply Jacobi's formula $r_2(n)=4(d_1(n)-d_3(n))$ to $n=25$. The divisors of $25$ are $1,5,25$; classify each mod $4$. What is $r_2(25)$?",
+          "answer": 12,
+          "tol": 0.000001,
+          "hint": "Classify each divisor of 25 mod 4 before plugging into Jacobi.",
+          "explain": "Divisors of $25$: $1\\equiv 1$, $5\\equiv 1$, $25\\equiv 1$ (all $\\equiv 1\\pmod 4$). So $d_1=3$, $d_3=0$, giving $r_2(25)=4(3-0)=12$. The $12$ representations include $(\\pm 3,\\pm 4),(\\pm 4,\\pm 3),(\\pm 5,0),(0,\\pm 5)$."
+        },
+        {
+          "type": "mcq",
+          "q": "In the proof of Fermat's two-squares theorem via descent (or via $\\mathbb{Z}[i]$), what is the key role played by unique factorization in $\\mathbb{Z}[i]$?",
+          "choices": [
+            "It allows writing every element as a product of Gaussian primes in an essentially unique way, so $p=\\pi\\bar{\\pi}$ with $\\pi$ irreducible implies $p=N(\\pi)=a^2+b^2$",
+            "It shows $\\mathbb{Z}[i]$ is a field, making division always possible",
+            "It proves the ring $\\mathbb{Z}[i]$ has no units",
+            "It implies every Gaussian integer is a sum of two squares"
+          ],
+          "answer": 0,
+          "hint": "UFD forces $p=\\pi\\bar{\\pi}$ which is a norm identity.",
+          "explain": "Because $\\mathbb{Z}[i]$ is a Euclidean domain (hence a UFD), if $p\\equiv 1\\pmod 4$ then $-1$ is a square mod $p$, producing a Gaussian prime $\\pi$ with $N(\\pi)=p$. UFD ensures this factorization is unique up to units, forcing $p=a^2+b^2$ with $a+bi=\\pi$."
+        }
+      ]
+    },
+    "gaussian-integer-splitting": {
+      "title": "Gaussian integers and prime splitting",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A rational prime $p$ splits in the Gaussian integers $\\mathbb{Z}[i]$ as $(p)=\\mathfrak{p}\\bar{\\mathfrak{p}}$ iff:",
+          "choices": [
+            "$p=2$",
+            "$p\\equiv 3\\pmod 4$",
+            "$p\\equiv 1\\pmod 4$",
+            "$p$ is odd"
+          ],
+          "answer": 2,
+          "explain": "Odd primes $p$ split in $\\mathbb{Z}[i]$ exactly when $p\\equiv 1\\pmod 4$ (controlled by the Legendre symbol $(-1/p)$). The prime $p=2$ ramifies, and $p\\equiv 3\\pmod 4$ stays inert."
+        },
+        {
+          "type": "numeric",
+          "q": "How many Gaussian integers $a+bi$ satisfy $a^2+b^2=13$ (i.e. how many lattice points lie on the circle $|\\alpha|^2=13$)? This counts signed ordered pairs.",
+          "answer": 8,
+          "tol": 0.000001,
+          "explain": "$13=2^2+3^2=3^2+2^2$, giving the $8$ signed ordered pairs $(\\pm 2,\\pm 3),(\\pm 3,\\pm 2)$. This is $r_2(13)=8$, consistent with Jacobi's formula $4(d_1-d_3)=4(2-0)=8$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $p=2$ play a special role in the two-squares theory?",
+          "choices": [
+            "because $2$ is not a prime",
+            "because $2$ ramifies in $\\mathbb{Z}[i]$: $(2)=(1+i)^2\\cdot(\\text{unit})$",
+            "because $2$ is inert",
+            "because $2$ is a sum of two distinct squares"
+          ],
+          "answer": 1,
+          "explain": "The prime $2$ ramifies: $(1+i)(1-i)=2$ and $1-i=-i(1+i)$, so $(2)=(1+i)^2\\cdot(-i)$. The Gaussian prime $1+i$ lies above $2$ with ramification index $2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Place the following steps in correct logical order for proving 'if $p\\equiv 1\\pmod 4$ then $p$ is a sum of two squares' via $\\mathbb{Z}[i]$:",
+          "choices": [
+            "(1) $-1$ is a square mod $p$ → (2) $p\\mid (a^2+1)$ in $\\mathbb{Z}$ → (3) $p$ divides $(a+i)(a-i)$ but not $a\\pm i$ → (4) $p$ is not a Gaussian prime → (5) $p=N(\\pi)=a^2+b^2$",
+            "(1) $p=N(\\pi)$ → (2) $\\pi$ divides $p$ → (3) $-1\\equiv 1\\pmod p$ → (4) $p$ is inert",
+            "(1) $p$ is prime → (2) $\\mathbb{Z}[i]/(p)$ is a field → (3) $p$ is inert → (4) $p$ is a sum of two squares",
+            "(1) $p$ splits → (2) $-1$ is NOT a square mod $p$ → (3) $p\\equiv 3\\pmod 4$ → (4) $p=a^2+b^2$"
+          ],
+          "answer": 0,
+          "hint": "Start by finding $a$ with $a^2\\equiv -1\\pmod p$, then factor $a^2+1$.",
+          "explain": "The standard proof: Wilson/quadratic reciprocity gives a solution $a^2\\equiv -1\\pmod p$; then $p\\mid a^2+1=(a+i)(a-i)$ in $\\mathbb{Z}[i]$ but $p\\nmid a\\pm i$; hence $p$ is not a Gaussian prime; UFD then forces $p=\\pi\\bar{\\pi}$ with $N(\\pi)=a^2+b^2$."
+        },
+        {
+          "type": "numeric",
+          "q": "The prime $p=41$ satisfies $41\\equiv 1\\pmod 4$. Find non-negative integers $a\\le b$ with $a^2+b^2=41$ and enter $a$.",
+          "answer": 4,
+          "tol": 0.000001,
+          "hint": "Search small squares that sum to 41.",
+          "explain": "$4^2+5^2=16+25=41$. So $a=4$, $b=5$. The corresponding Gaussian prime is $4+5i$ (or $5+4i$, etc.)."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $p=7$. In $\\mathbb{Z}[i]$, the ideal $(7)$ is:",
+          "choices": [
+            "a split prime ideal $(7)=\\mathfrak{p}\\bar{\\mathfrak{p}}$",
+            "a ramified ideal $(7)=(1+i)^2\\cdot\\text{unit}$",
+            "an inert prime ideal, so $(7)$ remains prime in $\\mathbb{Z}[i]$",
+            "the unit ideal"
+          ],
+          "answer": 2,
+          "hint": "Check whether $-1$ is a square mod 7.",
+          "explain": "$7\\equiv 3\\pmod 4$, so the Legendre symbol $(-1/7)=-1$; $-1$ is not a square mod $7$. Hence $7$ is inert: $(7)$ stays a prime ideal in $\\mathbb{Z}[i]$, confirming $7$ is not a sum of two squares."
+        }
+      ]
+    },
+    "three-squares-theorem": {
+      "title": "Legendre three-square theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A non-negative integer $n$ fails to be a sum of three squares iff:",
+          "choices": [
+            "$n$ is prime",
+            "$n\\equiv 3\\pmod 4$",
+            "$n$ has the form $4^a(8b+7)$",
+            "$n$ is a perfect square"
+          ],
+          "answer": 2,
+          "explain": "Legendre–Gauss: $n$ is a sum of three squares iff $n$ is NOT of the form $4^a(8b+7)$. Mod $8$, squares are $\\{0,1,4\\}$, so three of them cannot sum to $7$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $r_3(7)$, the number of ordered signed representations of $7$ as a sum of three squares?",
+          "answer": 0,
+          "tol": 0.000001,
+          "explain": "$7=4^0(8\\cdot 0+7)$ is excluded by Legendre–Gauss, so $r_3(7)=0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Is $n=28$ excluded from being a sum of three squares? Strip factors of $4$: $28=4\\cdot 7$. Enter $1$ if excluded, $0$ if not.",
+          "answer": 1,
+          "tol": 0.000001,
+          "explain": "$28=4^1\\cdot(8\\cdot 0+7)$, matching $4^a(8b+7)$ with $a=1, b=0$. So $28$ is excluded and $r_3(28)=0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why does the mod-$8$ argument show no integer $n\\equiv 7\\pmod 8$ can be a sum of three squares?",
+          "choices": [
+            "Because squares mod $8$ are $\\{0,1,4\\}$, and no three elements of $\\{0,1,4\\}$ sum to $7$ mod $8$",
+            "Because squares mod $8$ are $\\{0,1,2,4\\}$, and $7$ is odd",
+            "Because $7\\equiv 3\\pmod 4$ and Legendre's theorem only covers $\\pmod 4$",
+            "Because $7$ is prime so it cannot be decomposed"
+          ],
+          "answer": 0,
+          "hint": "Squares mod 8 are $\\{0,1,4\\}$; enumerate triple sums.",
+          "explain": "Modulo $8$, integer squares satisfy $a^2\\in\\{0,1,4\\}$. The maximum of three such values is $4+4+4=12\\equiv 4$, the minimum is $0$, and checking all $3^3=27$ triples shows none give sum $\\equiv 7\\pmod 8$. So $a^2+b^2+c^2\\ne 7\\pmod 8$ for any $a,b,c\\in\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Which of $n=15,\\ 23,\\ 9$ are of the form $4^a(8b+7)$? Enter the COUNT of excluded values among these three.",
+          "answer": 2,
+          "tol": 0.000001,
+          "hint": "Strip powers of 4; check residue 7 mod 8.",
+          "explain": "$15=8(1)+7=4^0(8\\cdot1+7)$: excluded ($r_3=0$). $23=8(2)+7=4^0(8\\cdot2+7)$: excluded ($r_3=0$). $9=8(1)+1$: not of that form, so $9=0^2+0^2+3^2$ is representable. Count $=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Gauss proved $r_3(n)>0$ for all $n$ NOT of the form $4^a(8b+7)$ using the theory of ternary quadratic forms. Which statement correctly characterizes the depth of the proof compared with Fermat's two-square theorem?",
+          "choices": [
+            "The three-square theorem is easier: it follows immediately from the two-square theorem by adding a zero",
+            "The three-square theorem is strictly harder: it requires the theory of genera of ternary forms or analytic class-number methods, whereas the two-square theorem follows from $\\mathbb{Z}[i]$ being a UFD",
+            "Both theorems have equally short Gaussian-integer proofs",
+            "The three-square theorem was proved first, then Fermat derived the two-square case"
+          ],
+          "answer": 1,
+          "hint": "Ternary forms leave the UFD comfort zone.",
+          "explain": "Fermat's two-square theorem has a clean algebraic proof via $\\mathbb{Z}[i]$. Legendre's three-square theorem requires substantially deeper tools — Gauss used the theory of ternary quadratic forms and genus theory; modern proofs invoke the Hasse–Minkowski theorem or analytic number theory — making it significantly harder."
+        }
+      ]
+    },
+    "four-squares-and-waring": {
+      "title": "Four squares and Waring",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Lagrange's four-square theorem asserts:",
+          "choices": [
+            "only primes are sums of four squares",
+            "every non-negative integer is a sum of four integer squares",
+            "every integer is a sum of four distinct squares",
+            "only integers $n\\not\\equiv 7\\pmod 8$ are sums of four squares"
+          ],
+          "answer": 1,
+          "explain": "Lagrange (1770): every non-negative integer $n$ can be written as $a^2+b^2+c^2+d^2$. The proof uses multiplicativity (Euler's four-square identity) and descent."
+        },
+        {
+          "type": "numeric",
+          "q": "Using Jacobi's formula $r_4(n)=8\\sigma(n)$ for odd $n$, compute $r_4(3)$. (Divisors of $3$: $1,3$; $\\sigma(3)=4$.)",
+          "answer": 32,
+          "tol": 0.000001,
+          "explain": "For odd $n$, $r_4(n)=8\\sigma(n)$. With $\\sigma(3)=1+3=4$, we get $r_4(3)=8\\cdot 4=32$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which value of $g(k)$ (Waring's constant — smallest $s$ such that every $n\\ge 1$ is a sum of $s$ $k$-th powers) corresponds to $k=2$?",
+          "choices": [
+            "$g(2)=2$",
+            "$g(2)=3$",
+            "$g(2)=4$",
+            "$g(2)=5$"
+          ],
+          "answer": 2,
+          "explain": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g. $n=7$ needs four)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Euler's four-square identity $(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2)=c_1^2+c_2^2+c_3^2+c_4^2$ is used in Lagrange's proof. What does it show?",
+          "choices": [
+            "The product of two sums of four squares is again a sum of four squares, so it suffices to prove the result for primes",
+            "Every prime is automatically a sum of four squares without further argument",
+            "Four-square sums form a group under addition",
+            "Every sum of four squares is divisible by $4$"
+          ],
+          "answer": 0,
+          "hint": "The identity reduces the problem to primes via multiplicativity.",
+          "explain": "Euler's identity establishes multiplicativity: if $m$ and $n$ are each sums of four squares, so is $mn$. Combined with the fact that every prime $p$ is a sum of four squares (shown by a descent argument), the identity extends the result to all positive integers by induction on prime factorization."
+        },
+        {
+          "type": "numeric",
+          "q": "Use Jacobi's formula $r_4(n)=8\\sum_{4\\nmid d,\\, d\\mid n} d$ to compute $r_4(2)$. (Divisors of $2$ not divisible by $4$: $1, 2$; their sum is $3$.)",
+          "answer": 24,
+          "tol": 0.000001,
+          "hint": "Sum divisors of 2 not divisible by 4, then multiply by 8.",
+          "explain": "$r_4(2)=8(1+2)=8\\cdot 3=24$. These $24$ representations are all signed ordered quadruples from $\\{(\\pm 1,\\pm 1,0,0)\\}$ permutations: $\\binom{4}{2}\\cdot 4=24$."
+        },
+        {
+          "type": "mcq",
+          "q": "The number $7$ requires exactly four squares. Which decomposition is correct and rules out three squares?",
+          "choices": [
+            "$7=2^2+1^2+1^2+1^2$ (four squares); ruled out for three because $7\\equiv 7\\pmod 8$ is of the form $4^0(8\\cdot0+7)$",
+            "$7=2^2+2^2+1^2$ (three squares); so $g(2)=3$",
+            "$7=1^2+1^2+1^2+1^2+1^2+1^2+1^2$ (seven squares); $g(2)=7$",
+            "$7$ cannot be expressed as a sum of squares at all"
+          ],
+          "answer": 0,
+          "hint": "Use $7\\equiv 7\\pmod 8$ to rule out three squares.",
+          "explain": "$7=4+1+1+1=2^2+1^2+1^2+1^2$: valid four-square representation. That three squares fail follows from Legendre's theorem: $7=4^0(8\\cdot0+7)$ is excluded, so $r_3(7)=0$. This single example witnesses $g(2)\\ge 4$, and Lagrange proves $g(2)=4$."
+        }
+      ]
+    },
+    "waring-problem": {
+      "title": "Waring's problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hilbert's 1909 theorem asserts:",
+          "choices": [
+            "every integer is a sum of four squares",
+            "for every $k\\ge 1$ there is a finite $g(k)$ such that every positive integer is a sum of at most $g(k)$ $k$-th powers",
+            "the $j$-line classifies elliptic curves",
+            "every modular form is a sum of Eisenstein series"
+          ],
+          "answer": 1,
+          "explain": "Hilbert proved that $g(k)$ is finite for every $k\\ge 1$; Lagrange's $g(2)=4$ is the $k=2$ special case. The sharper constants $g(k)$ and $G(k)$ have been pinned down for many $k$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $g(3)$, the smallest $s$ such that every positive integer is a sum of at most $s$ cubes (including $0^3$)?",
+          "answer": 9,
+          "tol": 0.000001,
+          "explain": "$g(3)=9$: the integer $n=23$ requires nine cubes (for example $23=2\\cdot 2^3+7\\cdot 1^3$). Every other $n$ needs at most nine as well."
+        },
+        {
+          "type": "mcq",
+          "q": "Which relation between Waring's constants is always true?",
+          "choices": [
+            "$g(k)=G(k)$ for every $k$",
+            "$G(k)\\le g(k)$ for every $k$ (with strict inequality common — e.g. $G(4)=16<19=g(4)$)",
+            "$G(k)\\ge g(k)$",
+            "$g(k)$ is finite only for $k\\le 4$"
+          ],
+          "answer": 1,
+          "explain": "$G(k)$ counts the asymptotic number of powers needed (sufficiently large $n$), while $g(k)$ accounts for a few small exceptional integers. Hence $G(k)\\le g(k)$; e.g. $G(4)=16$ but $g(4)=19$ because $79$ needs $19$ fourth powers."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "The integer $n=23$ is the classic witness for $g(3)=9$. Verify: $23=2\\cdot 2^3+7\\cdot 1^3$. How many cubes ($0^3$ not counted) are used in this representation?",
+          "answer": 9,
+          "tol": 0.000001,
+          "hint": "Add the counts 2 and 7.",
+          "explain": "$2\\cdot 2^3=2\\cdot 8=16$ uses $2$ cubes of value $8$, and $7\\cdot 1^3=7$ uses $7$ cubes of value $1$; total $2+7=9$ cubes. This demonstrates that at least $9$ cubes are sometimes needed, matching $g(3)=9$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Vinogradov–Wooley work on $G(k)$ (the asymptotic Waring constant) established $G(k)\\le k(\\log k + O(\\log\\log k))$ for large $k$. What does $G(k)$ measure that $g(k)$ does not?",
+          "choices": [
+            "The smallest $s$ such that ALL positive integers are sums of $s$ $k$-th powers",
+            "The smallest $s$ such that ALL sufficiently large positive integers are sums of $s$ $k$-th powers",
+            "The number of $k$-th powers needed for prime inputs only",
+            "The average number of representations"
+          ],
+          "answer": 1,
+          "hint": "$G(k)$ counts only sufficiently large $n$, skipping small exceptions.",
+          "explain": "$G(k)$ is the asymptotic constant: the least $s$ for which all sufficiently large $n$ are sums of $s$ $k$-th powers. It ignores finitely many exceptional small integers, which is why $G(k)\\le g(k)$ (often strictly). For example $G(3)\\le 7$ (Linnik) while $g(3)=9$."
+        },
+        {
+          "type": "mcq",
+          "q": "A counterexample chain: $n=79$ requires $19$ fourth powers, witnessing $g(4)\\ge 19$. Which formula predicts $g(k)$ for most $k\\ge 2$?",
+          "choices": [
+            "$g(k)=2^k+\\lfloor(3/2)^k\\rfloor-2$, which equals $19$ when $k=4$ since $2^4=16$ and $\\lfloor(3/2)^4\\rfloor=\\lfloor5.0625\\rfloor=5$",
+            "$g(k)=k^2$ for all $k$",
+            "$g(k)=2k$ for all $k$",
+            "$g(k)=\\lfloor(4/3)^k\\rfloor+k$"
+          ],
+          "answer": 0,
+          "hint": "Evaluate the $2^k+\\lfloor(3/2)^k\\rfloor-2$ formula at $k=4$.",
+          "explain": "The conjectured (and proved for most $k$) formula is $g(k)=2^k+\\lfloor(3/2)^k\\rfloor-2$. For $k=4$: $2^4+\\lfloor(3/2)^4\\rfloor-2=16+5-2=19$, matching $g(4)=19$ (verified by Balasubramanian–Deshouillers–Dress, 1986)."
+        }
+      ]
+    },
+    "waring-problem-statement": {
+      "title": "Waring's problem and g(k)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Waring (1770) conjectured that for every $k\\ge 1$ there exists a finite constant $g(k)$ such that:",
+          "choices": [
+            "every positive integer is a product of at most $g(k)$ $k$-th powers",
+            "every positive integer is a sum of at most $g(k)$ $k$-th powers of non-negative integers",
+            "every prime is a sum of exactly $g(k)$ $k$-th powers",
+            "every $k$-th power is a sum of $g(k)$ primes"
+          ],
+          "answer": 1,
+          "explain": "Waring's problem: $g(k)$ is the least $s$ such that every positive integer can be written as $n = x_1^k + \\cdots + x_s^k$ with $x_i\\ge 0$. Hilbert (1909) proved $g(k)<\\infty$ for every $k$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $g(2)$? (Lagrange's theorem.)",
+          "answer": 4,
+          "tol": 0.000001,
+          "explain": "$g(2)=4$: every non-negative integer is a sum of four squares (Lagrange, 1770), and three do not suffice since e.g. $7$ is not a sum of three squares."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $g(3)$? (The integer $n=23$ requires nine cubes: $23=2\\cdot 2^3+7\\cdot 1^3$.)",
+          "answer": 9,
+          "tol": 0.000001,
+          "explain": "$g(3)=9$ (Wieferich/Kempner). The extremal integers are $23$ and $239$, which both require nine cubes; every other $n$ needs at most nine."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The formula $g(k) = 2^k + \\lfloor(3/2)^k\\rfloor - 2$ is conjectured to hold for all $k\\ge 2$. What is the role of the integer $N = 2^k\\lfloor(3/2)^k\\rfloor - 1$ in establishing this lower bound?",
+          "choices": [
+            "It is a $k$-th power itself, so it trivially requires only one term",
+            "It is the largest integer below $2^k\\lfloor(3/2)^k\\rfloor$ and can only be represented using $\\lfloor(3/2)^k\\rfloor - 1$ copies of $2^k$ and $2^k - 1$ copies of $1^k$, requiring exactly $2^k + \\lfloor(3/2)^k\\rfloor - 2$ terms",
+            "It is a prime, forcing a representation by Goldbach's conjecture",
+            "It is the discriminant of a quadratic form"
+          ],
+          "answer": 1,
+          "hint": "This $N$ is stuck below $3^k$ and forces many $2^k$'s and $1^k$'s.",
+          "explain": "The number $N=2^k\\lfloor(3/2)^k\\rfloor-1<3^k$ cannot use any $k$-th power $\\ge 3^k$; it uses as many $2^k$'s as possible ($\\lfloor(3/2)^k\\rfloor-1$ of them), leaving a remainder filled with $1^k$'s. Counting all terms gives the lower bound $g(k)\\ge 2^k+\\lfloor(3/2)^k\\rfloor-2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the formula $g(k)=2^k+\\lfloor(3/2)^k\\rfloor-2$, compute $g(4)$. Recall $(3/2)^4=81/16=5.0625$.",
+          "answer": 19,
+          "tol": 0.000001,
+          "hint": "Plug $k=4$ into $2^k+\\lfloor(3/2)^k\\rfloor-2$.",
+          "explain": "$g(4)=2^4+\\lfloor 5.0625\\rfloor - 2 = 16+5-2=19$. Confirmed: $79=4\\cdot 2^4+15\\cdot 1^4$ requires all $19$ terms."
+        },
+        {
+          "type": "mcq",
+          "q": "Which integer is a counterexample showing $g(2)\\ge 4$, i.e., it cannot be written as a sum of three squares?",
+          "choices": [
+            "$n=6$",
+            "$n=7$",
+            "$n=9$",
+            "$n=12$"
+          ],
+          "answer": 1,
+          "hint": "Find the classic $n\\equiv 7\\pmod 8$ witness.",
+          "explain": "$7$ is of the form $4^0(8\\cdot 0+7)$, so by Legendre's three-square theorem it cannot be expressed as a sum of three squares. This forces $g(2)\\ge 4$."
+        }
+      ]
+    },
+    "g-k-vs-G-k": {
+      "title": "g(k) versus G(k)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which inequality between Waring's constants is always valid?",
+          "choices": [
+            "$g(k)\\le G(k)$",
+            "$G(k)\\le g(k)$, sometimes strict (e.g. $G(4)=16<19=g(4)$)",
+            "$g(k)=G(k)$ for all $k$",
+            "$G(k)\\le \\log k$"
+          ],
+          "answer": 1,
+          "explain": "$G(k)$ is the least $s$ such that every sufficiently large $n$ is a sum of $s$ $k$-th powers, while $g(k)$ covers all $n\\ge 1$. A handful of small exceptional integers push $g(k)$ above $G(k)$; e.g. $79=4\\cdot 2^4+15\\cdot 1^4$ forces $g(4)=19$ but $G(4)=16$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $G(2)$? (Hint: the three-squares theorem excludes $4^a(8b+7)$ for every $a$, so three do not suffice even asymptotically.)",
+          "answer": 4,
+          "tol": 0.000001,
+          "explain": "$G(2)=4$: the excluded set $\\{4^a(8b+7)\\}$ is infinite, so even for large $n$ four squares are sometimes necessary. Hence $G(2)=g(2)=4$ is one of the rare cases with equality."
+        },
+        {
+          "type": "mcq",
+          "q": "The sharpest known asymptotic upper bound for $G(k)$ (Wooley, Vinogradov-style) is:",
+          "choices": [
+            "$G(k) = O(k^2)$",
+            "$G(k) = O(e^k)$",
+            "$G(k) \\le k\\log k + O(k\\log\\log k)$",
+            "$G(k) \\le k^{3/2}$"
+          ],
+          "answer": 2,
+          "explain": "Vinogradov's mean-value method (refined by Wooley) gives $G(k)\\le k\\log k + k\\log\\log k + O(k)$ — linear up to a log factor. This is believed to be close to the truth: one expects $G(k)\\asymp k$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why does $G(k)\\le g(k)$ hold, yet the gap can be large? Which argument is correct?",
+          "choices": [
+            "$G(k)$ ignores finitely many integers, so exceptional small integers that inflate $g(k)$ are irrelevant to $G(k)$",
+            "$G(k)$ and $g(k)$ are defined identically, so they are always equal",
+            "$g(k)$ is the average of $G(k)$ over all $k$",
+            "$G(k)\\ge g(k)$ always, because sufficiently large integers are harder"
+          ],
+          "answer": 0,
+          "hint": "Only $g(k)$ must account for every small $n$.",
+          "explain": "By definition, $G(k)$ asks only about all sufficiently large $n$, so finitely many integers (like $79$ for $k=4$) that require many $k$-th powers are excluded. Since $g(k)$ must handle every $n\\ge 1$, the handful of small difficult integers can push $g(k)$ well above $G(k)$."
+        },
+        {
+          "type": "numeric",
+          "q": "It is known that $G(3)\\le 7$ (Linnik) and conjectured that $G(3)=7$. Using only this bound, what is the minimum $s$ guaranteed to represent every sufficiently large $n$ as a sum of $s$ cubes?",
+          "answer": 7,
+          "tol": 0.000001,
+          "hint": "Use the stated Linnik bound directly.",
+          "explain": "The best proven upper bound is $G(3)\\le 7$, so $s=7$ suffices for all sufficiently large $n$. The lower bound $G(3)\\ge 4$ comes from numbers $\\equiv 8\\pmod{9}$, but the exact value of $G(3)$ remains open."
+        },
+        {
+          "type": "mcq",
+          "q": "Which congruence obstruction gives the lower bound $G(3)\\ge 4$?",
+          "choices": [
+            "Cubes modulo $7$ take only values $\\{0,1,6\\}$, so $4$ cubes are needed to cover all residues",
+            "Every cube satisfies $n^3\\equiv 0,1,8\\pmod{9}$, so a number $\\equiv 8\\pmod 9$ needs at least four cubes",
+            "Cubes are always even, so odd numbers need at least four terms",
+            "By Fermat's last theorem, three cubes cannot sum to a cube"
+          ],
+          "answer": 1,
+          "hint": "Check cube residues mod 9.",
+          "explain": "Modulo $9$, the cubes hit only residues $\\{0,1,8\\}$. A sum of three cubes can achieve residues $0+0+0$ through $8+8+8\\pmod 9$, but $8+8+8=24\\equiv 6\\pmod 9$, so the residue $8\\pmod 9$ (e.g. from $n\\equiv 8$) requires at least a fourth cube."
+        }
+      ]
+    },
+    "hilbert-waring-theorem": {
+      "title": "Hilbert–Waring theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hilbert's 1909 proof of the finiteness of $g(k)$ proceeds by:",
+          "choices": [
+            "the circle method",
+            "a combinatorial identity expressing $(x_1^2+\\cdots+x_n^2)^k$ as a positive sum of $(2k)$-th powers of integer linear forms",
+            "modular forms of half-integer weight",
+            "the Weil conjectures"
+          ],
+          "answer": 1,
+          "explain": "Hilbert found an identity writing $(\\sum x_i^2)^k$ as a positive rational combination of $(2k)$-th powers of linear forms $L_j(x)$. Combined with Lagrange's four-square theorem, this yields the finiteness of $g(k)$ — but gives no explicit bound. Hardy–Littlewood later recovered an asymptotic count via the circle method."
+        },
+        {
+          "type": "numeric",
+          "q": "For $k=2$, Hilbert's construction degenerates into Lagrange plus a trivial identity. What is $g(2)$?",
+          "answer": 4,
+          "tol": 0.000001,
+          "explain": "$g(2)=4$ — the base case. Hilbert's induction bootstraps higher $k$ from the fact that four squares suffice."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about Hilbert's proof is accurate?",
+          "choices": [
+            "it gives an explicit, sharp value of $g(k)$",
+            "it proves finiteness but yields no effective bound",
+            "it only works for even $k$",
+            "it requires the Riemann hypothesis"
+          ],
+          "answer": 1,
+          "explain": "Hilbert's argument is non-constructive in the sense that the bound it produces is astronomical and far from the true $g(k)$. Sharpening $g(k)$ for specific $k$ (e.g. $g(3)=9$, $g(4)=19$) took decades of further work."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Hilbert's proof uses the identity $(x_1^2+x_2^2+x_3^2+x_4^2+x_5^2)^k = \\sum_j c_j L_j(x)^{2k}$ with $c_j>0$ rational. What is the key role of Lagrange's four-square theorem in the induction?",
+          "choices": [
+            "It provides the base case $k=1$: every $n$ is a sum of four squares, so $(x_1^2+x_2^2+x_3^2+x_4^2)$ takes every non-negative integer value, giving the initial input to Hilbert's identity machine",
+            "It proves the identity directly for all $k$ without further argument",
+            "It shows that $g(k)=4$ for all $k$",
+            "It replaces the need for Hilbert's identity by providing explicit representations"
+          ],
+          "answer": 0,
+          "hint": "Lagrange supplies the integer-square input that Hilbert's identity consumes.",
+          "explain": "The induction works as follows: every integer $n$ is a sum of four squares (Lagrange), so $n=(x_1^2+x_2^2+x_3^2+x_4^2)$. Hilbert's identity then writes $n^k$ as a positive combination of $(2k)$-th powers of integer linear forms in the $x_i$, and those linear forms are themselves integers — closing the induction."
+        },
+        {
+          "type": "mcq",
+          "q": "Which sequence of logical steps correctly orders Hilbert's proof?",
+          "choices": [
+            "Prove Weyl's inequality → Apply circle method → Extract $g(k)$",
+            "State Lagrange's theorem → Construct the algebraic identity over $\\mathbb{R}$ → Clear denominators to get an integer identity → Conclude $g(k)<\\infty$",
+            "Use modular forms → Obtain singular series → Bound minor arcs",
+            "Invoke the Weil conjectures → Compute local densities → Apply the Hasse principle"
+          ],
+          "answer": 1,
+          "hint": "Lagrange, algebraic identity, denominator clearing, done.",
+          "explain": "Hilbert's strategy: (1) Lagrange gives the base $k=2$; (2) an algebraic identity over $\\mathbb{R}$ expresses a power of a sum of squares as a sum of $(2k)$-th powers of linear forms with positive rational coefficients; (3) clearing denominators yields an integer identity; (4) substituting the four-square representation of $n$ gives $g(k)<\\infty$."
+        },
+        {
+          "type": "numeric",
+          "q": "Hilbert's bound (before later improvements) gave $g(k)$ growing roughly as a tower of exponentials. For $k=2$, the sharp value is $g(2)=4$. How many $k$-th powers ($k=2$) are needed to represent $n=7$?",
+          "answer": 4,
+          "tol": 0.000001,
+          "hint": "Recall $7\\equiv 7\\pmod 8$ needs four squares.",
+          "explain": "$7=4+1+1+1=2^2+1^2+1^2+1^2$ and $7$ cannot be written as a sum of three squares (since $7\\equiv 7\\pmod 8$), so exactly $4$ squares are needed — the maximum for $k=2$."
+        }
+      ]
+    },
+    "circle-method-intro": {
+      "title": "The circle method",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Hardy–Littlewood generating function for Waring's problem is:",
+          "choices": [
+            "$f(\\alpha)=\\sum_{p\\le N} e(\\alpha p)$",
+            "$f(\\alpha)=\\sum_{n\\le N^{1/k}} e(\\alpha n^k)$, where $e(x)=e^{2\\pi i x}$",
+            "$f(\\alpha)=\\prod_p (1-p^{-\\alpha})^{-1}$",
+            "$f(\\alpha)=\\sum_n \\Lambda(n) n^{-\\alpha}$"
+          ],
+          "answer": 1,
+          "explain": "Write $f(\\alpha)=\\sum_{n=1}^{\\lfloor N^{1/k}\\rfloor} e(\\alpha n^k)$. Then $f(\\alpha)^s = \\sum_{m} r(m) e(\\alpha m)$ where $r(m)$ counts ordered reps of $m$ as a sum of $s$ $k$-th powers; extracting the coefficient of $e(\\alpha N)$ is an integral over the unit interval."
+        },
+        {
+          "type": "mcq",
+          "q": "The count $r_{s,k}(N)$ of representations of $N$ as an ordered sum of $s$ $k$-th powers equals:",
+          "choices": [
+            "$\\sum_{n\\le N} f(n)^s$",
+            "$\\int_0^1 f(\\alpha)^s\\, e(-\\alpha N)\\, d\\alpha$",
+            "$\\operatorname{Res}_{s=1} \\zeta(s)^k$",
+            "$\\prod_p (1 + p^{-s})$"
+          ],
+          "answer": 1,
+          "explain": "By Fourier orthogonality on $\\mathbb{Z}$: $\\int_0^1 e(\\alpha m)\\,d\\alpha = [m=0]$. So $\\int_0^1 f(\\alpha)^s e(-\\alpha N)\\,d\\alpha$ picks out precisely the coefficient of $e(\\alpha N)$ in $f(\\alpha)^s$, which is $r_{s,k}(N)$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $k=2$, $s=4$, the circle method recovers Jacobi's formula $r_4(N)=8\\sum_{d\\mid N,\\,4\\nmid d} d$ (for $N$ odd). What is $r_4(3)$? (Divisors of $3$: $1,3$.)",
+          "answer": 32,
+          "tol": 0.000001,
+          "explain": "$r_4(3)=8(1+3)=32$ — matching the circle-method asymptotic with singular series $8\\sigma^*(N)$. In the Lagrange/Jacobi case the asymptotic is exact, because the minor arcs vanish."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The circle method splits $\\int_0^1 f(\\alpha)^s e(-\\alpha N)\\,d\\alpha$ into major and minor arc contributions. Which chain of inequalities correctly bounds the minor-arc integral to show it is $o(N^{s/k-1})$?",
+          "choices": [
+            "$\\left|\\int_{\\mathfrak{m}} f^s e(-\\alpha N)\\right| \\le \\sup_{\\mathfrak{m}}|f|^2\\cdot \\int_0^1|f|^{s-2}\\,d\\alpha \\ll N^{2/k-2\\sigma_k}\\cdot N^{(s-2)/k}=N^{s/k-1-2\\sigma_k}$",
+            "$\\left|\\int_{\\mathfrak{m}} f^s e(-\\alpha N)\\right| = 0$ exactly because minor arcs carry no information",
+            "$\\left|\\int_{\\mathfrak{m}} f^s\\right| \\ge N^{s/k}$ giving a lower bound",
+            "$\\int_{\\mathfrak{m}} f^s \\sim \\mathfrak{S}(N)\\mathfrak{J}(N)$ just as on major arcs"
+          ],
+          "answer": 0,
+          "hint": "Pair Weyl's sup bound with a Parseval $L^{s-2}$ estimate.",
+          "explain": "One bounds $\\sup_{\\alpha\\in\\mathfrak{m}}|f(\\alpha)|\\ll N^{1/k-\\sigma_k}$ (Weyl), then uses Parseval/mean-value to handle $\\int|f|^{s-2}$, combining to get a power saving over the main term $N^{s/k-1}$. The saving $2\\sigma_k>0$ is what closes the argument when $s$ is large enough."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the Jacobi formula $r_4(N)=8\\sum_{d\\mid N,\\,4\\nmid d}d$ for odd $N$, compute $r_4(5)$.",
+          "answer": 48,
+          "tol": 0.000001,
+          "hint": "Sum divisors of 5 unblocked by 4, then multiply by 8.",
+          "explain": "Divisors of $5$ are $1$ and $5$, both odd (so $4\\nmid d$). Hence $r_4(5)=8(1+5)=48$. Check: $5=1^2+2^2+0^2+0^2$ and all signed/ordered permutations account for $48$ representations."
+        },
+        {
+          "type": "mcq",
+          "q": "In the circle method for Waring's problem, what is the Gauss sum $S(a,q) = \\sum_{r=1}^{q} e(ar^k/q)$ used for?",
+          "choices": [
+            "It counts the number of $k$-th power residues modulo $q$",
+            "It is the main-term approximation to $f(a/q+\\beta)$: on a major arc centered at $a/q$, one has $f(a/q+\\beta)\\approx q^{-1}S(a,q)\\cdot\\hat{v}(\\beta)$, encoding $p$-adic local data",
+            "It equals $\\zeta(k)$ by the functional equation",
+            "It is used only on minor arcs to get lower bounds"
+          ],
+          "answer": 1,
+          "hint": "On major arcs $f$ factors into a Gauss sum times an archimedean piece.",
+          "explain": "Near a rational $a/q$ with $q$ small, the exponential sum $f(\\alpha)$ factors into the complete Gauss sum $S(a,q)$ (capturing arithmetic at the prime $p\\mid q$) multiplied by a smooth continuous integral $\\hat{v}(\\beta)$ (the archimedean factor). This factorization is why the singular series $\\mathfrak{S}(N)=\\sum_q q^{-s}\\sum_a^* S(a,q)^s e(-aN/q)$ is an Euler product of local densities."
+        }
+      ]
+    },
+    "major-vs-minor-arcs": {
+      "title": "Major arcs vs minor arcs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A major arc $\\mathfrak{M}(a,q)$ for Waring's problem is a small interval around:",
+          "choices": [
+            "an integer $\\alpha = m$",
+            "a rational $\\alpha = a/q$ with $q$ small (say $q\\le N^{1/k-\\varepsilon}$)",
+            "an irrational with bad Diophantine approximation",
+            "$\\alpha = 0$ only"
+          ],
+          "answer": 1,
+          "explain": "On a major arc $|\\alpha - a/q|\\le \\delta$ with $\\gcd(a,q)=1$ and $q$ small, the sum $f(\\alpha)$ is well approximated by a Gauss-sum-weighted main term: $f(\\alpha)\\approx q^{-1} S(a,q)\\cdot v(\\alpha-a/q)$, where $S(a,q)=\\sum_{r=1}^q e(a r^k/q)$ and $v$ is a smooth transform."
+        },
+        {
+          "type": "mcq",
+          "q": "On the minor arcs $\\mathfrak{m}$, Weyl's inequality gives:",
+          "choices": [
+            "$f(\\alpha) = 0$ exactly",
+            "$|f(\\alpha)| \\ll N^{1/k} \\cdot q^{1/2}$, a lower bound",
+            "$|f(\\alpha)| \\ll N^{1/k-\\sigma_k+\\varepsilon}$ for some $\\sigma_k>0$ (power saving over trivial $N^{1/k}$)",
+            "$|f(\\alpha)| = N^{1/k}$ for all $\\alpha$"
+          ],
+          "answer": 2,
+          "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
+        },
+        {
+          "type": "mcq",
+          "q": "The singular series $\\mathfrak{S}(N) = \\sum_{q\\ge 1} q^{-s}\\sum_{a\\ \\bmod q}^* S(a,q)^s e(-aN/q)$ that emerges from the major arcs encodes:",
+          "choices": [
+            "topological invariants of the unit circle",
+            "the density of solutions at every prime $p$ and at infinity — a Hasse-style local-to-global product",
+            "the class number of $\\mathbb{Q}(\\sqrt{-N})$",
+            "the trivial constant $1$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathfrak{S}(N)$ factors as an Euler product $\\prod_p \\sigma_p(N)$ where $\\sigma_p(N)$ is the $p$-adic density of solutions to $n = x_1^k+\\cdots+x_s^k$. Together with the singular integral (the real/archimedean density), Waring is solvable iff every local factor is positive — a Hasse principle for sums of $k$-th powers (for $s$ large enough)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The singular series $\\mathfrak{S}(N)$ converges and is positive under the condition that $n=x_1^k+\\cdots+x_s^k$ is locally soluble at every prime. Which is a correct counterexample showing local solubility can fail for small $s$?",
+          "choices": [
+            "For $k=2$, $s=3$: the integer $N=7$ has $\\sigma_2(7)=0$ because $7\\equiv 7\\pmod 8$ has no solution to $x_1^2+x_2^2+x_3^2\\equiv 7\\pmod 8$ in $\\mathbb{Z}_2$",
+            "For $k=3$, $s=1$: every prime $p$ has a solution since every $N$ is itself a cube",
+            "For $k=2$, $s=4$: $N=15$ fails the $2$-adic local test",
+            "For $k=4$, $s=16$: the singular series vanishes for all $N$"
+          ],
+          "answer": 0,
+          "hint": "A mod-8 obstruction kills local density at $p=2$.",
+          "explain": "Modulo $8$, squares are only $0,1,4$. A sum of three squares modulo $8$ reaches $\\{0,1,2,3,4,5,6\\}$ but not $7$. So $N\\equiv 7\\pmod 8$ has $\\sigma_2(N)=0$ (no $2$-adic solution with $s=3$), which is exactly why $G(2)\\ge 4$ and $g(2)\\ge 4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Weyl differencing is used to prove $|f(\\alpha)|\\ll N^{1/k-\\sigma_k+\\varepsilon}$ on the minor arcs. Which step is the correct first move in Weyl's argument for $k=2$?",
+          "choices": [
+            "Write $|f(\\alpha)|^2 = \\sum_{m,n}e(\\alpha(m^2-n^2)) = \\sum_h e(\\alpha h)\\cdot\\#\\{(m,n):m^2-n^2=h\\}$, reducing to a divisor-sum estimate",
+            "Apply Cauchy–Schwarz to get $|f|^2\\le N f^2$ directly",
+            "Use the Riemann hypothesis for Dirichlet $L$-functions to bound $f$",
+            "Factor $f$ as a product of local Gauss sums over all primes"
+          ],
+          "answer": 0,
+          "hint": "Square $f$ and convert to a difference-sum over pairs.",
+          "explain": "Squaring $|f(\\alpha)|^2$ converts the sum to a correlation sum over differences $h=m^2-n^2$, which can be bounded via the number of representations of $h$ as a difference of two squares — a divisor-type estimate. Iterating this differencing $k-1$ times reduces to a linear exponential sum, which is trivially bounded."
+        },
+        {
+          "type": "numeric",
+          "q": "For the Hardy–Littlewood circle method applied to $s$ squares ($k=2$), the main term is $\\mathfrak{S}(N)\\mathfrak{J}(N)\\sim C_s N^{s/2-1}$ for large $N$. For $s=5$, what is the exponent of $N$ in this main term?",
+          "answer": 1.5,
+          "tol": 0.000001,
+          "hint": "Evaluate $s/2-1$ at $s=5$.",
+          "explain": "$s/2 - 1 = 5/2 - 1 = 3/2 = 1.5$. So the count of representations of $N$ as a sum of $5$ squares grows like $N^{3/2}$ (times constants from the singular series and singular integral)."
+        }
+      ]
+    },
+    "faulhaber-formula": {
+      "title": "Faulhaber's formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For $S_m(n)=\\sum_{k=1}^{n} k^m$, what is the degree of $S_m$ as a polynomial in $n$?",
+          "choices": [
+            "$m-1$",
+            "$m$",
+            "$m+1$",
+            "$2m$"
+          ],
+          "answer": 2,
+          "explain": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$)."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\sum_{k=1}^{10} k^2 = \\tfrac{n(n+1)(2n+1)}{6}$ at $n=10$.",
+          "answer": 385,
+          "tol": 0.000001,
+          "explain": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using Faulhaber, $\\sum_{k=1}^{n} k^3 = \\left(\\tfrac{n(n+1)}{2}\\right)^2$. What is its value at $n=5$?",
+          "answer": 225,
+          "tol": 0.000001,
+          "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
+        },
+        {
+          "type": "guess-my-rule",
+          "q": "The function below is $S_2(n) = \\sum_{k=1}^{n} k^2$. Given these examples, predict the value for each test input.",
+          "examples": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              14
+            ],
+            [
+              4,
+              30
+            ]
+          ],
+          "testCases": [
+            [
+              5,
+              55
+            ],
+            [
+              6,
+              91
+            ]
+          ],
+          "inputKind": "integer",
+          "outputKind": "integer",
+          "tol": 0.000001,
+          "hint": "Each output adds the next square: $S_2(n) = S_2(n-1) + n^2$, or use $n(n+1)(2n+1)/6$.",
+          "explain": "$S_2(n) = \\tfrac{n(n+1)(2n+1)}{6}$. At $n=5$: $5\\cdot 6\\cdot 11/6=55$. At $n=6$: $6\\cdot 7\\cdot 13/6=91$. Equivalently, $S_2(5)=30+25=55$ and $S_2(6)=55+36=91$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Faulhaber's formula expresses $S_m(n)$ via Bernoulli numbers as $S_m(n)=\\tfrac{1}{m+1}\\sum_{j=0}^{m}\\binom{m+1}{j}B_j\\,n^{m+1-j}$. Which statement correctly characterises the constant term (i.e. the value at $n=0$)?",
+          "choices": [
+            "It equals $B_m$",
+            "It equals $0$, because $S_m(0)=\\sum_{k=1}^{0}k^m$ is an empty sum",
+            "It equals $1/(m+1)$",
+            "It equals $B_{m+1}$"
+          ],
+          "answer": 1,
+          "hint": "An empty sum equals zero — evaluate directly.",
+          "explain": "$S_m(0)$ is an empty sum, hence $0$. In the formula, the $n^0$ term is $\\tfrac{1}{m+1}\\binom{m+1}{m+1}B_{m+1}\\cdot 1 = \\tfrac{B_{m+1}}{m+1}$, but the polynomial must satisfy $S_m(0)=0$, which forces the constant term to cancel — consistent with the convention $B_1=-1/2$ absorbing the asymmetry."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the Faulhaber polynomial for $m=4$: $S_4(n)=\\tfrac{n(n+1)(2n+1)(3n^2+3n-1)}{30}$, compute $\\sum_{k=1}^{5}k^4$.",
+          "answer": 979,
+          "tol": 0.000001,
+          "hint": "Substitute $n=5$ into the given closed form.",
+          "explain": "$S_4(5)=\\tfrac{5\\cdot 6\\cdot 11\\cdot(75+15-1)}{30}=\\tfrac{5\\cdot 6\\cdot 11\\cdot 89}{30}=\\tfrac{29370}{30}=979$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct proof-step ordering for deriving Faulhaber's formula from the Bernoulli generating function?",
+          "choices": [
+            "Expand $e^{nt}$ → multiply by $\\tfrac{t}{e^t-1}$ → extract coefficient of $t^{m+1}$ → divide by $(m+1)$",
+            "Expand $\\tfrac{t}{e^t-1}$ → substitute $n$ → invert the series → identify Bernoulli numbers",
+            "Write $k^m=\\tfrac{d^m}{dt^m}e^{kt}|_{t=0}$ → sum geometric series $\\sum e^{kt}$ → differentiate $m$ times → evaluate at $t=0$",
+            "Apply Abel summation → integrate by parts $m$ times → read off Bernoulli coefficients"
+          ],
+          "answer": 0,
+          "hint": "Multiply the geometric series by Bernoulli's generating function.",
+          "explain": "The slick derivation: $\\sum_{k=1}^{n}k^m = [t^{m+1}\\text{ coeff in }]\\,\\tfrac{m!\\,e^{(n+1)t}\\cdot t}{e^t-1}$ comes from noting $\\sum_{k=1}^n e^{kt}=\\tfrac{e^t(e^{nt}-1)}{e^t-1}$, multiplying by $\\tfrac{t}{e^t-1}$ (the Bernoulli g.f.), extracting the coefficient of $t^{m+1}$, and dividing by $(m+1)$."
+        }
+      ]
+    },
+    "bernoulli-generating-function": {
+      "title": "Bernoulli numbers",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which statement is true for Bernoulli numbers $B_n$ defined by $\\tfrac{t}{e^t-1}=\\sum_{n\\ge 0} B_n \\tfrac{t^n}{n!}$?",
+          "choices": [
+            "$B_n=0$ for every even $n\\ge 2$",
+            "$B_n=0$ for every odd $n\\ge 3$",
+            "$B_n>0$ for every $n\\ge 1$",
+            "$B_n$ is always an integer"
+          ],
+          "answer": 1,
+          "explain": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $B_2$ in the convention $B_1=-\\tfrac12$?",
+          "answer": 0.16666666666666666,
+          "tol": 0.0001,
+          "explain": "$B_2=1/6$. The low table is $B_0=1$, $B_1=-1/2$, $B_2=1/6$, $B_4=-1/30$, $B_6=1/42$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $B_4$?",
+          "answer": -0.03333333333333333,
+          "tol": 0.0001,
+          "explain": "$B_4=-1/30\\approx -0.0333$. Even Bernoulli numbers alternate in sign."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Bernoulli numbers satisfy the recurrence $\\sum_{k=0}^{n}\\binom{n+1}{k}B_k=0$ for $n\\ge 1$. Using this, which is the correct value of $B_6$?",
+          "choices": [
+            "$1/42$",
+            "$-1/42$",
+            "$1/30$",
+            "$-1/30$"
+          ],
+          "answer": 0,
+          "hint": "Apply the binomial recurrence at $n=6$ and solve.",
+          "explain": "Applying the recurrence at $n=6$: $7B_6 + 21B_4 + 35B_2 + 21B_0=0$ gives $7B_6 = 21/30 - 35/6 - 21 = 7/10 - 35/6 - 21$. Careful arithmetic yields $B_6=1/42$."
+        },
+        {
+          "type": "numeric",
+          "q": "The von Staudt–Clausen theorem states $B_{2n}+\\sum_{(p-1)\\mid 2n}\\tfrac{1}{p}\\in\\mathbb{Z}$. For $n=1$ ($B_2=1/6$), which primes $p$ satisfy $(p-1)\\mid 2$, and what integer does $B_2+\\sum 1/p$ equal?",
+          "answer": 1,
+          "tol": 1e-9,
+          "hint": "Find primes with $p-1\\in\\{1,2\\}$, then add the fractions.",
+          "explain": "$(p-1)\\mid 2$ iff $p-1\\in\\{1,2\\}$ iff $p\\in\\{2,3\\}$. So $B_2+1/2+1/3=1/6+1/2+1/3=1/6+3/6+2/6=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a correct counterexample showing Bernoulli numbers are NOT always positive?",
+          "choices": [
+            "$B_2=1/6>0$, so all even Bernoulli numbers are positive",
+            "$B_4=-1/30<0$, while $B_2=1/6>0$, so even Bernoulli numbers alternate in sign",
+            "$B_1=-1/2<0$ and $B_3=-1/4<0$, so odd Bernoulli numbers are all negative",
+            "$B_0=1>0$ is a counterexample because $B_1=-1/2<0$"
+          ],
+          "answer": 1,
+          "hint": "Even-index Bernoulli numbers alternate in sign.",
+          "explain": "$B_4=-1/30$ is the first even Bernoulli number that is negative, disproving uniform positivity. The even-index $B_{2k}$ for $k\\ge 1$ alternate in sign: $+,-,+,-,\\ldots$ (i.e. $B_2>0$, $B_4<0$, $B_6>0$, etc.)."
+        }
+      ]
+    },
+    "zeta-special-values": {
+      "title": "Euler's zeta values",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Euler's formula gives $\\zeta(2n)=(-1)^{n+1}\\dfrac{B_{2n}(2\\pi)^{2n}}{2\\,(2n)!}$. With $B_2=1/6$, what does this give for $\\zeta(2)$?",
+          "choices": [
+            "$\\pi/2$",
+            "$\\pi^2/6$",
+            "$\\pi^2/12$",
+            "$\\pi^2/90$"
+          ],
+          "answer": 1,
+          "explain": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_2=1/6$, compute $\\zeta(-1)$.",
+          "answer": -0.08333333333333333,
+          "tol": 0.0001,
+          "explain": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$. This is the regularised value behind the infamous $1+2+3+\\cdots\\mapsto -1/12$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\zeta(4)=\\pi^4/90$ to four decimals.",
+          "answer": 1.0823,
+          "tol": 0.0005,
+          "explain": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Using $\\zeta(2n)=(-1)^{n+1}\\tfrac{B_{2n}(2\\pi)^{2n}}{2(2n)!}$ with $B_6=1/42$, compute $\\zeta(6)=\\pi^6/945$ to four decimal places.",
+          "answer": 1.0173,
+          "tol": 0.0005,
+          "hint": "Compute $\\pi^6/945$ numerically.",
+          "explain": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$. Verify via the formula: $(-1)^4\\tfrac{(1/42)(2\\pi)^6}{2\\cdot 720}=\\tfrac{64\\pi^6/42}{1440}=\\tfrac{64\\pi^6}{60480}=\\tfrac{\\pi^6}{945}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Riemann zeta function $\\zeta(s)=\\sum_{n=1}^{\\infty}n^{-s}$ converges absolutely for $\\operatorname{Re}(s)>1$. Which statement about $\\zeta(1)$ is correct?",
+          "choices": [
+            "$\\zeta(1)=1$ because the series terminates",
+            "$\\zeta(1)$ converges to $\\ln 2$ by alternating series",
+            "$\\zeta(1)$ diverges; the harmonic series $\\sum 1/n$ has no finite value",
+            "$\\zeta(1)=\\pi/4$ by Leibniz's formula"
+          ],
+          "answer": 2,
+          "hint": "The harmonic series famously diverges.",
+          "explain": "$s=1$ is the boundary of the half-plane of convergence and corresponds to the harmonic series $\\sum_{n=1}^\\infty 1/n$, which diverges. $\\zeta(s)$ has a simple pole at $s=1$ with residue $1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step chain for deriving $\\zeta(2)=\\pi^2/6$ via the Weierstrass product of $\\sin(\\pi x)$?",
+          "choices": [
+            "Write $\\sin(\\pi x)=\\pi x\\prod_{n\\ge 1}(1-x^2/n^2)$ → expand to $O(x^2)$ → match coefficient of $x^2$ with the Taylor coefficient $-\\pi^2/6$ → conclude $\\sum 1/n^2=\\pi^2/6$",
+            "Differentiate $\\ln\\Gamma(x)$ twice → apply the reflection formula → read off $\\zeta(2)$",
+            "Fourier-expand $x^2$ on $[0,1]$ → evaluate at $x=0$ → use Parseval → identify $\\zeta(2)$",
+            "Integrate $\\ln(2\\sin\\theta)$ from $0$ to $\\pi$ and apply contour integration"
+          ],
+          "answer": 0,
+          "hint": "Match $x^2$ coefficients in the Weierstrass factorization of $\\sin$.",
+          "explain": "The Weierstrass product route: $\\sin(\\pi x)=\\pi x\\prod_{n=1}^\\infty(1-x^2/n^2)$. The coefficient of $x^2$ in $\\sin(\\pi x)/\\pi x$ is $-\\pi^2/6$ (from Taylor), while expanding the product gives $-\\sum 1/n^2$. Equating yields $\\zeta(2)=\\pi^2/6$."
+        }
+      ]
+    },
+    "euler-maclaurin": {
+      "title": "Euler-Maclaurin summation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the Euler-Maclaurin formula $\\sum_{k=a}^{b} f(k)=\\int_a^b f + \\tfrac12\\bigl(f(a)+f(b)\\bigr)+\\sum_{k\\ge 1}\\tfrac{B_{2k}}{(2k)!}\\bigl[f^{(2k-1)}(b)-f^{(2k-1)}(a)\\bigr]+R$, which coefficients appear?",
+          "choices": [
+            "Bernoulli numbers of all indices",
+            "Only the even-index Bernoulli numbers $B_{2k}$",
+            "Only $B_0$ and $B_1$",
+            "Factorials only"
+          ],
+          "answer": 1,
+          "explain": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term."
+        },
+        {
+          "type": "numeric",
+          "q": "Apply Euler-Maclaurin with $f(x)=x$, $a=1$, $b=n$. The integral gives $\\tfrac{n^2-1}{2}$ and the endpoint term gives $\\tfrac{n+1}{2}$, so $\\sum_{k=1}^{n} k=\\tfrac{n(n+1)}{2}$. Compute this at $n=20$.",
+          "answer": 210,
+          "tol": 0.000001,
+          "explain": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the harmonic partial sum $H_n=\\sum_{k=1}^{n}\\tfrac1k$, the Euler-Maclaurin expansion gives $H_n\\approx \\ln n + \\gamma + \\tfrac{1}{2n}-\\tfrac{1}{12 n^2}+\\cdots$. With $\\gamma\\approx 0.5772$, estimate $H_{10}$ to three decimals.",
+          "answer": 2.929,
+          "tol": 0.005,
+          "explain": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Euler-Maclaurin remainder $R_p$ after $p$ correction terms satisfies $|R_p|\\le C_p\\cdot|f^{(2p)}|_{[a,b]}$. Which statement correctly describes the series behaviour?",
+          "choices": [
+            "The series always converges as $p\\to\\infty$, giving an exact formula",
+            "The series is in general asymptotic (divergent) but provides arbitrarily accurate approximations when truncated optimally",
+            "The series converges for analytic $f$ but diverges for $C^\\infty$ functions",
+            "The series terminates after finitely many non-zero terms for polynomial $f$"
+          ],
+          "answer": 1,
+          "hint": "Bernoulli numbers grow factorially; truncate for asymptotic accuracy.",
+          "explain": "The Euler-Maclaurin series is typically divergent (asymptotic): the Bernoulli numbers grow like $(2n)!/(2\\pi)^{2n}$, so terms eventually blow up. However, truncating at the smallest term gives exponentially accurate estimates. For polynomial $f$, all high-order derivatives vanish and the series does terminate — making choice 3 partially true only for that special case."
+        },
+        {
+          "type": "numeric",
+          "q": "Using two Euler-Maclaurin correction terms for $\\sum_{k=1}^{\\infty}k^{-2}$: the integral from $1$ to $\\infty$ gives $1$, the endpoint $\\tfrac12 f(1)=\\tfrac12$, and the first correction $\\tfrac{B_2}{2!}f'(1)=\\tfrac{1/6}{2}\\cdot(-2)$. What does this two-term approximation give for $\\zeta(2)$?",
+          "answer": 1.3333333333333333,
+          "tol": 0.0001,
+          "hint": "Add integral, endpoint, and Bernoulli correction exactly as given.",
+          "explain": "$1 + 1/2 + (1/12)\\cdot(-2) = 1 + 0.5 - 1/6 = 3/2 - 1/6 = 4/3\\approx 1.3333$. This overshoots $\\pi^2/6\\approx 1.6449$ because the tail $\\sum_{k=2}^\\infty k^{-2}$ is omitted; the formula applies to the tail starting at $N$ and one adds back the first $N-1$ terms."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to derive the Euler-Maclaurin formula from the operator identity $\\sum_{k=0}^{n-1}=\\tfrac{e^D-1}{D}\\int_0^n$ (where $D=d/dx$)?",
+          "choices": [
+            "Expand $\\tfrac{t}{e^t-1}$ as a power series in $t$ → replace $t$ by $D$ → apply to $f$ → integrate by parts to convert $D^k f$ to boundary terms",
+            "Integrate by parts $n$ times first → identify Bernoulli polynomials in the remainder → substitute $B_k(0)=B_k$",
+            "Apply the Poisson summation formula → take the Fourier transform → read off Bernoulli corrections",
+            "Use the residue theorem on $\\tfrac{f(z)}{e^{2\\pi iz}-1}$ → sum residues at integers → compare with the integral"
+          ],
+          "answer": 0,
+          "hint": "Invert $(e^D-1)/D$ using Bernoulli's generating function.",
+          "explain": "The operator approach: write $\\sum_{k=0}^{n-1}f(k)=\\tfrac{e^D-1}{D}\\int$ symbolically, invert to get the integral on the right, then expand $\\tfrac{D}{e^D-1}=\\sum B_k D^k/k!$ (the Bernoulli generating function) applied to $f$, converting each $D^k f$ to boundary evaluations via the fundamental theorem of calculus."
+        }
+      ]
+    },
+    "zeta-functional-equation-preview": {
+      "title": "Functional equation preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The completed zeta function is $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. Which relation does it satisfy?",
+          "choices": [
+            "$\\xi(s)=\\xi(s+1)$",
+            "$\\xi(s)=\\xi(1-s)$",
+            "$\\xi(s)=-\\xi(s)$",
+            "$\\xi(s)=\\zeta(s)$"
+          ],
+          "answer": 1,
+          "explain": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $\\zeta(-1)=-B_2/2=-1/12$ and the reflection $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$, confirm the left-hand side. What is $-1/12$ as a decimal (4 dp)?",
+          "answer": -0.0833,
+          "tol": 0.0005,
+          "explain": "$-1/12\\approx -0.0833$. Plugging $s=2$ on the right gives $2(2\\pi)^{-2}\\cos(\\pi)\\Gamma(2)\\zeta(2)=-\\pi^2/(2\\pi^2)\\cdot \\pi^2/6\\cdot (6/\\pi^2)\\cdot(-1)$... the Bernoulli book-keeping collapses to $-1/12$."
+        },
+        {
+          "type": "numeric",
+          "q": "At the trivial zero $s=-2$, $\\zeta(-2)=-B_3/3$. Since $B_3=0$, what value do you get?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$. These are the *trivial* zeros on the real axis."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The functional equation $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\tfrac{\\pi s}{2})\\Gamma(s)\\zeta(s)$ is evaluated at $s=2k$ (even positive integer). Which factor forces $\\zeta(1-2k)$ to be rational?",
+          "choices": [
+            "$\\Gamma(2k)=(2k-1)!$ is an integer and $\\cos(k\\pi)=\\pm 1$, so the right-hand side is rational times $\\zeta(2k)$, and $\\zeta(2k)/\\pi^{2k}$ is rational by Euler's formula",
+            "$(2\\pi)^{-s}$ cancels the $(2\\pi)^{2k}$ in Euler's formula, leaving only Bernoulli numbers",
+            "The $\\Gamma$ function always produces rational values at positive integers",
+            "Both A and B describe the same cancellation and are both correct"
+          ],
+          "answer": 3,
+          "hint": "All transcendental factors cancel, leaving Bernoulli arithmetic.",
+          "explain": "Both A and B capture the same arithmetic: $(2\\pi)^{-2k}$ in the functional equation cancels $(2\\pi)^{2k}$ from $\\zeta(2k)=(-1)^{k+1}B_{2k}(2\\pi)^{2k}/(2(2k)!)$; $\\Gamma(2k)=(2k-1)!$; $\\cos(k\\pi)=(-1)^k$. All transcendental factors cancel and only $B_{2k}/(2k)!$ times rationals remains, giving $\\zeta(1-2k)=-B_{2k}/(2k)\\in\\mathbb{Q}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $\\zeta(-3)=-B_4/4$ and $B_4=-1/30$, compute $\\zeta(-3)$ as a fraction. Enter the decimal value.",
+          "answer": 0.008333333333333333,
+          "tol": 0.000001,
+          "hint": "Plug $B_4=-1/30$ into $\\zeta(-3)=-B_4/4$.",
+          "explain": "$\\zeta(-3)=-(-1/30)/4=1/120\\approx 0.008333$. This matches $\\zeta(1-s)$ at $s=4$: the formula gives $\\zeta(-3)=B_4/(-4)$ — careful with the sign convention $\\zeta(-n)=-B_{n+1}/(n+1)$, so $\\zeta(-3)=-B_4/4=-(-1/30)/4=1/120$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about non-trivial zeros of $\\zeta(s)$ is implied by (but NOT proven by) the functional equation alone?",
+          "choices": [
+            "All non-trivial zeros lie on the line $\\operatorname{Re}(s)=1/2$ (the Riemann Hypothesis)",
+            "Non-trivial zeros come in pairs: if $\\rho$ is a zero then so is $1-\\rho$",
+            "There are infinitely many trivial zeros at $s=-2,-4,-6,\\ldots$",
+            "The non-trivial zeros are all simple"
+          ],
+          "answer": 1,
+          "hint": "The reflection $s\\leftrightarrow 1-s$ pairs zeros symmetrically.",
+          "explain": "The functional equation $\\xi(s)=\\xi(1-s)$ directly implies zeros come in pairs $\\{\\rho, 1-\\rho\\}$ (and also $\\{\\bar\\rho, 1-\\bar\\rho\\}$ by the reflection principle). The Riemann Hypothesis — that all non-trivial zeros satisfy $\\operatorname{Re}(\\rho)=1/2$ — is a much deeper conjecture not derivable from the functional equation alone."
+        }
+      ]
+    }
+  }
+}

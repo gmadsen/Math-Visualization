@@ -6,7 +6,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Let $G=\\mathrm{Gal}(\\mathbb{Q}(i)/\\mathbb{Q})=\\langle\\sigma\\rangle$. Which statement is Hilbert's Theorem 90 in this case?",
+          "q": "Let $G=\\Gal(\\mathbb{Q}(i)/\\mathbb{Q})=\\langle\\sigma\\rangle$. Which statement is Hilbert's Theorem 90 in this case?",
           "choices": [
             "$H^1(G,\\mathbb{Q}(i)^\\times)=1$, so every norm-one $\\beta\\in\\mathbb{Q}(i)^\\times$ has the form $\\sigma(\\alpha)/\\alpha$.",
             "$H^2(G,\\mathbb{Q}(i)^\\times)=0$.",
@@ -32,7 +32,7 @@
         },
         {
           "type": "mcq",
-          "q": "What is $H^0(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$?",
+          "q": "What is $H^0(\\Gal(\\bar K/K),\\bar K^\\times)$?",
           "choices": [
             "$K^\\times$.",
             "$\\bar K^\\times$.",
@@ -41,7 +41,7 @@
           ],
           "answer": 0,
           "hint": "$H^0$ is fixed points; a nonzero element of $\\bar K$ fixed by every automorphism lies in $K$.",
-          "explain": "By definition $H^0(G,M)=M^G$. The fixed field of $\\mathrm{Gal}(\\bar K/K)$ is $K$, so the fixed elements of $\\bar K^\\times$ are $K^\\times$."
+          "explain": "By definition $H^0(G,M)=M^G$. The fixed field of $\\Gal(\\bar K/K)$ is $K$, so the fixed elements of $\\bar K^\\times$ are $K^\\times$."
         }
       ]
     },
@@ -63,7 +63,7 @@
         },
         {
           "type": "mcq",
-          "q": "By Galois descent, $H^1(\\mathrm{Gal}(\\bar K/K),\\mathrm{PGL}_n(\\bar K))$ classifies",
+          "q": "By Galois descent, $H^1(\\Gal(\\bar K/K),\\mathrm{PGL}_n(\\bar K))$ classifies",
           "choices": [
             "Central simple algebras over $K$ of degree $n$.",
             "Vector spaces over $K$ of dimension $n$.",
@@ -76,7 +76,7 @@
         },
         {
           "type": "mcq",
-          "q": "Why is $H^1(\\mathrm{Gal}(\\bar K/K),\\mathrm{GL}_n(\\bar K))=1$?",
+          "q": "Why is $H^1(\\Gal(\\bar K/K),\\mathrm{GL}_n(\\bar K))=1$?",
           "choices": [
             "The only $\\bar K/K$-twisted form of $K^n$ as a $K$-vector space is itself — Hilbert 90 generalised.",
             "$\\mathrm{GL}_n$ is abelian.",
@@ -139,10 +139,10 @@
           "type": "mcq",
           "q": "Which is the Brauer group $\\mathrm{Br}(K)$ as a Galois cohomology group?",
           "choices": [
-            "$H^2(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$.",
-            "$H^1(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$.",
-            "$H^2(\\mathrm{Gal}(\\bar K/K),\\bar K)$.",
-            "$H^0(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$."
+            "$H^2(\\Gal(\\bar K/K),\\bar K^\\times)$.",
+            "$H^1(\\Gal(\\bar K/K),\\bar K^\\times)$.",
+            "$H^2(\\Gal(\\bar K/K),\\bar K)$.",
+            "$H^0(\\Gal(\\bar K/K),\\bar K^\\times)$."
           ],
           "answer": 0,
           "hint": "Hilbert 90 kills the $H^1$.",
@@ -190,7 +190,7 @@
           ],
           "answer": 0,
           "hint": "The dualizing module is $\\bar K^\\times$, whose $H^2$ is $\\mathrm{Br}(K)=\\mathbb{Q}/\\mathbb{Z}$ for local $K$.",
-          "explain": "For a local field the Brauer group is canonically $\\mathbb{Q}/\\mathbb{Z}$, and local Tate duality pairs $H^i(K,M)$ with $H^{2-i}(K,\\mathrm{Hom}(M,\\bar K^\\times))$ into it."
+          "explain": "For a local field the Brauer group is canonically $\\mathbb{Q}/\\mathbb{Z}$, and local Tate duality pairs $H^i(K,M)$ with $H^{2-i}(K,\\Hom(M,\\bar K^\\times))$ into it."
         },
         {
           "type": "mcq",

@@ -58,9 +58,7 @@ window.__MVConcepts = {
       "galois",
       "quadratic-reciprocity",
       "quadratic-forms-genus-theory",
-      "sums-of-squares",
-      "power-sums-bernoulli",
-      "waring",
+      "additive-number-theory",
       "algebraic-number-theory",
       "p-adic-numbers",
       "adeles-and-ideles",
@@ -165,9 +163,6 @@ window.__MVConcepts = {
       "galois": "standard",
       "quadratic-reciprocity": "standard",
       "quadratic-forms-genus-theory": "standard",
-      "sums-of-squares": "standard",
-      "power-sums-bernoulli": "standard",
-      "waring": "standard",
       "algebraic-number-theory": "standard",
       "p-adic-numbers": "standard",
       "adeles-and-ideles": "standard",
@@ -234,7 +229,8 @@ window.__MVConcepts = {
       "morse-theory": "standard",
       "analytic-number-theory": "standard",
       "modular-curves": "advanced",
-      "enumerative-combinatorics": "standard"
+      "enumerative-combinatorics": "standard",
+      "additive-number-theory": "standard"
     }
   },
   "topics": {
@@ -1273,7 +1269,7 @@ window.__MVConcepts = {
           "prereqs": [
             "characters-orthogonality"
           ],
-          "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
+          "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\Hom_G(\\mathrm{Ind}W,V) \\cong \\Hom_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
           "tags": [
             "universal-property",
             "functoriality"
@@ -1364,7 +1360,7 @@ window.__MVConcepts = {
             "primes-maximals-ca",
             "open-sets"
           ],
-          "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes.",
+          "blurb": "$\\Spec(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes.",
           "tags": [
             "duality"
           ]
@@ -1412,7 +1408,7 @@ window.__MVConcepts = {
             "noetherian-hilbert-ca",
             "primes-maximals-ca"
           ],
-          "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\mathrm{Spec}$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings.",
+          "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\Spec$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings.",
           "tags": [
             "finiteness",
             "lifting"
@@ -1438,7 +1434,7 @@ window.__MVConcepts = {
             "chain-complexes",
             "exact-sequences"
           ],
-          "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\mathrm{Spec}$ vary continuously — govern base change in families.",
+          "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\Spec$ vary continuously — govern base change in families.",
           "tags": [
             "functoriality"
           ]
@@ -1710,7 +1706,7 @@ window.__MVConcepts = {
             "derived-functors",
             "resolutions-ha"
           ],
-          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$.",
+          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\Hom_{D}$ and $\\otimes^L$.",
           "tags": [
             "cohomology",
             "functoriality"
@@ -1782,7 +1778,7 @@ window.__MVConcepts = {
             "h0-fixed-points",
             "exact-sequences"
           ],
-          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\Gal(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
           "tags": [
             "cohomology",
             "duality"
@@ -1827,7 +1823,7 @@ window.__MVConcepts = {
             "h2-extensions",
             "spectral-sequences-ha"
           ],
-          "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
+          "blurb": "For $H\\tr{}ianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
           "tags": [
             "cohomology",
             "exact-sequence",
@@ -1843,7 +1839,7 @@ window.__MVConcepts = {
             "h2-extensions",
             "field-extensions-galois"
           ],
-          "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+          "blurb": "Continuous group cohomology of $G_k=\\Gal(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
           "tags": [
             "cohomology",
             "duality",
@@ -1878,7 +1874,7 @@ window.__MVConcepts = {
             "la-axioms",
             "lie-bracket-bch"
           ],
-          "blurb": "The adjoint $\\mathrm{ad}(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
+          "blurb": "The adjoint $\\ad(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\tr(\\ad(x)\\ad(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
           "tags": [
             "group-action",
             "duality"
@@ -1892,7 +1888,7 @@ window.__MVConcepts = {
             "la-derivations-and-adjoint",
             "quotients-homomorphisms"
           ],
-          "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\mathrm{ad}\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+          "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\ad\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
           "tags": [
             "classification"
           ]
@@ -1905,7 +1901,7 @@ window.__MVConcepts = {
             "la-derivations-and-adjoint",
             "la-solvable-and-nilpotent"
           ],
-          "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\mathrm{ad}$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
+          "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\ad$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
           "tags": [
             "classification",
             "duality"
@@ -1952,7 +1948,7 @@ window.__MVConcepts = {
             "field-extensions-galois",
             "fundamental-theorem-galois"
           ],
-          "blurb": "For a finite Galois extension $L/K$ with $G=\\mathrm{Gal}(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
+          "blurb": "For a finite Galois extension $L/K$ with $G=\\Gal(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
           "tags": [
             "cohomology",
             "group-action",
@@ -1996,7 +1992,7 @@ window.__MVConcepts = {
             "gcb-h2-extensions",
             "gcb-h1-torsors"
           ],
-          "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
+          "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\Gal(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
           "tags": [
             "cohomology",
             "classification",
@@ -3568,7 +3564,7 @@ window.__MVConcepts = {
           "prereqs": [
             "dyn-fixed-linearization"
           ],
-          "blurb": "In the plane, $(\\operatorname{tr} A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
+          "blurb": "In the plane, $(\\tr A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
           "tags": [
             "classification"
           ]
@@ -5129,7 +5125,7 @@ window.__MVConcepts = {
             "lie-bracket-bch",
             "group-representations"
           ],
-          "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity.",
+          "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\tr(\\ad_X\\ad_Y)$ detects semisimplicity.",
           "tags": [
             "group-action"
           ]
@@ -5424,7 +5420,7 @@ window.__MVConcepts = {
             "field-extensions-basics",
             "polynomial-rings-irreducibility"
           ],
-          "blurb": "The splitting field of $f \\in K[x]$ is the smallest extension of $K$ over which $f$ factors into linear factors. It is unique up to $K$-isomorphism and is the natural domain on which $\\mathrm{Gal}(L/K)$ acts.",
+          "blurb": "The splitting field of $f \\in K[x]$ is the smallest extension of $K$ over which $f$ factors into linear factors. It is unique up to $K$-isomorphism and is the natural domain on which $\\Gal(L/K)$ acts.",
           "tags": [
             "foundation",
             "classification"
@@ -5453,7 +5449,7 @@ window.__MVConcepts = {
             "subgroups-cosets-lagrange",
             "quotient-groups-iso-theorems"
           ],
-          "blurb": "$G$ is solvable iff its derived series $G \\triangleright G' \\triangleright G'' \\triangleright \\cdots$ terminates at $\\{e\\}$. Equivalently, $G$ admits a normal series with abelian quotients. Examples: $S_3, S_4$ are solvable; $S_n$ for $n \\geq 5$ is not.",
+          "blurb": "$G$ is solvable iff its derived series $G \\tr{}iangleright G' \\tr{}iangleright G'' \\tr{}iangleright \\cdots$ terminates at $\\{e\\}$. Equivalently, $G$ admits a normal series with abelian quotients. Examples: $S_3, S_4$ are solvable; $S_n$ for $n \\geq 5$ is not.",
           "tags": [
             "classification",
             "group-action"
@@ -5467,7 +5463,7 @@ window.__MVConcepts = {
             "splitting-fields",
             "solvable-groups"
           ],
-          "blurb": "A tower $K = F_0 \\subset F_1 \\subset \\cdots \\subset F_n$ with $F_{i+1} = F_i(\\sqrt[n_i]{a_i})$. A polynomial $f$ is solvable by radicals iff its splitting field embeds in such a tower; on the group side this becomes a normal series with cyclic quotients, hence solvability of $\\mathrm{Gal}$.",
+          "blurb": "A tower $K = F_0 \\subset F_1 \\subset \\cdots \\subset F_n$ with $F_{i+1} = F_i(\\sqrt[n_i]{a_i})$. A polynomial $f$ is solvable by radicals iff its splitting field embeds in such a tower; on the group side this becomes a normal series with cyclic quotients, hence solvability of $\\Gal$.",
           "tags": [
             "classification"
           ]
@@ -5485,7 +5481,7 @@ window.__MVConcepts = {
             "quotients-homomorphisms",
             "field-extensions-basics"
           ],
-          "blurb": "$f \\in K[x]$ is solvable by radicals iff $\\mathrm{Gal}(L/K)$ is a solvable group, where $L$ is the splitting field. The general quintic has Galois group $S_5$, which is not solvable — so no general radical formula exists for degree $\\geq 5$.",
+          "blurb": "$f \\in K[x]$ is solvable by radicals iff $\\Gal(L/K)$ is a solvable group, where $L$ is the splitting field. The general quintic has Galois group $S_5$, which is not solvable — so no general radical formula exists for degree $\\geq 5$.",
           "tags": [
             "classification"
           ]
@@ -5644,10 +5640,10 @@ window.__MVConcepts = {
         }
       ]
     },
-    "sums-of-squares": {
-      "topic": "sums-of-squares",
-      "title": "Sums of squares",
-      "page": "sums-of-squares.html",
+    "additive-number-theory": {
+      "topic": "additive-number-theory",
+      "title": "Additive number theory",
+      "page": "additive-number-theory.html",
       "concepts": [
         {
           "id": "two-squares-theorem",
@@ -5700,14 +5696,56 @@ window.__MVConcepts = {
           "tags": [
             "finiteness"
           ]
-        }
-      ]
-    },
-    "power-sums-bernoulli": {
-      "topic": "power-sums-bernoulli",
-      "title": "Power sums, Bernoulli numbers, and Euler-Maclaurin",
-      "page": "power-sums-bernoulli.html",
-      "concepts": [
+        },
+        {
+          "id": "waring-problem-statement",
+          "title": "Waring's problem: g(k)",
+          "anchor": "statement",
+          "prereqs": [
+            "four-squares-and-waring"
+          ],
+          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+        },
+        {
+          "id": "g-k-vs-G-k",
+          "title": "g(k) versus G(k)",
+          "anchor": "gvsG",
+          "prereqs": [
+            "waring-problem-statement"
+          ],
+          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+        },
+        {
+          "id": "hilbert-waring-theorem",
+          "title": "Hilbert–Waring theorem",
+          "anchor": "hilbert",
+          "prereqs": [
+            "waring-problem-statement"
+          ],
+          "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method.",
+          "tags": [
+            "finiteness"
+          ]
+        },
+        {
+          "id": "circle-method-intro",
+          "title": "Circle method setup",
+          "anchor": "circle",
+          "prereqs": [
+            "hilbert-waring-theorem",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+        },
+        {
+          "id": "major-vs-minor-arcs",
+          "title": "Major arcs vs minor arcs",
+          "anchor": "arcs",
+          "prereqs": [
+            "circle-method-intro"
+          ],
+          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+        },
         {
           "id": "faulhaber-formula",
           "title": "Faulhaber's formula for power sums",
@@ -5761,62 +5799,6 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
-        }
-      ]
-    },
-    "waring": {
-      "topic": "waring",
-      "title": "Waring's problem and the circle method",
-      "page": "waring.html",
-      "concepts": [
-        {
-          "id": "waring-problem-statement",
-          "title": "Waring's problem: g(k)",
-          "anchor": "statement",
-          "prereqs": [
-            "four-squares-and-waring"
-          ],
-          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
-        },
-        {
-          "id": "g-k-vs-G-k",
-          "title": "g(k) versus G(k)",
-          "anchor": "gvsG",
-          "prereqs": [
-            "waring-problem-statement"
-          ],
-          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
-        },
-        {
-          "id": "hilbert-waring-theorem",
-          "title": "Hilbert–Waring theorem",
-          "anchor": "hilbert",
-          "prereqs": [
-            "waring-problem-statement"
-          ],
-          "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method.",
-          "tags": [
-            "finiteness"
-          ]
-        },
-        {
-          "id": "circle-method-intro",
-          "title": "Circle method setup",
-          "anchor": "circle",
-          "prereqs": [
-            "hilbert-waring-theorem",
-            "dirichlet-series-basics"
-          ],
-          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
-        },
-        {
-          "id": "major-vs-minor-arcs",
-          "title": "Major arcs vs minor arcs",
-          "anchor": "arcs",
-          "prereqs": [
-            "circle-method-intro"
-          ],
-          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
         }
       ]
     },
@@ -6114,7 +6096,7 @@ window.__MVConcepts = {
             "idele-class-groups",
             "class-group-units-ant"
           ],
-          "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\operatorname{Gal}(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
+          "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\Gal(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
           "tags": [
             "duality"
           ]
@@ -6257,7 +6239,7 @@ window.__MVConcepts = {
             "weil-height-line-bundle",
             "neron-tate-canonical-height"
           ],
-          "blurb": "Arakelov geometry compactifies $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
+          "blurb": "Arakelov geometry compactifies $\\Spec\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
           "tags": [
             "duality",
             "cohomology"
@@ -7204,7 +7186,7 @@ window.__MVConcepts = {
             "mc-y0-x0",
             "mc-moduli-of-elliptic-curves"
           ],
-          "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
+          "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
           "tags": [
             "group-action",
             "classification"
@@ -7431,7 +7413,7 @@ window.__MVConcepts = {
             "structure-sheaf-schemes",
             "ideals-quotients-ca"
           ],
-          "blurb": "Closed subschemes of $\\operatorname{Spec} R$ are $\\operatorname{Spec}(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
+          "blurb": "Closed subschemes of $\\Spec R$ are $\\Spec(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
         },
         {
           "id": "dimension-scheme",
@@ -7451,7 +7433,7 @@ window.__MVConcepts = {
             "residue-field-at-prime",
             "gluing-affines"
           ],
-          "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once.",
+          "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\Spec\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once.",
           "tags": [
             "fibration"
           ]
@@ -7576,7 +7558,7 @@ window.__MVConcepts = {
           "prereqs": [
             "scheme-morphisms"
           ],
-          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\operatorname{Spec}(A_f)\\hookrightarrow\\operatorname{Spec} A$ (open) and $\\operatorname{Spec}(A/I)\\hookrightarrow\\operatorname{Spec} A$ (closed)."
+          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed)."
         },
         {
           "id": "fiber-products",
@@ -7683,7 +7665,7 @@ window.__MVConcepts = {
             "yoneda-functor-points",
             "fiber-products"
           ],
-          "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
+          "blurb": "Reading $X_S(T) = X(T) \\times_{\\Spec\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
           "tags": [
             "functoriality"
           ]
@@ -8385,7 +8367,7 @@ window.__MVConcepts = {
             "group-scheme-definition",
             "spectrum-primes"
           ],
-          "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
+          "blurb": "$\\mathbb{G}_a = \\Spec\\,k[t]$ (additive), $\\mathbb{G}_m = \\Spec\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\Spec\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\Spec\\,k[t]/(t^p)$. The four basic affine group schemes."
         },
         {
           "id": "hopf-algebra",
@@ -8395,7 +8377,7 @@ window.__MVConcepts = {
             "group-scheme-definition",
             "algebraic-structures"
           ],
-          "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
+          "blurb": "An affine group scheme $G = \\Spec\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
           "tags": [
             "duality"
           ]
@@ -8466,7 +8448,7 @@ window.__MVConcepts = {
             "finite-etale-covers",
             "fundamental-group"
           ],
-          "blurb": "Choosing a geometric point $\\bar{x}: \\mathrm{Spec}\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor.",
+          "blurb": "Choosing a geometric point $\\bar{x}: \\Spec\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor.",
           "tags": [
             "functoriality"
           ]
@@ -8488,26 +8470,26 @@ window.__MVConcepts = {
         },
         {
           "id": "spec-field-galois",
-          "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
+          "title": "$\\pi_1^{\\acute{e}t}(\\Spec\\,k) = \\Gal(\\bar{k}/k)$",
           "anchor": "spec-field-galois",
           "prereqs": [
             "etale-pi1",
             "fundamental-theorem-galois"
           ],
-          "blurb": "For a field $k$, the étale fundamental group of $\\mathrm{Spec}\\,k$ is the absolute Galois group $\\mathrm{Gal}(\\bar{k}/k)$. Finite étale covers $\\mathrm{Spec}\\,L \\to \\mathrm{Spec}\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory.",
+          "blurb": "For a field $k$, the étale fundamental group of $\\Spec\\,k$ is the absolute Galois group $\\Gal(\\bar{k}/k)$. Finite étale covers $\\Spec\\,L \\to \\Spec\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory.",
           "tags": [
             "duality"
           ]
         },
         {
           "id": "frobenius-and-pi1",
-          "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
+          "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{F}_q)$",
           "anchor": "frobenius-and-pi1",
           "prereqs": [
             "spec-field-galois",
             "frobenius-element"
           ],
-          "blurb": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q) = \\hat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_q\\colon x \\mapsto x^q$. Every cover of $\\mathrm{Spec}\\,\\mathbb{F}_q$ is determined by the action of $\\mathrm{Frob}_q$ on a finite set.",
+          "blurb": "$\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{F}_q) = \\hat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_q\\colon x \\mapsto x^q$. Every cover of $\\Spec\\,\\mathbb{F}_q$ is determined by the action of $\\mathrm{Frob}_q$ on a finite set.",
           "tags": [
             "completion",
             "group-action"
@@ -8568,7 +8550,7 @@ window.__MVConcepts = {
             "tangent-space-of-moduli",
             "cech-cohomology"
           ],
-          "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$.",
+          "blurb": "The obstruction to lifting a deformation from $\\Spec\\,k[\\epsilon]/\\epsilon^2$ to $\\Spec\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$.",
           "tags": [
             "lifting",
             "cohomology"
@@ -8582,7 +8564,7 @@ window.__MVConcepts = {
             "first-order-deformation",
             "artinian-local-ca"
           ],
-          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable.",
+          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\Spec\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable.",
           "tags": [
             "lifting",
             "moduli",
@@ -9612,9 +9594,7 @@ window.__MVConcepts = {
         "topics": [
           "galois",
           "quadratic-reciprocity",
-          "sums-of-squares",
-          "power-sums-bernoulli",
-          "waring",
+          "additive-number-theory",
           "quadratic-forms-genus-theory",
           "algebraic-number-theory",
           "p-adic-numbers",
@@ -9806,9 +9786,6 @@ window.__MVConcepts = {
     "galois": "standard",
     "quadratic-reciprocity": "standard",
     "quadratic-forms-genus-theory": "standard",
-    "sums-of-squares": "standard",
-    "power-sums-bernoulli": "standard",
-    "waring": "standard",
     "algebraic-number-theory": "standard",
     "p-adic-numbers": "standard",
     "adeles-and-ideles": "standard",
@@ -9875,7 +9852,8 @@ window.__MVConcepts = {
     "morse-theory": "standard",
     "analytic-number-theory": "standard",
     "modular-curves": "advanced",
-    "enumerative-combinatorics": "standard"
+    "enumerative-combinatorics": "standard",
+    "additive-number-theory": "standard"
   },
   "newArc": [
     "elementary-topos-theory",

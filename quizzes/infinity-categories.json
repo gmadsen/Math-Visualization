@@ -246,7 +246,7 @@
             "Only if $F$ and $G$ commute strictly with all colimits and limits, respectively."
           ],
           "answer": 1,
-          "explain": "An ordinary adjunction passes through the nerve to give an $\\infty$-adjunction. The triangle identities hold strictly in the $1$-categorical case, hence (a fortiori) up to homotopy in the nerve. More substantively, Quillen adjunctions between model categories derive to $\\infty$-adjunctions between the underlying $\\infty$-categories — this is the source of derived adjunctions like $\\mathbb{L} \\otimes \\dashv \\mathbb{R}\\mathrm{Hom}$.",
+          "explain": "An ordinary adjunction passes through the nerve to give an $\\infty$-adjunction. The triangle identities hold strictly in the $1$-categorical case, hence (a fortiori) up to homotopy in the nerve. More substantively, Quillen adjunctions between model categories derive to $\\infty$-adjunctions between the underlying $\\infty$-categories — this is the source of derived adjunctions like $\\mathbb{L} \\otimes \\dashv \\mathbb{R}\\Hom$.",
           "hint": "The nerve of a strict adjunction trivially satisfies the up-to-homotopy triangle identities."
         },
         {

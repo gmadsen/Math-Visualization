@@ -191,7 +191,7 @@
           ],
           "answer": 1,
           "hint": "Poincaré–Hopf: count signed zeros of any vector field.",
-          "explain": "By Poincaré–Hopf, for any vector field $X$ on $M$ with isolated zeros, $\\sum_p \\mathrm{ind}_p(X) = \\chi(M)$, and the same number is computed by pairing the Euler class with the fundamental class."
+          "explain": "By Poincaré–Hopf, for any vector field $X$ on $M$ with isolated zeros, $\\sum_p \\ind_p(X) = \\chi(M)$, and the same number is computed by pairing the Euler class with the fundamental class."
         },
         {
           "type": "numeric",
@@ -223,10 +223,10 @@
           "type": "mcq",
           "q": "Given a connection $\\nabla$ with curvature $F_\\nabla$ on a complex bundle, which polynomial gives the total Chern class?",
           "choices": [
-            "$\\mathrm{tr}(F_\\nabla)$",
+            "$\\tr(F_\\nabla)$",
             "$\\det(F_\\nabla)$",
             "$\\det\\!\\left(I + \\frac{i}{2\\pi}F_\\nabla\\right)$",
-            "$\\mathrm{tr}(F_\\nabla^2)$"
+            "$\\tr(F_\\nabla^2)$"
           ],
           "answer": 2,
           "hint": "The factor $\\frac{i}{2\\pi}$ is exactly the normalisation that produces integral classes.",

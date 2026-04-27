@@ -23,12 +23,12 @@
           "choices": [
             "they can have infinite image",
             "they must be 1-dimensional",
-            "they factor through $\\mathrm{Gal}(L/\\mathbb{Q})$ for some finite Galois $L/\\mathbb{Q}$",
+            "they factor through $\\Gal(L/\\mathbb{Q})$ for some finite Galois $L/\\mathbb{Q}$",
             "they cannot be irreducible"
           ],
           "answer": 2,
           "hint": "Continuity $G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ with the discrete image topology (any compact subgroup of $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group with no small profinite subgroups)…",
-          "explain": "Continuity $G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ with the discrete image topology (any compact subgroup of $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group with no small profinite subgroups) forces finite image, i.e. factorisation through some finite $\\mathrm{Gal}(L/\\mathbb{Q})$."
+          "explain": "Continuity $G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ with the discrete image topology (any compact subgroup of $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group with no small profinite subgroups) forces finite image, i.e. factorisation through some finite $\\Gal(L/\\mathbb{Q})$."
         },
         {
           "type": "numeric",
@@ -129,7 +129,7 @@
         },
         {
           "type": "mcq",
-          "q": "Two $\\ell$-adic representations $\\rho_1,\\rho_2:G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\bar{\\mathbb{Q}}_\\ell)$ that are both unramified outside a finite set $S$ and satisfy $\\operatorname{tr}\\rho_1(\\mathrm{Frob}_p)=\\operatorname{tr}\\rho_2(\\mathrm{Frob}_p)$ for all $p\\notin S$ are related by the Chebotarev density theorem as follows:",
+          "q": "Two $\\ell$-adic representations $\\rho_1,\\rho_2:G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\bar{\\mathbb{Q}}_\\ell)$ that are both unramified outside a finite set $S$ and satisfy $\\tr\\rho_1(\\mathrm{Frob}_p)=\\tr\\rho_2(\\mathrm{Frob}_p)$ for all $p\\notin S$ are related by the Chebotarev density theorem as follows:",
           "choices": [
             "They are isomorphic as representations",
             "They have the same semisimplification: $\\rho_1^{\\mathrm{ss}}\\cong\\rho_2^{\\mathrm{ss}}$",
@@ -162,19 +162,19 @@
           "q": "Why do Frobenius traces fail to distinguish $\\rho$ from $\\rho^{\\mathrm{ss}}$?",
           "choices": [
             "because $\\rho$ and $\\rho^{\\mathrm{ss}}$ have the same determinant",
-            "because trace is additive on short exact sequences, so $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_p)$",
+            "because trace is additive on short exact sequences, so $\\tr\\rho(\\mathrm{Frob}_p)=\\tr\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_p)$",
             "because Frobenius is unipotent",
             "because $G_\\mathbb{Q}$ is abelian"
           ],
           "answer": 1,
-          "explain": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$. So the trace only depends on $\\rho^{\\mathrm{ss}}$."
+          "explain": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\tr(g\\mid V)=\\tr(g\\mid V_1)+\\tr(g\\mid V/V_1)=\\tr(g\\mid\\mathrm{gr}\\,V)$. So the trace only depends on $\\rho^{\\mathrm{ss}}$."
         },
         {
           "type": "numeric",
-          "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
+          "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\tr\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
           "answer": 6,
           "tol": 0.000001,
-          "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
+          "explain": "$\\tr\\rho(\\mathrm{Frob}_5)=\\tr\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
         }
       ],
       "hard": [
@@ -182,10 +182,10 @@
           "type": "mcq",
           "q": "Let $\\rho=\\begin{pmatrix}\\chi & *\\\\ 0 & 1\\end{pmatrix}$ be a non-split extension of $\\mathbf{1}$ by $\\chi$ (cyclotomic). Which statement correctly identifies $\\rho$ vs $\\rho^{\\mathrm{ss}}$ and their Frobenius traces?",
           "choices": [
-            "$\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$; $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=p+1$ for unramified $p$; yet $\\rho\\not\\cong\\rho^{\\mathrm{ss}}$ since the extension class is nontrivial",
+            "$\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$; $\\tr\\rho(\\mathrm{Frob}_p)=p+1$ for unramified $p$; yet $\\rho\\not\\cong\\rho^{\\mathrm{ss}}$ since the extension class is nontrivial",
             "$\\rho^{\\mathrm{ss}}=\\chi\\otimes\\mathbf{1}$; trace equals $p-1$",
             "$\\rho=\\rho^{\\mathrm{ss}}$ because all reducible representations are semisimple",
-            "$\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=0$ for all unramified $p$"
+            "$\\tr\\rho(\\mathrm{Frob}_p)=0$ for all unramified $p$"
           ],
           "answer": 0,
           "hint": "Non-split extensions and split ones share the same semisimplification.",
@@ -206,11 +206,11 @@
         },
         {
           "type": "numeric",
-          "q": "Let $\\rho^{\\mathrm{ss}}=\\chi^2\\oplus\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_3)$ for the unramified prime $p=3$.",
+          "q": "Let $\\rho^{\\mathrm{ss}}=\\chi^2\\oplus\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\tr\\rho(\\mathrm{Frob}_3)$ for the unramified prime $p=3$.",
           "answer": 13,
           "tol": 0.000001,
           "hint": "The determinant multiplies character weights; here $2+1+0=3$.",
-          "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_3)=\\chi(\\mathrm{Frob}_3)^2+\\chi(\\mathrm{Frob}_3)+1=9+3+1=13$."
+          "explain": "$\\tr\\rho(\\mathrm{Frob}_3)=\\chi(\\mathrm{Frob}_3)^2+\\chi(\\mathrm{Frob}_3)+1=9+3+1=13$."
         }
       ]
     },
@@ -293,8 +293,8 @@
           "type": "mcq",
           "q": "Deligne attaches to a weight-$k$ cuspidal eigenform $f$ with character $\\varepsilon$ a 2-dim $\\ell$-adic $\\rho_{f,\\lambda}$ satisfying, for $p\\nmid N\\ell$:",
           "choices": [
-            "$\\operatorname{tr}\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=a_p(f)$ and $\\det\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=\\varepsilon(p)\\,p^{k-1}$",
-            "$\\operatorname{tr}\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=p$ and $\\det=a_p(f)$",
+            "$\\tr\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=a_p(f)$ and $\\det\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=\\varepsilon(p)\\,p^{k-1}$",
+            "$\\tr\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=p$ and $\\det=a_p(f)$",
             "$\\rho_{f,\\lambda}$ has finite image",
             "$\\rho_{f,\\lambda}$ is always reducible"
           ],
@@ -308,7 +308,7 @@
           "choices": [
             "it has trivial determinant",
             "it arises as the reduction mod $\\ell$ of some $\\rho_{f,\\lambda}$ for a cuspidal eigenform $f$",
-            "it factors through $\\mathrm{Gal}(\\mathbb{Q}(\\mu_\\ell)/\\mathbb{Q})$",
+            "it factors through $\\Gal(\\mathbb{Q}(\\mu_\\ell)/\\mathbb{Q})$",
             "it is reducible"
           ],
           "answer": 1,
@@ -316,10 +316,10 @@
         },
         {
           "type": "numeric",
-          "q": "The weight-12 cusp form $\\Delta=\\sum\\tau(n)q^n$ has $\\tau(2)=-24$. By Deligne, what is $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_2)$ for $\\ell\\ne 2$?",
+          "q": "The weight-12 cusp form $\\Delta=\\sum\\tau(n)q^n$ has $\\tau(2)=-24$. By Deligne, what is $\\tr\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_2)$ for $\\ell\\ne 2$?",
           "answer": -24,
           "tol": 0.000001,
-          "explain": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
+          "explain": "Deligne's construction gives $\\tr\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
         }
       ],
       "hard": [

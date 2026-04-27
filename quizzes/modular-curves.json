@@ -188,7 +188,7 @@
             "From the order-$2$ and order-$3$ stabilizers $S$ and $ST$ in $\\mathrm{PSL}_2(\\mathbb{Z})$",
             "Because $X(1)$ has Euler characteristic $1/12$",
             "Because $X_0(N)$ has $4$ cusps for $N$ even and $3$ for $N$ odd",
-            "From the action of $\\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ on cusps"
+            "From the action of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ on cusps"
           ],
           "answer": 0,
           "hint": "The map $X_0(N) \\to X(1)$ ramifies above the elliptic points of $X(1)$, which are stabilized by elements of orders $2$ and $3$.",

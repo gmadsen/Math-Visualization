@@ -162,7 +162,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For a 2×2 matrix $A$ with $\\operatorname{tr}A=-3,\\ \\det A=2$, the origin is a:",
+          "q": "For a 2×2 matrix $A$ with $\\tr{}A=-3,\\ \\det A=2$, the origin is a:",
           "choices": [
             "saddle",
             "stable node",
@@ -170,7 +170,7 @@
             "center"
           ],
           "answer": 1,
-          "explain": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node."
+          "explain": "Discriminant $\\tr^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\tr<0$ means both eigenvalues negative: a stable node."
         },
         {
           "type": "multi-select",
@@ -203,7 +203,7 @@
       "hard": [
         {
           "type": "matching",
-          "q": "Match $(\\operatorname{tr},\\det)$ to the portrait type.",
+          "q": "Match $(\\tr,\\det)$ to the portrait type.",
           "left": [
             "stable spiral",
             "saddle",
@@ -212,9 +212,9 @@
           ],
           "right": [
             "$\\det<0$",
-            "$\\operatorname{tr}=0,\\ \\det>0$",
-            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2>4\\det$",
-            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2<4\\det$"
+            "$\\tr=0,\\ \\det>0$",
+            "$\\tr<0,\\ \\det>0,\\ \\tr^2>4\\det$",
+            "$\\tr<0,\\ \\det>0,\\ \\tr^2<4\\det$"
           ],
           "answer": [
             3,
@@ -223,7 +223,7 @@
             2
           ],
           "hint": "Spirals have complex eigenvalues (negative discriminant).",
-          "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\operatorname{tr}$ separates stable/unstable. Discriminant $\\operatorname{tr}^2-4\\det$ separates node (positive) from spiral (negative)."
+          "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\tr$ separates stable/unstable. Discriminant $\\tr^2-4\\det$ separates node (positive) from spiral (negative)."
         },
         {
           "type": "mcq",
@@ -236,7 +236,7 @@
           ],
           "answer": 2,
           "hint": "Linearize at the origin: $A=\\begin{pmatrix}0&1\\\\-1&\\mu\\end{pmatrix}$.",
-          "explain": "Jacobian at origin has $\\operatorname{tr}=\\mu>0$ and $\\det=1>0$; for $\\mu<2$, $\\operatorname{tr}^2-4\\det=\\mu^2-4<0$ gives complex eigenvalues with positive real part — an unstable spiral. The outward spiral is trapped by a stable limit cycle."
+          "explain": "Jacobian at origin has $\\tr=\\mu>0$ and $\\det=1>0$; for $\\mu<2$, $\\tr^2-4\\det=\\mu^2-4<0$ gives complex eigenvalues with positive real part — an unstable spiral. The outward spiral is trapped by a stable limit cycle."
         },
         {
           "type": "ordering",

@@ -11,7 +11,7 @@
             "The left derived functors of $M\\mapsto M_G$ (coinvariants)",
             "The right derived functors of $M\\mapsto M^G$ (invariants)",
             "The right derived functors of the augmentation $\\mathbb{Z}[G]\\to\\mathbb{Z}$",
-            "The left derived functors of $\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$"
+            "The left derived functors of $\\Hom_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$"
           ],
           "answer": 1,
           "explain": "By definition $H^n(G,M)=R^n(-)^G(M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$. (Coinvariants give group homology $H_n(G,M)$.)"
@@ -66,7 +66,7 @@
             "Because $A$ might fail to be normal in $B$"
           ],
           "answer": 1,
-          "explain": "$(-)^G=\\mathrm{Hom}_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact. The obstruction to lifting a fixed point in $C$ to a fixed point in $B$ lives in $H^1(G,A)$ — that is exactly $\\delta(c)$."
+          "explain": "$(-)^G=\\Hom_{\\mathbb{Z}[G]}(\\mathbb{Z},-)$ is left exact but not right exact. The obstruction to lifting a fixed point in $C$ to a fixed point in $B$ lives in $H^1(G,A)$ — that is exactly $\\delta(c)$."
         },
         {
           "type": "mcq",
@@ -74,11 +74,11 @@
           "choices": [
             "$0$",
             "$M$",
-            "$\\mathrm{Hom}(G,M)$",
+            "$\\Hom(G,M)$",
             "$M/|G|M$"
           ],
           "answer": 1,
-          "explain": "Trivial action means every element is fixed: $M^G=M$. (Note: $\\mathrm{Hom}(G,M)$ is what $H^1$ becomes under trivial action.)"
+          "explain": "Trivial action means every element is fixed: $M^G=M$. (Note: $\\Hom(G,M)$ is what $H^1$ becomes under trivial action.)"
         }
       ]
     },
@@ -131,7 +131,7 @@
           "type": "mcq",
           "q": "Equivalence classes of group extensions $1\\to A\\to E\\to G\\to 1$ (with prescribed $G$-action on abelian $A$) are classified by:",
           "choices": [
-            "$\\mathrm{Hom}(G,A)$",
+            "$\\Hom(G,A)$",
             "$H^1(G,A)$",
             "$H^2(G,A)$",
             "$H^3(G,A)$"
@@ -206,7 +206,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For $H\\trianglelefteq G$ and a $G$-module $M$, the inflation–restriction five-term exact sequence reads:",
+          "q": "For $H\\tr{}ianglelefteq G$ and a $G$-module $M$, the inflation–restriction five-term exact sequence reads:",
           "choices": [
             "$0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$",
             "$0\\to H^1(H,M)\\to H^1(G,M)\\to H^1(G/H,M)\\to H^2(H,M)\\to H^2(G,M)$",
@@ -247,12 +247,12 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For a field $k$ with absolute Galois group $G_k=\\mathrm{Gal}(\\bar k/k)$, the Brauer group is defined as:",
+          "q": "For a field $k$ with absolute Galois group $G_k=\\Gal(\\bar k/k)$, the Brauer group is defined as:",
           "choices": [
             "$\\mathrm{Br}(k)=H^1(k,\\bar k^\\times)$",
             "$\\mathrm{Br}(k)=H^2(k,\\bar k^\\times)$",
             "$\\mathrm{Br}(k)=H^0(k,\\bar k^\\times)=k^\\times$",
-            "$\\mathrm{Br}(k)=\\mathrm{Pic}(\\mathrm{Spec}\\,k)$"
+            "$\\mathrm{Br}(k)=\\mathrm{Pic}(\\Spec\\,k)$"
           ],
           "answer": 1,
           "explain": "$\\mathrm{Br}(k):=H^2(G_k,\\bar k^\\times)$. (Hilbert 90 says $H^1=0$, so the first nontrivial cohomology of $\\bar k^\\times$ is degree 2.) This $H^2$ classifies central simple $k$-algebras up to Morita equivalence."

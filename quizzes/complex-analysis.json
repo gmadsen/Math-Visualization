@@ -140,12 +140,12 @@
           "q": "A Möbius transformation $T$ has exactly one fixed point in $\\hat{\\mathbb{C}}$. Which type is $T$?",
           "choices": [
             "Elliptic (trace $\\in (-2,2) \\subset \\mathbb{R}$)",
-            "Hyperbolic (trace $\\in \\mathbb{R}$, $|\\mathrm{tr}|>2$)",
-            "Parabolic ($\\mathrm{tr}^2 = 4$)",
-            "Loxodromic ($\\mathrm{tr} \\notin \\mathbb{R}$)"
+            "Hyperbolic (trace $\\in \\mathbb{R}$, $|\\tr|>2$)",
+            "Parabolic ($\\tr^2 = 4$)",
+            "Loxodromic ($\\tr \\notin \\mathbb{R}$)"
           ],
           "answer": 2,
-          "explain": "A non-identity Möbius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\mathrm{tr}^2 = 4$."
+          "explain": "A non-identity Möbius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\tr^2 = 4$."
         },
         {
           "type": "matching",

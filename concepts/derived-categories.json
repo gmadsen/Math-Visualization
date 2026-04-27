@@ -58,7 +58,7 @@
         "derived-functors",
         "resolutions-ha"
       ],
-      "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$.",
+      "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\Hom_{D}$ and $\\otimes^L$.",
       "tags": [
         "cohomology",
         "functoriality"

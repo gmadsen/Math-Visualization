@@ -12,7 +12,7 @@
         "field-extensions-galois",
         "fundamental-theorem-galois"
       ],
-      "blurb": "For a finite Galois extension $L/K$ with $G=\\mathrm{Gal}(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
+      "blurb": "For a finite Galois extension $L/K$ with $G=\\Gal(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
       "tags": [
         "cohomology",
         "group-action",
@@ -56,7 +56,7 @@
         "gcb-h2-extensions",
         "gcb-h1-torsors"
       ],
-      "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
+      "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\Gal(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
       "tags": [
         "cohomology",
         "classification",

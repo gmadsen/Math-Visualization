@@ -300,7 +300,7 @@
           "q": "A geodesic triangle on a surface of constant curvature $K=-1$ has interior angles $\\alpha+\\beta+\\gamma=\\pi/3$. By local Gauss–Bonnet, what is the area of the triangle?",
           "answer": 2.0943951023931953,
           "tol": 0.000001,
-          "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
+          "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\tr{}iangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
         }
       ],
       "hard": [
@@ -336,7 +336,7 @@
           ],
           "answer": 0,
           "hint": "Triangulate, sum local angle defects, collapse to $V-E+F$.",
-          "explain": "The standard proof: triangulate, apply local Gauss–Bonnet to each geodesic triangle ($\\sum\\alpha_i-\\pi=\\int_{\\triangle_i}K\\,dA$), sum over all triangles. The angle contributions at interior vertices telescope to $2\\pi V$, and the combinatorial identity $2E=3F$ for a triangulation gives $V-E+F=\\chi$, yielding $\\int_S K\\,dA=2\\pi\\chi$. Since $\\chi$ is a topological invariant (homotopy type), so is this integral."
+          "explain": "The standard proof: triangulate, apply local Gauss–Bonnet to each geodesic triangle ($\\sum\\alpha_i-\\pi=\\int_{\\tr{}iangle_i}K\\,dA$), sum over all triangles. The angle contributions at interior vertices telescope to $2\\pi V$, and the combinatorial identity $2E=3F$ for a triangulation gives $V-E+F=\\chi$, yielding $\\int_S K\\,dA=2\\pi\\chi$. Since $\\chi$ is a topological invariant (homotopy type), so is this integral."
         }
       ]
     }
